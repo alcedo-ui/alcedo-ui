@@ -68,7 +68,7 @@ class TreeNode extends Component {
         onSelect && onSelect(data, path, e);
     };
 
-    touchTapHandler = e => {
+    clickHandler = e => {
 
         e.preventDefault();
 
@@ -140,7 +140,7 @@ class TreeNode extends Component {
                          style={nodeStyle}
                          disabled={isNodeDisabled}
                          readOnly={readOnly}
-                         onClick={this.touchTapHandler}
+                         onClick={this.clickHandler}
                          onMouseEnter={onMouseEnter}
                          onMouseLeave={onMouseLeave}>
 

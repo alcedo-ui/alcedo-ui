@@ -61,7 +61,7 @@ class EditableSelect extends Component {
         this.setState({
             popupVisible: true
         }, () => {
-            this.props.onTriggerTouchTap && this.props.onTriggerTouchTap(this.state.popupVisible);
+            this.props.onTriggerClick && this.props.onTriggerClick(this.state.popupVisible);
             this.props.onFocus && this.props.onFocus();
         });
     };
@@ -70,7 +70,7 @@ class EditableSelect extends Component {
         this.setState({
             popupVisible: false
         }, () => {
-            this.props.onTriggerTouchTap && this.props.onTriggerTouchTap(this.state.popupVisible);
+            this.props.onTriggerClick && this.props.onTriggerClick(this.state.popupVisible);
             this.props.onPopupClosed && this.props.onPopupClosed();
         });
     };
@@ -177,7 +177,7 @@ class EditableSelect extends Component {
         const {
                 className, popupClassName, style, popupStyle, name, placeholder,
                 disabled, useFilter, valueField, descriptionField, noMatchedMsg,
-                triggerTheme, isGrouped, onItemTouchTap, renderer,
+                triggerTheme, isGrouped, onItemClick, renderer,
                 onMouseOver, onMouseOut
             } = this.props,
             {value, listValue, filter, popupVisible, isAbove} = this.state,
@@ -242,7 +242,7 @@ class EditableSelect extends Component {
                           displayField={valueField}
                           descriptionField={descriptionField}
                           renderer={renderer}
-                          onItemTouchTap={onItemTouchTap}
+                          onItemClick={onItemClick}
                           onChange={this.changeHandle}/>
 
                 </Popup>
@@ -428,7 +428,7 @@ EditableSelect.propTypes = {
     /**
      * Callback function fired when the button is touch-tapped.
      */
-    onItemTouchTap: PropTypes.func,
+    onItemClick: PropTypes.func,
 
     /**
      * Callback function fired when a menu item is selected.

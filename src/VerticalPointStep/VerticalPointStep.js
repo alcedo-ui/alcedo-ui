@@ -22,7 +22,7 @@ class VerticalPointStep extends Component {
 
     }
 
-    touchTapHandler = activatedStep => {
+    clickHandler = activatedStep => {
 
         const {onChange} = this.props;
 
@@ -72,7 +72,7 @@ class VerticalPointStep extends Component {
                                                isFirst={index === 0}
                                                isLast={index === steps.length - 1}
                                                disabled={disabled}
-                                               onClick={this.touchTapHandler}/>
+                                               onClick={this.clickHandler}/>
                     )
                 }
 

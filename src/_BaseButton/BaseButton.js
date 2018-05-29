@@ -24,7 +24,7 @@ class BaseButton extends Component {
         super(props, ...restArgs);
     }
 
-    touchTapHandler = e => {
+    clickHandler = e => {
         e.preventDefault();
         const {disabled, isLoading, onClick} = this.props;
         !disabled && !isLoading && onClick && onClick(e);
@@ -69,7 +69,7 @@ class BaseButton extends Component {
                         type={type}
                         disabled={disabled || isLoading}
                         readOnly={readOnly}
-                        onClick={this.touchTapHandler}>
+                        onClick={this.clickHandler}>
 
                     {
                         isLoading && loadingIconPosition === 'left' ?

@@ -165,7 +165,7 @@ class DraggableList extends Component {
                 selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
-                onItemTouchTap
+                onItemClick
 
             } = this.props,
             {value} = this.state,
@@ -204,7 +204,7 @@ class DraggableList extends Component {
                                    disabled={disabled || item.disabled}
                                    isLoading={isLoading || item.isLoading}
                                    onClick={e => {
-                                       onItemTouchTap && onItemTouchTap(item, index, e);
+                                       onItemClick && onItemClick(item, index, e);
                                        item.onClick && item.onClick(e);
                                    }}/>
             )
@@ -218,7 +218,7 @@ class DraggableList extends Component {
                                    disabled={disabled}
                                    isLoading={isLoading}
                                    onClick={e => {
-                                       onItemTouchTap && onItemTouchTap(item, index, e);
+                                       onItemClick && onItemClick(item, index, e);
                                    }}/>
             );
 
@@ -443,7 +443,7 @@ DraggableList.propTypes = {
     /**
      * Callback function fired when the list-item touch tap.
      */
-    onItemTouchTap: PropTypes.func,
+    onItemClick: PropTypes.func,
 
     /**
      * Callback function fired when the list-item select.

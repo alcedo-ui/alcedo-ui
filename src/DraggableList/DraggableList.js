@@ -141,7 +141,7 @@ class DraggableList extends Component {
                 selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
-                idField, valueField, displayField, descriptionField, disabled, isLoading, renderer, onItemTouchTap,
+                idField, valueField, displayField, descriptionField, disabled, isLoading, renderer, onItemClick,
 
                 scrollSpeed, scrollBuffer
 
@@ -196,7 +196,7 @@ class DraggableList extends Component {
                                                            renderer={renderer}
                                                            onMove={this.listItemMoveHandler}
                                                            onClick={e => {
-                                                               onItemTouchTap && onItemTouchTap(item, index, e);
+                                                               onItemClick && onItemClick(item, index, e);
                                                                item.onClick && item.onClick(e);
                                                            }}
                                                            onSelect={() => {
@@ -228,7 +228,7 @@ class DraggableList extends Component {
                                                            renderer={renderer}
                                                            onMove={this.listItemMoveHandler}
                                                            onClick={e => {
-                                                               onItemTouchTap && onItemTouchTap(item, index, e);
+                                                               onItemClick && onItemClick(item, index, e);
                                                            }}
                                                            onSelect={() => {
                                                                this.listItemSelectHandler(item, index);
@@ -423,7 +423,7 @@ DraggableList.propTypes = {
     /**
      * Callback function fired when the list-item touch tap.
      */
-    onItemTouchTap: PropTypes.func,
+    onItemClick: PropTypes.func,
 
     /**
      * Callback function fired when the list-item select.

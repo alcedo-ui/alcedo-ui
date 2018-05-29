@@ -210,7 +210,7 @@ class LocalAutoComplete extends Component {
 
     };
 
-    itemTouchTapHandler = value => {
+    itemClickHandler = value => {
 
         const {autoClose, valueField, displayField, renderer} = this.props,
             filter = renderer ? renderer(value) : Util.getTextByDisplayField(value, displayField, valueField),
@@ -227,8 +227,8 @@ class LocalAutoComplete extends Component {
         }
 
         this.setState(state, () => {
-            const {onItemTouchTap, onChange} = this.props;
-            onItemTouchTap && onItemTouchTap(value);
+            const {onItemClick, onChange} = this.props;
+            onItemClick && onItemClick(value);
             isChanged && onChange && onChange(value);
         });
 
@@ -380,7 +380,7 @@ class LocalAutoComplete extends Component {
                            onKeyDown={this.filterKeyDownHandler}
                            onPressEnter={this.filterPressEnterHandler}
                            onClear={onFilterClear}
-                           onRightIconTouchTap={this.filterPressEnterHandler}/>
+                           onRightIconClick={this.filterPressEnterHandler}/>
 
                 {
                     isEmpty && !noMatchedPopupVisible ?
@@ -417,7 +417,7 @@ class LocalAutoComplete extends Component {
                                                                listHeight={listHeight}
                                                                itemHeight={itemHeight}
                                                                scrollBuffer={scrollBuffer}
-                                                               onItemTouchTap={this.itemTouchTapHandler}/>
+                                                               onItemClick={this.itemClickHandler}/>
                                             :
                                             <List ref="list"
                                                   className="local-auto-complete-list"
@@ -428,7 +428,7 @@ class LocalAutoComplete extends Component {
                                                   displayField={displayField}
                                                   descriptionField={descriptionField}
                                                   renderer={renderer}
-                                                  onItemTouchTap={this.itemTouchTapHandler}/>
+                                                  onItemClick={this.itemClickHandler}/>
                                     )
                             }
 
@@ -657,7 +657,7 @@ LocalAutoComplete.propTypes = {
     /**
      * The function that trigger when touch-tap the list items.
      */
-    onItemTouchTap: PropTypes.func,
+    onItemClick: PropTypes.func,
 
     /**
      * Callback function fired when LocalAutoComplete get focus.

@@ -13,7 +13,7 @@ class DotStepItem extends Component {
         super(props, ...restArgs);
     }
 
-    touchTapHandler = () => {
+    clickHandler = () => {
         const {activatedStep, finishedStep, index, onClick} = this.props;
         activatedStep !== index && finishedStep >= index && onClick(index);
     };
@@ -30,7 +30,7 @@ class DotStepItem extends Component {
         return (
             <div className={itemClassName}
                  style={style}
-                 onClick={this.touchTapHandler}></div>
+                 onClick={this.clickHandler}></div>
         );
 
     }

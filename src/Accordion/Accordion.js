@@ -25,7 +25,7 @@ class Accordion extends Component {
 
     }
 
-    touchTapHandler = () => {
+    clickHandler = () => {
 
         const {onCollpase, onExpand, onChange} = this.props;
 
@@ -79,7 +79,7 @@ class Accordion extends Component {
                               theme={Theme.SECONDARY}
                               value={title}
                               rightIconCls={collapsed ? expandIcon : collapseIcon}
-                              onClick={this.touchTapHandler}/>
+                              onClick={this.clickHandler}/>
 
                 <div ref="accordionContent"
                      className="accordion-content"

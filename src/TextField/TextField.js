@@ -167,10 +167,10 @@ class TextField extends Component {
 
     };
 
-    rightIconTouchTapHandler = e => {
-        const {onRightIconTouchTap} = this.props,
+    rightIconClickHandler = e => {
+        const {onRightIconClick} = this.props,
             {value} = this.state;
-        onRightIconTouchTap && onRightIconTouchTap(e, value);
+        onRightIconClick && onRightIconClick(e, value);
     };
 
     componentDidMount() {
@@ -197,7 +197,7 @@ class TextField extends Component {
 
                 children, className, triggerClassName, placeholderClassName, style, theme, type, iconCls, disabled,
                 infoMsg, placeholder, clearButtonVisible, rightIconCls, passwordButtonVisible, fieldMsgVisible,
-                onIconTouchTap, onRightIconTouchTap,
+                onIconClick, onRightIconClick,
 
                 // not passing down these props
                 value: v, autoFocus, pattern, patternInvalidMsg, isFocusedSelectAll,
@@ -223,7 +223,7 @@ class TextField extends Component {
                     [className]: className
                 }),
             leftIconClassName = classNames('text-field-left-icon', {
-                deactivated: !onIconTouchTap
+                deactivated: !onIconClick
             }),
             fieldPlaceholderClassName = classNames('text-field-placeholder', {
                 [placeholderClassName]: placeholderClassName
@@ -235,7 +235,7 @@ class TextField extends Component {
                 hidden: disabled || !value || value.length < 1
             }),
             rightIconClassName = classNames('text-field-right-icon', {
-                deactivated: !onRightIconTouchTap
+                deactivated: !onRightIconClick
             });
 
         let inputType = type;
@@ -254,8 +254,8 @@ class TextField extends Component {
                     iconCls ?
                         <IconButton className={leftIconClassName}
                                     iconCls={iconCls}
-                                    disableTouchRipple={!onIconTouchTap}
-                                    onClick={onIconTouchTap}/>
+                                    disableTouchRipple={!onIconClick}
+                                    onClick={onIconClick}/>
                         :
                         null
                 }
@@ -305,8 +305,8 @@ class TextField extends Component {
                     rightIconCls ?
                         <IconButton className={rightIconClassName}
                                     rightIconCls={rightIconCls}
-                                    disableTouchRipple={!onRightIconTouchTap}
-                                    onClick={this.rightIconTouchTapHandler}/>
+                                    disableTouchRipple={!onRightIconClick}
+                                    onClick={this.rightIconClickHandler}/>
                         :
                         null
                 }
@@ -503,8 +503,8 @@ TextField.propTypes = {
      */
     onPasswordInvisible: PropTypes.func,
 
-    onIconTouchTap: PropTypes.func,
-    onRightIconTouchTap: PropTypes.func,
+    onIconClick: PropTypes.func,
+    onRightIconClick: PropTypes.func,
 
     onMouseOver: PropTypes.func,
     onMouseOut: PropTypes.func

@@ -46,7 +46,7 @@ class GridItem extends Component {
         }
     };
 
-    touchTapHandler = e => {
+    clickHandler = e => {
 
         e.preventDefault();
 
@@ -104,7 +104,7 @@ class GridItem extends Component {
                          style={style}
                          disabled={disabled || isLoading}
                          readOnly={readOnly}
-                         onClick={this.touchTapHandler}
+                         onClick={this.clickHandler}
                          onMouseEnter={onMouseEnter}
                          onMouseLeave={onMouseLeave}>
 

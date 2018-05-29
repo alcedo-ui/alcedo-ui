@@ -254,7 +254,7 @@ GroupList.propTypes = {
     /**
      * Callback function fired when the list-item select.
      */
-    onItemTouchTap: PropTypes.func,
+    onItemClick: PropTypes.func,
 
     /**
      * Callback function fired when the list changed.

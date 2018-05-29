@@ -18,7 +18,7 @@ class ListStepItem extends Component {
         super(props, ...restArgs);
     }
 
-    touchTapHandler = () => {
+    clickHandler = () => {
         const {activatedStep, finishedStep, index, onClick} = this.props;
         activatedStep !== index && finishedStep >= index && onClick(index);
     };
@@ -39,7 +39,7 @@ class ListStepItem extends Component {
                           style={style}
                           theme={state === 'activated' ? Theme.HIGHLIGHT : (state === 'finished' ? Theme.PRIMARY : '')}
                           value={data.value}
-                          onClick={this.touchTapHandler}/>
+                          onClick={this.clickHandler}/>
         );
 
     }

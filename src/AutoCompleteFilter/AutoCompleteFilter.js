@@ -191,7 +191,7 @@ class AutoCompleteFilter extends Component {
                 disabled, iconCls, rightIconCls, valueField, displayField, descriptionField,
                 noMatchedPopupVisible, noMatchedMsg, popupChildren, renderer,
                 useDynamicRenderList, listHeight, itemHeight, scrollBuffer,
-                onItemTouchTap, onFilterClear, onMouseOver, onMouseOut
+                onItemClick, onFilterClear, onMouseOver, onMouseOut
             } = this.props,
             {isAbove, value, filter, popupVisible} = this.state,
 
@@ -262,7 +262,7 @@ class AutoCompleteFilter extends Component {
                            onChange={this.filterChangeHandler}
                            onPressEnter={this.filterPressEnterHandler}
                            onClear={onFilterClear}
-                           onRightIconTouchTap={this.filterPressEnterHandler}/>
+                           onRightIconClick={this.filterPressEnterHandler}/>
 
                 {
                     isEmpty && !noMatchedPopupVisible ?
@@ -297,7 +297,7 @@ class AutoCompleteFilter extends Component {
                                                                listHeight={listHeight}
                                                                itemHeight={itemHeight}
                                                                scrollBuffer={scrollBuffer}
-                                                               onItemTouchTap={onItemTouchTap}
+                                                               onItemClick={onItemClick}
                                                                onChange={this.changeHandler}/>
                                             :
                                             <List className="auto-complete-filter-list"
@@ -308,7 +308,7 @@ class AutoCompleteFilter extends Component {
                                                   displayField={displayField}
                                                   descriptionField={descriptionField}
                                                   renderer={renderer}
-                                                  onItemTouchTap={onItemTouchTap}
+                                                  onItemClick={onItemClick}
                                                   onChange={this.changeHandler}/>
                                     )
                             }
@@ -528,7 +528,7 @@ AutoCompleteFilter.propTypes = {
     /**
      * The function that trigger when touch-tap the list items.
      */
-    onItemTouchTap: PropTypes.func,
+    onItemClick: PropTypes.func,
 
     /**
      * Callback function fired when AutoCompleteFilter get focus.

@@ -249,7 +249,7 @@ class Table extends Component {
 
     };
 
-    rowTouchTapHandler = (rowData, rowIndex, e) => {
+    rowClickHandler = (rowData, rowIndex, e) => {
 
         if (!rowData) {
             return;
@@ -260,8 +260,8 @@ class Table extends Component {
             return;
         }
 
-        const {onRowTouchTap} = this.props;
-        onRowTouchTap && onRowTouchTap(rowData, rowIndex, e);
+        const {onRowClick} = this.props;
+        onRowClick && onRowClick(rowData, rowIndex, e);
 
         const {selectMode} = this.props;
 
@@ -276,15 +276,15 @@ class Table extends Component {
 
     };
 
-    cellTouchTapHandler = (data, rowIndex, colIndex, e) => {
+    cellClickHandler = (data, rowIndex, colIndex, e) => {
 
         const {disabled} = this.props;
         if (disabled) {
             return;
         }
 
-        const {onCellTouchTap} = this.props;
-        onCellTouchTap && onCellTouchTap(data, rowIndex, colIndex, e);
+        const {onCellClick} = this.props;
+        onCellClick && onCellClick(data, rowIndex, colIndex, e);
 
     };
 
@@ -500,8 +500,8 @@ class Table extends Component {
                                            value={value}
                                            selectMode={selectMode}
                                            disabled={disabled}
-                                           onRowTouchTap={this.rowTouchTapHandler}
-                                           onCellTouchTap={this.cellTouchTapHandler}/>
+                                           onRowClick={this.rowClickHandler}
+                                           onCellClick={this.cellClickHandler}/>
                                 :
                                 <tbody className="table-body">
                                     <tr className="table-row">
@@ -748,12 +748,12 @@ Table.propTypes = {
     /**
      * The function that trigger when the row is touch-tapped.
      */
-    onRowTouchTap: PropTypes.func,
+    onRowClick: PropTypes.func,
 
     /**
      * The function that trigger when the td is touch-tapped.
      */
-    onCellTouchTap: PropTypes.func,
+    onCellClick: PropTypes.func,
 
     onSort: PropTypes.func,
     onPageChange: PropTypes.func,

@@ -180,7 +180,7 @@ class DropdownFilter extends Component {
                 radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
-                onItemTouchTap, onFilterClear, onMouseOver, onMouseOut
+                onItemClick, onFilterClear, onMouseOver, onMouseOut
 
             } = this.props,
             {isAbove, value, filter, popupVisible} = this.state,
@@ -242,7 +242,7 @@ class DropdownFilter extends Component {
                            onChange={this.filterChangeHandler}
                            onPressEnter={this.filterPressEnterHandler}
                            onClear={onFilterClear}
-                           onRightIconTouchTap={this.filterPressEnterHandler}/>
+                           onRightIconClick={this.filterPressEnterHandler}/>
 
                 {
                     isEmpty && !noMatchedPopupVisible ?
@@ -284,7 +284,7 @@ class DropdownFilter extends Component {
                                                                checkboxUncheckedIconCls={checkboxUncheckedIconCls}
                                                                checkboxCheckedIconCls={checkboxCheckedIconCls}
                                                                checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
-                                                               onItemTouchTap={onItemTouchTap}
+                                                               onItemClick={onItemClick}
                                                                onChange={this.changeHandler}/>
                                             :
                                             <List className="dropdown-filter-list"
@@ -301,7 +301,7 @@ class DropdownFilter extends Component {
                                                   checkboxUncheckedIconCls={checkboxUncheckedIconCls}
                                                   checkboxCheckedIconCls={checkboxCheckedIconCls}
                                                   checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
-                                                  onItemTouchTap={onItemTouchTap}
+                                                  onItemClick={onItemClick}
                                                   onChange={this.changeHandler}/>
                                     )
                             }
@@ -525,7 +525,7 @@ DropdownFilter.propTypes = {
     /**
      * The function that trigger when touch-tap the list items.
      */
-    onItemTouchTap: PropTypes.func,
+    onItemClick: PropTypes.func,
 
     /**
      * Callback function fired when DropdownFilter get focus.

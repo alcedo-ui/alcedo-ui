@@ -22,7 +22,7 @@ class DotStep extends Component {
 
     }
 
-    touchTapHandler = activatedStep => {
+    clickHandler = activatedStep => {
 
         const {onChange} = this.props;
 
@@ -77,7 +77,7 @@ class DotStep extends Component {
                                          activatedStep={activatedStep}
                                          finishedStep={finishedStep}
                                          data={item}
-                                         onClick={this.touchTapHandler}/>
+                                         onClick={this.clickHandler}/>
                         )
                     }
                 </div>

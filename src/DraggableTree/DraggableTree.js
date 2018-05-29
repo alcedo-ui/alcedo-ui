@@ -191,7 +191,7 @@ class DraggableTree extends Component {
         const {
                 children, className, style, theme, allowCollapse, collapsedIconCls, expandedIconCls,
                 idField, valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
-                renderer, onNodeTouchTap
+                renderer, onNodeClick
             } = this.props,
             {data, value, isNodeToggling} = this.state,
 
@@ -227,7 +227,7 @@ class DraggableTree extends Component {
                                        expandedIconCls={expandedIconCls}
                                        isNodeToggling={isNodeToggling}
                                        onClick={(...args) => {
-                                           onNodeTouchTap && onNodeTouchTap(...args);
+                                           onNodeClick && onNodeClick(...args);
                                        }}
                                        onNodeToggleStart={this.nodeToggleStartHandler}
                                        onNodeToggleEnd={this.nodeToggleEndHandler}
@@ -395,7 +395,7 @@ DraggableTree.propTypes = {
     /**
      * Callback function fired when the tree node touch tap.
      */
-    onNodeTouchTap: PropTypes.func,
+    onNodeClick: PropTypes.func,
 
     /**
      * Callback function fired when the tree node selected.

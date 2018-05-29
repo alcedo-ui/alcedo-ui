@@ -177,7 +177,7 @@ class Tree extends Component {
         const {
                 children, className, style, theme, data, allowCollapse, collapsedIconCls, expandedIconCls,
                 idField, valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
-                renderer, onNodeTouchTap
+                renderer, onNodeClick
             } = this.props,
             {value, isNodeToggling} = this.state,
 
@@ -209,7 +209,7 @@ class Tree extends Component {
                           collapsedIconCls={collapsedIconCls}
                           expandedIconCls={expandedIconCls}
                           isNodeToggling={isNodeToggling}
-                          onClick={(...args) => onNodeTouchTap && onNodeTouchTap(...args)}
+                          onClick={(...args) => onNodeClick && onNodeClick(...args)}
                           onNodeToggleStart={this.nodeToggleStartHandler}
                           onNodeToggleEnd={this.nodeToggleEndHandler}
                           onSelect={this.treeNodeSelectHandler}
@@ -374,7 +374,7 @@ Tree.propTypes = {
     /**
      * Callback function fired when the tree node touch tap.
      */
-    onNodeTouchTap: PropTypes.func,
+    onNodeClick: PropTypes.func,
 
     /**
      * Callback function fired when the tree node selected.

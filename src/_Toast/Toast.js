@@ -44,7 +44,7 @@ class Toast extends Component {
         }
     };
 
-    touchTapHandler = e => {
+    clickHandler = e => {
         e.preventDefault();
         const {onRequestClose, toastsId} = this.props;
         onRequestClose && onRequestClose(toastsId);
@@ -101,7 +101,7 @@ class Toast extends Component {
                           theme={type}
                           iconCls={`${iconCls ? iconCls : this.getIconCls()} toast-icon`}
                           value={message}
-                          onClick={this.touchTapHandler}/>
+                          onClick={this.clickHandler}/>
         );
 
     }

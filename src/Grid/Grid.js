@@ -108,7 +108,7 @@ class Grid extends Component {
                 selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
-                idField, valueField, displayField, descriptionField, disabled, isLoading, renderer, onItemTouchTap
+                idField, valueField, displayField, descriptionField, disabled, isLoading, renderer, onItemClick
 
             } = this.props,
             {value} = this.state;
@@ -137,7 +137,7 @@ class Grid extends Component {
                           selectMode={selectMode}
                           renderer={renderer}
                           onClick={e => {
-                              onItemTouchTap && onItemTouchTap(item, index, e);
+                              onItemClick && onItemClick(item, index, e);
                               item.onClick && item.onClick(e);
                           }}
                           onSelect={() => {
@@ -169,7 +169,7 @@ class Grid extends Component {
                           selectMode={selectMode}
                           renderer={renderer}
                           onClick={e => {
-                              onItemTouchTap && onItemTouchTap(item, index, e);
+                              onItemClick && onItemClick(item, index, e);
                           }}
                           onSelect={() => {
                               this.listItemSelectHandler(item, index);
@@ -370,7 +370,7 @@ Grid.propTypes = {
     /**
      * Callback function fired when the grid-item touch tap.
      */
-    onItemTouchTap: PropTypes.func,
+    onItemClick: PropTypes.func,
 
     /**
      * Callback function fired when the grid-item select.

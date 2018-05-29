@@ -371,7 +371,7 @@ MaterialAutoCompleteFilter.propTypes = {
     /**
      * The function that trigger when touch-tap the list items.
      */
-    onItemTouchTap: PropTypes.func,
+    onItemClick: PropTypes.func,
 
     /**
      * Callback function fired when AutoCompleteFilter get focus.

@@ -22,7 +22,7 @@ class ArrowStep extends Component {
 
     }
 
-    touchTapHandler = activatedStep => {
+    clickHandler = activatedStep => {
 
         const {onChange} = this.props;
 
@@ -74,7 +74,7 @@ class ArrowStep extends Component {
                                        value={item}
                                        isFirst={index === 0}
                                        isLast={index === steps.length - 1}
-                                       onClick={this.touchTapHandler}/>
+                                       onClick={this.clickHandler}/>
                     )
                 }
             </div>

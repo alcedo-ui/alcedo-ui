@@ -43,37 +43,37 @@ class Dialog extends Component {
         Dom.removeClass(document.querySelector('body'), 'dialog-modal-lock');
     };
 
-    okButtonTouchTapHandler = () => {
+    okButtonClickHandler = () => {
 
-        const {onOKButtonTouchTap} = this.props;
+        const {onOKButtonClick} = this.props;
 
-        onOKButtonTouchTap && onOKButtonTouchTap(() => {
-            this.cancelButtonTouchTapHandler();
+        onOKButtonClick && onOKButtonClick(() => {
+            this.cancelButtonClickHandler();
         });
 
     };
 
-    cancelButtonTouchTapHandler = () => {
+    cancelButtonClickHandler = () => {
 
-        const {onCancelButtonTouchTap, onRequestClose} = this.props;
+        const {onCancelButtonClick, onRequestClose} = this.props;
 
         this.setState({
             visible: false
         }, () => {
-            onCancelButtonTouchTap && onCancelButtonTouchTap();
+            onCancelButtonClick && onCancelButtonClick();
             onRequestClose && onRequestClose();
         });
 
     };
 
-    closeButtonTouchTapHandler = () => {
+    closeButtonClickHandler = () => {
 
-        const {onCloseButtonTouchTap, onRequestClose} = this.props;
+        const {onCloseButtonClick, onRequestClose} = this.props;
 
         this.setState({
             visible: false
         }, () => {
-            onCloseButtonTouchTap && onCloseButtonTouchTap();
+            onCloseButtonClick && onCloseButtonClick();
             onRequestClose && onRequestClose();
         });
 
@@ -120,7 +120,7 @@ class Dialog extends Component {
 
                 // not passing down these props
                 isBlurClose, isEscClose,
-                onRender, onRequestClose, onOKButtonTouchTap, onCloseButtonTouchTap, onCancelButtonTouchTap,
+                onRender, onRequestClose, onOKButtonClick, onCloseButtonClick, onCancelButtonClick,
 
                 ...restProps
 
@@ -144,7 +144,7 @@ class Dialog extends Component {
                     <IconButton className="dialog-title-close-button"
                                 iconCls={closeIconCls}
                                 disabled={disabled}
-                                onClick={this.closeButtonTouchTapHandler}/>
+                                onClick={this.closeButtonClickHandler}/>
                 </div>
 
                 <div className="dialog-content">
@@ -172,7 +172,7 @@ class Dialog extends Component {
                                           disabled={okButtonDisabled}
                                           isLoading={isLoading || okButtonIsLoading}
                                           disableTouchRipple={true}
-                                          onClick={this.okButtonTouchTapHandler}/>
+                                          onClick={this.okButtonClickHandler}/>
                             :
                             null
                     }
@@ -186,7 +186,7 @@ class Dialog extends Component {
                                         disabled={cancelButtonDisabled}
                                         isLoading={isLoading || cancelButtonIsLoading}
                                         disableTouchRipple={true}
-                                        onClick={this.cancelButtonTouchTapHandler}/>
+                                        onClick={this.cancelButtonClickHandler}/>
                             :
                             null
                     }
@@ -331,17 +331,17 @@ Dialog.propTypes = {
     /**
      * Callback function fired when click the ok button.
      */
-    onOKButtonTouchTap: PropTypes.func,
+    onOKButtonClick: PropTypes.func,
 
     /**
      * Callback function fired when click the cancel button.
      */
-    onCancelButtonTouchTap: PropTypes.func,
+    onCancelButtonClick: PropTypes.func,
 
     /**
      * Callback function fired when click the close button.
      */
-    onCloseButtonTouchTap: PropTypes.func
+    onCloseButtonClick: PropTypes.func
 
 };
 
