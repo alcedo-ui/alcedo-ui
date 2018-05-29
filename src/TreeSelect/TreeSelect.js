@@ -147,7 +147,7 @@ class TreeSelect extends Component {
 
                 className, triggerClassName, popupClassName, style, name, popupTheme, data, renderer,
                 selectMode, valueField, displayField, descriptionField,
-                allowCollapse, collapsedIconCls, expandedIconCls,
+                isSelectRecursive, allowCollapse, collapsedIconCls, expandedIconCls,
                 onItemTouchTap, popupChildren,
 
                 ...restProps
@@ -205,6 +205,7 @@ class TreeSelect extends Component {
                               valueField={valueField}
                               displayField={displayField}
                               descriptionField={descriptionField}
+                              isSelectRecursive={isSelectRecursive}
                               allowCollapse={allowCollapse}
                               collapsedIconCls={collapsedIconCls}
                               expandedIconCls={expandedIconCls}
@@ -406,7 +407,7 @@ TreeSelect.propTypes = {
     autoClose: PropTypes.bool,
 
     shouldPreventContainerScroll: PropTypes.bool,
-
+    isSelectRecursive: PropTypes.bool,
     allowCollapse: PropTypes.bool,
     collapsedIconCls: PropTypes.string,
     expandedIconCls: PropTypes.string,
@@ -458,7 +459,7 @@ TreeSelect.defaultProps = {
     autoClose: true,
 
     shouldPreventContainerScroll: true,
-
+    isSelectRecursive: false,
     allowCollapse: true,
     collapsedIconCls: 'fas fa-caret-right',
     expandedIconCls: 'fas fa-caret-down'
