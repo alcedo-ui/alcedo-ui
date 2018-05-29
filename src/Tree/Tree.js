@@ -37,12 +37,20 @@ class Tree extends Component {
 
     addRecursiveValue(node, value) {
 
-        if (!node || !value || !node.children || node.children.length < 1) {
+        if (!node || !value) {
             return;
         }
 
-        for (let i = 0, len = node.children.length; i < len; i++) {
+        if (!Calculation.isItemChecked(node, value, this.props)) {
+            value.push(node);
+        }
 
+        if (!node.children || node.children.length < 1) {
+            return;
+        }
+
+        for (let item of node.children) {
+            this.addRecursiveValue(item, value);
         }
 
     }
@@ -53,7 +61,7 @@ class Tree extends Component {
             return;
         }
 
-        const {selectMode} = this.props;
+        const {selectMode, isSelectRecursive} = this.props;
         let {value} = this.state;
 
         if (selectMode === SelectMode.MULTI_SELECT) {
@@ -62,9 +70,11 @@ class Tree extends Component {
                 value = [];
             }
 
-            value.push(node);
-
-            this.addRecursiveValue(node, value);
+            if (isSelectRecursive) {
+                this.addRecursiveValue(node, value);
+            } else {
+                value.push(node);
+            }
 
         } else if (selectMode === SelectMode.SINGLE_SELECT) {
             value = node;
@@ -326,7 +336,7 @@ Tree.propTypes = {
     readOnly: PropTypes.bool,
 
     shouldPreventContainerScroll: PropTypes.bool,
-
+    isSelectRecursive: PropTypes.bool,
     allowCollapse: PropTypes.bool,
     collapsedIconCls: PropTypes.string,
     expandedIconCls: PropTypes.string,
@@ -380,7 +390,7 @@ Tree.defaultProps = {
     isLoading: false,
     readOnly: false,
     shouldPreventContainerScroll: true,
-
+    isSelectRecursive: false,
     allowCollapse: true,
     collapsedIconCls: 'fas fa-caret-right',
     expandedIconCls: 'fas fa-caret-down'
