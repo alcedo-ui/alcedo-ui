@@ -135,6 +135,7 @@ class TreeExamples extends Component {
                                 <Paper className="tree-wrapper">
                                     <Tree selectMode={Tree.SelectMode.MULTI_SELECT}
                                           data={this.data}
+                                          isSelectRecursive={true}
                                           onNodeSelect={this.nodeSelectHandler}
                                           onChange={this.changeHandler}/>
                                 </Paper>
