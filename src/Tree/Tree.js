@@ -35,7 +35,7 @@ class Tree extends Component {
 
     }
 
-    addRecursiveValue(node, value) {
+    addRecursiveValue = (node, value) => {
 
         if (!node || !value) {
             return;
@@ -53,7 +53,28 @@ class Tree extends Component {
             this.addRecursiveValue(item, value);
         }
 
-    }
+    };
+
+    removeRecursiveValue = (node, value) => {
+
+        if (!node || !value) {
+            return;
+        }
+
+        const index = Calculation.getMultiSelectItemIndex(node, value, this.props);
+        if (index > -1) {
+            value.splice(index, 1);
+        }
+
+        if (!node.children || node.children.length < 1) {
+            return;
+        }
+
+        for (let item of node.children) {
+            this.removeRecursiveValue(item, value);
+        }
+
+    };
 
     treeNodeSelectHandler = (node, path, e) => {
 
@@ -98,16 +119,20 @@ class Tree extends Component {
             return;
         }
 
-        const {valueField, displayField} = this.props;
+        const {isSelectRecursive} = this.props;
         let {value} = this.state;
 
         if (!value || !isArray(value)) {
             value = [];
         } else {
-            value = value.filter(valueItem => {
-                return Util.getValueByValueField(valueItem, valueField, displayField)
-                    != Util.getValueByValueField(node, valueField, displayField);
-            });
+            if (isSelectRecursive) {
+                this.removeRecursiveValue(node, value);
+            } else {
+                const index = Calculation.getMultiSelectItemIndex(node, value, this.props);
+                if (index > -1) {
+                    value.splice(index, 1);
+                }
+            }
         }
 
         this.setState({
