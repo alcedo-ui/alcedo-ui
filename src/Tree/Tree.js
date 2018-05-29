@@ -35,10 +35,25 @@ class Tree extends Component {
 
     }
 
-    treeNodeSelectHandler = (nodeData, path, e) => {
+    addRecursiveValue(node, value) {
+
+        if (!node || !value || !node.children || node.children.length < 1) {
+            return;
+        }
+
+        for (let i = 0, len = node.children.length; i < len; i++) {
+
+        }
+
+    }
+
+    treeNodeSelectHandler = (node, path, e) => {
+
+        if (!node) {
+            return;
+        }
 
         const {selectMode} = this.props;
-
         let {value} = this.state;
 
         if (selectMode === SelectMode.MULTI_SELECT) {
@@ -47,23 +62,25 @@ class Tree extends Component {
                 value = [];
             }
 
-            value.push(nodeData);
+            value.push(node);
+
+            this.addRecursiveValue(node, value);
 
         } else if (selectMode === SelectMode.SINGLE_SELECT) {
-            value = nodeData;
+            value = node;
         }
 
         this.setState({
             value
         }, () => {
             const {onNodeSelect, onChange} = this.props;
-            onNodeSelect && onNodeSelect(nodeData, path, e);
+            onNodeSelect && onNodeSelect(node, path, e);
             onChange && onChange(value, e);
         });
 
     };
 
-    treeNodeDeselectHandler = (nodeData, path, e) => {
+    treeNodeDeselectHandler = (node, path, e) => {
 
         const {selectMode} = this.props;
 
@@ -79,7 +96,7 @@ class Tree extends Component {
         } else {
             value = value.filter(valueItem => {
                 return Util.getValueByValueField(valueItem, valueField, displayField)
-                    != Util.getValueByValueField(nodeData, valueField, displayField);
+                    != Util.getValueByValueField(node, valueField, displayField);
             });
         }
 
@@ -87,7 +104,7 @@ class Tree extends Component {
             value
         }, () => {
             const {onNodeDeselect, onChange} = this.props;
-            onNodeDeselect && onNodeDeselect(nodeData, path, e);
+            onNodeDeselect && onNodeDeselect(node, path, e);
             onChange && onChange(value, e);
         });
 
