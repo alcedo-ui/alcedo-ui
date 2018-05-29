@@ -16,6 +16,7 @@ import YearPicker from '../_YearPicker';
 import Popup from '../Popup';
 
 import Position from '../_statics/Position';
+import FlatButton from '../FlatButton';
 
 class DatePicker extends Component {
 
@@ -267,9 +268,11 @@ class DatePicker extends Component {
                                             <span className="item-gray">Today</span>
                                         </a>
                                         :
-                                        <a href="javascript:;" onClick={this.todayHandle}>
-                                            Today
-                                        </a>
+                                        <FlatButton className='today-button'
+                                                    value={'Today'}
+                                                    onTouchTap={this.todayHandle}
+                                        />
+
                                 }
                             </div>
                             :

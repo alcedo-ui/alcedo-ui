@@ -17,6 +17,7 @@ import TimeList from '../_TimeList';
 import RaisedButton from '../RaisedButton';
 import Popup from '../Popup';
 import Theme from '../Theme';
+import FlatButton from '../FlatButton';
 
 import Position from '../_statics/Position';
 
@@ -337,11 +338,10 @@ class DateTimePicker extends Component {
                                                 <span className="item-gray">Now</span>
                                             </a>
                                             :
-                                            <a href="javascript:;"
-                                               className="fl"
-                                               onClick={this.nowHandle}>
-                                                Now
-                                            </a>
+                                            <FlatButton className='today-button fl'
+                                                        value={'Now'}
+                                                        onTouchTap={this.nowHandle}
+                                            />
                                     }
                                     {
                                         datePickerLevel == 'time' ?
