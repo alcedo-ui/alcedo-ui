@@ -9,7 +9,7 @@ import doc from 'assets/propTypes/FlatButton.json';
 
 import 'sass/containers/app/modules/buttons/FlatButtonExamples.scss';
 
-export default class FlatButtonExamples extends Component {
+class FlatButtonExamples extends Component {
 
     constructor(props) {
         super(props);
@@ -205,3 +205,5 @@ export default class FlatButtonExamples extends Component {
         );
     }
 };
+
+export default FlatButtonExamples;

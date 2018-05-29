@@ -17,13 +17,9 @@ class Portal extends Component {
         this.wrapper = null;
         this.portal = null;
 
-        this.renderWrapper = ::this.renderWrapper;
-        this.renderPortal = ::this.renderPortal;
-        this.unmountWrapper = ::this.unmountWrapper;
-
     }
 
-    renderWrapper() {
+    renderWrapper = () => {
 
         if (this.wrapper) {
             return;
@@ -51,9 +47,9 @@ class Portal extends Component {
 
         document.body.appendChild(this.wrapper);
 
-    }
+    };
 
-    renderPortal() {
+    renderPortal = () => {
 
         this.renderWrapper();
 
@@ -62,14 +58,14 @@ class Portal extends Component {
             this.wrapper
         );
 
-    }
+    };
 
-    unmountWrapper() {
+    unmountWrapper = () => {
         if (this.wrapper) {
             document.body.removeChild(this.wrapper);
             this.wrapper = null;
         }
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
         if (!nextProps.visible) {

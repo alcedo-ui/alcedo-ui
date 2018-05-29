@@ -28,59 +28,51 @@ class MaterialEditableSelect extends Component {
             isHover: false
         };
 
-        this.triggerFocusHandler = ::this.triggerFocusHandler;
-        this.popupClosedHandler = ::this.popupClosedHandler;
-        this.triggerFilterChangeHandler = ::this.triggerFilterChangeHandler;
-        this.triggerChangeHandler = ::this.triggerChangeHandler;
-        this.triggerMouseOverHandler = ::this.triggerMouseOverHandler;
-        this.triggerMouseOutHandler = ::this.triggerMouseOutHandler;
-        this.closePopup = ::this.closePopup;
-
     }
 
-    triggerFocusHandler(...args) {
+    triggerFocusHandler = (...args) => {
         this.setState({
             isFocus: true
         }, () => {
             const {onFocus} = this.props;
             onFocus && onFocus(...args);
         });
-    }
+    };
 
-    triggerBlurHandler(...args) {
+    triggerBlurHandler = (...args) => {
         this.setState({
             isFocus: false
         }, () => {
             const {onBlur} = this.props;
             onBlur && onBlur(...args);
         });
-    }
+    };
 
-    popupClosedHandler() {
+    popupClosedHandler = () => {
         this.setState({
             isFocus: false
         });
-    }
+    };
 
-    triggerFilterChangeHandler(filter) {
+    triggerFilterChangeHandler = filter => {
         this.setState({
             filter
         }, () => {
             const {onFilterChange} = this.props;
             onFilterChange && onFilterChange(filter);
         });
-    }
+    };
 
-    triggerChangeHandler(value) {
+    triggerChangeHandler = value => {
         this.setState({
             value
         }, () => {
             const {onChange} = this.props;
             onChange && onChange(value);
         });
-    }
+    };
 
-    triggerMouseOverHandler(...args) {
+    triggerMouseOverHandler = (...args) => {
 
         this.setState({
             isHover: true
@@ -88,19 +80,25 @@ class MaterialEditableSelect extends Component {
             const {onMouseOver} = this.props;
             onMouseOver && onMouseOver(...args);
         });
-    }
+    };
 
-    triggerMouseOutHandler(...args) {
+    triggerMouseOutHandler = (...args) => {
         this.setState({
             isHover: false
         }, () => {
             const {onMouseOut} = this.props;
             onMouseOut && onMouseOut(...args);
         });
-    }
+    };
 
-    closePopup() {
+    closePopup = () => {
         this.refs.editableSelect && this.refs.editableSelect.closePopup();
+    };
+
+    componentDidMount() {
+        this.setState({
+            value: this.props.value
+        });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -109,12 +107,6 @@ class MaterialEditableSelect extends Component {
                 value: nextProps.value
             });
         }
-    }
-
-    componentDidMount() {
-        this.setState({
-            value: this.props.value
-        });
     }
 
     render() {
@@ -291,7 +283,7 @@ MaterialEditableSelect.propTypes = {
             /**
              * Callback function fired when a list item touch-tapped.
              */
-            onTouchTap: PropTypes.func
+            onClick: PropTypes.func
 
         }), PropTypes.string, PropTypes.number])),
 

@@ -30,40 +30,36 @@ class YearPicker extends Component {
             minValue: props.minValue
         };
 
-        this.selectDate = ::this.selectDate;
-        this.previousYear = ::this.previousYear;
-        this.nextYear = ::this.nextYear;
-
     }
 
-    selectDate(s_year) {
+    selectDate = s_year => {
         this.setState({
             currentYear: s_year,
             selectYear: s_year
         }, () => {
             this.props.onChange && this.props.onChange(s_year);
         });
-    }
+    };
 
-    previousYear() {
+    previousYear = () => {
         let {selectYear} = this.state;
         selectYear = +selectYear - 10;
         this.setState({
             YearArr: this.getYearArr(selectYear),
             selectYear: selectYear
         });
-    }
+    };
 
-    nextYear() {
+    nextYear = () => {
         let {selectYear} = this.state;
         selectYear = +selectYear + 10;
         this.setState({
             YearArr: this.getYearArr(selectYear),
             selectYear: selectYear
         });
-    }
+    };
 
-    getYearArr(num) {
+    getYearArr = num => {
         let yearString = num.toString();
         yearString = yearString.substr(0, yearString.length - 1);
         let YearArr = [];
@@ -71,6 +67,18 @@ class YearPicker extends Component {
             YearArr.push(yearString + i);
         }
         return YearArr;
+    };
+
+    componentDidMount() {
+        const {value, year} = this.props;
+        if (value && year) {
+            this.setState({
+                YearArr: this.getYearArr(year),
+                selectYear: year,
+                currentYear: moment(value).format('YYYY'),
+                currentMonth: moment(value).format('MM')
+            });
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -79,18 +87,6 @@ class YearPicker extends Component {
             this.setState({
                 selectYear: nextProps.year,
                 YearArr: this.getYearArr(nextProps.year),
-                currentYear: moment(value).format('YYYY'),
-                currentMonth: moment(value).format('MM')
-            });
-        }
-    }
-
-    componentDidMount() {
-        const {value, year} = this.props;
-        if (value && year) {
-            this.setState({
-                YearArr: this.getYearArr(year),
-                selectYear: year,
                 currentYear: moment(value).format('YYYY'),
                 currentMonth: moment(value).format('MM')
             });

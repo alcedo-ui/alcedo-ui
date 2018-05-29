@@ -14,17 +14,13 @@ import 'sass/containers/app/navBar/brand/Brand.scss';
 class Brand extends Component {
 
     constructor(props) {
-
         super(props);
-
-        this.mousedownHandler = ::this.mousedownHandler;
-
     }
 
-    mousedownHandler(e) {
+    mousedownHandler = e => {
         e.stopPropagation();
         this.props.toggleNavMenu();
-    }
+    };
 
     render() {
         return (
@@ -32,7 +28,7 @@ class Brand extends Component {
 
                 <IconButton className="menu-toggle-button"
                             iconCls="fas fa-bars"
-                            onTouchTap={this.mousedownHandler}/>
+                            onClick={this.mousedownHandler}/>
 
                 <Link className="brand-name"
                       to="/">

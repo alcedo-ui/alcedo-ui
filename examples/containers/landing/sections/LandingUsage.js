@@ -10,11 +10,11 @@ class LandingUsage extends Component {
         super(props);
     }
 
-    getExampleHTML() {
+    getExampleHTML = () => {
         return {
             __html: landingExampleHTML
         };
-    }
+    };
 
     render() {
         return (

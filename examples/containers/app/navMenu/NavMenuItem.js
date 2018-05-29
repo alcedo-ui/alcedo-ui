@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
+import classNames from 'classnames';
 
 import TouchRipple from 'src/TouchRipple';
 
@@ -13,12 +14,9 @@ class NavMenuItem extends Component {
         this.menuHeight = 50;
         this.subMenuIndent = 20;
 
-        this.menuGroupMousedownHandle = this::this.menuGroupMousedownHandle;
-        this.menuMousedownHandle = this::this.menuMousedownHandle;
-
     }
 
-    menuGroupMousedownHandle() {
+    menuGroupMousedownHandler = () => {
 
         const {expandMenuName, options, expandMenu} = this.props;
 
@@ -28,21 +26,25 @@ class NavMenuItem extends Component {
             expandMenu(options.text);
         }
 
-    }
+    };
 
-    menuMousedownHandle() {
+    menuMousedownHandler = () => {
         const {options, depth, expandMenu, updateActivatedMenu} = this.props;
         depth === 0 && expandMenu('');
         updateActivatedMenu(options);
-    }
+    };
 
     render() {
 
-        const {expandMenuName, activatedMenu, options, depth, expandMenu, updateActivatedMenu} = this.props;
-        const {menuHeight, subMenuIndent} = this;
+        const {expandMenuName, activatedMenu, options, depth, expandMenu, updateActivatedMenu} = this.props,
+            {menuHeight, subMenuIndent} = this,
 
-        const collapsed = expandMenuName !== options.text,
-            hasChildren = options.children && options.children.length > 0;
+            collapsed = expandMenuName !== options.text,
+            hasChildren = options.children && options.children.length > 0,
+
+            linkClassName = classNames('nav-menu-item-link', {
+                'router-link-active': activatedMenu && activatedMenu.route === options.route
+            });
 
         return (
             <div className={`nav-menu-item ${collapsed ? 'collapsed' : ''} ${hasChildren ? 'hasChildren' : ''}`}>
@@ -50,62 +52,56 @@ class NavMenuItem extends Component {
                 {/* title or link */}
                 {
                     hasChildren ?
-                        (
-                            <div className="nav-menu-item-title"
-                                 disabled={options.disabled}
-                                 onMouseDown={this.menuGroupMousedownHandle}>
+                        <div className="nav-menu-item-title"
+                             disabled={options.disabled}
+                             onMouseDown={this.menuGroupMousedownHandler}>
 
-                                <div className="nav-menu-item-name">
-                                    {options.text}
-                                </div>
-
-                                <i className={`fas fa-angle-down nav-menu-item-collapse-button
-                                ${collapsed ? 'collapsed' : ''}`}
-                                   aria-hidden="true"></i>
-
-                                <TouchRipple/>
-
+                            <div className="nav-menu-item-name">
+                                {options.text}
                             </div>
-                        )
+
+                            <i className={`fas fa-angle-down nav-menu-item-collapse-button
+                                ${collapsed ? 'collapsed' : ''}`}
+                               aria-hidden="true"></i>
+
+                            <TouchRipple/>
+
+                        </div>
                         :
-                        (
-                            <Link
-                                className={'nav-menu-item-link' + (activatedMenu && activatedMenu.route === options.route ? ' router-link-active' : '')}
-                                to={options.route}
-                                disabled={options.disabled}
-                                onClick={this.menuMousedownHandle}>
+                        <Link className={linkClassName}
+                              to={options.route}
+                              disabled={options.disabled}
+                              onClick={this.menuMousedownHandler}>
 
-                                <div className="nav-menu-item-name"
-                                     style={{marginLeft: depth * subMenuIndent}}>
-                                    {options.text}
-                                </div>
+                            <div className="nav-menu-item-name"
+                                 style={{marginLeft: depth * subMenuIndent}}>
+                                {options.text}
+                            </div>
 
-                                <TouchRipple/>
+                            <TouchRipple/>
 
-                            </Link>
-                        )
+                        </Link>
                 }
 
                 {/* sub menu */}
                 {
-                    hasChildren
-                        ? (
-                            <div className="nav-menu-children"
-                                 style={{height: options.children.length * menuHeight}}>
-                                {
-                                    options.children.map((item, index) =>
-                                        <NavMenuItem key={index}
-                                                     expandMenuName={expandMenuName}
-                                                     activatedMenu={activatedMenu}
-                                                     options={item}
-                                                     depth={depth + 1}
-                                                     expandMenu={expandMenu}
-                                                     updateActivatedMenu={updateActivatedMenu}/>
-                                    )
-                                }
-                            </div>
-                        )
-                        : null
+                    hasChildren ?
+                        <div className="nav-menu-children"
+                             style={{height: options.children.length * menuHeight}}>
+                            {
+                                options && options.children && options.children.map((item, index) =>
+                                    <NavMenuItem key={index}
+                                                 expandMenuName={expandMenuName}
+                                                 activatedMenu={activatedMenu}
+                                                 options={item}
+                                                 depth={depth + 1}
+                                                 expandMenu={expandMenu}
+                                                 updateActivatedMenu={updateActivatedMenu}/>
+                                )
+                            }
+                        </div>
+                        :
+                        null
                 }
 
             </div>
@@ -128,13 +124,8 @@ NavMenuItem.propTypes = {
 };
 
 NavMenuItem.defaultProps = {
-
     expandMenuName: '',
-    activatedMenu: null,
-
-    options: null,
     depth: 0
-
 };
 
 export default NavMenuItem;

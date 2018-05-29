@@ -4,7 +4,6 @@ import RaisedButton from 'src/RaisedButton';
 import Toaster from 'src/Toaster';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-import MaterialProvider from 'src/MaterialProvider';
 import ButtonRadioGroup from 'src/ButtonRadioGroup';
 import MaterialTextField from 'src/MaterialTextField';
 
@@ -14,7 +13,7 @@ import doc from 'assets/propTypes/Toast.json';
 import 'sass/containers/app/modules/pop/PopExamples.scss';
 import 'sass/containers/app/modules/pop/ToastExamples.scss';
 
-export default class ToastExamples extends Component {
+class ToastExamples extends Component {
 
     constructor(props) {
 
@@ -39,19 +38,15 @@ export default class ToastExamples extends Component {
             value: Toaster.Position[item]
         }));
 
-        this.updateField = ::this.updateField;
-        this.addToast = ::this.addToast;
-        this.toastPopHandler = ::this.toastPopHandler;
-
     }
 
-    updateField(key, value) {
+    updateField = (key, value) => {
         let state = {};
         state[key] = value;
         this.setState(state);
-    }
+    };
 
-    addToast(position) {
+    addToast = position => {
 
         const {type, message, toasts} = this.state;
 
@@ -65,13 +60,13 @@ export default class ToastExamples extends Component {
             position
         });
 
-    }
+    };
 
-    toastPopHandler() {
+    toastPopHandler = () => {
         this.setState({
             toasts: []
         });
-    }
+    };
 
     render() {
 
@@ -114,17 +109,17 @@ export default class ToastExamples extends Component {
                                     <div className="button-group top">
                                         <RaisedButton className="trigger-position-button"
                                                       value="Top Left"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.addToast(Toaster.Position.TOP_LEFT);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Top"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.addToast(Toaster.Position.TOP);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Top right"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.addToast(Toaster.Position.TOP_RIGHT);
                                                       }}/>
                                     </div>
@@ -132,17 +127,17 @@ export default class ToastExamples extends Component {
                                     <div className="button-group right">
                                         <RaisedButton className="trigger-position-button"
                                                       value="Right Top"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.addToast(Toaster.Position.RIGHT_TOP);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Right"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.addToast(Toaster.Position.RIGHT);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Right Bottom"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.addToast(Toaster.Position.RIGHT_BOTTOM);
                                                       }}/>
                                     </div>
@@ -150,17 +145,17 @@ export default class ToastExamples extends Component {
                                     <div className="button-group bottom">
                                         <RaisedButton className="trigger-position-button"
                                                       value="Bottom Left"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.addToast(Toaster.Position.BOTTOM_LEFT);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Bottom"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.addToast(Toaster.Position.BOTTOM);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Bottom Right"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.addToast(Toaster.Position.BOTTOM_RIGHT);
                                                       }}/>
                                     </div>
@@ -168,17 +163,17 @@ export default class ToastExamples extends Component {
                                     <div className="button-group left">
                                         <RaisedButton className="trigger-position-button"
                                                       value="Left Top"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.addToast(Toaster.Position.LEFT_TOP);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Left"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.addToast(Toaster.Position.LEFT);
                                                       }}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Left Bottom"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.addToast(Toaster.Position.LEFT_BOTTOM);
                                                       }}/>
                                     </div>
@@ -186,7 +181,7 @@ export default class ToastExamples extends Component {
                                     <div className="button-group center">
                                         <RaisedButton className="trigger-position-button"
                                                       value="Center"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.addToast(Toaster.Position.CENTER);
                                                       }}/>
                                     </div>
@@ -212,3 +207,5 @@ export default class ToastExamples extends Component {
         );
     }
 };
+
+export default ToastExamples;

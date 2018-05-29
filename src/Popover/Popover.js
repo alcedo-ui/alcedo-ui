@@ -26,55 +26,49 @@ class Popover extends Component {
 
         this.closeTimeout = null;
 
-        this.clearCloseTimeout = ::this.clearCloseTimeout;
-        this.mouseOverHandler = ::this.mouseOverHandler;
-        this.mouseOutHandler = ::this.mouseOutHandler;
-        this.renderHandler = ::this.renderHandler;
-        this.destroyHandler = ::this.destroyHandler;
-
     }
 
-    clearCloseTimeout() {
+    clearCloseTimeout = () => {
         if (this.closeTimeout) {
             clearTimeout(this.closeTimeout);
             this.closeTimeout = null;
         }
-    }
+    };
 
-    mouseOverHandler() {
+    mouseOverHandler = () => {
         this.clearCloseTimeout();
-    }
+    };
 
-    mouseOutHandler(e) {
+    mouseOutHandler = e => {
         const {onRequestClose} = this.props;
         this.clearCloseTimeout();
         this.closeTimeout = setTimeout(() => {
             onRequestClose && onRequestClose(e);
         }, 1000 / 6);
-    }
+    };
 
-    renderHandler(el) {
+    renderHandler = el => {
         const {triggerEl} = this.props;
         Event.addEvent(triggerEl, 'mouseover', this.mouseOverHandler);
         Event.addEvent(triggerEl, 'mouseout', this.mouseOutHandler);
         Event.addEvent(el, 'mouseover', this.mouseOverHandler);
         Event.addEvent(el, 'mouseout', this.mouseOutHandler);
-    }
+    };
 
-    destroyHandler(el) {
+    destroyHandler = el => {
         const {triggerEl} = this.props;
         Event.removeEvent(triggerEl, 'mouseover', this.mouseOverHandler);
         Event.removeEvent(triggerEl, 'mouseout', this.mouseOutHandler);
         Event.removeEvent(el, 'mouseover', this.mouseOverHandler);
         Event.removeEvent(el, 'mousemove', this.mouseOutHandler);
-    }
+    };
 
     /**
      * public
      */
-    resetPosition() {
+    resetPosition = () => {
         this.refs.popover.resetPosition();
-    }
+    };
 
     componentWillUnmount() {
         this.clearCloseTimeout();

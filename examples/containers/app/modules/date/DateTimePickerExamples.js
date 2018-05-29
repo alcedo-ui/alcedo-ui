@@ -7,15 +7,15 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/DateTimePicker.json';
 
-export default class DateTimePickerExamples extends Component {
+class DateTimePickerExamples extends Component {
 
     constructor(props) {
         super(props);
     }
 
-    onChangeHandle(value) {
+    onChangeHandle = value => {
         console.log(value);
-    }
+    };
 
     render() {
         return (
@@ -126,3 +126,5 @@ export default class DateTimePickerExamples extends Component {
         );
     }
 };
+
+export default DateTimePickerExamples;

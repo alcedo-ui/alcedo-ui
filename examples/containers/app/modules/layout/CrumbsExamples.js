@@ -10,7 +10,7 @@ import doc from 'assets/propTypes/Crumbs.json';
 
 import 'sass/containers/app/modules/layout/CrumbsExamples.scss';
 
-export default class CrumbsExamples extends Component {
+class CrumbsExamples extends Component {
 
     constructor(props) {
 
@@ -102,3 +102,5 @@ export default class CrumbsExamples extends Component {
         );
     }
 };
+
+export default CrumbsExamples;

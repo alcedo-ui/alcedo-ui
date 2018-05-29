@@ -9,7 +9,7 @@ import MaterialDropdownSelectDoc from 'examples/assets/propTypes/MaterialDropdow
 
 import 'sass/containers/app/modules/fields/MaterialDropdownSelectExamples.scss';
 
-export default class MaterialDropdownSelectExamples extends Component {
+class MaterialDropdownSelectExamples extends Component {
 
     constructor(props) {
 
@@ -19,25 +19,25 @@ export default class MaterialDropdownSelectExamples extends Component {
             text: 'test2',
             value: 2,
             desc: 'Here is test2.',
-            onTouchTap() {
+            onClick() {
                 console.log('test2 selected!');
             }
         }, 'test3', 'test4', 'test5', {
             text: 'test6',
             value: 6,
             desc: 'Here is test6.',
-            onTouchTap() {
+            onClick() {
                 console.log('test6 selected!');
             }
         }, 'test7', 'test8', 'test9'];
 
     }
 
-    onChangeHandle(value) {
+    onChangeHandle = value => {
         this.setState({
             value: value
         });
-    }
+    };
 
     render() {
         return (
@@ -89,3 +89,5 @@ export default class MaterialDropdownSelectExamples extends Component {
         );
     }
 };
+
+export default MaterialDropdownSelectExamples;

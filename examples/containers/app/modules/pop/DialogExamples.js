@@ -10,7 +10,7 @@ import doc from 'assets/propTypes/Dialog.json';
 
 import 'sass/containers/app/modules/pop/DialogExamples.scss';
 
-export default class DialogExamples extends Component {
+class DialogExamples extends Component {
 
     constructor(props) {
 
@@ -21,12 +21,9 @@ export default class DialogExamples extends Component {
             dialogVisible2: false
         };
 
-        this.openDialog = ::this.openDialog;
-        this.closeDialog = ::this.closeDialog;
-
     }
 
-    openDialog(id) {
+    openDialog = id => {
         this.setState({
             [`dialogVisible${id}`]: true
         }, () => {
@@ -34,28 +31,28 @@ export default class DialogExamples extends Component {
                 document.querySelector('.app').style.filter = 'blur(10px)';
             }
         });
-    }
+    };
 
-    closeDialog(id) {
+    closeDialog = id => {
         this.setState({
             [`dialogVisible${id}`]: false
         }, () => {
             document.querySelector('.app').style.filter = '';
         });
-    }
+    };
 
-    okHandler(closeDialog) {
+    okHandler = closeDialog => {
         console.log('OK button clicked');
         closeDialog();
-    }
+    };
 
-    cancelHandler() {
+    cancelHandler = () => {
         console.log('Cancel button clicked');
-    }
+    };
 
-    closeHandler() {
+    closeHandler = () => {
         console.log('Close button clicked');
-    }
+    };
 
     render() {
 
@@ -87,7 +84,7 @@ export default class DialogExamples extends Component {
                                 <RaisedButton className="trigger-button"
                                               value="Toggle Dialog"
                                               style={{width: '120px'}}
-                                              onTouchTap={() => {
+                                              onClick={() => {
                                                   this.openDialog(1);
                                               }}/>
 
@@ -127,7 +124,7 @@ export default class DialogExamples extends Component {
                                 <RaisedButton className="trigger-button"
                                               value="Toggle Dialog"
                                               style={{width: '120px'}}
-                                              onTouchTap={() => {
+                                              onClick={() => {
                                                   this.openDialog(2);
                                               }}/>
 
@@ -166,3 +163,5 @@ export default class DialogExamples extends Component {
         );
     }
 };
+
+export default DialogExamples;

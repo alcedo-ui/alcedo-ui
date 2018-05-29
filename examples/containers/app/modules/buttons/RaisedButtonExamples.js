@@ -9,7 +9,7 @@ import doc from 'assets/propTypes/RaisedButton.json';
 
 import 'sass/containers/app/modules/buttons/RaisedButtonExamples.scss';
 
-export default class RaisedButtonExamples extends Component {
+class RaisedButtonExamples extends Component {
 
     constructor(props) {
         super(props);
@@ -206,3 +206,5 @@ export default class RaisedButtonExamples extends Component {
         );
     }
 };
+
+export default RaisedButtonExamples;

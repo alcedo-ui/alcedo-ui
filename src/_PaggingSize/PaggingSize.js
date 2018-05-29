@@ -11,17 +11,13 @@ import DropdownSelect from '../DropdownSelect';
 class PaggingSize extends Component {
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.pageSizeChangeHandle = ::this.pageSizeChangeHandle;
-
     }
 
-    pageSizeChangeHandle(newPageSize) {
+    pageSizeChangeHandle = newPageSize => {
         const {pageSize, onPageSizeChange} = this.props;
         pageSize != newPageSize && onPageSizeChange && onPageSizeChange(newPageSize);
-    }
+    };
 
     render() {
 

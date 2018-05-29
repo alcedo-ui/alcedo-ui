@@ -22,18 +22,14 @@ class LinearProgress extends Component {
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.getProgressWidth = ::this.getProgressWidth;
-
     }
 
-    getProgressWidth() {
+    getProgressWidth = () => {
         if (this.refs.progress) {
             return parseInt(this.refs.progress.offsetWidth) / 2;
         }
-    }
+    };
 
     render() {
 

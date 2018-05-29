@@ -9,18 +9,17 @@ import doc from 'examples/assets/propTypes/MaterialTextArea.json';
 
 import 'sass/containers/app/modules/fields/MaterialTextAreaExamples.scss';
 
-export default class MaterialTextAreaExamples extends Component {
+class MaterialTextAreaExamples extends Component {
 
     constructor(props) {
         super(props);
-
     }
 
-    onChangeHandle(value) {
+    onChangeHandle = value => {
         this.setState({
             value: value
         });
-    }
+    };
 
     render() {
         return (
@@ -110,3 +109,5 @@ export default class MaterialTextAreaExamples extends Component {
         );
     }
 };
+
+export default MaterialTextAreaExamples;

@@ -7,18 +7,17 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/MaterialMonthPicker.json';
 
-export default class MaterialMonthPickerExamples extends Component {
+class MaterialMonthPickerExamples extends Component {
 
     constructor(props) {
         super(props);
     }
 
-    onChangeHandle(value) {
+    onChangeHandler = value => {
         console.log(value);
-    }
+    };
 
     render() {
-
         return (
             <div className="example time-picker-examples">
 
@@ -48,7 +47,7 @@ export default class MaterialMonthPickerExamples extends Component {
                                                      label={'date'}
                                                      isLabelAnimate={true}
                                                      autoClose={false}
-                                                     onChange={this.onChangeHandle}/>
+                                                     onChange={this.onChangeHandler}/>
 
                             </div>
 
@@ -74,7 +73,7 @@ export default class MaterialMonthPickerExamples extends Component {
                                                      label={'date'}
                                                      isLabelAnimate={false}
                                                      autoClose={true}
-                                                     onChange={this.onChangeHandle}/>
+                                                     onChange={this.onChangeHandler}/>
 
                             </div>
 
@@ -90,3 +89,5 @@ export default class MaterialMonthPickerExamples extends Component {
         );
     }
 };
+
+export default MaterialMonthPickerExamples;

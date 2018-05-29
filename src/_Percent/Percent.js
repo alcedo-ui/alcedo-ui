@@ -22,7 +22,7 @@ class Percent extends Component {
     /**
      * 百分比数字递增
      */
-    numberChange() {
+    numberChange = () => {
         if (this.state.percent < 100) {
             if (this.state.percent < this.props.endNum) {
                 this.setState({
@@ -34,7 +34,7 @@ class Percent extends Component {
             }
             this.timer = setTimeout(() => this.numberChange(), 30);
         }
-    }
+    };
 
     componentDidMount() {
         this.timer = setTimeout(() => this.numberChange(), 30);

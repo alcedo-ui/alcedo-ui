@@ -26,13 +26,9 @@ class TimeList extends Component {
             secondsData: []
         };
 
-        this.hourChangeHandle = ::this.hourChangeHandle;
-        this.minuteChangeHandle = ::this.minuteChangeHandle;
-        this.secondChangeHandle = ::this.secondChangeHandle;
-
     }
 
-    rangeData(range, minValue, maxValue) {
+    rangeData = (range, minValue, maxValue) => {
         const {isRequired} = this.props;
         let arr = [];
         for (let i = 0; i < range; i++) {
@@ -51,10 +47,10 @@ class TimeList extends Component {
             arr.push(obj);
         }
         return arr;
-    }
+    };
 
 
-    hourChangeHandle(value) {
+    hourChangeHandle = value => {
         let state = cloneDeep(this.state);
         const {minValue, maxValue} = this.props;
         let minHour, minMinute, minSecond, maxHour, maxMinute, maxSecond;
@@ -111,9 +107,9 @@ class TimeList extends Component {
                 this.props.onChange && this.props.onChange({hour: value, minute: state.minute, second: state.second});
             });
         }
-    }
+    };
 
-    minuteChangeHandle(value) {
+    minuteChangeHandle = value => {
         let state = cloneDeep(this.state);
         const {minValue, maxValue} = this.props;
         let minHour, minMinute, minSecond, maxHour, maxMinute, maxSecond;
@@ -161,9 +157,9 @@ class TimeList extends Component {
             });
         }
 
-    }
+    };
 
-    secondChangeHandle(value) {
+    secondChangeHandle = value => {
         let state = cloneDeep(this.state);
         const {minValue, maxValue} = this.props;
         if (minValue && moment('2000-01-01 ' + state.hour + ':' + state.minute + ':' + value).isBefore('2000-01-01 ' + minValue) || maxValue && moment('2000-01-01 ' + state.hour + ':' + state.minute + ':' + value).isAfter('2000-01-01 ' + maxValue)) {
@@ -190,6 +186,47 @@ class TimeList extends Component {
                 this.props.onChange && this.props.onChange({hour: state.hour, minute: state.minute, second: value});
             });
         }
+
+    };
+
+    componentDidMount() {
+        const {minValue, maxValue} = this.props;
+        let state = cloneDeep(this.state);
+        let minHour, minMinute, minSecond, maxHour, maxMinute, maxSecond;
+        if (minValue) {
+            minHour = minValue.split(':')[0];
+            minMinute = minValue.split(':')[1];
+            minSecond = minValue.split(':')[2];
+        }
+        if (maxValue) {
+            maxHour = maxValue.split(':')[0];
+            maxMinute = maxValue.split(':')[1];
+            maxSecond = maxValue.split(':')[2];
+        }
+
+        state.hoursData = this.rangeData(24, minHour, maxHour);
+
+        if (minHour == state.hour && minHour != maxHour) {
+            state.minutesData = this.rangeData(60, minMinute, 60);
+        } else if (maxHour == state.hour && maxHour != minHour) {
+            state.minutesData = this.rangeData(60, 0, maxMinute);
+        } else if (maxHour == minHour && minHour == state.hour) {
+            state.minutesData = this.rangeData(60, minMinute, maxMinute);
+        } else {
+            state.minutesData = this.rangeData(60);
+        }
+
+        if (minHour == state.hour && minMinute == state.minute) {
+            state.secondsData = this.rangeData(60, minSecond, 60);
+        } else if (maxHour == state.hour && maxMinute == state.minute) {
+            state.secondsData = this.rangeData(60, 0, maxSecond);
+        } else if (maxHour == minHour && minHour == state.hour && minMinute == maxMinute && minMinute == state.minute) {
+            state.secondsData = this.rangeData(60, minSecond, maxSecond);
+        } else {
+            state.secondsData = this.rangeData(60);
+        }
+
+        this.setState(state);
 
     }
 
@@ -242,47 +279,6 @@ class TimeList extends Component {
 
             this.setState(state);
         }
-    }
-
-    componentDidMount() {
-        const {minValue, maxValue} = this.props;
-        let state = cloneDeep(this.state);
-        let minHour, minMinute, minSecond, maxHour, maxMinute, maxSecond;
-        if (minValue) {
-            minHour = minValue.split(':')[0];
-            minMinute = minValue.split(':')[1];
-            minSecond = minValue.split(':')[2];
-        }
-        if (maxValue) {
-            maxHour = maxValue.split(':')[0];
-            maxMinute = maxValue.split(':')[1];
-            maxSecond = maxValue.split(':')[2];
-        }
-
-        state.hoursData = this.rangeData(24, minHour, maxHour);
-
-        if (minHour == state.hour && minHour != maxHour) {
-            state.minutesData = this.rangeData(60, minMinute, 60);
-        } else if (maxHour == state.hour && maxHour != minHour) {
-            state.minutesData = this.rangeData(60, 0, maxMinute);
-        } else if (maxHour == minHour && minHour == state.hour) {
-            state.minutesData = this.rangeData(60, minMinute, maxMinute);
-        } else {
-            state.minutesData = this.rangeData(60);
-        }
-
-        if (minHour == state.hour && minMinute == state.minute) {
-            state.secondsData = this.rangeData(60, minSecond, 60);
-        } else if (maxHour == state.hour && maxMinute == state.minute) {
-            state.secondsData = this.rangeData(60, 0, maxSecond);
-        } else if (maxHour == minHour && minHour == state.hour && minMinute == maxMinute && minMinute == state.minute) {
-            state.secondsData = this.rangeData(60, minSecond, maxSecond);
-        } else {
-            state.secondsData = this.rangeData(60);
-        }
-
-        this.setState(state);
-
     }
 
     render() {

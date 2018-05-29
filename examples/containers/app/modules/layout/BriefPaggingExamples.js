@@ -8,7 +8,7 @@ import Valid from 'src/_vendors/Valid';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/BriefPagging.json';
 
-export default class BriefPaggingExamples extends Component {
+class BriefPaggingExamples extends Component {
 
     constructor(props) {
 
@@ -38,12 +38,10 @@ export default class BriefPaggingExamples extends Component {
             }
         };
 
-        this.pageChangedHandler = ::this.pageChangedHandler;
-        this.generateData = ::this.generateData;
-
     }
 
-    generateData(size = 100) {
+    generateData = (size = 100) => {
+
         let data = [];
         for (let i = 0; i < size; i++) {
             data.push({
@@ -51,10 +49,13 @@ export default class BriefPaggingExamples extends Component {
                 name: `firstName${i}`
             });
         }
-        return data.length;
-    }
 
-    pageChangedHandler(pagging) {
+        return data.length;
+
+    };
+
+    pageChangedHandler = pagging => {
+
         if (typeof pagging.pageSize === 'object') {
             pagging.pageSize = pagging.pageSize.value;
         }
@@ -64,9 +65,11 @@ export default class BriefPaggingExamples extends Component {
         }, () => {
             this.resetPage(this.generateData(100), pagging);
         });
-    }
 
-    resetPage(data = this.generateData(100), pagging = this.state.pagging) {
+    };
+
+    resetPage = (data = this.generateData(100), pagging = this.state.pagging) => {
+
         let {page, pageSize} = pagging,
             total = Math.ceil(data / pageSize);
 
@@ -79,12 +82,13 @@ export default class BriefPaggingExamples extends Component {
             });
             return;
         }
-    }
+
+    };
 
     render() {
-        const {pagging} = this.state;
 
-        const totalPage = Math.ceil(this.generateData() / pagging.pageSize);
+        const {pagging} = this.state,
+            totalPage = Math.ceil(this.generateData() / pagging.pageSize);
 
         return (
             <div className="example brief-pagging-examples">
@@ -132,3 +136,5 @@ export default class BriefPaggingExamples extends Component {
         );
     }
 };
+
+export default BriefPaggingExamples;

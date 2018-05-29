@@ -9,7 +9,7 @@ import doc from 'assets/propTypes/TagField.json';
 
 import 'sass/containers/app/modules/fields/TagFieldExamples.scss';
 
-export default class TagFieldExamples extends Component {
+class TagFieldExamples extends Component {
 
     constructor(props) {
 
@@ -64,9 +64,8 @@ export default class TagFieldExamples extends Component {
                                 <TagField style={{height: 100}}
                                           data={[]}
                                           placeholder="Please input ..."
-                                          onChange={(value) => {
-                                              console.log(value);
-                                          }}/>
+                                          separators={[',', ';', '|']}
+                                          onChange={value => console.log(value)}/>
 
                             </div>
 
@@ -83,3 +82,5 @@ export default class TagFieldExamples extends Component {
         );
     }
 };
+
+export default TagFieldExamples;

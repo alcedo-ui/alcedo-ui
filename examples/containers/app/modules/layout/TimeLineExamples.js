@@ -7,14 +7,13 @@ import WidgetHeader from 'src/WidgetHeader/index';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/TimeLine.json';
 
-export default class TimeLineExamples extends Component {
+class TimeLineExamples extends Component {
 
     constructor(props) {
-        super(props);
-    }
 
-    render() {
-        let data = [{
+        super(props);
+
+        this.data = [{
             type: 'header',
             headerText: 'Now'
         }, {
@@ -52,6 +51,9 @@ export default class TimeLineExamples extends Component {
             headerText: '2016'
         }];
 
+    }
+
+    render() {
         return (
             <div className="example time-line-examples">
 
@@ -72,7 +74,7 @@ export default class TimeLineExamples extends Component {
 
                             <p>A simple TimeLine example.</p>
 
-                            <TimeLine data={data}/>
+                            <TimeLine data={this.data}/>
 
                         </div>
                     </div>
@@ -87,3 +89,5 @@ export default class TimeLineExamples extends Component {
         );
     }
 }
+
+export default TimeLineExamples;

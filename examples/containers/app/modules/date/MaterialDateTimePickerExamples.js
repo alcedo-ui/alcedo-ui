@@ -7,18 +7,17 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/MaterialDateTimePicker.json';
 
-export default class MaterialDateTimePickerExamples extends Component {
+class MaterialDateTimePickerExamples extends Component {
 
     constructor(props) {
         super(props);
     }
 
-    onChangeHandle(value) {
+    onChangeHandler = value => {
         console.log(value);
-    }
+    };
 
     render() {
-
         return (
             <div className="example time-picker-examples">
 
@@ -49,7 +48,7 @@ export default class MaterialDateTimePickerExamples extends Component {
                                                         value=""
                                                         isLabelAnimate={true}
                                                         theme={MaterialDateTimePicker.Theme.PRIMARY}
-                                                        onChange={this.onChangeHandle}/>
+                                                        onChange={this.onChangeHandler}/>
 
                             </div>
 
@@ -76,7 +75,7 @@ export default class MaterialDateTimePickerExamples extends Component {
                                                         theme={MaterialDateTimePicker.Theme.HIGHLIGHT}
                                                         value="2018-02-02 12:23:00"
                                                         isLabelAnimate={false}
-                                                        onChange={this.onChangeHandle}/>
+                                                        onChange={this.onChangeHandler}/>
 
                             </div>
 
@@ -92,3 +91,5 @@ export default class MaterialDateTimePickerExamples extends Component {
         );
     }
 };
+
+export default MaterialDateTimePickerExamples;

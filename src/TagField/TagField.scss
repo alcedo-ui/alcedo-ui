@@ -46,8 +46,10 @@ input::-ms-clear {
             padding: 0 8px;
             border: 0;
             color: inherit;
-            overflow-x: visible;
+            overflow-x: auto;
             overflow-y: visible;
+            resize: none;
+            white-space: nowrap;
         }
     }
 

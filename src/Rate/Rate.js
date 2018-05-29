@@ -20,13 +20,9 @@ class Rate extends Component {
             items: []
         };
 
-        this.mouseMoveHandler = ::this.mouseMoveHandler;
-        this.selectHandler = ::this.selectHandler;
-        this.createItems = ::this.createItems;
-
     }
 
-    triggerEventHandle(el, triggerEl) {
+    triggerEventHandle = (el, triggerEl) => {
         // console.log(el,triggerEl)
         while (el) {
             if (el == triggerEl) {
@@ -37,9 +33,9 @@ class Rate extends Component {
 
         return false;
 
-    }
+    };
 
-    mouseMoveHandler(e) {
+    mouseMoveHandler = e => {
 
         const {disabled} = this.props;
         if (disabled) {
@@ -64,9 +60,9 @@ class Rate extends Component {
             items
         });
         // }
-    }
+    };
 
-    selectHandler(value, e) {
+    selectHandler = (value, e) => {
 
         e.preventDefault();
 
@@ -85,9 +81,9 @@ class Rate extends Component {
             this.props.onChange && this.props.onChange(value);
         });
 
-    }
+    };
 
-    createItems(value) {
+    createItems = value => {
         const {allowHalf, count} = this.props;
         let items = [];
         if (allowHalf) {
@@ -114,6 +110,16 @@ class Rate extends Component {
             }
         }
         return items;
+    };
+
+    componentDidMount() {
+        const {value} = this.props;
+        const items = this.createItems(value);
+        this.setState({
+            value,
+            items
+        });
+        Event.addEvent(document, 'mousemove', this.mouseMoveHandler);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -125,16 +131,6 @@ class Rate extends Component {
                 items
             });
         }
-    }
-
-    componentDidMount() {
-        const {value} = this.props;
-        const items = this.createItems(value);
-        this.setState({
-            value,
-            items
-        });
-        Event.addEvent(document, 'mousemove', this.mouseMoveHandler);
     }
 
     componentWillUnmount() {
@@ -167,7 +163,7 @@ class Rate extends Component {
                              data-key={index + 1}>
                             <div className="half-star-left"
                                  data-key={index + 0.5}
-                                 onTouchTap={(e) => {
+                                 onClick={(e) => {
                                      this.selectHandler(index + 0.5, e);
                                  }}>
                                 <i className={`fas fa-star-half ${ item == 'full' || item == 'full-zero' ? 'full' : 'zero'} ${disabled ? 'disabled' : ''}`}
@@ -175,7 +171,7 @@ class Rate extends Component {
                             </div>
                             <div className="half-star-right"
                                  data-key={index + 1}
-                                 onTouchTap={(e) => {
+                                 onClick={(e) => {
                                      this.selectHandler(index + 1, e);
                                  }}>
                                 <i className={`fas fa-star-half ${ item == 'zero' || item == 'full-zero' ? 'zero' : 'full'} ${disabled ? 'disabled' : ''}`}
@@ -188,7 +184,7 @@ class Rate extends Component {
                              data-key={index + 1}>
                             <i className={`fas fa-star ${ item == 'zero' ? 'zero' : 'full'} ${disabled ? 'disabled' : ''}`}
                                data-key={index + 1}
-                               onTouchTap={(e) => {
+                               onClick={(e) => {
                                    this.selectHandler(index + 1, e);
                                }}
                             ></i>

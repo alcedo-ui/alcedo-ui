@@ -59,7 +59,7 @@ class App extends Component {
                     {
                         !isDesktop && !navMenuCollapsed ?
                             <div className="app-content-modal"
-                                 onTouchTap={collapseNavMenu}></div>
+                                 onClick={collapseNavMenu}></div>
                             :
                             null
                     }

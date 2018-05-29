@@ -33,17 +33,9 @@ class TriggerPop extends Component {
             exited: true
         };
 
-        this.enterHandler = ::this.enterHandler;
-        this.enteredHandler = ::this.enteredHandler;
-        this.exitHandler = ::this.exitHandler;
-        this.exitedHandler = ::this.exitedHandler;
-        this.resizeHandler = ::this.resizeHandler;
-        this.getEl = ::this.getEl;
-        this.resetPosition = ::this.resetPosition;
-
     }
 
-    enterHandler(el) {
+    enterHandler = el => {
 
         this.transitionEl = el;
         this.resetPosition();
@@ -55,43 +47,43 @@ class TriggerPop extends Component {
             onRender && onRender(el, this.props.triggerEl);
         });
 
-    }
+    };
 
-    enteredHandler(el) {
+    enteredHandler = el => {
         const {onRendered} = this.props;
         onRendered && onRendered(el, this.props.triggerEl);
-    }
+    };
 
-    exitHandler(el) {
+    exitHandler = el => {
         this.setState({
             enter: false
         }, () => {
             const {onDestroy} = this.props;
             onDestroy && onDestroy(el, this.props.triggerEl);
         });
-    }
+    };
 
-    exitedHandler(el) {
+    exitedHandler = el => {
         this.setState({
             exited: true
         }, () => {
             const {onDestroyed} = this.props;
             onDestroyed && onDestroyed(el, this.props.triggerEl);
         });
-    }
+    };
 
     resizeHandler = debounce(() => {
         this.resetPosition();
     }, 250);
 
-    getEl() {
+    getEl = () => {
         return this.transitionEl;
-    }
+    };
 
-    resetPosition(props = this.props) {
+    resetPosition = (props = this.props) => {
         const {triggerEl, position, isTriggerPositionFixed} = props;
         TriggerPopCalculation.setStyle(triggerEl, this.transitionEl, position, isTriggerPositionFixed);
-    }
+    };
 
     componentDidMount() {
         Event.addEvent(window, 'resize', this.resizeHandler);

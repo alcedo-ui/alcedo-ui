@@ -6,7 +6,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import startsWith from 'lodash/startsWith';
 
 import Dropdown from '../Dropdown';
 import TextField from '../TextField';
@@ -36,31 +35,19 @@ class DropdownSelect extends Component {
             popupVisible: false
         };
 
-        this.closePopup = ::this.closePopup;
-        this.filterChangeHandler = ::this.filterChangeHandler;
-        this.filterData = ::this.filterData;
-        this.selectAllTouchTapHandler = ::this.selectAllTouchTapHandler;
-        this.itemTouchTapHandler = ::this.itemTouchTapHandler;
-        this.changeHandler = ::this.changeHandler;
-        this.popupOpenHandler = ::this.popupOpenHandler;
-        this.popupCloseHandler = ::this.popupCloseHandler;
-        this.getEmptyEl = ::this.getEmptyEl;
-        this.getTriggerValue = ::this.getTriggerValue;
-        this.hiddenFilterChangeHandle = ::this.hiddenFilterChangeHandle;
-
     }
 
-    closePopup() {
+    closePopup = () => {
         this.refs.dropdown && this.refs.dropdown.closePopup();
-    }
+    };
 
-    filterChangeHandler(filter) {
+    filterChangeHandler = filter => {
         this.setState({
             filter
         });
-    }
+    };
 
-    filterData(filter = this.state.filter, data = this.props.data) {
+    filterData = (filter = this.state.filter, data = this.props.data) => {
 
         if (!filter) {
             return data;
@@ -91,9 +78,9 @@ class DropdownSelect extends Component {
 
         return filterFunc(data);
 
-    }
+    };
 
-    selectAllTouchTapHandler() {
+    selectAllTouchTapHandler = () => {
 
         const {data} = this.props,
             {value} = this.state;
@@ -111,9 +98,9 @@ class DropdownSelect extends Component {
             this.changeHandler(newValue);
         });
 
-    }
+    };
 
-    itemTouchTapHandler(...args) {
+    itemTouchTapHandler = (...args) => {
 
         const {autoClose, onItemTouchTap} = this.props;
 
@@ -123,9 +110,9 @@ class DropdownSelect extends Component {
 
         onItemTouchTap && onItemTouchTap(...args);
 
-    }
+    };
 
-    changeHandler(value) {
+    changeHandler = value => {
 
         const {autoClose} = this.props;
         if (autoClose) {
@@ -142,9 +129,9 @@ class DropdownSelect extends Component {
         setTimeout(() => {
             this.refs.hiddenFilter && this.refs.hiddenFilter.focus();
         }, 1000);
-    }
+    };
 
-    popupOpenHandler(e) {
+    popupOpenHandler = e => {
 
         this.refs.hiddenFilter && this.refs.hiddenFilter.focus();
 
@@ -154,9 +141,9 @@ class DropdownSelect extends Component {
             const {onOpenPopup} = this.props;
             onOpenPopup && onOpenPopup(e);
         });
-    }
+    };
 
-    popupCloseHandler(e) {
+    popupCloseHandler = e => {
 
         this.refs.hiddenFilter && this.refs.hiddenFilter.blur();
 
@@ -166,9 +153,9 @@ class DropdownSelect extends Component {
             const {onClosePopup} = this.props;
             onClosePopup && onClosePopup(e);
         });
-    }
+    };
 
-    hiddenFilterChangeHandle(e) {
+    hiddenFilterChangeHandle = e => {
         const {data, displayField, clearHiddenInputFilterInterval} = this.props;
         let target = e.target,
             timer = setTimeout(() => {
@@ -183,9 +170,9 @@ class DropdownSelect extends Component {
                 item.toUpperCase().startsWith(target.value.toUpperCase())
         );
         this.scrollTo(this.refs.dropdownSelectListScroller, (index) * 40, 200);
-    }
+    };
 
-    scrollTo(element, to, duration) {
+    scrollTo = (element, to, duration) => {
 
         if (!element) {
             return;
@@ -208,7 +195,7 @@ class DropdownSelect extends Component {
 
     };
 
-    getEmptyEl() {
+    getEmptyEl = () => {
 
         const {noMatchedMsg} = this.props;
 
@@ -227,9 +214,9 @@ class DropdownSelect extends Component {
                 </div>
         }];
 
-    }
+    };
 
-    getTriggerValue() {
+    getTriggerValue = () => {
 
         const {placeholder, renderer, valueField, displayField, selectMode} = this.props,
             {value} = this.state,
@@ -255,7 +242,7 @@ class DropdownSelect extends Component {
             :
             placeholder;
 
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
@@ -346,7 +333,7 @@ class DropdownSelect extends Component {
                         {
                             isMultiSelect && useSelectAll ?
                                 <div className="list-item dropdown-select-all-wrapper"
-                                     onTouchTap={this.selectAllTouchTapHandler}>
+                                     onClick={this.selectAllTouchTapHandler}>
                                     <Checkbox className="list-item-select"
                                               checked={data && value && value.length === data.length}
                                               indeterminate={data && value && value.length > 0 && value.length < data.length}/>
@@ -542,7 +529,7 @@ DropdownSelect.propTypes = {
             /**
              * Callback function fired when a list item touch-tapped.
              */
-            onTouchTap: PropTypes.func
+            onClick: PropTypes.func
 
         }), PropTypes.string, PropTypes.number])),
 

@@ -10,7 +10,7 @@ import doc from 'assets/propTypes/GroupGrid.json';
 
 import 'sass/containers/app/modules/layout/GroupGridExamples.scss';
 
-export default class GroupGridExamples extends Component {
+class GroupGridExamples extends Component {
 
     constructor(props) {
 
@@ -55,13 +55,11 @@ export default class GroupGridExamples extends Component {
             }]
         }];
 
-        this.changeHandler = this::this.changeHandler;
-
     }
 
-    changeHandler(value) {
+    changeHandler = value => {
         console.log(value);
-    }
+    };
 
     render() {
         return (
@@ -110,3 +108,5 @@ export default class GroupGridExamples extends Component {
         );
     }
 };
+
+export default GroupGridExamples;

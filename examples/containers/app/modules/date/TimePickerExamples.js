@@ -7,15 +7,15 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/TimePicker.json';
 
-export default class TimePickerExamples extends Component {
+class TimePickerExamples extends Component {
 
     constructor(props) {
         super(props);
     }
 
-    onChangeHandle(value) {
+    onChangeHandler = value => {
         console.log(value);
-    }
+    };
 
     render() {
         return (
@@ -40,7 +40,7 @@ export default class TimePickerExamples extends Component {
 
                                 <p><code>Time Picker</code> simple example.</p>
 
-                                <TimePicker onChange={this.onChangeHandle}
+                                <TimePicker onChange={this.onChangeHandler}
                                             value=""/>
 
                             </div>
@@ -62,7 +62,7 @@ export default class TimePickerExamples extends Component {
                                 </p>
 
                                 <TimePicker value="12:00:00"
-                                            onChange={this.onChangeHandle}/>
+                                            onChange={this.onChangeHandler}/>
 
                             </div>
 
@@ -85,7 +85,7 @@ export default class TimePickerExamples extends Component {
                                 <TimePicker value="10:00:00"
                                             maxValue="20:56:20"
                                             minValue="01:20:20"
-                                            onChange={this.onChangeHandle}/>
+                                            onChange={this.onChangeHandler}/>
                             </div>
 
                         </div>
@@ -109,7 +109,7 @@ export default class TimePickerExamples extends Component {
                                             dateFormat="HH:mm"
                                             maxValue="23:56"
                                             minValue="01:20"
-                                            onChange={this.onChangeHandle}/>
+                                            onChange={this.onChangeHandler}/>
                             </div>
 
                         </div>
@@ -124,3 +124,5 @@ export default class TimePickerExamples extends Component {
         );
     }
 };
+
+export default TimePickerExamples;

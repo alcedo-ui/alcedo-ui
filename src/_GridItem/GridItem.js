@@ -24,16 +24,10 @@ class GridItem extends Component {
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.checkboxChangeHandler = ::this.checkboxChangeHandler;
-        this.radioChangeHandler = ::this.radioChangeHandler;
-        this.touchTapHandler = ::this.touchTapHandler;
-
     }
 
-    checkboxChangeHandler(checked) {
+    checkboxChangeHandler = checked => {
 
         const {onSelect, onDeselect} = this.props;
 
@@ -43,16 +37,16 @@ class GridItem extends Component {
             onDeselect && onDeselect();
         }
 
-    }
+    };
 
-    radioChangeHandler() {
+    radioChangeHandler = () => {
         if (!this.props.checked) {
             const {onSelect} = this.props;
             onSelect && onSelect();
         }
-    }
+    };
 
-    touchTapHandler(e) {
+    touchTapHandler = e => {
 
         e.preventDefault();
 
@@ -62,8 +56,8 @@ class GridItem extends Component {
             return;
         }
 
-        const {onTouchTap} = this.props;
-        onTouchTap && onTouchTap(e);
+        const {onClick} = this.props;
+        onClick && onClick(e);
 
         switch (this.props.selectMode) {
             case SelectMode.MULTI_SELECT:
@@ -74,7 +68,7 @@ class GridItem extends Component {
                 return;
         }
 
-    }
+    };
 
     render() {
 
@@ -110,7 +104,7 @@ class GridItem extends Component {
                          style={style}
                          disabled={disabled || isLoading}
                          readOnly={readOnly}
-                         onTouchTap={this.touchTapHandler}
+                         onClick={this.touchTapHandler}
                          onMouseEnter={onMouseEnter}
                          onMouseLeave={onMouseLeave}>
 
@@ -255,7 +249,7 @@ GridItem.propTypes = {
     itemRenderer: PropTypes.func,
     renderer: PropTypes.func,
 
-    onTouchTap: PropTypes.func,
+    onClick: PropTypes.func,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
     onMouseEnter: PropTypes.func,

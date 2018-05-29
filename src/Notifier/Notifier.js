@@ -32,17 +32,13 @@ class Notifier extends Component {
             notifications: []
         };
 
-        this.isPositiveSequence = ::this.isPositiveSequence;
-        this.addNotification = ::this.addNotification;
-        this.removeNotification = ::this.removeNotification;
-
     }
 
-    isPositiveSequence(position = this.props.position) {
+    isPositiveSequence = (position = this.props.position) => {
         return position !== Position.BOTTOM_LEFT && position !== Position.BOTTOM && position !== Position.BOTTOM_RIGHT;
-    }
+    };
 
-    addNotification(notification) {
+    addNotification = notification => {
 
         let notifications = this.state.notifications;
 
@@ -59,9 +55,9 @@ class Notifier extends Component {
             this.refs.notifier.resetPosition();
         });
 
-    }
+    };
 
-    removeNotification(notificationId) {
+    removeNotification = notificationId => {
 
         let notifications = this.state.notifications;
 
@@ -79,7 +75,7 @@ class Notifier extends Component {
             }
         });
 
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
 

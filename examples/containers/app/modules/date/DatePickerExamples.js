@@ -7,15 +7,15 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/DatePicker.json';
 
-export default class DatePickerExamples extends Component {
+class DatePickerExamples extends Component {
 
     constructor(props) {
         super(props);
     }
 
-    onChangeHandle(value) {
+    onChangeHandler = value => {
         console.log(value);
-    }
+    };
 
     render() {
 
@@ -47,7 +47,7 @@ export default class DatePickerExamples extends Component {
                                             dateFormat={'YYYY-MM-DD'}
                                             name="date"
                                             autoClose={true}
-                                            onChange={this.onChangeHandle}/>
+                                            onChange={this.onChangeHandler}/>
 
                             </div>
 
@@ -72,7 +72,7 @@ export default class DatePickerExamples extends Component {
                                             dateFormat='YYYY/MM/DD'
                                             value='2017/02/03'
                                             autoClose={false}
-                                            onChange={this.onChangeHandle}/>
+                                            onChange={this.onChangeHandler}/>
                             </div>
 
                         </div>
@@ -96,7 +96,7 @@ export default class DatePickerExamples extends Component {
                                             maxValue='2020-02-01'
                                             minValue='2017-02-03'
                                             autoClose={false}
-                                            onChange={this.onChangeHandle}/>
+                                            onChange={this.onChangeHandler}/>
 
                             </div>
 
@@ -121,7 +121,7 @@ export default class DatePickerExamples extends Component {
                                             maxValue='2020-02-01'
                                             minValue='2017-02-03'
                                             autoClose={false}
-                                            onChange={this.onChangeHandle}/>
+                                            onChange={this.onChangeHandler}/>
 
                             </div>
 
@@ -137,3 +137,5 @@ export default class DatePickerExamples extends Component {
         );
     }
 };
+
+export default DatePickerExamples;

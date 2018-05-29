@@ -20,11 +20,9 @@ class RoundStep extends Component {
             finishedStep: props.finishedStep
         };
 
-        this.touchTapHandler = ::this.touchTapHandler;
-
     }
 
-    touchTapHandler(activatedStep) {
+    touchTapHandler = activatedStep => {
 
         const {onChange} = this.props;
 
@@ -37,7 +35,7 @@ class RoundStep extends Component {
             });
         });
 
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.activatedStep !== this.state.activatedStep
@@ -79,7 +77,7 @@ class RoundStep extends Component {
                                        showFinishedStepIcon={showFinishedStepIcon}
                                        finishedStepIconCls={finishedStepIconCls}
                                        disabled={disabled}
-                                       onTouchTap={this.touchTapHandler}/>
+                                       onClick={this.touchTapHandler}/>
                     )
                 }
             </div>

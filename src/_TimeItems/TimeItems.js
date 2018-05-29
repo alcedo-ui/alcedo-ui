@@ -12,16 +12,10 @@ import Event from '../_vendors/Event';
 class TimeItems extends Component {
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.clickHandle = ::this.clickHandle;
-        this.mousemoveHandle = ::this.mousemoveHandle;
-        this.mouseoutHandle = ::this.mouseoutHandle;
-
     }
 
-    clickHandle(value) {
+    clickHandle = value => {
 
         if (!value) {
             return;
@@ -32,14 +26,13 @@ class TimeItems extends Component {
         const {onChange} = this.props;
         onChange && onChange(value);
 
-    }
+    };
 
-
-    mousemoveHandle() {
+    mouseMoveHandler = () => {
         this.itemsEl && (this.itemsEl.style.overflowY = 'auto');
-    }
+    };
 
-    scrollTo(element, to, duration) {
+    scrollTo = (element, to, duration) => {
 
         if (!element) {
             return;
@@ -62,9 +55,9 @@ class TimeItems extends Component {
 
     };
 
-    mouseoutHandle() {
+    mouseOutHandler = () => {
         this.itemsEl && (this.itemsEl.style.overflowY = 'hidden');
-    }
+    };
 
     componentDidMount() {
 
@@ -72,14 +65,14 @@ class TimeItems extends Component {
         this.itemsEl = this.refs.timeItems;
 
         this.scrollTo(this.itemsEl, (+value) * 30, 0);
-        Event.addEvent(this.itemsEl, 'mouseover', this.mousemoveHandle);
-        Event.addEvent(this.itemsEl, 'mouseout', this.mouseoutHandle);
+        Event.addEvent(this.itemsEl, 'mouseover', this.mouseMoveHandler);
+        Event.addEvent(this.itemsEl, 'mouseout', this.mouseOutHandler);
 
     }
 
     componentWillUnmount() {
-        Event.removeEvent(this.itemsEl, 'mouseover', this.mousemoveHandle);
-        Event.removeEvent(this.itemsEl, 'mouseout', this.mouseoutHandle);
+        Event.removeEvent(this.itemsEl, 'mouseover', this.mouseMoveHandler);
+        Event.removeEvent(this.itemsEl, 'mouseout', this.mouseOutHandler);
     }
 
     render() {

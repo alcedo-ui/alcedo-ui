@@ -10,15 +10,10 @@ import classNames from 'classnames';
 class VerticalPointStepItem extends Component {
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.getRightBarClassName = ::this.getRightBarClassName;
-        this.touchTapHandler = ::this.touchTapHandler;
-
     }
 
-    getRightBarClassName() {
+    getRightBarClassName = () => {
 
         const {activatedStep, finishedStep, index} = this.props;
 
@@ -32,13 +27,13 @@ class VerticalPointStepItem extends Component {
 
         return ' hidden';
 
-    }
+    };
 
-    touchTapHandler(e) {
+    touchTapHandler = e => {
         e.preventDefault();
-        const {activatedStep, finishedStep, index, disabled, onTouchTap} = this.props;
-        !disabled && activatedStep !== index && finishedStep >= index && onTouchTap && onTouchTap(index, e);
-    }
+        const {activatedStep, finishedStep, index, disabled, onClick} = this.props;
+        !disabled && activatedStep !== index && finishedStep >= index && onClick && onClick(index, e);
+    };
 
     render() {
 
@@ -60,7 +55,7 @@ class VerticalPointStepItem extends Component {
 
                 <div className="bg-round">
                     <div className="round"
-                         onTouchTap={this.touchTapHandler}></div>
+                         onClick={this.touchTapHandler}></div>
                 </div>
 
                 <div className="title">
@@ -87,7 +82,7 @@ VerticalPointStepItem.propTypes = {
 
     disabled: PropTypes.bool,
 
-    onTouchTap: PropTypes.func
+    onClick: PropTypes.func
 
 };
 

@@ -9,7 +9,7 @@ import doc from 'examples/assets/propTypes/TreeSelect.json';
 
 import 'sass/containers/app/modules/fields/TreeSelectExamples.scss';
 
-export default class TreeSelectExamples extends Component {
+class TreeSelectExamples extends Component {
 
     constructor(props) {
 
@@ -47,13 +47,11 @@ export default class TreeSelectExamples extends Component {
             }]
         };
 
-        this.changeHandler = this::this.changeHandler;
-
     }
 
-    changeHandler(value) {
+    changeHandler = value => {
         console.log(value);
-    }
+    };
 
     render() {
         return (
@@ -121,3 +119,5 @@ export default class TreeSelectExamples extends Component {
         );
     }
 };
+
+export default TreeSelectExamples;

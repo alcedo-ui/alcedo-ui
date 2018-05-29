@@ -28,27 +28,18 @@ class MaterialAutoCompleteFilter extends Component {
             isHover: false
         };
 
-        this.triggerFocusHandler = ::this.triggerFocusHandler;
-        this.triggerBlurHandler = ::this.triggerBlurHandler;
-        this.popupClosedHandler = ::this.popupClosedHandler;
-        this.triggerFilterChangeHandler = ::this.triggerFilterChangeHandler;
-        this.triggerChangeHandler = ::this.triggerChangeHandler;
-        this.triggerMouseOverHandler = ::this.triggerMouseOverHandler;
-        this.triggerMouseOutHandler = ::this.triggerMouseOutHandler;
-        this.closePopup = ::this.closePopup;
-
     }
 
-    triggerFocusHandler(...args) {
+    triggerFocusHandler = (...args) => {
         this.setState({
             isFocus: true
         }, () => {
             const {onFocus} = this.props;
             onFocus && onFocus(...args);
         });
-    }
+    };
 
-    triggerBlurHandler(...args) {
+    triggerBlurHandler = (...args) => {
 
         if (this.state.filter === '') {
             this.setState({
@@ -59,52 +50,58 @@ class MaterialAutoCompleteFilter extends Component {
         const {onBlur} = this.props;
         onBlur && onBlur(...args);
 
-    }
+    };
 
-    popupClosedHandler() {
+    popupClosedHandler = () => {
         this.setState({
             isFocus: false
         });
-    }
+    };
 
-    triggerFilterChangeHandler(filter) {
+    triggerFilterChangeHandler = filter => {
         this.setState({
             filter
         }, () => {
             const {onFilterChange} = this.props;
             onFilterChange && onFilterChange(filter);
         });
-    }
+    };
 
-    triggerChangeHandler(value) {
+    triggerChangeHandler = value => {
         this.setState({
             value
         }, () => {
             const {onChange} = this.props;
             onChange && onChange(value);
         });
-    }
+    };
 
-    triggerMouseOverHandler(...args) {
+    triggerMouseOverHandler = (...args) => {
         this.setState({
             isHover: true
         }, () => {
             const {onMouseOver} = this.props;
             onMouseOver && onMouseOver(...args);
         });
-    }
+    };
 
-    triggerMouseOutHandler(...args) {
+    triggerMouseOutHandler = (...args) => {
         this.setState({
             isHover: false
         }, () => {
             const {onMouseOut} = this.props;
             onMouseOut && onMouseOut(...args);
         });
-    }
+    };
 
-    closePopup() {
+    closePopup = () => {
         this.refs.localAutoComplete && this.refs.localAutoComplete.closePopup();
+    };
+
+    componentDidMount() {
+        this.setState({
+            value: this.props.value
+        });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -113,12 +110,6 @@ class MaterialAutoCompleteFilter extends Component {
                 value: nextProps.value
             });
         }
-    }
-
-    componentDidMount() {
-        this.setState({
-            value: this.props.value
-        });
     }
 
     render() {
@@ -282,7 +273,7 @@ MaterialAutoCompleteFilter.propTypes = {
             /**
              * Callback function fired when a list item touch-tapped.
              */
-            onTouchTap: PropTypes.func
+            onClick: PropTypes.func
 
         }), PropTypes.string, PropTypes.number])),
 

@@ -35,16 +35,9 @@ class DraggableTree extends Component {
             isNodeToggling: false
         };
 
-        this.treeNodeSelectHandler = ::this.treeNodeSelectHandler;
-        this.treeNodeDeselectHandler = ::this.treeNodeDeselectHandler;
-        this.nodeToggleStartHandler = ::this.nodeToggleStartHandler;
-        this.nodeToggleEndHandler = ::this.nodeToggleEndHandler;
-        this.onNodeDragStart = ::this.onNodeDragStart;
-        this.onNodeDragEnd = ::this.onNodeDragEnd;
-
     }
 
-    treeNodeSelectHandler(nodeData, path, e) {
+    treeNodeSelectHandler = (nodeData, path, e) => {
 
         const {selectMode} = this.props;
 
@@ -70,9 +63,9 @@ class DraggableTree extends Component {
             onChange && onChange(value, e);
         });
 
-    }
+    };
 
-    treeNodeDeselectHandler(nodeData, path, e) {
+    treeNodeDeselectHandler = (nodeData, path, e) => {
 
         const {selectMode} = this.props;
 
@@ -100,9 +93,9 @@ class DraggableTree extends Component {
             onChange && onChange(value, e);
         });
 
-    }
+    };
 
-    nodeToggleStartHandler() {
+    nodeToggleStartHandler = () => {
 
         const {beforeNodeToggle} = this.props;
 
@@ -114,20 +107,20 @@ class DraggableTree extends Component {
             isNodeToggling: true
         });
 
-    }
+    };
 
-    nodeToggleEndHandler() {
+    nodeToggleEndHandler = () => {
         this.setState({
             isNodeToggling: false
         });
-    }
+    };
 
-    onNodeDragStart(initial) {
+    onNodeDragStart = initial => {
         const {onNodeDragStart} = this.props;
         onNodeDragStart && onNodeDragStart(initial);
-    }
+    };
 
-    onNodeDragEnd(result) {
+    onNodeDragEnd = result => {
 
         /**
          *  result: {
@@ -172,7 +165,7 @@ class DraggableTree extends Component {
 
         });
 
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
 
@@ -233,7 +226,7 @@ class DraggableTree extends Component {
                                        collapsedIconCls={collapsedIconCls}
                                        expandedIconCls={expandedIconCls}
                                        isNodeToggling={isNodeToggling}
-                                       onTouchTap={(...args) => {
+                                       onClick={(...args) => {
                                            onNodeTouchTap && onNodeTouchTap(...args);
                                        }}
                                        onNodeToggleStart={this.nodeToggleStartHandler}
@@ -352,7 +345,7 @@ DraggableTree.propTypes = {
         /**
          * Callback function fired when a tree node touch-tapped.
          */
-        onTouchTap: PropTypes.func
+        onClick: PropTypes.func
 
     }),
 

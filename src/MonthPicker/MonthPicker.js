@@ -33,22 +33,15 @@ class MonthPicker extends Component {
             datePickerLevel: 'month'
         };
 
-        this.textFieldChangeHandle = ::this.textFieldChangeHandle;
-        this.togglePopup = ::this.togglePopup;
-        this.closePopup = ::this.closePopup;
-        this.datePickerChangeHandle = ::this.datePickerChangeHandle;
-        this.yearPickerChangeHandle = ::this.yearPickerChangeHandle;
-        this.monthPickerChangeHandle = ::this.monthPickerChangeHandle;
-
     }
 
-    datePickerChangeHandle(selectLevel) {
+    datePickerChangeHandle = selectLevel => {
         this.setState({
             datePickerLevel: selectLevel
         });
-    }
+    };
 
-    textFieldChangeHandle(text) {
+    textFieldChangeHandle = text => {
         const {minValue, maxValue, dateFormat} = this.props;
         if (text && text.length) {
             const flag = moment(text, this.props.dateFormat, true).isValid();
@@ -72,9 +65,9 @@ class MonthPicker extends Component {
                 value: ''
             });
         }
-    }
+    };
 
-    monthPickerChangeHandle(date) {
+    monthPickerChangeHandle = date => {
         const {dateFormat, autoClose} = this.props;
         let state = cloneDeep(this.state);
         state.popupVisible = !autoClose;
@@ -88,43 +81,32 @@ class MonthPicker extends Component {
                 this.props.onChange && this.props.onChange(state.value && moment(state.value).format(dateFormat));
             });
         }
-    }
+    };
 
-    yearPickerChangeHandle(year) {
+    yearPickerChangeHandle = year => {
         this.setState({
             datePickerLevel: 'month',
             year: year
         });
-    }
+    };
 
-    togglePopup(e) {
+    togglePopup = e => {
         if (this.validValue) {
             this.setState({
                 popupVisible: !this.state.popupVisible,
                 triggerEl: e.target
             });
         }
-    }
+    };
 
-    closePopup() {
+    closePopup = () => {
         const {value} = this.state;
         !this.props.disabled && this.setState({
             popupVisible: false
         }, () => {
             this.props.onChange && this.props.onChange(value && moment(value).format(this.props.dateFormat));
         });
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.props.value || nextProps.dateFormat !== this.props.dateFormat) {
-            this.setState({
-                value: moment(nextProps.value, nextProps.dateFormat),
-                dateFormat: nextProps.dateFormat,
-                year: moment(nextProps.value).format('YYYY'),
-                month: moment(nextProps.value).format('MM')
-            });
-        }
-    }
+    };
 
     componentDidMount() {
         // debugger
@@ -142,6 +124,17 @@ class MonthPicker extends Component {
                 console.error('Invalid date');
                 this.validValue = false;
             }
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.value !== this.props.value || nextProps.dateFormat !== this.props.dateFormat) {
+            this.setState({
+                value: moment(nextProps.value, nextProps.dateFormat),
+                dateFormat: nextProps.dateFormat,
+                year: moment(nextProps.value).format('YYYY'),
+                month: moment(nextProps.value).format('MM')
+            });
         }
     }
 
@@ -167,7 +160,7 @@ class MonthPicker extends Component {
                            readOnly={true}
                            clearButtonVisible={false}
                            isFocusedSelectAll={false}
-                           onTouchTap={e => {
+                           onClick={e => {
                                this.togglePopup(e);
                            }}/>
 

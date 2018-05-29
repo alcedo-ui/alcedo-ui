@@ -16,6 +16,7 @@ import FieldType from '../_statics/FieldType';
 
 import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class TextField extends Component {
 
@@ -34,29 +35,17 @@ class TextField extends Component {
             invalidMsgs: ''
         };
 
-        this.focus = ::this.focus;
-        this.blur = ::this.blur;
-        this.changeHandler = ::this.changeHandler;
-        this.keyDownHandler = ::this.keyDownHandler;
-        this.clearValue = ::this.clearValue;
-        this.togglePasswordVisible = ::this.togglePasswordVisible;
-        this.mouseOverHandler = ::this.mouseOverHandler;
-        this.mouseOutHandler = ::this.mouseOutHandler;
-        this.focusHandler = ::this.focusHandler;
-        this.blurHandler = ::this.blurHandler;
-        this.rightIconTouchTapHandler = ::this.rightIconTouchTapHandler;
-
     }
 
-    focus() {
+    focus = () => {
         this.refs.input.focus();
-    }
+    };
 
-    blur() {
+    blur = () => {
         this.refs.input.blur();
-    }
+    };
 
-    changeHandler(e) {
+    changeHandler = e => {
 
         const {onValid, onInvalid} = this.props,
 
@@ -71,9 +60,9 @@ class TextField extends Component {
             invalidMsgs && invalidMsgs.length > 0 ? onInvalid && onInvalid() : onValid && onValid();
         });
 
-    }
+    };
 
-    keyDownHandler(e) {
+    keyDownHandler = e => {
 
         const {onKeyDown} = this.props,
             {value} = this.state;
@@ -84,9 +73,9 @@ class TextField extends Component {
             onPressEnter && onPressEnter(e, value);
         }
 
-    }
+    };
 
-    clearValue() {
+    clearValue = () => {
 
         const {disabled, clearButtonVisible, onClear, onChange, onValid, onInvalid} = this.props,
             invalidMsgs = Valid.fieldValid('', this.props);
@@ -104,9 +93,9 @@ class TextField extends Component {
 
         });
 
-    }
+    };
 
-    togglePasswordVisible() {
+    togglePasswordVisible = () => {
 
         const {disabled, passwordButtonVisible, onPasswordVisible, onPasswordInvisible} = this.props,
             passwordVisible = !this.state.passwordVisible;
@@ -123,9 +112,9 @@ class TextField extends Component {
 
         });
 
-    }
+    };
 
-    mouseOverHandler(e) {
+    mouseOverHandler = e => {
         this.setState({
             infoVisible: true,
             errorVisible: true
@@ -134,9 +123,9 @@ class TextField extends Component {
                 {value} = this.state;
             onMouseOver && onMouseOver(e, value);
         });
-    }
+    };
 
-    mouseOutHandler(e) {
+    mouseOutHandler = e => {
         this.setState({
             infoVisible: false,
             errorVisible: false
@@ -145,9 +134,9 @@ class TextField extends Component {
                 {value} = this.state;
             onMouseOut && onMouseOut(e, value);
         });
-    }
+    };
 
-    focusHandler(e) {
+    focusHandler = e => {
         this.setState({
             isFocused: true
         }, () => {
@@ -160,9 +149,9 @@ class TextField extends Component {
             isFocusedSelectAll && this.refs.input.setSelectionRange(0, value ? value.length : 0);
 
         });
-    }
+    };
 
-    blurHandler(e) {
+    blurHandler = e => {
 
         if (this.clearButtonEl && e.relatedTarget && e.relatedTarget == this.clearButtonEl) {
             return;
@@ -176,13 +165,13 @@ class TextField extends Component {
             onBlur && onBlur(e, value);
         });
 
-    }
+    };
 
-    rightIconTouchTapHandler(e) {
+    rightIconTouchTapHandler = e => {
         const {onRightIconTouchTap} = this.props,
             {value} = this.state;
         onRightIconTouchTap && onRightIconTouchTap(e, value);
-    }
+    };
 
     componentDidMount() {
 
@@ -195,13 +184,11 @@ class TextField extends Component {
 
     }
 
-    static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.value !== prevState.value) {
-            return {
-                value: nextProps.value
-            };
-        }
-        return null;
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
     }
 
     render() {
@@ -268,13 +255,13 @@ class TextField extends Component {
                         <IconButton className={leftIconClassName}
                                     iconCls={iconCls}
                                     disableTouchRipple={!onIconTouchTap}
-                                    onTouchTap={onIconTouchTap}/>
+                                    onClick={onIconTouchTap}/>
                         :
                         null
                 }
 
                 {
-                    placeholder && empty ?
+                    placeholder && !isFocused ?
                         <input className={fieldPlaceholderClassName}
                                value={placeholder}
                                disabled={true}/>
@@ -300,7 +287,7 @@ class TextField extends Component {
                         <IconButton ref="clearButton"
                                     className={clearButtonClassName}
                                     iconCls="fas fa-times-circle"
-                                    onTouchTap={this.clearValue}/>
+                                    onClick={this.clearValue}/>
                         :
                         null
                 }
@@ -309,7 +296,7 @@ class TextField extends Component {
                     isPassword && passwordButtonVisible ?
                         <IconButton className="password-visible-icon"
                                     iconCls={passwordVisible ? 'fas fa-eye' : 'far fa-eye-slash'}
-                                    onTouchTap={this.togglePasswordVisible}/>
+                                    onClick={this.togglePasswordVisible}/>
                         :
                         null
                 }
@@ -319,7 +306,7 @@ class TextField extends Component {
                         <IconButton className={rightIconClassName}
                                     rightIconCls={rightIconCls}
                                     disableTouchRipple={!onRightIconTouchTap}
-                                    onTouchTap={this.rightIconTouchTapHandler}/>
+                                    onClick={this.rightIconTouchTapHandler}/>
                         :
                         null
                 }

@@ -17,17 +17,15 @@ class TextAreaExamples extends Component {
             value: {}
         };
 
-        this.changeHandler = ::this.changeHandler;
-
     }
 
-    changeHandler(v, index) {
+    changeHandler = (v, index) => {
         const {value} = this.state;
         value[index] = v;
         this.setState({
             value
         });
-    }
+    };
 
     render() {
 

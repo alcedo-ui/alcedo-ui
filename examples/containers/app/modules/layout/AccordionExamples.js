@@ -10,7 +10,7 @@ import doc from 'assets/propTypes/Accordion.json';
 
 import 'sass/containers/app/modules/layout/AccordionExamples.scss';
 
-export default class AccordionExamples extends Component {
+class AccordionExamples extends Component {
 
     constructor(props) {
         super(props);
@@ -95,3 +95,5 @@ export default class AccordionExamples extends Component {
         );
     }
 };
+
+export default AccordionExamples;

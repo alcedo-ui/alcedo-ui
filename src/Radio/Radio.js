@@ -27,13 +27,9 @@ class Radio extends Component {
             checked: !!props.checked
         };
 
-        this.touchTapHandler = ::this.touchTapHandler;
-        this.mouseDownHandler = ::this.mouseDownHandler;
-        this.mouseUpHandler = ::this.mouseUpHandler;
-
     }
 
-    touchTapHandler() {
+    touchTapHandler = () => {
 
         let {checked} = this.state;
 
@@ -52,9 +48,9 @@ class Radio extends Component {
 
         });
 
-    }
+    };
 
-    mouseDownHandler(e) {
+    mouseDownHandler = e => {
 
         if (this.props.disabled) {
             return;
@@ -63,9 +59,9 @@ class Radio extends Component {
         this.refs.radioIcon.startRipple(e);
         this.touchTapHandler();
 
-    }
+    };
 
-    mouseUpHandler(e) {
+    mouseUpHandler = e => {
 
         if (this.props.disabled) {
             return;
@@ -73,7 +69,7 @@ class Radio extends Component {
 
         this.refs.radioIcon.endRipple(e);
 
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.checked !== this.state.checked) {
@@ -122,12 +118,12 @@ class Radio extends Component {
                         <IconButton ref="radioIcon"
                                     className="radio-bg-icon"
                                     iconCls={uncheckedIconCls}
-                                    onTouchTap={this.touchTapHandler}
+                                    onClick={this.touchTapHandler}
                                     disabled={disabled}
                                     disableTouchRipple={disableTouchRipple}/>
                         <IconButton className="radio-icon"
                                     iconCls={checkedIconCls}
-                                    onTouchTap={this.touchTapHandler}
+                                    onClick={this.touchTapHandler}
                                     disabled={disabled}
                                     disableTouchRipple={disableTouchRipple}/>
                     </div>

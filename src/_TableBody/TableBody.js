@@ -17,14 +17,10 @@ class TableBody extends Component {
     static SelectMode = SelectMode;
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.isItemChecked = ::this.isItemChecked;
-
     }
 
-    isItemChecked(rowData) {
+    isItemChecked = rowData => {
 
         const {selectMode, idProp, value} = this.props;
 
@@ -39,7 +35,7 @@ class TableBody extends Component {
                 return value[idProp] === rowData[idProp];
         }
 
-    }
+    };
 
     render() {
 

@@ -15,8 +15,11 @@ import Util from '../_vendors/Util';
 import Dom from '../_vendors/Dom';
 import CharSize from '../_vendors/CharSize';
 import Event from '../_vendors/Event';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class TagField extends Component {
+
+    static DEFAULT_SEPARATORS = [','];
 
     constructor(props, ...restArgs) {
 
@@ -32,20 +35,24 @@ class TagField extends Component {
             editingItemIndex: -1
         };
 
-        this.removeItem = ::this.removeItem;
-        this.calInputIndex = ::this.calInputIndex;
-        this.mouseDownHandler = ::this.mouseDownHandler;
-        this.inputChangeHandler = ::this.inputChangeHandler;
-        this.inputKeyDownHandler = ::this.inputKeyDownHandler;
-        this.insertInputValue = ::this.insertInputValue;
-        this.itemChangeHandler = ::this.itemChangeHandler;
-        this.itemEditStartHandler = ::this.itemEditStartHandler;
-        this.itemEditEndHandler = ::this.itemEditEndHandler;
-        this.clearHandler = ::this.clearHandler;
-
     }
 
-    removeItem(index) {
+    getSeparators = (separators = this.props.separators) => {
+
+        if (separators && separators.length > 0) {
+            return separators;
+        }
+
+        return DEFAULT_SEPARATORS;
+
+    };
+
+    generateSeparatorReg = (separators = this.props.separators) => {
+        const seps = this.getSeparators(separators);
+        return new RegExp(`\\s*${seps.map(sep => `\\${sep}`).join('|')}\\s*`, 'g');
+    };
+
+    removeItem = index => {
 
         const {data} = this.state;
 
@@ -62,9 +69,9 @@ class TagField extends Component {
             onChange && onChange(data);
         });
 
-    }
+    };
 
-    calInputIndex(e) {
+    calInputIndex = e => {
 
         const wrapperEl = this.refs.wrapper,
             offset = Dom.getOffset(wrapperEl),
@@ -108,9 +115,9 @@ class TagField extends Component {
 
         return inputIndex < 0 ? this.state.data.length : inputIndex;
 
-    }
+    };
 
-    mouseDownHandler(e) {
+    mouseDownHandler = e => {
 
         if (this.props.disabled || Dom.findParentByClassName(e.target, 'tag-field-item-wrapper')
             || Dom.hasClass(e.target, 'tag-field-input')) {
@@ -164,15 +171,16 @@ class TagField extends Component {
             callback();
         }
 
-    }
+    };
 
-    inputChangeHandler(e) {
+    inputChangeHandler = e => {
 
         if (this.props.disabled) {
             return;
         }
 
-        const inputValue = e.target.value;
+        const value = trim(e.target.value),
+            inputValue = value ? value.replace(/\r?\n/gm, this.getSeparators()[0]) : value;
 
         this.setState({
             inputValue
@@ -186,9 +194,9 @@ class TagField extends Component {
 
         });
 
-    }
+    };
 
-    inputKeyDownHandler(e) {
+    inputKeyDownHandler = e => {
 
         if (this.props.disabled) {
             return;
@@ -198,22 +206,21 @@ class TagField extends Component {
             this.insertInputValue();
         }
 
-    }
+    };
 
-    insertInputValue(callback) {
+    insertInputValue = callback => {
 
         if (this.props.disabled) {
             return;
         }
 
-        const {separator} = this.props,
-            {data, inputValue, inputIndex} = this.state;
+        const {data, inputValue, inputIndex} = this.state;
 
         if (!inputValue) {
             return;
         }
 
-        const splitedValue = trim(inputValue).split(separator).filter(item => !!item);
+        const splitedValue = trim(inputValue).split(this.generateSeparatorReg()).filter(item => !!item);
 
         data.splice(inputIndex, 0, ...splitedValue);
 
@@ -232,19 +239,18 @@ class TagField extends Component {
 
         });
 
-    }
+    };
 
-    itemChangeHandler(value, index) {
+    itemChangeHandler = (value, index) => {
 
         if (this.props.disabled) {
             return;
         }
 
-        const {separator} = this.props,
-            {data} = this.state;
+        const {data} = this.state;
 
         if (value) {
-            const splitedValue = value.split(separator).filter(item => item);
+            const splitedValue = value.split(this.generateSeparatorReg()).filter(item => item);
             data.splice(index, 1, ...splitedValue);
         } else {
             data.splice(index, 1);
@@ -257,9 +263,9 @@ class TagField extends Component {
             onChange && onChange(data);
         });
 
-    }
+    };
 
-    itemEditStartHandler(editingItemIndex) {
+    itemEditStartHandler = editingItemIndex => {
 
         if (this.props.disabled) {
             return;
@@ -270,9 +276,9 @@ class TagField extends Component {
             editingItemIndex
         });
 
-    }
+    };
 
-    itemEditEndHandler() {
+    itemEditEndHandler = () => {
 
         if (this.props.disabled) {
             return;
@@ -282,9 +288,9 @@ class TagField extends Component {
             itemEditing: false
         });
 
-    }
+    };
 
-    clearHandler() {
+    clearHandler = () => {
 
         this.setState({
             data: [],
@@ -301,32 +307,18 @@ class TagField extends Component {
 
         });
 
-    }
+    };
 
     componentDidMount() {
         Event.addEvent(document, 'mousedown', this.mouseDownHandler);
     }
 
-    componentWillReceiveProps(nextProps) {
-
-        let state;
-
-        if (nextProps.data !== this.state.data) {
-            if (!state) {
-                state = {};
-            }
-            state.data = nextProps.data;
-        }
-
-        if (nextProps.inputValue !== this.state.inputValue) {
-            if (!state) {
-                state = {};
-            }
-            state.inputValue = nextProps.inputValue;
-        }
-
-        this.setState(state);
-
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            data: ComponentUtil.getDerivedState(props, state, 'data'),
+            inputValue: ComponentUtil.getDerivedState(props, state, 'inputValue')
+        };
     }
 
     componentWillUnmount() {
@@ -363,13 +355,13 @@ class TagField extends Component {
                             <div key="input"
                                  ref="inputWrapper"
                                  className="tag-field-input-wrapper">
-                                <input ref="input"
-                                       className="tag-field-input"
-                                       autoFocus="true"
-                                       value={inputValue}
-                                       placeholder={data.length < 1 && placeholder ? placeholder : ''}
-                                       onChange={this.inputChangeHandler}
-                                       onKeyDown={this.inputKeyDownHandler}/>
+                                <textarea ref="input"
+                                          className="tag-field-input"
+                                          autoFocus="true"
+                                          value={inputValue}
+                                          placeholder={data.length < 1 && placeholder ? placeholder : ''}
+                                          onChange={this.inputChangeHandler}
+                                          onKeyDown={this.inputKeyDownHandler}/>
                             </div>
                             :
                             null
@@ -388,7 +380,7 @@ class TagField extends Component {
                                 <IconButton className="tag-field-item-field-delete-button"
                                             iconCls="fas fa-times"
                                             disabled={disabled || (itemEditing && index !== editingItemIndex)}
-                                            onTouchTap={() => this.removeItem(index)}/>
+                                            onClick={() => this.removeItem(index)}/>
 
                             </EditableField>
                         </span>
@@ -399,7 +391,7 @@ class TagField extends Component {
                     clearButtonVisible ?
                         <IconButton className="tag-field-clear-button"
                                     iconCls="fas fa-trash-alt"
-                                    onTouchTap={this.clearHandler}/>
+                                    onClick={this.clearHandler}/>
                         :
                         null
                 }
@@ -429,7 +421,7 @@ TagField.propTypes = {
     inputValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     valueField: PropTypes.string,
     displayField: PropTypes.string,
-    separator: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+    separators: PropTypes.array,
 
     disabled: PropTypes.bool,
     placeholder: PropTypes.string,
@@ -454,7 +446,7 @@ TagField.defaultProps = {
 
     valueField: 'value',
     displayField: 'text',
-    separator: /\s*,\s*/,
+    separators: TagField.DEFAULT_SEPARATORS,
 
     disabled: false,
 

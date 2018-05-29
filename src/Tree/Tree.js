@@ -32,14 +32,9 @@ class Tree extends Component {
             isNodeToggling: false
         };
 
-        this.treeNodeSelectHandler = ::this.treeNodeSelectHandler;
-        this.treeNodeDeselectHandler = ::this.treeNodeDeselectHandler;
-        this.nodeToggleStartHandler = ::this.nodeToggleStartHandler;
-        this.nodeToggleEndHandler = ::this.nodeToggleEndHandler;
-
     }
 
-    treeNodeSelectHandler(nodeData, path, e) {
+    treeNodeSelectHandler = (nodeData, path, e) => {
 
         const {selectMode} = this.props;
 
@@ -65,9 +60,9 @@ class Tree extends Component {
             onChange && onChange(value, e);
         });
 
-    }
+    };
 
-    treeNodeDeselectHandler(nodeData, path, e) {
+    treeNodeDeselectHandler = (nodeData, path, e) => {
 
         const {selectMode} = this.props;
 
@@ -95,9 +90,9 @@ class Tree extends Component {
             onChange && onChange(value, e);
         });
 
-    }
+    };
 
-    nodeToggleStartHandler() {
+    nodeToggleStartHandler = () => {
 
         const {beforeNodeToggle} = this.props;
 
@@ -109,13 +104,13 @@ class Tree extends Component {
             isNodeToggling: true
         });
 
-    }
+    };
 
-    nodeToggleEndHandler() {
+    nodeToggleEndHandler = () => {
         this.setState({
             isNodeToggling: false
         });
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
@@ -162,7 +157,7 @@ class Tree extends Component {
                           collapsedIconCls={collapsedIconCls}
                           expandedIconCls={expandedIconCls}
                           isNodeToggling={isNodeToggling}
-                          onTouchTap={(...args) => {
+                          onClick={(...args) => {
                               onNodeTouchTap && onNodeTouchTap(...args);
                           }}
                           onNodeToggleStart={this.nodeToggleStartHandler}
@@ -279,7 +274,7 @@ Tree.propTypes = {
         /**
          * Callback function fired when a tree node touch-tapped.
          */
-        onTouchTap: PropTypes.func
+        onClick: PropTypes.func
 
     }),
 

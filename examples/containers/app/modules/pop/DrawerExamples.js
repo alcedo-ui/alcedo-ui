@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {findDOMNode} from 'react-dom';
 
 import RaisedButton from 'src/RaisedButton';
 import Drawer from 'src/Drawer';
@@ -13,7 +12,7 @@ import doc from 'assets/propTypes/Drawer.json';
 import 'sass/containers/app/modules/pop/PopExamples.scss';
 import 'sass/containers/app/modules/pop/DrawerExamples.scss';
 
-export default class DrawerExamples extends Component {
+class DrawerExamples extends Component {
 
     constructor(props) {
 
@@ -37,13 +36,9 @@ export default class DrawerExamples extends Component {
             popupVisible: {}
         };
 
-        this.toggleDrawer = ::this.toggleDrawer;
-        this.openDrawer = ::this.openDrawer;
-        this.closeDrawer = ::this.closeDrawer;
-
     }
 
-    toggleDrawer(id) {
+    toggleDrawer = id => {
 
         const {popupVisible} = this.state;
 
@@ -53,9 +48,9 @@ export default class DrawerExamples extends Component {
             popupVisible
         });
 
-    }
+    };
 
-    openDrawer(id) {
+    openDrawer = id => {
 
         const {popupVisible} = this.state;
 
@@ -65,9 +60,9 @@ export default class DrawerExamples extends Component {
             popupVisible
         });
 
-    }
+    };
 
-    closeDrawer(id) {
+    closeDrawer = id => {
 
         const {popupVisible} = this.state;
 
@@ -77,7 +72,7 @@ export default class DrawerExamples extends Component {
             popupVisible
         });
 
-    }
+    };
 
     render() {
 
@@ -114,7 +109,7 @@ export default class DrawerExamples extends Component {
                                     <div className="button-group top">
                                         <RaisedButton className="trigger-position-button"
                                                       value="Top"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.toggleDrawer(0);
                                                       }}/>
                                     </div>
@@ -122,7 +117,7 @@ export default class DrawerExamples extends Component {
                                     <div className="button-group right">
                                         <RaisedButton className="trigger-position-button"
                                                       value="Right"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.toggleDrawer(1);
                                                       }}/>
                                     </div>
@@ -130,7 +125,7 @@ export default class DrawerExamples extends Component {
                                     <div className="button-group bottom">
                                         <RaisedButton className="trigger-position-button"
                                                       value="Bottom"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.toggleDrawer(2);
                                                       }}/>
                                     </div>
@@ -138,7 +133,7 @@ export default class DrawerExamples extends Component {
                                     <div className="button-group left">
                                         <RaisedButton className="trigger-position-button"
                                                       value="Left"
-                                                      onTouchTap={() => {
+                                                      onClick={() => {
                                                           this.toggleDrawer(3);
                                                       }}/>
                                     </div>
@@ -189,3 +184,5 @@ export default class DrawerExamples extends Component {
         );
     }
 };
+
+export default DrawerExamples;

@@ -10,18 +10,14 @@ import classNames from 'classnames';
 class ArrowStepItem extends Component {
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.touchTapHandler = ::this.touchTapHandler;
-
     }
 
-    touchTapHandler(e) {
+    touchTapHandler = e => {
         e.preventDefault();
-        const {isActivatedStep, isFinishedStep, index, onTouchTap} = this.props;
-        !isActivatedStep && isFinishedStep && onTouchTap && onTouchTap(index, e);
-    }
+        const {isActivatedStep, isFinishedStep, index, onClick} = this.props;
+        !isActivatedStep && isFinishedStep && onClick && onClick(index, e);
+    };
 
     render() {
 
@@ -42,7 +38,7 @@ class ArrowStepItem extends Component {
         return (
             <div className={itemClassName}
                  style={style}
-                 onTouchTap={this.touchTapHandler}>
+                 onClick={this.touchTapHandler}>
 
                 <div className="arrow-step-item-content">
                     <div className="number">
@@ -91,7 +87,7 @@ ArrowStepItem.propTypes = {
     isFirst: PropTypes.bool,
     isLast: PropTypes.bool,
 
-    onTouchTap: PropTypes.func
+    onClick: PropTypes.func
 
 };
 

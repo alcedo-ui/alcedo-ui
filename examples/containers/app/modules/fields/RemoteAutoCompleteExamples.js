@@ -23,15 +23,12 @@ class RemoteAutoCompleteExamples extends Component {
             loading: false
         };
 
-        this.onChange = ::this.onChange;
-        this.onBlur = ::this.onBlur;
-
     }
 
     /**
      * 若input输入时，长度大于searchLength，则进行获取数据操作，并修改chooseData，否则置空。
      */
-    onChange(text, search) {
+    onChange = (text, search) => {
         if (this.timing) {
             clearTimeout(this.timing);
         }
@@ -61,16 +58,17 @@ class RemoteAutoCompleteExamples extends Component {
                 text: text
             });
         }
-    }
+    };
 
-    onBlur(text) {
+    onBlur = text => {
         this.setState({
             chooseData: [],
             text
         });
-    }
+    };
 
     render() {
+
         const {chooseData, text, loading} = this.state;
 
         return (

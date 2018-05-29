@@ -25,24 +25,21 @@ class TipProvider extends Component {
             tipVisible: false
         };
 
-        this.showTip = ::this.showTip;
-        this.hideTip = ::this.hideTip;
-
     }
 
-    showTip() {
+    showTip = () => {
         if (!this.state.tipVisible) {
             this.setState({
                 tipVisible: true
             });
         }
-    }
+    };
 
-    hideTip() {
+    hideTip = () => {
         this.setState({
             tipVisible: false
         });
-    }
+    };
 
     componentDidMount() {
         this.refs.trigger && (this.triggerEl = findDOMNode(this.refs.trigger));

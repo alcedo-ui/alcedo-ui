@@ -28,6 +28,7 @@ class MaterialDatePicker extends Component {
 
         this.validValue = true;
         const defaultValue = props.value ? props.value : moment().format('YYYY-MM-DD');
+
         this.state = {
             value: props.value,
             popupVisible: false,
@@ -38,24 +39,15 @@ class MaterialDatePicker extends Component {
             marginLeft: 0
         };
 
-        this.textFieldChangeHandle = ::this.textFieldChangeHandle;
-        this.togglePopup = ::this.togglePopup;
-        this.closePopup = ::this.closePopup;
-        this.datePickerChangeHandle = ::this.datePickerChangeHandle;
-        this.yearPickerChangeHandle = ::this.yearPickerChangeHandle;
-        this.monthPickerChangeHandle = ::this.monthPickerChangeHandle;
-        this.dayPickerChangeHandle = ::this.dayPickerChangeHandle;
-        this.todayHandle = ::this.todayHandle;
-
     }
 
-    datePickerChangeHandle(selectLevel) {
+    datePickerChangeHandle = selectLevel => {
         this.setState({
             datePickerLevel: selectLevel
         });
-    }
+    };
 
-    textFieldChangeHandle(text) {
+    textFieldChangeHandle = text => {
         const {minValue, maxValue, dateFormat} = this.props;
         if (text && text.length) {
             const flag = moment(text, this.props.dateFormat, true).isValid();
@@ -81,9 +73,9 @@ class MaterialDatePicker extends Component {
                 value: ''
             });
         }
-    }
+    };
 
-    dayPickerChangeHandle(date) {
+    dayPickerChangeHandle = date => {
         const {autoClose, dateFormat} = this.props;
         let state = cloneDeep(this.state);
         state.value = moment(date.time, dateFormat);
@@ -98,24 +90,24 @@ class MaterialDatePicker extends Component {
                 this.props.onChange && this.props.onChange(moment(date.time).format(dateFormat));
             });
         }
-    }
+    };
 
-    monthPickerChangeHandle(date) {
+    monthPickerChangeHandle = date => {
         this.setState({
             datePickerLevel: 'day',
             year: date.year,
             month: date.month
         });
-    }
+    };
 
-    yearPickerChangeHandle(year) {
+    yearPickerChangeHandle = year => {
         this.setState({
             datePickerLevel: 'month',
             year: year
         });
-    }
+    };
 
-    todayHandle() {
+    todayHandle = () => {
         const {dateFormat} = this.props;
         const year = moment().format('YYYY'),
             month = moment().format('MM'),
@@ -127,37 +119,25 @@ class MaterialDatePicker extends Component {
             month: month,
             day: day
         });
-    }
+    };
 
-    togglePopup(e) {
+    togglePopup = e => {
         if (this.validValue) {
             this.setState({
                 popupVisible: !this.state.popupVisible,
                 triggerEl: e.target
             });
         }
-    }
+    };
 
-    closePopup() {
+    closePopup = () => {
         const {value} = this.state;
         !this.props.disabled && this.setState({
             popupVisible: false
         }, () => {
             this.props.onChange && this.props.onChange(value && moment(value).format(this.props.dateFormat));
         });
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.props.value || nextProps.dateFormat !== this.props.dateFormat) {
-            this.setState({
-                value: moment(nextProps.value, nextProps.dateFormat),
-                dateFormat: nextProps.dateFormat,
-                year: moment(nextProps.value).format('YYYY'),
-                month: moment(nextProps.value).format('MM'),
-                day: moment(nextProps.value).format('DD')
-            });
-        }
-    }
+    };
 
     componentDidMount() {
         // debugger
@@ -177,6 +157,18 @@ class MaterialDatePicker extends Component {
                 this.validValue = false;
                 console.error('Invalid date');
             }
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.value !== this.props.value || nextProps.dateFormat !== this.props.dateFormat) {
+            this.setState({
+                value: moment(nextProps.value, nextProps.dateFormat),
+                dateFormat: nextProps.dateFormat,
+                year: moment(nextProps.value).format('YYYY'),
+                month: moment(nextProps.value).format('MM'),
+                day: moment(nextProps.value).format('DD')
+            });
         }
     }
 
@@ -209,7 +201,7 @@ class MaterialDatePicker extends Component {
                                      label={label}
                                      isLabelAnimate={isLabelAnimate}
                                      onChange={this.textFieldChangeHandle}
-                                     onTouchTap={e => {
+                                     onClick={e => {
                                          this.togglePopup(e);
                                      }}/>
 

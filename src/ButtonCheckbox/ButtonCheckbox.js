@@ -24,18 +24,16 @@ class ButtonCheckbox extends Component {
             value: !!props.value
         };
 
-        this.touchTapHandler = ::this.touchTapHandler;
-
     }
 
-    touchTapHandler() {
+    touchTapHandler = () => {
         const value = !this.state.value;
         this.setState({
             value
         }, () => {
             !this.props.disabled && this.props.onChange && this.props.onChange(value);
         });
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
@@ -62,7 +60,7 @@ class ButtonCheckbox extends Component {
                           disabled={disabled}
                           isRounded={true}
                           theme={value ? activatedTheme : theme}
-                          onTouchTap={this.touchTapHandler}/>
+                          onClick={this.touchTapHandler}/>
         );
 
     }
