@@ -16,6 +16,5 @@ Thumbs.db
 package-lock.json
 
 # Distribution
-/docs
 /dist
 /examples/assets/propTypes
