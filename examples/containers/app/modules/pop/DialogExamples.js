@@ -84,21 +84,17 @@ class DialogExamples extends Component {
                                 <RaisedButton className="trigger-button"
                                               value="Toggle Dialog"
                                               style={{width: '120px'}}
-                                              onClick={() => {
-                                                  this.openDialog(1);
-                                              }}/>
+                                              onClick={() => this.openDialog(1)}/>
 
                                 <Dialog visible={dialogVisible1}
                                         title="Dialog"
                                         okButtonTheme={Dialog.ButtonTheme.PRIMARY}
                                         isBlurClose={true}
                                         showModal={false}
-                                        onRequestClose={() => {
-                                            this.closeDialog(1);
-                                        }}
-                                        onOKButtonTouchTap={this.okHandler}
-                                        onCancelButtonTouchTap={this.cancelHandler}
-                                        onCloseButtonTouchTap={this.closeHandler}>
+                                        onRequestClose={() => this.closeDialog(1)}
+                                        onOKButtonClick={this.okHandler}
+                                        onCancelButtonClick={this.cancelHandler}
+                                        onCloseButtonClick={this.closeHandler}>
                                     <div className="dialog-example-content">
                                         content
                                     </div>
@@ -124,9 +120,7 @@ class DialogExamples extends Component {
                                 <RaisedButton className="trigger-button"
                                               value="Toggle Dialog"
                                               style={{width: '120px'}}
-                                              onClick={() => {
-                                                  this.openDialog(2);
-                                              }}/>
+                                              onClick={() => this.openDialog(2)}/>
 
                                 <Dialog modalClassName="blur-modal"
                                         visible={dialogVisible2}
@@ -138,12 +132,10 @@ class DialogExamples extends Component {
                                         cancelButtonText="CANCEL"
                                         cancelButtonIconCls="fas fa-times"
                                         cancelButtonTheme="error"
-                                        onRequestClose={() => {
-                                            this.closeDialog(2);
-                                        }}
-                                        onOKButtonTouchTap={this.okHandler}
-                                        onCancelButtonTouchTap={this.cancelHandler}
-                                        onCloseButtonTouchTap={this.closeHandler}>
+                                        onRequestClose={() => this.closeDialog(2)}
+                                        onOKButtonClick={this.okHandler}
+                                        onCancelButtonClick={this.cancelHandler}
+                                        onCloseButtonClick={this.closeHandler}>
                                     <div className="dialog-example-content">
                                         content
                                     </div>

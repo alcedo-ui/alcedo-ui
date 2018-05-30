@@ -97,7 +97,7 @@ class TextFieldExamples extends Component {
                                     <TextField rightIconCls={'fas fa-search'}
                                                theme={TextField.Theme.PRIMARY}
                                                value={value[2] || ''}
-                                               onRightIconTouchTap={() => console.log('Search Icon Clicked.')}
+                                               onRightIconClick={() => console.log('Search Icon Clicked.')}
                                                onChange={v => this.changeHandler(v, 2)}/>
                                 </div>
 

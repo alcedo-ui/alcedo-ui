@@ -37,8 +37,8 @@ class GridExamples extends Component {
         console.log('changed::', value);
     };
 
-    itemTouchTapHandler = item => {
-        console.log('touchtapd::', item);
+    itemClickHandler = item => {
+        console.log('clicked::', item);
     };
 
     itemSelectHandler = value => {
@@ -103,7 +103,7 @@ class GridExamples extends Component {
                                     <Grid selectMode={Grid.SelectMode.MULTI_SELECT}
                                           data={this.descListData}
                                           onChange={this.changeHandler}
-                                          onItemTouchTap={this.itemTouchTapHandler}
+                                          onItemClick={this.itemClickHandler}
                                           onItemSelect={this.itemSelectHandler}
                                           onItemDeselect={this.itemDeselectHandler}/>
                                 </Paper>

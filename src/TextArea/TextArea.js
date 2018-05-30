@@ -44,7 +44,6 @@ class TextArea extends Component {
             invalidMsgs = Valid.fieldValid(value, this.props);
 
         if (this.props.autoHeight) {
-            this.inputEl.style.height = this.inputElInitHeight + 'px';
             this.inputEl.style.height = Math.max(this.inputEl.scrollHeight, this.inputElInitHeight) + 'px';
         }
 
@@ -246,7 +245,7 @@ class TextArea extends Component {
                 }
 
                 {
-                    placeholder && !isFocused ?
+                    placeholder && !value && !isFocused ?
                         <textarea className={fieldPlaceholderClassName}
                                   value={placeholder}
                                   disabled={true}/>

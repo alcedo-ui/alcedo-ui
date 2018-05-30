@@ -108,8 +108,8 @@ class ListExamples extends Component {
         console.log('changed::', value);
     };
 
-    itemTouchTapHandler = item => {
-        console.log('touchtapd::', item);
+    itemClickHandler = item => {
+        console.log('clicked::', item);
     };
 
     itemSelectHandler = value => {
@@ -147,7 +147,7 @@ class ListExamples extends Component {
                                 <Paper>
                                     <List data={this.listData}
                                           onChange={this.changeHandler}
-                                          onItemTouchTap={this.itemTouchTapHandler}
+                                          onItemClick={this.itemClickHandler}
                                           onItemSelect={this.itemSelectHandler}
                                           onItemDeselect={this.itemDeselectHandler}/>
                                 </Paper>
@@ -221,7 +221,7 @@ class ListExamples extends Component {
                                     <List style={{width: 240}}
                                           data={this.descListData}
                                           onChange={this.changeHandler}
-                                          onItemTouchTap={this.itemTouchTapHandler}/>
+                                          onItemClick={this.itemClickHandler}/>
                                 </Paper>
 
                             </div>
@@ -250,7 +250,7 @@ class ListExamples extends Component {
                                           selectMode={List.SelectMode.MULTI_SELECT}
                                           data={this.descListData}
                                           onChange={this.changeHandler}
-                                          onItemTouchTap={this.itemTouchTapHandler}
+                                          onItemClick={this.itemClickHandler}
                                           onItemSelect={this.itemSelectHandler}
                                           onItemDeselect={this.itemDeselectHandler}/>
                                 </Paper>
@@ -260,7 +260,7 @@ class ListExamples extends Component {
                                           selectTheme={List.Theme.HIGHLIGHT}
                                           data={this.customizedListData}
                                           onChange={this.changeHandler}
-                                          onItemTouchTap={this.itemTouchTapHandler}
+                                          onItemClick={this.itemClickHandler}
                                           onItemSelect={this.itemSelectHandler}
                                           onItemDeselect={this.itemDeselectHandler}/>
                                 </Paper>
