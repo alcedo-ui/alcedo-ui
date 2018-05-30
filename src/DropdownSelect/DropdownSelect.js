@@ -80,7 +80,7 @@ class DropdownSelect extends Component {
 
     };
 
-    selectAllTouchTapHandler = () => {
+    selectAllClickHandler = () => {
 
         const {data} = this.props,
             {value} = this.state;
@@ -100,15 +100,15 @@ class DropdownSelect extends Component {
 
     };
 
-    itemTouchTapHandler = (...args) => {
+    itemClickHandler = (...args) => {
 
-        const {autoClose, onItemTouchTap} = this.props;
+        const {autoClose, onItemClick} = this.props;
 
         if (autoClose) {
             this.closePopup();
         }
 
-        onItemTouchTap && onItemTouchTap(...args);
+        onItemClick && onItemClick(...args);
 
     };
 
@@ -333,7 +333,7 @@ class DropdownSelect extends Component {
                         {
                             isMultiSelect && useSelectAll ?
                                 <div className="list-item dropdown-select-all-wrapper"
-                                     onClick={this.selectAllTouchTapHandler}>
+                                     onClick={this.selectAllClickHandler}>
                                     <Checkbox className="list-item-select"
                                               checked={data && value && value.length === data.length}
                                               indeterminate={data && value && value.length > 0 && value.length < data.length}/>
@@ -379,7 +379,7 @@ class DropdownSelect extends Component {
                                                    itemHeight={itemHeight}
                                                    scrollBuffer={scrollBuffer}
                                                    renderer={renderer}
-                                                   onItemTouchTap={this.itemTouchTapHandler}
+                                                   onItemClick={this.itemClickHandler}
                                                    onChange={this.changeHandler}/>
                                 :
                                 <List className="dropdown-select-list"
@@ -391,7 +391,7 @@ class DropdownSelect extends Component {
                                       displayField={displayField}
                                       descriptionField={descriptionField}
                                       renderer={renderer}
-                                      onItemTouchTap={this.itemTouchTapHandler}
+                                      onItemClick={this.itemClickHandler}
                                       onChange={this.changeHandler}/>
                         }
 
@@ -610,7 +610,7 @@ DropdownSelect.propTypes = {
     /**
      * Callback function fired when the button is touch-tapped.
      */
-    onItemTouchTap: PropTypes.func,
+    onItemClick: PropTypes.func,
 
     /**
      * Callback function fired when the popup is open.

@@ -27,7 +27,7 @@ class Anchor extends Component {
 
     }
 
-    touchTapHandler = e => {
+    clickHandler = e => {
         e.preventDefault();
         const {disabled, isLoading, onClick} = this.props;
         !disabled && !isLoading && onClick && onClick(e);
@@ -79,7 +79,7 @@ class Anchor extends Component {
                    className={anchorClassName}
                    style={style}
                    disabled={disabled || isLoading}
-                   onClick={this.touchTapHandler}
+                   onClick={this.clickHandler}
                    onFocus={this.focusHandler}
                    onBlur={this.blurHandler}>
 

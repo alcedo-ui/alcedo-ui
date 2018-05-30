@@ -29,7 +29,7 @@ class RoundStepItem extends Component {
 
     };
 
-    touchTapHandler = e => {
+    clickHandler = e => {
         e.preventDefault();
         const {activatedStep, finishedStep, index, disabled, onClick} = this.props;
         !disabled && activatedStep !== index && finishedStep >= index && onClick && onClick(index, e);
@@ -72,7 +72,7 @@ class RoundStepItem extends Component {
                 }
 
                 <div className="round"
-                     onClick={this.touchTapHandler}>
+                     onClick={this.clickHandler}>
                     {
                         showFinishedStepIcon && finishedStep > index ?
                             <i className={finishedStepIconCls}

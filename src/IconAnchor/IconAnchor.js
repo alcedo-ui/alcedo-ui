@@ -22,7 +22,7 @@ class IconAnchor extends Component {
         super(props, ...restArgs);
     }
 
-    touchTapHandler = e => {
+    clickHandler = e => {
         e.preventDefault();
         const {disabled, isLoading, onClick} = this.props;
         !disabled && !isLoading && onClick && onClick(e);
@@ -59,7 +59,7 @@ class IconAnchor extends Component {
                 <a {...restProps}
                    className={iconAnchorClassName}
                    disabled={disabled || isLoading}
-                   onClick={this.touchTapHandler}>
+                   onClick={this.clickHandler}>
 
                     {
                         isLoading ?

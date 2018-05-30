@@ -46,14 +46,14 @@ class TableRow extends Component {
 
     };
 
-    rowTouchTapHandler = e => {
-        const {data, rowIndex, disabled, onRowTouchTap} = this.props;
-        !disabled && onRowTouchTap && onRowTouchTap(data, rowIndex, e);
+    rowClickHandler = e => {
+        const {data, rowIndex, disabled, onRowClick} = this.props;
+        !disabled && onRowClick && onRowClick(data, rowIndex, e);
     };
 
-    cellTouchTapHandler = (e, colIndex) => {
-        const {data, rowIndex, disabled, onCellTouchTap} = this.props;
-        !disabled && onCellTouchTap && onCellTouchTap(data, rowIndex, colIndex, e);
+    cellClickHandler = (e, colIndex) => {
+        const {data, rowIndex, disabled, onCellClick} = this.props;
+        !disabled && onCellClick && onCellClick(data, rowIndex, colIndex, e);
     };
 
     render() {
@@ -69,7 +69,7 @@ class TableRow extends Component {
             <tr className={trClassName}
                 style={data.rowStyle}
                 disabled={disabled}
-                onClick={this.rowTouchTapHandler}>
+                onClick={this.rowClickHandler}>
 
                 {
                     columns.map((col, colIndex) =>
@@ -78,7 +78,7 @@ class TableRow extends Component {
                                 [col.cellClassName]: col.cellClassName
                             })}
                             style={col.cellStyle}
-                            onClick={e => this.cellTouchTapHandler(e, colIndex)}>
+                            onClick={e => this.cellClickHandler(e, colIndex)}>
                             {this.contentRenderer(col.renderer, colIndex)}
                         </td>
                     )
@@ -98,8 +98,8 @@ TableRow.propTypes = {
     isChecked: PropTypes.bool,
     disabled: PropTypes.bool,
 
-    onRowTouchTap: PropTypes.func,
-    onCellTouchTap: PropTypes.func
+    onRowClick: PropTypes.func,
+    onCellClick: PropTypes.func
 
 };
 

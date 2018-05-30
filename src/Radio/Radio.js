@@ -29,7 +29,7 @@ class Radio extends Component {
 
     }
 
-    touchTapHandler = () => {
+    clickHandler = () => {
 
         let {checked} = this.state;
 
@@ -57,7 +57,7 @@ class Radio extends Component {
         }
 
         this.refs.radioIcon.startRipple(e);
-        this.touchTapHandler();
+        this.clickHandler();
 
     };
 
@@ -118,12 +118,12 @@ class Radio extends Component {
                         <IconButton ref="radioIcon"
                                     className="radio-bg-icon"
                                     iconCls={uncheckedIconCls}
-                                    onClick={this.touchTapHandler}
+                                    onClick={this.clickHandler}
                                     disabled={disabled}
                                     disableTouchRipple={disableTouchRipple}/>
                         <IconButton className="radio-icon"
                                     iconCls={checkedIconCls}
-                                    onClick={this.touchTapHandler}
+                                    onClick={this.clickHandler}
                                     disabled={disabled}
                                     disableTouchRipple={disableTouchRipple}/>
                     </div>

@@ -249,8 +249,8 @@ MaterialTextArea.propTypes = {
      */
     onPasswordInvisible: PropTypes.func,
 
-    onIconTouchTap: PropTypes.func,
-    onRightIconTouchTap: PropTypes.func,
+    onIconClick: PropTypes.func,
+    onRightIconClick: PropTypes.func,
 
     onMouseOver: PropTypes.func,
     onMouseOut: PropTypes.func

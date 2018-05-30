@@ -43,7 +43,7 @@ class Notification extends Component {
         }
     };
 
-    touchTapHandler = e => {
+    clickHandler = e => {
 
         e.preventDefault();
 
@@ -132,7 +132,7 @@ class Notification extends Component {
                     closeIconVisible ?
                         <IconButton className="notification-close-icon"
                                     iconCls="fas fa-times"
-                                    onClick={this.touchTapHandler}/>
+                                    onClick={this.clickHandler}/>
                         :
                         null
                 }
@@ -141,7 +141,7 @@ class Notification extends Component {
                     closeButtonVisible ?
                         <AnchorButton className="notification-close-Button"
                                       value={closeButtonValue}
-                                      onClick={this.touchTapHandler}/>
+                                      onClick={this.clickHandler}/>
                         :
                         null
                 }

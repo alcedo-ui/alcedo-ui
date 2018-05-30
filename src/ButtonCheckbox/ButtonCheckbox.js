@@ -26,7 +26,7 @@ class ButtonCheckbox extends Component {
 
     }
 
-    touchTapHandler = () => {
+    clickHandler = () => {
         const value = !this.state.value;
         this.setState({
             value
@@ -60,7 +60,7 @@ class ButtonCheckbox extends Component {
                           disabled={disabled}
                           isRounded={true}
                           theme={value ? activatedTheme : theme}
-                          onClick={this.touchTapHandler}/>
+                          onClick={this.clickHandler}/>
         );
 
     }

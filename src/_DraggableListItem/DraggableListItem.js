@@ -81,7 +81,7 @@ class DraggableListItem extends Component {
         }
     };
 
-    touchTapHandler = e => {
+    clickHandler = e => {
 
         e.preventDefault();
 
@@ -148,7 +148,7 @@ class DraggableListItem extends Component {
                      ref={el => this.tipTriggerEl = el}
                      className={listItemClassName}
                      disabled={disabled || isLoading}
-                     onClick={this.touchTapHandler}
+                     onClick={this.clickHandler}
                      onMouseOver={this.mouseOverHandler}
                      onMouseOut={this.hideTip}>
 

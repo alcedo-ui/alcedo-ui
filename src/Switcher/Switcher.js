@@ -31,7 +31,7 @@ class Switcher extends Component {
 
     }
 
-    touchTapHandler = e => {
+    clickHandler = e => {
 
         e.preventDefault();
 
@@ -85,7 +85,7 @@ class Switcher extends Component {
             <div className={switcherClassName}
                  style={style}
                  disabled={disabled || isLoading}
-                 onClick={this.touchTapHandler}>
+                 onClick={this.clickHandler}>
 
                 {
                     labelVisible ?

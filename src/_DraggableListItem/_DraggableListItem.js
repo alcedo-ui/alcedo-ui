@@ -46,7 +46,7 @@ class DraggableListItem extends Component {
         }
     };
 
-    touchTapHandler = e => {
+    clickHandler = e => {
 
         e.preventDefault();
 
@@ -111,7 +111,7 @@ class DraggableListItem extends Component {
                                          style={style}
                                          disabled={disabled || isLoading}
                                          readOnly={readOnly}
-                                         onClick={this.touchTapHandler}
+                                         onClick={this.clickHandler}
                                          onMouseEnter={onMouseEnter}
                                          onMouseLeave={onMouseLeave}>
 

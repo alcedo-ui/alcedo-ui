@@ -288,7 +288,7 @@ DynamicRenderList.propTypes = {
     /**
      * Callback function fired when the list-item touch tap.
      */
-    onItemTouchTap: PropTypes.func,
+    onItemClick: PropTypes.func,
 
     /**
      * Callback function fired when the list-item select.

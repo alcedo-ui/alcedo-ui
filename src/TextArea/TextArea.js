@@ -149,9 +149,9 @@ class TextArea extends Component {
 
     };
 
-    rightIconTouchTapHandler = e => {
-        const {value, onRightIconTouchTap} = this.props;
-        onRightIconTouchTap && onRightIconTouchTap(e, value);
+    rightIconClickHandler = e => {
+        const {value, onRightIconClick} = this.props;
+        onRightIconClick && onRightIconClick(e, value);
     };
 
     componentDidMount() {
@@ -174,7 +174,7 @@ class TextArea extends Component {
                 children, className, triggerClassName, placeholderClassName, style, theme,
                 value, type, iconCls, disabled, infoMsg, autoHeight, wordCountVisible, placeholder,
                 clearButtonVisible, rightIconCls, passwordButtonVisible, fieldMsgVisible, maxLength,
-                onIconTouchTap, onRightIconTouchTap,
+                onIconClick, onRightIconClick,
 
                 // not passing down these props
                 autoFocus, pattern, patternInvalidMsg, isFocusedSelectAll,
@@ -202,7 +202,7 @@ class TextArea extends Component {
                     [className]: className
                 }),
             leftIconClassName = classNames('text-area-left-icon', {
-                deactivated: !onIconTouchTap
+                deactivated: !onIconClick
             }),
             fieldPlaceholderClassName = classNames('text-area-placeholder', {
                 [placeholderClassName]: placeholderClassName
@@ -217,7 +217,7 @@ class TextArea extends Component {
                 hidden: !clearButtonVisible || !value || value.length < 1
             }),
             rightIconClassName = classNames('text-area-right-icon', {
-                deactivated: !onRightIconTouchTap
+                deactivated: !onRightIconClick
             }),
             wordCountClassName = classNames('text-area-word-count', {
                 error: value.length > maxLength
@@ -239,8 +239,8 @@ class TextArea extends Component {
                     iconCls ?
                         <IconButton className={leftIconClassName}
                                     iconCls={iconCls}
-                                    disableTouchRipple={!onIconTouchTap}
-                                    onClick={onIconTouchTap}/>
+                                    disableTouchRipple={!onIconClick}
+                                    onClick={onIconClick}/>
                         :
                         null
                 }
@@ -280,8 +280,8 @@ class TextArea extends Component {
                     rightIconCls ?
                         <IconButton className={rightIconClassName}
                                     rightIconCls={rightIconCls}
-                                    disableTouchRipple={!onRightIconTouchTap}
-                                    onClick={this.rightIconTouchTapHandler}/>
+                                    disableTouchRipple={!onRightIconClick}
+                                    onClick={this.rightIconClickHandler}/>
                         :
                         null
                 }
@@ -491,8 +491,8 @@ TextArea.propTypes = {
      */
     onPasswordInvisible: PropTypes.func,
 
-    onIconTouchTap: PropTypes.func,
-    onRightIconTouchTap: PropTypes.func,
+    onIconClick: PropTypes.func,
+    onRightIconClick: PropTypes.func,
 
     onMouseOver: PropTypes.func,
     onMouseOut: PropTypes.func

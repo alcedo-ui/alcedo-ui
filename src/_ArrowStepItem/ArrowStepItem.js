@@ -13,7 +13,7 @@ class ArrowStepItem extends Component {
         super(props, ...restArgs);
     }
 
-    touchTapHandler = e => {
+    clickHandler = e => {
         e.preventDefault();
         const {isActivatedStep, isFinishedStep, index, onClick} = this.props;
         !isActivatedStep && isFinishedStep && onClick && onClick(index, e);
@@ -38,7 +38,7 @@ class ArrowStepItem extends Component {
         return (
             <div className={itemClassName}
                  style={style}
-                 onClick={this.touchTapHandler}>
+                 onClick={this.clickHandler}>
 
                 <div className="arrow-step-item-content">
                     <div className="number">

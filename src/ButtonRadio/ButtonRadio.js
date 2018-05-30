@@ -20,7 +20,7 @@ class ButtonRadio extends Component {
         super(props, ...restArgs);
     }
 
-    touchTapHandler = () => {
+    clickHandler = () => {
         const {data, onClick} = this.props;
         onClick && onClick(data);
     };
@@ -39,7 +39,7 @@ class ButtonRadio extends Component {
                           theme={theme}
                           value={data.label}
                           disabled={disabled}
-                          onClick={this.touchTapHandler}/>
+                          onClick={this.clickHandler}/>
         );
 
     }

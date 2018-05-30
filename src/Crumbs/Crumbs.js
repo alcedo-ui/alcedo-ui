@@ -27,7 +27,7 @@ class Crumbs extends Component {
             return item.renderer(item, index);
         }
 
-        const {itemRenderer, onItemTouchTap} = this.props;
+        const {itemRenderer, onItemClick} = this.props;
         if (itemRenderer) {
             return itemRenderer(item, index);
         }
@@ -35,7 +35,7 @@ class Crumbs extends Component {
         return <Crumb {...item}
                       onClick={e => {
                           item.onClick && item.onClick(e);
-                          onItemTouchTap && onItemTouchTap(e, item, index);
+                          onItemClick && onItemClick(e, item, index);
                       }}/>;
 
     };
@@ -196,7 +196,7 @@ Crumbs.propTypes = {
      */
     itemRenderer: PropTypes.func,
 
-    onItemTouchTap: PropTypes.func
+    onItemClick: PropTypes.func
 
 };
 

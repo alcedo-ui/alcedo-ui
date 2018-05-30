@@ -28,7 +28,7 @@ class TableHeader extends Component {
 
     };
 
-    touchTapHandler = e => {
+    clickHandler = e => {
         e.preventDefault();
         const {sortable, onSort} = this.props;
         sortable && onSort && onSort();
@@ -53,7 +53,7 @@ class TableHeader extends Component {
             <th className={tableHeaderClassName}
                 style={style}
                 title={typeof header === 'string' ? header : null}
-                onClick={this.touchTapHandler}>
+                onClick={this.clickHandler}>
 
                 <div className="table-header-inner">
 

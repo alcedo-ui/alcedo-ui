@@ -17,6 +17,7 @@ import SelectMode from '../_statics/SelectMode';
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import Calculation from '../_vendors/Calculation';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class Tree extends Component {
 
@@ -34,10 +35,54 @@ class Tree extends Component {
 
     }
 
-    treeNodeSelectHandler = (nodeData, path, e) => {
+    addRecursiveValue = (node, value) => {
 
-        const {selectMode} = this.props;
+        if (!node || !value) {
+            return;
+        }
 
+        if (!Calculation.isItemChecked(node, value, this.props)) {
+            value.push(node);
+        }
+
+        if (!node.children || node.children.length < 1) {
+            return;
+        }
+
+        for (let item of node.children) {
+            this.addRecursiveValue(item, value);
+        }
+
+    };
+
+    removeRecursiveValue = (node, value) => {
+
+        if (!node || !value) {
+            return;
+        }
+
+        const index = Calculation.getMultiSelectItemIndex(node, value, this.props);
+        if (index > -1) {
+            value.splice(index, 1);
+        }
+
+        if (!node.children || node.children.length < 1) {
+            return;
+        }
+
+        for (let item of node.children) {
+            this.removeRecursiveValue(item, value);
+        }
+
+    };
+
+    treeNodeSelectHandler = (node, path, e) => {
+
+        if (!node) {
+            return;
+        }
+
+        const {selectMode, isSelectRecursive} = this.props;
         let {value} = this.state;
 
         if (selectMode === SelectMode.MULTI_SELECT) {
@@ -46,23 +91,27 @@ class Tree extends Component {
                 value = [];
             }
 
-            value.push(nodeData);
+            if (isSelectRecursive) {
+                this.addRecursiveValue(node, value);
+            } else {
+                value.push(node);
+            }
 
         } else if (selectMode === SelectMode.SINGLE_SELECT) {
-            value = nodeData;
+            value = node;
         }
 
         this.setState({
             value
         }, () => {
             const {onNodeSelect, onChange} = this.props;
-            onNodeSelect && onNodeSelect(nodeData, path, e);
+            onNodeSelect && onNodeSelect(node, path, e);
             onChange && onChange(value, e);
         });
 
     };
 
-    treeNodeDeselectHandler = (nodeData, path, e) => {
+    treeNodeDeselectHandler = (node, path, e) => {
 
         const {selectMode} = this.props;
 
@@ -70,23 +119,27 @@ class Tree extends Component {
             return;
         }
 
-        const {valueField, displayField} = this.props;
+        const {isSelectRecursive} = this.props;
         let {value} = this.state;
 
         if (!value || !isArray(value)) {
             value = [];
         } else {
-            value = value.filter(valueItem => {
-                return Util.getValueByValueField(valueItem, valueField, displayField)
-                    != Util.getValueByValueField(nodeData, valueField, displayField);
-            });
+            if (isSelectRecursive) {
+                this.removeRecursiveValue(node, value);
+            } else {
+                const index = Calculation.getMultiSelectItemIndex(node, value, this.props);
+                if (index > -1) {
+                    value.splice(index, 1);
+                }
+            }
         }
 
         this.setState({
             value
         }, () => {
             const {onNodeDeselect, onChange} = this.props;
-            onNodeDeselect && onNodeDeselect(nodeData, path, e);
+            onNodeDeselect && onNodeDeselect(node, path, e);
             onChange && onChange(value, e);
         });
 
@@ -112,12 +165,11 @@ class Tree extends Component {
         });
     };
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: Calculation.getInitValue(nextProps)
-            });
-        }
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
     }
 
     render() {
@@ -125,7 +177,7 @@ class Tree extends Component {
         const {
                 children, className, style, theme, data, allowCollapse, collapsedIconCls, expandedIconCls,
                 idField, valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
-                renderer, onNodeTouchTap
+                renderer, onNodeClick
             } = this.props,
             {value, isNodeToggling} = this.state,
 
@@ -157,9 +209,7 @@ class Tree extends Component {
                           collapsedIconCls={collapsedIconCls}
                           expandedIconCls={expandedIconCls}
                           isNodeToggling={isNodeToggling}
-                          onClick={(...args) => {
-                              onNodeTouchTap && onNodeTouchTap(...args);
-                          }}
+                          onClick={(...args) => onNodeClick && onNodeClick(...args)}
                           onNodeToggleStart={this.nodeToggleStartHandler}
                           onNodeToggleEnd={this.nodeToggleEndHandler}
                           onSelect={this.treeNodeSelectHandler}
@@ -311,7 +361,7 @@ Tree.propTypes = {
     readOnly: PropTypes.bool,
 
     shouldPreventContainerScroll: PropTypes.bool,
-
+    isSelectRecursive: PropTypes.bool,
     allowCollapse: PropTypes.bool,
     collapsedIconCls: PropTypes.string,
     expandedIconCls: PropTypes.string,
@@ -324,7 +374,7 @@ Tree.propTypes = {
     /**
      * Callback function fired when the tree node touch tap.
      */
-    onNodeTouchTap: PropTypes.func,
+    onNodeClick: PropTypes.func,
 
     /**
      * Callback function fired when the tree node selected.
@@ -365,7 +415,7 @@ Tree.defaultProps = {
     isLoading: false,
     readOnly: false,
     shouldPreventContainerScroll: true,
-
+    isSelectRecursive: false,
     allowCollapse: true,
     collapsedIconCls: 'fas fa-caret-right',
     expandedIconCls: 'fas fa-caret-down'

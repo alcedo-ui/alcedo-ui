@@ -22,7 +22,7 @@ class PointStep extends Component {
 
     }
 
-    touchTapHandler = activatedStep => {
+    clickHandler = activatedStep => {
 
         const {onChange} = this.props;
 
@@ -78,7 +78,7 @@ class PointStep extends Component {
                                        showFinishedStepIcon={showFinishedStepIcon}
                                        finishedStepIconCls={finishedStepIconCls}
                                        disabled={disabled}
-                                       onClick={this.touchTapHandler}/>
+                                       onClick={this.clickHandler}/>
                     )
                 }
 

@@ -146,7 +146,7 @@ MaterialDropdown.propTypes = {
     onBlur: PropTypes.func,
     onMouseOver: PropTypes.func,
     onMouseOut: PropTypes.func,
-    onTriggerTouchTap: PropTypes.func
+    onTriggerClick: PropTypes.func
 
 };
 

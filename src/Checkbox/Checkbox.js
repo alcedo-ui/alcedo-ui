@@ -29,7 +29,7 @@ class Checkbox extends Component {
 
     }
 
-    touchTapHandler = () => {
+    clickHandler = () => {
 
         const checked = !this.state.checked;
 
@@ -58,7 +58,7 @@ class Checkbox extends Component {
         }
 
         this.refs.checkboxIcon.startRipple(e);
-        this.touchTapHandler();
+        this.clickHandler();
 
     };
 
@@ -120,12 +120,12 @@ class Checkbox extends Component {
                         <IconButton ref="checkboxIcon"
                                     className="checkbox-bg-icon"
                                     iconCls={uncheckedIconCls}
-                                    onClick={this.touchTapHandler}
+                                    onClick={this.clickHandler}
                                     disabled={disabled}
                                     disableTouchRipple={disableTouchRipple}/>
                         <IconButton className="checkbox-icon"
                                     iconCls={indeterminate ? indeterminateIconCls : checkedIconCls}
-                                    onClick={this.touchTapHandler}
+                                    onClick={this.clickHandler}
                                     disabled={disabled}
                                     disableTouchRipple={disableTouchRipple}/>
                     </div>

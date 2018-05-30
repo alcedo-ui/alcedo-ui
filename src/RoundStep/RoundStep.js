@@ -22,7 +22,7 @@ class RoundStep extends Component {
 
     }
 
-    touchTapHandler = activatedStep => {
+    clickHandler = activatedStep => {
 
         const {onChange} = this.props;
 
@@ -77,7 +77,7 @@ class RoundStep extends Component {
                                        showFinishedStepIcon={showFinishedStepIcon}
                                        finishedStepIconCls={finishedStepIconCls}
                                        disabled={disabled}
-                                       onClick={this.touchTapHandler}/>
+                                       onClick={this.clickHandler}/>
                     )
                 }
             </div>

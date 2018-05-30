@@ -84,7 +84,7 @@ class DraggableGridItem extends Component {
 
     };
 
-    touchTapHandler = e => {
+    clickHandler = e => {
 
         e.preventDefault();
 
@@ -154,7 +154,7 @@ class DraggableGridItem extends Component {
                          ref={el => this.tipTriggerEl = el}
                          className={listItemClassName}
                          disabled={disabled || isLoading}
-                         onClick={this.touchTapHandler}
+                         onClick={this.clickHandler}
                          onMouseOver={this.mouseOverHandler}
                          onMouseOut={this.hideTip}>
 

@@ -138,7 +138,7 @@ class List extends Component {
                 selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
-                onItemTouchTap
+                onItemClick
 
             } = this.props,
             {value} = this.state;
@@ -166,7 +166,7 @@ class List extends Component {
                           selectMode={selectMode}
                           renderer={renderer}
                           onClick={e => {
-                              onItemTouchTap && onItemTouchTap(item, index, e);
+                              onItemClick && onItemClick(item, index, e);
                               item.onClick && item.onClick(e);
                           }}
                           onSelect={() => this.listItemSelectHandler(item, index)}
@@ -192,7 +192,7 @@ class List extends Component {
                           isLoading={isLoading}
                           selectMode={selectMode}
                           renderer={renderer}
-                          onClick={e => onItemTouchTap && onItemTouchTap(item, index, e)}
+                          onClick={e => onItemClick && onItemClick(item, index, e)}
                           onSelect={() => this.listItemSelectHandler(item, index)}
                           onDeselect={() => this.listItemDeselectHandler(item, index)}/>
             );
@@ -394,7 +394,7 @@ List.propTypes = {
     /**
      * Callback function fired when the list-item touch tap.
      */
-    onItemTouchTap: PropTypes.func,
+    onItemClick: PropTypes.func,
 
     /**
      * Callback function fired when the list-item select.

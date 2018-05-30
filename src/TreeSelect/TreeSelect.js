@@ -147,7 +147,8 @@ class TreeSelect extends Component {
 
                 className, triggerClassName, popupClassName, style, name, popupTheme, data, renderer,
                 selectMode, valueField, displayField, descriptionField,
-                onItemTouchTap, popupChildren,
+                isSelectRecursive, allowCollapse, collapsedIconCls, expandedIconCls,
+                onItemClick, popupChildren,
 
                 ...restProps
 
@@ -204,8 +205,12 @@ class TreeSelect extends Component {
                               valueField={valueField}
                               displayField={displayField}
                               descriptionField={descriptionField}
+                              isSelectRecursive={isSelectRecursive}
+                              allowCollapse={allowCollapse}
+                              collapsedIconCls={collapsedIconCls}
+                              expandedIconCls={expandedIconCls}
                               renderer={renderer}
-                              onItemTouchTap={onItemTouchTap}
+                              onItemClick={onItemClick}
                               onNodeSelect={this.nodeSelectHandler}
                               onChange={this.changeHandler}/>
 
@@ -402,6 +407,10 @@ TreeSelect.propTypes = {
     autoClose: PropTypes.bool,
 
     shouldPreventContainerScroll: PropTypes.bool,
+    isSelectRecursive: PropTypes.bool,
+    allowCollapse: PropTypes.bool,
+    collapsedIconCls: PropTypes.string,
+    expandedIconCls: PropTypes.string,
 
     popupChildren: PropTypes.any,
 
@@ -412,7 +421,7 @@ TreeSelect.propTypes = {
     /**
      * Callback function fired when the button is touch-tapped.
      */
-    onItemTouchTap: PropTypes.func,
+    onItemClick: PropTypes.func,
 
     /**
      * Callback function fired when the popup is closed.
@@ -449,7 +458,11 @@ TreeSelect.defaultProps = {
 
     autoClose: true,
 
-    shouldPreventContainerScroll: true
+    shouldPreventContainerScroll: true,
+    isSelectRecursive: false,
+    allowCollapse: true,
+    collapsedIconCls: 'fas fa-caret-right',
+    expandedIconCls: 'fas fa-caret-down'
 
 };
 
