@@ -261,7 +261,7 @@ class TextField extends Component {
                 }
 
                 {
-                    placeholder && !isFocused ?
+                    placeholder && !value && !isFocused ?
                         <input className={fieldPlaceholderClassName}
                                value={placeholder}
                                disabled={true}/>
