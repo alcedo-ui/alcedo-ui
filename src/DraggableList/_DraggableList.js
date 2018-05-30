@@ -165,7 +165,7 @@ class DraggableList extends Component {
                 selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
-                onItemTouchTap
+                onItemClick
 
             } = this.props,
             {value} = this.state,
@@ -203,9 +203,9 @@ class DraggableList extends Component {
                                    desc={item[descriptionField] || null}
                                    disabled={disabled || item.disabled}
                                    isLoading={isLoading || item.isLoading}
-                                   onTouchTap={e => {
-                                       onItemTouchTap && onItemTouchTap(item, index, e);
-                                       item.onTouchTap && item.onTouchTap(e);
+                                   onClick={e => {
+                                       onItemClick && onItemClick(item, index, e);
+                                       item.onClick && item.onClick(e);
                                    }}/>
             )
             :
@@ -217,8 +217,8 @@ class DraggableList extends Component {
                                    text={item}
                                    disabled={disabled}
                                    isLoading={isLoading}
-                                   onTouchTap={e => {
-                                       onItemTouchTap && onItemTouchTap(item, index, e);
+                                   onClick={e => {
+                                       onItemClick && onItemClick(item, index, e);
                                    }}/>
             );
 
@@ -391,7 +391,7 @@ DraggableList.propTypes = {
         /**
          * Callback function fired when a list item touch-tapped.
          */
-        onTouchTap: PropTypes.func
+        onClick: PropTypes.func
 
     }), PropTypes.string, PropTypes.number, PropTypes.symbol])),
 
@@ -443,7 +443,7 @@ DraggableList.propTypes = {
     /**
      * Callback function fired when the list-item touch tap.
      */
-    onItemTouchTap: PropTypes.func,
+    onItemClick: PropTypes.func,
 
     /**
      * Callback function fired when the list-item select.

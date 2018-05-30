@@ -33,12 +33,9 @@ class DraggableTreeNode extends Component {
             collapsed: false
         };
 
-        this.toggleTreeNode = ::this.toggleTreeNode;
-        this.touchTapHandler = ::this.touchTapHandler;
-
     }
 
-    toggleTreeNode(e) {
+    toggleTreeNode = e => {
 
         e.stopPropagation();
 
@@ -52,9 +49,9 @@ class DraggableTreeNode extends Component {
             onNodeToggleEnd && onNodeToggleEnd();
         });
 
-    }
+    };
 
-    checkboxChangeHandler(e) {
+    checkboxChangeHandler = e => {
 
         const {data, path, value, onSelect, onDeselect} = this.props;
 
@@ -64,14 +61,14 @@ class DraggableTreeNode extends Component {
             onDeselect && onDeselect(data, path, e);
         }
 
-    }
+    };
 
-    radioChangeHandler(e) {
+    radioChangeHandler = e => {
         const {data, path, onSelect} = this.props;
         onSelect && onSelect(data, path, e);
-    }
+    };
 
-    touchTapHandler(e) {
+    clickHandler = e => {
 
         e.preventDefault();
 
@@ -81,8 +78,8 @@ class DraggableTreeNode extends Component {
             return;
         }
 
-        const {onTouchTap} = this.props;
-        onTouchTap && onTouchTap(data, path, e);
+        const {onClick} = this.props;
+        onClick && onClick(data, path, e);
 
         const {selectMode} = this.props;
 
@@ -95,7 +92,7 @@ class DraggableTreeNode extends Component {
                 return;
         }
 
-    }
+    };
 
     render() {
 
@@ -149,7 +146,7 @@ class DraggableTreeNode extends Component {
                                      style={nodeStyle}
                                      disabled={isNodeDisabled}
                                      readOnly={readOnly}
-                                     onTouchTap={this.touchTapHandler}
+                                     onClick={this.clickHandler}
                                      onMouseEnter={onMouseEnter}
                                      onMouseLeave={onMouseLeave}>
 
@@ -162,7 +159,7 @@ class DraggableTreeNode extends Component {
                                                                 data.collapsedIconCls || collapsedIconCls
                                                                 :
                                                                 data.expandedIconCls || expandedIconCls}
-                                                            onTouchTap={this.toggleTreeNode}/>
+                                                            onClick={this.toggleTreeNode}/>
                                                 :
                                                 null
                                         }
@@ -345,7 +342,7 @@ DraggableTreeNode.propTypes = {
     checkboxCheckedIconCls: PropTypes.string,
     checkboxIndeterminateIconCls: PropTypes.string,
 
-    onTouchTap: PropTypes.func,
+    onClick: PropTypes.func,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
     onMouseEnter: PropTypes.func,

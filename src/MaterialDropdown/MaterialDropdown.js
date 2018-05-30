@@ -19,16 +19,12 @@ class MaterialDropdown extends Component {
     static Position = Dropdown.Position;
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.closePopup = ::this.closePopup;
-
     }
 
-    closePopup() {
+    closePopup = () => {
         this.refs.dropdown && this.refs.dropdown.closePopup();
-    }
+    };
 
     render() {
 
@@ -150,7 +146,7 @@ MaterialDropdown.propTypes = {
     onBlur: PropTypes.func,
     onMouseOver: PropTypes.func,
     onMouseOut: PropTypes.func,
-    onTriggerTouchTap: PropTypes.func
+    onTriggerClick: PropTypes.func
 
 };
 

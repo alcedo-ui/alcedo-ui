@@ -41,16 +41,9 @@ class DraggableGridItem extends Component {
             tipVisible: false
         };
 
-        this.showTip = ::this.showTip;
-        this.hideTip = ::this.hideTip;
-        this.checkboxChangeHandler = ::this.checkboxChangeHandler;
-        this.radioChangeHandler = ::this.radioChangeHandler;
-        this.touchTapHandler = ::this.touchTapHandler;
-        this.mouseOverHandler = ::this.mouseOverHandler;
-
     }
 
-    showTip() {
+    showTip = () => {
 
         if (this.state.tipVisible) {
             return;
@@ -60,15 +53,15 @@ class DraggableGridItem extends Component {
             tipVisible: true
         });
 
-    }
+    };
 
-    hideTip() {
+    hideTip = () => {
         this.setState({
             tipVisible: false
         });
-    }
+    };
 
-    checkboxChangeHandler(checked) {
+    checkboxChangeHandler = checked => {
 
         const {onSelect, onDeselect} = this.props;
 
@@ -78,9 +71,9 @@ class DraggableGridItem extends Component {
             onDeselect && onDeselect();
         }
 
-    }
+    };
 
-    radioChangeHandler() {
+    radioChangeHandler = () => {
 
         const {checked} = this.props;
 
@@ -89,9 +82,9 @@ class DraggableGridItem extends Component {
             onSelect && onSelect();
         }
 
-    }
+    };
 
-    touchTapHandler(e) {
+    clickHandler = e => {
 
         e.preventDefault();
 
@@ -101,8 +94,8 @@ class DraggableGridItem extends Component {
             return;
         }
 
-        const {onTouchTap} = this.props;
-        onTouchTap && onTouchTap(e);
+        const {onClick} = this.props;
+        onClick && onClick(e);
 
         switch (this.props.selectMode) {
             case SelectMode.MULTI_SELECT:
@@ -113,13 +106,13 @@ class DraggableGridItem extends Component {
                 return;
         }
 
-    }
+    };
 
-    mouseOverHandler(e) {
+    mouseOverHandler = e => {
         this.showTip(e);
         const {onMouseOver} = this.props;
         onMouseOver && onMouseOver(e);
-    }
+    };
 
     render() {
 
@@ -161,7 +154,7 @@ class DraggableGridItem extends Component {
                          ref={el => this.tipTriggerEl = el}
                          className={listItemClassName}
                          disabled={disabled || isLoading}
-                         onTouchTap={this.touchTapHandler}
+                         onClick={this.clickHandler}
                          onMouseOver={this.mouseOverHandler}
                          onMouseOut={this.hideTip}>
 
@@ -319,7 +312,7 @@ DraggableGridItem.propTypes = {
     itemRenderer: PropTypes.func,
     renderer: PropTypes.func,
 
-    onTouchTap: PropTypes.func,
+    onClick: PropTypes.func,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
     onMouseEnter: PropTypes.func,

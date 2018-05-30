@@ -15,17 +15,13 @@ class ListStepItem extends Component {
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.touchTapHandler = ::this.touchTapHandler;
-
     }
 
-    touchTapHandler() {
-        const {activatedStep, finishedStep, index, onTouchTap} = this.props;
-        activatedStep !== index && finishedStep >= index && onTouchTap(index);
-    }
+    clickHandler = () => {
+        const {activatedStep, finishedStep, index, onClick} = this.props;
+        activatedStep !== index && finishedStep >= index && onClick(index);
+    };
 
     render() {
 
@@ -43,7 +39,7 @@ class ListStepItem extends Component {
                           style={style}
                           theme={state === 'activated' ? Theme.HIGHLIGHT : (state === 'finished' ? Theme.PRIMARY : '')}
                           value={data.value}
-                          onTouchTap={this.touchTapHandler}/>
+                          onClick={this.clickHandler}/>
         );
 
     }
@@ -84,7 +80,7 @@ ListStepItem.propTypes = {
     /**
      * Callback function fired when step change.
      */
-    onTouchTap: PropTypes.func
+    onClick: PropTypes.func
 
 };
 

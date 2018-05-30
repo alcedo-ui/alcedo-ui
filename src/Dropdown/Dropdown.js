@@ -32,13 +32,9 @@ class Dropdown extends Component {
             isAbove: false
         };
 
-        this.togglePopup = ::this.togglePopup;
-        this.closePopup = ::this.closePopup;
-        this.popupRenderHandler = ::this.popupRenderHandler;
-
     }
 
-    togglePopup(e) {
+    togglePopup = e => {
 
         const popupVisible = !this.state.popupVisible;
 
@@ -46,8 +42,8 @@ class Dropdown extends Component {
             popupVisible
         }, () => {
 
-            const {onTriggerTouchTap, onFocus, onBlur, onOpenPopup} = this.props;
-            onTriggerTouchTap && onTriggerTouchTap(popupVisible);
+            const {onTriggerClick, onFocus, onBlur, onOpenPopup} = this.props;
+            onTriggerClick && onTriggerClick(popupVisible);
 
             if (popupVisible) {
                 onFocus && onFocus(e);
@@ -58,9 +54,9 @@ class Dropdown extends Component {
 
         });
 
-    }
+    };
 
-    closePopup(e) {
+    closePopup = e => {
         this.setState({
             popupVisible: false
         }, () => {
@@ -68,9 +64,9 @@ class Dropdown extends Component {
             onClosePopup && onClosePopup(e);
             onBlur && onBlur(e);
         });
-    }
+    };
 
-    popupRenderHandler(popupEl) {
+    popupRenderHandler = popupEl => {
 
         const isAbove = DropdownCalculation.isAbove(this.dropdownEl, this.triggerEl, findDOMNode(popupEl));
 
@@ -80,7 +76,7 @@ class Dropdown extends Component {
             });
         }
 
-    }
+    };
 
     componentDidMount() {
         this.dropdownEl = this.refs.dropdown;
@@ -133,7 +129,7 @@ class Dropdown extends Component {
                               disableTouchRipple={disableTouchRipple}
                               onMouseOver={onMouseOver}
                               onMouseOut={onMouseOut}
-                              onTouchTap={this.togglePopup}/>
+                              onClick={this.togglePopup}/>
 
                 <Popup ref="popup"
                        className={dropdownPopupClassName}
@@ -237,7 +233,7 @@ Dropdown.propTypes = {
     onBlur: PropTypes.func,
     onMouseOver: PropTypes.func,
     onMouseOut: PropTypes.func,
-    onTriggerTouchTap: PropTypes.func
+    onTriggerClick: PropTypes.func
 
 };
 

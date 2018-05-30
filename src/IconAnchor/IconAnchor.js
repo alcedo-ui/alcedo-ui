@@ -19,28 +19,22 @@ class IconAnchor extends Component {
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.touchTapHandler = ::this.touchTapHandler;
-        this.startRipple = ::this.startRipple;
-        this.endRipple = ::this.endRipple;
-
     }
 
-    touchTapHandler(e) {
+    clickHandler = e => {
         e.preventDefault();
-        const {disabled, isLoading, onTouchTap} = this.props;
-        !disabled && !isLoading && onTouchTap && onTouchTap(e);
-    }
+        const {disabled, isLoading, onClick} = this.props;
+        !disabled && !isLoading && onClick && onClick(e);
+    };
 
-    startRipple(e) {
+    startRipple = e => {
         this.refs.touchRipple.addRipple(e);
-    }
+    };
 
-    endRipple() {
+    endRipple = () => {
         this.refs.touchRipple.removeRipple();
-    }
+    };
 
     render() {
 
@@ -65,7 +59,7 @@ class IconAnchor extends Component {
                 <a {...restProps}
                    className={iconAnchorClassName}
                    disabled={disabled || isLoading}
-                   onTouchTap={this.touchTapHandler}>
+                   onClick={this.clickHandler}>
 
                     {
                         isLoading ?
@@ -147,7 +141,7 @@ IconAnchor.propTypes = {
     /**
      * Callback function fired when the button is touch-tapped.
      */
-    onTouchTap: PropTypes.func
+    onClick: PropTypes.func
 
 };
 

@@ -33,14 +33,9 @@ class List extends Component {
             value: Calculation.getInitValue(props)
         };
 
-        this.listItemSelectHandler = ::this.listItemSelectHandler;
-        this.listItemDeselectHandler = ::this.listItemDeselectHandler;
-        this.adjustScroll = ::this.adjustScroll;
-        this.renderListItem = ::this.renderListItem;
-
     }
 
-    listItemSelectHandler(item, index) {
+    listItemSelectHandler = (item, index) => {
 
         const {selectMode} = this.props;
 
@@ -66,9 +61,9 @@ class List extends Component {
             onChange && onChange(value, index);
         });
 
-    }
+    };
 
-    listItemDeselectHandler(item, index) {
+    listItemDeselectHandler = (item, index) => {
 
         const {selectMode} = this.props;
 
@@ -96,9 +91,9 @@ class List extends Component {
             onChange && onChange(value, index);
         });
 
-    }
+    };
 
-    adjustScroll() {
+    adjustScroll = () => {
 
         const {data} = this.props,
             {value} = this.state,
@@ -120,7 +115,7 @@ class List extends Component {
             this.listEl.scrollTop = itemTop + itemHeight - listHeight;
         }
 
-    }
+    };
 
     componentDidMount() {
         this.listEl = this.refs.list;
@@ -134,7 +129,7 @@ class List extends Component {
         }
     }
 
-    renderListItem(item, index) {
+    renderListItem = (item, index) => {
 
         const {
 
@@ -143,7 +138,7 @@ class List extends Component {
                 selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
-                onItemTouchTap
+                onItemClick
 
             } = this.props,
             {value} = this.state;
@@ -170,9 +165,9 @@ class List extends Component {
                           isLoading={isLoading || item.isLoading}
                           selectMode={selectMode}
                           renderer={renderer}
-                          onTouchTap={e => {
-                              onItemTouchTap && onItemTouchTap(item, index, e);
-                              item.onTouchTap && item.onTouchTap(e);
+                          onClick={e => {
+                              onItemClick && onItemClick(item, index, e);
+                              item.onClick && item.onClick(e);
                           }}
                           onSelect={() => this.listItemSelectHandler(item, index)}
                           onDeselect={() => this.listItemDeselectHandler(item, index)}/>
@@ -197,12 +192,12 @@ class List extends Component {
                           isLoading={isLoading}
                           selectMode={selectMode}
                           renderer={renderer}
-                          onTouchTap={e => onItemTouchTap && onItemTouchTap(item, index, e)}
+                          onClick={e => onItemClick && onItemClick(item, index, e)}
                           onSelect={() => this.listItemSelectHandler(item, index)}
                           onDeselect={() => this.listItemDeselectHandler(item, index)}/>
             );
 
-    }
+    };
 
     render() {
 
@@ -347,7 +342,7 @@ List.propTypes = {
         /**
          * Callback function fired when a list item touch-tapped.
          */
-        onTouchTap: PropTypes.func
+        onClick: PropTypes.func
 
     }), PropTypes.string, PropTypes.number, PropTypes.symbol])),
 
@@ -399,7 +394,7 @@ List.propTypes = {
     /**
      * Callback function fired when the list-item touch tap.
      */
-    onItemTouchTap: PropTypes.func,
+    onItemClick: PropTypes.func,
 
     /**
      * Callback function fired when the list-item select.

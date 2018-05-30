@@ -10,7 +10,7 @@ import doc from 'assets/propTypes/GroupList.json';
 
 import 'sass/containers/app/modules/layout/GroupListExamples.scss';
 
-export default class GroupListExamples extends Component {
+class GroupListExamples extends Component {
 
     constructor(props) {
 
@@ -57,9 +57,9 @@ export default class GroupListExamples extends Component {
 
     }
 
-    changeHandler(value) {
+    changeHandler = value => {
         console.log(value);
-    }
+    };
 
     render() {
         return (
@@ -108,3 +108,5 @@ export default class GroupListExamples extends Component {
         );
     }
 };
+
+export default GroupListExamples;

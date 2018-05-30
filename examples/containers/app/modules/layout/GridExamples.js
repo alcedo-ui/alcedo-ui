@@ -10,7 +10,7 @@ import doc from 'assets/propTypes/Grid.json';
 
 import 'sass/containers/app/modules/layout/GridExamples.scss';
 
-export default class GridExamples extends Component {
+class GridExamples extends Component {
 
     constructor(props) {
 
@@ -33,21 +33,21 @@ export default class GridExamples extends Component {
 
     }
 
-    changeHandler(value) {
+    changeHandler = value => {
         console.log('changed::', value);
-    }
+    };
 
-    itemTouchTapHandler(item) {
-        console.log('touchtapd::', item);
-    }
+    itemClickHandler = item => {
+        console.log('clicked::', item);
+    };
 
-    itemSelectHandler(value) {
+    itemSelectHandler = value => {
         console.log('selected::', value);
-    }
+    };
 
-    itemDeselectHandler(value) {
+    itemDeselectHandler = value => {
         console.log('deselected::', value);
-    }
+    };
 
     render() {
         return (
@@ -103,7 +103,7 @@ export default class GridExamples extends Component {
                                     <Grid selectMode={Grid.SelectMode.MULTI_SELECT}
                                           data={this.descListData}
                                           onChange={this.changeHandler}
-                                          onItemTouchTap={this.itemTouchTapHandler}
+                                          onItemClick={this.itemClickHandler}
                                           onItemSelect={this.itemSelectHandler}
                                           onItemDeselect={this.itemDeselectHandler}/>
                                 </Paper>
@@ -123,3 +123,5 @@ export default class GridExamples extends Component {
         );
     }
 };
+
+export default GridExamples;

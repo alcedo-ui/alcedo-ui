@@ -7,7 +7,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/MaterialDropdownFilter.json';
 
-export default class MaterialDropdownFilterExamples extends Component {
+class MaterialDropdownFilterExamples extends Component {
 
     constructor(props) {
 
@@ -17,31 +17,31 @@ export default class MaterialDropdownFilterExamples extends Component {
             text: 'test2',
             value: 2,
             desc: 'Here is test2.',
-            onTouchTap() {
+            onClick() {
                 console.log('test2 selected!');
             }
         }, 'test3', 'test4', 'test5', {
             text: 'test6',
             value: 6,
             desc: 'Here is test6.',
-            onTouchTap() {
+            onClick() {
                 console.log('test6 selected!');
             }
         }, 'test7', 'test8', 'test9'];
 
     }
 
-    onChange(item) {
+    onChange = item => {
         console.log('select item: ', item);
-    }
+    };
 
-    filterPressEnterHandle(value) {
+    filterPressEnterHandle = value => {
         console.log('filter value: ', value);
-    }
+    };
 
-    filterClearHandle() {
+    filterClearHandle = () => {
         console.log('filter cleared');
-    }
+    };
 
     render() {
 
@@ -118,3 +118,5 @@ export default class MaterialDropdownFilterExamples extends Component {
         );
     }
 };
+
+export default MaterialDropdownFilterExamples;

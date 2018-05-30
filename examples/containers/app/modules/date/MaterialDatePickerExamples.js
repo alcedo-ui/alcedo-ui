@@ -7,15 +7,15 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/MaterialDatePicker.json';
 
-export default class MaterialDatePickerExamples extends Component {
+class MaterialDatePickerExamples extends Component {
 
     constructor(props) {
         super(props);
     }
 
-    onChangeHandle(value) {
+    onChangeHandle = value => {
         console.log(value);
-    }
+    };
 
     render() {
 
@@ -92,3 +92,5 @@ export default class MaterialDatePickerExamples extends Component {
         );
     }
 };
+
+export default MaterialDatePickerExamples;

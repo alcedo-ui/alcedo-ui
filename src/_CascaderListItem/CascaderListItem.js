@@ -14,15 +14,10 @@ import Valid from '../_vendors/Valid';
 class CascaderListItem extends Component {
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.formatData = ::this.formatData;
-        this.changeHandler = ::this.changeHandler;
-
     }
 
-    formatData(data) {
+    formatData = data => {
 
         if (!data || data.length < 1) {
             return data;
@@ -35,9 +30,9 @@ class CascaderListItem extends Component {
             return item;
         });
 
-    }
+    };
 
-    changeHandler(value, index) {
+    changeHandler = (value, index) => {
 
         if (!value) {
             return;
@@ -54,7 +49,7 @@ class CascaderListItem extends Component {
 
         onChange && onChange(path);
 
-    }
+    };
 
     render() {
 

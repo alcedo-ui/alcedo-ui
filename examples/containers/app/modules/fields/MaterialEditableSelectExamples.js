@@ -7,7 +7,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/MaterialEditableSelect.json';
 
-export default class MaterialEditableSelectExamples extends Component {
+class MaterialEditableSelectExamples extends Component {
 
     constructor(props) {
 
@@ -17,14 +17,14 @@ export default class MaterialEditableSelectExamples extends Component {
             text: 'test2',
             value: 2,
             desc: 'Here is test2.',
-            onTouchTap() {
+            onClick() {
                 console.log('test2 selected!');
             }
         }, 'test3', 'test4', 'test5', {
             text: 'test6',
             value: 6,
             desc: 'Here is test6.',
-            onTouchTap() {
+            onClick() {
                 console.log('test6 selected!');
             }
         }, 'test7', 'test8', 'test9'];
@@ -61,16 +61,13 @@ export default class MaterialEditableSelectExamples extends Component {
             }]
         }];
 
-        this.onChange = this::this.onChange;
-
     }
 
-    onChange(value) {
+    onChange = value => {
         console.log(value);
-    }
+    };
 
     render() {
-
         return (
             <div className="example edit-able-select-examples">
 
@@ -147,3 +144,5 @@ export default class MaterialEditableSelectExamples extends Component {
         );
     }
 };
+
+export default MaterialEditableSelectExamples;

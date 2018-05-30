@@ -7,7 +7,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/IconAnchor.json';
 
-export default class IconAnchorExamples extends Component {
+class IconAnchorExamples extends Component {
 
     constructor(props) {
         super(props);
@@ -154,3 +154,5 @@ export default class IconAnchorExamples extends Component {
         );
     }
 };
+
+export default IconAnchorExamples;

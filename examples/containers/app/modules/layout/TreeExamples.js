@@ -10,7 +10,7 @@ import doc from 'examples/assets/propTypes/Tree.json';
 
 import 'sass/containers/app/modules/layout/TreeExamples.scss';
 
-export default class TreeExamples extends Component {
+class TreeExamples extends Component {
 
     constructor(props) {
 
@@ -50,13 +50,13 @@ export default class TreeExamples extends Component {
 
     }
 
-    nodeSelectHandler(node, path) {
+    nodeSelectHandler = (node, path) => {
         console.log('Node Selected::', node, path);
-    }
+    };
 
-    changeHandler(value) {
+    changeHandler = value => {
         console.log('Changed::', value);
-    }
+    };
 
     render() {
         return (
@@ -135,6 +135,7 @@ export default class TreeExamples extends Component {
                                 <Paper className="tree-wrapper">
                                     <Tree selectMode={Tree.SelectMode.MULTI_SELECT}
                                           data={this.data}
+                                          isSelectRecursive={true}
                                           onNodeSelect={this.nodeSelectHandler}
                                           onChange={this.changeHandler}/>
                                 </Paper>
@@ -152,3 +153,5 @@ export default class TreeExamples extends Component {
         );
     }
 };
+
+export default TreeExamples;

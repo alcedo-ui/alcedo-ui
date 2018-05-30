@@ -35,13 +35,9 @@ class DraggableGrid extends Component {
             value: Calculation.getInitValue(props)
         };
 
-        this.listItemMoveHandler = ::this.listItemMoveHandler;
-        this.listItemSelectHandler = ::this.listItemSelectHandler;
-        this.listItemDeselectHandler = ::this.listItemDeselectHandler;
-
     }
 
-    listItemMoveHandler(dragIndex, hoverIndex, props) {
+    listItemMoveHandler = (dragIndex, hoverIndex, props) => {
 
         const {data} = this.state,
             dragItem = data.splice(dragIndex, 1);
@@ -55,9 +51,9 @@ class DraggableGrid extends Component {
             onSequenceChange && onSequenceChange(data);
         });
 
-    }
+    };
 
-    listItemSelectHandler(item, index) {
+    listItemSelectHandler = (item, index) => {
 
         const {selectMode} = this.props;
 
@@ -83,9 +79,9 @@ class DraggableGrid extends Component {
             onChange && onChange(value, index);
         });
 
-    }
+    };
 
-    listItemDeselectHandler(item, index) {
+    listItemDeselectHandler = (item, index) => {
 
         const {selectMode} = this.props;
 
@@ -113,7 +109,7 @@ class DraggableGrid extends Component {
             onChange && onChange(value, index);
         });
 
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
 
@@ -143,7 +139,7 @@ class DraggableGrid extends Component {
                 selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
-                valueField, displayField, descriptionField, disabled, isLoading, renderer, onItemTouchTap,
+                valueField, displayField, descriptionField, disabled, isLoading, renderer, onItemClick,
 
                 scrollSpeed, scrollBuffer
 
@@ -194,9 +190,9 @@ class DraggableGrid extends Component {
                                                            selectMode={selectMode}
                                                            renderer={renderer}
                                                            onMove={this.listItemMoveHandler}
-                                                           onTouchTap={e => {
-                                                               onItemTouchTap && onItemTouchTap(item, index, e);
-                                                               item.onTouchTap && item.onTouchTap(e);
+                                                           onClick={e => {
+                                                               onItemClick && onItemClick(item, index, e);
+                                                               item.onClick && item.onClick(e);
                                                            }}
                                                            onSelect={() => {
                                                                this.listItemSelectHandler(item, index);
@@ -227,8 +223,8 @@ class DraggableGrid extends Component {
                                                            selectMode={selectMode}
                                                            renderer={renderer}
                                                            onMove={this.listItemMoveHandler}
-                                                           onTouchTap={e => {
-                                                               onItemTouchTap && onItemTouchTap(item, index, e);
+                                                           onClick={e => {
+                                                               onItemClick && onItemClick(item, index, e);
                                                            }}
                                                            onSelect={() => {
                                                                this.listItemSelectHandler(item, index);
@@ -361,7 +357,7 @@ DraggableGrid.propTypes = {
         /**
          * Callback function fired when a grid item touch-tapped.
          */
-        onTouchTap: PropTypes.func
+        onClick: PropTypes.func
 
     }), PropTypes.string, PropTypes.number, PropTypes.symbol])),
 
@@ -425,7 +421,7 @@ DraggableGrid.propTypes = {
     /**
      * Callback function fired when the grid-item touch tap.
      */
-    onItemTouchTap: PropTypes.func,
+    onItemClick: PropTypes.func,
 
     /**
      * Callback function fired when the grid-item select.

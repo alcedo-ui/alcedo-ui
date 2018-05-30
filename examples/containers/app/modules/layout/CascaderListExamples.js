@@ -9,7 +9,7 @@ import doc from 'assets/propTypes/CascaderList.json';
 
 import 'sass/containers/app/modules/layout/CascaderListExamples.scss';
 
-export default class CascaderListExamples extends Component {
+class CascaderListExamples extends Component {
 
     constructor(props) {
 
@@ -84,9 +84,9 @@ export default class CascaderListExamples extends Component {
 
     }
 
-    changeHandler(value, path) {
+    changeHandler = (value, path) => {
         console.log(value, path);
-    }
+    };
 
     render() {
         return (
@@ -151,3 +151,5 @@ export default class CascaderListExamples extends Component {
     }
 
 }
+
+export default CascaderListExamples;

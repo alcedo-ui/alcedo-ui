@@ -17,14 +17,10 @@ class TableBody extends Component {
     static SelectMode = SelectMode;
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.isItemChecked = ::this.isItemChecked;
-
     }
 
-    isItemChecked(rowData) {
+    isItemChecked = rowData => {
 
         const {selectMode, idProp, value} = this.props;
 
@@ -39,13 +35,13 @@ class TableBody extends Component {
                 return value[idProp] === rowData[idProp];
         }
 
-    }
+    };
 
     render() {
 
         const {
             columns, data, startIndex, idProp, disabled,
-            onRowTouchTap, onCellTouchTap
+            onRowClick, onCellClick
         } = this.props;
 
         return (
@@ -58,8 +54,8 @@ class TableBody extends Component {
                                   data={row}
                                   isChecked={this.isItemChecked(row)}
                                   disabled={disabled || row.disabled}
-                                  onRowTouchTap={onRowTouchTap}
-                                  onCellTouchTap={onCellTouchTap}/>
+                                  onRowClick={onRowClick}
+                                  onCellClick={onCellClick}/>
                         :
                         null
                     )
@@ -81,8 +77,8 @@ TableBody.propTypes = {
 
     isItemChecked: PropTypes.func,
 
-    onRowTouchTap: PropTypes.func,
-    onCellTouchTap: PropTypes.func
+    onRowClick: PropTypes.func,
+    onCellClick: PropTypes.func
 
 };
 

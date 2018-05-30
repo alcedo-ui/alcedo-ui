@@ -19,21 +19,18 @@ class FlashNumber extends Component {
         this.animationFrameId; // animationFrame id
         this.currentValue = 0; // current display value
 
-        this.init = ::this.init;
-        this.step = ::this.step;
-
     }
 
-    init() {
+    init = () => {
         this.animationFrameId && cancelAnimationFrame(this.animationFrameId);
         this.startTime = undefined;
         this.initValue = this.currentValue;
-    }
+    };
 
     /**
      * animationFrame callback
      */
-    step(timeStamp) {
+    step = timeStamp => {
 
         // first request
         if (!this.startTime) {
@@ -62,6 +59,15 @@ class FlashNumber extends Component {
             this.animationFrameId = undefined;
         }
 
+    };
+
+    componentDidMount() {
+
+        // start flash animate when value is not equal init value
+        if (this.props.value != this.initValue) {
+            this.animationFrameId = requestAnimationFrame(this.step);
+        }
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -74,15 +80,6 @@ class FlashNumber extends Component {
 
         if (nextProps.flashDuration !== this.flashDuration) {
             this.flashDuration = nextProps.flashDuration;
-        }
-
-    }
-
-    componentDidMount() {
-
-        // start flash animate when value is not equal init value
-        if (this.props.value != this.initValue) {
-            this.animationFrameId = requestAnimationFrame(this.step);
         }
 
     }

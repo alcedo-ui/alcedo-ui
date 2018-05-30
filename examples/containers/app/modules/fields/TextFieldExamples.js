@@ -10,7 +10,7 @@ import doc from 'assets/propTypes/TextField.json';
 
 import 'sass/containers/app/modules/fields/TextFieldExamples.scss';
 
-export default class TextFieldExamples extends Component {
+class TextFieldExamples extends Component {
 
     constructor(props) {
 
@@ -20,17 +20,15 @@ export default class TextFieldExamples extends Component {
             value: {}
         };
 
-        this.changeHandler = ::this.changeHandler;
-
     }
 
-    changeHandler(v, index) {
+    changeHandler = (v, index) => {
         const {value} = this.state;
         value[index] = v;
         this.setState({
             value
         });
-    }
+    };
 
     render() {
 
@@ -99,7 +97,7 @@ export default class TextFieldExamples extends Component {
                                     <TextField rightIconCls={'fas fa-search'}
                                                theme={TextField.Theme.PRIMARY}
                                                value={value[2] || ''}
-                                               onRightIconTouchTap={() => console.log('Search Icon Clicked.')}
+                                               onRightIconClick={() => console.log('Search Icon Clicked.')}
                                                onChange={v => this.changeHandler(v, 2)}/>
                                 </div>
 
@@ -313,3 +311,5 @@ export default class TextFieldExamples extends Component {
         );
     }
 };
+
+export default TextFieldExamples;

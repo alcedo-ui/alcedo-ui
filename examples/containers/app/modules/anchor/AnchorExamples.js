@@ -9,7 +9,7 @@ import doc from 'assets/propTypes/Anchor.json';
 
 import 'sass/containers/app/modules/anchor/AnchorExamples.scss';
 
-export default class AnchorExamples extends Component {
+class AnchorExamples extends Component {
 
     constructor(props) {
         super(props);
@@ -123,3 +123,5 @@ export default class AnchorExamples extends Component {
         );
     }
 };
+
+export default AnchorExamples;

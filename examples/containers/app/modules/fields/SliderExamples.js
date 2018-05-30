@@ -9,22 +9,17 @@ import doc from 'assets/propTypes/Slider.json';
 
 import 'sass/containers/app/modules/fields/SliderExamples.scss';
 
-export default class SliderExamples extends Component {
+class SliderExamples extends Component {
 
     constructor(props) {
-
         super(props);
-
-        this.change = ::this.change;
-
     }
 
-    change(left, right) {
+    changeHandler = (left, right) => {
         //console.log(left + '   ' + right);
-    }
+    };
 
     render() {
-
         return (
             <div className="example slider-examples">
 
@@ -142,7 +137,7 @@ export default class SliderExamples extends Component {
                                         decimalPlaces={1}
                                         width={600}
                                         tip={true}
-                                        onChange={this.change}/>
+                                        onChange={this.changeHandler}/>
 
                             </div>
 
@@ -159,3 +154,5 @@ export default class SliderExamples extends Component {
         );
     }
 }
+
+export default SliderExamples;

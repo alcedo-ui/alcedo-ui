@@ -22,8 +22,6 @@ class LazyImage extends Component {
             imageState: 0
         };
 
-        this.scrollHandler = ::this.scrollHandler;
-
     }
 
     scrollHandler = debounce(() => {

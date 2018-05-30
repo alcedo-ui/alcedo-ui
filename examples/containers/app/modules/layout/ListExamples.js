@@ -10,7 +10,7 @@ import doc from 'assets/propTypes/List.json';
 
 import 'sass/containers/app/modules/layout/ListExamples.scss';
 
-export default class ListExamples extends Component {
+class ListExamples extends Component {
 
     constructor(props) {
 
@@ -104,21 +104,21 @@ export default class ListExamples extends Component {
 
     }
 
-    changeHandler(value) {
+    changeHandler = value => {
         console.log('changed::', value);
-    }
+    };
 
-    itemTouchTapHandler(item) {
-        console.log('touchtapd::', item);
-    }
+    itemClickHandler = item => {
+        console.log('clicked::', item);
+    };
 
-    itemSelectHandler(value) {
+    itemSelectHandler = value => {
         console.log('selected::', value);
-    }
+    };
 
-    itemDeselectHandler(value) {
+    itemDeselectHandler = value => {
         console.log('deselected::', value);
-    }
+    };
 
     render() {
         return (
@@ -147,7 +147,7 @@ export default class ListExamples extends Component {
                                 <Paper>
                                     <List data={this.listData}
                                           onChange={this.changeHandler}
-                                          onItemTouchTap={this.itemTouchTapHandler}
+                                          onItemClick={this.itemClickHandler}
                                           onItemSelect={this.itemSelectHandler}
                                           onItemDeselect={this.itemDeselectHandler}/>
                                 </Paper>
@@ -221,7 +221,7 @@ export default class ListExamples extends Component {
                                     <List style={{width: 240}}
                                           data={this.descListData}
                                           onChange={this.changeHandler}
-                                          onItemTouchTap={this.itemTouchTapHandler}/>
+                                          onItemClick={this.itemClickHandler}/>
                                 </Paper>
 
                             </div>
@@ -250,7 +250,7 @@ export default class ListExamples extends Component {
                                           selectMode={List.SelectMode.MULTI_SELECT}
                                           data={this.descListData}
                                           onChange={this.changeHandler}
-                                          onItemTouchTap={this.itemTouchTapHandler}
+                                          onItemClick={this.itemClickHandler}
                                           onItemSelect={this.itemSelectHandler}
                                           onItemDeselect={this.itemDeselectHandler}/>
                                 </Paper>
@@ -260,7 +260,7 @@ export default class ListExamples extends Component {
                                           selectTheme={List.Theme.HIGHLIGHT}
                                           data={this.customizedListData}
                                           onChange={this.changeHandler}
-                                          onItemTouchTap={this.itemTouchTapHandler}
+                                          onItemClick={this.itemClickHandler}
                                           onItemSelect={this.itemSelectHandler}
                                           onItemDeselect={this.itemDeselectHandler}/>
                                 </Paper>
@@ -280,3 +280,5 @@ export default class ListExamples extends Component {
         );
     }
 };
+
+export default ListExamples;

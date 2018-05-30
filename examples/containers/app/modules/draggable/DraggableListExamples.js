@@ -9,7 +9,7 @@ import doc from 'assets/propTypes/DraggableList.json';
 
 import 'sass/containers/app/modules/draggable/DraggableListExamples.scss';
 
-export default class DraggableListExamples extends Component {
+class DraggableListExamples extends Component {
 
     constructor(props) {
 
@@ -31,18 +31,15 @@ export default class DraggableListExamples extends Component {
 
         this.largeListData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
-        this.sequenceChangeHandler = this::this.sequenceChangeHandler;
-        this.valueChangeHandler = this::this.valueChangeHandler;
-
     }
 
-    sequenceChangeHandler(value) {
+    sequenceChangeHandler = value => {
         console.log('Sequence Changed:', value);
-    }
+    };
 
-    valueChangeHandler(value) {
+    valueChangeHandler = value => {
         console.log('Value Changed:', value);
-    }
+    };
 
     render() {
         return (
@@ -119,3 +116,5 @@ export default class DraggableListExamples extends Component {
         );
     }
 };
+
+export default DraggableListExamples;

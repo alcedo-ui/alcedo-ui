@@ -24,16 +24,10 @@ class DraggableGridItem extends Component {
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.checkboxChangeHandler = ::this.checkboxChangeHandler;
-        this.radioChangeHandler = ::this.radioChangeHandler;
-        this.touchTapHandler = ::this.touchTapHandler;
-
     }
 
-    checkboxChangeHandler(checked) {
+    checkboxChangeHandler = checked => {
 
         const {onSelect, onDeselect} = this.props;
 
@@ -43,9 +37,9 @@ class DraggableGridItem extends Component {
             onDeselect && onDeselect();
         }
 
-    }
+    };
 
-    radioChangeHandler() {
+    radioChangeHandler = () => {
 
         const {checked} = this.props;
 
@@ -54,9 +48,9 @@ class DraggableGridItem extends Component {
             onSelect && onSelect();
         }
 
-    }
+    };
 
-    touchTapHandler(e) {
+    clickHandler = e => {
 
         e.preventDefault();
 
@@ -66,8 +60,8 @@ class DraggableGridItem extends Component {
             return;
         }
 
-        const {onTouchTap} = this.props;
-        onTouchTap && onTouchTap(e);
+        const {onClick} = this.props;
+        onClick && onClick(e);
 
         switch (this.props.selectMode) {
             case SelectMode.MULTI_SELECT:
@@ -78,14 +72,14 @@ class DraggableGridItem extends Component {
                 return;
         }
 
-    }
+    };
 
     render() {
 
         const {
 
                 index, className, style, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
-                checked,disabled, isLoading, renderer, itemRenderer, readOnly, col, anchorIconCls,
+                checked, disabled, isLoading, renderer, itemRenderer, readOnly, col, anchorIconCls,
 
                 selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
@@ -124,7 +118,7 @@ class DraggableGridItem extends Component {
                                              style={style}
                                              disabled={disabled || isLoading}
                                              readOnly={readOnly}
-                                             onTouchTap={this.touchTapHandler}
+                                             onClick={this.clickHandler}
                                              onMouseEnter={onMouseEnter}
                                              onMouseLeave={onMouseLeave}>
 
@@ -273,7 +267,7 @@ DraggableGridItem.propTypes = {
     itemRenderer: PropTypes.func,
     renderer: PropTypes.func,
 
-    onTouchTap: PropTypes.func,
+    onClick: PropTypes.func,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
     onMouseEnter: PropTypes.func,

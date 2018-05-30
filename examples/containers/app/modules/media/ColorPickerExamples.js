@@ -11,7 +11,7 @@ import Color from 'src/_vendors/Color';
 
 import 'sass/containers/app/modules/media/ColorPickerExamples.scss';
 
-export default class ColorPickerExamples extends Component {
+class ColorPickerExamples extends Component {
 
     constructor(props) {
 
@@ -21,15 +21,13 @@ export default class ColorPickerExamples extends Component {
             value: Color.hex2rgb('38b1eb')
         };
 
-        this.changeHandler = ::this.changeHandler;
-
     }
 
-    changeHandler(value) {
+    changeHandler = value => {
         this.setState({
             value
         });
-    }
+    };
 
     render() {
 
@@ -78,3 +76,5 @@ export default class ColorPickerExamples extends Component {
         );
     }
 };
+
+export default ColorPickerExamples;

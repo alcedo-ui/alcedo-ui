@@ -9,7 +9,7 @@ import doc from 'assets/propTypes/Dropdown.json';
 
 import 'sass/containers/app/modules/layout/MaterialDropdownExamples.scss';
 
-export default class MaterialDropdownExamples extends Component {
+class MaterialDropdownExamples extends Component {
 
     constructor(props) {
         super(props);
@@ -57,3 +57,5 @@ export default class MaterialDropdownExamples extends Component {
         );
     }
 };
+
+export default MaterialDropdownExamples;

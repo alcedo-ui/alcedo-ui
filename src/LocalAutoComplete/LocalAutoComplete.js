@@ -41,21 +41,9 @@ class LocalAutoComplete extends Component {
             listData: props.data
         };
 
-        this.filterData = ::this.filterData;
-        this.filterFocusHandler = ::this.filterFocusHandler;
-        this.filterBlurHandler = ::this.filterBlurHandler;
-        this.filterKeyDownHandler = ::this.filterKeyDownHandler;
-        this.filterPressEnterHandler = ::this.filterPressEnterHandler;
-        this.filterChangeHandler = ::this.filterChangeHandler;
-        this.closePopup = ::this.closePopup;
-        this.popupRenderHandler = ::this.popupRenderHandler;
-        this.itemTouchTapHandler = ::this.itemTouchTapHandler;
-        this.update = ::this.update;
-        this.mouseDownHandler = ::this.mouseDownHandler;
-
     }
 
-    filterData(filter = this.state.filter, data = this.props.data) {
+    filterData = (filter = this.state.filter, data = this.props.data) => {
 
         if (!filter) {
             return data;
@@ -91,9 +79,9 @@ class LocalAutoComplete extends Component {
 
         });
 
-    }
+    };
 
-    filterFocusHandler(...args) {
+    filterFocusHandler = (...args) => {
 
         if (this.props.disabled) {
             return;
@@ -114,18 +102,18 @@ class LocalAutoComplete extends Component {
 
         this.setState(state);
 
-    }
+    };
 
-    filterBlurHandler(...args) {
+    filterBlurHandler = (...args) => {
         this.setState({
             filterFocused: false
         }, () => {
             const {onBlur} = this.props;
             onBlur && onBlur(...args);
         });
-    }
+    };
 
-    filterKeyDownHandler(e) {
+    filterKeyDownHandler = e => {
 
         const {useDynamicRenderList} = this.props,
             {tempSelectIndex, listData} = this.state,
@@ -151,9 +139,9 @@ class LocalAutoComplete extends Component {
 
         });
 
-    }
+    };
 
-    filterPressEnterHandler(e, filter) {
+    filterPressEnterHandler = (e, filter) => {
 
         const {autoClose} = this.props,
             state = {};
@@ -171,9 +159,9 @@ class LocalAutoComplete extends Component {
 
         });
 
-    }
+    };
 
-    filterChangeHandler(filter) {
+    filterChangeHandler = filter => {
 
         const {data} = this.props,
             state = {
@@ -199,18 +187,18 @@ class LocalAutoComplete extends Component {
 
         });
 
-    }
+    };
 
-    closePopup() {
+    closePopup = () => {
         this.setState({
             popupVisible: false
         }, () => {
             const {onPopupClosed} = this.props;
             onPopupClosed && onPopupClosed();
         });
-    }
+    };
 
-    popupRenderHandler(popupEl) {
+    popupRenderHandler = popupEl => {
 
         const isAbove = DropdownCalculation.isAbove(this.localAutoCompleteEl, this.triggerEl, findDOMNode(popupEl));
 
@@ -220,9 +208,9 @@ class LocalAutoComplete extends Component {
             });
         }
 
-    }
+    };
 
-    itemTouchTapHandler(value) {
+    itemClickHandler = value => {
 
         const {autoClose, valueField, displayField, renderer} = this.props,
             filter = renderer ? renderer(value) : Util.getTextByDisplayField(value, displayField, valueField),
@@ -239,14 +227,14 @@ class LocalAutoComplete extends Component {
         }
 
         this.setState(state, () => {
-            const {onItemTouchTap, onChange} = this.props;
-            onItemTouchTap && onItemTouchTap(value);
+            const {onItemClick, onChange} = this.props;
+            onItemClick && onItemClick(value);
             isChanged && onChange && onChange(value);
         });
 
-    }
+    };
 
-    update() {
+    update = () => {
 
         const {displayField, valueField, renderer} = this.props,
             {filter, tempSelectIndex, listData} = this.state;
@@ -281,14 +269,14 @@ class LocalAutoComplete extends Component {
             }
         });
 
-    }
+    };
 
-    mouseDownHandler(e) {
+    mouseDownHandler = e => {
         if (this.state.filterFocused && !Dom.isParent(e.target, this.localAutoCompleteEl)
             && !Dom.isParent(e.target, findDOMNode(this.refs.popup))) {
             this.update();
         }
-    }
+    };
 
     componentDidMount() {
 
@@ -392,7 +380,7 @@ class LocalAutoComplete extends Component {
                            onKeyDown={this.filterKeyDownHandler}
                            onPressEnter={this.filterPressEnterHandler}
                            onClear={onFilterClear}
-                           onRightIconTouchTap={this.filterPressEnterHandler}/>
+                           onRightIconClick={this.filterPressEnterHandler}/>
 
                 {
                     isEmpty && !noMatchedPopupVisible ?
@@ -429,7 +417,7 @@ class LocalAutoComplete extends Component {
                                                                listHeight={listHeight}
                                                                itemHeight={itemHeight}
                                                                scrollBuffer={scrollBuffer}
-                                                               onItemTouchTap={this.itemTouchTapHandler}/>
+                                                               onItemClick={this.itemClickHandler}/>
                                             :
                                             <List ref="list"
                                                   className="local-auto-complete-list"
@@ -440,7 +428,7 @@ class LocalAutoComplete extends Component {
                                                   displayField={displayField}
                                                   descriptionField={descriptionField}
                                                   renderer={renderer}
-                                                  onItemTouchTap={this.itemTouchTapHandler}/>
+                                                  onItemClick={this.itemClickHandler}/>
                                     )
                             }
 
@@ -568,7 +556,7 @@ LocalAutoComplete.propTypes = {
             /**
              * Callback function fired when a list item touch-tapped.
              */
-            onTouchTap: PropTypes.func
+            onClick: PropTypes.func
 
         }), PropTypes.string, PropTypes.number])),
 
@@ -669,7 +657,7 @@ LocalAutoComplete.propTypes = {
     /**
      * The function that trigger when touch-tap the list items.
      */
-    onItemTouchTap: PropTypes.func,
+    onItemClick: PropTypes.func,
 
     /**
      * Callback function fired when LocalAutoComplete get focus.

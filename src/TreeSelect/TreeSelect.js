@@ -35,19 +35,13 @@ class TreeSelect extends Component {
                 TreeCalculation.calPath(props.value, props.data, props) : undefined
         };
 
-        this.closePopup = ::this.closePopup;
-        this.getTriggerValue = ::this.getTriggerValue;
-        this.nodeSelectHandler = ::this.nodeSelectHandler;
-        this.changeHandler = ::this.changeHandler;
-        this.popupClosedHandler = ::this.popupClosedHandler;
-
     }
 
-    closePopup() {
+    closePopup = () => {
         this.refs.dropdown && this.refs.dropdown.closePopup();
-    }
+    };
 
-    getTriggerValue(props = this.props) {
+    getTriggerValue = (props = this.props) => {
 
         const {data, selectMode, placeholder, triggerRenderer, renderer, displayField, valueField} = props,
             {value, path} = this.state,
@@ -100,9 +94,9 @@ class TreeSelect extends Component {
 
         return result;
 
-    }
+    };
 
-    nodeSelectHandler(value, path) {
+    nodeSelectHandler = (value, path) => {
 
         if (this.props.selectMode !== SelectMode.SINGLE_SELECT) {
             return;
@@ -112,9 +106,9 @@ class TreeSelect extends Component {
             path
         });
 
-    }
+    };
 
-    changeHandler(value) {
+    changeHandler = value => {
 
         const {autoClose} = this.props;
         if (autoClose) {
@@ -128,16 +122,16 @@ class TreeSelect extends Component {
             onChange && onChange(value);
         });
 
-    }
+    };
 
-    popupClosedHandler(e) {
+    popupClosedHandler = e => {
         this.setState({
             popupVisible: false
         }, () => {
             const {onClosePopup} = this.props;
             onClosePopup && onClosePopup(e);
         });
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.props.value) {
@@ -153,7 +147,8 @@ class TreeSelect extends Component {
 
                 className, triggerClassName, popupClassName, style, name, popupTheme, data, renderer,
                 selectMode, valueField, displayField, descriptionField,
-                onItemTouchTap, popupChildren,
+                isSelectRecursive, allowCollapse, collapsedIconCls, expandedIconCls,
+                onItemClick, popupChildren,
 
                 ...restProps
 
@@ -210,8 +205,12 @@ class TreeSelect extends Component {
                               valueField={valueField}
                               displayField={displayField}
                               descriptionField={descriptionField}
+                              isSelectRecursive={isSelectRecursive}
+                              allowCollapse={allowCollapse}
+                              collapsedIconCls={collapsedIconCls}
+                              expandedIconCls={expandedIconCls}
                               renderer={renderer}
-                              onItemTouchTap={onItemTouchTap}
+                              onItemClick={onItemClick}
                               onNodeSelect={this.nodeSelectHandler}
                               onChange={this.changeHandler}/>
 
@@ -358,7 +357,7 @@ TreeSelect.propTypes = {
         /**
          * Callback function fired when a tree node touch-tapped.
          */
-        onTouchTap: PropTypes.func
+        onClick: PropTypes.func
 
     }),
 
@@ -408,6 +407,10 @@ TreeSelect.propTypes = {
     autoClose: PropTypes.bool,
 
     shouldPreventContainerScroll: PropTypes.bool,
+    isSelectRecursive: PropTypes.bool,
+    allowCollapse: PropTypes.bool,
+    collapsedIconCls: PropTypes.string,
+    expandedIconCls: PropTypes.string,
 
     popupChildren: PropTypes.any,
 
@@ -418,7 +421,7 @@ TreeSelect.propTypes = {
     /**
      * Callback function fired when the button is touch-tapped.
      */
-    onItemTouchTap: PropTypes.func,
+    onItemClick: PropTypes.func,
 
     /**
      * Callback function fired when the popup is closed.
@@ -455,7 +458,11 @@ TreeSelect.defaultProps = {
 
     autoClose: true,
 
-    shouldPreventContainerScroll: true
+    shouldPreventContainerScroll: true,
+    isSelectRecursive: false,
+    allowCollapse: true,
+    collapsedIconCls: 'fas fa-caret-right',
+    expandedIconCls: 'fas fa-caret-down'
 
 };
 

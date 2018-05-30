@@ -23,22 +23,19 @@ class MaterialProvider extends Component {
             isFocus: false
         };
 
-        this.setFocused = ::this.setFocused;
-        this.setHovered = ::this.setHovered;
-
     }
 
-    setFocused(isFocus) {
+    setFocused = isFocus => {
         this.setState({
             isFocus
         });
-    }
+    };
 
-    setHovered(isHover) {
+    setHovered = isHover => {
         this.setState({
             isHover
         });
-    }
+    };
 
     render() {
 

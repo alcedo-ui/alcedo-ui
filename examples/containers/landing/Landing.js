@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {findDOMNode} from 'react-dom';
-import debounce from 'lodash/debounce';
 
 import LandingNav from './LandingNav';
 import LandingIntro from './sections/LandingIntro';
@@ -40,17 +39,14 @@ class Landing extends Component {
             isNavFixed: false
         };
 
-        this.isNavFixed = ::this.isNavFixed;
-        this.scrollHandler = ::this.scrollHandler;
-
     }
 
-    isNavFixed(bodyScrollTop) {
+    isNavFixed = bodyScrollTop => {
         const introEl = document.querySelector(this.menu[0].hash);
         return introEl && (bodyScrollTop > introEl.clientHeight - this.navHeight);
-    }
+    };
 
-    getActivatedMenu(bodyScrollTop) {
+    getActivatedMenu = bodyScrollTop => {
 
         let activatedMenu = this.menu[0];
 
@@ -63,9 +59,9 @@ class Landing extends Component {
 
         return activatedMenu;
 
-    }
+    };
 
-    scrollHandler = debounce(() => {
+    scrollHandler = () => {
 
         const bodyScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
 
@@ -75,7 +71,7 @@ class Landing extends Component {
             isNavFixed: this.isNavFixed(bodyScrollTop)
         });
 
-    }, 250);
+    };
 
     componentDidMount() {
 

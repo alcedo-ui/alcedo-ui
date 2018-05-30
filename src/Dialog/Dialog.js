@@ -26,17 +26,10 @@ class Dialog extends Component {
     static Position = Position;
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.setBodyLock = ::this.setBodyLock;
-        this.okButtonTouchTapHandler = ::this.okButtonTouchTapHandler;
-        this.cancelButtonTouchTapHandler = ::this.cancelButtonTouchTapHandler;
-        this.closeButtonTouchTapHandler = ::this.closeButtonTouchTapHandler;
-
     }
 
-    setBodyLock(props = this.props) {
+    setBodyLock = (props = this.props) => {
 
         if (!props) {
             return;
@@ -44,47 +37,47 @@ class Dialog extends Component {
 
         props.showModal && Dom.toggleClass(document.querySelector('body'), 'dialog-modal-lock', props.visible);
 
-    }
+    };
 
-    resetBody() {
+    resetBody = () => {
         Dom.removeClass(document.querySelector('body'), 'dialog-modal-lock');
-    }
+    };
 
-    okButtonTouchTapHandler() {
+    okButtonClickHandler = () => {
 
-        const {onOKButtonTouchTap} = this.props;
+        const {onOKButtonClick} = this.props;
 
-        onOKButtonTouchTap && onOKButtonTouchTap(() => {
-            this.cancelButtonTouchTapHandler();
+        onOKButtonClick && onOKButtonClick(() => {
+            this.cancelButtonClickHandler();
         });
 
-    }
+    };
 
-    cancelButtonTouchTapHandler() {
+    cancelButtonClickHandler = () => {
 
-        const {onCancelButtonTouchTap, onRequestClose} = this.props;
+        const {onCancelButtonClick, onRequestClose} = this.props;
 
         this.setState({
             visible: false
         }, () => {
-            onCancelButtonTouchTap && onCancelButtonTouchTap();
+            onCancelButtonClick && onCancelButtonClick();
             onRequestClose && onRequestClose();
         });
 
-    }
+    };
 
-    closeButtonTouchTapHandler() {
+    closeButtonClickHandler = () => {
 
-        const {onCloseButtonTouchTap, onRequestClose} = this.props;
+        const {onCloseButtonClick, onRequestClose} = this.props;
 
         this.setState({
             visible: false
         }, () => {
-            onCloseButtonTouchTap && onCloseButtonTouchTap();
+            onCloseButtonClick && onCloseButtonClick();
             onRequestClose && onRequestClose();
         });
 
-    }
+    };
 
     componentDidMount() {
         this.setBodyLock();
@@ -127,7 +120,7 @@ class Dialog extends Component {
 
                 // not passing down these props
                 isBlurClose, isEscClose,
-                onRender, onRequestClose, onOKButtonTouchTap, onCloseButtonTouchTap, onCancelButtonTouchTap,
+                onRender, onRequestClose, onOKButtonClick, onCloseButtonClick, onCancelButtonClick,
 
                 ...restProps
 
@@ -151,7 +144,7 @@ class Dialog extends Component {
                     <IconButton className="dialog-title-close-button"
                                 iconCls={closeIconCls}
                                 disabled={disabled}
-                                onTouchTap={this.closeButtonTouchTapHandler}/>
+                                onClick={this.closeButtonClickHandler}/>
                 </div>
 
                 <div className="dialog-content">
@@ -179,7 +172,7 @@ class Dialog extends Component {
                                           disabled={okButtonDisabled}
                                           isLoading={isLoading || okButtonIsLoading}
                                           disableTouchRipple={true}
-                                          onTouchTap={this.okButtonTouchTapHandler}/>
+                                          onClick={this.okButtonClickHandler}/>
                             :
                             null
                     }
@@ -193,7 +186,7 @@ class Dialog extends Component {
                                         disabled={cancelButtonDisabled}
                                         isLoading={isLoading || cancelButtonIsLoading}
                                         disableTouchRipple={true}
-                                        onTouchTap={this.cancelButtonTouchTapHandler}/>
+                                        onClick={this.cancelButtonClickHandler}/>
                             :
                             null
                     }
@@ -338,17 +331,17 @@ Dialog.propTypes = {
     /**
      * Callback function fired when click the ok button.
      */
-    onOKButtonTouchTap: PropTypes.func,
+    onOKButtonClick: PropTypes.func,
 
     /**
      * Callback function fired when click the cancel button.
      */
-    onCancelButtonTouchTap: PropTypes.func,
+    onCancelButtonClick: PropTypes.func,
 
     /**
      * Callback function fired when click the close button.
      */
-    onCloseButtonTouchTap: PropTypes.func
+    onCloseButtonClick: PropTypes.func
 
 };
 

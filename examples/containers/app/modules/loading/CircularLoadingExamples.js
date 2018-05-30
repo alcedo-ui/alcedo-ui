@@ -9,14 +9,13 @@ import doc from 'assets/propTypes/CircularLoading.json';
 
 import 'sass/containers/app/modules/loading/CircularLoadingExamples.scss';
 
-export default class CircularLoadingExamples extends Component {
+class CircularLoadingExamples extends Component {
 
     constructor(props) {
         super(props);
     }
 
     render() {
-
         return (
             <div className="example circular-loading-examples">
 
@@ -147,3 +146,5 @@ export default class CircularLoadingExamples extends Component {
         );
     }
 }
+
+export default CircularLoadingExamples;

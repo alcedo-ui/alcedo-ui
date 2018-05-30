@@ -18,31 +18,27 @@ class Crumbs extends Component {
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.itemRender = ::this.itemRender;
-
     }
 
-    itemRender(item, index) {
+    itemRender = (item, index) => {
 
         if (item.renderer) {
             return item.renderer(item, index);
         }
 
-        const {itemRenderer, onItemTouchTap} = this.props;
+        const {itemRenderer, onItemClick} = this.props;
         if (itemRenderer) {
             return itemRenderer(item, index);
         }
 
         return <Crumb {...item}
-                      onTouchTap={e => {
-                          item.onTouchTap && item.onTouchTap(e);
-                          onItemTouchTap && onItemTouchTap(e, item, index);
+                      onClick={e => {
+                          item.onClick && item.onClick(e);
+                          onItemClick && onItemClick(e, item, index);
                       }}/>;
 
-    }
+    };
 
     render() {
 
@@ -187,7 +183,7 @@ Crumbs.propTypes = {
         /**
          * Callback function fired when a list item touch-tapped.
          */
-        onTouchTap: PropTypes.func
+        onClick: PropTypes.func
 
     }), PropTypes.string, PropTypes.number])).isRequired,
 
@@ -200,7 +196,7 @@ Crumbs.propTypes = {
      */
     itemRenderer: PropTypes.func,
 
-    onItemTouchTap: PropTypes.func
+    onItemClick: PropTypes.func
 
 };
 

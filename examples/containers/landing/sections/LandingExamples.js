@@ -13,16 +13,12 @@ import 'sass/containers/landing/sections/LandingExamples.scss';
 class LandingExamples extends Component {
 
     constructor(props) {
-
         super(props);
-
-        this.goToDemo = ::this.goToDemo;
-
     }
 
-    goToDemo() {
+    goToDemo = () => {
         this.props.routerPush('/components');
-    }
+    };
 
     render() {
         return (
@@ -35,7 +31,7 @@ class LandingExamples extends Component {
 
                     <FlatButton className="ghost-button"
                                 value="Go to Demo"
-                                onTouchTap={this.goToDemo}/>
+                                onClick={this.goToDemo}/>
 
                     <Paper className="landing-examples-demo"
                            depth={4}>

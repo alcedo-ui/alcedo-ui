@@ -9,7 +9,7 @@ import doc from 'assets/propTypes/GhostButton.json';
 
 import 'sass/containers/app/modules/buttons/GhostButtonExamples.scss';
 
-export default class GhostButtonExamples extends Component {
+class GhostButtonExamples extends Component {
 
     constructor(props) {
         super(props);
@@ -193,3 +193,5 @@ export default class GhostButtonExamples extends Component {
         );
     }
 };
+
+export default GhostButtonExamples;

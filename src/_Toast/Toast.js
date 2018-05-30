@@ -29,12 +29,9 @@ class Toast extends Component {
             leave: false
         };
 
-        this.getIconCls = ::this.getIconCls;
-        this.touchTapHandler = ::this.touchTapHandler;
-
     }
 
-    getIconCls() {
+    getIconCls = () => {
         switch (this.props.type) {
             case MsgType.SUCCESS:
                 return 'fas fa-check-circle';
@@ -45,13 +42,13 @@ class Toast extends Component {
             default:
                 return 'fas fa-info-circle';
         }
-    }
+    };
 
-    touchTapHandler(e) {
+    clickHandler = e => {
         e.preventDefault();
         const {onRequestClose, toastsId} = this.props;
         onRequestClose && onRequestClose(toastsId);
-    }
+    };
 
     componentDidMount() {
 
@@ -104,7 +101,7 @@ class Toast extends Component {
                           theme={type}
                           iconCls={`${iconCls ? iconCls : this.getIconCls()} toast-icon`}
                           value={message}
-                          onTouchTap={this.touchTapHandler}/>
+                          onClick={this.clickHandler}/>
         );
 
     }

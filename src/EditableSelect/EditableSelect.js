@@ -32,16 +32,9 @@ class EditableSelect extends Component {
             isAbove: false
         };
 
-        this.showPopup = ::this.showPopup;
-        this.closePopup = ::this.closePopup;
-        this.filterData = ::this.filterData;
-        this.popupRenderHandle = ::this.popupRenderHandle;
-        this.changeHandle = ::this.changeHandle;
-        this.onChangeValue = ::this.onChangeValue;
-
     }
 
-    onChangeValue(value) {
+    onChangeValue = value => {
         const {useFilter} = this.props;
         if (useFilter) {
             this.setState({
@@ -62,27 +55,27 @@ class EditableSelect extends Component {
             });
         }
 
-    }
+    };
 
-    showPopup() {
+    showPopup = () => {
         this.setState({
             popupVisible: true
         }, () => {
-            this.props.onTriggerTouchTap && this.props.onTriggerTouchTap(this.state.popupVisible);
+            this.props.onTriggerClick && this.props.onTriggerClick(this.state.popupVisible);
             this.props.onFocus && this.props.onFocus();
         });
-    }
+    };
 
-    closePopup() {
+    closePopup = () => {
         this.setState({
             popupVisible: false
         }, () => {
-            this.props.onTriggerTouchTap && this.props.onTriggerTouchTap(this.state.popupVisible);
+            this.props.onTriggerClick && this.props.onTriggerClick(this.state.popupVisible);
             this.props.onPopupClosed && this.props.onPopupClosed();
         });
-    }
+    };
 
-    triggerHandler(el, triggerEl, popupEl, currentVisible, isBlurClose) {
+    triggerHandler = (el, triggerEl, popupEl, currentVisible, isBlurClose) => {
 
         if (!triggerEl) {
             return true;
@@ -99,9 +92,9 @@ class EditableSelect extends Component {
 
         return isBlurClose ? false : currentVisible;
 
-    }
+    };
 
-    filterData(filter = this.state.filter, data = this.props.data) {
+    filterData = (filter = this.state.filter, data = this.props.data) => {
 
         if (!filter) {
             return data;
@@ -132,9 +125,9 @@ class EditableSelect extends Component {
 
         return filterFunc(data);
 
-    }
+    };
 
-    popupRenderHandle(popupEl) {
+    popupRenderHandle = popupEl => {
 
         const isAbove = DropdownCalculation.isAbove(this.editabledSelectEl, this.triggerEl, findDOMNode(popupEl));
 
@@ -144,9 +137,9 @@ class EditableSelect extends Component {
             });
         }
 
-    }
+    };
 
-    changeHandle(value) {
+    changeHandle = value => {
         const {valueField, renderer} = this.props;
         let itemValue = renderer ? renderer(value) : (typeof value == 'object' ? value[valueField] : value);
         const {autoClose} = this.props,
@@ -164,7 +157,7 @@ class EditableSelect extends Component {
             onChange && onChange(itemValue);
         });
 
-    }
+    };
 
     componentDidMount() {
         this.editabledSelectEl = this.refs.editabledSelect;
@@ -184,7 +177,7 @@ class EditableSelect extends Component {
         const {
                 className, popupClassName, style, popupStyle, name, placeholder,
                 disabled, useFilter, valueField, descriptionField, noMatchedMsg,
-                triggerTheme, isGrouped, onItemTouchTap, renderer,
+                triggerTheme, isGrouped, onItemClick, renderer,
                 onMouseOver, onMouseOut
             } = this.props,
             {value, listValue, filter, popupVisible, isAbove} = this.state,
@@ -249,7 +242,7 @@ class EditableSelect extends Component {
                           displayField={valueField}
                           descriptionField={descriptionField}
                           renderer={renderer}
-                          onItemTouchTap={onItemTouchTap}
+                          onItemClick={onItemClick}
                           onChange={this.changeHandle}/>
 
                 </Popup>
@@ -368,7 +361,7 @@ EditableSelect.propTypes = {
             /**
              * Callback function fired when a list item touch-tapped.
              */
-            onTouchTap: PropTypes.func
+            onClick: PropTypes.func
 
         }), PropTypes.string, PropTypes.number])),
 
@@ -435,7 +428,7 @@ EditableSelect.propTypes = {
     /**
      * Callback function fired when the button is touch-tapped.
      */
-    onItemTouchTap: PropTypes.func,
+    onItemClick: PropTypes.func,
 
     /**
      * Callback function fired when a menu item is selected.

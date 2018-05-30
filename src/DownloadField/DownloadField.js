@@ -16,18 +16,15 @@ class DownloadField extends Component {
             key: 0
         };
 
-        this.download = ::this.download;
-        this.loadedHandler = ::this.loadedHandler;
-
     }
 
-    download() {
+    download = () => {
         this.setState({
             key: this.state.key + 1
         });
-    }
+    };
 
-    loadedHandler(e) {
+    loadedHandler = e => {
 
         const {onLoad} = this.props,
             iframeEl = this.refs.iframe;
@@ -39,7 +36,7 @@ class DownloadField extends Component {
                 undefined
         );
 
-    }
+    };
 
     shouldComponentUpdate(nextProps, nextState) {
         if (nextState.key !== this.state.key) {

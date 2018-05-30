@@ -42,26 +42,15 @@ class DateTimePicker extends Component {
             datePickerLevel: 'day'
         };
 
-        this.textFieldChangeHandle = ::this.textFieldChangeHandle;
-        this.togglePopup = ::this.togglePopup;
-        this.closePopup = ::this.closePopup;
-        this.datePickerChangeHandle = ::this.datePickerChangeHandle;
-        this.yearPickerChangeHandle = ::this.yearPickerChangeHandle;
-        this.monthPickerChangeHandle = ::this.monthPickerChangeHandle;
-        this.dayPickerChangeHandle = ::this.dayPickerChangeHandle;
-        this.timePickerChangeHandle = ::this.timePickerChangeHandle;
-        this.chooseDateAndTimeHandle = ::this.chooseDateAndTimeHandle;
-        this.nowHandle = ::this.nowHandle;
-        this.selectDateTimeHandle = ::this.selectDateTimeHandle;
     }
 
-    datePickerChangeHandle(selectLevel) {
+    datePickerChangeHandle = selectLevel => {
         this.setState({
             datePickerLevel: selectLevel
         });
-    }
+    };
 
-    textFieldChangeHandle(text) {
+    textFieldChangeHandle = text => {
         const {minValue, maxValue, dateFormat} = this.props;
         if (text && text.length) {
             const flag = moment(text, dateFormat, true).isValid();
@@ -91,9 +80,9 @@ class DateTimePicker extends Component {
                 value: ''
             });
         }
-    }
+    };
 
-    dayPickerChangeHandle(date) {
+    dayPickerChangeHandle = date => {
         const {dateFormat} = this.props;
         this.setState({
             value: moment(date.time, dateFormat),
@@ -101,24 +90,24 @@ class DateTimePicker extends Component {
             month: date.month,
             day: date.day
         });
-    }
+    };
 
-    monthPickerChangeHandle(date) {
+    monthPickerChangeHandle = date => {
         this.setState({
             datePickerLevel: 'day',
             year: date.year,
             month: date.month
         });
-    }
+    };
 
-    yearPickerChangeHandle(year) {
+    yearPickerChangeHandle = year => {
         this.setState({
             datePickerLevel: 'month',
             year: year
         });
-    }
+    };
 
-    timePickerChangeHandle(obj) {
+    timePickerChangeHandle = obj => {
         let state = cloneDeep(this.state);
         state.hour = obj.hour;
         state.minute = obj.minute;
@@ -131,24 +120,24 @@ class DateTimePicker extends Component {
             second: obj.second,
             value: timer
         });
-    }
+    };
 
-    chooseDateAndTimeHandle(value) {
+    chooseDateAndTimeHandle = value => {
         this.setState({
             datePickerLevel: value
         });
-    }
+    };
 
-    selectDateTimeHandle() {
+    selectDateTimeHandle = () => {
         let state = cloneDeep(this.state);
         state.popupVisible = false;
         state.datePickerLevel = 'day';
         !this.props.disabled && this.setState(state, () => {
             this.props.onChange && this.props.onChange(state.value && moment(state.value).format(this.props.dateFormat));
         });
-    }
+    };
 
-    nowHandle() {
+    nowHandle = () => {
         const year = moment().format('YYYY'),
             month = moment().format('MM'),
             day = moment().format('DD'),
@@ -166,41 +155,25 @@ class DateTimePicker extends Component {
             minute: minute,
             second: second
         });
-    }
+    };
 
-    togglePopup(e) {
+    togglePopup = e => {
         if (this.validValue) {
             this.setState({
                 popupVisible: !this.state.popupVisible,
                 triggerEl: e.target
             });
         }
-    }
+    };
 
-    closePopup() {
+    closePopup = () => {
         const {value} = this.state;
         !this.props.disabled && this.setState({
             popupVisible: false
         }, () => {
             this.props.onChange && this.props.onChange(value && moment(value).format(this.props.dateFormat));
         });
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.props.value || nextProps.dateFormat !== this.props.dateFormat) {
-            const value = moment(nextProps.value, nextProps.dateFormat);
-            this.setState({
-                value: value,
-                dateFormat: nextProps.dateFormat,
-                year: moment(nextProps.value).format('YYYY'),
-                month: moment(nextProps.value).format('MM'),
-                day: moment(nextProps.value).format('DD'),
-                hour: moment(nextProps.value).format('HH'),
-                minute: moment(nextProps.value).format('mm'),
-                second: moment(nextProps.value).format('ss')
-            });
-        }
-    }
+    };
 
     componentDidMount() {
         const {value, dateFormat} = this.props;
@@ -220,9 +193,23 @@ class DateTimePicker extends Component {
                 this.validValue = false;
             }
         }
-
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.value !== this.props.value || nextProps.dateFormat !== this.props.dateFormat) {
+            const value = moment(nextProps.value, nextProps.dateFormat);
+            this.setState({
+                value: value,
+                dateFormat: nextProps.dateFormat,
+                year: moment(nextProps.value).format('YYYY'),
+                month: moment(nextProps.value).format('MM'),
+                day: moment(nextProps.value).format('DD'),
+                hour: moment(nextProps.value).format('HH'),
+                minute: moment(nextProps.value).format('mm'),
+                second: moment(nextProps.value).format('ss')
+            });
+        }
+    }
 
     render() {
 
@@ -249,7 +236,7 @@ class DateTimePicker extends Component {
                            disabled={disabled}
                            clearButtonVisible={false}
                            isFocusedSelectAll={false}
-                           onTouchTap={e => {
+                           onClick={e => {
                                this.togglePopup(e);
                            }}/>
 

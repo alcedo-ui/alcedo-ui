@@ -16,19 +16,15 @@ import 'sass/containers/Root.scss';
 class Root extends Component {
 
     constructor(props) {
-
         super(props);
-
-        this.resizeHandle = ::this.resizeHandle;
-
     }
 
-    resizeHandle() {
+    resizeHandle = () => {
         window.innerWidth >= Config.desktopMinWidth ?
             (!this.props.isDesktop && this.props.switchToDesktop())
             :
             (this.props.isDesktop && this.props.switchToMobile());
-    }
+    };
 
     componentDidMount() {
 

@@ -7,7 +7,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/DropdownFilter.json';
 
-export default class DropdownFilterExamples extends Component {
+class DropdownFilterExamples extends Component {
 
     constructor(props) {
 
@@ -17,38 +17,33 @@ export default class DropdownFilterExamples extends Component {
             text: 'test2',
             value: 2,
             desc: 'Here is test2.',
-            onTouchTap() {
+            onClick() {
                 console.log('test2 selected!');
             }
         }, 'test3', 'test4', 'test5', {
             text: 'test6',
             value: 6,
             desc: 'Here is test6.',
-            onTouchTap() {
+            onClick() {
                 console.log('test6 selected!');
             }
         }, 'test7', 'test8', 'test9'];
 
-        this.onChange = ::this.onChange;
-        this.filterPressEnterHandle = ::this.filterPressEnterHandle;
-        this.filterClearHandle = ::this.filterClearHandle;
-
     }
 
-    onChange(item) {
+    onChange = item => {
         console.log('select item: ', item);
-    }
+    };
 
-    filterPressEnterHandle(value) {
+    filterPressEnterHandle = value => {
         console.log('filter value: ', value);
-    }
+    };
 
-    filterClearHandle() {
+    filterClearHandle = () => {
         console.log('filter cleared');
-    }
+    };
 
     render() {
-
         return (
             <div className="example auto-complete-examples">
 
@@ -118,3 +113,5 @@ export default class DropdownFilterExamples extends Component {
         );
     }
 };
+
+export default DropdownFilterExamples;

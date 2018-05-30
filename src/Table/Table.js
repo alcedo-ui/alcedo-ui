@@ -58,25 +58,9 @@ class Table extends Component {
 
         };
 
-        this.isHeadChecked = ::this.isHeadChecked;
-        this.isHeadIndeterminate = ::this.isHeadIndeterminate;
-        this.isItemChecked = ::this.isItemChecked;
-        this.headCheckBoxChangeHandler = ::this.headCheckBoxChangeHandler;
-        this.multiSelectHandler = ::this.multiSelectHandler;
-        this.singleSelectHandler = ::this.singleSelectHandler;
-        this.sortHandler = ::this.sortHandler;
-        this.sortData = ::this.sortData;
-        this.rowTouchTapHandler = ::this.rowTouchTapHandler;
-        this.cellTouchTapHandler = ::this.cellTouchTapHandler;
-        this.calSelectedCount = ::this.calSelectedCount;
-        this.paggingData = ::this.paggingData;
-        this.pageChangedHandler = ::this.pageChangedHandler;
-        this.resetPage = ::this.resetPage;
-        this.handleColumns = ::this.handleColumns;
-
     }
 
-    isHeadChecked() {
+    isHeadChecked = () => {
 
         const {data} = this.props,
             {value} = this.state;
@@ -87,9 +71,9 @@ class Table extends Component {
 
         return value && value.length > 0 && value.length === data.filter(item => item && !item.disabled).length;
 
-    }
+    };
 
-    isHeadIndeterminate() {
+    isHeadIndeterminate = () => {
 
         const {data} = this.props,
             {value} = this.state,
@@ -102,9 +86,9 @@ class Table extends Component {
 
         return false;
 
-    }
+    };
 
-    isItemChecked(rowData, value = this.state.value) {
+    isItemChecked = (rowData, value = this.state.value) => {
 
         const {selectMode, idProp} = this.props;
 
@@ -128,9 +112,9 @@ class Table extends Component {
                 return value[idProp] === rowData[idProp];
         }
 
-    }
+    };
 
-    headCheckBoxChangeHandler(checked) {
+    headCheckBoxChangeHandler = checked => {
 
         const value = checked ? this.props.data.filter(item => !item.disabled) : [];
 
@@ -141,9 +125,9 @@ class Table extends Component {
             onChange && onChange(value);
         });
 
-    }
+    };
 
-    sortHandler(col) {
+    sortHandler = col => {
 
         const {data, defaultSortType} = this.props;
         let {sort} = this.state,
@@ -166,9 +150,9 @@ class Table extends Component {
             onSort && onSort(sort);
         });
 
-    }
+    };
 
-    sortData(data, sort) {
+    sortData = (data, sort) => {
 
         sort = sort || (this.state ? this.state.sort : null);
 
@@ -193,9 +177,9 @@ class Table extends Component {
 
         return copyData;
 
-    }
+    };
 
-    multiSelectHandler(rowData, rowIndex) {
+    multiSelectHandler = (rowData, rowIndex) => {
 
         if (!rowData) {
             return;
@@ -236,9 +220,9 @@ class Table extends Component {
 
         });
 
-    }
+    };
 
-    singleSelectHandler(rowData, rowIndex) {
+    singleSelectHandler = (rowData, rowIndex) => {
 
         if (!rowData) {
             return;
@@ -263,9 +247,9 @@ class Table extends Component {
 
         });
 
-    }
+    };
 
-    rowTouchTapHandler(rowData, rowIndex, e) {
+    rowClickHandler = (rowData, rowIndex, e) => {
 
         if (!rowData) {
             return;
@@ -276,8 +260,8 @@ class Table extends Component {
             return;
         }
 
-        const {onRowTouchTap} = this.props;
-        onRowTouchTap && onRowTouchTap(rowData, rowIndex, e);
+        const {onRowClick} = this.props;
+        onRowClick && onRowClick(rowData, rowIndex, e);
 
         const {selectMode} = this.props;
 
@@ -290,21 +274,21 @@ class Table extends Component {
                 return;
         }
 
-    }
+    };
 
-    cellTouchTapHandler(data, rowIndex, colIndex, e) {
+    cellClickHandler = (data, rowIndex, colIndex, e) => {
 
         const {disabled} = this.props;
         if (disabled) {
             return;
         }
 
-        const {onCellTouchTap} = this.props;
-        onCellTouchTap && onCellTouchTap(data, rowIndex, colIndex, e);
+        const {onCellClick} = this.props;
+        onCellClick && onCellClick(data, rowIndex, colIndex, e);
 
-    }
+    };
 
-    calSelectedCount() {
+    calSelectedCount = () => {
 
         const {selectMode} = this.props,
             {value} = this.state;
@@ -318,9 +302,9 @@ class Table extends Component {
 
         return 0;
 
-    }
+    };
 
-    paggingData(data) {
+    paggingData = data => {
 
         const {pagging} = this.state,
             {pageSize, page} = pagging,
@@ -334,9 +318,9 @@ class Table extends Component {
 
         return data.slice(start, stop);
 
-    }
+    };
 
-    pageChangedHandler(pagging) {
+    pageChangedHandler = pagging => {
 
         if (typeof pagging.pageSize === 'object') {
             pagging.pageSize = pagging.pageSize.value;
@@ -348,9 +332,9 @@ class Table extends Component {
             this.resetPage(this.props.data, pagging);
         });
 
-    }
+    };
 
-    resetPage(data = this.props.data, pagging = this.state.pagging) {
+    resetPage = (data = this.props.data, pagging = this.state.pagging) => {
 
         const {onPageChange} = this.props;
         let {page, pageSize} = pagging,
@@ -371,9 +355,9 @@ class Table extends Component {
 
         onPageChange && onPageChange(page, pageSize);
 
-    }
+    };
 
-    handleColumns(columns = this.props.columns) {
+    handleColumns = (columns = this.props.columns) => {
 
         const {
                 hasLineNumber, disabled,
@@ -438,7 +422,7 @@ class Table extends Component {
 
         return finalColumns;
 
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
 
@@ -516,8 +500,8 @@ class Table extends Component {
                                            value={value}
                                            selectMode={selectMode}
                                            disabled={disabled}
-                                           onRowTouchTap={this.rowTouchTapHandler}
-                                           onCellTouchTap={this.cellTouchTapHandler}/>
+                                           onRowClick={this.rowClickHandler}
+                                           onCellClick={this.cellClickHandler}/>
                                 :
                                 <tbody className="table-body">
                                     <tr className="table-row">
@@ -764,12 +748,12 @@ Table.propTypes = {
     /**
      * The function that trigger when the row is touch-tapped.
      */
-    onRowTouchTap: PropTypes.func,
+    onRowClick: PropTypes.func,
 
     /**
      * The function that trigger when the td is touch-tapped.
      */
-    onCellTouchTap: PropTypes.func,
+    onCellClick: PropTypes.func,
 
     onSort: PropTypes.func,
     onPageChange: PropTypes.func,

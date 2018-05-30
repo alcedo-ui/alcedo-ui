@@ -10,16 +10,10 @@ import classNames from 'classnames';
 class TableRow extends Component {
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.contentRenderer = ::this.contentRenderer;
-        this.rowTouchTapHandler = ::this.rowTouchTapHandler;
-        this.cellTouchTapHandler = ::this.cellTouchTapHandler;
-
     }
 
-    stringContentRenderer(data, template) {
+    stringContentRenderer = (data, template) => {
 
         if (!data) {
             return template;
@@ -35,9 +29,9 @@ class TableRow extends Component {
             return data[template];
         }
 
-    }
+    };
 
-    contentRenderer(renderer, colIndex) {
+    contentRenderer = (renderer, colIndex) => {
 
         const {rowIndex, data} = this.props;
 
@@ -50,17 +44,17 @@ class TableRow extends Component {
                 return renderer;
         }
 
-    }
+    };
 
-    rowTouchTapHandler(e) {
-        const {data, rowIndex, disabled, onRowTouchTap} = this.props;
-        !disabled && onRowTouchTap && onRowTouchTap(data, rowIndex, e);
-    }
+    rowClickHandler = e => {
+        const {data, rowIndex, disabled, onRowClick} = this.props;
+        !disabled && onRowClick && onRowClick(data, rowIndex, e);
+    };
 
-    cellTouchTapHandler(e, colIndex) {
-        const {data, rowIndex, disabled, onCellTouchTap} = this.props;
-        !disabled && onCellTouchTap && onCellTouchTap(data, rowIndex, colIndex, e);
-    }
+    cellClickHandler = (e, colIndex) => {
+        const {data, rowIndex, disabled, onCellClick} = this.props;
+        !disabled && onCellClick && onCellClick(data, rowIndex, colIndex, e);
+    };
 
     render() {
 
@@ -75,7 +69,7 @@ class TableRow extends Component {
             <tr className={trClassName}
                 style={data.rowStyle}
                 disabled={disabled}
-                onTouchTap={this.rowTouchTapHandler}>
+                onClick={this.rowClickHandler}>
 
                 {
                     columns.map((col, colIndex) =>
@@ -84,7 +78,7 @@ class TableRow extends Component {
                                 [col.cellClassName]: col.cellClassName
                             })}
                             style={col.cellStyle}
-                            onTouchTap={e => this.cellTouchTapHandler(e, colIndex)}>
+                            onClick={e => this.cellClickHandler(e, colIndex)}>
                             {this.contentRenderer(col.renderer, colIndex)}
                         </td>
                     )
@@ -104,8 +98,8 @@ TableRow.propTypes = {
     isChecked: PropTypes.bool,
     disabled: PropTypes.bool,
 
-    onRowTouchTap: PropTypes.func,
-    onCellTouchTap: PropTypes.func
+    onRowClick: PropTypes.func,
+    onCellClick: PropTypes.func
 
 };
 

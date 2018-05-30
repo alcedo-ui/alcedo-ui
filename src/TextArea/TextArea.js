@@ -34,19 +34,9 @@ class TextArea extends Component {
             invalidMsgs: ''
         };
 
-        this.changeHandler = ::this.changeHandler;
-        this.keyDownHandler = ::this.keyDownHandler;
-        this.clearValue = ::this.clearValue;
-        this.togglePasswordVisible = ::this.togglePasswordVisible;
-        this.mouseOverHandler = ::this.mouseOverHandler;
-        this.mouseOutHandler = ::this.mouseOutHandler;
-        this.focusHandler = ::this.focusHandler;
-        this.blurHandler = ::this.blurHandler;
-        this.rightIconTouchTapHandler = ::this.rightIconTouchTapHandler;
-
     }
 
-    changeHandler(e) {
+    changeHandler = e => {
 
         const {onValid, onInvalid} = this.props,
 
@@ -65,16 +55,16 @@ class TextArea extends Component {
             invalidMsgs.length > 0 ? onInvalid && onInvalid() : onValid && onValid();
         });
 
-    }
+    };
 
-    keyDownHandler(e) {
+    keyDownHandler = e => {
         if (e.keyCode === 13) {
             const {value, onPressEnter} = this.props;
             onPressEnter && onPressEnter(e, value);
         }
-    }
+    };
 
-    clearValue() {
+    clearValue = () => {
 
         const {disabled, clearButtonVisible, onClear, onChange, onValid, onInvalid} = this.props;
 
@@ -93,9 +83,9 @@ class TextArea extends Component {
 
         });
 
-    }
+    };
 
-    togglePasswordVisible() {
+    togglePasswordVisible = () => {
 
         const {disabled, passwordButtonVisible, onPasswordVisible, onPasswordInvisible} = this.props;
         const passwordVisible = !this.state.passwordVisible;
@@ -112,9 +102,9 @@ class TextArea extends Component {
 
         });
 
-    }
+    };
 
-    mouseOverHandler(e) {
+    mouseOverHandler = e => {
         this.setState({
             infoVisible: true,
             errorVisible: true
@@ -122,9 +112,9 @@ class TextArea extends Component {
             const {value, onMouseOver} = this.props;
             onMouseOver && onMouseOver(e, value);
         });
-    }
+    };
 
-    mouseOutHandler(e) {
+    mouseOutHandler = e => {
         this.setState({
             infoVisible: false,
             errorVisible: false
@@ -132,9 +122,9 @@ class TextArea extends Component {
             const {value, onMouseOut} = this.props;
             onMouseOut && onMouseOut(e, value);
         });
-    }
+    };
 
-    focusHandler(e) {
+    focusHandler = e => {
         this.setState({
             isFocused: true
         }, () => {
@@ -142,9 +132,9 @@ class TextArea extends Component {
             onFocus && onFocus(e, value);
             isFocusedSelectAll && this.refs.input.setSelectionRange(0, value ? value.length : 0);
         });
-    }
+    };
 
-    blurHandler(e) {
+    blurHandler = e => {
 
         if (e.relatedTarget == this.clearButtonEl) {
             return;
@@ -157,12 +147,12 @@ class TextArea extends Component {
             onBlur && onBlur(e, value);
         });
 
-    }
+    };
 
-    rightIconTouchTapHandler(e) {
-        const {value, onRightIconTouchTap} = this.props;
-        onRightIconTouchTap && onRightIconTouchTap(e, value);
-    }
+    rightIconClickHandler = e => {
+        const {value, onRightIconClick} = this.props;
+        onRightIconClick && onRightIconClick(e, value);
+    };
 
     componentDidMount() {
 
@@ -184,7 +174,7 @@ class TextArea extends Component {
                 children, className, triggerClassName, placeholderClassName, style, theme,
                 value, type, iconCls, disabled, infoMsg, autoHeight, wordCountVisible, placeholder,
                 clearButtonVisible, rightIconCls, passwordButtonVisible, fieldMsgVisible, maxLength,
-                onIconTouchTap, onRightIconTouchTap,
+                onIconClick, onRightIconClick,
 
                 // not passing down these props
                 autoFocus, pattern, patternInvalidMsg, isFocusedSelectAll,
@@ -212,7 +202,7 @@ class TextArea extends Component {
                     [className]: className
                 }),
             leftIconClassName = classNames('text-area-left-icon', {
-                deactivated: !onIconTouchTap
+                deactivated: !onIconClick
             }),
             fieldPlaceholderClassName = classNames('text-area-placeholder', {
                 [placeholderClassName]: placeholderClassName
@@ -227,7 +217,7 @@ class TextArea extends Component {
                 hidden: !clearButtonVisible || !value || value.length < 1
             }),
             rightIconClassName = classNames('text-area-right-icon', {
-                deactivated: !onRightIconTouchTap
+                deactivated: !onRightIconClick
             }),
             wordCountClassName = classNames('text-area-word-count', {
                 error: value.length > maxLength
@@ -249,14 +239,14 @@ class TextArea extends Component {
                     iconCls ?
                         <IconButton className={leftIconClassName}
                                     iconCls={iconCls}
-                                    disableTouchRipple={!onIconTouchTap}
-                                    onTouchTap={onIconTouchTap}/>
+                                    disableTouchRipple={!onIconClick}
+                                    onClick={onIconClick}/>
                         :
                         null
                 }
 
                 {
-                    placeholder && empty ?
+                    placeholder && !isFocused ?
                         <textarea className={fieldPlaceholderClassName}
                                   value={placeholder}
                                   disabled={true}/>
@@ -279,19 +269,19 @@ class TextArea extends Component {
 
                 <IconButton className={passwordVisibleIconClassName}
                             iconCls={passwordVisible ? 'fas fa-eye' : 'far fa-eye-slash'}
-                            onTouchTap={this.togglePasswordVisible}/>
+                            onClick={this.togglePasswordVisible}/>
 
                 <IconButton ref="clearButton"
                             className={clearButtonClassName}
                             iconCls="fas fa-times-circle"
-                            onTouchTap={this.clearValue}/>
+                            onClick={this.clearValue}/>
 
                 {
                     rightIconCls ?
                         <IconButton className={rightIconClassName}
                                     rightIconCls={rightIconCls}
-                                    disableTouchRipple={!onRightIconTouchTap}
-                                    onTouchTap={this.rightIconTouchTapHandler}/>
+                                    disableTouchRipple={!onRightIconClick}
+                                    onClick={this.rightIconClickHandler}/>
                         :
                         null
                 }
@@ -501,8 +491,8 @@ TextArea.propTypes = {
      */
     onPasswordInvisible: PropTypes.func,
 
-    onIconTouchTap: PropTypes.func,
-    onRightIconTouchTap: PropTypes.func,
+    onIconClick: PropTypes.func,
+    onRightIconClick: PropTypes.func,
 
     onMouseOver: PropTypes.func,
     onMouseOut: PropTypes.func

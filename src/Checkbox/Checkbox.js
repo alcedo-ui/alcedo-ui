@@ -27,13 +27,9 @@ class Checkbox extends Component {
             checked: !!props.checked
         };
 
-        this.touchTapHandler = ::this.touchTapHandler;
-        this.mouseDownHandle = ::this.mouseDownHandle;
-        this.mouseUpHandle = ::this.mouseUpHandle;
-
     }
 
-    touchTapHandler() {
+    clickHandler = () => {
 
         const checked = !this.state.checked;
 
@@ -53,20 +49,20 @@ class Checkbox extends Component {
 
         });
 
-    }
+    };
 
-    mouseDownHandle(e) {
+    mouseDownHandler = e => {
 
         if (this.props.disabled) {
             return;
         }
 
         this.refs.checkboxIcon.startRipple(e);
-        this.touchTapHandler();
+        this.clickHandler();
 
-    }
+    };
 
-    mouseUpHandle() {
+    mouseUpHandler = () => {
 
         if (this.props.disabled) {
             return;
@@ -74,7 +70,7 @@ class Checkbox extends Component {
 
         this.refs.checkboxIcon.endRipple();
 
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.checked !== this.state.checked) {
@@ -124,12 +120,12 @@ class Checkbox extends Component {
                         <IconButton ref="checkboxIcon"
                                     className="checkbox-bg-icon"
                                     iconCls={uncheckedIconCls}
-                                    onTouchTap={this.touchTapHandler}
+                                    onClick={this.clickHandler}
                                     disabled={disabled}
                                     disableTouchRipple={disableTouchRipple}/>
                         <IconButton className="checkbox-icon"
                                     iconCls={indeterminate ? indeterminateIconCls : checkedIconCls}
-                                    onTouchTap={this.touchTapHandler}
+                                    onClick={this.clickHandler}
                                     disabled={disabled}
                                     disableTouchRipple={disableTouchRipple}/>
                     </div>
@@ -137,9 +133,9 @@ class Checkbox extends Component {
                     {
                         label ?
                             <div className="checkbox-label"
-                                 onMouseDown={this.mouseDownHandle}
-                                 onMouseUp={this.mouseUpHandle}
-                                 onMouseLeave={this.mouseUpHandle}>
+                                 onMouseDown={this.mouseDownHandler}
+                                 onMouseUp={this.mouseUpHandler}
+                                 onMouseLeave={this.mouseUpHandler}>
                                 {label}
                             </div>
                             :

@@ -21,28 +21,22 @@ class BaseButton extends Component {
     static TipPosition = Position;
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.touchTapHandler = ::this.touchTapHandler;
-        this.startRipple = ::this.startRipple;
-        this.endRipple = ::this.endRipple;
-
     }
 
-    touchTapHandler(e) {
+    clickHandler = e => {
         e.preventDefault();
-        const {disabled, isLoading, onTouchTap} = this.props;
-        !disabled && !isLoading && onTouchTap && onTouchTap(e);
-    }
+        const {disabled, isLoading, onClick} = this.props;
+        !disabled && !isLoading && onClick && onClick(e);
+    };
 
-    startRipple(e) {
+    startRipple = e => {
         !this.props.disableTouchRipple && this.refs.touchRipple.addRipple(e);
-    }
+    };
 
-    endRipple() {
+    endRipple = () => {
         !this.props.disableTouchRipple && this.refs.touchRipple.removeRipple();
-    }
+    };
 
     render() {
 
@@ -75,7 +69,7 @@ class BaseButton extends Component {
                         type={type}
                         disabled={disabled || isLoading}
                         readOnly={readOnly}
-                        onTouchTap={this.touchTapHandler}>
+                        onClick={this.clickHandler}>
 
                     {
                         isLoading && loadingIconPosition === 'left' ?
@@ -161,7 +155,7 @@ BaseButton.propTypes = {
     rippleDisplayCenter: PropTypes.bool,
 
     renderer: PropTypes.func,
-    onTouchTap: PropTypes.func
+    onClick: PropTypes.func
 
 };
 

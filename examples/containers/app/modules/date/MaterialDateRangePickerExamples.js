@@ -7,19 +7,18 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/MaterialDateRangePicker.json';
 
-export default class MaterialDateRangePickerExamples extends Component {
+class MaterialDateRangePickerExamples extends Component {
 
     constructor(props) {
         super(props);
     }
 
-    onChangeHandle(value) {
+    onChangeHandle = value => {
         console.log(value);
-    }
+    };
 
     render() {
         return (
-
             <div className="example date-range-picker-examples">
 
                 <h2 className="example-title">Material Date Range Picker</h2>
@@ -138,3 +137,5 @@ export default class MaterialDateRangePickerExamples extends Component {
         );
     }
 };
+
+export default MaterialDateRangePickerExamples;

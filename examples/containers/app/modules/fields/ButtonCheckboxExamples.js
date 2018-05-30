@@ -9,7 +9,7 @@ import doc from 'assets/propTypes/ButtonCheckbox.json';
 
 import 'sass/containers/app/modules/fields/ButtonCheckboxExamples.scss';
 
-export default class ButtonCheckboxExamples extends Component {
+class ButtonCheckboxExamples extends Component {
 
     constructor(props) {
         super(props);
@@ -18,7 +18,6 @@ export default class ButtonCheckboxExamples extends Component {
     render() {
         return (
             <div className="example button-checkbox-examples">
-
 
                 <h2 className="example-title">ButtonCheckbox</h2>
 
@@ -123,3 +122,5 @@ export default class ButtonCheckboxExamples extends Component {
         );
     }
 };
+
+export default ButtonCheckboxExamples;

@@ -20,21 +20,16 @@ class RaisedButton extends Component {
     static TipPosition = Position;
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.startRipple = ::this.startRipple;
-        this.endRipple = ::this.endRipple;
-
     }
 
-    startRipple(e) {
+    startRipple = e => {
         this.refs.baseButton.startRipple(e);
-    }
+    };
 
-    endRipple() {
+    endRipple = () => {
         this.refs.baseButton.endRipple();
-    }
+    };
 
     render() {
 
@@ -133,7 +128,7 @@ RaisedButton.propTypes = {
     /**
      * Callback function fired when the button is touch-tapped.
      */
-    onTouchTap: PropTypes.func
+    onClick: PropTypes.func
 
 };
 

@@ -27,14 +27,9 @@ class TouchRipple extends Component {
             ripples: []
         };
 
-        this.getRippleStyle = ::this.getRippleStyle;
-        this.addRipple = ::this.addRipple;
-        this.removeRipple = ::this.removeRipple;
-        this.mouseDownHandler = ::this.mouseDownHandler;
-
     }
 
-    getRippleStyle(e) {
+    getRippleStyle = e => {
 
         const {displayCenter} = this.props,
 
@@ -74,9 +69,9 @@ class TouchRipple extends Component {
             left: left
         };
 
-    }
+    };
 
-    addRipple(e) {
+    addRipple = e => {
 
         if (this.ignoreNextMouseDown) {
             return;
@@ -96,17 +91,17 @@ class TouchRipple extends Component {
             this.ignoreNextMouseDown = false;
         });
 
-    }
+    };
 
-    removeRipple() {
+    removeRipple = () => {
         this.setState({
             ripples: []
         });
-    }
+    };
 
-    mouseDownHandler(e) {
+    mouseDownHandler = e => {
         this.addRipple(e);
-    }
+    };
 
     render() {
 

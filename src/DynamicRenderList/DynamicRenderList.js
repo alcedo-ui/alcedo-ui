@@ -33,40 +33,35 @@ class DynamicRenderList extends Component {
             scrollTop: 0
         };
 
-        this.getIndex = ::this.getIndex;
-        this.scrollHandler = ::this.scrollHandler;
-        this.changeHandler = ::this.changeHandler;
-        this.adjustScroll = ::this.adjustScroll;
-
     }
 
-    getIndex() {
+    getIndex = () => {
         const {data, listHeight, itemHeight, scrollBuffer} = this.props,
             {scrollTop} = this.state;
         return Calculation.displayIndexByScrollTop(data, listHeight, itemHeight, scrollTop, scrollBuffer);
-    }
+    };
 
-    scrollHandler(e) {
+    scrollHandler = e => {
         this.setState({
             scrollTop: this.dynamicRenderListEl.scrollTop
         }, () => {
             const {onScroll} = this.props;
             onScroll && onScroll(e);
         });
-    }
+    };
 
-    changeHandler(value) {
+    changeHandler = value => {
         this.setState({
             value
         }, () => {
             const {onChange} = this.props;
             onChange && onChange(value);
         });
-    }
+    };
 
-    adjustScroll() {
+    adjustScroll = () => {
         this.refs.list.adjustScroll();
-    }
+    };
 
     componentDidMount() {
         this.dynamicRenderListEl = this.refs.dynamicRenderList;
@@ -238,7 +233,7 @@ DynamicRenderList.propTypes = {
         /**
          * Callback function fired when a list item touch-tapped.
          */
-        onTouchTap: PropTypes.func
+        onClick: PropTypes.func
 
     }), PropTypes.string, PropTypes.number, PropTypes.symbol])).isRequired,
 
@@ -293,7 +288,7 @@ DynamicRenderList.propTypes = {
     /**
      * Callback function fired when the list-item touch tap.
      */
-    onItemTouchTap: PropTypes.func,
+    onItemClick: PropTypes.func,
 
     /**
      * Callback function fired when the list-item select.

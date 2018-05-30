@@ -37,18 +37,9 @@ class DropdownFilter extends Component {
             isAbove: false
         };
 
-        this.filterData = ::this.filterData;
-        this.triggerFocusHandler = ::this.triggerFocusHandler;
-        this.triggerBlurHandler = ::this.triggerBlurHandler;
-        this.filterChangeHandler = ::this.filterChangeHandler;
-        this.filterPressEnterHandler = ::this.filterPressEnterHandler;
-        this.closePopup = ::this.closePopup;
-        this.popupRenderHandler = ::this.popupRenderHandler;
-        this.changeHandler = ::this.changeHandler;
-
     }
 
-    filterData(filter = this.state.filter, data = this.props.data) {
+    filterData = (filter = this.state.filter, data = this.props.data) => {
 
         if (!filter) {
             return data;
@@ -69,9 +60,9 @@ class DropdownFilter extends Component {
 
         return filterFunc(data);
 
-    }
+    };
 
-    triggerFocusHandler(...args) {
+    triggerFocusHandler = (...args) => {
 
         const {disabled, onFocus} = this.props,
             {filter} = this.state;
@@ -82,14 +73,14 @@ class DropdownFilter extends Component {
             popupVisible: true
         });
 
-    }
+    };
 
-    triggerBlurHandler(...args) {
+    triggerBlurHandler = (...args) => {
         const {disabled, onBlur} = this.props;
         !disabled && onBlur && onBlur(...args);
-    }
+    };
 
-    filterChangeHandler(filter) {
+    filterChangeHandler = filter => {
 
         const value = this.state.value,
             state = {
@@ -106,9 +97,9 @@ class DropdownFilter extends Component {
             onFilterChange && onFilterChange(filter);
         });
 
-    }
+    };
 
-    filterPressEnterHandler(e, filter) {
+    filterPressEnterHandler = (e, filter) => {
 
         const {autoClose} = this.props,
             callback = () => {
@@ -126,18 +117,18 @@ class DropdownFilter extends Component {
             callback();
         }
 
-    }
+    };
 
-    closePopup() {
+    closePopup = () => {
         this.setState({
             popupVisible: false
         }, () => {
             const {onPopupClosed} = this.props;
             onPopupClosed && onPopupClosed();
         });
-    }
+    };
 
-    popupRenderHandler(popupEl) {
+    popupRenderHandler = popupEl => {
 
         const isAbove = DropdownCalculation.isAbove(this.dropdownFilterEl, this.triggerEl, findDOMNode(popupEl));
 
@@ -147,9 +138,9 @@ class DropdownFilter extends Component {
             });
         }
 
-    }
+    };
 
-    changeHandler(value) {
+    changeHandler = value => {
 
         const state = {value};
 
@@ -162,7 +153,7 @@ class DropdownFilter extends Component {
             onChange && onChange(value);
         });
 
-    }
+    };
 
     componentDidMount() {
         this.dropdownFilterEl = this.refs.dropdownFilter;
@@ -189,7 +180,7 @@ class DropdownFilter extends Component {
                 radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
-                onItemTouchTap, onFilterClear, onMouseOver, onMouseOut
+                onItemClick, onFilterClear, onMouseOver, onMouseOut
 
             } = this.props,
             {isAbove, value, filter, popupVisible} = this.state,
@@ -251,7 +242,7 @@ class DropdownFilter extends Component {
                            onChange={this.filterChangeHandler}
                            onPressEnter={this.filterPressEnterHandler}
                            onClear={onFilterClear}
-                           onRightIconTouchTap={this.filterPressEnterHandler}/>
+                           onRightIconClick={this.filterPressEnterHandler}/>
 
                 {
                     isEmpty && !noMatchedPopupVisible ?
@@ -293,7 +284,7 @@ class DropdownFilter extends Component {
                                                                checkboxUncheckedIconCls={checkboxUncheckedIconCls}
                                                                checkboxCheckedIconCls={checkboxCheckedIconCls}
                                                                checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
-                                                               onItemTouchTap={onItemTouchTap}
+                                                               onItemClick={onItemClick}
                                                                onChange={this.changeHandler}/>
                                             :
                                             <List className="dropdown-filter-list"
@@ -310,7 +301,7 @@ class DropdownFilter extends Component {
                                                   checkboxUncheckedIconCls={checkboxUncheckedIconCls}
                                                   checkboxCheckedIconCls={checkboxCheckedIconCls}
                                                   checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
-                                                  onItemTouchTap={onItemTouchTap}
+                                                  onItemClick={onItemClick}
                                                   onChange={this.changeHandler}/>
                                     )
                             }
@@ -429,7 +420,7 @@ DropdownFilter.propTypes = {
             /**
              * Callback function fired when a list item touch-tapped.
              */
-            onTouchTap: PropTypes.func
+            onClick: PropTypes.func
 
         }), PropTypes.string, PropTypes.number])),
 
@@ -534,7 +525,7 @@ DropdownFilter.propTypes = {
     /**
      * The function that trigger when touch-tap the list items.
      */
-    onItemTouchTap: PropTypes.func,
+    onItemClick: PropTypes.func,
 
     /**
      * Callback function fired when DropdownFilter get focus.

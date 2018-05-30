@@ -8,7 +8,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Checkbox.json';
 
-export default class CheckboxExamples extends Component {
+class CheckboxExamples extends Component {
 
     constructor(props) {
 
@@ -40,46 +40,40 @@ export default class CheckboxExamples extends Component {
             value: 5
         }];
 
-        this.checkboxChangeHandler = ::this.checkboxChangeHandler;
-        this.checkboxGroupChangeHandler = ::this.checkboxGroupChangeHandler;
-
     }
 
-    checkHandler(item) {
+    checkHandler = item => {
         if (item) {
             console.log('checked', item);
         } else {
             console.log('checked');
         }
-    }
+    };
 
-    uncheckHandler(item) {
+    uncheckHandler = item => {
         if (item) {
             console.log('unchecked', item);
         } else {
             console.log('unchecked');
         }
-    }
+    };
 
-    checkboxChangeHandler(value) {
+    checkboxChangeHandler = value => {
         this.setState({
             checkboxGroupValue: value ? [...this.data] : []
         });
-    }
+    };
 
-    checkboxGroupChangeHandler(checkboxGroupValue) {
+    checkboxGroupChangeHandler = checkboxGroupValue => {
         this.setState({
             checkboxGroupValue
         });
-    }
+    };
 
     render() {
 
         const {checkboxGroupValue} = this.state,
-
             indeterminate = checkboxGroupValue.length > 0 && checkboxGroupValue.length < this.data.length;
-
-        console.log(indeterminate);
 
         return (
             <div className="example checkbox-examples">
@@ -198,3 +192,5 @@ export default class CheckboxExamples extends Component {
         );
     }
 };
+
+export default CheckboxExamples;

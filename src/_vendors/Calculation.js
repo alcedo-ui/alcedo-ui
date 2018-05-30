@@ -78,6 +78,20 @@ function getInitValue(props) {
 
 }
 
+function getMultiSelectItemIndex(item, value, {selectMode, valueField, displayField}) {
+
+    if (selectMode !== SelectMode.MULTI_SELECT || !item || !value) {
+        return -1;
+    }
+
+    if (!isArray(value)) {
+        return -1;
+    }
+
+    return value.findIndex(valueItem => Util.isValueEqual(valueItem, item, valueField, displayField));
+
+}
+
 function isItemChecked(item, value, {selectMode, valueField, displayField}) {
 
     if (!item || !value) {
@@ -98,5 +112,6 @@ export default {
     pageSize,
     displayIndexByScrollTop,
     getInitValue,
+    getMultiSelectItemIndex,
     isItemChecked
 };

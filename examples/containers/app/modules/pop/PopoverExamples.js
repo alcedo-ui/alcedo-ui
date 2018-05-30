@@ -13,7 +13,7 @@ import doc from 'assets/propTypes/Popover.json';
 import 'sass/containers/app/modules/pop/PopExamples.scss';
 import 'sass/containers/app/modules/pop/PopoverExamples.scss';
 
-export default class PopoverExamples extends Component {
+class PopoverExamples extends Component {
 
     constructor(props) {
 
@@ -24,12 +24,9 @@ export default class PopoverExamples extends Component {
             triggerEl: {}
         };
 
-        this.showMenu = ::this.showMenu;
-        this.hideMenu = ::this.hideMenu;
-
     }
 
-    showMenu(id) {
+    showMenu = id => {
 
         const {menuVisible} = this.state;
 
@@ -39,9 +36,9 @@ export default class PopoverExamples extends Component {
             menuVisible
         });
 
-    }
+    };
 
-    hideMenu(id) {
+    hideMenu = id => {
 
         const {menuVisible} = this.state;
 
@@ -51,7 +48,7 @@ export default class PopoverExamples extends Component {
             menuVisible
         });
 
-    }
+    };
 
     componentDidMount() {
 
@@ -449,3 +446,5 @@ export default class PopoverExamples extends Component {
         );
     }
 };
+
+export default PopoverExamples;

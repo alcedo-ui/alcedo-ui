@@ -15,6 +15,7 @@ import Util from '../_vendors/Util';
 import Dom from '../_vendors/Dom';
 import CharSize from '../_vendors/CharSize';
 import Event from '../_vendors/Event';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class TagField extends Component {
 
@@ -312,30 +313,12 @@ class TagField extends Component {
         Event.addEvent(document, 'mousedown', this.mouseDownHandler);
     }
 
-    static getDerivedStateFromProps(nextProps, prevState) {
-
-        let state;
-
-        if (nextProps.data !== prevState.data) {
-            if (!state) {
-                state = {};
-            }
-            state.data = nextProps.data;
-        }
-
-        if (nextProps.inputValue !== prevState.inputValue) {
-            if (!state) {
-                state = {};
-            }
-            state.inputValue = nextProps.inputValue;
-        }
-
-        if (state) {
-            return state;
-        }
-
-        return null;
-
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            data: ComponentUtil.getDerivedState(props, state, 'data'),
+            inputValue: ComponentUtil.getDerivedState(props, state, 'inputValue')
+        };
     }
 
     componentWillUnmount() {
