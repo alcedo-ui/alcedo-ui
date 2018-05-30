@@ -16,7 +16,7 @@ class NavMenuItem extends Component {
 
     }
 
-    menuGroupMousedownHandler = () => {
+    menuGroupClickHandler = () => {
 
         const {expandMenuName, options, expandMenu} = this.props;
 
@@ -28,7 +28,7 @@ class NavMenuItem extends Component {
 
     };
 
-    menuMousedownHandler = () => {
+    menuClickHandler = () => {
         const {options, depth, expandMenu, updateActivatedMenu} = this.props;
         depth === 0 && expandMenu('');
         updateActivatedMenu(options);
@@ -54,7 +54,7 @@ class NavMenuItem extends Component {
                     hasChildren ?
                         <div className="nav-menu-item-title"
                              disabled={options.disabled}
-                             onMouseDown={this.menuGroupMousedownHandler}>
+                             onClick={this.menuGroupClickHandler}>
 
                             <div className="nav-menu-item-name">
                                 {options.text}
@@ -71,7 +71,7 @@ class NavMenuItem extends Component {
                         <Link className={linkClassName}
                               to={options.route}
                               disabled={options.disabled}
-                              onClick={this.menuMousedownHandler}>
+                              onClick={this.menuClickHandler}>
 
                             <div className="nav-menu-item-name"
                                  style={{marginLeft: depth * subMenuIndent}}>

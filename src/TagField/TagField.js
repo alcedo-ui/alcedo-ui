@@ -28,6 +28,7 @@ class TagField extends Component {
         this.inputSymbol = Symbol('input');
 
         this.state = {
+            wrapperWidth: 'auto',
             data: props.data,
             inputValue: props.inputValue,
             inputIndex: props.data.length,
@@ -186,10 +187,13 @@ class TagField extends Component {
             inputValue
         }, () => {
 
-            const width = CharSize.calculateStringWidth(inputValue, this.refs.test);
-            this.refs.inputWrapper.style.width = `${width + 9}px`;
+            const {onInputChange} = this.props,
+                width = CharSize.calculateStringWidth(inputValue, this.refs.test),
+                inputWrapperEl = this.refs.inputWrapper,
+                inputEl = this.refs.input;
 
-            const {onInputChange} = this.props;
+            inputWrapperEl && (inputWrapperEl.style.width = `${width + 9}px`);
+            inputEl && (inputEl.style.height = Math.max(inputEl.scrollHeight, 24) + 'px');
             onInputChange && onInputChange(inputValue);
 
         });
@@ -290,27 +294,20 @@ class TagField extends Component {
 
     };
 
-    clearHandler = () => {
+    componentDidMount() {
+
+        Event.addEvent(document, 'mousedown', this.mouseDownHandler);
+
+        this.wrapperEl = this.refs.wrapper;
 
         this.setState({
-            data: [],
-            inputValue: '',
-            inputIndex: 0,
-            itemEditing: false,
-            editingItemIndex: -1
-        }, () => {
-
-            const {onChange, onInputChange} = this.props;
-
-            onChange && onChange([]);
-            onInputChange && onInputChange('');
-
+            wrapperWidth: this.wrapperEl ? this.wrapperEl.clientWidth : 'auto'
         });
 
-    };
+    }
 
-    componentDidMount() {
-        Event.addEvent(document, 'mousedown', this.mouseDownHandler);
+    componentWillUnmount() {
+        Event.removeEvent(document, 'mousedown', this.mouseDownHandler);
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -321,20 +318,15 @@ class TagField extends Component {
         };
     }
 
-    componentWillUnmount() {
-        Event.removeEvent(document, 'mousedown', this.mouseDownHandler);
-    }
-
     render() {
 
         const {
                 className, style, valueField, displayField, disabled,
-                placeholder, clearButtonVisible, isTagAutoWidth
+                placeholder, isTagAutoWidth
             } = this.props,
-            {data, inputValue, inputIndex, itemEditing, editingItemIndex} = this.state,
+            {wrapperWidth, data, inputValue, inputIndex, itemEditing, editingItemIndex} = this.state,
 
             fieldClassName = classNames('tag-field', {
-                'with-clear': clearButtonVisible,
                 [className]: className
             }),
 
@@ -357,6 +349,7 @@ class TagField extends Component {
                                  className="tag-field-input-wrapper">
                                 <textarea ref="input"
                                           className="tag-field-input"
+                                          style={{width: wrapperWidth}}
                                           autoFocus="true"
                                           value={inputValue}
                                           placeholder={data.length < 1 && placeholder ? placeholder : ''}
@@ -385,15 +378,6 @@ class TagField extends Component {
                             </EditableField>
                         </span>
                     )
-                }
-
-                {
-                    clearButtonVisible ?
-                        <IconButton className="tag-field-clear-button"
-                                    iconCls="fas fa-trash-alt"
-                                    onClick={this.clearHandler}/>
-                        :
-                        null
                 }
 
                 <div ref="test"
@@ -425,7 +409,6 @@ TagField.propTypes = {
 
     disabled: PropTypes.bool,
     placeholder: PropTypes.string,
-    clearButtonVisible: PropTypes.bool,
     shouldPreventContainerScroll: PropTypes.bool,
     isTagAutoWidth: PropTypes.bool,
 
@@ -451,7 +434,6 @@ TagField.defaultProps = {
     disabled: false,
 
     placeholder: '',
-    clearButtonVisible: true,
     shouldPreventContainerScroll: true,
     isTagAutoWidth: true
 
