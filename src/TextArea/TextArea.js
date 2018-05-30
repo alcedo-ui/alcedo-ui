@@ -246,7 +246,7 @@ class TextArea extends Component {
                 }
 
                 {
-                    placeholder && !isFocused ?
+                    placeholder && !value && !isFocused ?
                         <textarea className={fieldPlaceholderClassName}
                                   value={placeholder}
                                   disabled={true}/>
