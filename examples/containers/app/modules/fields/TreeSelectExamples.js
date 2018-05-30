@@ -104,6 +104,7 @@ class TreeSelectExamples extends Component {
                                 <TreeSelect selectMode={TreeSelect.SelectMode.MULTI_SELECT}
                                             data={this.data}
                                             autoClose={false}
+                                            allowCollapse={false}
                                             onChange={this.changeHandler}/>
                             </div>
                         </div>

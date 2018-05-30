@@ -261,7 +261,7 @@ class DatePicker extends Component {
                                         :
                                         <FlatButton className='today-button'
                                                     value={'Today'}
-                                                    onTouchTap={this.todayHandle}
+                                                    onClick={this.todayHandle}
                                         />
 
                                 }
