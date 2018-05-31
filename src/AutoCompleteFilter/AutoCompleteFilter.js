@@ -359,7 +359,8 @@ class AutoCompleteFilter extends Component {
                     isEmpty && !noMatchedPopupVisible ?
                         null
                         :
-                        <Popup className={autoCompletePopupClassName}
+                        <Popup ref="popup"
+                               className={autoCompletePopupClassName}
                                style={autoCompletePopupStyle}
                                theme={popupTheme}
                                visible={popupVisible}
