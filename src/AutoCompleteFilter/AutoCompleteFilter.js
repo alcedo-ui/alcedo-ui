@@ -588,8 +588,6 @@ AutoCompleteFilter.propTypes = {
      */
     descriptionField: PropTypes.string,
 
-    autoOpen: PropTypes.bool,
-
     /**
      * If true, the popup list automatically closed after selection.
      */
@@ -687,7 +685,6 @@ AutoCompleteFilter.defaultProps = {
     valueField: 'value',
     displayField: 'text',
     descriptionField: 'desc',
-    autoOpen: true,
     autoClose: false,
     minFilterLength: 1,
     iconCls: null,
