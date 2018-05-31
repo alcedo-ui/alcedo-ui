@@ -217,7 +217,7 @@ class AutoCompleteFilter extends Component {
             }],
 
             listData = this.filterData(),
-            isEmpty = listData.length < 1,
+            isEmpty = !listData || listData.length < 1,
 
             wrapperClassName = classNames('auto-complete-filter', {
                 [className]: className
