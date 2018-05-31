@@ -45,7 +45,9 @@ class LocalAutoComplete extends Component {
 
     filterData = (filter = this.state.filter, data = this.props.data) => {
 
-        if (!filter) {
+        const {minFilterLength} = this.props;
+
+        if (!filter || filter.length < minFilterLength) {
             return data;
         }
 
@@ -163,10 +165,10 @@ class LocalAutoComplete extends Component {
 
     filterChangeHandler = filter => {
 
-        const {data} = this.props,
+        const {data, minFilterLength} = this.props,
             state = {
                 filter,
-                popupVisible: !!filter
+                popupVisible: !!filter && filter.length >= minFilterLength
             };
 
         if (!filter) {
@@ -259,13 +261,9 @@ class LocalAutoComplete extends Component {
 
         this.setState(state, () => {
             if (state) {
-
                 const {onFilterChange, onChange} = this.props;
                 onFilterChange && onFilterChange(state.filter);
                 onChange && onChange(state.value);
-
-                this.refs.trigger.blur();
-
             }
         });
 
@@ -590,6 +588,8 @@ LocalAutoComplete.propTypes = {
      */
     autoClose: PropTypes.bool,
 
+    minFilterLength: PropTypes.number,
+
     /**
      * Callback function fired when filter changed.
      */
@@ -686,6 +686,7 @@ LocalAutoComplete.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
     autoClose: true,
+    minFilterLength: 1,
     rightIconCls: 'fas fa-search',
     noMatchedPopupVisible: true,
     filterInitValue: '',
