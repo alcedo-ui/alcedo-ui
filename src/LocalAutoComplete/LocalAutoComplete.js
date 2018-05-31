@@ -588,6 +588,8 @@ LocalAutoComplete.propTypes = {
      */
     autoClose: PropTypes.bool,
 
+    minFilterLength: PropTypes.number,
+
     /**
      * Callback function fired when filter changed.
      */
