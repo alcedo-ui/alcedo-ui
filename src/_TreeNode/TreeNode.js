@@ -110,6 +110,7 @@ class TreeNode extends Component {
             {collapsed} = this.state,
 
             checked = Calculation.isItemChecked(data, value, this.props),
+            indeterminate = Calculation.isItemIndeterminate(data, value, this.props),
 
             isNodeLoading = data.isLoading || isLoading,
             isNodeDisabled = data.disabled || disabled || isNodeLoading,
@@ -176,6 +177,7 @@ class TreeNode extends Component {
                                     <Checkbox className="tree-node-select"
                                               theme={selectTheme}
                                               checked={checked}
+                                              indeterminate={indeterminate}
                                               disabled={isNodeDisabled}
                                               uncheckedIconCls={data.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
                                               checkedIconCls={data.checkboxCheckedIconCls || checkboxCheckedIconCls}
