@@ -163,7 +163,7 @@ class AutoCompleteFilter extends Component {
         const {data, minFilterLength} = this.props,
             state = {
                 filter,
-                popupVisible: filter && filter.length >= minFilterLength
+                popupVisible: !!filter && filter.length >= minFilterLength
             };
 
         if (!filter) {
