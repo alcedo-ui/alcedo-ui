@@ -307,6 +307,8 @@ MaterialAutoCompleteFilter.propTypes = {
      */
     autoClose: PropTypes.bool,
 
+    minFilterLength: PropTypes.number,
+
     /**
      * Callback function fired when filter changed.
      */
@@ -402,6 +404,7 @@ MaterialAutoCompleteFilter.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
     autoClose: false,
+    minFilterLength: 1,
     iconCls: '',
     rightIconCls: 'fas fa-search',
     noMatchedPopupVisible: true,
