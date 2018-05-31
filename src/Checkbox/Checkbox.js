@@ -116,16 +116,19 @@ class Checkbox extends Component {
                             null
                     }
 
-                    <div className="checkbox-icon-wrapper">
+                    <div className="checkbox-icon-wrapper"
+                         onClick={this.clickHandler}>
                         <IconButton ref="checkboxIcon"
                                     className="checkbox-bg-icon"
                                     iconCls={uncheckedIconCls}
-                                    onClick={this.clickHandler}
+                                    disabled={disabled}
+                                    disableTouchRipple={disableTouchRipple}/>
+                        <IconButton className="checkbox-indeterminate-icon"
+                                    iconCls={indeterminateIconCls}
                                     disabled={disabled}
                                     disableTouchRipple={disableTouchRipple}/>
                         <IconButton className="checkbox-icon"
-                                    iconCls={indeterminate ? indeterminateIconCls : checkedIconCls}
-                                    onClick={this.clickHandler}
+                                    iconCls={checkedIconCls}
                                     disabled={disabled}
                                     disableTouchRipple={disableTouchRipple}/>
                     </div>
