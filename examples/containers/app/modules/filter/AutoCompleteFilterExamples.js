@@ -97,6 +97,7 @@ class AutoCompleteFilterExamples extends Component {
                                 <AutoCompleteFilter popupStyle={{maxHeight: 300}}
                                                     data={this.data}
                                                     placeholder="Please select ..."
+                                                    minFilterLength={2}
                                                     onChange={this.onChange}/>
 
                             </div>
