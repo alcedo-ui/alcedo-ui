@@ -18,8 +18,6 @@ import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
 import Valid from '../_vendors/Valid';
-import Dom from '../_vendors/Dom';
-import Event from '../_vendors/Event';
 
 class AutoCompleteFilter extends Component {
 
@@ -264,39 +262,9 @@ class AutoCompleteFilter extends Component {
 
     };
 
-    // changeHandler = value => {
-    //
-    //     const {autoClose, valueField, displayField, renderer} = this.props,
-    //         state = {
-    //             value,
-    //             filter: renderer ? renderer(value) : Util.getTextByDisplayField(value, displayField, valueField)
-    //         };
-    //
-    //     if (autoClose) {
-    //         state.popupVisible = false;
-    //     }
-    //
-    //     this.setState(state, () => {
-    //         const {onChange} = this.props;
-    //         onChange && onChange(value);
-    //     });
-    //
-    // };
-
-    mouseDownHandler = e => {
-        if (this.state.filterFocused && !Dom.isParent(e.target, this.autoCompleteFilterEl)
-            && !Dom.isParent(e.target, findDOMNode(this.refs.popup))) {
-            this.update();
-        }
-    };
-
     componentDidMount() {
-
         this.autoCompleteFilterEl = this.refs.autoCompleteFilter;
         this.triggerEl = findDOMNode(this.refs.trigger);
-
-        Event.addEvent(document, 'mousedown', this.mouseDownHandler);
-
     }
 
     componentWillReceiveProps(nextProps) {
@@ -305,10 +273,6 @@ class AutoCompleteFilter extends Component {
                 value: nextProps.value
             });
         }
-    }
-
-    componentWillUnmount() {
-        Event.removeEvent(document, 'mousedown', this.mouseDownHandler);
     }
 
     render() {
