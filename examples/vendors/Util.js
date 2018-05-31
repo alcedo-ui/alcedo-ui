@@ -118,16 +118,30 @@ function value2Moment(value, format) {
 
 }
 
-function preOrderTraverse(node, callback, deep = 0) {
+function preOrderTraverse(node, callback, deep = 0, parent = null) {
 
-    if (callback(node, deep) === false) {
+    if (callback(node, deep, parent) === false) {
         return;
     }
 
     if (node.children && node.children.length > 0) {
         for (let i = 0, len = node.children.length; i < len; i++) {
-            preOrderTraverse(node.children[i], callback, deep + 1);
+            preOrderTraverse(node.children[i], callback, deep + 1, node);
         }
+    }
+
+}
+
+function postOrderTraverse(node, callback, deep = 0, parent = null) {
+
+    if (node.children && node.children.length > 0) {
+        for (let i = 0, len = node.children.length; i < len; i++) {
+            preOrderTraverse(node.children[i], callback, deep + 1, node);
+        }
+    }
+
+    if (callback(node, deep, parent) === false) {
+        return;
     }
 
 }
@@ -145,5 +159,6 @@ export default {
     getScrollTop,
     value2Timestamp,
     value2Moment,
-    preOrderTraverse
+    preOrderTraverse,
+    postOrderTraverse
 };
