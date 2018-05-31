@@ -38,7 +38,9 @@ class AutoCompleteFilter extends Component {
 
     filterData = (filter = this.state.filter, data = this.props.data) => {
 
-        if (!filter) {
+        const {minFilterLength} = this.props;
+
+        if (!filter || filter.length < minFilterLength) {
             return data;
         }
 
@@ -76,12 +78,11 @@ class AutoCompleteFilter extends Component {
 
     filterFocusHandler = (...args) => {
 
-        const {disabled, onFocus} = this.props,
-            {filter} = this.state;
+        const {disabled, autoOpen, onFocus} = this.props;
 
         onFocus && onFocus(...args);
 
-        !disabled && filter && this.setState({
+        !disabled && autoOpen && this.setState({
             popupVisible: true
         });
 
@@ -461,10 +462,14 @@ AutoCompleteFilter.propTypes = {
      */
     descriptionField: PropTypes.string,
 
+    autoOpen: PropTypes.bool,
+
     /**
      * If true, the popup list automatically closed after selection.
      */
     autoClose: PropTypes.bool,
+
+    minFilterLength: PropTypes.number,
 
     /**
      * Callback function fired when filter changed.
@@ -556,7 +561,9 @@ AutoCompleteFilter.defaultProps = {
     valueField: 'value',
     displayField: 'text',
     descriptionField: 'desc',
+    autoOpen: true,
     autoClose: false,
+    minFilterLength: 1,
     iconCls: null,
     rightIconCls: 'fas fa-search',
     noMatchedPopupVisible: true,
