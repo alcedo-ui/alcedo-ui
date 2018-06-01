@@ -204,7 +204,7 @@ class Tree extends Component {
         const {
                 children, className, style, theme, data, allowCollapse, collapsedIconCls, expandedIconCls,
                 idField, valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
-                renderer, onNodeClick
+                isSelectRecursive, renderer, onNodeClick
             } = this.props,
             {value, isNodeToggling} = this.state,
 
@@ -236,6 +236,7 @@ class Tree extends Component {
                           collapsedIconCls={collapsedIconCls}
                           expandedIconCls={expandedIconCls}
                           isNodeToggling={isNodeToggling}
+                          isSelectRecursive={isSelectRecursive}
                           onClick={(...args) => onNodeClick && onNodeClick(...args)}
                           onNodeToggleStart={this.nodeToggleStartHandler}
                           onNodeToggleEnd={this.nodeToggleEndHandler}
