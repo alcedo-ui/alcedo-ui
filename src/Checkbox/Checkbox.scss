@@ -4,6 +4,7 @@
  */
 
 @mixin checkbox-theme($color) {
+    .checkbox-indeterminate-icon,
     .checkbox-icon {
         color: $color;
     }
@@ -33,6 +34,7 @@
         cursor: pointer;
 
         .checkbox-bg-icon,
+        .checkbox-indeterminate-icon,
         .checkbox-icon {
             position: absolute;
             top: 0;
@@ -48,6 +50,7 @@
             color: $theme-secondary;
         }
 
+        .checkbox-indeterminate-icon,
         .checkbox-icon {
             .button-icon {
                 opacity: 0;
@@ -64,8 +67,15 @@
         cursor: pointer;
     }
 
-    &.activated,
     &.indeterminated {
+        .checkbox-indeterminate-icon {
+            .button-icon {
+                opacity: 1;
+            }
+        }
+    }
+
+    &.activated {
         .checkbox-icon {
             .button-icon {
                 opacity: 1;
@@ -76,7 +86,6 @@
     &[disabled] {
         color: $theme-field-disabled;
 
-        .checkbox-icon-wrapper,
         .checkbox-label {
             cursor: not-allowed;
         }

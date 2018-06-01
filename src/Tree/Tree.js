@@ -76,6 +76,32 @@ class Tree extends Component {
 
     };
 
+    /**
+     * traverse tree data to update value when multi recursive select
+     * @param value
+     * @returns {Array}
+     */
+    updateValue = value => {
+
+        const {data} = this.props;
+        let result = [];
+
+        Util.postOrderTraverse(data, node => {
+            if (!node.children || node.children.length < 1) {
+                if (value.includes(node)) {
+                    result.push(node);
+                }
+            } else {
+                if (node.children.every(child => value.includes(child))) {
+                    result.push(node);
+                }
+            }
+        });
+
+        return result;
+
+    };
+
     treeNodeSelectHandler = (node, path, e) => {
 
         if (!node) {
@@ -93,6 +119,7 @@ class Tree extends Component {
 
             if (isSelectRecursive) {
                 this.addRecursiveValue(node, value);
+                value = this.updateValue(value);
             } else {
                 value.push(node);
             }
@@ -127,6 +154,7 @@ class Tree extends Component {
         } else {
             if (isSelectRecursive) {
                 this.removeRecursiveValue(node, value);
+                value = this.updateValue(value);
             } else {
                 const index = Calculation.getMultiSelectItemIndex(node, value, this.props);
                 if (index > -1) {
@@ -177,7 +205,7 @@ class Tree extends Component {
         const {
                 children, className, style, theme, data, allowCollapse, collapsedIconCls, expandedIconCls,
                 idField, valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
-                renderer, onNodeClick
+                isSelectRecursive, renderer, onNodeClick
             } = this.props,
             {value, isNodeToggling} = this.state,
 
@@ -209,6 +237,7 @@ class Tree extends Component {
                           collapsedIconCls={collapsedIconCls}
                           expandedIconCls={expandedIconCls}
                           isNodeToggling={isNodeToggling}
+                          isSelectRecursive={isSelectRecursive}
                           onClick={(...args) => onNodeClick && onNodeClick(...args)}
                           onNodeToggleStart={this.nodeToggleStartHandler}
                           onNodeToggleEnd={this.nodeToggleEndHandler}
