@@ -218,29 +218,36 @@ class DropdownSelect extends Component {
 
     getTriggerValue = () => {
 
-        const {placeholder, renderer, valueField, displayField, selectMode} = this.props,
-            {value} = this.state,
+        const {triggerValue} = this.props;
+
+        if (triggerValue) {
+            return triggerValue;
+        }
+
+        const {placeholder} = this.props,
+            {value} = this.state;
+
+        if (!value) {
+            return placeholder;
+        }
+
+        const {renderer, valueField, displayField, selectMode} = this.props,
             isMultiSelect = selectMode === SelectMode.MULTI_SELECT;
 
-        return value ?
+        return isMultiSelect ?
             (
-                isMultiSelect ?
-                    (
-                        value.length > 0 ?
-                            value.length + ' selected'
-                            :
-                            placeholder
-                    )
+                value.length > 0 ?
+                    value.length + ' selected'
                     :
-                    (
-                        renderer ?
-                            renderer(value)
-                            :
-                            Util.getTextByDisplayField(value, displayField, valueField)
-                    )
+                    placeholder
             )
             :
-            placeholder;
+            (
+                renderer ?
+                    renderer(value)
+                    :
+                    Util.getTextByDisplayField(value, displayField, valueField)
+            );
 
     };
 
@@ -256,7 +263,7 @@ class DropdownSelect extends Component {
 
         const {
 
-                className, triggerClassName, popupClassName, style, name, popupTheme, data,
+                className, triggerClassName, popupClassName, style, name, popupTheme, data, triggerValue,
                 useDynamicRenderList, listHeight, itemHeight, scrollBuffer, renderer, selectMode,
                 useFilter, useSelectAll, selectAllText, valueField, displayField, descriptionField, popupChildren,
                 isHiddenInputFilter,
@@ -276,11 +283,9 @@ class DropdownSelect extends Component {
                 [className]: className
             }),
             dropdownTriggerClassName = classNames({
-                empty: !value,
+                empty: !triggerValue && !value,
                 [triggerClassName]: triggerClassName
             }),
-
-            triggerValue = this.getTriggerValue(),
 
             listData = this.filterData();
 
@@ -314,7 +319,7 @@ class DropdownSelect extends Component {
                           triggerClassName={dropdownTriggerClassName}
                           popupClassName={'dropdown-select-popup' + (popupClassName ? ' ' + popupClassName : '')}
                           popupTheme={popupTheme}
-                          triggerValue={triggerValue}
+                          triggerValue={this.getTriggerValue()}
                           onOpenPopup={this.popupOpenHandler}
                           onClosePopup={this.popupCloseHandler}>
 
@@ -460,6 +465,8 @@ DropdownSelect.propTypes = {
      * The placeholder of the dropDownSelect.
      */
     placeholder: PropTypes.string,
+
+    triggerValue: PropTypes.string,
 
     rightIconCls: PropTypes.string,
 
