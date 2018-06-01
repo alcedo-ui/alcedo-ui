@@ -156,7 +156,13 @@ class DropdownSelect extends Component {
     };
 
     hiddenFilterChangeHandle = e => {
+
         const {data, displayField, clearHiddenInputFilterInterval} = this.props;
+
+        if (!data) {
+            return;
+        }
+
         let target = e.target,
             timer = setTimeout(() => {
                 clearTimeout(timer);
@@ -169,7 +175,9 @@ class DropdownSelect extends Component {
                 :
                 item.toUpperCase().startsWith(target.value.toUpperCase())
         );
+
         this.scrollTo(this.refs.dropdownSelectListScroller, (index) * 40, 200);
+
     };
 
     scrollTo = (element, to, duration) => {
