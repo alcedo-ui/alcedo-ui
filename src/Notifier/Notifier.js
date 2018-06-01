@@ -61,7 +61,7 @@ class Notifier extends Component {
 
         let {notifications} = this.state;
 
-        if (!notifications) {
+        if (!notifications || notifications.length < 1) {
             return;
         }
 
