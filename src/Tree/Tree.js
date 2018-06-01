@@ -76,6 +76,26 @@ class Tree extends Component {
 
     };
 
+    updateValue = value => {
+
+        const {data} = this.props;
+        let result = [];
+
+        Util.postOrderTraverse(data, (node, deep, parent) => {
+
+            if (value.includes(node)) {
+                result.push(node);
+            } else if (node.children && node.children.length > 0
+                && node.children.every(child => value.includes(child))) {
+                result.push(node);
+            }
+
+        });
+
+        return result;
+
+    };
+
     treeNodeSelectHandler = (node, path, e) => {
 
         if (!node) {
@@ -96,6 +116,8 @@ class Tree extends Component {
             } else {
                 value.push(node);
             }
+
+            value = this.updateValue(value);
 
         } else if (selectMode === SelectMode.SINGLE_SELECT) {
             value = node;
@@ -134,6 +156,8 @@ class Tree extends Component {
                 }
             }
         }
+
+        value = this.updateValue(value);
 
         this.setState({
             value
