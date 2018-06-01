@@ -163,85 +163,80 @@ class DraggableList extends Component {
                                 }}>
 
                 {
-                    isArray(data) && data.length > 0 ?
-                        (
-                            data.map((item, index) => {
+                    data && data.map((item, index) => {
 
-                                if (item === LIST_SEPARATOR) {
-                                    return <div key={index}
-                                                className="draggable-list-separator"></div>;
-                                }
+                        if (item === LIST_SEPARATOR) {
+                            return <div key={index}
+                                        className="draggable-list-separator"></div>;
+                        }
 
-                                return typeof item === 'object' ?
-                                    (
-                                        <DraggableListItem key={index}
-                                                           {...item}
-                                                           index={index}
-                                                           style={{height: itemHeight}}
-                                                           theme={item.theme || theme}
-                                                           selectTheme={item.selectTheme || selectTheme}
-                                                           radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
-                                                           radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
-                                                           checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
-                                                           checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
-                                                           checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
-                                                           data={item}
-                                                           checked={Calculation.isItemChecked(item, value, this.props)}
-                                                           value={Util.getValueByValueField(item, valueField, displayField)}
-                                                           text={Util.getTextByDisplayField(item, displayField, valueField)}
-                                                           desc={item[descriptionField] || null}
-                                                           disabled={disabled || item.disabled}
-                                                           isLoading={isLoading || item.isLoading}
-                                                           selectMode={selectMode}
-                                                           renderer={renderer}
-                                                           onMove={this.listItemMoveHandler}
-                                                           onClick={e => {
-                                                               onItemClick && onItemClick(item, index, e);
-                                                               item.onClick && item.onClick(e);
-                                                           }}
-                                                           onSelect={() => {
-                                                               this.listItemSelectHandler(item, index);
-                                                           }}
-                                                           onDeselect={() => {
-                                                               this.listItemDeselectHandler(item, index);
-                                                           }}/>
-                                    )
-                                    :
-                                    (
-                                        <DraggableListItem key={index}
-                                                           index={index}
-                                                           style={{height: itemHeight}}
-                                                           theme={item.theme || theme}
-                                                           selectTheme={item.selectTheme || selectTheme}
-                                                           radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
-                                                           radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
-                                                           checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
-                                                           checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
-                                                           checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
-                                                           data={item}
-                                                           checked={Calculation.isItemChecked(item, value, this.props)}
-                                                           value={item}
-                                                           text={item}
-                                                           disabled={disabled}
-                                                           isLoading={isLoading}
-                                                           selectMode={selectMode}
-                                                           renderer={renderer}
-                                                           onMove={this.listItemMoveHandler}
-                                                           onClick={e => {
-                                                               onItemClick && onItemClick(item, index, e);
-                                                           }}
-                                                           onSelect={() => {
-                                                               this.listItemSelectHandler(item, index);
-                                                           }}
-                                                           onDeselect={() => {
-                                                               this.listItemDeselectHandler(item, index);
-                                                           }}/>
-                                    );
+                        return typeof item === 'object' ?
+                            (
+                                <DraggableListItem key={index}
+                                                   {...item}
+                                                   index={index}
+                                                   style={{height: itemHeight}}
+                                                   theme={item.theme || theme}
+                                                   selectTheme={item.selectTheme || selectTheme}
+                                                   radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
+                                                   radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
+                                                   checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
+                                                   checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
+                                                   checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
+                                                   data={item}
+                                                   checked={Calculation.isItemChecked(item, value, this.props)}
+                                                   value={Util.getValueByValueField(item, valueField, displayField)}
+                                                   text={Util.getTextByDisplayField(item, displayField, valueField)}
+                                                   desc={item[descriptionField] || null}
+                                                   disabled={disabled || item.disabled}
+                                                   isLoading={isLoading || item.isLoading}
+                                                   selectMode={selectMode}
+                                                   renderer={renderer}
+                                                   onMove={this.listItemMoveHandler}
+                                                   onClick={e => {
+                                                       onItemClick && onItemClick(item, index, e);
+                                                       item.onClick && item.onClick(e);
+                                                   }}
+                                                   onSelect={() => {
+                                                       this.listItemSelectHandler(item, index);
+                                                   }}
+                                                   onDeselect={() => {
+                                                       this.listItemDeselectHandler(item, index);
+                                                   }}/>
+                            )
+                            :
+                            (
+                                <DraggableListItem key={index}
+                                                   index={index}
+                                                   style={{height: itemHeight}}
+                                                   theme={item.theme || theme}
+                                                   selectTheme={item.selectTheme || selectTheme}
+                                                   radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
+                                                   radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
+                                                   checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
+                                                   checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
+                                                   checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
+                                                   data={item}
+                                                   checked={Calculation.isItemChecked(item, value, this.props)}
+                                                   value={item}
+                                                   text={item}
+                                                   disabled={disabled}
+                                                   isLoading={isLoading}
+                                                   selectMode={selectMode}
+                                                   renderer={renderer}
+                                                   onMove={this.listItemMoveHandler}
+                                                   onClick={e => {
+                                                       onItemClick && onItemClick(item, index, e);
+                                                   }}
+                                                   onSelect={() => {
+                                                       this.listItemSelectHandler(item, index);
+                                                   }}
+                                                   onDeselect={() => {
+                                                       this.listItemDeselectHandler(item, index);
+                                                   }}/>
+                            );
 
-                            })
-                        )
-                        :
-                        null
+                    })
                 }
 
                 {children}
