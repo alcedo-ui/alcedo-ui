@@ -72,7 +72,7 @@ class TableRow extends Component {
                 onClick={this.rowClickHandler}>
 
                 {
-                    columns.map((col, colIndex) =>
+                    columns && columns.map((col, colIndex) =>
                         <td key={colIndex}
                             className={classNames('table-data', {
                                 [col.cellClassName]: col.cellClassName

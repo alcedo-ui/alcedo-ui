@@ -59,7 +59,11 @@ class Notifier extends Component {
 
     removeNotification = notificationId => {
 
-        let notifications = this.state.notifications;
+        let {notifications} = this.state;
+
+        if (!notifications || notifications.length < 1) {
+            return;
+        }
 
         notifications.splice(notifications.findIndex(item => item.notificationId === notificationId), 1);
 
@@ -139,7 +143,7 @@ class Notifier extends Component {
                          visible={visible}
                          position={position}>
                 {
-                    notifications.map(options =>
+                    notifications && notifications.map(options =>
                         <Notification {...options}
                                       key={options.notificationId}
                                       duration={'duration' in options ? options.duration : duration}

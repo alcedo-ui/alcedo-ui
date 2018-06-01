@@ -60,7 +60,7 @@ class ArrowStep extends Component {
             <div className={stepClassName}
                  style={style}>
                 {
-                    steps.map((item, index) =>
+                    steps && steps.map((item, index) =>
                         <ArrowStepItem key={index}
                                        index={index}
                                        className={item.className}

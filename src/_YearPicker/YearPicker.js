@@ -178,7 +178,7 @@ class YearPicker extends Component {
                 <div className="calendar-body calendar-year-body">
                     <div className="c-body-content">
                         {
-                            ul_list.map((item, key) =>
+                            ul_list && ul_list.map((item, key) =>
                                 <ul key={'ul' + key}
                                     className="content-row year">
                                     {item}

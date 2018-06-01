@@ -156,7 +156,13 @@ class DropdownSelect extends Component {
     };
 
     hiddenFilterChangeHandle = e => {
+
         const {data, displayField, clearHiddenInputFilterInterval} = this.props;
+
+        if (!data) {
+            return;
+        }
+
         let target = e.target,
             timer = setTimeout(() => {
                 clearTimeout(timer);
@@ -169,7 +175,9 @@ class DropdownSelect extends Component {
                 :
                 item.toUpperCase().startsWith(target.value.toUpperCase())
         );
+
         this.scrollTo(this.refs.dropdownSelectListScroller, (index) * 40, 200);
+
     };
 
     scrollTo = (element, to, duration) => {
@@ -218,29 +226,32 @@ class DropdownSelect extends Component {
 
     getTriggerValue = () => {
 
-        const {placeholder, renderer, valueField, displayField, selectMode} = this.props,
+        const {placeholder, triggerRenderer, renderer, valueField, displayField, selectMode} = this.props,
             {value} = this.state,
             isMultiSelect = selectMode === SelectMode.MULTI_SELECT;
 
-        return value ?
+        if (triggerRenderer) {
+            return typeof triggerRenderer === 'function' ? triggerRenderer(value) : triggerRenderer;
+        }
+
+        if (!value) {
+            return placeholder;
+        }
+
+        return isMultiSelect ?
             (
-                isMultiSelect ?
-                    (
-                        value.length > 0 ?
-                            value.length + ' selected'
-                            :
-                            placeholder
-                    )
+                value.length > 0 ?
+                    value.length + ' selected'
                     :
-                    (
-                        renderer ?
-                            renderer(value)
-                            :
-                            Util.getTextByDisplayField(value, displayField, valueField)
-                    )
+                    placeholder
             )
             :
-            placeholder;
+            (
+                renderer ?
+                    renderer(value)
+                    :
+                    Util.getTextByDisplayField(value, displayField, valueField)
+            );
 
     };
 
@@ -256,7 +267,7 @@ class DropdownSelect extends Component {
 
         const {
 
-                className, triggerClassName, popupClassName, style, name, popupTheme, data,
+                className, triggerClassName, popupClassName, style, name, popupTheme, data, triggerRenderer,
                 useDynamicRenderList, listHeight, itemHeight, scrollBuffer, renderer, selectMode,
                 useFilter, useSelectAll, selectAllText, valueField, displayField, descriptionField, popupChildren,
                 isHiddenInputFilter,
@@ -276,11 +287,9 @@ class DropdownSelect extends Component {
                 [className]: className
             }),
             dropdownTriggerClassName = classNames({
-                empty: !value,
+                empty: !triggerRenderer && !value,
                 [triggerClassName]: triggerClassName
             }),
-
-            triggerValue = this.getTriggerValue(),
 
             listData = this.filterData();
 
@@ -314,7 +323,7 @@ class DropdownSelect extends Component {
                           triggerClassName={dropdownTriggerClassName}
                           popupClassName={'dropdown-select-popup' + (popupClassName ? ' ' + popupClassName : '')}
                           popupTheme={popupTheme}
-                          triggerValue={triggerValue}
+                          triggerValue={this.getTriggerValue()}
                           onOpenPopup={this.popupOpenHandler}
                           onClosePopup={this.popupCloseHandler}>
 
@@ -460,6 +469,8 @@ DropdownSelect.propTypes = {
      * The placeholder of the dropDownSelect.
      */
     placeholder: PropTypes.string,
+
+    triggerRenderer: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
 
     rightIconCls: PropTypes.string,
 

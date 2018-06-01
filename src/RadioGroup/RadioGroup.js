@@ -61,7 +61,7 @@ class RadioGroup extends Component {
                  style={style}
                  disabled={disabled}>
                 {
-                    data.map((item, index) =>
+                    data && data.map((item, index) =>
                         <Radio key={index}
                                className={item.className ? item.className : ''}
                                style={item.style}

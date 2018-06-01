@@ -612,11 +612,6 @@ Table.propTypes = {
     hasLineNumber: PropTypes.bool,
 
     /**
-     * The function that trigger when select changes.
-     */
-    onSelectChange: PropTypes.func,
-
-    /**
      * Children passed into table header.
      */
     columns: PropTypes.arrayOf(PropTypes.shape({

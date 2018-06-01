@@ -50,7 +50,7 @@ class TagField extends Component {
 
     generateSeparatorReg = (separators = this.props.separators) => {
         const seps = this.getSeparators(separators);
-        return new RegExp(`\\s*${seps.map(sep => `\\${sep}`).join('|')}\\s*`, 'g');
+        return new RegExp(`\\s*${seps ? seps.map(sep => `\\${sep}`).join('|') : ''}\\s*`, 'g');
     };
 
     removeItem = index => {
@@ -342,7 +342,7 @@ class TagField extends Component {
                  onWheel={e => Event.wheelHandler(e, this.props)}>
 
                 {
-                    indexData.map(index => index === this.inputSymbol ?
+                    indexData && indexData.map(index => index === this.inputSymbol ?
                         !disabled ?
                             <div key="input"
                                  ref="inputWrapper"

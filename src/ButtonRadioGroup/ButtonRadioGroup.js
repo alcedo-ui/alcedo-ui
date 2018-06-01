@@ -66,7 +66,7 @@ class ButtonRadioGroup extends Component {
                 }
 
                 {
-                    data.map((item, index) => {
+                    data && data.map((item, index) => {
 
                             const isChecked = item.value == value;
 

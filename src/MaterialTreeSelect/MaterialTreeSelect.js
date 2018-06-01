@@ -240,6 +240,8 @@ MaterialTreeSelect.propTypes = {
      */
     selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
+    isSelectRecursive: PropTypes.bool,
+
     /**
      * The value field name in data. (default: "value")
      */
@@ -316,6 +318,7 @@ MaterialTreeSelect.defaultProps = {
     data: [],
     disabled: false,
     selectMode: SelectMode.SINGLE_SELECT,
+    isSelectRecursive: false,
 
     valueField: 'value',
     displayField: 'text',

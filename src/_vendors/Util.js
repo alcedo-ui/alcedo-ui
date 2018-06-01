@@ -96,7 +96,13 @@ function MonthDays(year) {
 }
 
 function enumerateValue(enumerate) {
+
+    if (!enumerate) {
+        return;
+    }
+
     return Object.keys(enumerate).map(key => enumerate[key]);
+
 }
 
 function tree(data, callback) {

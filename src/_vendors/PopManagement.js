@@ -34,7 +34,7 @@ function pop(context) {
         return;
     }
 
-    const index = list.findIndex(item => item == context);
+    const index = list ? list.findIndex(item => item == context) : -1;
     if (index > -1) {
         list.splice(index, 1);
     }

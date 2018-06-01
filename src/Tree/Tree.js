@@ -92,7 +92,7 @@ class Tree extends Component {
                     result.push(node);
                 }
             } else {
-                if (node.children.every(child => value.includes(child))) {
+                if (node.children.every(child => result.includes(child))) {
                     result.push(node);
                 }
             }

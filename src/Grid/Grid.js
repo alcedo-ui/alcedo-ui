@@ -197,7 +197,7 @@ class Grid extends Component {
                      Event.wheelHandler(e, this.props);
                  }}>
 
-                {data.map((item, index) => this.renderGridItem(item, index))}
+                {data && data.map((item, index) => this.renderGridItem(item, index))}
 
                 {children}
 

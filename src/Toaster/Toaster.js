@@ -59,7 +59,11 @@ class Toaster extends Component {
 
     removeToast = toastsId => {
 
-        let toasts = this.state.toasts;
+        let {toasts} = this.state;
+
+        if (!toasts || toasts.length < 1) {
+            return;
+        }
 
         toasts.splice(toasts.findIndex(item => item.toastsId === toastsId), 1);
 
