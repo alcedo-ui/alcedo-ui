@@ -139,7 +139,7 @@ class Notifier extends Component {
                          visible={visible}
                          position={position}>
                 {
-                    notifications.map(options =>
+                    notifications && notifications.map(options =>
                         <Notification {...options}
                                       key={options.notificationId}
                                       duration={'duration' in options ? options.duration : duration}
