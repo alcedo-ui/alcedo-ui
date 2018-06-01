@@ -145,7 +145,7 @@ class TreeSelect extends Component {
         const {
 
                 className, triggerClassName, popupClassName, style, name, popupTheme, data, renderer,
-                selectMode, valueField, displayField, descriptionField, triggerValue,
+                selectMode, valueField, displayField, descriptionField, triggerRenderer,
                 isSelectRecursive, allowCollapse, collapsedIconCls, expandedIconCls,
                 onItemClick, popupChildren,
 
@@ -160,7 +160,7 @@ class TreeSelect extends Component {
 
             selectTriggerClassName = classNames({
                 activated: popupVisible,
-                empty: !value,
+                empty: !triggerRenderer && !value,
                 [triggerClassName]: triggerClassName
             }),
             selectPopupClassName = classNames('tree-select-popup', {
