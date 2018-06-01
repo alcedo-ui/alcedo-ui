@@ -47,7 +47,7 @@ class TableBody extends Component {
         return (
             <tbody className="table-body">
                 {
-                    data.map((row, rowIndex) => row ?
+                    data && data.map((row, rowIndex) => row ?
                         <TableRow key={idProp && idProp in row ? row[idProp] : rowIndex}
                                   rowIndex={startIndex + rowIndex}
                                   columns={columns}
