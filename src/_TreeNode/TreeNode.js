@@ -99,7 +99,7 @@ class TreeNode extends Component {
         const {
 
                 index, depth, path, theme, selectTheme, selectMode, data, value,
-                disabled, isLoading, readOnly, allowCollapse,
+                disabled, isLoading, readOnly, allowCollapse, isSelectRecursive,
 
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
@@ -177,7 +177,7 @@ class TreeNode extends Component {
                                     <Checkbox className="tree-node-select"
                                               theme={selectTheme}
                                               checked={checked}
-                                              indeterminate={indeterminate}
+                                              indeterminate={isSelectRecursive ? indeterminate : false}
                                               disabled={isNodeDisabled}
                                               uncheckedIconCls={data.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
                                               checkedIconCls={data.checkboxCheckedIconCls || checkboxCheckedIconCls}
@@ -298,6 +298,7 @@ TreeNode.propTypes = {
     readOnly: PropTypes.bool,
     allowCollapse: PropTypes.bool,
     isNodeToggling: PropTypes.bool,
+    isSelectRecursive: PropTypes.bool,
 
     renderer: PropTypes.func,
 
@@ -339,6 +340,7 @@ TreeNode.defaultProps = {
     readOnly: false,
     allowCollapse: true,
     isNodeToggling: false,
+    isSelectRecursive: false,
 
     tipPosition: Position.BOTTOM,
 
