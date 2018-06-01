@@ -136,7 +136,7 @@ function postOrderTraverse(node, callback, deep = 0, parent = null) {
 
     if (node.children && node.children.length > 0) {
         for (let i = 0, len = node.children.length; i < len; i++) {
-            preOrderTraverse(node.children[i], callback, deep + 1, node);
+            postOrderTraverse(node.children[i], callback, deep + 1, node);
         }
     }
 
