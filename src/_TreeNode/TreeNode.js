@@ -100,6 +100,7 @@ class TreeNode extends Component {
 
                 index, depth, path, theme, selectTheme, selectMode, data, value,
                 disabled, isLoading, readOnly, allowCollapse, isSelectRecursive,
+                valueField, displayField, descriptionField,
 
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
@@ -212,17 +213,17 @@ class TreeNode extends Component {
                                             renderer(data, index)
                                             :
                                             (
-                                                data.desc ?
+                                                data[descriptionField] ?
                                                     <div className="tree-node-content">
                                                     <span className="tree-node-content-value">
-                                                        {data.text}
+                                                        {Util.getTextByDisplayField(data, displayField, valueField)}
                                                     </span>
                                                         <span className="tree-node-content-desc">
-                                                        {data.desc}
+                                                        {data[descriptionField]}
                                                     </span>
                                                     </div>
                                                     :
-                                                    data.text
+                                                    Util.getTextByDisplayField(data, displayField, valueField)
                                             )
                                     )
                             }
