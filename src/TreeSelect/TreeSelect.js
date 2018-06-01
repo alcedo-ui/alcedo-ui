@@ -45,15 +45,14 @@ class TreeSelect extends Component {
 
         const {data, selectMode, placeholder, triggerRenderer, renderer, displayField, valueField} = props,
             {value, path} = this.state,
-
             isMultiSelect = selectMode === SelectMode.MULTI_SELECT;
+
+        if (triggerRenderer) {
+            return typeof triggerRenderer === 'function' ? triggerRenderer(value, path) : triggerRenderer;
+        }
 
         if (!value) {
             return placeholder;
-        }
-
-        if (triggerRenderer) {
-            return triggerRenderer(value, path);
         }
 
         if (isMultiSelect) {
@@ -146,7 +145,7 @@ class TreeSelect extends Component {
         const {
 
                 className, triggerClassName, popupClassName, style, name, popupTheme, data, renderer,
-                selectMode, valueField, displayField, descriptionField,
+                selectMode, valueField, displayField, descriptionField, triggerValue,
                 isSelectRecursive, allowCollapse, collapsedIconCls, expandedIconCls,
                 onItemClick, popupChildren,
 
@@ -166,9 +165,7 @@ class TreeSelect extends Component {
             }),
             selectPopupClassName = classNames('tree-select-popup', {
                 [popupClassName]: popupClassName
-            }),
-
-            triggerValue = this.getTriggerValue();
+            });
 
         return (
             <div ref="dropdownSelect"
@@ -189,7 +186,7 @@ class TreeSelect extends Component {
                           triggerClassName={selectTriggerClassName}
                           popupClassName={selectPopupClassName}
                           popupTheme={popupTheme}
-                          triggerValue={triggerValue}
+                          triggerValue={this.getTriggerValue()}
                           onClosePopup={this.popupClosedHandler}>
 
                     <div className="tree-select-list-scroller"
@@ -279,6 +276,8 @@ TreeSelect.propTypes = {
      * The placeholder of the dropDownSelect.
      */
     placeholder: PropTypes.string,
+
+    triggerValue: PropTypes.string,
 
     rightIconCls: PropTypes.string,
 
@@ -416,7 +415,7 @@ TreeSelect.propTypes = {
 
     renderer: PropTypes.func,
 
-    triggerRenderer: PropTypes.func,
+    triggerRenderer: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
 
     /**
      * Callback function fired when the button is touch-tapped.
