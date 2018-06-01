@@ -59,7 +59,11 @@ class Notifier extends Component {
 
     removeNotification = notificationId => {
 
-        let notifications = this.state.notifications;
+        let {notifications} = this.state;
+
+        if (!notifications) {
+            return;
+        }
 
         notifications.splice(notifications.findIndex(item => item.notificationId === notificationId), 1);
 
