@@ -77,7 +77,7 @@ class Tree extends Component {
     };
 
     /**
-     * update value when multi recursive select
+     * traverse tree data to update value when multi recursive select
      * @param value
      * @returns {Array}
      */
@@ -87,14 +87,15 @@ class Tree extends Component {
         let result = [];
 
         Util.postOrderTraverse(data, node => {
-
-            if (value.includes(node)) {
-                result.push(node);
-            } else if (node.children && node.children.length > 0
-                && node.children.every(child => value.includes(child))) {
-                result.push(node);
+            if (!node.children || node.children.length < 1) {
+                if (value.includes(node)) {
+                    result.push(node);
+                }
+            } else {
+                if (node.children.every(child => value.includes(child))) {
+                    result.push(node);
+                }
             }
-
         });
 
         return result;
