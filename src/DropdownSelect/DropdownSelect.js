@@ -218,21 +218,17 @@ class DropdownSelect extends Component {
 
     getTriggerValue = () => {
 
-        const {triggerValue} = this.props;
+        const {placeholder, triggerRenderer, renderer, valueField, displayField, selectMode} = this.props,
+            {value} = this.state,
+            isMultiSelect = selectMode === SelectMode.MULTI_SELECT;
 
-        if (triggerValue) {
-            return triggerValue;
+        if (triggerRenderer) {
+            return typeof triggerRenderer === 'function' ? triggerRenderer(value) : triggerRenderer;
         }
-
-        const {placeholder} = this.props,
-            {value} = this.state;
 
         if (!value) {
             return placeholder;
         }
-
-        const {renderer, valueField, displayField, selectMode} = this.props,
-            isMultiSelect = selectMode === SelectMode.MULTI_SELECT;
 
         return isMultiSelect ?
             (
@@ -263,7 +259,7 @@ class DropdownSelect extends Component {
 
         const {
 
-                className, triggerClassName, popupClassName, style, name, popupTheme, data, triggerValue,
+                className, triggerClassName, popupClassName, style, name, popupTheme, data, triggerRenderer,
                 useDynamicRenderList, listHeight, itemHeight, scrollBuffer, renderer, selectMode,
                 useFilter, useSelectAll, selectAllText, valueField, displayField, descriptionField, popupChildren,
                 isHiddenInputFilter,
@@ -283,7 +279,7 @@ class DropdownSelect extends Component {
                 [className]: className
             }),
             dropdownTriggerClassName = classNames({
-                empty: !triggerValue && !value,
+                empty: !triggerRenderer && !value,
                 [triggerClassName]: triggerClassName
             }),
 
@@ -466,7 +462,7 @@ DropdownSelect.propTypes = {
      */
     placeholder: PropTypes.string,
 
-    triggerValue: PropTypes.string,
+    triggerRenderer: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
 
     rightIconCls: PropTypes.string,
 
