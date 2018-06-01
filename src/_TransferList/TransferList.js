@@ -24,34 +24,40 @@ class TransferList extends Component {
     }
 
     select = item => {
-        if (!item.disabled) {
-            let data = cloneDeep(this.props.value);
-            let selectAll = this.state.selectAll;
-            let flag = false;
-            for (let i = 0; i < data.length; i++) {
-                if (data[i].id === item.id) {
-                    flag = true;
-                    break;
-                }
-            }
-            if (flag) {
-                let index = data.findIndex(function (value, index, arr) {
-                    return value.id == item.id;
-                });
-                data.splice(index, 1);
-                selectAll = false;
-            } else {
-                data.push(item);
-                if (data.length == this.props.data.length) {
-                    selectAll = true;
-                }
-            }
-            this.setState({
-                selectAll
-            }, () => {
-                this.props.onChange && this.props.onChange(data);
-            });
+
+        if (!item || item.disabled) {
+            return;
         }
+
+        let data = cloneDeep(this.props.value),
+            selectAll = this.state.selectAll,
+            flag = false;
+
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].id === item.id) {
+                flag = true;
+                break;
+            }
+        }
+
+        if (flag) {
+            let index = data.findIndex(value => value.id == item.id);
+            data.splice(index, 1);
+            selectAll = false;
+        } else {
+            data.push(item);
+            if (data.length == this.props.data.length) {
+                selectAll = true;
+            }
+        }
+
+        this.setState({
+            selectAll
+        }, () => {
+            const {onChange} = this.props;
+            onChange && onChange(data);
+        });
+
     };
 
     selectAllHandle = () => {
