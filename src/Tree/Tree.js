@@ -76,6 +76,11 @@ class Tree extends Component {
 
     };
 
+    /**
+     * update value when multi recursive select
+     * @param value
+     * @returns {Array}
+     */
     updateValue = value => {
 
         const {data} = this.props;
@@ -113,11 +118,10 @@ class Tree extends Component {
 
             if (isSelectRecursive) {
                 this.addRecursiveValue(node, value);
+                value = this.updateValue(value);
             } else {
                 value.push(node);
             }
-
-            value = this.updateValue(value);
 
         } else if (selectMode === SelectMode.SINGLE_SELECT) {
             value = node;
@@ -149,6 +153,7 @@ class Tree extends Component {
         } else {
             if (isSelectRecursive) {
                 this.removeRecursiveValue(node, value);
+                value = this.updateValue(value);
             } else {
                 const index = Calculation.getMultiSelectItemIndex(node, value, this.props);
                 if (index > -1) {
@@ -156,8 +161,6 @@ class Tree extends Component {
                 }
             }
         }
-
-        value = this.updateValue(value);
 
         this.setState({
             value
