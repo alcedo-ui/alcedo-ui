@@ -86,7 +86,7 @@ class Tree extends Component {
         const {data} = this.props;
         let result = [];
 
-        Util.postOrderTraverse(data, (node, deep, parent) => {
+        Util.postOrderTraverse(data, node => {
 
             if (value.includes(node)) {
                 result.push(node);
