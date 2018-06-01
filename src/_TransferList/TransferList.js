@@ -152,7 +152,7 @@ class TransferList extends Component {
                      className="options">
                     {
 
-                        this.filterList.map(item => (
+                        this.filterList && this.filterList.map(item => (
                             <div key={item.text}
                                  className={`option ${item.disabled ? 'disabled' : ''}`}>
                                 <Checkbox label={item.text}
