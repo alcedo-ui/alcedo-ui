@@ -30,7 +30,7 @@ class TableBody extends Component {
 
         switch (selectMode) {
             case SelectMode.MULTI_SELECT:
-                return value.findIndex(item => item[idProp] === rowData[idProp]) !== -1;
+                return value && value.findIndex(item => item[idProp] === rowData[idProp]) !== -1;
             case SelectMode.SINGLE_SELECT:
                 return value[idProp] === rowData[idProp];
         }
