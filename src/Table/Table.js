@@ -17,6 +17,7 @@ import BriefPagging from '../BriefPagging';
 import Theme from '../Theme';
 
 import SelectMode from '../_statics/SelectMode';
+import SelectAllMode from '../_statics/SelectAllMode';
 import SortType from '../_statics/SortType';
 
 import Util from '../_vendors/Util';
@@ -26,6 +27,7 @@ import Calculation from '../_vendors/Calculation';
 class Table extends Component {
 
     static SelectMode = SelectMode;
+    static SelectAllMode = SelectAllMode;
     static SortType = SortType;
 
     constructor(props, ...restArgs) {
@@ -580,6 +582,11 @@ Table.propTypes = {
     selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     /**
+     * The select all mode of table, all or current page.
+     */
+    selectAllMode: PropTypes.oneOf(Util.enumerateValue(SelectAllMode)),
+
+    /**
      * The table list data.
      */
     data: PropTypes.arrayOf(PropTypes.shape({
@@ -760,6 +767,7 @@ Table.defaultProps = {
 
     selectTheme: Theme.DEFAULT,
     selectMode: SelectMode.SINGLE_SELECT,
+    selectAllMode: SelectAllMode.ALL,
 
     columns: [],
     data: [],
