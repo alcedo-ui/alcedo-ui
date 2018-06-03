@@ -113,9 +113,7 @@ class Table extends Component {
             return dataLen > 0 && valueLen < dataLen;
         } else if (selectAllMode === SelectAllMode.CURRENT_PAGE) {
             const currentPageData = this.getCurrentPageData(),
-                len = currentPageData.reduce((result, item) => {
-                    return result + (value.includes(item) ? 1 : 0);
-                }, 0);
+                len = currentPageData.reduce((result, item) => result + (value.includes(item) ? 1 : 0), 0);
             return len > 0 && len < pagging.pageSize;
         }
 
