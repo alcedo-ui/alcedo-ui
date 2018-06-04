@@ -115,6 +115,9 @@ class MaterialTreeSelectExamples extends Component {
                                                         data={this.data}
                                                         collapsedIconCls="far fa-plus-square"
                                                         expandedIconCls="far fa-minus-square"
+                                                        checkboxUncheckedIconCls="far fa-circle"
+                                                        checkboxCheckedIconCls="fas fa-check-circle"
+                                                        checkboxIndeterminateIconCls="fas fa-minus-circle"
                                                         onChange={this.onChangeHandler}/>
                                 </div>
                             </div>
