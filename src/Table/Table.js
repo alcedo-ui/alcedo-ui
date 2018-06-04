@@ -364,12 +364,12 @@ class Table extends Component {
             pagging.pageSize = pagging.pageSize.value;
         }
 
-        const {selectAllMode} = this.props,
+        const {isClearSelectionOnChangePage} = this.props,
             state = {
                 pagging
             };
 
-        if (selectAllMode === SelectAllMode.CURRENT_PAGE) {
+        if (isClearSelectionOnChangePage) {
             state.value = [];
         }
 
@@ -377,7 +377,7 @@ class Table extends Component {
 
             this.resetPage(this.props.data, pagging);
 
-            if (selectAllMode === SelectAllMode.CURRENT_PAGE) {
+            if (isClearSelectionOnChangePage) {
                 const {onChange} = this.props;
                 onChange && onChange(state.value);
             }
@@ -508,7 +508,7 @@ class Table extends Component {
                 // not passing down these props
                 defaultSortType, defaultPageSize, sortInitConfig, onPageChange, hasLineNumber, columns, selectTheme,
                 radioUncheckedIconCls, radioCheckedIconCls, checkboxUncheckedIconCls, checkboxCheckedIconCls,
-                checkboxIndeterminateIconCls, selectAllMode, sortFunc, onSort,
+                checkboxIndeterminateIconCls, selectAllMode, isClearSelectionOnChangePage, sortFunc, onSort,
 
                 ...restProps
 
@@ -756,6 +756,8 @@ Table.propTypes = {
     defaultPageSize: PropTypes.number,
     pageSizes: PropTypes.array,
 
+    isClearSelectionOnChangePage: PropTypes.bool,
+
     /**
      * Sort init config.
      */
@@ -832,6 +834,7 @@ Table.defaultProps = {
     paggingPageSizeVisible: true,
     defaultPageSize: 10,
     pageSizes: [5, 10, 15, 20],
+    isClearSelectionOnChangePage: false,
 
     defaultSortType: SortType.ASC,
 
