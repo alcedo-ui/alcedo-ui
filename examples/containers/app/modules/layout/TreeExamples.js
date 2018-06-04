@@ -136,6 +136,9 @@ class TreeExamples extends Component {
                                     <Tree selectMode={Tree.SelectMode.MULTI_SELECT}
                                           data={this.data}
                                           isSelectRecursive={true}
+                                          checkboxUncheckedIconCls="far fa-circle"
+                                          checkboxCheckedIconCls="fas fa-check-circle"
+                                          checkboxIndeterminateIconCls="fas fa-minus-circle"
                                           onNodeSelect={this.nodeSelectHandler}
                                           onChange={this.changeHandler}/>
                                 </Paper>
