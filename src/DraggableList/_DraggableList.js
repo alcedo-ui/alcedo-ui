@@ -193,34 +193,30 @@ class DraggableList extends Component {
             };
 
         return typeof item === 'object' ?
-            (
-                <DraggableListItem {...item}
-                                   {...props}
-                                   key={item[idField] || index}
-                                   data={item}
-                                   value={Util.getValueByValueField(item, valueField, displayField)}
-                                   text={Util.getTextByDisplayField(item, displayField, valueField)}
-                                   desc={item[descriptionField] || null}
-                                   disabled={disabled || item.disabled}
-                                   isLoading={isLoading || item.isLoading}
-                                   onClick={e => {
-                                       onItemClick && onItemClick(item, index, e);
-                                       item.onClick && item.onClick(e);
-                                   }}/>
-            )
+            <DraggableListItem {...item}
+                               {...props}
+                               key={item[idField] || index}
+                               data={item}
+                               value={Util.getValueByValueField(item, valueField, displayField)}
+                               text={Util.getTextByDisplayField(item, displayField, valueField)}
+                               desc={item[descriptionField] || null}
+                               disabled={disabled || item.disabled}
+                               isLoading={isLoading || item.isLoading}
+                               onClick={e => {
+                                   onItemClick && onItemClick(item, index, e);
+                                   item.onClick && item.onClick(e);
+                               }}/>
             :
-            (
-                <DraggableListItem {...props}
-                                   key={index}
-                                   data={item}
-                                   value={item}
-                                   text={item}
-                                   disabled={disabled}
-                                   isLoading={isLoading}
-                                   onClick={e => {
-                                       onItemClick && onItemClick(item, index, e);
-                                   }}/>
-            );
+            <DraggableListItem {...props}
+                               key={index}
+                               data={item}
+                               value={item}
+                               text={item}
+                               disabled={disabled}
+                               isLoading={isLoading}
+                               onClick={e => {
+                                   onItemClick && onItemClick(item, index, e);
+                               }}/>;
 
     }
 
