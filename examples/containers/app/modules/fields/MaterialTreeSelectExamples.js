@@ -113,6 +113,8 @@ class MaterialTreeSelectExamples extends Component {
                                                         selectMode={MaterialTreeSelect.SelectMode.MULTI_SELECT}
                                                         autoClose={false}
                                                         data={this.data}
+                                                        collapsedIconCls="far fa-plus-square"
+                                                        expandedIconCls="far fa-minus-square"
                                                         onChange={this.onChangeHandler}/>
                                 </div>
                             </div>
