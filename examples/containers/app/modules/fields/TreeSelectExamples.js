@@ -107,6 +107,9 @@ class TreeSelectExamples extends Component {
                                             isSelectRecursive={true}
                                             collapsedIconCls="far fa-plus-square"
                                             expandedIconCls="far fa-minus-square"
+                                            checkboxUncheckedIconCls="far fa-circle"
+                                            checkboxCheckedIconCls="fas fa-check-circle"
+                                            checkboxIndeterminateIconCls="fas fa-minus-circle"
                                             onChange={this.changeHandler}/>
                             </div>
                         </div>
