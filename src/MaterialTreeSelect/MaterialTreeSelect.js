@@ -275,6 +275,11 @@ MaterialTreeSelect.propTypes = {
     allowCollapse: PropTypes.bool,
     collapsedIconCls: PropTypes.string,
     expandedIconCls: PropTypes.string,
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
 
     popupChildren: PropTypes.any,
 
@@ -328,8 +333,6 @@ MaterialTreeSelect.defaultProps = {
     shouldPreventContainerScroll: true,
     isSelectRecursive: false,
     allowCollapse: true,
-    collapsedIconCls: 'fas fa-caret-right',
-    expandedIconCls: 'fas fa-caret-down',
 
     required: false
 
