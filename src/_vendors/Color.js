@@ -116,7 +116,7 @@ function hsb2rgb(hsb) {
 
 function rgb2hex(rgb) {
 
-    if (!Valid.isRGB(rgb)) {
+    if (!rgb || !Valid.isRGB(rgb)) {
         return;
     }
 

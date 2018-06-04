@@ -59,9 +59,8 @@ class ListStep extends Component {
         return (
             <div className={stepClassName}
                  style={style}>
-
                 {
-                    steps.map((item, index) =>
+                    steps && steps.map((item, index) =>
                         <ListStepItem key={index}
                                       index={index}
                                       className={item.className}
@@ -75,7 +74,6 @@ class ListStep extends Component {
                                       onClick={this.clickHandler}/>
                     )
                 }
-
             </div>
         );
 

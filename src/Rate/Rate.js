@@ -157,7 +157,7 @@ class Rate extends Component {
                  style={rateStyle}>
 
                 {
-                    items.map((item, index) => allowHalf ?
+                    items && items.map((item, index) => allowHalf ?
                         <div key={index}
                              className={`half-star ${disabled ? 'disabled' : ''}`}
                              data-key={index + 1}>

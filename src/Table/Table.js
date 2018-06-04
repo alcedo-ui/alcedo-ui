@@ -17,6 +17,7 @@ import BriefPagging from '../BriefPagging';
 import Theme from '../Theme';
 
 import SelectMode from '../_statics/SelectMode';
+import SelectAllMode from '../_statics/SelectAllMode';
 import SortType from '../_statics/SortType';
 
 import Util from '../_vendors/Util';
@@ -26,6 +27,7 @@ import Calculation from '../_vendors/Calculation';
 class Table extends Component {
 
     static SelectMode = SelectMode;
+    static SelectAllMode = SelectAllMode;
     static SortType = SortType;
 
     constructor(props, ...restArgs) {
@@ -60,31 +62,60 @@ class Table extends Component {
 
     }
 
-    isHeadChecked = () => {
+    getCurrentPageData = () => {
 
         const {data} = this.props,
+            {pagging} = this.state;
+
+        if (!data || data.length < 1 || !pagging) {
+            return [];
+        }
+
+        return data.slice(pagging.page * pagging.pageSize, (pagging.page + 1) * pagging.pageSize)
+        .filter(item => item && !item.disabled);
+
+    };
+
+    isHeadChecked = () => {
+
+        const {selectAllMode, data} = this.props,
             {value} = this.state;
 
-        if (!value || !data || data.length < 1) {
+        if (!value || value.length < 1) {
             return false;
         }
 
-        return value && value.length > 0 && value.length === data.filter(item => item && !item.disabled).length;
+        const valueLen = value.length;
+
+        if (selectAllMode === SelectAllMode.ALL) {
+            const dataLen = data.filter(item => item && !item.disabled).length;
+            return dataLen > 0 && valueLen === dataLen;
+        } else if (selectAllMode === SelectAllMode.CURRENT_PAGE) {
+            const currentPageData = this.getCurrentPageData();
+            return currentPageData.every(item => value.includes(item));
+        }
 
     };
 
     isHeadIndeterminate = () => {
 
-        const {data} = this.props,
-            {value} = this.state,
-            dataLen = data.filter(item => item && !item.disabled).length,
-            valueLen = value.length;
+        const {selectAllMode, data} = this.props,
+            {value, pagging} = this.state;
 
-        if (dataLen > 0 && valueLen > 0 && valueLen < dataLen) {
-            return true;
+        if (!value || value.length < 1) {
+            return false;
         }
 
-        return false;
+        const valueLen = value.length;
+
+        if (selectAllMode === SelectAllMode.ALL) {
+            const dataLen = data.filter(item => item && !item.disabled).length;
+            return dataLen > 0 && valueLen < dataLen;
+        } else if (selectAllMode === SelectAllMode.CURRENT_PAGE) {
+            const currentPageData = this.getCurrentPageData(),
+                len = currentPageData.reduce((result, item) => result + (value.includes(item) ? 1 : 0), 0);
+            return len > 0 && len < pagging.pageSize;
+        }
 
     };
 
@@ -116,7 +147,14 @@ class Table extends Component {
 
     headCheckBoxChangeHandler = checked => {
 
-        const value = checked ? this.props.data.filter(item => !item.disabled) : [];
+        const {selectAllMode, data} = this.props,
+            value = !checked ?
+                []
+                :
+                selectAllMode === SelectAllMode.ALL ?
+                    data.filter(item => !item.disabled)
+                    :
+                    this.getCurrentPageData();
 
         this.setState({
             value
@@ -326,10 +364,24 @@ class Table extends Component {
             pagging.pageSize = pagging.pageSize.value;
         }
 
-        this.setState({
-            pagging
-        }, () => {
+        const {isClearSelectionOnChangePage} = this.props,
+            state = {
+                pagging
+            };
+
+        if (isClearSelectionOnChangePage) {
+            state.value = [];
+        }
+
+        this.setState(state, () => {
+
             this.resetPage(this.props.data, pagging);
+
+            if (isClearSelectionOnChangePage) {
+                const {onChange} = this.props;
+                onChange && onChange(state.value);
+            }
+
         });
 
     };
@@ -456,7 +508,7 @@ class Table extends Component {
                 // not passing down these props
                 defaultSortType, defaultPageSize, sortInitConfig, onPageChange, hasLineNumber, columns, selectTheme,
                 radioUncheckedIconCls, radioCheckedIconCls, checkboxUncheckedIconCls, checkboxCheckedIconCls,
-                checkboxIndeterminateIconCls, sortFunc, onSort,
+                checkboxIndeterminateIconCls, selectAllMode, isClearSelectionOnChangePage, sortFunc, onSort,
 
                 ...restProps
 
@@ -580,6 +632,11 @@ Table.propTypes = {
     selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     /**
+     * The select all mode of table, all or current page.
+     */
+    selectAllMode: PropTypes.oneOf(Util.enumerateValue(SelectAllMode)),
+
+    /**
      * The table list data.
      */
     data: PropTypes.arrayOf(PropTypes.shape({
@@ -610,11 +667,6 @@ Table.propTypes = {
      * If true,the table will have line number.
      */
     hasLineNumber: PropTypes.bool,
-
-    /**
-     * The function that trigger when select changes.
-     */
-    onSelectChange: PropTypes.func,
 
     /**
      * Children passed into table header.
@@ -704,6 +756,8 @@ Table.propTypes = {
     defaultPageSize: PropTypes.number,
     pageSizes: PropTypes.array,
 
+    isClearSelectionOnChangePage: PropTypes.bool,
+
     /**
      * Sort init config.
      */
@@ -765,6 +819,7 @@ Table.defaultProps = {
 
     selectTheme: Theme.DEFAULT,
     selectMode: SelectMode.SINGLE_SELECT,
+    selectAllMode: SelectAllMode.ALL,
 
     columns: [],
     data: [],
@@ -779,6 +834,7 @@ Table.defaultProps = {
     paggingPageSizeVisible: true,
     defaultPageSize: 10,
     pageSizes: [5, 10, 15, 20],
+    isClearSelectionOnChangePage: false,
 
     defaultSortType: SortType.ASC,
 

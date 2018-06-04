@@ -108,10 +108,23 @@ function isItemChecked(item, value, {selectMode, valueField, displayField}) {
 
 }
 
+function isItemIndeterminate(item, value, config) {
+
+    if (!item || !value || !item.children || item.children.length < 1) {
+        return false;
+    }
+
+    const result = item.children.map(node => isItemChecked(node, value, config));
+
+    return !result.every(item => item) && !result.every(item => !item);
+
+}
+
 export default {
     pageSize,
     displayIndexByScrollTop,
     getInitValue,
     getMultiSelectItemIndex,
-    isItemChecked
+    isItemChecked,
+    isItemIndeterminate
 };

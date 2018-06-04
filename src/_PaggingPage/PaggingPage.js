@@ -33,10 +33,13 @@ class PaggingPage extends Component {
 
         let pages = null;
         if (total <= 7) {
+
+            const arr = this.getArray(total);
+
             pages =
                 <div className="pages">
                     {
-                        this.getArray(total).map((value, index) =>
+                        arr && arr.map((value, index) =>
                             <IconButton key={index}
                                         className="page"
                                         value={value}

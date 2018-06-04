@@ -269,7 +269,7 @@ class Slider extends Component {
                         showScale ?
                             <ul>
                                 {
-                                    scale.map((number, index) => {
+                                    scale && scale.map((number, index) => {
 
                                         const left = (number - scale[0]) / (scale[scale.length - 1] - scale[0]) * 100,
                                             style = {

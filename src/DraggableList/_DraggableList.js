@@ -252,7 +252,7 @@ class DraggableList extends Component {
                                      className="draggable-list-items">
 
                                     {
-                                        data.map((item, index) => {
+                                        data && data.map((item, index) => {
 
                                             if (item === LIST_SEPARATOR) {
                                                 return <div key={index}

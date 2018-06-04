@@ -59,7 +59,7 @@ class MultipleSelect extends Component {
             item.toString().toUpperCase().includes(filter.toUpperCase()));
 
         if (isGrouped) {
-            return data.map(group => {
+            return data && data.map(group => {
 
                 const children = filterFunc(group.children);
 
@@ -281,7 +281,7 @@ class MultipleSelect extends Component {
                                 </div>
 
                                 {
-                                    value.map((item, index) => {
+                                    value && value.map((item, index) => {
 
                                         const text = Util.getTextByDisplayField(item, displayField, valueField);
 

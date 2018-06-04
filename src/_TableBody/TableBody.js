@@ -30,7 +30,7 @@ class TableBody extends Component {
 
         switch (selectMode) {
             case SelectMode.MULTI_SELECT:
-                return value.findIndex(item => item[idProp] === rowData[idProp]) !== -1;
+                return value && value.findIndex(item => item[idProp] === rowData[idProp]) !== -1;
             case SelectMode.SINGLE_SELECT:
                 return value[idProp] === rowData[idProp];
         }
@@ -47,7 +47,7 @@ class TableBody extends Component {
         return (
             <tbody className="table-body">
                 {
-                    data.map((row, rowIndex) => row ?
+                    data && data.map((row, rowIndex) => row ?
                         <TableRow key={idProp && idProp in row ? row[idProp] : rowIndex}
                                   rowIndex={startIndex + rowIndex}
                                   columns={columns}

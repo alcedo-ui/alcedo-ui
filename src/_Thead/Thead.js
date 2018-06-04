@@ -29,7 +29,7 @@ class Thead extends Component {
                    style={style}>
                 <tr>
                     {
-                        columns.map((item, index) => {
+                        columns && columns.map((item, index) => {
 
                             const headerClassName = (item.sortable ? 'sortable ' : '')
                                 + (item.headerClassName ? ' ' + item.headerClassName : '');

@@ -87,16 +87,16 @@ class AutoCompleteFilter extends Component {
         }
 
         const {onFocus} = this.props,
-            {filter, listData} = this.state,
+            {filter} = this.state,
             state = {
-                filterFocused: true
+                filterFocused: true,
+                tempSelectIndex: null
             };
 
         onFocus && onFocus(...args);
 
         if (filter) {
             state.popupVisible = true;
-            state.tempSelectIndex = listData.length > 0 ? 0 : null;
         }
 
         this.setState(state);
@@ -113,19 +113,25 @@ class AutoCompleteFilter extends Component {
         const {useDynamicRenderList} = this.props,
             {tempSelectIndex, listData} = this.state,
             listEl = useDynamicRenderList ? this.refs.dynamicRenderList : this.refs.list;
-        let index = tempSelectIndex;
+        let state = null;
 
-        if (e.keyCode === 38) { // up
-            index--;
-        } else if (e.keyCode === 40) { // down
-            index++;
+        if (e.keyCode === 38 || e.keyCode === 40) {
+
+            state = {};
+
+            let index = isNumber(tempSelectIndex) && tempSelectIndex > -1 ? tempSelectIndex : -1;
+
+            if (e.keyCode === 38) { // up
+                index--;
+            } else if (e.keyCode === 40) { // down
+                index++;
+            }
+
+            state.tempSelectIndex = Valid.range(index, 0, listData.length - 1);
+
         }
 
-        const newTempSelectIndex = Valid.range(index, 0, listData.length - 1);
-
-        this.setState({
-            tempSelectIndex: newTempSelectIndex
-        }, () => {
+        this.setState(state, () => {
 
             const {onFilterKeyDown} = this.props;
             onFilterKeyDown && onFilterKeyDown(e);
@@ -161,16 +167,15 @@ class AutoCompleteFilter extends Component {
         const {data, minFilterLength} = this.props,
             state = {
                 filter,
-                popupVisible: !!filter && filter.length >= minFilterLength
+                popupVisible: !!filter && filter.length >= minFilterLength,
+                tempSelectIndex: null
             };
 
         if (!filter) {
             state.listData = data;
             state.value = null;
-            state.tempSelectIndex = null;
         } else {
             state.listData = this.filterData(filter);
-            state.tempSelectIndex = state.listData.length > 0 ? 0 : null;
         }
 
         this.setState(state, () => {
@@ -239,25 +244,25 @@ class AutoCompleteFilter extends Component {
 
             state = {};
 
-            const index = isNumber(tempSelectIndex) ? tempSelectIndex : 0;
+            const index = isNumber(tempSelectIndex) && tempSelectIndex > -1 ? tempSelectIndex : -1;
 
-            state.value = listData[index];
+            state.value = index > -1 ? listData[index] : null;
 
-            state.filter = renderer ?
-                renderer(state.value)
-                :
-                Util.getTextByDisplayField(state.value, displayField, valueField);
+            if (index > -1) {
+                state.filter = renderer ?
+                    renderer(state.value)
+                    :
+                    Util.getTextByDisplayField(state.value, displayField, valueField);
+            }
 
             state.listData = this.filterData(state.filter);
 
         }
 
-        this.setState(state, () => {
-            if (state) {
-                const {onFilterChange, onChange} = this.props;
-                onFilterChange && onFilterChange(state.filter);
-                onChange && onChange(state.value);
-            }
+        state && this.setState(state, () => {
+            const {onFilterChange, onChange} = this.props;
+            onFilterChange && onFilterChange(state.filter);
+            onChange && onChange(state.value);
         });
 
     };

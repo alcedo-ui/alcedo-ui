@@ -66,7 +66,7 @@ class DotStep extends Component {
 
                 <div className="dot-step-menu">
                     {
-                        steps.map((item, index) =>
+                        steps && steps.map((item, index) =>
                             <DotStepItem key={index}
                                          index={index}
                                          className={item.className}

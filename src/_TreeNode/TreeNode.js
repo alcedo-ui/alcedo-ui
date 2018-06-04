@@ -99,7 +99,8 @@ class TreeNode extends Component {
         const {
 
                 index, depth, path, theme, selectTheme, selectMode, data, value,
-                disabled, isLoading, readOnly, allowCollapse,
+                disabled, isLoading, readOnly, allowCollapse, isSelectRecursive,
+                valueField, displayField, descriptionField,
 
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
@@ -110,6 +111,7 @@ class TreeNode extends Component {
             {collapsed} = this.state,
 
             checked = Calculation.isItemChecked(data, value, this.props),
+            indeterminate = Calculation.isItemIndeterminate(data, value, this.props),
 
             isNodeLoading = data.isLoading || isLoading,
             isNodeDisabled = data.disabled || disabled || isNodeLoading,
@@ -176,6 +178,7 @@ class TreeNode extends Component {
                                     <Checkbox className="tree-node-select"
                                               theme={selectTheme}
                                               checked={checked}
+                                              indeterminate={isSelectRecursive ? indeterminate : false}
                                               disabled={isNodeDisabled}
                                               uncheckedIconCls={data.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
                                               checkedIconCls={data.checkboxCheckedIconCls || checkboxCheckedIconCls}
@@ -210,17 +213,17 @@ class TreeNode extends Component {
                                             renderer(data, index)
                                             :
                                             (
-                                                data.desc ?
+                                                data[descriptionField] ?
                                                     <div className="tree-node-content">
                                                     <span className="tree-node-content-value">
-                                                        {data.text}
+                                                        {Util.getTextByDisplayField(data, displayField, valueField)}
                                                     </span>
                                                         <span className="tree-node-content-desc">
-                                                        {data.desc}
+                                                        {data[descriptionField]}
                                                     </span>
                                                     </div>
                                                     :
-                                                    data.text
+                                                    Util.getTextByDisplayField(data, displayField, valueField)
                                             )
                                     )
                             }
@@ -296,6 +299,7 @@ TreeNode.propTypes = {
     readOnly: PropTypes.bool,
     allowCollapse: PropTypes.bool,
     isNodeToggling: PropTypes.bool,
+    isSelectRecursive: PropTypes.bool,
 
     renderer: PropTypes.func,
 
@@ -337,6 +341,7 @@ TreeNode.defaultProps = {
     readOnly: false,
     allowCollapse: true,
     isNodeToggling: false,
+    isSelectRecursive: false,
 
     tipPosition: Position.BOTTOM,
 
