@@ -113,6 +113,11 @@ class MaterialTreeSelectExamples extends Component {
                                                         selectMode={MaterialTreeSelect.SelectMode.MULTI_SELECT}
                                                         autoClose={false}
                                                         data={this.data}
+                                                        collapsedIconCls="far fa-plus-square"
+                                                        expandedIconCls="far fa-minus-square"
+                                                        checkboxUncheckedIconCls="far fa-circle"
+                                                        checkboxCheckedIconCls="fas fa-check-circle"
+                                                        checkboxIndeterminateIconCls="fas fa-minus-circle"
                                                         onChange={this.onChangeHandler}/>
                                 </div>
                             </div>

@@ -64,14 +64,13 @@ class Table extends Component {
 
     getCurrentPageData = () => {
 
-        const {data} = this.props,
-            {pagging} = this.state;
+        const {sortedData, pagging} = this.state;
 
-        if (!data || data.length < 1 || !pagging) {
+        if (!sortedData || sortedData.length < 1 || !pagging) {
             return [];
         }
 
-        return data.slice(pagging.page * pagging.pageSize, (pagging.page + 1) * pagging.pageSize)
+        return sortedData.slice(pagging.page * pagging.pageSize, (pagging.page + 1) * pagging.pageSize)
         .filter(item => item && !item.disabled);
 
     };

@@ -15,10 +15,11 @@ import IconButton from '../IconButton';
 import Radio from '../Radio';
 import Checkbox from '../Checkbox';
 
-import Util from '../_vendors/Util';
-import Calculation from '../_vendors/Calculation';
 import Position from '../_statics/Position';
 import SelectMode from '../_statics/SelectMode';
+
+import Util from '../_vendors/Util';
+import Calculation from '../_vendors/Calculation';
 
 class DraggableTreeNode extends Component {
 
@@ -99,7 +100,8 @@ class DraggableTreeNode extends Component {
         const {
 
                 index, depth, path, theme, selectTheme, selectMode, data, value,
-                disabled, isLoading, readOnly, allowCollapse,
+                disabled, isLoading, readOnly, allowCollapse, isSelectRecursive,
+                valueField, displayField, descriptionField,
 
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
@@ -121,7 +123,6 @@ class DraggableTreeNode extends Component {
                 dragging: isDragging,
                 [data.className]: data.className
             }),
-
             nodeStyle = {
                 ...data.style,
                 paddingLeft: (depth + 1) * 20
@@ -182,6 +183,7 @@ class DraggableTreeNode extends Component {
                                                 <Checkbox className="draggable-tree-node-select"
                                                           theme={selectTheme}
                                                           checked={checked}
+                                                          indeterminate={isSelectRecursive ? indeterminate : false}
                                                           disabled={isNodeDisabled}
                                                           uncheckedIconCls={data.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
                                                           checkedIconCls={data.checkboxCheckedIconCls || checkboxCheckedIconCls}
@@ -216,17 +218,17 @@ class DraggableTreeNode extends Component {
                                                         renderer(data, index)
                                                         :
                                                         (
-                                                            data.desc ?
+                                                            data[descriptionField] ?
                                                                 <div className="draggable-tree-node-content">
-                                                    <span className="draggable-tree-node-content-value">
-                                                        {data.text}
-                                                    </span>
+                                                                    <span className="draggable-tree-node-content-value">
+                                                                        {Util.getTextByDisplayField(data, displayField, valueField)}
+                                                                    </span>
                                                                     <span className="draggable-tree-node-content-desc">
-                                                        {data.desc}
-                                                    </span>
+                                                                        {data[descriptionField]}
+                                                                    </span>
                                                                 </div>
                                                                 :
-                                                                data.text
+                                                                Util.getTextByDisplayField(data, displayField, valueField)
                                                         )
                                                 )
                                         }
@@ -331,6 +333,7 @@ DraggableTreeNode.propTypes = {
     readOnly: PropTypes.bool,
     allowCollapse: PropTypes.bool,
     isNodeToggling: PropTypes.bool,
+    isSelectRecursive: PropTypes.bool,
 
     renderer: PropTypes.func,
 
@@ -374,6 +377,7 @@ DraggableTreeNode.defaultProps = {
     readOnly: false,
     allowCollapse: true,
     isNodeToggling: false,
+    isSelectRecursive: false,
 
     tipPosition: Position.BOTTOM,
 
