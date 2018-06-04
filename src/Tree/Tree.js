@@ -196,7 +196,10 @@ class Tree extends Component {
     static getDerivedStateFromProps(props, state) {
         return {
             prevProps: props,
-            value: ComponentUtil.getDerivedState(props, state, 'value')
+            value: Calculation.getInitValue({
+                value: ComponentUtil.getDerivedState(props, state, 'value'),
+                selectMode: props.selectMode
+            })
         };
     }
 
@@ -219,9 +222,7 @@ class Tree extends Component {
             <div className={treeClassName}
                  disabled={disabled}
                  style={style}
-                 onWheel={e => {
-                     Event.wheelHandler(e, this.props);
-                 }}>
+                 onWheel={e => Event.wheelHandler(e, this.props)}>
 
                 <TreeNode data={data}
                           value={value}
