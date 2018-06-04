@@ -322,7 +322,7 @@ class TagField extends Component {
 
         const {
                 className, style, valueField, displayField, disabled,
-                placeholder, isTagAutoWidth
+                placeholder, isTagAutoWidth, tagRemoveIconCls
             } = this.props,
             {wrapperWidth, data, inputValue, inputIndex, itemEditing, editingItemIndex} = this.state,
 
@@ -361,7 +361,9 @@ class TagField extends Component {
                         :
                         <span key={index}
                               data-index={index}
-                              className={'tag-field-item-wrapper' + (data[index].className ? ' ' + data[index].className : '')}>
+                              className={classNames('tag-field-item-wrapper', {
+                                  [data[index].className]: data[index].className
+                              })}>
                             <EditableField className="tag-field-item-field"
                                            value={Util.getTextByDisplayField(data[index], displayField, valueField)}
                                            disabled={disabled || (itemEditing && index !== editingItemIndex)}
@@ -371,7 +373,7 @@ class TagField extends Component {
                                            onEditEnd={this.itemEditEndHandler}>
 
                                 <IconButton className="tag-field-item-field-delete-button"
-                                            iconCls="fas fa-times"
+                                            iconCls={tagRemoveIconCls}
                                             disabled={disabled || (itemEditing && index !== editingItemIndex)}
                                             onClick={() => this.removeItem(index)}/>
 
@@ -411,6 +413,7 @@ TagField.propTypes = {
     placeholder: PropTypes.string,
     shouldPreventContainerScroll: PropTypes.bool,
     isTagAutoWidth: PropTypes.bool,
+    tagRemoveIconCls: PropTypes.string,
 
     onChange: PropTypes.func,
     onInputChange: PropTypes.func,
@@ -435,7 +438,8 @@ TagField.defaultProps = {
 
     placeholder: '',
     shouldPreventContainerScroll: true,
-    isTagAutoWidth: true
+    isTagAutoWidth: true,
+    tagRemoveIconCls: 'fas fa-times'
 
 };
 
