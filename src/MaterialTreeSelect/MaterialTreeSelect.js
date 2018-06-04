@@ -272,9 +272,11 @@ MaterialTreeSelect.propTypes = {
      */
     autoClose: PropTypes.bool,
 
-    required: PropTypes.bool,
-
     shouldPreventContainerScroll: PropTypes.bool,
+    isSelectRecursive: PropTypes.bool,
+    allowCollapse: PropTypes.bool,
+    collapsedIconCls: PropTypes.string,
+    expandedIconCls: PropTypes.string,
 
     popupChildren: PropTypes.any,
 
@@ -318,16 +320,20 @@ MaterialTreeSelect.defaultProps = {
     data: [],
     disabled: false,
     selectMode: SelectMode.SINGLE_SELECT,
-    isSelectRecursive: false,
 
     valueField: 'value',
     displayField: 'text',
     descriptionField: 'desc',
 
     autoClose: true,
-    required: false,
 
-    shouldPreventContainerScroll: true
+    shouldPreventContainerScroll: true,
+    isSelectRecursive: false,
+    allowCollapse: true,
+    collapsedIconCls: 'fas fa-caret-right',
+    expandedIconCls: 'fas fa-caret-down',
+
+    required: false
 
 };
 
