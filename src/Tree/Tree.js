@@ -457,9 +457,7 @@ Tree.defaultProps = {
     readOnly: false,
     shouldPreventContainerScroll: true,
     isSelectRecursive: false,
-    allowCollapse: true,
-    collapsedIconCls: 'fas fa-caret-right',
-    expandedIconCls: 'fas fa-caret-down'
+    allowCollapse: true
 
 };
 
