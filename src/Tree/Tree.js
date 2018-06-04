@@ -203,7 +203,9 @@ class Tree extends Component {
     render() {
 
         const {
-                children, className, style, theme, data, allowCollapse, collapsedIconCls, expandedIconCls,
+                children, className, style, theme, data, allowCollapse,
+                collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
+                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
                 idField, valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
                 isSelectRecursive, renderer, onNodeClick
             } = this.props,
@@ -236,6 +238,11 @@ class Tree extends Component {
                           allowCollapse={allowCollapse}
                           collapsedIconCls={collapsedIconCls}
                           expandedIconCls={expandedIconCls}
+                          radioUncheckedIconCls={radioUncheckedIconCls}
+                          radioCheckedIconCls={radioCheckedIconCls}
+                          checkboxUncheckedIconCls={checkboxUncheckedIconCls}
+                          checkboxCheckedIconCls={checkboxCheckedIconCls}
+                          checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
                           isNodeToggling={isNodeToggling}
                           isSelectRecursive={isSelectRecursive}
                           onClick={(...args) => onNodeClick && onNodeClick(...args)}
@@ -394,6 +401,11 @@ Tree.propTypes = {
     allowCollapse: PropTypes.bool,
     collapsedIconCls: PropTypes.string,
     expandedIconCls: PropTypes.string,
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
 
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
