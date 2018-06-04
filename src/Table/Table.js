@@ -364,10 +364,24 @@ class Table extends Component {
             pagging.pageSize = pagging.pageSize.value;
         }
 
-        this.setState({
-            pagging
-        }, () => {
+        const {selectAllMode} = this.props,
+            state = {
+                pagging
+            };
+
+        if (selectAllMode === SelectAllMode.CURRENT_PAGE) {
+            state.value = [];
+        }
+
+        this.setState(state, () => {
+
             this.resetPage(this.props.data, pagging);
+
+            if (selectAllMode === SelectAllMode.CURRENT_PAGE) {
+                const {onChange} = this.props;
+                onChange && onChange(state.value);
+            }
+
         });
 
     };
