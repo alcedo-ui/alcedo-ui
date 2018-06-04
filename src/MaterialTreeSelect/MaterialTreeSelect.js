@@ -240,8 +240,6 @@ MaterialTreeSelect.propTypes = {
      */
     selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
-    isSelectRecursive: PropTypes.bool,
-
     /**
      * The value field name in data. (default: "value")
      */
@@ -272,9 +270,16 @@ MaterialTreeSelect.propTypes = {
      */
     autoClose: PropTypes.bool,
 
-    required: PropTypes.bool,
-
     shouldPreventContainerScroll: PropTypes.bool,
+    isSelectRecursive: PropTypes.bool,
+    allowCollapse: PropTypes.bool,
+    collapsedIconCls: PropTypes.string,
+    expandedIconCls: PropTypes.string,
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
 
     popupChildren: PropTypes.any,
 
@@ -318,16 +323,18 @@ MaterialTreeSelect.defaultProps = {
     data: [],
     disabled: false,
     selectMode: SelectMode.SINGLE_SELECT,
-    isSelectRecursive: false,
 
     valueField: 'value',
     displayField: 'text',
     descriptionField: 'desc',
 
     autoClose: true,
-    required: false,
 
-    shouldPreventContainerScroll: true
+    shouldPreventContainerScroll: true,
+    isSelectRecursive: false,
+    allowCollapse: true,
+
+    required: false
 
 };
 

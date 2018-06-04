@@ -146,8 +146,9 @@ class TreeSelect extends Component {
 
                 className, triggerClassName, popupClassName, style, name, popupTheme, data, renderer,
                 selectMode, valueField, displayField, descriptionField, triggerRenderer,
-                isSelectRecursive, allowCollapse, collapsedIconCls, expandedIconCls,
-                onItemClick, popupChildren,
+                isSelectRecursive, allowCollapse, onItemClick, popupChildren,
+                collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
+                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
                 ...restProps
 
@@ -206,6 +207,11 @@ class TreeSelect extends Component {
                               allowCollapse={allowCollapse}
                               collapsedIconCls={collapsedIconCls}
                               expandedIconCls={expandedIconCls}
+                              radioUncheckedIconCls={radioUncheckedIconCls}
+                              radioCheckedIconCls={radioCheckedIconCls}
+                              checkboxUncheckedIconCls={checkboxUncheckedIconCls}
+                              checkboxCheckedIconCls={checkboxCheckedIconCls}
+                              checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
                               renderer={renderer}
                               onItemClick={onItemClick}
                               onNodeSelect={this.nodeSelectHandler}
@@ -410,6 +416,11 @@ TreeSelect.propTypes = {
     allowCollapse: PropTypes.bool,
     collapsedIconCls: PropTypes.string,
     expandedIconCls: PropTypes.string,
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
 
     popupChildren: PropTypes.any,
 
@@ -459,9 +470,7 @@ TreeSelect.defaultProps = {
 
     shouldPreventContainerScroll: true,
     isSelectRecursive: false,
-    allowCollapse: true,
-    collapsedIconCls: 'fas fa-caret-right',
-    expandedIconCls: 'fas fa-caret-down'
+    allowCollapse: true
 
 };
 

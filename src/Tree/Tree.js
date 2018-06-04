@@ -196,14 +196,19 @@ class Tree extends Component {
     static getDerivedStateFromProps(props, state) {
         return {
             prevProps: props,
-            value: ComponentUtil.getDerivedState(props, state, 'value')
+            value: Calculation.getInitValue({
+                value: ComponentUtil.getDerivedState(props, state, 'value'),
+                selectMode: props.selectMode
+            })
         };
     }
 
     render() {
 
         const {
-                children, className, style, theme, data, allowCollapse, collapsedIconCls, expandedIconCls,
+                children, className, style, theme, data, allowCollapse,
+                collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
+                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
                 idField, valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
                 isSelectRecursive, renderer, onNodeClick
             } = this.props,
@@ -217,9 +222,7 @@ class Tree extends Component {
             <div className={treeClassName}
                  disabled={disabled}
                  style={style}
-                 onWheel={e => {
-                     Event.wheelHandler(e, this.props);
-                 }}>
+                 onWheel={e => Event.wheelHandler(e, this.props)}>
 
                 <TreeNode data={data}
                           value={value}
@@ -236,6 +239,11 @@ class Tree extends Component {
                           allowCollapse={allowCollapse}
                           collapsedIconCls={collapsedIconCls}
                           expandedIconCls={expandedIconCls}
+                          radioUncheckedIconCls={radioUncheckedIconCls}
+                          radioCheckedIconCls={radioCheckedIconCls}
+                          checkboxUncheckedIconCls={checkboxUncheckedIconCls}
+                          checkboxCheckedIconCls={checkboxCheckedIconCls}
+                          checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
                           isNodeToggling={isNodeToggling}
                           isSelectRecursive={isSelectRecursive}
                           onClick={(...args) => onNodeClick && onNodeClick(...args)}
@@ -394,6 +402,11 @@ Tree.propTypes = {
     allowCollapse: PropTypes.bool,
     collapsedIconCls: PropTypes.string,
     expandedIconCls: PropTypes.string,
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
 
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
@@ -445,9 +458,7 @@ Tree.defaultProps = {
     readOnly: false,
     shouldPreventContainerScroll: true,
     isSelectRecursive: false,
-    allowCollapse: true,
-    collapsedIconCls: 'fas fa-caret-right',
-    expandedIconCls: 'fas fa-caret-down'
+    allowCollapse: true
 
 };
 
