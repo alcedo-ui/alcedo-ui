@@ -240,8 +240,6 @@ MaterialTreeSelect.propTypes = {
      */
     selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
-    isSelectRecursive: PropTypes.bool,
-
     /**
      * The value field name in data. (default: "value")
      */
