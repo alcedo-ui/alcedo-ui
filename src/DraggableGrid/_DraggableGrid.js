@@ -151,6 +151,10 @@ class DraggableGrid extends Component {
 
     renderGridItem = (item, index) => {
 
+        if (!item) {
+            return;
+        }
+
         const {
 
                 theme, itemHeight, col,
