@@ -151,6 +151,10 @@ class DraggableGrid extends Component {
 
     renderGridItem = (item, index) => {
 
+        if (!item) {
+            return;
+        }
+
         const {
 
                 theme, itemHeight, col,
@@ -165,7 +169,7 @@ class DraggableGrid extends Component {
 
         return typeof item === 'object' ?
             (
-                <DraggableGridItem key={item[idField] || index}
+                <DraggableGridItem key={(idField in item && item[idField]) || index}
                                    {...item}
                                    index={index}
                                    style={{height: itemHeight}}

@@ -131,6 +131,10 @@ class List extends Component {
 
     renderListItem = (item, index) => {
 
+        if (!item) {
+            return;
+        }
+
         const {
 
                 theme, itemHeight, idField, valueField, displayField, descriptionField, disabled, isLoading, renderer,
@@ -145,7 +149,7 @@ class List extends Component {
 
         return typeof item === 'object' ?
             (
-                <ListItem key={item[idField] || index}
+                <ListItem key={(idField in item && item[idField]) || index}
                           {...item}
                           index={index}
                           style={{height: itemHeight}}
