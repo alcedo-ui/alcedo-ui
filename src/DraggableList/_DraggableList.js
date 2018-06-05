@@ -158,6 +158,10 @@ class DraggableList extends Component {
 
     renderListItem(item, index) {
 
+        if (!item) {
+            return;
+        }
+
         const {
 
                 theme, itemHeight, idField, valueField, displayField, descriptionField, disabled, isLoading, renderer,
