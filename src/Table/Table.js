@@ -196,7 +196,7 @@ class Table extends Component {
         }
 
         const {sortFunc} = this.props;
-        let copyData = cloneDeep(data);
+        let copyData = data.slice();
 
         if (sortFunc) {
             copyData = sortFunc(copyData, sort);
