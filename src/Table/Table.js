@@ -189,9 +189,7 @@ class Table extends Component {
 
     };
 
-    sortData = (data, sort) => {
-
-        sort = sort || (this.state ? this.state.sort : null);
+    sortData = (data, sort = (this.state ? this.state.sort : null)) => {
 
         if (!sort) {
             return data;
