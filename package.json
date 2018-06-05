@@ -10,6 +10,7 @@
         "compile:componentsStyle": "rimraf src/components.scss && node scripts/generateComponentsStyle.js",
         "compile": "npm run compile:propType && npm run compile:componentsIndex && npm run compile:componentsStyle",
         "pre-publish": "rimraf dist && npm run compile && gulp copy",
+        "do-publish": "npm run pre-publish && cd dist && npm publish",
         "dev": "npm run compile && cross-env NODE_ENV=development node build/dev/dev-server.js",
         "clean": "rimraf docs",
         "dll": "cross-env NODE_ENV=production node build/dll/dll.js",
