@@ -11,11 +11,14 @@ import CascaderListItem from '../_CascaderListItem/CascaderListItem';
 import Theme from '../Theme';
 import Tip from '../Tip';
 
+import SelectMode from '../_statics/SelectMode';
+
 import Util from '../_vendors/Util';
 import TreeCalculation from '../_vendors/TreeCalculation';
 
 class CascaderList extends Component {
 
+    static SelectMode = SelectMode;
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
@@ -45,7 +48,7 @@ class CascaderList extends Component {
 
     render() {
 
-        const {className, style, listWidth, data, valueField, displayField} = this.props,
+        const {className, style, selectMode, listWidth, data, valueField, displayField} = this.props,
             {path, value} = this.state,
 
             listClassName = classNames('cascader-list', {
@@ -58,6 +61,7 @@ class CascaderList extends Component {
                 <CascaderListItem data={data}
                                   value={value}
                                   path={path}
+                                  selectMode={selectMode}
                                   listWidth={listWidth}
                                   valueField={valueField}
                                   displayField={displayField}
@@ -81,6 +85,11 @@ CascaderList.propTypes = {
     style: PropTypes.object,
 
     /**
+     * The select mode of CascaderList.
+     */
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+
+    /**
      * The value of CascaderList.
      */
     value: PropTypes.any,
@@ -93,100 +102,92 @@ CascaderList.propTypes = {
     /**
      * The item-data of CascaderList.
      */
-    data: PropTypes.oneOfType([
+    data: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
 
-        // not grouped
-        PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
+        /**
+         * The CSS class name of the list button.
+         */
+        className: PropTypes.string,
 
-            /**
-             * The CSS class name of the list button.
-             */
-            className: PropTypes.string,
+        /**
+         * Override the styles of the list button.
+         */
+        style: PropTypes.object,
 
-            /**
-             * Override the styles of the list button.
-             */
-            style: PropTypes.object,
+        /**
+         * The theme of the list button.
+         */
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-            /**
-             * The theme of the list button.
-             */
-            theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+        /**
+         * The text value of the list button.Type can be string or number.
+         */
+        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-            /**
-             * The text value of the list button.Type can be string or number.
-             */
-            value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        /**
+         * The list item's display text. Type can be string, number or bool.
+         */
+        text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-            /**
-             * The list item's display text. Type can be string, number or bool.
-             */
-            text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        /**
+         * The desc value of the list button. Type can be string or number.
+         */
+        desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-            /**
-             * The desc value of the list button. Type can be string or number.
-             */
-            desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        /**
+         * If true,the list item will be disabled.
+         */
+        disabled: PropTypes.bool,
 
-            /**
-             * If true,the list item will be disabled.
-             */
-            disabled: PropTypes.bool,
+        /**
+         * If true,the button will be have loading effect.
+         */
+        isLoading: PropTypes.bool,
 
-            /**
-             * If true,the button will be have loading effect.
-             */
-            isLoading: PropTypes.bool,
+        /**
+         * If true,the element's ripple effect will be disabled.
+         */
+        disableTouchRipple: PropTypes.bool,
 
-            /**
-             * If true,the element's ripple effect will be disabled.
-             */
-            disableTouchRipple: PropTypes.bool,
+        /**
+         * Use this property to display an icon. It will display on the left.
+         */
+        iconCls: PropTypes.string,
 
-            /**
-             * Use this property to display an icon. It will display on the left.
-             */
-            iconCls: PropTypes.string,
+        /**
+         * Use this property to display an icon. It will display on the right.
+         */
+        rightIconCls: PropTypes.string,
 
-            /**
-             * Use this property to display an icon. It will display on the right.
-             */
-            rightIconCls: PropTypes.string,
+        /**
+         * The message of tip.
+         */
+        tip: PropTypes.string,
 
-            /**
-             * The message of tip.
-             */
-            tip: PropTypes.string,
+        /**
+         * The position of tip.
+         */
+        tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
 
-            /**
-             * The position of tip.
-             */
-            tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
-
-            /**
-             * If true,the item will have center displayed ripple effect.
-             */
-            rippleDisplayCenter: PropTypes.bool,
+        /**
+         * If true,the item will have center displayed ripple effect.
+         */
+        rippleDisplayCenter: PropTypes.bool,
 
 
-            children: PropTypes.array,
+        children: PropTypes.array,
 
-            /**
-             * You can create a complicated renderer callback instead of value and desc prop.
-             */
-            itemRenderer: PropTypes.func,
+        /**
+         * You can create a complicated renderer callback instead of value and desc prop.
+         */
+        itemRenderer: PropTypes.func,
 
-            /**
-             * Callback function fired when a list item touch-tapped.
-             */
-            onClick: PropTypes.func
+        /**
+         * Callback function fired when a list item touch-tapped.
+         */
+        onClick: PropTypes.func
 
-        }), PropTypes.string, PropTypes.number])),
-
-        // grouped
-        PropTypes.array
-
-    ]),
+    }), PropTypes.string, PropTypes.number])),
 
     /**
      * The value field name in data. (default: "value")
@@ -206,6 +207,8 @@ CascaderList.propTypes = {
 };
 
 CascaderList.defaultProps = {
+
+    selectMode: SelectMode.SINGLE_SELECT,
 
     listWidth: 200,
 
