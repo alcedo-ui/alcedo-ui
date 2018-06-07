@@ -13,14 +13,14 @@
         height: 300px;
         overflow-y: auto;
         overflow-x: hidden;
-        border-right: 1px solid $theme-border;
+        border-left: 1px solid $theme-border;
 
         .list-item-checked {
             display: none;
         }
 
-        &.last {
-            border-right: none;
+        &.first {
+            border-left: none;
         }
     }
 }
