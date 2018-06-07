@@ -83,16 +83,20 @@ class Tree extends Component {
      */
     updateValue = value => {
 
-        const {data} = this.props;
+        const {data, valueField, displayField} = this.props;
         let result = [];
 
         Util.postOrderTraverse(data, node => {
             if (!node.children || node.children.length < 1) {
-                if (value.includes(node)) {
+                if (value.findIndex(item =>
+                    Util.getValueByValueField(item, valueField, displayField)
+                    === Util.getValueByValueField(node, valueField, displayField)) > -1) {
                     result.push(node);
                 }
             } else {
-                if (node.children.every(child => result.includes(child))) {
+                if (node.children.every(child => result.findIndex(item =>
+                    Util.getValueByValueField(item, valueField, displayField)
+                    === Util.getValueByValueField(child, valueField, displayField)) > -1)) {
                     result.push(node);
                 }
             }
@@ -209,7 +213,7 @@ class Tree extends Component {
                 children, className, style, theme, data, allowCollapse,
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
-                idField, valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
+                valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
                 isSelectRecursive, renderer, onNodeClick
             } = this.props,
             {value, isNodeToggling} = this.state,
@@ -227,7 +231,6 @@ class Tree extends Component {
                 <TreeNode data={data}
                           value={value}
                           theme={theme}
-                          idField={idField}
                           valueField={valueField}
                           displayField={displayField}
                           descriptionField={descriptionField}
@@ -366,11 +369,6 @@ Tree.propTypes = {
     }),
 
     /**
-     * The id field name in data. (default: "id")
-     */
-    idField: PropTypes.string,
-
-    /**
      * The value field name in data. (default: "value")
      */
     valueField: PropTypes.string,
@@ -449,7 +447,6 @@ Tree.defaultProps = {
     selectTheme: Theme.DEFAULT,
     selectMode: SelectMode.SINGLE_SELECT,
 
-    idField: 'id',
     valueField: 'value',
     displayField: 'text',
     descriptionField: 'desc',

@@ -31,6 +31,10 @@ class Checkbox extends Component {
 
     clickHandler = () => {
 
+        if (this.props.disabled) {
+            return;
+        }
+
         const checked = !this.state.checked;
 
         this.setState({
