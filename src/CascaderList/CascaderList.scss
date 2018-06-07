@@ -5,4 +5,5 @@
 
 .cascader-list {
     @include float-fix;
+    display: inline-block;
 }
