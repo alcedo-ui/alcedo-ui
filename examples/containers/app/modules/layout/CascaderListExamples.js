@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 
-import Widget from 'src/Widget/index';
-import WidgetHeader from 'src/WidgetHeader/index';
-import CascaderList from 'src/CascaderList/index';
+import Widget from 'src/Widget';
+import WidgetHeader from 'src/WidgetHeader';
+import Paper from 'src/Paper';
+import CascaderList from 'src/CascaderList';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/CascaderList.json';
@@ -110,8 +111,10 @@ class CascaderListExamples extends Component {
 
                                 <p>CascaderList simple example.</p>
 
-                                <CascaderList data={this.data}
-                                              onChange={this.changeHandler}/>
+                                <Paper className="cascader-list-wrapper">
+                                    <CascaderList data={this.data}
+                                                  onChange={this.changeHandler}/>
+                                </Paper>
 
                             </div>
 
@@ -131,9 +134,11 @@ class CascaderListExamples extends Component {
 
                                 <p>CascaderList with default value example.</p>
 
-                                <CascaderList data={this.data}
-                                              value={'Shanghai'}
-                                              onChange={this.changeHandler}/>
+                                <Paper className="cascader-list-wrapper">
+                                    <CascaderList data={this.data}
+                                                  value={'Shanghai'}
+                                                  onChange={this.changeHandler}/>
+                                </Paper>
 
                             </div>
 
