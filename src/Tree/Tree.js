@@ -83,16 +83,20 @@ class Tree extends Component {
      */
     updateValue = value => {
 
-        const {data} = this.props;
+        const {data, valueField, displayField} = this.props;
         let result = [];
 
         Util.postOrderTraverse(data, node => {
             if (!node.children || node.children.length < 1) {
-                if (value.includes(node)) {
+                if (value.findIndex(item =>
+                    Util.getValueByValueField(item, valueField, displayField)
+                    === Util.getValueByValueField(node, valueField, displayField)) > -1) {
                     result.push(node);
                 }
             } else {
-                if (node.children.every(child => result.includes(child))) {
+                if (node.children.every(child => result.findIndex(item =>
+                    Util.getValueByValueField(item, valueField, displayField)
+                    === Util.getValueByValueField(child, valueField, displayField)) > -1)) {
                     result.push(node);
                 }
             }
