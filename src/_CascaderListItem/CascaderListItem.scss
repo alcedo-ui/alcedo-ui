@@ -7,16 +7,20 @@
     float: left;
 
     .cascader-popup-list {
-        @include shadow(4);
         position: relative;
         float: left;
         box-sizing: border-box;
         height: 300px;
         overflow-y: auto;
         overflow-x: hidden;
+        border-right: 1px solid $theme-border;
 
         .list-item-checked {
             display: none;
+        }
+
+        &.last {
+            border-right: none;
         }
     }
 }

@@ -72,8 +72,7 @@ class CascaderListItem extends Component {
                 last: currDepth === depth - 1
             }),
             popupListStyle = {
-                width: listWidth,
-                zIndex: 99 - currDepth
+                width: listWidth
             };
 
         return (
