@@ -209,7 +209,7 @@ class Tree extends Component {
                 children, className, style, theme, data, allowCollapse,
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
-                idField, valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
+                valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
                 isSelectRecursive, renderer, onNodeClick
             } = this.props,
             {value, isNodeToggling} = this.state,
@@ -227,7 +227,6 @@ class Tree extends Component {
                 <TreeNode data={data}
                           value={value}
                           theme={theme}
-                          idField={idField}
                           valueField={valueField}
                           displayField={displayField}
                           descriptionField={descriptionField}
@@ -366,11 +365,6 @@ Tree.propTypes = {
     }),
 
     /**
-     * The id field name in data. (default: "id")
-     */
-    idField: PropTypes.string,
-
-    /**
      * The value field name in data. (default: "value")
      */
     valueField: PropTypes.string,
@@ -449,7 +443,6 @@ Tree.defaultProps = {
     selectTheme: Theme.DEFAULT,
     selectMode: SelectMode.SINGLE_SELECT,
 
-    idField: 'id',
     valueField: 'value',
     displayField: 'text',
     descriptionField: 'desc',
