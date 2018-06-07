@@ -9,7 +9,10 @@ import classNames from 'classnames';
 
 import List from '../List';
 
+import SelectMode from '../_statics/SelectMode';
+
 import Valid from '../_vendors/Valid';
+import Util from '../_vendors/Util';
 
 class CascaderListItem extends Component {
 
@@ -53,7 +56,7 @@ class CascaderListItem extends Component {
 
     render() {
 
-        const {listWidth, data, valueField, displayField, path, depth} = this.props,
+        const {selectMode, listWidth, data, valueField, displayField, path, depth} = this.props,
 
             currDepth = this.props.currDepth || 0,
             activatedNode = currDepth in path ? data[path[currDepth].index] : null,
@@ -79,6 +82,7 @@ class CascaderListItem extends Component {
 
                 <List className={popupListClassName}
                       style={popupListStyle}
+                      selectMode={selectMode}
                       data={this.formatData(data)}
                       value={activatedNode}
                       valueField={valueField}
@@ -118,6 +122,11 @@ CascaderListItem.propTypes = {
     })),
 
     /**
+     * The select mode of CascaderList.
+     */
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+
+    /**
      * The value field name in data. (default: "value")
      */
     valueField: PropTypes.string,
@@ -137,6 +146,8 @@ CascaderListItem.propTypes = {
 };
 
 CascaderListItem.defaultProps = {
+
+    selectMode: SelectMode.SINGLE_SELECT,
 
     listWidth: 200,
 
