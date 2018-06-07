@@ -289,7 +289,6 @@ TreeNode.propTypes = {
     data: PropTypes.object,
     value: PropTypes.any,
 
-    idField: PropTypes.string,
     valueField: PropTypes.string,
     displayField: PropTypes.string,
     descriptionField: PropTypes.string,
@@ -331,7 +330,6 @@ TreeNode.defaultProps = {
     selectTheme: Theme.DEFAULT,
     selectMode: SelectMode.SINGLE_SELECT,
 
-    idField: 'id',
     valueField: 'value',
     displayField: 'text',
     descriptionField: 'desc',
