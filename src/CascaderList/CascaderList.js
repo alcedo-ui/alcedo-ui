@@ -1,6 +1,6 @@
 /**
  * @file CascaderList component
- * @author wendy(wendy.wei@derbysoft.com)
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 import React, {Component} from 'react';
