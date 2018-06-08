@@ -17,30 +17,70 @@ class CascaderListExamples extends Component {
         super(props);
 
         this.data = [{
-            id: '00',
-            text: 'Children 0 - 0',
-            desc: 'Children 0 - 0'
-        }, {
-            id: '01',
-            text: 'Children 0 - 1',
-            desc: 'Children 0 - 1',
+            text: 'Asia',
+            value: 'Asia',
             children: [{
-                id: '010',
-                text: 'Children 0 - 1 - 0',
-                desc: 'Children 0 - 1 - 0'
+                text: 'Korea',
+                value: 'Korea'
             }, {
-                id: '011',
-                text: 'Children 0 - 1 - 1',
-                desc: 'Children 0 - 1 - 1'
+                text: 'Japan',
+                value: 'Japan',
+                children: [{
+                    text: 'Tokyo',
+                    value: 'Tokyo'
+                }, {
+                    text: 'Yokohama',
+                    value: 'Yokohama'
+                }, {
+                    text: 'Osaka',
+                    value: 'Osaka'
+                }]
             }, {
-                id: '012',
-                text: 'Children 0 - 1 - 2',
-                desc: 'Children 0 - 1 - 2'
+                text: 'China',
+                value: 'China',
+                children: [{
+                    text: 'Shanghai',
+                    value: 'Shanghai'
+                }, {
+                    text: 'Beijing',
+                    value: 'Beijing'
+                }, {
+                    text: 'Shenzhen',
+                    value: 'Shenzhen'
+                }]
             }]
         }, {
-            id: '02',
-            text: 'Children 0 - 2',
-            desc: 'Children 0 - 2'
+            text: 'Europe',
+            value: 'Europe',
+            children: [{
+                text: 'Germany',
+                value: 'Germany'
+            }, {
+                text: 'France',
+                value: 'France'
+            }]
+        }, {
+            text: 'North America',
+            value: 'North America',
+            children: [{
+                text: 'Canada',
+                value: 'Canada'
+            }, {
+                text: 'America',
+                value: 'America'
+            }]
+        }, {
+            text: 'South America',
+            value: 'South America'
+        }, {
+            text: 'Africa',
+            value: 'Africa'
+        }, {
+            text: 'Oceania',
+            value: 'Oceania'
+        }, {
+            text: 'Antarctica',
+            value: 'Antarctica'
         }];
 
     }
