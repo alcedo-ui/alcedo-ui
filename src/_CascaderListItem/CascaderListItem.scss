@@ -1,26 +1,175 @@
 /**
- * @file CascaderListItem style
- * @author wendy(wendy.wei@derbysoft.com)
+ * @file TreeNode style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-.cascader-list-item {
-    float: left;
+@mixin tree-node-theme($color, $bg-color) {
+    color: $color;
+    background-color: $bg-color;
 
-    .cascader-popup-list {
+    &:hover {
+        color: theme-color-hover($color);
+        background-color: theme-color-hover($bg-color);
+    }
+
+    &:active {
+        color: theme-color-active($color);
+        background-color: theme-color-active($bg-color);
+    }
+}
+
+@mixin tree-node-readonly {
+    cursor: default;
+    color: $theme-field;
+    background: $theme-field-bg;
+}
+
+@mixin tree-node-disabled {
+    cursor: not-allowed;
+    color: $theme-field-disabled;
+    background-color: $theme-field-bg-disabled;
+}
+
+.tree-node-wrapper {
+
+    .tree-node {
+        display: block;
+        width: 100%;
+        height: 40px;
         position: relative;
-        float: left;
+        line-height: 40px;
+        border: none;
+        transition: all $theme-transition-duration ease-in-out;
+        cursor: pointer;
         box-sizing: border-box;
-        height: 300px;
-        overflow-y: auto;
-        overflow-x: hidden;
-        border-left: 1px solid $theme-border;
+        font-size: 12px;
+        text-align: left;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        color: $theme-field;
+        background-color: $theme-field-bg;
 
-        .list-item-checked {
-            display: none;
+        .tree-node-inner {
+            position: relative;
+
+            .tree-node-collapse-icon {
+                position: absolute;
+                left: -20px;
+                top: 0;
+                width: 20px;
+                height: 20px;
+                transform: translateY(50%);
+
+                .button-icon.button-icon-left {
+                    width: 100%;
+                }
+            }
+
+            .tree-node-select {
+                display: inline-block;
+                width: 16px;
+                height: 40px;
+                margin-right: 10px;
+                overflow: hidden;
+                vertical-align: bottom;
+            }
+
+            .button-icon {
+                width: 16px;
+                text-align: center;
+                font-size: inherit;
+                color: inherit;
+
+                &.button-icon-left {
+                    float: left;
+                }
+
+                &.button-icon-right {
+                    float: right;
+                    margin-left: 15px;
+                }
+
+                .circular-loading {
+                    margin-right: 10px;
+                }
+            }
+
+            .tree-node-content {
+                display: inline-block;
+
+                .tree-node-content-desc {
+                    opacity: .5;
+                    margin-left: 10px;
+                }
+            }
+
+            .touch-ripple {
+                border-radius: $theme-border-radius;
+
+                &.hidden {
+                    display: none;
+                }
+            }
         }
 
-        &.first {
-            border-left: none;
+        &[readonly] {
+            @include tree-node-readonly;
+
+            &:hover,
+            &:active {
+                @include tree-node-readonly;
+            }
+        }
+
+        &[disabled] {
+            @include tree-node-disabled;
+
+            &:hover,
+            &:active {
+                @include tree-node-disabled;
+            }
+        }
+
+        &:hover {
+            background-color: theme-color-hover($theme-secondary);
+        }
+
+        &:active {
+            background-color: theme-color-active($theme-field-bg);
+        }
+
+        // default theme
+        //@include tree-node-theme($theme-field, $theme-field-bg);
+
+        // other themes
+        &.theme-primary {
+            @include tree-node-theme($theme-secondary, $theme-primary);
+        }
+        &.theme-secondary {
+            @include tree-node-theme($theme-primary, $theme-secondary);
+        }
+        &.theme-highlight {
+            @include tree-node-theme(#fff, $theme-highlight);
+        }
+        &.theme-info {
+            @include tree-node-theme(#fff, $theme-info);
+        }
+        &.theme-success {
+            @include tree-node-theme(#fff, $theme-success);
+        }
+        &.theme-warning {
+            @include tree-node-theme(#fff, $theme-warning);
+        }
+        &.theme-error {
+            @include tree-node-theme(#fff, $theme-error);
+        }
+    }
+
+    .tree-node-children {
+
+        &.collapsed {
+            height: 0;
+            overflow: hidden;
         }
     }
 }
