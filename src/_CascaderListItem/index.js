@@ -3,4 +3,4 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-export CascaderListItem from './CascaderListItem';
+export default from './CascaderListItem';
