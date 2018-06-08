@@ -1,5 +1,5 @@
 /**
- * @file Tree component
+ * @file CascaderList component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
@@ -218,7 +218,7 @@ class CascaderList extends Component {
             } = this.props,
             {value, isNodeToggling} = this.state,
 
-            treeClassName = classNames('tree', {
+            treeClassName = classNames('cascader-list', {
                 [className]: className
             });
 

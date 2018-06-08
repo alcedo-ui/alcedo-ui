@@ -1,11 +1,9 @@
 /**
- * @file Tree style
+ * @file CascaderList style
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-.tree {
-    width: 100%;
-    background: $theme-field-bg;
-    overflow-x: hidden;
-    overflow-y: auto;
+.cascader-list {
+    @include float-fix;
+    display: inline-block;
 }
