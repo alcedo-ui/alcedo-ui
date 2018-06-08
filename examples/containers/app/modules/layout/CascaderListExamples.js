@@ -147,6 +147,31 @@ class CascaderListExamples extends Component {
 
                 </Widget>
 
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Multi select"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>CascaderList with default value example.</p>
+
+                                <Paper className="cascader-list-wrapper">
+                                    <CascaderList selectMode={CascaderList.SelectMode.MULTI_SELECT}
+                                                  data={this.data}
+                                                  value={'Shanghai'}
+                                                  onChange={this.changeHandler}/>
+                                </Paper>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
                 <h2 className="example-title">Properties</h2>
 
                 <PropTypeDescTable data={doc}/>
