@@ -1,20 +1,23 @@
 /**
- * @file CascaderList component
+ * @file Tree component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import isArray from 'lodash/isArray';
 import classNames from 'classnames';
 
-import CascaderListItem from '../_CascaderListItem/CascaderListItem';
-import Theme from '../Theme';
+import TreeNode from '../_TreeNode';
 import Tip from '../Tip';
+import Theme from '../Theme';
 
 import SelectMode from '../_statics/SelectMode';
 
 import Util from '../_vendors/Util';
-import TreeCalculation from '../_vendors/TreeCalculation';
+import Event from '../_vendors/Event';
+import Calculation from '../_vendors/Calculation';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class CascaderList extends Component {
 
@@ -26,47 +29,234 @@ class CascaderList extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            value: props.value,
-            path: TreeCalculation.calPath(props.value, {children: props.data}, props)
+            value: Calculation.getInitValue(props),
+            isNodeToggling: false
         };
 
     }
 
-    changeHandler = path => {
+    addRecursiveValue = (node, value) => {
 
-        const value = path[path.length - 1].node;
+        if (!node || !value) {
+            return;
+        }
+
+        if (!Calculation.isItemChecked(node, value, this.props)) {
+            value.push(node);
+        }
+
+        if (!node.children || node.children.length < 1) {
+            return;
+        }
+
+        for (let item of node.children) {
+            this.addRecursiveValue(item, value);
+        }
+
+    };
+
+    removeRecursiveValue = (node, value) => {
+
+        if (!node || !value) {
+            return;
+        }
+
+        const index = Calculation.getMultiSelectItemIndex(node, value, this.props);
+        if (index > -1) {
+            value.splice(index, 1);
+        }
+
+        if (!node.children || node.children.length < 1) {
+            return;
+        }
+
+        for (let item of node.children) {
+            this.removeRecursiveValue(item, value);
+        }
+
+    };
+
+    /**
+     * traverse tree data to update value when multi recursive select
+     * @param value
+     * @returns {Array}
+     */
+    updateValue = value => {
+
+        const {data, valueField, displayField} = this.props;
+        let result = [];
+
+        Util.postOrderTraverse(data, node => {
+            if (!node.children || node.children.length < 1) {
+                if (value.findIndex(item =>
+                    Util.getValueByValueField(item, valueField, displayField)
+                    === Util.getValueByValueField(node, valueField, displayField)) > -1) {
+                    result.push(node);
+                }
+            } else {
+                if (node.children.every(child => result.findIndex(item =>
+                    Util.getValueByValueField(item, valueField, displayField)
+                    === Util.getValueByValueField(child, valueField, displayField)) > -1)) {
+                    result.push(node);
+                }
+            }
+        });
+
+        return result;
+
+    };
+
+    treeNodeSelectHandler = (node, path, e) => {
+
+        if (!node) {
+            return;
+        }
+
+        const {selectMode, isSelectRecursive} = this.props;
+        let {value} = this.state;
+
+        if (selectMode === SelectMode.MULTI_SELECT) {
+
+            if (!value || !isArray(value)) {
+                value = [];
+            }
+
+            if (isSelectRecursive) {
+                this.addRecursiveValue(node, value);
+                value = this.updateValue(value);
+            } else {
+                value.push(node);
+            }
+
+        } else if (selectMode === SelectMode.SINGLE_SELECT) {
+            value = node;
+        }
 
         this.setState({
-            path,
             value
         }, () => {
-            const {onChange} = this.props;
-            onChange && onChange(value, path);
+            const {onNodeSelect, onChange} = this.props;
+            onNodeSelect && onNodeSelect(node, path, e);
+            onChange && onChange(value, e);
         });
 
     };
 
+    treeNodeDeselectHandler = (node, path, e) => {
+
+        const {selectMode} = this.props;
+
+        if (selectMode !== SelectMode.MULTI_SELECT) {
+            return;
+        }
+
+        const {isSelectRecursive} = this.props;
+        let {value} = this.state;
+
+        if (!value || !isArray(value)) {
+            value = [];
+        } else {
+            if (isSelectRecursive) {
+                this.removeRecursiveValue(node, value);
+                value = this.updateValue(value);
+            } else {
+                const index = Calculation.getMultiSelectItemIndex(node, value, this.props);
+                if (index > -1) {
+                    value.splice(index, 1);
+                }
+            }
+        }
+
+        this.setState({
+            value
+        }, () => {
+            const {onNodeDeselect, onChange} = this.props;
+            onNodeDeselect && onNodeDeselect(node, path, e);
+            onChange && onChange(value, e);
+        });
+
+    };
+
+    nodeToggleStartHandler = () => {
+
+        const {beforeNodeToggle} = this.props;
+
+        if (beforeNodeToggle && beforeNodeToggle() === false) {
+            return;
+        }
+
+        this.setState({
+            isNodeToggling: true
+        });
+
+    };
+
+    nodeToggleEndHandler = () => {
+        this.setState({
+            isNodeToggling: false
+        });
+    };
+
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: Calculation.getInitValue({
+                value: ComponentUtil.getDerivedState(props, state, 'value'),
+                selectMode: props.selectMode
+            })
+        };
+    }
+
     render() {
 
-        const {className, style, selectMode, listWidth, data, valueField, displayField} = this.props,
-            {path, value} = this.state,
+        const {
+                children, className, style, theme, data, allowCollapse,
+                collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
+                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
+                valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
+                isSelectRecursive, renderer, onNodeClick
+            } = this.props,
+            {value, isNodeToggling} = this.state,
 
-            listClassName = classNames('cascader-list', {
+            treeClassName = classNames('tree', {
                 [className]: className
             });
 
         return (
-            <div className={listClassName}
-                 style={style}>
-                <CascaderListItem data={data}
-                                  value={value}
-                                  path={path}
-                                  selectMode={selectMode}
-                                  listWidth={listWidth}
-                                  valueField={valueField}
-                                  displayField={displayField}
-                                  depth={TreeCalculation.calDepth(data, path)}
-                                  onChange={this.changeHandler}/>
+            <div className={treeClassName}
+                 disabled={disabled}
+                 style={style}
+                 onWheel={e => Event.wheelHandler(e, this.props)}>
+
+                <TreeNode data={data}
+                          value={value}
+                          theme={theme}
+                          valueField={valueField}
+                          displayField={displayField}
+                          descriptionField={descriptionField}
+                          disabled={disabled}
+                          isLoading={isLoading}
+                          readOnly={readOnly}
+                          selectMode={selectMode}
+                          renderer={renderer}
+                          allowCollapse={allowCollapse}
+                          collapsedIconCls={collapsedIconCls}
+                          expandedIconCls={expandedIconCls}
+                          radioUncheckedIconCls={radioUncheckedIconCls}
+                          radioCheckedIconCls={radioCheckedIconCls}
+                          checkboxUncheckedIconCls={checkboxUncheckedIconCls}
+                          checkboxCheckedIconCls={checkboxCheckedIconCls}
+                          checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
+                          isNodeToggling={isNodeToggling}
+                          isSelectRecursive={isSelectRecursive}
+                          onClick={(...args) => onNodeClick && onNodeClick(...args)}
+                          onNodeToggleStart={this.nodeToggleStartHandler}
+                          onNodeToggleEnd={this.nodeToggleEndHandler}
+                          onSelect={this.treeNodeSelectHandler}
+                          onDeselect={this.treeNodeDeselectHandler}/>
+
+                {children}
+
             </div>
         );
     }
@@ -85,57 +275,57 @@ CascaderList.propTypes = {
     style: PropTypes.object,
 
     /**
-     * The select mode of CascaderList.
+     * The theme of the tree node.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The theme of the tree node select radio or checkbox.
+     */
+    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The mode of tree node.
      */
     selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     /**
-     * The value of CascaderList.
+     * Children passed into the tree node.
      */
-    value: PropTypes.any,
-
-    /**
-     * The width of CascaderList.
-     */
-    listWidth: PropTypes.number,
-
-    /**
-     * The item-data of CascaderList.
-     */
-    data: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
+    data: PropTypes.shape({
 
         /**
-         * The CSS class name of the list button.
+         * The CSS class name of the tree node.
          */
         className: PropTypes.string,
 
         /**
-         * Override the styles of the list button.
+         * Override the styles of the tree node.
          */
         style: PropTypes.object,
 
         /**
-         * The theme of the list button.
+         * The theme of the tree button.
          */
         theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
         /**
-         * The text value of the list button.Type can be string or number.
+         * The text value of the tree button.Type can be string or number.
          */
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
         /**
-         * The list item's display text. Type can be string, number or bool.
+         * The tree node's display text. Type can be string, number or bool.
          */
         text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
         /**
-         * The desc value of the list button. Type can be string or number.
+         * The desc value of the tree node. Type can be string or number.
          */
         desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
         /**
-         * If true,the list item will be disabled.
+         * If true,the tree node will be disabled.
          */
         disabled: PropTypes.bool,
 
@@ -143,11 +333,6 @@ CascaderList.propTypes = {
          * If true,the button will be have loading effect.
          */
         isLoading: PropTypes.bool,
-
-        /**
-         * If true,the element's ripple effect will be disabled.
-         */
-        disableTouchRipple: PropTypes.bool,
 
         /**
          * Use this property to display an icon. It will display on the left.
@@ -169,12 +354,6 @@ CascaderList.propTypes = {
          */
         tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
 
-        /**
-         * If true,the item will have center displayed ripple effect.
-         */
-        rippleDisplayCenter: PropTypes.bool,
-
-
         children: PropTypes.array,
 
         /**
@@ -183,11 +362,11 @@ CascaderList.propTypes = {
         itemRenderer: PropTypes.func,
 
         /**
-         * Callback function fired when a list item touch-tapped.
+         * Callback function fired when a tree node touch-tapped.
          */
         onClick: PropTypes.func
 
-    }), PropTypes.string, PropTypes.number])),
+    }),
 
     /**
      * The value field name in data. (default: "value")
@@ -200,20 +379,83 @@ CascaderList.propTypes = {
     displayField: PropTypes.string,
 
     /**
-     * The depth of CascaderList.
+     * The description field name in data. (default: "desc")
      */
-    depth: PropTypes.number
+    descriptionField: PropTypes.string,
+
+    /**
+     * If true, the tree will be disabled.
+     */
+    disabled: PropTypes.bool,
+
+    /**
+     * If true, the tree will be at loading status.
+     */
+    isLoading: PropTypes.bool,
+
+    readOnly: PropTypes.bool,
+
+    shouldPreventContainerScroll: PropTypes.bool,
+    isSelectRecursive: PropTypes.bool,
+    allowCollapse: PropTypes.bool,
+    collapsedIconCls: PropTypes.string,
+    expandedIconCls: PropTypes.string,
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
+
+    /**
+     * You can create a complicated renderer callback instead of value and desc prop.
+     */
+    renderer: PropTypes.func,
+
+    /**
+     * Callback function fired when the tree node touch tap.
+     */
+    onNodeClick: PropTypes.func,
+
+    /**
+     * Callback function fired when the tree node selected.
+     */
+    onNodeSelect: PropTypes.func,
+
+    /**
+     * Callback function fired when the tree node deselected.
+     */
+    onNodeDeselect: PropTypes.func,
+
+    /**
+     * Callback function fired when the tree changed.
+     */
+    onChange: PropTypes.func,
+
+    /**
+     * Callback function fired when wrapper wheeled.
+     */
+    onWheel: PropTypes.func,
+
+    beforeNodeToggle: PropTypes.func
 
 };
 
 CascaderList.defaultProps = {
 
+    theme: Theme.DEFAULT,
+
+    selectTheme: Theme.DEFAULT,
     selectMode: SelectMode.SINGLE_SELECT,
 
-    listWidth: 200,
-
     valueField: 'value',
-    displayField: 'text'
+    displayField: 'text',
+    descriptionField: 'desc',
+    disabled: false,
+    isLoading: false,
+    readOnly: false,
+    shouldPreventContainerScroll: true,
+    isSelectRecursive: false,
+    allowCollapse: true
 
 };
 
