@@ -3,10 +3,10 @@ import React, {Component} from 'react';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import Paper from 'src/Paper';
-import Tree from 'src/Tree';
+import CascaderList from 'src/CascaderList';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import doc from 'examples/assets/propTypes/Tree.json';
+import doc from 'examples/assets/propTypes/CascaderList.json';
 
 import 'sass/containers/app/modules/layout/TreeExamples.scss';
 
@@ -16,37 +16,32 @@ class CascaderListExamples extends Component {
 
         super(props);
 
-        this.data = {
-            id: '0',
-            text: 'Root',
-            desc: 'Root',
+        this.data = [{
+            id: '00',
+            text: 'Children 0 - 0',
+            desc: 'Children 0 - 0'
+        }, {
+            id: '01',
+            text: 'Children 0 - 1',
+            desc: 'Children 0 - 1',
             children: [{
-                id: '00',
-                text: 'Children 0 - 0',
-                desc: 'Children 0 - 0'
+                id: '010',
+                text: 'Children 0 - 1 - 0',
+                desc: 'Children 0 - 1 - 0'
             }, {
-                id: '01',
-                text: 'Children 0 - 1',
-                desc: 'Children 0 - 1',
-                children: [{
-                    id: '010',
-                    text: 'Children 0 - 1 - 0',
-                    desc: 'Children 0 - 1 - 0'
-                }, {
-                    id: '011',
-                    text: 'Children 0 - 1 - 1',
-                    desc: 'Children 0 - 1 - 1'
-                }, {
-                    id: '012',
-                    text: 'Children 0 - 1 - 2',
-                    desc: 'Children 0 - 1 - 2'
-                }]
+                id: '011',
+                text: 'Children 0 - 1 - 1',
+                desc: 'Children 0 - 1 - 1'
             }, {
-                id: '02',
-                text: 'Children 0 - 2',
-                desc: 'Children 0 - 2'
+                id: '012',
+                text: 'Children 0 - 1 - 2',
+                desc: 'Children 0 - 1 - 2'
             }]
-        };
+        }, {
+            id: '02',
+            text: 'Children 0 - 2',
+            desc: 'Children 0 - 2'
+        }];
 
     }
 
@@ -62,10 +57,10 @@ class CascaderListExamples extends Component {
         return (
             <div className="example tree-examples">
 
-                <h2 className="examples-title">Tree</h2>
+                <h2 className="examples-title">CascaderList</h2>
 
                 <p>
-                    <span>Tree</span> can fully display the hierarchy, and has interactive functions such as
+                    <span>CascaderList</span> can fully display the hierarchy, and has interactive functions such as
                     expansion, withdrawal and selection.
                 </p>
 
@@ -81,12 +76,12 @@ class CascaderListExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>Tree</code>simple example.</p>
+                                <p><code>CascaderList</code>simple example.</p>
 
                                 <Paper className="tree-wrapper">
-                                    <Tree data={this.data}
-                                          onNodeSelect={this.nodeSelectHandler}
-                                          onChange={this.changeHandler}/>
+                                    <CascaderList data={this.data}
+                                                  onNodeSelect={this.nodeSelectHandler}
+                                                  onChange={this.changeHandler}/>
                                 </Paper>
 
                             </div>
@@ -105,18 +100,18 @@ class CascaderListExamples extends Component {
                         <div className="example-content">
                             <div className="examples-wrapper">
                                 <Paper className="tree-wrapper">
-                                    <Tree data={this.data}
-                                          collapsedIconCls="far fa-plus-square"
-                                          expandedIconCls="far fa-minus-square"
-                                          renderer={node => {
-                                              return <div className="self-define-node">
-                                                  <span className="self-define-node-id">{node.id}</span>
-                                                  <span className="self-define-node-text">{node.text}</span>
-                                                  <span className="self-define-node-desc">{node.desc}</span>
-                                              </div>;
-                                          }}
-                                          onNodeSelect={this.nodeSelectHandler}
-                                          onChange={this.changeHandler}/>
+                                    <CascaderList data={this.data}
+                                                  collapsedIconCls="far fa-plus-square"
+                                                  expandedIconCls="far fa-minus-square"
+                                                  renderer={node => {
+                                                      return <div className="self-define-node">
+                                                          <span className="self-define-node-id">{node.id}</span>
+                                                          <span className="self-define-node-text">{node.text}</span>
+                                                          <span className="self-define-node-desc">{node.desc}</span>
+                                                      </div>;
+                                                  }}
+                                                  onNodeSelect={this.nodeSelectHandler}
+                                                  onChange={this.changeHandler}/>
                                 </Paper>
                             </div>
                         </div>
@@ -133,14 +128,14 @@ class CascaderListExamples extends Component {
                         <div className="example-content">
                             <div className="examples-wrapper">
                                 <Paper className="tree-wrapper">
-                                    <Tree selectMode={Tree.SelectMode.MULTI_SELECT}
-                                          data={this.data}
-                                          isSelectRecursive={true}
-                                          checkboxUncheckedIconCls="far fa-circle"
-                                          checkboxCheckedIconCls="fas fa-check-circle"
-                                          checkboxIndeterminateIconCls="fas fa-minus-circle"
-                                          onNodeSelect={this.nodeSelectHandler}
-                                          onChange={this.changeHandler}/>
+                                    <CascaderList selectMode={CascaderList.SelectMode.MULTI_SELECT}
+                                                  data={this.data}
+                                                  isSelectRecursive={true}
+                                                  checkboxUncheckedIconCls="far fa-circle"
+                                                  checkboxCheckedIconCls="fas fa-check-circle"
+                                                  checkboxIndeterminateIconCls="fas fa-minus-circle"
+                                                  onNodeSelect={this.nodeSelectHandler}
+                                                  onChange={this.changeHandler}/>
                                 </Paper>
                             </div>
                         </div>
