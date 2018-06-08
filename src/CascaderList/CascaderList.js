@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import isArray from 'lodash/isArray';
 import classNames from 'classnames';
 
-import TreeNode from '../_TreeNode';
+import CascaderListItem from '../_CascaderListItem';
 import Tip from '../Tip';
 import Theme from '../Theme';
 
@@ -228,32 +228,32 @@ class CascaderList extends Component {
                  style={style}
                  onWheel={e => Event.wheelHandler(e, this.props)}>
 
-                <TreeNode data={data}
-                          value={value}
-                          theme={theme}
-                          valueField={valueField}
-                          displayField={displayField}
-                          descriptionField={descriptionField}
-                          disabled={disabled}
-                          isLoading={isLoading}
-                          readOnly={readOnly}
-                          selectMode={selectMode}
-                          renderer={renderer}
-                          allowCollapse={allowCollapse}
-                          collapsedIconCls={collapsedIconCls}
-                          expandedIconCls={expandedIconCls}
-                          radioUncheckedIconCls={radioUncheckedIconCls}
-                          radioCheckedIconCls={radioCheckedIconCls}
-                          checkboxUncheckedIconCls={checkboxUncheckedIconCls}
-                          checkboxCheckedIconCls={checkboxCheckedIconCls}
-                          checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
-                          isNodeToggling={isNodeToggling}
-                          isSelectRecursive={isSelectRecursive}
-                          onClick={(...args) => onNodeClick && onNodeClick(...args)}
-                          onNodeToggleStart={this.nodeToggleStartHandler}
-                          onNodeToggleEnd={this.nodeToggleEndHandler}
-                          onSelect={this.treeNodeSelectHandler}
-                          onDeselect={this.treeNodeDeselectHandler}/>
+                <CascaderListItem data={data}
+                                  value={value}
+                                  theme={theme}
+                                  valueField={valueField}
+                                  displayField={displayField}
+                                  descriptionField={descriptionField}
+                                  disabled={disabled}
+                                  isLoading={isLoading}
+                                  readOnly={readOnly}
+                                  selectMode={selectMode}
+                                  renderer={renderer}
+                                  allowCollapse={allowCollapse}
+                                  collapsedIconCls={collapsedIconCls}
+                                  expandedIconCls={expandedIconCls}
+                                  radioUncheckedIconCls={radioUncheckedIconCls}
+                                  radioCheckedIconCls={radioCheckedIconCls}
+                                  checkboxUncheckedIconCls={checkboxUncheckedIconCls}
+                                  checkboxCheckedIconCls={checkboxCheckedIconCls}
+                                  checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
+                                  isNodeToggling={isNodeToggling}
+                                  isSelectRecursive={isSelectRecursive}
+                                  onClick={(...args) => onNodeClick && onNodeClick(...args)}
+                                  onNodeToggleStart={this.nodeToggleStartHandler}
+                                  onNodeToggleEnd={this.nodeToggleEndHandler}
+                                  onSelect={this.treeNodeSelectHandler}
+                                  onDeselect={this.treeNodeDeselectHandler}/>
 
                 {children}
 
@@ -292,7 +292,7 @@ CascaderList.propTypes = {
     /**
      * Children passed into the tree node.
      */
-    data: PropTypes.shape({
+    data: PropTypes.arrayOf(PropTypes.shape({
 
         /**
          * The CSS class name of the tree node.
@@ -366,7 +366,7 @@ CascaderList.propTypes = {
          */
         onClick: PropTypes.func
 
-    }),
+    })),
 
     /**
      * The value field name in data. (default: "value")
