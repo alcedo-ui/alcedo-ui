@@ -57,6 +57,20 @@ class CascaderListItem extends Component {
 
     };
 
+    isListItemIndeterminate = node => {
+
+        if (!node || !node.children || node.children.length < 1) {
+            return false;
+        }
+
+        let total = 0,
+            count = 0;
+        Util.preOrderTraverse(node, item => {
+
+        });
+
+    };
+
     listItemRenderer = (node, index) => {
 
         const {valueField, displayField, descriptionField, expandedIconCls, renderer} = this.props;
@@ -175,6 +189,7 @@ class CascaderListItem extends Component {
                       checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
                       autoSelect={false}
                       disableTouchRipple={true}
+                      indeterminateCallback={this.isListItemIndeterminate}
                       renderer={this.listItemRenderer}
                       onItemClick={this.listItemClickHanlder}
                       onItemSelect={this.listItemSelectHanlder}
