@@ -136,7 +136,7 @@ class CascaderListItem extends Component {
         const {
 
                 depth, theme, listWidth, selectTheme, selectMode, data, value,
-                disabled, isLoading, readOnly, valueField, displayField, descriptionField,
+                disabled, isLoading, readOnly, idField, valueField, displayField, descriptionField,
 
                 radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls
@@ -164,6 +164,7 @@ class CascaderListItem extends Component {
                       disabled={disabled}
                       isLoading={isLoading}
                       readOnly={readOnly}
+                      idField={idField}
                       valueField={valueField}
                       displayField={displayField}
                       descriptionField={descriptionField}
@@ -172,6 +173,8 @@ class CascaderListItem extends Component {
                       checkboxUncheckedIconCls={checkboxUncheckedIconCls}
                       checkboxCheckedIconCls={checkboxCheckedIconCls}
                       checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
+                      autoSelect={false}
+                      disableTouchRipple={true}
                       renderer={this.listItemRenderer}
                       onItemClick={this.listItemClickHanlder}
                       onItemSelect={this.listItemSelectHanlder}
@@ -209,6 +212,7 @@ CascaderListItem.propTypes = {
     data: PropTypes.array,
     value: PropTypes.any,
 
+    idField: PropTypes.string,
     valueField: PropTypes.string,
     displayField: PropTypes.string,
     descriptionField: PropTypes.string,
@@ -249,6 +253,7 @@ CascaderListItem.defaultProps = {
     selectTheme: Theme.DEFAULT,
     selectMode: SelectMode.SINGLE_SELECT,
 
+    idField: 'id',
     valueField: 'value',
     displayField: 'text',
     descriptionField: 'desc',
