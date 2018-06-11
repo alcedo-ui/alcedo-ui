@@ -138,8 +138,7 @@ class List extends Component {
         const {
 
                 theme, itemHeight, idField, valueField, displayField, descriptionField, disabled, isLoading, renderer,
-
-                selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
+                disableTouchRipple, selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
                 onItemClick
@@ -169,6 +168,7 @@ class List extends Component {
                           isLoading={isLoading || item.isLoading}
                           selectMode={selectMode}
                           renderer={renderer}
+                          disableTouchRipple={item.disableTouchRipple || disableTouchRipple}
                           onClick={e => {
                               onItemClick && onItemClick(item, index, e);
                               item.onClick && item.onClick(e);
@@ -196,6 +196,7 @@ class List extends Component {
                           isLoading={isLoading}
                           selectMode={selectMode}
                           renderer={renderer}
+                          disableTouchRipple={disableTouchRipple}
                           onClick={e => onItemClick && onItemClick(item, index, e)}
                           onSelect={() => this.listItemSelectHandler(item, index)}
                           onDeselect={() => this.listItemDeselectHandler(item, index)}/>
@@ -378,6 +379,11 @@ List.propTypes = {
     disabled: PropTypes.bool,
 
     /**
+     * If true,the element's ripple effect will be disabled.
+     */
+    disableTouchRipple: PropTypes.bool,
+
+    /**
      * If true, the list will be at loading status.
      */
     isLoading: PropTypes.bool,
@@ -434,6 +440,7 @@ List.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
     disabled: false,
+    disableTouchRipple: false,
     shouldPreventContainerScroll: true,
 
     checkboxUncheckedIconCls: 'far fa-square',
