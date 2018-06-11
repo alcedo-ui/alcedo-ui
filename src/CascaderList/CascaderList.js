@@ -106,7 +106,7 @@ class CascaderList extends Component {
 
     };
 
-    treeNodeSelectHandler = (node, path, e) => {
+    treeNodeSelectHandler = (node, path) => {
 
         if (!node) {
             return;
@@ -136,13 +136,13 @@ class CascaderList extends Component {
             value
         }, () => {
             const {onNodeSelect, onChange} = this.props;
-            onNodeSelect && onNodeSelect(node, path, e);
-            onChange && onChange(value, e);
+            onNodeSelect && onNodeSelect(node, path);
+            onChange && onChange(value);
         });
 
     };
 
-    treeNodeDeselectHandler = (node, path, e) => {
+    treeNodeDeselectHandler = (node, path) => {
 
         const {selectMode} = this.props;
 
@@ -171,8 +171,8 @@ class CascaderList extends Component {
             value
         }, () => {
             const {onNodeDeselect, onChange} = this.props;
-            onNodeDeselect && onNodeDeselect(node, path, e);
-            onChange && onChange(value, e);
+            onNodeDeselect && onNodeDeselect(node, path);
+            onChange && onChange(value);
         });
 
     };
