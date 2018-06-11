@@ -74,18 +74,15 @@ class ListItem extends Component {
 
     };
 
-    radioCheckHandler = e => {
-        e.stopPropagation();
+    radioCheckHandler = () => {
         this.singleSelectChangeHandler();
     };
 
-    checkboxCheckHandler = e => {
-        e.stopPropagation();
+    checkboxCheckHandler = () => {
         this.multiSelectChangeHandler(true);
     };
 
-    checkboxUncheckHandler = e => {
-        e.stopPropagation();
+    checkboxUncheckHandler = () => {
         this.multiSelectChangeHandler(false);
     };
 
