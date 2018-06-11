@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -31,8 +31,7 @@ class CascaderListItem extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            activatedIndex: -1,
-            collapsed: false
+            activatedIndex: -1
         };
 
     }
@@ -52,7 +51,7 @@ class CascaderListItem extends Component {
     //     });
     //
     // };
-    //
+
     // checkboxChangeHandler = e => {
     //
     //     const {data, path, value, onSelect, onDeselect} = this.props;
@@ -70,7 +69,7 @@ class CascaderListItem extends Component {
     //     onSelect && onSelect(data, path, e);
     // };
     //
-    // clickHandler = e => {
+    // listItemClickHanlder = e => {
     //
     //     e.preventDefault();
     //
@@ -96,10 +95,64 @@ class CascaderListItem extends Component {
     //
     // };
 
+    listItemRenderer = (item, index) => {
+
+        const {valueField, displayField, descriptionField, renderer} = this.props,
+            {activatedIndex} = this.state;
+
+        let text, desc;
+        if (!renderer) {
+            text = Util.getTextByDisplayField(item, displayField, valueField);
+            desc = item[descriptionField] || null;
+        }
+
+        return (
+            <Fragment>
+
+                {
+                    renderer ?
+                        renderer(item, index)
+                        :
+                        (
+                            desc ?
+                                <div className="list-item-content">
+                                    <div className="list-item-content-value">
+                                        {text}
+                                    </div>
+                                    <div className="list-item-content-desc">
+                                        {desc}
+                                    </div>
+                                </div>
+                                :
+                                text
+                        )
+                }
+
+                {
+                    index === activatedIndex ?
+                        <i className="fas fa-chevron-right cascader-list-item-right-icon"
+                           aria-hidden="true"></i>
+                        :
+                        null
+                }
+
+            </Fragment>
+        );
+
+    };
+
     listItemClickHanlder = (item, activatedIndex) => {
+
+        const {data, disabled, isLoading, readOnly} = this.props;
+
+        if (disabled || isLoading || readOnly || data.disabled || data.isLoading || data.readOnly) {
+            return;
+        }
+
         this.setState({
             activatedIndex
         });
+
     };
 
     render() {
@@ -116,7 +169,7 @@ class CascaderListItem extends Component {
                 renderer, onMouseEnter, onMouseLeave
 
             } = this.props,
-            {activatedIndex, collapsed} = this.state,
+            {activatedIndex} = this.state,
 
             listClassName = classNames('cascader-popup-list', {
                 first: depth === 0
@@ -152,6 +205,7 @@ class CascaderListItem extends Component {
                 <List className={listClassName}
                       style={listStyle}
                       data={data}
+                      renderer={this.listItemRenderer}
                       onItemClick={this.listItemClickHanlder}/>
 
                 {

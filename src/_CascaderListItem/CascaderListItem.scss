@@ -184,8 +184,16 @@
         overflow-x: hidden;
         border-left: 1px solid $theme-border;
 
-        .list-item-checked {
-            display: none;
+        .list-item {
+
+            .cascader-list-item-right-icon {
+                position: absolute;
+                right: 0;
+                width: 15px;
+                height: 40px;
+                line-height: 40px;
+                text-align: center;
+            }
         }
 
         &.first {
