@@ -29,11 +29,15 @@ class Checkbox extends Component {
 
     }
 
-    clickHandler = () => {
+    clickHandler = e => {
 
-        if (this.props.disabled) {
+        const {disabled, onClick} = this.props;
+
+        if (disabled) {
             return;
         }
+
+        onClick && onClick(e);
 
         const checked = !this.state.checked;
 
@@ -46,9 +50,9 @@ class Checkbox extends Component {
             onChange && onChange(checked);
 
             if (checked) {
-                onCheck && onCheck();
+                onCheck && onCheck(e);
             } else {
-                onUncheck && onUncheck();
+                onUncheck && onUncheck(e);
             }
 
         });
@@ -218,8 +222,8 @@ Checkbox.propTypes = {
      */
     onChange: PropTypes.func,
 
+    onClick: PropTypes.func,
     onCheck: PropTypes.func,
-
     onUncheck: PropTypes.func
 
 };
