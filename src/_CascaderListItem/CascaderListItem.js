@@ -243,7 +243,9 @@ class CascaderListItem extends Component {
 
                 <List className={listClassName}
                       style={listStyle}
+                      selectMode={selectMode}
                       data={data}
+                      value={value}
                       renderer={this.listItemRenderer}
                       onItemClick={this.listItemClickHanlder}
                       onItemSelect={this.listItemSelectHanlder}
