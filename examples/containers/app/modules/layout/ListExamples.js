@@ -272,6 +272,34 @@ class ListExamples extends Component {
 
                 </Widget>
 
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Select only when click checkbox"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <Paper style={{width: 240, marginTop: 20}}>
+                                    <List style={{width: 240}}
+                                          selectMode={List.SelectMode.MULTI_SELECT}
+                                          data={this.descListData}
+                                          autoSelect={false}
+                                          disableTouchRipple={true}
+                                          onChange={this.changeHandler}
+                                          onItemClick={this.itemClickHandler}
+                                          onItemSelect={this.itemSelectHandler}
+                                          onItemDeselect={this.itemDeselectHandler}/>
+                                </Paper>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
                 <h2 className="example-title">Properties</h2>
 
                 <PropTypeDescTable data={doc}/>
