@@ -138,7 +138,8 @@ class List extends Component {
         const {
 
                 theme, itemHeight, idField, valueField, displayField, descriptionField, disabled, isLoading, renderer,
-                autoSelect, disableTouchRipple, selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
+                autoSelect, disableTouchRipple, selectTheme, selectMode, indeterminateCallback,
+                radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
                 onItemClick
@@ -169,6 +170,7 @@ class List extends Component {
                       renderer={renderer}
                       autoSelect={autoSelect}
                       disableTouchRipple={item.disableTouchRipple || disableTouchRipple}
+                      indeterminateCallback={indeterminateCallback}
                       onClick={e => {
                           onItemClick && onItemClick(item, index, e);
                           item.onClick && item.onClick(e);
@@ -179,13 +181,13 @@ class List extends Component {
             <ListItem key={index}
                       index={index}
                       style={{height: itemHeight}}
-                      theme={item.theme || theme}
-                      selectTheme={item.selectTheme || selectTheme}
-                      radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
-                      radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
-                      checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
-                      checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
-                      checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
+                      theme={theme}
+                      selectTheme={selectTheme}
+                      radioUncheckedIconCls={radioUncheckedIconCls}
+                      radioCheckedIconCls={radioCheckedIconCls}
+                      checkboxUncheckedIconCls={checkboxUncheckedIconCls}
+                      checkboxCheckedIconCls={checkboxCheckedIconCls}
+                      checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
                       data={item}
                       checked={Calculation.isItemChecked(item, value, this.props)}
                       value={item}
@@ -196,6 +198,7 @@ class List extends Component {
                       renderer={renderer}
                       autoSelect={autoSelect}
                       disableTouchRipple={disableTouchRipple}
+                      indeterminateCallback={indeterminateCallback}
                       onClick={e => onItemClick && onItemClick(item, index, e)}
                       onSelect={() => this.listItemSelectHandler(item, index)}
                       onDeselect={() => this.listItemDeselectHandler(item, index)}/>;
@@ -390,6 +393,8 @@ List.propTypes = {
      * Whether select when item clicked.
      */
     autoSelect: PropTypes.bool,
+
+    indeterminateCallback: PropTypes.func,
 
     shouldPreventContainerScroll: PropTypes.bool,
 
