@@ -99,6 +99,29 @@ class CascaderListItem extends Component {
         return index === this.state.activatedIndex && node.children && node.children.length > 0;
     };
 
+    getCurrentPathNode = (index = this.state.activatedIndex) => {
+
+        const {data} = this.props;
+
+        return index > -1 ?
+            {index: index, node: data[index]}
+            :
+            null;
+
+    };
+
+    getPath = (index = this.state.activatedIndex) => {
+
+        const {path} = this.props,
+            currentPathNode = this.getCurrentPathNode(index);
+
+        return path ?
+            [...path, currentPathNode]
+            :
+            [currentPathNode];
+
+    };
+
     listItemRenderer = (node, index) => {
 
         const {valueField, displayField, descriptionField, renderer} = this.props;
@@ -161,6 +184,16 @@ class CascaderListItem extends Component {
 
     };
 
+    listItemSelectHanlder = (node, index) => {
+        const {onSelect} = this.props;
+        onSelect && onSelect(node, this.getPath(index));
+    };
+
+    listItemDeselectHanlder = (node, index) => {
+        const {onDeselect} = this.props;
+        onDeselect && onDeselect(node, this.getPath(index));
+    };
+
     render() {
 
         const {
@@ -172,7 +205,7 @@ class CascaderListItem extends Component {
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
-                renderer, onMouseEnter, onMouseLeave
+                renderer, onSelect, onDeselect, onMouseEnter, onMouseLeave
 
             } = this.props,
             {activatedIndex} = this.state,
@@ -212,13 +245,16 @@ class CascaderListItem extends Component {
                       style={listStyle}
                       data={data}
                       renderer={this.listItemRenderer}
-                      onItemClick={this.listItemClickHanlder}/>
+                      onItemClick={this.listItemClickHanlder}
+                      onItemSelect={this.listItemSelectHanlder}
+                      onItemDeselect={this.listItemDeselectHanlder}/>
 
                 {
                     activatedIndex > -1 && data[activatedIndex].children && data[activatedIndex].children.length > 0 ?
                         <CascaderListItem {...this.props}
                                           data={data[activatedIndex].children}
-                                          depth={depth + 1}/>
+                                          depth={depth + 1}
+                                          path={this.getPath()}/>
                         :
                         null
                 }
