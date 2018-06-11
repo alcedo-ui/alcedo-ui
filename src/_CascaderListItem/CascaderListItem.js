@@ -63,11 +63,20 @@ class CascaderListItem extends Component {
             return false;
         }
 
+        const {value, valueField, displayField} = this.props;
         let total = 0,
             count = 0;
-        Util.preOrderTraverse(node, item => {
 
+        Util.preOrderTraverse(node, nodeItem => {
+            total++;
+            if (value.findIndex(item =>
+                Util.getValueByValueField(item, valueField, displayField)
+                === Util.getValueByValueField(nodeItem, valueField, displayField)) > -1) {
+                count++;
+            }
         });
+
+        return count > 0 && total !== count;
 
     };
 
