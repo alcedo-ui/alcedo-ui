@@ -258,11 +258,7 @@ CascaderListItem.propTypes = {
 
     onClick: PropTypes.func,
     onSelect: PropTypes.func,
-    onDeselect: PropTypes.func,
-    onMouseEnter: PropTypes.func,
-    onMouseLeave: PropTypes.func,
-    onNodeToggleStart: PropTypes.func,
-    onNodeToggleEnd: PropTypes.func
+    onDeselect: PropTypes.func
 
 };
 
