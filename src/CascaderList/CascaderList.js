@@ -189,8 +189,8 @@ class CascaderList extends Component {
     render() {
 
         const {
-                children, className, style, theme, data, allowCollapse,
-                collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
+                children, className, style, theme, data,
+                expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
                 valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
                 isSelectRecursive, renderer, onNodeClick
@@ -218,8 +218,6 @@ class CascaderList extends Component {
                                   readOnly={readOnly}
                                   selectMode={selectMode}
                                   renderer={renderer}
-                                  allowCollapse={allowCollapse}
-                                  collapsedIconCls={collapsedIconCls}
                                   expandedIconCls={expandedIconCls}
                                   radioUncheckedIconCls={radioUncheckedIconCls}
                                   radioCheckedIconCls={radioCheckedIconCls}
@@ -373,8 +371,6 @@ CascaderList.propTypes = {
 
     shouldPreventContainerScroll: PropTypes.bool,
     isSelectRecursive: PropTypes.bool,
-    allowCollapse: PropTypes.bool,
-    collapsedIconCls: PropTypes.string,
     expandedIconCls: PropTypes.string,
     radioUncheckedIconCls: PropTypes.string,
     radioCheckedIconCls: PropTypes.string,
@@ -430,8 +426,7 @@ CascaderList.defaultProps = {
     isLoading: false,
     readOnly: false,
     shouldPreventContainerScroll: true,
-    isSelectRecursive: false,
-    allowCollapse: true
+    isSelectRecursive: false
 
 };
 
