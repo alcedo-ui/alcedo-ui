@@ -74,6 +74,21 @@ class ListItem extends Component {
 
     };
 
+    radioCheckHandler = e => {
+        e.stopPropagation();
+        this.singleSelectChangeHandler();
+    };
+
+    checkboxCheckHandler = e => {
+        e.stopPropagation();
+        this.multiSelectChangeHandler(true);
+    };
+
+    checkboxUncheckHandler = e => {
+        e.stopPropagation();
+        this.multiSelectChangeHandler(false);
+    };
+
     render() {
 
         const {
@@ -118,7 +133,7 @@ class ListItem extends Component {
                                    uncheckedIconCls={radioUncheckedIconCls}
                                    checkedIconCls={radioCheckedIconCls}
                                    disableTouchRipple={true}
-                                   onCheck={this.singleSelectChangeHandler}/>
+                                   onCheck={this.radioCheckHandler}/>
                             :
                             null
                     }
@@ -134,8 +149,8 @@ class ListItem extends Component {
                                       checkedIconCls={checkboxCheckedIconCls}
                                       indeterminateIconCls={checkboxIndeterminateIconCls}
                                       disableTouchRipple={true}
-                                      onCheck={() => this.multiSelectChangeHandler(true)}
-                                      onUncheck={() => this.multiSelectChangeHandler(false)}/>
+                                      onCheck={this.checkboxCheckHandler}
+                                      onUncheck={this.checkboxUncheckHandler}/>
                             :
                             null
                     }
