@@ -144,11 +144,19 @@ class CascaderListExamples extends Component {
                                                   collapsedIconCls="far fa-plus-square"
                                                   expandedIconCls="far fa-minus-square"
                                                   renderer={node => {
-                                                      return <div className="self-define-node">
-                                                          <span className="self-define-node-id">{node.id}</span>
-                                                          <span className="self-define-node-text">{node.text}</span>
-                                                          <span className="self-define-node-desc">{node.desc}</span>
-                                                      </div>;
+                                                      return (
+                                                          <div className="self-define-node">
+                                                              <span className="self-define-node-text">{node.text}</span>
+                                                              {
+                                                                  node.children && node.children.length > 0 ?
+                                                                      <span className="self-define-node-desc">
+                                                                          ({node.children.length})
+                                                                      </span>
+                                                                      :
+                                                                      null
+                                                              }
+                                                          </div>
+                                                      );
                                                   }}
                                                   onNodeSelect={this.nodeSelectHandler}
                                                   onChange={this.changeHandler}/>

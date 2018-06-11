@@ -7,8 +7,13 @@
         border: 1px solid $theme-border;
         overflow: hidden;
 
-        .cascader-list{
+        .cascader-list {
             float: left;
+
+            .self-define-node-desc {
+                color: $theme-description;
+                margin-left: 4px;
+            }
         }
     }
 }
