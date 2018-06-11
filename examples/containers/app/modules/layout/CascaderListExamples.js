@@ -85,6 +85,10 @@ class CascaderListExamples extends Component {
 
     }
 
+    nodeClickHandler = (node) => {
+        console.log('Node Clicked::', node);
+    };
+
     nodeSelectHandler = (node, path) => {
         console.log('Node Selected::', node, path);
     };
@@ -120,6 +124,7 @@ class CascaderListExamples extends Component {
 
                                 <Paper className="cascader-list-wrapper">
                                     <CascaderList data={this.data}
+                                                  onNodeClick={this.nodeClickHandler}
                                                   onNodeSelect={this.nodeSelectHandler}
                                                   onChange={this.changeHandler}/>
                                 </Paper>
