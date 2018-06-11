@@ -144,7 +144,7 @@ class CascaderListItem extends Component {
 
     };
 
-    listItemClickHanlder = (node, activatedIndex) => {
+    listItemClickHanlder = (node, index) => {
 
         const {data, disabled, isLoading, readOnly} = this.props;
 
@@ -153,7 +153,10 @@ class CascaderListItem extends Component {
         }
 
         this.setState({
-            activatedIndex
+            activatedIndex: index
+        }, () => {
+            const {onClick} = this.props;
+            onClick && onClick(node, index);
         });
 
     };
