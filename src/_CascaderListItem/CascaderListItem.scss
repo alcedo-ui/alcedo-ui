@@ -187,12 +187,12 @@
         .list-item {
 
             .cascader-list-item-right-icon {
-                position: absolute;
-                right: 0;
-                width: 15px;
+                float: right;
+                width: 16px;
                 height: 40px;
                 line-height: 40px;
-                text-align: center;
+                text-align: right;
+                color: $theme-description;
             }
         }
 

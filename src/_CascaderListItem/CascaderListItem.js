@@ -129,7 +129,7 @@ class CascaderListItem extends Component {
                 }
 
                 {
-                    index === activatedIndex ?
+                    index === activatedIndex && item.children && item.children.length > 0 ?
                         <i className="fas fa-chevron-right cascader-list-item-right-icon"
                            aria-hidden="true"></i>
                         :
