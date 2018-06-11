@@ -81,7 +81,7 @@ class ListItem extends Component {
                 index, className, style, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
                 disabled, isLoading, disableTouchRipple, rippleDisplayCenter, renderer, itemRenderer, readOnly,
 
-                checked, selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
+                checked, selectTheme, selectMode, indeterminateCallback, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
                 onMouseEnter, onMouseLeave
@@ -128,6 +128,7 @@ class ListItem extends Component {
                             <Checkbox className="list-item-select"
                                       theme={selectTheme}
                                       checked={checked}
+                                      indeterminate={indeterminateCallback && indeterminateCallback(data)}
                                       disabled={disabled || isLoading}
                                       uncheckedIconCls={checkboxUncheckedIconCls}
                                       checkedIconCls={checkboxCheckedIconCls}
@@ -246,6 +247,7 @@ ListItem.propTypes = {
 
     itemRenderer: PropTypes.func,
     renderer: PropTypes.func,
+    indeterminateCallback: PropTypes.func,
 
     autoSelect: PropTypes.bool,
 
