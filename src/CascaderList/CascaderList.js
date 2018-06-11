@@ -29,8 +29,7 @@ class CascaderList extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            value: Calculation.getInitValue(props),
-            isNodeToggling: false
+            value: Calculation.getInitValue(props)
         };
 
     }
@@ -177,26 +176,6 @@ class CascaderList extends Component {
 
     };
 
-    nodeToggleStartHandler = () => {
-
-        const {beforeNodeToggle} = this.props;
-
-        if (beforeNodeToggle && beforeNodeToggle() === false) {
-            return;
-        }
-
-        this.setState({
-            isNodeToggling: true
-        });
-
-    };
-
-    nodeToggleEndHandler = () => {
-        this.setState({
-            isNodeToggling: false
-        });
-    };
-
     static getDerivedStateFromProps(props, state) {
         return {
             prevProps: props,
@@ -216,7 +195,7 @@ class CascaderList extends Component {
                 valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
                 isSelectRecursive, renderer, onNodeClick
             } = this.props,
-            {value, isNodeToggling} = this.state,
+            {value} = this.state,
 
             treeClassName = classNames('cascader-list', {
                 [className]: className
@@ -247,11 +226,8 @@ class CascaderList extends Component {
                                   checkboxUncheckedIconCls={checkboxUncheckedIconCls}
                                   checkboxCheckedIconCls={checkboxCheckedIconCls}
                                   checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
-                                  isNodeToggling={isNodeToggling}
                                   isSelectRecursive={isSelectRecursive}
                                   onClick={(...args) => onNodeClick && onNodeClick(...args)}
-                                  onNodeToggleStart={this.nodeToggleStartHandler}
-                                  onNodeToggleEnd={this.nodeToggleEndHandler}
                                   onSelect={this.treeNodeSelectHandler}
                                   onDeselect={this.treeNodeDeselectHandler}/>
 
