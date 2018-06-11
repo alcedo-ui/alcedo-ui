@@ -252,7 +252,8 @@ class CascaderListItem extends Component {
                       onItemDeselect={this.listItemDeselectHanlder}/>
 
                 {
-                    activatedIndex > -1 && data[activatedIndex].children && data[activatedIndex].children.length > 0 ?
+                    activatedIndex > -1 && data[activatedIndex] && data[activatedIndex].children
+                    && data[activatedIndex].children.length > 0 ?
                         <CascaderListItem {...this.props}
                                           data={data[activatedIndex].children}
                                           depth={depth + 1}
