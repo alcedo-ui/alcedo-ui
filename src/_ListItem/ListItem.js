@@ -50,7 +50,7 @@ class ListItem extends Component {
 
         e.preventDefault();
 
-        const {disabled, isLoading, readOnly} = this.props;
+        const {disabled, isLoading, readOnly, autoSelect} = this.props;
 
         if (disabled || isLoading || readOnly) {
             return;
@@ -58,6 +58,10 @@ class ListItem extends Component {
 
         const {onClick} = this.props;
         onClick && onClick(e);
+
+        if (!autoSelect) {
+            return;
+        }
 
         switch (this.props.selectMode) {
             case SelectMode.MULTI_SELECT:
@@ -80,7 +84,7 @@ class ListItem extends Component {
                 checked, selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
-                onMouseEnter, onMouseLeave, onRadioCheck, onCheckboxCheck
+                onMouseEnter, onMouseLeave
 
             } = this.props,
 
@@ -114,7 +118,7 @@ class ListItem extends Component {
                                    uncheckedIconCls={radioUncheckedIconCls}
                                    checkedIconCls={radioCheckedIconCls}
                                    disableTouchRipple={true}
-                                   onCheck={onRadioCheck}/>
+                                   onCheck={this.singleSelectChangeHandler}/>
                             :
                             null
                     }
@@ -129,7 +133,8 @@ class ListItem extends Component {
                                       checkedIconCls={checkboxCheckedIconCls}
                                       indeterminateIconCls={checkboxIndeterminateIconCls}
                                       disableTouchRipple={true}
-                                      onCheck={onCheckboxCheck}/>
+                                      onCheck={() => this.multiSelectChangeHandler(true)}
+                                      onUncheck={() => this.multiSelectChangeHandler(false)}/>
                             :
                             null
                     }
@@ -242,11 +247,11 @@ ListItem.propTypes = {
     itemRenderer: PropTypes.func,
     renderer: PropTypes.func,
 
+    autoSelect: PropTypes.bool,
+
     onClick: PropTypes.func,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
-    onRadioCheck: PropTypes.func,
-    onCheckboxCheck: PropTypes.func,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func
 
@@ -272,7 +277,9 @@ ListItem.defaultProps = {
 
     checkboxUncheckedIconCls: 'far fa-square',
     checkboxCheckedIconCls: 'fas fa-check-square',
-    checkboxIndeterminateIconCls: 'fas fa-minus-square'
+    checkboxIndeterminateIconCls: 'fas fa-minus-square',
+
+    autoSelect: true
 
 };
 
