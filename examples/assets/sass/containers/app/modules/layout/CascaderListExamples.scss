@@ -1,29 +1,14 @@
 @import '../../../../my-theme.scss';
 
-.tree-examples {
+.cascader-list-examples {
 
-    .tree-wrapper {
+    .cascader-list-wrapper {
+        display: inline-block;
         border: 1px solid $theme-border;
         overflow: hidden;
 
-        .self-define-node {
-            display: inline-block;
-
-            .self-define-node-id {
-                color: #fff;
-                background: $theme-highlight;
-                border-radius: $theme-border-radius;
-                padding: 0 4px;
-            }
-
-            .self-define-node-text {
-                margin-left: 4px;
-                margin-right: 8px;
-            }
-
-            .self-define-node-desc {
-                color: $theme-field-disabled;
-            }
+        .cascader-list{
+            float: left;
         }
     }
 }

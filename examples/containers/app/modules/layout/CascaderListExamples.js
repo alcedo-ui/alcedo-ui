@@ -8,7 +8,7 @@ import CascaderList from 'src/CascaderList';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/CascaderList.json';
 
-import 'sass/containers/app/modules/layout/TreeExamples.scss';
+import 'sass/containers/app/modules/layout/CascaderListExamples.scss';
 
 class CascaderListExamples extends Component {
 
@@ -95,7 +95,7 @@ class CascaderListExamples extends Component {
 
     render() {
         return (
-            <div className="example tree-examples">
+            <div className="example cascader-list-examples">
 
                 <h2 className="examples-title">CascaderList</h2>
 
@@ -118,7 +118,7 @@ class CascaderListExamples extends Component {
 
                                 <p><code>CascaderList</code>simple example.</p>
 
-                                <Paper className="tree-wrapper">
+                                <Paper className="cascader-list-wrapper">
                                     <CascaderList data={this.data}
                                                   onNodeSelect={this.nodeSelectHandler}
                                                   onChange={this.changeHandler}/>
@@ -139,7 +139,7 @@ class CascaderListExamples extends Component {
                     <div className="widget-content">
                         <div className="example-content">
                             <div className="examples-wrapper">
-                                <Paper className="tree-wrapper">
+                                <Paper className="cascader-list-wrapper">
                                     <CascaderList data={this.data}
                                                   collapsedIconCls="far fa-plus-square"
                                                   expandedIconCls="far fa-minus-square"
@@ -167,7 +167,7 @@ class CascaderListExamples extends Component {
                     <div className="widget-content">
                         <div className="example-content">
                             <div className="examples-wrapper">
-                                <Paper className="tree-wrapper">
+                                <Paper className="cascader-list-wrapper">
                                     <CascaderList selectMode={CascaderList.SelectMode.MULTI_SELECT}
                                                   data={this.data}
                                                   isSelectRecursive={true}
