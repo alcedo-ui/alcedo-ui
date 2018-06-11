@@ -50,8 +50,8 @@ class TreeExamples extends Component {
 
     }
 
-    nodeClickHandler = (node, path) => {
-        console.log('Node Clicked::', node, path);
+    nodeClickHandler = (node) => {
+        console.log('Node Clicked::', node);
     };
 
     nodeSelectHandler = (node, path) => {
