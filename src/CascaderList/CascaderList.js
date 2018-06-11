@@ -85,7 +85,7 @@ class CascaderList extends Component {
         const {data, valueField, displayField} = this.props;
         let result = [];
 
-        Util.postOrderTraverse(data, node => {
+        Util.postOrderTraverse({children: data}, node => {
             if (!node.children || node.children.length < 1) {
                 if (value.findIndex(item =>
                     Util.getValueByValueField(item, valueField, displayField)
@@ -105,7 +105,7 @@ class CascaderList extends Component {
 
     };
 
-    treeNodeSelectHandler = (node, path) => {
+    nodeSelectHandler = (node, path) => {
 
         if (!node) {
             return;
@@ -141,7 +141,7 @@ class CascaderList extends Component {
 
     };
 
-    treeNodeDeselectHandler = (node, path) => {
+    nodeDeselectHandler = (node, path) => {
 
         const {selectMode} = this.props;
 
@@ -228,8 +228,8 @@ class CascaderList extends Component {
                                   checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
                                   isSelectRecursive={isSelectRecursive}
                                   onClick={(...args) => onNodeClick && onNodeClick(...args)}
-                                  onSelect={this.treeNodeSelectHandler}
-                                  onDeselect={this.treeNodeDeselectHandler}/>
+                                  onSelect={this.nodeSelectHandler}
+                                  onDeselect={this.nodeDeselectHandler}/>
 
                 {children}
 
