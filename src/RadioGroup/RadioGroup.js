@@ -75,12 +75,8 @@ class RadioGroup extends Component {
                                disabled={disabled || item.disabled}
                                tip={item.tip}
                                tipPosition={item.tipPosition}
-                               onChange={() => {
-                                   this.changeHandler(item);
-                               }}
-                               onCheck={() => {
-                                   onCheck && onCheck(item);
-                               }}/>
+                               onChange={() => this.changeHandler(item)}
+                               onCheck={() => onCheck && onCheck(item)}/>
                     )
                 }
             </div>
