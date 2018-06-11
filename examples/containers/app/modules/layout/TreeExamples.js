@@ -50,6 +50,10 @@ class TreeExamples extends Component {
 
     }
 
+    nodeClickHandler = (node, path) => {
+        console.log('Node Clicked::', node, path);
+    };
+
     nodeSelectHandler = (node, path) => {
         console.log('Node Selected::', node, path);
     };
@@ -85,6 +89,7 @@ class TreeExamples extends Component {
 
                                 <Paper className="tree-wrapper">
                                     <Tree data={this.data}
+                                          onNodeClick={this.nodeClickHandler}
                                           onNodeSelect={this.nodeSelectHandler}
                                           onChange={this.changeHandler}/>
                                 </Paper>
