@@ -37,7 +37,7 @@ class Radio extends Component {
         let {checked} = this.state;
         if (checked) {
             const {onCheck} = this.props;
-            onCheck && onCheck(true);
+            onCheck && onCheck();
             return;
         }
 
@@ -48,7 +48,7 @@ class Radio extends Component {
             const {onChange, onCheck} = this.props;
 
             onChange && onChange(true);
-            onCheck && onCheck(true);
+            onCheck && onCheck();
 
         });
 
