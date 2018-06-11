@@ -386,7 +386,11 @@ List.propTypes = {
      */
     isLoading: PropTypes.bool,
 
+    /**
+     * Whether select when item clicked.
+     */
     autoSelect: PropTypes.bool,
+
     shouldPreventContainerScroll: PropTypes.bool,
 
     radioUncheckedIconCls: PropTypes.string,
