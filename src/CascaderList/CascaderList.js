@@ -192,7 +192,7 @@ class CascaderList extends Component {
                 children, className, style, theme, data,
                 expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
-                valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
+                idField, valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
                 isSelectRecursive, renderer, onNodeClick
             } = this.props,
             {value} = this.state,
@@ -210,6 +210,7 @@ class CascaderList extends Component {
                 <CascaderListItem data={data}
                                   value={value}
                                   theme={theme}
+                                  idField={idField}
                                   valueField={valueField}
                                   displayField={displayField}
                                   descriptionField={descriptionField}
@@ -343,6 +344,11 @@ CascaderList.propTypes = {
     })),
 
     /**
+     * The id field name in data. (default: "id")
+     */
+    idField: PropTypes.string,
+
+    /**
      * The value field name in data. (default: "value")
      */
     valueField: PropTypes.string,
@@ -419,6 +425,7 @@ CascaderList.defaultProps = {
     selectTheme: Theme.DEFAULT,
     selectMode: SelectMode.SINGLE_SELECT,
 
+    idField: 'id',
     valueField: 'value',
     displayField: 'text',
     descriptionField: 'desc',
