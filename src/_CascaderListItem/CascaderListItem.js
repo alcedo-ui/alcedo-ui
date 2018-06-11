@@ -196,8 +196,7 @@ class CascaderListItem extends Component {
                       checkboxUncheckedIconCls={checkboxUncheckedIconCls}
                       checkboxCheckedIconCls={checkboxCheckedIconCls}
                       checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
-                      autoSelect={false}
-                      disableTouchRipple={true}
+                      autoSelect={selectMode !== SelectMode.MULTI_SELECT}
                       indeterminateCallback={this.isListItemIndeterminate}
                       renderer={this.listItemRenderer}
                       onItemClick={this.listItemClickHanlder}
