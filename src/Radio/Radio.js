@@ -31,9 +31,13 @@ class Radio extends Component {
 
     clickHandler = () => {
 
-        let {checked} = this.state;
+        const {onClick} = this.props;
+        onClick && onClick();
 
+        let {checked} = this.state;
         if (checked) {
+            const {onCheck} = this.props;
+            onCheck && onCheck(true);
             return;
         }
 
@@ -44,7 +48,7 @@ class Radio extends Component {
             const {onChange, onCheck} = this.props;
 
             onChange && onChange(true);
-            onCheck && onCheck();
+            onCheck && onCheck(true);
 
         });
 
@@ -206,7 +210,8 @@ Radio.propTypes = {
      */
     onChange: PropTypes.func,
 
-    onCheck: PropTypes.func
+    onCheck: PropTypes.func,
+    onClick: PropTypes.func
 
 };
 
