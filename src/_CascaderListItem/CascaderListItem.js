@@ -95,15 +95,18 @@ class CascaderListItem extends Component {
     //
     // };
 
-    listItemRenderer = (item, index) => {
+    isExpanded = (node, index) => {
+        return index === this.state.activatedIndex && node.children && node.children.length > 0;
+    };
 
-        const {valueField, displayField, descriptionField, renderer} = this.props,
-            {activatedIndex} = this.state;
+    listItemRenderer = (node, index) => {
+
+        const {valueField, displayField, descriptionField, renderer} = this.props;
 
         let text, desc;
         if (!renderer) {
-            text = Util.getTextByDisplayField(item, displayField, valueField);
-            desc = item[descriptionField] || null;
+            text = Util.getTextByDisplayField(node, displayField, valueField);
+            desc = node[descriptionField] || null;
         }
 
         return (
@@ -111,7 +114,7 @@ class CascaderListItem extends Component {
 
                 {
                     renderer ?
-                        renderer(item, index)
+                        renderer(node, index)
                         :
                         (
                             desc ?
@@ -129,7 +132,7 @@ class CascaderListItem extends Component {
                 }
 
                 {
-                    index === activatedIndex && item.children && item.children.length > 0 ?
+                    this.isExpanded(node, index) ?
                         <i className="fas fa-chevron-right cascader-list-item-right-icon"
                            aria-hidden="true"></i>
                         :
@@ -141,7 +144,7 @@ class CascaderListItem extends Component {
 
     };
 
-    listItemClickHanlder = (item, activatedIndex) => {
+    listItemClickHanlder = (node, activatedIndex) => {
 
         const {data, disabled, isLoading, readOnly} = this.props;
 

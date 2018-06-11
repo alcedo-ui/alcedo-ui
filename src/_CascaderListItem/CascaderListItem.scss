@@ -185,9 +185,12 @@
         border-left: 1px solid $theme-border;
 
         .list-item {
+            padding-right: 32px;
 
             .cascader-list-item-right-icon {
-                float: right;
+                position: absolute;
+                top: 0;
+                right: 16px;
                 width: 16px;
                 height: 40px;
                 line-height: 40px;
