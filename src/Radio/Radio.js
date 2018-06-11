@@ -29,15 +29,20 @@ class Radio extends Component {
 
     }
 
-    clickHandler = () => {
+    clickHandler = e => {
 
-        const {onClick} = this.props;
-        onClick && onClick();
+        const {disabled, onClick} = this.props;
+
+        if (disabled) {
+            return;
+        }
+
+        onClick && onClick(e);
 
         let {checked} = this.state;
         if (checked) {
             const {onCheck} = this.props;
-            onCheck && onCheck();
+            onCheck && onCheck(e);
             return;
         }
 
@@ -48,7 +53,7 @@ class Radio extends Component {
             const {onChange, onCheck} = this.props;
 
             onChange && onChange(true);
-            onCheck && onCheck();
+            onCheck && onCheck(e);
 
         });
 
@@ -118,16 +123,15 @@ class Radio extends Component {
                             null
                     }
 
-                    <div className="radio-icon-wrapper">
+                    <div className="radio-icon-wrapper"
+                         onClick={this.clickHandler}>
                         <IconButton ref="radioIcon"
                                     className="radio-bg-icon"
                                     iconCls={uncheckedIconCls}
-                                    onClick={this.clickHandler}
                                     disabled={disabled}
                                     disableTouchRipple={disableTouchRipple}/>
                         <IconButton className="radio-icon"
                                     iconCls={checkedIconCls}
-                                    onClick={this.clickHandler}
                                     disabled={disabled}
                                     disableTouchRipple={disableTouchRipple}/>
                     </div>
