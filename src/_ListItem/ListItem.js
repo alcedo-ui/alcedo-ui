@@ -27,7 +27,7 @@ class ListItem extends Component {
         super(props, ...restArgs);
     }
 
-    checkboxChangeHandler = checked => {
+    multiSelectChangeHandler = checked => {
 
         const {onSelect, onDeselect} = this.props;
 
@@ -39,7 +39,7 @@ class ListItem extends Component {
 
     };
 
-    radioChangeHandler = () => {
+    singleSelectChangeHandler = () => {
         if (!this.props.checked) {
             const {onSelect} = this.props;
             onSelect && onSelect();
@@ -61,10 +61,10 @@ class ListItem extends Component {
 
         switch (this.props.selectMode) {
             case SelectMode.MULTI_SELECT:
-                this.checkboxChangeHandler(!this.props.checked);
+                this.multiSelectChangeHandler(!this.props.checked);
                 return;
             case SelectMode.SINGLE_SELECT:
-                this.radioChangeHandler();
+                this.singleSelectChangeHandler();
                 return;
         }
 
@@ -80,7 +80,7 @@ class ListItem extends Component {
                 checked, selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
-                onMouseEnter, onMouseLeave
+                onMouseEnter, onMouseLeave, onRadioCheck, onCheckboxCheck
 
             } = this.props,
 
@@ -113,7 +113,8 @@ class ListItem extends Component {
                                    disabled={disabled || isLoading}
                                    uncheckedIconCls={radioUncheckedIconCls}
                                    checkedIconCls={radioCheckedIconCls}
-                                   disableTouchRipple={true}/>
+                                   disableTouchRipple={true}
+                                   onCheck={onRadioCheck}/>
                             :
                             null
                     }
@@ -127,7 +128,8 @@ class ListItem extends Component {
                                       uncheckedIconCls={checkboxUncheckedIconCls}
                                       checkedIconCls={checkboxCheckedIconCls}
                                       indeterminateIconCls={checkboxIndeterminateIconCls}
-                                      disableTouchRipple={true}/>
+                                      disableTouchRipple={true}
+                                      onCheck={onCheckboxCheck}/>
                             :
                             null
                     }
@@ -243,6 +245,8 @@ ListItem.propTypes = {
     onClick: PropTypes.func,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
+    onRadioCheck: PropTypes.func,
+    onCheckboxCheck: PropTypes.func,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func
 
