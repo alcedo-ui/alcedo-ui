@@ -138,20 +138,20 @@ class CascaderListItem extends Component {
         this.setState({
             activatedIndex: index
         }, () => {
-            const {onClick} = this.props;
-            onClick && onClick(node, index);
+            const {onNodeClick} = this.props;
+            onNodeClick && onNodeClick(node, index);
         });
 
     };
 
     listItemSelectHanlder = (node, index) => {
-        const {onSelect} = this.props;
-        onSelect && onSelect(node, this.getPath(index));
+        const {onNodeSelect} = this.props;
+        onNodeSelect && onNodeSelect(node, this.getPath(index));
     };
 
     listItemDeselectHanlder = (node, index) => {
-        const {onDeselect} = this.props;
-        onDeselect && onDeselect(node, this.getPath(index));
+        const {onNodeDeselect} = this.props;
+        onNodeDeselect && onNodeDeselect(node, this.getPath(index));
     };
 
     render() {
@@ -255,9 +255,9 @@ CascaderListItem.propTypes = {
     checkboxCheckedIconCls: PropTypes.string,
     checkboxIndeterminateIconCls: PropTypes.string,
 
-    onClick: PropTypes.func,
-    onSelect: PropTypes.func,
-    onDeselect: PropTypes.func
+    onNodeClick: PropTypes.func,
+    onNodeSelect: PropTypes.func,
+    onNodeDeselect: PropTypes.func
 
 };
 
