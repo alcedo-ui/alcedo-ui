@@ -21,20 +21,47 @@ class CascaderListItem extends Component {
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.state = {
-            activatedIndex: -1
-        };
-
     }
 
-    isExpanded = (node, index) => {
-        return index === this.state.activatedIndex && node.children && node.children.length > 0;
+    findDataIndex = () => {
+
+        const {activatedPath, data, valueField, displayField} = this.props;
+
+        for (let dataItem of data) {
+
+            const index = activatedPath.findIndex(item => item
+                && Util.getValueByValueField(item.node, valueField, displayField)
+                === Util.getValueByValueField(dataItem, valueField, displayField));
+
+            if (index > -1) {
+                return index;
+            }
+
+        }
+
+        return -1;
+
     };
 
-    getCurrentPathNode = (index = this.state.activatedIndex) => {
+    getActivatedIndex = () => {
+
+        const {activatedPath, data} = this.props;
+
+        if (!activatedPath || activatedPath.length < 1 || !data) {
+            return -1;
+        }
+
+        const index = this.findDataIndex();
+        return index < 0 ? -1 : activatedPath[index].index;
+
+    };
+
+    isExpanded = (node, index) => {
+        return index === this.getActivatedIndex() && node.children && node.children.length > 0;
+    };
+
+    getCurrentPathNode = (index = this.getActivatedIndex()) => {
 
         const {data} = this.props;
 
@@ -45,7 +72,7 @@ class CascaderListItem extends Component {
 
     };
 
-    getPath = (index = this.state.activatedIndex) => {
+    getPath = (index = this.getActivatedIndex()) => {
 
         const {path} = this.props,
             currentPathNode = this.getCurrentPathNode(index);
@@ -135,12 +162,12 @@ class CascaderListItem extends Component {
             return;
         }
 
-        this.setState({
-            activatedIndex: index
-        }, () => {
-            const {onNodeClick} = this.props;
-            onNodeClick && onNodeClick(node, index, this.getPath());
-        });
+        // this.setState({
+        //     activatedIndex: index
+        // }, () => {
+        const {onNodeClick} = this.props;
+        onNodeClick && onNodeClick(node, index, this.getPath(index));
+        // });
 
     };
 
@@ -165,7 +192,7 @@ class CascaderListItem extends Component {
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls
 
             } = this.props,
-            {activatedIndex} = this.state,
+            activatedIndex = this.getActivatedIndex(),
 
             listClassName = classNames('cascader-popup-list', {
                 first: depth === 0
@@ -209,7 +236,7 @@ class CascaderListItem extends Component {
                         <CascaderListItem {...this.props}
                                           data={data[activatedIndex].children}
                                           depth={depth + 1}
-                                          path={this.getPath()}/>
+                                          path={this.getPath(activatedIndex)}/>
                         :
                         null
                 }
