@@ -1,23 +1,42 @@
 /**
  * @file CascaderListItem style
- * @author wendy(wendy.wei@derbysoft.com)
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 .cascader-list-item {
     float: left;
 
     .cascader-popup-list {
-        @include shadow(4);
         position: relative;
         float: left;
         box-sizing: border-box;
         height: 300px;
         overflow-y: auto;
         overflow-x: hidden;
+        border-left: 1px solid $theme-border;
 
-        .list-item-checked {
-            display: none;
+        .list-item {
+            padding-right: 32px;
+
+            .checkbox.list-item-select {
+                position: relative;
+                z-index: 1;
+            }
+
+            .cascader-list-item-right-icon {
+                position: absolute;
+                top: 0;
+                right: 16px;
+                width: 16px;
+                height: 40px;
+                line-height: 40px;
+                text-align: right;
+                color: $theme-description;
+            }
+        }
+
+        &.first {
+            border-left: none;
         }
     }
 }
-

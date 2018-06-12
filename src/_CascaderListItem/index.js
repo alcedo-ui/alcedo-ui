@@ -1,6 +1,6 @@
 /**
  * @file CascaderListItem
- * @author wendy(wendy.wei@derbysoft.com)
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 export default from './CascaderListItem';

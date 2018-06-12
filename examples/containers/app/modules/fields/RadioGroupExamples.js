@@ -38,21 +38,27 @@ class RadioGroupExamples extends Component {
 
     }
 
+    radioClickHandler = () => {
+        console.log('clicked');
+    };
+
     checkHandler = item => {
         if (item) {
-            console.log('checked', item);
+            console.log('checked::', item);
         } else {
             console.log('checked');
         }
     };
 
     radioChangeHandler = radioChecked => {
+        console.log('changed::', radioChecked);
         this.setState({
             radioChecked
         });
     };
 
     radioGroupChangeHandler = radioGroupValue => {
+        console.log('group changed::', radioGroupValue);
         this.setState({
             radioGroupValue
         });
@@ -90,6 +96,7 @@ class RadioGroupExamples extends Component {
                                        name="radio"
                                        value="radio"
                                        checked={radioChecked}
+                                       onClick={this.radioClickHandler}
                                        onChange={this.radioChangeHandler}
                                        onCheck={this.checkHandler}/>
 
