@@ -50,7 +50,7 @@ class CascaderListItem extends Component {
         const {path} = this.props,
             currentPathNode = this.getCurrentPathNode(index);
 
-        return path ?
+        return path.length > 0 ?
             [...path, currentPathNode]
             :
             [currentPathNode];
@@ -139,7 +139,7 @@ class CascaderListItem extends Component {
             activatedIndex: index
         }, () => {
             const {onNodeClick} = this.props;
-            onNodeClick && onNodeClick(node, index);
+            onNodeClick && onNodeClick(node, index, this.getPath());
         });
 
     };
@@ -224,6 +224,7 @@ CascaderListItem.propTypes = {
 
     index: PropTypes.number,
     depth: PropTypes.number,
+    activatedPath: PropTypes.array,
     path: PropTypes.array,
 
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
@@ -265,6 +266,8 @@ CascaderListItem.defaultProps = {
 
     index: 0,
     depth: 0,
+    activatedPath: [],
+    path: [],
 
     theme: Theme.DEFAULT,
     listWidth: 200,
