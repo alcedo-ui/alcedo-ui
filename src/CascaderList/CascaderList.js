@@ -30,10 +30,29 @@ class CascaderList extends Component {
 
         this.state = {
             value: Calculation.getInitValue(props),
-            maxDepth: 1
+            activatedPath: []
         };
 
     }
+
+    getMaxDepth = () => {
+
+        const {activatedPath} = this.state;
+
+        if (!activatedPath || activatedPath.length < 1) {
+            return 1;
+        }
+
+        const lastNode = activatedPath[activatedPath.length - 1];
+
+        if (!lastNode) {
+            return activatedPath.length;
+        }
+
+        return lastNode.node && lastNode.node.children && lastNode.node.children.length > 0 ?
+            activatedPath.length + 1 : activatedPath.length;
+
+    };
 
     addRecursiveValue = (node, value) => {
 
@@ -103,6 +122,19 @@ class CascaderList extends Component {
         });
 
         return result;
+
+    };
+
+    nodeClickHandler = (node, index, path) => {
+
+        const {onNodeClick} = this.props;
+        onNodeClick && onNodeClick(node, index);
+
+        console.log(path);
+
+        this.setState({
+            activatedPath: path
+        });
 
     };
 
@@ -196,14 +228,14 @@ class CascaderList extends Component {
                 idField, valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
                 isSelectRecursive, renderer, onNodeClick
             } = this.props,
-            {value, maxDepth} = this.state,
+            {value, activatedPath} = this.state,
 
             wrapperClassName = classNames('cascader-list', {
                 [className]: className
             }),
             wrapperStyle = {
                 ...style,
-                width: maxDepth * listWidth
+                width: this.getMaxDepth() * listWidth
             };
 
         return (
@@ -212,7 +244,8 @@ class CascaderList extends Component {
                  disabled={disabled}
                  onWheel={e => Event.wheelHandler(e, this.props)}>
 
-                <CascaderListItem data={data}
+                <CascaderListItem activatedPath={activatedPath}
+                                  data={data}
                                   value={value}
                                   theme={theme}
                                   idField={idField}
@@ -231,7 +264,7 @@ class CascaderList extends Component {
                                   checkboxCheckedIconCls={checkboxCheckedIconCls}
                                   checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
                                   isSelectRecursive={isSelectRecursive}
-                                  onNodeClick={(...args) => onNodeClick && onNodeClick(...args)}
+                                  onNodeClick={this.nodeClickHandler}
                                   onNodeSelect={this.nodeSelectHandler}
                                   onNodeDeselect={this.nodeDeselectHandler}/>
 
