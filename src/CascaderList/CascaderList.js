@@ -29,7 +29,8 @@ class CascaderList extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            value: Calculation.getInitValue(props)
+            value: Calculation.getInitValue(props),
+            maxDepth: 1
         };
 
     }
@@ -189,22 +190,26 @@ class CascaderList extends Component {
     render() {
 
         const {
-                children, className, style, theme, data,
+                children, className, style, theme, listWidth, data,
                 expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
                 idField, valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
                 isSelectRecursive, renderer, onNodeClick
             } = this.props,
-            {value} = this.state,
+            {value, maxDepth} = this.state,
 
-            treeClassName = classNames('cascader-list', {
+            wrapperClassName = classNames('cascader-list', {
                 [className]: className
-            });
+            }),
+            wrapperStyle = {
+                ...style,
+                width: maxDepth * listWidth
+            };
 
         return (
-            <div className={treeClassName}
+            <div className={wrapperClassName}
+                 style={wrapperStyle}
                  disabled={disabled}
-                 style={style}
                  onWheel={e => Event.wheelHandler(e, this.props)}>
 
                 <CascaderListItem data={data}
@@ -226,9 +231,9 @@ class CascaderList extends Component {
                                   checkboxCheckedIconCls={checkboxCheckedIconCls}
                                   checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
                                   isSelectRecursive={isSelectRecursive}
-                                  onClick={(...args) => onNodeClick && onNodeClick(...args)}
-                                  onSelect={this.nodeSelectHandler}
-                                  onDeselect={this.nodeDeselectHandler}/>
+                                  onNodeClick={(...args) => onNodeClick && onNodeClick(...args)}
+                                  onNodeSelect={this.nodeSelectHandler}
+                                  onNodeDeselect={this.nodeDeselectHandler}/>
 
                 {children}
 
@@ -253,6 +258,8 @@ CascaderList.propTypes = {
      * The theme of the tree node.
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    listWidth: PropTypes.number,
 
     /**
      * The theme of the tree node select radio or checkbox.
@@ -421,6 +428,7 @@ CascaderList.propTypes = {
 CascaderList.defaultProps = {
 
     theme: Theme.DEFAULT,
+    listWidth: 200,
 
     selectTheme: Theme.DEFAULT,
     selectMode: SelectMode.SINGLE_SELECT,
