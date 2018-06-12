@@ -130,8 +130,6 @@ class CascaderList extends Component {
         const {onNodeClick} = this.props;
         onNodeClick && onNodeClick(node, index);
 
-        console.log(path);
-
         this.setState({
             activatedPath: path
         });
