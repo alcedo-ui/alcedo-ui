@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component, cloneElement} from 'react';
+import React, {Component, isValidElement, cloneElement} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 
@@ -61,9 +61,16 @@ class TipProvider extends Component {
                      className="trigger-wrapper"
                      onMouseOver={this.showTip}
                      onMouseOut={this.hideTip}>
-                    {cloneElement(children, {
-                        ref: 'trigger'
-                    })}
+                    {
+                        isValidElement(children) ?
+                            cloneElement(children, {
+                                ref: 'trigger'
+                            })
+                            :
+                            <span ref="trigger">
+                                {children}
+                            </span>
+                    }
                 </div>
 
                 <Tip {...restProps}
