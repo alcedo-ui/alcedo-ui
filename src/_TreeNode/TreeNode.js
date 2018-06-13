@@ -111,7 +111,7 @@ class TreeNode extends Component {
             {collapsed} = this.state,
 
             checked = Calculation.isItemChecked(data, value, this.props),
-            indeterminate = Calculation.isItemIndeterminate(data, value, this.props),
+            indeterminate = Calculation.isNodeIndeterminate(data, value, this.props),
 
             isNodeLoading = data.isLoading || isLoading,
             isNodeDisabled = data.disabled || disabled || isNodeLoading,
@@ -134,8 +134,7 @@ class TreeNode extends Component {
         return (
             <div className="tree-node-wrapper">
 
-                <TipProvider className='block'
-                             text={data.tip}
+                <TipProvider text={data.tip}
                              position={data.tipPosition}>
 
                     <div className={nodeClassName}

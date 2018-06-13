@@ -111,8 +111,7 @@ class DraggableGridItem extends Component {
 
                                 <div className="draggable-grid-item-wrapper">
 
-                                    <TipProvider className='block'
-                                                 text={tip}
+                                    <TipProvider text={tip}
                                                  position={tipPosition}>
                                         <div className={listItemClassName}
                                              style={style}

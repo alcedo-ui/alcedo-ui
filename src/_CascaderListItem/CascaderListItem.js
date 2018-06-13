@@ -13,6 +13,7 @@ import List from '../List';
 import Position from '../_statics/Position';
 import SelectMode from '../_statics/SelectMode';
 
+import Calculation from '../_vendors/Calculation';
 import Util from '../_vendors/Util';
 
 class CascaderListItem extends Component {
@@ -85,26 +86,7 @@ class CascaderListItem extends Component {
     };
 
     isListItemIndeterminate = node => {
-
-        if (!node || !node.children || node.children.length < 1) {
-            return false;
-        }
-
-        const {value, valueField, displayField} = this.props;
-        let total = 0,
-            count = 0;
-
-        Util.preOrderTraverse(node, nodeItem => {
-            total++;
-            if (value.findIndex(item =>
-                Util.getValueByValueField(item, valueField, displayField)
-                === Util.getValueByValueField(nodeItem, valueField, displayField)) > -1) {
-                count++;
-            }
-        });
-
-        return count > 0 && total !== count;
-
+        return Calculation.isNodeIndeterminate(node, this.props.value, this.props);
     };
 
     listItemRenderer = (node, index) => {
@@ -162,12 +144,8 @@ class CascaderListItem extends Component {
             return;
         }
 
-        // this.setState({
-        //     activatedIndex: index
-        // }, () => {
         const {onNodeClick} = this.props;
         onNodeClick && onNodeClick(node, index, this.getPath(index));
-        // });
 
     };
 
