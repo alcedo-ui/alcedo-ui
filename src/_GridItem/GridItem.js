@@ -97,8 +97,7 @@ class GridItem extends Component {
             <div className="grid-item-wrapper"
                  style={col ? {width: `${100 / col}%`} : null}>
 
-                <TipProvider className='block'
-                             text={tip}
+                <TipProvider text={tip}
                              position={tipPosition}>
                     <div className={listItemClassName}
                          style={style}
