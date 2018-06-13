@@ -27,7 +27,7 @@ class ListItem extends Component {
         super(props, ...restArgs);
     }
 
-    checkboxChangeHandler = checked => {
+    multiSelectChangeHandler = checked => {
 
         const {onSelect, onDeselect} = this.props;
 
@@ -39,7 +39,7 @@ class ListItem extends Component {
 
     };
 
-    radioChangeHandler = () => {
+    singleSelectChangeHandler = () => {
         if (!this.props.checked) {
             const {onSelect} = this.props;
             onSelect && onSelect();
@@ -50,7 +50,7 @@ class ListItem extends Component {
 
         e.preventDefault();
 
-        const {disabled, isLoading, readOnly} = this.props;
+        const {disabled, isLoading, readOnly, autoSelect} = this.props;
 
         if (disabled || isLoading || readOnly) {
             return;
@@ -59,15 +59,31 @@ class ListItem extends Component {
         const {onClick} = this.props;
         onClick && onClick(e);
 
+        if (!autoSelect) {
+            return;
+        }
+
         switch (this.props.selectMode) {
             case SelectMode.MULTI_SELECT:
-                this.checkboxChangeHandler(!this.props.checked);
+                this.multiSelectChangeHandler(!this.props.checked);
                 return;
             case SelectMode.SINGLE_SELECT:
-                this.radioChangeHandler();
+                this.singleSelectChangeHandler();
                 return;
         }
 
+    };
+
+    radioCheckHandler = () => {
+        this.singleSelectChangeHandler();
+    };
+
+    checkboxCheckHandler = () => {
+        this.multiSelectChangeHandler(true);
+    };
+
+    checkboxUncheckHandler = () => {
+        this.multiSelectChangeHandler(false);
     };
 
     render() {
@@ -77,7 +93,7 @@ class ListItem extends Component {
                 index, className, style, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
                 disabled, isLoading, disableTouchRipple, rippleDisplayCenter, renderer, itemRenderer, readOnly,
 
-                checked, selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
+                checked, selectTheme, selectMode, indeterminateCallback, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
                 onMouseEnter, onMouseLeave
@@ -93,8 +109,7 @@ class ListItem extends Component {
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
-            <TipProvider className='block'
-                         text={tip}
+            <TipProvider text={tip}
                          position={tipPosition}>
 
                 <div className={listItemClassName}
@@ -113,7 +128,8 @@ class ListItem extends Component {
                                    disabled={disabled || isLoading}
                                    uncheckedIconCls={radioUncheckedIconCls}
                                    checkedIconCls={radioCheckedIconCls}
-                                   disableTouchRipple={true}/>
+                                   disableTouchRipple={true}
+                                   onCheck={this.radioCheckHandler}/>
                             :
                             null
                     }
@@ -123,11 +139,14 @@ class ListItem extends Component {
                             <Checkbox className="list-item-select"
                                       theme={selectTheme}
                                       checked={checked}
+                                      indeterminate={indeterminateCallback && indeterminateCallback(data)}
                                       disabled={disabled || isLoading}
                                       uncheckedIconCls={checkboxUncheckedIconCls}
                                       checkedIconCls={checkboxCheckedIconCls}
                                       indeterminateIconCls={checkboxIndeterminateIconCls}
-                                      disableTouchRipple={true}/>
+                                      disableTouchRipple={true}
+                                      onCheck={this.checkboxCheckHandler}
+                                      onUncheck={this.checkboxUncheckHandler}/>
                             :
                             null
                     }
@@ -239,6 +258,9 @@ ListItem.propTypes = {
 
     itemRenderer: PropTypes.func,
     renderer: PropTypes.func,
+    indeterminateCallback: PropTypes.func,
+
+    autoSelect: PropTypes.bool,
 
     onClick: PropTypes.func,
     onSelect: PropTypes.func,
@@ -268,7 +290,9 @@ ListItem.defaultProps = {
 
     checkboxUncheckedIconCls: 'far fa-square',
     checkboxCheckedIconCls: 'fas fa-check-square',
-    checkboxIndeterminateIconCls: 'fas fa-minus-square'
+    checkboxIndeterminateIconCls: 'fas fa-minus-square',
+
+    autoSelect: true
 
 };
 

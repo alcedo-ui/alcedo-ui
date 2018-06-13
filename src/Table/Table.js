@@ -433,27 +433,29 @@ class Table extends Component {
                                      onChange={self.headCheckBoxChangeHandler}/>;
                 },
                 cellClassName: 'table-select-td',
-                renderer(rowData) {
+                renderer(rowData, rowIndex) {
                     return <Checkbox className="table-select"
                                      theme={selectTheme}
                                      checked={self.isItemChecked(rowData, value)}
                                      disabled={disabled || rowData.disabled}
                                      uncheckedIconCls={checkboxUncheckedIconCls}
                                      checkedIconCls={checkboxCheckedIconCls}
-                                     indeterminateIconCls={checkboxIndeterminateIconCls}/>;
+                                     indeterminateIconCls={checkboxIndeterminateIconCls}
+                                     onClick={e => self.rowClickHandler(rowData, rowIndex, e)}/>;
                 }
             });
         } else if (selectMode === SelectMode.SINGLE_SELECT && (radioUncheckedIconCls || radioCheckedIconCls)) {
             finalColumns.unshift({
                 cellClassName: 'table-select-td',
-                renderer(rowData) {
+                renderer(rowData, rowIndex) {
                     return (
                         <Radio className="table-select"
                                theme={selectTheme}
                                checked={self.isItemChecked(rowData, value)}
                                disabled={disabled || rowData.disabled}
                                uncheckedIconCls={radioUncheckedIconCls}
-                               checkedIconCls={radioCheckedIconCls}/>
+                               checkedIconCls={radioCheckedIconCls}
+                               onClick={e => self.rowClickHandler(rowData, rowIndex, e)}/>
                     );
                 }
             });

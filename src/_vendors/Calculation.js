@@ -108,15 +108,26 @@ function isItemChecked(item, value, {selectMode, valueField, displayField}) {
 
 }
 
-function isItemIndeterminate(item, value, config) {
+function isNodeIndeterminate(node, value, {valueField, displayField}) {
 
-    if (!item || !value || !item.children || item.children.length < 1) {
+    if (!node || !node.children || node.children.length < 1
+        || !value || !value.length || value.length < 1) {
         return false;
     }
 
-    const result = item.children.map(node => isItemChecked(node, value, config));
+    let total = 0,
+        count = 0;
 
-    return !result.every(item => item) && !result.every(item => !item);
+    Util.preOrderTraverse(node, nodeItem => {
+        total++;
+        if (value.findIndex(item =>
+            Util.getValueByValueField(item, valueField, displayField)
+            === Util.getValueByValueField(nodeItem, valueField, displayField)) > -1) {
+            count++;
+        }
+    });
+
+    return count > 0 && total !== count;
 
 }
 
@@ -126,5 +137,5 @@ export default {
     getInitValue,
     getMultiSelectItemIndex,
     isItemChecked,
-    isItemIndeterminate
+    isNodeIndeterminate
 };

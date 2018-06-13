@@ -45,10 +45,15 @@ class Dialog extends Component {
 
     okButtonClickHandler = () => {
 
-        const {onOKButtonClick} = this.props;
+        const {visible, onOKButtonClick} = this.props;
 
-        onOKButtonClick && onOKButtonClick(() => {
-            this.cancelButtonClickHandler();
+        visible && onOKButtonClick && onOKButtonClick(() => {
+            this.setState({
+                visible: false
+            }, () => {
+                const {onRequestClose} = this.props;
+                onRequestClose && onRequestClose();
+            });
         });
 
     };
@@ -57,10 +62,11 @@ class Dialog extends Component {
 
         const {onCancelButtonClick, onRequestClose} = this.props;
 
+        onCancelButtonClick && onCancelButtonClick();
+
         this.setState({
             visible: false
         }, () => {
-            onCancelButtonClick && onCancelButtonClick();
             onRequestClose && onRequestClose();
         });
 
@@ -70,10 +76,11 @@ class Dialog extends Component {
 
         const {onCloseButtonClick, onRequestClose} = this.props;
 
+        onCloseButtonClick && onCloseButtonClick();
+
         this.setState({
             visible: false
         }, () => {
-            onCloseButtonClick && onCloseButtonClick();
             onRequestClose && onRequestClose();
         });
 

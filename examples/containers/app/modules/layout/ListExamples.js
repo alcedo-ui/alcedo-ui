@@ -19,15 +19,18 @@ class ListExamples extends Component {
         this.listData = [{
             iconCls: 'fab fa-facebook',
             value: 'Facebook',
-            text: 'Facebook'
+            text: 'Facebook',
+            tip: 'Facebook'
         }, {
             iconCls: 'fab fa-twitter',
             value: 'Twitter',
-            text: 'Twitter'
+            text: 'Twitter',
+            tip: 'Twitter'
         }, {
             iconCls: 'fab fa-google-plus-g',
             value: 'Google+',
-            text: 'Google+'
+            text: 'Google+',
+            tip: 'Google+'
         }];
 
         this.disabledListData = [{
@@ -259,6 +262,34 @@ class ListExamples extends Component {
                                     <List style={{width: 240}}
                                           selectTheme={List.Theme.HIGHLIGHT}
                                           data={this.customizedListData}
+                                          onChange={this.changeHandler}
+                                          onItemClick={this.itemClickHandler}
+                                          onItemSelect={this.itemSelectHandler}
+                                          onItemDeselect={this.itemDeselectHandler}/>
+                                </Paper>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Select only when click checkbox"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <Paper style={{width: 240, marginTop: 20}}>
+                                    <List style={{width: 240}}
+                                          selectMode={List.SelectMode.MULTI_SELECT}
+                                          data={this.descListData}
+                                          autoSelect={false}
+                                          disableTouchRipple={true}
                                           onChange={this.changeHandler}
                                           onItemClick={this.itemClickHandler}
                                           onItemSelect={this.itemSelectHandler}

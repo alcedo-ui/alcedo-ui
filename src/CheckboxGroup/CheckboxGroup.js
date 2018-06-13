@@ -103,15 +103,9 @@ class CheckboxGroup extends Component {
                                   checked={value && value.findIndex(v => v.value === item.value) > -1}
                                   tip={item.tip}
                                   tipPosition={item.tipPosition}
-                                  onChange={() => {
-                                      this.changeHandler(item);
-                                  }}
-                                  onCheck={() => {
-                                      onCheck && onCheck(item);
-                                  }}
-                                  onUncheck={() => {
-                                      onUncheck && onUncheck(item);
-                                  }}/>
+                                  onChange={() => this.changeHandler(item)}
+                                  onCheck={e => onCheck && onCheck(item, e)}
+                                  onUncheck={e => onUncheck && onUncheck(item, e)}/>
                     )
                 }
             </div>
