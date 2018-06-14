@@ -37,7 +37,7 @@ class TreeNode extends Component {
 
     toggleTreeNode = e => {
 
-        e.stopPropagation();
+        e && e.stopPropagation();
 
         const {onNodeToggleStart} = this.props;
         onNodeToggleStart && onNodeToggleStart();
