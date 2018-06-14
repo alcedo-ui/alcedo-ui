@@ -139,7 +139,7 @@ class List extends Component {
 
                 theme, itemHeight, idField, valueField, displayField, descriptionField, disabled, isLoading, renderer,
                 autoSelect, disableTouchRipple, selectTheme, selectMode, indeterminateCallback,
-                radioUncheckedIconCls, radioCheckedIconCls,
+                stopSelectClickEventPropagation, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
                 onItemClick
@@ -169,6 +169,7 @@ class List extends Component {
                       selectMode={selectMode}
                       renderer={renderer}
                       autoSelect={autoSelect}
+                      stopSelectClickEventPropagation={stopSelectClickEventPropagation}
                       disableTouchRipple={item.disableTouchRipple || disableTouchRipple}
                       indeterminateCallback={indeterminateCallback}
                       onClick={e => {
@@ -197,6 +198,7 @@ class List extends Component {
                       selectMode={selectMode}
                       renderer={renderer}
                       autoSelect={autoSelect}
+                      stopSelectClickEventPropagation={stopSelectClickEventPropagation}
                       disableTouchRipple={disableTouchRipple}
                       indeterminateCallback={indeterminateCallback}
                       onClick={e => onItemClick && onItemClick(item, index, e)}
@@ -394,6 +396,8 @@ List.propTypes = {
      */
     autoSelect: PropTypes.bool,
 
+    stopSelectClickEventPropagation: PropTypes.bool,
+
     indeterminateCallback: PropTypes.func,
 
     shouldPreventContainerScroll: PropTypes.bool,
@@ -450,6 +454,7 @@ List.defaultProps = {
     disabled: false,
     disableTouchRipple: false,
     autoSelect: true,
+    stopSelectClickEventPropagation: false,
     shouldPreventContainerScroll: true,
 
     checkboxUncheckedIconCls: 'far fa-square',
