@@ -167,8 +167,7 @@ class TreeNode extends Component {
                                            disabled={isNodeDisabled}
                                            uncheckedIconCls={data.radioUncheckedIconCls || radioUncheckedIconCls}
                                            checkedIconCls={data.radioCheckedIconCls || radioCheckedIconCls}
-                                           disableTouchRipple={true}
-                                           onClick={this.clickHandler}/>
+                                           disableTouchRipple={true}/>
                                     :
                                     null
                             }
@@ -183,8 +182,7 @@ class TreeNode extends Component {
                                               uncheckedIconCls={data.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
                                               checkedIconCls={data.checkboxCheckedIconCls || checkboxCheckedIconCls}
                                               indeterminateIconCls={data.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
-                                              disableTouchRipple={true}
-                                              onClick={this.clickHandler}/>
+                                              disableTouchRipple={true}/>
                                     :
                                     null
                             }
