@@ -167,7 +167,8 @@ class TreeNode extends Component {
                                            disabled={isNodeDisabled}
                                            uncheckedIconCls={data.radioUncheckedIconCls || radioUncheckedIconCls}
                                            checkedIconCls={data.radioCheckedIconCls || radioCheckedIconCls}
-                                           disableTouchRipple={true}/>
+                                           disableTouchRipple={true}
+                                           onClick={this.clickHandler}/>
                                     :
                                     null
                             }
@@ -182,7 +183,8 @@ class TreeNode extends Component {
                                               uncheckedIconCls={data.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
                                               checkedIconCls={data.checkboxCheckedIconCls || checkboxCheckedIconCls}
                                               indeterminateIconCls={data.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
-                                              disableTouchRipple={true}/>
+                                              disableTouchRipple={true}
+                                              onClick={this.clickHandler}/>
                                     :
                                     null
                             }
@@ -214,12 +216,12 @@ class TreeNode extends Component {
                                             (
                                                 data[descriptionField] ?
                                                     <div className="tree-node-content">
-                                                    <span className="tree-node-content-value">
-                                                        {Util.getTextByDisplayField(data, displayField, valueField)}
-                                                    </span>
+                                                        <span className="tree-node-content-value">
+                                                            {Util.getTextByDisplayField(data, displayField, valueField)}
+                                                        </span>
                                                         <span className="tree-node-content-desc">
-                                                        {data[descriptionField]}
-                                                    </span>
+                                                            {data[descriptionField]}
+                                                        </span>
                                                     </div>
                                                     :
                                                     Util.getTextByDisplayField(data, displayField, valueField)
