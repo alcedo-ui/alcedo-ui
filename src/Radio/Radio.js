@@ -31,7 +31,7 @@ class Radio extends Component {
 
     clickHandler = e => {
 
-        e.stopPropagation();
+        e && e.stopPropagation();
 
         const {disabled, onClick} = this.props;
 
