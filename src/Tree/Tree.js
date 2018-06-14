@@ -9,7 +9,6 @@ import isArray from 'lodash/isArray';
 import classNames from 'classnames';
 
 import TreeNode from '../_TreeNode';
-import Tip from '../Tip';
 import Theme from '../Theme';
 
 import SelectMode from '../_statics/SelectMode';
@@ -347,12 +346,7 @@ Tree.propTypes = {
         /**
          * The message of tip.
          */
-        tip: PropTypes.string,
-
-        /**
-         * The position of tip.
-         */
-        tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
+        title: PropTypes.string,
 
         children: PropTypes.array,
 
