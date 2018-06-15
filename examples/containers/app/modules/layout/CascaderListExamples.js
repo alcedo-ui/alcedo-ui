@@ -104,7 +104,8 @@ class CascaderListExamples extends Component {
                 <h2 className="examples-title">CascaderList</h2>
 
                 <p>
-                    <span>CascaderList</span> can fully display the hierarchy, and has interactive functions such as
+                    <span>CascaderList</span>
+                    can fully display the hierarchy, and has interactive functions such as
                     expansion, withdrawal and selection.
                 </p>
 
@@ -161,6 +162,7 @@ class CascaderListExamples extends Component {
                                                           </div>
                                                       );
                                                   }}
+                                                  expandDirection={CascaderList.ExpandDirection.LEFT}
                                                   onNodeSelect={this.nodeSelectHandler}
                                                   onChange={this.changeHandler}/>
                                 </Paper>
