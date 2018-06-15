@@ -157,9 +157,7 @@ class DraggableGrid extends Component {
                                 strengthMultiplier={scrollSpeed}
                                 verticalStrength={createVerticalStrength(scrollBuffer)}
                                 horizontalStrength={createHorizontalStrength(scrollBuffer)}
-                                onWheel={e => {
-                                    Event.wheelHandler(e, this.props);
-                                }}>
+                                onWheel={e => Event.wheelHandler(e, this.props)}>
 
                 {
                     data && data.map((item, index) => {
@@ -192,12 +190,8 @@ class DraggableGrid extends Component {
                                                        onItemClick && onItemClick(item, index, e);
                                                        item.onClick && item.onClick(e);
                                                    }}
-                                                   onSelect={() => {
-                                                       this.listItemSelectHandler(item, index);
-                                                   }}
-                                                   onDeselect={() => {
-                                                       this.listItemDeselectHandler(item, index);
-                                                   }}/>
+                                                   onSelect={() => this.listItemSelectHandler(item, index)}
+                                                   onDeselect={() => this.listItemDeselectHandler(item, index)}/>
                             )
                             :
                             (
@@ -221,15 +215,9 @@ class DraggableGrid extends Component {
                                                    selectMode={selectMode}
                                                    renderer={renderer}
                                                    onMove={this.listItemMoveHandler}
-                                                   onClick={e => {
-                                                       onItemClick && onItemClick(item, index, e);
-                                                   }}
-                                                   onSelect={() => {
-                                                       this.listItemSelectHandler(item, index);
-                                                   }}
-                                                   onDeselect={() => {
-                                                       this.listItemDeselectHandler(item, index);
-                                                   }}/>
+                                                   onClick={e => onItemClick && onItemClick(item, index, e)}
+                                                   onSelect={() => this.listItemSelectHandler(item, index)}
+                                                   onDeselect={() => this.listItemDeselectHandler(item, index)}/>
                             );
 
                     })
