@@ -191,9 +191,7 @@ class TreeSelect extends Component {
                           onClosePopup={this.popupClosedHandler}>
 
                     <div className="tree-select-list-scroller"
-                         onWheel={e => {
-                             Event.wheelHandler(e, this.props);
-                         }}>
+                         onWheel={e => Event.wheelHandler(e, this.props)}>
 
                         <Tree className="tree-select-list"
                               theme={popupTheme}
