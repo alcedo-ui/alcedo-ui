@@ -197,9 +197,7 @@ class Grid extends Component {
             <div className={gridClassName}
                  disabled={disabled}
                  style={style}
-                 onWheel={e => {
-                     Event.wheelHandler(e, this.props);
-                 }}>
+                 onWheel={e => Event.wheelHandler(e, this.props)}>
 
                 {data && data.map((item, index) => this.renderGridItem(item, index))}
 
