@@ -13,6 +13,7 @@ import Tip from '../Tip';
 import Theme from '../Theme';
 
 import SelectMode from '../_statics/SelectMode';
+import HorizontalDirection from '../_statics/HorizontalDirection';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
@@ -22,6 +23,7 @@ import ComponentUtil from '../_vendors/ComponentUtil';
 class CascaderList extends Component {
 
     static SelectMode = SelectMode;
+    static ExpandDirection = HorizontalDirection;
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
@@ -220,7 +222,7 @@ class CascaderList extends Component {
     render() {
 
         const {
-                children, className, style, theme, listWidth, data,
+                children, className, style, theme, selectTheme, listWidth, expandDirection, data,
                 expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
                 idField, valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
@@ -242,10 +244,12 @@ class CascaderList extends Component {
                  disabled={disabled}
                  onWheel={e => Event.wheelHandler(e, this.props)}>
 
-                <CascaderListItem activatedPath={activatedPath}
+                <CascaderListItem expandDirection={expandDirection}
+                                  activatedPath={activatedPath}
                                   data={data}
                                   value={value}
                                   theme={theme}
+                                  selectTheme={selectTheme}
                                   idField={idField}
                                   valueField={valueField}
                                   displayField={displayField}
@@ -301,6 +305,11 @@ CascaderList.propTypes = {
      * The mode of tree node.
      */
     selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+
+    /**
+     * The direction of expansion.
+     */
+    expandDirection: PropTypes.oneOf(Util.enumerateValue(HorizontalDirection)),
 
     /**
      * Children passed into the tree node.
@@ -463,6 +472,7 @@ CascaderList.defaultProps = {
 
     selectTheme: Theme.DEFAULT,
     selectMode: SelectMode.SINGLE_SELECT,
+    expandDirection: HorizontalDirection.RIGHT,
 
     idField: 'id',
     valueField: 'value',
