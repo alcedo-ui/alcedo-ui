@@ -68,8 +68,8 @@ export default [{
         text: 'TextField',
         route: '/components/TextField'
     }, {
-        text: 'CascaderField',
-        route: '/components/CascaderField'
+        text: 'CascaderSelect',
+        route: '/components/CascaderSelect'
     }, {
         text: 'TextArea',
         route: '/components/TextArea'
