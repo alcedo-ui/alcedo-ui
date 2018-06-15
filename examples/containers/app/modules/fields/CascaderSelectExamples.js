@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-import CascaderField from 'src/CascaderField';
+import CascaderSelect from 'src/CascaderSelect';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import doc from 'assets/propTypes/CascaderField.json';
+import doc from 'assets/propTypes/CascaderSelect.json';
 
-class CascaderFieldExamples extends Component {
+class CascaderSelectExamples extends Component {
 
     constructor(props) {
 
@@ -90,10 +90,11 @@ class CascaderFieldExamples extends Component {
 
         return (
             <div className="example cascader-examples">
-                <h2 className="example-title">CascaderField</h2>
+                <h2 className="example-title">CascaderSelect</h2>
 
                 <p>
-                    <span>CascaderField</span> is a selection box.
+                    <span>CascaderSelect</span>
+                    is a selection box.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -107,11 +108,11 @@ class CascaderFieldExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p>CascaderField simple example.</p>
+                                <p>CascaderSelect simple example.</p>
 
-                                <CascaderField data={this.data}
-                                               value={'Shanghai'}
-                                               onChange={this.changeHandler}/>
+                                <CascaderSelect data={this.data}
+                                                value={'Shanghai'}
+                                                onChange={this.changeHandler}/>
 
                             </div>
 
@@ -129,4 +130,4 @@ class CascaderFieldExamples extends Component {
     }
 }
 
-export default CascaderFieldExamples;
+export default CascaderSelectExamples;
