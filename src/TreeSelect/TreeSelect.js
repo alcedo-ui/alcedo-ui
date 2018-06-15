@@ -146,7 +146,7 @@ class TreeSelect extends Component {
 
                 className, triggerClassName, popupClassName, style, name, popupTheme, data, renderer,
                 selectMode, valueField, displayField, descriptionField, triggerRenderer,
-                isSelectRecursive, allowCollapse, onItemClick, popupChildren,
+                isSelectRecursive, allowCollapse, onNodeClick, popupChildren,
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
@@ -213,7 +213,7 @@ class TreeSelect extends Component {
                               checkboxCheckedIconCls={checkboxCheckedIconCls}
                               checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
                               renderer={renderer}
-                              onItemClick={onItemClick}
+                              onNodeClick={onNodeClick}
                               onNodeSelect={this.nodeSelectHandler}
                               onChange={this.changeHandler}/>
 
@@ -426,7 +426,7 @@ TreeSelect.propTypes = {
     /**
      * Callback function fired when the button is touch-tapped.
      */
-    onItemClick: PropTypes.func,
+    onNodeClick: PropTypes.func,
 
     /**
      * Callback function fired when the popup is closed.
