@@ -303,7 +303,6 @@ MaterialTreeSelect.propTypes = {
     onMouseOver: PropTypes.func,
     onMouseOut: PropTypes.func
 
-
 };
 
 MaterialTreeSelect.defaultProps = {
