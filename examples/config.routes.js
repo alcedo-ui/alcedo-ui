@@ -41,8 +41,8 @@ export default function configureRoutes(store) {
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- fields -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                 {
-                    path: '/components/CascaderField',
-                    component: ac(store, () => import('modules/fields/CascaderFieldExamples'))
+                    path: '/components/CascaderSelect',
+                    component: ac(store, () => import('modules/fields/CascaderSelectExamples'))
                 }, {
                     path: '/components/TextField',
                     component: ac(store, () => import('modules/fields/TextFieldExamples'))
