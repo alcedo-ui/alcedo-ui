@@ -240,28 +240,20 @@ class DraggableList extends Component {
                 <div className={listClassName}
                      disabled={disabled}
                      style={style}
-                     onWheel={e => {
-                         Event.wheelHandler(e, this.props);
-                     }}>
+                     onWheel={e => Event.wheelHandler(e, this.props)}>
 
                     <Droppable droppableId="droppable">
-
                         {
                             dropProvided => (
                                 <div ref={dropProvided.innerRef}
                                      className="draggable-list-items">
 
                                     {
-                                        data && data.map((item, index) => {
-
-                                            if (item === LIST_SEPARATOR) {
-                                                return <div key={index}
-                                                            className="draggable-list-separator"></div>;
-                                            }
-
-                                            return this.renderListItem(item, index);
-
-                                        })
+                                        data && data.map((item, index) => item === LIST_SEPARATOR ?
+                                            <div key={index}
+                                                 className="draggable-list-separator"></div>
+                                            :
+                                            this.renderListItem(item, index))
                                     }
 
                                     {dropProvided.placeholder}
@@ -269,7 +261,6 @@ class DraggableList extends Component {
                                 </div>
                             )
                         }
-
                     </Droppable>
 
                     {children}
