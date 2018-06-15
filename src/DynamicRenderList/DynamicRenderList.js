@@ -106,9 +106,7 @@ class DynamicRenderList extends Component {
                  className={listClassName}
                  style={{...style, height: listHeight}}
                  onScroll={this.scrollHandler}
-                 onWheel={e => {
-                     Event.wheelHandler(e, this.props);
-                 }}>
+                 onWheel={e => Event.wheelHandler(e, this.props)}>
 
                 <div className="dynamic-render-list-scroller"
                      style={scrollerStyle}>
