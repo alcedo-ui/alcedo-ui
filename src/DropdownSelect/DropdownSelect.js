@@ -356,9 +356,7 @@ class DropdownSelect extends Component {
 
                     <div className="dropdown-select-list-scroller"
                          ref="dropdownSelectListScroller"
-                         onWheel={e => {
-                             Event.wheelHandler(e, this.props);
-                         }}>
+                         onWheel={e => Event.wheelHandler(e, this.props)}>
 
                         {
                             useFilter ?
