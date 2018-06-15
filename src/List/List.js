@@ -220,9 +220,7 @@ class List extends Component {
                  className={listClassName}
                  disabled={disabled}
                  style={style}
-                 onWheel={e => {
-                     Event.wheelHandler(e, this.props);
-                 }}>
+                 onWheel={e => Event.wheelHandler(e, this.props)}>
 
                 {
                     data && data.map((item, index) => item === LIST_SEPARATOR ?
