@@ -1,7 +1,3 @@
-import ColorPicker from '../src/ColorPicker/ColorPicker';
-import AutoCompleteFilter from '../src/AutoCompleteFilter/AutoCompleteFilter';
-import MaterialAutoCompleteFilter from '../src/MaterialAutoCompleteFilter/MaterialAutoCompleteFilter';
-
 export default [{
     text: 'Button',
     children: [{
