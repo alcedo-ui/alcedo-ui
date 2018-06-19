@@ -1,0 +1,8 @@
+@import '../../../../my-theme.scss';
+
+.material-cascader-select-examples {
+    .field-group {
+        @include float-fix;
+        float: none;
+    }
+}
