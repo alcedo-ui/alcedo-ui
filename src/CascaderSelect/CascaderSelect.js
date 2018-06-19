@@ -114,8 +114,6 @@ class CascaderSelect extends Component {
 
     changeHandler = value => {
 
-        console.log(value);
-
         const {autoClose} = this.props;
         if (autoClose) {
             this.closePopup();
