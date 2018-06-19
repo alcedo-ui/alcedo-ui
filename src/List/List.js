@@ -38,27 +38,28 @@ class List extends Component {
     listItemSelectHandler = (item, index) => {
 
         const {selectMode} = this.props,
-            {value: stateValue} = this.state;
-        let value = stateValue ? stateValue.slice() : stateValue;
+            {value} = this.state,
+            state = {};
 
         if (selectMode === SelectMode.MULTI_SELECT) {
 
-            if (!value || !isArray(value)) {
-                value = [];
+            let result = value ? value.slice() : value;
+            if (!result || !isArray(result)) {
+                result = [];
             }
 
-            value.push(item);
+            result.push(item);
+
+            state.value = result;
 
         } else if (selectMode === SelectMode.SINGLE_SELECT) {
-            value = item;
+            state.value = item;
         }
 
-        this.setState({
-            value
-        }, () => {
+        this.setState(state, () => {
             const {onItemSelect, onChange} = this.props;
             onItemSelect && onItemSelect(item, index);
-            onChange && onChange(value, index);
+            onChange && onChange(state.value, index);
         });
 
     };
