@@ -464,7 +464,7 @@ CascaderList.defaultProps = {
     isLoading: false,
     readOnly: false,
     shouldPreventContainerScroll: true,
-    isSelectRecursive: false
+    isSelectRecursive: true
 
 };
 
