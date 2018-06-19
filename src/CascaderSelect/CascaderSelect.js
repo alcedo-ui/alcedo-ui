@@ -13,15 +13,18 @@ import Theme from '../Theme';
 import Tip from '../Tip';
 
 import SelectMode from '../_statics/SelectMode';
+import HorizontalDirection from '../_statics/HorizontalDirection';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import TreeCalculation from '../_vendors/TreeCalculation';
 import CascaderCalculation from '../_vendors/CascaderCalculation';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class CascaderSelect extends Component {
 
     static SelectMode = SelectMode;
+    static ExpandDirection = HorizontalDirection;
     static Theme = Theme;
     static Position = Dropdown.Position;
 
@@ -108,6 +111,8 @@ class CascaderSelect extends Component {
 
     changeHandler = value => {
 
+        console.log(value);
+
         const {autoClose} = this.props;
         if (autoClose) {
             this.closePopup();
@@ -131,12 +136,11 @@ class CascaderSelect extends Component {
         });
     };
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.props.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
     }
 
     render() {
@@ -145,7 +149,7 @@ class CascaderSelect extends Component {
 
                 className, triggerClassName, popupClassName, style, name, popupTheme, data, renderer,
                 selectMode, valueField, displayField, descriptionField, triggerRenderer,
-                isSelectRecursive, allowCollapse, onItemClick, popupChildren,
+                isSelectRecursive, allowCollapse, onNodeClick, popupChildren,
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
@@ -211,8 +215,8 @@ class CascaderSelect extends Component {
                                       checkboxCheckedIconCls={checkboxCheckedIconCls}
                                       checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
                                       renderer={renderer}
-                                      onItemClick={onItemClick}
-                                      onNodeSelect={this.nodeSelectHandler}
+                                      onNodeClick={onNodeClick}
+                            // onNodeSelect={this.nodeSelectHandler}
                                       onChange={this.changeHandler}/>
 
                     </div>
@@ -429,7 +433,7 @@ CascaderSelect.propTypes = {
     /**
      * Callback function fired when the button is touch-tapped.
      */
-    onItemClick: PropTypes.func,
+    onNodeClick: PropTypes.func,
 
     /**
      * Callback function fired when the popup is closed.
@@ -469,7 +473,7 @@ CascaderSelect.defaultProps = {
     autoClose: false,
 
     shouldPreventContainerScroll: true,
-    isSelectRecursive: false,
+    isSelectRecursive: true,
     allowCollapse: true
 
 };
