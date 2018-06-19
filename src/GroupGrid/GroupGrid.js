@@ -53,9 +53,7 @@ class GroupGrid extends Component {
             <div className={gridClassName}
                  style={style}
                  disabled={disabled}
-                 onWheel={e => {
-                     Event.wheelHandler(e, this.props);
-                 }}>
+                 onWheel={e => Event.wheelHandler(e, this.props)}>
 
                 {
                     data && data.map((item, index) =>

@@ -13,15 +13,18 @@ import Tip from '../Tip';
 import Theme from '../Theme';
 
 import SelectMode from '../_statics/SelectMode';
+import HorizontalDirection from '../_statics/HorizontalDirection';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import Calculation from '../_vendors/Calculation';
+import CascaderCalculation from '../_vendors/CascaderCalculation';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
 class CascaderList extends Component {
 
     static SelectMode = SelectMode;
+    static ExpandDirection = HorizontalDirection;
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
@@ -34,25 +37,6 @@ class CascaderList extends Component {
         };
 
     }
-
-    getMaxDepth = () => {
-
-        const {activatedPath} = this.state;
-
-        if (!activatedPath || activatedPath.length < 1) {
-            return 1;
-        }
-
-        const lastNode = activatedPath[activatedPath.length - 1];
-
-        if (!lastNode) {
-            return activatedPath.length;
-        }
-
-        return lastNode.node && lastNode.node.children && lastNode.node.children.length > 0 ?
-            activatedPath.length + 1 : activatedPath.length;
-
-    };
 
     addRecursiveValue = (node, value) => {
 
@@ -142,32 +126,34 @@ class CascaderList extends Component {
             return;
         }
 
-        const {selectMode, isSelectRecursive} = this.props;
-        let {value} = this.state;
+        const {selectMode, isSelectRecursive} = this.props,
+            {value} = this.state,
+            state = {};
 
         if (selectMode === SelectMode.MULTI_SELECT) {
 
-            if (!value || !isArray(value)) {
-                value = [];
+            let result = value ? value.slice() : value;
+            if (!result || !isArray(result)) {
+                result = [];
             }
 
             if (isSelectRecursive) {
-                this.addRecursiveValue(node, value);
-                value = this.updateValue(value);
+                this.addRecursiveValue(node, result);
+                result = this.updateValue(result);
             } else {
-                value.push(node);
+                result.push(node);
             }
 
+            state.value = result;
+
         } else if (selectMode === SelectMode.SINGLE_SELECT) {
-            value = node;
+            state.value = node;
         }
 
-        this.setState({
-            value
-        }, () => {
+        this.setState(state, () => {
             const {onNodeSelect, onChange} = this.props;
             onNodeSelect && onNodeSelect(node, path);
-            onChange && onChange(value);
+            onChange && onChange(state.value);
         });
 
     };
@@ -180,8 +166,9 @@ class CascaderList extends Component {
             return;
         }
 
-        const {isSelectRecursive} = this.props;
-        let {value} = this.state;
+        const {isSelectRecursive} = this.props,
+            {value: stateValue} = this.state;
+        let value = stateValue ? stateValue.slice() : stateValue;
 
         if (!value || !isArray(value)) {
             value = [];
@@ -220,11 +207,11 @@ class CascaderList extends Component {
     render() {
 
         const {
-                children, className, style, theme, listWidth, data,
+                children, className, style, theme, selectTheme, listWidth, expandDirection, data,
                 expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
                 idField, valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
-                isSelectRecursive, renderer, onNodeClick
+                isSelectRecursive, renderer
             } = this.props,
             {value, activatedPath} = this.state,
 
@@ -233,7 +220,7 @@ class CascaderList extends Component {
             }),
             wrapperStyle = {
                 ...style,
-                width: this.getMaxDepth() * listWidth
+                width: CascaderCalculation.getMaxDepth(activatedPath) * listWidth
             };
 
         return (
@@ -242,10 +229,12 @@ class CascaderList extends Component {
                  disabled={disabled}
                  onWheel={e => Event.wheelHandler(e, this.props)}>
 
-                <CascaderListItem activatedPath={activatedPath}
+                <CascaderListItem expandDirection={expandDirection}
+                                  activatedPath={activatedPath}
                                   data={data}
                                   value={value}
                                   theme={theme}
+                                  selectTheme={selectTheme}
                                   idField={idField}
                                   valueField={valueField}
                                   displayField={displayField}
@@ -301,6 +290,11 @@ CascaderList.propTypes = {
      * The mode of tree node.
      */
     selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+
+    /**
+     * The direction of expansion.
+     */
+    expandDirection: PropTypes.oneOf(Util.enumerateValue(HorizontalDirection)),
 
     /**
      * Children passed into the tree node.
@@ -382,6 +376,11 @@ CascaderList.propTypes = {
     })),
 
     /**
+     * The value of the dropDownSelect.
+     */
+    value: PropTypes.any,
+
+    /**
      * The id field name in data. (default: "id")
      */
     idField: PropTypes.string,
@@ -450,9 +449,7 @@ CascaderList.propTypes = {
     /**
      * Callback function fired when wrapper wheeled.
      */
-    onWheel: PropTypes.func,
-
-    beforeNodeToggle: PropTypes.func
+    onWheel: PropTypes.func
 
 };
 
@@ -463,6 +460,7 @@ CascaderList.defaultProps = {
 
     selectTheme: Theme.DEFAULT,
     selectMode: SelectMode.SINGLE_SELECT,
+    expandDirection: HorizontalDirection.RIGHT,
 
     idField: 'id',
     valueField: 'value',
@@ -472,7 +470,7 @@ CascaderList.defaultProps = {
     isLoading: false,
     readOnly: false,
     shouldPreventContainerScroll: true,
-    isSelectRecursive: false
+    isSelectRecursive: true
 
 };
 

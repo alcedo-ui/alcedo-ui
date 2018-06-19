@@ -159,9 +159,7 @@ class PositionPop extends Component {
                         cloneElement(container, {
                             ...restProps,
                             className: popClassName,
-                            onWheel: e => {
-                                Event.wheelHandler(e, this.props);
-                            }
+                            onWheel: e => Event.wheelHandler(e, this.props)
                         })
                     }
                 </Transition>

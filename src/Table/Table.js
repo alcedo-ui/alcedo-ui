@@ -413,51 +413,43 @@ class Table extends Component {
                 selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls
             } = this.props,
-            {value} = this.state,
-            self = this;
+            {value} = this.state;
 
         let finalColumns = cloneDeep(columns);
 
         if (selectMode === SelectMode.MULTI_SELECT) {
             finalColumns.unshift({
                 headerClassName: 'table-select-th',
-                header() {
-                    return <Checkbox className="table-select"
-                                     theme={selectTheme}
-                                     checked={self.isHeadChecked()}
-                                     disabled={disabled}
-                                     indeterminate={self.isHeadIndeterminate()}
-                                     uncheckedIconCls={checkboxUncheckedIconCls}
-                                     checkedIconCls={checkboxCheckedIconCls}
-                                     indeterminateIconCls={checkboxIndeterminateIconCls}
-                                     onChange={self.headCheckBoxChangeHandler}/>;
-                },
+                header: () =>
+                    <Checkbox className="table-select"
+                              theme={selectTheme}
+                              checked={this.isHeadChecked()}
+                              disabled={disabled}
+                              indeterminate={this.isHeadIndeterminate()}
+                              uncheckedIconCls={checkboxUncheckedIconCls}
+                              checkedIconCls={checkboxCheckedIconCls}
+                              indeterminateIconCls={checkboxIndeterminateIconCls}
+                              onChange={this.headCheckBoxChangeHandler}/>,
                 cellClassName: 'table-select-td',
-                renderer(rowData, rowIndex) {
-                    return <Checkbox className="table-select"
-                                     theme={selectTheme}
-                                     checked={self.isItemChecked(rowData, value)}
-                                     disabled={disabled || rowData.disabled}
-                                     uncheckedIconCls={checkboxUncheckedIconCls}
-                                     checkedIconCls={checkboxCheckedIconCls}
-                                     indeterminateIconCls={checkboxIndeterminateIconCls}
-                                     onClick={e => self.rowClickHandler(rowData, rowIndex, e)}/>;
-                }
+                renderer: rowData =>
+                    <Checkbox className="table-select"
+                              theme={selectTheme}
+                              checked={this.isItemChecked(rowData, value)}
+                              disabled={disabled || rowData.disabled}
+                              uncheckedIconCls={checkboxUncheckedIconCls}
+                              checkedIconCls={checkboxCheckedIconCls}
+                              indeterminateIconCls={checkboxIndeterminateIconCls}/>
             });
         } else if (selectMode === SelectMode.SINGLE_SELECT && (radioUncheckedIconCls || radioCheckedIconCls)) {
             finalColumns.unshift({
                 cellClassName: 'table-select-td',
-                renderer(rowData, rowIndex) {
-                    return (
-                        <Radio className="table-select"
-                               theme={selectTheme}
-                               checked={self.isItemChecked(rowData, value)}
-                               disabled={disabled || rowData.disabled}
-                               uncheckedIconCls={radioUncheckedIconCls}
-                               checkedIconCls={radioCheckedIconCls}
-                               onClick={e => self.rowClickHandler(rowData, rowIndex, e)}/>
-                    );
-                }
+                renderer: rowData =>
+                    <Radio className="table-select"
+                           theme={selectTheme}
+                           checked={this.isItemChecked(rowData, value)}
+                           disabled={disabled || rowData.disabled}
+                           uncheckedIconCls={radioUncheckedIconCls}
+                           checkedIconCls={radioCheckedIconCls}/>
             });
         }
 

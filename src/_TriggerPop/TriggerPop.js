@@ -168,9 +168,7 @@ class TriggerPop extends Component {
                     <Paper {...restProps}
                            className={popupClassName}
                            style={style}
-                           onWheel={e => {
-                               Event.wheelHandler(e, this.props);
-                           }}>
+                           onWheel={e => Event.wheelHandler(e, this.props)}>
 
                         {
                             hasTriangle ?
@@ -182,9 +180,7 @@ class TriggerPop extends Component {
                         }
 
                         <div className={popContentClassName}
-                             onWheel={e => {
-                                 Event.wheelHandler(e, this.props);
-                             }}>
+                             onWheel={e => Event.wheelHandler(e, this.props)}>
                             {children}
                         </div>
 

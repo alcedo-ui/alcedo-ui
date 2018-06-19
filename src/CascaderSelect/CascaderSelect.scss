@@ -1,0 +1,97 @@
+/**
+ * @file CascaderSelect style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+.cascader-select {
+    width: 400px;
+
+    .dropdown {
+        width: 100%;
+
+        .dropdown-trigger {
+
+            .base-button-value {
+                display: block;
+                overflow: hidden;
+                text-overflow: ellipsis;
+
+                .cascader-select-trigger-value-separator {
+                    display: inline-block;
+                    margin: 0 8px;
+                    color: $theme-field-disabled;
+                }
+
+                .cascader-select-trigger-value-node {
+                    display: inline-block;
+                }
+            }
+        }
+    }
+}
+
+.popup.dropdown-popup.cascader-select-popup {
+    width: auto;
+
+    .popup-content {
+
+        .cascader-select-popup-fixed {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1;
+
+            .cascader-select-filter {
+                border: none;
+                border-bottom: 1px solid $theme-border;
+                border-radius: 0;
+                width: 100%;
+                height: 40px;
+
+                .icon-button {
+                    margin: 0;
+                }
+            }
+
+            .cascader-select-all-wrapper {
+                box-sizing: border-box;
+                border-bottom: 1px solid $theme-border;
+            }
+        }
+
+        .cascader-select-filter-placeholder,
+        .cascader-select-all-placeholder {
+            height: 40px;
+        }
+
+        .cascader-select-list-scroller {
+            overflow-y: auto;
+            max-height: inherit;
+
+            .cascader-select-list,
+            .list {
+                width: 100%;
+
+                .no-matched-list-item {
+                    line-height: 40px;
+                    color: $theme-field;
+
+                    .no-matched-list-item-icon {
+                        color: $theme-warning;
+                        margin-right: 10px;
+                    }
+                }
+            }
+        }
+
+    }
+
+    &.blow {
+        border-top: 1px solid $theme-border;
+    }
+
+    &.above {
+        border-bottom: 1px solid $theme-border;
+    }
+}

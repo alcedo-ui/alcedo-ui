@@ -204,12 +204,7 @@ MaterialTreeSelect.propTypes = {
         /**
          * The message of tip.
          */
-        tip: PropTypes.string,
-
-        /**
-         * The position of tip.
-         */
-        tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
+        title: PropTypes.string,
 
         children: PropTypes.array,
 
@@ -234,6 +229,8 @@ MaterialTreeSelect.propTypes = {
      * If true,the dropDownSelect will be disabled.
      */
     disabled: PropTypes.bool,
+
+    required: PropTypes.bool,
 
     /**
      * The select mode of listItem.Can be normal,checkbox.
@@ -307,7 +304,6 @@ MaterialTreeSelect.propTypes = {
     onBlur: PropTypes.func,
     onMouseOver: PropTypes.func,
     onMouseOut: PropTypes.func
-
 
 };
 

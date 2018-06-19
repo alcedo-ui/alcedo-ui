@@ -2,15 +2,14 @@ import React, {Component} from 'react';
 
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-import Paper from 'src/Paper';
-import CascaderList from 'src/CascaderList';
+import CascaderSelect from 'src/CascaderSelect';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import doc from 'assets/propTypes/CascaderList.json';
+import doc from 'assets/propTypes/CascaderSelect.json';
 
-import 'sass/containers/app/modules/layout/CascaderListExamples.scss';
+import 'sass/containers/app/modules/fields/CascaderSelectExamples.scss';
 
-class _CascaderListExamples extends Component {
+class CascaderSelectExamples extends Component {
 
     constructor(props) {
 
@@ -85,17 +84,35 @@ class _CascaderListExamples extends Component {
 
     }
 
+    nodeClickHandler = (node) => {
+        console.log('Node Clicked::', node);
+    };
+
+    nodeSelectHandler = (node, path) => {
+        const args = ['Node Selected::', node];
+        if (path) {
+            args.push(path);
+        }
+        console.log(...args);
+    };
+
     changeHandler = (value, path) => {
-        console.log(value, path);
+        const args = ['Changed::', value];
+        if (path) {
+            args.push(path);
+        }
+        console.log(...args);
     };
 
     render() {
+
         return (
-            <div className="example cascader-list-examples">
-                <h2 className="example-title">CascaderList</h2>
+            <div className="example cascader-select-examples">
+                <h2 className="example-title">CascaderSelect</h2>
 
                 <p>
-                    <span>CascaderList</span> is a selection box.
+                    <span>CascaderSelect</span>
+                    is a selection box.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -109,36 +126,13 @@ class _CascaderListExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p>CascaderList simple example.</p>
+                                <p>CascaderSelect simple example.</p>
 
-                                <Paper className="cascader-list-wrapper">
-                                    <CascaderList data={this.data}
-                                                  onChange={this.changeHandler}/>
-                                </Paper>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header" title="With value"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <div className="examples-wrapper">
-
-                                <p>CascaderList with default value example.</p>
-
-                                <Paper className="cascader-list-wrapper">
-                                    <CascaderList data={this.data}
-                                                  value={'Shanghai'}
-                                                  onChange={this.changeHandler}/>
-                                </Paper>
+                                <CascaderSelect data={this.data}
+                                                value={'Shanghai'}
+                                                onNodeClick={this.nodeClickHandler}
+                                                onNodeSelect={this.nodeSelectHandler}
+                                                onChange={this.changeHandler}/>
 
                             </div>
 
@@ -149,21 +143,33 @@ class _CascaderListExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Multi select"/>
+                    <WidgetHeader className="example-header" title="Multi Select"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <p>CascaderList with default value example.</p>
-
-                                <Paper className="cascader-list-wrapper">
-                                    <CascaderList selectMode={CascaderList.SelectMode.MULTI_SELECT}
-                                                  data={this.data}
-                                                  value={'Shanghai'}
-                                                  onChange={this.changeHandler}/>
-                                </Paper>
+                                <CascaderSelect selectMode={CascaderSelect.SelectMode.MULTI_SELECT}
+                                                data={this.data}
+                                                renderer={node => {
+                                                    return (
+                                                        <div className="self-define-node">
+                                                            <span className="self-define-node-text">{node.text}</span>
+                                                            {
+                                                                node.children && node.children.length > 0 ?
+                                                                    <span className="self-define-node-desc">
+                                                                        ({node.children.length})
+                                                                    </span>
+                                                                    :
+                                                                    null
+                                                            }
+                                                        </div>
+                                                    );
+                                                }}
+                                                onNodeClick={this.nodeClickHandler}
+                                                onNodeSelect={this.nodeSelectHandler}
+                                                onChange={this.changeHandler}/>
 
                             </div>
 
@@ -179,7 +185,6 @@ class _CascaderListExamples extends Component {
             </div>
         );
     }
-
 }
 
-export default _CascaderListExamples;
+export default CascaderSelectExamples;

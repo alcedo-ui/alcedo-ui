@@ -37,28 +37,29 @@ class List extends Component {
 
     listItemSelectHandler = (item, index) => {
 
-        const {selectMode} = this.props;
-
-        let {value} = this.state;
+        const {selectMode} = this.props,
+            {value} = this.state,
+            state = {};
 
         if (selectMode === SelectMode.MULTI_SELECT) {
 
-            if (!value || !isArray(value)) {
-                value = [];
+            let result = value ? value.slice() : value;
+            if (!result || !isArray(result)) {
+                result = [];
             }
 
-            value.push(item);
+            result.push(item);
+
+            state.value = result;
 
         } else if (selectMode === SelectMode.SINGLE_SELECT) {
-            value = item;
+            state.value = item;
         }
 
-        this.setState({
-            value
-        }, () => {
+        this.setState(state, () => {
             const {onItemSelect, onChange} = this.props;
             onItemSelect && onItemSelect(item, index);
-            onChange && onChange(value, index);
+            onChange && onChange(state.value, index);
         });
 
     };
@@ -71,8 +72,9 @@ class List extends Component {
             return;
         }
 
-        const {valueField, displayField} = this.props;
-        let {value} = this.state;
+        const {valueField, displayField} = this.props,
+            {value: stateValue} = this.state;
+        let value = stateValue ? stateValue.slice() : stateValue;
 
         if (!value || !isArray(value)) {
             value = [];
@@ -139,7 +141,7 @@ class List extends Component {
 
                 theme, itemHeight, idField, valueField, displayField, descriptionField, disabled, isLoading, renderer,
                 autoSelect, disableTouchRipple, selectTheme, selectMode, indeterminateCallback,
-                radioUncheckedIconCls, radioCheckedIconCls,
+                stopSelectClickEventPropagation, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
                 onItemClick
@@ -169,6 +171,7 @@ class List extends Component {
                       selectMode={selectMode}
                       renderer={renderer}
                       autoSelect={autoSelect}
+                      stopSelectClickEventPropagation={stopSelectClickEventPropagation}
                       disableTouchRipple={item.disableTouchRipple || disableTouchRipple}
                       indeterminateCallback={indeterminateCallback}
                       onClick={e => {
@@ -197,6 +200,7 @@ class List extends Component {
                       selectMode={selectMode}
                       renderer={renderer}
                       autoSelect={autoSelect}
+                      stopSelectClickEventPropagation={stopSelectClickEventPropagation}
                       disableTouchRipple={disableTouchRipple}
                       indeterminateCallback={indeterminateCallback}
                       onClick={e => onItemClick && onItemClick(item, index, e)}
@@ -218,9 +222,7 @@ class List extends Component {
                  className={listClassName}
                  disabled={disabled}
                  style={style}
-                 onWheel={e => {
-                     Event.wheelHandler(e, this.props);
-                 }}>
+                 onWheel={e => Event.wheelHandler(e, this.props)}>
 
                 {
                     data && data.map((item, index) => item === LIST_SEPARATOR ?
@@ -394,6 +396,8 @@ List.propTypes = {
      */
     autoSelect: PropTypes.bool,
 
+    stopSelectClickEventPropagation: PropTypes.bool,
+
     indeterminateCallback: PropTypes.func,
 
     shouldPreventContainerScroll: PropTypes.bool,
@@ -450,6 +454,7 @@ List.defaultProps = {
     disabled: false,
     disableTouchRipple: false,
     autoSelect: true,
+    stopSelectClickEventPropagation: false,
     shouldPreventContainerScroll: true,
 
     checkboxUncheckedIconCls: 'far fa-square',
