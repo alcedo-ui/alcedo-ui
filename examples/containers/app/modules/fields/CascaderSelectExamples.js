@@ -84,12 +84,24 @@ class CascaderSelectExamples extends Component {
 
     }
 
-    changeHandler = (value, path) => {
-        console.log(value, path);
+    nodeClickHandler = (node) => {
+        console.log('Node Clicked::', node);
     };
 
-    multiChangeHandler = value => {
-        // console.log(value);
+    nodeSelectHandler = (node, path) => {
+        const args = ['Node Selected::', node];
+        if (path) {
+            args.push(path);
+        }
+        console.log(...args);
+    };
+
+    changeHandler = (value, path) => {
+        const args = ['Changed::', value];
+        if (path) {
+            args.push(path);
+        }
+        console.log(...args);
     };
 
     render() {
@@ -118,6 +130,8 @@ class CascaderSelectExamples extends Component {
 
                                 <CascaderSelect data={this.data}
                                                 value={'Shanghai'}
+                                                onNodeClick={this.nodeClickHandler}
+                                                onNodeSelect={this.nodeSelectHandler}
                                                 onChange={this.changeHandler}/>
 
                             </div>
@@ -153,7 +167,9 @@ class CascaderSelectExamples extends Component {
                                                         </div>
                                                     );
                                                 }}
-                                                onChange={this.multiChangeHandler}/>
+                                                onNodeClick={this.nodeClickHandler}
+                                                onNodeSelect={this.nodeSelectHandler}
+                                                onChange={this.changeHandler}/>
 
                             </div>
 
