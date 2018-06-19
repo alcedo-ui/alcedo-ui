@@ -187,6 +187,7 @@ class CascaderSelect extends Component {
                           triggerClassName={selectTriggerClassName}
                           popupClassName={selectPopupClassName}
                           popupTheme={popupTheme}
+                          autoPopupWidth={false}
                           triggerValue={this.getTriggerValue()}
                           onClosePopup={this.popupClosedHandler}>
 
@@ -466,7 +467,7 @@ CascaderSelect.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
 
-    autoClose: true,
+    autoClose: false,
 
     shouldPreventContainerScroll: true,
     isSelectRecursive: false,

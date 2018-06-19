@@ -30,7 +30,8 @@
     }
 }
 
-.popup.cascader-select-popup {
+.popup.dropdown-popup.cascader-select-popup {
+    width: auto;
 
     .popup-content {
 
@@ -84,5 +85,13 @@
             }
         }
 
+    }
+
+    &.blow {
+        border-top: 1px solid $theme-border;
+    }
+
+    &.above {
+        border-bottom: 1px solid $theme-border;
     }
 }
