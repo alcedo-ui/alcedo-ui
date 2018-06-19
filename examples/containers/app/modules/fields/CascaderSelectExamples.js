@@ -7,6 +7,8 @@ import CascaderSelect from 'src/CascaderSelect';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/CascaderSelect.json';
 
+import 'sass/containers/app/modules/fields/CascaderSelectExamples.scss';
+
 class CascaderSelectExamples extends Component {
 
     constructor(props) {
@@ -86,10 +88,14 @@ class CascaderSelectExamples extends Component {
         console.log(value, path);
     };
 
+    multiChangeHandler = value => {
+        // console.log(value);
+    };
+
     render() {
 
         return (
-            <div className="example cascader-examples">
+            <div className="example cascader-select-examples">
                 <h2 className="example-title">CascaderSelect</h2>
 
                 <p>
@@ -113,6 +119,41 @@ class CascaderSelectExamples extends Component {
                                 <CascaderSelect data={this.data}
                                                 value={'Shanghai'}
                                                 onChange={this.changeHandler}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Multi Select"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <CascaderSelect selectMode={CascaderSelect.SelectMode.MULTI_SELECT}
+                                                data={this.data}
+                                                renderer={node => {
+                                                    return (
+                                                        <div className="self-define-node">
+                                                            <span className="self-define-node-text">{node.text}</span>
+                                                            {
+                                                                node.children && node.children.length > 0 ?
+                                                                    <span className="self-define-node-desc">
+                                                                        ({node.children.length})
+                                                                    </span>
+                                                                    :
+                                                                    null
+                                                            }
+                                                        </div>
+                                                    );
+                                                }}
+                                                onChange={this.multiChangeHandler}/>
 
                             </div>
 
