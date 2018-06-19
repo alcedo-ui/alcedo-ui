@@ -1,0 +1,53 @@
+/**
+ * @file MaterialCascaderSelect style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+@mixin material-cascader-select-disabled {
+    background-color: transparent;
+}
+
+.material-cascader-select {
+    position: relative;
+    width: 400px;
+    background: $theme-field-bg;
+
+    .tree-select {
+        width: 100%;
+
+        .dropdown {
+            width: 100%;
+
+            .dropdown-trigger {
+                width: 100%;
+                border: none;
+                box-shadow: none;
+                opacity: 1;
+            }
+        }
+    }
+
+    &.has-label.animated {
+
+        .base-button-value {
+            opacity: 0;
+        }
+
+        &.has-value,
+        &.focused {
+            .base-button-value {
+                opacity: 1;
+            }
+        }
+    }
+
+    &[disabled] {
+        .dropdown-trigger {
+            @include material-cascader-select-disabled;
+
+            &:hover {
+                @include material-cascader-select-disabled;
+            }
+        }
+    }
+}
