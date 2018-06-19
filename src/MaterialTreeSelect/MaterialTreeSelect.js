@@ -230,6 +230,8 @@ MaterialTreeSelect.propTypes = {
      */
     disabled: PropTypes.bool,
 
+    required: PropTypes.bool,
+
     /**
      * The select mode of listItem.Can be normal,checkbox.
      */
