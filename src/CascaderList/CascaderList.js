@@ -18,6 +18,7 @@ import HorizontalDirection from '../_statics/HorizontalDirection';
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import Calculation from '../_vendors/Calculation';
+import CascaderCalculation from '../_vendors/CascaderCalculation';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
 class CascaderList extends Component {
@@ -36,25 +37,6 @@ class CascaderList extends Component {
         };
 
     }
-
-    getMaxDepth = () => {
-
-        const {activatedPath} = this.state;
-
-        if (!activatedPath || activatedPath.length < 1) {
-            return 1;
-        }
-
-        const lastNode = activatedPath[activatedPath.length - 1];
-
-        if (!lastNode) {
-            return activatedPath.length;
-        }
-
-        return lastNode.node && lastNode.node.children && lastNode.node.children.length > 0 ?
-            activatedPath.length + 1 : activatedPath.length;
-
-    };
 
     addRecursiveValue = (node, value) => {
 
@@ -226,7 +208,7 @@ class CascaderList extends Component {
                 expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
                 idField, valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
-                isSelectRecursive, renderer, onNodeClick
+                isSelectRecursive, renderer
             } = this.props,
             {value, activatedPath} = this.state,
 
@@ -235,7 +217,7 @@ class CascaderList extends Component {
             }),
             wrapperStyle = {
                 ...style,
-                width: this.getMaxDepth() * listWidth
+                width: CascaderCalculation.getMaxDepth(activatedPath) * listWidth
             };
 
         return (
