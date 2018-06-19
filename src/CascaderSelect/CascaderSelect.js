@@ -17,6 +17,7 @@ import SelectMode from '../_statics/SelectMode';
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import TreeCalculation from '../_vendors/TreeCalculation';
+import CascaderCalculation from '../_vendors/CascaderCalculation';
 
 class CascaderSelect extends Component {
 
@@ -32,7 +33,7 @@ class CascaderSelect extends Component {
             value: props.value,
             popupVisible: false,
             path: props.selectMode === SelectMode.SINGLE_SELECT ?
-                TreeCalculation.calPath(props.value, props.data, props) : undefined
+                CascaderCalculation.calPath(props.value, props.data, props) : undefined
         };
 
     }
@@ -76,12 +77,10 @@ class CascaderSelect extends Component {
             );
         }
 
-        addNode(data, -1);
-
         if (path) {
             for (let i = 0, len = path.length; i < len; i++) {
 
-                result.push(
+                i > 0 && result.push(
                     <i key={2 * i}
                        className="fas fa-angle-right cascader-select-trigger-value-separator"/>
                 );
