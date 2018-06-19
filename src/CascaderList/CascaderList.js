@@ -127,32 +127,33 @@ class CascaderList extends Component {
         }
 
         const {selectMode, isSelectRecursive} = this.props,
-            {value: stateValue} = this.state;
-        let value = stateValue ? stateValue.slice() : stateValue;
+            {value} = this.state,
+            state = {};
 
         if (selectMode === SelectMode.MULTI_SELECT) {
 
-            if (!value || !isArray(value)) {
-                value = [];
+            let result = value ? value.slice() : value;
+            if (!result || !isArray(result)) {
+                result = [];
             }
 
             if (isSelectRecursive) {
-                this.addRecursiveValue(node, value);
-                value = this.updateValue(value);
+                this.addRecursiveValue(node, result);
+                result = this.updateValue(result);
             } else {
-                value.push(node);
+                result.push(node);
             }
 
+            state.value = result;
+
         } else if (selectMode === SelectMode.SINGLE_SELECT) {
-            value = node;
+            state.value = node;
         }
 
-        this.setState({
-            value
-        }, () => {
+        this.setState(state, () => {
             const {onNodeSelect, onChange} = this.props;
             onNodeSelect && onNodeSelect(node, path);
-            onChange && onChange(value);
+            onChange && onChange(state.value);
         });
 
     };
