@@ -183,7 +183,6 @@ class CascaderListExamples extends Component {
                                 <Paper className="cascader-list-wrapper">
                                     <CascaderList selectMode={CascaderList.SelectMode.MULTI_SELECT}
                                                   data={this.data}
-                                                  isSelectRecursive={true}
                                                   idField="value"
                                                   renderer={node => {
                                                       return (
