@@ -38,8 +38,7 @@ class List extends Component {
     listItemSelectHandler = (item, index) => {
 
         const {selectMode} = this.props;
-
-        let {value} = this.state;
+        let value = this.state.value.slice();
 
         if (selectMode === SelectMode.MULTI_SELECT) {
 
@@ -72,7 +71,7 @@ class List extends Component {
         }
 
         const {valueField, displayField} = this.props;
-        let {value} = this.state;
+        let value = this.state.value.slice();
 
         if (!value || !isArray(value)) {
             value = [];
