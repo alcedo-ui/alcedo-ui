@@ -100,7 +100,7 @@ class CascaderSelect extends Component {
     nodeSelectHandler = (value, path) => {
 
         const {onNodeSelect} = this.props;
-        onNodeSelect && onNodeSelect(value);
+        onNodeSelect && onNodeSelect(value, path);
 
         if (this.props.selectMode !== SelectMode.SINGLE_SELECT) {
             return;
