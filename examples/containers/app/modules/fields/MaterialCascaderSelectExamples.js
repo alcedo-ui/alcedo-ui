@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-import MaterialTreeSelect from 'src/MaterialTreeSelect';
+import MaterialCascaderSelect from 'src/MaterialCascaderSelect';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import doc from 'examples/assets/propTypes/MaterialTreeSelect.json';
+import doc from 'examples/assets/propTypes/MaterialCascaderSelect.json';
 
 import 'sass/containers/app/modules/fields/MaterialCascaderSelectExamples.scss';
 
@@ -15,37 +15,72 @@ class MaterialCascaderSelectExamples extends Component {
 
         super(props);
 
-        this.data = {
-            id: '0',
-            text: 'Root',
-            desc: 'Root',
+        this.data = [{
+            text: 'Asia',
+            value: 'Asia',
             children: [{
-                id: '00',
-                text: 'Children 0 - 0',
-                desc: 'Children 0 - 0'
+                text: 'Korea',
+                value: 'Korea'
             }, {
-                id: '01',
-                text: 'Children 0 - 1',
-                desc: 'Children 0 - 1',
+                text: 'Japan',
+                value: 'Japan',
                 children: [{
-                    id: '010',
-                    text: 'Children 0 - 1 - 0',
-                    desc: 'Children 0 - 1 - 0'
+                    text: 'Tokyo',
+                    value: 'Tokyo'
                 }, {
-                    id: '011',
-                    text: 'Children 0 - 1 - 1',
-                    desc: 'Children 0 - 1 - 1'
+                    text: 'Yokohama',
+                    value: 'Yokohama'
                 }, {
-                    id: '012',
-                    text: 'Children 0 - 1 - 2',
-                    desc: 'Children 0 - 1 - 2'
+                    text: 'Osaka',
+                    value: 'Osaka'
                 }]
             }, {
-                id: '02',
-                text: 'Children 0 - 2',
-                desc: 'Children 0 - 2'
+                text: 'China',
+                value: 'China',
+                children: [{
+                    text: 'Shanghai',
+                    value: 'Shanghai'
+                }, {
+                    text: 'Beijing',
+                    value: 'Beijing'
+                }, {
+                    text: 'Shenzhen',
+                    value: 'Shenzhen'
+                }]
             }]
-        };
+        }, {
+            text: 'Europe',
+            value: 'Europe',
+            children: [{
+                text: 'Germany',
+                value: 'Germany'
+            }, {
+                text: 'France',
+                value: 'France'
+            }]
+        }, {
+            text: 'North America',
+            value: 'North America',
+            children: [{
+                text: 'Canada',
+                value: 'Canada'
+            }, {
+                text: 'America',
+                value: 'America'
+            }]
+        }, {
+            text: 'South America',
+            value: 'South America'
+        }, {
+            text: 'Africa',
+            value: 'Africa'
+        }, {
+            text: 'Oceania',
+            value: 'Oceania'
+        }, {
+            text: 'Antarctica',
+            value: 'Antarctica'
+        }];
 
     }
 
@@ -60,7 +95,8 @@ class MaterialCascaderSelectExamples extends Component {
                 <h2 className="examples-title">MaterialCascaderSelectExamples</h2>
 
                 <p>
-                    <span>MaterialTreeSelect</span> use to store operating elements. Click on the contact and a
+                    <span>MaterialCascaderSelect</span>
+                    use to store operating elements. Click on the contact and a
                     drop-down menu will appear. You can select from the list and execute the appropriate command.
                 </p>
 
@@ -78,14 +114,14 @@ class MaterialCascaderSelectExamples extends Component {
 
                                 <p><code>Tree</code>simple example.</p>
 
-                                <MaterialTreeSelect theme={MaterialTreeSelect.Theme.HIGHLIGHT}
-                                                    data={this.data}
-                                                    value={{
-                                                        id: '010',
-                                                        text: 'Children 0 - 1 - 0',
-                                                        desc: 'Children 0 - 1 - 0'
-                                                    }}
-                                                    onChange={this.onChangeHandler}/>
+                                <MaterialCascaderSelect theme={MaterialCascaderSelect.Theme.HIGHLIGHT}
+                                                        data={this.data}
+                                                        value={{
+                                                            id: '010',
+                                                            text: 'Children 0 - 1 - 0',
+                                                            desc: 'Children 0 - 1 - 0'
+                                                        }}
+                                                        onChange={this.onChangeHandler}/>
 
                             </div>
 
@@ -107,18 +143,18 @@ class MaterialCascaderSelectExamples extends Component {
                                 <p><code>MaterialDropdownSelect</code> simple example.</p>
 
                                 <div className="field-group">
-                                    <MaterialTreeSelect theme={MaterialTreeSelect.Theme.HIGHLIGHT}
-                                                        label="Label"
-                                                        placeholder="Placeholder"
-                                                        selectMode={MaterialTreeSelect.SelectMode.MULTI_SELECT}
-                                                        autoClose={false}
-                                                        data={this.data}
-                                                        collapsedIconCls="far fa-plus-square"
-                                                        expandedIconCls="far fa-minus-square"
-                                                        checkboxUncheckedIconCls="far fa-circle"
-                                                        checkboxCheckedIconCls="fas fa-check-circle"
-                                                        checkboxIndeterminateIconCls="fas fa-minus-circle"
-                                                        onChange={this.onChangeHandler}/>
+                                    <MaterialCascaderSelect theme={MaterialCascaderSelect.Theme.HIGHLIGHT}
+                                                            label="Label"
+                                                            placeholder="Placeholder"
+                                                            selectMode={MaterialCascaderSelect.SelectMode.MULTI_SELECT}
+                                                            autoClose={false}
+                                                            data={this.data}
+                                                            collapsedIconCls="far fa-plus-square"
+                                                            expandedIconCls="far fa-minus-square"
+                                                            checkboxUncheckedIconCls="far fa-circle"
+                                                            checkboxCheckedIconCls="fas fa-check-circle"
+                                                            checkboxIndeterminateIconCls="fas fa-minus-circle"
+                                                            onChange={this.onChangeHandler}/>
                                 </div>
                             </div>
 
