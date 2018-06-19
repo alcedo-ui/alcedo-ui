@@ -131,8 +131,6 @@ class CascaderList extends Component {
 
         if (selectMode === SelectMode.MULTI_SELECT) {
 
-            debugger;
-
             if (!value || !isArray(value)) {
                 value = [];
             }
