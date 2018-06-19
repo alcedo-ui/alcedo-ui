@@ -111,8 +111,9 @@ class Tree extends Component {
             return;
         }
 
-        const {selectMode, isSelectRecursive} = this.props;
-        let value = this.state.value.slice();
+        const {selectMode, isSelectRecursive} = this.props,
+            {value: stateValue} = this.state;
+        let value = stateValue ? stateValue.slice() : stateValue;
 
         if (selectMode === SelectMode.MULTI_SELECT) {
 
@@ -149,8 +150,9 @@ class Tree extends Component {
             return;
         }
 
-        const {isSelectRecursive} = this.props;
-        let value = this.state.value.slice();
+        const {isSelectRecursive} = this.props,
+            {value: stateValue} = this.state;
+        let value = stateValue ? stateValue.slice() : stateValue;
 
         if (!value || !isArray(value)) {
             value = [];
