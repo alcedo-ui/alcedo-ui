@@ -17,6 +17,7 @@ import SelectMode from '../_statics/SelectMode';
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import TreeCalculation from '../_vendors/TreeCalculation';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class TreeSelect extends Component {
 
@@ -132,12 +133,11 @@ class TreeSelect extends Component {
         });
     };
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.props.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
     }
 
     render() {
