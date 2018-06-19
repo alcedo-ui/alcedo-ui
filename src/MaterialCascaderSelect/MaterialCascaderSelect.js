@@ -7,12 +7,13 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import TreeSelect from '../TreeSelect';
-import Tip from '../Tip';
 import MaterialProvider from '../MaterialProvider';
+import CascaderSelect from '../CascaderSelect';
+import Tip from '../Tip';
 import Theme from '../Theme';
 
 import SelectMode from '../_statics/SelectMode';
+import HorizontalDirection from '../_statics/HorizontalDirection';
 
 import Util from '../_vendors/Util';
 
@@ -20,7 +21,8 @@ class MaterialCascaderSelect extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
-    static Position = TreeSelect.Position;
+    static Position = CascaderSelect.Position;
+    static ExpandDirection = HorizontalDirection;
 
     constructor(props, ...restArgs) {
 
@@ -42,7 +44,7 @@ class MaterialCascaderSelect extends Component {
     };
 
     closePopup = () => {
-        this.refs.treeSelect && this.refs.treeSelect.closePopup();
+        this.refs.cascaderSelect && this.refs.cascaderSelect.closePopup();
     };
 
     componentWillReceiveProps(nextProps) {
@@ -75,11 +77,11 @@ class MaterialCascaderSelect extends Component {
                               disabled={disabled}
                               required={required}>
 
-                <TreeSelect {...restProps}
-                            ref="treeSelect"
-                            value={value}
-                            disabled={disabled}
-                            onChange={this.triggerChangeHandler}/>
+                <CascaderSelect {...restProps}
+                                ref="cascaderSelect"
+                                value={value}
+                                disabled={disabled}
+                                onChange={this.triggerChangeHandler}/>
 
             </MaterialProvider>
         );
@@ -93,6 +95,11 @@ MaterialCascaderSelect.propTypes = {
      * The CSS class name of the root element.
      */
     className: PropTypes.string,
+
+    /**
+     * The CSS class name of the trigger element.
+     */
+    triggerClassName: PropTypes.string,
 
     /**
      * The class name of the popup element.
@@ -114,10 +121,32 @@ MaterialCascaderSelect.propTypes = {
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    position: PropTypes.oneOf(Util.enumerateValue(TreeSelect.Position)),
+    /**
+     * The theme.
+     */
+    popupTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    position: PropTypes.oneOf(Util.enumerateValue(CascaderSelect.Position)),
+
+    listWidth: PropTypes.number,
 
     /**
-     * The name of the MaterialCascaderSelect.
+     * The theme of the tree node select radio or checkbox.
+     */
+    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The mode of tree node.
+     */
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+
+    /**
+     * The direction of expansion.
+     */
+    expandDirection: PropTypes.oneOf(Util.enumerateValue(HorizontalDirection)),
+
+    /**
+     * The name of the dropDownSelect.
      */
     name: PropTypes.string,
 
@@ -132,24 +161,23 @@ MaterialCascaderSelect.propTypes = {
     isLabelAnimate: PropTypes.bool,
 
     /**
-     * The value of the MaterialCascaderSelect.
+     * The value of the dropDownSelect.
      */
     value: PropTypes.any,
 
     /**
-     * The placeholder of the MaterialCascaderSelect.
+     * The placeholder of the dropDownSelect.
      */
     placeholder: PropTypes.string,
+
+    triggerValue: PropTypes.string,
 
     rightIconCls: PropTypes.string,
 
     /**
      * The options data.
      */
-    /**
-     * The options data.
-     */
-    data: PropTypes.shape({
+    data: PropTypes.arrayOf(PropTypes.shape({
 
         /**
          * The CSS class name of the tree node.
@@ -204,7 +232,12 @@ MaterialCascaderSelect.propTypes = {
         /**
          * The message of tip.
          */
-        title: PropTypes.string,
+        tip: PropTypes.string,
+
+        /**
+         * The position of tip.
+         */
+        tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
 
         children: PropTypes.array,
 
@@ -218,7 +251,7 @@ MaterialCascaderSelect.propTypes = {
          */
         onClick: PropTypes.func
 
-    }),
+    })),
 
     /**
      * The invalid message of dropDownSelect.
@@ -230,10 +263,12 @@ MaterialCascaderSelect.propTypes = {
      */
     disabled: PropTypes.bool,
 
+    required: PropTypes.bool,
+
     /**
-     * The select mode of listItem.Can be normal,checkbox.
+     * If true, the tree will be at loading status.
      */
-    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+    isLoading: PropTypes.bool,
 
     /**
      * The value field name in data. (default: "value")
@@ -251,7 +286,7 @@ MaterialCascaderSelect.propTypes = {
     descriptionField: PropTypes.string,
 
     /**
-     * The message of the MaterialCascaderSelect.
+     * The message of the dropDownSelect.
      */
     infoMsg: PropTypes.string,
 
@@ -280,12 +315,22 @@ MaterialCascaderSelect.propTypes = {
 
     renderer: PropTypes.func,
 
-    triggerRenderer: PropTypes.func,
+    triggerRenderer: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
 
     /**
      * Callback function fired when the button is touch-tapped.
      */
-    onItemClick: PropTypes.func,
+    onNodeClick: PropTypes.func,
+
+    /**
+     * Callback function fired when the tree node selected.
+     */
+    onNodeSelect: PropTypes.func,
+
+    /**
+     * Callback function fired when the tree node deselected.
+     */
+    onNodeDeselect: PropTypes.func,
 
     /**
      * Callback function fired when the popup is closed.
@@ -309,23 +354,27 @@ MaterialCascaderSelect.defaultProps = {
 
     theme: Theme.DEFAULT,
     popupTheme: Theme.DEFAULT,
+    listWidth: 200,
 
-    position: TreeSelect.Position.LEFT,
-    isLabelAnimate: true,
+    selectTheme: Theme.DEFAULT,
+    selectMode: SelectMode.SINGLE_SELECT,
+    expandDirection: HorizontalDirection.RIGHT,
+
+    position: CascaderSelect.Position.LEFT,
     placeholder: 'Please select ...',
     rightIconCls: 'fas fa-angle-down',
-    data: [],
     disabled: false,
+    isLoading: false,
     selectMode: SelectMode.SINGLE_SELECT,
 
     valueField: 'value',
     displayField: 'text',
     descriptionField: 'desc',
 
-    autoClose: true,
+    autoClose: false,
 
     shouldPreventContainerScroll: true,
-    isSelectRecursive: false,
+    isSelectRecursive: true,
     allowCollapse: true,
 
     required: false
