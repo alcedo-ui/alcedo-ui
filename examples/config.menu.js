@@ -67,6 +67,9 @@ export default [{
         text: 'CascaderSelect',
         route: '/components/CascaderSelect'
     }, {
+        text: 'MaterialCascaderSelect',
+        route: '/components/MaterialCascaderSelect'
+    }, {
         text: 'TextArea',
         route: '/components/TextArea'
     }, {
