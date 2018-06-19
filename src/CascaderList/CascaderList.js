@@ -373,6 +373,11 @@ CascaderList.propTypes = {
     })),
 
     /**
+     * The value of the dropDownSelect.
+     */
+    value: PropTypes.any,
+
+    /**
      * The id field name in data. (default: "id")
      */
     idField: PropTypes.string,
