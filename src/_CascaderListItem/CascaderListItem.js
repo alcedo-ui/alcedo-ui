@@ -314,7 +314,7 @@ CascaderListItem.defaultProps = {
     isLoading: false,
     readOnly: false,
     isNodeToggling: false,
-    isSelectRecursive: false,
+    isSelectRecursive: true,
 
     checkboxUncheckedIconCls: 'far fa-square',
     checkboxCheckedIconCls: 'fas fa-check-square',
