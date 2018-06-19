@@ -99,6 +99,9 @@ class CascaderSelect extends Component {
 
     nodeSelectHandler = (value, path) => {
 
+        const {onNodeSelect} = this.props;
+        onNodeSelect && onNodeSelect(value);
+
         if (this.props.selectMode !== SelectMode.SINGLE_SELECT) {
             return;
         }
@@ -147,9 +150,9 @@ class CascaderSelect extends Component {
 
         const {
 
-                className, triggerClassName, popupClassName, style, name, popupTheme, data, renderer,
-                selectMode, valueField, displayField, descriptionField, triggerRenderer,
-                isSelectRecursive, allowCollapse, onNodeClick, popupChildren,
+                className, triggerClassName, popupClassName, style, name, popupTheme, listWidth, data, renderer,
+                selectTheme, selectMode, expandDirection, valueField, displayField, descriptionField, triggerRenderer,
+                isSelectRecursive, allowCollapse, onNodeClick, onNodeDeselect, popupChildren,
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
@@ -199,6 +202,9 @@ class CascaderSelect extends Component {
 
                         <CascaderList className="cascader-select-list"
                                       theme={popupTheme}
+                                      selectTheme={selectTheme}
+                                      expandDirection={expandDirection}
+                                      listWidth={listWidth}
                                       selectMode={selectMode}
                                       data={data}
                                       value={value}
@@ -216,7 +222,8 @@ class CascaderSelect extends Component {
                                       checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
                                       renderer={renderer}
                                       onNodeClick={onNodeClick}
-                            // onNodeSelect={this.nodeSelectHandler}
+                                      onNodeSelect={this.nodeSelectHandler}
+                                      onNodeDeselect={onNodeDeselect}
                                       onChange={this.changeHandler}/>
 
                     </div>
@@ -269,6 +276,23 @@ CascaderSelect.propTypes = {
     popupTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     position: PropTypes.oneOf(Util.enumerateValue(Dropdown.Position)),
+
+    listWidth: PropTypes.number,
+
+    /**
+     * The theme of the tree node select radio or checkbox.
+     */
+    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The mode of tree node.
+     */
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+
+    /**
+     * The direction of expansion.
+     */
+    expandDirection: PropTypes.oneOf(Util.enumerateValue(HorizontalDirection)),
 
     /**
      * The name of the dropDownSelect.
@@ -379,9 +403,9 @@ CascaderSelect.propTypes = {
     disabled: PropTypes.bool,
 
     /**
-     * The select mode of listItem.Can be normal,checkbox.
+     * If true, the tree will be at loading status.
      */
-    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+    isLoading: PropTypes.bool,
 
     /**
      * The value field name in data. (default: "value")
@@ -436,6 +460,16 @@ CascaderSelect.propTypes = {
     onNodeClick: PropTypes.func,
 
     /**
+     * Callback function fired when the tree node selected.
+     */
+    onNodeSelect: PropTypes.func,
+
+    /**
+     * Callback function fired when the tree node deselected.
+     */
+    onNodeDeselect: PropTypes.func,
+
+    /**
      * Callback function fired when the popup is closed.
      */
     onClosePopup: PropTypes.func,
@@ -457,13 +491,17 @@ CascaderSelect.defaultProps = {
 
     theme: Theme.DEFAULT,
     popupTheme: Theme.DEFAULT,
+    listWidth: 200,
 
-    data: [],
+    selectTheme: Theme.DEFAULT,
+    selectMode: SelectMode.SINGLE_SELECT,
+    expandDirection: HorizontalDirection.RIGHT,
 
     position: Dropdown.Position.LEFT,
     placeholder: 'Please select ...',
     rightIconCls: 'fas fa-angle-down',
     disabled: false,
+    isLoading: false,
     selectMode: SelectMode.SINGLE_SELECT,
 
     valueField: 'value',
