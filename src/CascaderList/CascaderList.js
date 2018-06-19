@@ -446,9 +446,7 @@ CascaderList.propTypes = {
     /**
      * Callback function fired when wrapper wheeled.
      */
-    onWheel: PropTypes.func,
-
-    beforeNodeToggle: PropTypes.func
+    onWheel: PropTypes.func
 
 };
 
