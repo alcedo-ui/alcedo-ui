@@ -87,7 +87,13 @@ class CascaderListItem extends Component {
     };
 
     isListItemIndeterminate = node => {
+
+        if (!this.props.isSelectRecursive) {
+            return false;
+        }
+
         return Calculation.isNodeIndeterminate(node, this.props.value, this.props);
+
     };
 
     listItemRenderer = (node, index) => {
