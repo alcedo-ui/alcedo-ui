@@ -23,7 +23,6 @@ class IconAnchor extends Component {
     }
 
     clickHandler = e => {
-        e.preventDefault();
         const {disabled, isLoading, onClick} = this.props;
         !disabled && !isLoading && onClick && onClick(e);
     };
