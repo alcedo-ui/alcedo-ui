@@ -34,6 +34,13 @@ class Dropdown extends Component {
 
     }
 
+    /**
+     * public
+     */
+    resetPopupPosition = () => {
+        this.refs.popup.resetPosition();
+    };
+
     togglePopup = e => {
 
         const popupVisible = !this.state.popupVisible;
