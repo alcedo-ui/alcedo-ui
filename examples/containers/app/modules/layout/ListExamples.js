@@ -127,7 +127,7 @@ class ListExamples extends Component {
                 <h2 className="example-title">List</h2>
 
                 <p>
-                    <span>List</span>
+                    <span>List </span>
                     are used to present multiple items vertically as a single continuous
                     element. They can be configured for many uses such as a contacts list, nested lists, etc.
                 </p>

@@ -45,8 +45,6 @@ class Notification extends Component {
 
     clickHandler = e => {
 
-        e.preventDefault();
-
         const {notificationId, onRequestClose} = this.props;
 
         this.setState({
