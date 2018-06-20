@@ -28,8 +28,7 @@ class TableHeader extends Component {
 
     };
 
-    clickHandler = e => {
-        e.preventDefault();
+    clickHandler = () => {
         const {sortable, onSort} = this.props;
         sortable && onSort && onSort();
     };
