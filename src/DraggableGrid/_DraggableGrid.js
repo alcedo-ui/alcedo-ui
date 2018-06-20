@@ -168,70 +168,56 @@ class DraggableGrid extends Component {
             {value} = this.state;
 
         return typeof item === 'object' ?
-            (
-                <DraggableGridItem key={(idField in item && item[idField]) || index}
-                                   {...item}
-                                   index={index}
-                                   style={{height: itemHeight}}
-                                   theme={item.theme || theme}
-                                   col={col}
-                                   selectTheme={item.selectTheme || selectTheme}
-                                   radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
-                                   radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
-                                   checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
-                                   checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
-                                   checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
-                                   data={item}
-                                   checked={Calculation.isItemChecked(item, value, this.props)}
-                                   value={Util.getValueByValueField(item, valueField, displayField)}
-                                   text={Util.getTextByDisplayField(item, displayField, valueField)}
-                                   desc={item[descriptionField] || null}
-                                   disabled={disabled || item.disabled}
-                                   isLoading={isLoading || item.isLoading}
-                                   selectMode={selectMode}
-                                   renderer={renderer}
-                                   onClick={e => {
-                                       onItemClick && onItemClick(item, index, e);
-                                       item.onClick && item.onClick(e);
-                                   }}
-                                   onSelect={() => {
-                                       this.listItemSelectHandler(item, index);
-                                   }}
-                                   onDeselect={() => {
-                                       this.listItemDeselectHandler(item, index);
-                                   }}/>
-            )
+            <DraggableGridItem key={(idField in item && item[idField]) || index}
+                               {...item}
+                               index={index}
+                               style={{height: itemHeight}}
+                               theme={item.theme || theme}
+                               col={col}
+                               selectTheme={item.selectTheme || selectTheme}
+                               radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
+                               radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
+                               checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
+                               checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
+                               checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
+                               data={item}
+                               checked={Calculation.isItemChecked(item, value, this.props)}
+                               value={Util.getValueByValueField(item, valueField, displayField)}
+                               text={Util.getTextByDisplayField(item, displayField, valueField)}
+                               desc={item[descriptionField] || null}
+                               disabled={disabled || item.disabled}
+                               isLoading={isLoading || item.isLoading}
+                               selectMode={selectMode}
+                               renderer={renderer}
+                               onClick={e => {
+                                   onItemClick && onItemClick(item, index, e);
+                                   item.onClick && item.onClick(e);
+                               }}
+                               onSelect={() => this.listItemSelectHandler(item, index)}
+                               onDeselect={() => this.listItemDeselectHandler(item, index)}/>
             :
-            (
-                <DraggableGridItem key={index}
-                                   index={index}
-                                   style={{height: itemHeight}}
-                                   theme={item.theme || theme}
-                                   col={col}
-                                   selectTheme={item.selectTheme || selectTheme}
-                                   radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
-                                   radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
-                                   checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
-                                   checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
-                                   checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
-                                   data={item}
-                                   checked={Calculation.isItemChecked(item, value, this.props)}
-                                   value={item}
-                                   text={item}
-                                   disabled={disabled}
-                                   isLoading={isLoading}
-                                   selectMode={selectMode}
-                                   renderer={renderer}
-                                   onClick={e => {
-                                       onItemClick && onItemClick(item, index, e);
-                                   }}
-                                   onSelect={() => {
-                                       this.listItemSelectHandler(item, index);
-                                   }}
-                                   onDeselect={() => {
-                                       this.listItemDeselectHandler(item, index);
-                                   }}/>
-            );
+            <DraggableGridItem key={index}
+                               index={index}
+                               style={{height: itemHeight}}
+                               theme={item.theme || theme}
+                               col={col}
+                               selectTheme={item.selectTheme || selectTheme}
+                               radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
+                               radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
+                               checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
+                               checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
+                               checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
+                               data={item}
+                               checked={Calculation.isItemChecked(item, value, this.props)}
+                               value={item}
+                               text={item}
+                               disabled={disabled}
+                               isLoading={isLoading}
+                               selectMode={selectMode}
+                               renderer={renderer}
+                               onClick={e => onItemClick && onItemClick(item, index, e)}
+                               onSelect={() => this.listItemSelectHandler(item, index)}
+                               onDeselect={() => this.listItemDeselectHandler(item, index)}/>;
 
     };
 
@@ -260,11 +246,9 @@ class DraggableGrid extends Component {
                                  className={'draggable-grid' + listClassName}
                                  disabled={disabled}
                                  style={style}
-                                 onWheel={e => {
-                                     Event.wheelHandler(e, this.props);
-                                 }}>
+                                 onWheel={e => Event.wheelHandler(e, this.props)}>
 
-                                {data.map((item, index) => this.renderGridItem(item, index))}
+                                {data && data.map((item, index) => this.renderGridItem(item, index))}
 
                                 {dropProvided.placeholder}
 

@@ -17,6 +17,7 @@ import SelectMode from '../_statics/SelectMode';
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import TreeCalculation from '../_vendors/TreeCalculation';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class TreeSelect extends Component {
 
@@ -132,12 +133,11 @@ class TreeSelect extends Component {
         });
     };
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.props.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
     }
 
     render() {
@@ -146,7 +146,7 @@ class TreeSelect extends Component {
 
                 className, triggerClassName, popupClassName, style, name, popupTheme, data, renderer,
                 selectMode, valueField, displayField, descriptionField, triggerRenderer,
-                isSelectRecursive, allowCollapse, onItemClick, popupChildren,
+                isSelectRecursive, allowCollapse, onNodeClick, popupChildren,
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
@@ -191,9 +191,7 @@ class TreeSelect extends Component {
                           onClosePopup={this.popupClosedHandler}>
 
                     <div className="tree-select-list-scroller"
-                         onWheel={e => {
-                             Event.wheelHandler(e, this.props);
-                         }}>
+                         onWheel={e => Event.wheelHandler(e, this.props)}>
 
                         <Tree className="tree-select-list"
                               theme={popupTheme}
@@ -213,7 +211,7 @@ class TreeSelect extends Component {
                               checkboxCheckedIconCls={checkboxCheckedIconCls}
                               checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
                               renderer={renderer}
-                              onItemClick={onItemClick}
+                              onNodeClick={onNodeClick}
                               onNodeSelect={this.nodeSelectHandler}
                               onChange={this.changeHandler}/>
 
@@ -345,12 +343,7 @@ TreeSelect.propTypes = {
         /**
          * The message of tip.
          */
-        tip: PropTypes.string,
-
-        /**
-         * The position of tip.
-         */
-        tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
+        title: PropTypes.string,
 
         children: PropTypes.array,
 
@@ -431,7 +424,7 @@ TreeSelect.propTypes = {
     /**
      * Callback function fired when the button is touch-tapped.
      */
-    onItemClick: PropTypes.func,
+    onNodeClick: PropTypes.func,
 
     /**
      * Callback function fired when the popup is closed.

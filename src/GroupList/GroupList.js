@@ -55,28 +55,20 @@ class GroupList extends Component {
             <div className={listClassName}
                  style={style}
                  disabled={disabled}
-                 onWheel={e => {
-                     Event.wheelHandler(e, this.props);
-                 }}>
+                 onWheel={e => Event.wheelHandler(e, this.props)}>
 
                 {
-                    data && data.map((item, index) => {
-
-                        if (item === LIST_SEPARATOR) {
-                            return <div key={index}
-                                        className="list-separator"></div>;
-                        }
-
-                        return (
-                            <div key={index}>
-                                <div className="group-list-group-title">{item.name}</div>
-                                <List {...restProps}
-                                      data={item.children}
-                                      value={value}/>
-                            </div>
-                        );
-
-                    })
+                    data && data.map((item, index) => item === LIST_SEPARATOR ?
+                        <div key={index}
+                             className="list-separator"></div>
+                        :
+                        <div key={index}>
+                            <div className="group-list-group-title">{item.name}</div>
+                            <List {...restProps}
+                                  data={item.children}
+                                  value={value}/>
+                        </div>
+                    )
                 }
 
                 {children}

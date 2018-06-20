@@ -4,7 +4,6 @@
  */
 
 .cascader-list-item {
-    float: left;
 
     .cascader-popup-list {
         position: relative;
@@ -23,7 +22,7 @@
                 z-index: 1;
             }
 
-            .cascader-list-item-right-icon {
+            .cascader-list-item-expand-icon {
                 position: absolute;
                 top: 0;
                 right: 16px;
@@ -37,6 +36,25 @@
 
         &.first {
             border-left: none;
+        }
+
+        &.expand-left {
+            float: right;
+            border-left: none;
+            border-right: 1px solid $theme-border;
+        }
+    }
+
+    &.expanded {
+        & > .cascader-popup-list.expand-left {
+            .list-item {
+                padding-left: 24px;
+
+                .cascader-list-item-expand-icon {
+                    left: 8px;
+                    text-align: left;
+                }
+            }
         }
     }
 }

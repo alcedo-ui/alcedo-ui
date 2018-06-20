@@ -10,8 +10,8 @@ import classNames from 'classnames';
 import Theme from '../Theme';
 import List from '../List';
 
-import Position from '../_statics/Position';
 import SelectMode from '../_statics/SelectMode';
+import HorizontalDirection from '../_statics/HorizontalDirection';
 
 import Calculation from '../_vendors/Calculation';
 import Util from '../_vendors/Util';
@@ -19,6 +19,7 @@ import Util from '../_vendors/Util';
 class CascaderListItem extends Component {
 
     static SelectMode = SelectMode;
+    static ExpandDirection = HorizontalDirection;
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
@@ -86,12 +87,18 @@ class CascaderListItem extends Component {
     };
 
     isListItemIndeterminate = node => {
+
+        if (!this.props.isSelectRecursive) {
+            return false;
+        }
+
         return Calculation.isNodeIndeterminate(node, this.props.value, this.props);
+
     };
 
     listItemRenderer = (node, index) => {
 
-        const {valueField, displayField, descriptionField, expandedIconCls, renderer} = this.props;
+        const {expandDirection, valueField, displayField, descriptionField, expandedIconCls, renderer} = this.props;
 
         let text, desc;
         if (!renderer) {
@@ -101,6 +108,15 @@ class CascaderListItem extends Component {
 
         return (
             <Fragment>
+
+                {
+                    expandDirection === HorizontalDirection.LEFT && this.isExpanded(node, index) ?
+                        <i className={classNames('cascader-list-item-expand-icon',
+                            expandedIconCls || 'fas fa-chevron-left')}
+                           aria-hidden="true"></i>
+                        :
+                        null
+                }
 
                 {
                     renderer ?
@@ -122,10 +138,9 @@ class CascaderListItem extends Component {
                 }
 
                 {
-                    this.isExpanded(node, index) ?
-                        <i className={classNames('cascader-list-item-right-icon', {
-                            [expandedIconCls]: expandedIconCls
-                        })}
+                    expandDirection === HorizontalDirection.RIGHT && this.isExpanded(node, index) ?
+                        <i className={classNames('cascader-list-item-expand-icon',
+                            expandedIconCls || 'fas fa-chevron-right')}
                            aria-hidden="true"></i>
                         :
                         null
@@ -163,7 +178,7 @@ class CascaderListItem extends Component {
 
         const {
 
-                depth, theme, listWidth, selectTheme, selectMode, data, value,
+                depth, theme, listWidth, selectTheme, selectMode, expandDirection, data, value,
                 disabled, isLoading, readOnly, idField, valueField, displayField, descriptionField,
 
                 radioUncheckedIconCls, radioCheckedIconCls,
@@ -171,16 +186,23 @@ class CascaderListItem extends Component {
 
             } = this.props,
             activatedIndex = this.getActivatedIndex(),
+            hasChild = activatedIndex > -1 && data[activatedIndex] && data[activatedIndex].children
+                && data[activatedIndex].children.length > 0,
+
+            wrapperClassName = classNames('cascader-list-item', {
+                expanded: hasChild
+            }),
 
             listClassName = classNames('cascader-popup-list', {
-                first: depth === 0
+                first: depth === 0,
+                'expand-left': expandDirection === HorizontalDirection.LEFT
             }),
             listStyle = {
                 width: listWidth
             };
 
         return (
-            <div className="cascader-list-item">
+            <div className={wrapperClassName}>
 
                 <List className={listClassName}
                       style={listStyle}
@@ -202,6 +224,7 @@ class CascaderListItem extends Component {
                       checkboxCheckedIconCls={checkboxCheckedIconCls}
                       checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
                       autoSelect={selectMode !== SelectMode.MULTI_SELECT}
+                      stopSelectClickEventPropagation={true}
                       indeterminateCallback={this.isListItemIndeterminate}
                       renderer={this.listItemRenderer}
                       onItemClick={this.listItemClickHanlder}
@@ -237,6 +260,7 @@ CascaderListItem.propTypes = {
 
     selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
     selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+    expandDirection: PropTypes.oneOf(Util.enumerateValue(HorizontalDirection)),
 
     data: PropTypes.array,
     value: PropTypes.any,
@@ -279,6 +303,7 @@ CascaderListItem.defaultProps = {
 
     selectTheme: Theme.DEFAULT,
     selectMode: SelectMode.SINGLE_SELECT,
+    expandDirection: HorizontalDirection.LEFT,
 
     idField: 'id',
     valueField: 'value',
@@ -289,11 +314,8 @@ CascaderListItem.defaultProps = {
     isLoading: false,
     readOnly: false,
     isNodeToggling: false,
-    isSelectRecursive: false,
+    isSelectRecursive: true,
 
-    tipPosition: Position.BOTTOM,
-
-    expandedIconCls: 'fas fa-chevron-right',
     checkboxUncheckedIconCls: 'far fa-square',
     checkboxCheckedIconCls: 'fas fa-check-square',
     checkboxIndeterminateIconCls: 'fas fa-minus-square'

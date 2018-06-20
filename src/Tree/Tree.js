@@ -9,7 +9,6 @@ import isArray from 'lodash/isArray';
 import classNames from 'classnames';
 
 import TreeNode from '../_TreeNode';
-import Tip from '../Tip';
 import Theme from '../Theme';
 
 import SelectMode from '../_statics/SelectMode';
@@ -112,32 +111,34 @@ class Tree extends Component {
             return;
         }
 
-        const {selectMode, isSelectRecursive} = this.props;
-        let {value} = this.state;
+        const {selectMode, isSelectRecursive} = this.props,
+            {value} = this.state,
+            state = {};
 
         if (selectMode === SelectMode.MULTI_SELECT) {
 
-            if (!value || !isArray(value)) {
-                value = [];
+            let result = value ? value.slice() : value;
+            if (!result || !isArray(result)) {
+                result = [];
             }
 
             if (isSelectRecursive) {
-                this.addRecursiveValue(node, value);
-                value = this.updateValue(value);
+                this.addRecursiveValue(node, result);
+                result = this.updateValue(result);
             } else {
-                value.push(node);
+                result.push(node);
             }
 
+            state.value = result;
+
         } else if (selectMode === SelectMode.SINGLE_SELECT) {
-            value = node;
+            state.value = node;
         }
 
-        this.setState({
-            value
-        }, () => {
+        this.setState(state, () => {
             const {onNodeSelect, onChange} = this.props;
-            onNodeSelect && onNodeSelect(node, path, e);
-            onChange && onChange(value, e);
+            onNodeSelect && onNodeSelect(node, path);
+            onChange && onChange(state.value);
         });
 
     };
@@ -150,8 +151,9 @@ class Tree extends Component {
             return;
         }
 
-        const {isSelectRecursive} = this.props;
-        let {value} = this.state;
+        const {isSelectRecursive} = this.props,
+            {value: stateValue} = this.state;
+        let value = stateValue ? stateValue.slice() : stateValue;
 
         if (!value || !isArray(value)) {
             value = [];
@@ -347,12 +349,7 @@ Tree.propTypes = {
         /**
          * The message of tip.
          */
-        tip: PropTypes.string,
-
-        /**
-         * The position of tip.
-         */
-        tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
+        title: PropTypes.string,
 
         children: PropTypes.array,
 

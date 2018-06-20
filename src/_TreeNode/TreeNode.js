@@ -8,13 +8,11 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import CircularLoading from '../CircularLoading';
-import TipProvider from '../TipProvider';
 import Theme from '../Theme';
 import IconButton from '../IconButton';
 import Radio from '../Radio';
 import Checkbox from '../Checkbox';
 
-import Position from '../_statics/Position';
 import SelectMode from '../_statics/SelectMode';
 
 import Util from '../_vendors/Util';
@@ -134,75 +132,73 @@ class TreeNode extends Component {
         return (
             <div className="tree-node-wrapper">
 
-                <TipProvider text={data.tip}
-                             position={data.tipPosition}>
+                <div className={nodeClassName}
+                     style={nodeStyle}
+                     disabled={isNodeDisabled}
+                     readOnly={readOnly}
+                     onClick={this.clickHandler}
+                     onMouseEnter={onMouseEnter}
+                     onMouseLeave={onMouseLeave}>
 
-                    <div className={nodeClassName}
-                         style={nodeStyle}
-                         disabled={isNodeDisabled}
-                         readOnly={readOnly}
-                         onClick={this.clickHandler}
-                         onMouseEnter={onMouseEnter}
-                         onMouseLeave={onMouseLeave}>
+                    <div className="tree-node-inner">
 
-                        <div className="tree-node-inner">
+                        {
+                            allowCollapse && data.children && data.children.length > 0 ?
+                                <IconButton className="tree-node-collapse-icon"
+                                            iconCls={collapsed ?
+                                                data.collapsedIconCls || collapsedIconCls
+                                                :
+                                                data.expandedIconCls || expandedIconCls}
+                                            onClick={this.toggleTreeNode}/>
+                                :
+                                null
+                        }
 
-                            {
-                                allowCollapse && data.children && data.children.length > 0 ?
-                                    <IconButton className="tree-node-collapse-icon"
-                                                iconCls={collapsed ?
-                                                    data.collapsedIconCls || collapsedIconCls
-                                                    :
-                                                    data.expandedIconCls || expandedIconCls}
-                                                onClick={this.toggleTreeNode}/>
-                                    :
-                                    null
-                            }
+                        {
+                            selectMode === SelectMode.SINGLE_SELECT && (radioUncheckedIconCls || radioCheckedIconCls) ?
+                                <Radio className="tree-node-select"
+                                       theme={selectTheme}
+                                       checked={checked}
+                                       disabled={isNodeDisabled}
+                                       uncheckedIconCls={data.radioUncheckedIconCls || radioUncheckedIconCls}
+                                       checkedIconCls={data.radioCheckedIconCls || radioCheckedIconCls}
+                                       disableTouchRipple={true}/>
+                                :
+                                null
+                        }
 
-                            {
-                                selectMode === SelectMode.SINGLE_SELECT && (radioUncheckedIconCls || radioCheckedIconCls) ?
-                                    <Radio className="tree-node-select"
-                                           theme={selectTheme}
-                                           checked={checked}
-                                           disabled={isNodeDisabled}
-                                           uncheckedIconCls={data.radioUncheckedIconCls || radioUncheckedIconCls}
-                                           checkedIconCls={data.radioCheckedIconCls || radioCheckedIconCls}
-                                           disableTouchRipple={true}/>
-                                    :
-                                    null
-                            }
+                        {
+                            selectMode === SelectMode.MULTI_SELECT ?
+                                <Checkbox className="tree-node-select"
+                                          theme={selectTheme}
+                                          checked={checked}
+                                          indeterminate={isSelectRecursive ? indeterminate : false}
+                                          disabled={isNodeDisabled}
+                                          uncheckedIconCls={data.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
+                                          checkedIconCls={data.checkboxCheckedIconCls || checkboxCheckedIconCls}
+                                          indeterminateIconCls={data.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
+                                          disableTouchRipple={true}/>
+                                :
+                                null
+                        }
 
-                            {
-                                selectMode === SelectMode.MULTI_SELECT ?
-                                    <Checkbox className="tree-node-select"
-                                              theme={selectTheme}
-                                              checked={checked}
-                                              indeterminate={isSelectRecursive ? indeterminate : false}
-                                              disabled={isNodeDisabled}
-                                              uncheckedIconCls={data.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
-                                              checkedIconCls={data.checkboxCheckedIconCls || checkboxCheckedIconCls}
-                                              indeterminateIconCls={data.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
-                                              disableTouchRipple={true}/>
-                                    :
-                                    null
-                            }
+                        {
+                            isNodeLoading && loadingIconPosition === 'left' ?
+                                <div className="button-icon button-icon-left">
+                                    <CircularLoading className="button-loading-icon"
+                                                     size="small"/>
+                                </div>
+                                :
+                                (
+                                    data.iconCls ?
+                                        <i className={`button-icon button-icon-left ${data.iconCls}`}
+                                           aria-hidden="true"></i>
+                                        :
+                                        null
+                                )
+                        }
 
-                            {
-                                isNodeLoading && loadingIconPosition === 'left' ?
-                                    <div className="button-icon button-icon-left">
-                                        <CircularLoading className="button-loading-icon"
-                                                         size="small"/>
-                                    </div>
-                                    :
-                                    (
-                                        data.iconCls ?
-                                            <i className={`button-icon button-icon-left ${data.iconCls}`}
-                                               aria-hidden="true"></i>
-                                            :
-                                            null
-                                    )
-                            }
-
+                        <span title={data.title}>
                             {
                                 data.itemRenderer && typeof data.itemRenderer === 'function' ?
                                     data.itemRenderer(data, index)
@@ -226,24 +222,24 @@ class TreeNode extends Component {
                                             )
                                     )
                             }
+                        </span>
 
-                            {
-                                isNodeLoading && loadingIconPosition === 'right' ?
-                                    <CircularLoading className="button-icon button-icon-right button-loading-icon"
-                                                     size="small"/>
-                                    :
-                                    (
-                                        data.rightIconCls ?
-                                            <i className={`button-icon button-icon-right ${data.rightIconCls}`}
-                                               aria-hidden="true"></i>
-                                            :
-                                            null
-                                    )
-                            }
-                        </div>
-
+                        {
+                            isNodeLoading && loadingIconPosition === 'right' ?
+                                <CircularLoading className="button-icon button-icon-right button-loading-icon"
+                                                 size="small"/>
+                                :
+                                (
+                                    data.rightIconCls ?
+                                        <i className={`button-icon button-icon-right ${data.rightIconCls}`}
+                                           aria-hidden="true"></i>
+                                        :
+                                        null
+                                )
+                        }
                     </div>
-                </TipProvider>
+
+                </div>
 
                 {
                     data.children && data.children.length > 0 ?
@@ -339,8 +335,6 @@ TreeNode.defaultProps = {
     allowCollapse: true,
     isNodeToggling: false,
     isSelectRecursive: false,
-
-    tipPosition: Position.BOTTOM,
 
     collapsedIconCls: 'fas fa-caret-right',
     expandedIconCls: 'fas fa-caret-down',

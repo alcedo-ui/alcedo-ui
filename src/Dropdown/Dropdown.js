@@ -90,7 +90,7 @@ class Dropdown extends Component {
                 children,
 
                 className, triggerClassName, popupClassName, style, triggerStyle, popupStyle, theme, popupTheme,
-                position, iconCls, triggerValue, rightIconCls, disabled, disableTouchRipple,
+                position, iconCls, triggerValue, rightIconCls, disabled, disableTouchRipple, autoPopupWidth,
 
                 // events
                 onMouseOver, onMouseOut
@@ -133,7 +133,7 @@ class Dropdown extends Component {
 
                 <Popup ref="popup"
                        className={dropdownPopupClassName}
-                       style={dropdownPopupStyle}
+                       style={autoPopupWidth ? dropdownPopupStyle : popupStyle}
                        theme={popupTheme}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
@@ -213,6 +213,11 @@ Dropdown.propTypes = {
     disableTouchRipple: PropTypes.bool,
 
     /**
+     * Whether following the trigger width or not.
+     */
+    autoPopupWidth: PropTypes.bool,
+
+    /**
      * If true,the dropdown box automatically closed after selection.
      */
     autoClose: PropTypes.bool,
@@ -246,6 +251,7 @@ Dropdown.defaultProps = {
     rightIconCls: 'fas fa-angle-down',
     disabled: false,
     disableTouchRipple: false,
+    autoPopupWidth: true,
     autoClose: true,
 
     shouldPreventContainerScroll: true
