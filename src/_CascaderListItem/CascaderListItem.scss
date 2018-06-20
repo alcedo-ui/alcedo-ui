@@ -42,6 +42,10 @@
             float: right;
             border-left: none;
             border-right: 1px solid $theme-border;
+
+            &.first {
+                border-right: none;
+            }
         }
     }
 
