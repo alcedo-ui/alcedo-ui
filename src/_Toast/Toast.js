@@ -45,7 +45,6 @@ class Toast extends Component {
     };
 
     clickHandler = e => {
-        e.preventDefault();
         const {onRequestClose, toastsId} = this.props;
         onRequestClose && onRequestClose(toastsId);
     };
