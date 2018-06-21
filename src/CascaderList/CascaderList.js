@@ -109,13 +109,16 @@ class CascaderList extends Component {
 
     };
 
-    nodeClickHandler = (node, index, path) => {
+    nodeClickHandler = (node, index, path, e) => {
 
         const {onNodeClick} = this.props;
-        onNodeClick && onNodeClick(node, index);
+        onNodeClick && onNodeClick(node, index, path, e);
 
         this.setState({
             activatedPath: path
+        }, () => {
+            const {onPathChange} = this.props;
+            onPathChange && onPathChange();
         });
 
     };
