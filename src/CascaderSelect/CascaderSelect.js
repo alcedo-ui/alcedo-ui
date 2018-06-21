@@ -97,13 +97,8 @@ class CascaderSelect extends Component {
 
     };
 
-    nodeClickHandler = (node, index, path, e) => {
-
-        const {onNodeClick} = this.props;
-        onNodeClick && onNodeClick(node, index, path, e);
-
+    pathChangeHandler = () => {
         this.refs.dropdown.resetPopupPosition();
-
     };
 
     nodeSelectHandler = (node, path) => {
@@ -159,7 +154,7 @@ class CascaderSelect extends Component {
 
                 className, triggerClassName, popupClassName, style, name, popupTheme, listWidth, data, renderer,
                 selectTheme, selectMode, expandDirection, valueField, displayField, descriptionField, triggerRenderer,
-                isSelectRecursive, allowCollapse, onNodeDeselect, popupChildren,
+                isSelectRecursive, allowCollapse, onNodeDeselect, popupChildren, onNodeClick,
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
@@ -228,10 +223,11 @@ class CascaderSelect extends Component {
                                       checkboxCheckedIconCls={checkboxCheckedIconCls}
                                       checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
                                       renderer={renderer}
-                                      onNodeClick={this.nodeClickHandler}
+                                      onNodeClick={onNodeClick}
                                       onNodeSelect={this.nodeSelectHandler}
                                       onNodeDeselect={onNodeDeselect}
-                                      onChange={this.changeHandler}/>
+                                      onChange={this.changeHandler}
+                                      onPathChange={this.pathChangeHandler}/>
 
                     </div>
 
