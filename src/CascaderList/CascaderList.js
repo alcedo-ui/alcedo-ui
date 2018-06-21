@@ -116,6 +116,9 @@ class CascaderList extends Component {
 
         this.setState({
             activatedPath: path
+        }, () => {
+            const {onPathChange} = this.props;
+            onPathChange && onPathChange();
         });
 
     };
