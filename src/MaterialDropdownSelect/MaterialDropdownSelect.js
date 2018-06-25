@@ -140,6 +140,8 @@ MaterialDropdownSelect.propTypes = {
      */
     placeholder: PropTypes.string,
 
+    title: PropTypes.string,
+
     rightIconCls: PropTypes.string,
 
     /**
