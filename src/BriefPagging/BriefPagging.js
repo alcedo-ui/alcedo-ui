@@ -43,7 +43,8 @@ class BriefPagging extends Component {
 
         const {
                 count, page, total, pageSize, pageSizes,
-                selectedCount, selectedCountVisible, pageSizeVisible, paggingPrevIconCls, paggingNextIconCls
+                selectedCount, selectedCountVisible, pageSizeVisible, paggingPrevIconCls, paggingNextIconCls,
+                paggingCountRenderer
             } = this.props,
             startNumber = Valid.range(page * pageSize + 1, 0, count),
             stopNumber = Valid.range((page + 1) * pageSize, 0, count);
@@ -63,7 +64,12 @@ class BriefPagging extends Component {
                     }
 
                     <div className="brief-pagging-totle">
-                        {`Total: ${count}`}
+                        {
+                            paggingCountRenderer ?
+                                paggingCountRenderer(count)
+                                :
+                                `Total: ${count}`
+                        }
                     </div>
 
                 </div>
@@ -85,15 +91,11 @@ class BriefPagging extends Component {
 
                     <IconButton iconCls={paggingPrevIconCls}
                                 disabled={page <= 0}
-                                onClick={() => {
-                                    this.pageChangedHandle(page - 1);
-                                }}/>
+                                onClick={() => this.pageChangedHandle(page - 1)}/>
 
                     <IconButton iconCls={paggingNextIconCls}
                                 disabled={page >= total - 1}
-                                onClick={() => {
-                                    this.pageChangedHandle(page + 1);
-                                }}/>
+                                onClick={() => this.pageChangedHandle(page + 1)}/>
 
                 </div>
 
@@ -164,6 +166,8 @@ BriefPagging.propTypes = {
      * Use this property to set next button icon.
      */
     paggingNextIconCls: PropTypes.string,
+
+    paggingCountRenderer: PropTypes.func,
 
     /**
      * Callback function fired when Pagging component change.
