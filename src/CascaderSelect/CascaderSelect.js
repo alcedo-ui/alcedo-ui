@@ -312,8 +312,8 @@ CascaderSelect.propTypes = {
      */
     placeholder: PropTypes.string,
 
+    title: PropTypes.string,
     triggerValue: PropTypes.string,
-
     rightIconCls: PropTypes.string,
 
     /**
