@@ -132,6 +132,7 @@ class TreeNode extends Component {
 
                 <div className={nodeClassName}
                      style={nodeStyle}
+                     title={data.title}
                      disabled={isNodeDisabled}
                      readOnly={readOnly}
                      onClick={this.clickHandler}
@@ -196,31 +197,29 @@ class TreeNode extends Component {
                                 )
                         }
 
-                        <span title={data.title}>
-                            {
-                                data.itemRenderer && typeof data.itemRenderer === 'function' ?
-                                    data.itemRenderer(data, index)
-                                    :
-                                    (
-                                        renderer && typeof renderer === 'function' ?
-                                            renderer(data, index)
-                                            :
-                                            (
-                                                data[descriptionField] ?
-                                                    <div className="tree-node-content">
-                                                        <span className="tree-node-content-value">
-                                                            {Util.getTextByDisplayField(data, displayField, valueField)}
-                                                        </span>
-                                                        <span className="tree-node-content-desc">
-                                                            {data[descriptionField]}
-                                                        </span>
-                                                    </div>
-                                                    :
-                                                    Util.getTextByDisplayField(data, displayField, valueField)
-                                            )
-                                    )
-                            }
-                        </span>
+                        {
+                            data.itemRenderer && typeof data.itemRenderer === 'function' ?
+                                data.itemRenderer(data, index)
+                                :
+                                (
+                                    renderer && typeof renderer === 'function' ?
+                                        renderer(data, index)
+                                        :
+                                        (
+                                            data[descriptionField] ?
+                                                <div className="tree-node-content">
+                                                    <span className="tree-node-content-value">
+                                                        {Util.getTextByDisplayField(data, displayField, valueField)}
+                                                    </span>
+                                                    <span className="tree-node-content-desc">
+                                                        {data[descriptionField]}
+                                                    </span>
+                                                </div>
+                                                :
+                                                Util.getTextByDisplayField(data, displayField, valueField)
+                                        )
+                                )
+                        }
 
                         {
                             isNodeLoading && loadingIconPosition === 'right' ?

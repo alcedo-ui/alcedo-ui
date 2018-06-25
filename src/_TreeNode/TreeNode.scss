@@ -66,7 +66,7 @@
             }
 
             .tree-node-select {
-                display: inline-block;
+                float: left;
                 width: 16px;
                 height: 40px;
                 margin-right: 10px;
@@ -75,6 +75,7 @@
             }
 
             .button-icon {
+                float: left;
                 width: 16px;
                 text-align: center;
                 font-size: inherit;
@@ -95,6 +96,7 @@
             }
 
             .tree-node-content {
+                float: left;
                 overflow: hidden;
                 white-space: nowrap;
                 text-overflow: ellipsis;
