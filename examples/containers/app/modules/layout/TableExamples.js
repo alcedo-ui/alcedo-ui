@@ -31,13 +31,10 @@ class TableExamples extends Component {
             renderer: '${firstName} - ${lastName}'
         }, {
             header: 'Status',
-            renderer(rowData) {
-                return <Switcher value={!rowData.disabled}
-                                 size="small"
-                                 onClick={(e) => {
-                                     e.stopPropagation();
-                                 }}/>;
-            }
+            renderer: rowData =>
+                <Switcher value={!rowData.disabled}
+                          size="small"
+                          onClick={e => e.stopPropagation()}/>
         }];
 
         this.pageSizes = [{
@@ -99,7 +96,8 @@ class TableExamples extends Component {
                 <h2 className="example-title">Table</h2>
 
                 <p>
-                    <span>Tables</span> are used to display data and to organize it.
+                    <span>Tables</span>
+                    are used to display data and to organize it.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -145,12 +143,8 @@ class TableExamples extends Component {
                                    useFullPagging={true}
                                    sortAscIconCls="fas fa-caret-up"
                                    sortDescIconCls="fas fa-caret-down"
-                                   onPageChange={(page, pageSize) => {
-                                       console.log(`page: ${page}, pageSize: ${pageSize}`);
-                                   }}
-                                   onChange={value => {
-                                       console.log(value);
-                                   }}/>
+                                   onPageChange={(page, pageSize) => console.log(`page: ${page}, pageSize: ${pageSize}`)}
+                                   onChange={value => console.log(value)}/>
 
                         </div>
                     </div>
