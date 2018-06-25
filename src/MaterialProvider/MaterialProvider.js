@@ -147,7 +147,7 @@ MaterialProvider.propTypes = {
 
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    label: PropTypes.string,
+    label: PropTypes.any,
     isLabelAnimate: PropTypes.bool,
 
     hasValue: PropTypes.bool,

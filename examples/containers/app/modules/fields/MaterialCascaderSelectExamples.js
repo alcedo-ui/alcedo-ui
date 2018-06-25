@@ -96,8 +96,6 @@ class MaterialCascaderSelectExamples extends Component {
 
                 <p>
                     <span>MaterialCascaderSelect</span>
-                    use to store operating elements. Click on the contact and a
-                    drop-down menu will appear. You can select from the list and execute the appropriate command.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -112,7 +110,7 @@ class MaterialCascaderSelectExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>Tree</code>simple example.</p>
+                                <p><code>Material Cascader Select</code>simple example.</p>
 
                                 <MaterialCascaderSelect theme={MaterialCascaderSelect.Theme.HIGHLIGHT}
                                                         data={this.data}
@@ -140,7 +138,7 @@ class MaterialCascaderSelectExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>MaterialDropdownSelect</code> simple example.</p>
+                                <p><code>Material Cascader Select</code> simple example.</p>
 
                                 <div className="field-group">
                                     <MaterialCascaderSelect theme={MaterialCascaderSelect.Theme.HIGHLIGHT}
@@ -154,7 +152,8 @@ class MaterialCascaderSelectExamples extends Component {
                                                             renderer={node => {
                                                                 return (
                                                                     <div className="self-define-node">
-                                                                        <span className="self-define-node-text">{node.text}</span>
+                                                                        <span
+                                                                            className="self-define-node-text">{node.text}</span>
                                                                         {
                                                                             node.children && node.children.length > 0 ?
                                                                                 <span className="self-define-node-desc">
