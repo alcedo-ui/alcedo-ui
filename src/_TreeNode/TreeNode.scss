@@ -95,7 +95,9 @@
             }
 
             .tree-node-content {
-                display: inline-block;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
 
                 .tree-node-content-desc {
                     opacity: .5;
