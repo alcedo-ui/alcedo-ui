@@ -505,6 +505,8 @@ DropdownSelect.propTypes = {
              */
             desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
+            title: PropTypes.string,
+
             /**
              * If true, the list button will be disabled.
              */

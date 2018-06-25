@@ -495,6 +495,7 @@ class Table extends Component {
                 paggingPrevIconCls, paggingNextIconCls, paggingFirstIconCls, paggingLastIconCls,
 
                 idProp, isPagging, useFullPagging, paggingSelectedCountVisible, paggingPageSizeVisible,
+                paggingCountRenderer,
 
                 // not passing down these props
                 defaultSortType, defaultPageSize, sortInitConfig, onPageChange, hasLineNumber, columns, selectTheme,
@@ -576,6 +577,7 @@ class Table extends Component {
                                          paggingNextIconCls={paggingNextIconCls}
                                          paggingFirstIconCls={paggingFirstIconCls}
                                          paggingLastIconCls={paggingLastIconCls}
+                                         paggingCountRenderer={paggingCountRenderer}
                                          onChange={this.pageChangedHandler}/>
                                 :
                                 <BriefPagging page={pagging.page}
@@ -588,6 +590,7 @@ class Table extends Component {
                                               pageSizeVisible={paggingPageSizeVisible}
                                               paggingPrevIconCls={paggingPrevIconCls}
                                               paggingNextIconCls={paggingNextIconCls}
+                                              paggingCountRenderer={paggingCountRenderer}
                                               onChange={this.pageChangedHandler}/>
                         )
                         :
@@ -779,6 +782,8 @@ Table.propTypes = {
     paggingNextIconCls: PropTypes.string,
     paggingFirstIconCls: PropTypes.string,
     paggingLastIconCls: PropTypes.string,
+
+    paggingCountRenderer: PropTypes.func,
 
     /**
      * The function that trigger when select one item.
