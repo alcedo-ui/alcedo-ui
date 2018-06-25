@@ -88,7 +88,7 @@ class ListItem extends Component {
 
         const {
 
-                index, className, style, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
+                index, className, style, theme, data, text, desc, title, iconCls, rightIconCls, tip, tipPosition,
                 disabled, isLoading, disableTouchRipple, rippleDisplayCenter, renderer, itemRenderer, readOnly,
 
                 checked, selectTheme, selectMode, indeterminateCallback, radioUncheckedIconCls, radioCheckedIconCls,
@@ -115,6 +115,7 @@ class ListItem extends Component {
                      style={style}
                      disabled={disabled || isLoading}
                      readOnly={readOnly}
+                     title={title}
                      onClick={this.clickHandler}
                      onMouseEnter={onMouseEnter}
                      onMouseLeave={onMouseLeave}>
@@ -237,6 +238,7 @@ ListItem.propTypes = {
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     text: PropTypes.any,
     desc: PropTypes.string,
+    title: PropTypes.string,
 
     disabled: PropTypes.bool,
     isLoading: PropTypes.bool,
