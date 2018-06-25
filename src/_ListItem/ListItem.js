@@ -48,8 +48,6 @@ class ListItem extends Component {
 
     clickHandler = e => {
 
-        e.preventDefault();
-
         const {disabled, isLoading, readOnly, autoSelect} = this.props;
 
         if (disabled || isLoading || readOnly) {

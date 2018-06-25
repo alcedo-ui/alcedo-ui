@@ -33,8 +33,6 @@ class Switcher extends Component {
 
     clickHandler = e => {
 
-        e.preventDefault();
-
         const {disabled, isLoading, beforeChange, onClick} = this.props;
 
         if (disabled || isLoading) {

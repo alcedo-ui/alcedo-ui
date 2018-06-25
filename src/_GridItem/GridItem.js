@@ -48,8 +48,6 @@ class GridItem extends Component {
 
     clickHandler = e => {
 
-        e.preventDefault();
-
         const {disabled, isLoading, readOnly} = this.props;
 
         if (disabled || isLoading || readOnly) {

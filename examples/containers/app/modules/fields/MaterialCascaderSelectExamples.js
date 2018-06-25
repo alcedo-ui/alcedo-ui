@@ -147,10 +147,25 @@ class MaterialCascaderSelectExamples extends Component {
                                                             label="Label"
                                                             placeholder="Placeholder"
                                                             selectMode={MaterialCascaderSelect.SelectMode.MULTI_SELECT}
+                                                            position={MaterialCascaderSelect.Position.RIGHT}
+                                                            expandDirection={MaterialCascaderSelect.ExpandDirection.LEFT}
                                                             autoClose={false}
                                                             data={this.data}
-                                                            collapsedIconCls="far fa-plus-square"
-                                                            expandedIconCls="far fa-minus-square"
+                                                            renderer={node => {
+                                                                return (
+                                                                    <div className="self-define-node">
+                                                                        <span className="self-define-node-text">{node.text}</span>
+                                                                        {
+                                                                            node.children && node.children.length > 0 ?
+                                                                                <span className="self-define-node-desc">
+                                                                                    ({node.children.length})
+                                                                                </span>
+                                                                                :
+                                                                                null
+                                                                        }
+                                                                    </div>
+                                                                );
+                                                            }}
                                                             checkboxUncheckedIconCls="far fa-circle"
                                                             checkboxCheckedIconCls="fas fa-check-circle"
                                                             checkboxIndeterminateIconCls="fas fa-minus-circle"

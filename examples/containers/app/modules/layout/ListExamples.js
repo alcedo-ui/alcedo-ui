@@ -19,18 +19,15 @@ class ListExamples extends Component {
         this.listData = [{
             iconCls: 'fab fa-facebook',
             value: 'Facebook',
-            text: 'Facebook',
-            tip: 'Facebook'
+            text: 'Facebook'
         }, {
             iconCls: 'fab fa-twitter',
             value: 'Twitter',
-            text: 'Twitter',
-            tip: 'Twitter'
+            text: 'Twitter'
         }, {
             iconCls: 'fab fa-google-plus-g',
             value: 'Google+',
-            text: 'Google+',
-            tip: 'Google+'
+            text: 'Google+'
         }];
 
         this.disabledListData = [{
@@ -130,7 +127,8 @@ class ListExamples extends Component {
                 <h2 className="example-title">List</h2>
 
                 <p>
-                    <span>List</span> are used to present multiple items vertically as a single continuous
+                    <span>List </span>
+                    are used to present multiple items vertically as a single continuous
                     element. They can be configured for many uses such as a contacts list, nested lists, etc.
                 </p>
 

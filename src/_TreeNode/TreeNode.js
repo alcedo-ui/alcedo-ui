@@ -68,8 +68,6 @@ class TreeNode extends Component {
 
     clickHandler = e => {
 
-        e.preventDefault();
-
         const {data, path, disabled, isLoading, readOnly} = this.props;
 
         if (disabled || isLoading || readOnly || data.disabled || data.isLoading || data.readOnly) {
