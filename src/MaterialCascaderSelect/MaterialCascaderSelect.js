@@ -76,13 +76,11 @@ class MaterialCascaderSelect extends Component {
                               hasValue={value && value.length > 0}
                               disabled={disabled}
                               required={required}>
-
                 <CascaderSelect {...restProps}
                                 ref="cascaderSelect"
                                 value={value}
                                 disabled={disabled}
                                 onChange={this.triggerChangeHandler}/>
-
             </MaterialProvider>
         );
 
@@ -170,8 +168,8 @@ MaterialCascaderSelect.propTypes = {
      */
     placeholder: PropTypes.string,
 
+    title: PropTypes.string,
     triggerValue: PropTypes.string,
-
     rightIconCls: PropTypes.string,
 
     /**

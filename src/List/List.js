@@ -302,6 +302,8 @@ List.propTypes = {
          */
         desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
+        title: PropTypes.string,
+
         /**
          * If true,the list item will be disabled.
          */

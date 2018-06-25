@@ -12,6 +12,7 @@ import MaterialProvider from '../MaterialProvider';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class MaterialLocalAutoComplete extends Component {
 
@@ -50,12 +51,11 @@ class MaterialLocalAutoComplete extends Component {
         this.refs.localAutoComplete && this.refs.localAutoComplete.closePopup();
     };
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
     }
 
     render() {

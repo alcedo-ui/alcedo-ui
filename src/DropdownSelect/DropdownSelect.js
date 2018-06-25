@@ -468,6 +468,8 @@ DropdownSelect.propTypes = {
      */
     placeholder: PropTypes.string,
 
+    title: PropTypes.string,
+
     triggerRenderer: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
 
     rightIconCls: PropTypes.string,
@@ -504,6 +506,8 @@ DropdownSelect.propTypes = {
              * The desc value of the list button. Type can be string or number.
              */
             desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+            title: PropTypes.string,
 
             /**
              * If true, the list button will be disabled.

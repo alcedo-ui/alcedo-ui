@@ -20,6 +20,7 @@ import Valid from '../_vendors/Valid';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
 import Event from '../_vendors/Event';
 import Dom from '../_vendors/Dom';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class LocalAutoComplete extends Component {
 
@@ -38,7 +39,7 @@ class LocalAutoComplete extends Component {
             filterFocused: false,
             popupVisible: false,
             isAbove: false,
-            listData: props.data
+            listData: this.filterData(props.filterInitValue)
         };
 
     }
@@ -57,7 +58,7 @@ class LocalAutoComplete extends Component {
             return filterCallback(filter, data);
         }
 
-        return data.filter(item => {
+        return data && data.filter(item => {
 
             if (!item) {
                 return false;
@@ -285,16 +286,15 @@ class LocalAutoComplete extends Component {
 
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
-    }
-
     componentWillUnmount() {
         Event.removeEvent(document, 'mousedown', this.mouseDownHandler);
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
     }
 
     render() {

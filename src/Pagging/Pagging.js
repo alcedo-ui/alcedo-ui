@@ -42,7 +42,7 @@ class Pagging extends Component {
         const {
             count, page, total, pageSize, pageSizes,
             selectedCount, selectedCountVisible, pageSizeVisible,
-            paggingPrevIconCls, paggingNextIconCls, paggingFirstIconCls, paggingLastIconCls
+            paggingPrevIconCls, paggingNextIconCls, paggingFirstIconCls, paggingLastIconCls, paggingCountRenderer
         } = this.props;
 
         return (
@@ -60,7 +60,12 @@ class Pagging extends Component {
                     }
 
                     <div className="pagging-totle">
-                        {`Total: ${count}`}
+                        {
+                            paggingCountRenderer ?
+                                paggingCountRenderer(count)
+                                :
+                                `Total: ${count}`
+                        }
                     </div>
 
                 </div>
@@ -163,6 +168,8 @@ Pagging.propTypes = {
      * Use this property to set last button icon.
      */
     paggingLastIconCls: PropTypes.string,
+
+    paggingCountRenderer: PropTypes.func,
 
     /**
      * Callback function fired when Pagging component change.
