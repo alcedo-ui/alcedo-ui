@@ -117,7 +117,8 @@ class TableExamples extends Component {
                                        renderer: rowData =>
                                            <IconButton iconCls="fas fa-trash-alt"
                                                        onClick={() => this.deleteRow(rowData.id)}/>
-                                   }]}/>
+                                   }]}
+                                   paggingCountRenderer={count => <span>Self Defined Total Count: {count}</span>}/>
 
                         </div>
                     </div>
