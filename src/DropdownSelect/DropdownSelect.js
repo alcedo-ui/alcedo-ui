@@ -45,6 +45,9 @@ class DropdownSelect extends Component {
     filterChangeHandler = filter => {
         this.setState({
             filter
+        }, () => {
+            const el = this.refs.dropdown;
+            el && el.resetPopupPosition();
         });
     };
 
