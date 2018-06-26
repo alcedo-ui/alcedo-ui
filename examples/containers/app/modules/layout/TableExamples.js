@@ -90,6 +90,10 @@ class TableExamples extends Component {
         console.log(sortConfig, currentData);
     };
 
+    pageChangeHandler = (page, pageSize, currentData) => {
+        console.log(page, pageSize, currentData);
+    };
+
     render() {
 
         const {data} = this.state;
@@ -123,7 +127,8 @@ class TableExamples extends Component {
                                                        onClick={() => this.deleteRow(rowData.id)}/>
                                    }]}
                                    paggingCountRenderer={count => <span>Self Defined Total Count: {count}</span>}
-                                   onSort={this.sortHandler}/>
+                                   onSort={this.sortHandler}
+                                   onPageChange={this.pageChangeHandler}/>
 
                         </div>
                     </div>
