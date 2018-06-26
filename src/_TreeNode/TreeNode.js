@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -128,7 +128,7 @@ class TreeNode extends Component {
             loadingIconPosition = (data.rightIconCls && !data.iconCls) ? 'right' : 'left';
 
         return (
-            <div className="tree-node-wrapper">
+            <Fragment>
 
                 <div className={nodeClassName}
                      style={nodeStyle}
@@ -261,7 +261,7 @@ class TreeNode extends Component {
                         null
                 }
 
-            </div>
+            </Fragment>
         );
 
     }
