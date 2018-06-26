@@ -18,6 +18,7 @@ import SelectMode from '../_statics/SelectMode';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class DropdownSelect extends Component {
 
@@ -44,6 +45,9 @@ class DropdownSelect extends Component {
     filterChangeHandler = filter => {
         this.setState({
             filter
+        }, () => {
+            const el = this.refs.dropdown;
+            el && el.resetPopupPosition();
         });
     };
 
@@ -54,12 +58,10 @@ class DropdownSelect extends Component {
         }
 
         const {displayField, isGrouped} = this.props,
-            filterFunc = (originData) => {
-                return originData.filter(item => typeof item === 'object' && !!item[displayField] ?
-                    item[displayField].toString().toUpperCase().includes(filter.toUpperCase())
-                    :
-                    item.toString().toUpperCase().includes(filter.toUpperCase()));
-            };
+            filterFunc = originData => originData.filter(item => typeof item === 'object' && !!item[displayField] ?
+                item[displayField].toString().toUpperCase().includes(filter.toUpperCase())
+                :
+                item.toString().toUpperCase().includes(filter.toUpperCase()));
 
         if (isGrouped) {
 
@@ -203,27 +205,6 @@ class DropdownSelect extends Component {
 
     };
 
-    getEmptyEl = () => {
-
-        const {noMatchedMsg} = this.props;
-
-        return [{
-            itemRenderer: () =>
-                <div className="no-matched-list-item">
-                    {
-                        noMatchedMsg ?
-                            noMatchedMsg
-                            :
-                            <span>
-                                <i className="fas fa-exclamation-triangle no-matched-list-item-icon"></i>
-                                No matched value.
-                            </span>
-                    }
-                </div>
-        }];
-
-    };
-
     getTriggerValue = () => {
 
         const {placeholder, triggerRenderer, renderer, valueField, displayField, selectMode} = this.props,
@@ -255,12 +236,11 @@ class DropdownSelect extends Component {
 
     };
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
     }
 
     render() {
@@ -269,11 +249,8 @@ class DropdownSelect extends Component {
 
                 className, triggerClassName, popupClassName, style, name, popupTheme, data, triggerRenderer,
                 useDynamicRenderList, listHeight, itemHeight, scrollBuffer, renderer, selectMode,
-                useFilter, useSelectAll, selectAllText, valueField, displayField, descriptionField, popupChildren,
-                isHiddenInputFilter,
-
-                // not passing down these props
-                noMatchedMsg,
+                useFilter, filterIconCls, useSelectAll, selectAllText, valueField, displayField, descriptionField,
+                popupChildren, isHiddenInputFilter, noMatchedMsg,
 
                 ...restProps
 
@@ -333,7 +310,7 @@ class DropdownSelect extends Component {
                             useFilter ?
                                 <TextField className="dropdown-select-filter"
                                            value={filter}
-                                           rightIconCls="fas fa-search"
+                                           rightIconCls={filterIconCls}
                                            onChange={this.filterChangeHandler}/>
                                 :
                                 null
@@ -373,33 +350,46 @@ class DropdownSelect extends Component {
                         }
 
                         {
-                            useDynamicRenderList ?
-                                <DynamicRenderList className="dropdown-select-list"
-                                                   theme={popupTheme}
-                                                   selectMode={selectMode}
-                                                   data={listData.length < 1 ? this.getEmptyEl() : listData}
-                                                   value={value}
-                                                   valueField={valueField}
-                                                   displayField={displayField}
-                                                   descriptionField={descriptionField}
-                                                   listHeight={listHeight}
-                                                   itemHeight={itemHeight}
-                                                   scrollBuffer={scrollBuffer}
-                                                   renderer={renderer}
-                                                   onItemClick={this.itemClickHandler}
-                                                   onChange={this.changeHandler}/>
+                            listData.length < 1 ?
+                                <div className="no-matched">
+                                    {
+                                        noMatchedMsg ?
+                                            noMatchedMsg
+                                            :
+                                            <span>
+                                                <i className="fas fa-exclamation-triangle no-matched-icon"></i>
+                                                No matched value.
+                                            </span>
+                                    }
+                                </div>
                                 :
-                                <List className="dropdown-select-list"
-                                      theme={popupTheme}
-                                      selectMode={selectMode}
-                                      data={listData.length < 1 ? this.getEmptyEl() : listData}
-                                      value={value}
-                                      valueField={valueField}
-                                      displayField={displayField}
-                                      descriptionField={descriptionField}
-                                      renderer={renderer}
-                                      onItemClick={this.itemClickHandler}
-                                      onChange={this.changeHandler}/>
+                                useDynamicRenderList ?
+                                    <DynamicRenderList className="dropdown-select-list"
+                                                       theme={popupTheme}
+                                                       selectMode={selectMode}
+                                                       data={listData}
+                                                       value={value}
+                                                       valueField={valueField}
+                                                       displayField={displayField}
+                                                       descriptionField={descriptionField}
+                                                       listHeight={listHeight}
+                                                       itemHeight={itemHeight}
+                                                       scrollBuffer={scrollBuffer}
+                                                       renderer={renderer}
+                                                       onItemClick={this.itemClickHandler}
+                                                       onChange={this.changeHandler}/>
+                                    :
+                                    <List className="dropdown-select-list"
+                                          theme={popupTheme}
+                                          selectMode={selectMode}
+                                          data={listData}
+                                          value={value}
+                                          valueField={valueField}
+                                          displayField={displayField}
+                                          descriptionField={descriptionField}
+                                          renderer={renderer}
+                                          onItemClick={this.itemClickHandler}
+                                          onChange={this.changeHandler}/>
                         }
 
                     </div>
@@ -467,6 +457,8 @@ DropdownSelect.propTypes = {
      * The placeholder of the dropDownSelect.
      */
     placeholder: PropTypes.string,
+
+    title: PropTypes.string,
 
     triggerRenderer: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
 
@@ -599,6 +591,7 @@ DropdownSelect.propTypes = {
      */
     useFilter: PropTypes.bool,
 
+    filterIconCls: PropTypes.string,
     useSelectAll: PropTypes.bool,
     selectAllText: PropTypes.string,
 
@@ -668,6 +661,7 @@ DropdownSelect.defaultProps = {
 
     autoClose: true,
     useFilter: false,
+    filterIconCls: 'fas fa-search',
     useSelectAll: false,
     selectAllText: 'Select All',
     shouldPreventContainerScroll: true,

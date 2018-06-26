@@ -64,11 +64,11 @@ class TreeSelectExamples extends Component {
         return (
             <div className="example tree-select-examples">
 
-                <h2 className="examples-title">Tree</h2>
+                <h2 className="examples-title">Tree Select</h2>
 
                 <p>
-                    <span>Tree</span>
-                    can fully display the hierarchy, and has interactive functions such as
+                    <span>Tree Select</span>
+                    &nbsp;can fully display the hierarchy, and has interactive functions such as
                     expansion, withdrawal and selection.
                 </p>
 
@@ -84,7 +84,7 @@ class TreeSelectExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>Tree</code>simple example.</p>
+                                <p><code>Tree Select</code>&nbsp;simple example.</p>
 
                                 <TreeSelect data={this.data}
                                             value={{
@@ -118,6 +118,7 @@ class TreeSelectExamples extends Component {
                                             checkboxUncheckedIconCls="far fa-circle"
                                             checkboxCheckedIconCls="fas fa-check-circle"
                                             checkboxIndeterminateIconCls="fas fa-minus-circle"
+                                            useFilter={true}
                                             onChange={this.changeHandler}/>
                             </div>
                         </div>

@@ -140,6 +140,8 @@ MaterialDropdownSelect.propTypes = {
      */
     placeholder: PropTypes.string,
 
+    title: PropTypes.string,
+
     rightIconCls: PropTypes.string,
 
     /**
@@ -267,6 +269,7 @@ MaterialDropdownSelect.propTypes = {
      */
     useFilter: PropTypes.bool,
 
+    filterIconCls: PropTypes.string,
     useSelectAll: PropTypes.bool,
     selectAllText: PropTypes.string,
 
@@ -321,6 +324,7 @@ MaterialDropdownSelect.defaultProps = {
 
     autoClose: true,
     useFilter: false,
+    filterIconCls: 'fas fa-search',
     useSelectAll: false,
     selectAllText: 'Select All',
     isGrouped: false,

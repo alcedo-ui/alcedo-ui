@@ -74,13 +74,11 @@ class MaterialTreeSelect extends Component {
                               hasValue={value && value.length > 0}
                               disabled={disabled}
                               required={required}>
-
                 <TreeSelect {...restProps}
                             ref="treeSelect"
                             value={value}
                             disabled={disabled}
                             onChange={this.triggerChangeHandler}/>
-
             </MaterialProvider>
         );
 
@@ -141,6 +139,7 @@ MaterialTreeSelect.propTypes = {
      */
     placeholder: PropTypes.string,
 
+    title: PropTypes.string,
     rightIconCls: PropTypes.string,
 
     /**
@@ -267,6 +266,9 @@ MaterialTreeSelect.propTypes = {
      */
     autoClose: PropTypes.bool,
 
+    useFilter: PropTypes.bool,
+    filterIconCls: PropTypes.string,
+    noMatchedMsg: PropTypes.string,
     shouldPreventContainerScroll: PropTypes.bool,
     isSelectRecursive: PropTypes.bool,
     allowCollapse: PropTypes.bool,
@@ -325,6 +327,8 @@ MaterialTreeSelect.defaultProps = {
     descriptionField: 'desc',
 
     autoClose: true,
+    useFilter: false,
+    filterIconCls: 'fas fa-search',
 
     shouldPreventContainerScroll: true,
     isSelectRecursive: false,
