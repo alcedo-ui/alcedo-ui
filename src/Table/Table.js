@@ -387,7 +387,8 @@ class Table extends Component {
 
     resetPage = (data = this.props.data, pagging = this.state.pagging) => {
 
-        const {onPageChange} = this.props;
+        const {onPageChange} = this.props,
+            {sortedData} = this.state;
         let {page, pageSize} = pagging,
             total = Math.ceil(data.length / pageSize);
 
@@ -399,12 +400,12 @@ class Table extends Component {
                     page: Valid.range(total - 1, 0)
                 }
             }, () => {
-                onPageChange && onPageChange(page, pageSize);
+                onPageChange && onPageChange(page, pageSize, this.paggingData(sortedData));
             });
             return;
         }
 
-        onPageChange && onPageChange(page, pageSize);
+        onPageChange && onPageChange(page, pageSize, this.paggingData(sortedData));
 
     };
 
