@@ -41,27 +41,6 @@ class TreeSelect extends Component {
 
     }
 
-    getEmptyEl = () => {
-
-        const {noMatchedMsg} = this.props;
-
-        return {
-            itemRenderer: () =>
-                <div className="no-matched-list-item">
-                    {
-                        noMatchedMsg ?
-                            noMatchedMsg
-                            :
-                            <span>
-                                <i className="fas fa-exclamation-triangle no-matched-list-item-icon"></i>
-                                No matched value.
-                            </span>
-                    }
-                </div>
-        };
-
-    };
-
     closePopup = () => {
         this.refs.dropdown && this.refs.dropdown.closePopup();
     };
@@ -197,7 +176,7 @@ class TreeSelect extends Component {
 
                 className, triggerClassName, popupClassName, style, name, data, popupTheme, renderer,
                 selectMode, valueField, displayField, descriptionField, triggerRenderer,
-                useFilter, isSelectRecursive, allowCollapse, onNodeClick, popupChildren,
+                useFilter, isSelectRecursive, allowCollapse, onNodeClick, popupChildren, noMatchedMsg,
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
@@ -265,28 +244,43 @@ class TreeSelect extends Component {
                                 null
                         }
 
-                        <Tree className="tree-select-list"
-                              theme={popupTheme}
-                              selectMode={isEmpty ? SelectMode.SINGLE_SELECT : selectMode}
-                              data={isEmpty ? this.getEmptyEl() : data}
-                              filter={filter}
-                              value={value}
-                              valueField={valueField}
-                              displayField={displayField}
-                              descriptionField={descriptionField}
-                              isSelectRecursive={isSelectRecursive}
-                              allowCollapse={allowCollapse}
-                              collapsedIconCls={collapsedIconCls}
-                              expandedIconCls={expandedIconCls}
-                              radioUncheckedIconCls={radioUncheckedIconCls}
-                              radioCheckedIconCls={radioCheckedIconCls}
-                              checkboxUncheckedIconCls={checkboxUncheckedIconCls}
-                              checkboxCheckedIconCls={checkboxCheckedIconCls}
-                              checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
-                              renderer={renderer}
-                              onNodeClick={onNodeClick}
-                              onNodeSelect={this.nodeSelectHandler}
-                              onChange={this.changeHandler}/>
+                        {
+                            isEmpty ?
+                                <div className="no-matched">
+                                    {
+                                        noMatchedMsg ?
+                                            noMatchedMsg
+                                            :
+                                            <span>
+                                                <i className="fas fa-exclamation-triangle no-matched-icon"></i>
+                                                No matched value.
+                                            </span>
+                                    }
+                                </div>
+                                :
+                                <Tree className="tree-select-list"
+                                      theme={popupTheme}
+                                      selectMode={selectMode}
+                                      data={data}
+                                      filter={filter}
+                                      value={value}
+                                      valueField={valueField}
+                                      displayField={displayField}
+                                      descriptionField={descriptionField}
+                                      isSelectRecursive={isSelectRecursive}
+                                      allowCollapse={allowCollapse}
+                                      collapsedIconCls={collapsedIconCls}
+                                      expandedIconCls={expandedIconCls}
+                                      radioUncheckedIconCls={radioUncheckedIconCls}
+                                      radioCheckedIconCls={radioCheckedIconCls}
+                                      checkboxUncheckedIconCls={checkboxUncheckedIconCls}
+                                      checkboxCheckedIconCls={checkboxCheckedIconCls}
+                                      checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
+                                      renderer={renderer}
+                                      onNodeClick={onNodeClick}
+                                      onNodeSelect={this.nodeSelectHandler}
+                                      onChange={this.changeHandler}/>
+                        }
 
                     </div>
 
