@@ -14,7 +14,7 @@
         }
     }
 
-    .hiddenFilter{
+    .hiddenFilter {
         position: absolute;
         font: inherit;
         background: transparent;
@@ -72,19 +72,20 @@
             overflow-y: auto;
             max-height: inherit;
 
+            .no-matched {
+                line-height: 40px;
+                color: $theme-field;
+                padding: 0 12px;
+
+                .no-matched-icon {
+                    color: $theme-warning;
+                    margin-right: 10px;
+                }
+            }
+
             .dropdown-select-list,
             .list {
                 width: 100%;
-
-                .no-matched-list-item {
-                    line-height: 40px;
-                    color: $theme-field;
-
-                    .no-matched-list-item-icon {
-                        color: $theme-warning;
-                        margin-right: 10px;
-                    }
-                }
             }
         }
 

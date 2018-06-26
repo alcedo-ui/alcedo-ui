@@ -201,27 +201,6 @@ class DropdownSelect extends Component {
 
     };
 
-    getEmptyEl = () => {
-
-        const {noMatchedMsg} = this.props;
-
-        return [{
-            itemRenderer: () =>
-                <div className="no-matched-list-item">
-                    {
-                        noMatchedMsg ?
-                            noMatchedMsg
-                            :
-                            <span>
-                                <i className="fas fa-exclamation-triangle no-matched-list-item-icon"></i>
-                                No matched value.
-                            </span>
-                    }
-                </div>
-        }];
-
-    };
-
     getTriggerValue = () => {
 
         const {placeholder, triggerRenderer, renderer, valueField, displayField, selectMode} = this.props,
@@ -268,10 +247,7 @@ class DropdownSelect extends Component {
                 className, triggerClassName, popupClassName, style, name, popupTheme, data, triggerRenderer,
                 useDynamicRenderList, listHeight, itemHeight, scrollBuffer, renderer, selectMode,
                 useFilter, useSelectAll, selectAllText, valueField, displayField, descriptionField, popupChildren,
-                isHiddenInputFilter,
-
-                // not passing down these props
-                noMatchedMsg,
+                isHiddenInputFilter, noMatchedMsg,
 
                 ...restProps
 
@@ -371,33 +347,46 @@ class DropdownSelect extends Component {
                         }
 
                         {
-                            useDynamicRenderList ?
-                                <DynamicRenderList className="dropdown-select-list"
-                                                   theme={popupTheme}
-                                                   selectMode={selectMode}
-                                                   data={listData.length < 1 ? this.getEmptyEl() : listData}
-                                                   value={value}
-                                                   valueField={valueField}
-                                                   displayField={displayField}
-                                                   descriptionField={descriptionField}
-                                                   listHeight={listHeight}
-                                                   itemHeight={itemHeight}
-                                                   scrollBuffer={scrollBuffer}
-                                                   renderer={renderer}
-                                                   onItemClick={this.itemClickHandler}
-                                                   onChange={this.changeHandler}/>
+                            listData.length < 1 ?
+                                <div className="no-matched">
+                                    {
+                                        noMatchedMsg ?
+                                            noMatchedMsg
+                                            :
+                                            <span>
+                                                <i className="fas fa-exclamation-triangle no-matched-icon"></i>
+                                                No matched value.
+                                            </span>
+                                    }
+                                </div>
                                 :
-                                <List className="dropdown-select-list"
-                                      theme={popupTheme}
-                                      selectMode={selectMode}
-                                      data={listData.length < 1 ? this.getEmptyEl() : listData}
-                                      value={value}
-                                      valueField={valueField}
-                                      displayField={displayField}
-                                      descriptionField={descriptionField}
-                                      renderer={renderer}
-                                      onItemClick={this.itemClickHandler}
-                                      onChange={this.changeHandler}/>
+                                useDynamicRenderList ?
+                                    <DynamicRenderList className="dropdown-select-list"
+                                                       theme={popupTheme}
+                                                       selectMode={selectMode}
+                                                       data={listData}
+                                                       value={value}
+                                                       valueField={valueField}
+                                                       displayField={displayField}
+                                                       descriptionField={descriptionField}
+                                                       listHeight={listHeight}
+                                                       itemHeight={itemHeight}
+                                                       scrollBuffer={scrollBuffer}
+                                                       renderer={renderer}
+                                                       onItemClick={this.itemClickHandler}
+                                                       onChange={this.changeHandler}/>
+                                    :
+                                    <List className="dropdown-select-list"
+                                          theme={popupTheme}
+                                          selectMode={selectMode}
+                                          data={listData}
+                                          value={value}
+                                          valueField={valueField}
+                                          displayField={displayField}
+                                          descriptionField={descriptionField}
+                                          renderer={renderer}
+                                          onItemClick={this.itemClickHandler}
+                                          onChange={this.changeHandler}/>
                         }
 
                     </div>
