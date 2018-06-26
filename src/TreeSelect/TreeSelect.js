@@ -188,8 +188,6 @@ class TreeSelect extends Component {
             } = this.props,
             {value, filter, popupVisible} = this.state,
 
-            isEmpty = this.isEmpty(),
-
             wrapperClassName = classNames('tree-select', {
                 [className]: className
             }),
@@ -248,7 +246,7 @@ class TreeSelect extends Component {
                         }
 
                         {
-                            isEmpty ?
+                            this.isEmpty() ?
                                 <div className="no-matched">
                                     {
                                         noMatchedMsg ?
