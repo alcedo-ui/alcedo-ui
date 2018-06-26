@@ -30,7 +30,7 @@
     background-color: $theme-field-bg-disabled;
 }
 
-.tree-node-wrapper {
+.tree {
 
     .tree-node {
         display: block;
@@ -50,6 +50,7 @@
         background-color: $theme-field-bg;
 
         .tree-node-inner {
+            @include float-fix;
             position: relative;
 
             .tree-node-collapse-icon {
@@ -71,7 +72,6 @@
                 height: 40px;
                 margin-right: 10px;
                 overflow: hidden;
-                vertical-align: bottom;
             }
 
             .button-icon {
@@ -96,7 +96,6 @@
             }
 
             .tree-node-content {
-                float: left;
                 overflow: hidden;
                 white-space: nowrap;
                 text-overflow: ellipsis;
