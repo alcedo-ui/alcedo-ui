@@ -54,12 +54,10 @@ class DropdownSelect extends Component {
         }
 
         const {displayField, isGrouped} = this.props,
-            filterFunc = (originData) => {
-                return originData.filter(item => typeof item === 'object' && !!item[displayField] ?
-                    item[displayField].toString().toUpperCase().includes(filter.toUpperCase())
-                    :
-                    item.toString().toUpperCase().includes(filter.toUpperCase()));
-            };
+            filterFunc = originData => originData.filter(item => typeof item === 'object' && !!item[displayField] ?
+                item[displayField].toString().toUpperCase().includes(filter.toUpperCase())
+                :
+                item.toString().toUpperCase().includes(filter.toUpperCase()));
 
         if (isGrouped) {
 
