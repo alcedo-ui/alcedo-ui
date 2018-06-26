@@ -18,6 +18,7 @@ import SelectMode from '../_statics/SelectMode';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class DropdownSelect extends Component {
 
@@ -232,12 +233,11 @@ class DropdownSelect extends Component {
 
     };
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
     }
 
     render() {
