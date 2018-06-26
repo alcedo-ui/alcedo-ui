@@ -249,8 +249,8 @@ class DropdownSelect extends Component {
 
                 className, triggerClassName, popupClassName, style, name, popupTheme, data, triggerRenderer,
                 useDynamicRenderList, listHeight, itemHeight, scrollBuffer, renderer, selectMode,
-                useFilter, useSelectAll, selectAllText, valueField, displayField, descriptionField, popupChildren,
-                isHiddenInputFilter, noMatchedMsg,
+                useFilter, filterIconCls, useSelectAll, selectAllText, valueField, displayField, descriptionField,
+                popupChildren, isHiddenInputFilter, noMatchedMsg,
 
                 ...restProps
 
@@ -310,7 +310,7 @@ class DropdownSelect extends Component {
                             useFilter ?
                                 <TextField className="dropdown-select-filter"
                                            value={filter}
-                                           rightIconCls="fas fa-search"
+                                           rightIconCls={filterIconCls}
                                            onChange={this.filterChangeHandler}/>
                                 :
                                 null
@@ -591,6 +591,7 @@ DropdownSelect.propTypes = {
      */
     useFilter: PropTypes.bool,
 
+    filterIconCls: PropTypes.string,
     useSelectAll: PropTypes.bool,
     selectAllText: PropTypes.string,
 
@@ -660,6 +661,7 @@ DropdownSelect.defaultProps = {
 
     autoClose: true,
     useFilter: false,
+    filterIconCls: 'fas fa-search',
     useSelectAll: false,
     selectAllText: 'Select All',
     shouldPreventContainerScroll: true,
