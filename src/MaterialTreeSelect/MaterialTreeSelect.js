@@ -266,6 +266,8 @@ MaterialTreeSelect.propTypes = {
      */
     autoClose: PropTypes.bool,
 
+    useFilter: PropTypes.bool,
+    noMatchedMsg: PropTypes.string,
     shouldPreventContainerScroll: PropTypes.bool,
     isSelectRecursive: PropTypes.bool,
     allowCollapse: PropTypes.bool,
@@ -324,6 +326,7 @@ MaterialTreeSelect.defaultProps = {
     descriptionField: 'desc',
 
     autoClose: true,
+    useFilter: false,
 
     shouldPreventContainerScroll: true,
     isSelectRecursive: false,
