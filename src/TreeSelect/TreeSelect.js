@@ -6,11 +6,13 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import cloneDeep from 'lodash/cloneDeep';
 
 import Dropdown from '../Dropdown';
 import Tree from '../Tree';
 import Theme from '../Theme';
 import Tip from '../Tip';
+import TextField from '../TextField';
 
 import SelectMode from '../_statics/SelectMode';
 
@@ -30,6 +32,7 @@ class TreeSelect extends Component {
         super(props, ...restArgs);
 
         this.state = {
+            filter: '',
             value: props.value,
             popupVisible: false,
             path: props.selectMode === SelectMode.SINGLE_SELECT ?
@@ -133,6 +136,33 @@ class TreeSelect extends Component {
         });
     };
 
+    filterChangeHandler = filter => {
+        this.setState({
+            filter
+        });
+    };
+
+    isEmpty = (filter = this.state.filter, data = this.props.data) => {
+
+        if (!filter) {
+            return data.length < 1;
+        }
+
+        const {displayField} = this.props;
+        let result = true;
+
+        Util.preOrderTraverse(data, node => {
+            if (node && !!node[displayField]
+                && node[displayField].toString().toUpperCase().includes(filter.toUpperCase())) {
+                result = false;
+                return false;
+            }
+        });
+
+        return result;
+
+    };
+
     static getDerivedStateFromProps(props, state) {
         return {
             prevProps: props,
@@ -144,16 +174,18 @@ class TreeSelect extends Component {
 
         const {
 
-                className, triggerClassName, popupClassName, style, name, popupTheme, data, renderer,
+                className, triggerClassName, popupClassName, style, name, data, popupTheme, renderer,
                 selectMode, valueField, displayField, descriptionField, triggerRenderer,
-                isSelectRecursive, allowCollapse, onNodeClick, popupChildren,
+                useFilter, isSelectRecursive, allowCollapse, onNodeClick, popupChildren, noMatchedMsg,
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
                 ...restProps
 
             } = this.props,
-            {value, popupVisible} = this.state,
+            {value, filter, popupVisible} = this.state,
+
+            isEmpty = this.isEmpty(),
 
             wrapperClassName = classNames('tree-select', {
                 [className]: className
@@ -190,30 +222,65 @@ class TreeSelect extends Component {
                           triggerValue={this.getTriggerValue()}
                           onClosePopup={this.popupClosedHandler}>
 
+                    <div className="tree-select-popup-fixed">
+                        {
+                            useFilter ?
+                                <TextField className="tree-select-filter"
+                                           value={filter}
+                                           rightIconCls="fas fa-search"
+                                           onChange={this.filterChangeHandler}/>
+                                :
+                                null
+                        }
+                    </div>
+
                     <div className="tree-select-list-scroller"
                          onWheel={e => Event.wheelHandler(e, this.props)}>
 
-                        <Tree className="tree-select-list"
-                              theme={popupTheme}
-                              selectMode={selectMode}
-                              data={data}
-                              value={value}
-                              valueField={valueField}
-                              displayField={displayField}
-                              descriptionField={descriptionField}
-                              isSelectRecursive={isSelectRecursive}
-                              allowCollapse={allowCollapse}
-                              collapsedIconCls={collapsedIconCls}
-                              expandedIconCls={expandedIconCls}
-                              radioUncheckedIconCls={radioUncheckedIconCls}
-                              radioCheckedIconCls={radioCheckedIconCls}
-                              checkboxUncheckedIconCls={checkboxUncheckedIconCls}
-                              checkboxCheckedIconCls={checkboxCheckedIconCls}
-                              checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
-                              renderer={renderer}
-                              onNodeClick={onNodeClick}
-                              onNodeSelect={this.nodeSelectHandler}
-                              onChange={this.changeHandler}/>
+                        {
+                            useFilter ?
+                                <div className="tree-select-filter-placeholder"></div>
+                                :
+                                null
+                        }
+
+                        {
+                            isEmpty ?
+                                <div className="no-matched">
+                                    {
+                                        noMatchedMsg ?
+                                            noMatchedMsg
+                                            :
+                                            <span>
+                                                <i className="fas fa-exclamation-triangle no-matched-icon"></i>
+                                                No matched value.
+                                            </span>
+                                    }
+                                </div>
+                                :
+                                <Tree className="tree-select-list"
+                                      theme={popupTheme}
+                                      selectMode={selectMode}
+                                      data={data}
+                                      filter={filter}
+                                      value={value}
+                                      valueField={valueField}
+                                      displayField={displayField}
+                                      descriptionField={descriptionField}
+                                      isSelectRecursive={isSelectRecursive}
+                                      allowCollapse={allowCollapse}
+                                      collapsedIconCls={collapsedIconCls}
+                                      expandedIconCls={expandedIconCls}
+                                      radioUncheckedIconCls={radioUncheckedIconCls}
+                                      radioCheckedIconCls={radioCheckedIconCls}
+                                      checkboxUncheckedIconCls={checkboxUncheckedIconCls}
+                                      checkboxCheckedIconCls={checkboxCheckedIconCls}
+                                      checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
+                                      renderer={renderer}
+                                      onNodeClick={onNodeClick}
+                                      onNodeSelect={this.nodeSelectHandler}
+                                      onChange={this.changeHandler}/>
+                        }
 
                     </div>
 
@@ -404,6 +471,8 @@ TreeSelect.propTypes = {
      */
     autoClose: PropTypes.bool,
 
+    useFilter: PropTypes.bool,
+    noMatchedMsg: PropTypes.string,
     shouldPreventContainerScroll: PropTypes.bool,
     isSelectRecursive: PropTypes.bool,
     allowCollapse: PropTypes.bool,
@@ -460,6 +529,7 @@ TreeSelect.defaultProps = {
     descriptionField: 'desc',
 
     autoClose: true,
+    useFilter: false,
 
     shouldPreventContainerScroll: true,
     isSelectRecursive: false,

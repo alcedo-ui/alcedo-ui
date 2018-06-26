@@ -118,6 +118,7 @@ class TreeSelectExamples extends Component {
                                             checkboxUncheckedIconCls="far fa-circle"
                                             checkboxCheckedIconCls="fas fa-check-circle"
                                             checkboxIndeterminateIconCls="fas fa-minus-circle"
+                                            useFilter={true}
                                             onChange={this.changeHandler}/>
                             </div>
                         </div>

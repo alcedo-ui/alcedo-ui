@@ -212,7 +212,7 @@ class Tree extends Component {
     render() {
 
         const {
-                children, className, style, theme, data, allowCollapse,
+                children, className, style, theme, data, filter, allowCollapse,
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
                 valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
@@ -236,6 +236,7 @@ class Tree extends Component {
                           valueField={valueField}
                           displayField={displayField}
                           descriptionField={descriptionField}
+                          filter={filter}
                           disabled={disabled}
                           isLoading={isLoading}
                           readOnly={readOnly}
@@ -379,6 +380,8 @@ Tree.propTypes = {
      * The description field name in data. (default: "desc")
      */
     descriptionField: PropTypes.string,
+
+    filter: PropTypes.string,
 
     /**
      * If true, the tree will be disabled.
