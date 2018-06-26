@@ -52,15 +52,9 @@
                     margin: 0;
                 }
             }
-
-            .tree-select-all-wrapper {
-                box-sizing: border-box;
-                border-bottom: 1px solid $theme-border;
-            }
         }
 
-        .tree-select-filter-placeholder,
-        .tree-select-all-placeholder {
+        .tree-select-filter-placeholder {
             height: 40px;
         }
 
