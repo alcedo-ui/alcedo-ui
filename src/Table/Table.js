@@ -179,12 +179,14 @@ class Table extends Component {
             type
         };
 
+        const sortedData = this.sortData(data, sort);
+
         this.setState({
             sort,
-            sortedData: this.sortData(data, sort)
+            sortedData
         }, () => {
-            const {onSort} = this.props;
-            onSort && onSort(sort);
+            const {isPagging, onSort} = this.props;
+            onSort && onSort(sort, isPagging ? this.paggingData(sortedData) : sortedData);
         });
 
     };
