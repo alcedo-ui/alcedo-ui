@@ -148,7 +148,7 @@ class TreeSelect extends Component {
     isEmpty = (filter = this.state.filter, data = this.props.data) => {
 
         if (!filter) {
-            return !!data;
+            return !data;
         }
 
         const {displayField} = this.props;
