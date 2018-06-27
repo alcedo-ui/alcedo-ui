@@ -86,12 +86,16 @@ class TableExamples extends Component {
 
     };
 
-    sortHandler = (sortConfig, currentData) => {
-        console.log(sortConfig, currentData);
+    sortHandler = (sortConfig) => {
+        console.log(sortConfig);
     };
 
-    pageChangeHandler = (page, pageSize, currentData) => {
-        console.log(page, pageSize, currentData);
+    pageChangeHandler = (page, pageSize) => {
+        console.log(page, pageSize);
+    };
+
+    dataUpdateHandler = currentPageData => {
+        console.log(currentPageData);
     };
 
     render() {
@@ -128,7 +132,8 @@ class TableExamples extends Component {
                                    }]}
                                    paggingCountRenderer={count => <span>Self Defined Total Count: {count}</span>}
                                    onSort={this.sortHandler}
-                                   onPageChange={this.pageChangeHandler}/>
+                                   onPageChange={this.pageChangeHandler}
+                                   onDataUpdate={this.dataUpdateHandler}/>
 
                         </div>
                     </div>
@@ -147,6 +152,7 @@ class TableExamples extends Component {
 
                             <Table columns={this.columns}
                                    selectMode={Table.SelectMode.MULTI_SELECT}
+                                   selectAllMode={Table.SelectAllMode.CURRENT_PAGE}
                                    data={data}
                                    paggingSelectedCountVisible={true}
                                    defaultPageSize={20}
