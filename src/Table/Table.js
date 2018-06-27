@@ -146,20 +146,53 @@ class Table extends Component {
 
     headCheckBoxChangeHandler = checked => {
 
-        const {selectAllMode, data} = this.props,
-            value = !checked ?
-                []
-                :
-                selectAllMode === SelectAllMode.ALL ?
-                    data.filter(item => !item.disabled)
-                    :
-                    this.getCurrentPageData();
+        const {selectAllMode, data} = this.props;
+        let result;
+        // value = !checked ?
+        //     []
+        //     :
+        //     selectAllMode === SelectAllMode.ALL ?
+        //         data.filter(item => !item.disabled)
+        //         :
+        //         this.getCurrentPageData();
+
+        if (selectAllMode === SelectAllMode.ALL) {
+            result = checked ? data.filter(item => !item.disabled) : [];
+        } else {
+
+            const {idProp} = this.props,
+                {value} = this.state,
+                currentPageData = this.getCurrentPageData();
+            result = value.slice();
+
+            if (checked) {
+                if (!result || result.length < 1) {
+                    result = currentPageData;
+                } else {
+                    for (let item of currentPageData) {
+                        if (result.findIndex(valueItem =>
+                            idProp in item && idProp in valueItem && item[idProp] === valueItem[idProp]) === -1) {
+                            result.push(item);
+                        }
+                    }
+                }
+            } else {
+                for (let item of currentPageData) {
+                    const index = result.findIndex(valueItem =>
+                        idProp in item && idProp in valueItem && item[idProp] === valueItem[idProp]);
+                    if (index > -1) {
+                        result.splice(index, 1);
+                    }
+                }
+            }
+
+        }
 
         this.setState({
-            value
+            value: result
         }, () => {
             const {onChange} = this.props;
-            onChange && onChange(value);
+            onChange && onChange(result);
         });
 
     };
@@ -185,8 +218,8 @@ class Table extends Component {
             sort,
             sortedData
         }, () => {
-            const {isPagging, onSort} = this.props;
-            onSort && onSort(sort, isPagging ? this.paggingData(sortedData) : sortedData);
+            const {onSort} = this.props;
+            onSort && onSort(sort);
         });
 
     };
@@ -387,8 +420,7 @@ class Table extends Component {
 
     resetPage = (data = this.props.data, pagging = this.state.pagging) => {
 
-        const {onPageChange} = this.props,
-            {sortedData} = this.state;
+        const {onPageChange} = this.props;
         let {page, pageSize} = pagging,
             total = Math.ceil(data.length / pageSize);
 
@@ -400,12 +432,12 @@ class Table extends Component {
                     page: Valid.range(total - 1, 0)
                 }
             }, () => {
-                onPageChange && onPageChange(page, pageSize, this.paggingData(sortedData));
+                onPageChange && onPageChange(page, pageSize);
             });
             return;
         }
 
-        onPageChange && onPageChange(page, pageSize, this.paggingData(sortedData));
+        onPageChange && onPageChange(page, pageSize);
 
     };
 
