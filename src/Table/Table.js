@@ -148,13 +148,6 @@ class Table extends Component {
 
         const {selectAllMode, data} = this.props;
         let result;
-        // value = !checked ?
-        //     []
-        //     :
-        //     selectAllMode === SelectAllMode.ALL ?
-        //         data.filter(item => !item.disabled)
-        //         :
-        //         this.getCurrentPageData();
 
         if (selectAllMode === SelectAllMode.ALL) {
             result = checked ? data.filter(item => !item.disabled) : [];
