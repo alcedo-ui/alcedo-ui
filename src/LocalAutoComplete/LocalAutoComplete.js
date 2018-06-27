@@ -98,7 +98,7 @@ class LocalAutoComplete extends Component {
 
         onFocus && onFocus(...args);
 
-        if (filter.length >= minFilterLength) {
+        if (filter !== null && filter.length >= minFilterLength) {
             state.popupVisible = true;
             state.tempSelectIndex = listData.length > 0 ? 0 : null;
         }
@@ -169,7 +169,7 @@ class LocalAutoComplete extends Component {
         const {data, minFilterLength} = this.props,
             state = {
                 filter,
-                popupVisible: !!filter && filter.length >= minFilterLength
+                popupVisible: filter !== null && filter.length >= minFilterLength
             };
 
         if (!filter) {
