@@ -86,12 +86,12 @@ class TableExamples extends Component {
 
     };
 
-    sortHandler = (sortConfig, currentData) => {
-        console.log(sortConfig, currentData);
+    sortHandler = (sortConfig) => {
+        console.log(sortConfig);
     };
 
-    pageChangeHandler = (page, pageSize, currentData) => {
-        console.log(page, pageSize, currentData);
+    pageChangeHandler = (page, pageSize) => {
+        console.log(page, pageSize);
     };
 
     render() {
