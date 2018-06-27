@@ -147,6 +147,7 @@ class TableExamples extends Component {
 
                             <Table columns={this.columns}
                                    selectMode={Table.SelectMode.MULTI_SELECT}
+                                   selectAllMode={Table.SelectAllMode.CURRENT_PAGE}
                                    data={data}
                                    paggingSelectedCountVisible={true}
                                    defaultPageSize={20}
