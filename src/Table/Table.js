@@ -62,9 +62,9 @@ class Table extends Component {
 
     }
 
-    getCurrentPageData = () => {
+    getCurrentPageData = (state = this.state) => {
 
-        const {sortedData, pagging} = this.state;
+        const {sortedData, pagging} = state;
 
         if (!sortedData || sortedData.length < 1 || !pagging) {
             return [];
@@ -495,6 +495,11 @@ class Table extends Component {
 
     };
 
+    componentDidMount() {
+        const {onDataUpdate} = this.props;
+        onDataUpdate && onDataUpdate(this.getCurrentPageData());
+    }
+
     componentWillReceiveProps(nextProps) {
 
         if (nextProps.data.length !== this.props.data.length) {
@@ -513,6 +518,11 @@ class Table extends Component {
 
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        const {onDataUpdate} = this.props;
+        onDataUpdate && onDataUpdate(this.getCurrentPageData());
+    }
+
     render() {
 
         const {
@@ -529,6 +539,7 @@ class Table extends Component {
                 defaultSortType, defaultPageSize, sortInitConfig, onPageChange, hasLineNumber, columns, selectTheme,
                 radioUncheckedIconCls, radioCheckedIconCls, checkboxUncheckedIconCls, checkboxCheckedIconCls,
                 checkboxIndeterminateIconCls, selectAllMode, isClearSelectionOnChangePage, sortFunc, onSort,
+                onDataUpdate,
 
                 ...restProps
 
@@ -835,7 +846,8 @@ Table.propTypes = {
 
     onSort: PropTypes.func,
     onPageChange: PropTypes.func,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    onDataUpdate: PropTypes.func
 
 };
 
