@@ -94,6 +94,10 @@ class TableExamples extends Component {
         console.log(page, pageSize);
     };
 
+    dataUpdateHandler = currentPageData => {
+        console.log(currentPageData);
+    };
+
     render() {
 
         const {data} = this.state;
@@ -128,7 +132,8 @@ class TableExamples extends Component {
                                    }]}
                                    paggingCountRenderer={count => <span>Self Defined Total Count: {count}</span>}
                                    onSort={this.sortHandler}
-                                   onPageChange={this.pageChangeHandler}/>
+                                   onPageChange={this.pageChangeHandler}
+                                   onDataUpdate={this.dataUpdateHandler}/>
 
                         </div>
                     </div>
