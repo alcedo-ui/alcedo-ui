@@ -36,6 +36,20 @@ class TextArea extends Component {
 
     }
 
+    /**
+     * public
+     */
+    focus = () => {
+        this.refs.input.focus();
+    };
+
+    /**
+     * public
+     */
+    blur = () => {
+        this.refs.input.blur();
+    };
+
     changeHandler = e => {
 
         const {onValid, onInvalid} = this.props,
