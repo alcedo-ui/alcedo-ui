@@ -139,13 +139,16 @@ class TreeSelect extends Component {
     filterChangeHandler = filter => {
         this.setState({
             filter
+        }, () => {
+            const el = this.refs.dropdown;
+            el && el.resetPopupPosition();
         });
     };
 
     isEmpty = (filter = this.state.filter, data = this.props.data) => {
 
         if (!filter) {
-            return data.length < 1;
+            return !!data;
         }
 
         const {displayField} = this.props;
@@ -176,7 +179,7 @@ class TreeSelect extends Component {
 
                 className, triggerClassName, popupClassName, style, name, data, popupTheme, renderer,
                 selectMode, valueField, displayField, descriptionField, triggerRenderer,
-                useFilter, isSelectRecursive, allowCollapse, onNodeClick, popupChildren, noMatchedMsg,
+                useFilter, filterIconCls, isSelectRecursive, allowCollapse, onNodeClick, popupChildren, noMatchedMsg,
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
@@ -184,8 +187,6 @@ class TreeSelect extends Component {
 
             } = this.props,
             {value, filter, popupVisible} = this.state,
-
-            isEmpty = this.isEmpty(),
 
             wrapperClassName = classNames('tree-select', {
                 [className]: className
@@ -227,7 +228,7 @@ class TreeSelect extends Component {
                             useFilter ?
                                 <TextField className="tree-select-filter"
                                            value={filter}
-                                           rightIconCls="fas fa-search"
+                                           rightIconCls={filterIconCls}
                                            onChange={this.filterChangeHandler}/>
                                 :
                                 null
@@ -245,7 +246,7 @@ class TreeSelect extends Component {
                         }
 
                         {
-                            isEmpty ?
+                            this.isEmpty() ?
                                 <div className="no-matched">
                                     {
                                         noMatchedMsg ?
@@ -472,6 +473,7 @@ TreeSelect.propTypes = {
     autoClose: PropTypes.bool,
 
     useFilter: PropTypes.bool,
+    filterIconCls: PropTypes.string,
     noMatchedMsg: PropTypes.string,
     shouldPreventContainerScroll: PropTypes.bool,
     isSelectRecursive: PropTypes.bool,
@@ -530,6 +532,7 @@ TreeSelect.defaultProps = {
 
     autoClose: true,
     useFilter: false,
+    filterIconCls: 'fas fa-search',
 
     shouldPreventContainerScroll: true,
     isSelectRecursive: false,

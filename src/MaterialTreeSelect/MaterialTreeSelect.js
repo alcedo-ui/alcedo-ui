@@ -266,6 +266,9 @@ MaterialTreeSelect.propTypes = {
      */
     autoClose: PropTypes.bool,
 
+    useFilter: PropTypes.bool,
+    filterIconCls: PropTypes.string,
+    noMatchedMsg: PropTypes.string,
     shouldPreventContainerScroll: PropTypes.bool,
     isSelectRecursive: PropTypes.bool,
     allowCollapse: PropTypes.bool,
@@ -324,6 +327,8 @@ MaterialTreeSelect.defaultProps = {
     descriptionField: 'desc',
 
     autoClose: true,
+    useFilter: false,
+    filterIconCls: 'fas fa-search',
 
     shouldPreventContainerScroll: true,
     isSelectRecursive: false,

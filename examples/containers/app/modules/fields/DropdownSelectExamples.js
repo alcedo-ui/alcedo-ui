@@ -204,7 +204,6 @@ class DropdownSelectExamples extends Component {
 
                 </Widget>
 
-
                 <h2 className="example-title">Properties</h2>
 
                 <PropTypeDescTable data={doc}/>

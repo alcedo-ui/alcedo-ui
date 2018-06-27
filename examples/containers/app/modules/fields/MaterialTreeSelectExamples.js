@@ -115,6 +115,7 @@ class MaterialTreeSelectExamples extends Component {
                                                         autoClose={false}
                                                         data={this.data}
                                                         isSelectRecursive={true}
+                                                        useFilter={true}
                                                         collapsedIconCls="far fa-plus-square"
                                                         expandedIconCls="far fa-minus-square"
                                                         checkboxUncheckedIconCls="far fa-circle"

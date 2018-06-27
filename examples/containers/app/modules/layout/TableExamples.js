@@ -66,8 +66,8 @@ class TableExamples extends Component {
         for (let i = 0; i < size; i++) {
             data.push({
                 id: i,
-                firstName: `firstNameaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa${i}`,
-                lastName: `lastName${i}`
+                firstName: `firstName ${i}`,
+                lastName: `lastName ${i}`
             });
         }
 
@@ -84,6 +84,18 @@ class TableExamples extends Component {
             data: newData
         });
 
+    };
+
+    sortHandler = (sortConfig) => {
+        console.log(sortConfig);
+    };
+
+    pageChangeHandler = (page, pageSize) => {
+        console.log(page, pageSize);
+    };
+
+    dataUpdateHandler = currentPageData => {
+        console.log(currentPageData);
     };
 
     render() {
@@ -118,7 +130,10 @@ class TableExamples extends Component {
                                            <IconButton iconCls="fas fa-trash-alt"
                                                        onClick={() => this.deleteRow(rowData.id)}/>
                                    }]}
-                                   paggingCountRenderer={count => <span>Self Defined Total Count: {count}</span>}/>
+                                   paggingCountRenderer={count => <span>Self Defined Total Count: {count}</span>}
+                                   onSort={this.sortHandler}
+                                   onPageChange={this.pageChangeHandler}
+                                   onDataUpdate={this.dataUpdateHandler}/>
 
                         </div>
                     </div>
@@ -137,6 +152,7 @@ class TableExamples extends Component {
 
                             <Table columns={this.columns}
                                    selectMode={Table.SelectMode.MULTI_SELECT}
+                                   selectAllMode={Table.SelectAllMode.CURRENT_PAGE}
                                    data={data}
                                    paggingSelectedCountVisible={true}
                                    defaultPageSize={20}

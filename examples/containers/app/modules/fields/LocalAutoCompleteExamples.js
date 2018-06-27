@@ -69,7 +69,7 @@ class LocalAutoCompleteExamples extends Component {
 
                                 <LocalAutoComplete data={this.data}
                                                    placeholder="Please select ..."
-                                                   filterInitValue="test"
+                                                   minFilterLength={0}
                                                    onChange={this.onChange}
                                                    onFilterPressEnter={this.filterPressEnterHandler}
                                                    onFilterClear={this.filterClearHandler}/>

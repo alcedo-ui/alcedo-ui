@@ -62,9 +62,9 @@ class Table extends Component {
 
     }
 
-    getCurrentPageData = () => {
+    getCurrentPageData = (state = this.state) => {
 
-        const {sortedData, pagging} = this.state;
+        const {sortedData, pagging} = state;
 
         if (!sortedData || sortedData.length < 1 || !pagging) {
             return [];
@@ -146,20 +146,46 @@ class Table extends Component {
 
     headCheckBoxChangeHandler = checked => {
 
-        const {selectAllMode, data} = this.props,
-            value = !checked ?
-                []
-                :
-                selectAllMode === SelectAllMode.ALL ?
-                    data.filter(item => !item.disabled)
-                    :
-                    this.getCurrentPageData();
+        const {selectAllMode, data} = this.props;
+        let result;
+
+        if (selectAllMode === SelectAllMode.ALL) {
+            result = checked ? data.filter(item => !item.disabled) : [];
+        } else {
+
+            const {idProp} = this.props,
+                {value} = this.state,
+                currentPageData = this.getCurrentPageData();
+            result = value.slice();
+
+            if (checked) {
+                if (!result || result.length < 1) {
+                    result = currentPageData;
+                } else {
+                    for (let item of currentPageData) {
+                        if (result.findIndex(valueItem =>
+                            idProp in item && idProp in valueItem && item[idProp] === valueItem[idProp]) === -1) {
+                            result.push(item);
+                        }
+                    }
+                }
+            } else {
+                for (let item of currentPageData) {
+                    const index = result.findIndex(valueItem =>
+                        idProp in item && idProp in valueItem && item[idProp] === valueItem[idProp]);
+                    if (index > -1) {
+                        result.splice(index, 1);
+                    }
+                }
+            }
+
+        }
 
         this.setState({
-            value
+            value: result
         }, () => {
             const {onChange} = this.props;
-            onChange && onChange(value);
+            onChange && onChange(result);
         });
 
     };
@@ -179,9 +205,11 @@ class Table extends Component {
             type
         };
 
+        const sortedData = this.sortData(data, sort);
+
         this.setState({
             sort,
-            sortedData: this.sortData(data, sort)
+            sortedData
         }, () => {
             const {onSort} = this.props;
             onSort && onSort(sort);
@@ -467,6 +495,11 @@ class Table extends Component {
 
     };
 
+    componentDidMount() {
+        const {onDataUpdate} = this.props;
+        onDataUpdate && onDataUpdate(this.getCurrentPageData());
+    }
+
     componentWillReceiveProps(nextProps) {
 
         if (nextProps.data.length !== this.props.data.length) {
@@ -485,6 +518,11 @@ class Table extends Component {
 
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        const {onDataUpdate} = this.props;
+        onDataUpdate && onDataUpdate(this.getCurrentPageData());
+    }
+
     render() {
 
         const {
@@ -501,6 +539,7 @@ class Table extends Component {
                 defaultSortType, defaultPageSize, sortInitConfig, onPageChange, hasLineNumber, columns, selectTheme,
                 radioUncheckedIconCls, radioCheckedIconCls, checkboxUncheckedIconCls, checkboxCheckedIconCls,
                 checkboxIndeterminateIconCls, selectAllMode, isClearSelectionOnChangePage, sortFunc, onSort,
+                onDataUpdate,
 
                 ...restProps
 
@@ -807,7 +846,8 @@ Table.propTypes = {
 
     onSort: PropTypes.func,
     onPageChange: PropTypes.func,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    onDataUpdate: PropTypes.func
 
 };
 

@@ -18,6 +18,7 @@ import SelectMode from '../_statics/SelectMode';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class DropdownSelect extends Component {
 
@@ -44,6 +45,9 @@ class DropdownSelect extends Component {
     filterChangeHandler = filter => {
         this.setState({
             filter
+        }, () => {
+            const el = this.refs.dropdown;
+            el && el.resetPopupPosition();
         });
     };
 
@@ -232,12 +236,11 @@ class DropdownSelect extends Component {
 
     };
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
     }
 
     render() {
@@ -246,8 +249,8 @@ class DropdownSelect extends Component {
 
                 className, triggerClassName, popupClassName, style, name, popupTheme, data, triggerRenderer,
                 useDynamicRenderList, listHeight, itemHeight, scrollBuffer, renderer, selectMode,
-                useFilter, useSelectAll, selectAllText, valueField, displayField, descriptionField, popupChildren,
-                isHiddenInputFilter, noMatchedMsg,
+                useFilter, filterIconCls, useSelectAll, selectAllText, valueField, displayField, descriptionField,
+                popupChildren, isHiddenInputFilter, noMatchedMsg,
 
                 ...restProps
 
@@ -307,7 +310,7 @@ class DropdownSelect extends Component {
                             useFilter ?
                                 <TextField className="dropdown-select-filter"
                                            value={filter}
-                                           rightIconCls="fas fa-search"
+                                           rightIconCls={filterIconCls}
                                            onChange={this.filterChangeHandler}/>
                                 :
                                 null
@@ -588,6 +591,7 @@ DropdownSelect.propTypes = {
      */
     useFilter: PropTypes.bool,
 
+    filterIconCls: PropTypes.string,
     useSelectAll: PropTypes.bool,
     selectAllText: PropTypes.string,
 
@@ -657,6 +661,7 @@ DropdownSelect.defaultProps = {
 
     autoClose: true,
     useFilter: false,
+    filterIconCls: 'fas fa-search',
     useSelectAll: false,
     selectAllText: 'Select All',
     shouldPreventContainerScroll: true,
