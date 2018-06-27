@@ -37,10 +37,16 @@ class TextField extends Component {
 
     }
 
+    /**
+     * public
+     */
     focus = () => {
         this.refs.input.focus();
     };
 
+    /**
+     * public
+     */
     blur = () => {
         this.refs.input.blur();
     };
