@@ -28,6 +28,20 @@ class MaterialTextField extends Component {
 
     }
 
+    /**
+     * public
+     */
+    focus = () => {
+        this.refs.textField.focus();
+    };
+
+    /**
+     * public
+     */
+    blur = () => {
+        this.refs.textField.blur();
+    };
+
     triggerChangeHandler = value => {
         this.setState({
             value
@@ -67,6 +81,7 @@ class MaterialTextField extends Component {
                               disabled={disabled}
                               required={required}>
                 <TextField {...restProps}
+                           ref="textField"
                            theme={theme}
                            value={value}
                            disabled={disabled}
