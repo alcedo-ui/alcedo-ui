@@ -99,16 +99,6 @@ TipProvider.propTypes = {
     style: PropTypes.object,
 
     /**
-     * This is the DOM element that will be used to set the position of the popover.
-     */
-    triggerEl: PropTypes.object,
-
-    /**
-     * If true,the popover is visible.
-     */
-    visible: PropTypes.bool,
-
-    /**
      * If true,the popover will have a triangle on the top of the DOM element.
      */
     hasTriangle: PropTypes.bool,
@@ -157,7 +147,6 @@ TipProvider.defaultProps = {
 
     theme: Theme.DARK,
 
-    visible: false,
     hasTriangle: true,
     position: Tip.Position.BOTTOM,
     isAnimated: true,

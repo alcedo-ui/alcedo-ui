@@ -16,6 +16,7 @@ import FieldType from '../_statics/FieldType';
 
 import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class TextArea extends Component {
 
@@ -27,6 +28,7 @@ class TextArea extends Component {
         super(props, ...restArgs);
 
         this.state = {
+            value: props.value,
             isFocused: props.autoFocus ? true : false,
             passwordVisible: false,
             infoVisible: false,
@@ -53,7 +55,6 @@ class TextArea extends Component {
     changeHandler = e => {
 
         const {onValid, onInvalid} = this.props,
-
             value = e.target.value,
             invalidMsgs = Valid.fieldValid(value, this.props);
 
@@ -62,7 +63,8 @@ class TextArea extends Component {
         }
 
         this.setState({
-            invalidMsgs
+            invalidMsgs,
+            value
         }, () => {
             this.props.onChange && this.props.onChange(value, e);
             invalidMsgs.length > 0 ? onInvalid && onInvalid() : onValid && onValid();
@@ -72,19 +74,20 @@ class TextArea extends Component {
 
     keyDownHandler = e => {
         if (e.keyCode === 13) {
-            const {value, onPressEnter} = this.props;
+            const {onPressEnter} = this.props,
+                {value} = this.state;
             onPressEnter && onPressEnter(e, value);
         }
     };
 
     clearValue = () => {
 
-        const {disabled, clearButtonVisible, onClear, onChange, onValid, onInvalid} = this.props;
-
-        const invalidMsgs = Valid.fieldValid('', this.props);
+        const {disabled, clearButtonVisible, onClear, onChange, onValid, onInvalid} = this.props,
+            invalidMsgs = Valid.fieldValid('', this.props);
 
         !disabled && clearButtonVisible && this.setState({
-            invalidMsgs
+            invalidMsgs,
+            value: ''
         }, () => {
 
             this.refs.input.focus();
@@ -122,7 +125,8 @@ class TextArea extends Component {
             infoVisible: true,
             errorVisible: true
         }, () => {
-            const {value, onMouseOver} = this.props;
+            const {onMouseOver} = this.props,
+                {value} = this.state;
             onMouseOver && onMouseOver(e, value);
         });
     };
@@ -132,7 +136,8 @@ class TextArea extends Component {
             infoVisible: false,
             errorVisible: false
         }, () => {
-            const {value, onMouseOut} = this.props;
+            const {onMouseOut} = this.props,
+                {value} = this.state;
             onMouseOut && onMouseOut(e, value);
         });
     };
@@ -141,7 +146,8 @@ class TextArea extends Component {
         this.setState({
             isFocused: true
         }, () => {
-            const {value, isFocusedSelectAll, onFocus} = this.props;
+            const {isFocusedSelectAll, onFocus} = this.props,
+                {value} = this.state;
             onFocus && onFocus(e, value);
             isFocusedSelectAll && this.refs.input.setSelectionRange(0, value ? value.length : 0);
         });
@@ -156,14 +162,16 @@ class TextArea extends Component {
         this.setState({
             isFocused: false
         }, () => {
-            const {value, onBlur} = this.props;
+            const {onBlur} = this.props,
+                {value} = this.state;
             onBlur && onBlur(e, value);
         });
 
     };
 
     rightIconClickHandler = e => {
-        const {value, onRightIconClick} = this.props;
+        const {onRightIconClick} = this.props,
+            {value} = this.state;
         onRightIconClick && onRightIconClick(e, value);
     };
 
@@ -180,24 +188,31 @@ class TextArea extends Component {
 
     }
 
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
+    }
+
     render() {
 
         const {
 
                 children, className, triggerClassName, placeholderClassName, style, theme,
-                value, type, iconCls, disabled, infoMsg, autoHeight, wordCountVisible, placeholder,
+                type, iconCls, disabled, infoMsg, autoHeight, wordCountVisible, placeholder,
                 clearButtonVisible, rightIconCls, passwordButtonVisible, fieldMsgVisible, maxLength,
                 onIconClick, onRightIconClick,
 
                 // not passing down these props
-                autoFocus, pattern, patternInvalidMsg, isFocusedSelectAll,
+                value: v, autoFocus, pattern, patternInvalidMsg, isFocusedSelectAll,
                 onPressEnter, onValid, onInvalid, onClear, onPasswordVisible, onPasswordInvisible,
 
                 ...restProps
 
             } = this.props,
 
-            {isFocused, passwordVisible, infoVisible, errorVisible, invalidMsgs} = this.state,
+            {value, isFocused, passwordVisible, infoVisible, errorVisible, invalidMsgs} = this.state,
 
             isPassword = type === FieldType.PASSWORD,
             empty = !value || value.length <= 0,
