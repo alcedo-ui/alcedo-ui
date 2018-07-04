@@ -84,6 +84,11 @@ AnchorButton.propTypes = {
     isCircular: PropTypes.bool,
 
     /**
+     * The title of the button.
+     */
+    title: PropTypes.string,
+
+    /**
      * The text of the button.
      */
     value: PropTypes.any,

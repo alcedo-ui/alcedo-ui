@@ -300,11 +300,16 @@ class LocalAutoComplete extends Component {
     render() {
 
         const {
-                className, triggerClassName, popupClassName, style, popupStyle, theme, popupTheme, name, placeholder,
-                disabled, iconCls, rightIconCls, valueField, displayField, descriptionField,
-                noMatchedPopupVisible, noMatchedMsg, popupChildren, renderer,
-                useDynamicRenderList, listHeight, itemHeight, scrollBuffer,
-                onFilterClear, onMouseOver, onMouseOut
+
+                className, triggerClassName, popupClassName, style, popupStyle, popupTheme, name,
+                valueField, displayField, descriptionField, noMatchedPopupVisible, noMatchedMsg, popupChildren,
+                renderer, useDynamicRenderList, listHeight, itemHeight, scrollBuffer, onFilterClear,
+
+                // not passing down these props
+                filterInitValue, minFilterLength, autoClose, onFilterPressEnter,
+
+                ...restProps
+
             } = this.props,
             {isAbove, tempSelectIndex, value, filter, popupVisible, listData} = this.state,
 
@@ -362,18 +367,12 @@ class LocalAutoComplete extends Component {
                         null
                 }
 
-                <TextField ref="trigger"
+                <TextField {...restProps}
+                           ref="trigger"
                            className={autoCompleteTriggerClassName}
-                           theme={theme}
                            value={filter}
-                           placeholder={placeholder}
-                           disabled={disabled}
-                           iconCls={iconCls}
-                           rightIconCls={rightIconCls}
                            onFocus={this.filterFocusHandler}
                            onBlur={this.filterBlurHandler}
-                           onMouseOver={onMouseOver}
-                           onMouseOut={onMouseOut}
                            onChange={this.filterChangeHandler}
                            onKeyDown={this.filterKeyDownHandler}
                            onPressEnter={this.filterPressEnterHandler}
@@ -482,6 +481,11 @@ LocalAutoComplete.propTypes = {
      * The name of the auto complete.
      */
     name: PropTypes.string,
+
+    /**
+     * The title of the auto complete.
+     */
+    title: PropTypes.string,
 
     /**
      * The placeholder of the field.
