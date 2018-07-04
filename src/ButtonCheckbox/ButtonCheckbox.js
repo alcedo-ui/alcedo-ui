@@ -11,6 +11,7 @@ import RaisedButton from '../RaisedButton';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class ButtonCheckbox extends Component {
 
@@ -35,17 +36,22 @@ class ButtonCheckbox extends Component {
         });
     };
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: !!nextProps.value
-            });
-        }
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
     }
 
     render() {
 
-        const {className, style, theme, activatedTheme, title, text, disabled} = this.props,
+        const {
+
+                className, theme, activatedTheme, text,
+
+                ...restProps
+
+            } = this.props,
             {value} = this.state,
 
             buttonClassName = classNames('button-checkbox', {
@@ -54,11 +60,9 @@ class ButtonCheckbox extends Component {
             });
 
         return (
-            <RaisedButton className={buttonClassName}
-                          style={style}
+            <RaisedButton {...restProps}
+                          className={buttonClassName}
                           value={text}
-                          title={title}
-                          disabled={disabled}
                           isRounded={true}
                           theme={value ? activatedTheme : theme}
                           onClick={this.clickHandler}/>
