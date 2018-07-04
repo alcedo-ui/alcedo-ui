@@ -300,8 +300,8 @@ class LocalAutoComplete extends Component {
     render() {
 
         const {
-                className, triggerClassName, popupClassName, style, popupStyle, theme, popupTheme, name, placeholder,
-                disabled, iconCls, rightIconCls, valueField, displayField, descriptionField,
+                className, triggerClassName, popupClassName, style, popupStyle, theme, popupTheme, name, title,
+                placeholder, disabled, iconCls, rightIconCls, valueField, displayField, descriptionField,
                 noMatchedPopupVisible, noMatchedMsg, popupChildren, renderer,
                 useDynamicRenderList, listHeight, itemHeight, scrollBuffer,
                 onFilterClear, onMouseOver, onMouseOut
@@ -366,6 +366,7 @@ class LocalAutoComplete extends Component {
                            className={autoCompleteTriggerClassName}
                            theme={theme}
                            value={filter}
+                           title={title}
                            placeholder={placeholder}
                            disabled={disabled}
                            iconCls={iconCls}
@@ -482,6 +483,11 @@ LocalAutoComplete.propTypes = {
      * The name of the auto complete.
      */
     name: PropTypes.string,
+
+    /**
+     * The title of the auto complete.
+     */
+    title: PropTypes.string,
 
     /**
      * The placeholder of the field.
