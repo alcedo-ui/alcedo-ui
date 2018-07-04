@@ -300,11 +300,13 @@ class LocalAutoComplete extends Component {
     render() {
 
         const {
-                className, triggerClassName, popupClassName, style, popupStyle, theme, popupTheme, name, title,
-                placeholder, disabled, iconCls, rightIconCls, valueField, displayField, descriptionField,
-                noMatchedPopupVisible, noMatchedMsg, popupChildren, renderer,
-                useDynamicRenderList, listHeight, itemHeight, scrollBuffer,
-                onFilterClear, onMouseOver, onMouseOut
+
+                className, triggerClassName, popupClassName, style, popupStyle, popupTheme, name,
+                valueField, displayField, descriptionField, noMatchedPopupVisible, noMatchedMsg, popupChildren,
+                renderer, useDynamicRenderList, listHeight, itemHeight, scrollBuffer, onFilterClear,
+
+                ...restProps
+
             } = this.props,
             {isAbove, tempSelectIndex, value, filter, popupVisible, listData} = this.state,
 
@@ -362,19 +364,12 @@ class LocalAutoComplete extends Component {
                         null
                 }
 
-                <TextField ref="trigger"
+                <TextField {...restProps}
+                           ref="trigger"
                            className={autoCompleteTriggerClassName}
-                           theme={theme}
                            value={filter}
-                           title={title}
-                           placeholder={placeholder}
-                           disabled={disabled}
-                           iconCls={iconCls}
-                           rightIconCls={rightIconCls}
                            onFocus={this.filterFocusHandler}
                            onBlur={this.filterBlurHandler}
-                           onMouseOver={onMouseOver}
-                           onMouseOut={onMouseOut}
                            onChange={this.filterChangeHandler}
                            onKeyDown={this.filterKeyDownHandler}
                            onPressEnter={this.filterPressEnterHandler}
