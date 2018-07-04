@@ -45,7 +45,7 @@ class ButtonCheckbox extends Component {
 
     render() {
 
-        const {className, style, theme, activatedTheme, text, disabled} = this.props,
+        const {className, style, theme, activatedTheme, title, text, disabled} = this.props,
             {value} = this.state,
 
             buttonClassName = classNames('button-checkbox', {
@@ -57,6 +57,7 @@ class ButtonCheckbox extends Component {
             <RaisedButton className={buttonClassName}
                           style={style}
                           value={text}
+                          title={title}
                           disabled={disabled}
                           isRounded={true}
                           theme={value ? activatedTheme : theme}
@@ -89,9 +90,9 @@ ButtonCheckbox.propTypes = {
     activatedTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
-     * The name of the toggleButton.
+     * The title of the ButtonCheckbox.
      */
-    // name: PropTypes.string,
+    title: PropTypes.string,
 
     /**
      * The text of the button.
