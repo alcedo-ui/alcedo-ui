@@ -86,18 +86,20 @@ class Tree extends Component {
         const {data, valueField, displayField} = this.props;
         let result = [];
 
-        Util.postOrderTraverse(isArray(data) ? {children: data} : data, node => {
-            if (!node.children || node.children.length < 1) {
-                if (value.findIndex(item =>
-                    Util.getValueByValueField(item, valueField, displayField)
-                    === Util.getValueByValueField(node, valueField, displayField)) > -1) {
-                    result.push(node);
-                }
-            } else {
-                if (node.children.every(child => result.findIndex(item =>
-                    Util.getValueByValueField(item, valueField, displayField)
-                    === Util.getValueByValueField(child, valueField, displayField)) > -1)) {
-                    result.push(node);
+        Util.postOrderTraverse(isArray(data) ? {[VirtualRoot]: true, children: data} : data, node => {
+            if (!(VirtualRoot in node)) {
+                if (!node.children || node.children.length < 1) {
+                    if (value.findIndex(item =>
+                        Util.getValueByValueField(item, valueField, displayField)
+                        === Util.getValueByValueField(node, valueField, displayField)) > -1) {
+                        result.push(node);
+                    }
+                } else {
+                    if (node.children.every(child => result.findIndex(item =>
+                        Util.getValueByValueField(item, valueField, displayField)
+                        === Util.getValueByValueField(child, valueField, displayField)) > -1)) {
+                        result.push(node);
+                    }
                 }
             }
         });
