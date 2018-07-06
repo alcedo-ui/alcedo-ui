@@ -137,6 +137,8 @@ class DropdownSelectExamples extends Component {
                                                     selectAllText="All Example Items"
                                                     selectMode={DropdownSelect.SelectMode.MULTI_SELECT}
                                                     autoClose={false}
+                                                    checkboxUncheckedIconCls={'far fa-window-close'}
+                                                    checkboxCheckedIconCls={'fas fa-window-close'}
                                                     onChange={this.onChange}/>
 
                                 </div>
