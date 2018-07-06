@@ -306,7 +306,7 @@ class LocalAutoComplete extends Component {
                 renderer, useDynamicRenderList, listHeight, itemHeight, scrollBuffer, onFilterClear,
 
                 // not passing down these props
-                filterInitValue, minFilterLength, autoClose, onFilterPressEnter,
+                data, filterInitValue, minFilterLength, autoClose, onFilterPressEnter,
 
                 ...restProps
 
