@@ -323,7 +323,10 @@ class DropdownSelect extends Component {
                                      onClick={this.selectAllClickHandler}>
                                     <Checkbox className="list-item-select"
                                               checked={data && value && value.length === data.length}
-                                              indeterminate={data && value && value.length > 0 && value.length < data.length}/>
+                                              indeterminate={data && value && value.length > 0 && value.length < data.length}
+                                              uncheckedIconCls={checkboxUncheckedIconCls}
+                                              checkedIconCls={checkboxCheckedIconCls}
+                                              indeterminateIconCls={checkboxIndeterminateIconCls}/>
                                     {selectAllText}
                                 </div>
                                 :
