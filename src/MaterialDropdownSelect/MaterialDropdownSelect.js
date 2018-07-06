@@ -273,6 +273,12 @@ MaterialDropdownSelect.propTypes = {
     useSelectAll: PropTypes.bool,
     selectAllText: PropTypes.string,
 
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
+
     /**
      * The message of no matching option.
      */
