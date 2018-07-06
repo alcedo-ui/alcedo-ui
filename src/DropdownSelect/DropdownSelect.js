@@ -250,7 +250,8 @@ class DropdownSelect extends Component {
                 className, triggerClassName, popupClassName, style, name, popupTheme, data, triggerRenderer,
                 useDynamicRenderList, listHeight, itemHeight, scrollBuffer, renderer, selectMode,
                 useFilter, filterIconCls, useSelectAll, selectAllText, valueField, displayField, descriptionField,
-                popupChildren, isHiddenInputFilter, noMatchedMsg,
+                popupChildren, isHiddenInputFilter, noMatchedMsg, radioUncheckedIconCls, radioCheckedIconCls,
+                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
                 ...restProps
 
@@ -376,6 +377,11 @@ class DropdownSelect extends Component {
                                                        itemHeight={itemHeight}
                                                        scrollBuffer={scrollBuffer}
                                                        renderer={renderer}
+                                                       radioUncheckedIconCls={radioUncheckedIconCls}
+                                                       radioCheckedIconCls={radioCheckedIconCls}
+                                                       checkboxUncheckedIconCls={checkboxUncheckedIconCls}
+                                                       checkboxCheckedIconCls={checkboxCheckedIconCls}
+                                                       checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
                                                        onItemClick={this.itemClickHandler}
                                                        onChange={this.changeHandler}/>
                                     :
@@ -388,6 +394,11 @@ class DropdownSelect extends Component {
                                           displayField={displayField}
                                           descriptionField={descriptionField}
                                           renderer={renderer}
+                                          radioUncheckedIconCls={radioUncheckedIconCls}
+                                          radioCheckedIconCls={radioCheckedIconCls}
+                                          checkboxUncheckedIconCls={checkboxUncheckedIconCls}
+                                          checkboxCheckedIconCls={checkboxCheckedIconCls}
+                                          checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
                                           onItemClick={this.itemClickHandler}
                                           onChange={this.changeHandler}/>
                         }
@@ -608,6 +619,12 @@ DropdownSelect.propTypes = {
     listHeight: PropTypes.number,
     itemHeight: PropTypes.number,
     scrollBuffer: PropTypes.number,
+
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
 
     renderer: PropTypes.func,
 
