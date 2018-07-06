@@ -13,14 +13,12 @@ const opn = require('opn'),
         logLevel: 'error'
     }),
     hotMiddleware = require('webpack-hot-middleware')(compiler, {
-        log: console.log
+        log: false
     }),
     app = express();
 
-compiler.plugin('compilation', compilation => {
-    compilation.plugin('html-webpack-plugin-after-emit', () => {
-        hotMiddleware.publish({action: 'reload'});
-    });
+compiler.hooks.compilation.tap('html-webpack-plugin-after-emit', () => {
+    hotMiddleware.publish({action: 'reload'});
 });
 
 app
