@@ -356,7 +356,7 @@ TreeSelect.propTypes = {
     /**
      * The options data.
      */
-    data: PropTypes.shape({
+    data: PropTypes.oneOfType([PropTypes.shape({
 
         /**
          * The CSS class name of the tree node.
@@ -425,7 +425,7 @@ TreeSelect.propTypes = {
          */
         onClick: PropTypes.func
 
-    }),
+    }), PropTypes.array]),
 
     /**
      * The invalid message of dropDownSelect.
