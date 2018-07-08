@@ -20,6 +20,10 @@
         "development": {
             "presets": [
                 "react-hmre"
+            ],
+            "plugins": [
+                "syntax-dynamic-import",
+                "transform-import-sync"
             ]
         },
         "production": {
