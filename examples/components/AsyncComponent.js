@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import * as types from 'reduxes/actionTypes/index';
 
-function asyncComponent(store, getComponent) {
+function asyncComponent(getComponent, store) {
 
     return class AsyncComponent extends Component {
 
