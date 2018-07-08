@@ -34,13 +34,23 @@ function asyncComponent(getComponent, store) {
 
                 this.loadStartCallback();
 
-                getComponent().then(({default: Component}) => {
+                const Component = getComponent();
+
+                if (Component instanceof Promise) {
+                    Component.then(({default: Component}) => {
+                        this.setState({
+                            Component
+                        }, () => {
+                            this.loadCompleteCallback();
+                        });
+                    });
+                } else {
                     this.setState({
                         Component
                     }, () => {
                         this.loadCompleteCallback();
                     });
-                });
+                }
 
             }
 
