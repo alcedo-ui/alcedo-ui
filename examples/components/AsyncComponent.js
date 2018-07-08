@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import * as types from 'reduxes/actionTypes/index';
+import * as types from 'reduxes/actionTypes';
 
 function asyncComponent(getComponent, store) {
 
