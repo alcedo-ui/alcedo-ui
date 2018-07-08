@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 
-import * as types from 'reduxes/actionTypes/index';
+import * as types from 'reduxes/actionTypes';
 
-function asyncComponent(store, getComponent) {
+function asyncComponent(getComponent, store) {
 
     return class AsyncComponent extends Component {
 
@@ -16,34 +16,41 @@ function asyncComponent(store, getComponent) {
 
         }
 
-        loadStartCallback() {
-            setTimeout(() => {
-                store.dispatch({type: types.LOAD_COMPONENT_START});
-            }, 0);
-        }
+        loadStartCallback = () => {
+            setTimeout(() => store.dispatch({type: types.LOAD_COMPONENT_START}), 0);
+        };
 
-        loadCompleteCallback() {
-            setTimeout(() => {
-                store.dispatch({type: types.LOAD_COMPONENT_COMPLETE});
-            }, 0);
-        }
+        loadCompleteCallback = () => {
+            setTimeout(() => store.dispatch({type: types.LOAD_COMPONENT_COMPLETE}), 0);
+        };
 
-        componentWillMount() {
+        loadComponent = callback => {
 
-            if (!this.state.Component) {
+            const Component = getComponent();
 
-                this.loadStartCallback();
-
-                getComponent().then(({default: Component}) => {
+            if (Component instanceof Promise) {
+                Component.then(({default: Component}) => {
                     this.setState({
                         Component
                     }, () => {
-                        this.loadCompleteCallback();
+                        callback && callback();
                     });
                 });
-
+            } else {
+                this.setState({
+                    Component
+                }, () => {
+                    callback && callback();
+                });
             }
 
+        };
+
+        componentDidMount() {
+            if (!this.state.Component) {
+                this.loadStartCallback();
+                this.loadComponent(this.loadCompleteCallback);
+            }
         }
 
         render() {
