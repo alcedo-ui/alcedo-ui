@@ -75,7 +75,7 @@ module.exports = {
             }
         }, {
             test: /\.scss$/,
-            use: [...cssLoaderConfig, 'sass-loader']
+            use: [...cssLoaderConfig, 'fast-sass-loader']
         }, {
             test: /\.css$/,
             use: cssLoaderConfig
