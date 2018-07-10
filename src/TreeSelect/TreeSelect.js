@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import isArray from 'lodash/isArray';
 import classNames from 'classnames';
 
 import Dropdown from '../Dropdown';
@@ -13,6 +14,7 @@ import Theme from '../Theme';
 import TextField from '../TextField';
 
 import SelectMode from '../_statics/SelectMode';
+import VirtualRoot from '../_statics/VirtualRoot';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
@@ -152,7 +154,7 @@ class TreeSelect extends Component {
         const {displayField} = this.props;
         let result = true;
 
-        Util.preOrderTraverse(data, node => {
+        Util.preOrderTraverse(isArray(data) ? {[VirtualRoot]: true, children: data} : data, node => {
             if (node && !!node[displayField]
                 && node[displayField].toString().toUpperCase().includes(filter.toUpperCase())) {
                 return result = false;
