@@ -6,12 +6,10 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import cloneDeep from 'lodash/cloneDeep';
 
 import Dropdown from '../Dropdown';
 import Tree from '../Tree';
 import Theme from '../Theme';
-import Tip from '../Tip';
 import TextField from '../TextField';
 
 import SelectMode from '../_statics/SelectMode';
@@ -157,8 +155,7 @@ class TreeSelect extends Component {
         Util.preOrderTraverse(data, node => {
             if (node && !!node[displayField]
                 && node[displayField].toString().toUpperCase().includes(filter.toUpperCase())) {
-                result = false;
-                return false;
+                return result = false;
             }
         });
 
