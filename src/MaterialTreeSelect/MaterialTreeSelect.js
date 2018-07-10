@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import TreeSelect from '../TreeSelect';
-import Tip from '../Tip';
 import MaterialProvider from '../MaterialProvider';
 import Theme from '../Theme';
 
