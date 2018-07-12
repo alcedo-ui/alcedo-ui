@@ -62,7 +62,7 @@ class Pagging extends Component {
                     <div className="pagging-totle">
                         {
                             paggingCountRenderer ?
-                                paggingCountRenderer(count)
+                                paggingCountRenderer(count, page, total, pageSize, pageSizes)
                                 :
                                 `Total: ${count}`
                         }

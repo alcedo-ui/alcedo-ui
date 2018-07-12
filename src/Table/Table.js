@@ -51,7 +51,7 @@ class Table extends Component {
 
             pagging: {
                 pageSize: Calculation.pageSize(props.defaultPageSize, props.pageSizes, 10),
-                page: 0
+                page: props.page
             },
 
             value: Calculation.getInitValue(props),
@@ -786,6 +786,7 @@ Table.propTypes = {
      */
     paggingPageSizeVisible: PropTypes.bool,
 
+    page: PropTypes.number,
     defaultPageSize: PropTypes.number,
     pageSizes: PropTypes.array,
 
@@ -868,6 +869,7 @@ Table.defaultProps = {
     useFullPagging: false,
     paggingSelectedCountVisible: false,
     paggingPageSizeVisible: true,
+    page: 0,
     defaultPageSize: 10,
     pageSizes: [5, 10, 15, 20],
     isClearSelectionOnChangePage: false,
