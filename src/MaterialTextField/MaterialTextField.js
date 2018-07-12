@@ -287,23 +287,16 @@ MaterialTextField.defaultProps = {
     theme: Theme.DEFAULT,
 
     type: 'text',
-    name: '',
-    label: '',
     isLabelAnimate: true,
-    placeholder: '',
-    value: '',
-    iconCls: '',
     disabled: false,
     readOnly: false,
     autoFocus: false,
-    infoMsg: '',
 
     clearButtonVisible: true,
     passwordButtonVisible: true,
 
     // valid
     required: false,
-    patternInvalidMsg: '',
 
     autoComplete: 'off',
     autoCorrect: 'off',

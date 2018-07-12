@@ -1,4 +1,6 @@
 const path = require('path'),
+
+    HappyPack = require('happypack'),
     autoprefixer = require('autoprefixer'),
 
     config = require('./config.js'),
@@ -55,7 +57,7 @@ module.exports = {
     module: {
         rules: [{
             test: /\.js$/,
-            loader: 'babel-loader',
+            use: 'happypack/loader?id=js',
             include: [resolve('examples'), resolve('src')]
         }, {
             test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -73,7 +75,7 @@ module.exports = {
             }
         }, {
             test: /\.scss$/,
-            use: [...cssLoaderConfig, 'sass-loader']
+            use: [...cssLoaderConfig, 'fast-sass-loader']
         }, {
             test: /\.css$/,
             use: cssLoaderConfig
@@ -81,5 +83,13 @@ module.exports = {
             test: /\.ht?ml/,
             loader: 'html-loader'
         }]
-    }
+    },
+    plugins: [
+        new HappyPack({
+            id: 'js',
+            loaders: ['babel-loader?cacheDirectory=true'],
+            threads: 4,
+            verbose: false
+        })
+    ]
 };

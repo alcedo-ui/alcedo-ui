@@ -14,6 +14,7 @@ import Radio from '../Radio';
 import Checkbox from '../Checkbox';
 
 import SelectMode from '../_statics/SelectMode';
+import VirtualRoot from '../_statics/VirtualRoot';
 
 import Util from '../_vendors/Util';
 import Calculation from '../_vendors/Calculation';
@@ -90,11 +91,50 @@ class TreeNode extends Component {
 
     };
 
+    renderChildren = () => {
+
+        const {depth, path, data} = this.props,
+            {collapsed} = this.state,
+            isVirtual = VirtualRoot in data,
+
+            childrenClassName = classNames('tree-node-children', {
+                collapsed
+            });
+
+        return data.children && data.children.length > 0 ?
+            <div className={childrenClassName}>
+                {
+                    data.children.map((item, index) =>
+                        <TreeNode {...this.props}
+                                  key={index}
+                                  data={item}
+                                  index={index}
+                                  depth={depth + (isVirtual ? 0 : 1)}
+                                  path={
+                                      path ?
+                                          [...path, {index, node: item}]
+                                          :
+                                          [{index, node: item}]
+                                  }/>
+                    )
+                }
+            </div>
+            :
+            null;
+
+    };
+
     render() {
+
+        const {data} = this.props;
+
+        if (VirtualRoot in data) {
+            return this.renderChildren();
+        }
 
         const {
 
-                index, depth, path, theme, selectTheme, selectMode, data, value,
+                index, depth, theme, selectTheme, selectMode, value,
                 disabled, isLoading, readOnly, allowCollapse, isSelectRecursive,
                 valueField, displayField, descriptionField, filter,
 
@@ -112,8 +152,8 @@ class TreeNode extends Component {
             isNodeLoading = data.isLoading || isLoading,
             isNodeDisabled = data.disabled || disabled || isNodeLoading,
 
-            isNodeMatched = data && !!data[displayField]
-                && data[displayField].toString().toUpperCase().includes(filter.toUpperCase()),
+            isNodeMatched = !filter || (data && displayField in data
+                && data[displayField].toString().toUpperCase().includes(filter.toUpperCase())),
 
             nodeClassName = classNames('tree-node', {
                 [`theme-${theme}`]: theme,
@@ -123,10 +163,6 @@ class TreeNode extends Component {
                 ...data.style,
                 paddingLeft: (depth + 1) * 20
             },
-
-            childrenClassName = classNames('tree-node-children', {
-                collapsed
-            }),
 
             loadingIconPosition = (data.rightIconCls && !data.iconCls) ? 'right' : 'left';
 
@@ -246,28 +282,7 @@ class TreeNode extends Component {
                         null
                 }
 
-                {
-                    data.children && data.children.length > 0 ?
-                        <div className={childrenClassName}>
-                            {
-                                data.children.map((item, index) =>
-                                    <TreeNode {...this.props}
-                                              key={index}
-                                              data={item}
-                                              index={index}
-                                              depth={depth + 1}
-                                              path={
-                                                  path ?
-                                                      [...path, {index, node: item}]
-                                                      :
-                                                      [{index, node: item}]
-                                              }/>
-                                )
-                            }
-                        </div>
-                        :
-                        null
-                }
+                {this.renderChildren()}
 
             </Fragment>
         );
@@ -288,6 +303,7 @@ TreeNode.propTypes = {
 
     data: PropTypes.object,
     value: PropTypes.any,
+    filter: PropTypes.string,
 
     valueField: PropTypes.string,
     displayField: PropTypes.string,

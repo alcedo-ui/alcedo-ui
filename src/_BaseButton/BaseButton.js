@@ -138,6 +138,7 @@ BaseButton.propTypes = {
     isRounded: PropTypes.bool,
     isCircular: PropTypes.bool,
 
+    title: PropTypes.string,
     value: PropTypes.any,
     type: PropTypes.string,
     disabled: PropTypes.bool,

@@ -5,16 +5,16 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import isArray from 'lodash/isArray';
 import classNames from 'classnames';
-import cloneDeep from 'lodash/cloneDeep';
 
 import Dropdown from '../Dropdown';
 import Tree from '../Tree';
 import Theme from '../Theme';
-import Tip from '../Tip';
 import TextField from '../TextField';
 
 import SelectMode from '../_statics/SelectMode';
+import VirtualRoot from '../_statics/VirtualRoot';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
@@ -154,11 +154,10 @@ class TreeSelect extends Component {
         const {displayField} = this.props;
         let result = true;
 
-        Util.preOrderTraverse(data, node => {
+        Util.preOrderTraverse(isArray(data) ? {[VirtualRoot]: true, children: data} : data, node => {
             if (node && !!node[displayField]
                 && node[displayField].toString().toUpperCase().includes(filter.toUpperCase())) {
-                result = false;
-                return false;
+                return result = false;
             }
         });
 
@@ -356,7 +355,7 @@ TreeSelect.propTypes = {
     /**
      * The options data.
      */
-    data: PropTypes.shape({
+    data: PropTypes.oneOfType([PropTypes.shape({
 
         /**
          * The CSS class name of the tree node.
@@ -425,7 +424,7 @@ TreeSelect.propTypes = {
          */
         onClick: PropTypes.func
 
-    }),
+    }), PropTypes.array]),
 
     /**
      * The invalid message of dropDownSelect.

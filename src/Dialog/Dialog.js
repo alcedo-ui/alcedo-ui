@@ -119,11 +119,12 @@ class Dialog extends Component {
                 children,
 
                 className, modalClassName, position, disabled, showModal,
-                title, buttons, isLoading, visible, closeIconCls,
+                title, buttons, isLoading, visible,
 
                 okButtonVisible, okButtonText, okButtonIconCls, okButtonTheme, okButtonDisabled, okButtonIsLoading,
-                cancelButtonVisible, cancelButtonText, cancelButtonIconCls,
-                cancelButtonDisabled, cancelButtonIsLoading, cancelButtonTheme,
+                cancelButtonVisible, cancelButtonText, cancelButtonIconCls, cancelButtonDisabled, cancelButtonIsLoading,
+                cancelButtonTheme, closeButtonVisible, closeIconCls,
+
 
                 // not passing down these props
                 isBlurClose, isEscClose,
@@ -147,11 +148,19 @@ class Dialog extends Component {
                          modalClassName={modalClassName}>
 
                 <div className="dialog-title">
+
                     {title}
-                    <IconButton className="dialog-title-close-button"
-                                iconCls={closeIconCls}
-                                disabled={disabled}
-                                onClick={this.closeButtonClickHandler}/>
+
+                    {
+                        closeButtonVisible ?
+                            <IconButton className="dialog-title-close-button"
+                                        iconCls={closeIconCls}
+                                        disabled={disabled}
+                                        onClick={this.closeButtonClickHandler}/>
+                            :
+                            null
+                    }
+
                 </div>
 
                 <div className="dialog-content">
@@ -257,7 +266,7 @@ Dialog.propTypes = {
     isLoading: PropTypes.bool,
 
     /**
-     * If true,the OK button will display.
+     * If true, the OK button will display.
      */
     okButtonVisible: PropTypes.bool,
 
@@ -272,12 +281,12 @@ Dialog.propTypes = {
     okButtonIconCls: PropTypes.string,
 
     /**
-     * If true,the OK button will disabled.
+     * If true, the OK button will disabled.
      */
     okButtonDisabled: PropTypes.bool,
 
     /**
-     * If true,the ok button will have loading effect.
+     * If true, the ok button will have loading effect.
      */
     okButtonIsLoading: PropTypes.bool,
 
@@ -287,7 +296,7 @@ Dialog.propTypes = {
     okButtonTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
-     * If true,the cancel button will display.
+     * If true, the cancel button will display.
      */
     cancelButtonVisible: PropTypes.bool,
 
@@ -302,12 +311,12 @@ Dialog.propTypes = {
     cancelButtonIconCls: PropTypes.string,
 
     /**
-     * If true,the cancel button will disabled.
+     * If true, the cancel button will disabled.
      */
     cancelButtonDisabled: PropTypes.bool,
 
     /**
-     * If true,the cancel button will have loading effect.
+     * If true, the cancel button will have loading effect.
      */
     cancelButtonIsLoading: PropTypes.bool,
 
@@ -315,6 +324,11 @@ Dialog.propTypes = {
      * Set theme of cancel button.
      */
     cancelButtonTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * If true, the close button in title will display.
+     */
+    closeButtonVisible: PropTypes.bool,
 
     closeIconCls: PropTypes.string,
 
@@ -374,6 +388,7 @@ Dialog.defaultProps = {
     cancelButtonIsLoading: false,
     cancelButtonTheme: Theme.DEFAULT,
 
+    closeButtonVisible: true,
     closeIconCls: 'fas fa-times',
 
     isEscClose: true

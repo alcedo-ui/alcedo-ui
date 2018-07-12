@@ -80,6 +80,11 @@ IconButton.propTypes = {
     isCircular: PropTypes.bool,
 
     /**
+     * The title of the button.
+     */
+    title: PropTypes.string,
+
+    /**
      * The type of button.Can be reset,submit or button.
      */
     type: PropTypes.string,

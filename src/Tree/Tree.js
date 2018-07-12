@@ -12,6 +12,7 @@ import TreeNode from '../_TreeNode';
 import Theme from '../Theme';
 
 import SelectMode from '../_statics/SelectMode';
+import VirtualRoot from '../_statics/VirtualRoot';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
@@ -85,18 +86,20 @@ class Tree extends Component {
         const {data, valueField, displayField} = this.props;
         let result = [];
 
-        Util.postOrderTraverse(data, node => {
-            if (!node.children || node.children.length < 1) {
-                if (value.findIndex(item =>
-                    Util.getValueByValueField(item, valueField, displayField)
-                    === Util.getValueByValueField(node, valueField, displayField)) > -1) {
-                    result.push(node);
-                }
-            } else {
-                if (node.children.every(child => result.findIndex(item =>
-                    Util.getValueByValueField(item, valueField, displayField)
-                    === Util.getValueByValueField(child, valueField, displayField)) > -1)) {
-                    result.push(node);
+        Util.postOrderTraverse(isArray(data) ? {[VirtualRoot]: true, children: data} : data, node => {
+            if (!(VirtualRoot in node)) {
+                if (!node.children || node.children.length < 1) {
+                    if (value.findIndex(item =>
+                        Util.getValueByValueField(item, valueField, displayField)
+                        === Util.getValueByValueField(node, valueField, displayField)) > -1) {
+                        result.push(node);
+                    }
+                } else {
+                    if (node.children.every(child => result.findIndex(item =>
+                        Util.getValueByValueField(item, valueField, displayField)
+                        === Util.getValueByValueField(child, valueField, displayField)) > -1)) {
+                        result.push(node);
+                    }
                 }
             }
         });
@@ -137,8 +140,8 @@ class Tree extends Component {
 
         this.setState(state, () => {
             const {onNodeSelect, onChange} = this.props;
-            onNodeSelect && onNodeSelect(node, path);
-            onChange && onChange(state.value);
+            onNodeSelect && onNodeSelect(node, path, e);
+            onChange && onChange(state.value, e);
         });
 
     };
@@ -230,7 +233,7 @@ class Tree extends Component {
                  style={style}
                  onWheel={e => Event.wheelHandler(e, this.props)}>
 
-                <TreeNode data={data}
+                <TreeNode data={isArray(data) ? {[VirtualRoot]: true, children: data} : data}
                           value={value}
                           theme={theme}
                           valueField={valueField}
@@ -295,7 +298,7 @@ Tree.propTypes = {
     /**
      * Children passed into the tree node.
      */
-    data: PropTypes.shape({
+    data: PropTypes.oneOfType([PropTypes.shape({
 
         /**
          * The CSS class name of the tree node.
@@ -364,7 +367,7 @@ Tree.propTypes = {
          */
         onClick: PropTypes.func
 
-    }),
+    }), PropTypes.array]),
 
     /**
      * The value field name in data. (default: "value")

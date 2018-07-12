@@ -10,27 +10,14 @@ import doc from 'assets/propTypes/TextArea.json';
 class TextAreaExamples extends Component {
 
     constructor(props) {
-
         super(props);
-
-        this.state = {
-            value: {}
-        };
-
     }
 
-    changeHandler = (v, index) => {
-        const {value} = this.state;
-        value[index] = v;
-        this.setState({
-            value
-        });
+    changeHandler = value => {
+        console.log(value);
     };
 
     render() {
-
-        const {value} = this.state;
-
         return (
             <div className="example">
 
@@ -49,8 +36,7 @@ class TextAreaExamples extends Component {
                             <p>TextArea with auto size.</p>
                             <TextArea placeholder="placeholder"
                                       autoHeight={true}
-                                      value={value[0]}
-                                      onChange={v => this.changeHandler(v, 0)}/>
+                                      onChange={this.changeHandler}/>
                         </div>
                     </div>
                 </Widget>
@@ -64,8 +50,7 @@ class TextAreaExamples extends Component {
                                       autoHeight={false}
                                       wordCountVisible={true}
                                       maxLength={100}
-                                      value={value[1]}
-                                      onChange={v => this.changeHandler(v, 1)}/>
+                                      onChange={this.changeHandler}/>
                         </div>
                     </div>
                 </Widget>
