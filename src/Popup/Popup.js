@@ -238,9 +238,6 @@ Popup.propTypes = {
 
 Popup.defaultProps = {
 
-    theme: Theme.DEFAULT,
-    depth: 3,
-
     visible: false,
     hasTriangle: true,
     position: Position.BOTTOM,
