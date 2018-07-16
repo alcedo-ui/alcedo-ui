@@ -47,10 +47,10 @@ class MaterialLocalAutoCompleteExamples extends Component {
         return (
             <div className="example auto-complete-examples">
 
-                <h2 className="example-title">LocalAutoComplete</h2>
+                <h2 className="example-title">MaterialLocalAutoComplete</h2>
 
                 <p>
-                    A <span>LocalAutoComplete</span> is an interface to help users to complete their input.
+                    A <span>MaterialLocalAutoComplete</span> is an interface to help users to complete their input.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -64,7 +64,7 @@ class MaterialLocalAutoCompleteExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>LocalAutoComplete</code> simple example.</p>
+                                <p><code>MaterialLocalAutoComplete</code> simple example.</p>
 
                                 <MaterialLocalAutoComplete theme={MaterialLocalAutoComplete.Theme.HIGHLIGHT}
                                                            filterInitValue={'test'}
