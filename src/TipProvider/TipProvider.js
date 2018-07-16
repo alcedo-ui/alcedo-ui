@@ -150,7 +150,6 @@ TipProvider.defaultProps = {
     hasTriangle: true,
     position: Tip.Position.BOTTOM,
     isAnimated: true,
-    depth: 6,
     shouldPreventContainerScroll: true,
     isTriggerPositionFixed: false
 
