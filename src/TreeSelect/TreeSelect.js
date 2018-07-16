@@ -127,6 +127,18 @@ class TreeSelect extends Component {
 
     };
 
+    popupOpenHandler = e => {
+
+        const {useFilter, onOpenPopup} = this.props;
+
+        if (useFilter) {
+            this.refs.filter && this.refs.filter.focus();
+        }
+
+        onOpenPopup && onOpenPopup(e);
+
+    };
+
     popupClosedHandler = e => {
         this.setState({
             popupVisible: false
@@ -220,12 +232,14 @@ class TreeSelect extends Component {
                           popupClassName={selectPopupClassName}
                           popupTheme={popupTheme}
                           triggerValue={this.getTriggerValue()}
+                          onOpenPopup={this.popupOpenHandler}
                           onClosePopup={this.popupClosedHandler}>
 
                     <div className="tree-select-popup-fixed">
                         {
                             useFilter ?
-                                <TextField className="tree-select-filter"
+                                <TextField ref="filter"
+                                           className="tree-select-filter"
                                            value={filter}
                                            rightIconCls={filterIconCls}
                                            onChange={this.filterChangeHandler}/>

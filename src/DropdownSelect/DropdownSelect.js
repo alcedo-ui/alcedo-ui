@@ -135,7 +135,13 @@ class DropdownSelect extends Component {
 
     popupOpenHandler = e => {
 
-        this.refs.hiddenFilter && this.refs.hiddenFilter.focus();
+        const {isHiddenInputFilter, useFilter} = this.props;
+
+        if (isHiddenInputFilter) {
+            this.refs.hiddenFilter && this.refs.hiddenFilter.focus();
+        } else if (useFilter) {
+            this.refs.filter && this.refs.filter.focus();
+        }
 
         this.setState({
             popupVisible: true
@@ -143,6 +149,7 @@ class DropdownSelect extends Component {
             const {onOpenPopup} = this.props;
             onOpenPopup && onOpenPopup(e);
         });
+
     };
 
     popupCloseHandler = e => {
@@ -287,14 +294,13 @@ class DropdownSelect extends Component {
 
                 {
                     isHiddenInputFilter ?
-                        <input className="hiddenFilter"
+                        <input ref="hiddenFilter"
+                               className="hiddenFilter"
                                type="text"
-                               ref="hiddenFilter"
                                onChange={this.hiddenFilterChangeHandle}/>
                         :
                         null
                 }
-
 
                 <Dropdown {...restProps}
                           ref="dropdown"
@@ -309,7 +315,8 @@ class DropdownSelect extends Component {
 
                         {
                             useFilter ?
-                                <TextField className="dropdown-select-filter"
+                                <TextField ref="filter"
+                                           className="dropdown-select-filter"
                                            value={filter}
                                            rightIconCls={filterIconCls}
                                            onChange={this.filterChangeHandler}/>

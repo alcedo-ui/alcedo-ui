@@ -263,11 +263,6 @@ MaterialLocalAutoComplete.propTypes = {
      */
     noMatchedMsg: PropTypes.string,
 
-    /**
-     * If true,the list data will be grouped.
-     */
-    isGrouped: PropTypes.bool,
-
     required: PropTypes.bool,
 
     isLabelAnimate: PropTypes.bool,
@@ -340,7 +335,6 @@ MaterialLocalAutoComplete.defaultProps = {
     rightIconCls: 'fas fa-search',
     noMatchedPopupVisible: true,
     noMatchedMsg: '',
-    isGrouped: false,
     required: false,
     filterInitValue: ''
 
