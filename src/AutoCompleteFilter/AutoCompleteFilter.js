@@ -15,6 +15,8 @@ import List from '../List';
 import DynamicRenderList from '../DynamicRenderList';
 import Theme from '../Theme';
 
+import Position from '../_statics/Position';
+
 import Util from '../_vendors/Util';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
 import Valid from '../_vendors/Valid';
@@ -22,6 +24,7 @@ import Valid from '../_vendors/Valid';
 class AutoCompleteFilter extends Component {
 
     static Theme = Theme;
+    static Position = Position;
 
     constructor(props, ...restArgs) {
 
@@ -284,7 +287,7 @@ class AutoCompleteFilter extends Component {
 
         const {
                 className, popupClassName, style, popupStyle, theme, popupTheme, name, placeholder,
-                disabled, iconCls, rightIconCls, valueField, displayField, descriptionField,
+                disabled, iconCls, rightIconCls, valueField, displayField, descriptionField, position,
                 noMatchedPopupVisible, noMatchedMsg, popupChildren, renderer,
                 useDynamicRenderList, listHeight, itemHeight, scrollBuffer,
                 onFilterClear, onMouseOver, onMouseOut
@@ -312,6 +315,8 @@ class AutoCompleteFilter extends Component {
                 disableTouchRipple: true
             }],
 
+            isAboveFinally = position === Position.TOP || position === Position.TOP_LEFT
+                || position === Position.TOP_RIGHT || (!position && isAbove),
             isEmpty = !listData || listData.length < 1,
 
             wrapperClassName = classNames('auto-complete-filter', {
@@ -319,9 +324,9 @@ class AutoCompleteFilter extends Component {
             }),
             triggerClassName = classNames('auto-complete-filter-trigger',
                 isEmpty && !noMatchedPopupVisible ? '' : (popupVisible ? ' activated' : ''),
-                isAbove ? ' above' : ' blow'),
+                isAboveFinally ? ' above' : ' blow'),
             autoCompletePopupClassName = classNames('auto-complete-filter-popup',
-                isAbove ? ' above' : ' blow', {
+                isAboveFinally ? ' above' : ' blow', {
                     [popupClassName]: popupClassName
                 }),
             autoCompletePopupStyle = Object.assign({
@@ -371,7 +376,8 @@ class AutoCompleteFilter extends Component {
                                visible={popupVisible}
                                triggerEl={this.triggerEl}
                                hasTriangle={false}
-                               position={isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT}
+                               position={position ? position :
+                                   (isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT)}
                                onRender={this.popupRenderHandler}
                                onRequestClose={this.closePopup}>
 
@@ -452,6 +458,8 @@ AutoCompleteFilter.propTypes = {
      * The theme.
      */
     popupTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
      * The name of the auto complete.
