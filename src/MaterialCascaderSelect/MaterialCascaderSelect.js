@@ -14,6 +14,7 @@ import Theme from '../Theme';
 
 import SelectMode from '../_statics/SelectMode';
 import HorizontalDirection from '../_statics/HorizontalDirection';
+import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
 
@@ -21,7 +22,7 @@ class MaterialCascaderSelect extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
-    static Position = CascaderSelect.Position;
+    static Position = Position;
     static ExpandDirection = HorizontalDirection;
 
     constructor(props, ...restArgs) {
@@ -124,7 +125,7 @@ MaterialCascaderSelect.propTypes = {
      */
     popupTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    position: PropTypes.oneOf(Util.enumerateValue(CascaderSelect.Position)),
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     listWidth: PropTypes.number,
 
@@ -358,7 +359,6 @@ MaterialCascaderSelect.defaultProps = {
     selectMode: SelectMode.SINGLE_SELECT,
     expandDirection: HorizontalDirection.RIGHT,
 
-    position: CascaderSelect.Position.LEFT,
     placeholder: 'Please select ...',
     rightIconCls: 'fas fa-angle-down',
     disabled: false,
