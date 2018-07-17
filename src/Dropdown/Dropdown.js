@@ -12,16 +12,15 @@ import RaisedButton from '../RaisedButton';
 import Popup from '../Popup';
 import Theme from '../Theme';
 
+import Position from '../_statics/Position';
+
 import Util from '../_vendors/Util';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
 
 class Dropdown extends Component {
 
     static Theme = Theme;
-    static Position = {
-        LEFT: 'LEFT',
-        RIGHT: 'RIGHT'
-    };
+    static Position = Position;
 
     constructor(props, ...restArgs) {
 
@@ -146,7 +145,7 @@ class Dropdown extends Component {
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
                        hasTriangle={false}
-                       position={isAbove ? Popup.Position[`TOP_${position}`] : Popup.Position[`BOTTOM_${position}`]}
+                       position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        shouldPreventContainerScroll={false}
                        onRender={this.popupRenderHandler}
                        onRequestClose={this.closePopup}>
@@ -203,7 +202,7 @@ Dropdown.propTypes = {
      */
     popupTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    position: PropTypes.oneOf(Util.enumerateValue(Dropdown.Position)),
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
      * The value of the dropDown trigger.
@@ -257,7 +256,6 @@ Dropdown.defaultProps = {
     theme: Theme.DEFAULT,
     popupTheme: Theme.DEFAULT,
 
-    position: Dropdown.Position.LEFT,
     rightIconCls: 'fas fa-angle-down',
     disabled: false,
     disableTouchRipple: false,
