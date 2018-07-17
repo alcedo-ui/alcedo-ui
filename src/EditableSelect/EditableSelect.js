@@ -236,7 +236,7 @@ class EditableSelect extends Component {
                        triggerEl={this.triggerEl}
                        triggerHandler={this.triggerHandler}
                        hasTriangle={false}
-                       position={position ? position : (isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT)}
+                       position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        onRender={this.popupRenderHandle}
                        onRequestClose={this.closePopup}>
 
