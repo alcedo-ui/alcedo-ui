@@ -74,8 +74,11 @@ class Dropdown extends Component {
 
     popupRenderHandler = popupEl => {
 
-        const isAbove = DropdownCalculation.isAbove(this.dropdownEl, this.triggerEl, findDOMNode(popupEl));
+        if (this.props.position) {
+            return;
+        }
 
+        const isAbove = DropdownCalculation.isAbove(this.dropdownEl, this.triggerEl, findDOMNode(popupEl));
         if (isAbove !== this.state.isAbove) {
             this.setState({
                 isAbove
@@ -104,15 +107,18 @@ class Dropdown extends Component {
             } = this.props,
             {popupVisible, isAbove} = this.state,
 
+            isAboveFinally = position === Position.TOP || position === Position.TOP_LEFT
+                || position === Position.TOP_RIGHT || (!position && isAbove),
+
             dropdownClassName = classNames('dropdown', {
                 activated: popupVisible,
                 [className]: className
             }),
-            buttonClassName = classNames('dropdown-trigger', isAbove ? 'above' : 'blow', {
+            buttonClassName = classNames('dropdown-trigger', isAboveFinally ? 'above' : 'blow', {
                 activated: popupVisible,
                 [triggerClassName]: triggerClassName
             }),
-            dropdownPopupClassName = classNames('dropdown-popup', isAbove ? 'above' : 'blow', {
+            dropdownPopupClassName = classNames('dropdown-popup', isAboveFinally ? 'above' : 'blow', {
                 [popupClassName]: popupClassName
             }),
             dropdownPopupStyle = Object.assign({
