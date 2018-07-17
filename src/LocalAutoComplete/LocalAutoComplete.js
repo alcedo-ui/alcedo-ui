@@ -15,6 +15,8 @@ import List from '../List';
 import DynamicRenderList from '../DynamicRenderList';
 import Theme from '../Theme';
 
+import Position from '../_statics/Position';
+
 import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
@@ -25,6 +27,7 @@ import ComponentUtil from '../_vendors/ComponentUtil';
 class LocalAutoComplete extends Component {
 
     static Theme = Theme;
+    static Position = Position;
 
     constructor(props, ...restArgs) {
 
@@ -301,7 +304,7 @@ class LocalAutoComplete extends Component {
 
         const {
 
-                className, triggerClassName, popupClassName, style, popupStyle, popupTheme, name,
+                className, triggerClassName, popupClassName, style, popupStyle, popupTheme, name, position,
                 valueField, displayField, descriptionField, noMatchedPopupVisible, noMatchedMsg, popupChildren,
                 renderer, useDynamicRenderList, listHeight, itemHeight, scrollBuffer, onFilterClear,
 
@@ -335,6 +338,8 @@ class LocalAutoComplete extends Component {
             }],
 
             isEmpty = listData.length < 1,
+            isAboveFinally = position === Position.TOP || position === Position.TOP_LEFT
+                || position === Position.TOP_RIGHT || (!position && isAbove),
 
             wrapperClassName = classNames('local-auto-complete', {
                 [className]: className
@@ -342,11 +347,11 @@ class LocalAutoComplete extends Component {
 
             autoCompleteTriggerClassName = classNames('local-auto-complete-trigger',
                 isEmpty && !noMatchedPopupVisible ? '' : (popupVisible ? ' activated' : ''),
-                isAbove ? ' above' : ' blow', {
+                isAboveFinally ? ' above' : ' blow', {
                     [triggerClassName]: triggerClassName
                 }),
 
-            autoCompletePopupClassName = classNames('local-auto-complete-popup', isAbove ? ' above' : ' blow', {
+            autoCompletePopupClassName = classNames('local-auto-complete-popup', isAboveFinally ? ' above' : ' blow', {
                 [popupClassName]: popupClassName
             }),
             autoCompletePopupStyle = Object.assign({
@@ -390,7 +395,8 @@ class LocalAutoComplete extends Component {
                                visible={popupVisible}
                                triggerEl={this.triggerEl}
                                hasTriangle={false}
-                               position={isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT}
+                               position={position ? position :
+                                   (isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT)}
                                onRender={this.popupRenderHandler}
                                onRequestClose={this.closePopup}>
 
@@ -476,6 +482,8 @@ LocalAutoComplete.propTypes = {
      * The theme.
      */
     popupTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
      * The name of the auto complete.
