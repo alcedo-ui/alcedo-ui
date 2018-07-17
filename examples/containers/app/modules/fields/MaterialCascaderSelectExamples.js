@@ -145,7 +145,7 @@ class MaterialCascaderSelectExamples extends Component {
                                                             label="Label"
                                                             placeholder="Placeholder"
                                                             selectMode={MaterialCascaderSelect.SelectMode.MULTI_SELECT}
-                                                            position={MaterialCascaderSelect.Position.RIGHT}
+                                                            position={MaterialCascaderSelect.Position.BOTTOM_RIGHT}
                                                             expandDirection={MaterialCascaderSelect.ExpandDirection.LEFT}
                                                             autoClose={false}
                                                             data={this.data}
