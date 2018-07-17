@@ -376,8 +376,7 @@ class AutoCompleteFilter extends Component {
                                visible={popupVisible}
                                triggerEl={this.triggerEl}
                                hasTriangle={false}
-                               position={position ? position :
-                                   (isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT)}
+                               position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                                onRender={this.popupRenderHandler}
                                onRequestClose={this.closePopup}>
 
