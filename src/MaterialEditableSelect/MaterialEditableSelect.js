@@ -11,11 +11,14 @@ import EditableSelect from '../EditableSelect';
 import MaterialFieldSeparator from '../_MaterialFieldSeparator';
 import Theme from '../Theme';
 
+import Position from '../_statics/Position';
+
 import Util from '../_vendors/Util';
 
 class MaterialEditableSelect extends Component {
 
     static Theme = Theme;
+    static Position = Position;
 
     constructor(props, ...restArgs) {
 
@@ -186,6 +189,8 @@ MaterialEditableSelect.propTypes = {
      * Override the styles of the popup element.
      */
     popupStyle: PropTypes.object,
+
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
      * The label of the text field.
