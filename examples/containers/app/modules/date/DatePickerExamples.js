@@ -46,6 +46,7 @@ class DatePickerExamples extends Component {
                                 <DatePicker value={''}
                                             dateFormat={'YYYY-MM-DD'}
                                             name="date"
+                                            position={DatePicker.Position.TOP}
                                             autoClose={true}
                                             onChange={this.onChangeHandler}/>
 

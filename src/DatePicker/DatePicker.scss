@@ -35,7 +35,7 @@ input::-ms-clear {
     &.date-picker-popup {
         width: 300px;
         @include shadow(3);
-        margin-top: -40px;
+
         .calendar-input {
             height: 40px;
             width: 95%;
