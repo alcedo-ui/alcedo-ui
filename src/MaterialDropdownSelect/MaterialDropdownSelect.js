@@ -12,6 +12,7 @@ import MaterialProvider from '../MaterialProvider';
 import Theme from '../Theme';
 
 import SelectMode from '../_statics/SelectMode';
+import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
 
@@ -19,7 +20,7 @@ class MaterialDropdownSelect extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
-    static Position = DropdownSelect.Position;
+    static Position = Position;
 
     constructor(props, ...restArgs) {
 
@@ -113,7 +114,7 @@ MaterialDropdownSelect.propTypes = {
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    position: PropTypes.oneOf(Util.enumerateValue(DropdownSelect.Position)),
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
      * The name of the dropDownSelect.
@@ -316,7 +317,6 @@ MaterialDropdownSelect.defaultProps = {
 
     theme: Theme.DEFAULT,
 
-    position: DropdownSelect.Position.LEFT,
     isLabelAnimate: true,
     placeholder: 'Please select ...',
     rightIconCls: 'fas fa-angle-down',

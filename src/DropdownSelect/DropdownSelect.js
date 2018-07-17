@@ -15,6 +15,7 @@ import Checkbox from '../Checkbox';
 import Theme from '../Theme';
 
 import SelectMode from '../_statics/SelectMode';
+import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
@@ -24,7 +25,7 @@ class DropdownSelect extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
-    static Position = Dropdown.Position;
+    static Position = Position;
 
     constructor(props, ...restArgs) {
 
@@ -462,7 +463,7 @@ DropdownSelect.propTypes = {
      */
     popupTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    position: PropTypes.oneOf(Util.enumerateValue(Dropdown.Position)),
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
      * The name of the dropDownSelect.
@@ -675,7 +676,6 @@ DropdownSelect.defaultProps = {
     theme: Theme.DEFAULT,
     popupTheme: Theme.DEFAULT,
 
-    position: Dropdown.Position.LEFT,
     placeholder: 'Please select ...',
     rightIconCls: 'fas fa-angle-down',
     data: [],

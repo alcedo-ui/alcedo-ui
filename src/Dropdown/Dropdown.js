@@ -12,16 +12,15 @@ import RaisedButton from '../RaisedButton';
 import Popup from '../Popup';
 import Theme from '../Theme';
 
+import Position from '../_statics/Position';
+
 import Util from '../_vendors/Util';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
 
 class Dropdown extends Component {
 
     static Theme = Theme;
-    static Position = {
-        LEFT: 'LEFT',
-        RIGHT: 'RIGHT'
-    };
+    static Position = Position;
 
     constructor(props, ...restArgs) {
 
@@ -75,8 +74,11 @@ class Dropdown extends Component {
 
     popupRenderHandler = popupEl => {
 
-        const isAbove = DropdownCalculation.isAbove(this.dropdownEl, this.triggerEl, findDOMNode(popupEl));
+        if (this.props.position) {
+            return;
+        }
 
+        const isAbove = DropdownCalculation.isAbove(this.dropdownEl, this.triggerEl, findDOMNode(popupEl));
         if (isAbove !== this.state.isAbove) {
             this.setState({
                 isAbove
@@ -105,15 +107,18 @@ class Dropdown extends Component {
             } = this.props,
             {popupVisible, isAbove} = this.state,
 
+            isAboveFinally = position === Position.TOP || position === Position.TOP_LEFT
+                || position === Position.TOP_RIGHT || (!position && isAbove),
+
             dropdownClassName = classNames('dropdown', {
                 activated: popupVisible,
                 [className]: className
             }),
-            buttonClassName = classNames('dropdown-trigger', isAbove ? 'above' : 'blow', {
+            buttonClassName = classNames('dropdown-trigger', isAboveFinally ? 'above' : 'blow', {
                 activated: popupVisible,
                 [triggerClassName]: triggerClassName
             }),
-            dropdownPopupClassName = classNames('dropdown-popup', isAbove ? 'above' : 'blow', {
+            dropdownPopupClassName = classNames('dropdown-popup', isAboveFinally ? 'above' : 'blow', {
                 [popupClassName]: popupClassName
             }),
             dropdownPopupStyle = Object.assign({
@@ -146,7 +151,7 @@ class Dropdown extends Component {
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
                        hasTriangle={false}
-                       position={isAbove ? Popup.Position[`TOP_${position}`] : Popup.Position[`BOTTOM_${position}`]}
+                       position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        shouldPreventContainerScroll={false}
                        onRender={this.popupRenderHandler}
                        onRequestClose={this.closePopup}>
@@ -203,7 +208,7 @@ Dropdown.propTypes = {
      */
     popupTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    position: PropTypes.oneOf(Util.enumerateValue(Dropdown.Position)),
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
      * The value of the dropDown trigger.
@@ -257,7 +262,6 @@ Dropdown.defaultProps = {
     theme: Theme.DEFAULT,
     popupTheme: Theme.DEFAULT,
 
-    position: Dropdown.Position.LEFT,
     rightIconCls: 'fas fa-angle-down',
     disabled: false,
     disableTouchRipple: false,

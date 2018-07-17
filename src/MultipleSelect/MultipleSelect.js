@@ -17,6 +17,7 @@ import DynamicRenderList from '../DynamicRenderList';
 import Theme from '../Theme';
 
 import SelectMode from '../_statics/SelectMode';
+import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
@@ -24,6 +25,7 @@ import DropdownCalculation from '../_vendors/DropdownCalculation';
 class MultipleSelect extends Component {
 
     static Theme = Theme;
+    static Position = Position;
 
     constructor(props, ...restArgs) {
 
@@ -214,7 +216,7 @@ class MultipleSelect extends Component {
 
         const {
                 className, popupClassName, style, popupStyle, theme, name, placeholder, isGrouped,
-                useDynamicRenderList, listHeight, itemHeight, scrollBuffer,
+                useDynamicRenderList, listHeight, itemHeight, scrollBuffer, position,
                 disabled, iconCls, rightIconCls, valueField, displayField, descriptionField, noMatchedMsg
             } = this.props,
             {selectedCollapsed, isAbove, value, filter, popupVisible} = this.state,
@@ -234,20 +236,22 @@ class MultipleSelect extends Component {
                     </div>
             }],
 
+            isAboveFinally = position === Position.TOP || position === Position.TOP_LEFT
+                || position === Position.TOP_RIGHT || (!position && isAbove),
             valueLen = (value ? value.length : 0),
 
-            multipleSelectClassName = classNames('multiple-select', isAbove ? 'above' : 'blow', {
+            multipleSelectClassName = classNames('multiple-select', isAboveFinally ? 'above' : 'blow', {
                 [`theme-${theme}`]: theme,
                 'not-empty': valueLen > 0,
                 activated: popupVisible,
                 [className]: className
             }),
 
-            selectedClassName = classNames('multiple-select-selected-wrapper', isAbove ? 'above' : 'blow', {
+            selectedClassName = classNames('multiple-select-selected-wrapper', isAboveFinally ? 'above' : 'blow', {
                 collapsed: selectedCollapsed
             }),
 
-            selectPopupClassName = classNames('multiple-select-popup', isAbove ? 'above' : 'blow', {
+            selectPopupClassName = classNames('multiple-select-popup', isAboveFinally ? 'above' : 'blow', {
                 [popupClassName]: popupClassName
             }),
             selectPopupStyle = Object.assign({
@@ -331,7 +335,7 @@ class MultipleSelect extends Component {
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
                        hasTriangle={false}
-                       position={isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT}
+                       position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        onRender={this.popupRenderHandler}
                        onRequestClose={this.closePopup}>
 
@@ -406,6 +410,8 @@ MultipleSelect.propTypes = {
      * The theme.
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
      * The name of the auto complete.
