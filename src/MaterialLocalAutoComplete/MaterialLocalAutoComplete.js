@@ -11,12 +11,15 @@ import LocalAutoComplete from '../LocalAutoComplete';
 import MaterialProvider from '../MaterialProvider';
 import Theme from '../Theme';
 
+import Position from '../_statics/Position';
+
 import Util from '../_vendors/Util';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
 class MaterialLocalAutoComplete extends Component {
 
     static Theme = Theme;
+    static Position = Position;
 
     constructor(props, ...restArgs) {
 
@@ -123,6 +126,8 @@ MaterialLocalAutoComplete.propTypes = {
      * The theme.
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
      * The name of the auto complete.
