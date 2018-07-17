@@ -13,12 +13,15 @@ import Popup from '../Popup';
 import List from '../List';
 import Theme from '../Theme';
 
+import Position from '../_statics/Position';
+
 import Util from '../_vendors/Util';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
 
 class EditableSelect extends Component {
 
     static Theme = Theme;
+    static Position = Position;
 
     constructor(props, ...restArgs) {
 
@@ -176,18 +179,21 @@ class EditableSelect extends Component {
 
         const {
                 className, popupClassName, style, popupStyle, name, placeholder,
-                disabled, useFilter, valueField, descriptionField, noMatchedMsg,
+                disabled, valueField, descriptionField, position,
                 triggerTheme, isGrouped, onItemClick, renderer,
                 onMouseOver, onMouseOut
             } = this.props,
-            {value, listValue, filter, popupVisible, isAbove} = this.state,
+            {value, listValue, popupVisible, isAbove} = this.state,
 
-            triggerClassName = classNames('editable-select-trigger', isAbove ? 'above' : 'blow', {
+            isAboveFinally = position === Position.TOP || position === Position.TOP_LEFT
+                || position === Position.TOP_RIGHT || (!position && isAbove),
+
+            triggerClassName = classNames('editable-select-trigger', isAboveFinally ? 'above' : 'blow', {
                 activated: popupVisible,
                 empty: !value
             }),
 
-            editableSelectPopupClassName = classNames('editable-select-popup', isAbove ? 'above' : 'blow', {
+            editableSelectPopupClassName = classNames('editable-select-popup', isAboveFinally ? 'above' : 'blow', {
                 [popupClassName]: popupClassName
             }),
 
@@ -214,7 +220,7 @@ class EditableSelect extends Component {
                 <TextField ref="trigger"
                            className={triggerClassName}
                            value={value}
-                           rightIconCls={`fas fa-angle-${isAbove ? 'up' : 'down'} editable-select-trigger-icon`}
+                           rightIconCls={`fas fa-angle-${isAboveFinally ? 'up' : 'down'} editable-select-trigger-icon`}
                            placeholder={placeholder}
                            disabled={disabled}
                            theme={triggerTheme}
@@ -230,7 +236,7 @@ class EditableSelect extends Component {
                        triggerEl={this.triggerEl}
                        triggerHandler={this.triggerHandler}
                        hasTriangle={false}
-                       position={isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT}
+                       position={position ? position : (isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT)}
                        onRender={this.popupRenderHandle}
                        onRequestClose={this.closePopup}>
 
@@ -274,6 +280,8 @@ EditableSelect.propTypes = {
      * Override the styles of the popup element.
      */
     popupStyle: PropTypes.object,
+
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
      * The name of the editableSelect.
@@ -411,11 +419,6 @@ EditableSelect.propTypes = {
     useFilter: PropTypes.bool,
 
     /**
-     * The message of no matching option.
-     */
-    noMatchedMsg: PropTypes.string,
-
-    /**
      * The theme of editableSelect.Can be primary,highlight,success,warning,error.
      */
     triggerTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
@@ -455,7 +458,6 @@ EditableSelect.defaultProps = {
     infoMsg: '',
     autoClose: true,
     useFilter: false,
-    noMatchedMsg: '',
     triggerTheme: Theme.DEFAULT,
     isGrouped: false
 
