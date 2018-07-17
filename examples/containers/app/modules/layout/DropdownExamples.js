@@ -48,6 +48,28 @@ class DropdownExamples extends Component {
 
                 </Widget>
 
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Self Defined Position"/>
+
+                    <div className="widget-content">
+
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <Dropdown triggerValue="Toggle Dropdown"
+                                          popupClassName="dropdown-examples-popup"
+                                          position={Dropdown.Position.TOP_LEFT}>
+                                    <div className="dropdown-content">Dropdown content</div>
+                                </Dropdown>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </Widget>
+
                 <h2 className="example-title">Properties</h2>
 
                 <PropTypeDescTable data={doc}/>
