@@ -15,6 +15,7 @@ import DynamicRenderList from '../DynamicRenderList';
 import Theme from '../Theme';
 
 import SelectMode from '../_statics/SelectMode';
+import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
@@ -23,6 +24,7 @@ class DropdownFilter extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
+    static Position = Position;
 
     constructor(props, ...restArgs) {
 
@@ -173,7 +175,7 @@ class DropdownFilter extends Component {
         const {
 
                 className, popupClassName, style, popupStyle, theme, popupTheme, placeholder, selectMode,
-                disabled, iconCls, rightIconCls, valueField, displayField, descriptionField,
+                disabled, iconCls, rightIconCls, valueField, displayField, descriptionField, position,
                 useDynamicRenderList, listHeight, itemHeight, scrollBuffer,
                 noMatchedPopupVisible, noMatchedMsg, popupChildren, renderer,
 
@@ -184,6 +186,9 @@ class DropdownFilter extends Component {
 
             } = this.props,
             {isAbove, value, filter, popupVisible} = this.state,
+
+            isAboveFinally = position === Position.TOP || position === Position.TOP_LEFT
+                || position === Position.TOP_RIGHT || (!position && isAbove),
 
             emptyEl = [{
                 itemRenderer() {
@@ -214,8 +219,8 @@ class DropdownFilter extends Component {
             }),
             triggerClassName = classNames('dropdown-filter-trigger',
                 isEmpty && !noMatchedPopupVisible ? '' : (popupVisible ? 'activated' : ''),
-                isAbove ? 'above' : 'blow'),
-            autoCompletePopupClassName = classNames('dropdown-filter-popup', isAbove ? ' above' : ' blow', {
+                isAboveFinally ? 'above' : 'blow'),
+            autoCompletePopupClassName = classNames('dropdown-filter-popup', isAboveFinally ? ' above' : ' blow', {
                 [popupClassName]: popupClassName
             }),
             autoCompletePopupStyle = Object.assign({
@@ -254,7 +259,7 @@ class DropdownFilter extends Component {
                                visible={popupVisible}
                                triggerEl={this.triggerEl}
                                hasTriangle={false}
-                               position={isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT}
+                               position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                                onRender={this.popupRenderHandler}
                                onRequestClose={this.closePopup}>
 
@@ -348,6 +353,8 @@ DropdownFilter.propTypes = {
      * The theme.
      */
     popupTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
      * The placeholder of the field.

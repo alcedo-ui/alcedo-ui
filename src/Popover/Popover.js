@@ -202,8 +202,6 @@ Popover.propTypes = {
 
 Popover.defaultProps = {
 
-    depth: 6,
-
     visible: false,
     hasTriangle: true,
     theme: Theme.DEFAULT,

@@ -15,6 +15,7 @@ import TextField from '../TextField';
 
 import SelectMode from '../_statics/SelectMode';
 import VirtualRoot from '../_statics/VirtualRoot';
+import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
@@ -25,7 +26,7 @@ class TreeSelect extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
-    static Position = Dropdown.Position;
+    static Position = Position;
 
     constructor(props, ...restArgs) {
 
@@ -127,6 +128,18 @@ class TreeSelect extends Component {
 
     };
 
+    popupOpenHandler = e => {
+
+        const {useFilter, onOpenPopup} = this.props;
+
+        if (useFilter) {
+            this.refs.filter && this.refs.filter.focus();
+        }
+
+        onOpenPopup && onOpenPopup(e);
+
+    };
+
     popupClosedHandler = e => {
         this.setState({
             popupVisible: false
@@ -220,12 +233,14 @@ class TreeSelect extends Component {
                           popupClassName={selectPopupClassName}
                           popupTheme={popupTheme}
                           triggerValue={this.getTriggerValue()}
+                          onOpenPopup={this.popupOpenHandler}
                           onClosePopup={this.popupClosedHandler}>
 
                     <div className="tree-select-popup-fixed">
                         {
                             useFilter ?
-                                <TextField className="tree-select-filter"
+                                <TextField ref="filter"
+                                           className="tree-select-filter"
                                            value={filter}
                                            rightIconCls={filterIconCls}
                                            onChange={this.filterChangeHandler}/>
@@ -331,7 +346,7 @@ TreeSelect.propTypes = {
      */
     popupTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    position: PropTypes.oneOf(Util.enumerateValue(Dropdown.Position)),
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
      * The name of the dropDownSelect.
@@ -519,7 +534,6 @@ TreeSelect.defaultProps = {
     theme: Theme.DEFAULT,
     popupTheme: Theme.DEFAULT,
 
-    position: Dropdown.Position.LEFT,
     placeholder: 'Please select ...',
     rightIconCls: 'fas fa-angle-down',
     disabled: false,

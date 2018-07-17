@@ -15,6 +15,7 @@ import Checkbox from '../Checkbox';
 import Theme from '../Theme';
 
 import SelectMode from '../_statics/SelectMode';
+import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
@@ -24,7 +25,7 @@ class DropdownSelect extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
-    static Position = Dropdown.Position;
+    static Position = Position;
 
     constructor(props, ...restArgs) {
 
@@ -135,7 +136,13 @@ class DropdownSelect extends Component {
 
     popupOpenHandler = e => {
 
-        this.refs.hiddenFilter && this.refs.hiddenFilter.focus();
+        const {isHiddenInputFilter, useFilter} = this.props;
+
+        if (isHiddenInputFilter) {
+            this.refs.hiddenFilter && this.refs.hiddenFilter.focus();
+        } else if (useFilter) {
+            this.refs.filter && this.refs.filter.focus();
+        }
 
         this.setState({
             popupVisible: true
@@ -143,6 +150,7 @@ class DropdownSelect extends Component {
             const {onOpenPopup} = this.props;
             onOpenPopup && onOpenPopup(e);
         });
+
     };
 
     popupCloseHandler = e => {
@@ -287,14 +295,13 @@ class DropdownSelect extends Component {
 
                 {
                     isHiddenInputFilter ?
-                        <input className="hiddenFilter"
+                        <input ref="hiddenFilter"
+                               className="hiddenFilter"
                                type="text"
-                               ref="hiddenFilter"
                                onChange={this.hiddenFilterChangeHandle}/>
                         :
                         null
                 }
-
 
                 <Dropdown {...restProps}
                           ref="dropdown"
@@ -309,7 +316,8 @@ class DropdownSelect extends Component {
 
                         {
                             useFilter ?
-                                <TextField className="dropdown-select-filter"
+                                <TextField ref="filter"
+                                           className="dropdown-select-filter"
                                            value={filter}
                                            rightIconCls={filterIconCls}
                                            onChange={this.filterChangeHandler}/>
@@ -455,7 +463,7 @@ DropdownSelect.propTypes = {
      */
     popupTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    position: PropTypes.oneOf(Util.enumerateValue(Dropdown.Position)),
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
      * The name of the dropDownSelect.
@@ -668,7 +676,6 @@ DropdownSelect.defaultProps = {
     theme: Theme.DEFAULT,
     popupTheme: Theme.DEFAULT,
 
-    position: Dropdown.Position.LEFT,
     placeholder: 'Please select ...',
     rightIconCls: 'fas fa-angle-down',
     data: [],
