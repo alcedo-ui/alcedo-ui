@@ -1,16 +1,11 @@
-const ora = require('ora'),
-    chalk = require('chalk'),
+const chalk = require('chalk'),
     webpack = require('webpack'),
 
-    webpackConfig = require('./webpack.config.prod.js'),
+    webpackConfig = require('./webpack.config.prod.js');
 
-    spinner = ora('building for production...');
-
-spinner.start();
+console.log(chalk.cyan('Building For Production...\n'));
 
 webpack(webpackConfig, (err, stats) => {
-
-    spinner.stop();
 
     if (err) {
         throw err;
@@ -24,6 +19,6 @@ webpack(webpackConfig, (err, stats) => {
         chunkModules: false
     }) + '\n\n');
 
-    console.log(chalk.cyan('Build complete.'));
+    console.log(chalk.cyan('Build Complete.'));
 
 });
