@@ -3,7 +3,7 @@ const chalk = require('chalk'),
 
     webpackConfig = require('./webpack.config.dll.js');
 
-console.log(chalk.cyan('Building DLL...'));
+console.log(chalk.cyan('Building DLL...\n'));
 
 webpack(webpackConfig, (err, stats) => {
 
