@@ -90,6 +90,8 @@ class LinearProgressExample extends Component {
 
                                 <LinearProgress highlightWidth={this.state.percent + '%'}
                                                 style={style1}
+                                                word={true}
+                                                wordStyle={LinearProgress.WordStyle.FRONT}
                                                 theme="warning"/>
 
                             </div>
@@ -114,7 +116,7 @@ class LinearProgressExample extends Component {
                                 <LinearProgress highlightWidth={this.state.percent + '%'}
                                                 style={style2}
                                                 word={true}
-                                                wordStyle={LinearProgress.WordStyle.MIDDLE}
+                                                wordStyle={LinearProgress.WordStyle.END}
                                                 theme='success'/>
 
                             </div>
