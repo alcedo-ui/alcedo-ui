@@ -94,6 +94,19 @@
         }
     }
 
+    &.linear-progress-four {
+        overflow: hidden;
+        .circular-progress-percent {
+            width: 40px;
+            text-align: right;
+            float: left;
+        }
+        .linear-progress-background {
+            float: left;
+            width: calc(100% - 40px);
+        }
+    }
+
 }
 
 @keyframes progress-bar-stripes {

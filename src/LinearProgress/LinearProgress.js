@@ -17,7 +17,8 @@ class LinearProgress extends Component {
     static WordStyle = {
         FRONT: 'linear-progress-one',
         MIDDLE: 'linear-progress-two',
-        FOLLOW: 'linear-progress-three'
+        FOLLOW: 'linear-progress-three',
+        END: 'linear-progress-four'
     };
     static Theme = Theme;
 
@@ -57,14 +58,16 @@ class LinearProgress extends Component {
                  ref="progress">
 
                 {
-                    word ?
-                        (
-                            wordStyle === LinearProgress.WordStyle.FOLLOW ?
-                                <Percent endNum={parseInt(highlightWidth)}
-                                         move={true}/>
-                                :
-                                <Percent endNum={parseInt(highlightWidth)}/>
-                        )
+                    word && wordStyle === LinearProgress.WordStyle.FOLLOW ?
+                        <Percent endNum={parseInt(highlightWidth)}
+                                 move={true}/>
+                        :
+                        null
+                }
+
+                {
+                    word && wordStyle === LinearProgress.WordStyle.FRONT ?
+                        <Percent endNum={parseInt(highlightWidth)}/>
                         :
                         null
                 }
@@ -82,6 +85,13 @@ class LinearProgress extends Component {
                         }
                     </div>
                 </div>
+
+                {
+                    word && wordStyle === LinearProgress.WordStyle.END ?
+                        <Percent endNum={parseInt(highlightWidth)}/>
+                        :
+                        null
+                }
 
             </div>
         );
