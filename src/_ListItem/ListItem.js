@@ -93,7 +93,6 @@ class ListItem extends Component {
 
                 checked, selectTheme, selectMode, indeterminateCallback, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
-                stopSelectClickEventPropagation,
 
                 onMouseEnter, onMouseLeave
 
@@ -129,8 +128,7 @@ class ListItem extends Component {
                                    uncheckedIconCls={radioUncheckedIconCls}
                                    checkedIconCls={radioCheckedIconCls}
                                    disableTouchRipple={true}
-                                   onCheck={this.radioCheckHandler}
-                                   onClick={e => stopSelectClickEventPropagation && e.stopPropagation()}/>
+                                   onCheck={this.radioCheckHandler}/>
                             :
                             null
                     }
@@ -147,8 +145,7 @@ class ListItem extends Component {
                                       indeterminateIconCls={checkboxIndeterminateIconCls}
                                       disableTouchRipple={true}
                                       onCheck={this.checkboxCheckHandler}
-                                      onUncheck={this.checkboxUncheckHandler}
-                                      onClick={e => stopSelectClickEventPropagation && e.stopPropagation()}/>
+                                      onUncheck={this.checkboxUncheckHandler}/>
                             :
                             null
                     }
@@ -264,7 +261,6 @@ ListItem.propTypes = {
     indeterminateCallback: PropTypes.func,
 
     autoSelect: PropTypes.bool,
-    stopSelectClickEventPropagation: PropTypes.bool,
 
     onClick: PropTypes.func,
     onSelect: PropTypes.func,
@@ -296,8 +292,7 @@ ListItem.defaultProps = {
     checkboxCheckedIconCls: 'fas fa-check-square',
     checkboxIndeterminateIconCls: 'fas fa-minus-square',
 
-    autoSelect: true,
-    stopSelectClickEventPropagation: false
+    autoSelect: true
 
 };
 

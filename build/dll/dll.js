@@ -1,16 +1,11 @@
-const ora = require('ora'),
-    chalk = require('chalk'),
+const chalk = require('chalk'),
     webpack = require('webpack'),
 
-    webpackConfig = require('./webpack.config.dll.js'),
+    webpackConfig = require('./webpack.config.dll.js');
 
-    spinner = ora('Building DLL...');
-
-spinner.start();
+console.log(chalk.cyan('Building DLL...\n'));
 
 webpack(webpackConfig, (err, stats) => {
-
-    spinner.stop();
 
     if (err) {
         throw err;
