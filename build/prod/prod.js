@@ -3,7 +3,7 @@ const chalk = require('chalk'),
 
     webpackConfig = require('./webpack.config.prod.js');
 
-console.log(chalk.cyan('Building For Production...'));
+console.log(chalk.cyan('Building For Production...\n'));
 
 webpack(webpackConfig, (err, stats) => {
 
