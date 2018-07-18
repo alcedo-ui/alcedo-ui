@@ -9,7 +9,7 @@ import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
 
-import TextField from '../TextField';
+import TextField from '../_DatePickerTextField';
 import DayPicker from '../_DayPicker';
 import MonthPicker from '../_MonthPicker';
 import YearPicker from '../_YearPicker';
@@ -260,6 +260,7 @@ class DateTimePicker extends Component {
                            disabled={disabled}
                            clearButtonVisible={false}
                            isFocusedSelectAll={popupVisible}
+                           popupVisible={popupVisible}
                            onClick={e => {
                                this.togglePopup(e);
                            }}

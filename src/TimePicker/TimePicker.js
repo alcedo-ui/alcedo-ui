@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import classNames from 'classnames';
 
-import TextField from '../TextField';
+import TextField from '../_DatePickerTextField';
 import TimeList from '../_TimeList';
 import Popup from '../Popup';
 
@@ -177,6 +177,7 @@ class TimePicker extends Component {
                                readOnly={!popupVisible}
                                clearButtonVisible={false}
                                isFocusedSelectAll={popupVisible}
+                               popupVisible={popupVisible}
                                onClick={e => {
                                    this.togglePopup(e);
                                }}

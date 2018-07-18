@@ -1,0 +1,65 @@
+/**
+ * @file MaterialDatePickerTextField style
+ * @author sunday(sunday.wei@derbysoft.com)
+ */
+
+.material-date-picker-text-field {
+    position: relative;
+    width: 300px;
+    background: $theme-field-bg;
+
+    .material-date-picker-text-field-label {
+        display: inline-block;
+        line-height: 16px;
+        color: $theme-field-disabled;
+        transform-origin: top left;
+        transition: transform $theme-transition-duration ease-in-out,
+        color $theme-transition-duration ease-in-out;
+    }
+
+    .text-field {
+        width: 100%;
+        border: none;
+        border-radius: 0;
+        background: transparent;
+        border-bottom: 1px solid $theme-border !important;
+        box-shadow: none !important;
+
+        .text-field-input {
+            padding-left: 8px;
+            transition: opacity $theme-transition-duration ease-in-out;
+        }
+
+    }
+
+    &.focused {
+        .material-date-picker-text-field-label {
+            color: $theme-highlight;
+        }
+    }
+
+    &.has-label.animated {
+
+        .material-date-picker-text-field-label {
+            transform: translate(8px, 28px);
+        }
+
+        .text-field-input ,
+        .text-field-placeholder {
+            opacity: 0;
+        }
+
+        &.has-value,
+        &.focused {
+            .material-date-picker-text-field-label {
+                transform: translate(0, 0);
+            }
+
+            .text-field-input ,
+            .text-field-placeholder {
+                opacity: 1;
+            }
+        }
+    }
+
+}

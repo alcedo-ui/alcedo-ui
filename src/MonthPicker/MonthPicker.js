@@ -9,7 +9,7 @@ import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
 
-import TextField from '../TextField';
+import TextField from '../_DatePickerTextField';
 import Month from '../_MonthPicker';
 import Year from '../_YearPicker';
 import Popup from '../Popup';
@@ -182,6 +182,7 @@ class MonthPicker extends Component {
                            placeholder={placeholder}
                            value={textValue}
                            readOnly={!popupVisible}
+                           popupVisible={popupVisible}
                            clearButtonVisible={false}
                            isFocusedSelectAll={popupVisible}
                            onClick={e => {
