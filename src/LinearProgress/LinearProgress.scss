@@ -100,6 +100,14 @@
             width: 40px;
             text-align: right;
             float: left;
+
+            &.success {
+                text-align: center;
+            }
+
+            &.failure {
+                text-align: center;
+            }
         }
         .linear-progress-background {
             float: left;
