@@ -63,7 +63,7 @@ class Accordion extends Component {
 
     render() {
 
-        const {className, style, children, title, collapseIcon, expandIcon} = this.props,
+        const {className, style, children, title, collapseIcon} = this.props,
             {collapsed, contentHeight} = this.state,
 
             wrapperClassName = classNames('accordion', {
@@ -78,7 +78,7 @@ class Accordion extends Component {
                 <RaisedButton className="accordion-title"
                               theme={Theme.SECONDARY}
                               value={title}
-                              rightIconCls={collapsed ? expandIcon : collapseIcon}
+                              rightIconCls={collapseIcon}
                               onClick={this.clickHandler}/>
 
                 <div ref="accordionContent"
@@ -116,11 +116,6 @@ Accordion.propTypes = {
     collapseIcon: PropTypes.string,
 
     /**
-     * Expand icon.
-     */
-    expandIcon: PropTypes.string,
-
-    /**
      * Callback function fired when collpase the accordion.
      */
     onCollpase: PropTypes.func,
@@ -139,8 +134,7 @@ Accordion.propTypes = {
 
 Accordion.defaultProps = {
     title: 'title',
-    collapseIcon: 'fas fa-angle-up',
-    expandIcon: 'fas fa-angle-down'
+    collapseIcon: 'fas fa-angle-down'
 };
 
 export default Accordion;

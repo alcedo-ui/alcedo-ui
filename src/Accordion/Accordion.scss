@@ -19,6 +19,8 @@
 
         .button-icon {
             float: right;
+            transform: rotate(180deg);
+            transition: transform $theme-transition-duration ease-in-out;
         }
     }
 
@@ -28,13 +30,17 @@
         overflow: auto;
         color: $theme-field;
         background: $theme-field-bg;
-        transition: all $theme-transition-duration ease-in-out;
+        transition: height $theme-transition-duration ease-in-out;
     }
 
     &.collapsed {
 
         .accordion-title {
             border-color: transparent;
+
+            .button-icon {
+                transform: rotate(0deg);
+            }
         }
 
         .accordion-content {
