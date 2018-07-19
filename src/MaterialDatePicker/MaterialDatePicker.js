@@ -17,10 +17,13 @@ import Popup from '../Popup';
 import Theme from '../Theme';
 
 import Position from '../_statics/Position';
+import {findDOMNode} from 'react-dom';
+import DropdownCalculation from '../_vendors/DropdownCalculation';
 
 class MaterialDatePicker extends Component {
 
     static Theme = Theme;
+    static Position = Position;
 
     constructor(props, ...restArgs) {
 
@@ -32,6 +35,7 @@ class MaterialDatePicker extends Component {
         this.state = {
             value: props.value,
             popupVisible: false,
+            isAbove: false,
             year: moment(defaultValue).format('YYYY'),
             month: moment(defaultValue).format('MM'),
             day: moment(defaultValue).format('DD'),
@@ -48,6 +52,7 @@ class MaterialDatePicker extends Component {
     };
 
     textFieldChangeHandle = text => {
+
         const {minValue, maxValue, dateFormat} = this.props;
         if (text && text.length) {
             const flag = moment(text, this.props.dateFormat, true).isValid();
@@ -124,8 +129,7 @@ class MaterialDatePicker extends Component {
     togglePopup = e => {
         if (this.validValue) {
             this.setState({
-                popupVisible: !this.state.popupVisible,
-                triggerEl: e.target
+                popupVisible: !this.state.popupVisible
             });
         }
     };
@@ -137,6 +141,21 @@ class MaterialDatePicker extends Component {
         }, () => {
             this.props.onChange && this.props.onChange(value && moment(value).format(this.props.dateFormat));
         });
+    };
+
+    popupRenderHandler = popupEl => {
+
+        if (this.props.position) {
+            return;
+        }
+
+        const isAbove = DropdownCalculation.isAbove(this.dropdownEl, this.triggerEl, findDOMNode(popupEl));
+        if (isAbove !== this.state.isAbove) {
+            this.setState({
+                isAbove
+            });
+        }
+
     };
 
     componentDidMount() {
@@ -158,6 +177,9 @@ class MaterialDatePicker extends Component {
                 console.error('Invalid date');
             }
         }
+
+        this.datePicker = this.refs.datePicker;
+        this.triggerEl = findDOMNode(this.refs.trigger);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -177,7 +199,7 @@ class MaterialDatePicker extends Component {
         const {
                 className, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, isFooter, position, theme
             } = this.props,
-            {value, popupVisible, datePickerLevel, year, month, day, triggerEl, isHover, isFocus} = this.state,
+            {value, popupVisible, datePickerLevel, year, month, day, isAbove, isHover, isFocus} = this.state,
 
             pickerClassName = classNames('material-date-picker', {
                 [className]: className
@@ -189,7 +211,7 @@ class MaterialDatePicker extends Component {
             <div ref="datePicker"
                  className={pickerClassName}>
 
-                <DatePickerTextField ref="datePickerInput"
+                <DatePickerTextField ref="trigger"
                                      name={name}
                                      placeholder={placeholder}
                                      value={textValue}
@@ -207,9 +229,10 @@ class MaterialDatePicker extends Component {
 
                 <Popup className="material-date-picker-popup"
                        visible={popupVisible}
-                       triggerEl={triggerEl}
-                       position={position}
+                       triggerEl={this.triggerEl}
+                       position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        hasTriangle={false}
+                       onRender={this.popupRenderHandler}
                        onRequestClose={() => {
                            this.closePopup(3);
                        }}>

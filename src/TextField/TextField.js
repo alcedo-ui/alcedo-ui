@@ -32,7 +32,8 @@ class TextField extends Component {
             passwordVisible: false,
             infoVisible: false,
             errorVisible: false,
-            invalidMsgs: ''
+            invalidMsgs: '',
+            value:props.value
         };
 
     }
@@ -191,6 +192,7 @@ class TextField extends Component {
     }
 
     static getDerivedStateFromProps(props, state) {
+        console.log(props.value, state.value, ComponentUtil.getDerivedState(props, state, 'value'));
         return {
             prevProps: props,
             value: ComponentUtil.getDerivedState(props, state, 'value')

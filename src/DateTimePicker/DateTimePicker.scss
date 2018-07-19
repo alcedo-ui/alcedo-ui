@@ -36,8 +36,8 @@ input::-ms-clear {
     &.date-time-picker-popup {
         @include shadow(3);
         width: 300px;
-        height: 344px;
-        margin-top: -40px;
+        height: 304px;
+
         .calendar-input {
             height: 40px;
             width: 95%;
@@ -283,14 +283,18 @@ input::-ms-clear {
                         float: right;
                     }
                 }
+                .today-button{
+                    width: auto;
+                    height: 30px;
+                }
             }
             .select-button {
                 float: left;
                 margin-left: 20px;
                 .raised-button {
                     padding: 0;
-                    width: 26px;
-                    height: 26px;
+                    width: 30px;
+                    height: 30px;
                     line-height: 20px;
                     text-align: center;
                 }

@@ -8,12 +8,11 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import TextField from '../TextField';
-import MaterialProvider from '../MaterialProvider';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
 
-class MaterialDatePickerTextField extends Component {
+class DatePickerTextField extends Component {
 
     static Type = TextField.Type;
     static Theme = Theme;
@@ -69,39 +68,30 @@ class MaterialDatePickerTextField extends Component {
     render() {
 
         const {
-                className, style, theme, label, isLabelAnimate, disabled, required,
+                className, theme, disabled, required,
                 ...restProps
             } = this.props,
             {value} = this.state,
 
-            fieldClassName = classNames('material-date-picker-text-field', {
+            fieldClassName = classNames('date-picker-text-field', {
                 [className]: className
             });
 
         return (
-
-            <MaterialProvider className={fieldClassName}
-                              style={style}
-                              theme={theme}
-                              label={label}
-                              isLabelAnimate={isLabelAnimate}
-                              hasValue={!!value}
-                              disabled={disabled}
-                              required={required}>
-                <TextField {...restProps}
-                           ref="textField"
-                           theme={theme}
-                           value={value}
-                           disabled={disabled}
-                           required={required}
-                           onChange={this.triggerChangeHandler}/>
-            </MaterialProvider>
+            <TextField className={fieldClassName}
+                       {...restProps}
+                       ref="textField"
+                       theme={theme}
+                       value={value}
+                       disabled={disabled}
+                       required={required}
+                       onChange={this.triggerChangeHandler}/>
         );
 
     }
 }
 
-MaterialDatePickerTextField.propTypes = {
+DatePickerTextField.propTypes = {
 
     /**
      * The CSS class name of the root element.
@@ -110,11 +100,6 @@ MaterialDatePickerTextField.propTypes = {
 
     /**
      * Override the styles of the root element.
-     */
-    style: PropTypes.object,
-
-    /**
-     * The TextField theme.
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
@@ -295,7 +280,7 @@ MaterialDatePickerTextField.propTypes = {
 
 };
 
-MaterialDatePickerTextField.defaultProps = {
+DatePickerTextField.defaultProps = {
 
     theme: Theme.DEFAULT,
 
@@ -326,4 +311,4 @@ MaterialDatePickerTextField.defaultProps = {
 
 };
 
-export default MaterialDatePickerTextField;
+export default DatePickerTextField;
