@@ -72,8 +72,7 @@ class AccordionExamples extends Component {
 
                                 <Paper>
                                     <Accordion title="Title"
-                                               collapseIcon="fas fa-arrow-circle-up"
-                                               expandIcon="fas fa-arrow-circle-down">
+                                               collapseIcon="fas fa-arrow-circle-down">
                                         <div className="accordion-example-content">
                                             content
                                         </div>
