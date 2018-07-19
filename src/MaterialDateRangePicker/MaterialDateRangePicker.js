@@ -20,10 +20,13 @@ import Theme from '../Theme';
 import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
+import {findDOMNode} from 'react-dom';
+import DropdownCalculation from '../_vendors/DropdownCalculation';
 
 class MaterialDateRangePicker extends Component {
 
     static Theme = Theme;
+    static Position = Position;
 
     constructor(props, ...restArgs) {
 
@@ -38,7 +41,7 @@ class MaterialDateRangePicker extends Component {
         this.state = {
             value: props.value, // Moment object
             popupVisible: false,
-            triggerEl: null,
+            isAbove: false,
             left: {
                 text: startTime,
                 datePickerLevel: 'day',
@@ -196,8 +199,7 @@ class MaterialDateRangePicker extends Component {
     togglePopup = e => {
         if (this.validValue) {
             this.setState({
-                popupVisible: !this.state.popupVisible,
-                triggerEl: e.target
+                popupVisible: !this.state.popupVisible
             });
         }
     };
@@ -242,6 +244,21 @@ class MaterialDateRangePicker extends Component {
         });
     };
 
+    popupRenderHandler = popupEl => {
+
+        if (this.props.position) {
+            return;
+        }
+
+        const isAbove = DropdownCalculation.isAbove(this.dropdownEl, this.triggerEl, findDOMNode(popupEl));
+        if (isAbove !== this.state.isAbove) {
+            this.setState({
+                isAbove
+            });
+        }
+
+    };
+
     componentDidMount() {
         const {value, dateFormat} = this.props;
         let state = cloneDeep(this.state);
@@ -284,6 +301,9 @@ class MaterialDateRangePicker extends Component {
             }
         }
 
+        this.datePicker = this.refs.datePicker;
+        this.triggerEl = findDOMNode(this.refs.trigger);
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -297,7 +317,7 @@ class MaterialDateRangePicker extends Component {
     render() {
 
         const {className, style, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, position, theme} = this.props,
-            {popupVisible, left, right, startTime, endTime, hoverTime, triggerEl} = this.state,
+            {popupVisible, left, right, startTime, endTime, hoverTime, isAbove} = this.state,
 
             pickerClassName = classNames('material-date-range-picker', {
                 [className]: className
@@ -342,9 +362,10 @@ class MaterialDateRangePicker extends Component {
 
                 <Popup className={`material-date-range-picker-popup`}
                        visible={popupVisible}
-                       triggerEl={triggerEl}
-                       position={position}
+                       triggerEl={this.triggerEl}
+                       position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        hasTriangle={false}
+                       onRender={this.popupRenderHandler}
                        onRequestClose={() => {
                            this.closePopup();
                        }}>

@@ -9,14 +9,20 @@ import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
 
-import TextField from '../TextField';
+import TextField from '../_DatePickerTextField';
 import Month from '../_MonthPicker';
 import Year from '../_YearPicker';
 import Popup from '../Popup';
 
 import Position from '../_statics/Position';
+import {findDOMNode} from 'react-dom';
+import DropdownCalculation from '../_vendors/DropdownCalculation';
+import Theme from '../Theme';
 
 class MonthPicker extends Component {
+
+    static Theme = Theme;
+    static Position = Position;
 
     constructor(props, ...restArgs) {
 
@@ -27,7 +33,7 @@ class MonthPicker extends Component {
         this.state = {
             value: props.value,
             popupVisible: false,
-            triggerEl: null,
+            isAbove: false,
             year: moment(props.value).format('YYYY'),
             month: moment(props.value).format('MM'),
             datePickerLevel: 'month'
@@ -93,8 +99,7 @@ class MonthPicker extends Component {
     togglePopup = e => {
         if (this.validValue) {
             this.setState({
-                popupVisible: !this.state.popupVisible,
-                triggerEl: e.target
+                popupVisible: !this.state.popupVisible
             });
         }
     };
@@ -106,6 +111,21 @@ class MonthPicker extends Component {
         }, () => {
             this.props.onChange && this.props.onChange(value && moment(value).format(this.props.dateFormat));
         });
+    };
+
+    popupRenderHandler = popupEl => {
+
+        if (this.props.position) {
+            return;
+        }
+
+        const isAbove = DropdownCalculation.isAbove(this.dropdownEl, this.triggerEl, findDOMNode(popupEl));
+        if (isAbove !== this.state.isAbove) {
+            this.setState({
+                isAbove
+            });
+        }
+
     };
 
     componentDidMount() {
@@ -125,6 +145,9 @@ class MonthPicker extends Component {
                 this.validValue = false;
             }
         }
+
+        this.datePicker = this.refs.datePicker;
+        this.triggerEl = findDOMNode(this.refs.trigger);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -141,7 +164,7 @@ class MonthPicker extends Component {
     render() {
 
         const {className, name, placeholder, dateFormat, maxValue, minValue, position} = this.props,
-            {value, popupVisible, datePickerLevel, year, month, triggerEl} = this.state,
+            {value, popupVisible, datePickerLevel, year, month, isAbove} = this.state,
 
             pickerClassName = classNames('month-picker', {
                 [className]: className
@@ -154,30 +177,29 @@ class MonthPicker extends Component {
                  className={pickerClassName}>
 
                 <TextField className="month-picker-field"
+                           ref="trigger"
                            name={name}
                            placeholder={placeholder}
                            value={textValue}
-                           readOnly={true}
+                           readOnly={!popupVisible}
+                           popupVisible={popupVisible}
                            clearButtonVisible={false}
-                           isFocusedSelectAll={false}
+                           isFocusedSelectAll={popupVisible}
                            onClick={e => {
                                this.togglePopup(e);
-                           }}/>
+                           }}
+                           onChange={this.textFieldChangeHandle}/>
 
                 <Popup className="month-picker-popup"
                        visible={popupVisible}
-                       triggerEl={triggerEl}
-                       position={position}
+                       triggerEl={this.triggerEl}
+                       position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        hasTriangle={false}
+                       onRender={this.popupRenderHandler}
                        onRequestClose={() => {
                            this.closePopup();
                        }}>
 
-                    <TextField className='calendar-input'
-                               placeholder={placeholder}
-                               clearButtonVisible={false}
-                               value={textValue}
-                               onChange={this.textFieldChangeHandle}/>
                     {
                         datePickerLevel == 'month' ?
                             <Month value={value}
