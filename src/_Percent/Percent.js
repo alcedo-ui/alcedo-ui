@@ -9,6 +9,12 @@ import classNames from 'classnames';
 
 class Percent extends Component {
 
+    static Status = {
+        LOADING: 'loading',
+        SUCCESS: 'success',
+        FAILURE: 'failure'
+    };
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -46,11 +52,12 @@ class Percent extends Component {
 
     render() {
 
-        const {className, style, move, endNum} = this.props,
+        const {className, style, move, endNum, status, showIcon, successIcon, failureIcon} = this.props,
             {percent} = this.state,
 
             wrapperClassName = classNames('circular-progress-percent', {
-                [className]: className
+                [className]: className,
+                [status]: status
             }),
 
             wrapperStyle = move === true ?
@@ -68,7 +75,26 @@ class Percent extends Component {
 
                 {React.Children.map(this.props.children, child => <span>{child}</span>)}
 
-                <span>{percent}%</span>
+                {
+                    status === 'loading' ?
+                        <span>{percent}%</span>
+                        :
+                        null
+                }
+
+                {
+                    showIcon && status === 'success' ?
+                        <i className={successIcon || 'fa fa-check-circle'}></i>
+                        :
+                        null
+                }
+
+                {
+                    showIcon && status === 'failure' ?
+                        <i className={failureIcon || 'fa fa-times-circle'}></i>
+                        :
+                        null
+                }
 
             </div>
         );
@@ -80,6 +106,11 @@ Percent.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
+
+    /**
+     * The status of loading.
+     */
+    status: PropTypes.oneOf(Object.keys(Percent.Status).map(key => Percent.Status[key])),
 
     endNum: PropTypes.number,
     move: PropTypes.bool
