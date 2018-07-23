@@ -24,6 +24,37 @@ class MaterialDropdown extends Component {
         super(props, ...restArgs);
     }
 
+    /**
+     * public
+     */
+    startRipple = e => {
+        this.refs.dropdown && this.refs.dropdown.startRipple(e);
+    };
+
+    /**
+     * public
+     */
+    endRipple = () => {
+        this.refs.dropdown && this.refs.dropdown.endRipple();
+    };
+
+    /**
+     * public
+     */
+    triggerRipple = e => {
+        this.refs.dropdown && this.refs.dropdown.triggerRipple(e);
+    };
+
+    /**
+     * public
+     */
+    resetPopupPosition = () => {
+        this.refs.dropdown && this.refs.dropdown.resetPosition();
+    };
+
+    /**
+     * public
+     */
     closePopup = () => {
         this.refs.dropdown && this.refs.dropdown.closePopup();
     };
