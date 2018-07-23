@@ -2,7 +2,8 @@
 
 const os = require('os'),
     fs = require('fs'),
-    path = require('path');
+    path = require('path'),
+    log = require('friendly-errors-webpack-plugin/src/output');
 
 function fsExistsSync(path) {
     try {
@@ -13,10 +14,12 @@ function fsExistsSync(path) {
     return true;
 }
 
+log.title('info', 'WAIT', `Generating Components Style Index... `);
+
 fs.readdir('./src', (err, files) => {
 
     if (err) {
-        console.log('read src error');
+        log.title('error', 'ERROR', `read src error `);
     } else {
 
         try {
@@ -40,11 +43,11 @@ fs.readdir('./src', (err, files) => {
                 if (error) {
                     throw error;
                 }
-                console.log('Generate Components Style Index Successfully!\n');
+                log.title('success', 'DONE', `Generate Components Style Index Successfully! `);
             });
 
         } catch (e) {
-            console.error(e);
+            log.title('error', 'ERROR', e);
         }
 
     }

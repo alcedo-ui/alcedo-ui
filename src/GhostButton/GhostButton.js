@@ -24,12 +24,25 @@ class GhostButton extends Component {
         super(props, ...restArgs);
     }
 
+    /**
+     * public
+     */
     startRipple = e => {
-        this.refs.baseButton.startRipple(e);
+        this.refs.baseButton && this.refs.baseButton.startRipple(e);
     };
 
+    /**
+     * public
+     */
     endRipple = () => {
-        this.refs.baseButton.endRipple();
+        this.refs.baseButton && this.refs.baseButton.endRipple();
+    };
+
+    /**
+     * public
+     */
+    triggerRipple = e => {
+        this.refs.baseButton && this.refs.baseButton.triggerRipple(e);
     };
 
     render() {

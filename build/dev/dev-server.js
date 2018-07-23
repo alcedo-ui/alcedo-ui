@@ -1,6 +1,7 @@
 const opn = require('opn'),
     webpack = require('webpack'),
     express = require('express'),
+    log = require('friendly-errors-webpack-plugin/src/output'),
 
     config = require('../config.js'),
     webpackConfig = require('./webpack.config.dev.js'),
@@ -27,13 +28,13 @@ app
 .use(config.dev.assetsVirtualRoot, express.static('./static'));
 
 devMiddleware.waitUntilValid(() => {
-    console.log('> Listening at ' + uri + '\n');
+    log.title('success', 'DONE', `Listening At ${uri} `);
 });
 
 module.exports = app.listen(config.dev.port, err => {
 
     if (err) {
-        return console.log(err);
+        return console.error(err);
     }
 
     opn(uri);

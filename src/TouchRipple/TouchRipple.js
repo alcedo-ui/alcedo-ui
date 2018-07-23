@@ -40,7 +40,7 @@ class TouchRipple extends Component {
 
         // get pointer offset of el
         let pointerX, pointerY;
-        if (displayCenter) {
+        if (!e || displayCenter) {
             pointerX = elWidth / 2;
             pointerY = elHeight / 2;
         } else {
