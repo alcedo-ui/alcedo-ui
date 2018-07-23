@@ -42,8 +42,8 @@ class DropdownSelect extends Component {
     /**
      * public
      */
-    startRipple = e => {
-        this.refs.dropdown && this.refs.dropdown.startRipple(e);
+    startRipple = (e, props) => {
+        this.refs.dropdown && this.refs.dropdown.startRipple(e, props);
     };
 
     /**
@@ -56,8 +56,8 @@ class DropdownSelect extends Component {
     /**
      * public
      */
-    triggerRipple = e => {
-        this.refs.dropdown && this.refs.dropdown.triggerRipple(e);
+    triggerRipple = (e, props) => {
+        this.refs.dropdown && this.refs.dropdown.triggerRipple(e, props);
     };
 
     /**
