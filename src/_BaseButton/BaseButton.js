@@ -24,17 +24,23 @@ class BaseButton extends Component {
         super(props, ...restArgs);
     }
 
+    /**
+     * public
+     */
+    startRipple = e => {
+        !this.props.disableTouchRipple && this.refs.touchRipple && this.refs.touchRipple.addRipple(e);
+    };
+
+    /**
+     * public
+     */
+    endRipple = () => {
+        !this.props.disableTouchRipple && this.refs.touchRipple && this.refs.touchRipple.removeRipple();
+    };
+
     clickHandler = e => {
         const {disabled, isLoading, onClick} = this.props;
         !disabled && !isLoading && onClick && onClick(e);
-    };
-
-    startRipple = e => {
-        !this.props.disableTouchRipple && this.refs.touchRipple.addRipple(e);
-    };
-
-    endRipple = () => {
-        !this.props.disableTouchRipple && this.refs.touchRipple.removeRipple();
     };
 
     render() {
