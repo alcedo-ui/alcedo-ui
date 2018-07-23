@@ -15,6 +15,7 @@ import SelectMode from '../_statics/SelectMode';
 import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class MaterialTreeSelect extends Component {
 
@@ -76,12 +77,11 @@ class MaterialTreeSelect extends Component {
         });
     };
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
     }
 
     render() {
