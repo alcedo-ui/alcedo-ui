@@ -41,8 +41,8 @@ class BaseButton extends Component {
     /**
      * public
      */
-    triggerRipple = e => {
-        this.startRipple(e);
+    triggerRipple = (e, props) => {
+        this.startRipple(e, props);
         setTimeout(() => {
             this.endRipple();
         }, 250);
