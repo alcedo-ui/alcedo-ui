@@ -27,8 +27,8 @@ class BaseButton extends Component {
     /**
      * public
      */
-    startRipple = e => {
-        !this.props.disableTouchRipple && this.refs.touchRipple && this.refs.touchRipple.addRipple(e);
+    startRipple = (e, props) => {
+        !this.props.disableTouchRipple && this.refs.touchRipple && this.refs.touchRipple.addRipple(e, props);
     };
 
     /**
