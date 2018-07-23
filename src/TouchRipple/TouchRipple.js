@@ -77,6 +77,8 @@ class TouchRipple extends Component {
             return;
         }
 
+        props = props || {};
+
         this.ignoreNextMouseDown = true;
         let {ripples} = this.state;
 
