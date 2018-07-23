@@ -36,8 +36,8 @@ class MaterialTreeSelect extends Component {
     /**
      * public
      */
-    startRipple = e => {
-        this.refs.treeSelect && this.refs.treeSelect.startRipple(e);
+    startRipple = (e, props) => {
+        this.refs.treeSelect && this.refs.treeSelect.startRipple(e, props);
     };
 
     /**
@@ -50,8 +50,8 @@ class MaterialTreeSelect extends Component {
     /**
      * public
      */
-    triggerRipple = e => {
-        this.refs.treeSelect && this.refs.treeSelect.triggerRipple(e);
+    triggerRipple = (e, props) => {
+        this.refs.treeSelect && this.refs.treeSelect.triggerRipple(e, props);
     };
 
     /**

@@ -27,8 +27,8 @@ class FlatButton extends Component {
     /**
      * public
      */
-    startRipple = e => {
-        this.refs.baseButton && this.refs.baseButton.startRipple(e);
+    startRipple = (e, props) => {
+        this.refs.baseButton && this.refs.baseButton.startRipple(e, props);
     };
 
     /**
@@ -41,8 +41,8 @@ class FlatButton extends Component {
     /**
      * public
      */
-    triggerRipple = e => {
-        this.refs.baseButton && this.refs.baseButton.triggerRipple(e);
+    triggerRipple = (e, props) => {
+        this.refs.baseButton && this.refs.baseButton.triggerRipple(e, props);
     };
 
     render() {

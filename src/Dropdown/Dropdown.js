@@ -36,8 +36,8 @@ class Dropdown extends Component {
     /**
      * public
      */
-    startRipple = e => {
-        this.refs.trigger && this.refs.trigger.startRipple(e);
+    startRipple = (e, props) => {
+        this.refs.trigger && this.refs.trigger.startRipple(e, props);
     };
 
     /**
@@ -50,8 +50,8 @@ class Dropdown extends Component {
     /**
      * public
      */
-    triggerRipple = e => {
-        this.refs.trigger && this.refs.trigger.triggerRipple(e);
+    triggerRipple = (e, props) => {
+        this.refs.trigger && this.refs.trigger.triggerRipple(e, props);
     };
 
     /**

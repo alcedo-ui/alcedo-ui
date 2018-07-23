@@ -27,8 +27,8 @@ class BaseButton extends Component {
     /**
      * public
      */
-    startRipple = e => {
-        !this.props.disableTouchRipple && this.refs.touchRipple && this.refs.touchRipple.addRipple(e);
+    startRipple = (e, props) => {
+        !this.props.disableTouchRipple && this.refs.touchRipple && this.refs.touchRipple.addRipple(e, props);
     };
 
     /**
@@ -41,8 +41,8 @@ class BaseButton extends Component {
     /**
      * public
      */
-    triggerRipple = e => {
-        this.startRipple(e);
+    triggerRipple = (e, props) => {
+        this.startRipple(e, props);
         setTimeout(() => {
             this.endRipple();
         }, 250);
@@ -187,7 +187,6 @@ BaseButton.defaultProps = {
     type: 'button',
     isLoading: false,
     disableTouchRipple: false,
-
     rippleDisplayCenter: false,
 
     tipPosition: Position.BOTTOM

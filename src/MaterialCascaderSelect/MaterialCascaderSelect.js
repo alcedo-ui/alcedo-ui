@@ -39,8 +39,8 @@ class MaterialCascaderSelect extends Component {
     /**
      * public
      */
-    startRipple = e => {
-        this.refs.cascaderSelect && this.refs.cascaderSelect.startRipple(e);
+    startRipple = (e, props) => {
+        this.refs.cascaderSelect && this.refs.cascaderSelect.startRipple(e, props);
     };
 
     /**
@@ -53,8 +53,8 @@ class MaterialCascaderSelect extends Component {
     /**
      * public
      */
-    triggerRipple = e => {
-        this.refs.cascaderSelect && this.refs.cascaderSelect.triggerRipple(e);
+    triggerRipple = (e, props) => {
+        this.refs.cascaderSelect && this.refs.cascaderSelect.triggerRipple(e, props);
     };
 
     /**

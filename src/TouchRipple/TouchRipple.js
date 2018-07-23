@@ -71,7 +71,7 @@ class TouchRipple extends Component {
 
     };
 
-    addRipple = e => {
+    addRipple = (e, props) => {
 
         if (this.ignoreNextMouseDown) {
             return;
@@ -81,8 +81,9 @@ class TouchRipple extends Component {
         let {ripples} = this.state;
 
         ripples.push({
+            ...props,
             key: this.nextKey++,
-            style: this.getRippleStyle(e)
+            style: {...props.style, ...this.getRippleStyle(e)}
         });
 
         this.setState({
