@@ -61,6 +61,19 @@ class Dropdown extends Component {
         this.refs.popup && this.refs.popup.resetPosition();
     };
 
+    /**
+     * public
+     */
+    closePopup = e => {
+        this.setState({
+            popupVisible: false
+        }, () => {
+            const {onClosePopup, onBlur} = this.props;
+            onClosePopup && onClosePopup(e);
+            onBlur && onBlur(e);
+        });
+    };
+
     togglePopup = e => {
 
         const popupVisible = !this.state.popupVisible;
@@ -81,16 +94,6 @@ class Dropdown extends Component {
 
         });
 
-    };
-
-    closePopup = e => {
-        this.setState({
-            popupVisible: false
-        }, () => {
-            const {onClosePopup, onBlur} = this.props;
-            onClosePopup && onClosePopup(e);
-            onBlur && onBlur(e);
-        });
     };
 
     popupRenderHandler = popupEl => {
