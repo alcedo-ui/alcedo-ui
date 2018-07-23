@@ -32,6 +32,41 @@ class MaterialTreeSelect extends Component {
 
     }
 
+    /**
+     * public
+     */
+    startRipple = e => {
+        this.refs.treeSelect && this.refs.treeSelect.startRipple(e);
+    };
+
+    /**
+     * public
+     */
+    endRipple = () => {
+        this.refs.treeSelect && this.refs.treeSelect.endRipple();
+    };
+
+    /**
+     * public
+     */
+    triggerRipple = e => {
+        this.refs.treeSelect && this.refs.treeSelect.triggerRipple(e);
+    };
+
+    /**
+     * public
+     */
+    resetPopupPosition = () => {
+        this.refs.treeSelect && this.refs.treeSelect.resetPosition();
+    };
+
+    /**
+     * public
+     */
+    closePopup = () => {
+        this.refs.treeSelect && this.refs.treeSelect.closePopup();
+    };
+
     triggerChangeHandler = value => {
         this.setState({
             value
@@ -39,10 +74,6 @@ class MaterialTreeSelect extends Component {
             const {onChange} = this.props;
             onChange && onChange(value);
         });
-    };
-
-    closePopup = () => {
-        this.refs.treeSelect && this.refs.treeSelect.closePopup();
     };
 
     componentWillReceiveProps(nextProps) {
