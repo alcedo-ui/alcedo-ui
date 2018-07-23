@@ -36,8 +36,22 @@ class Dropdown extends Component {
     /**
      * public
      */
+    startRipple = e => {
+        this.refs.trigger && this.refs.trigger.startRipple(e);
+    };
+
+    /**
+     * public
+     */
+    endRipple = () => {
+        this.refs.trigger && this.refs.trigger.endRipple();
+    };
+
+    /**
+     * public
+     */
     resetPopupPosition = () => {
-        this.refs.popup.resetPosition();
+        this.refs.popup && this.refs.popup.resetPosition();
     };
 
     togglePopup = e => {
