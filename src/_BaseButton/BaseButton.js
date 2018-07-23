@@ -38,6 +38,16 @@ class BaseButton extends Component {
         !this.props.disableTouchRipple && this.refs.touchRipple && this.refs.touchRipple.removeRipple();
     };
 
+    /**
+     * public
+     */
+    triggerRipple = e => {
+        this.startRipple(e);
+        setTimeout(() => {
+            this.endRipple();
+        }, 250);
+    };
+
     clickHandler = e => {
         const {disabled, isLoading, onClick} = this.props;
         !disabled && !isLoading && onClick && onClick(e);
