@@ -43,6 +43,13 @@ class AnchorButton extends Component {
         this.refs.baseButton && this.refs.baseButton.endRipple();
     };
 
+    /**
+     * public
+     */
+    triggerRipple = e => {
+        this.refs.baseButton && this.refs.baseButton.triggerRipple(e);
+    };
+
     render() {
 
         const {children, className, ...restProps} = this.props,
