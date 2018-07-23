@@ -187,7 +187,6 @@ BaseButton.defaultProps = {
     type: 'button',
     isLoading: false,
     disableTouchRipple: false,
-
     rippleDisplayCenter: false,
 
     tipPosition: Position.BOTTOM
