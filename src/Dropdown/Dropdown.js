@@ -50,6 +50,13 @@ class Dropdown extends Component {
     /**
      * public
      */
+    triggerRipple = e => {
+        this.refs.trigger && this.refs.trigger.triggerRipple(e);
+    };
+
+    /**
+     * public
+     */
     resetPopupPosition = () => {
         this.refs.popup && this.refs.popup.resetPosition();
     };
