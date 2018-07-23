@@ -37,8 +37,8 @@ class MaterialDropdownSelect extends Component {
     /**
      * public
      */
-    startRipple = e => {
-        this.refs.dropdownSelect && this.refs.dropdownSelect.startRipple(e);
+    startRipple = (e, props) => {
+        this.refs.dropdownSelect && this.refs.dropdownSelect.startRipple(e, props);
     };
 
     /**
@@ -51,8 +51,8 @@ class MaterialDropdownSelect extends Component {
     /**
      * public
      */
-    triggerRipple = e => {
-        this.refs.dropdownSelect && this.refs.dropdownSelect.triggerRipple(e);
+    triggerRipple = (e, props) => {
+        this.refs.dropdownSelect && this.refs.dropdownSelect.triggerRipple(e, props);
     };
 
     /**
