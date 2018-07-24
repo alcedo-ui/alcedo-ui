@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
 import IconAnchor from 'src/IconAnchor';
 
@@ -8,84 +9,26 @@ import 'sass/containers/landing/LandingNav.scss';
 class LandingNav extends Component {
 
     constructor(props) {
-
         super(props);
-
-        this.menu = [{
-            name: 'Intro',
-            hash: '#landing-intro'
-        }, {
-            name: 'Get Started',
-            hash: '#landing-get-started'
-        }, {
-            name: 'Usage',
-            hash: '#landing-usage'
-        }, {
-            name: 'Examples',
-            hash: '#landing-examples'
-        }];
-
-        this.state = {
-            activatedMenu: this.menu[0]
-        };
-
-        this.menuClickHandle = this::this.menuClickHandle;
-        this.updateActivatedMenu = this::this.updateActivatedMenu;
-
     }
 
-    menuClickHandle(activatedMenu) {
-
+    menuClickHandler = activatedMenu => {
         const scrollTop = document.querySelector(activatedMenu.hash).offsetTop - 60;
-
         document.body.scrollTop = scrollTop;
         document.documentElement.scrollTop = scrollTop;
-
-    }
-
-    updateActivatedMenu(props = this.props) {
-
-        const {bodyScrollTop} = props;
-
-        let activatedMenu = this.menu[0];
-        for (let i = 0, len = this.menu.length; i < len; i++) {
-            const el = document.querySelector(this.menu[i].hash);
-            if (el && bodyScrollTop >= el.offsetTop - this.navHeight) {
-                activatedMenu = this.menu[i];
-            }
-        }
-
-        this.setState({
-            activatedMenu
-        });
-
-    }
-
-    componentDidMount() {
-
-        this.updateActivatedMenu();
-
-        this.navHeight = (this.refs.wrapper && this.refs.wrapper.clientHeight) || 80;
-
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.bodyScrollTop !== this.props.bodyScrollTop) {
-            this.updateActivatedMenu(nextProps);
-        }
-    }
+    };
 
     render() {
 
-        const {bodyScrollTop} = this.props,
-            {activatedMenu} = this.state,
+        const {menu, activatedMenu, isFixed} = this.props,
 
-            introEl = document.querySelector(this.menu[0].hash),
-            isFixed = introEl && (bodyScrollTop > introEl.clientHeight - this.navHeight);
+            wrapperClassName = classnames('landing-nav-wrapper', {
+                fixed: isFixed
+            });
 
         return (
             <div ref="wrapper"
-                 className={`landing-nav-wrapper ${isFixed ? 'fixed' : ''}`}>
+                 className={wrapperClassName}>
 
                 <div className="landing-nav-bg"></div>
 
@@ -98,31 +41,25 @@ class LandingNav extends Component {
                             <span className="logo-text">Alcedo-UI</span>
                         </a>
 
+                        <ul className="landing-nav-menu">
+                            {
+                                menu && menu.map((item, index) =>
+                                    <li key={index}
+                                        className={classnames('landing-nav-menu-item', {
+                                            activated: activatedMenu.hash === item.hash
+                                        })}
+                                        onClick={() => {
+                                            this.menuClickHandler(item);
+                                        }}>
+                                        {item.name}
+                                    </li>
+                                )
+                            }
+                        </ul>
+
                         <IconAnchor className="github-icon"
                                     iconCls="fab fa-github"
                                     href="https://github.com/alcedo-ui/alcedo-ui"/>
-
-                        <ul className="landing-nav-menu">
-
-                            {
-                                this.menu.map((item, index) => {
-
-                                    const itemClassName = (activatedMenu.hash === item.hash ? ' activated' : '');
-
-                                    return (
-                                        <li key={index}
-                                            className={'landing-nav-menu-item' + itemClassName}
-                                            onClick={() => {
-                                                this.menuClickHandle(item);
-                                            }}>
-                                            {item.name}
-                                        </li>
-                                    );
-
-                                })
-                            }
-
-                        </ul>
 
                     </div>
                 </div>
@@ -134,7 +71,9 @@ class LandingNav extends Component {
 }
 
 LandingNav.propTypes = {
-    bodyScrollTop: PropTypes.number
+    menu: PropTypes.array,
+    activatedMenu: PropTypes.object,
+    isFixed: PropTypes.bool
 };
 
 export default LandingNav;

@@ -8,17 +8,19 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import TreeSelect from '../TreeSelect';
-import Tip from '../Tip';
 import MaterialProvider from '../MaterialProvider';
 import Theme from '../Theme';
 
-import Util from '../_vendors/Util';
 import SelectMode from '../_statics/SelectMode';
+import Position from '../_statics/Position';
+
+import Util from '../_vendors/Util';
 
 class MaterialTreeSelect extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
+    static Position = Position;
 
     constructor(props, ...restArgs) {
 
@@ -28,23 +30,20 @@ class MaterialTreeSelect extends Component {
             value: props.value
         };
 
-        this.triggerChangeHandler = ::this.triggerChangeHandler;
-        this.closePopup = ::this.closePopup;
-
     }
 
-    triggerChangeHandler(value) {
+    triggerChangeHandler = value => {
         this.setState({
             value
         }, () => {
             const {onChange} = this.props;
             onChange && onChange(value);
         });
-    }
+    };
 
-    closePopup() {
+    closePopup = () => {
         this.refs.treeSelect && this.refs.treeSelect.closePopup();
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
@@ -75,18 +74,16 @@ class MaterialTreeSelect extends Component {
                               hasValue={value && value.length > 0}
                               disabled={disabled}
                               required={required}>
-
                 <TreeSelect {...restProps}
                             ref="treeSelect"
                             value={value}
                             disabled={disabled}
                             onChange={this.triggerChangeHandler}/>
-
             </MaterialProvider>
         );
 
     }
-};
+}
 
 MaterialTreeSelect.propTypes = {
 
@@ -115,6 +112,8 @@ MaterialTreeSelect.propTypes = {
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
+
     /**
      * The name of the MaterialTreeSelect.
      */
@@ -140,6 +139,7 @@ MaterialTreeSelect.propTypes = {
      */
     placeholder: PropTypes.string,
 
+    title: PropTypes.string,
     rightIconCls: PropTypes.string,
 
     /**
@@ -148,7 +148,7 @@ MaterialTreeSelect.propTypes = {
     /**
      * The options data.
      */
-    data: PropTypes.shape({
+    data: PropTypes.oneOfType([PropTypes.shape({
 
         /**
          * The CSS class name of the tree node.
@@ -203,12 +203,7 @@ MaterialTreeSelect.propTypes = {
         /**
          * The message of tip.
          */
-        tip: PropTypes.string,
-
-        /**
-         * The position of tip.
-         */
-        tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
+        title: PropTypes.string,
 
         children: PropTypes.array,
 
@@ -220,9 +215,9 @@ MaterialTreeSelect.propTypes = {
         /**
          * Callback function fired when a tree node touch-tapped.
          */
-        onTouchTap: PropTypes.func
+        onClick: PropTypes.func
 
-    }),
+    }), PropTypes.array]),
 
     /**
      * The invalid message of dropDownSelect.
@@ -233,6 +228,8 @@ MaterialTreeSelect.propTypes = {
      * If true,the dropDownSelect will be disabled.
      */
     disabled: PropTypes.bool,
+
+    required: PropTypes.bool,
 
     /**
      * The select mode of listItem.Can be normal,checkbox.
@@ -269,9 +266,19 @@ MaterialTreeSelect.propTypes = {
      */
     autoClose: PropTypes.bool,
 
-    required: PropTypes.bool,
-
+    useFilter: PropTypes.bool,
+    filterIconCls: PropTypes.string,
+    noMatchedMsg: PropTypes.string,
     shouldPreventContainerScroll: PropTypes.bool,
+    isSelectRecursive: PropTypes.bool,
+    allowCollapse: PropTypes.bool,
+    collapsedIconCls: PropTypes.string,
+    expandedIconCls: PropTypes.string,
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
 
     popupChildren: PropTypes.any,
 
@@ -282,7 +289,7 @@ MaterialTreeSelect.propTypes = {
     /**
      * Callback function fired when the button is touch-tapped.
      */
-    onItemTouchTap: PropTypes.func,
+    onItemClick: PropTypes.func,
 
     /**
      * Callback function fired when the popup is closed.
@@ -300,26 +307,17 @@ MaterialTreeSelect.propTypes = {
     onMouseOver: PropTypes.func,
     onMouseOut: PropTypes.func
 
-
 };
 
 MaterialTreeSelect.defaultProps = {
 
-    className: null,
-    popupClassName: null,
-    style: null,
-    popupStyle: null,
     theme: Theme.DEFAULT,
     popupTheme: Theme.DEFAULT,
 
-    name: null,
-    value: null,
-    label: null,
     isLabelAnimate: true,
     placeholder: 'Please select ...',
     rightIconCls: 'fas fa-angle-down',
     data: [],
-    invalidMsg: null,
     disabled: false,
     selectMode: SelectMode.SINGLE_SELECT,
 
@@ -327,13 +325,15 @@ MaterialTreeSelect.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
 
-    infoMsg: null,
     autoClose: true,
-    required: false,
+    useFilter: false,
+    filterIconCls: 'fas fa-search',
 
     shouldPreventContainerScroll: true,
+    isSelectRecursive: false,
+    allowCollapse: true,
 
-    popupChildren: null
+    required: false
 
 };
 

@@ -35,7 +35,7 @@ class WidgetHeader extends Component {
         );
 
     }
-};
+}
 
 WidgetHeader.propTypes = {
 
@@ -43,15 +43,6 @@ WidgetHeader.propTypes = {
     style: PropTypes.object,
 
     title: PropTypes.any
-
-};
-
-WidgetHeader.defaultProps = {
-
-    className: '',
-    style: null,
-
-    title: ''
 
 };
 

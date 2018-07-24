@@ -9,7 +9,7 @@ import doc from 'assets/propTypes/Paper.json';
 
 import 'sass/containers/app/modules/layout/PaperExamples.scss';
 
-export default class PaperExamples extends Component {
+class PaperExamples extends Component {
 
     constructor(props) {
         super(props);
@@ -129,3 +129,5 @@ export default class PaperExamples extends Component {
         );
     }
 };
+
+export default PaperExamples;

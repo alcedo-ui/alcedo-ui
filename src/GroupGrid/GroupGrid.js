@@ -11,9 +11,10 @@ import Grid from '../Grid';
 import Theme from '../Theme';
 import Tip from '../Tip';
 
+import SelectMode from '../_statics/SelectMode';
+
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
-import SelectMode from '../_statics/SelectMode';
 import Calculation from '../_vendors/Calculation';
 
 class GroupGrid extends Component {
@@ -52,9 +53,7 @@ class GroupGrid extends Component {
             <div className={gridClassName}
                  style={style}
                  disabled={disabled}
-                 onWheel={e => {
-                     Event.wheelHandler(e, this.props);
-                 }}>
+                 onWheel={e => Event.wheelHandler(e, this.props)}>
 
                 {
                     data && data.map((item, index) =>
@@ -73,7 +72,7 @@ class GroupGrid extends Component {
         );
 
     }
-};
+}
 
 GroupGrid.propTypes = {
 
@@ -185,7 +184,7 @@ GroupGrid.propTypes = {
             /**
              * Callback function fired when a list item touch-tapped.
              */
-            onTouchTap: PropTypes.func
+            onClick: PropTypes.func
 
         }), PropTypes.string, PropTypes.number]))
 
@@ -242,7 +241,7 @@ GroupGrid.propTypes = {
     /**
      * Callback function fired when the list-item select.
      */
-    onItemTouchTap: PropTypes.func,
+    onItemClick: PropTypes.func,
 
     /**
      * Callback function fired when the list changed.
@@ -258,8 +257,6 @@ GroupGrid.propTypes = {
 
 GroupGrid.defaultProps = {
 
-    className: null,
-    style: null,
     theme: Theme.DEFAULT,
     selectTheme: Theme.DEFAULT,
 

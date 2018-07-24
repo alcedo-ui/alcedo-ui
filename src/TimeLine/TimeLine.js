@@ -104,14 +104,9 @@ TimeLine.propTypes = {
 };
 
 TimeLine.defaultProps = {
-
-    className: '',
-    style: null,
-
     hasBorder: true,
     title: '',
     type: ''
-
 };
 
 export default TimeLine;

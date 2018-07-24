@@ -6,7 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
 
 import MaterialDatePickerTextField from '../_MaterialDatePickerTextField';
@@ -16,10 +16,13 @@ import Popup from '../Popup';
 import Theme from '../Theme';
 
 import Position from '../_statics/Position';
+import {findDOMNode} from 'react-dom';
+import DropdownCalculation from '../_vendors/DropdownCalculation';
 
 class MaterialMonthPicker extends Component {
 
     static Theme = Theme;
+    static Position = Position;
 
     constructor(props, ...restArgs) {
 
@@ -30,28 +33,22 @@ class MaterialMonthPicker extends Component {
         this.state = {
             value: props.value,
             popupVisible: false,
+            isAbove: false,
             year: moment(props.value).format('YYYY'),
             month: moment(props.value).format('MM'),
             datePickerLevel: 'month',
             marginLeft: 0
         };
 
-        this.textFieldChangeHandle = ::this.textFieldChangeHandle;
-        this.togglePopup = ::this.togglePopup;
-        this.closePopup = ::this.closePopup;
-        this.datePickerChangeHandle = ::this.datePickerChangeHandle;
-        this.yearPickerChangeHandle = ::this.yearPickerChangeHandle;
-        this.monthPickerChangeHandle = ::this.monthPickerChangeHandle;
-
     }
 
-    datePickerChangeHandle(selectLevel) {
+    datePickerChangeHandle = selectLevel => {
         this.setState({
             datePickerLevel: selectLevel
         });
-    }
+    };
 
-    textFieldChangeHandle(text) {
+    textFieldChangeHandle = text => {
 
         const {minValue, maxValue, dateFormat} = this.props;
 
@@ -77,11 +74,11 @@ class MaterialMonthPicker extends Component {
             });
         }
 
-    }
+    };
 
-    monthPickerChangeHandle(date) {
+    monthPickerChangeHandle = date => {
         const {dateFormat, autoClose} = this.props;
-        let state = _.cloneDeep(this.state);
+        let state = cloneDeep(this.state);
         state.popupVisible = !autoClose;
         state.value = moment(`${date.year}-${date.month}`, dateFormat);
         state.year = date.year;
@@ -93,48 +90,51 @@ class MaterialMonthPicker extends Component {
                 this.props.onChange && this.props.onChange(state.value && moment(state.value).format(dateFormat));
             });
         }
-    }
+    };
 
-    yearPickerChangeHandle(year) {
+    yearPickerChangeHandle = year => {
         this.setState({
             datePickerLevel: 'month',
             year: year
         });
-    }
+    };
 
-    togglePopup(e) {
+    togglePopup = e => {
         if (this.validValue) {
             this.setState({
-                popupVisible: !this.state.popupVisible,
-                triggerEl: e.target
+                popupVisible: !this.state.popupVisible
             });
         }
-    }
+    };
 
-    closePopup() {
+    closePopup = () => {
         const {value} = this.state;
         !this.props.disabled && this.setState({
             popupVisible: false
         }, () => {
             this.props.onChange && this.props.onChange(value && moment(value).format(this.props.dateFormat));
         });
-    }
+    };
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.props.value || nextProps.dateFormat !== this.props.dateFormat) {
+    popupRenderHandler = popupEl => {
+
+        if (this.props.position) {
+            return;
+        }
+
+        const isAbove = DropdownCalculation.isAbove(this.dropdownEl, this.triggerEl, findDOMNode(popupEl));
+        if (isAbove !== this.state.isAbove) {
             this.setState({
-                value: moment(nextProps.value, nextProps.dateFormat),
-                dateFormat: nextProps.dateFormat,
-                year: moment(nextProps.value).format('YYYY'),
-                month: moment(nextProps.value).format('MM')
+                isAbove
             });
         }
-    }
+
+    };
 
     componentDidMount() {
         // debugger
         const {value, dateFormat} = this.props;
-        let state = _.cloneDeep(this.state);
+        let state = cloneDeep(this.state);
         if (value) {
             if (moment(value, dateFormat).isValid()) {
                 const year = moment(value).format('YYYY'),
@@ -148,12 +148,26 @@ class MaterialMonthPicker extends Component {
                 this.validValue = false;
             }
         }
+
+        this.datePicker = this.refs.datePicker;
+        this.triggerEl = findDOMNode(this.refs.trigger);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.value !== this.props.value || nextProps.dateFormat !== this.props.dateFormat) {
+            this.setState({
+                value: moment(nextProps.value, nextProps.dateFormat),
+                dateFormat: nextProps.dateFormat,
+                year: moment(nextProps.value).format('YYYY'),
+                month: moment(nextProps.value).format('MM')
+            });
+        }
     }
 
     render() {
 
         const {className, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, position, theme} = this.props,
-            {value, popupVisible, datePickerLevel, year, month, triggerEl} = this.state,
+            {value, popupVisible, datePickerLevel, year, month, isAbove} = this.state,
 
             pickerClassName = classNames('material-month-picker', {
                 [className]: className
@@ -165,7 +179,7 @@ class MaterialMonthPicker extends Component {
             <div ref="datePicker"
                  className={pickerClassName}>
 
-                <MaterialDatePickerTextField ref="datePickerInput"
+                <MaterialDatePickerTextField ref="trigger"
                                              theme={theme}
                                              name={name}
                                              placeholder={placeholder}
@@ -177,15 +191,16 @@ class MaterialMonthPicker extends Component {
                                              label={label}
                                              isLabelAnimate={isLabelAnimate}
                                              onChange={this.textFieldChangeHandle}
-                                             onTouchTap={e => {
+                                             onClick={e => {
                                                  this.togglePopup(e);
                                              }}/>
 
                 <Popup className="material-month-picker-popup"
                        visible={popupVisible}
-                       triggerEl={triggerEl}
-                       position={position}
+                       triggerEl={this.triggerEl}
+                       position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        hasTriangle={false}
+                       onRender={this.popupRenderHandler}
                        onRequestClose={() => {
                            this.closePopup(3);
                        }}>
@@ -212,7 +227,7 @@ class MaterialMonthPicker extends Component {
             </div>
         );
     }
-};
+}
 
 MaterialMonthPicker.propTypes = {
 
@@ -279,8 +294,6 @@ MaterialMonthPicker.propTypes = {
 };
 
 MaterialMonthPicker.defaultProps = {
-    className: '',
-    style: null,
     name: '',
     maxValue: '',
     minValue: '',
@@ -288,7 +301,7 @@ MaterialMonthPicker.defaultProps = {
     dateFormat: 'YYYY-MM',
     autoClose: true,
     isFooter: true,
-    position:Position.BOTTOM_LEFT
+    position: Position.BOTTOM_LEFT
 };
 
 export default MaterialMonthPicker;

@@ -32,7 +32,7 @@ class Widget extends Component {
         );
 
     }
-};
+}
 
 Widget.propTypes = {
 
@@ -54,12 +54,7 @@ Widget.propTypes = {
 };
 
 Widget.defaultProps = {
-
-    className: '',
-    style: null,
-
     depth: 1
-
 };
 
 export default Widget;

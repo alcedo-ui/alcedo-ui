@@ -45,6 +45,10 @@ input::-ms-clear {
         color: inherit;
         z-index: 1;
 
+        .button-icon.button-icon-right {
+            margin: 0;
+        }
+
         &.text-field-left-icon {
             left: 0;
             background: transparent;

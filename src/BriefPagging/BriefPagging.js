@@ -14,15 +14,10 @@ import Valid from '../_vendors/Valid';
 class BriefPagging extends Component {
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.pageChangedHandle = ::this.pageChangedHandle;
-        this.pageSizeChangedHandle = ::this.pageSizeChangedHandle;
-
     }
 
-    pageChangedHandle(page) {
+    pageChangedHandle = page => {
 
         const {pageSize, onChange} = this.props;
 
@@ -31,9 +26,9 @@ class BriefPagging extends Component {
             pageSize
         });
 
-    }
+    };
 
-    pageSizeChangedHandle(pageSize) {
+    pageSizeChangedHandle = pageSize => {
 
         const {page, onChange} = this.props;
 
@@ -42,13 +37,14 @@ class BriefPagging extends Component {
             pageSize
         });
 
-    }
+    };
 
     render() {
 
         const {
                 count, page, total, pageSize, pageSizes,
-                selectedCount, selectedCountVisible, pageSizeVisible, paggingPrevIconCls, paggingNextIconCls
+                selectedCount, selectedCountVisible, pageSizeVisible, paggingPrevIconCls, paggingNextIconCls,
+                paggingCountRenderer
             } = this.props,
             startNumber = Valid.range(page * pageSize + 1, 0, count),
             stopNumber = Valid.range((page + 1) * pageSize, 0, count);
@@ -68,7 +64,12 @@ class BriefPagging extends Component {
                     }
 
                     <div className="brief-pagging-totle">
-                        {`Total: ${count}`}
+                        {
+                            paggingCountRenderer ?
+                                paggingCountRenderer(count, page, total, pageSize, pageSizes)
+                                :
+                                `Total: ${count}`
+                        }
                     </div>
 
                 </div>
@@ -90,15 +91,11 @@ class BriefPagging extends Component {
 
                     <IconButton iconCls={paggingPrevIconCls}
                                 disabled={page <= 0}
-                                onTouchTap={() => {
-                                    this.pageChangedHandle(page - 1);
-                                }}/>
+                                onClick={() => this.pageChangedHandle(page - 1)}/>
 
                     <IconButton iconCls={paggingNextIconCls}
                                 disabled={page >= total - 1}
-                                onTouchTap={() => {
-                                    this.pageChangedHandle(page + 1);
-                                }}/>
+                                onClick={() => this.pageChangedHandle(page + 1)}/>
 
                 </div>
 
@@ -106,7 +103,7 @@ class BriefPagging extends Component {
         );
 
     }
-};
+}
 
 BriefPagging.propTypes = {
 
@@ -170,6 +167,8 @@ BriefPagging.propTypes = {
      */
     paggingNextIconCls: PropTypes.string,
 
+    paggingCountRenderer: PropTypes.func,
+
     /**
      * Callback function fired when Pagging component change.
      */
@@ -178,9 +177,6 @@ BriefPagging.propTypes = {
 };
 
 BriefPagging.defaultProps = {
-
-    className: '',
-    style: null,
 
     count: 0,
     page: 0,

@@ -11,7 +11,7 @@ import doc from 'assets/propTypes/Waterfall.json';
 
 import 'sass/containers/app/modules/layout/WaterfallExamples.scss';
 
-export default class WaterfallExamples extends Component {
+class WaterfallExamples extends Component {
 
     constructor(props) {
 
@@ -35,15 +35,13 @@ export default class WaterfallExamples extends Component {
             column: 3
         };
 
-        this.columnChangeHandle = ::this.columnChangeHandle;
-
     }
 
-    columnChangeHandle(column) {
+    columnChangeHandle = column => {
         this.setState({
             column
         });
-    }
+    };
 
     render() {
 
@@ -102,3 +100,5 @@ export default class WaterfallExamples extends Component {
         );
     }
 };
+
+export default WaterfallExamples;

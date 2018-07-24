@@ -10,8 +10,9 @@ import classNames from 'classnames';
 import Radio from '../Radio';
 import Theme from '../Theme';
 
-import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
+
+import Util from '../_vendors/Util';
 
 class RadioGroup extends Component {
 
@@ -25,17 +26,15 @@ class RadioGroup extends Component {
             value: props.value
         };
 
-        this.changeHandler = ::this.changeHandler;
-
     }
 
-    changeHandler(item) {
+    changeHandler = item => {
         this.setState({
             value: item.value
         }, () => {
             !this.props.disabled && this.props.onChange && this.props.onChange(item.value);
         });
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
@@ -62,7 +61,7 @@ class RadioGroup extends Component {
                  style={style}
                  disabled={disabled}>
                 {
-                    data.map((item, index) =>
+                    data && data.map((item, index) =>
                         <Radio key={index}
                                className={item.className ? item.className : ''}
                                style={item.style}
@@ -76,19 +75,15 @@ class RadioGroup extends Component {
                                disabled={disabled || item.disabled}
                                tip={item.tip}
                                tipPosition={item.tipPosition}
-                               onChange={() => {
-                                   this.changeHandler(item);
-                               }}
-                               onCheck={() => {
-                                   onCheck && onCheck(item);
-                               }}/>
+                               onChange={() => this.changeHandler(item)}
+                               onCheck={e => onCheck && onCheck(item, e)}/>
                     )
                 }
             </div>
         );
 
     }
-};
+}
 
 RadioGroup.propTypes = {
 
@@ -176,13 +171,10 @@ RadioGroup.propTypes = {
 
 RadioGroup.defaultProps = {
 
-    className: '',
-    style: null,
     theme: Theme.DEFAULT,
 
     name: '',
     data: [],
-    value: null,
     uncheckedIconCls: 'far fa-circle',
     checkedIconCls: 'fas fa-dot-circle',
     disabled: false

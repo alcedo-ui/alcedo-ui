@@ -72,7 +72,7 @@ function hasClass(el, className) {
 
     const elClass = elClassName.split(/\s+/);
 
-    return elClass.findIndex(item => item === className) !== -1;
+    return elClass && elClass.findIndex(item => item === className) !== -1;
 
 }
 
@@ -90,7 +90,7 @@ function addClass(el, className) {
     }
 
     const elClass = elClassName.split(/\s+/),
-        index = elClass.findIndex(item => item === className);
+        index = elClass ? elClass.findIndex(item => item === className) : -1;
 
     if (index !== -1) { // already has this className
         return;
@@ -114,7 +114,7 @@ function removeClass(el, className) {
     }
 
     const elClass = elClassName.split(/\s+/),
-        index = elClass.findIndex(item => item === className);
+        index = elClass ? elClass.findIndex(item => item === className) : -1;
 
     if (index === -1) { // no this className
         return;

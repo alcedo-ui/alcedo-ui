@@ -76,9 +76,4 @@ TimeLineItem.propTypes = {
 
 };
 
-TimeLineItem.defaultProps = {
-    className: '',
-    style: null
-};
-
 export default TimeLineItem;

@@ -7,7 +7,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/LocalAutoComplete.json';
 
-export default class LocalAutoCompleteExamples extends Component {
+class LocalAutoCompleteExamples extends Component {
 
     constructor(props) {
 
@@ -17,35 +17,31 @@ export default class LocalAutoCompleteExamples extends Component {
             text: 'test2',
             value: 2,
             desc: 'Here is test2.',
-            onTouchTap() {
+            onClick() {
                 console.log('test2 selected!');
             }
         }, 'test3', 'test4', 'test5', {
             text: 'test6',
             value: 6,
             desc: 'Here is test6.',
-            onTouchTap() {
+            onClick() {
                 console.log('test6 selected!');
             }
         }, 'test7', 'test8', 'test9'];
 
-        this.onChange = this::this.onChange;
-        this.filterPressEnterHandle = this::this.filterPressEnterHandle;
-        this.filterClearHandle = this::this.filterClearHandle;
-
     }
 
-    onChange(value) {
+    onChange = value => {
         console.log('changed value: ', value);
-    }
+    };
 
-    filterPressEnterHandle(value) {
+    filterPressEnterHandler = value => {
         console.log('filter value: ', value);
-    }
+    };
 
-    filterClearHandle() {
+    filterClearHandler = () => {
         console.log('filter cleared');
-    }
+    };
 
     render() {
 
@@ -73,10 +69,10 @@ export default class LocalAutoCompleteExamples extends Component {
 
                                 <LocalAutoComplete data={this.data}
                                                    placeholder="Please select ..."
-                                                   filterInitValue="test"
+                                                   minFilterLength={0}
                                                    onChange={this.onChange}
-                                                   onFilterPressEnter={this.filterPressEnterHandle}
-                                                   onFilterClear={this.filterClearHandle}/>
+                                                   onFilterPressEnter={this.filterPressEnterHandler}
+                                                   onFilterClear={this.filterClearHandler}/>
 
                             </div>
 
@@ -175,3 +171,5 @@ export default class LocalAutoCompleteExamples extends Component {
         );
     }
 };
+
+export default LocalAutoCompleteExamples;

@@ -3,8 +3,17 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+@mixin flat-button-disabled {
+    color: $theme-field-disabled;
+    background: transparent;
+}
+
 @mixin flat-button-theme($color) {
     color: $color;
+
+    &[disabled] {
+        @include flat-button-disabled;
+    }
 }
 
 .flat-button {
@@ -16,8 +25,7 @@
     }
 
     &[disabled] {
-        color: $theme-field-disabled;
-        background: transparent;
+        @include flat-button-disabled;
     }
 
     // default theme

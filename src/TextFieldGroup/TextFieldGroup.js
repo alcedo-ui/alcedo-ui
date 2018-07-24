@@ -29,16 +29,11 @@ class TextFieldGroup extends Component {
         );
 
     }
-};
+}
 
 TextFieldGroup.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object
-};
-
-TextFieldGroup.defaultProps = {
-    className: '',
-    style: null
 };
 
 export default TextFieldGroup;

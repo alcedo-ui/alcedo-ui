@@ -7,7 +7,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/DraggableGrid.json';
 
-export default class DraggableGridExamples extends Component {
+class DraggableGridExamples extends Component {
 
     constructor(props) {
 
@@ -29,18 +29,15 @@ export default class DraggableGridExamples extends Component {
 
         this.largeListData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
-        this.sequenceChangeHandler = this::this.sequenceChangeHandler;
-        this.changeHandler = this::this.changeHandler;
-
     }
 
-    sequenceChangeHandler(value) {
+    sequenceChangeHandler = value => {
         console.log('Sequence Changed:', value);
-    }
+    };
 
-    changeHandler(value) {
+    changeHandler = value => {
         console.log('Value Changed:', value);
-    }
+    };
 
     render() {
         return (
@@ -114,3 +111,5 @@ export default class DraggableGridExamples extends Component {
         );
     }
 };
+
+export default DraggableGridExamples;

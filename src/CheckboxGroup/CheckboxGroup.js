@@ -5,14 +5,16 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
+import isArray from 'lodash/isArray';
 import classNames from 'classnames';
 
 import Checkbox from '../Checkbox';
 import Theme from '../Theme';
 
-import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
+
+import Util from '../_vendors/Util';
 
 class CheckboxGroup extends Component {
 
@@ -26,15 +28,13 @@ class CheckboxGroup extends Component {
             value: props.value
         };
 
-        this.changeHandler = ::this.changeHandler;
-
     }
 
-    changeHandler(item) {
+    changeHandler = item => {
 
-        let value = _.cloneDeep(this.state.value);
+        let value = cloneDeep(this.state.value);
 
-        if (!value || !_.isArray(value)) {
+        if (!value || !isArray(value)) {
             value = [item];
         } else {
 
@@ -55,7 +55,7 @@ class CheckboxGroup extends Component {
             !disabled && onChange && onChange(value);
         });
 
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.value && nextProps.value !== this.state.value) {
@@ -103,22 +103,16 @@ class CheckboxGroup extends Component {
                                   checked={value && value.findIndex(v => v.value === item.value) > -1}
                                   tip={item.tip}
                                   tipPosition={item.tipPosition}
-                                  onChange={() => {
-                                      this.changeHandler(item);
-                                  }}
-                                  onCheck={() => {
-                                      onCheck && onCheck(item);
-                                  }}
-                                  onUncheck={() => {
-                                      onUncheck && onUncheck(item);
-                                  }}/>
+                                  onChange={() => this.changeHandler(item)}
+                                  onCheck={e => onCheck && onCheck(item, e)}
+                                  onUncheck={e => onUncheck && onUncheck(item, e)}/>
                     )
                 }
             </div>
         );
 
     }
-};
+}
 
 CheckboxGroup.propTypes = {
 
@@ -166,13 +160,8 @@ CheckboxGroup.propTypes = {
 
 CheckboxGroup.defaultProps = {
 
-    className: null,
-    style: null,
     theme: Theme.DEFAULT,
 
-    name: null,
-    data: null,
-    value: null,
     disabled: false,
     idProp: 'id'
 

@@ -19,17 +19,15 @@ class Tab extends Component {
             activatedIndex: props.activatedIndex
         };
 
-        this.tabClickHandle = ::this.tabClickHandle;
-
     }
 
-    tabClickHandle(item, activatedIndex) {
+    tabClickHandle = (item, activatedIndex) => {
         this.setState({
             activatedIndex
         }, () => {
             item.onActive && item.onActive(item, activatedIndex);
         });
-    }
+    };
 
     render() {
 
@@ -87,7 +85,7 @@ class Tab extends Component {
                                             key={index}
                                             className={className}
                                             style={tabButtonStyle}
-                                            onTouchTap={() => {
+                                            onClick={() => {
                                                 this.tabClickHandle(item, index);
                                             }}/>
                             );
@@ -124,7 +122,7 @@ class Tab extends Component {
         );
 
     }
-};
+}
 
 Tab.propTypes = {
 
@@ -198,9 +196,6 @@ Tab.propTypes = {
 };
 
 Tab.defaultProps = {
-
-    className: '',
-    style: null,
 
     tabs: [],
 

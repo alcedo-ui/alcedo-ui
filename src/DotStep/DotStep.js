@@ -20,11 +20,9 @@ class DotStep extends Component {
             finishedStep: props.finishedStep
         };
 
-        this.touchTapHandler = ::this.touchTapHandler;
-
     }
 
-    touchTapHandler(activatedStep) {
+    clickHandler = activatedStep => {
 
         const {onChange} = this.props;
 
@@ -37,7 +35,7 @@ class DotStep extends Component {
             });
         });
 
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.activatedStep !== this.state.activatedStep
@@ -68,7 +66,7 @@ class DotStep extends Component {
 
                 <div className="dot-step-menu">
                     {
-                        steps.map((item, index) =>
+                        steps && steps.map((item, index) =>
                             <DotStepItem key={index}
                                          index={index}
                                          className={item.className}
@@ -79,7 +77,7 @@ class DotStep extends Component {
                                          activatedStep={activatedStep}
                                          finishedStep={finishedStep}
                                          data={item}
-                                         onTouchTap={this.touchTapHandler}/>
+                                         onClick={this.clickHandler}/>
                         )
                     }
                 </div>
@@ -87,7 +85,7 @@ class DotStep extends Component {
             </div>
         );
     }
-};
+}
 
 DotStep.propTypes = {
 
@@ -151,9 +149,6 @@ DotStep.propTypes = {
 };
 
 DotStep.defaultProps = {
-
-    className: '',
-    style: null,
 
     steps: [],
 

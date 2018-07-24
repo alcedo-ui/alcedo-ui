@@ -13,16 +13,12 @@ import 'sass/containers/landing/sections/LandingExamples.scss';
 class LandingExamples extends Component {
 
     constructor(props) {
-
         super(props);
-
-        this.goToDemo = ::this.goToDemo;
-
     }
 
-    goToDemo() {
+    goToDemo = () => {
         this.props.routerPush('/components');
-    }
+    };
 
     render() {
         return (
@@ -35,7 +31,7 @@ class LandingExamples extends Component {
 
                     <FlatButton className="ghost-button"
                                 value="Go to Demo"
-                                onTouchTap={this.goToDemo}/>
+                                onClick={this.goToDemo}/>
 
                     <Paper className="landing-examples-demo"
                            depth={4}>
@@ -59,12 +55,6 @@ LandingExamples.propTypes = {
     routerPush: PropTypes.func
 };
 
-function mapStateToProps(state, ownProps) {
-    return {};
-}
-
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(actions, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(LandingExamples);
+export default connect(state => ({}), dispatch => bindActionCreators({
+    routerPush: actions.routerPush
+}, dispatch))(LandingExamples);

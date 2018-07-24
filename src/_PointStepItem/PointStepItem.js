@@ -10,15 +10,10 @@ import classNames from 'classnames';
 class PointStepItem extends Component {
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.getRightBarClassName = ::this.getRightBarClassName;
-        this.touchTapHandler = ::this.touchTapHandler;
-
     }
 
-    getRightBarClassName() {
+    getRightBarClassName = () => {
 
         const {activatedStep, finishedStep, index} = this.props;
 
@@ -32,13 +27,12 @@ class PointStepItem extends Component {
 
         return ' hidden';
 
-    }
+    };
 
-    touchTapHandler(e) {
-        e.preventDefault();
-        const {activatedStep, finishedStep, index, disabled, onTouchTap} = this.props;
-        !disabled && activatedStep !== index && finishedStep >= index && onTouchTap && onTouchTap(index, e);
-    }
+    clickHandler = e => {
+        const {activatedStep, finishedStep, index, disabled, onClick} = this.props;
+        !disabled && activatedStep !== index && finishedStep >= index && onClick && onClick(index, e);
+    };
 
     render() {
 
@@ -60,7 +54,7 @@ class PointStepItem extends Component {
                 <div className="bg-round"></div>
 
                 <div className="round"
-                     onTouchTap={this.touchTapHandler}></div>
+                     onClick={this.clickHandler}></div>
 
                 <div className="title">
                     {value.title}
@@ -70,7 +64,7 @@ class PointStepItem extends Component {
         );
 
     }
-};
+}
 
 PointStepItem.propTypes = {
 
@@ -85,14 +79,11 @@ PointStepItem.propTypes = {
     isLast: PropTypes.bool,
     disabled: PropTypes.bool,
 
-    onTouchTap: PropTypes.func
+    onClick: PropTypes.func
 
 };
 
 PointStepItem.defaultProps = {
-
-    className: '',
-    style: null,
 
     activatedStep: 0,
     finishedStep: 0,

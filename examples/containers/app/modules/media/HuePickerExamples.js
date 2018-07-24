@@ -11,7 +11,7 @@ import Color from 'src/_vendors/Color';
 
 import 'sass/containers/app/modules/media/HuePickerExamples.scss';
 
-export default class HuePickerExamples extends Component {
+class HuePickerExamples extends Component {
 
     constructor(props) {
 
@@ -21,15 +21,13 @@ export default class HuePickerExamples extends Component {
             hue: Color.rgb2hsb(Color.hex2rgb('38b1eb'))[0]
         };
 
-        this.changeHandler = ::this.changeHandler;
-
     }
 
-    changeHandler(hue) {
+    changeHandler = hue => {
         this.setState({
             hue
         });
-    }
+    };
 
     render() {
 
@@ -78,3 +76,5 @@ export default class HuePickerExamples extends Component {
         );
     }
 };
+
+export default HuePickerExamples;

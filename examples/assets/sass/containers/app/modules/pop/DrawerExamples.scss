@@ -1,0 +1,20 @@
+@import '../../../../my-theme.scss';
+
+.pop-examples.drawer-examples {
+
+    .button-group-wrapper {
+        width: 360px;
+        height: 160px;
+
+        .button-group {
+
+            &.top {
+                left: 120px;
+            }
+
+            &.bottom {
+                left: 120px;
+            }
+        }
+    }
+}

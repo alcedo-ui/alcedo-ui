@@ -38,7 +38,7 @@ class Crumb extends Component {
         );
 
     }
-};
+}
 
 Crumb.propTypes = {
 
@@ -125,16 +125,12 @@ Crumb.propTypes = {
     /**
      * Callback function fired when a list item touch-tapped.
      */
-    onTouchTap: PropTypes.func
+    onClick: PropTypes.func
 
 };
 
 Crumb.defaultProps = {
-
-    className: '',
-    style: null,
     theme: Theme.DEFAULT
-
 };
 
 export default Crumb;

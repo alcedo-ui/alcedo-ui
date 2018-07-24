@@ -23,22 +23,19 @@ class MaterialProvider extends Component {
             isFocus: false
         };
 
-        this.setFocused = ::this.setFocused;
-        this.setHovered = ::this.setHovered;
-
     }
 
-    setFocused(isFocus) {
+    setFocused = isFocus => {
         this.setState({
             isFocus
         });
-    }
+    };
 
-    setHovered(isHover) {
+    setHovered = isHover => {
         this.setState({
             isHover
         });
-    }
+    };
 
     render() {
 
@@ -134,7 +131,7 @@ class MaterialProvider extends Component {
         );
 
     }
-};
+}
 
 MaterialProvider.propTypes = {
 
@@ -150,7 +147,7 @@ MaterialProvider.propTypes = {
 
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    label: PropTypes.string,
+    label: PropTypes.any,
     isLabelAnimate: PropTypes.bool,
 
     hasValue: PropTypes.bool,
@@ -163,11 +160,8 @@ MaterialProvider.propTypes = {
 
 MaterialProvider.defaultProps = {
 
-    className: null,
-    style: null,
     theme: Theme.DEFAULT,
 
-    label: null,
     isLabelAnimate: true,
 
     hasValue: false,

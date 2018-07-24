@@ -23,29 +23,24 @@ class HuePicker extends Component {
 
         this.activated = false;
 
-        this.mouseDownHandler = ::this.mouseDownHandler;
-        this.mouseMoveHandler = ::this.mouseMoveHandler;
-        this.mouseUpHandler = ::this.mouseUpHandler;
-        this.changeHandler = ::this.changeHandler;
-
     }
 
-    mouseDownHandler(e) {
+    mouseDownHandler = e => {
         this.activated = true;
         this.changeHandler(e.pageX);
-    }
+    };
 
-    mouseMoveHandler(e) {
+    mouseMoveHandler = e => {
         if (this.activated) {
             this.changeHandler(e.pageX);
         }
-    }
+    };
 
-    mouseUpHandler() {
+    mouseUpHandler = () => {
         this.activated = false;
-    }
+    };
 
-    changeHandler(mouseX) {
+    changeHandler = mouseX => {
 
         const elOffset = Dom.getOffset(this.huePickerBarEl);
         if (!elOffset) {
@@ -64,7 +59,7 @@ class HuePicker extends Component {
             onChange && onChange(value);
         });
 
-    }
+    };
 
     componentDidMount() {
 
@@ -120,7 +115,7 @@ class HuePicker extends Component {
         );
 
     }
-};
+}
 
 HuePicker.propTypes = {
 
@@ -144,12 +139,7 @@ HuePicker.propTypes = {
 };
 
 HuePicker.defaultProps = {
-
-    className: null,
-    style: null,
-
     value: 0
-
 };
 
 export default HuePicker;

@@ -9,6 +9,12 @@ import classNames from 'classnames';
 
 class Percent extends Component {
 
+    static Status = {
+        LOADING: 'loading',
+        SUCCESS: 'success',
+        FAILURE: 'failure'
+    };
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -22,7 +28,7 @@ class Percent extends Component {
     /**
      * 百分比数字递增
      */
-    numberChange() {
+    numberChange = () => {
         if (this.state.percent < 100) {
             if (this.state.percent < this.props.endNum) {
                 this.setState({
@@ -34,7 +40,7 @@ class Percent extends Component {
             }
             this.timer = setTimeout(() => this.numberChange(), 30);
         }
-    }
+    };
 
     componentDidMount() {
         this.timer = setTimeout(() => this.numberChange(), 30);
@@ -46,11 +52,12 @@ class Percent extends Component {
 
     render() {
 
-        const {className, style, move, endNum} = this.props,
+        const {className, style, move, endNum, status, showIcon, successIcon, failureIcon} = this.props,
             {percent} = this.state,
 
             wrapperClassName = classNames('circular-progress-percent', {
-                [className]: className
+                [className]: className,
+                [status]: status
             }),
 
             wrapperStyle = move === true ?
@@ -68,18 +75,42 @@ class Percent extends Component {
 
                 {React.Children.map(this.props.children, child => <span>{child}</span>)}
 
-                <span>{percent}%</span>
+                {
+                    status === 'loading' ?
+                        <span>{percent}%</span>
+                        :
+                        null
+                }
+
+                {
+                    showIcon && status === 'success' ?
+                        <i className={successIcon || 'fa fa-check-circle'}></i>
+                        :
+                        null
+                }
+
+                {
+                    showIcon && status === 'failure' ?
+                        <i className={failureIcon || 'fa fa-times-circle'}></i>
+                        :
+                        null
+                }
 
             </div>
         );
 
     }
-};
+}
 
 Percent.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
+
+    /**
+     * The status of loading.
+     */
+    status: PropTypes.oneOf(Object.keys(Percent.Status).map(key => Percent.Status[key])),
 
     endNum: PropTypes.number,
     move: PropTypes.bool
@@ -87,13 +118,8 @@ Percent.propTypes = {
 };
 
 Percent.defaultProps = {
-
-    className: null,
-    style: null,
-
     endNum: 100,
     move: false
-
 };
 
 export default Percent;

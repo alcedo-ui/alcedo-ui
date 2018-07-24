@@ -5,16 +5,19 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import isArray from 'lodash/isArray';
 import classNames from 'classnames';
 
 import TreeNode from '../_TreeNode';
-import Tip from '../Tip';
 import Theme from '../Theme';
+
+import SelectMode from '../_statics/SelectMode';
+import VirtualRoot from '../_statics/VirtualRoot';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
-import SelectMode from '../_statics/SelectMode';
 import Calculation from '../_vendors/Calculation';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class Tree extends Component {
 
@@ -30,42 +33,120 @@ class Tree extends Component {
             isNodeToggling: false
         };
 
-        this.treeNodeSelectHandler = ::this.treeNodeSelectHandler;
-        this.treeNodeDeselectHandler = ::this.treeNodeDeselectHandler;
-        this.nodeToggleStartHandler = ::this.nodeToggleStartHandler;
-        this.nodeToggleEndHandler = ::this.nodeToggleEndHandler;
-
     }
 
-    treeNodeSelectHandler(nodeData, path, e) {
+    addRecursiveValue = (node, value) => {
 
-        const {selectMode} = this.props;
+        if (!node || !value) {
+            return;
+        }
 
-        let {value} = this.state;
+        if (!Calculation.isItemChecked(node, value, this.props)) {
+            value.push(node);
+        }
+
+        if (!node.children || node.children.length < 1) {
+            return;
+        }
+
+        for (let item of node.children) {
+            this.addRecursiveValue(item, value);
+        }
+
+    };
+
+    removeRecursiveValue = (node, value) => {
+
+        if (!node || !value) {
+            return;
+        }
+
+        const index = Calculation.getMultiSelectItemIndex(node, value, this.props);
+        if (index > -1) {
+            value.splice(index, 1);
+        }
+
+        if (!node.children || node.children.length < 1) {
+            return;
+        }
+
+        for (let item of node.children) {
+            this.removeRecursiveValue(item, value);
+        }
+
+    };
+
+    /**
+     * traverse tree data to update value when multi recursive select
+     * @param value
+     * @returns {Array}
+     */
+    updateValue = value => {
+
+        const {data, valueField, displayField} = this.props;
+        let result = [];
+
+        Util.postOrderTraverse(isArray(data) ? {[VirtualRoot]: true, children: data} : data, node => {
+            if (!(VirtualRoot in node)) {
+                if (!node.children || node.children.length < 1) {
+                    if (value.findIndex(item =>
+                        Util.getValueByValueField(item, valueField, displayField)
+                        === Util.getValueByValueField(node, valueField, displayField)) > -1) {
+                        result.push(node);
+                    }
+                } else {
+                    if (node.children.every(child => result.findIndex(item =>
+                        Util.getValueByValueField(item, valueField, displayField)
+                        === Util.getValueByValueField(child, valueField, displayField)) > -1)) {
+                        result.push(node);
+                    }
+                }
+            }
+        });
+
+        return result;
+
+    };
+
+    treeNodeSelectHandler = (node, path, e) => {
+
+        if (!node) {
+            return;
+        }
+
+        const {selectMode, isSelectRecursive} = this.props,
+            {value} = this.state,
+            state = {};
 
         if (selectMode === SelectMode.MULTI_SELECT) {
 
-            if (!value || !_.isArray(value)) {
-                value = [];
+            let result = value ? value.slice() : value;
+            if (!result || !isArray(result)) {
+                result = [];
             }
 
-            value.push(nodeData);
+            if (isSelectRecursive) {
+                this.addRecursiveValue(node, result);
+                result = this.updateValue(result);
+            } else {
+                result.push(node);
+            }
+
+            state.value = result;
 
         } else if (selectMode === SelectMode.SINGLE_SELECT) {
-            value = nodeData;
+            state.value = node;
         }
 
-        this.setState({
-            value
-        }, () => {
+        this.setState(state, () => {
             const {onNodeSelect, onChange} = this.props;
-            onNodeSelect && onNodeSelect(nodeData, path, e);
-            onChange && onChange(value, e);
+            onNodeSelect && onNodeSelect(node, path, e);
+            onChange && onChange(state.value, e);
         });
 
-    }
+    };
 
-    treeNodeDeselectHandler(nodeData, path, e) {
+    treeNodeDeselectHandler = (node, path, e) => {
 
         const {selectMode} = this.props;
 
@@ -73,29 +154,35 @@ class Tree extends Component {
             return;
         }
 
-        const {valueField, displayField} = this.props;
-        let {value} = this.state;
+        const {isSelectRecursive} = this.props,
+            {value: stateValue} = this.state;
+        let value = stateValue ? stateValue.slice() : stateValue;
 
-        if (!value || !_.isArray(value)) {
+        if (!value || !isArray(value)) {
             value = [];
         } else {
-            value = value.filter(valueItem => {
-                return Util.getValueByValueField(valueItem, valueField, displayField)
-                    != Util.getValueByValueField(nodeData, valueField, displayField);
-            });
+            if (isSelectRecursive) {
+                this.removeRecursiveValue(node, value);
+                value = this.updateValue(value);
+            } else {
+                const index = Calculation.getMultiSelectItemIndex(node, value, this.props);
+                if (index > -1) {
+                    value.splice(index, 1);
+                }
+            }
         }
 
         this.setState({
             value
         }, () => {
             const {onNodeDeselect, onChange} = this.props;
-            onNodeDeselect && onNodeDeselect(nodeData, path, e);
+            onNodeDeselect && onNodeDeselect(node, path, e);
             onChange && onChange(value, e);
         });
 
-    }
+    };
 
-    nodeToggleStartHandler() {
+    nodeToggleStartHandler = () => {
 
         const {beforeNodeToggle} = this.props;
 
@@ -107,28 +194,32 @@ class Tree extends Component {
             isNodeToggling: true
         });
 
-    }
+    };
 
-    nodeToggleEndHandler() {
+    nodeToggleEndHandler = () => {
         this.setState({
             isNodeToggling: false
         });
-    }
+    };
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: Calculation.getInitValue(nextProps)
-            });
-        }
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: Calculation.getInitValue({
+                value: ComponentUtil.getDerivedState(props, state, 'value'),
+                selectMode: props.selectMode
+            })
+        };
     }
 
     render() {
 
         const {
-                children, className, style, theme, data, allowCollapse, collapsedIconCls, expandedIconCls,
-                idField, valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
-                renderer, onNodeTouchTap
+                children, className, style, theme, data, filter, allowCollapse,
+                collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
+                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
+                valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
+                isSelectRecursive, renderer, onNodeClick
             } = this.props,
             {value, isNodeToggling} = this.state,
 
@@ -140,17 +231,15 @@ class Tree extends Component {
             <div className={treeClassName}
                  disabled={disabled}
                  style={style}
-                 onWheel={e => {
-                     Event.wheelHandler(e, this.props);
-                 }}>
+                 onWheel={e => Event.wheelHandler(e, this.props)}>
 
-                <TreeNode data={data}
+                <TreeNode data={isArray(data) ? {[VirtualRoot]: true, children: data} : data}
                           value={value}
                           theme={theme}
-                          idField={idField}
                           valueField={valueField}
                           displayField={displayField}
                           descriptionField={descriptionField}
+                          filter={filter}
                           disabled={disabled}
                           isLoading={isLoading}
                           readOnly={readOnly}
@@ -159,10 +248,14 @@ class Tree extends Component {
                           allowCollapse={allowCollapse}
                           collapsedIconCls={collapsedIconCls}
                           expandedIconCls={expandedIconCls}
+                          radioUncheckedIconCls={radioUncheckedIconCls}
+                          radioCheckedIconCls={radioCheckedIconCls}
+                          checkboxUncheckedIconCls={checkboxUncheckedIconCls}
+                          checkboxCheckedIconCls={checkboxCheckedIconCls}
+                          checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
                           isNodeToggling={isNodeToggling}
-                          onTouchTap={(...args) => {
-                              onNodeTouchTap && onNodeTouchTap(...args);
-                          }}
+                          isSelectRecursive={isSelectRecursive}
+                          onClick={(...args) => onNodeClick && onNodeClick(...args)}
                           onNodeToggleStart={this.nodeToggleStartHandler}
                           onNodeToggleEnd={this.nodeToggleEndHandler}
                           onSelect={this.treeNodeSelectHandler}
@@ -173,7 +266,7 @@ class Tree extends Component {
             </div>
         );
     }
-};
+}
 
 Tree.propTypes = {
 
@@ -205,7 +298,7 @@ Tree.propTypes = {
     /**
      * Children passed into the tree node.
      */
-    data: PropTypes.shape({
+    data: PropTypes.oneOfType([PropTypes.shape({
 
         /**
          * The CSS class name of the tree node.
@@ -260,12 +353,7 @@ Tree.propTypes = {
         /**
          * The message of tip.
          */
-        tip: PropTypes.string,
-
-        /**
-         * The position of tip.
-         */
-        tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
+        title: PropTypes.string,
 
         children: PropTypes.array,
 
@@ -277,14 +365,9 @@ Tree.propTypes = {
         /**
          * Callback function fired when a tree node touch-tapped.
          */
-        onTouchTap: PropTypes.func
+        onClick: PropTypes.func
 
-    }),
-
-    /**
-     * The id field name in data. (default: "id")
-     */
-    idField: PropTypes.string,
+    }), PropTypes.array]),
 
     /**
      * The value field name in data. (default: "value")
@@ -301,6 +384,8 @@ Tree.propTypes = {
      */
     descriptionField: PropTypes.string,
 
+    filter: PropTypes.string,
+
     /**
      * If true, the tree will be disabled.
      */
@@ -314,10 +399,15 @@ Tree.propTypes = {
     readOnly: PropTypes.bool,
 
     shouldPreventContainerScroll: PropTypes.bool,
-
+    isSelectRecursive: PropTypes.bool,
     allowCollapse: PropTypes.bool,
     collapsedIconCls: PropTypes.string,
     expandedIconCls: PropTypes.string,
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
 
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
@@ -327,7 +417,7 @@ Tree.propTypes = {
     /**
      * Callback function fired when the tree node touch tap.
      */
-    onNodeTouchTap: PropTypes.func,
+    onNodeClick: PropTypes.func,
 
     /**
      * Callback function fired when the tree node selected.
@@ -355,16 +445,11 @@ Tree.propTypes = {
 
 Tree.defaultProps = {
 
-    className: null,
-    style: null,
     theme: Theme.DEFAULT,
 
     selectTheme: Theme.DEFAULT,
     selectMode: SelectMode.SINGLE_SELECT,
 
-    data: null,
-
-    idField: 'id',
     valueField: 'value',
     displayField: 'text',
     descriptionField: 'desc',
@@ -372,10 +457,8 @@ Tree.defaultProps = {
     isLoading: false,
     readOnly: false,
     shouldPreventContainerScroll: true,
-
-    allowCollapse: true,
-    collapsedIconCls: 'fas fa-caret-right',
-    expandedIconCls: 'fas fa-caret-down'
+    isSelectRecursive: false,
+    allowCollapse: true
 
 };
 

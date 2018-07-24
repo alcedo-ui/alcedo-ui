@@ -3,6 +3,19 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+@mixin icon-button-disabled-style {
+    color: $theme-field-disabled;
+}
+
+@mixin icon-button-disabled {
+    @include icon-button-disabled-style;
+
+    &:hover,
+    &:active {
+        @include icon-button-disabled-style;
+    }
+}
+
 @mixin icon-button-theme($color) {
     color: $color;
 
@@ -13,10 +26,10 @@
     &:active {
         color: theme-color-active($color);
     }
-}
 
-@mixin icon-button-disabled {
-    color: $theme-field-disabled;
+    &[disabled] {
+        @include icon-button-disabled
+    }
 }
 
 .base-button.icon-button {
@@ -29,12 +42,7 @@
     }
 
     &[disabled] {
-        @include icon-button-disabled;
-
-        &:hover,
-        &:active {
-            @include icon-button-disabled;
-        }
+        @include icon-button-disabled
     }
 
     // default theme

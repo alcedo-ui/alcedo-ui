@@ -1,0 +1,36 @@
+@import '../my-theme.scss';
+
+.root {
+    color: $theme-field;
+    background: $theme-bg;
+
+    .root-loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: $root-loading-z-index;
+        background: $theme-border;
+
+        i {
+            width: 48px;
+            height: 48px;
+            text-align: center;
+            line-height: 48px;
+            font-size: 48px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            color: $theme-primary;
+            margin: -24px 0 0 -24px;
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .root {
+        color: $theme-field;
+        background: $theme-primary;
+    }
+}

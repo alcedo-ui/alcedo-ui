@@ -11,7 +11,7 @@ import doc from 'assets/propTypes/Table.json';
 
 import 'sass/containers/app/modules/layout/TableExamples.scss';
 
-export default class TableExamples extends Component {
+class TableExamples extends Component {
 
     constructor(props) {
 
@@ -31,13 +31,10 @@ export default class TableExamples extends Component {
             renderer: '${firstName} - ${lastName}'
         }, {
             header: 'Status',
-            renderer(rowData) {
-                return <Switcher value={!rowData.disabled}
-                                 size="small"
-                                 onTouchTap={(e) => {
-                                     e.stopPropagation();
-                                 }}/>;
-            }
+            renderer: rowData =>
+                <Switcher value={!rowData.disabled}
+                          size="small"
+                          onClick={e => e.stopPropagation()}/>
         }];
 
         this.pageSizes = [{
@@ -61,26 +58,24 @@ export default class TableExamples extends Component {
             data: this.generateData()
         };
 
-        this.deleteRow = ::this.deleteRow;
-
     }
 
-    generateData(size = 100) {
+    generateData = (size = 100) => {
 
         let data = [];
         for (let i = 0; i < size; i++) {
             data.push({
                 id: i,
-                firstName: `firstNameaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa${i}`,
-                lastName: `lastName${i}`
+                firstName: `firstName ${i}`,
+                lastName: `lastName ${i}`
             });
         }
 
         return data;
 
-    }
+    };
 
-    deleteRow(id) {
+    deleteRow = id => {
 
         const {data} = this.state,
             newData = data.filter(item => item.id !== id);
@@ -89,12 +84,23 @@ export default class TableExamples extends Component {
             data: newData
         });
 
-    }
+    };
+
+    sortHandler = (sortConfig) => {
+        console.log(sortConfig);
+    };
+
+    pageChangeHandler = (page, pageSize) => {
+        console.log(page, pageSize);
+    };
+
+    dataUpdateHandler = currentPageData => {
+        console.log(currentPageData);
+    };
 
     render() {
 
-        const {data} = this.state,
-            {deleteRow} = this;
+        const {data} = this.state;
 
         return (
             <div className="example table-examples">
@@ -102,7 +108,8 @@ export default class TableExamples extends Component {
                 <h2 className="example-title">Table</h2>
 
                 <p>
-                    <span>Tables</span> are used to display data and to organize it.
+                    <span>Tables</span>
+                    are used to display data and to organize it.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -118,16 +125,15 @@ export default class TableExamples extends Component {
 
                             <Table data={data}
                                    columns={[...this.columns, {
-                                       header: 'action',
-                                       renderer(rowData) {
-                                           return (
-                                               <IconButton iconCls="fas fa-trash-alt"
-                                                           onTouchTap={() => {
-                                                               deleteRow(rowData.id);
-                                                           }}/>
-                                           );
-                                       }
-                                   }]}/>
+                                       header: 'Action',
+                                       renderer: rowData =>
+                                           <IconButton iconCls="fas fa-trash-alt"
+                                                       onClick={() => this.deleteRow(rowData.id)}/>
+                                   }]}
+                                   paggingCountRenderer={count => <span>Self Defined Total Count: {count}</span>}
+                                   onSort={this.sortHandler}
+                                   onPageChange={this.pageChangeHandler}
+                                   onDataUpdate={this.dataUpdateHandler}/>
 
                         </div>
                     </div>
@@ -146,6 +152,7 @@ export default class TableExamples extends Component {
 
                             <Table columns={this.columns}
                                    selectMode={Table.SelectMode.MULTI_SELECT}
+                                   selectAllMode={Table.SelectAllMode.CURRENT_PAGE}
                                    data={data}
                                    paggingSelectedCountVisible={true}
                                    defaultPageSize={20}
@@ -153,13 +160,22 @@ export default class TableExamples extends Component {
                                    useFullPagging={true}
                                    sortAscIconCls="fas fa-caret-up"
                                    sortDescIconCls="fas fa-caret-down"
-                                   onPageChange={(page, pageSize) => {
-                                       console.log(`page: ${page}, pageSize: ${pageSize}`);
-                                   }}
-                                   onChange={value => {
-                                       console.log(value);
-                                   }}/>
+                                   onPageChange={(page, pageSize) => console.log(`page: ${page}, pageSize: ${pageSize}`)}
+                                   onChange={value => console.log(value)}/>
 
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Empty"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+                            <Table columns={this.columns}
+                                   data={[]}/>
                         </div>
                     </div>
 
@@ -173,3 +189,5 @@ export default class TableExamples extends Component {
         );
     }
 };
+
+export default TableExamples;

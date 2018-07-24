@@ -3,6 +3,22 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+@mixin raised-button-disabled-style {
+    box-shadow: none;
+    color: $theme-field-disabled;
+    background-color: $theme-field-bg-disabled;
+    border-color: $theme-border-disabled;
+}
+
+@mixin raised-button-disabled {
+    @include raised-button-disabled-style;
+
+    &:hover,
+    &:active {
+        @include raised-button-disabled-style;
+    }
+}
+
 @mixin raised-button-theme($color, $bg-color, $border-color) {
     color: $color;
     background-color: $bg-color;
@@ -19,13 +35,10 @@
         background-color: theme-color-active($bg-color);
         border-color: theme-color-active($border-color);
     }
-}
 
-@mixin raised-button-disabled {
-    box-shadow: none;
-    color: $theme-field-disabled;
-    background-color: $theme-field-bg-disabled;
-    border-color: $theme-border-disabled;
+    &[disabled] {
+        @include raised-button-disabled
+    }
 }
 
 .raised-button {
@@ -34,7 +47,7 @@
     border-width: 1px;
 
     &:hover {
-        @include shadow(3);
+        @include shadow(2);
     }
 
     &:active {
@@ -42,12 +55,7 @@
     }
 
     &[disabled] {
-        @include raised-button-disabled;
-
-        &:hover,
-        &:active {
-            @include raised-button-disabled;
-        }
+        @include raised-button-disabled
     }
 
     // default theme

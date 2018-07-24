@@ -11,8 +11,9 @@ import BaseButton from '../_BaseButton';
 import TipProvider from '../TipProvider';
 import Theme from '../Theme';
 
-import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
+
+import Util from '../_vendors/Util';
 
 class FlatButton extends Component {
 
@@ -20,21 +21,16 @@ class FlatButton extends Component {
     static TipPosition = Position;
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.startRipple = ::this.startRipple;
-        this.endRipple = ::this.endRipple;
-
     }
 
-    startRipple(e) {
+    startRipple = e => {
         this.refs.baseButton.startRipple(e);
-    }
+    };
 
-    endRipple() {
+    endRipple = () => {
         this.refs.baseButton.endRipple();
-    }
+    };
 
     render() {
 
@@ -53,7 +49,7 @@ class FlatButton extends Component {
         );
 
     }
-};
+}
 
 FlatButton.propTypes = {
 
@@ -81,6 +77,11 @@ FlatButton.propTypes = {
      * If true,the button will be round.
      */
     isCircular: PropTypes.bool,
+
+    /**
+     * The title of the button.
+     */
+    title: PropTypes.string,
 
     /**
      * The text of the button.
@@ -133,14 +134,11 @@ FlatButton.propTypes = {
     /**
      * Callback function fired when the button is touch-tapped.
      */
-    onTouchTap: PropTypes.func
+    onClick: PropTypes.func
 
 };
 
 FlatButton.defaultProps = {
-
-    className: '',
-    style: null,
 
     theme: Theme.DEFAULT,
     isRounded: false,
@@ -154,10 +152,6 @@ FlatButton.defaultProps = {
 
     rippleDisplayCenter: false,
 
-    iconCls: '',
-    rightIconCls: '',
-
-    tip: null,
     tipPosition: TipProvider.Position.BOTTOM
 
 };

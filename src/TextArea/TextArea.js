@@ -12,9 +12,11 @@ import IconButton from '../IconButton';
 import FieldMsg from '../FieldMsg';
 import Theme from '../Theme';
 
+import FieldType from '../_statics/FieldType';
+
 import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
-import FieldType from '../_statics/FieldType';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class TextArea extends Component {
 
@@ -34,57 +36,58 @@ class TextArea extends Component {
             invalidMsgs: ''
         };
 
-        this.changeHandler = ::this.changeHandler;
-        this.keyDownHandler = ::this.keyDownHandler;
-        this.clearValue = ::this.clearValue;
-        this.togglePasswordVisible = ::this.togglePasswordVisible;
-        this.mouseOverHandler = ::this.mouseOverHandler;
-        this.mouseOutHandler = ::this.mouseOutHandler;
-        this.focusHandler = ::this.focusHandler;
-        this.blurHandler = ::this.blurHandler;
-        this.rightIconTouchTapHandler = ::this.rightIconTouchTapHandler;
-
     }
 
-    changeHandler(e) {
+    /**
+     * public
+     */
+    focus = () => {
+        this.refs.input.focus();
+    };
+
+    /**
+     * public
+     */
+    blur = () => {
+        this.refs.input.blur();
+    };
+
+    changeHandler = e => {
 
         const {onValid, onInvalid} = this.props,
-
             value = e.target.value,
             invalidMsgs = Valid.fieldValid(value, this.props);
 
         if (this.props.autoHeight) {
-            this.inputEl.style.height = this.inputElInitHeight + 'px';
             this.inputEl.style.height = Math.max(this.inputEl.scrollHeight, this.inputElInitHeight) + 'px';
         }
 
         this.setState({
-            value,
-            invalidMsgs
+            invalidMsgs,
+            value
         }, () => {
             this.props.onChange && this.props.onChange(value, e);
             invalidMsgs.length > 0 ? onInvalid && onInvalid() : onValid && onValid();
         });
 
-    }
+    };
 
-    keyDownHandler(e) {
+    keyDownHandler = e => {
         if (e.keyCode === 13) {
             const {onPressEnter} = this.props,
                 {value} = this.state;
             onPressEnter && onPressEnter(e, value);
         }
-    }
+    };
 
-    clearValue() {
+    clearValue = () => {
 
-        const {disabled, clearButtonVisible, onClear, onChange, onValid, onInvalid} = this.props;
-
-        const invalidMsgs = Valid.fieldValid('', this.props);
+        const {disabled, clearButtonVisible, onClear, onChange, onValid, onInvalid} = this.props,
+            invalidMsgs = Valid.fieldValid('', this.props);
 
         !disabled && clearButtonVisible && this.setState({
-            value: '',
-            invalidMsgs
+            invalidMsgs,
+            value: ''
         }, () => {
 
             this.refs.input.focus();
@@ -96,9 +99,9 @@ class TextArea extends Component {
 
         });
 
-    }
+    };
 
-    togglePasswordVisible() {
+    togglePasswordVisible = () => {
 
         const {disabled, passwordButtonVisible, onPasswordVisible, onPasswordInvisible} = this.props;
         const passwordVisible = !this.state.passwordVisible;
@@ -115,9 +118,9 @@ class TextArea extends Component {
 
         });
 
-    }
+    };
 
-    mouseOverHandler(e) {
+    mouseOverHandler = e => {
         this.setState({
             infoVisible: true,
             errorVisible: true
@@ -126,9 +129,9 @@ class TextArea extends Component {
                 {value} = this.state;
             onMouseOver && onMouseOver(e, value);
         });
-    }
+    };
 
-    mouseOutHandler(e) {
+    mouseOutHandler = e => {
         this.setState({
             infoVisible: false,
             errorVisible: false
@@ -137,24 +140,20 @@ class TextArea extends Component {
                 {value} = this.state;
             onMouseOut && onMouseOut(e, value);
         });
-    }
+    };
 
-    focusHandler(e) {
+    focusHandler = e => {
         this.setState({
             isFocused: true
         }, () => {
-
             const {isFocusedSelectAll, onFocus} = this.props,
                 {value} = this.state;
-
             onFocus && onFocus(e, value);
-
             isFocusedSelectAll && this.refs.input.setSelectionRange(0, value ? value.length : 0);
-
         });
-    }
+    };
 
-    blurHandler(e) {
+    blurHandler = e => {
 
         if (e.relatedTarget == this.clearButtonEl) {
             return;
@@ -168,13 +167,13 @@ class TextArea extends Component {
             onBlur && onBlur(e, value);
         });
 
-    }
+    };
 
-    rightIconTouchTapHandler(e) {
-        const {onRightIconTouchTap} = this.props,
+    rightIconClickHandler = e => {
+        const {onRightIconClick} = this.props,
             {value} = this.state;
-        onRightIconTouchTap && onRightIconTouchTap(e, value);
-    }
+        onRightIconClick && onRightIconClick(e, value);
+    };
 
     componentDidMount() {
 
@@ -189,12 +188,11 @@ class TextArea extends Component {
 
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
     }
 
     render() {
@@ -204,10 +202,10 @@ class TextArea extends Component {
                 children, className, triggerClassName, placeholderClassName, style, theme,
                 type, iconCls, disabled, infoMsg, autoHeight, wordCountVisible, placeholder,
                 clearButtonVisible, rightIconCls, passwordButtonVisible, fieldMsgVisible, maxLength,
-                onIconTouchTap, onRightIconTouchTap,
+                onIconClick, onRightIconClick,
 
                 // not passing down these props
-                autoFocus, pattern, patternInvalidMsg, isFocusedSelectAll,
+                value: v, autoFocus, pattern, patternInvalidMsg, isFocusedSelectAll,
                 onPressEnter, onValid, onInvalid, onClear, onPasswordVisible, onPasswordInvisible,
 
                 ...restProps
@@ -232,7 +230,7 @@ class TextArea extends Component {
                     [className]: className
                 }),
             leftIconClassName = classNames('text-area-left-icon', {
-                deactivated: !onIconTouchTap
+                deactivated: !onIconClick
             }),
             fieldPlaceholderClassName = classNames('text-area-placeholder', {
                 [placeholderClassName]: placeholderClassName
@@ -247,7 +245,7 @@ class TextArea extends Component {
                 hidden: !clearButtonVisible || !value || value.length < 1
             }),
             rightIconClassName = classNames('text-area-right-icon', {
-                deactivated: !onRightIconTouchTap
+                deactivated: !onRightIconClick
             }),
             wordCountClassName = classNames('text-area-word-count', {
                 error: value.length > maxLength
@@ -269,14 +267,14 @@ class TextArea extends Component {
                     iconCls ?
                         <IconButton className={leftIconClassName}
                                     iconCls={iconCls}
-                                    disableTouchRipple={!onIconTouchTap}
-                                    onTouchTap={onIconTouchTap}/>
+                                    disableTouchRipple={!onIconClick}
+                                    onClick={onIconClick}/>
                         :
                         null
                 }
 
                 {
-                    placeholder && empty ?
+                    placeholder && !value && !isFocused ?
                         <textarea className={fieldPlaceholderClassName}
                                   value={placeholder}
                                   disabled={true}/>
@@ -299,19 +297,19 @@ class TextArea extends Component {
 
                 <IconButton className={passwordVisibleIconClassName}
                             iconCls={passwordVisible ? 'fas fa-eye' : 'far fa-eye-slash'}
-                            onTouchTap={this.togglePasswordVisible}/>
+                            onClick={this.togglePasswordVisible}/>
 
                 <IconButton ref="clearButton"
                             className={clearButtonClassName}
                             iconCls="fas fa-times-circle"
-                            onTouchTap={this.clearValue}/>
+                            onClick={this.clearValue}/>
 
                 {
                     rightIconCls ?
                         <IconButton className={rightIconClassName}
                                     rightIconCls={rightIconCls}
-                                    disableTouchRipple={!onRightIconTouchTap}
-                                    onTouchTap={this.rightIconTouchTapHandler}/>
+                                    disableTouchRipple={!onRightIconClick}
+                                    onClick={this.rightIconClickHandler}/>
                         :
                         null
                 }
@@ -348,7 +346,7 @@ class TextArea extends Component {
         );
 
     }
-};
+}
 
 TextArea.propTypes = {
 
@@ -521,8 +519,8 @@ TextArea.propTypes = {
      */
     onPasswordInvisible: PropTypes.func,
 
-    onIconTouchTap: PropTypes.func,
-    onRightIconTouchTap: PropTypes.func,
+    onIconClick: PropTypes.func,
+    onRightIconClick: PropTypes.func,
 
     onMouseOver: PropTypes.func,
     onMouseOut: PropTypes.func
@@ -531,10 +529,6 @@ TextArea.propTypes = {
 
 TextArea.defaultProps = {
 
-    className: null,
-    triggerClassName: null,
-    placeholderClassName: null,
-    style: null,
     theme: Theme.DEFAULT,
 
     type: 'text',

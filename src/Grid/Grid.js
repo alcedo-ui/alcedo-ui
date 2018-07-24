@@ -5,17 +5,18 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import isArray from 'lodash/isArray';
 import classNames from 'classnames';
 
 import GridItem from '../_GridItem';
 import Tip from '../Tip';
 import Theme from '../Theme';
 
+import SelectMode from '../_statics/SelectMode';
+
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import Calculation from '../_vendors/Calculation';
-import SelectMode from '../_statics/SelectMode';
 
 class Grid extends Component {
 
@@ -30,13 +31,9 @@ class Grid extends Component {
             value: Calculation.getInitValue(props)
         };
 
-        this.listItemSelectHandler = ::this.listItemSelectHandler;
-        this.listItemDeselectHandler = ::this.listItemDeselectHandler;
-        this.renderGridItem = ::this.renderGridItem;
-
     }
 
-    listItemSelectHandler(item, index) {
+    listItemSelectHandler = (item, index) => {
 
         const {selectMode} = this.props;
 
@@ -44,7 +41,7 @@ class Grid extends Component {
 
         if (selectMode === SelectMode.MULTI_SELECT) {
 
-            if (!value || !_.isArray(value)) {
+            if (!value || !isArray(value)) {
                 value = [];
             }
 
@@ -62,9 +59,9 @@ class Grid extends Component {
             onChange && onChange(value, index);
         });
 
-    }
+    };
 
-    listItemDeselectHandler(item, index) {
+    listItemDeselectHandler = (item, index) => {
 
         const {selectMode} = this.props;
 
@@ -75,7 +72,7 @@ class Grid extends Component {
         const {valueField, displayField} = this.props;
         let {value} = this.state;
 
-        if (!value || !_.isArray(value)) {
+        if (!value || !isArray(value)) {
             value = [];
         } else {
             value = value.filter(valueItem => {
@@ -92,7 +89,7 @@ class Grid extends Component {
             onChange && onChange(value, index);
         });
 
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
@@ -102,7 +99,11 @@ class Grid extends Component {
         }
     }
 
-    renderGridItem(item, index) {
+    renderGridItem = (item, index) => {
+
+        if (!item) {
+            return;
+        }
 
         const {
 
@@ -111,14 +112,14 @@ class Grid extends Component {
                 selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
-                idField, valueField, displayField, descriptionField, disabled, isLoading, renderer, onItemTouchTap
+                idField, valueField, displayField, descriptionField, disabled, isLoading, renderer, onItemClick
 
             } = this.props,
             {value} = this.state;
 
         return typeof item === 'object' ?
             (
-                <GridItem key={item[idField] || index}
+                <GridItem key={(idField in item && item[idField]) || index}
                           {...item}
                           index={index}
                           style={{height: itemHeight}}
@@ -139,9 +140,9 @@ class Grid extends Component {
                           isLoading={isLoading || item.isLoading}
                           selectMode={selectMode}
                           renderer={renderer}
-                          onTouchTap={e => {
-                              onItemTouchTap && onItemTouchTap(item, index, e);
-                              item.onTouchTap && item.onTouchTap(e);
+                          onClick={e => {
+                              onItemClick && onItemClick(item, index, e);
+                              item.onClick && item.onClick(e);
                           }}
                           onSelect={() => {
                               this.listItemSelectHandler(item, index);
@@ -171,8 +172,8 @@ class Grid extends Component {
                           isLoading={isLoading}
                           selectMode={selectMode}
                           renderer={renderer}
-                          onTouchTap={e => {
-                              onItemTouchTap && onItemTouchTap(item, index, e);
+                          onClick={e => {
+                              onItemClick && onItemClick(item, index, e);
                           }}
                           onSelect={() => {
                               this.listItemSelectHandler(item, index);
@@ -182,7 +183,7 @@ class Grid extends Component {
                           }}/>
             );
 
-    }
+    };
 
     render() {
 
@@ -196,18 +197,16 @@ class Grid extends Component {
             <div className={gridClassName}
                  disabled={disabled}
                  style={style}
-                 onWheel={e => {
-                     Event.wheelHandler(e, this.props);
-                 }}>
+                 onWheel={e => Event.wheelHandler(e, this.props)}>
 
-                {data.map((item, index) => this.renderGridItem(item, index))}
+                {data && data.map((item, index) => this.renderGridItem(item, index))}
 
                 {children}
 
             </div>
         );
     }
-};
+}
 
 Grid.propTypes = {
 
@@ -319,7 +318,7 @@ Grid.propTypes = {
         /**
          * Callback function fired when a grid item touch-tapped.
          */
-        onTouchTap: PropTypes.func
+        onClick: PropTypes.func
 
     }), PropTypes.string, PropTypes.number, PropTypes.symbol])),
 
@@ -373,7 +372,7 @@ Grid.propTypes = {
     /**
      * Callback function fired when the grid-item touch tap.
      */
-    onItemTouchTap: PropTypes.func,
+    onItemClick: PropTypes.func,
 
     /**
      * Callback function fired when the grid-item select.
@@ -399,14 +398,10 @@ Grid.propTypes = {
 
 Grid.defaultProps = {
 
-    className: null,
-    style: null,
     theme: Theme.DEFAULT,
 
     selectTheme: Theme.DEFAULT,
     selectMode: SelectMode.SINGLE_SELECT,
-
-    data: null,
 
     idField: 'id',
     valueField: 'value',
@@ -415,8 +410,6 @@ Grid.defaultProps = {
     disabled: false,
     shouldPreventContainerScroll: true,
 
-    radioUncheckedIconCls: null,
-    radioCheckedIconCls: null,
     checkboxUncheckedIconCls: 'far fa-square',
     checkboxCheckedIconCls: 'fas fa-check-square',
     checkboxIndeterminateIconCls: 'fas fa-minus-square',

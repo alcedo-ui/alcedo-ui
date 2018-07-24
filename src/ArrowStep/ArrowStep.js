@@ -20,11 +20,9 @@ class ArrowStep extends Component {
             finishedStep: props.finishedStep
         };
 
-        this.touchTapHandler = ::this.touchTapHandler;
-
     }
 
-    touchTapHandler(activatedStep) {
+    clickHandler = activatedStep => {
 
         const {onChange} = this.props;
 
@@ -37,7 +35,7 @@ class ArrowStep extends Component {
             });
         });
 
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.activatedStep !== this.state.activatedStep
@@ -62,7 +60,7 @@ class ArrowStep extends Component {
             <div className={stepClassName}
                  style={style}>
                 {
-                    steps.map((item, index) =>
+                    steps && steps.map((item, index) =>
                         <ArrowStepItem key={index}
                                        index={index}
                                        className={item.className}
@@ -71,19 +69,19 @@ class ArrowStep extends Component {
                                            width: `${100 / steps.length}%`,
                                            zIndex: steps.length - index
                                        }}
-                                       activatedStep={activatedStep}
-                                       finishedStep={finishedStep}
+                                       isActivatedStep={activatedStep === index}
+                                       isFinishedStep={finishedStep >= index}
                                        value={item}
                                        isFirst={index === 0}
                                        isLast={index === steps.length - 1}
-                                       onTouchTap={this.touchTapHandler}/>
+                                       onClick={this.clickHandler}/>
                     )
                 }
             </div>
         );
 
     }
-};
+}
 
 ArrowStep.propTypes = {
 
@@ -137,9 +135,6 @@ ArrowStep.propTypes = {
 };
 
 ArrowStep.defaultProps = {
-
-    className: '',
-    style: null,
 
     steps: [],
 

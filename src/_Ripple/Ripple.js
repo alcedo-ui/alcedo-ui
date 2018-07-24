@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import CSSTransition from 'react-transition-group/CSSTransition';
+import classNames from 'classnames';
 
 class Ripple extends Component {
 
@@ -15,22 +16,27 @@ class Ripple extends Component {
 
     render() {
 
-        const {style, duration, ...restProps} = this.props;
+        const {className, style, duration, ...restProps} = this.props,
+
+            rippleClassName = classNames('ripple', {
+                [className]: className
+            });
 
         return (
             <CSSTransition {...restProps}
                            classNames="ripple"
                            timeout={{enter: duration, exit: duration * 2}}>
-                <div className="ripple"
+                <div className={rippleClassName}
                      style={style}></div>
             </CSSTransition>
         );
 
     }
-};
+}
 
 Ripple.propTypes = {
 
+    className: PropTypes.string,
     style: PropTypes.object,
 
     duration: PropTypes.number
@@ -38,11 +44,7 @@ Ripple.propTypes = {
 };
 
 Ripple.defaultProps = {
-
-    style: null,
-
     duration: 500
-
 };
 
 export default Ripple;

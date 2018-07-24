@@ -20,11 +20,9 @@ class ListStep extends Component {
             finishedStep: props.finishedStep
         };
 
-        this.touchTapHandler = ::this.touchTapHandler;
-
     }
 
-    touchTapHandler(activatedStep) {
+    clickHandler = activatedStep => {
 
         const {onChange} = this.props;
 
@@ -37,7 +35,7 @@ class ListStep extends Component {
             });
         });
 
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.activatedStep !== this.state.activatedStep
@@ -61,9 +59,8 @@ class ListStep extends Component {
         return (
             <div className={stepClassName}
                  style={style}>
-
                 {
-                    steps.map((item, index) =>
+                    steps && steps.map((item, index) =>
                         <ListStepItem key={index}
                                       index={index}
                                       className={item.className}
@@ -74,10 +71,9 @@ class ListStep extends Component {
                                       activatedStep={activatedStep}
                                       finishedStep={finishedStep}
                                       data={item}
-                                      onTouchTap={this.touchTapHandler}/>
+                                      onClick={this.clickHandler}/>
                     )
                 }
-
             </div>
         );
 
@@ -137,9 +133,6 @@ ListStep.propTypes = {
 };
 
 ListStep.defaultProps = {
-
-    className: '',
-    style: null,
 
     steps: [],
 

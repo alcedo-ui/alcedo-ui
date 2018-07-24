@@ -5,6 +5,7 @@
 
 import React, {Component, cloneElement} from 'react';
 import PropTypes from 'prop-types';
+import debounce from 'lodash/debounce';
 import Transition from 'react-transition-group/Transition';
 import classNames from 'classnames';
 
@@ -12,10 +13,10 @@ import Portal from '../Portal';
 import Theme from '../Theme';
 
 import Position from '../_statics/Position';
+
 import Event from '../_vendors/Event';
 import Util from '../_vendors/Util';
 import PositionPopCalculation from '../_vendors/PositionPopCalculation';
-import PopManagement from '../_vendors/PopManagement';
 
 class PositionPop extends Component {
 
@@ -31,17 +32,9 @@ class PositionPop extends Component {
             exited: true
         };
 
-        this.enterHandler = ::this.enterHandler;
-        this.enteredHandler = ::this.enteredHandler;
-        this.exitHandler = ::this.exitHandler;
-        this.exitedHandler = ::this.exitedHandler;
-        this.resizeHandler = ::this.resizeHandler;
-        this.getEl = ::this.getEl;
-        this.resetPosition = ::this.resetPosition;
-
     }
 
-    enterHandler(el) {
+    enterHandler = el => {
 
         this.transitionEl = el;
         this.resetPosition();
@@ -53,56 +46,52 @@ class PositionPop extends Component {
             onRender && onRender(el);
         });
 
-    }
+    };
 
-    enteredHandler(el) {
+    enteredHandler = el => {
         const {onRendered} = this.props;
         onRendered && onRendered(el);
-    }
+    };
 
-    exitHandler(el) {
+    exitHandler = el => {
         this.setState({
             enter: false
         }, () => {
             const {onDestroy} = this.props;
             onDestroy && onDestroy(el);
         });
-    }
+    };
 
-    exitedHandler(el) {
+    exitedHandler = el => {
         this.setState({
             exited: true
         }, () => {
             const {onDestroyed} = this.props;
             onDestroyed && onDestroyed(el);
         });
-    }
+    };
 
-    resizeHandler = _.debounce(() => {
+    resizeHandler = debounce(() => {
         this.resetPosition();
     }, 250);
 
-    getEl() {
+    getEl = () => {
         return this.transitionEl;
-    }
+    };
 
-    resetPosition(props = this.props) {
+    resetPosition = (props = this.props) => {
         PositionPopCalculation.setStyle(this.transitionEl, props.position);
-    }
+    };
 
     componentDidMount() {
-
         Event.addEvent(window, 'resize', this.resizeHandler);
-
-        this.props.isEscClose && PopManagement.push(this);
-
     }
 
     componentWillReceiveProps(nextProps) {
 
         if (nextProps.visible) {
             this.setState({
-                exited: !nextProps.visible
+                exited: false
             });
         }
 
@@ -123,7 +112,7 @@ class PositionPop extends Component {
                 className, theme, position, isAnimated, visible, container, showModal, modalClassName,
 
                 // not passing down these props
-                isEscClose, isAutoClose, shouldPreventContainerScroll,
+                isEscClose, isBlurClose, shouldPreventContainerScroll,
                 onRender, onRendered, onDestroy, onDestroyed,
 
                 ...restProps
@@ -170,9 +159,7 @@ class PositionPop extends Component {
                         cloneElement(container, {
                             ...restProps,
                             className: popClassName,
-                            onWheel: e => {
-                                Event.wheelHandler(e, this.props);
-                            }
+                            onWheel: e => Event.wheelHandler(e, this.props)
                         })
                     }
                 </Transition>
@@ -182,7 +169,7 @@ class PositionPop extends Component {
 
     }
 
-};
+}
 
 PositionPop.propTypes = {
 
@@ -221,7 +208,7 @@ PositionPop.propTypes = {
      */
     depth: PropTypes.number,
 
-    isAutoClose: PropTypes.bool,
+    isBlurClose: PropTypes.bool,
     isEscClose: PropTypes.bool,
     shouldPreventContainerScroll: PropTypes.bool,
 
@@ -259,8 +246,6 @@ PositionPop.propTypes = {
 
 PositionPop.defaultProps = {
 
-    className: null,
-    style: null,
     depth: 6,
 
     visible: false,
@@ -268,14 +253,13 @@ PositionPop.defaultProps = {
     position: Position.CENTER,
     isAnimated: true,
 
-    isAutoClose: true,
+    isBlurClose: true,
     isEscClose: true,
     shouldPreventContainerScroll: true,
 
     container: <div></div>,
 
-    showModal: false,
-    modalClassName: null
+    showModal: false
 
 };
 

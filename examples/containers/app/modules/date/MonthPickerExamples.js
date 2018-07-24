@@ -7,18 +7,17 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/MonthPicker.json';
 
-export default class MonthPickerExamples extends Component {
+class MonthPickerExamples extends Component {
 
     constructor(props) {
         super(props);
     }
 
-    onChangeHandle(value) {
+    onChangeHandle = value => {
         console.log(value);
-    }
+    };
 
     render() {
-
         return (
             <div className="example time-picker-examples">
 
@@ -64,3 +63,5 @@ export default class MonthPickerExamples extends Component {
         );
     }
 };
+
+export default MonthPickerExamples;

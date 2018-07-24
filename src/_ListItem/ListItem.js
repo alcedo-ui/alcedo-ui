@@ -24,96 +24,79 @@ class ListItem extends Component {
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.state = {
-            checked: props.checked
-        };
-
-        this.checkboxChangeHandler = ::this.checkboxChangeHandler;
-        this.radioChangeHandler = ::this.radioChangeHandler;
-        this.touchTapHandler = ::this.touchTapHandler;
-
     }
 
-    checkboxChangeHandler(checked) {
-        this.setState({
-            checked
-        }, () => {
+    multiSelectChangeHandler = checked => {
 
-            const {onSelect, onDeselect} = this.props;
+        const {onSelect, onDeselect} = this.props;
 
-            if (checked) {
-                onSelect && onSelect();
-            } else {
-                onDeselect && onDeselect();
-            }
-
-        });
-    }
-
-    radioChangeHandler() {
-
-        const {checked} = this.state;
-
-        if (!checked) {
-            this.setState({
-                checked: true
-            }, () => {
-                const {onSelect} = this.props;
-                onSelect && onSelect();
-            });
+        if (checked) {
+            onSelect && onSelect();
+        } else {
+            onDeselect && onDeselect();
         }
 
-    }
+    };
 
-    touchTapHandler(e) {
+    singleSelectChangeHandler = () => {
+        if (!this.props.checked) {
+            const {onSelect} = this.props;
+            onSelect && onSelect();
+        }
+    };
 
-        e.preventDefault();
+    clickHandler = e => {
 
-        const {disabled, isLoading, readOnly} = this.props;
+        const {disabled, isLoading, readOnly, autoSelect} = this.props;
 
         if (disabled || isLoading || readOnly) {
             return;
         }
 
-        const {onTouchTap} = this.props;
-        onTouchTap && onTouchTap(e);
+        const {onClick} = this.props;
+        onClick && onClick(e);
+
+        if (!autoSelect) {
+            return;
+        }
 
         switch (this.props.selectMode) {
             case SelectMode.MULTI_SELECT:
-                this.checkboxChangeHandler(!this.state.checked);
+                this.multiSelectChangeHandler(!this.props.checked);
                 return;
             case SelectMode.SINGLE_SELECT:
-                this.radioChangeHandler();
+                this.singleSelectChangeHandler();
                 return;
         }
 
-    }
+    };
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.checked !== this.state.checked) {
-            this.setState({
-                checked: nextProps.checked
-            });
-        }
-    }
+    radioCheckHandler = () => {
+        this.singleSelectChangeHandler();
+    };
+
+    checkboxCheckHandler = () => {
+        this.multiSelectChangeHandler(true);
+    };
+
+    checkboxUncheckHandler = () => {
+        this.multiSelectChangeHandler(false);
+    };
 
     render() {
 
         const {
 
-                index, className, style, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
+                index, className, style, theme, data, text, desc, title, iconCls, rightIconCls, tip, tipPosition,
                 disabled, isLoading, disableTouchRipple, rippleDisplayCenter, renderer, itemRenderer, readOnly,
 
-                selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
+                checked, selectTheme, selectMode, indeterminateCallback, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
                 onMouseEnter, onMouseLeave
 
             } = this.props,
-            {checked} = this.state,
 
             listItemClassName = classNames('list-item', {
                 [`theme-${theme}`]: theme,
@@ -124,15 +107,15 @@ class ListItem extends Component {
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
-            <TipProvider className='block'
-                         text={tip}
+            <TipProvider text={tip}
                          position={tipPosition}>
 
                 <div className={listItemClassName}
                      style={style}
                      disabled={disabled || isLoading}
                      readOnly={readOnly}
-                     onTouchTap={this.touchTapHandler}
+                     title={title}
+                     onClick={this.clickHandler}
                      onMouseEnter={onMouseEnter}
                      onMouseLeave={onMouseLeave}>
 
@@ -144,7 +127,8 @@ class ListItem extends Component {
                                    disabled={disabled || isLoading}
                                    uncheckedIconCls={radioUncheckedIconCls}
                                    checkedIconCls={radioCheckedIconCls}
-                                   disableTouchRipple={true}/>
+                                   disableTouchRipple={true}
+                                   onCheck={this.radioCheckHandler}/>
                             :
                             null
                     }
@@ -154,11 +138,14 @@ class ListItem extends Component {
                             <Checkbox className="list-item-select"
                                       theme={selectTheme}
                                       checked={checked}
+                                      indeterminate={indeterminateCallback && indeterminateCallback(data)}
                                       disabled={disabled || isLoading}
                                       uncheckedIconCls={checkboxUncheckedIconCls}
                                       checkedIconCls={checkboxCheckedIconCls}
                                       indeterminateIconCls={checkboxIndeterminateIconCls}
-                                      disableTouchRipple={true}/>
+                                      disableTouchRipple={true}
+                                      onCheck={this.checkboxCheckHandler}
+                                      onUncheck={this.checkboxUncheckHandler}/>
                             :
                             null
                     }
@@ -231,7 +218,7 @@ class ListItem extends Component {
         );
 
     }
-};
+}
 
 ListItem.propTypes = {
 
@@ -248,6 +235,7 @@ ListItem.propTypes = {
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     text: PropTypes.any,
     desc: PropTypes.string,
+    title: PropTypes.string,
 
     disabled: PropTypes.bool,
     isLoading: PropTypes.bool,
@@ -270,8 +258,11 @@ ListItem.propTypes = {
 
     itemRenderer: PropTypes.func,
     renderer: PropTypes.func,
+    indeterminateCallback: PropTypes.func,
 
-    onTouchTap: PropTypes.func,
+    autoSelect: PropTypes.bool,
+
+    onClick: PropTypes.func,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
     onMouseEnter: PropTypes.func,
@@ -283,17 +274,10 @@ ListItem.defaultProps = {
 
     index: 0,
 
-    className: null,
-    style: null,
     theme: Theme.DEFAULT,
 
     selectTheme: Theme.DEFAULT,
     selectMode: SelectMode.SINGLE_SELECT,
-
-    data: null,
-    value: null,
-    text: null,
-    desc: null,
 
     disabled: false,
     isLoading: false,
@@ -302,17 +286,13 @@ ListItem.defaultProps = {
     checked: false,
     readOnly: false,
 
-    iconCls: null,
-    rightIconCls: null,
-
-    tip: null,
     tipPosition: Position.BOTTOM,
 
-    radioUncheckedIconCls: null,
-    radioCheckedIconCls: null,
     checkboxUncheckedIconCls: 'far fa-square',
     checkboxCheckedIconCls: 'fas fa-check-square',
-    checkboxIndeterminateIconCls: 'fas fa-minus-square'
+    checkboxIndeterminateIconCls: 'fas fa-minus-square',
+
+    autoSelect: true
 
 };
 

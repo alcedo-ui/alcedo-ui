@@ -105,17 +105,13 @@ SpanLoading.propTypes = {
      * Set the delay time of loading animation.
      */
     delay: PropTypes.number
+
 };
 
 SpanLoading.defaultProps = {
-
-    className: '',
-    style: null,
-
     spanning: true,
     tip: '',
     type: ''
-
 };
 
 export default SpanLoading;

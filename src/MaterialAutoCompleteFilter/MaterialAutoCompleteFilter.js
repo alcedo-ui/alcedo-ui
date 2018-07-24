@@ -11,11 +11,14 @@ import AutoCompleteFilter from '../AutoCompleteFilter';
 import MaterialFieldSeparator from '../_MaterialFieldSeparator';
 import Theme from '../Theme';
 
+import Position from '../_statics/Position';
+
 import Util from '../_vendors/Util';
 
 class MaterialAutoCompleteFilter extends Component {
 
     static Theme = Theme;
+    static Position = Position;
 
     constructor(props, ...restArgs) {
 
@@ -28,27 +31,18 @@ class MaterialAutoCompleteFilter extends Component {
             isHover: false
         };
 
-        this.triggerFocusHandler = ::this.triggerFocusHandler;
-        this.triggerBlurHandler = ::this.triggerBlurHandler;
-        this.popupClosedHandler = ::this.popupClosedHandler;
-        this.triggerFilterChangeHandler = ::this.triggerFilterChangeHandler;
-        this.triggerChangeHandler = ::this.triggerChangeHandler;
-        this.triggerMouseOverHandler = ::this.triggerMouseOverHandler;
-        this.triggerMouseOutHandler = ::this.triggerMouseOutHandler;
-        this.closePopup = ::this.closePopup;
-
     }
 
-    triggerFocusHandler(...args) {
+    triggerFocusHandler = (...args) => {
         this.setState({
             isFocus: true
         }, () => {
             const {onFocus} = this.props;
             onFocus && onFocus(...args);
         });
-    }
+    };
 
-    triggerBlurHandler(...args) {
+    triggerBlurHandler = (...args) => {
 
         if (this.state.filter === '') {
             this.setState({
@@ -59,52 +53,58 @@ class MaterialAutoCompleteFilter extends Component {
         const {onBlur} = this.props;
         onBlur && onBlur(...args);
 
-    }
+    };
 
-    popupClosedHandler() {
+    popupClosedHandler = () => {
         this.setState({
             isFocus: false
         });
-    }
+    };
 
-    triggerFilterChangeHandler(filter) {
+    triggerFilterChangeHandler = filter => {
         this.setState({
             filter
         }, () => {
             const {onFilterChange} = this.props;
             onFilterChange && onFilterChange(filter);
         });
-    }
+    };
 
-    triggerChangeHandler(value) {
+    triggerChangeHandler = value => {
         this.setState({
             value
         }, () => {
             const {onChange} = this.props;
             onChange && onChange(value);
         });
-    }
+    };
 
-    triggerMouseOverHandler(...args) {
+    triggerMouseOverHandler = (...args) => {
         this.setState({
             isHover: true
         }, () => {
             const {onMouseOver} = this.props;
             onMouseOver && onMouseOver(...args);
         });
-    }
+    };
 
-    triggerMouseOutHandler(...args) {
+    triggerMouseOutHandler = (...args) => {
         this.setState({
             isHover: false
         }, () => {
             const {onMouseOut} = this.props;
             onMouseOut && onMouseOut(...args);
         });
-    }
+    };
 
-    closePopup() {
+    closePopup = () => {
         this.refs.localAutoComplete && this.refs.localAutoComplete.closePopup();
+    };
+
+    componentDidMount() {
+        this.setState({
+            value: this.props.value
+        });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -113,12 +113,6 @@ class MaterialAutoCompleteFilter extends Component {
                 value: nextProps.value
             });
         }
-    }
-
-    componentDidMount() {
-        this.setState({
-            value: this.props.value
-        });
     }
 
     render() {
@@ -175,7 +169,7 @@ class MaterialAutoCompleteFilter extends Component {
         );
 
     }
-};
+}
 
 MaterialAutoCompleteFilter.propTypes = {
 
@@ -203,6 +197,8 @@ MaterialAutoCompleteFilter.propTypes = {
      * The theme.
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
      * The name of the auto complete.
@@ -282,7 +278,7 @@ MaterialAutoCompleteFilter.propTypes = {
             /**
              * Callback function fired when a list item touch-tapped.
              */
-            onTouchTap: PropTypes.func
+            onClick: PropTypes.func
 
         }), PropTypes.string, PropTypes.number])),
 
@@ -315,6 +311,8 @@ MaterialAutoCompleteFilter.propTypes = {
      * If true, the popup list automatically closed after selection.
      */
     autoClose: PropTypes.bool,
+
+    minFilterLength: PropTypes.number,
 
     /**
      * Callback function fired when filter changed.
@@ -380,7 +378,7 @@ MaterialAutoCompleteFilter.propTypes = {
     /**
      * The function that trigger when touch-tap the list items.
      */
-    onItemTouchTap: PropTypes.func,
+    onItemClick: PropTypes.func,
 
     /**
      * Callback function fired when AutoCompleteFilter get focus.
@@ -399,10 +397,6 @@ MaterialAutoCompleteFilter.propTypes = {
 
 MaterialAutoCompleteFilter.defaultProps = {
 
-    className: '',
-    popupClassName: '',
-    style: null,
-    popupStyle: null,
     theme: Theme.DEFAULT,
 
     name: '',
@@ -415,14 +409,13 @@ MaterialAutoCompleteFilter.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
     autoClose: false,
+    minFilterLength: 1,
     iconCls: '',
     rightIconCls: 'fas fa-search',
     noMatchedPopupVisible: true,
     noMatchedMsg: '',
     isGrouped: false,
-    filterInitValue: '',
-
-    popupChildren: null
+    filterInitValue: ''
 
 };
 

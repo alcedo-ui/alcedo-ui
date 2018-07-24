@@ -11,6 +11,7 @@ import TriggerPop from '../_TriggerPop';
 import Theme from '../Theme';
 
 import Position from '../_statics/Position';
+
 import Event from '../_vendors/Event';
 import Util from '../_vendors/Util';
 
@@ -25,55 +26,49 @@ class Popover extends Component {
 
         this.closeTimeout = null;
 
-        this.clearCloseTimeout = ::this.clearCloseTimeout;
-        this.mouseOverHandler = ::this.mouseOverHandler;
-        this.mouseOutHandler = ::this.mouseOutHandler;
-        this.renderHandler = ::this.renderHandler;
-        this.destroyHandler = ::this.destroyHandler;
-
     }
 
-    clearCloseTimeout() {
+    clearCloseTimeout = () => {
         if (this.closeTimeout) {
             clearTimeout(this.closeTimeout);
             this.closeTimeout = null;
         }
-    }
+    };
 
-    mouseOverHandler() {
+    mouseOverHandler = () => {
         this.clearCloseTimeout();
-    }
+    };
 
-    mouseOutHandler(e) {
+    mouseOutHandler = e => {
         const {onRequestClose} = this.props;
         this.clearCloseTimeout();
         this.closeTimeout = setTimeout(() => {
             onRequestClose && onRequestClose(e);
         }, 1000 / 6);
-    }
+    };
 
-    renderHandler(el) {
+    renderHandler = el => {
         const {triggerEl} = this.props;
         Event.addEvent(triggerEl, 'mouseover', this.mouseOverHandler);
         Event.addEvent(triggerEl, 'mouseout', this.mouseOutHandler);
         Event.addEvent(el, 'mouseover', this.mouseOverHandler);
         Event.addEvent(el, 'mouseout', this.mouseOutHandler);
-    }
+    };
 
-    destroyHandler(el) {
+    destroyHandler = el => {
         const {triggerEl} = this.props;
         Event.removeEvent(triggerEl, 'mouseover', this.mouseOverHandler);
         Event.removeEvent(triggerEl, 'mouseout', this.mouseOutHandler);
         Event.removeEvent(el, 'mouseover', this.mouseOverHandler);
         Event.removeEvent(el, 'mousemove', this.mouseOutHandler);
-    }
+    };
 
     /**
      * public
      */
-    resetPosition() {
+    resetPosition = () => {
         this.refs.popover.resetPosition();
-    }
+    };
 
     componentWillUnmount() {
         this.clearCloseTimeout();
@@ -110,7 +105,7 @@ class Popover extends Component {
         );
     }
 
-};
+}
 
 Popover.propTypes = {
 
@@ -123,6 +118,8 @@ Popover.propTypes = {
      * The CSS class name of the content element.
      */
     contentClassName: PropTypes.string,
+
+    modalClassName: PropTypes.string,
 
     /**
      * Override the styles of the root element.
@@ -166,10 +163,10 @@ Popover.propTypes = {
      */
     depth: PropTypes.number,
 
-    isAutoClose: PropTypes.bool,
-    isEscClose: PropTypes.bool,
+    isBlurClose: PropTypes.bool,
     shouldPreventContainerScroll: PropTypes.bool,
     isTriggerPositionFixed: PropTypes.bool,
+    showModal: PropTypes.bool,
 
     /**
      * The function of popover render.
@@ -205,22 +202,16 @@ Popover.propTypes = {
 
 Popover.defaultProps = {
 
-    className: null,
-    contentClassName: null,
-    style: null,
-    depth: 6,
-
-    triggerEl: null,
     visible: false,
     hasTriangle: true,
     theme: Theme.DEFAULT,
     position: Position.BOTTOM,
     isAnimated: true,
 
-    isAutoClose: true,
-    isEscClose: true,
+    isBlurClose: true,
     shouldPreventContainerScroll: true,
-    isTriggerPositionFixed: false
+    isTriggerPositionFixed: false,
+    showModal: false
 
 };
 

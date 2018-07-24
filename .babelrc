@@ -20,6 +20,20 @@
         "development": {
             "presets": [
                 "react-hmre"
+            ],
+            "plugins": [
+                "syntax-dynamic-import",
+                "transform-import-sync"
+            ]
+        },
+        "production": {
+            "plugins": [
+                [
+                    "transform-react-remove-prop-types",
+                    {
+                        "removeImport": true
+                    }
+                ]
             ]
         }
     },

@@ -26,18 +26,30 @@ class MaterialTextArea extends Component {
             value: props.value
         };
 
-        this.triggerChangeHandler = ::this.triggerChangeHandler;
-
     }
 
-    triggerChangeHandler(value) {
+    /**
+     * public
+     */
+    focus = () => {
+        this.refs.input.focus();
+    };
+
+    /**
+     * public
+     */
+    blur = () => {
+        this.refs.input.blur();
+    };
+
+    triggerChangeHandler = value => {
         this.setState({
             value
         }, () => {
             const {onChange} = this.props;
             onChange && onChange(value);
         });
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
@@ -80,7 +92,7 @@ class MaterialTextArea extends Component {
         );
 
     }
-};
+}
 
 MaterialTextArea.propTypes = {
 
@@ -251,8 +263,8 @@ MaterialTextArea.propTypes = {
      */
     onPasswordInvisible: PropTypes.func,
 
-    onIconTouchTap: PropTypes.func,
-    onRightIconTouchTap: PropTypes.func,
+    onIconClick: PropTypes.func,
+    onRightIconClick: PropTypes.func,
 
     onMouseOver: PropTypes.func,
     onMouseOut: PropTypes.func
@@ -261,8 +273,6 @@ MaterialTextArea.propTypes = {
 
 MaterialTextArea.defaultProps = {
 
-    className: null,
-    style: null,
     theme: Theme.DEFAULT,
 
     type: 'text',

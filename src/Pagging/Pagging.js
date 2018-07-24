@@ -12,15 +12,10 @@ import PaggingPage from '../_PaggingPage';
 class Pagging extends Component {
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.pageChangedHandle = ::this.pageChangedHandle;
-        this.pageSizeChangedHandle = ::this.pageSizeChangedHandle;
-
     }
 
-    pageChangedHandle(page) {
+    pageChangedHandle = page => {
 
         const {pageSize, onChange} = this.props;
 
@@ -29,9 +24,9 @@ class Pagging extends Component {
             pageSize
         });
 
-    }
+    };
 
-    pageSizeChangedHandle(pageSize) {
+    pageSizeChangedHandle = pageSize => {
 
         const {page, onChange} = this.props;
 
@@ -40,14 +35,14 @@ class Pagging extends Component {
             pageSize
         });
 
-    }
+    };
 
     render() {
 
         const {
             count, page, total, pageSize, pageSizes,
             selectedCount, selectedCountVisible, pageSizeVisible,
-            paggingPrevIconCls, paggingNextIconCls, paggingFirstIconCls, paggingLastIconCls
+            paggingPrevIconCls, paggingNextIconCls, paggingFirstIconCls, paggingLastIconCls, paggingCountRenderer
         } = this.props;
 
         return (
@@ -65,7 +60,12 @@ class Pagging extends Component {
                     }
 
                     <div className="pagging-totle">
-                        {`Total: ${count}`}
+                        {
+                            paggingCountRenderer ?
+                                paggingCountRenderer(count, page, total, pageSize, pageSizes)
+                                :
+                                `Total: ${count}`
+                        }
                     </div>
 
                 </div>
@@ -95,7 +95,7 @@ class Pagging extends Component {
         );
 
     }
-};
+}
 
 Pagging.propTypes = {
 
@@ -169,6 +169,8 @@ Pagging.propTypes = {
      */
     paggingLastIconCls: PropTypes.string,
 
+    paggingCountRenderer: PropTypes.func,
+
     /**
      * Callback function fired when Pagging component change.
      */
@@ -177,9 +179,6 @@ Pagging.propTypes = {
 };
 
 Pagging.defaultProps = {
-
-    className: '',
-    style: null,
 
     count: 0,
     page: 0,

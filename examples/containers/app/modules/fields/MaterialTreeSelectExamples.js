@@ -9,9 +9,10 @@ import doc from 'examples/assets/propTypes/MaterialTreeSelect.json';
 
 import 'sass/containers/app/modules/fields/MaterialTreeSelectExamples.scss';
 
-export default class MaterialTreeSelectExamples extends Component {
+class MaterialTreeSelectExamples extends Component {
 
     constructor(props) {
+
         super(props);
 
         this.data = {
@@ -46,13 +47,11 @@ export default class MaterialTreeSelectExamples extends Component {
             }]
         };
 
-        this.onChangeHandle = this::this.onChangeHandle;
-
     }
 
-    onChangeHandle(value) {
+    onChangeHandler = value => {
         console.log(value);
-    }
+    };
 
     render() {
         return (
@@ -61,7 +60,8 @@ export default class MaterialTreeSelectExamples extends Component {
                 <h2 className="examples-title">MaterialTreeSelectExamples</h2>
 
                 <p>
-                    <span>MaterialTreeSelect</span> use to store operating elements. Click on the contact and a
+                    <span>MaterialTreeSelect</span>
+                    use to store operating elements. Click on the contact and a
                     drop-down menu will appear. You can select from the list and execute the appropriate command.
                 </p>
 
@@ -86,7 +86,7 @@ export default class MaterialTreeSelectExamples extends Component {
                                                         text: 'Children 0 - 1 - 0',
                                                         desc: 'Children 0 - 1 - 0'
                                                     }}
-                                                    onChange={this.onChangeHandle}/>
+                                                    onChange={this.onChangeHandler}/>
 
                             </div>
 
@@ -114,7 +114,14 @@ export default class MaterialTreeSelectExamples extends Component {
                                                         selectMode={MaterialTreeSelect.SelectMode.MULTI_SELECT}
                                                         autoClose={false}
                                                         data={this.data}
-                                                        onChange={this.onChangeHandle}/>
+                                                        isSelectRecursive={true}
+                                                        useFilter={true}
+                                                        collapsedIconCls="far fa-plus-square"
+                                                        expandedIconCls="far fa-minus-square"
+                                                        checkboxUncheckedIconCls="far fa-circle"
+                                                        checkboxCheckedIconCls="fas fa-check-circle"
+                                                        checkboxIndeterminateIconCls="fas fa-minus-circle"
+                                                        onChange={this.onChangeHandler}/>
                                 </div>
                             </div>
 
@@ -132,3 +139,5 @@ export default class MaterialTreeSelectExamples extends Component {
         );
     }
 };
+
+export default MaterialTreeSelectExamples;

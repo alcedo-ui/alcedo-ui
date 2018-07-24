@@ -6,6 +6,7 @@ import {Redirect} from 'react-router';
 import {renderRoutes} from 'react-router-config';
 import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+import classnames from 'classnames';
 
 import * as actions from 'reduxes/actions';
 
@@ -29,19 +30,22 @@ class App extends Component {
 
     render() {
 
-        const {route, location, $isDesktop, $navMenuCollapsed, $componentLoading, collapseNavMenu} = this.props;
+        const {route, location, isDesktop, navMenuCollapsed, componentLoading, collapseNavMenu} = this.props,
+
+            appClassName = classnames('app', {
+                collapsed: navMenuCollapsed
+            });
 
         return (
-            <div className={'app ' + ($navMenuCollapsed ? 'collapsed' : '')}>
+            <div className={appClassName}>
 
-                <PageLoading visible={$componentLoading}/>
+                <PageLoading visible={componentLoading}/>
 
                 <NavMenu/>
 
                 <NavBar/>
 
-                <div ref="appContent"
-                     className="app-content">
+                <div className="app-content">
 
                     {renderRoutes(route.routes)}
 
@@ -53,9 +57,9 @@ class App extends Component {
                     }
 
                     {
-                        !$isDesktop && !$navMenuCollapsed ?
+                        !isDesktop && !navMenuCollapsed ?
                             <div className="app-content-modal"
-                                 onTouchTap={collapseNavMenu}></div>
+                                 onClick={collapseNavMenu}></div>
                             :
                             null
                     }
@@ -70,24 +74,20 @@ class App extends Component {
 
 App.propTypes = {
 
-    $isDesktop: PropTypes.bool,
-    $navMenuCollapsed: PropTypes.bool,
-    $componentLoading: PropTypes.bool,
+    isDesktop: PropTypes.bool,
+    navMenuCollapsed: PropTypes.bool,
+    componentLoading: PropTypes.bool,
 
-    expandActivatedMenu: PropTypes.func
+    expandActivatedMenu: PropTypes.func,
+    collapseNavMenu: PropTypes.func
 
 };
 
-function mapStateToProps(state, ownProps) {
-    return {
-        $isDesktop: state.device.isDesktop,
-        $navMenuCollapsed: state.navMenu.navMenuCollapsed,
-        $componentLoading: state.loadComponent.loading
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(actions, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(state => ({
+    isDesktop: state.device.isDesktop,
+    navMenuCollapsed: state.navMenu.navMenuCollapsed,
+    componentLoading: state.loadComponent.loading
+}), dispatch => bindActionCreators({
+    expandActivatedMenu: actions.expandActivatedMenu,
+    collapseNavMenu: actions.collapseNavMenu
+}, dispatch))(App);

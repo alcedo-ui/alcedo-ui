@@ -20,11 +20,9 @@ class PointStep extends Component {
             finishedStep: props.finishedStep
         };
 
-        this.touchTapHandler = ::this.touchTapHandler;
-
     }
 
-    touchTapHandler(activatedStep) {
+    clickHandler = activatedStep => {
 
         const {onChange} = this.props;
 
@@ -37,7 +35,7 @@ class PointStep extends Component {
             });
         });
 
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.activatedStep !== this.state.activatedStep
@@ -80,7 +78,7 @@ class PointStep extends Component {
                                        showFinishedStepIcon={showFinishedStepIcon}
                                        finishedStepIconCls={finishedStepIconCls}
                                        disabled={disabled}
-                                       onTouchTap={this.touchTapHandler}/>
+                                       onClick={this.clickHandler}/>
                     )
                 }
 
@@ -88,7 +86,7 @@ class PointStep extends Component {
         );
 
     }
-};
+}
 
 PointStep.propTypes = {
 
@@ -148,11 +146,6 @@ PointStep.propTypes = {
 };
 
 PointStep.defaultProps = {
-
-    className: null,
-    style: null,
-
-    steps: null,
 
     activatedStep: 0,
     finishedStep: 0,

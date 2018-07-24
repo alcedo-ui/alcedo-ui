@@ -28,18 +28,13 @@ class MonthPicker extends Component {
             selectDay: props.day
         };
 
-        this.previousLevel = ::this.previousLevel;
-        this.selectDate = ::this.selectDate;
-        this.previousYear = ::this.previousYear;
-        this.nextYear = ::this.nextYear;
-
     }
 
-    previousLevel() {
+    previousLevel = () => {
         this.props.previousClick && this.props.previousClick('year');
-    }
+    };
 
-    selectDate(s_month) {
+    selectDate = s_month => {
         let {selectYear} = this.state;
         this.setState({
             currentYear: selectYear,
@@ -48,9 +43,9 @@ class MonthPicker extends Component {
         }, () => {
             this.props.onChange && this.props.onChange({year: selectYear, month: s_month});
         });
-    }
+    };
 
-    previousYear() {
+    previousYear = () => {
         let {currentYear, currentMonth, selectYear, selectMonth} = this.state;
         selectYear = +selectYear - 1;
         if (Number(currentYear) === Number(selectYear)) {
@@ -62,9 +57,9 @@ class MonthPicker extends Component {
             selectYear: selectYear,
             selectMonth: selectMonth
         });
-    }
+    };
 
-    nextYear() {
+    nextYear = () => {
         let {currentYear, currentMonth, selectYear, selectMonth} = this.state;
         selectYear = +selectYear + 1;
 
@@ -77,20 +72,7 @@ class MonthPicker extends Component {
             selectYear: selectYear,
             selectMonth: selectMonth
         });
-    }
-
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.props.value || nextProps.year !== this.props.year || nextProps.month !== this.props.month) {
-            const value = nextProps.value;
-            this.setState({
-                selectYear: nextProps.year,
-                selectMonth: nextProps.month,
-                currentYear: moment(value).format('YYYY'),
-                currentMonth: moment(value).format('MM')
-            });
-        }
-    }
+    };
 
     componentDidMount() {
         const {value, year, month} = this.props;
@@ -102,6 +84,18 @@ class MonthPicker extends Component {
                 currentMonth: moment(value).format('MM')
             });
 
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.value !== this.props.value || nextProps.year !== this.props.year || nextProps.month !== this.props.month) {
+            const value = nextProps.value;
+            this.setState({
+                selectYear: nextProps.year,
+                selectMonth: nextProps.month,
+                currentYear: moment(value).format('YYYY'),
+                currentMonth: moment(value).format('MM')
+            });
         }
     }
 
@@ -179,7 +173,7 @@ class MonthPicker extends Component {
                 <div className="calendar-body  calendar-month-body">
                     <div className="c-body-content">
                         {
-                            ul_list.map((item, key) =>
+                            ul_list && ul_list.map((item, key) =>
                                 <ul key={'ul' + key}
                                     className="content-row month">
                                     {item}
@@ -191,7 +185,7 @@ class MonthPicker extends Component {
             </div>
         );
     }
-};
+}
 
 MonthPicker.propTypes = {
     className: PropTypes.string,

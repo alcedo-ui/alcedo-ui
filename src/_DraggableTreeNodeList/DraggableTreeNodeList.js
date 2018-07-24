@@ -52,7 +52,7 @@ class DraggableTreeNodeList extends Component {
         );
 
     }
-};
+}
 
 DraggableTreeNodeList.propTypes = {
 
@@ -66,14 +66,9 @@ DraggableTreeNodeList.propTypes = {
 };
 
 DraggableTreeNodeList.defaultProps = {
-
     depth: -1,
-    path: null,
-
     data: [],
-
     collapsed: false
-
 };
 
 export default DraggableTreeNodeList;

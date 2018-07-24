@@ -3,7 +3,8 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import _ from 'lodash';
+import isArray from 'lodash/isArray';
+import isNumber from 'lodash/isNumber';
 import FieldType from '../_statics/FieldType';
 
 function range(value, min, max) {
@@ -23,10 +24,6 @@ function isMac() {
 function isWindows() {
     return /windows|win32/i.test(navigator.userAgent);
 };
-
-function isNumber(value) {
-    return !isNaN(value);
-}
 
 function isInteger(value) {
     return /^(0|-?[0-9][1-9]*)$/.test(value);
@@ -77,12 +74,12 @@ function isDeg(deg) {
 }
 
 function isRGB(rgb) {
-    return rgb && _.isArray(rgb) && rgb.length === 3
+    return rgb && isArray(rgb) && rgb.length === 3
         && rgb.filter(item => isInteger(item) && item >= 0 && item <= 255).length === 3;
 }
 
 function isHSB(hsb) {
-    return hsb && _.isArray(hsb) && hsb.length === 3
+    return hsb && isArray(hsb) && hsb.length === 3
         && isDeg(hsb[0]) && isInRange(hsb[1], 0, 1) && isInRange(hsb[2], 0, 1);
 }
 
@@ -190,7 +187,6 @@ export default {
     isChrome,
     isMac,
     isWindows,
-    isNumber,
     isInteger,
     isPositiveInteger,
     isNonnegativeInteger,

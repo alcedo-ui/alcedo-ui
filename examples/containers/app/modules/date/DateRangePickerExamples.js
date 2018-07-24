@@ -7,15 +7,15 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/DateRangePicker.json';
 
-export default class DateRangePickerExamples extends Component {
+class DateRangePickerExamples extends Component {
 
     constructor(props) {
         super(props);
     }
 
-    onChangeHandle(value) {
+    onChangeHandler = value => {
         console.log(value);
-    }
+    };
 
     render() {
         return (
@@ -41,7 +41,7 @@ export default class DateRangePickerExamples extends Component {
 
                                 <p><code>Date Range Picker</code>simple example.</p>
 
-                                <DateRangePicker onChange={this.onChangeHandle}/>
+                                <DateRangePicker onChange={this.onChangeHandler}/>
 
                             </div>
 
@@ -64,7 +64,7 @@ export default class DateRangePickerExamples extends Component {
 
                                 <DateRangePicker value={['2015-07-01', '2017-04-21']}
                                                  dateFormat={'YYYY-MM-DD'}
-                                                 onChange={this.onChangeHandle}/>
+                                                 onChange={this.onChangeHandler}/>
 
                             </div>
 
@@ -89,7 +89,7 @@ export default class DateRangePickerExamples extends Component {
                                 <DateRangePicker dateFormat={'YYYY-MM-DD'}
                                                  maxValue={'2018-12-21'}
                                                  minValue={'2017-02-01'}
-                                                 onChange={this.onChangeHandle}/>
+                                                 onChange={this.onChangeHandler}/>
                             </div>
 
                         </div>
@@ -113,7 +113,7 @@ export default class DateRangePickerExamples extends Component {
                                                  popupVisible={true}
                                                  maxValue={'2018-12-21'}
                                                  minValue={'2017-02-01'}
-                                                 onChange={this.onChangeHandle}/>
+                                                 onChange={this.onChangeHandler}/>
                             </div>
 
                         </div>
@@ -129,3 +129,5 @@ export default class DateRangePickerExamples extends Component {
         );
     }
 };
+
+export default DateRangePickerExamples;

@@ -10,15 +10,10 @@ import classNames from 'classnames';
 class RoundStepItem extends Component {
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.getRightBarClassName = ::this.getRightBarClassName;
-        this.touchTapHandler = ::this.touchTapHandler;
-
     }
 
-    getRightBarClassName() {
+    getRightBarClassName = () => {
 
         const {activatedStep, finishedStep, index} = this.props;
 
@@ -32,13 +27,12 @@ class RoundStepItem extends Component {
 
         return ' hidden';
 
-    }
+    };
 
-    touchTapHandler(e) {
-        e.preventDefault();
-        const {activatedStep, finishedStep, index, disabled, onTouchTap} = this.props;
-        !disabled && activatedStep !== index && finishedStep >= index && onTouchTap && onTouchTap(index, e);
-    }
+    clickHandler = e => {
+        const {activatedStep, finishedStep, index, disabled, onClick} = this.props;
+        !disabled && activatedStep !== index && finishedStep >= index && onClick && onClick(index, e);
+    };
 
     render() {
 
@@ -77,7 +71,7 @@ class RoundStepItem extends Component {
                 }
 
                 <div className="round"
-                     onTouchTap={this.touchTapHandler}>
+                     onClick={this.clickHandler}>
                     {
                         showFinishedStepIcon && finishedStep > index ?
                             <i className={finishedStepIconCls}
@@ -95,7 +89,7 @@ class RoundStepItem extends Component {
         );
 
     }
-};
+}
 
 RoundStepItem.propTypes = {
 
@@ -114,14 +108,11 @@ RoundStepItem.propTypes = {
 
     disabled: PropTypes.bool,
 
-    onTouchTap: PropTypes.func
+    onClick: PropTypes.func
 
 };
 
 RoundStepItem.defaultProps = {
-
-    className: '',
-    style: null,
 
     activatedStep: 0,
     finishedStep: 0,

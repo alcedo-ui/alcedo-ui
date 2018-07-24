@@ -5,15 +5,16 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
 
 import PositionPop from '../_PositionPop';
 import Notification from '../_Notification';
 
-import Util from '../_vendors/Util';
 import MsgType from '../_statics/MsgType';
 import Position from '../_statics/Position';
+
+import Util from '../_vendors/Util';
 
 class Notifier extends Component {
 
@@ -31,17 +32,13 @@ class Notifier extends Component {
             notifications: []
         };
 
-        this.isPositiveSequence = ::this.isPositiveSequence;
-        this.addNotification = ::this.addNotification;
-        this.removeNotification = ::this.removeNotification;
-
     }
 
-    isPositiveSequence(position = this.props.position) {
+    isPositiveSequence = (position = this.props.position) => {
         return position !== Position.BOTTOM_LEFT && position !== Position.BOTTOM && position !== Position.BOTTOM_RIGHT;
-    }
+    };
 
-    addNotification(notification) {
+    addNotification = notification => {
 
         let notifications = this.state.notifications;
 
@@ -58,11 +55,15 @@ class Notifier extends Component {
             this.refs.notifier.resetPosition();
         });
 
-    }
+    };
 
-    removeNotification(notificationId) {
+    removeNotification = notificationId => {
 
-        let notifications = this.state.notifications;
+        let {notifications} = this.state;
+
+        if (!notifications || notifications.length < 1) {
+            return;
+        }
 
         notifications.splice(notifications.findIndex(item => item.notificationId === notificationId), 1);
 
@@ -78,13 +79,13 @@ class Notifier extends Component {
             }
         });
 
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
 
         if (nextProps.notifications && nextProps.notifications.length > 0) {
 
-            let notifications = _.cloneDeep(nextProps.notifications);
+            let notifications = cloneDeep(nextProps.notifications);
             for (let i = 0, len = notifications.length; i < len; i++) {
                 if (typeof notifications[i] !== 'object') {
                     notifications[i] = {
@@ -142,7 +143,7 @@ class Notifier extends Component {
                          visible={visible}
                          position={position}>
                 {
-                    notifications.map(options =>
+                    notifications && notifications.map(options =>
                         <Notification {...options}
                                       key={options.notificationId}
                                       duration={'duration' in options ? options.duration : duration}
@@ -154,7 +155,7 @@ class Notifier extends Component {
 
     }
 
-};
+}
 
 Notifier.propTypes = {
 
@@ -225,13 +226,8 @@ Notifier.propTypes = {
 };
 
 Notifier.defaultProps = {
-
-    className: '',
-    style: null,
-
     position: Position.BOTTOM_RIGHT,
     duration: 0
-
 };
 
 export default Notifier;

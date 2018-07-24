@@ -28,12 +28,9 @@ class Notification extends Component {
             leave: false
         };
 
-        this.getIconCls = ::this.getIconCls;
-        this.touchTapHandler = ::this.touchTapHandler;
-
     }
 
-    getIconCls() {
+    getIconCls = () => {
         switch (this.props.type) {
             case MsgType.SUCCESS:
                 return 'fas fa-check-circle';
@@ -44,11 +41,9 @@ class Notification extends Component {
             default:
                 return 'fas fa-info-circle';
         }
-    }
+    };
 
-    touchTapHandler(e) {
-
-        e.preventDefault();
+    clickHandler = e => {
 
         const {notificationId, onRequestClose} = this.props;
 
@@ -61,7 +56,7 @@ class Notification extends Component {
             }, 500);
         });
 
-    }
+    };
 
     componentDidMount() {
 
@@ -135,7 +130,7 @@ class Notification extends Component {
                     closeIconVisible ?
                         <IconButton className="notification-close-icon"
                                     iconCls="fas fa-times"
-                                    onTouchTap={this.touchTapHandler}/>
+                                    onClick={this.clickHandler}/>
                         :
                         null
                 }
@@ -144,7 +139,7 @@ class Notification extends Component {
                     closeButtonVisible ?
                         <AnchorButton className="notification-close-Button"
                                       value={closeButtonValue}
-                                      onTouchTap={this.touchTapHandler}/>
+                                      onClick={this.clickHandler}/>
                         :
                         null
                 }
@@ -153,7 +148,7 @@ class Notification extends Component {
         );
 
     }
-};
+}
 
 Notification.propTypes = {
 
@@ -203,9 +198,6 @@ Notification.propTypes = {
 };
 
 Notification.defaultProps = {
-
-    className: '',
-    style: null,
 
     notificationId: 0,
     type: MsgType.INFO,

@@ -11,8 +11,9 @@ import IconButton from '../IconButton';
 import Theme from '../Theme';
 import TipProvider from '../TipProvider';
 
-import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
+
+import Util from '../_vendors/Util';
 
 class Checkbox extends Component {
 
@@ -26,13 +27,17 @@ class Checkbox extends Component {
             checked: !!props.checked
         };
 
-        this.touchTapHandler = ::this.touchTapHandler;
-        this.mouseDownHandle = ::this.mouseDownHandle;
-        this.mouseUpHandle = ::this.mouseUpHandle;
-
     }
 
-    touchTapHandler() {
+    clickHandler = e => {
+
+        const {disabled, onClick} = this.props;
+
+        if (disabled) {
+            return;
+        }
+
+        onClick && onClick(e);
 
         const checked = !this.state.checked;
 
@@ -45,27 +50,27 @@ class Checkbox extends Component {
             onChange && onChange(checked);
 
             if (checked) {
-                onCheck && onCheck();
+                onCheck && onCheck(e);
             } else {
-                onUncheck && onUncheck();
+                onUncheck && onUncheck(e);
             }
 
         });
 
-    }
+    };
 
-    mouseDownHandle(e) {
+    mouseDownHandler = e => {
 
         if (this.props.disabled) {
             return;
         }
 
         this.refs.checkboxIcon.startRipple(e);
-        this.touchTapHandler();
+        this.clickHandler();
 
-    }
+    };
 
-    mouseUpHandle() {
+    mouseUpHandler = () => {
 
         if (this.props.disabled) {
             return;
@@ -73,7 +78,7 @@ class Checkbox extends Component {
 
         this.refs.checkboxIcon.endRipple();
 
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.checked !== this.state.checked) {
@@ -119,16 +124,19 @@ class Checkbox extends Component {
                             null
                     }
 
-                    <div className="checkbox-icon-wrapper">
+                    <div className="checkbox-icon-wrapper"
+                         onClick={this.clickHandler}>
                         <IconButton ref="checkboxIcon"
                                     className="checkbox-bg-icon"
                                     iconCls={uncheckedIconCls}
-                                    onTouchTap={this.touchTapHandler}
+                                    disabled={disabled}
+                                    disableTouchRipple={disableTouchRipple}/>
+                        <IconButton className="checkbox-indeterminate-icon"
+                                    iconCls={indeterminateIconCls}
                                     disabled={disabled}
                                     disableTouchRipple={disableTouchRipple}/>
                         <IconButton className="checkbox-icon"
-                                    iconCls={indeterminate ? indeterminateIconCls : checkedIconCls}
-                                    onTouchTap={this.touchTapHandler}
+                                    iconCls={checkedIconCls}
                                     disabled={disabled}
                                     disableTouchRipple={disableTouchRipple}/>
                     </div>
@@ -136,9 +144,9 @@ class Checkbox extends Component {
                     {
                         label ?
                             <div className="checkbox-label"
-                                 onMouseDown={this.mouseDownHandle}
-                                 onMouseUp={this.mouseUpHandle}
-                                 onMouseLeave={this.mouseUpHandle}>
+                                 onMouseDown={this.mouseDownHandler}
+                                 onMouseUp={this.mouseUpHandler}
+                                 onMouseLeave={this.mouseUpHandler}>
                                 {label}
                             </div>
                             :
@@ -151,7 +159,7 @@ class Checkbox extends Component {
         );
 
     }
-};
+}
 
 Checkbox.propTypes = {
 
@@ -214,21 +222,17 @@ Checkbox.propTypes = {
      */
     onChange: PropTypes.func,
 
+    onClick: PropTypes.func,
     onCheck: PropTypes.func,
-
     onUncheck: PropTypes.func
 
 };
 
 Checkbox.defaultProps = {
 
-    className: null,
-    style: null,
     theme: Theme.DEFAULT,
 
-    name: null,
-    label: null,
-    value: null,
+    value: '',
     checked: false,
     indeterminate: false,
     uncheckedIconCls: 'far fa-square',
@@ -237,7 +241,6 @@ Checkbox.defaultProps = {
     disabled: false,
     disableTouchRipple: false,
 
-    tip: null,
     tipPosition: Position.BOTTOM
 
 };

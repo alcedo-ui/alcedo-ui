@@ -17,17 +17,17 @@ class NavMenuList extends Component {
 
     render() {
 
-        const {$navMenu, $expandMenuName, $activatedMenu, expandMenu, updateActivatedMenu} = this.props;
+        const {navMenu, expandMenuName, activatedMenu, expandMenu, updateActivatedMenu} = this.props;
 
         return (
             <div className="nav-menu-list"
                  onWheel={Event.preventContainerScroll}>
                 <div className="nav-menu-scroller">
                     {
-                        $navMenu.map((menu, index) =>
+                        navMenu && navMenu.map((menu, index) =>
                             <NavMenuItem key={(menu && menu.text) || index}
-                                         expandMenuName={$expandMenuName}
-                                         activatedMenu={$activatedMenu}
+                                         expandMenuName={expandMenuName}
+                                         activatedMenu={activatedMenu}
                                          options={menu}
                                          expandMenu={expandMenu}
                                          updateActivatedMenu={updateActivatedMenu}/>
@@ -42,25 +42,20 @@ class NavMenuList extends Component {
 
 NavMenuList.propTypes = {
 
-    $navMenu: PropTypes.array,
-    $expandMenuName: PropTypes.string,
-    $activatedMenu: PropTypes.object,
+    navMenu: PropTypes.array,
+    expandMenuName: PropTypes.string,
+    activatedMenu: PropTypes.object,
 
     expandMenu: PropTypes.func,
     updateActivatedMenu: PropTypes.func
 
 };
 
-function mapStateToProps(state, ownProps) {
-    return {
-        $navMenu: state.navMenu.menu,
-        $expandMenuName: state.navMenu.expandMenuName,
-        $activatedMenu: state.navMenu.activatedMenu
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(actions, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(NavMenuList);
+export default connect(state => ({
+    navMenu: state.navMenu.menu,
+    expandMenuName: state.navMenu.expandMenuName,
+    activatedMenu: state.navMenu.activatedMenu
+}), dispatch => bindActionCreators({
+    expandMenu: actions.expandMenu,
+    updateActivatedMenu: actions.updateActivatedMenu
+}, dispatch))(NavMenuList);

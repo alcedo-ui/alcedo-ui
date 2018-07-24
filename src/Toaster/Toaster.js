@@ -5,15 +5,16 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
 
 import PositionPop from '../_PositionPop';
 import Toast from '../_Toast';
 
-import Util from '../_vendors/Util';
 import MsgType from '../_statics/MsgType';
 import Position from '../_statics/Position';
+
+import Util from '../_vendors/Util';
 
 class Toaster extends Component {
 
@@ -31,17 +32,13 @@ class Toaster extends Component {
             toasts: []
         };
 
-        this.isPositiveSequence = ::this.isPositiveSequence;
-        this.addToast = ::this.addToast;
-        this.removeToast = ::this.removeToast;
-
     }
 
-    isPositiveSequence(position = this.props.position) {
+    isPositiveSequence = (position = this.props.position) => {
         return position !== Position.BOTTOM_LEFT && position !== Position.BOTTOM && position !== Position.BOTTOM_RIGHT;
-    }
+    };
 
-    addToast(toast) {
+    addToast = toast => {
 
         let toasts = this.state.toasts;
 
@@ -58,11 +55,15 @@ class Toaster extends Component {
             this.refs.toaster.resetPosition();
         });
 
-    }
+    };
 
-    removeToast(toastsId) {
+    removeToast = toastsId => {
 
-        let toasts = this.state.toasts;
+        let {toasts} = this.state;
+
+        if (!toasts || toasts.length < 1) {
+            return;
+        }
 
         toasts.splice(toasts.findIndex(item => item.toastsId === toastsId), 1);
 
@@ -78,13 +79,13 @@ class Toaster extends Component {
             }
         });
 
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
 
         if (nextProps.toasts && nextProps.toasts.length > 0) {
 
-            let toasts = _.cloneDeep(nextProps.toasts);
+            let toasts = cloneDeep(nextProps.toasts);
             for (let i = 0, len = toasts.length; i < len; i++) {
                 if (typeof toasts[i] !== 'object') {
                     toasts[i] = {
@@ -154,7 +155,7 @@ class Toaster extends Component {
 
     }
 
-};
+}
 
 Toaster.propTypes = {
 
@@ -220,15 +221,8 @@ Toaster.propTypes = {
 };
 
 Toaster.defaultProps = {
-
-    className: null,
-    style: null,
-
-    toasts: null,
-
     position: Position.TOP,
     duration: 2500
-
 };
 
 export default Toaster;

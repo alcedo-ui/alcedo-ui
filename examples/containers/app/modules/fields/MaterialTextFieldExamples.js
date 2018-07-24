@@ -7,20 +7,28 @@ import MaterialTextField from 'src/MaterialTextField';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/MaterialTextField.json';
 
-export default class MaterialTextFieldExamples extends Component {
+class MaterialTextFieldExamples extends Component {
 
     constructor(props) {
+
         super(props);
 
+        this.state = {
+            value: ''
+        };
+
     }
 
-    onChangeHandle(value) {
+    onChangeHandler = value => {
         this.setState({
-            value: value
+            value
         });
-    }
+    };
 
     render() {
+
+        const {value} = this.state;
+
         return (
             <div className="example material-text-field-examples">
 
@@ -49,7 +57,9 @@ export default class MaterialTextFieldExamples extends Component {
                                                        label="Search"
                                                        placeholder="keywords"
                                                        autoFocus={true}
-                                                       rightIconCls={'fas fa-search'}/>
+                                                       rightIconCls={'fas fa-search'}
+                                                       value={value}
+                                                       onChange={this.onChangeHandler}/>
                                 </div>
 
                             </div>
@@ -107,3 +117,5 @@ export default class MaterialTextFieldExamples extends Component {
         );
     }
 };
+
+export default MaterialTextFieldExamples;

@@ -11,13 +11,16 @@ import DropdownSelect from '../DropdownSelect';
 import MaterialProvider from '../MaterialProvider';
 import Theme from '../Theme';
 
-import Util from '../_vendors/Util';
 import SelectMode from '../_statics/SelectMode';
+import Position from '../_statics/Position';
+
+import Util from '../_vendors/Util';
 
 class MaterialDropdownSelect extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
+    static Position = Position;
 
     constructor(props, ...restArgs) {
 
@@ -28,23 +31,20 @@ class MaterialDropdownSelect extends Component {
             isFocus: false
         };
 
-        this.triggerChangeHandler = ::this.triggerChangeHandler;
-        this.closePopup = ::this.closePopup;
-
     }
 
-    triggerChangeHandler(value) {
+    triggerChangeHandler = value => {
         this.setState({
             value
         }, () => {
             const {onChange} = this.props;
             onChange && onChange(value);
         });
-    }
+    };
 
-    closePopup() {
+    closePopup = () => {
         this.refs.dropdownSelect && this.refs.dropdownSelect.closePopup();
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
@@ -85,7 +85,7 @@ class MaterialDropdownSelect extends Component {
         );
 
     }
-};
+}
 
 MaterialDropdownSelect.propTypes = {
 
@@ -114,6 +114,8 @@ MaterialDropdownSelect.propTypes = {
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
+
     /**
      * The name of the dropDownSelect.
      */
@@ -138,6 +140,8 @@ MaterialDropdownSelect.propTypes = {
      * The placeholder of the dropDownSelect.
      */
     placeholder: PropTypes.string,
+
+    title: PropTypes.string,
 
     rightIconCls: PropTypes.string,
 
@@ -207,7 +211,7 @@ MaterialDropdownSelect.propTypes = {
             /**
              * Callback function fired when a list item touch-tapped.
              */
-            onTouchTap: PropTypes.func
+            onClick: PropTypes.func
 
         }), PropTypes.string, PropTypes.number])),
 
@@ -266,7 +270,15 @@ MaterialDropdownSelect.propTypes = {
      */
     useFilter: PropTypes.bool,
 
+    filterIconCls: PropTypes.string,
     useSelectAll: PropTypes.bool,
+    selectAllText: PropTypes.string,
+
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
 
     /**
      * The message of no matching option.
@@ -285,7 +297,7 @@ MaterialDropdownSelect.propTypes = {
     /**
      * Callback function fired when the button is touch-tapped.
      */
-    onItemTouchTap: PropTypes.func,
+    onItemClick: PropTypes.func,
 
     /**
      * Callback function fired when the popup is closed.
@@ -303,20 +315,12 @@ MaterialDropdownSelect.propTypes = {
 
 MaterialDropdownSelect.defaultProps = {
 
-    className: null,
-    popupClassName: null,
-    style: null,
-    popupStyle: null,
     theme: Theme.DEFAULT,
 
-    name: null,
-    label: null,
     isLabelAnimate: true,
-    value: null,
     placeholder: 'Please select ...',
     rightIconCls: 'fas fa-angle-down',
     data: [],
-    invalidMsg: null,
     disabled: false,
     selectMode: SelectMode.SINGLE_SELECT,
 
@@ -324,11 +328,11 @@ MaterialDropdownSelect.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
 
-    infoMsg: null,
     autoClose: true,
     useFilter: false,
+    filterIconCls: 'fas fa-search',
     useSelectAll: false,
-    noMatchedMsg: null,
+    selectAllText: 'Select All',
     isGrouped: false,
     required: false,
 

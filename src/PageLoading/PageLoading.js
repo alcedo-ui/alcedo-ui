@@ -27,14 +27,9 @@ class PageLoading extends Component {
             highlightStyle: this.defaultHighlightStyle
         };
 
-        this.setLoading = ::this.setLoading;
-        this.clearProgress = ::this.clearProgress;
-        this.enterHandler = ::this.enterHandler;
-        this.exitHandler = ::this.exitHandler;
-
     }
 
-    setLoading(progress = this.props.loadingProgress, index = 0) {
+    setLoading = (progress = this.props.loadingProgress, index = 0) => {
 
         const {width, timeout} = progress[index],
             highlightStyle = {};
@@ -53,28 +48,28 @@ class PageLoading extends Component {
             }
         });
 
-    }
+    };
 
-    clearProgress() {
+    clearProgress = () => {
         this.progressTimeout && clearTimeout(this.progressTimeout);
-    }
+    };
 
-    enterHandler() {
+    enterHandler = () => {
         this.clearProgress();
         this.setState({
             highlightStyle: this.defaultHighlightStyle
         }, () => {
             this.setLoading();
         });
-    }
+    };
 
-    exitHandler() {
+    exitHandler = () => {
         this.clearProgress();
         this.setLoading([{
             width: 100,
             timeout: this.finishDuration
         }]);
-    }
+    };
 
     componentWillUnmonut() {
         this.clearProgress();
@@ -107,7 +102,7 @@ class PageLoading extends Component {
         );
 
     }
-};
+}
 
 PageLoading.propTypes = {
 
@@ -126,9 +121,6 @@ PageLoading.propTypes = {
 };
 
 PageLoading.defaultProps = {
-
-    className: null,
-    style: null,
 
     visible: false,
     duration: 250,

@@ -8,7 +8,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/RadioGroup.json';
 
-export default class RadioGroupExamples extends Component {
+class RadioGroupExamples extends Component {
 
     constructor(props) {
 
@@ -36,30 +36,33 @@ export default class RadioGroupExamples extends Component {
             value: 'label5'
         }];
 
-        this.radioChangeHandler = ::this.radioChangeHandler;
-        this.radioGroupChangeHandler = ::this.radioGroupChangeHandler;
-
     }
 
-    checkHandler(item) {
+    radioClickHandler = () => {
+        console.log('clicked');
+    };
+
+    checkHandler = item => {
         if (item) {
-            console.log('checked', item);
+            console.log('checked::', item);
         } else {
             console.log('checked');
         }
-    }
+    };
 
-    radioChangeHandler(radioChecked) {
+    radioChangeHandler = radioChecked => {
+        console.log('changed::', radioChecked);
         this.setState({
             radioChecked
         });
-    }
+    };
 
-    radioGroupChangeHandler(radioGroupValue) {
+    radioGroupChangeHandler = radioGroupValue => {
+        console.log('group changed::', radioGroupValue);
         this.setState({
             radioGroupValue
         });
-    }
+    };
 
     render() {
 
@@ -93,6 +96,7 @@ export default class RadioGroupExamples extends Component {
                                        name="radio"
                                        value="radio"
                                        checked={radioChecked}
+                                       onClick={this.radioClickHandler}
                                        onChange={this.radioChangeHandler}
                                        onCheck={this.checkHandler}/>
 
@@ -166,3 +170,5 @@ export default class RadioGroupExamples extends Component {
         );
     }
 };
+
+export default RadioGroupExamples;

@@ -23,12 +23,9 @@ class Accordion extends Component {
             contentHeight: null
         };
 
-        this.touchTapHandler = ::this.touchTapHandler;
-        this.resetHeight = ::this.resetHeight;
-
     }
 
-    touchTapHandler() {
+    clickHandler = () => {
 
         const {onCollpase, onExpand, onChange} = this.props;
 
@@ -46,9 +43,9 @@ class Accordion extends Component {
             }
         });
 
-    }
+    };
 
-    resetHeight() {
+    resetHeight = () => {
 
         const height = this.refs.accordionContent.style.height;
 
@@ -58,7 +55,7 @@ class Accordion extends Component {
             });
         }
 
-    }
+    };
 
     componentDidMount() {
         this.resetHeight();
@@ -82,7 +79,7 @@ class Accordion extends Component {
                               theme={Theme.SECONDARY}
                               value={title}
                               rightIconCls={collapsed ? expandIcon : collapseIcon}
-                              onTouchTap={this.touchTapHandler}/>
+                              onClick={this.clickHandler}/>
 
                 <div ref="accordionContent"
                      className="accordion-content"
@@ -94,7 +91,7 @@ class Accordion extends Component {
         );
 
     }
-};
+}
 
 Accordion.propTypes = {
 
@@ -141,14 +138,9 @@ Accordion.propTypes = {
 };
 
 Accordion.defaultProps = {
-
-    className: '',
-    style: null,
-
     title: 'title',
     collapseIcon: 'fas fa-angle-up',
     expandIcon: 'fas fa-angle-down'
-
 };
 
 export default Accordion;

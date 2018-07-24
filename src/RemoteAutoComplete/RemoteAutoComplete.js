@@ -5,14 +5,14 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import Event from '../_vendors/Event';
+import debounce from 'lodash/debounce';
 import classNames from 'classnames';
 
 import TextField from '../TextField/TextField';
 import CircularLoading from '../CircularLoading/CircularLoading';
 import Popup from '../Popup';
 
-import _ from 'lodash';
+import Event from '../_vendors/Event';
 
 class RemoteAutoComplete extends Component {
 
@@ -31,18 +31,12 @@ class RemoteAutoComplete extends Component {
         this.inputHeight = 50;
         this.borderWidth = 1;
 
-        this.changeText = ::this.changeText;
-        this.onChange = ::this.onChange;
-        this.onClick = ::this.onClick;
-        this.getClassName = ::this.getClassName;
-        this.onFocus = ::this.onFocus;
-
     }
 
     /**
      * 获取当前元素及父元素的类名
      */
-    getClassName(element) {
+    getClassName = element => {
         let className = element.className;
         let current = element.offsetParent;
         while (current !== null) {
@@ -50,12 +44,12 @@ class RemoteAutoComplete extends Component {
             current = current.offsetParent;
         }
         return className;
-    }
+    };
 
     /**
      * input变化时改变loading状态并触发onChange
      */
-    changeText(text) {
+    changeText = text => {
         const {onChange} = this.props;
 
         this.setState({
@@ -67,16 +61,16 @@ class RemoteAutoComplete extends Component {
                 onChange && onChange(text, true);
             });
         });
-    }
+    };
 
-    onChange = _.debounce((text) => {
+    onChange = debounce((text) => {
         this.changeText(text);
     }, 250);
 
     /**
      * 获得焦点时触发onFocus
      */
-    onFocus() {
+    onFocus = () => {
         const {onFocus} = this.props;
 
         this.setState({
@@ -84,12 +78,12 @@ class RemoteAutoComplete extends Component {
         }, () => {
             onFocus && onFocus();
         });
-    }
+    };
 
     /**
      * 点击下拉选项时自动填充且不再auto complete
      */
-    onClick(ev) {
+    onClick = ev => {
         const {onBlur} = this.props;
         const className = this.getClassName(ev.target);
 
@@ -111,6 +105,11 @@ class RemoteAutoComplete extends Component {
                 onBlur && onBlur(this.state.value);
             });
         }
+    };
+
+    componentDidMount() {
+        Event.addEvent(document, 'click', this.onClick);
+        this.triggerEl = require('react-dom').findDOMNode(this.refs.trigger);
     }
 
     /**
@@ -125,11 +124,6 @@ class RemoteAutoComplete extends Component {
                 loading: nextProps.loading
             });
         }
-    }
-
-    componentDidMount() {
-        Event.addEvent(document, 'click', this.onClick);
-        this.triggerEl = require('react-dom').findDOMNode(this.refs.trigger);
     }
 
     componentWillUnmount() {
@@ -207,7 +201,7 @@ class RemoteAutoComplete extends Component {
             </div>
         );
     }
-};
+}
 
 RemoteAutoComplete.propTypes = {
 
@@ -258,9 +252,6 @@ RemoteAutoComplete.propTypes = {
 };
 
 RemoteAutoComplete.defaultProps = {
-    className: '',
-    style: {},
-
     value: '',
     data: [],
     searchLength: 1,

@@ -7,7 +7,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Rate.json';
 
-export default class RateExamples extends Component {
+class RateExamples extends Component {
 
     constructor(props) {
 
@@ -18,21 +18,19 @@ export default class RateExamples extends Component {
             value2: 3.5
         };
 
-        this.onChangeHandle = ::this.onChangeHandle;
-
     }
 
-    onChangeHandle(value) {
+    onChangeHandle = value => {
         this.setState({
             value
         });
-    }
+    };
 
-    onChangeHandle2(value2) {
+    onChangeHandle2 = value2 => {
         this.setState({
             value2
         });
-    }
+    };
 
     render() {
 
@@ -117,3 +115,5 @@ export default class RateExamples extends Component {
         );
     }
 }
+
+export default RateExamples;

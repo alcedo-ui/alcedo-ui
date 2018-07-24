@@ -20,11 +20,9 @@ class VerticalPointStep extends Component {
             finishedStep: props.finishedStep
         };
 
-        this.touchTapHandler = ::this.touchTapHandler;
-
     }
 
-    touchTapHandler(activatedStep) {
+    clickHandler = activatedStep => {
 
         const {onChange} = this.props;
 
@@ -37,7 +35,7 @@ class VerticalPointStep extends Component {
             });
         });
 
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.activatedStep !== this.state.activatedStep
@@ -74,7 +72,7 @@ class VerticalPointStep extends Component {
                                                isFirst={index === 0}
                                                isLast={index === steps.length - 1}
                                                disabled={disabled}
-                                               onTouchTap={this.touchTapHandler}/>
+                                               onClick={this.clickHandler}/>
                     )
                 }
 
@@ -82,7 +80,7 @@ class VerticalPointStep extends Component {
         );
 
     }
-};
+}
 
 VerticalPointStep.propTypes = {
 
@@ -139,11 +137,6 @@ VerticalPointStep.propTypes = {
 };
 
 VerticalPointStep.defaultProps = {
-
-    className: null,
-    style: null,
-
-    steps: null,
 
     activatedStep: 0,
     finishedStep: 0,

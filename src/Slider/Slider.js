@@ -22,32 +22,21 @@ class Slider extends Component {
             tip: ''
         };
 
-        this.getPosition = ::this.getPosition;
-        this.downHandle = ::this.downHandle;
-        this.getElementLeft = ::this.getElementLeft;
-        this.clickHandle = ::this.clickHandle;
-        this.getNearest = ::this.getNearest;
-        this.overHandle = ::this.overHandle;
-        this.outHandle = ::this.outHandle;
-        this.moveHandle = ::this.moveHandle;
-        this.upHandle = ::this.upHandle;
-        this.changeHandle = ::this.changeHandle;
-
     }
 
     /**
      * 获取当前指针的位置
      */
-    getPosition(ev) {
+    getPosition = ev => {
         let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
         let scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
         return {x: ev.clientX + scrollLeft, y: ev.clientY + scrollTop};
-    }
+    };
 
     /**
      * 获取当前元素的左偏移量
      */
-    getElementLeft(element) {
+    getElementLeft = element => {
         let offsetLeft = element.offsetLeft;
         let current = element.offsetParent;
         while (current !== null) {
@@ -55,12 +44,12 @@ class Slider extends Component {
             current = current.offsetParent;
         }
         return offsetLeft;
-    }
+    };
 
     /**
      * 判断当前点击对象是否是小圆点，修改shadow
      */
-    downHandle(ev) {
+    downHandle = ev => {
         let element = ev.srcElement ? ev.srcElement : ev.target;
         if (element.getAttribute('class').indexOf('left') > -1) {
             this.setState({
@@ -72,12 +61,12 @@ class Slider extends Component {
             });
         }
         return false;
-    }
+    };
 
     /**
      * 当点击对象为小圆点时，移动指针则改变slider的值
      */
-    moveHandle(ev) {
+    moveHandle = ev => {
         if (this.state.shadow) {
             let oEvent = ev || event;
             let offsetLeft = this.getElementLeft(this.refs.sliderBox);
@@ -100,30 +89,30 @@ class Slider extends Component {
                 });
             }
         }
-    }
+    };
 
     /**
      * 修改tip位置
      */
-    changeHandle() {
+    changeHandle = () => {
         const {scale, decimalPlaces, width} = this.props;
         const {left, right} = this.state;
 
         let leftTip = parseFloat((left / width) * (scale[scale.length - 1] - scale[0]) + scale[0]).toFixed(decimalPlaces),
             rightTip = parseFloat((right / width) * (scale[scale.length - 1] - scale[0]) + scale[0]).toFixed(decimalPlaces);
         this.props.onChange && this.props.onChange(leftTip, rightTip);
-    }
+    };
 
-    upHandle() {
+    upHandle = () => {
         this.setState({
             shadow: ''
         });
-    }
+    };
 
     /**
      * 当mouseOver至小圆点，则显示tip
      */
-    overHandle(ev) {
+    overHandle = ev => {
         let element = ev.srcElement ? ev.srcElement : ev.target;
         if (element.getAttribute('class').indexOf('left') > -1) {
             this.setState({
@@ -134,18 +123,18 @@ class Slider extends Component {
                 tip: 'right'
             });
         }
-    }
+    };
 
-    outHandle() {
+    outHandle = () => {
         this.setState({
             tip: ''
         });
-    }
+    };
 
     /**
      * 点击slider时，改变slider的值
      */
-    clickHandle(ev) {
+    clickHandle = ev => {
         let oEvent = ev || event;
         let offsetLeft = this.getElementLeft(this.refs.sliderBox);
         let clickLeft = this.getPosition(oEvent).x - offsetLeft;
@@ -165,12 +154,12 @@ class Slider extends Component {
                 this.changeHandle();
             });
         }
-    }
+    };
 
     /**
      * 当slider设置了ruler参数时，移动或点击操作时，自动匹配到最近的刻度点。
      */
-    getNearest(clickLeft) {
+    getNearest = clickLeft => {
         const {width, ruler} = this.props;
         let nearest = width;
         let j = 0;
@@ -182,7 +171,7 @@ class Slider extends Component {
             }
         }
         return j * width / (ruler - 1);
-    }
+    };
 
     componentDidMount() {
         this.setState({
@@ -280,7 +269,7 @@ class Slider extends Component {
                         showScale ?
                             <ul>
                                 {
-                                    scale.map((number, index) => {
+                                    scale && scale.map((number, index) => {
 
                                         const left = (number - scale[0]) / (scale[scale.length - 1] - scale[0]) * 100,
                                             style = {
@@ -305,7 +294,7 @@ class Slider extends Component {
             </div>
         );
     }
-};
+}
 
 Slider.propTypes = {
 
@@ -357,16 +346,11 @@ Slider.propTypes = {
 };
 
 Slider.defaultProps = {
-
-    className: '',
-    style: null,
-
     leftPoint: false,
     width: 300,
     scale: [0, 100],
     showScale: false,
     decimalPlaces: 0
-
 };
 
 export default Slider;

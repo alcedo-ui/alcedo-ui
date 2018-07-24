@@ -11,9 +11,11 @@ import TriggerPop from '../_TriggerPop';
 import Theme from '../Theme';
 
 import Position from '../_statics/Position';
+
 import Event from '../_vendors/Event';
 import Dom from '../_vendors/Dom';
 import Util from '../_vendors/Util';
+import PopManagement from '../_vendors/PopManagement';
 
 class Popup extends Component {
 
@@ -26,19 +28,16 @@ class Popup extends Component {
 
         this.closeTimeout = null;
 
-        this.clearCloseTimeout = ::this.clearCloseTimeout;
-        this.mouseDownHandler = ::this.mouseDownHandler;
-
     }
 
-    clearCloseTimeout() {
+    clearCloseTimeout = () => {
         if (this.closeTimeout) {
             clearTimeout(this.closeTimeout);
             this.closeTimeout = null;
         }
-    }
+    };
 
-    triggerHandler(el, triggerEl, popupEl, currentVisible, isAutoClose) {
+    triggerHandler = (el, triggerEl, popupEl, currentVisible, isBlurClose) => {
 
         while (el) {
             if (el == popupEl) {
@@ -47,13 +46,13 @@ class Popup extends Component {
             el = el.parentNode;
         }
 
-        return isAutoClose ? false : currentVisible;
+        return isBlurClose ? false : currentVisible;
 
-    }
+    };
 
-    mouseDownHandler(e) {
+    mouseDownHandler = e => {
 
-        const {visible, triggerEl, isAutoClose, triggerHandler, onRequestClose} = this.props,
+        const {visible, triggerEl, isBlurClose, triggerHandler, onRequestClose} = this.props,
             popupEl = this.refs.popup.getEl();
 
         if (!triggerEl) {
@@ -63,9 +62,9 @@ class Popup extends Component {
         let currVisible;
 
         if (triggerHandler) {
-            currVisible = triggerHandler(e.target, triggerEl, popupEl, visible, isAutoClose);
+            currVisible = triggerHandler(e.target, triggerEl, popupEl, visible, isBlurClose);
         } else if (!Dom.isParent(e.target, triggerEl)) {
-            currVisible = this.triggerHandler(e.target, triggerEl, popupEl, visible, isAutoClose);
+            currVisible = this.triggerHandler(e.target, triggerEl, popupEl, visible, isBlurClose);
         }
 
         if (currVisible === false) {
@@ -75,22 +74,36 @@ class Popup extends Component {
             });
         }
 
-    }
+    };
 
     /**
      * public
      */
-    resetPosition() {
+    resetPosition = () => {
         this.refs.popup.resetPosition();
-    }
+    };
 
     componentDidMount() {
         Event.addEvent(document, 'mousedown', this.mouseDownHandler);
     }
 
+    componentWillReceiveProps(nextProps) {
+
+        const {visible, isEscClose} = nextProps;
+
+        if (isEscClose && visible) {
+            PopManagement.push(this);
+        }
+
+    }
+
     componentWillUnmount() {
+
         this.clearCloseTimeout();
         Event.removeEvent(document, 'mousedown', this.mouseDownHandler);
+
+        PopManagement.pop(this);
+
     }
 
     render() {
@@ -122,7 +135,7 @@ class Popup extends Component {
         );
     }
 
-};
+}
 
 Popup.propTypes = {
 
@@ -136,10 +149,17 @@ Popup.propTypes = {
      */
     contentClassName: PropTypes.string,
 
+    modalClassName: PropTypes.string,
+
     /**
      * Override the styles of the root element.
      */
     style: PropTypes.object,
+
+    /**
+     * The popover theme.Can be primary,highlight,success,warning,error.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
      * This is the DOM element that will be used to set the position of the popover.
@@ -159,11 +179,6 @@ Popup.propTypes = {
     triangle: PropTypes.element,
 
     /**
-     * The popover theme.Can be primary,highlight,success,warning,error.
-     */
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-    /**
      * The popup alignment.
      */
     position: PropTypes.oneOf(Util.enumerateValue(Position)),
@@ -178,10 +193,11 @@ Popup.propTypes = {
      */
     depth: PropTypes.number,
 
-    isAutoClose: PropTypes.bool,
+    isBlurClose: PropTypes.bool,
     isEscClose: PropTypes.bool,
     shouldPreventContainerScroll: PropTypes.bool,
     isTriggerPositionFixed: PropTypes.bool,
+    showModal: PropTypes.bool,
 
     /**
      * The function of popup event handler.
@@ -222,22 +238,16 @@ Popup.propTypes = {
 
 Popup.defaultProps = {
 
-    className: null,
-    contentClassName: null,
-    style: null,
-    depth: 6,
-
-    triggerEl: null,
     visible: false,
     hasTriangle: true,
-    theme: Theme.DEFAULT,
     position: Position.BOTTOM,
     isAnimated: true,
 
-    isAutoClose: true,
+    isBlurClose: true,
     isEscClose: true,
     shouldPreventContainerScroll: true,
-    isTriggerPositionFixed: false
+    isTriggerPositionFixed: false,
+    showModal: false
 
 };
 

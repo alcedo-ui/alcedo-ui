@@ -13,12 +13,17 @@ import TimeList from '../_TimeList';
 import Popup from '../Popup';
 import Theme from '../Theme';
 
-import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
+
+import Util from '../_vendors/Util';
+import {findDOMNode} from 'react-dom';
+import DropdownCalculation from '../_vendors/DropdownCalculation';
 
 class MaterialTimePicker extends Component {
 
     static Theme = Theme;
+    static Position = Position;
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -31,17 +36,12 @@ class MaterialTimePicker extends Component {
             hour: moment().format('HH'),
             minute: moment().format('mm'),
             second: moment().format('ss'),
-            triggerEl: null
+            isAbove: false
         };
-
-        this.textFieldChangeHandle = ::this.textFieldChangeHandle;
-        this.togglePopup = ::this.togglePopup;
-        this.closePopup = ::this.closePopup;
-        this.timePickerChangeHandle = ::this.timePickerChangeHandle;
 
     }
 
-    rangeData(range) {
+    rangeData = range => {
         let arr = [];
         for (let i = 0; i < range; i++) {
             if (i < 10) {
@@ -50,9 +50,9 @@ class MaterialTimePicker extends Component {
             arr.push({text: i, value: true});
         }
         return arr;
-    }
+    };
 
-    textFieldChangeHandle(text) {
+    textFieldChangeHandle = text => {
         if (text && text.length) {
             let validDate = '1970-01-01 ' + text;
             let validFormat = 'YYYY-MM-DD ' + this.props.dateFormat;
@@ -73,9 +73,9 @@ class MaterialTimePicker extends Component {
                 textFieldValue: text
             });
         }
-    }
+    };
 
-    timePickerChangeHandle(obj) {
+    timePickerChangeHandle = obj => {
         let timer = obj.hour + ':' + obj.minute + ':' + obj.second;
         let validDate = '1970-01-01 ' + timer;
         timer = moment(validDate).format(this.props.dateFormat);
@@ -85,35 +85,39 @@ class MaterialTimePicker extends Component {
             second: obj.second,
             textFieldValue: timer
         });
-    }
+    };
 
-    togglePopup(e) {
+    togglePopup = e => {
         if (this.validValue) {
             this.setState({
-                popupVisible: !this.state.popupVisible,
-                triggerEl: e.target
+                popupVisible: !this.state.popupVisible
             });
         }
-    }
+    };
 
-    closePopup() {
+    closePopup = () => {
         const {textFieldValue} = this.state;
         !this.props.disabled && this.setState({
             popupVisible: false
         }, () => {
             this.props.onChange && this.props.onChange(textFieldValue);
         });
-    }
+    };
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.props.value || nextProps.dateFormat !== this.props.dateFormat) {
-            const value = Util.value2Moment(nextProps.value, nextProps.dateFormat);
+    popupRenderHandler = popupEl => {
+
+        if (this.props.position) {
+            return;
+        }
+
+        const isAbove = DropdownCalculation.isAbove(this.dropdownEl, this.triggerEl, findDOMNode(popupEl));
+        if (isAbove !== this.state.isAbove) {
             this.setState({
-                value,
-                textFieldValue: value.format(nextProps.dateFormat)
+                isAbove
             });
         }
-    }
+
+    };
 
     componentDidMount() {
         const {value} = this.props;
@@ -131,12 +135,24 @@ class MaterialTimePicker extends Component {
                 console.error('Invalid date');
             }
         }
+
+        this.triggerEl = findDOMNode(this.refs.trigger);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.value !== this.props.value || nextProps.dateFormat !== this.props.dateFormat) {
+            const value = Util.value2Moment(nextProps.value, nextProps.dateFormat);
+            this.setState({
+                value,
+                textFieldValue: value.format(nextProps.dateFormat)
+            });
+        }
     }
 
     render() {
 
         const {className, style, name, placeholder, maxValue, minValue, dateFormat, label, isLabelAnimate, position, theme} = this.props,
-            {popupVisible, textFieldValue, hour, minute, second, triggerEl} = this.state,
+            {popupVisible, textFieldValue, hour, minute, second, isAbove} = this.state,
 
             pickerClassName = classNames('material-time-picker', {
                 [className]: className
@@ -159,15 +175,16 @@ class MaterialTimePicker extends Component {
                                              isFocusedSelectAll={false}
                                              popupVisible={popupVisible}
                                              onChange={this.textFieldChangeHandle}
-                                             onTouchTap={e => {
+                                             onClick={e => {
                                                  this.togglePopup(e);
                                              }}/>
 
                 <Popup className="material-time-picker-popup"
                        visible={popupVisible}
-                       triggerEl={triggerEl}
-                       position={position}
+                       triggerEl={this.triggerEl}
+                       position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        hasTriangle={false}
+                       onRender={this.popupRenderHandler}
                        onRequestClose={() => {
                            this.closePopup();
                        }}>
@@ -184,7 +201,7 @@ class MaterialTimePicker extends Component {
             </div>
         );
     }
-};
+}
 
 MaterialTimePicker.propTypes = {
 
@@ -241,13 +258,11 @@ MaterialTimePicker.propTypes = {
 };
 
 MaterialTimePicker.defaultProps = {
-    className: '',
-    style: null,
     name: '',
     value: moment().format('HH:mm:ss'),
     placeholder: 'Time',
     dateFormat: 'HH:mm:ss',
-    position:Position.BOTTOM_LEFT
+    position: Position.BOTTOM_LEFT
 };
 
 export default MaterialTimePicker;

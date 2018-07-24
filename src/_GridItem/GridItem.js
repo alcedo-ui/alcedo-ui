@@ -24,53 +24,29 @@ class GridItem extends Component {
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.state = {
-            checked: props.checked
-        };
-
-        this.checkboxChangeHandler = ::this.checkboxChangeHandler;
-        this.radioChangeHandler = ::this.radioChangeHandler;
-        this.touchTapHandler = ::this.touchTapHandler;
-
     }
 
-    checkboxChangeHandler(checked) {
-        this.setState({
-            checked
-        }, () => {
+    checkboxChangeHandler = checked => {
 
-            const {onSelect, onDeselect} = this.props;
+        const {onSelect, onDeselect} = this.props;
 
-            if (checked) {
-                onSelect && onSelect();
-            } else {
-                onDeselect && onDeselect();
-            }
-
-        });
-    }
-
-    radioChangeHandler() {
-
-        const {checked} = this.state;
-
-        if (!checked) {
-            this.setState({
-                checked: true
-            }, () => {
-                const {onSelect} = this.props;
-                onSelect && onSelect();
-            });
+        if (checked) {
+            onSelect && onSelect();
+        } else {
+            onDeselect && onDeselect();
         }
 
-    }
+    };
 
-    touchTapHandler(e) {
+    radioChangeHandler = () => {
+        if (!this.props.checked) {
+            const {onSelect} = this.props;
+            onSelect && onSelect();
+        }
+    };
 
-        e.preventDefault();
+    clickHandler = e => {
 
         const {disabled, isLoading, readOnly} = this.props;
 
@@ -78,27 +54,19 @@ class GridItem extends Component {
             return;
         }
 
-        const {onTouchTap} = this.props;
-        onTouchTap && onTouchTap(e);
+        const {onClick} = this.props;
+        onClick && onClick(e);
 
         switch (this.props.selectMode) {
             case SelectMode.MULTI_SELECT:
-                this.checkboxChangeHandler(!this.state.checked);
+                this.checkboxChangeHandler(!this.props.checked);
                 return;
             case SelectMode.SINGLE_SELECT:
                 this.radioChangeHandler();
                 return;
         }
 
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.checked !== this.state.checked) {
-            this.setState({
-                checked: nextProps.checked
-            });
-        }
-    }
+    };
 
     render() {
 
@@ -108,13 +76,12 @@ class GridItem extends Component {
                 disabled, isLoading, disableTouchRipple, rippleDisplayCenter, renderer, itemRenderer, readOnly,
                 col,
 
-                selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
+                checked, selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
                 onMouseEnter, onMouseLeave
 
             } = this.props,
-            {checked} = this.state,
 
             listItemClassName = classNames('grid-item', {
                 [`theme-${theme}`]: theme,
@@ -128,14 +95,13 @@ class GridItem extends Component {
             <div className="grid-item-wrapper"
                  style={col ? {width: `${100 / col}%`} : null}>
 
-                <TipProvider className='block'
-                             text={tip}
+                <TipProvider text={tip}
                              position={tipPosition}>
                     <div className={listItemClassName}
                          style={style}
                          disabled={disabled || isLoading}
                          readOnly={readOnly}
-                         onTouchTap={this.touchTapHandler}
+                         onClick={this.clickHandler}
                          onMouseEnter={onMouseEnter}
                          onMouseLeave={onMouseLeave}>
 
@@ -238,7 +204,7 @@ class GridItem extends Component {
         );
 
     }
-};
+}
 
 GridItem.propTypes = {
 
@@ -280,7 +246,7 @@ GridItem.propTypes = {
     itemRenderer: PropTypes.func,
     renderer: PropTypes.func,
 
-    onTouchTap: PropTypes.func,
+    onClick: PropTypes.func,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
     onMouseEnter: PropTypes.func,
@@ -292,17 +258,10 @@ GridItem.defaultProps = {
 
     index: 0,
 
-    className: null,
-    style: null,
     theme: Theme.DEFAULT,
 
     selectTheme: Theme.DEFAULT,
     selectMode: SelectMode.SINGLE_SELECT,
-
-    data: null,
-    value: null,
-    text: null,
-    desc: null,
 
     disabled: false,
     isLoading: false,
@@ -311,14 +270,8 @@ GridItem.defaultProps = {
     checked: false,
     readOnly: false,
 
-    iconCls: null,
-    rightIconCls: null,
-
-    tip: null,
     tipPosition: Position.BOTTOM,
 
-    radioUncheckedIconCls: null,
-    radioCheckedIconCls: null,
     checkboxUncheckedIconCls: 'far fa-square',
     checkboxCheckedIconCls: 'fas fa-check-square',
     checkboxIndeterminateIconCls: 'fas fa-minus-square',

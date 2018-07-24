@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import _ from 'lodash';
+import isArray from 'lodash/isArray';
 import Valid from './Valid';
 import SelectMode from '../_statics/SelectMode';
 import Util from './Util';
@@ -78,6 +78,20 @@ function getInitValue(props) {
 
 }
 
+function getMultiSelectItemIndex(item, value, {selectMode, valueField, displayField}) {
+
+    if (selectMode !== SelectMode.MULTI_SELECT || !item || !value) {
+        return -1;
+    }
+
+    if (!isArray(value)) {
+        return -1;
+    }
+
+    return value.findIndex(valueItem => Util.isValueEqual(valueItem, item, valueField, displayField));
+
+}
+
 function isItemChecked(item, value, {selectMode, valueField, displayField}) {
 
     if (!item || !value) {
@@ -85,7 +99,7 @@ function isItemChecked(item, value, {selectMode, valueField, displayField}) {
     }
 
     if (selectMode === SelectMode.MULTI_SELECT) {
-        return _.isArray(value) && value.filter(valueItem =>
+        return isArray(value) && value.filter(valueItem =>
             Util.isValueEqual(valueItem, item, valueField, displayField)
         ).length > 0;
     } else if (selectMode === SelectMode.SINGLE_SELECT) {
@@ -94,9 +108,34 @@ function isItemChecked(item, value, {selectMode, valueField, displayField}) {
 
 }
 
+function isNodeIndeterminate(node, value, {valueField, displayField}) {
+
+    if (!node || !node.children || node.children.length < 1
+        || !value || !value.length || value.length < 1) {
+        return false;
+    }
+
+    let total = 0,
+        count = 0;
+
+    Util.preOrderTraverse(node, nodeItem => {
+        total++;
+        if (value.findIndex(item =>
+            Util.getValueByValueField(item, valueField, displayField)
+            === Util.getValueByValueField(nodeItem, valueField, displayField)) > -1) {
+            count++;
+        }
+    });
+
+    return count > 0 && total !== count;
+
+}
+
 export default {
     pageSize,
     displayIndexByScrollTop,
     getInitValue,
-    isItemChecked
+    getMultiSelectItemIndex,
+    isItemChecked,
+    isNodeIndeterminate
 };

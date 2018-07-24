@@ -62,7 +62,7 @@ class CircularLoading extends Component {
         );
 
     }
-};
+}
 
 CircularLoading.propTypes = {
 
@@ -99,15 +99,10 @@ CircularLoading.propTypes = {
 };
 
 CircularLoading.defaultProps = {
-
-    className: '',
-    style: null,
-
     size: CircularLoading.Size.DEFAULT,
     theme: '',
     width: '1',
     type: 'solid'
-
 };
 
 export default CircularLoading;

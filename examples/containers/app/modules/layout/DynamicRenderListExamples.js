@@ -10,7 +10,7 @@ import doc from 'assets/propTypes/DynamicRenderList.json';
 
 import 'sass/containers/app/modules/layout/DynamicRenderListExamples.scss';
 
-export default class DynamicRenderListExamples extends Component {
+class DynamicRenderListExamples extends Component {
 
     constructor(props) {
 
@@ -26,9 +26,9 @@ export default class DynamicRenderListExamples extends Component {
 
     }
 
-    changeHandler(value) {
+    changeHandler = value => {
         console.log(value);
-    }
+    };
 
     render() {
         return (
@@ -75,3 +75,5 @@ export default class DynamicRenderListExamples extends Component {
         );
     }
 };
+
+export default DynamicRenderListExamples;

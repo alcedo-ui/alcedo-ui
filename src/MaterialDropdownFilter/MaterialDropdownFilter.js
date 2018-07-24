@@ -11,13 +11,16 @@ import DropdownFilter from '../DropdownFilter';
 import MaterialProvider from '../MaterialProvider';
 import Theme from '../Theme';
 
-import Util from '../_vendors/Util';
 import SelectMode from '../_statics/SelectMode';
+import Position from '../_statics/Position';
+
+import Util from '../_vendors/Util';
 
 class MaterialDropdownFilter extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
+    static Position = Position;
 
     constructor(props, ...restArgs) {
 
@@ -28,33 +31,29 @@ class MaterialDropdownFilter extends Component {
             filter: ''
         };
 
-        this.triggerFilterChangeHandler = ::this.triggerFilterChangeHandler;
-        this.triggerChangeHandler = ::this.triggerChangeHandler;
-        this.closePopup = ::this.closePopup;
-
     }
 
-    triggerFilterChangeHandler(filter) {
+    triggerFilterChangeHandler = filter => {
         this.setState({
             filter
         }, () => {
             const {onFilterChange} = this.props;
             onFilterChange && onFilterChange(filter);
         });
-    }
+    };
 
-    triggerChangeHandler(value) {
+    triggerChangeHandler = value => {
         this.setState({
             value
         }, () => {
             const {onChange} = this.props;
             onChange && onChange(value);
         });
-    }
+    };
 
-    closePopup() {
+    closePopup = () => {
         this.refs.dropdownFilter && this.refs.dropdownFilter.closePopup();
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
@@ -101,7 +100,7 @@ class MaterialDropdownFilter extends Component {
         );
 
     }
-};
+}
 
 MaterialDropdownFilter.propTypes = {
 
@@ -129,6 +128,8 @@ MaterialDropdownFilter.propTypes = {
      * The theme.
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
      * The name of the auto complete.
@@ -208,7 +209,7 @@ MaterialDropdownFilter.propTypes = {
             /**
              * Callback function fired when a list item touch-tapped.
              */
-            onTouchTap: PropTypes.func
+            onClick: PropTypes.func
 
         }), PropTypes.string, PropTypes.number])),
 
@@ -315,7 +316,7 @@ MaterialDropdownFilter.propTypes = {
     /**
      * The function that trigger when touch-tap the list items.
      */
-    onItemTouchTap: PropTypes.func,
+    onItemClick: PropTypes.func,
 
     /**
      * Callback function fired when DropdownFilter get focus.
@@ -334,10 +335,6 @@ MaterialDropdownFilter.propTypes = {
 
 MaterialDropdownFilter.defaultProps = {
 
-    className: '',
-    popupClassName: '',
-    style: null,
-    popupStyle: null,
     theme: Theme.DEFAULT,
 
     name: '',
@@ -356,8 +353,6 @@ MaterialDropdownFilter.defaultProps = {
     noMatchedMsg: '',
     isGrouped: false,
     selectMode: SelectMode.SINGLE_SELECT,
-
-    popupChildren: null,
 
     radioUncheckedIconCls: 'fas fa-check',
     radioCheckedIconCls: 'fas fa-check',

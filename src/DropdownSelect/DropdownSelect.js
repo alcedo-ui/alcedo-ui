@@ -14,14 +14,18 @@ import DynamicRenderList from '../DynamicRenderList';
 import Checkbox from '../Checkbox';
 import Theme from '../Theme';
 
+import SelectMode from '../_statics/SelectMode';
+import Position from '../_statics/Position';
+
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
-import SelectMode from '../_statics/SelectMode';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class DropdownSelect extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
+    static Position = Position;
 
     constructor(props, ...restArgs) {
 
@@ -33,42 +37,32 @@ class DropdownSelect extends Component {
             popupVisible: false
         };
 
-        this.closePopup = ::this.closePopup;
-        this.filterChangeHandler = ::this.filterChangeHandler;
-        this.filterData = ::this.filterData;
-        this.selectAllTouchTapHandler = ::this.selectAllTouchTapHandler;
-        this.itemTouchTapHandler = ::this.itemTouchTapHandler;
-        this.changeHandler = ::this.changeHandler;
-        this.popupOpenHandler = ::this.popupOpenHandler;
-        this.popupCloseHandler = ::this.popupCloseHandler;
-        this.getEmptyEl = ::this.getEmptyEl;
-        this.getTriggerValue = ::this.getTriggerValue;
-
     }
 
-    closePopup() {
-        this.refs.dropdown.closePopup();
-    }
+    closePopup = () => {
+        this.refs.dropdown && this.refs.dropdown.closePopup();
+    };
 
-    filterChangeHandler(filter) {
+    filterChangeHandler = filter => {
         this.setState({
             filter
+        }, () => {
+            const el = this.refs.dropdown;
+            el && el.resetPopupPosition();
         });
-    }
+    };
 
-    filterData(filter = this.state.filter, data = this.props.data) {
+    filterData = (filter = this.state.filter, data = this.props.data) => {
 
         if (!filter) {
             return data;
         }
 
         const {displayField, isGrouped} = this.props,
-            filterFunc = (originData) => {
-                return originData.filter(item => typeof item === 'object' && !!item[displayField] ?
-                    item[displayField].toString().toUpperCase().includes(filter.toUpperCase())
-                    :
-                    item.toString().toUpperCase().includes(filter.toUpperCase()));
-            };
+            filterFunc = originData => originData.filter(item => typeof item === 'object' && !!item[displayField] ?
+                item[displayField].toString().toUpperCase().includes(filter.toUpperCase())
+                :
+                item.toString().toUpperCase().includes(filter.toUpperCase()));
 
         if (isGrouped) {
 
@@ -87,9 +81,9 @@ class DropdownSelect extends Component {
 
         return filterFunc(data);
 
-    }
+    };
 
-    selectAllTouchTapHandler() {
+    selectAllClickHandler = () => {
 
         const {data} = this.props,
             {value} = this.state;
@@ -107,21 +101,21 @@ class DropdownSelect extends Component {
             this.changeHandler(newValue);
         });
 
-    }
+    };
 
-    itemTouchTapHandler(...args) {
+    itemClickHandler = (...args) => {
 
-        const {autoClose, onItemTouchTap} = this.props;
+        const {autoClose, onItemClick} = this.props;
 
         if (autoClose) {
             this.closePopup();
         }
 
-        onItemTouchTap && onItemTouchTap(...args);
+        onItemClick && onItemClick(...args);
 
-    }
+    };
 
-    changeHandler(value) {
+    changeHandler = value => {
 
         const {autoClose} = this.props;
         if (autoClose) {
@@ -135,93 +129,137 @@ class DropdownSelect extends Component {
             onChange && onChange(value);
         });
 
-    }
+        setTimeout(() => {
+            this.refs.hiddenFilter && this.refs.hiddenFilter.focus();
+        }, 1000);
+    };
 
-    popupOpenHandler(e) {
+    popupOpenHandler = e => {
+
+        const {isHiddenInputFilter, useFilter} = this.props;
+
+        if (isHiddenInputFilter) {
+            this.refs.hiddenFilter && this.refs.hiddenFilter.focus();
+        } else if (useFilter) {
+            this.refs.filter && this.refs.filter.focus();
+        }
+
         this.setState({
             popupVisible: true
         }, () => {
             const {onOpenPopup} = this.props;
             onOpenPopup && onOpenPopup(e);
         });
-    }
 
-    popupCloseHandler(e) {
+    };
+
+    popupCloseHandler = e => {
+
+        this.refs.hiddenFilter && this.refs.hiddenFilter.blur();
+
         this.setState({
             popupVisible: false
         }, () => {
             const {onClosePopup} = this.props;
             onClosePopup && onClosePopup(e);
         });
-    }
+    };
 
-    getEmptyEl() {
+    hiddenFilterChangeHandle = e => {
 
-        const {noMatchedMsg} = this.props;
+        const {data, displayField, clearHiddenInputFilterInterval} = this.props;
 
-        return [{
-            itemRenderer: () =>
-                <div className="no-matched-list-item">
-                    {
-                        noMatchedMsg ?
-                            noMatchedMsg
-                            :
-                            <span>
-                                <i className="fas fa-exclamation-triangle no-matched-list-item-icon"></i>
-                                No matched value.
-                            </span>
-                    }
-                </div>
-        }];
+        if (!data) {
+            return;
+        }
 
-    }
+        let target = e.target,
+            timer = setTimeout(() => {
+                clearTimeout(timer);
+                target.value = '';
+            }, clearHiddenInputFilterInterval);
 
-    getTriggerValue() {
+        let index = data.findIndex(item =>
+            typeof item === 'object' ?
+                item[displayField].toUpperCase().startsWith(target.value.toUpperCase())
+                :
+                item.toUpperCase().startsWith(target.value.toUpperCase())
+        );
 
-        const {placeholder, renderer, valueField, displayField, selectMode} = this.props,
+        this.scrollTo(this.refs.dropdownSelectListScroller, (index) * 40, 200);
+
+    };
+
+    scrollTo = (element, to, duration) => {
+
+        if (!element) {
+            return;
+        }
+
+        // jump to target if duration zero
+        if (duration <= 0) {
+            element.scrollTop = to;
+            return;
+        }
+
+        const difference = to - element.scrollTop,
+            perTick = difference / duration * 10;
+
+        setTimeout(() => {
+            element.scrollTop = element.scrollTop + perTick;
+            if (element.scrollTop === to) return;
+            this.scrollTo(element, to, duration - 10);
+        }, 10);
+
+    };
+
+    getTriggerValue = () => {
+
+        const {placeholder, triggerRenderer, renderer, valueField, displayField, selectMode} = this.props,
             {value} = this.state,
             isMultiSelect = selectMode === SelectMode.MULTI_SELECT;
 
-        return value ?
+        if (triggerRenderer) {
+            return typeof triggerRenderer === 'function' ? triggerRenderer(value) : triggerRenderer;
+        }
+
+        if (!value) {
+            return placeholder;
+        }
+
+        return isMultiSelect ?
             (
-                isMultiSelect ?
-                    (
-                        value.length > 0 ?
-                            value.length + ' selected'
-                            :
-                            placeholder
-                    )
+                value.length > 0 ?
+                    value.length + ' selected'
                     :
-                    (
-                        renderer ?
-                            renderer(value)
-                            :
-                            Util.getTextByDisplayField(value, displayField, valueField)
-                    )
+                    placeholder
             )
             :
-            placeholder;
+            (
+                renderer ?
+                    renderer(value)
+                    :
+                    Util.getTextByDisplayField(value, displayField, valueField)
+            );
 
-    }
+    };
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
     }
 
     render() {
 
         const {
 
-                className, triggerClassName, popupClassName, style, name, popupTheme, data,
-                useDynamicRenderList, listHeight, itemHeight, scrollBuffer, renderer,
-                selectMode, useFilter, useSelectAll, valueField, displayField, descriptionField, popupChildren,
-
-                // not passing down these props
-                noMatchedMsg,
+                className, triggerClassName, popupClassName, style, name, popupTheme, data, triggerRenderer,
+                useDynamicRenderList, listHeight, itemHeight, scrollBuffer, renderer, selectMode,
+                useFilter, filterIconCls, useSelectAll, selectAllText, valueField, displayField, descriptionField,
+                popupChildren, isHiddenInputFilter, noMatchedMsg, radioUncheckedIconCls, radioCheckedIconCls,
+                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
                 ...restProps
 
@@ -235,11 +273,9 @@ class DropdownSelect extends Component {
                 [className]: className
             }),
             dropdownTriggerClassName = classNames({
-                empty: !value,
+                empty: !triggerRenderer && !value,
                 [triggerClassName]: triggerClassName
             }),
-
-            triggerValue = this.getTriggerValue(),
 
             listData = this.filterData();
 
@@ -257,12 +293,22 @@ class DropdownSelect extends Component {
                         null
                 }
 
+                {
+                    isHiddenInputFilter ?
+                        <input ref="hiddenFilter"
+                               className="hiddenFilter"
+                               type="text"
+                               onChange={this.hiddenFilterChangeHandle}/>
+                        :
+                        null
+                }
+
                 <Dropdown {...restProps}
                           ref="dropdown"
                           triggerClassName={dropdownTriggerClassName}
                           popupClassName={'dropdown-select-popup' + (popupClassName ? ' ' + popupClassName : '')}
                           popupTheme={popupTheme}
-                          triggerValue={triggerValue}
+                          triggerValue={this.getTriggerValue()}
                           onOpenPopup={this.popupOpenHandler}
                           onClosePopup={this.popupCloseHandler}>
 
@@ -270,9 +316,10 @@ class DropdownSelect extends Component {
 
                         {
                             useFilter ?
-                                <TextField className="dropdown-select-filter"
+                                <TextField ref="filter"
+                                           className="dropdown-select-filter"
                                            value={filter}
-                                           rightIconCls="fas fa-search"
+                                           rightIconCls={filterIconCls}
                                            onChange={this.filterChangeHandler}/>
                                 :
                                 null
@@ -281,11 +328,14 @@ class DropdownSelect extends Component {
                         {
                             isMultiSelect && useSelectAll ?
                                 <div className="list-item dropdown-select-all-wrapper"
-                                     onTouchTap={this.selectAllTouchTapHandler}>
+                                     onClick={this.selectAllClickHandler}>
                                     <Checkbox className="list-item-select"
                                               checked={data && value && value.length === data.length}
-                                              indeterminate={data && value && value.length > 0 && value.length < data.length}/>
-                                    Select All
+                                              indeterminate={data && value && value.length > 0 && value.length < data.length}
+                                              uncheckedIconCls={checkboxUncheckedIconCls}
+                                              checkedIconCls={checkboxCheckedIconCls}
+                                              indeterminateIconCls={checkboxIndeterminateIconCls}/>
+                                    {selectAllText}
                                 </div>
                                 :
                                 null
@@ -294,9 +344,8 @@ class DropdownSelect extends Component {
                     </div>
 
                     <div className="dropdown-select-list-scroller"
-                         onWheel={e => {
-                             Event.wheelHandler(e, this.props);
-                         }}>
+                         ref="dropdownSelectListScroller"
+                         onWheel={e => Event.wheelHandler(e, this.props)}>
 
                         {
                             useFilter ?
@@ -313,33 +362,56 @@ class DropdownSelect extends Component {
                         }
 
                         {
-                            useDynamicRenderList ?
-                                <DynamicRenderList className="dropdown-select-list"
-                                                   theme={popupTheme}
-                                                   selectMode={selectMode}
-                                                   data={listData.length < 1 ? this.getEmptyEl() : listData}
-                                                   value={value}
-                                                   valueField={valueField}
-                                                   displayField={displayField}
-                                                   descriptionField={descriptionField}
-                                                   listHeight={listHeight}
-                                                   itemHeight={itemHeight}
-                                                   scrollBuffer={scrollBuffer}
-                                                   renderer={renderer}
-                                                   onItemTouchTap={this.itemTouchTapHandler}
-                                                   onChange={this.changeHandler}/>
+                            listData.length < 1 ?
+                                <div className="no-matched">
+                                    {
+                                        noMatchedMsg ?
+                                            noMatchedMsg
+                                            :
+                                            <span>
+                                                <i className="fas fa-exclamation-triangle no-matched-icon"></i>
+                                                No matched value.
+                                            </span>
+                                    }
+                                </div>
                                 :
-                                <List className="dropdown-select-list"
-                                      theme={popupTheme}
-                                      selectMode={selectMode}
-                                      data={listData.length < 1 ? this.getEmptyEl() : listData}
-                                      value={value}
-                                      valueField={valueField}
-                                      displayField={displayField}
-                                      descriptionField={descriptionField}
-                                      renderer={renderer}
-                                      onItemTouchTap={this.itemTouchTapHandler}
-                                      onChange={this.changeHandler}/>
+                                useDynamicRenderList ?
+                                    <DynamicRenderList className="dropdown-select-list"
+                                                       theme={popupTheme}
+                                                       selectMode={selectMode}
+                                                       data={listData}
+                                                       value={value}
+                                                       valueField={valueField}
+                                                       displayField={displayField}
+                                                       descriptionField={descriptionField}
+                                                       listHeight={listHeight}
+                                                       itemHeight={itemHeight}
+                                                       scrollBuffer={scrollBuffer}
+                                                       renderer={renderer}
+                                                       radioUncheckedIconCls={radioUncheckedIconCls}
+                                                       radioCheckedIconCls={radioCheckedIconCls}
+                                                       checkboxUncheckedIconCls={checkboxUncheckedIconCls}
+                                                       checkboxCheckedIconCls={checkboxCheckedIconCls}
+                                                       checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
+                                                       onItemClick={this.itemClickHandler}
+                                                       onChange={this.changeHandler}/>
+                                    :
+                                    <List className="dropdown-select-list"
+                                          theme={popupTheme}
+                                          selectMode={selectMode}
+                                          data={listData}
+                                          value={value}
+                                          valueField={valueField}
+                                          displayField={displayField}
+                                          descriptionField={descriptionField}
+                                          renderer={renderer}
+                                          radioUncheckedIconCls={radioUncheckedIconCls}
+                                          radioCheckedIconCls={radioCheckedIconCls}
+                                          checkboxUncheckedIconCls={checkboxUncheckedIconCls}
+                                          checkboxCheckedIconCls={checkboxCheckedIconCls}
+                                          checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
+                                          onItemClick={this.itemClickHandler}
+                                          onChange={this.changeHandler}/>
                         }
 
                     </div>
@@ -352,7 +424,7 @@ class DropdownSelect extends Component {
         );
 
     }
-};
+}
 
 DropdownSelect.propTypes = {
 
@@ -391,6 +463,8 @@ DropdownSelect.propTypes = {
      */
     popupTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
+
     /**
      * The name of the dropDownSelect.
      */
@@ -405,6 +479,10 @@ DropdownSelect.propTypes = {
      * The placeholder of the dropDownSelect.
      */
     placeholder: PropTypes.string,
+
+    title: PropTypes.string,
+
+    triggerRenderer: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
 
     rightIconCls: PropTypes.string,
 
@@ -441,6 +519,8 @@ DropdownSelect.propTypes = {
              */
             desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
+            title: PropTypes.string,
+
             /**
              * If true, the list button will be disabled.
              */
@@ -474,7 +554,7 @@ DropdownSelect.propTypes = {
             /**
              * Callback function fired when a list item touch-tapped.
              */
-            onTouchTap: PropTypes.func
+            onClick: PropTypes.func
 
         }), PropTypes.string, PropTypes.number])),
 
@@ -533,7 +613,9 @@ DropdownSelect.propTypes = {
      */
     useFilter: PropTypes.bool,
 
+    filterIconCls: PropTypes.string,
     useSelectAll: PropTypes.bool,
+    selectAllText: PropTypes.string,
 
     /**
      * The message of no matching option.
@@ -549,12 +631,18 @@ DropdownSelect.propTypes = {
     itemHeight: PropTypes.number,
     scrollBuffer: PropTypes.number,
 
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
+
     renderer: PropTypes.func,
 
     /**
      * Callback function fired when the button is touch-tapped.
      */
-    onItemTouchTap: PropTypes.func,
+    onItemClick: PropTypes.func,
 
     /**
      * Callback function fired when the popup is open.
@@ -577,26 +665,20 @@ DropdownSelect.propTypes = {
     onMouseOver: PropTypes.func,
     onMouseOut: PropTypes.func,
     onMouseOver: PropTypes.func,
-    onMouseOut: PropTypes.func
+    onMouseOut: PropTypes.func,
+    isHiddenInputFilter: PropTypes.bool,
+    clearHiddenInputFilterInterval: PropTypes.number
 
 };
 
 DropdownSelect.defaultProps = {
 
-    className: null,
-    triggerClassName: null,
-    popupClassName: null,
-    style: null,
-    popupStyle: null,
     theme: Theme.DEFAULT,
     popupTheme: Theme.DEFAULT,
 
-    name: null,
-    value: null,
     placeholder: 'Please select ...',
     rightIconCls: 'fas fa-angle-down',
     data: [],
-    invalidMsg: null,
     disabled: false,
     selectMode: SelectMode.SINGLE_SELECT,
 
@@ -604,17 +686,15 @@ DropdownSelect.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
 
-    infoMsg: null,
     autoClose: true,
     useFilter: false,
+    filterIconCls: 'fas fa-search',
     useSelectAll: false,
-    noMatchedMsg: null,
-
+    selectAllText: 'Select All',
     shouldPreventContainerScroll: true,
-
-    popupChildren: null,
-
-    useDynamicRenderList: false
+    useDynamicRenderList: false,
+    isHiddenInputFilter: false,
+    clearHiddenInputFilterInterval: 1000
 
 };
 

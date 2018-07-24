@@ -12,9 +12,11 @@ import IconButton from '../IconButton';
 import FieldMsg from '../FieldMsg';
 import Theme from '../Theme';
 
+import FieldType from '../_statics/FieldType';
+
 import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
-import FieldType from '../_statics/FieldType';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class TextField extends Component {
 
@@ -26,7 +28,6 @@ class TextField extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            value: props.value,
             isFocused: props.autoFocus ? true : false,
             passwordVisible: false,
             infoVisible: false,
@@ -34,29 +35,23 @@ class TextField extends Component {
             invalidMsgs: ''
         };
 
-        this.focus = ::this.focus;
-        this.blur = ::this.blur;
-        this.changeHandler = ::this.changeHandler;
-        this.keyDownHandler = ::this.keyDownHandler;
-        this.clearValue = ::this.clearValue;
-        this.togglePasswordVisible = ::this.togglePasswordVisible;
-        this.mouseOverHandler = ::this.mouseOverHandler;
-        this.mouseOutHandler = ::this.mouseOutHandler;
-        this.focusHandler = ::this.focusHandler;
-        this.blurHandler = ::this.blurHandler;
-        this.rightIconTouchTapHandler = ::this.rightIconTouchTapHandler;
-
     }
 
-    focus() {
+    /**
+     * public
+     */
+    focus = () => {
         this.refs.input.focus();
-    }
+    };
 
-    blur() {
+    /**
+     * public
+     */
+    blur = () => {
         this.refs.input.blur();
-    }
+    };
 
-    changeHandler(e) {
+    changeHandler = e => {
 
         const {onValid, onInvalid} = this.props,
 
@@ -71,9 +66,9 @@ class TextField extends Component {
             invalidMsgs && invalidMsgs.length > 0 ? onInvalid && onInvalid() : onValid && onValid();
         });
 
-    }
+    };
 
-    keyDownHandler(e) {
+    keyDownHandler = e => {
 
         const {onKeyDown} = this.props,
             {value} = this.state;
@@ -84,16 +79,14 @@ class TextField extends Component {
             onPressEnter && onPressEnter(e, value);
         }
 
-    }
+    };
 
-    clearValue() {
+    clearValue = () => {
 
-        const {disabled, clearButtonVisible, onClear, onChange, onValid, onInvalid} = this.props;
-
-        const invalidMsgs = Valid.fieldValid('', this.props);
+        const {disabled, clearButtonVisible, onClear, onChange, onValid, onInvalid} = this.props,
+            invalidMsgs = Valid.fieldValid('', this.props);
 
         !disabled && clearButtonVisible && this.setState({
-            value: '',
             invalidMsgs
         }, () => {
 
@@ -106,12 +99,12 @@ class TextField extends Component {
 
         });
 
-    }
+    };
 
-    togglePasswordVisible() {
+    togglePasswordVisible = () => {
 
-        const {disabled, passwordButtonVisible, onPasswordVisible, onPasswordInvisible} = this.props;
-        const passwordVisible = !this.state.passwordVisible;
+        const {disabled, passwordButtonVisible, onPasswordVisible, onPasswordInvisible} = this.props,
+            passwordVisible = !this.state.passwordVisible;
 
         !disabled && passwordButtonVisible && this.setState({
             passwordVisible
@@ -125,9 +118,9 @@ class TextField extends Component {
 
         });
 
-    }
+    };
 
-    mouseOverHandler(e) {
+    mouseOverHandler = e => {
         this.setState({
             infoVisible: true,
             errorVisible: true
@@ -136,9 +129,9 @@ class TextField extends Component {
                 {value} = this.state;
             onMouseOver && onMouseOver(e, value);
         });
-    }
+    };
 
-    mouseOutHandler(e) {
+    mouseOutHandler = e => {
         this.setState({
             infoVisible: false,
             errorVisible: false
@@ -147,9 +140,9 @@ class TextField extends Component {
                 {value} = this.state;
             onMouseOut && onMouseOut(e, value);
         });
-    }
+    };
 
-    focusHandler(e) {
+    focusHandler = e => {
         this.setState({
             isFocused: true
         }, () => {
@@ -162,9 +155,9 @@ class TextField extends Component {
             isFocusedSelectAll && this.refs.input.setSelectionRange(0, value ? value.length : 0);
 
         });
-    }
+    };
 
-    blurHandler(e) {
+    blurHandler = e => {
 
         if (this.clearButtonEl && e.relatedTarget && e.relatedTarget == this.clearButtonEl) {
             return;
@@ -178,13 +171,13 @@ class TextField extends Component {
             onBlur && onBlur(e, value);
         });
 
-    }
+    };
 
-    rightIconTouchTapHandler(e) {
-        const {onRightIconTouchTap} = this.props,
+    rightIconClickHandler = e => {
+        const {onRightIconClick} = this.props,
             {value} = this.state;
-        onRightIconTouchTap && onRightIconTouchTap(e, value);
-    }
+        onRightIconClick && onRightIconClick(e, value);
+    };
 
     componentDidMount() {
 
@@ -197,12 +190,11 @@ class TextField extends Component {
 
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
     }
 
     render() {
@@ -211,10 +203,10 @@ class TextField extends Component {
 
                 children, className, triggerClassName, placeholderClassName, style, theme, type, iconCls, disabled,
                 infoMsg, placeholder, clearButtonVisible, rightIconCls, passwordButtonVisible, fieldMsgVisible,
-                onIconTouchTap, onRightIconTouchTap,
+                onIconClick, onRightIconClick,
 
                 // not passing down these props
-                autoFocus, pattern, patternInvalidMsg, isFocusedSelectAll,
+                value: v, autoFocus, pattern, patternInvalidMsg, isFocusedSelectAll,
                 onPressEnter, onValid, onInvalid, onClear, onPasswordVisible, onPasswordInvisible,
 
                 ...restProps
@@ -237,7 +229,7 @@ class TextField extends Component {
                     [className]: className
                 }),
             leftIconClassName = classNames('text-field-left-icon', {
-                deactivated: !onIconTouchTap
+                deactivated: !onIconClick
             }),
             fieldPlaceholderClassName = classNames('text-field-placeholder', {
                 [placeholderClassName]: placeholderClassName
@@ -249,7 +241,7 @@ class TextField extends Component {
                 hidden: disabled || !value || value.length < 1
             }),
             rightIconClassName = classNames('text-field-right-icon', {
-                deactivated: !onRightIconTouchTap
+                deactivated: !onRightIconClick
             });
 
         let inputType = type;
@@ -268,14 +260,14 @@ class TextField extends Component {
                     iconCls ?
                         <IconButton className={leftIconClassName}
                                     iconCls={iconCls}
-                                    disableTouchRipple={!onIconTouchTap}
-                                    onTouchTap={onIconTouchTap}/>
+                                    disableTouchRipple={!onIconClick}
+                                    onClick={onIconClick}/>
                         :
                         null
                 }
 
                 {
-                    placeholder && empty ?
+                    placeholder && !value && !isFocused ?
                         <input className={fieldPlaceholderClassName}
                                value={placeholder}
                                disabled={true}/>
@@ -301,7 +293,7 @@ class TextField extends Component {
                         <IconButton ref="clearButton"
                                     className={clearButtonClassName}
                                     iconCls="fas fa-times-circle"
-                                    onTouchTap={this.clearValue}/>
+                                    onClick={this.clearValue}/>
                         :
                         null
                 }
@@ -310,7 +302,7 @@ class TextField extends Component {
                     isPassword && passwordButtonVisible ?
                         <IconButton className="password-visible-icon"
                                     iconCls={passwordVisible ? 'fas fa-eye' : 'far fa-eye-slash'}
-                                    onTouchTap={this.togglePasswordVisible}/>
+                                    onClick={this.togglePasswordVisible}/>
                         :
                         null
                 }
@@ -319,8 +311,8 @@ class TextField extends Component {
                     rightIconCls ?
                         <IconButton className={rightIconClassName}
                                     rightIconCls={rightIconCls}
-                                    disableTouchRipple={!onRightIconTouchTap}
-                                    onTouchTap={this.rightIconTouchTapHandler}/>
+                                    disableTouchRipple={!onRightIconClick}
+                                    onClick={this.rightIconClickHandler}/>
                         :
                         null
                 }
@@ -342,7 +334,7 @@ class TextField extends Component {
         );
 
     }
-};
+}
 
 TextField.propTypes = {
 
@@ -517,8 +509,8 @@ TextField.propTypes = {
      */
     onPasswordInvisible: PropTypes.func,
 
-    onIconTouchTap: PropTypes.func,
-    onRightIconTouchTap: PropTypes.func,
+    onIconClick: PropTypes.func,
+    onRightIconClick: PropTypes.func,
 
     onMouseOver: PropTypes.func,
     onMouseOut: PropTypes.func
@@ -527,22 +519,13 @@ TextField.propTypes = {
 
 TextField.defaultProps = {
 
-    className: null,
-    triggerClassName: null,
-    placeholderClassName: null,
-    style: null,
     theme: Theme.DEFAULT,
 
     type: 'text',
-    name: '',
-    placeholder: '',
     value: '',
-    iconCls: '',
-    rightIconCls: '',
     disabled: false,
     readOnly: false,
     autoFocus: false,
-    infoMsg: '',
     isFocusedSelectAll: false,
 
     clearButtonVisible: true,
@@ -550,7 +533,6 @@ TextField.defaultProps = {
 
     // valid
     required: false,
-    patternInvalidMsg: '',
 
     autoComplete: 'off',
     autoCorrect: 'off',

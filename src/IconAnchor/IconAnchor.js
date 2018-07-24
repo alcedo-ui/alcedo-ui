@@ -19,28 +19,21 @@ class IconAnchor extends Component {
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.touchTapHandler = ::this.touchTapHandler;
-        this.startRipple = ::this.startRipple;
-        this.endRipple = ::this.endRipple;
-
     }
 
-    touchTapHandler(e) {
-        e.preventDefault();
-        const {disabled, isLoading, onTouchTap} = this.props;
-        !disabled && !isLoading && onTouchTap && onTouchTap(e);
-    }
+    clickHandler = e => {
+        const {disabled, isLoading, onClick} = this.props;
+        !disabled && !isLoading && onClick && onClick(e);
+    };
 
-    startRipple(e) {
+    startRipple = e => {
         this.refs.touchRipple.addRipple(e);
-    }
+    };
 
-    endRipple() {
+    endRipple = () => {
         this.refs.touchRipple.removeRipple();
-    }
+    };
 
     render() {
 
@@ -65,7 +58,7 @@ class IconAnchor extends Component {
                 <a {...restProps}
                    className={iconAnchorClassName}
                    disabled={disabled || isLoading}
-                   onTouchTap={this.touchTapHandler}>
+                   onClick={this.clickHandler}>
 
                     {
                         isLoading ?
@@ -95,7 +88,7 @@ class IconAnchor extends Component {
         );
 
     }
-};
+}
 
 IconAnchor.propTypes = {
 
@@ -147,24 +140,19 @@ IconAnchor.propTypes = {
     /**
      * Callback function fired when the button is touch-tapped.
      */
-    onTouchTap: PropTypes.func
+    onClick: PropTypes.func
 
 };
 
 IconAnchor.defaultProps = {
 
-    className: null,
-    style: null,
     theme: Theme.DEFAULT,
 
     disabled: false,
     isLoading: false,
-    iconCls: null,
     href: 'javascript:void(0)',
     target: '_blank',
-    alt: null,
 
-    tip: null,
     tipPosition: TipProvider.Position.BOTTOM
 
 };

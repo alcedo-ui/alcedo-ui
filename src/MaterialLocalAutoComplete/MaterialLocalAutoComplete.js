@@ -11,11 +11,15 @@ import LocalAutoComplete from '../LocalAutoComplete';
 import MaterialProvider from '../MaterialProvider';
 import Theme from '../Theme';
 
+import Position from '../_statics/Position';
+
 import Util from '../_vendors/Util';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class MaterialLocalAutoComplete extends Component {
 
     static Theme = Theme;
+    static Position = Position;
 
     constructor(props, ...restArgs) {
 
@@ -26,40 +30,35 @@ class MaterialLocalAutoComplete extends Component {
             filter: props.filterInitValue
         };
 
-        this.triggerFilterChangeHandler = ::this.triggerFilterChangeHandler;
-        this.triggerChangeHandler = ::this.triggerChangeHandler;
-        this.closePopup = ::this.closePopup;
-
     }
 
-    triggerFilterChangeHandler(filter) {
+    triggerFilterChangeHandler = filter => {
         this.setState({
             filter
         }, () => {
             const {onFilterChange} = this.props;
             onFilterChange && onFilterChange(filter);
         });
-    }
+    };
 
-    triggerChangeHandler(value) {
+    triggerChangeHandler = value => {
         this.setState({
             value
         }, () => {
             const {onChange} = this.props;
             onChange && onChange(value);
         });
-    }
+    };
 
-    closePopup() {
+    closePopup = () => {
         this.refs.localAutoComplete && this.refs.localAutoComplete.closePopup();
-    }
+    };
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
     }
 
     render() {
@@ -127,6 +126,8 @@ MaterialLocalAutoComplete.propTypes = {
      * The theme.
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
      * The name of the auto complete.
@@ -206,7 +207,7 @@ MaterialLocalAutoComplete.propTypes = {
             /**
              * Callback function fired when a list item touch-tapped.
              */
-            onTouchTap: PropTypes.func
+            onClick: PropTypes.func
 
         }), PropTypes.string, PropTypes.number])),
 
@@ -240,6 +241,8 @@ MaterialLocalAutoComplete.propTypes = {
      */
     autoClose: PropTypes.bool,
 
+    minFilterLength: PropTypes.number,
+
     /**
      * Callback function fired when filter changed.
      */
@@ -264,11 +267,6 @@ MaterialLocalAutoComplete.propTypes = {
      * The message of no matched value.
      */
     noMatchedMsg: PropTypes.string,
-
-    /**
-     * If true,the list data will be grouped.
-     */
-    isGrouped: PropTypes.bool,
 
     required: PropTypes.bool,
 
@@ -306,7 +304,7 @@ MaterialLocalAutoComplete.propTypes = {
     /**
      * The function that trigger when touch-tap the list items.
      */
-    onItemTouchTap: PropTypes.func,
+    onItemClick: PropTypes.func,
 
     /**
      * Callback function fired when LocalAutoComplete get focus.
@@ -325,10 +323,6 @@ MaterialLocalAutoComplete.propTypes = {
 
 MaterialLocalAutoComplete.defaultProps = {
 
-    className: '',
-    popupClassName: '',
-    style: null,
-    popupStyle: null,
     theme: Theme.DEFAULT,
 
     name: '',
@@ -341,15 +335,13 @@ MaterialLocalAutoComplete.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
     autoClose: false,
+    minFilterLength: 1,
     iconCls: '',
     rightIconCls: 'fas fa-search',
     noMatchedPopupVisible: true,
     noMatchedMsg: '',
-    isGrouped: false,
     required: false,
-    filterInitValue: '',
-
-    popupChildren: null
+    filterInitValue: ''
 
 };
 

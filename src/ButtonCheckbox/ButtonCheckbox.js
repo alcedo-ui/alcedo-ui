@@ -11,6 +11,7 @@ import RaisedButton from '../RaisedButton';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class ButtonCheckbox extends Component {
 
@@ -24,30 +25,33 @@ class ButtonCheckbox extends Component {
             value: !!props.value
         };
 
-        this.touchTapHandler = ::this.touchTapHandler;
-
     }
 
-    touchTapHandler() {
+    clickHandler = () => {
         const value = !this.state.value;
         this.setState({
             value
         }, () => {
             !this.props.disabled && this.props.onChange && this.props.onChange(value);
         });
-    }
+    };
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: !!nextProps.value
-            });
-        }
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
     }
 
     render() {
 
-        const {className, style, theme, activatedTheme, text, disabled} = this.props,
+        const {
+
+                className, theme, activatedTheme, text,
+
+                ...restProps
+
+            } = this.props,
             {value} = this.state,
 
             buttonClassName = classNames('button-checkbox', {
@@ -56,17 +60,16 @@ class ButtonCheckbox extends Component {
             });
 
         return (
-            <RaisedButton className={buttonClassName}
-                          style={style}
+            <RaisedButton {...restProps}
+                          className={buttonClassName}
                           value={text}
-                          disabled={disabled}
                           isRounded={true}
                           theme={value ? activatedTheme : theme}
-                          onTouchTap={this.touchTapHandler}/>
+                          onClick={this.clickHandler}/>
         );
 
     }
-};
+}
 
 ButtonCheckbox.propTypes = {
 
@@ -91,9 +94,9 @@ ButtonCheckbox.propTypes = {
     activatedTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
-     * The name of the toggleButton.
+     * The title of the ButtonCheckbox.
      */
-    // name: PropTypes.string,
+    title: PropTypes.string,
 
     /**
      * The text of the button.
@@ -119,13 +122,9 @@ ButtonCheckbox.propTypes = {
 
 ButtonCheckbox.defaultProps = {
 
-    className: '',
-    style: null,
     theme: Theme.DEFAULT,
     activatedTheme: Theme.PRIMARY,
 
-    name: '',
-    text: '',
     value: false,
     disabled: false
 

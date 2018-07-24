@@ -20,21 +20,16 @@ class RaisedButton extends Component {
     static TipPosition = Position;
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.startRipple = ::this.startRipple;
-        this.endRipple = ::this.endRipple;
-
     }
 
-    startRipple(e) {
+    startRipple = e => {
         this.refs.baseButton.startRipple(e);
-    }
+    };
 
-    endRipple() {
+    endRipple = () => {
         this.refs.baseButton.endRipple();
-    }
+    };
 
     render() {
 
@@ -53,7 +48,7 @@ class RaisedButton extends Component {
         );
 
     }
-};
+}
 
 RaisedButton.propTypes = {
 
@@ -81,6 +76,11 @@ RaisedButton.propTypes = {
      * If true,the button will be round.
      */
     isCircular: PropTypes.bool,
+
+    /**
+     * The title of the button.
+     */
+    title: PropTypes.string,
 
     /**
      * The text of the button.
@@ -133,14 +133,12 @@ RaisedButton.propTypes = {
     /**
      * Callback function fired when the button is touch-tapped.
      */
-    onTouchTap: PropTypes.func
+    onClick: PropTypes.func
 
 };
 
 RaisedButton.defaultProps = {
 
-    className: '',
-    style: null,
     theme: Theme.DEFAULT,
 
     isRounded: false,
@@ -154,10 +152,6 @@ RaisedButton.defaultProps = {
 
     rippleDisplayCenter: false,
 
-    iconCls: '',
-    rightIconCls: '',
-
-    tip: null,
     tipPosition: TipProvider.Position.BOTTOM
 
 };

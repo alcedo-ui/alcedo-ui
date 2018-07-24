@@ -15,10 +15,11 @@ import IconButton from '../IconButton';
 import Radio from '../Radio';
 import Checkbox from '../Checkbox';
 
-import Util from '../_vendors/Util';
-import Calculation from '../_vendors/Calculation';
 import Position from '../_statics/Position';
 import SelectMode from '../_statics/SelectMode';
+
+import Util from '../_vendors/Util';
+import Calculation from '../_vendors/Calculation';
 
 class DraggableTreeNode extends Component {
 
@@ -33,14 +34,11 @@ class DraggableTreeNode extends Component {
             collapsed: false
         };
 
-        this.toggleTreeNode = ::this.toggleTreeNode;
-        this.touchTapHandler = ::this.touchTapHandler;
-
     }
 
-    toggleTreeNode(e) {
+    toggleTreeNode = e => {
 
-        e.stopPropagation();
+        e && e.stopPropagation();
 
         const {onNodeToggleStart} = this.props;
         onNodeToggleStart && onNodeToggleStart();
@@ -52,9 +50,9 @@ class DraggableTreeNode extends Component {
             onNodeToggleEnd && onNodeToggleEnd();
         });
 
-    }
+    };
 
-    checkboxChangeHandler(e) {
+    checkboxChangeHandler = e => {
 
         const {data, path, value, onSelect, onDeselect} = this.props;
 
@@ -64,14 +62,14 @@ class DraggableTreeNode extends Component {
             onDeselect && onDeselect(data, path, e);
         }
 
-    }
+    };
 
-    radioChangeHandler(e) {
+    radioChangeHandler = e => {
         const {data, path, onSelect} = this.props;
         onSelect && onSelect(data, path, e);
-    }
+    };
 
-    touchTapHandler(e) {
+    clickHandler = e => {
 
         e.preventDefault();
 
@@ -81,8 +79,8 @@ class DraggableTreeNode extends Component {
             return;
         }
 
-        const {onTouchTap} = this.props;
-        onTouchTap && onTouchTap(data, path, e);
+        const {onClick} = this.props;
+        onClick && onClick(data, path, e);
 
         const {selectMode} = this.props;
 
@@ -95,14 +93,15 @@ class DraggableTreeNode extends Component {
                 return;
         }
 
-    }
+    };
 
     render() {
 
         const {
 
                 index, depth, path, theme, selectTheme, selectMode, data, value,
-                disabled, isLoading, readOnly, allowCollapse,
+                disabled, isLoading, readOnly, allowCollapse, isSelectRecursive,
+                valueField, displayField, descriptionField,
 
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
@@ -124,7 +123,6 @@ class DraggableTreeNode extends Component {
                 dragging: isDragging,
                 [data.className]: data.className
             }),
-
             nodeStyle = {
                 ...data.style,
                 paddingLeft: (depth + 1) * 20
@@ -141,15 +139,14 @@ class DraggableTreeNode extends Component {
                         <div ref={dropProvided.innerRef}
                              className="draggable-tree-node-wrapper">
 
-                            <TipProvider className='block'
-                                         text={data.tip}
+                            <TipProvider text={data.tip}
                                          position={data.tipPosition}>
 
                                 <div className={nodeClassName}
                                      style={nodeStyle}
                                      disabled={isNodeDisabled}
                                      readOnly={readOnly}
-                                     onTouchTap={this.touchTapHandler}
+                                     onClick={this.clickHandler}
                                      onMouseEnter={onMouseEnter}
                                      onMouseLeave={onMouseLeave}>
 
@@ -162,7 +159,7 @@ class DraggableTreeNode extends Component {
                                                                 data.collapsedIconCls || collapsedIconCls
                                                                 :
                                                                 data.expandedIconCls || expandedIconCls}
-                                                            onTouchTap={this.toggleTreeNode}/>
+                                                            onClick={this.toggleTreeNode}/>
                                                 :
                                                 null
                                         }
@@ -185,6 +182,7 @@ class DraggableTreeNode extends Component {
                                                 <Checkbox className="draggable-tree-node-select"
                                                           theme={selectTheme}
                                                           checked={checked}
+                                                          indeterminate={isSelectRecursive ? indeterminate : false}
                                                           disabled={isNodeDisabled}
                                                           uncheckedIconCls={data.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
                                                           checkedIconCls={data.checkboxCheckedIconCls || checkboxCheckedIconCls}
@@ -219,17 +217,17 @@ class DraggableTreeNode extends Component {
                                                         renderer(data, index)
                                                         :
                                                         (
-                                                            data.desc ?
+                                                            data[descriptionField] ?
                                                                 <div className="draggable-tree-node-content">
-                                                    <span className="draggable-tree-node-content-value">
-                                                        {data.text}
-                                                    </span>
+                                                                    <span className="draggable-tree-node-content-value">
+                                                                        {Util.getTextByDisplayField(data, displayField, valueField)}
+                                                                    </span>
                                                                     <span className="draggable-tree-node-content-desc">
-                                                        {data.desc}
-                                                    </span>
+                                                                        {data[descriptionField]}
+                                                                    </span>
                                                                 </div>
                                                                 :
-                                                                data.text
+                                                                Util.getTextByDisplayField(data, displayField, valueField)
                                                         )
                                                 )
                                         }
@@ -269,7 +267,7 @@ class DraggableTreeNode extends Component {
                                                                draggableId={'' + item.id}
                                                                type={data.id}
                                                                disableInteractiveElementBlocking={false}
-                                                               isDragDisabled={isNodeToggling}
+                                                               isDragDisabled={isNodeToggling || isNodeDisabled}
                                                                index={index}>
                                                         {
                                                             (dragProvided, dragSnapshot) => (
@@ -286,7 +284,6 @@ class DraggableTreeNode extends Component {
                                                                                            path={path}
                                                                                            isDragging={dragSnapshot.isDragging}/>
                                                                     </div>
-                                                                    {dragProvided.placeholder}
                                                                 </div>
                                                             )
                                                         }
@@ -309,7 +306,7 @@ class DraggableTreeNode extends Component {
         );
 
     }
-};
+}
 
 DraggableTreeNode.propTypes = {
 
@@ -335,6 +332,7 @@ DraggableTreeNode.propTypes = {
     readOnly: PropTypes.bool,
     allowCollapse: PropTypes.bool,
     isNodeToggling: PropTypes.bool,
+    isSelectRecursive: PropTypes.bool,
 
     renderer: PropTypes.func,
 
@@ -346,7 +344,7 @@ DraggableTreeNode.propTypes = {
     checkboxCheckedIconCls: PropTypes.string,
     checkboxIndeterminateIconCls: PropTypes.string,
 
-    onTouchTap: PropTypes.func,
+    onClick: PropTypes.func,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
     onMouseEnter: PropTypes.func,
@@ -362,15 +360,11 @@ DraggableTreeNode.defaultProps = {
 
     index: 0,
     depth: 0,
-    path: null,
 
     theme: Theme.DEFAULT,
 
     selectTheme: Theme.DEFAULT,
     selectMode: SelectMode.SINGLE_SELECT,
-
-    data: null,
-    value: null,
 
     idField: 'id',
     valueField: 'value',
@@ -382,17 +376,12 @@ DraggableTreeNode.defaultProps = {
     readOnly: false,
     allowCollapse: true,
     isNodeToggling: false,
+    isSelectRecursive: false,
 
-    iconCls: null,
-    rightIconCls: null,
-
-    tip: null,
     tipPosition: Position.BOTTOM,
 
     collapsedIconCls: 'fas fa-caret-right',
     expandedIconCls: 'fas fa-caret-down',
-    radioUncheckedIconCls: null,
-    radioCheckedIconCls: null,
     checkboxUncheckedIconCls: 'far fa-square',
     checkboxCheckedIconCls: 'fas fa-check-square',
     checkboxIndeterminateIconCls: 'fas fa-minus-square',

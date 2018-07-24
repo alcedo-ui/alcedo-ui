@@ -96,7 +96,13 @@ function MonthDays(year) {
 }
 
 function enumerateValue(enumerate) {
+
+    if (!enumerate) {
+        return;
+    }
+
     return Object.keys(enumerate).map(key => enumerate[key]);
+
 }
 
 function tree(data, callback) {
@@ -177,6 +183,34 @@ function reorder(data, startIndex, endIndex) {
 
 };
 
+function preOrderTraverse(node, callback, deep = 0, parent = null) {
+
+    if (callback(node, deep, parent) === false) {
+        return;
+    }
+
+    if (node.children && node.children.length > 0) {
+        for (let i = 0, len = node.children.length; i < len; i++) {
+            preOrderTraverse(node.children[i], callback, deep + 1, node);
+        }
+    }
+
+}
+
+function postOrderTraverse(node, callback, deep = 0, parent = null) {
+
+    if (node.children && node.children.length > 0) {
+        for (let i = 0, len = node.children.length; i < len; i++) {
+            postOrderTraverse(node.children[i], callback, deep + 1, node);
+        }
+    }
+
+    if (callback(node, deep, parent) === false) {
+        return;
+    }
+
+}
+
 export default {
     isEnableLocalStorage,
     isEnableSessionStorage,
@@ -192,5 +226,7 @@ export default {
     isValueEqual,
     genIndexArray,
     getDiag,
-    reorder
+    reorder,
+    preOrderTraverse,
+    postOrderTraverse
 };

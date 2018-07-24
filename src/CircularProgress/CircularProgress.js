@@ -68,7 +68,7 @@ class CircularProgress extends Component {
         );
     }
 
-};
+}
 
 CircularProgress.propTypes = {
 
@@ -115,9 +115,6 @@ CircularProgress.propTypes = {
 };
 
 CircularProgress.defaultProps = {
-
-    className: '',
-    style: null,
 
     percentStyle: {},
     r: 48,

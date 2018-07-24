@@ -7,7 +7,7 @@ import LazyImage from 'src/LazyImage';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/LazyImage.json';
 
-export default class LazyImageExamples extends Component {
+class LazyImageExamples extends Component {
 
     constructor(props) {
         super(props);
@@ -119,3 +119,5 @@ export default class LazyImageExamples extends Component {
         );
     }
 };
+
+export default LazyImageExamples;

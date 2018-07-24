@@ -30,7 +30,7 @@ class TableHeaderSortIcon extends Component {
         );
 
     }
-};
+}
 
 TableHeaderSortIcon.propTypes = {
     sort: PropTypes.object,
@@ -40,8 +40,6 @@ TableHeaderSortIcon.propTypes = {
 };
 
 TableHeaderSortIcon.defaultProps = {
-    sort: null,
-    sortProp: null,
     sortAscIconCls: 'fas fa-angle-up',
     sortDescIconCls: 'fas fa-angle-down'
 };

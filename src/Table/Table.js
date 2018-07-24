@@ -5,26 +5,29 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
 
 import Checkbox from '../Checkbox';
 import Radio from '../Radio';
 import Thead from '../_Thead';
-import Tbody from '../_Tbody';
+import TableBody from '../_TableBody';
 import Pagging from '../Pagging';
 import BriefPagging from '../BriefPagging';
+import Theme from '../Theme';
+
+import SelectMode from '../_statics/SelectMode';
+import SelectAllMode from '../_statics/SelectAllMode';
+import SortType from '../_statics/SortType';
 
 import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
 import Calculation from '../_vendors/Calculation';
-import SelectMode from '../_statics/SelectMode';
-import SortType from '../_statics/SortType';
-import Theme from '../Theme';
 
 class Table extends Component {
 
     static SelectMode = SelectMode;
+    static SelectAllMode = SelectAllMode;
     static SortType = SortType;
 
     constructor(props, ...restArgs) {
@@ -48,7 +51,7 @@ class Table extends Component {
 
             pagging: {
                 pageSize: Calculation.pageSize(props.defaultPageSize, props.pageSizes, 10),
-                page: 0
+                page: props.page
             },
 
             value: Calculation.getInitValue(props),
@@ -57,53 +60,65 @@ class Table extends Component {
 
         };
 
-        this.isHeadChecked = ::this.isHeadChecked;
-        this.isHeadIndeterminate = ::this.isHeadIndeterminate;
-        this.isItemChecked = ::this.isItemChecked;
-        this.headCheckBoxChangeHandler = ::this.headCheckBoxChangeHandler;
-        this.multiSelectHandler = ::this.multiSelectHandler;
-        this.singleSelectHandler = ::this.singleSelectHandler;
-        this.sortHandler = ::this.sortHandler;
-        this.sortData = ::this.sortData;
-        this.rowTouchTapHandler = ::this.rowTouchTapHandler;
-        this.cellTouchTapHandler = ::this.cellTouchTapHandler;
-        this.calSelectedCount = ::this.calSelectedCount;
-        this.paggingData = ::this.paggingData;
-        this.pageChangedHandler = ::this.pageChangedHandler;
-        this.resetPage = ::this.resetPage;
-        this.handleColumns = ::this.handleColumns;
-
     }
 
-    isHeadChecked() {
+    getCurrentPageData = (state = this.state) => {
 
-        const {data} = this.props,
+        const {sortedData, pagging} = state;
+
+        if (!sortedData || sortedData.length < 1 || !pagging) {
+            return [];
+        }
+
+        return sortedData.slice(pagging.page * pagging.pageSize, (pagging.page + 1) * pagging.pageSize)
+        .filter(item => item && !item.disabled);
+
+    };
+
+    isHeadChecked = () => {
+
+        const {selectAllMode, data} = this.props,
             {value} = this.state;
 
-        if (!value || !data || data.length < 1) {
+        if (!value || value.length < 1) {
             return false;
         }
 
-        return value && value.length > 0 && value.length === data.filter(item => item && !item.disabled).length;
+        const valueLen = value.length;
 
-    }
-
-    isHeadIndeterminate() {
-
-        const {data} = this.props,
-            {value} = this.state,
-            dataLen = data.filter(item => item && !item.disabled).length,
-            valueLen = value.length;
-
-        if (dataLen > 0 && valueLen > 0 && valueLen < dataLen) {
-            return true;
+        if (selectAllMode === SelectAllMode.ALL) {
+            const dataLen = data.filter(item => item && !item.disabled).length;
+            return dataLen > 0 && valueLen === dataLen;
+        } else if (selectAllMode === SelectAllMode.CURRENT_PAGE) {
+            const currentPageData = this.getCurrentPageData();
+            return currentPageData.every(item => value.includes(item));
         }
 
-        return false;
+    };
 
-    }
+    isHeadIndeterminate = () => {
 
-    isItemChecked(rowData, value = this.state.value) {
+        const {selectAllMode, data} = this.props,
+            {value, pagging} = this.state;
+
+        if (!value || value.length < 1) {
+            return false;
+        }
+
+        const valueLen = value.length;
+
+        if (selectAllMode === SelectAllMode.ALL) {
+            const dataLen = data.filter(item => item && !item.disabled).length;
+            return dataLen > 0 && valueLen < dataLen;
+        } else if (selectAllMode === SelectAllMode.CURRENT_PAGE) {
+            const currentPageData = this.getCurrentPageData(),
+                len = currentPageData.reduce((result, item) => result + (value.includes(item) ? 1 : 0), 0);
+            return len > 0 && len < pagging.pageSize;
+        }
+
+    };
+
+    isItemChecked = (rowData, value = this.state.value) => {
 
         const {selectMode, idProp} = this.props;
 
@@ -127,22 +142,55 @@ class Table extends Component {
                 return value[idProp] === rowData[idProp];
         }
 
-    }
+    };
 
-    headCheckBoxChangeHandler(checked) {
+    headCheckBoxChangeHandler = checked => {
 
-        const value = checked ? this.props.data.filter(item => !item.disabled) : [];
+        const {selectAllMode, data} = this.props;
+        let result;
+
+        if (selectAllMode === SelectAllMode.ALL) {
+            result = checked ? data.filter(item => !item.disabled) : [];
+        } else {
+
+            const {idProp} = this.props,
+                {value} = this.state,
+                currentPageData = this.getCurrentPageData();
+            result = value.slice();
+
+            if (checked) {
+                if (!result || result.length < 1) {
+                    result = currentPageData;
+                } else {
+                    for (let item of currentPageData) {
+                        if (result.findIndex(valueItem =>
+                            idProp in item && idProp in valueItem && item[idProp] === valueItem[idProp]) === -1) {
+                            result.push(item);
+                        }
+                    }
+                }
+            } else {
+                for (let item of currentPageData) {
+                    const index = result.findIndex(valueItem =>
+                        idProp in item && idProp in valueItem && item[idProp] === valueItem[idProp]);
+                    if (index > -1) {
+                        result.splice(index, 1);
+                    }
+                }
+            }
+
+        }
 
         this.setState({
-            value
+            value: result
         }, () => {
             const {onChange} = this.props;
-            onChange && onChange(value);
+            onChange && onChange(result);
         });
 
-    }
+    };
 
-    sortHandler(col) {
+    sortHandler = col => {
 
         const {data, defaultSortType} = this.props;
         let {sort} = this.state,
@@ -157,21 +205,26 @@ class Table extends Component {
             type
         };
 
+        const sortedData = this.sortData(data, sort);
+
         this.setState({
             sort,
-            sortedData: this.sortData(data, sort)
+            sortedData
+        }, () => {
+            const {onSort} = this.props;
+            onSort && onSort(sort);
         });
 
-    }
+    };
 
-    sortData(data, sort = this.state.sort) {
+    sortData = (data, sort = (this.state ? this.state.sort : null)) => {
 
         if (!sort) {
             return data;
         }
 
         const {sortFunc} = this.props;
-        let copyData = _.cloneDeep(data);
+        let copyData = data.slice();
 
         if (sortFunc) {
             copyData = sortFunc(copyData, sort);
@@ -187,9 +240,9 @@ class Table extends Component {
 
         return copyData;
 
-    }
+    };
 
-    multiSelectHandler(rowData, rowIndex) {
+    multiSelectHandler = (rowData, rowIndex) => {
 
         if (!rowData) {
             return;
@@ -230,9 +283,9 @@ class Table extends Component {
 
         });
 
-    }
+    };
 
-    singleSelectHandler(rowData, rowIndex) {
+    singleSelectHandler = (rowData, rowIndex) => {
 
         if (!rowData) {
             return;
@@ -257,9 +310,9 @@ class Table extends Component {
 
         });
 
-    }
+    };
 
-    rowTouchTapHandler(rowData, rowIndex, e) {
+    rowClickHandler = (rowData, rowIndex, e) => {
 
         if (!rowData) {
             return;
@@ -270,8 +323,8 @@ class Table extends Component {
             return;
         }
 
-        const {onRowTouchTap} = this.props;
-        onRowTouchTap && onRowTouchTap(rowData, rowIndex, e);
+        const {onRowClick} = this.props;
+        onRowClick && onRowClick(rowData, rowIndex, e);
 
         const {selectMode} = this.props;
 
@@ -284,21 +337,21 @@ class Table extends Component {
                 return;
         }
 
-    }
+    };
 
-    cellTouchTapHandler(data, rowIndex, colIndex, e) {
+    cellClickHandler = (data, rowIndex, colIndex, e) => {
 
         const {disabled} = this.props;
         if (disabled) {
             return;
         }
 
-        const {onCellTouchTap} = this.props;
-        onCellTouchTap && onCellTouchTap(data, rowIndex, colIndex, e);
+        const {onCellClick} = this.props;
+        onCellClick && onCellClick(data, rowIndex, colIndex, e);
 
-    }
+    };
 
-    calSelectedCount() {
+    calSelectedCount = () => {
 
         const {selectMode} = this.props,
             {value} = this.state;
@@ -312,9 +365,9 @@ class Table extends Component {
 
         return 0;
 
-    }
+    };
 
-    paggingData(data) {
+    paggingData = data => {
 
         const {pagging} = this.state,
             {pageSize, page} = pagging,
@@ -328,23 +381,37 @@ class Table extends Component {
 
         return data.slice(start, stop);
 
-    }
+    };
 
-    pageChangedHandler(pagging) {
+    pageChangedHandler = pagging => {
 
         if (typeof pagging.pageSize === 'object') {
             pagging.pageSize = pagging.pageSize.value;
         }
 
-        this.setState({
-            pagging
-        }, () => {
+        const {isClearSelectionOnChangePage} = this.props,
+            state = {
+                pagging
+            };
+
+        if (isClearSelectionOnChangePage) {
+            state.value = [];
+        }
+
+        this.setState(state, () => {
+
             this.resetPage(this.props.data, pagging);
+
+            if (isClearSelectionOnChangePage) {
+                const {onChange} = this.props;
+                onChange && onChange(state.value);
+            }
+
         });
 
-    }
+    };
 
-    resetPage(data = this.props.data, pagging = this.state.pagging) {
+    resetPage = (data = this.props.data, pagging = this.state.pagging) => {
 
         const {onPageChange} = this.props;
         let {page, pageSize} = pagging,
@@ -365,58 +432,52 @@ class Table extends Component {
 
         onPageChange && onPageChange(page, pageSize);
 
-    }
+    };
 
-    handleColumns(columns = this.props.columns) {
+    handleColumns = (columns = this.props.columns) => {
 
         const {
                 hasLineNumber, disabled,
                 selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls
             } = this.props,
-            {value} = this.state,
-            self = this;
+            {value} = this.state;
 
-        let finalColumns = _.cloneDeep(columns);
+        let finalColumns = cloneDeep(columns);
 
         if (selectMode === SelectMode.MULTI_SELECT) {
             finalColumns.unshift({
                 headerClassName: 'table-select-th',
-                header() {
-                    return <Checkbox className="table-select"
-                                     theme={selectTheme}
-                                     checked={self.isHeadChecked()}
-                                     disabled={disabled}
-                                     indeterminate={self.isHeadIndeterminate()}
-                                     uncheckedIconCls={checkboxUncheckedIconCls}
-                                     checkedIconCls={checkboxCheckedIconCls}
-                                     indeterminateIconCls={checkboxIndeterminateIconCls}
-                                     onChange={self.headCheckBoxChangeHandler}/>;
-                },
+                header: () =>
+                    <Checkbox className="table-select"
+                              theme={selectTheme}
+                              checked={this.isHeadChecked()}
+                              disabled={disabled}
+                              indeterminate={this.isHeadIndeterminate()}
+                              uncheckedIconCls={checkboxUncheckedIconCls}
+                              checkedIconCls={checkboxCheckedIconCls}
+                              indeterminateIconCls={checkboxIndeterminateIconCls}
+                              onChange={this.headCheckBoxChangeHandler}/>,
                 cellClassName: 'table-select-td',
-                renderer(rowData) {
-                    return <Checkbox className="table-select"
-                                     theme={selectTheme}
-                                     checked={self.isItemChecked(rowData, value)}
-                                     disabled={disabled || rowData.disabled}
-                                     uncheckedIconCls={checkboxUncheckedIconCls}
-                                     checkedIconCls={checkboxCheckedIconCls}
-                                     indeterminateIconCls={checkboxIndeterminateIconCls}/>;
-                }
+                renderer: rowData =>
+                    <Checkbox className="table-select"
+                              theme={selectTheme}
+                              checked={this.isItemChecked(rowData, value)}
+                              disabled={disabled || rowData.disabled}
+                              uncheckedIconCls={checkboxUncheckedIconCls}
+                              checkedIconCls={checkboxCheckedIconCls}
+                              indeterminateIconCls={checkboxIndeterminateIconCls}/>
             });
         } else if (selectMode === SelectMode.SINGLE_SELECT && (radioUncheckedIconCls || radioCheckedIconCls)) {
             finalColumns.unshift({
                 cellClassName: 'table-select-td',
-                renderer(rowData) {
-                    return (
-                        <Radio className="table-select"
-                               theme={selectTheme}
-                               checked={self.isItemChecked(rowData, value)}
-                               disabled={disabled || rowData.disabled}
-                               uncheckedIconCls={radioUncheckedIconCls}
-                               checkedIconCls={radioCheckedIconCls}/>
-                    );
-                }
+                renderer: rowData =>
+                    <Radio className="table-select"
+                           theme={selectTheme}
+                           checked={this.isItemChecked(rowData, value)}
+                           disabled={disabled || rowData.disabled}
+                           uncheckedIconCls={radioUncheckedIconCls}
+                           checkedIconCls={radioCheckedIconCls}/>
             });
         }
 
@@ -432,6 +493,11 @@ class Table extends Component {
 
         return finalColumns;
 
+    };
+
+    componentDidMount() {
+        const {onDataUpdate} = this.props;
+        onDataUpdate && onDataUpdate(this.getCurrentPageData());
     }
 
     componentWillReceiveProps(nextProps) {
@@ -452,21 +518,28 @@ class Table extends Component {
 
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        const {onDataUpdate} = this.props;
+        onDataUpdate && onDataUpdate(this.getCurrentPageData());
+    }
+
     render() {
 
         const {
 
-                className, style, data, pageSizes, disabled, selectMode,
+                className, style, data, pageSizes, disabled, selectMode, emptyText,
 
                 sortAscIconCls, sortDescIconCls,
                 paggingPrevIconCls, paggingNextIconCls, paggingFirstIconCls, paggingLastIconCls,
 
                 idProp, isPagging, useFullPagging, paggingSelectedCountVisible, paggingPageSizeVisible,
+                paggingCountRenderer,
 
                 // not passing down these props
-                defaultSortType, defaultPageSize, sortInitConfig, onPageChange, hasLineNumber,
-                columns, selectTheme, radioUncheckedIconCls, radioCheckedIconCls,
-                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
+                defaultSortType, defaultPageSize, sortInitConfig, onPageChange, hasLineNumber, columns, selectTheme,
+                radioUncheckedIconCls, radioCheckedIconCls, checkboxUncheckedIconCls, checkboxCheckedIconCls,
+                checkboxIndeterminateIconCls, selectAllMode, isClearSelectionOnChangePage, sortFunc, onSort,
+                onDataUpdate,
 
                 ...restProps
 
@@ -504,16 +577,23 @@ class Table extends Component {
 
                         {
                             finalData && finalDataCount > 0 ?
-                                <Tbody columns={finalColumns}
-                                       data={finalData}
-                                       idProp={idProp}
-                                       value={value}
-                                       selectMode={selectMode}
-                                       disabled={disabled}
-                                       onRowTouchTap={this.rowTouchTapHandler}
-                                       onCellTouchTap={this.cellTouchTapHandler}/>
+                                <TableBody columns={finalColumns}
+                                           data={finalData}
+                                           idProp={idProp}
+                                           value={value}
+                                           selectMode={selectMode}
+                                           disabled={disabled}
+                                           onRowClick={this.rowClickHandler}
+                                           onCellClick={this.cellClickHandler}/>
                                 :
-                                null
+                                <tbody className="table-body">
+                                    <tr className="table-row">
+                                        <td className="table-data empty"
+                                            colSpan={finalColumns.length}>
+                                            {emptyText}
+                                        </td>
+                                    </tr>
+                                </tbody>
                         }
 
                     </table>
@@ -536,6 +616,7 @@ class Table extends Component {
                                          paggingNextIconCls={paggingNextIconCls}
                                          paggingFirstIconCls={paggingFirstIconCls}
                                          paggingLastIconCls={paggingLastIconCls}
+                                         paggingCountRenderer={paggingCountRenderer}
                                          onChange={this.pageChangedHandler}/>
                                 :
                                 <BriefPagging page={pagging.page}
@@ -548,6 +629,7 @@ class Table extends Component {
                                               pageSizeVisible={paggingPageSizeVisible}
                                               paggingPrevIconCls={paggingPrevIconCls}
                                               paggingNextIconCls={paggingNextIconCls}
+                                              paggingCountRenderer={paggingCountRenderer}
                                               onChange={this.pageChangedHandler}/>
                         )
                         :
@@ -558,7 +640,7 @@ class Table extends Component {
         );
 
     }
-};
+}
 
 Table.propTypes = {
 
@@ -581,6 +663,11 @@ Table.propTypes = {
      * The select mode of table.
      */
     selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+
+    /**
+     * The select all mode of table, all or current page.
+     */
+    selectAllMode: PropTypes.oneOf(Util.enumerateValue(SelectAllMode)),
 
     /**
      * The table list data.
@@ -613,11 +700,6 @@ Table.propTypes = {
      * If true,the table will have line number.
      */
     hasLineNumber: PropTypes.bool,
-
-    /**
-     * The function that trigger when select changes.
-     */
-    onSelectChange: PropTypes.func,
 
     /**
      * Children passed into table header.
@@ -682,6 +764,8 @@ Table.propTypes = {
      */
     idProp: PropTypes.string,
 
+    emptyText: PropTypes.string,
+
     /**
      * If true,the table will use Pagging component.
      */
@@ -702,15 +786,11 @@ Table.propTypes = {
      */
     paggingPageSizeVisible: PropTypes.bool,
 
-    /**
-     *
-     */
+    page: PropTypes.number,
     defaultPageSize: PropTypes.number,
-
-    /**
-     *
-     */
     pageSizes: PropTypes.array,
+
+    isClearSelectionOnChangePage: PropTypes.bool,
 
     /**
      * Sort init config.
@@ -743,6 +823,8 @@ Table.propTypes = {
     paggingFirstIconCls: PropTypes.string,
     paggingLastIconCls: PropTypes.string,
 
+    paggingCountRenderer: PropTypes.func,
+
     /**
      * The function that trigger when select one item.
      */
@@ -756,46 +838,44 @@ Table.propTypes = {
     /**
      * The function that trigger when the row is touch-tapped.
      */
-    onRowTouchTap: PropTypes.func,
+    onRowClick: PropTypes.func,
 
     /**
      * The function that trigger when the td is touch-tapped.
      */
-    onCellTouchTap: PropTypes.func,
+    onCellClick: PropTypes.func,
 
+    onSort: PropTypes.func,
     onPageChange: PropTypes.func,
-
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    onDataUpdate: PropTypes.func
 
 };
 
 Table.defaultProps = {
 
-    className: null,
-    style: null,
-
     selectTheme: Theme.DEFAULT,
     selectMode: SelectMode.SINGLE_SELECT,
+    selectAllMode: SelectAllMode.ALL,
 
     columns: [],
     data: [],
-    value: null,
     hasLineNumber: false,
 
     disabled: false,
     idProp: 'id',
+    emptyText: 'No Data',
     isPagging: true,
     useFullPagging: false,
     paggingSelectedCountVisible: false,
     paggingPageSizeVisible: true,
+    page: 0,
     defaultPageSize: 10,
     pageSizes: [5, 10, 15, 20],
+    isClearSelectionOnChangePage: false,
 
     defaultSortType: SortType.ASC,
-    sortInitConfig: null,
 
-    radioUncheckedIconCls: null,
-    radioCheckedIconCls: null,
     checkboxUncheckedIconCls: 'far fa-square',
     checkboxCheckedIconCls: 'fas fa-check-square',
     checkboxIndeterminateIconCls: 'fas fa-minus-square'

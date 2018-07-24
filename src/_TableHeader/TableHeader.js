@@ -12,15 +12,10 @@ import TableHeaderSortIcon from '../_TableHeaderSortIcon';
 class TableHeader extends Component {
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.headerRenderer = ::this.headerRenderer;
-        this.touchTapHandler = ::this.touchTapHandler;
-
     }
 
-    headerRenderer() {
+    headerRenderer = () => {
 
         const {header, colIndex} = this.props;
 
@@ -31,13 +26,12 @@ class TableHeader extends Component {
                 return header;
         }
 
-    }
+    };
 
-    touchTapHandler(e) {
-        e.preventDefault();
+    clickHandler = () => {
         const {sortable, onSort} = this.props;
         sortable && onSort && onSort();
-    }
+    };
 
     render() {
 
@@ -58,7 +52,7 @@ class TableHeader extends Component {
             <th className={tableHeaderClassName}
                 style={style}
                 title={typeof header === 'string' ? header : null}
-                onTouchTap={this.touchTapHandler}>
+                onClick={this.clickHandler}>
 
                 <div className="table-header-inner">
 
@@ -80,7 +74,7 @@ class TableHeader extends Component {
         );
 
     }
-};
+}
 
 TableHeader.propTypes = {
 
@@ -101,17 +95,9 @@ TableHeader.propTypes = {
 };
 
 TableHeader.defaultProps = {
-
-    className: null,
-    style: null,
-
-    header: null,
     colIndex: 0,
     sortable: false,
-    sortProp: null,
-    sort: null,
     hidden: false
-
 };
 
 export default TableHeader;

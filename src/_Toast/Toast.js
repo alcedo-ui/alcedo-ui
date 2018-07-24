@@ -10,8 +10,9 @@ import classNames from 'classnames';
 
 import RaisedButton from '../RaisedButton';
 
-import Util from '../_vendors/Util';
 import MsgType from '../_statics/MsgType';
+
+import Util from '../_vendors/Util';
 
 class Toast extends Component {
 
@@ -28,12 +29,9 @@ class Toast extends Component {
             leave: false
         };
 
-        this.getIconCls = ::this.getIconCls;
-        this.touchTapHandler = ::this.touchTapHandler;
-
     }
 
-    getIconCls() {
+    getIconCls = () => {
         switch (this.props.type) {
             case MsgType.SUCCESS:
                 return 'fas fa-check-circle';
@@ -44,13 +42,12 @@ class Toast extends Component {
             default:
                 return 'fas fa-info-circle';
         }
-    }
+    };
 
-    touchTapHandler(e) {
-        e.preventDefault();
+    clickHandler = e => {
         const {onRequestClose, toastsId} = this.props;
         onRequestClose && onRequestClose(toastsId);
-    }
+    };
 
     componentDidMount() {
 
@@ -103,11 +100,11 @@ class Toast extends Component {
                           theme={type}
                           iconCls={`${iconCls ? iconCls : this.getIconCls()} toast-icon`}
                           value={message}
-                          onTouchTap={this.touchTapHandler}/>
+                          onClick={this.clickHandler}/>
         );
 
     }
-};
+}
 
 Toast.propTypes = {
 
@@ -148,16 +145,9 @@ Toast.propTypes = {
 };
 
 Toast.defaultProps = {
-
-    className: '',
-    style: null,
-
     toastsId: 0,
     type: MsgType.INFO,
-    message: '',
-    iconCls: '',
     duration: 2500
-
 };
 
 export default Toast;

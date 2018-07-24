@@ -37,7 +37,7 @@ class MaterialFieldSeparator extends Component {
             </div>
         );
     }
-};
+}
 
 MaterialFieldSeparator.propTypes = {
 
@@ -53,8 +53,6 @@ MaterialFieldSeparator.propTypes = {
 
 MaterialFieldSeparator.defaultProps = {
 
-    className: '',
-    style: null,
     theme: Theme.DEFAULT,
 
     isHover: false,

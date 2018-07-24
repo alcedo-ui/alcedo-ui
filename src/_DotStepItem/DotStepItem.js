@@ -10,17 +10,13 @@ import classNames from 'classnames';
 class DotStepItem extends Component {
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.touchTapHandler = ::this.touchTapHandler;
-
     }
 
-    touchTapHandler() {
-        const {activatedStep, finishedStep, index, onTouchTap} = this.props;
-        activatedStep !== index && finishedStep >= index && onTouchTap(index);
-    }
+    clickHandler = () => {
+        const {activatedStep, finishedStep, index, onClick} = this.props;
+        activatedStep !== index && finishedStep >= index && onClick(index);
+    };
 
     render() {
 
@@ -33,12 +29,12 @@ class DotStepItem extends Component {
 
         return (
             <div className={itemClassName}
-                 onClick={this.touchTapHandler}
-                 style={style}></div>
+                 style={style}
+                 onClick={this.clickHandler}></div>
         );
 
     }
-};
+}
 
 DotStepItem.propTypes = {
 
@@ -70,19 +66,14 @@ DotStepItem.propTypes = {
     /**
      * Callback function fired when step change.
      */
-    onTouchTap: PropTypes.func
+    onClick: PropTypes.func
 
 };
 
 DotStepItem.defaultProps = {
-
-    className: '',
-    style: null,
-
     index: 0,
     activatedStep: 0,
     finishedStep: 0
-
 };
 
 export default DotStepItem;

@@ -27,14 +27,9 @@ class TouchRipple extends Component {
             ripples: []
         };
 
-        this.getRippleStyle = ::this.getRippleStyle;
-        this.addRipple = ::this.addRipple;
-        this.removeRipple = ::this.removeRipple;
-        this.mouseDownHandle = ::this.mouseDownHandle;
-
     }
 
-    getRippleStyle(e) {
+    getRippleStyle = e => {
 
         const {displayCenter} = this.props,
 
@@ -42,7 +37,6 @@ class TouchRipple extends Component {
 
             elWidth = el.offsetWidth,
             elHeight = el.offsetHeight;
-
 
         // get pointer offset of el
         let pointerX, pointerY;
@@ -75,9 +69,9 @@ class TouchRipple extends Component {
             left: left
         };
 
-    }
+    };
 
-    addRipple(e) {
+    addRipple = e => {
 
         if (this.ignoreNextMouseDown) {
             return;
@@ -97,17 +91,17 @@ class TouchRipple extends Component {
             this.ignoreNextMouseDown = false;
         });
 
-    }
+    };
 
-    removeRipple() {
+    removeRipple = () => {
         this.setState({
             ripples: []
         });
-    }
+    };
 
-    mouseDownHandle(e) {
+    mouseDownHandler = e => {
         this.addRipple(e);
-    }
+    };
 
     render() {
 
@@ -121,7 +115,7 @@ class TouchRipple extends Component {
         return (
             <TransitionGroup className={wrapperClassName}
                              style={style}
-                             onMouseDown={this.mouseDownHandle}
+                             onMouseDown={this.mouseDownHandler}
                              onMouseUp={this.removeRipple}
                              onMouseLeave={this.removeRipple}>
                 {
@@ -134,7 +128,7 @@ class TouchRipple extends Component {
         );
 
     }
-};
+}
 
 TouchRipple.propTypes = {
 
@@ -147,13 +141,8 @@ TouchRipple.propTypes = {
 };
 
 TouchRipple.defaultProps = {
-
-    className: '',
-    style: null,
-
     duration: 500,
     displayCenter: false
-
 };
 
 export default TouchRipple;

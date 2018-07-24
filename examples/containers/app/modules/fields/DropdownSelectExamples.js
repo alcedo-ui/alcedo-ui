@@ -10,7 +10,7 @@ import doc from 'assets/propTypes/DropdownSelect.json';
 
 import 'sass/containers/app/modules/fields/DropdownSelectExamples.scss';
 
-export default class DropdownSelectExamples extends Component {
+class DropdownSelectExamples extends Component {
 
     constructor(props) {
 
@@ -20,27 +20,34 @@ export default class DropdownSelectExamples extends Component {
             text: 'test2',
             value: 2,
             desc: 'Here is test2.',
-            onTouchTap() {
+            onClick() {
                 console.log('test2 selected!');
             }
         }, 'test3', 'test4', 'test5', {
             text: 'test6',
             value: 6,
             desc: 'Here is test6.',
-            onTouchTap() {
+            onClick() {
                 console.log('test6 selected!');
             }
         }, 'test7', 'test8', 'test9'];
 
-        this.onChange = ::this.onChange;
-
     }
 
-    onChange(value) {
+    onChange = value => {
         console.log(value);
-    }
+    };
 
     render() {
+
+        const data = ['a000', 'booo', {
+            text: 'c000',
+            value: 2,
+            desc: 'Here is test2.'
+        }, 'dtest3', 'etest4', 'ftest5', {
+            text: 'test6',
+            value: 6
+        }, 'hhhh', 'yywe', 'people'];
 
         return (
             <div className="example drop-down-select-examples">
@@ -48,7 +55,8 @@ export default class DropdownSelectExamples extends Component {
                 <h2 className="example-title">Dropdown Select</h2>
 
                 <p>
-                    <span>Dropdown Select</span> use to store operating elements. Click on the contact
+                    <span>Dropdown Select</span>
+                    use to store operating elements. Click on the contact
                     and a drop-down menu will appear. You can select from the list and execute the appropriate command.
                 </p>
 
@@ -126,8 +134,11 @@ export default class DropdownSelectExamples extends Component {
                                     <DropdownSelect data={this.data}
                                                     useFilter={true}
                                                     useSelectAll={true}
+                                                    selectAllText="All Example Items"
                                                     selectMode={DropdownSelect.SelectMode.MULTI_SELECT}
                                                     autoClose={false}
+                                                    checkboxUncheckedIconCls={'far fa-window-close'}
+                                                    checkboxCheckedIconCls={'fas fa-window-close'}
                                                     onChange={this.onChange}/>
 
                                 </div>
@@ -170,6 +181,31 @@ export default class DropdownSelectExamples extends Component {
 
                 </Widget>
 
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Self defined theme"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>Set the <code>autoClose</code> property to false,the select list will not close when
+                                    choose one item.</p>
+
+                                <div className="field-group">
+                                    <DropdownSelect data={data}
+                                                    isHiddenInputFilter={true}
+                                                    onChange={this.onChange}/>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
                 <h2 className="example-title">Properties</h2>
 
                 <PropTypeDescTable data={doc}/>
@@ -178,3 +214,5 @@ export default class DropdownSelectExamples extends Component {
         );
     }
 };
+
+export default DropdownSelectExamples;

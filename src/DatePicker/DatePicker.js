@@ -6,53 +6,53 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
-import Position from '../_statics/Position';
 
-import TextField from '../TextField';
+import TextField from '../_DatePickerTextField';
 import DayPicker from '../_DayPicker';
 import MonthPicker from '../_MonthPicker';
 import YearPicker from '../_YearPicker';
 import Popup from '../Popup';
 
+import FlatButton from '../FlatButton';
+import {findDOMNode} from 'react-dom';
+import DropdownCalculation from '../_vendors/DropdownCalculation';
+import Theme from '../Theme';
+import Position from '../_statics/Position';
+
 class DatePicker extends Component {
+
+    static Theme = Theme;
+    static Position = Position;
 
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
 
         this.validValue = true;
-        const defaultValue = props.value ? props.value: moment().format('YYYY-MM-DD');
+
+        const defaultValue = props.value ? props.value : moment().format('YYYY-MM-DD');
 
         this.state = {
             value: props.value,
             popupVisible: false,
-            triggerEl: null,
+            isAbove: false,
             year: moment(defaultValue).format('YYYY'),
             month: moment(defaultValue).format('MM'),
             day: moment(defaultValue).format('DD'),
             datePickerLevel: 'day'
         };
 
-        this.textFieldChangeHandle = ::this.textFieldChangeHandle;
-        this.togglePopup = ::this.togglePopup;
-        this.closePopup = ::this.closePopup;
-        this.datePickerChangeHandle = ::this.datePickerChangeHandle;
-        this.yearPickerChangeHandle = ::this.yearPickerChangeHandle;
-        this.monthPickerChangeHandle = ::this.monthPickerChangeHandle;
-        this.dayPickerChangeHandle = ::this.dayPickerChangeHandle;
-        this.todayHandle = ::this.todayHandle;
-
     }
 
-    datePickerChangeHandle(selectLevel) {
+    datePickerChangeHandle = selectLevel => {
         this.setState({
             datePickerLevel: selectLevel
         });
-    }
+    };
 
-    textFieldChangeHandle(text) {
+    textFieldChangeHandle = text => {
         const {minValue, maxValue, dateFormat} = this.props;
         if (text && text.length) {
             const flag = moment(text, this.props.dateFormat, true).isValid();
@@ -78,11 +78,11 @@ class DatePicker extends Component {
                 value: ''
             });
         }
-    }
+    };
 
-    dayPickerChangeHandle(date) {
+    dayPickerChangeHandle = date => {
         const {autoClose, dateFormat} = this.props;
-        let state = _.cloneDeep(this.state);
+        let state = cloneDeep(this.state);
         state.value = moment(date.time, dateFormat);
         state.year = date.year;
         state.month = date.month;
@@ -95,24 +95,24 @@ class DatePicker extends Component {
                 this.props.onChange && this.props.onChange(moment(date.time).format(dateFormat));
             });
         }
-    }
+    };
 
-    monthPickerChangeHandle(date) {
+    monthPickerChangeHandle = date => {
         this.setState({
             datePickerLevel: 'day',
             year: date.year,
             month: date.month
         });
-    }
+    };
 
-    yearPickerChangeHandle(year) {
+    yearPickerChangeHandle = year => {
         this.setState({
             datePickerLevel: 'month',
             year: year
         });
-    }
+    };
 
-    todayHandle() {
+    todayHandle = () => {
         const {dateFormat} = this.props;
         const year = moment().format('YYYY'),
             month = moment().format('MM'),
@@ -124,42 +124,45 @@ class DatePicker extends Component {
             month: month,
             day: day
         });
-    }
+    };
 
-    togglePopup(e) {
+    togglePopup = e => {
         if (this.validValue) {
             this.setState({
-                popupVisible: !this.state.popupVisible,
-                triggerEl: e.target
+                popupVisible: !this.state.popupVisible
             });
         }
-    }
+    };
 
-    closePopup() {
+    closePopup = () => {
+        // debugger
         const {value} = this.state;
         !this.props.disabled && this.setState({
             popupVisible: false
         }, () => {
             this.props.onChange && this.props.onChange(value && moment(value).format(this.props.dateFormat));
         });
-    }
+    };
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value && nextProps.value !== this.props.value || nextProps.dateFormat !== this.props.dateFormat) {
+    popupRenderHandler = popupEl => {
+
+        if (this.props.position) {
+            return;
+        }
+
+        const isAbove = DropdownCalculation.isAbove(this.dropdownEl, this.triggerEl, findDOMNode(popupEl));
+        if (isAbove !== this.state.isAbove) {
             this.setState({
-                value: moment(nextProps.value, nextProps.dateFormat),
-                dateFormat: nextProps.dateFormat,
-                year: moment(nextProps.value).format('YYYY'),
-                month: moment(nextProps.value).format('MM'),
-                day: moment(nextProps.value).format('DD')
+                isAbove
             });
         }
-    }
+
+    };
 
     componentDidMount() {
         // debugger
         const {value, dateFormat} = this.props;
-        let state = _.cloneDeep(this.state);
+        let state = cloneDeep(this.state);
         if (value) {
             // debugger
             if (moment(value, dateFormat).isValid()) {
@@ -176,12 +179,28 @@ class DatePicker extends Component {
                 console.error('Invalid date');
             }
         }
+
+        this.datePicker = this.refs.datePicker;
+        this.triggerEl = findDOMNode(this.refs.trigger);
     }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.value && nextProps.value !== this.props.value || nextProps.dateFormat !== this.props.dateFormat) {
+            this.setState({
+                value: moment(nextProps.value, nextProps.dateFormat),
+                dateFormat: nextProps.dateFormat,
+                year: moment(nextProps.value).format('YYYY'),
+                month: moment(nextProps.value).format('MM'),
+                day: moment(nextProps.value).format('DD')
+            });
+        }
+    }
+
 
     render() {
 
         const {className, name, placeholder, dateFormat, maxValue, minValue, isFooter, position} = this.props,
-            {value, popupVisible, datePickerLevel, year, month, day, triggerEl} = this.state,
+            {value, popupVisible, datePickerLevel, year, month, day, isAbove} = this.state,
 
             pickerClassName = classNames('date-picker', {
                 [className]: className
@@ -194,30 +213,28 @@ class DatePicker extends Component {
                  className={pickerClassName}>
 
                 <TextField className="date-picker-field"
+                           ref="trigger"
                            name={name}
                            placeholder={placeholder}
                            value={textValue}
-                           readOnly={true}
+                           readOnly={!popupVisible}
+                           popupVisible={popupVisible}
                            clearButtonVisible={false}
-                           isFocusedSelectAll={false}
-                           onTouchTap={e => {
+                           isFocusedSelectAll={popupVisible}
+                           onClick={e => {
                                this.togglePopup(e);
-                           }}/>
+                           }}
+                           onChange={this.textFieldChangeHandle}/>
 
                 <Popup className={`date-picker-popup`}
                        visible={popupVisible}
-                       triggerEl={triggerEl}
+                       triggerEl={this.triggerEl}
                        hasTriangle={false}
-                       position={position}
+                       position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
+                       onRender={this.popupRenderHandler}
                        onRequestClose={() => {
                            this.closePopup();
                        }}>
-
-                    <TextField className='calendar-input'
-                               placeholder={placeholder}
-                               clearButtonVisible={false}
-                               value={textValue}
-                               onChange={this.textFieldChangeHandle}/>
 
                     {
                         datePickerLevel == 'day' ?
@@ -233,26 +250,26 @@ class DatePicker extends Component {
                                 onChange={this.dayPickerChangeHandle}
                                 previousClick={this.datePickerChangeHandle}/>
                             : (
-                            datePickerLevel == 'month' ?
-                                <MonthPicker
-                                    value={value}
-                                    year={year}
-                                    month={month}
-                                    day={day}
-                                    maxValue={maxValue}
-                                    minValue={minValue}
-                                    onChange={this.monthPickerChangeHandle}
-                                    previousClick={this.datePickerChangeHandle}/>
-                                :
-                                <YearPicker
-                                    value={value}
-                                    year={year}
-                                    month={month}
-                                    day={day}
-                                    maxValue={maxValue}
-                                    minValue={minValue}
-                                    onChange={this.yearPickerChangeHandle}/>
-                        )
+                                datePickerLevel == 'month' ?
+                                    <MonthPicker
+                                        value={value}
+                                        year={year}
+                                        month={month}
+                                        day={day}
+                                        maxValue={maxValue}
+                                        minValue={minValue}
+                                        onChange={this.monthPickerChangeHandle}
+                                        previousClick={this.datePickerChangeHandle}/>
+                                    :
+                                    <YearPicker
+                                        value={value}
+                                        year={year}
+                                        month={month}
+                                        day={day}
+                                        maxValue={maxValue}
+                                        minValue={minValue}
+                                        onChange={this.yearPickerChangeHandle}/>
+                            )
                     }
 
                     {
@@ -265,9 +282,11 @@ class DatePicker extends Component {
                                             <span className="item-gray">Today</span>
                                         </a>
                                         :
-                                        <a href="javascript:;" onClick={this.todayHandle}>
-                                            Today
-                                        </a>
+                                        <FlatButton className='today-button'
+                                                    value={'Today'}
+                                                    onClick={this.todayHandle}
+                                        />
+
                                 }
                             </div>
                             :
@@ -279,7 +298,6 @@ class DatePicker extends Component {
         );
     }
 }
-;
 
 DatePicker.propTypes = {
 
@@ -336,16 +354,13 @@ DatePicker.propTypes = {
 };
 
 DatePicker.defaultProps = {
-    className: '',
-    style: null,
     name: '',
     maxValue: '',
     minValue: '',
     placeholder: 'Date',
     dateFormat: 'YYYY-MM-DD',
     autoClose: true,
-    isFooter: true,
-    position: Position.BOTTOM_LEFT
+    isFooter: true
 };
 
 export default DatePicker;

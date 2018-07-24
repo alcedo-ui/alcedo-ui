@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 
 import RaisedButton from 'src/RaisedButton';
 import DownloadField from 'src/DownloadField';
@@ -10,19 +10,17 @@ import doc from 'assets/propTypes/DownloadField.json';
 
 import 'sass/containers/app/modules/fields/DownloadFieldExamples.scss';
 
-export default class DownloadFieldExamples extends Component {
+class DownloadFieldExamples extends Component {
+
+    downloadFieldRef = createRef();
 
     constructor(props) {
-
         super(props);
-
-        this.download = ::this.download;
-
     }
 
-    download() {
-        this.refs.downloadField.download();
-    }
+    download = () => {
+        this.downloadFieldRef.current.download();
+    };
 
     render() {
 
@@ -49,7 +47,7 @@ export default class DownloadFieldExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <DownloadField ref="downloadField"
+                                <DownloadField ref={this.downloadFieldRef}
                                                url={url}
                                                onLoad={(e, innerText) => {
                                                    console.log(e, innerText);
@@ -57,7 +55,7 @@ export default class DownloadFieldExamples extends Component {
 
                                 <RaisedButton value="Download NodeJs"
                                               theme={RaisedButton.Theme.PRIMARY}
-                                              onTouchTap={this.download}/>
+                                              onClick={this.download}/>
 
                             </div>
 
@@ -74,3 +72,5 @@ export default class DownloadFieldExamples extends Component {
         );
     }
 };
+
+export default DownloadFieldExamples;

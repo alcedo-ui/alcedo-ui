@@ -8,18 +8,25 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import MaterialProvider from '../MaterialProvider';
-import Theme from '../Theme';
 import Dropdown from '../Dropdown';
+import Theme from '../Theme';
+
+import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
 
 class MaterialDropdown extends Component {
 
     static Theme = Theme;
+    static Position = Position;
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
     }
+
+    closePopup = () => {
+        this.refs.dropdown && this.refs.dropdown.closePopup();
+    };
 
     render() {
 
@@ -41,13 +48,14 @@ class MaterialDropdown extends Component {
                               disabled={disabled}
                               required={required}>
                 <Dropdown {...restProps}
+                          ref="dropdown"
                           className="material-dropdown-content"
                           disabled={disabled}/>
             </MaterialProvider>
         );
 
     }
-};
+}
 
 MaterialDropdown.propTypes = {
 
@@ -91,6 +99,8 @@ MaterialDropdown.propTypes = {
      */
     popupTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
+
     /**
      * The label of the dropdown.
      */
@@ -110,6 +120,10 @@ MaterialDropdown.propTypes = {
      * The placeholder of the dropDown trigger.
      */
     placeholder: PropTypes.string,
+
+    title: PropTypes.string,
+
+    triggerRenderer: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
 
     rightIconCls: PropTypes.string,
 
@@ -138,24 +152,17 @@ MaterialDropdown.propTypes = {
     onBlur: PropTypes.func,
     onMouseOver: PropTypes.func,
     onMouseOut: PropTypes.func,
-    onTriggerTouchTap: PropTypes.func
+    onTriggerClick: PropTypes.func
 
 };
 
 MaterialDropdown.defaultProps = {
 
-    className: null,
-    triggerClassName: null,
-    popupClassName: null,
-    style: null,
-    triggerStyle: null,
-    popupStyle: null,
     theme: Theme.DEFAULT,
     popupTheme: Theme.DEFAULT,
 
     label: '',
     isLabelAnimate: true,
-    triggerValue: null,
     placeholder: 'Please select ...',
     rightIconCls: 'fas fa-angle-down',
     disabled: false,

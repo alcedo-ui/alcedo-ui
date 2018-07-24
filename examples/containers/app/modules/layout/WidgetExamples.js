@@ -9,7 +9,7 @@ import doc from 'assets/propTypes/Widget.json';
 
 import 'sass/containers/app/modules/layout/WidgetExamples.scss';
 
-export default class WidgetExamples extends Component {
+class WidgetExamples extends Component {
 
     constructor(props) {
         super(props);
@@ -67,3 +67,5 @@ export default class WidgetExamples extends Component {
         );
     }
 };
+
+export default WidgetExamples;

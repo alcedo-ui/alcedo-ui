@@ -1,14 +1,10 @@
 @import '../../../../my-theme.scss';
 
-.popover-examples {
-
-}
-
 .customized-popover {
 
     .customized-popover-triangle {
         position: absolute;
-        left: 0;
+        left: -9px;
         top: 0;
     }
 

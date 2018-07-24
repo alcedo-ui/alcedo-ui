@@ -14,7 +14,7 @@ import doc from 'examples/assets/propTypes/Tip.json';
 import 'sass/containers/app/modules/pop/PopExamples.scss';
 import 'sass/containers/app/modules/pop/TipExamples.scss';
 
-export default class TipExamples extends Component {
+class TipExamples extends Component {
 
     constructor(props) {
 
@@ -25,12 +25,9 @@ export default class TipExamples extends Component {
             triggerEl: {}
         };
 
-        this.showTip = ::this.showTip;
-        this.hideTip = ::this.hideTip;
-
     }
 
-    showTip(id) {
+    showTip = id => {
 
         const {tipVisible} = this.state;
 
@@ -40,9 +37,9 @@ export default class TipExamples extends Component {
             tipVisible
         });
 
-    }
+    };
 
-    hideTip(id) {
+    hideTip = id => {
 
         const {tipVisible} = this.state;
 
@@ -52,7 +49,7 @@ export default class TipExamples extends Component {
             tipVisible
         });
 
-    }
+    };
 
     componentDidMount() {
 
@@ -362,3 +359,5 @@ export default class TipExamples extends Component {
         );
     }
 };
+
+export default TipExamples;

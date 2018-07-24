@@ -11,11 +11,12 @@ import List from '../List';
 import Theme from '../Theme';
 import Tip from '../Tip';
 
+import SelectMode from '../_statics/SelectMode';
+import LIST_SEPARATOR from '../_statics/ListSeparator';
+
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import Calculation from '../_vendors/Calculation';
-import SelectMode from '../_statics/SelectMode';
-import LIST_SEPARATOR from '../_statics/ListSeparator';
 
 class GroupList extends Component {
 
@@ -54,28 +55,20 @@ class GroupList extends Component {
             <div className={listClassName}
                  style={style}
                  disabled={disabled}
-                 onWheel={e => {
-                     Event.wheelHandler(e, this.props);
-                 }}>
+                 onWheel={e => Event.wheelHandler(e, this.props)}>
 
                 {
-                    data && data.map((item, index) => {
-
-                        if (item === LIST_SEPARATOR) {
-                            return <div key={index}
-                                        className="list-separator"></div>;
-                        }
-
-                        return (
-                            <div key={index}>
-                                <div className="group-list-group-title">{item.name}</div>
-                                <List {...restProps}
-                                      data={item.children}
-                                      value={value}/>
-                            </div>
-                        );
-
-                    })
+                    data && data.map((item, index) => item === LIST_SEPARATOR ?
+                        <div key={index}
+                             className="list-separator"></div>
+                        :
+                        <div key={index}>
+                            <div className="group-list-group-title">{item.name}</div>
+                            <List {...restProps}
+                                  data={item.children}
+                                  value={value}/>
+                        </div>
+                    )
                 }
 
                 {children}
@@ -84,7 +77,7 @@ class GroupList extends Component {
         );
 
     }
-};
+}
 
 GroupList.propTypes = {
 
@@ -196,7 +189,7 @@ GroupList.propTypes = {
             /**
              * Callback function fired when a list item touch-tapped.
              */
-            onTouchTap: PropTypes.func
+            onClick: PropTypes.func
 
         }), PropTypes.string, PropTypes.number]))
 
@@ -253,7 +246,7 @@ GroupList.propTypes = {
     /**
      * Callback function fired when the list-item select.
      */
-    onItemTouchTap: PropTypes.func,
+    onItemClick: PropTypes.func,
 
     /**
      * Callback function fired when the list changed.
@@ -269,8 +262,6 @@ GroupList.propTypes = {
 
 GroupList.defaultProps = {
 
-    className: null,
-    style: null,
     theme: Theme.DEFAULT,
     selectTheme: Theme.DEFAULT,
 

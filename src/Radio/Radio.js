@@ -11,8 +11,9 @@ import IconButton from '../IconButton';
 import Theme from '../Theme';
 import TipProvider from '../TipProvider';
 
-import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
+
+import Util from '../_vendors/Util';
 
 class Radio extends Component {
 
@@ -26,17 +27,22 @@ class Radio extends Component {
             checked: !!props.checked
         };
 
-        this.touchTapHandler = ::this.touchTapHandler;
-        this.mouseDownHandler = ::this.mouseDownHandler;
-        this.mouseUpHandler = ::this.mouseUpHandler;
-
     }
 
-    touchTapHandler() {
+    clickHandler = e => {
+
+        const {disabled, onClick} = this.props;
+
+        if (disabled) {
+            return;
+        }
+
+        onClick && onClick(e);
 
         let {checked} = this.state;
-
         if (checked) {
+            const {onCheck} = this.props;
+            onCheck && onCheck(e);
             return;
         }
 
@@ -47,24 +53,24 @@ class Radio extends Component {
             const {onChange, onCheck} = this.props;
 
             onChange && onChange(true);
-            onCheck && onCheck();
+            onCheck && onCheck(e);
 
         });
 
-    }
+    };
 
-    mouseDownHandler(e) {
+    mouseDownHandler = e => {
 
         if (this.props.disabled) {
             return;
         }
 
         this.refs.radioIcon.startRipple(e);
-        this.touchTapHandler();
+        this.clickHandler();
 
-    }
+    };
 
-    mouseUpHandler(e) {
+    mouseUpHandler = e => {
 
         if (this.props.disabled) {
             return;
@@ -72,7 +78,7 @@ class Radio extends Component {
 
         this.refs.radioIcon.endRipple(e);
 
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.checked !== this.state.checked) {
@@ -117,16 +123,15 @@ class Radio extends Component {
                             null
                     }
 
-                    <div className="radio-icon-wrapper">
+                    <div className="radio-icon-wrapper"
+                         onClick={this.clickHandler}>
                         <IconButton ref="radioIcon"
                                     className="radio-bg-icon"
                                     iconCls={uncheckedIconCls}
-                                    onTouchTap={this.touchTapHandler}
                                     disabled={disabled}
                                     disableTouchRipple={disableTouchRipple}/>
                         <IconButton className="radio-icon"
                                     iconCls={checkedIconCls}
-                                    onTouchTap={this.touchTapHandler}
                                     disabled={disabled}
                                     disableTouchRipple={disableTouchRipple}/>
                     </div>
@@ -149,7 +154,7 @@ class Radio extends Component {
         );
 
     }
-};
+}
 
 Radio.propTypes = {
 
@@ -209,26 +214,22 @@ Radio.propTypes = {
      */
     onChange: PropTypes.func,
 
-    onCheck: PropTypes.func
+    onCheck: PropTypes.func,
+    onClick: PropTypes.func
 
 };
 
 Radio.defaultProps = {
 
-    className: null,
-    style: null,
     theme: Theme.DEFAULT,
 
-    name: null,
-    label: null,
-    value: null,
+    value: '',
     checked: false,
     uncheckedIconCls: 'far fa-circle',
     checkedIconCls: 'fas fa-dot-circle',
     disabled: false,
     disableTouchRipple: false,
 
-    tip: null,
     tipPosition: Position.BOTTOM
 
 };

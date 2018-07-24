@@ -8,7 +8,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/MaterialProvider.json';
 
-export default class MaterialProviderExamples extends Component {
+class MaterialProviderExamples extends Component {
 
     constructor(props) {
         super(props);
@@ -56,3 +56,5 @@ export default class MaterialProviderExamples extends Component {
         );
     }
 };
+
+export default MaterialProviderExamples;

@@ -1,7 +1,3 @@
-import ColorPicker from '../src/ColorPicker/ColorPicker';
-import AutoCompleteFilter from '../src/AutoCompleteFilter/AutoCompleteFilter';
-import MaterialAutoCompleteFilter from '../src/MaterialAutoCompleteFilter/MaterialAutoCompleteFilter';
-
 export default [{
     text: 'Button',
     children: [{
@@ -68,8 +64,11 @@ export default [{
         text: 'TextField',
         route: '/components/TextField'
     }, {
-        text: 'CascaderField',
-        route: '/components/CascaderField'
+        text: 'CascaderSelect',
+        route: '/components/CascaderSelect'
+    }, {
+        text: 'MaterialCascaderSelect',
+        route: '/components/MaterialCascaderSelect'
     }, {
         text: 'TextArea',
         route: '/components/TextArea'
@@ -289,6 +288,9 @@ export default [{
     }, {
         text: 'Popover',
         route: '/components/Popover'
+    }, {
+        text: 'Drawer',
+        route: '/components/Drawer'
     }, {
         text: 'Tip',
         route: '/components/Tip'

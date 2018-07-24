@@ -9,7 +9,7 @@ import doc from 'assets/propTypes/EditableSelect.json';
 
 import 'sass/containers/app/modules/fields/EditableSelectExamples.scss';
 
-export default class EditableSelectExamples extends Component {
+class EditableSelectExamples extends Component {
 
     constructor(props) {
 
@@ -19,14 +19,14 @@ export default class EditableSelectExamples extends Component {
             text: 'test2',
             value: 2,
             desc: 'Here is test2.',
-            onTouchTap() {
+            onClick() {
                 console.log('test2 selected!');
             }
         }, {value: 3, text: 'test3'}, {value: 4, text: 'test4'}, {value: 5, text: 'test5'}, {
             text: 'test6',
             value: 6,
             desc: 'Here is test6.',
-            onTouchTap() {
+            onClick() {
                 console.log('test6 selected!');
             }
         }, {value: 6, text: 'test6'}, {value: 7, text: 'test7'}, {value: 8, text: 'test8'}];
@@ -63,16 +63,13 @@ export default class EditableSelectExamples extends Component {
             }]
         }];
 
-        this.onChange = this::this.onChange;
-
     }
 
-    onChange(value) {
+    onChange = value => {
         console.log(value);
-    }
+    };
 
     render() {
-
         return (
             <div className="example editable-select-examples">
 
@@ -150,3 +147,5 @@ export default class EditableSelectExamples extends Component {
         );
     }
 };
+
+export default EditableSelectExamples;

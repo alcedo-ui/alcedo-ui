@@ -3,6 +3,21 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+@mixin ghost-button-disabled-style {
+    color: $theme-field-disabled;
+    background-color: transparent;
+    border-color: $theme-border-disabled;
+}
+
+@mixin ghost-button-disabled {
+    @include ghost-button-disabled-style;
+
+    &:hover,
+    &:active {
+        @include ghost-button-disabled-style;
+    }
+}
+
 @mixin ghost-button-theme($color, $activated-color) {
     color: $color;
     border-color: $color;
@@ -16,12 +31,10 @@
         background-color: $color;
         color: $activated-color;
     }
-}
 
-@mixin ghost-button-disabled {
-    color: $theme-field-disabled;
-    background-color: $theme-field-bg-disabled;
-    border-color: $theme-border-disabled;
+    &[disabled] {
+        @include ghost-button-disabled
+    }
 }
 
 .ghost-button {
@@ -30,12 +43,7 @@
     border-style: solid;
 
     &[disabled] {
-        @include ghost-button-disabled;
-
-        &:hover,
-        &:active {
-            @include ghost-button-disabled;
-        }
+        @include ghost-button-disabled
     }
 
     // default theme

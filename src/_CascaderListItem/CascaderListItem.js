@@ -1,100 +1,242 @@
 /**
  * @file CascaderListItem component
- * @author wendy(wendy.wei@derbysoft.com)
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import Theme from '../Theme';
 import List from '../List';
 
-import Valid from '../_vendors/Valid';
+import SelectMode from '../_statics/SelectMode';
+import HorizontalDirection from '../_statics/HorizontalDirection';
+
+import Calculation from '../_vendors/Calculation';
+import Util from '../_vendors/Util';
 
 class CascaderListItem extends Component {
 
+    static SelectMode = SelectMode;
+    static ExpandDirection = HorizontalDirection;
+    static Theme = Theme;
+
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.formatData = ::this.formatData;
-        this.changeHandle = ::this.changeHandle;
-
     }
 
-    formatData(data) {
+    findDataIndex = () => {
 
-        if (!data || data.length < 1) {
-            return data;
+        const {activatedPath, data, valueField, displayField} = this.props;
+
+        for (let dataItem of data) {
+
+            const index = activatedPath.findIndex(item => item
+                && Util.getValueByValueField(item.node, valueField, displayField)
+                === Util.getValueByValueField(dataItem, valueField, displayField));
+
+            if (index > -1) {
+                return index;
+            }
+
         }
 
-        return data.map(item => {
-            if (item.children && item.children.length > 0) {
-                item.rightIconCls = 'fas fa-angle-right';
-            }
-            return item;
-        });
+        return -1;
 
-    }
+    };
 
-    changeHandle(value, index) {
+    getActivatedIndex = () => {
 
-        if (!value) {
+        const {activatedPath, data} = this.props;
+
+        if (!activatedPath || activatedPath.length < 1 || !data) {
+            return -1;
+        }
+
+        const index = this.findDataIndex();
+        return index < 0 ? -1 : activatedPath[index].index;
+
+    };
+
+    isExpanded = (node, index) => {
+        return index === this.getActivatedIndex() && node.children && node.children.length > 0;
+    };
+
+    getCurrentPathNode = (index = this.getActivatedIndex()) => {
+
+        const {data} = this.props;
+
+        return index > -1 ?
+            {index: index, node: data[index]}
+            :
+            null;
+
+    };
+
+    getPath = (index = this.getActivatedIndex()) => {
+
+        const {path} = this.props,
+            currentPathNode = this.getCurrentPathNode(index);
+
+        return path.length > 0 ?
+            [...path, currentPathNode]
+            :
+            [currentPathNode];
+
+    };
+
+    isListItemIndeterminate = node => {
+
+        if (!this.props.isSelectRecursive) {
+            return false;
+        }
+
+        return Calculation.isNodeIndeterminate(node, this.props.value, this.props);
+
+    };
+
+    listItemRenderer = (node, index) => {
+
+        const {expandDirection, valueField, displayField, descriptionField, expandedIconCls, renderer} = this.props;
+
+        let text, desc;
+        if (!renderer) {
+            text = Util.getTextByDisplayField(node, displayField, valueField);
+            desc = node[descriptionField] || null;
+        }
+
+        return (
+            <Fragment>
+
+                {
+                    expandDirection === HorizontalDirection.LEFT && this.isExpanded(node, index) ?
+                        <i className={classNames('cascader-list-item-expand-icon',
+                            expandedIconCls || 'fas fa-chevron-left')}
+                           aria-hidden="true"></i>
+                        :
+                        null
+                }
+
+                {
+                    renderer ?
+                        renderer(node, index)
+                        :
+                        (
+                            desc ?
+                                <div className="list-item-content">
+                                    <div className="list-item-content-value">
+                                        {text}
+                                    </div>
+                                    <div className="list-item-content-desc">
+                                        {desc}
+                                    </div>
+                                </div>
+                                :
+                                text
+                        )
+                }
+
+                {
+                    expandDirection === HorizontalDirection.RIGHT && this.isExpanded(node, index) ?
+                        <i className={classNames('cascader-list-item-expand-icon',
+                            expandedIconCls || 'fas fa-chevron-right')}
+                           aria-hidden="true"></i>
+                        :
+                        null
+                }
+
+            </Fragment>
+        );
+
+    };
+
+    listItemClickHanlder = (node, index, e) => {
+
+        const {data, disabled, isLoading, readOnly} = this.props;
+
+        if (disabled || isLoading || readOnly || data.disabled || data.isLoading || data.readOnly) {
             return;
         }
 
-        const {onChange} = this.props,
-            currDepth = this.props.currDepth || 0;
+        const {onNodeClick} = this.props;
+        onNodeClick && onNodeClick(node, index, this.getPath(index), e);
 
-        let path = this.props.path.slice(0, currDepth + 1);
-        path[currDepth] = {
-            node: value,
-            index
-        };
+    };
 
-        onChange && onChange(path);
+    listItemSelectHanlder = (node, index) => {
+        const {onNodeSelect} = this.props;
+        onNodeSelect && onNodeSelect(node, this.getPath(index));
+    };
 
-    }
+    listItemDeselectHanlder = (node, index) => {
+        const {onNodeDeselect} = this.props;
+        onNodeDeselect && onNodeDeselect(node, this.getPath(index));
+    };
 
     render() {
 
-        const {listWidth, data, valueField, displayField, path, depth} = this.props,
+        const {
 
-            currDepth = this.props.currDepth || 0,
-            activatedNode = currDepth in path ? data[path[currDepth].index] : null,
-            hasChildren = activatedNode && activatedNode.children && activatedNode.children.length > 0,
+                depth, theme, listWidth, selectTheme, selectMode, expandDirection, data, value,
+                disabled, isLoading, readOnly, idField, valueField, displayField, descriptionField,
 
-            listStyle = currDepth === 0 ?
-                {width: listWidth * Valid.range(depth, 1)}
-                :
-                null,
+                radioUncheckedIconCls, radioCheckedIconCls,
+                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls
 
-            popupListClassName = classNames('cascader-popup-list', {
-                first: currDepth === 0,
-                last: currDepth === depth - 1
+            } = this.props,
+            activatedIndex = this.getActivatedIndex(),
+            hasChild = activatedIndex > -1 && data[activatedIndex] && data[activatedIndex].children
+                && data[activatedIndex].children.length > 0,
+
+            wrapperClassName = classNames('cascader-list-item', {
+                expanded: hasChild
             }),
-            popupListStyle = {
-                width: listWidth,
-                zIndex: 99 - currDepth
+
+            listClassName = classNames('cascader-popup-list', {
+                first: depth === 0,
+                'expand-left': expandDirection === HorizontalDirection.LEFT
+            }),
+            listStyle = {
+                width: listWidth
             };
 
         return (
-            <div className="cascader-list-item"
-                 style={listStyle}>
+            <div className={wrapperClassName}>
 
-                <List className={popupListClassName}
-                      style={popupListStyle}
-                      data={this.formatData(data)}
-                      value={activatedNode}
+                <List className={listClassName}
+                      style={listStyle}
+                      theme={theme}
+                      selectTheme={selectTheme}
+                      selectMode={selectMode}
+                      data={data}
+                      value={value}
+                      disabled={disabled}
+                      isLoading={isLoading}
+                      readOnly={readOnly}
+                      idField={idField}
                       valueField={valueField}
                       displayField={displayField}
-                      onChange={this.changeHandle}/>
+                      descriptionField={descriptionField}
+                      radioUncheckedIconCls={radioUncheckedIconCls}
+                      radioCheckedIconCls={radioCheckedIconCls}
+                      checkboxUncheckedIconCls={checkboxUncheckedIconCls}
+                      checkboxCheckedIconCls={checkboxCheckedIconCls}
+                      checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
+                      autoSelect={selectMode !== SelectMode.MULTI_SELECT}
+                      indeterminateCallback={this.isListItemIndeterminate}
+                      renderer={this.listItemRenderer}
+                      onItemClick={this.listItemClickHanlder}
+                      onItemSelect={this.listItemSelectHanlder}
+                      onItemDeselect={this.listItemDeselectHanlder}/>
 
                 {
-                    hasChildren ?
+                    activatedIndex > -1 && data[activatedIndex] && data[activatedIndex].children
+                    && data[activatedIndex].children.length > 0 ?
                         <CascaderListItem {...this.props}
-                                          data={activatedNode.children}
-                                          currDepth={currDepth + 1}/>
+                                          data={data[activatedIndex].children}
+                                          depth={depth + 1}
+                                          path={this.getPath(activatedIndex)}/>
                         :
                         null
                 }
@@ -107,68 +249,75 @@ class CascaderListItem extends Component {
 
 CascaderListItem.propTypes = {
 
-    /**
-     * The width of CascaderListItem.
-     */
+    index: PropTypes.number,
+    depth: PropTypes.number,
+    activatedPath: PropTypes.array,
+    path: PropTypes.array,
+
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
     listWidth: PropTypes.number,
 
-    /**
-     * The data of cascader-list.
-     */
+    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+    expandDirection: PropTypes.oneOf(Util.enumerateValue(HorizontalDirection)),
+
     data: PropTypes.array,
+    value: PropTypes.any,
 
-    /**
-     *
-     */
-    path: PropTypes.arrayOf(PropTypes.shape({
-
-        /**
-         *
-         */
-        node: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.number]),
-
-        /**
-         *
-         */
-        index: PropTypes.number
-
-    })),
-
-    /**
-     * The value field name in data. (default: "value")
-     */
+    idField: PropTypes.string,
     valueField: PropTypes.string,
-
-    /**
-     * The display field name in data. (default: "text")
-     */
     displayField: PropTypes.string,
+    descriptionField: PropTypes.string,
 
-    /**
-     * The current depth.
-     */
-    currDepth: PropTypes.number,
+    disabled: PropTypes.bool,
+    isLoading: PropTypes.bool,
+    readOnly: PropTypes.bool,
+    isNodeToggling: PropTypes.bool,
+    isSelectRecursive: PropTypes.bool,
 
-    /**
-     *
-     */
-    depth: PropTypes.number
+    renderer: PropTypes.func,
+
+    expandedIconCls: PropTypes.string,
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
+
+    onNodeClick: PropTypes.func,
+    onNodeSelect: PropTypes.func,
+    onNodeDeselect: PropTypes.func
 
 };
 
 CascaderListItem.defaultProps = {
 
-    listWidth: 200,
-
-    data: [],
-
+    index: 0,
+    depth: 0,
+    activatedPath: [],
     path: [],
 
+    theme: Theme.DEFAULT,
+    listWidth: 200,
+
+    selectTheme: Theme.DEFAULT,
+    selectMode: SelectMode.SINGLE_SELECT,
+    expandDirection: HorizontalDirection.LEFT,
+
+    idField: 'id',
     valueField: 'value',
     displayField: 'text',
+    descriptionField: 'desc',
 
-    currDepth: 0,
-    depth: 0
+    disabled: false,
+    isLoading: false,
+    readOnly: false,
+    isNodeToggling: false,
+    isSelectRecursive: true,
+
+    checkboxUncheckedIconCls: 'far fa-square',
+    checkboxCheckedIconCls: 'fas fa-check-square',
+    checkboxIndeterminateIconCls: 'fas fa-minus-square'
 
 };
 

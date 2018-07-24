@@ -10,31 +10,26 @@ import classNames from 'classnames';
 class ArrowStepItem extends Component {
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.touchTapHandler = ::this.touchTapHandler;
-
     }
 
-    touchTapHandler(e) {
-        e.preventDefault();
-        const {activatedStep, finishedStep, index, onTouchTap} = this.props;
-        activatedStep !== index && finishedStep >= index && onTouchTap && onTouchTap(index, e);
-    }
+    clickHandler = e => {
+        const {isActivatedStep, isFinishedStep, index, onClick} = this.props;
+        !isActivatedStep && isFinishedStep && onClick && onClick(index, e);
+    };
 
     render() {
 
-        const {className, style, activatedStep, finishedStep, index, value, isFirst, isLast} = this.props,
+        const {className, style, isActivatedStep, isFinishedStep, index, value, isFirst, isLast} = this.props,
 
             itemClassName = classNames('arrow-step-item',
-                activatedStep === index ? 'activated' : (finishedStep >= index ? 'finished' : ''), {
+                isActivatedStep ? 'activated' : (isFinishedStep ? 'finished' : ''), {
                     first: isFirst,
                     last: isLast,
                     [className]: className
                 }),
 
-            triangleClassName = activatedStep === index ? 'activated' : (finishedStep >= index ? 'finished' : ''),
+            triangleClassName = isActivatedStep ? 'activated' : (isFinishedStep ? 'finished' : ''),
             triangleTopClassName = classNames('triangle-top', triangleClassName),
             triangleMiddleClassName = classNames('triangle-middle', triangleClassName),
             triangleBottomClassName = classNames('triangle-bottom', triangleClassName);
@@ -42,7 +37,7 @@ class ArrowStepItem extends Component {
         return (
             <div className={itemClassName}
                  style={style}
-                 onTouchTap={this.touchTapHandler}>
+                 onClick={this.clickHandler}>
 
                 <div className="arrow-step-item-content">
                     <div className="number">
@@ -57,30 +52,26 @@ class ArrowStepItem extends Component {
                     isFirst ?
                         null
                         :
-                        (
-                            <div className="triangle-wrapper triangle-wrapper-left">
-                                <div className={triangleTopClassName}></div>
-                                <div className={triangleBottomClassName}></div>
-                            </div>
-                        )
+                        <div className="triangle-wrapper triangle-wrapper-left">
+                            <div className={triangleTopClassName}></div>
+                            <div className={triangleBottomClassName}></div>
+                        </div>
                 }
 
                 {
                     isLast ?
                         null
                         :
-                        (
-                            <div className="triangle-wrapper triangle-wrapper-right">
-                                <div className={triangleMiddleClassName}></div>
-                            </div>
-                        )
+                        <div className="triangle-wrapper triangle-wrapper-right">
+                            <div className={triangleMiddleClassName}></div>
+                        </div>
                 }
 
             </div>
         );
 
     }
-};
+}
 
 ArrowStepItem.propTypes = {
 
@@ -88,26 +79,22 @@ ArrowStepItem.propTypes = {
     style: PropTypes.object,
 
     index: PropTypes.number,
-    activatedStep: PropTypes.number,
-    finishedStep: PropTypes.number,
+    isActivatedStep: PropTypes.bool,
+    isFinishedStep: PropTypes.bool,
     value: PropTypes.object,
 
     isFirst: PropTypes.bool,
     isLast: PropTypes.bool,
 
-    onTouchTap: PropTypes.func
+    onClick: PropTypes.func
 
 };
 
 ArrowStepItem.defaultProps = {
 
-    className: '',
-    style: null,
-
     index: 0,
-    activatedStep: 0,
-    finishedStep: 0,
-    value: null,
+    isActivatedStep: false,
+    isFinishedStep: false,
 
     isFirst: true,
     isLast: true

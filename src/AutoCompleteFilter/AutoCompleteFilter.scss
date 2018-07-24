@@ -4,9 +4,11 @@
  */
 
 .auto-complete-filter {
+    width: 300px;
 
     .auto-complete-filter-trigger {
         @include shadow(0);
+        width: 100%;
         transition: all $theme-transition-duration ease-in-out;
 
         &.activated {
@@ -48,6 +50,12 @@
         .auto-complete-filter-list,
         .list {
             width: 100%;
+            max-height: 240px;
+            overflow-y: auto;
+
+            .list-item.activated {
+                background: $theme-field-bg-active;
+            }
 
             .no-matched-list-item {
                 line-height: 40px;

@@ -6,9 +6,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
-import Position from '../_statics/Position';
 
 import TextField from '../TextField';
 import DayPicker from '../_DayPicker';
@@ -16,9 +15,17 @@ import MonthPicker from '../_MonthPicker';
 import YearPicker from '../_YearPicker';
 import Popup from '../Popup';
 
+import Position from '../_statics/Position';
+
 import Util from '../_vendors/Util';
+import Theme from '../Theme';
+import {findDOMNode} from 'react-dom';
+import DropdownCalculation from '../_vendors/DropdownCalculation';
 
 class DateRangePicker extends Component {
+
+    static Theme = Theme;
+    static Position = Position;
 
     constructor(props, ...restArgs) {
 
@@ -33,7 +40,7 @@ class DateRangePicker extends Component {
         this.state = {
             value: props.value, // Moment object
             popupVisible: false,
-            triggerEl: null,
+            isAbove: false,
             left: {
                 text: startTime,
                 datePickerLevel: 'day',
@@ -55,25 +62,15 @@ class DateRangePicker extends Component {
             hoverTime: ''
         };
 
-        this.textFieldChangeHandle = ::this.textFieldChangeHandle;
-        this.togglePopup = ::this.togglePopup;
-        this.closePopup = ::this.closePopup;
-        this.datePickerChangeHandle = ::this.datePickerChangeHandle;
-        this.yearPickerChangeHandle = ::this.yearPickerChangeHandle;
-        this.monthPickerChangeHandle = ::this.monthPickerChangeHandle;
-        this.dayPickerChangeHandle = ::this.dayPickerChangeHandle;
-        this.dayPickerHoverHandle = ::this.dayPickerHoverHandle;
-        this.monthAndYearChangeHandle = ::this.monthAndYearChangeHandle;
-
     }
 
-    datePickerChangeHandle(select, selectLevel) {
-        let state = _.cloneDeep(this.state);
+    datePickerChangeHandle = (select, selectLevel) => {
+        let state = cloneDeep(this.state);
         state[select].datePickerLevel = selectLevel;
         this.setState(state);
-    }
+    };
 
-    textFieldChangeHandle(select, text) {
+    textFieldChangeHandle = (select, text) => {
         if (text && text.length) {
             const flag = moment(text, this.props.dateFormat, true).isValid();
             if (flag) {
@@ -81,7 +78,7 @@ class DateRangePicker extends Component {
                 const select_year = initValue.split('-')[0],
                     select_month = initValue.split('-')[1],
                     select_day = initValue.split('-')[2];
-                let state = _.cloneDeep(this.state);
+                let state = cloneDeep(this.state);
                 if (select == 'left') {
                     if (moment(text).isBefore(state.right.text)) {
                         state.startTime = text;
@@ -115,10 +112,10 @@ class DateRangePicker extends Component {
                 }
             }
         }
-    }
+    };
 
-    dayPickerChangeHandle(select, date) {
-        let state = _.cloneDeep(this.state);
+    dayPickerChangeHandle = (select, date) => {
+        let state = cloneDeep(this.state);
         if (state.endTime) {
             state[select].text = date.time;
             state[select].year = date.year;
@@ -156,10 +153,10 @@ class DateRangePicker extends Component {
             this.setState(state);
         }
 
-    }
+    };
 
-    dayPickerHoverHandle(select, date) {
-        let state = _.cloneDeep(this.state);
+    dayPickerHoverHandle = (select, date) => {
+        let state = cloneDeep(this.state);
         let startTime = state.startTime;
         let endTime = state.endTime;
         if (startTime && endTime == '') {
@@ -173,44 +170,43 @@ class DateRangePicker extends Component {
             }
             this.setState(state);
         }
-    }
+    };
 
-    monthAndYearChangeHandle(select, date) {
-        let state = _.cloneDeep(this.state);
+    monthAndYearChangeHandle = (select, date) => {
+        let state = cloneDeep(this.state);
         state[select].year = date.year;
         state[select].month = date.month;
         this.setState(state);
-    }
+    };
 
 
-    monthPickerChangeHandle(select, date) {
-        let state = _.cloneDeep(this.state);
+    monthPickerChangeHandle = (select, date) => {
+        let state = cloneDeep(this.state);
         state[select].datePickerLevel = 'day';
         state[select].year = date.year;
         state[select].month = date.month;
         this.setState(state);
-    }
+    };
 
-    yearPickerChangeHandle(select, year) {
-        let state = _.cloneDeep(this.state);
+    yearPickerChangeHandle = (select, year) => {
+        let state = cloneDeep(this.state);
         state[select].datePickerLevel = 'month';
         state[select].year = year;
         this.setState(state);
-    }
+    };
 
 
-    togglePopup(e) {
+    togglePopup = e => {
         if (this.validValue) {
             this.setState({
-                popupVisible: !this.state.popupVisible,
-                triggerEl: e.target
+                popupVisible: !this.state.popupVisible
             });
         }
-    }
+    };
 
-    closePopup() {
+    closePopup = () => {
         const {dateFormat} = this.props;
-        let state = _.cloneDeep(this.state);
+        let state = cloneDeep(this.state);
         state.popupVisible = false;
         state.left.datePickerLevel = 'day';
         state.right.datePickerLevel = 'day';
@@ -246,19 +242,26 @@ class DateRangePicker extends Component {
                 moment(state.value[1]).format(this.props.dateFormat)
             ]);
         });
-    }
+    };
 
-    componentWillReceiveProps(nextProps) {
-        if (JSON.stringify(nextProps.value) !== JSON.stringify(this.props.value) || nextProps.dateFormat !== this.props.dateFormat) {
+    popupRenderHandler = popupEl => {
+
+        if (this.props.position) {
+            return;
+        }
+
+        const isAbove = DropdownCalculation.isAbove(this.dropdownEl, this.triggerEl, findDOMNode(popupEl));
+        if (isAbove !== this.state.isAbove) {
             this.setState({
-                value: nextProps.value
+                isAbove
             });
         }
-    }
+
+    };
 
     componentDidMount() {
         const {value, dateFormat} = this.props;
-        let state = _.cloneDeep(this.state);
+        let state = cloneDeep(this.state);
         if (value && value.length) {
             let leftValue = value[0],
                 rightValue = value[1];
@@ -299,12 +302,24 @@ class DateRangePicker extends Component {
 
         }
 
+        this.datePicker = this.refs.datePicker;
+        this.triggerEl = findDOMNode(this.refs.trigger);
+
+
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (JSON.stringify(nextProps.value) !== JSON.stringify(this.props.value) || nextProps.dateFormat !== this.props.dateFormat) {
+            this.setState({
+                value: nextProps.value
+            });
+        }
     }
 
     render() {
 
         const {className, style, name, placeholder, dateFormat, maxValue, minValue, position} = this.props,
-            {popupVisible, left, right, startTime, endTime, hoverTime, triggerEl} = this.state,
+            {popupVisible, left, right, startTime, endTime, hoverTime, isAbove} = this.state,
 
             pickerClassName = classNames('date-range-picker', {
                 [className]: className
@@ -339,15 +354,16 @@ class DateRangePicker extends Component {
                            readOnly={true}
                            clearButtonVisible={false}
                            isFocusedSelectAll={false}
-                           onTouchTap={e => {
+                           onClick={e => {
                                this.togglePopup(e);
                            }}/>
 
                 <Popup className={`date-range-picker-popup`}
                        visible={popupVisible}
-                       triggerEl={triggerEl}
-                       position={position}
+                       triggerEl={this.triggerEl}
+                       position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        hasTriangle={false}
+                       onRender={this.popupRenderHandler}
                        onRequestClose={() => {
                            this.closePopup();
                        }}>
@@ -491,7 +507,7 @@ class DateRangePicker extends Component {
             </div>
         );
     }
-};
+}
 
 DateRangePicker.propTypes = {
 
@@ -548,12 +564,10 @@ DateRangePicker.propTypes = {
 };
 
 DateRangePicker.defaultProps = {
-    className: '',
-    style: null,
     name: '',
     placeholder: 'Date',
     dateFormat: 'YYYY-MM-DD',
-    position:Position.BOTTOM_LEFT
+    position: Position.BOTTOM_LEFT
 };
 
 export default DateRangePicker;

@@ -17,20 +17,24 @@
         color $theme-transition-duration ease-in-out;
     }
 
-    .text-field.auto-complete-filter-trigger {
+    .auto-complete-filter {
         width: 100%;
-        border: none;
-        border-radius: 0;
-        background: transparent;
-        border-bottom: 1px solid $theme-border;
-        box-shadow: none;
 
-        .text-field-input,
-        .text-field-placeholder {
-            padding-left: 8px;
-            transition: opacity $theme-transition-duration ease-in-out;
+        .text-field.auto-complete-filter-trigger {
+            width: 100%;
+            border: none;
+            border-radius: 0;
+            background: transparent;
+            border-bottom: 1px solid $theme-border;
+            box-shadow: none;
+
+            .text-field-input,
+            .text-field-placeholder {
+                padding-left: 8px;
+                transition: opacity $theme-transition-duration ease-in-out;
+            }
+
         }
-
     }
 
     &.focused {

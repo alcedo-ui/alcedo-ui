@@ -5,7 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import debounce from 'lodash/debounce';
 import classNames from 'classnames';
 
 import CircularLoading from '../CircularLoading';
@@ -22,14 +22,11 @@ class LazyImage extends Component {
             imageState: 0
         };
 
-        this.scrollHandle = ::this.scrollHandle;
-        this.debounceScrollHandle = _.debounce(::this.debounceScrollHandle, 150);
-
     }
 
-    debounceScrollHandle() {
+    scrollHandler = debounce(() => {
 
-        if (!this.wrapperEl) {
+        if (this.state.imageState > 0 || !this.wrapperEl) {
             return;
         }
 
@@ -67,28 +64,15 @@ class LazyImage extends Component {
 
         }
 
-    }
-
-    scrollHandle(e) {
-
-        if (this.state.imageState > 0) {
-            return;
-        }
-
-        this.debounceScrollHandle(e);
-
-    }
+    }, 250);
 
     componentDidMount() {
-
         this.wrapperEl = this.refs.wrapper;
-
-        Event.addEvent(document, 'scroll', this.scrollHandle);
-
+        Event.addEvent(document, 'scroll', this.scrollHandler);
     }
 
     componentWillUnmount() {
-        Event.removeEvent(document, 'scroll', this.scrollHandle);
+        Event.removeEvent(document, 'scroll', this.scrollHandler);
     }
 
     render() {
@@ -133,7 +117,7 @@ class LazyImage extends Component {
         );
 
     }
-};
+}
 
 LazyImage.propTypes = {
 
@@ -195,9 +179,6 @@ LazyImage.propTypes = {
 };
 
 LazyImage.defaultProps = {
-
-    className: '',
-    style: null,
 
     alt: '',
 

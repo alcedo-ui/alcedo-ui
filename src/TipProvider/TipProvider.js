@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component, cloneElement} from 'react';
+import React, {Component, isValidElement, cloneElement} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 
@@ -25,24 +25,21 @@ class TipProvider extends Component {
             tipVisible: false
         };
 
-        this.showTip = ::this.showTip;
-        this.hideTip = ::this.hideTip;
-
     }
 
-    showTip() {
+    showTip = () => {
         if (!this.state.tipVisible) {
             this.setState({
                 tipVisible: true
             });
         }
-    }
+    };
 
-    hideTip() {
+    hideTip = () => {
         this.setState({
             tipVisible: false
         });
-    }
+    };
 
     componentDidMount() {
         this.refs.trigger && (this.triggerEl = findDOMNode(this.refs.trigger));
@@ -64,9 +61,16 @@ class TipProvider extends Component {
                      className="trigger-wrapper"
                      onMouseOver={this.showTip}
                      onMouseOut={this.hideTip}>
-                    {cloneElement(children, {
-                        ref: 'trigger'
-                    })}
+                    {
+                        isValidElement(children) ?
+                            cloneElement(children, {
+                                ref: 'trigger'
+                            })
+                            :
+                            <span ref="trigger">
+                                {children}
+                            </span>
+                    }
                 </div>
 
                 <Tip {...restProps}
@@ -93,16 +97,6 @@ TipProvider.propTypes = {
      * Override the styles of the root element.
      */
     style: PropTypes.object,
-
-    /**
-     * This is the DOM element that will be used to set the position of the popover.
-     */
-    triggerEl: PropTypes.object,
-
-    /**
-     * If true,the popover is visible.
-     */
-    visible: PropTypes.bool,
 
     /**
      * If true,the popover will have a triangle on the top of the DOM element.
@@ -151,20 +145,13 @@ TipProvider.propTypes = {
 
 TipProvider.defaultProps = {
 
-    className: '',
-    style: null,
     theme: Theme.DARK,
 
-    triggerEl: null,
-    visible: false,
     hasTriangle: true,
     position: Tip.Position.BOTTOM,
     isAnimated: true,
-    depth: 6,
     shouldPreventContainerScroll: true,
-    isTriggerPositionFixed: false,
-
-    text: null
+    isTriggerPositionFixed: false
 
 };
 

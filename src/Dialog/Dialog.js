@@ -14,9 +14,11 @@ import RaisedButton from '../RaisedButton';
 import IconButton from '../IconButton';
 import Theme from '../Theme';
 
+import Position from '../_statics/Position';
+
 import Dom from '../_vendors/Dom';
 import Util from '../_vendors/Util';
-import Position from '../_statics/Position';
+import PopManagement from '../_vendors/PopManagement';
 
 class Dialog extends Component {
 
@@ -24,17 +26,10 @@ class Dialog extends Component {
     static Position = Position;
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.setBodyLock = this::this.setBodyLock;
-        this.okButtonTouchTapHandler = ::this.okButtonTouchTapHandler;
-        this.cancelButtonTouchTapHandler = ::this.cancelButtonTouchTapHandler;
-        this.closeButtonTouchTapHandler = ::this.closeButtonTouchTapHandler;
-
     }
 
-    setBodyLock(props = this.props) {
+    setBodyLock = (props = this.props) => {
 
         if (!props) {
             return;
@@ -42,60 +37,79 @@ class Dialog extends Component {
 
         props.showModal && Dom.toggleClass(document.querySelector('body'), 'dialog-modal-lock', props.visible);
 
-    }
+    };
 
-    resetBody() {
+    resetBody = () => {
         Dom.removeClass(document.querySelector('body'), 'dialog-modal-lock');
-    }
+    };
 
-    okButtonTouchTapHandler() {
+    okButtonClickHandler = () => {
 
-        const {onOKButtonTouchTap} = this.props;
+        const {visible, onOKButtonClick} = this.props;
 
-        onOKButtonTouchTap && onOKButtonTouchTap(() => {
-            this.cancelButtonTouchTapHandler();
+        visible && onOKButtonClick && onOKButtonClick(() => {
+            this.setState({
+                visible: false
+            }, () => {
+                const {onRequestClose} = this.props;
+                onRequestClose && onRequestClose();
+            });
         });
 
-    }
+    };
 
-    cancelButtonTouchTapHandler() {
+    cancelButtonClickHandler = () => {
 
-        const {onCancelButtonTouchTap, onRequestClose} = this.props;
+        const {onCancelButtonClick, onRequestClose} = this.props;
+
+        onCancelButtonClick && onCancelButtonClick();
 
         this.setState({
             visible: false
         }, () => {
-            onCancelButtonTouchTap && onCancelButtonTouchTap();
             onRequestClose && onRequestClose();
         });
 
-    }
+    };
 
-    closeButtonTouchTapHandler() {
+    closeButtonClickHandler = () => {
 
-        const {onCloseButtonTouchTap, onRequestClose} = this.props;
+        const {onCloseButtonClick, onRequestClose} = this.props;
+
+        onCloseButtonClick && onCloseButtonClick();
 
         this.setState({
             visible: false
         }, () => {
-            onCloseButtonTouchTap && onCloseButtonTouchTap();
             onRequestClose && onRequestClose();
         });
 
-    }
+    };
 
     componentDidMount() {
         this.setBodyLock();
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.visible !== this.props.visible) {
+
+        const {visible, isEscClose} = nextProps;
+
+        if (visible !== this.props.visible) {
             this.setBodyLock(nextProps);
         }
+
+        if (isEscClose && visible) {
+            PopManagement.push(this);
+        }
+
     }
 
     componentWillUnmount() {
+
         this.resetBody();
+
+        PopManagement.pop(this);
+
     }
 
     render() {
@@ -105,15 +119,16 @@ class Dialog extends Component {
                 children,
 
                 className, modalClassName, position, disabled, showModal,
-                title, buttons, isLoading, visible, closeIconCls,
+                title, buttons, isLoading, visible,
 
                 okButtonVisible, okButtonText, okButtonIconCls, okButtonTheme, okButtonDisabled, okButtonIsLoading,
-                cancelButtonVisible, cancelButtonText, cancelButtonIconCls,
-                cancelButtonDisabled, cancelButtonIsLoading, cancelButtonTheme,
+                cancelButtonVisible, cancelButtonText, cancelButtonIconCls, cancelButtonDisabled, cancelButtonIsLoading,
+                cancelButtonTheme, closeButtonVisible, closeIconCls,
+
 
                 // not passing down these props
                 isBlurClose, isEscClose,
-                onRender, onRequestClose, onOKButtonTouchTap, onCloseButtonTouchTap, onCancelButtonTouchTap,
+                onRender, onRequestClose, onOKButtonClick, onCloseButtonClick, onCancelButtonClick,
 
                 ...restProps
 
@@ -133,11 +148,19 @@ class Dialog extends Component {
                          modalClassName={modalClassName}>
 
                 <div className="dialog-title">
+
                     {title}
-                    <IconButton className="dialog-title-close-button"
-                                iconCls={closeIconCls}
-                                disabled={disabled}
-                                onTouchTap={this.closeButtonTouchTapHandler}/>
+
+                    {
+                        closeButtonVisible ?
+                            <IconButton className="dialog-title-close-button"
+                                        iconCls={closeIconCls}
+                                        disabled={disabled}
+                                        onClick={this.closeButtonClickHandler}/>
+                            :
+                            null
+                    }
+
                 </div>
 
                 <div className="dialog-content">
@@ -165,7 +188,7 @@ class Dialog extends Component {
                                           disabled={okButtonDisabled}
                                           isLoading={isLoading || okButtonIsLoading}
                                           disableTouchRipple={true}
-                                          onTouchTap={this.okButtonTouchTapHandler}/>
+                                          onClick={this.okButtonClickHandler}/>
                             :
                             null
                     }
@@ -179,7 +202,7 @@ class Dialog extends Component {
                                         disabled={cancelButtonDisabled}
                                         isLoading={isLoading || cancelButtonIsLoading}
                                         disableTouchRipple={true}
-                                        onTouchTap={this.cancelButtonTouchTapHandler}/>
+                                        onClick={this.cancelButtonClickHandler}/>
                             :
                             null
                     }
@@ -191,7 +214,7 @@ class Dialog extends Component {
 
     }
 
-};
+}
 
 Dialog.propTypes = {
 
@@ -243,7 +266,7 @@ Dialog.propTypes = {
     isLoading: PropTypes.bool,
 
     /**
-     * If true,the OK button will display.
+     * If true, the OK button will display.
      */
     okButtonVisible: PropTypes.bool,
 
@@ -258,12 +281,12 @@ Dialog.propTypes = {
     okButtonIconCls: PropTypes.string,
 
     /**
-     * If true,the OK button will disabled.
+     * If true, the OK button will disabled.
      */
     okButtonDisabled: PropTypes.bool,
 
     /**
-     * If true,the ok button will have loading effect.
+     * If true, the ok button will have loading effect.
      */
     okButtonIsLoading: PropTypes.bool,
 
@@ -273,7 +296,7 @@ Dialog.propTypes = {
     okButtonTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
-     * If true,the cancel button will display.
+     * If true, the cancel button will display.
      */
     cancelButtonVisible: PropTypes.bool,
 
@@ -288,12 +311,12 @@ Dialog.propTypes = {
     cancelButtonIconCls: PropTypes.string,
 
     /**
-     * If true,the cancel button will disabled.
+     * If true, the cancel button will disabled.
      */
     cancelButtonDisabled: PropTypes.bool,
 
     /**
-     * If true,the cancel button will have loading effect.
+     * If true, the cancel button will have loading effect.
      */
     cancelButtonIsLoading: PropTypes.bool,
 
@@ -301,6 +324,11 @@ Dialog.propTypes = {
      * Set theme of cancel button.
      */
     cancelButtonTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * If true, the close button in title will display.
+     */
+    closeButtonVisible: PropTypes.bool,
 
     closeIconCls: PropTypes.string,
 
@@ -324,50 +352,43 @@ Dialog.propTypes = {
     /**
      * Callback function fired when click the ok button.
      */
-    onOKButtonTouchTap: PropTypes.func,
+    onOKButtonClick: PropTypes.func,
 
     /**
      * Callback function fired when click the cancel button.
      */
-    onCancelButtonTouchTap: PropTypes.func,
+    onCancelButtonClick: PropTypes.func,
 
     /**
      * Callback function fired when click the close button.
      */
-    onCloseButtonTouchTap: PropTypes.func
+    onCloseButtonClick: PropTypes.func
 
 };
 
 Dialog.defaultProps = {
-
-    className: null,
-    modalClassName: null,
-    style: null,
 
     position: Position.CENTER,
     disabled: false,
     visible: false,
     showModal: true,
 
-    title: null,
-
     isBlurClose: false,
     isLoading: false,
 
     okButtonVisible: true,
     okButtonText: 'OK',
-    okButtonIconCls: null,
     okButtonDisabled: false,
     okButtonIsLoading: false,
     okButtonTheme: Theme.SUCCESS,
 
     cancelButtonVisible: true,
     cancelButtonText: 'Cancel',
-    cancelButtonIconCls: null,
     cancelButtonDisabled: false,
     cancelButtonIsLoading: false,
     cancelButtonTheme: Theme.DEFAULT,
 
+    closeButtonVisible: true,
     closeIconCls: 'fas fa-times',
 
     isEscClose: true

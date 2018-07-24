@@ -8,32 +8,24 @@
     background: $theme-field-bg;
     border-bottom: 1px solid $theme-border;
 
-    td {
+    .table-data {
         text-align: left;
         padding: 15px;
         transition: none;
         cursor: default;
         white-space: nowrap;
 
-        &.actions {
-            i {
-                width: 12px;
-                margin-left: 24px;
-
-                &:first-child {
-                    margin-left: 0;
-                }
-            }
+        &.empty {
+            text-align: center;
+            color: $theme-description;
         }
     }
 
     &:hover {
         background: theme-color-hover($theme-secondary);
 
-        td {
-            a {
-                text-decoration: underline;
-            }
+        .table-data.empty {
+            background: $theme-field-bg;
         }
     }
 
@@ -41,7 +33,7 @@
         color: $theme-field-disabled;
         background: $theme-field-bg-disabled;
 
-        td {
+        .table-data {
             cursor: not-allowed;
         }
     }

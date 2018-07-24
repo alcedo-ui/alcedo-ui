@@ -11,8 +11,9 @@ import BaseButton from '../_BaseButton';
 import TipProvider from '../TipProvider';
 import Theme from '../Theme';
 
-import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
+
+import Util from '../_vendors/Util';
 
 class AnchorButton extends Component {
 
@@ -53,7 +54,7 @@ class AnchorButton extends Component {
         );
 
     }
-};
+}
 
 AnchorButton.propTypes = {
 
@@ -81,6 +82,11 @@ AnchorButton.propTypes = {
      * If true,the button will be round.
      */
     isCircular: PropTypes.bool,
+
+    /**
+     * The title of the button.
+     */
+    title: PropTypes.string,
 
     /**
      * The text of the button.
@@ -133,14 +139,11 @@ AnchorButton.propTypes = {
     /**
      * Callback function fired when the button is touch-tapped.
      */
-    onTouchTap: PropTypes.func
+    onClick: PropTypes.func
 
 };
 
 AnchorButton.defaultProps = {
-
-    className: '',
-    style: null,
 
     theme: Theme.DEFAULT,
     isRounded: false,
@@ -154,10 +157,6 @@ AnchorButton.defaultProps = {
 
     rippleDisplayCenter: false,
 
-    iconCls: '',
-    rightIconCls: '',
-
-    tip: null,
     tipPosition: TipProvider.Position.BOTTOM
 
 };

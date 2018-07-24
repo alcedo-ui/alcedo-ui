@@ -7,7 +7,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/AutoCompleteFilter.json';
 
-export default class AutoCompleteFilterExamples extends Component {
+class AutoCompleteFilterExamples extends Component {
 
     constructor(props) {
 
@@ -17,38 +17,33 @@ export default class AutoCompleteFilterExamples extends Component {
             text: 'test2',
             value: 2,
             desc: 'Here is test2.',
-            onTouchTap() {
+            onClick() {
                 console.log('test2 selected!');
             }
         }, 'test3', 'test4', 'test5', {
             text: 'test6',
             value: 6,
             desc: 'Here is test6.',
-            onTouchTap() {
+            onClick() {
                 console.log('test6 selected!');
             }
         }, 'test7', 'test8', 'test9'];
 
-        this.onChange = ::this.onChange;
-        this.filterPressEnterHandle = ::this.filterPressEnterHandle;
-        this.filterClearHandle = ::this.filterClearHandle;
-
     }
 
-    onChange(item) {
+    changeHandler = item => {
         console.log('select item: ', item);
-    }
+    };
 
-    filterPressEnterHandle(value) {
+    filterPressEnterHandler = value => {
         console.log('filter value: ', value);
-    }
+    };
 
-    filterClearHandle() {
+    filterClearHandler = () => {
         console.log('filter cleared');
-    }
+    };
 
     render() {
-
         return (
             <div className="example">
 
@@ -74,9 +69,9 @@ export default class AutoCompleteFilterExamples extends Component {
                                 <AutoCompleteFilter data={this.data}
                                                     placeholder="Please select ..."
                                                     filterInitValue="test"
-                                                    onChange={this.onChange}
-                                                    onFilterPressEnter={this.filterPressEnterHandle}
-                                                    onFilterClear={this.filterClearHandle}/>
+                                                    changeHandler={this.changeHandler}
+                                                    onFilterPressEnter={this.filterPressEnterHandler}
+                                                    onFilterClear={this.filterClearHandler}/>
 
                             </div>
 
@@ -102,7 +97,9 @@ export default class AutoCompleteFilterExamples extends Component {
                                 <AutoCompleteFilter popupStyle={{maxHeight: 300}}
                                                     data={this.data}
                                                     placeholder="Please select ..."
-                                                    onChange={this.onChange}/>
+                                                    minFilterLength={2}
+                                                    onFilterPressEnter={this.filterPressEnterHandler}
+                                                    changeHandler={this.changeHandler}/>
 
                             </div>
 
@@ -127,7 +124,7 @@ export default class AutoCompleteFilterExamples extends Component {
                                                     disabled={true}
                                                     data={this.data}
                                                     placeholder="Please select ..."
-                                                    onChange={this.onChange}/>
+                                                    changeHandler={this.changeHandler}/>
 
                             </div>
 
@@ -157,7 +154,7 @@ export default class AutoCompleteFilterExamples extends Component {
                                                             `${data} (${data})`;
                                                     }}
                                                     placeholder="Please select ..."
-                                                    onChange={this.onChange}/>
+                                                    changeHandler={this.changeHandler}/>
 
                             </div>
 
@@ -175,3 +172,5 @@ export default class AutoCompleteFilterExamples extends Component {
         );
     }
 };
+
+export default AutoCompleteFilterExamples;

@@ -5,13 +5,34 @@
 
 .dropdown-select {
     width: 200px;
+    height: 40px;
 
     .dropdown {
         width: 100%;
+        height: 100%;
 
         .dropdown-trigger.empty {
             color: $theme-description;
         }
+    }
+
+    .hiddenFilter {
+        position: absolute;
+        font: inherit;
+        background: transparent;
+        z-index: -1;
+        opacity: 0;
+        -webkit-appearance: none;
+        appearance: none;
+        resize: none;
+        outline: none;
+        overflow: hidden;
+        padding: 0;
+        width: 0;
+        height: 0;
+        cursor: none;
+        pointer-events: none;
+        white-space: nowrap;
     }
 }
 
@@ -53,19 +74,20 @@
             overflow-y: auto;
             max-height: inherit;
 
+            .no-matched {
+                line-height: 40px;
+                color: $theme-field;
+                padding: 0 12px;
+
+                .no-matched-icon {
+                    color: $theme-warning;
+                    margin-right: 10px;
+                }
+            }
+
             .dropdown-select-list,
             .list {
                 width: 100%;
-
-                .no-matched-list-item {
-                    line-height: 40px;
-                    color: $theme-field;
-
-                    .no-matched-list-item-icon {
-                        color: $theme-warning;
-                        margin-right: 10px;
-                    }
-                }
             }
         }
 

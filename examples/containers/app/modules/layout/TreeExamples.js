@@ -10,7 +10,7 @@ import doc from 'examples/assets/propTypes/Tree.json';
 
 import 'sass/containers/app/modules/layout/TreeExamples.scss';
 
-export default class TreeExamples extends Component {
+class TreeExamples extends Component {
 
     constructor(props) {
 
@@ -50,13 +50,17 @@ export default class TreeExamples extends Component {
 
     }
 
-    nodeSelectHandler(node, path) {
-        console.log('Node Selected::', node, path);
-    }
+    nodeClickHandler = (node) => {
+        console.log('Node Clicked::', node);
+    };
 
-    changeHandler(value) {
+    nodeSelectHandler = (node, path) => {
+        console.log('Node Selected::', node, path);
+    };
+
+    changeHandler = value => {
         console.log('Changed::', value);
-    }
+    };
 
     render() {
         return (
@@ -65,7 +69,8 @@ export default class TreeExamples extends Component {
                 <h2 className="examples-title">Tree</h2>
 
                 <p>
-                    <span>Tree</span> can fully display the hierarchy, and has interactive functions such as
+                    <span>Tree</span>
+                    can fully display the hierarchy, and has interactive functions such as
                     expansion, withdrawal and selection.
                 </p>
 
@@ -85,6 +90,7 @@ export default class TreeExamples extends Component {
 
                                 <Paper className="tree-wrapper">
                                     <Tree data={this.data}
+                                          onNodeClick={this.nodeClickHandler}
                                           onNodeSelect={this.nodeSelectHandler}
                                           onChange={this.changeHandler}/>
                                 </Paper>
@@ -135,6 +141,10 @@ export default class TreeExamples extends Component {
                                 <Paper className="tree-wrapper">
                                     <Tree selectMode={Tree.SelectMode.MULTI_SELECT}
                                           data={this.data}
+                                          isSelectRecursive={true}
+                                          checkboxUncheckedIconCls="far fa-circle"
+                                          checkboxCheckedIconCls="fas fa-check-circle"
+                                          checkboxIndeterminateIconCls="fas fa-minus-circle"
                                           onNodeSelect={this.nodeSelectHandler}
                                           onChange={this.changeHandler}/>
                                 </Paper>
@@ -152,3 +162,5 @@ export default class TreeExamples extends Component {
         );
     }
 };
+
+export default TreeExamples;

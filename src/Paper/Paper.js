@@ -50,7 +50,7 @@ class Paper extends Component {
         );
 
     }
-};
+}
 
 Paper.propTypes = {
 
@@ -88,8 +88,6 @@ Paper.propTypes = {
 
 Paper.defaultProps = {
 
-    className: '',
-    style: null,
     theme: Theme.DEFAULT,
 
     depth: 1,

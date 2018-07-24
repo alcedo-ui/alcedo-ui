@@ -11,6 +11,7 @@ import TriggerPop from '../_TriggerPop';
 import Theme from '../Theme';
 
 import Position from '../_statics/Position';
+
 import Util from '../_vendors/Util';
 
 class Tip extends Component {
@@ -40,7 +41,7 @@ class Tip extends Component {
         );
     }
 
-};
+}
 
 Tip.propTypes = {
 
@@ -54,10 +55,17 @@ Tip.propTypes = {
      */
     contentClassName: PropTypes.string,
 
+    modalClassName: PropTypes.string,
+
     /**
      * Override the styles of the root element.
      */
     style: PropTypes.object,
+
+    /**
+     * The popover theme.Can be primary,highlight,success,warning,error.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
      * This is the DOM element that will be used to set the position of the popover.
@@ -77,11 +85,6 @@ Tip.propTypes = {
     triangle: PropTypes.element,
 
     /**
-     * The popover theme.Can be primary,highlight,success,warning,error.
-     */
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-    /**
      * The popover alignment.
      */
     position: PropTypes.oneOf(Util.enumerateValue(Position)),
@@ -99,6 +102,7 @@ Tip.propTypes = {
     depth: PropTypes.number,
 
     isTriggerPositionFixed: PropTypes.bool,
+    showModal: PropTypes.bool,
 
     /**
      * The function of tip render.
@@ -129,19 +133,15 @@ Tip.propTypes = {
 
 Tip.defaultProps = {
 
-    className: null,
-    contentClassName: null,
-    style: null,
     theme: Theme.DARK,
 
-    triggerEl: null,
     visible: false,
     hasTriangle: true,
     position: Position.BOTTOM,
     isAnimated: true,
-    depth: 6,
     shouldPreventContainerScroll: true,
-    isTriggerPositionFixed: false
+    isTriggerPositionFixed: false,
+    showModal: false
 
 };
 

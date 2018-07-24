@@ -10,13 +10,30 @@ import doc from 'assets/propTypes/TextField.json';
 
 import 'sass/containers/app/modules/fields/TextFieldExamples.scss';
 
-export default class TextFieldExamples extends Component {
+class TextFieldExamples extends Component {
 
     constructor(props) {
+
         super(props);
+
+        this.state = {
+            value: {}
+        };
+
     }
 
+    changeHandler = (v, index) => {
+        const {value} = this.state;
+        value[index] = v;
+        this.setState({
+            value
+        });
+    };
+
     render() {
+
+        const {value} = this.state;
+
         return (
             <div className="example text-field-examples">
 
@@ -43,13 +60,16 @@ export default class TextFieldExamples extends Component {
 
                                 <div className="field-group">
                                     <label className="text-field-label">Default</label>
-                                    <TextField/>
+                                    <TextField value={value[0] || ''}
+                                               onChange={v => this.changeHandler(v, 0)}/>
                                 </div>
 
                                 <div className="field-group">
                                     <label className="text-field-label">Password</label>
                                     <TextField type="password"
-                                               rightIconCls={'fas fa-lock'}/>
+                                               rightIconCls={'fas fa-lock'}
+                                               value={value[1] || ''}
+                                               onChange={v => this.changeHandler(v, 1)}/>
                                 </div>
 
                             </div>
@@ -76,9 +96,9 @@ export default class TextFieldExamples extends Component {
                                     <label className="text-field-label">Search</label>
                                     <TextField rightIconCls={'fas fa-search'}
                                                theme={TextField.Theme.PRIMARY}
-                                               onRightIconTouchTap={() => {
-                                                   console.log('Search Icon Clicked.');
-                                               }}/>
+                                               value={value[2] || ''}
+                                               onRightIconClick={() => console.log('Search Icon Clicked.')}
+                                               onChange={v => this.changeHandler(v, 2)}/>
                                 </div>
 
                             </div>
@@ -104,14 +124,18 @@ export default class TextFieldExamples extends Component {
                                 <div className="field-group">
                                     <label className="text-field-label">Username</label>
                                     <TextField iconCls="fas fa-user"
-                                               theme={TextField.Theme.HIGHLIGHT}/>
+                                               theme={TextField.Theme.HIGHLIGHT}
+                                               value={value[3] || ''}
+                                               onChange={v => this.changeHandler(v, 3)}/>
                                 </div>
 
                                 <div className="field-group">
                                     <label className="text-field-label">Password</label>
                                     <TextField iconCls="fas fa-lock"
                                                type="password"
-                                               theme={TextField.Theme.HIGHLIGHT}/>
+                                               theme={TextField.Theme.HIGHLIGHT}
+                                               value={value[4] || ''}
+                                               onChange={v => this.changeHandler(v, 4)}/>
                                 </div>
 
                             </div>
@@ -138,11 +162,15 @@ export default class TextFieldExamples extends Component {
                                 <TextFieldGroup>
 
                                     <TextField iconCls="fas fa-user"
-                                               placeholder="username"/>
+                                               placeholder="username"
+                                               value={value[5] || ''}
+                                               onChange={v => this.changeHandler(v, 5)}/>
 
                                     <TextField iconCls="fas fa-lock"
                                                type={TextField.Type.PASSWORD}
-                                               placeholder="password"/>
+                                               placeholder="password"
+                                               value={value[6] || ''}
+                                               onChange={v => this.changeHandler(v, 6)}/>
 
                                 </TextFieldGroup>
 
@@ -170,43 +198,57 @@ export default class TextFieldExamples extends Component {
                                 <div className="field-group">
                                     <TextField required={true}
                                                clearButtonVisible={false}
-                                               fieldMsgVisible={true}/>
+                                               fieldMsgVisible={true}
+                                               value={value[7] || ''}
+                                               onChange={v => this.changeHandler(v, 7)}/>
                                 </div>
 
                                 <div>NUMBER</div>
                                 <div className="field-group">
                                     <TextField type={TextField.Type.NUMBER}
-                                               fieldMsgVisible={true}/>
+                                               fieldMsgVisible={true}
+                                               value={value[8] || ''}
+                                               onChange={v => this.changeHandler(v, 8)}/>
                                 </div>
 
                                 <div>Integer</div>
                                 <div className="field-group">
                                     <TextField type={TextField.Type.INTEGER}
-                                               fieldMsgVisible={true}/>
+                                               fieldMsgVisible={true}
+                                               value={value[9] || ''}
+                                               onChange={v => this.changeHandler(v, 9)}/>
                                 </div>
 
                                 <div>Positive Integer</div>
                                 <div className="field-group">
                                     <TextField type={TextField.Type.POSITIVE_INTEGER}
-                                               fieldMsgVisible={true}/>
+                                               fieldMsgVisible={true}
+                                               value={value[10] || ''}
+                                               onChange={v => this.changeHandler(v, 10)}/>
                                 </div>
 
                                 <div>Nonnegative Integer</div>
                                 <div className="field-group">
                                     <TextField type={TextField.Type.NONNEGATIVE_INTEGER}
-                                               fieldMsgVisible={true}/>
+                                               fieldMsgVisible={true}
+                                               value={value[11] || ''}
+                                               onChange={v => this.changeHandler(v, 11)}/>
                                 </div>
 
                                 <div>Negative Integer</div>
                                 <div className="field-group">
                                     <TextField type={TextField.Type.NEGATIVE_INTEGER}
-                                               fieldMsgVisible={true}/>
+                                               fieldMsgVisible={true}
+                                               value={value[12] || ''}
+                                               onChange={v => this.changeHandler(v, 12)}/>
                                 </div>
 
                                 <div>Nonpositive Integer</div>
                                 <div className="field-group">
                                     <TextField type={TextField.Type.NONPOSITIVE_INTEGER}
-                                               fieldMsgVisible={true}/>
+                                               fieldMsgVisible={true}
+                                               value={value[13] || ''}
+                                               onChange={v => this.changeHandler(v, 13)}/>
                                 </div>
 
                                 <div>Min / Max</div>
@@ -214,14 +256,18 @@ export default class TextFieldExamples extends Component {
                                     <TextField type={TextField.Type.NUMBER}
                                                min={0}
                                                max={100}
-                                               fieldMsgVisible={true}/>
+                                               fieldMsgVisible={true}
+                                               value={value[14] || ''}
+                                               onChange={v => this.changeHandler(v, 14)}/>
                                 </div>
 
                                 <div>Self Defined Pattern (Only a, b, c is allowed)</div>
                                 <div className="field-group">
                                     <TextField pattern={/^[abc]*$/}
                                                patternInvalidMsg="Only a, b, c is allowed"
-                                               fieldMsgVisible={true}/>
+                                               fieldMsgVisible={true}
+                                               value={value[15] || ''}
+                                               onChange={v => this.changeHandler(v, 15)}/>
                                 </div>
 
                             </div>
@@ -245,7 +291,9 @@ export default class TextFieldExamples extends Component {
                                     <TextField rightIconCls={'fas fa-search'}
                                                value="Disabled"
                                                theme={TextField.Theme.PRIMARY}
-                                               disabled={true}/>
+                                               disabled={true}
+                                               value={value[16] || ''}
+                                               onChange={v => this.changeHandler(v, 16)}/>
                                 </div>
 
                             </div>
@@ -263,3 +311,5 @@ export default class TextFieldExamples extends Component {
         );
     }
 };
+
+export default TextFieldExamples;

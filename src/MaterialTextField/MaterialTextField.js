@@ -26,18 +26,30 @@ class MaterialTextField extends Component {
             value: props.value
         };
 
-        this.triggerChangeHandler = ::this.triggerChangeHandler;
-
     }
 
-    triggerChangeHandler(value) {
+    /**
+     * public
+     */
+    focus = () => {
+        this.refs.textField.focus();
+    };
+
+    /**
+     * public
+     */
+    blur = () => {
+        this.refs.textField.blur();
+    };
+
+    triggerChangeHandler = value => {
         this.setState({
             value
         }, () => {
             const {onChange} = this.props;
             onChange && onChange(value);
         });
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
@@ -69,6 +81,7 @@ class MaterialTextField extends Component {
                               disabled={disabled}
                               required={required}>
                 <TextField {...restProps}
+                           ref="textField"
                            theme={theme}
                            value={value}
                            disabled={disabled}
@@ -78,7 +91,7 @@ class MaterialTextField extends Component {
         );
 
     }
-};
+}
 
 MaterialTextField.propTypes = {
 
@@ -271,35 +284,26 @@ MaterialTextField.propTypes = {
 
 MaterialTextField.defaultProps = {
 
-    className: null,
-    style: null,
     theme: Theme.DEFAULT,
 
     type: 'text',
-    name: '',
-    label: '',
     isLabelAnimate: true,
-    placeholder: '',
-    value: '',
-    iconCls: '',
     disabled: false,
     readOnly: false,
     autoFocus: false,
-    infoMsg: '',
 
     clearButtonVisible: true,
     passwordButtonVisible: true,
 
     // valid
     required: false,
-    patternInvalidMsg: '',
 
     autoComplete: 'off',
     autoCorrect: 'off',
     autoCapitalize: 'off',
     spellCheck: 'false',
 
-    fieldMsgVisible: true
+    fieldMsgVisible: false
 
 };
 

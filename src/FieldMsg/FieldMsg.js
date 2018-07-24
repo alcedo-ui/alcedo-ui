@@ -9,9 +9,10 @@ import classNames from 'classnames';
 
 import Tip from '../Tip';
 
-import Util from '../_vendors/Util';
 import MsgType from '../_statics/MsgType';
 import Position from '../_statics/Position';
+
+import Util from '../_vendors/Util';
 
 class FieldMsg extends Component {
 
@@ -48,7 +49,7 @@ class FieldMsg extends Component {
 
     }
 
-};
+}
 
 FieldMsg.propTypes = {
 
@@ -65,14 +66,10 @@ FieldMsg.propTypes = {
 
 FieldMsg.defaultProps = {
 
-    className: null,
-    style: null,
     type: MsgType.DEFAULT,
 
     visible: false,
-    triggerEl: null,
-    position: Position.BOTTOM_LEFT,
-    msg: null
+    position: Position.BOTTOM_LEFT
 
 };
 

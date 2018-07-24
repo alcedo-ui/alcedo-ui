@@ -12,12 +12,15 @@ import RaisedButton from '../RaisedButton';
 import Popup from '../Popup';
 import Theme from '../Theme';
 
+import Position from '../_statics/Position';
+
 import Util from '../_vendors/Util';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
 
 class Dropdown extends Component {
 
     static Theme = Theme;
+    static Position = Position;
 
     constructor(props, ...restArgs) {
 
@@ -28,13 +31,16 @@ class Dropdown extends Component {
             isAbove: false
         };
 
-        this.togglePopup = ::this.togglePopup;
-        this.closePopup = ::this.closePopup;
-        this.popupRenderHandler = ::this.popupRenderHandler;
-
     }
 
-    togglePopup(e) {
+    /**
+     * public
+     */
+    resetPopupPosition = () => {
+        this.refs.popup.resetPosition();
+    };
+
+    togglePopup = e => {
 
         const popupVisible = !this.state.popupVisible;
 
@@ -42,8 +48,8 @@ class Dropdown extends Component {
             popupVisible
         }, () => {
 
-            const {onTriggerTouchTap, onFocus, onBlur, onOpenPopup} = this.props;
-            onTriggerTouchTap && onTriggerTouchTap(popupVisible);
+            const {onTriggerClick, onFocus, onBlur, onOpenPopup} = this.props;
+            onTriggerClick && onTriggerClick(popupVisible);
 
             if (popupVisible) {
                 onFocus && onFocus(e);
@@ -54,9 +60,9 @@ class Dropdown extends Component {
 
         });
 
-    }
+    };
 
-    closePopup(e) {
+    closePopup = e => {
         this.setState({
             popupVisible: false
         }, () => {
@@ -64,19 +70,22 @@ class Dropdown extends Component {
             onClosePopup && onClosePopup(e);
             onBlur && onBlur(e);
         });
-    }
+    };
 
-    popupRenderHandler(popupEl) {
+    popupRenderHandler = popupEl => {
+
+        if (this.props.position) {
+            return;
+        }
 
         const isAbove = DropdownCalculation.isAbove(this.dropdownEl, this.triggerEl, findDOMNode(popupEl));
-
         if (isAbove !== this.state.isAbove) {
             this.setState({
                 isAbove
             });
         }
 
-    }
+    };
 
     componentDidMount() {
         this.dropdownEl = this.refs.dropdown;
@@ -89,11 +98,8 @@ class Dropdown extends Component {
 
                 children,
 
-                // style
                 className, triggerClassName, popupClassName, style, triggerStyle, popupStyle, theme, popupTheme,
-
-                // trigger
-                iconCls, triggerValue, rightIconCls, disabled, disableTouchRipple,
+                position, iconCls, triggerValue, title, rightIconCls, disabled, disableTouchRipple, autoPopupWidth,
 
                 // events
                 onMouseOver, onMouseOut
@@ -101,15 +107,18 @@ class Dropdown extends Component {
             } = this.props,
             {popupVisible, isAbove} = this.state,
 
+            isAboveFinally = position === Position.TOP || position === Position.TOP_LEFT
+                || position === Position.TOP_RIGHT || (!position && isAbove),
+
             dropdownClassName = classNames('dropdown', {
                 activated: popupVisible,
                 [className]: className
             }),
-            buttonClassName = classNames('dropdown-trigger', isAbove ? 'above' : 'blow', {
+            buttonClassName = classNames('dropdown-trigger', isAboveFinally ? 'above' : 'blow', {
                 activated: popupVisible,
                 [triggerClassName]: triggerClassName
             }),
-            dropdownPopupClassName = classNames('dropdown-popup', isAbove ? 'above' : 'blow', {
+            dropdownPopupClassName = classNames('dropdown-popup', isAboveFinally ? 'above' : 'blow', {
                 [popupClassName]: popupClassName
             }),
             dropdownPopupStyle = Object.assign({
@@ -126,22 +135,23 @@ class Dropdown extends Component {
                               style={triggerStyle}
                               theme={theme}
                               value={triggerValue}
+                              title={title}
                               iconCls={iconCls}
                               rightIconCls={`${rightIconCls} dropdown-trigger-icon`}
                               disabled={disabled}
                               disableTouchRipple={disableTouchRipple}
                               onMouseOver={onMouseOver}
                               onMouseOut={onMouseOut}
-                              onTouchTap={this.togglePopup}/>
+                              onClick={this.togglePopup}/>
 
                 <Popup ref="popup"
                        className={dropdownPopupClassName}
-                       style={dropdownPopupStyle}
+                       style={autoPopupWidth ? dropdownPopupStyle : popupStyle}
                        theme={popupTheme}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
                        hasTriangle={false}
-                       position={isAbove ? Popup.Position.TOP_LEFT : Popup.Position.BOTTOM_LEFT}
+                       position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        shouldPreventContainerScroll={false}
                        onRender={this.popupRenderHandler}
                        onRequestClose={this.closePopup}>
@@ -154,7 +164,7 @@ class Dropdown extends Component {
         );
 
     }
-};
+}
 
 Dropdown.propTypes = {
 
@@ -198,6 +208,8 @@ Dropdown.propTypes = {
      */
     popupTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
+
     /**
      * The value of the dropDown trigger.
      */
@@ -206,12 +218,19 @@ Dropdown.propTypes = {
     iconCls: PropTypes.string,
     rightIconCls: PropTypes.string,
 
+    title: PropTypes.string,
+
     /**
      * If true, the dropDown will be disabled.
      */
     disabled: PropTypes.bool,
 
     disableTouchRipple: PropTypes.bool,
+
+    /**
+     * Whether following the trigger width or not.
+     */
+    autoPopupWidth: PropTypes.bool,
 
     /**
      * If true,the dropdown box automatically closed after selection.
@@ -234,26 +253,19 @@ Dropdown.propTypes = {
     onBlur: PropTypes.func,
     onMouseOver: PropTypes.func,
     onMouseOut: PropTypes.func,
-    onTriggerTouchTap: PropTypes.func
+    onTriggerClick: PropTypes.func
 
 };
 
 Dropdown.defaultProps = {
 
-    className: null,
-    triggerClassName: null,
-    popupClassName: null,
-    style: null,
-    triggerStyle: null,
-    popupStyle: null,
     theme: Theme.DEFAULT,
     popupTheme: Theme.DEFAULT,
 
-    triggerValue: null,
-    iconCls: null,
     rightIconCls: 'fas fa-angle-down',
     disabled: false,
     disableTouchRipple: false,
+    autoPopupWidth: true,
     autoClose: true,
 
     shouldPreventContainerScroll: true

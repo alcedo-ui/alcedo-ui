@@ -25,35 +25,30 @@ class Anchor extends Component {
             focused: false
         };
 
-        this.touchTapHandler = ::this.touchTapHandler;
-        this.focusHandler = ::this.focusHandler;
-        this.blurHandler = ::this.blurHandler;
-
     }
 
-    touchTapHandler(e) {
-        e.preventDefault();
-        const {disabled, isLoading, onTouchTap} = this.props;
-        !disabled && !isLoading && onTouchTap && onTouchTap(e);
-    }
+    clickHandler = e => {
+        const {disabled, isLoading, onClick} = this.props;
+        !disabled && !isLoading && onClick && onClick(e);
+    };
 
-    focusHandler(e) {
+    focusHandler = e => {
         this.setState({
             focused: true
         }, () => {
             const {onFocus} = this.props;
             onFocus && onFocus(e);
         });
-    }
+    };
 
-    blurHandler(e) {
+    blurHandler = e => {
         this.setState({
             focused: false
         }, () => {
             const {onBlur} = this.props;
             onBlur && onBlur(e);
         });
-    }
+    };
 
     render() {
 
@@ -83,7 +78,7 @@ class Anchor extends Component {
                    className={anchorClassName}
                    style={style}
                    disabled={disabled || isLoading}
-                   onTouchTap={this.touchTapHandler}
+                   onClick={this.clickHandler}
                    onFocus={this.focusHandler}
                    onBlur={this.blurHandler}>
 
@@ -123,7 +118,7 @@ class Anchor extends Component {
         );
 
     }
-};
+}
 
 Anchor.propTypes = {
 
@@ -145,7 +140,7 @@ Anchor.propTypes = {
     tip: PropTypes.string,
     tipPosition: PropTypes.string,
 
-    onTouchTap: PropTypes.func,
+    onClick: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func
 
@@ -153,20 +148,14 @@ Anchor.propTypes = {
 
 Anchor.defaultProps = {
 
-    className: null,
-    style: null,
     theme: Theme.DEFAULT,
 
     href: 'javascript:void(0)',
-    alt: null,
     target: '_blank',
 
     disabled: false,
     readOnly: false,
-    isLoading: false,
-
-    iconCls: null,
-    rightIconCls: null
+    isLoading: false
 
 };
 

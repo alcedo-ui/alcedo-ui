@@ -1,6 +1,28 @@
 const path = require('path'),
-    utils = require('./utils'),
-    config = require('../config');
+
+    HappyPack = require('happypack'),
+    autoprefixer = require('autoprefixer'),
+
+    config = require('./config.js'),
+    utils = require('./utils.js'),
+
+    cssLoaderConfig = ['style-loader', {
+        loader: 'css-loader',
+        options: {
+            minimize: true,
+            importLoaders: 1
+        }
+    }, {
+        loader: 'postcss-loader',
+        options: {
+            ident: 'postcss',
+            plugins: [
+                autoprefixer({
+                    broswer: 'last 5 versions'
+                })
+            ]
+        }
+    }];
 
 function resolve(dir) {
     return path.join(__dirname, '..', dir);
@@ -13,9 +35,7 @@ module.exports = {
     output: {
         path: config.build.assetsRoot,
         filename: '[name].js',
-        publicPath: process.env.NODE_ENV === 'production'
-            ? config.build.assetsPublicPath
-            : config.dev.assetsPublicPath
+        publicPath: config.assetsPublicPath
     },
     resolve: {
         extensions: ['.js', '.json'],
@@ -37,28 +57,39 @@ module.exports = {
     module: {
         rules: [{
             test: /\.js$/,
-            loader: 'babel-loader',
+            use: 'happypack/loader?id=js',
             include: [resolve('examples'), resolve('src')]
         }, {
             test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
             loader: 'url-loader',
             options: {
                 limit: 1000,
-                name: utils.assetsPath('img/[name].[hash:7].[ext]')
+                name: utils.assetsSubPath('img/[name].[hash:7].[ext]')
             }
         }, {
             test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
             loader: 'url-loader',
             options: {
                 limit: 1000,
-                name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
+                name: utils.assetsSubPath('fonts/[name].[hash:7].[ext]')
             }
         }, {
-            test: /\.json$/,
-            loader: 'json-loader'
+            test: /\.scss$/,
+            use: [...cssLoaderConfig, 'fast-sass-loader']
+        }, {
+            test: /\.css$/,
+            use: cssLoaderConfig
         }, {
             test: /\.ht?ml/,
             loader: 'html-loader'
         }]
-    }
+    },
+    plugins: [
+        new HappyPack({
+            id: 'js',
+            loaders: ['babel-loader?cacheDirectory=true'],
+            threads: 4,
+            verbose: false
+        })
+    ]
 };

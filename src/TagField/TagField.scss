@@ -23,8 +23,7 @@ input::-ms-clear {
     border: 1px solid $theme-border;
     cursor: text;
     padding: 0 8px 8px 0;
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow: auto;
 
     .tag-field-input-wrapper {
         position: relative;
@@ -38,24 +37,22 @@ input::-ms-clear {
         color: inherit;
 
         .tag-field-input {
+            box-sizing: border-box;
             position: absolute;
             left: 0;
             top: 0;
-            height: 24px;
             line-height: 24px;
             padding: 0 8px;
             border: 0;
             color: inherit;
-            overflow-x: visible;
-            overflow-y: visible;
+            overflow: auto;
+            resize: none;
         }
     }
 
     .tag-field-item-wrapper {
         margin: 8px 0 0 8px;
         box-sizing: border-box;
-        height: 24px;
-        line-height: 24px;
         padding: 0;
         float: left;
 
@@ -71,6 +68,12 @@ input::-ms-clear {
             .editable-field-input,
             .editable-field-input .text-field-input {
                 line-height: 24px;
+            }
+
+            .editable-field-input {
+                height: 26px;
+                top: -1px;
+                left: -4px;
             }
 
             .editable-field-span {
@@ -110,12 +113,6 @@ input::-ms-clear {
         }
     }
 
-    .tag-field-clear-button {
-        position: absolute;
-        right: 0;
-        top: 0;
-    }
-
     .tag-field-test-container {
         position: absolute;
         top: 0px;
@@ -127,10 +124,6 @@ input::-ms-clear {
         font: inherit;
         line-height: inherit;
         overflow: visible;
-    }
-
-    &.with-clear {
-        padding: 0 40px 8px 0;
     }
 
     &[disabled] {

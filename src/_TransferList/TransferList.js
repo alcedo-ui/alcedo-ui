@@ -5,7 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
 
 import TextField from '../TextField';
@@ -21,45 +21,46 @@ class TransferList extends Component {
             filter: ''
         };
 
-        this.select = ::this.select;
-        this.selectAllHandle = ::this.selectAllHandle;
-        this.filterChangeHandle = ::this.filterChangeHandle;
-        this.getItemValue = ::this.getItemValue;
-
     }
 
-    select(item) {
-        if (!item.disabled) {
-            let data = _.cloneDeep(this.props.value);
-            let selectAll = this.state.selectAll;
-            let flag = false;
-            for (let i = 0; i < data.length; i++) {
-                if (data[i].id === item.id) {
-                    flag = true;
-                    break;
-                }
-            }
-            if (flag) {
-                let index = data.findIndex(function (value, index, arr) {
-                    return value.id == item.id;
-                });
-                data.splice(index, 1);
-                selectAll = false;
-            } else {
-                data.push(item);
-                if (data.length == this.props.data.length) {
-                    selectAll = true;
-                }
-            }
-            this.setState({
-                selectAll
-            }, () => {
-                this.props.onChange && this.props.onChange(data);
-            });
+    select = item => {
+
+        if (!item || item.disabled) {
+            return;
         }
-    }
 
-    selectAllHandle() {
+        let data = cloneDeep(this.props.value),
+            selectAll = this.state.selectAll,
+            flag = false;
+
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].id === item.id) {
+                flag = true;
+                break;
+            }
+        }
+
+        if (flag) {
+            let index = data.findIndex(value => value.id == item.id);
+            data.splice(index, 1);
+            selectAll = false;
+        } else {
+            data.push(item);
+            if (data.length == this.props.data.length) {
+                selectAll = true;
+            }
+        }
+
+        this.setState({
+            selectAll
+        }, () => {
+            const {onChange} = this.props;
+            onChange && onChange(data);
+        });
+
+    };
+
+    selectAllHandle = () => {
         const {selectAll, filter} = this.state;
         const {data} = this.props;
         const filterList = this.getFilterList(data, filter);
@@ -75,18 +76,18 @@ class TransferList extends Component {
         }, () => {
             this.props.onChange && this.props.onChange(value);
         });
-    }
+    };
 
-    filterChangeHandle(value) {
+    filterChangeHandle = value => {
         this.setState({
             filter: value,
             selectAll: false
         }, () => {
             this.props.onChange && this.props.onChange([]);
         });
-    }
+    };
 
-    getItemValue(id) {
+    getItemValue = id => {
         let data = this.props.value;
         let flag = false;
         for (let i = 0; i < data.length; i++) {
@@ -98,9 +99,9 @@ class TransferList extends Component {
             }
         }
         return flag;
-    }
+    };
 
-    getFilterList(list, filter) {
+    getFilterList = (list, filter) => {
         return list.filter((value) => {
             if (typeof value == 'object') {
                 return value.text.toUpperCase().indexOf(filter.toUpperCase()) != -1;
@@ -108,7 +109,7 @@ class TransferList extends Component {
                 return value.toUpperCase().indexOf(filter.toUpperCase()) != -1;
             }
         });
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.data.length !== this.props.data.length) {
@@ -157,7 +158,7 @@ class TransferList extends Component {
                      className="options">
                     {
 
-                        this.filterList.map(item => (
+                        this.filterList && this.filterList.map(item => (
                             <div key={item.text}
                                  className={`option ${item.disabled ? 'disabled' : ''}`}>
                                 <Checkbox label={item.text}
@@ -175,7 +176,7 @@ class TransferList extends Component {
         );
     }
 
-};
+}
 
 TransferList.propTypes = {
 
@@ -199,12 +200,6 @@ TransferList.propTypes = {
      */
     value: PropTypes.array
 
-
-};
-
-TransferList.defaultProps = {
-    className: '',
-    style: null
 };
 
 export default TransferList;

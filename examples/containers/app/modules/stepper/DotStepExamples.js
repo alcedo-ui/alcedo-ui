@@ -10,7 +10,7 @@ import doc from 'assets/propTypes/DotStep.json';
 
 import 'sass/containers/app/modules/stepper/DotStepExamples.scss';
 
-export default class DotStepExamples extends Component {
+class DotStepExamples extends Component {
 
     constructor(props) {
 
@@ -21,27 +21,21 @@ export default class DotStepExamples extends Component {
             finishedStep: 0
         };
 
-        this.updateStep = ::this.updateStep;
-        this.prev = ::this.prev;
-        this.next = ::this.next;
-        this.reset = ::this.reset;
-        this.setFinished = ::this.setFinished;
-
     }
 
-    updateStep(step) {
+    updateStep = step => {
         this.setState({
             ...step
         });
-    }
+    };
 
-    prev() {
+    prev = () => {
         this.setState({
             activatedStep: this.state.activatedStep - 1
         });
-    }
+    };
 
-    next() {
+    next = () => {
 
         const activatedStep = this.state.activatedStep + 1,
             finishedStep = this.state.finishedStep > activatedStep ? this.state.finishedStep : activatedStep;
@@ -51,18 +45,18 @@ export default class DotStepExamples extends Component {
             finishedStep
         });
 
-    }
+    };
 
-    reset() {
+    reset = () => {
         this.setState({
             activatedStep: 0,
             finishedStep: 0
         });
-    }
+    };
 
-    setFinished(text) {
+    setFinished = text => {
         return text;
-    }
+    };
 
     render() {
 
@@ -129,16 +123,16 @@ export default class DotStepExamples extends Component {
                                 <RaisedButton value="Prev"
                                               iconCls="fas fa-angle-left"
                                               disabled={activatedStep <= 0}
-                                              onTouchTap={this.prev}/>
+                                              onClick={this.prev}/>
 
                                 <RaisedButton value={activatedStep < steps.length - 1 ? 'Next' : 'Finish'}
                                               rightIconCls={activatedStep < steps.length - 1 ? 'fas fa-angle-right' : ''}
                                               disabled={activatedStep >= steps.length}
-                                              onTouchTap={this.next}/>
+                                              onClick={this.next}/>
 
                                 <RaisedButton value="Reset"
                                               iconCls="fas fa-undo"
-                                              onTouchTap={this.reset}/>
+                                              onClick={this.reset}/>
 
                             </div>
 
@@ -155,3 +149,5 @@ export default class DotStepExamples extends Component {
         );
     }
 };
+
+export default DotStepExamples;

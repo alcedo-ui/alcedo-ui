@@ -11,11 +11,12 @@ import List from '../List';
 import Tip from '../Tip';
 import Theme from '../Theme';
 
+import SelectMode from '../_statics/SelectMode';
+import LIST_SEPARATOR from '../_statics/ListSeparator';
+
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import Calculation from '../_vendors/Calculation';
-import SelectMode from '../_statics/SelectMode';
-import LIST_SEPARATOR from '../_statics/ListSeparator';
 
 class DynamicRenderList extends Component {
 
@@ -32,40 +33,35 @@ class DynamicRenderList extends Component {
             scrollTop: 0
         };
 
-        this.getIndex = ::this.getIndex;
-        this.scrollHandler = ::this.scrollHandler;
-        this.changeHandler = ::this.changeHandler;
-        this.adjustScroll = ::this.adjustScroll;
-
     }
 
-    getIndex() {
+    getIndex = () => {
         const {data, listHeight, itemHeight, scrollBuffer} = this.props,
             {scrollTop} = this.state;
         return Calculation.displayIndexByScrollTop(data, listHeight, itemHeight, scrollTop, scrollBuffer);
-    }
+    };
 
-    scrollHandler(e) {
+    scrollHandler = e => {
         this.setState({
             scrollTop: this.dynamicRenderListEl.scrollTop
         }, () => {
             const {onScroll} = this.props;
             onScroll && onScroll(e);
         });
-    }
+    };
 
-    changeHandler(value) {
+    changeHandler = value => {
         this.setState({
             value
         }, () => {
             const {onChange} = this.props;
             onChange && onChange(value);
         });
-    }
+    };
 
-    adjustScroll() {
+    adjustScroll = () => {
         this.refs.list.adjustScroll();
-    }
+    };
 
     componentDidMount() {
         this.dynamicRenderListEl = this.refs.dynamicRenderList;
@@ -110,9 +106,7 @@ class DynamicRenderList extends Component {
                  className={listClassName}
                  style={{...style, height: listHeight}}
                  onScroll={this.scrollHandler}
-                 onWheel={e => {
-                     Event.wheelHandler(e, this.props);
-                 }}>
+                 onWheel={e => Event.wheelHandler(e, this.props)}>
 
                 <div className="dynamic-render-list-scroller"
                      style={scrollerStyle}>
@@ -130,7 +124,7 @@ class DynamicRenderList extends Component {
         );
 
     }
-};
+}
 
 DynamicRenderList.propTypes = {
 
@@ -237,7 +231,7 @@ DynamicRenderList.propTypes = {
         /**
          * Callback function fired when a list item touch-tapped.
          */
-        onTouchTap: PropTypes.func
+        onClick: PropTypes.func
 
     }), PropTypes.string, PropTypes.number, PropTypes.symbol])).isRequired,
 
@@ -292,7 +286,7 @@ DynamicRenderList.propTypes = {
     /**
      * Callback function fired when the list-item touch tap.
      */
-    onItemTouchTap: PropTypes.func,
+    onItemClick: PropTypes.func,
 
     /**
      * Callback function fired when the list-item select.
@@ -322,8 +316,6 @@ DynamicRenderList.propTypes = {
 
 DynamicRenderList.defaultProps = {
 
-    className: null,
-    style: null,
     theme: Theme.DEFAULT,
     selectTheme: Theme.DEFAULT,
 
@@ -337,8 +329,6 @@ DynamicRenderList.defaultProps = {
     selectMode: SelectMode.SINGLE_SELECT,
     shouldPreventContainerScroll: true,
 
-    radioUncheckedIconCls: null,
-    radioCheckedIconCls: null,
     checkboxUncheckedIconCls: 'far fa-square',
     checkboxCheckedIconCls: 'fas fa-check-square',
     checkboxIndeterminateIconCls: 'fas fa-minus-square',

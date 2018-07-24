@@ -9,7 +9,7 @@ import doc from 'assets/propTypes/IconButton.json';
 
 import 'sass/containers/app/modules/buttons/IconButtonExamples.scss';
 
-export default class IconButtonExamples extends Component {
+class IconButtonExamples extends Component {
 
     constructor(props) {
         super(props);
@@ -68,10 +68,10 @@ export default class IconButtonExamples extends Component {
                                 <p><code>Icon Button</code> using different <code>theme</code> example.</p>
 
                                 <IconButton iconCls="fas fa-plus"
-                                            theme="success"/>
+                                            theme={IconButton.Theme.SUCCESS}/>
 
                                 <IconButton iconCls="fas fa-trash-alt"
-                                            theme="error"/>
+                                            theme={IconButton.Theme.ERROR}/>
 
                                 <IconButton iconCls="fas fa-wrench"
                                             disabled={true}/>
@@ -91,3 +91,5 @@ export default class IconButtonExamples extends Component {
         );
     }
 };
+
+export default IconButtonExamples;

@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import debounce from 'lodash/debounce';
 import Transition from 'react-transition-group/Transition';
 import classNames from 'classnames';
 
@@ -13,10 +14,10 @@ import Paper from '../Paper';
 import Theme from '../Theme';
 
 import Position from '../_statics/Position';
+
 import Event from '../_vendors/Event';
 import Util from '../_vendors/Util';
 import TriggerPopCalculation from '../_vendors/TriggerPopCalculation';
-import PopManagement from '../_vendors/PopManagement';
 
 class TriggerPop extends Component {
 
@@ -32,17 +33,9 @@ class TriggerPop extends Component {
             exited: true
         };
 
-        this.enterHandler = ::this.enterHandler;
-        this.enteredHandler = ::this.enteredHandler;
-        this.exitHandler = ::this.exitHandler;
-        this.exitedHandler = ::this.exitedHandler;
-        this.resizeHandler = ::this.resizeHandler;
-        this.getEl = ::this.getEl;
-        this.resetPosition = ::this.resetPosition;
-
     }
 
-    enterHandler(el) {
+    enterHandler = el => {
 
         this.transitionEl = el;
         this.resetPosition();
@@ -54,50 +47,46 @@ class TriggerPop extends Component {
             onRender && onRender(el, this.props.triggerEl);
         });
 
-    }
+    };
 
-    enteredHandler(el) {
+    enteredHandler = el => {
         const {onRendered} = this.props;
         onRendered && onRendered(el, this.props.triggerEl);
-    }
+    };
 
-    exitHandler(el) {
+    exitHandler = el => {
         this.setState({
             enter: false
         }, () => {
             const {onDestroy} = this.props;
             onDestroy && onDestroy(el, this.props.triggerEl);
         });
-    }
+    };
 
-    exitedHandler(el) {
+    exitedHandler = el => {
         this.setState({
             exited: true
         }, () => {
             const {onDestroyed} = this.props;
             onDestroyed && onDestroyed(el, this.props.triggerEl);
         });
-    }
+    };
 
-    resizeHandler = _.debounce(() => {
+    resizeHandler = debounce(() => {
         this.resetPosition();
     }, 250);
 
-    getEl() {
+    getEl = () => {
         return this.transitionEl;
-    }
+    };
 
-    resetPosition(props = this.props) {
+    resetPosition = (props = this.props) => {
         const {triggerEl, position, isTriggerPositionFixed} = props;
         TriggerPopCalculation.setStyle(triggerEl, this.transitionEl, position, isTriggerPositionFixed);
-    }
+    };
 
     componentDidMount() {
-
         Event.addEvent(window, 'resize', this.resizeHandler);
-
-        this.props.isEscClose && PopManagement.push(this);
-
     }
 
     componentWillReceiveProps(nextProps) {
@@ -124,16 +113,23 @@ class TriggerPop extends Component {
 
                 children,
 
-                className, contentClassName, style, theme, hasTriangle, triangle, position, isAnimated, visible,
+                className, contentClassName, modalClassName, style, theme, hasTriangle, triangle, position,
+                isAnimated, visible, showModal,
 
                 // not passing down these props
-                isEscClose, isAutoClose, shouldPreventContainerScroll, triggerEl, isTriggerPositionFixed,
+                isEscClose, isBlurClose, shouldPreventContainerScroll, triggerEl, isTriggerPositionFixed,
                 onRender, onRendered, onDestroy, onDestroyed,
 
                 ...restProps
 
             } = this.props,
             {enter, exited} = this.state,
+
+            popModalClassName = classNames('trigger-pop-modal', {
+                hidden: !enter,
+                'trigger-pop-modal-animated': isAnimated,
+                [modalClassName]: modalClassName
+            }),
 
             popupClassName = classNames('trigger-pop', {
                 hidden: !enter,
@@ -144,12 +140,24 @@ class TriggerPop extends Component {
                 [className]: className
             }),
 
-            popupContentClassName = classNames('trigger-pop-content', {
+            popContentClassName = classNames('trigger-pop-content', {
                 [contentClassName]: contentClassName
             });
 
         return (
             <Portal visible={!exited}>
+
+                {
+                    showModal ?
+                        <Transition appear
+                                    in={visible}
+                                    timeout={250}>
+                            <div className={popModalClassName}></div>
+                        </Transition>
+                        :
+                        null
+                }
+
                 <Transition appear
                             in={visible}
                             timeout={250}
@@ -160,9 +168,7 @@ class TriggerPop extends Component {
                     <Paper {...restProps}
                            className={popupClassName}
                            style={style}
-                           onWheel={e => {
-                               Event.wheelHandler(e, this.props);
-                           }}>
+                           onWheel={e => Event.wheelHandler(e, this.props)}>
 
                         {
                             hasTriangle ?
@@ -173,21 +179,20 @@ class TriggerPop extends Component {
                                 null
                         }
 
-                        <div className={popupContentClassName}
-                             onWheel={e => {
-                                 Event.wheelHandler(e, this.props);
-                             }}>
+                        <div className={popContentClassName}
+                             onWheel={e => Event.wheelHandler(e, this.props)}>
                             {children}
                         </div>
 
                     </Paper>
                 </Transition>
+
             </Portal>
         );
 
     }
 
-};
+}
 
 TriggerPop.propTypes = {
 
@@ -201,10 +206,17 @@ TriggerPop.propTypes = {
      */
     contentClassName: PropTypes.string,
 
+    modalClassName: PropTypes.string,
+
     /**
      * Override the styles of the root element.
      */
     style: PropTypes.object,
+
+    /**
+     * The trigger pop theme.Can be primary,highlight,success,warning,error.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
      * This is the DOM element that will be used to set the position of the trigger pop.
@@ -223,10 +235,7 @@ TriggerPop.propTypes = {
 
     triangle: PropTypes.element,
 
-    /**
-     * The trigger pop theme.Can be primary,highlight,success,warning,error.
-     */
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+    showModal: PropTypes.bool,
 
     /**
      * The trigger pop alignment.The value can be Popup.Position.LEFT or Popup.Position.RIGHT.
@@ -243,7 +252,7 @@ TriggerPop.propTypes = {
      */
     depth: PropTypes.number,
 
-    isAutoClose: PropTypes.bool,
+    isBlurClose: PropTypes.bool,
     isEscClose: PropTypes.bool,
     shouldPreventContainerScroll: PropTypes.bool,
     isTriggerPositionFixed: PropTypes.bool,
@@ -277,20 +286,17 @@ TriggerPop.propTypes = {
 
 TriggerPop.defaultProps = {
 
-    className: null,
-    contentClassName: null,
-    style: null,
-    depth: 6,
+    theme: Theme.DEFAULT,
+    depth: 3,
 
-    triggerEl: null,
     visible: false,
     hasTriangle: true,
     triangle: <div className="trigger-pop-triangle"></div>,
-    theme: Theme.DEFAULT,
+    showModal: false,
     position: Position.BOTTOM,
     isAnimated: true,
 
-    isAutoClose: true,
+    isBlurClose: true,
     isEscClose: true,
     shouldPreventContainerScroll: true,
     isTriggerPositionFixed: false
