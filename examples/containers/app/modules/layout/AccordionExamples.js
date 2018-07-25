@@ -4,6 +4,7 @@ import Paper from 'src/Paper';
 import Accordion from 'src/Accordion';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import RaisedButton from 'src/RaisedButton';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Accordion.json';
@@ -13,17 +14,39 @@ import 'sass/containers/app/modules/layout/AccordionExamples.scss';
 class AccordionExamples extends Component {
 
     constructor(props) {
+
         super(props);
+
+        this.state = {
+            content: [1, 2, 3]
+        };
+
+    }
+
+    clickHandler = () => {
+        this.setState({
+            content: [...this.state.content, ...this.state.content]
+        });
+    };
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.content.length !== this.state.content.length) {
+            this.refs.accordion && this.refs.accordion.resetHeight();
+        }
     }
 
     render() {
+
+        const {content} = this.state;
+
         return (
             <div className="example accordion-examples">
 
                 <h2 className="example-title">Accordion</h2>
 
                 <p>
-                    <span>Accordion</span> is a folding list effect component.You can click title's row to show or hide
+                    <span>Accordion</span>
+                    is a folding list effect component.You can click title's row to show or hide
                     the drop-down list.
                 </p>
 
@@ -43,7 +66,8 @@ class AccordionExamples extends Component {
                                 </p>
 
                                 <Paper>
-                                    <Accordion title="Title">
+                                    <Accordion ref="accordion"
+                                               title="Title">
                                         <div className="accordion-example-content">
                                             content
                                         </div>
@@ -78,6 +102,45 @@ class AccordionExamples extends Component {
                                         </div>
                                     </Accordion>
                                 </Paper>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Dynamic Content"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>
+                                    Update <span>Accordion</span> content when height changed.
+                                </p>
+
+                                <Paper>
+                                    <Accordion ref="accordion"
+                                               title="Title">
+                                        <div className="accordion-example-content">
+                                            {
+                                                content && content.map((item, index) =>
+                                                    <div key={index}>
+                                                        {item}
+                                                    </div>
+                                                )
+                                            }
+                                        </div>
+                                    </Accordion>
+                                </Paper>
+
+                                <RaisedButton className="update-content-button"
+                                              value="Update Content"
+                                              onClick={this.clickHandler}/>
 
                             </div>
 
