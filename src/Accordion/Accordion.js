@@ -25,6 +25,37 @@ class Accordion extends Component {
 
     }
 
+    /**
+     * public
+     */
+    resetHeight = () => {
+
+        if (this.state.collapsed) {
+            return;
+        }
+
+        const el = this.refs.accordionContent;
+
+        if (!el) {
+            return;
+        }
+
+        const style = window.getComputedStyle(el);
+
+        if (!style) {
+            return;
+        }
+
+        this.setState({
+            contentHeight: 'auto'
+        }, () => {
+            this.setState({
+                contentHeight: el.clientHeight
+            });
+        });
+
+    };
+
     clickHandler = () => {
 
         const {onCollpase, onExpand, onChange} = this.props;
@@ -42,18 +73,6 @@ class Accordion extends Component {
                 onChange && onChange(false);
             }
         });
-
-    };
-
-    resetHeight = () => {
-
-        const height = this.refs.accordionContent.style.height;
-
-        if (!height || height === 'auto') {
-            this.setState({
-                contentHeight: this.refs.accordionContent.clientHeight
-            });
-        }
 
     };
 
