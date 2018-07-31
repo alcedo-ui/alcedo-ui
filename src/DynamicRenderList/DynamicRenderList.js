@@ -17,6 +17,7 @@ import LIST_SEPARATOR from '../_statics/ListSeparator';
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import Calculation from '../_vendors/Calculation';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class DynamicRenderList extends Component {
 
@@ -27,6 +28,8 @@ class DynamicRenderList extends Component {
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
+
+        this.lastDisplayIndex = null;
 
         this.state = {
             value: Calculation.getInitValue(props),
@@ -42,10 +45,34 @@ class DynamicRenderList extends Component {
         this.refs.list.adjustScroll();
     };
 
+    /**
+     * calculate final display index in list
+     * @returns
+     *  {
+     *      start,
+     *      stop,
+     *      startWithBuffer,
+     *      stopWithBuffer
+     *  }
+     */
     getIndex = () => {
-        const {data, listHeight, itemHeight, scrollBuffer} = this.props,
-            {scrollTop} = this.state;
-        return Calculation.displayIndexByScrollTop(data, listHeight, itemHeight, scrollTop, scrollBuffer);
+
+        const {data, listHeight, itemHeight, scrollBuffer, onRenderItemChange} = this.props,
+            {scrollTop} = this.state,
+            displayIndex = Calculation.displayIndexByScrollTop(data, listHeight, itemHeight, scrollTop, scrollBuffer);
+
+        if ((!displayIndex && this.lastDisplayIndex) || (displayIndex && !this.lastDisplayIndex)
+            || (displayIndex && this.lastDisplayIndex
+                && (displayIndex.start !== this.lastDisplayIndex.start
+                    || displayIndex.stop !== this.lastDisplayIndex.stop
+                    || displayIndex.startWithBuffer !== this.lastDisplayIndex.startWithBuffer
+                    || displayIndex.stopWithBuffer !== this.lastDisplayIndex.stopWithBuffer))) {
+            onRenderItemChange && onRenderItemChange(displayIndex);
+            this.lastDisplayIndex = displayIndex;
+        }
+
+        return displayIndex;
+
     };
 
     scrollHandler = e => {
@@ -70,13 +97,19 @@ class DynamicRenderList extends Component {
         this.dynamicRenderListEl = this.refs.dynamicRenderList;
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: Calculation.getInitValue(nextProps)
-            });
-        }
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: Calculation.getInitValue({
+                value: ComponentUtil.getDerivedState(props, state, 'value'),
+                selectMode: props.selectMode
+            })
+        };
     }
+
+    // componentDidUpdate() {
+    //     console.log(this.displayIndex);
+    // }
 
     render() {
 
@@ -310,6 +343,8 @@ DynamicRenderList.propTypes = {
      * Callback function fired when wrapper wheeled.
      */
     onWheel: PropTypes.func,
+
+    onRenderItemChange: PropTypes.func,
 
     listHeight: PropTypes.number,
     itemHeight: PropTypes.number,
