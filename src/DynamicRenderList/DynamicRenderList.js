@@ -30,6 +30,7 @@ class DynamicRenderList extends Component {
         super(props, ...restArgs);
 
         this.lastDisplayIndex = null;
+        this.displayIndex = null;
 
         this.state = {
             value: Calculation.getInitValue(props),
@@ -57,21 +58,11 @@ class DynamicRenderList extends Component {
      */
     getIndex = () => {
 
-        const {data, listHeight, itemHeight, scrollBuffer, onRenderItemChange} = this.props,
-            {scrollTop} = this.state,
-            displayIndex = Calculation.displayIndexByScrollTop(data, listHeight, itemHeight, scrollTop, scrollBuffer);
+        const {data, listHeight, itemHeight, scrollBuffer} = this.props,
+            {scrollTop} = this.state;
 
-        if ((!displayIndex && this.lastDisplayIndex) || (displayIndex && !this.lastDisplayIndex)
-            || (displayIndex && this.lastDisplayIndex
-                && (displayIndex.start !== this.lastDisplayIndex.start
-                    || displayIndex.stop !== this.lastDisplayIndex.stop
-                    || displayIndex.startWithBuffer !== this.lastDisplayIndex.startWithBuffer
-                    || displayIndex.stopWithBuffer !== this.lastDisplayIndex.stopWithBuffer))) {
-            onRenderItemChange && onRenderItemChange(displayIndex);
-            this.lastDisplayIndex = displayIndex;
-        }
-
-        return displayIndex;
+        return this.displayIndex =
+            Calculation.displayIndexByScrollTop(data, listHeight, itemHeight, scrollTop, scrollBuffer);
 
     };
 
@@ -97,6 +88,23 @@ class DynamicRenderList extends Component {
         this.dynamicRenderListEl = this.refs.dynamicRenderList;
     }
 
+    componentDidUpdate() {
+
+        const {onRenderItemChange} = this.props;
+
+        if (onRenderItemChange &&
+            ((!this.displayIndex && this.lastDisplayIndex) || (this.displayIndex && !this.lastDisplayIndex)
+                || (this.displayIndex && this.lastDisplayIndex
+                    && (this.displayIndex.start !== this.lastDisplayIndex.start
+                        || this.displayIndex.stop !== this.lastDisplayIndex.stop
+                        || this.displayIndex.startWithBuffer !== this.lastDisplayIndex.startWithBuffer
+                        || this.displayIndex.stopWithBuffer !== this.lastDisplayIndex.stopWithBuffer)))) {
+            this.lastDisplayIndex = this.displayIndex;
+            onRenderItemChange(this.displayIndex);
+        }
+
+    }
+
     static getDerivedStateFromProps(props, state) {
         return {
             prevProps: props,
@@ -107,10 +115,6 @@ class DynamicRenderList extends Component {
         };
     }
 
-    // componentDidUpdate() {
-    //     console.log(this.displayIndex);
-    // }
-
     render() {
 
         const {
@@ -118,7 +122,7 @@ class DynamicRenderList extends Component {
                 className, style, data, listHeight, itemHeight,
 
                 // not passing down these props
-                scrollBuffer,
+                scrollBuffer, onRenderItemChange,
 
                 ...restProps
 
