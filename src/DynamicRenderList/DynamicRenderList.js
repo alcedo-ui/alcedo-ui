@@ -35,6 +35,13 @@ class DynamicRenderList extends Component {
 
     }
 
+    /**
+     * public
+     */
+    adjustScroll = () => {
+        this.refs.list.adjustScroll();
+    };
+
     getIndex = () => {
         const {data, listHeight, itemHeight, scrollBuffer} = this.props,
             {scrollTop} = this.state;
@@ -57,10 +64,6 @@ class DynamicRenderList extends Component {
             const {onChange} = this.props;
             onChange && onChange(value);
         });
-    };
-
-    adjustScroll = () => {
-        this.refs.list.adjustScroll();
     };
 
     componentDidMount() {
