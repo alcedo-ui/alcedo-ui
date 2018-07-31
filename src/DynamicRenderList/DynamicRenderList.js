@@ -107,10 +107,6 @@ class DynamicRenderList extends Component {
         };
     }
 
-    // componentDidUpdate() {
-    //     console.log(this.displayIndex);
-    // }
-
     render() {
 
         const {
@@ -118,7 +114,7 @@ class DynamicRenderList extends Component {
                 className, style, data, listHeight, itemHeight,
 
                 // not passing down these props
-                scrollBuffer,
+                scrollBuffer, onRenderItemChange,
 
                 ...restProps
 
