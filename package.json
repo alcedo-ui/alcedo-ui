@@ -42,7 +42,7 @@
         "moment": "^2.22.2",
         "prop-types": "^15.6.2",
         "react": "^16.4.1",
-        "react-beautiful-dnd": "^8.0.5",
+        "react-beautiful-dnd": "^8.0.6",
         "react-dnd": "^3.0.2",
         "react-dnd-html5-backend": "^3.0.2",
         "react-dnd-scrollzone": "^4.0.0",
