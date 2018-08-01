@@ -128,7 +128,7 @@ class Dialog extends Component {
 
                 // not passing down these props
                 isBlurClose, isEscClose,
-                onRender, onRequestClose, onOKButtonClick, onCloseButtonClick, onCancelButtonClick,
+                onRequestClose, onOKButtonClick, onCloseButtonClick, onCancelButtonClick,
 
                 ...restProps
 
