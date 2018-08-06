@@ -15,6 +15,7 @@ import SelectMode from '../_statics/SelectMode';
 import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class MaterialTreeSelect extends Component {
 
@@ -32,6 +33,41 @@ class MaterialTreeSelect extends Component {
 
     }
 
+    /**
+     * public
+     */
+    startRipple = (e, props) => {
+        this.refs.treeSelect && this.refs.treeSelect.startRipple(e, props);
+    };
+
+    /**
+     * public
+     */
+    endRipple = () => {
+        this.refs.treeSelect && this.refs.treeSelect.endRipple();
+    };
+
+    /**
+     * public
+     */
+    triggerRipple = (e, props) => {
+        this.refs.treeSelect && this.refs.treeSelect.triggerRipple(e, props);
+    };
+
+    /**
+     * public
+     */
+    resetPopupPosition = () => {
+        this.refs.treeSelect && this.refs.treeSelect.resetPosition();
+    };
+
+    /**
+     * public
+     */
+    closePopup = () => {
+        this.refs.treeSelect && this.refs.treeSelect.closePopup();
+    };
+
     triggerChangeHandler = value => {
         this.setState({
             value
@@ -41,16 +77,11 @@ class MaterialTreeSelect extends Component {
         });
     };
 
-    closePopup = () => {
-        this.refs.treeSelect && this.refs.treeSelect.closePopup();
-    };
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
     }
 
     render() {

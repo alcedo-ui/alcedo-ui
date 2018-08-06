@@ -1,9 +1,9 @@
-const chalk = require('chalk'),
-    webpack = require('webpack'),
+const webpack = require('webpack'),
+    log = require('friendly-errors-webpack-plugin/src/output'),
 
     webpackConfig = require('./webpack.config.dll.js');
 
-console.log(chalk.cyan('Building DLL...\n'));
+log.title('info', 'WAIT', `Building DLL... `);
 
 webpack(webpackConfig, (err, stats) => {
 
@@ -19,6 +19,6 @@ webpack(webpackConfig, (err, stats) => {
         chunkModules: false
     }) + '\n\n');
 
-    console.log(chalk.cyan('Build DLL Complete.'));
+    log.title('success', 'DONE', `Build DLL Complete `);
 
 });

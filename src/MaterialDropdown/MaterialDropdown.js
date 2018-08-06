@@ -24,6 +24,37 @@ class MaterialDropdown extends Component {
         super(props, ...restArgs);
     }
 
+    /**
+     * public
+     */
+    startRipple = (e, props) => {
+        this.refs.dropdown && this.refs.dropdown.startRipple(e, props);
+    };
+
+    /**
+     * public
+     */
+    endRipple = () => {
+        this.refs.dropdown && this.refs.dropdown.endRipple();
+    };
+
+    /**
+     * public
+     */
+    triggerRipple = (e, props) => {
+        this.refs.dropdown && this.refs.dropdown.triggerRipple(e, props);
+    };
+
+    /**
+     * public
+     */
+    resetPopupPosition = () => {
+        this.refs.dropdown && this.refs.dropdown.resetPosition();
+    };
+
+    /**
+     * public
+     */
     closePopup = () => {
         this.refs.dropdown && this.refs.dropdown.closePopup();
     };
@@ -123,7 +154,7 @@ MaterialDropdown.propTypes = {
 
     title: PropTypes.string,
 
-    triggerRenderer: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
+    triggerValue: PropTypes.any,
 
     rightIconCls: PropTypes.string,
 

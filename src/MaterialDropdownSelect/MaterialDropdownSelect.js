@@ -15,6 +15,7 @@ import SelectMode from '../_statics/SelectMode';
 import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class MaterialDropdownSelect extends Component {
 
@@ -33,6 +34,41 @@ class MaterialDropdownSelect extends Component {
 
     }
 
+    /**
+     * public
+     */
+    startRipple = (e, props) => {
+        this.refs.dropdownSelect && this.refs.dropdownSelect.startRipple(e, props);
+    };
+
+    /**
+     * public
+     */
+    endRipple = () => {
+        this.refs.dropdownSelect && this.refs.dropdownSelect.endRipple();
+    };
+
+    /**
+     * public
+     */
+    triggerRipple = (e, props) => {
+        this.refs.dropdownSelect && this.refs.dropdownSelect.triggerRipple(e, props);
+    };
+
+    /**
+     * public
+     */
+    resetPopupPosition = () => {
+        this.refs.dropdownSelect && this.refs.dropdownSelect.resetPosition();
+    };
+
+    /**
+     * public
+     */
+    closePopup = () => {
+        this.refs.dropdownSelect && this.refs.dropdownSelect.closePopup();
+    };
+
     triggerChangeHandler = value => {
         this.setState({
             value
@@ -42,16 +78,11 @@ class MaterialDropdownSelect extends Component {
         });
     };
 
-    closePopup = () => {
-        this.refs.dropdownSelect && this.refs.dropdownSelect.closePopup();
-    };
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
     }
 
     render() {

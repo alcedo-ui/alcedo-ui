@@ -35,6 +35,33 @@ class List extends Component {
 
     }
 
+    /**
+     * public
+     */
+    adjustScroll = () => {
+
+        const {data} = this.props,
+            {value} = this.state,
+            index = data.indexOf(value);
+
+        if (index < 0) {
+            return;
+        }
+
+        const listHeight = this.listEl.clientHeight,
+            listScrollTop = this.listEl.scrollTop,
+            itemEl = this.listEl.childNodes[index],
+            itemHeight = itemEl.clientHeight,
+            itemTop = itemEl.offsetTop;
+
+        if (itemTop < listScrollTop) {
+            this.listEl.scrollTop = itemTop;
+        } else if (itemTop + itemHeight > listScrollTop + listHeight) {
+            this.listEl.scrollTop = itemTop + itemHeight - listHeight;
+        }
+
+    };
+
     listItemSelectHandler = (item, index) => {
 
         const {selectMode} = this.props,
@@ -92,30 +119,6 @@ class List extends Component {
             onItemDeselect && onItemDeselect(item, index);
             onChange && onChange(value, index);
         });
-
-    };
-
-    adjustScroll = () => {
-
-        const {data} = this.props,
-            {value} = this.state,
-            index = data.indexOf(value);
-
-        if (index < 0) {
-            return;
-        }
-
-        const listHeight = this.listEl.clientHeight,
-            listScrollTop = this.listEl.scrollTop,
-            itemEl = this.listEl.childNodes[index],
-            itemHeight = itemEl.clientHeight,
-            itemTop = itemEl.offsetTop;
-
-        if (itemTop < listScrollTop) {
-            this.listEl.scrollTop = itemTop;
-        } else if (itemTop + itemHeight > listScrollTop + listHeight) {
-            this.listEl.scrollTop = itemTop + itemHeight - listHeight;
-        }
 
     };
 

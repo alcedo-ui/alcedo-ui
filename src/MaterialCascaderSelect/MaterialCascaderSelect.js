@@ -17,6 +17,7 @@ import HorizontalDirection from '../_statics/HorizontalDirection';
 import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class MaterialCascaderSelect extends Component {
 
@@ -35,6 +36,41 @@ class MaterialCascaderSelect extends Component {
 
     }
 
+    /**
+     * public
+     */
+    startRipple = (e, props) => {
+        this.refs.cascaderSelect && this.refs.cascaderSelect.startRipple(e, props);
+    };
+
+    /**
+     * public
+     */
+    endRipple = () => {
+        this.refs.cascaderSelect && this.refs.cascaderSelect.endRipple();
+    };
+
+    /**
+     * public
+     */
+    triggerRipple = (e, props) => {
+        this.refs.cascaderSelect && this.refs.cascaderSelect.triggerRipple(e, props);
+    };
+
+    /**
+     * public
+     */
+    resetPopupPosition = () => {
+        this.refs.cascaderSelect && this.refs.cascaderSelect.resetPosition();
+    };
+
+    /**
+     * public
+     */
+    closePopup = () => {
+        this.refs.cascaderSelect && this.refs.cascaderSelect.closePopup();
+    };
+
     triggerChangeHandler = value => {
         this.setState({
             value
@@ -44,16 +80,11 @@ class MaterialCascaderSelect extends Component {
         });
     };
 
-    closePopup = () => {
-        this.refs.cascaderSelect && this.refs.cascaderSelect.closePopup();
-    };
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
     }
 
     render() {

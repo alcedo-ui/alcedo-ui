@@ -36,8 +36,42 @@ class Dropdown extends Component {
     /**
      * public
      */
+    startRipple = (e, props) => {
+        this.refs.trigger && this.refs.trigger.startRipple(e, props);
+    };
+
+    /**
+     * public
+     */
+    endRipple = () => {
+        this.refs.trigger && this.refs.trigger.endRipple();
+    };
+
+    /**
+     * public
+     */
+    triggerRipple = (e, props) => {
+        this.refs.trigger && this.refs.trigger.triggerRipple(e, props);
+    };
+
+    /**
+     * public
+     */
     resetPopupPosition = () => {
-        this.refs.popup.resetPosition();
+        this.refs.popup && this.refs.popup.resetPosition();
+    };
+
+    /**
+     * public
+     */
+    closePopup = e => {
+        this.setState({
+            popupVisible: false
+        }, () => {
+            const {onClosePopup, onBlur} = this.props;
+            onClosePopup && onClosePopup(e);
+            onBlur && onBlur(e);
+        });
     };
 
     togglePopup = e => {
@@ -60,16 +94,6 @@ class Dropdown extends Component {
 
         });
 
-    };
-
-    closePopup = e => {
-        this.setState({
-            popupVisible: false
-        }, () => {
-            const {onClosePopup, onBlur} = this.props;
-            onClosePopup && onClosePopup(e);
-            onBlur && onBlur(e);
-        });
     };
 
     popupRenderHandler = popupEl => {
