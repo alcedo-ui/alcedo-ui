@@ -10,6 +10,7 @@ input::-ms-clear {
 .material-month-picker {
     position: relative;
     width: 300px;
+    display: inline-block;
 
     .material-date-picker-field {
         width: 100%;

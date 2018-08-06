@@ -10,7 +10,7 @@ input::-ms-clear {
 .time-picker {
     position: relative;
     width: 300px;
-    height: 40px;
+    display: inline-block;
     .wrapper {
         height: 100%;
         .time-picker-field {
@@ -18,7 +18,6 @@ input::-ms-clear {
             @include shadow(1);
 
             width: 100%;
-            height: 100%;
             border-radius: $theme-border-radius;
             &.focused{
                 border: 1px solid $theme-border;
@@ -37,6 +36,7 @@ input::-ms-clear {
         @include shadow(3);
         width: 300px;
         height: 260px;
+
 
         &.hidden {
             width: 100%;
