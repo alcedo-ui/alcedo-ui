@@ -9,8 +9,8 @@ input::-ms-clear {
 
 .material-time-picker {
     position: relative;
-    width: 240px;
-    height: 40px;
+    display: inline-block;
+    width: 300px;
     .wrapper {
         height: 100%;
         .time-picker-field {

@@ -3,19 +3,11 @@
  * @author sunday(sunday.wei@derbysoft.com)
  */
 
-.material-date-picker-text-field {
+.date-picker-text-field {
     position: relative;
-    width: 300px;
+    width: 100%;
+    height: 40px;
     background: $theme-field-bg;
-
-    .material-date-picker-text-field-label {
-        display: inline-block;
-        line-height: 16px;
-        color: $theme-field-disabled;
-        transform-origin: top left;
-        transition: transform $theme-transition-duration ease-in-out,
-        color $theme-transition-duration ease-in-out;
-    }
 
     .text-field {
         width: 100%;

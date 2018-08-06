@@ -10,6 +10,7 @@ input::-ms-clear {
 .material-date-range-picker {
     position: relative;
     width: 300px;
+    display: inline-block;
 
     .material-date-range-picker-field {
         width: 100%;
