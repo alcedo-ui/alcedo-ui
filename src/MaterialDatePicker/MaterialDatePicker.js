@@ -226,9 +226,7 @@ class MaterialDatePicker extends Component {
                                      isLabelAnimate={isLabelAnimate}
                                      rightIconCls={rightIconCls}
                                      onChange={this.textFieldChangeHandle}
-                                     onClick={e => {
-                                         this.togglePopup(e);
-                                     }}/>
+                                     onClick={e => this.togglePopup(e)}/>
 
                 <Popup className={`material-date-picker-popup ${popupClassName}`}
                        visible={popupVisible}
@@ -236,9 +234,7 @@ class MaterialDatePicker extends Component {
                        position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        hasTriangle={false}
                        onRender={this.popupRenderHandler}
-                       onRequestClose={() => {
-                           this.closePopup(3);
-                       }}>
+                       onRequestClose={() => this.closePopup(3)}>
 
                     {
                         datePickerLevel == 'day' ?
@@ -295,7 +291,7 @@ class MaterialDatePicker extends Component {
                                             <span className="item-gray">Today</span>
                                         </a>
                                         :
-                                        <a href="javascript:;"
+                                        <a href="javascript:void(0);"
                                            onClick={this.todayHandle}>
                                             Today
                                         </a>
@@ -390,10 +386,10 @@ MaterialDatePicker.defaultProps = {
     isLabelAnimate: true,
     autoClose: true,
     isFooter: true,
-    previousYearIconCls:'fas fa-angle-double-left',
-    previousMonthIconCls:'fas fa-angle-left',
-    nextYearIconCls:'fas fa-angle-double-right',
-    nextMonthIconCls:'fas fa-angle-right',
+    previousYearIconCls: 'fas fa-angle-double-left',
+    previousMonthIconCls: 'fas fa-angle-left',
+    nextYearIconCls: 'fas fa-angle-double-right',
+    nextMonthIconCls: 'fas fa-angle-right',
     position: Position.BOTTOM_LEFT
 };
 
