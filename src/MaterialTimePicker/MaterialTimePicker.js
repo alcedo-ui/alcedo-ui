@@ -151,7 +151,8 @@ class MaterialTimePicker extends Component {
 
     render() {
 
-        const {className, style, name, placeholder, maxValue, minValue, dateFormat, label, isLabelAnimate, position, theme} = this.props,
+        const {className, style, name, placeholder, maxValue, minValue, dateFormat, label, isLabelAnimate, position,
+                theme, popupClassName, rightIconCls} = this.props,
             {popupVisible, textFieldValue, hour, minute, second, isAbove} = this.state,
 
             pickerClassName = classNames('material-time-picker', {
@@ -174,12 +175,13 @@ class MaterialTimePicker extends Component {
                                              clearButtonVisible={false}
                                              isFocusedSelectAll={false}
                                              popupVisible={popupVisible}
+                                             rightIconCls={rightIconCls}
                                              onChange={this.textFieldChangeHandle}
                                              onClick={e => {
                                                  this.togglePopup(e);
                                              }}/>
 
-                <Popup className="material-time-picker-popup"
+                <Popup className={`material-time-picker-popup ${popupClassName}`}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
                        position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
@@ -209,6 +211,11 @@ MaterialTimePicker.propTypes = {
      * The CSS class name of the root element.
      */
     className: PropTypes.string,
+
+    /**
+     * The CSS class name of the popup element.
+     */
+    popupClassName: PropTypes.string,
 
     /**
      * Override the styles of the root element.
@@ -259,6 +266,7 @@ MaterialTimePicker.propTypes = {
 
 MaterialTimePicker.defaultProps = {
     name: '',
+    popupClassName: '',
     value: moment().format('HH:mm:ss'),
     placeholder: 'Time',
     dateFormat: 'HH:mm:ss',

@@ -163,7 +163,9 @@ class MonthPicker extends Component {
 
     render() {
 
-        const {className, name, placeholder, dateFormat, maxValue, minValue, position} = this.props,
+        const {className, name, placeholder, dateFormat, maxValue, minValue, position,
+                popupClassName, rightIconCls, previousYearIconCls, previousMonthIconCls, nextYearIconCls,
+                nextMonthIconCls} = this.props,
             {value, popupVisible, datePickerLevel, year, month, isAbove} = this.state,
 
             pickerClassName = classNames('month-picker', {
@@ -185,12 +187,13 @@ class MonthPicker extends Component {
                            popupVisible={popupVisible}
                            clearButtonVisible={false}
                            isFocusedSelectAll={popupVisible}
+                           rightIconCls={rightIconCls}
                            onClick={e => {
                                this.togglePopup(e);
                            }}
                            onChange={this.textFieldChangeHandle}/>
 
-                <Popup className="month-picker-popup"
+                <Popup className={`month-picker-popup ${popupClassName}`}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
                        position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
@@ -207,6 +210,10 @@ class MonthPicker extends Component {
                                    month={month}
                                    maxValue={maxValue}
                                    minValue={minValue}
+                                   previousYearIconCls={previousYearIconCls}
+                                   previousMonthIconCls={previousMonthIconCls}
+                                   nextYearIconCls={nextYearIconCls}
+                                   nextMonthIconCls={nextMonthIconCls}
                                    onChange={this.monthPickerChangeHandle}
                                    previousClick={this.datePickerChangeHandle}/>
                             :
@@ -215,6 +222,10 @@ class MonthPicker extends Component {
                                   month={month}
                                   maxValue={maxValue}
                                   minValue={minValue}
+                                  previousYearIconCls={previousYearIconCls}
+                                  previousMonthIconCls={previousMonthIconCls}
+                                  nextYearIconCls={nextYearIconCls}
+                                  nextMonthIconCls={nextMonthIconCls}
                                   onChange={this.yearPickerChangeHandle}/>
                     }
 
@@ -230,6 +241,11 @@ MonthPicker.propTypes = {
      * The CSS class name of the root element.
      */
     className: PropTypes.string,
+
+    /**
+     * The CSS class name of the popup element.
+     */
+    popupClassName: PropTypes.string,
 
     /**
      * Override the styles of the root element.
@@ -282,10 +298,15 @@ MonthPicker.defaultProps = {
     name: '',
     maxValue: '',
     minValue: '',
+    popupClassName: '',
     placeholder: 'Date',
     dateFormat: 'YYYY-MM',
     autoClose: true,
     isFooter: true,
+    previousYearIconCls:'fas fa-angle-double-left',
+    previousMonthIconCls:'fas fa-angle-left',
+    nextYearIconCls:'fas fa-angle-double-right',
+    nextMonthIconCls:'fas fa-angle-right',
     position: Position.BOTTOM_LEFT
 };
 
