@@ -153,7 +153,8 @@ class TimePicker extends Component {
 
     render() {
 
-        const {className, style, name, placeholder, maxValue, minValue, dateFormat, position} = this.props,
+        const {className, style, name, placeholder, maxValue, minValue, dateFormat, position,
+                popupClassName, rightIconCls} = this.props,
             {popupVisible, textFieldValue, hour, minute, second, isAbove} = this.state,
 
             pickerClassName = classNames('time-picker', {
@@ -178,12 +179,13 @@ class TimePicker extends Component {
                                clearButtonVisible={false}
                                isFocusedSelectAll={popupVisible}
                                popupVisible={popupVisible}
+                               rightIconCls={rightIconCls}
                                onClick={e => {
                                    this.togglePopup(e);
                                }}
                                onChange={this.textFieldChangeHandle}/>
 
-                    <Popup className="time-picker-popup"
+                    <Popup className={`time-picker-popup ${popupClassName}`}
                            visible={popupVisible}
                            triggerEl={this.triggerEl}
                            position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
@@ -214,6 +216,11 @@ TimePicker.propTypes = {
      * The CSS class name of the root element.
      */
     className: PropTypes.string,
+
+    /**
+     * The CSS class name of the popup element.
+     */
+    popupClassName: PropTypes.string,
 
     /**
      * Override the styles of the root element.
@@ -256,6 +263,7 @@ TimePicker.defaultProps = {
     name: '',
     value: moment().format('HH:mm:ss'),
     placeholder: 'Time',
+    popupClassName: '',
     dateFormat: 'HH:mm:ss',
     position: Position.BOTTOM_LEFT
 };

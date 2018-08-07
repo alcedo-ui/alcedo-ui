@@ -237,7 +237,9 @@ class DateTimePicker extends Component {
 
     render() {
 
-        const {className, style, name, placeholder, dateFormat, maxValue, minValue, isFooter, disabled, position} = this.props,
+        const {className, style, name, placeholder, dateFormat, maxValue, minValue, isFooter, disabled, position,
+                popupClassName, rightIconCls, previousYearIconCls, previousMonthIconCls, nextYearIconCls,
+                nextMonthIconCls} = this.props,
             {value, popupVisible, datePickerLevel, year, month, day, hour, minute, second, isAbove} = this.state,
 
             pickerClassName = classNames('date-time-picker', {
@@ -261,12 +263,13 @@ class DateTimePicker extends Component {
                            clearButtonVisible={false}
                            isFocusedSelectAll={popupVisible}
                            popupVisible={popupVisible}
+                           rightIconCls={rightIconCls}
                            onClick={e => {
                                this.togglePopup(e);
                            }}
                            onChange={this.textFieldChangeHandle}/>
 
-                <Popup className={`date-time-picker-popup`}
+                <Popup className={`date-time-picker-popup ${popupClassName}`}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
                        position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
@@ -287,6 +290,10 @@ class DateTimePicker extends Component {
                                 hour={hour}
                                 minute={minute}
                                 second={second}
+                                previousYearIconCls={previousYearIconCls}
+                                previousMonthIconCls={previousMonthIconCls}
+                                nextYearIconCls={nextYearIconCls}
+                                nextMonthIconCls={nextMonthIconCls}
                                 maxValue={maxValue ? moment(maxValue).format('YYYY-MM-DD') : null}
                                 minValue={minValue ? moment(minValue).format('YYYY-MM-DD') : null}
                                 isFooter={true}
@@ -299,6 +306,10 @@ class DateTimePicker extends Component {
                                         year={year}
                                         month={month}
                                         day={day}
+                                        previousYearIconCls={previousYearIconCls}
+                                        previousMonthIconCls={previousMonthIconCls}
+                                        nextYearIconCls={nextYearIconCls}
+                                        nextMonthIconCls={nextMonthIconCls}
                                         maxValue={maxValue ? moment(maxValue).format('YYYY-MM-DD') : null}
                                         minValue={minValue ? moment(minValue).format('YYYY-MM-DD') : null}
                                         onChange={this.monthPickerChangeHandle}
@@ -310,6 +321,10 @@ class DateTimePicker extends Component {
                                                 year={year}
                                                 month={month}
                                                 day={day}
+                                                previousYearIconCls={previousYearIconCls}
+                                                previousMonthIconCls={previousMonthIconCls}
+                                                nextYearIconCls={nextYearIconCls}
+                                                nextMonthIconCls={nextMonthIconCls}
                                                 maxValue={maxValue ? moment(maxValue).format('YYYY-MM-DD') : null}
                                                 minValue={minValue ? moment(minValue).format('YYYY-MM-DD') : null}
                                                 onChange={this.yearPickerChangeHandle}/>
@@ -388,6 +403,11 @@ DateTimePicker.propTypes = {
     className: PropTypes.string,
 
     /**
+     * The CSS class name of the popup element.
+     */
+    popupClassName: PropTypes.string,
+
+    /**
      * Override the styles of the root element.
      */
     style: PropTypes.object,
@@ -434,8 +454,13 @@ DateTimePicker.defaultProps = {
     value: moment().format('YYYY-MM-DD HH:mm:ss'),
     maxValue: '',
     minValue: '',
+    popupClassName: '',
     placeholder: 'Date',
     dateFormat: 'YYYY-MM-DD HH:mm:ss',
+    previousYearIconCls:'fas fa-angle-double-left',
+    previousMonthIconCls:'fas fa-angle-left',
+    nextYearIconCls:'fas fa-angle-double-right',
+    nextMonthIconCls:'fas fa-angle-right',
     isFooter: true
 };
 

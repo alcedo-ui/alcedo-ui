@@ -101,7 +101,7 @@ class MonthPicker extends Component {
 
     render() {
 
-        const {className, maxValue, minValue} = this.props;
+        const {className, maxValue, minValue, previousYearIconCls, nextYearIconCls} = this.props;
 
         let {selectYear, selectMonth, currentYear} = this.state;
 
@@ -155,7 +155,7 @@ class MonthPicker extends Component {
                         rightPreYear ?
                             null
                             :
-                            <i className="fas fa-angle-double-left" onClick={previousYear}>
+                            <i className={previousYearIconCls} onClick={previousYear}>
                                 <TouchRipple/>
                             </i>
                     }
@@ -164,7 +164,7 @@ class MonthPicker extends Component {
                     {
                         leftNextYear ?
                             null :
-                            <i className="fas fa-angle-double-right" onClick={nextYear}>
+                            <i className={nextYearIconCls} onClick={nextYear}>
                                 <TouchRipple/>
                             </i>
                     }

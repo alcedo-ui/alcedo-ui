@@ -199,7 +199,9 @@ class DatePicker extends Component {
 
     render() {
 
-        const {className, name, placeholder, dateFormat, maxValue, minValue, isFooter, position} = this.props,
+        const {className, name, placeholder, dateFormat, maxValue, minValue, isFooter, position,
+                popupClassName, rightIconCls, previousYearIconCls, previousMonthIconCls, nextYearIconCls,
+                nextMonthIconCls} = this.props,
             {value, popupVisible, datePickerLevel, year, month, day, isAbove} = this.state,
 
             pickerClassName = classNames('date-picker', {
@@ -217,6 +219,7 @@ class DatePicker extends Component {
                            name={name}
                            placeholder={placeholder}
                            value={textValue}
+                           rightIconCls={rightIconCls}
                            readOnly={!popupVisible}
                            popupVisible={popupVisible}
                            clearButtonVisible={false}
@@ -226,7 +229,7 @@ class DatePicker extends Component {
                            }}
                            onChange={this.textFieldChangeHandle}/>
 
-                <Popup className={`date-picker-popup`}
+                <Popup className={`date-picker-popup ${popupClassName}`}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
                        hasTriangle={false}
@@ -247,6 +250,10 @@ class DatePicker extends Component {
                                 maxValue={maxValue}
                                 minValue={minValue}
                                 isFooter={isFooter}
+                                previousYearIconCls={previousYearIconCls}
+                                previousMonthIconCls={previousMonthIconCls}
+                                nextYearIconCls={nextYearIconCls}
+                                nextMonthIconCls={nextMonthIconCls}
                                 onChange={this.dayPickerChangeHandle}
                                 previousClick={this.datePickerChangeHandle}/>
                             : (
@@ -258,6 +265,10 @@ class DatePicker extends Component {
                                         day={day}
                                         maxValue={maxValue}
                                         minValue={minValue}
+                                        previousYearIconCls={previousYearIconCls}
+                                        previousMonthIconCls={previousMonthIconCls}
+                                        nextYearIconCls={nextYearIconCls}
+                                        nextMonthIconCls={nextMonthIconCls}
                                         onChange={this.monthPickerChangeHandle}
                                         previousClick={this.datePickerChangeHandle}/>
                                     :
@@ -268,6 +279,10 @@ class DatePicker extends Component {
                                         day={day}
                                         maxValue={maxValue}
                                         minValue={minValue}
+                                        previousYearIconCls={previousYearIconCls}
+                                        previousMonthIconCls={previousMonthIconCls}
+                                        nextYearIconCls={nextYearIconCls}
+                                        nextMonthIconCls={nextMonthIconCls}
                                         onChange={this.yearPickerChangeHandle}/>
                             )
                     }
@@ -305,6 +320,11 @@ DatePicker.propTypes = {
      * The CSS class name of the root element.
      */
     className: PropTypes.string,
+
+    /**
+     * The CSS class name of the popup element.
+     */
+    popupClassName: PropTypes.string,
 
     /**
      * Override the styles of the root element.
@@ -358,7 +378,12 @@ DatePicker.defaultProps = {
     maxValue: '',
     minValue: '',
     placeholder: 'Date',
+    popupClassName: '',
     dateFormat: 'YYYY-MM-DD',
+    previousYearIconCls:'fas fa-angle-double-left',
+    previousMonthIconCls:'fas fa-angle-left',
+    nextYearIconCls:'fas fa-angle-double-right',
+    nextMonthIconCls:'fas fa-angle-right',
     autoClose: true,
     isFooter: true
 };

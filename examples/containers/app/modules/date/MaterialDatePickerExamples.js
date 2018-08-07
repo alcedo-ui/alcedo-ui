@@ -47,6 +47,8 @@ class MaterialDatePickerExamples extends Component {
                                 <MaterialDatePicker name="date"
                                                     label={'date'}
                                                     value=""
+                                                    rightIconCls={'far fa-calendar-alt'}
+                                                    popupClassName={'popupClassName'}
                                                     isLabelAnimate={true}
                                                     autoClose={true}
                                                     onChange={this.onChangeHandle}/>
