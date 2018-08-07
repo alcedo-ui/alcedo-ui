@@ -154,8 +154,6 @@ MaterialDropdown.propTypes = {
 
     title: PropTypes.string,
 
-    triggerValue: PropTypes.any,
-
     rightIconCls: PropTypes.string,
 
     /**
