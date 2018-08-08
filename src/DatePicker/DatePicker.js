@@ -196,12 +196,13 @@ class DatePicker extends Component {
         }
     }
 
-
     render() {
 
-        const {className, name, placeholder, dateFormat, maxValue, minValue, isFooter, position,
+        const {
+                className, name, placeholder, dateFormat, maxValue, minValue, isFooter, position,
                 popupClassName, rightIconCls, previousYearIconCls, previousMonthIconCls, nextYearIconCls,
-                nextMonthIconCls} = this.props,
+                nextMonthIconCls
+            } = this.props,
             {value, popupVisible, datePickerLevel, year, month, day, isAbove} = this.state,
 
             pickerClassName = classNames('date-picker', {
@@ -224,9 +225,7 @@ class DatePicker extends Component {
                            popupVisible={popupVisible}
                            clearButtonVisible={false}
                            isFocusedSelectAll={popupVisible}
-                           onClick={e => {
-                               this.togglePopup(e);
-                           }}
+                           onClick={e => this.togglePopup(e)}
                            onChange={this.textFieldChangeHandle}/>
 
                 <Popup className={`date-picker-popup ${popupClassName}`}
@@ -235,9 +234,7 @@ class DatePicker extends Component {
                        hasTriangle={false}
                        position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        onRender={this.popupRenderHandler}
-                       onRequestClose={() => {
-                           this.closePopup();
-                       }}>
+                       onRequestClose={() => this.closePopup()}>
 
                     {
                         datePickerLevel == 'day' ?
@@ -293,15 +290,13 @@ class DatePicker extends Component {
                                 {
                                     (minValue && moment(this.props.value).isBefore(minValue))
                                     || (maxValue && moment(maxValue).isBefore(this.props.value)) ?
-                                        <a href="javascript:;">
+                                        <a href="javascript:void(0);">
                                             <span className="item-gray">Today</span>
                                         </a>
                                         :
                                         <FlatButton className='today-button'
                                                     value={'Today'}
-                                                    onClick={this.todayHandle}
-                                        />
-
+                                                    onClick={this.todayHandle}/>
                                 }
                             </div>
                             :
@@ -380,10 +375,10 @@ DatePicker.defaultProps = {
     placeholder: 'Date',
     popupClassName: '',
     dateFormat: 'YYYY-MM-DD',
-    previousYearIconCls:'fas fa-angle-double-left',
-    previousMonthIconCls:'fas fa-angle-left',
-    nextYearIconCls:'fas fa-angle-double-right',
-    nextMonthIconCls:'fas fa-angle-right',
+    previousYearIconCls: 'fas fa-angle-double-left',
+    previousMonthIconCls: 'fas fa-angle-left',
+    nextYearIconCls: 'fas fa-angle-double-right',
+    nextMonthIconCls: 'fas fa-angle-right',
     autoClose: true,
     isFooter: true
 };

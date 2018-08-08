@@ -74,6 +74,7 @@ class DatePickerTextField extends Component {
             {value} = this.state,
 
             fieldClassName = classNames('date-picker-text-field', {
+                activated: popupVisible,
                 [className]: className
             });
 

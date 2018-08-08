@@ -75,11 +75,11 @@ class MaterialDatePickerTextField extends Component {
             {value} = this.state,
 
             fieldClassName = classNames('material-date-picker-text-field', {
+                activated: popupVisible,
                 [className]: className
             });
 
         return (
-
             <MaterialProvider className={fieldClassName}
                               style={style}
                               theme={theme}
