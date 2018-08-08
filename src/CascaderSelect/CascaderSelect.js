@@ -18,7 +18,6 @@ import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
-import TreeCalculation from '../_vendors/TreeCalculation';
 import CascaderCalculation from '../_vendors/CascaderCalculation';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
