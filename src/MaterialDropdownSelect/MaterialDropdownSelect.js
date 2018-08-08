@@ -65,6 +65,13 @@ class MaterialDropdownSelect extends Component {
     /**
      * public
      */
+    openPopup = () => {
+        this.refs.dropdownSelect && this.refs.dropdownSelect.openPopup();
+    };
+
+    /**
+     * public
+     */
     closePopup = () => {
         this.refs.dropdownSelect && this.refs.dropdownSelect.closePopup();
     };

@@ -70,6 +70,13 @@ class DropdownSelect extends Component {
     /**
      * public
      */
+    openPopup = () => {
+        this.refs.dropdown && this.refs.dropdown.openPopup();
+    };
+
+    /**
+     * public
+     */
     closePopup = () => {
         this.refs.dropdown && this.refs.dropdown.closePopup();
     };
@@ -693,8 +700,6 @@ DropdownSelect.propTypes = {
     onWheel: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
-    onMouseOver: PropTypes.func,
-    onMouseOut: PropTypes.func,
     onMouseOver: PropTypes.func,
     onMouseOut: PropTypes.func,
     isHiddenInputFilter: PropTypes.bool,
