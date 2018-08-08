@@ -67,6 +67,13 @@ class MaterialCascaderSelect extends Component {
     /**
      * public
      */
+    openPopup = () => {
+        this.refs.cascaderSelect && this.refs.cascaderSelect.openPopup();
+    };
+
+    /**
+     * public
+     */
     closePopup = () => {
         this.refs.cascaderSelect && this.refs.cascaderSelect.closePopup();
     };
