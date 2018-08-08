@@ -695,8 +695,6 @@ DropdownSelect.propTypes = {
     onBlur: PropTypes.func,
     onMouseOver: PropTypes.func,
     onMouseOut: PropTypes.func,
-    onMouseOver: PropTypes.func,
-    onMouseOut: PropTypes.func,
     isHiddenInputFilter: PropTypes.bool,
     clearHiddenInputFilterInterval: PropTypes.number
 
