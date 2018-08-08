@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {findDOMNode} from 'react-dom';
 import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
@@ -17,7 +18,6 @@ import Popup from '../Popup';
 import Theme from '../Theme';
 
 import Position from '../_statics/Position';
-import {findDOMNode} from 'react-dom';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
 
 class MaterialDatePicker extends Component {
@@ -201,9 +201,10 @@ class MaterialDatePicker extends Component {
                 theme, popupClassName, rightIconCls, previousYearIconCls, previousMonthIconCls, nextYearIconCls,
                 nextMonthIconCls
             } = this.props,
-            {value, popupVisible, datePickerLevel, year, month, day, isAbove, isHover, isFocus} = this.state,
+            {value, popupVisible, datePickerLevel, year, month, day, isAbove} = this.state,
 
             pickerClassName = classNames('material-date-picker', {
+                activated: popupVisible,
                 [className]: className
             }),
 
