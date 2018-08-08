@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {findDOMNode} from 'react-dom';
 import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
@@ -14,12 +15,11 @@ import DayPicker from '../_DayPicker';
 import MonthPicker from '../_MonthPicker';
 import YearPicker from '../_YearPicker';
 import Popup from '../Popup';
-
 import FlatButton from '../FlatButton';
-import {findDOMNode} from 'react-dom';
-import DropdownCalculation from '../_vendors/DropdownCalculation';
+
 import Theme from '../Theme';
 import Position from '../_statics/Position';
+import DropdownCalculation from '../_vendors/DropdownCalculation';
 
 class DatePicker extends Component {
 
@@ -206,6 +206,7 @@ class DatePicker extends Component {
             {value, popupVisible, datePickerLevel, year, month, day, isAbove} = this.state,
 
             pickerClassName = classNames('date-picker', {
+                activated: popupVisible,
                 [className]: className
             }),
 
