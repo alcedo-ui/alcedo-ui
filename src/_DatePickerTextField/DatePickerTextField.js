@@ -68,13 +68,18 @@ class DatePickerTextField extends Component {
     render() {
 
         const {
-                className, theme, disabled, required, popupVisible,
+
+                className, theme, disabled, required,
+
+                // not passing down these props
+                popupVisible,
+
                 ...restProps
+
             } = this.props,
             {value} = this.state,
 
             fieldClassName = classNames('date-picker-text-field', {
-                activated: popupVisible,
                 [className]: className
             });
 
