@@ -64,6 +64,19 @@ class Dropdown extends Component {
     /**
      * public
      */
+    openPopup = e => {
+        this.setState({
+            popupVisible: true
+        }, () => {
+            const {onOpenPopup, onFocus} = this.props;
+            onOpenPopup && onOpenPopup(e);
+            onFocus && onFocus(e);
+        });
+    };
+
+    /**
+     * public
+     */
     closePopup = e => {
         this.setState({
             popupVisible: false
@@ -76,23 +89,16 @@ class Dropdown extends Component {
 
     togglePopup = e => {
 
-        const popupVisible = !this.state.popupVisible;
+        const {onTriggerClick} = this.props,
+            {popupVisible} = this.state;
 
-        this.setState({
-            popupVisible
-        }, () => {
+        onTriggerClick && onTriggerClick(popupVisible, e);
 
-            const {onTriggerClick, onFocus, onBlur, onOpenPopup} = this.props;
-            onTriggerClick && onTriggerClick(popupVisible);
-
-            if (popupVisible) {
-                onFocus && onFocus(e);
-                onOpenPopup && onOpenPopup(e);
-            } else {
-                onBlur && onBlur(e);
-            }
-
-        });
+        if (popupVisible) {
+            this.closePopup(e);
+        } else {
+            this.openPopup(e);
+        }
 
     };
 
