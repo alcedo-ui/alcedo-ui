@@ -64,6 +64,13 @@ class MaterialTreeSelect extends Component {
     /**
      * public
      */
+    openPopup = () => {
+        this.refs.treeSelect && this.refs.treeSelect.openPopup();
+    };
+
+    /**
+     * public
+     */
     closePopup = () => {
         this.refs.treeSelect && this.refs.treeSelect.closePopup();
     };
