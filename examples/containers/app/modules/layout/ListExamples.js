@@ -172,7 +172,8 @@ class ListExamples extends Component {
                                 <p>Set the <code>disabled</code> property to true for disabled items.</p>
 
                                 <Paper>
-                                    <List data={this.disabledListData}/>
+                                    <List data={this.disabledListData}
+                                          disabled={(listItem, listValue, listData) => false}/>
                                 </Paper>
 
                             </div>
