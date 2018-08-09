@@ -122,9 +122,11 @@ class List extends Component {
 
     };
 
-    isItemDisabled = (listDisabled, itemDisabled) => {
-        return (typeof listDisabled === 'function' ? listDisabled() : listDisabled)
-            || (typeof itemDisabled === 'function' ? itemDisabled() : itemDisabled);
+    isItemDisabled = (listDisabled, itemDisabled, item) => {
+        const {data} = this.props,
+            {value} = this.state;
+        return (typeof listDisabled === 'function' ? listDisabled(item, value, data) : listDisabled)
+            || (typeof itemDisabled === 'function' ? itemDisabled(item, value, data) : itemDisabled);
     };
 
     componentDidMount() {
@@ -174,7 +176,7 @@ class List extends Component {
                       value={Util.getValueByValueField(item, valueField, displayField)}
                       text={Util.getTextByDisplayField(item, displayField, valueField)}
                       desc={item[descriptionField] || null}
-                      disabled={this.isItemDisabled(disabled, item.disabled)}
+                      disabled={this.isItemDisabled(disabled, item.disabled, item)}
                       isLoading={isLoading || item.isLoading}
                       selectMode={selectMode}
                       renderer={renderer}
