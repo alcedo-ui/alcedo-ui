@@ -30,6 +30,13 @@ class Popup extends Component {
 
     }
 
+    /**
+     * public
+     */
+    resetPosition = () => {
+        this.refs.popup && this.refs.popup.resetPosition();
+    };
+
     clearCloseTimeout = () => {
         if (this.closeTimeout) {
             clearTimeout(this.closeTimeout);
@@ -74,13 +81,6 @@ class Popup extends Component {
             });
         }
 
-    };
-
-    /**
-     * public
-     */
-    resetPosition = () => {
-        this.refs.popup.resetPosition();
     };
 
     componentDidMount() {
