@@ -34,7 +34,7 @@ class ListExamples extends Component {
             iconCls: 'fab fa-firefox',
             value: 'Firefox',
             text: 'Firefox',
-            disabled: () => true
+            disabled: (listItem, listValue, listData) => true
         }, {
             iconCls: 'fab fa-chrome',
             value: 'Chrome',
