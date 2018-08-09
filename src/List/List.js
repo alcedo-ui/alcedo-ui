@@ -122,6 +122,12 @@ class List extends Component {
 
     };
 
+    isListDisabled = listDisabled => {
+        const {data} = this.props,
+            {value} = this.state;
+        return (typeof listDisabled === 'function' ? listDisabled(item, value, data) : listDisabled);
+    };
+
     isItemDisabled = (listDisabled, itemDisabled, item) => {
         const {data} = this.props,
             {value} = this.state;
@@ -228,7 +234,7 @@ class List extends Component {
         return (
             <div ref="list"
                  className={listClassName}
-                 disabled={disabled}
+                 disabled={this.isListDisabled(disabled)}
                  style={style}
                  onWheel={e => Event.wheelHandler(e, this.props)}>
 
