@@ -122,6 +122,11 @@ class List extends Component {
 
     };
 
+    isItemDisabled = (listDisabled, itemDisabled) => {
+        return (typeof listDisabled === 'function' ? listDisabled() : listDisabled)
+            || (typeof itemDisabled === 'function' ? itemDisabled() : itemDisabled);
+    };
+
     componentDidMount() {
         this.listEl = this.refs.list;
     }
@@ -169,7 +174,7 @@ class List extends Component {
                       value={Util.getValueByValueField(item, valueField, displayField)}
                       text={Util.getTextByDisplayField(item, displayField, valueField)}
                       desc={item[descriptionField] || null}
-                      disabled={disabled || item.disabled}
+                      disabled={this.isItemDisabled(disabled, item.disabled)}
                       isLoading={isLoading || item.isLoading}
                       selectMode={selectMode}
                       renderer={renderer}
@@ -308,7 +313,7 @@ List.propTypes = {
         /**
          * If true,the list item will be disabled.
          */
-        disabled: PropTypes.bool,
+        disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 
         /**
          * If true,the button will be have loading effect.
@@ -382,7 +387,7 @@ List.propTypes = {
     /**
      * If true, the list will be disabled.
      */
-    disabled: PropTypes.bool,
+    disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 
     /**
      * If true,the element's ripple effect will be disabled.
