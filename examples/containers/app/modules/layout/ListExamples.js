@@ -173,7 +173,9 @@ class ListExamples extends Component {
 
                                 <Paper>
                                     <List data={this.disabledListData}
-                                          disabled={(listItem, listValue, listData) => false}/>
+                                          itemDisabled={(listItem, listValue, listData) =>
+                                              listItem && listItem.value === 'Chrome'
+                                          }/>
                                 </Paper>
 
                             </div>
