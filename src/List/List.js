@@ -125,13 +125,13 @@ class List extends Component {
     isListDisabled = listDisabled => {
         const {data} = this.props,
             {value} = this.state;
-        return (typeof listDisabled === 'function' ? listDisabled(item, value, data) : listDisabled);
+        return (typeof listDisabled === 'function' ? listDisabled(value, data) : listDisabled);
     };
 
-    isItemDisabled = (listDisabled, itemDisabled, item) => {
+    isItemDisabled = (listItemDisabled, itemDisabled, item) => {
         const {data} = this.props,
             {value} = this.state;
-        return (typeof listDisabled === 'function' ? listDisabled(item, value, data) : listDisabled)
+        return (typeof listItemDisabled === 'function' ? listItemDisabled(item, value, data) : listItemDisabled)
             || (typeof itemDisabled === 'function' ? itemDisabled(item, value, data) : itemDisabled);
     };
 
@@ -155,8 +155,8 @@ class List extends Component {
 
         const {
 
-                theme, itemHeight, idField, valueField, displayField, descriptionField, disabled, isLoading, renderer,
-                autoSelect, disableTouchRipple, selectTheme, selectMode, indeterminateCallback,
+                theme, itemHeight, idField, valueField, displayField, descriptionField, disabled, itemDisabled,
+                isLoading, renderer, autoSelect, disableTouchRipple, selectTheme, selectMode, indeterminateCallback,
                 radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
@@ -182,7 +182,7 @@ class List extends Component {
                       value={Util.getValueByValueField(item, valueField, displayField)}
                       text={Util.getTextByDisplayField(item, displayField, valueField)}
                       desc={item[descriptionField] || null}
-                      disabled={this.isItemDisabled(disabled, item.disabled, item)}
+                      disabled={this.isListDisabled(disabled) || this.isItemDisabled(itemDisabled, item.disabled, item)}
                       isLoading={isLoading || item.isLoading}
                       selectMode={selectMode}
                       renderer={renderer}
@@ -398,6 +398,11 @@ List.propTypes = {
     disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 
     /**
+     * If true, the list will be disabled.
+     */
+    itemDisabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+
+    /**
      * If true,the element's ripple effect will be disabled.
      */
     disableTouchRipple: PropTypes.bool,
@@ -466,6 +471,7 @@ List.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
     disabled: false,
+    itemDisabled: false,
     disableTouchRipple: false,
     autoSelect: true,
     shouldPreventContainerScroll: true,
