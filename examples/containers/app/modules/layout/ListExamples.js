@@ -34,7 +34,7 @@ class ListExamples extends Component {
             iconCls: 'fab fa-firefox',
             value: 'Firefox',
             text: 'Firefox',
-            disabled: () => true
+            disabled: (listItem, listValue, listData) => true
         }, {
             iconCls: 'fab fa-chrome',
             value: 'Chrome',
@@ -172,7 +172,8 @@ class ListExamples extends Component {
                                 <p>Set the <code>disabled</code> property to true for disabled items.</p>
 
                                 <Paper>
-                                    <List data={this.disabledListData}/>
+                                    <List data={this.disabledListData}
+                                          disabled={(listItem, listValue, listData) => false}/>
                                 </Paper>
 
                             </div>
