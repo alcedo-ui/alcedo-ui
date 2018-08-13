@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import moment from 'moment';
 
 import MaterialDatePicker from 'src/MaterialDatePicker';
 import Widget from 'src/Widget';
@@ -10,14 +11,39 @@ import doc from 'assets/propTypes/MaterialDatePicker.json';
 class MaterialDatePickerExamples extends Component {
 
     constructor(props) {
+
         super(props);
+
+        this.state = {
+            start: this.yesterday(),
+            end: this.yesterday()
+        };
+
     }
+
+    yesterday = () => {
+        return moment().add(-1, 'days').format('YYYY-MM-DD');
+    };
 
     onChangeHandle = value => {
         console.log(value);
     };
 
+    startChangeHandler = start => {
+        this.setState({
+            start
+        });
+    };
+
+    endChangeHandler = end => {
+        this.setState({
+            end
+        });
+    };
+
     render() {
+
+        const {start, end} = this.state;
 
         return (
             <div className="example time-picker-examples">
@@ -25,7 +51,8 @@ class MaterialDatePickerExamples extends Component {
                 <h2 className="example-title">Material Date Picker</h2>
 
                 <p>
-                    <span>Material Date Picker</span> is used to select a single date for an input.
+                    <span>Material Date Picker</span>
+                    is used to select a single date for an input.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -44,14 +71,20 @@ class MaterialDatePickerExamples extends Component {
                                     initial date.
                                 </p>
 
-                                <MaterialDatePicker name="date"
-                                                    label={'date'}
-                                                    value=""
-                                                    rightIconCls={'far fa-calendar-alt'}
-                                                    popupClassName={'popupClassName'}
-                                                    isLabelAnimate={true}
-                                                    autoClose={true}
-                                                    onChange={this.onChangeHandle}/>
+                                <MaterialDatePicker label="Start"
+                                                    value={start}
+                                                    maxValue={end}
+                                                    rightIconCls="far fa-calendar-alt"
+                                                    popupClassName="popupClassName"
+                                                    onChange={this.startChangeHandler}/>
+
+                                <MaterialDatePicker label="End"
+                                                    value={end}
+                                                    minValue={start}
+                                                    maxValue={this.yesterday()}
+                                                    rightIconCls="far fa-calendar-alt"
+                                                    popupClassName="popupClassName"
+                                                    onChange={this.endChangeHandler}/>
 
                             </div>
 
