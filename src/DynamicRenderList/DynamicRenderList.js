@@ -301,6 +301,11 @@ DynamicRenderList.propTypes = {
     disabled: PropTypes.bool,
 
     /**
+     * List item disabled callback.
+     */
+    itemDisabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+
+    /**
      * If true, the list will be at loading status.
      */
     isLoading: PropTypes.bool,
@@ -368,6 +373,7 @@ DynamicRenderList.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
     disabled: false,
+    itemDisabled: false,
     selectMode: SelectMode.SINGLE_SELECT,
     shouldPreventContainerScroll: true,
 

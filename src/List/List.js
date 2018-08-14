@@ -398,7 +398,7 @@ List.propTypes = {
     disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 
     /**
-     * If true, the list will be disabled.
+     * List item disabled callback.
      */
     itemDisabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 
