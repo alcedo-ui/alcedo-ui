@@ -294,7 +294,7 @@ class DropdownSelect extends Component {
         const {
 
                 className, triggerClassName, popupClassName, style, name, popupTheme, data, triggerRenderer,
-                useDynamicRenderList, listHeight, itemHeight, scrollBuffer, renderer, selectMode,
+                useDynamicRenderList, listHeight, itemHeight, scrollBuffer, renderer, selectMode, itemDisabled,
                 useFilter, filterIconCls, useSelectAll, selectAllText, valueField, displayField, descriptionField,
                 popupChildren, isHiddenInputFilter, noMatchedMsg, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
@@ -425,6 +425,7 @@ class DropdownSelect extends Component {
                                                        listHeight={listHeight}
                                                        itemHeight={itemHeight}
                                                        scrollBuffer={scrollBuffer}
+                                                       itemDisabled={itemDisabled}
                                                        renderer={renderer}
                                                        radioUncheckedIconCls={radioUncheckedIconCls}
                                                        radioCheckedIconCls={radioCheckedIconCls}
@@ -442,6 +443,7 @@ class DropdownSelect extends Component {
                                           valueField={valueField}
                                           displayField={displayField}
                                           descriptionField={descriptionField}
+                                          itemDisabled={itemDisabled}
                                           renderer={renderer}
                                           radioUncheckedIconCls={radioUncheckedIconCls}
                                           radioCheckedIconCls={radioCheckedIconCls}
@@ -612,6 +614,11 @@ DropdownSelect.propTypes = {
     disabled: PropTypes.bool,
 
     /**
+     * List item disabled callback.
+     */
+    itemDisabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+
+    /**
      * The select mode of listItem.Can be normal,checkbox.
      */
     selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
@@ -716,6 +723,7 @@ DropdownSelect.defaultProps = {
     rightIconCls: 'fas fa-angle-down',
     data: [],
     disabled: false,
+    itemDisabled: false,
     selectMode: SelectMode.SINGLE_SELECT,
 
     valueField: 'value',
