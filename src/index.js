@@ -29,6 +29,7 @@ export Dropdown from './Dropdown';
 export DropdownFilter from './DropdownFilter';
 export DropdownSelect from './DropdownSelect';
 export DynamicRenderList from './DynamicRenderList';
+export DynamicRenderTagField from './DynamicRenderTagField';
 export EditableField from './EditableField';
 export EditableSelect from './EditableSelect';
 export FieldMsg from './FieldMsg';
