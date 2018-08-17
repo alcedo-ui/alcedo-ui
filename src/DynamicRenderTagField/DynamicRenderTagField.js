@@ -361,9 +361,6 @@ class DynamicRenderTagField extends Component {
                 height: Math.ceil(data.length / column) * itemHeight
             };
 
-        console.log(index, this.state.scrollTop);
-
-
         indexData.splice(inputIndex, 0, this.inputSymbol);
 
         return (
@@ -480,7 +477,7 @@ DynamicRenderTagField.defaultProps = {
     tagRemoveIconCls: 'fas fa-times',
     listHeight: 200,
     itemHeight: 34,
-    scrollBuffer: 8,
+    scrollBuffer: 24,
     column: 4
 
 };
