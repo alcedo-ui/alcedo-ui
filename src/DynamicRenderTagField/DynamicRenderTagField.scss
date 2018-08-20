@@ -25,6 +25,11 @@ input::-ms-clear {
     padding: 0 8px 8px 0;
     overflow: auto;
 
+    .dynamic-render-tag-field-transform {
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
     .tag-field-input-wrapper {
         position: relative;
         box-sizing: border-box;

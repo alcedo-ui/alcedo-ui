@@ -69,7 +69,7 @@ function displayIndexByScrollTopMulColumns(data, listHeight, itemHeight, column,
     return {
         start: Valid.range(start, 0, len - 1),
         stop: Valid.range(stop, 0, len - 1),
-        startWithBuffer: 0,
+        startWithBuffer: Valid.range(Valid.range(start, 0, len - 1) - buffer, 0, len - 1),
         stopWithBuffer: Valid.range(stop + buffer, 0, len - 1)
     };
 

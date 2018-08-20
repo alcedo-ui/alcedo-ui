@@ -372,13 +372,14 @@ class DynamicRenderTagField extends Component {
                  onWheel={e => Event.wheelHandler(e, this.props)}>
                 <div className="dynamic-render-list-scroller"
                      style={scrollerStyle}>
-
-                    {
-                        indexData && indexData.map(index => index === this.inputSymbol ?
-                            !disabled ?
-                                <div key="input"
-                                     ref="inputWrapper"
-                                     className="tag-field-input-wrapper">
+                    <div className="dynamic-render-tag-field-transform"
+                         style={{transform: `translateY(${index.startWithBuffer * itemHeight / column}px)`}}>
+                        {
+                            indexData && indexData.map(index => index === this.inputSymbol ?
+                                !disabled ?
+                                    <div key="input"
+                                         ref="inputWrapper"
+                                         className="tag-field-input-wrapper">
                                 <textarea ref="input"
                                           className="tag-field-input"
                                           style={{width: wrapperWidth}}
@@ -387,15 +388,15 @@ class DynamicRenderTagField extends Component {
                                           placeholder={filteredData.length < 1 && placeholder ? placeholder : ''}
                                           onChange={this.inputChangeHandler}
                                           onKeyDown={this.inputKeyDownHandler}/>
-                                </div>
+                                    </div>
+                                    :
+                                    null
                                 :
-                                null
-                            :
-                            <span key={index}
-                                  data-index={index}
-                                  className={classNames('tag-field-item-wrapper', {
-                                      [filteredData[index].className]: filteredData[index].className
-                                  })}>
+                                <span key={index}
+                                      data-index={index}
+                                      className={classNames('tag-field-item-wrapper', {
+                                          [filteredData[index].className]: filteredData[index].className
+                                      })}>
                                 <EditableField className="tag-field-item-field"
                                                value={Util.getTextByDisplayField(filteredData[index], displayField, valueField)}
                                                disabled={disabled || (itemEditing && index !== editingItemIndex)}
@@ -410,8 +411,9 @@ class DynamicRenderTagField extends Component {
                                             onClick={() => this.removeItem(index)}/>
                                 </EditableField>
                             </span>
-                        )
-                    }
+                            )
+                        }
+                    </div>
 
                 </div>
                 {/*<div ref="test"*/}
