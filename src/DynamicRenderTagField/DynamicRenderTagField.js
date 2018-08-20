@@ -152,7 +152,6 @@ class DynamicRenderTagField extends Component {
         const callback = (function (e) {
 
             return () => {
-                console.log(Dom.findParentByClassName(e.target, 'dynamic-tag-field'));
                 if (Dom.findParentByClassName(e.target, 'dynamic-tag-field') != this.refs.wrapper || this.state.itemEditing) {
                     this.setState({
                         inputIndex: this.state.data.length
