@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {findDOMNode} from 'react-dom';
 
 import RaisedButton from 'src/RaisedButton';
 import Drawer from 'src/Drawer';
@@ -74,6 +75,13 @@ class DrawerExamples extends Component {
 
     };
 
+    componentDidMount() {
+        this.trigger0El = findDOMNode(this.refs.trigger0);
+        this.trigger1El = findDOMNode(this.refs.trigger1);
+        this.trigger2El = findDOMNode(this.refs.trigger2);
+        this.trigger3El = findDOMNode(this.refs.trigger3);
+    }
+
     render() {
 
         const {popupVisible} = this.state;
@@ -107,25 +115,29 @@ class DrawerExamples extends Component {
                                 <div className="button-group-wrapper">
 
                                     <div className="button-group top">
-                                        <RaisedButton className="trigger-position-button"
+                                        <RaisedButton ref="trigger0"
+                                                      className="trigger-position-button"
                                                       value="Top"
                                                       onClick={() => this.toggleDrawer(0)}/>
                                     </div>
 
                                     <div className="button-group right">
-                                        <RaisedButton className="trigger-position-button"
+                                        <RaisedButton ref="trigger1"
+                                                      className="trigger-position-button"
                                                       value="Right"
                                                       onClick={() => this.toggleDrawer(1)}/>
                                     </div>
 
                                     <div className="button-group bottom">
-                                        <RaisedButton className="trigger-position-button"
+                                        <RaisedButton ref="trigger2"
+                                                      className="trigger-position-button"
                                                       value="Bottom"
                                                       onClick={() => this.toggleDrawer(2)}/>
                                     </div>
 
                                     <div className="button-group left">
-                                        <RaisedButton className="trigger-position-button"
+                                        <RaisedButton ref="trigger3"
+                                                      className="trigger-position-button"
                                                       value="Left"
                                                       onClick={() => this.toggleDrawer(3)}/>
                                     </div>
@@ -135,21 +147,25 @@ class DrawerExamples extends Component {
 
                                 <Drawer visible={popupVisible[0]}
                                         position={Drawer.Position.TOP}
+                                        triggerEl={this.trigger0El}
                                         onRequestClose={() => this.closeDrawer(0)}>
                                     <List data={this.data}/>
                                 </Drawer>
                                 <Drawer visible={popupVisible[1]}
                                         position={Drawer.Position.RIGHT}
+                                        triggerEl={this.trigger1El}
                                         onRequestClose={() => this.closeDrawer(1)}>
                                     <List data={this.data}/>
                                 </Drawer>
                                 <Drawer visible={popupVisible[2]}
                                         position={Drawer.Position.BOTTOM}
+                                        triggerEl={this.trigger2El}
                                         onRequestClose={() => this.closeDrawer(2)}>
                                     <List data={this.data}/>
                                 </Drawer>
                                 <Drawer visible={popupVisible[3]}
                                         position={Drawer.Position.LEFT}
+                                        triggerEl={this.trigger3El}
                                         onRequestClose={() => this.closeDrawer(3)}>
                                     <List data={this.data}/>
                                 </Drawer>
