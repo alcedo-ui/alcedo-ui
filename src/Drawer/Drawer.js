@@ -66,7 +66,7 @@ class Drawer extends Component {
 
     };
 
-    mouseDownHandler = e => {
+    closeHandler = e => {
 
         if (this.props.triggerEl && elContains(this.props.triggerEl, e.target)) {
             return;
@@ -94,7 +94,7 @@ class Drawer extends Component {
 
     componentDidMount() {
         this.setBodyLock();
-        Event.addEvent(document, 'click', this.mouseDownHandler);
+        Event.addEvent(document, 'click', this.closeHandler);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -115,7 +115,7 @@ class Drawer extends Component {
 
         this.resetBody();
         this.clearCloseTimeout();
-        Event.removeEvent(document, 'click', this.mouseDownHandler);
+        Event.removeEvent(document, 'click', this.closeHandler);
 
         PopManagement.pop(this);
 
