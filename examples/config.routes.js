@@ -98,6 +98,9 @@ export default function configureRoutes(store) {
                     path: '/components/TagField',
                     component: ac(() => import('modules/fields/TagFieldExamples'), store)
                 }, {
+                    path: '/components/DynamicRenderTagField',
+                    component: ac(() => import('modules/fields/DynamicRenderTagFieldExamples'), store)
+                }, {
                     path: '/components/Rate',
                     component: ac(() => import('modules/fields/RateExamples'), store)
                 }, {
