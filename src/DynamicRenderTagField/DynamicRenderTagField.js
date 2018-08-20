@@ -152,8 +152,8 @@ class DynamicRenderTagField extends Component {
         const callback = (function (e) {
 
             return () => {
-
-                if (Dom.findParentByClassName(e.target, 'tag-field') != this.refs.wrapper || this.state.itemEditing) {
+                console.log(Dom.findParentByClassName(e.target, 'dynamic-tag-field'));
+                if (Dom.findParentByClassName(e.target, 'dynamic-tag-field') != this.refs.wrapper || this.state.itemEditing) {
                     this.setState({
                         inputIndex: this.state.data.length
                     });
@@ -176,15 +176,15 @@ class DynamicRenderTagField extends Component {
 
                 const inputIndex = this.calInputIndex(e);
 
-                this.setState({
-                    inputIndex
-                }, () => {
-                    setTimeout(() => {
-                        this.refs.input.focus();
-                        // wrapperEl.scrollLeft = 0;
-                        // wrapperEl.scrollTop = 0;
-                    }, 0);
-                });
+                // this.setState({
+                //     inputIndex
+                // }, () => {
+                setTimeout(() => {
+                    this.refs.input.focus();
+                    // wrapperEl.scrollLeft = 0;
+                    // wrapperEl.scrollTop = 0;
+                }, 0);
+                // });
 
             };
 
@@ -370,25 +370,18 @@ class DynamicRenderTagField extends Component {
                  disabled={disabled}
                  onScroll={this.scrollHandler}
                  onWheel={e => Event.wheelHandler(e, this.props)}>
+
                 <div className="dynamic-render-list-scroller"
                      style={scrollerStyle}>
                     <div className="dynamic-render-tag-field-transform"
-                         style={{transform: `translateY(${index.startWithBuffer * itemHeight / column}px)`}}>
+                         style={{
+                             transform: `translateY(${index.startWithBuffer * itemHeight / column}px)`,
+                             height: indexData.length > 1 ? 'auto' : '108px'
+                         }}>
                         {
                             indexData && indexData.map(index => index === this.inputSymbol ?
                                 !disabled ?
-                                    <div key="input"
-                                         ref="inputWrapper"
-                                         className="tag-field-input-wrapper">
-                                <textarea ref="input"
-                                          className="tag-field-input"
-                                          style={{width: wrapperWidth}}
-                                          autoFocus="true"
-                                          value={inputValue}
-                                          placeholder={filteredData.length < 1 && placeholder ? placeholder : ''}
-                                          onChange={this.inputChangeHandler}
-                                          onKeyDown={this.inputKeyDownHandler}/>
-                                    </div>
+                                    null
                                     :
                                     null
                                 :
@@ -416,8 +409,22 @@ class DynamicRenderTagField extends Component {
                     </div>
 
                 </div>
-                {/*<div ref="test"*/}
-                {/*className="tag-field-test-container"></div>*/}
+
+                <div key="input"
+                     ref="inputWrapper"
+                     className="tag-field-input-wrapper">
+                                <textarea ref="input"
+                                          className="tag-field-input"
+                                          style={{width: wrapperWidth}}
+                                          autoFocus="true"
+                                          value={inputValue}
+                                          placeholder={filteredData.length < 1 && placeholder ? placeholder : ''}
+                                          onChange={this.inputChangeHandler}
+                                          onKeyDown={this.inputKeyDownHandler}/>
+                </div>
+
+                <div ref="test"
+                     className="tag-field-test-container"></div>
             </div>
         );
 
