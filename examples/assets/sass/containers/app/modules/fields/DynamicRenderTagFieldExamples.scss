@@ -1,0 +1,19 @@
+@import '../../../../my-theme.scss';
+
+.dynamic-render-tag-field-examples {
+
+    .tag-field-item-wrapper {
+
+        &.duplicate {
+            .editable-field-text {
+                color: $theme-info;
+            }
+        }
+
+        &.unfound {
+            .editable-field-text {
+                color: $theme-error;
+            }
+        }
+    }
+}

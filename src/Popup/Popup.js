@@ -57,7 +57,7 @@ class Popup extends Component {
 
     };
 
-    mouseDownHandler = e => {
+    closeHandler = e => {
 
         const {visible, triggerEl, isBlurClose, triggerHandler, onRequestClose} = this.props,
             popupEl = this.refs.popup.getEl();
@@ -84,7 +84,7 @@ class Popup extends Component {
     };
 
     componentDidMount() {
-        Event.addEvent(document, 'mousedown', this.mouseDownHandler);
+        Event.addEvent(document, 'click', this.closeHandler);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -100,7 +100,7 @@ class Popup extends Component {
     componentWillUnmount() {
 
         this.clearCloseTimeout();
-        Event.removeEvent(document, 'mousedown', this.mouseDownHandler);
+        Event.removeEvent(document, 'click', this.closeHandler);
 
         PopManagement.pop(this);
 

@@ -1,0 +1,141 @@
+/**
+ * @file TagField style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+input,
+input:focus {
+    outline: none;
+}
+
+input::-ms-clear {
+    display: none;
+}
+
+.dynamic-tag-field {
+    position: relative;
+    width: 400px;
+    min-height: 106px;
+    border-radius: $theme-border-radius;
+    box-sizing: border-box;
+    color: $theme-field;
+    background: $theme-field-bg;
+    border: 1px solid $theme-border;
+    cursor: text;
+    padding: 0 8px 8px 0;
+    overflow: auto;
+
+    .dynamic-render-tag-field-transform {
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .tag-field-input-wrapper {
+        position: relative;
+        box-sizing: border-box;
+        margin-top: 8px;
+        width: 9px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0;
+        float: left;
+        color: inherit;
+
+        .tag-field-input {
+            box-sizing: border-box;
+            position: absolute;
+            left: 0;
+            top: 0;
+            line-height: 24px;
+            padding: 0 8px;
+            border: 0;
+            color: inherit;
+            overflow: auto;
+            resize: none;
+        }
+    }
+
+    .tag-field-item-wrapper {
+        margin: 8px 0 0 8px;
+        box-sizing: border-box;
+        padding: 0;
+        float: left;
+        width: calc(25% - 8px);
+        overflow: hidden;
+
+        .tag-field-item-field {
+            height: 24px;
+            line-height: 24px;
+            background: $theme-field-bg;
+            padding: 0 24px 0 7px;
+            border-radius: 13px;
+            border: 1px solid $theme-border;
+
+            .editable-field-span,
+            .editable-field-input,
+            .editable-field-input .text-field-input {
+                line-height: 24px;
+            }
+
+            .editable-field-input {
+                height: 26px;
+                top: -1px;
+                left: -4px;
+            }
+
+            .editable-field-span {
+                width: 100%;
+                top: 0;
+                left: 0;
+                padding-left: 7px;
+                border-radius: 12px;
+                border: none;
+
+                .editable-field-icon {
+                    font-size: 12px;
+                    width: 24px;
+                    height: 24px;
+                    right: 0;
+                    text-align: center;
+                    line-height: 24px;
+                }
+            }
+
+            .editable-field-input {
+                &.empty {
+                    .text-field-input {
+                        padding: 0 30px 0 10px;
+                    }
+                }
+            }
+
+            .tag-field-item-field-delete-button {
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: 24px;
+                height: 24px;
+                line-height: 24px;
+            }
+        }
+    }
+
+    .tag-field-test-container {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        height: auto;
+        width: auto;
+        visibility: hidden;
+        white-space: pre;
+        font: inherit;
+        line-height: inherit;
+        overflow: visible;
+    }
+
+    &[disabled] {
+        background: darken($theme-field-bg, 4%);
+        cursor: not-allowed;
+    }
+
+}

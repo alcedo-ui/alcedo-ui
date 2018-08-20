@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import elContains from 'dom-helpers/query/contains';
 
 import PositionPop from '../_PositionPop';
 import Paper from '../Paper';
@@ -65,7 +66,11 @@ class Drawer extends Component {
 
     };
 
-    mouseDownHandler = e => {
+    closeHandler = e => {
+
+        if (this.props.triggerEl && elContains(this.props.triggerEl, e.target)) {
+            return;
+        }
 
         const {visible, isBlurClose, triggerHandler, onRequestClose} = this.props,
             drawerEl = this.refs.drawerContent;
@@ -89,7 +94,7 @@ class Drawer extends Component {
 
     componentDidMount() {
         this.setBodyLock();
-        Event.addEvent(document, 'mousedown', this.mouseDownHandler);
+        Event.addEvent(document, 'click', this.closeHandler);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -110,7 +115,7 @@ class Drawer extends Component {
 
         this.resetBody();
         this.clearCloseTimeout();
-        Event.removeEvent(document, 'mousedown', this.mouseDownHandler);
+        Event.removeEvent(document, 'click', this.closeHandler);
 
         PopManagement.pop(this);
 
@@ -123,8 +128,7 @@ class Drawer extends Component {
                 className,
 
                 // not passing down these props
-                isBlurClose, isEscClose,
-                onRender, onRequestClose,
+                triggerEl, isBlurClose, isEscClose, onRender, onRequestClose,
 
                 ...restProps
 
@@ -169,6 +173,8 @@ Drawer.propTypes = {
      */
     position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
+    triggerEl: PropTypes.object,
+
     /**
      * If true,the element will disabled.
      */
@@ -195,6 +201,8 @@ Drawer.propTypes = {
      * The function of drawer render.
      */
     onRender: PropTypes.func,
+
+    triggerHandler: PropTypes.func,
 
     /**
      * The function that trigger when click submit.

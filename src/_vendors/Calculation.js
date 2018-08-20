@@ -51,6 +51,30 @@ function displayIndexByScrollTop(data, listHeight, itemHeight, scrollTop = 0, bu
 
 }
 
+function displayIndexByScrollTopMulColumns(data, listHeight, itemHeight, column, scrollTop = 0, buffer = 0) {
+
+    if (!data || !listHeight || !itemHeight) {
+        return {
+            start: 0,
+            stop: 0,
+            startWithBuffer: 0,
+            stopWithBuffer: 0
+        };
+    }
+
+    const len = data.length,
+        start = Math.floor(scrollTop / itemHeight) * column,
+        stop = start + Math.ceil(listHeight / itemHeight) * column;
+
+    return {
+        start: Valid.range(start, 0, len - 1),
+        stop: Valid.range(stop, 0, len - 1),
+        startWithBuffer: Valid.range(Valid.range(start, 0, len - 1) - buffer, 0, len - 1),
+        stopWithBuffer: Valid.range(stop + buffer, 0, len - 1)
+    };
+
+}
+
 function getInitValue(props) {
 
     if (!props) {
@@ -121,8 +145,8 @@ function isNodeIndeterminate(node, value, {valueField, displayField}) {
     Util.preOrderTraverse(node, nodeItem => {
         total++;
         if (value.findIndex(item =>
-            Util.getValueByValueField(item, valueField, displayField)
-            === Util.getValueByValueField(nodeItem, valueField, displayField)) > -1) {
+                Util.getValueByValueField(item, valueField, displayField)
+                === Util.getValueByValueField(nodeItem, valueField, displayField)) > -1) {
             count++;
         }
     });
@@ -136,6 +160,7 @@ export default {
     displayIndexByScrollTop,
     getInitValue,
     getMultiSelectItemIndex,
+    displayIndexByScrollTopMulColumns,
     isItemChecked,
     isNodeIndeterminate
 };

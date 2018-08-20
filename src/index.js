@@ -29,6 +29,7 @@ export Dropdown from './Dropdown';
 export DropdownFilter from './DropdownFilter';
 export DropdownSelect from './DropdownSelect';
 export DynamicRenderList from './DynamicRenderList';
+export DynamicRenderTagField from './DynamicRenderTagField';
 export EditableField from './EditableField';
 export EditableSelect from './EditableSelect';
 export FieldMsg from './FieldMsg';
@@ -102,4 +103,4 @@ export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 102;
+export const COMPONENTS_TOTAL_COUNT = 103;
