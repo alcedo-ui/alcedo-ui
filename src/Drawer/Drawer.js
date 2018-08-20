@@ -68,7 +68,7 @@ class Drawer extends Component {
 
     mouseDownHandler = e => {
 
-        if (elContains(this.props.triggerEl, e.target)) {
+        if (this.props.triggerEl && elContains(this.props.triggerEl, e.target)) {
             return;
         }
 
