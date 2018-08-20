@@ -109,33 +109,25 @@ class DrawerExamples extends Component {
                                     <div className="button-group top">
                                         <RaisedButton className="trigger-position-button"
                                                       value="Top"
-                                                      onClick={() => {
-                                                          this.toggleDrawer(0);
-                                                      }}/>
+                                                      onClick={() => this.toggleDrawer(0)}/>
                                     </div>
 
                                     <div className="button-group right">
                                         <RaisedButton className="trigger-position-button"
                                                       value="Right"
-                                                      onClick={() => {
-                                                          this.toggleDrawer(1);
-                                                      }}/>
+                                                      onClick={() => this.toggleDrawer(1)}/>
                                     </div>
 
                                     <div className="button-group bottom">
                                         <RaisedButton className="trigger-position-button"
                                                       value="Bottom"
-                                                      onClick={() => {
-                                                          this.toggleDrawer(2);
-                                                      }}/>
+                                                      onClick={() => this.toggleDrawer(2)}/>
                                     </div>
 
                                     <div className="button-group left">
                                         <RaisedButton className="trigger-position-button"
                                                       value="Left"
-                                                      onClick={() => {
-                                                          this.toggleDrawer(3);
-                                                      }}/>
+                                                      onClick={() => this.toggleDrawer(3)}/>
                                     </div>
 
                                 </div>
@@ -143,30 +135,22 @@ class DrawerExamples extends Component {
 
                                 <Drawer visible={popupVisible[0]}
                                         position={Drawer.Position.TOP}
-                                        onRequestClose={() => {
-                                            this.closeDrawer(0);
-                                        }}>
+                                        onRequestClose={() => this.closeDrawer(0)}>
                                     <List data={this.data}/>
                                 </Drawer>
                                 <Drawer visible={popupVisible[1]}
                                         position={Drawer.Position.RIGHT}
-                                        onRequestClose={() => {
-                                            this.closeDrawer(1);
-                                        }}>
+                                        onRequestClose={() => this.closeDrawer(1)}>
                                     <List data={this.data}/>
                                 </Drawer>
                                 <Drawer visible={popupVisible[2]}
                                         position={Drawer.Position.BOTTOM}
-                                        onRequestClose={() => {
-                                            this.closeDrawer(2);
-                                        }}>
+                                        onRequestClose={() => this.closeDrawer(2)}>
                                     <List data={this.data}/>
                                 </Drawer>
                                 <Drawer visible={popupVisible[3]}
                                         position={Drawer.Position.LEFT}
-                                        onRequestClose={() => {
-                                            this.closeDrawer(3);
-                                        }}>
+                                        onRequestClose={() => this.closeDrawer(3)}>
                                     <List data={this.data}/>
                                 </Drawer>
 
