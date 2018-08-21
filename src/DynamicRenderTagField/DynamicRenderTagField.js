@@ -353,8 +353,8 @@ class DynamicRenderTagField extends Component {
             fieldClassName = classNames('dynamic-tag-field', {
                 [className]: className
             }),
-            index = this.getIndex(),
-            filteredData = data && index ? data.slice(index.startWithBuffer, index.stopWithBuffer + 1) : data,
+            displayIndex = this.getIndex(),
+            filteredData = data && displayIndex ? data.slice(displayIndex.startWithBuffer, displayIndex.stopWithBuffer + 1) : data,
             indexData = Util.genIndexArray(filteredData.length),
             scrollerStyle = {
                 height: Math.ceil(data.length / column) * itemHeight
@@ -374,7 +374,7 @@ class DynamicRenderTagField extends Component {
                      style={scrollerStyle}>
                     <div className="dynamic-render-tag-field-transform"
                          style={{
-                             transform: `translateY(${index.startWithBuffer * itemHeight / column}px)`,
+                             transform: `translateY(${displayIndex.startWithBuffer * itemHeight / column}px)`,
                              height: indexData.length > 1 ? 'auto' : '108px'
                          }}>
                         {
@@ -391,16 +391,14 @@ class DynamicRenderTagField extends Component {
                                       })}>
                                 <EditableField className="tag-field-item-field"
                                                value={Util.getTextByDisplayField(filteredData[index], displayField, valueField)}
-                                               disabled={disabled || (itemEditing && index !== editingItemIndex)}
                                                autoWidth={isTagAutoWidth}
-                                               onChange={value => this.itemChangeHandler(value, index)}
-                                               onEditStart={() => this.itemEditStartHandler(index)}
+                                               onChange={value => this.itemChangeHandler(value, index + displayIndex.startWithBuffer)}
+                                               onEditStart={() => this.itemEditStartHandler(index + displayIndex.startWithBuffer)}
                                                onEditEnd={this.itemEditEndHandler}>
 
                                 <IconButton className="tag-field-item-field-delete-button"
                                             iconCls={tagRemoveIconCls}
-                                            disabled={disabled || (itemEditing && index !== editingItemIndex)}
-                                            onClick={() => this.removeItem(index)}/>
+                                            onClick={() => this.removeItem(index + displayIndex.startWithBuffer)}/>
                                 </EditableField>
                             </span>
                             )
