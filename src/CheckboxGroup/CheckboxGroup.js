@@ -89,7 +89,7 @@ class CheckboxGroup extends Component {
                  disabled={disabled}>
                 {
                     data && data.map((item, index) =>
-                        <Checkbox key={idProp in item ? item[idProp] : index}
+                        <Checkbox key={item && idProp in item ? item[idProp] : index}
                                   className={item.className ? item.className : ''}
                                   style={item.style}
                                   theme={item.theme || theme}
