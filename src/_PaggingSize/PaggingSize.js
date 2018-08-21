@@ -21,7 +21,7 @@ class PaggingSize extends Component {
 
     render() {
 
-        const {className, style, pageSize, pageSizes} = this.props;
+        const {className, style, pageSize, pageSizes, rightIconCls} = this.props;
 
         let temp = pageSizes.find(item => item && item.value === pageSize),
             value = temp ? temp : pageSize;
@@ -36,6 +36,7 @@ class PaggingSize extends Component {
                                 value={value}
                                 data={pageSizes}
                                 autoClose={true}
+                                rightIconCls={rightIconCls}
                                 onChange={this.pageSizeChangeHandle}/>
 
             </div>
@@ -51,6 +52,8 @@ PaggingSize.propTypes = {
 
     pageSize: PropTypes.number,
     pageSizes: PropTypes.array,
+
+    rightIconCls: PropTypes.string,
 
     onPageSizeChange: PropTypes.func
 

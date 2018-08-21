@@ -42,7 +42,7 @@ class BriefPagging extends Component {
     render() {
 
         const {
-                count, page, total, pageSize, pageSizes,
+                count, page, total, pageSize, pageSizes, pageSizeRightIconCls,
                 selectedCount, selectedCountVisible, pageSizeVisible, paggingPrevIconCls, paggingNextIconCls,
                 paggingCountRenderer
             } = this.props,
@@ -80,6 +80,7 @@ class BriefPagging extends Component {
                         pageSizeVisible ?
                             <PaggingSize pageSize={pageSize}
                                          pageSizes={pageSizes}
+                                         rightIconCls={pageSizeRightIconCls}
                                          onPageSizeChange={this.pageSizeChangedHandle}/>
                             :
                             null
@@ -158,6 +159,11 @@ BriefPagging.propTypes = {
     pageSizeVisible: PropTypes.bool,
 
     /**
+     * Use this property to set page size right icon.
+     */
+    pageSizeRightIconCls: PropTypes.string,
+
+    /**
      * Use this property to set prev button icon.
      */
     paggingPrevIconCls: PropTypes.string,
@@ -188,6 +194,7 @@ BriefPagging.defaultProps = {
     selectedCountVisible: false,
     pageSizeVisible: true,
 
+    pageSizeRightIconCls: 'fas fa-angle-down',
     paggingPrevIconCls: 'fas fa-angle-left',
     paggingNextIconCls: 'fas fa-angle-right'
 
