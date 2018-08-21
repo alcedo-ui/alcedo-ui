@@ -152,7 +152,7 @@ Pagging.propTypes = {
     pageSizeVisible: PropTypes.bool,
 
     /**
-     * Use this property to set prev button icon.
+     * Use this property to set page size right icon.
      */
     pageSizeRightIconCls: PropTypes.string,
 
