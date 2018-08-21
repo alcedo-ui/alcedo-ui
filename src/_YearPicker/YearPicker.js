@@ -95,7 +95,7 @@ class YearPicker extends Component {
 
     render() {
 
-        const {className, maxValue, minValue} = this.props;
+        const {className, maxValue, minValue,previousYearIconCls, nextYearIconCls} = this.props;
 
         let {YearArr, selectYear} = this.state;
 
@@ -160,7 +160,7 @@ class YearPicker extends Component {
                         rightPreYear ?
                             null
                             :
-                            <i className="fas fa-angle-double-left" onClick={previousYear}>
+                            <i className={previousYearIconCls} onClick={previousYear}>
                                 <TouchRipple/>
                             </i>
                     }
@@ -169,7 +169,7 @@ class YearPicker extends Component {
                     {
                         leftNextYear ?
                             null :
-                            <i className="fas fa-angle-double-right" onClick={nextYear}>
+                            <i className={nextYearIconCls} onClick={nextYear}>
                                 <TouchRipple/>
                             </i>
                     }

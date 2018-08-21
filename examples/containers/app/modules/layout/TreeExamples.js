@@ -50,6 +50,10 @@ class TreeExamples extends Component {
 
     }
 
+    nodeClickHandler = (node) => {
+        console.log('Node Clicked::', node);
+    };
+
     nodeSelectHandler = (node, path) => {
         console.log('Node Selected::', node, path);
     };
@@ -65,7 +69,8 @@ class TreeExamples extends Component {
                 <h2 className="examples-title">Tree</h2>
 
                 <p>
-                    <span>Tree</span> can fully display the hierarchy, and has interactive functions such as
+                    <span>Tree</span>
+                    can fully display the hierarchy, and has interactive functions such as
                     expansion, withdrawal and selection.
                 </p>
 
@@ -85,6 +90,7 @@ class TreeExamples extends Component {
 
                                 <Paper className="tree-wrapper">
                                     <Tree data={this.data}
+                                          onNodeClick={this.nodeClickHandler}
                                           onNodeSelect={this.nodeSelectHandler}
                                           onChange={this.changeHandler}/>
                                 </Paper>
@@ -136,6 +142,9 @@ class TreeExamples extends Component {
                                     <Tree selectMode={Tree.SelectMode.MULTI_SELECT}
                                           data={this.data}
                                           isSelectRecursive={true}
+                                          checkboxUncheckedIconCls="far fa-circle"
+                                          checkboxCheckedIconCls="fas fa-check-circle"
+                                          checkboxIndeterminateIconCls="fas fa-minus-circle"
                                           onNodeSelect={this.nodeSelectHandler}
                                           onChange={this.changeHandler}/>
                                 </Paper>

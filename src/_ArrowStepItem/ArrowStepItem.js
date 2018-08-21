@@ -14,7 +14,6 @@ class ArrowStepItem extends Component {
     }
 
     clickHandler = e => {
-        e.preventDefault();
         const {isActivatedStep, isFinishedStep, index, onClick} = this.props;
         !isActivatedStep && isFinishedStep && onClick && onClick(index, e);
     };

@@ -25,6 +25,37 @@ class Accordion extends Component {
 
     }
 
+    /**
+     * public
+     */
+    resetHeight = () => {
+
+        if (this.state.collapsed) {
+            return;
+        }
+
+        const el = this.refs.accordionContent;
+
+        if (!el) {
+            return;
+        }
+
+        const style = window.getComputedStyle(el);
+
+        if (!style) {
+            return;
+        }
+
+        this.setState({
+            contentHeight: 'auto'
+        }, () => {
+            this.setState({
+                contentHeight: el.clientHeight
+            });
+        });
+
+    };
+
     clickHandler = () => {
 
         const {onCollpase, onExpand, onChange} = this.props;
@@ -45,25 +76,13 @@ class Accordion extends Component {
 
     };
 
-    resetHeight = () => {
-
-        const height = this.refs.accordionContent.style.height;
-
-        if (!height || height === 'auto') {
-            this.setState({
-                contentHeight: this.refs.accordionContent.clientHeight
-            });
-        }
-
-    };
-
     componentDidMount() {
         this.resetHeight();
     }
 
     render() {
 
-        const {className, style, children, title, collapseIcon, expandIcon} = this.props,
+        const {className, style, children, title, collapseIcon} = this.props,
             {collapsed, contentHeight} = this.state,
 
             wrapperClassName = classNames('accordion', {
@@ -78,7 +97,7 @@ class Accordion extends Component {
                 <RaisedButton className="accordion-title"
                               theme={Theme.SECONDARY}
                               value={title}
-                              rightIconCls={collapsed ? expandIcon : collapseIcon}
+                              rightIconCls={collapseIcon}
                               onClick={this.clickHandler}/>
 
                 <div ref="accordionContent"
@@ -116,11 +135,6 @@ Accordion.propTypes = {
     collapseIcon: PropTypes.string,
 
     /**
-     * Expand icon.
-     */
-    expandIcon: PropTypes.string,
-
-    /**
      * Callback function fired when collpase the accordion.
      */
     onCollpase: PropTypes.func,
@@ -139,8 +153,7 @@ Accordion.propTypes = {
 
 Accordion.defaultProps = {
     title: 'title',
-    collapseIcon: 'fas fa-angle-up',
-    expandIcon: 'fas fa-angle-down'
+    collapseIcon: 'fas fa-angle-down'
 };
 
 export default Accordion;

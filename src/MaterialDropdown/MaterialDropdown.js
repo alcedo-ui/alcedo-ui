@@ -11,17 +11,57 @@ import MaterialProvider from '../MaterialProvider';
 import Dropdown from '../Dropdown';
 import Theme from '../Theme';
 
+import Position from '../_statics/Position';
+
 import Util from '../_vendors/Util';
 
 class MaterialDropdown extends Component {
 
     static Theme = Theme;
-    static Position = Dropdown.Position;
+    static Position = Position;
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
     }
 
+    /**
+     * public
+     */
+    startRipple = (e, props) => {
+        this.refs.dropdown && this.refs.dropdown.startRipple(e, props);
+    };
+
+    /**
+     * public
+     */
+    endRipple = () => {
+        this.refs.dropdown && this.refs.dropdown.endRipple();
+    };
+
+    /**
+     * public
+     */
+    triggerRipple = (e, props) => {
+        this.refs.dropdown && this.refs.dropdown.triggerRipple(e, props);
+    };
+
+    /**
+     * public
+     */
+    resetPopupPosition = () => {
+        this.refs.dropdown && this.refs.dropdown.resetPosition();
+    };
+
+    /**
+     * public
+     */
+    openPopup = () => {
+        this.refs.dropdown && this.refs.dropdown.openPopup();
+    };
+
+    /**
+     * public
+     */
     closePopup = () => {
         this.refs.dropdown && this.refs.dropdown.closePopup();
     };
@@ -97,7 +137,7 @@ MaterialDropdown.propTypes = {
      */
     popupTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    position: PropTypes.oneOf(Util.enumerateValue(Dropdown.Position)),
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
      * The label of the dropdown.
@@ -119,7 +159,7 @@ MaterialDropdown.propTypes = {
      */
     placeholder: PropTypes.string,
 
-    triggerRenderer: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
+    title: PropTypes.string,
 
     rightIconCls: PropTypes.string,
 
@@ -157,7 +197,6 @@ MaterialDropdown.defaultProps = {
     theme: Theme.DEFAULT,
     popupTheme: Theme.DEFAULT,
 
-    position: Dropdown.Position.LEFT,
     label: '',
     isLabelAnimate: true,
     placeholder: 'Please select ...',

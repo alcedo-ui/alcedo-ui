@@ -12,14 +12,16 @@ import MaterialProvider from '../MaterialProvider';
 import Theme from '../Theme';
 
 import SelectMode from '../_statics/SelectMode';
+import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class MaterialDropdownSelect extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
-    static Position = DropdownSelect.Position;
+    static Position = Position;
 
     constructor(props, ...restArgs) {
 
@@ -32,6 +34,48 @@ class MaterialDropdownSelect extends Component {
 
     }
 
+    /**
+     * public
+     */
+    startRipple = (e, props) => {
+        this.refs.dropdownSelect && this.refs.dropdownSelect.startRipple(e, props);
+    };
+
+    /**
+     * public
+     */
+    endRipple = () => {
+        this.refs.dropdownSelect && this.refs.dropdownSelect.endRipple();
+    };
+
+    /**
+     * public
+     */
+    triggerRipple = (e, props) => {
+        this.refs.dropdownSelect && this.refs.dropdownSelect.triggerRipple(e, props);
+    };
+
+    /**
+     * public
+     */
+    resetPopupPosition = () => {
+        this.refs.dropdownSelect && this.refs.dropdownSelect.resetPosition();
+    };
+
+    /**
+     * public
+     */
+    openPopup = () => {
+        this.refs.dropdownSelect && this.refs.dropdownSelect.openPopup();
+    };
+
+    /**
+     * public
+     */
+    closePopup = () => {
+        this.refs.dropdownSelect && this.refs.dropdownSelect.closePopup();
+    };
+
     triggerChangeHandler = value => {
         this.setState({
             value
@@ -41,16 +85,11 @@ class MaterialDropdownSelect extends Component {
         });
     };
 
-    closePopup = () => {
-        this.refs.dropdownSelect && this.refs.dropdownSelect.closePopup();
-    };
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
     }
 
     render() {
@@ -113,7 +152,7 @@ MaterialDropdownSelect.propTypes = {
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    position: PropTypes.oneOf(Util.enumerateValue(DropdownSelect.Position)),
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
      * The name of the dropDownSelect.
@@ -139,6 +178,8 @@ MaterialDropdownSelect.propTypes = {
      * The placeholder of the dropDownSelect.
      */
     placeholder: PropTypes.string,
+
+    title: PropTypes.string,
 
     rightIconCls: PropTypes.string,
 
@@ -267,8 +308,15 @@ MaterialDropdownSelect.propTypes = {
      */
     useFilter: PropTypes.bool,
 
+    filterIconCls: PropTypes.string,
     useSelectAll: PropTypes.bool,
     selectAllText: PropTypes.string,
+
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
 
     /**
      * The message of no matching option.
@@ -307,7 +355,6 @@ MaterialDropdownSelect.defaultProps = {
 
     theme: Theme.DEFAULT,
 
-    position: DropdownSelect.Position.LEFT,
     isLabelAnimate: true,
     placeholder: 'Please select ...',
     rightIconCls: 'fas fa-angle-down',
@@ -321,6 +368,7 @@ MaterialDropdownSelect.defaultProps = {
 
     autoClose: true,
     useFilter: false,
+    filterIconCls: 'fas fa-search',
     useSelectAll: false,
     selectAllText: 'Select All',
     isGrouped: false,

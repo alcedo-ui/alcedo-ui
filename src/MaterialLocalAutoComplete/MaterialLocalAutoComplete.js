@@ -11,11 +11,15 @@ import LocalAutoComplete from '../LocalAutoComplete';
 import MaterialProvider from '../MaterialProvider';
 import Theme from '../Theme';
 
+import Position from '../_statics/Position';
+
 import Util from '../_vendors/Util';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class MaterialLocalAutoComplete extends Component {
 
     static Theme = Theme;
+    static Position = Position;
 
     constructor(props, ...restArgs) {
 
@@ -50,12 +54,11 @@ class MaterialLocalAutoComplete extends Component {
         this.refs.localAutoComplete && this.refs.localAutoComplete.closePopup();
     };
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
     }
 
     render() {
@@ -123,6 +126,8 @@ MaterialLocalAutoComplete.propTypes = {
      * The theme.
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
      * The name of the auto complete.
@@ -263,11 +268,6 @@ MaterialLocalAutoComplete.propTypes = {
      */
     noMatchedMsg: PropTypes.string,
 
-    /**
-     * If true,the list data will be grouped.
-     */
-    isGrouped: PropTypes.bool,
-
     required: PropTypes.bool,
 
     isLabelAnimate: PropTypes.bool,
@@ -340,7 +340,6 @@ MaterialLocalAutoComplete.defaultProps = {
     rightIconCls: 'fas fa-search',
     noMatchedPopupVisible: true,
     noMatchedMsg: '',
-    isGrouped: false,
     required: false,
     filterInitValue: ''
 

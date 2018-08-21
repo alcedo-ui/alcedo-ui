@@ -134,7 +134,6 @@ Tip.propTypes = {
 Tip.defaultProps = {
 
     theme: Theme.DARK,
-    depth: 6,
 
     visible: false,
     hasTriangle: true,

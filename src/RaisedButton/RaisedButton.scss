@@ -47,7 +47,7 @@
     border-width: 1px;
 
     &:hover {
-        @include shadow(3);
+        @include shadow(2);
     }
 
     &:active {

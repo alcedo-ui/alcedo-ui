@@ -3,329 +3,335 @@ import ac from 'components/AsyncComponent';
 export default function configureRoutes(store) {
 
     return [{
-        component: ac(store, () => import('containers/Root')),
+        component: ac(() => import('containers/Root'), store),
         routes: [{
             path: '/landing',
-            component: ac(store, () => import('containers/landing/Landing'))
+            component: ac(() => import('containers/landing/Landing'), store)
         }, {
             path: '/components',
-            component: ac(store, () => import('containers/app/App')),
+            component: ac(() => import('containers/app/App'), store),
             routes: [
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- buttons -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                 {
                     path: '/components/RaisedButton',
-                    component: ac(store, () => import('modules/buttons/RaisedButtonExamples'))
+                    component: ac(() => import('modules/buttons/RaisedButtonExamples'), store)
                 }, {
                     path: '/components/FlatButton',
-                    component: ac(store, () => import('modules/buttons/FlatButtonExamples'))
+                    component: ac(() => import('modules/buttons/FlatButtonExamples'), store)
                 }, {
                     path: '/components/GhostButton',
-                    component: ac(store, () => import('modules/buttons/GhostButtonExamples'))
+                    component: ac(() => import('modules/buttons/GhostButtonExamples'), store)
                 }, {
                     path: '/components/IconButton',
-                    component: ac(store, () => import('modules/buttons/IconButtonExamples'))
+                    component: ac(() => import('modules/buttons/IconButtonExamples'), store)
                 }, {
                     path: '/components/AnchorButton',
-                    component: ac(store, () => import('modules/buttons/AnchorButtonExamples'))
+                    component: ac(() => import('modules/buttons/AnchorButtonExamples'), store)
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- Anchor -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                 {
                     path: '/components/Anchor',
-                    component: ac(store, () => import('modules/anchor/AnchorExamples'))
+                    component: ac(() => import('modules/anchor/AnchorExamples'), store)
                 }, {
                     path: '/components/IconAnchor',
-                    component: ac(store, () => import('modules/anchor/IconAnchorExamples'))
+                    component: ac(() => import('modules/anchor/IconAnchorExamples'), store)
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- fields -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                 {
-                    path: '/components/CascaderField',
-                    component: ac(store, () => import('modules/fields/CascaderFieldExamples'))
+                    path: '/components/CascaderSelect',
+                    component: ac(() => import('modules/fields/CascaderSelectExamples'), store)
+                }, {
+                    path: '/components/MaterialCascaderSelect',
+                    component: ac(() => import('modules/fields/MaterialCascaderSelectExamples'), store)
                 }, {
                     path: '/components/TextField',
-                    component: ac(store, () => import('modules/fields/TextFieldExamples'))
+                    component: ac(() => import('modules/fields/TextFieldExamples'), store)
                 }, {
                     path: '/components/TextArea',
-                    component: ac(store, () => import('modules/fields/TextAreaExamples'))
+                    component: ac(() => import('modules/fields/TextAreaExamples'), store)
                 }, {
                     path: '/components/RemoteAutoComplete',
-                    component: ac(store, () => import('modules/fields/RemoteAutoCompleteExamples'))
+                    component: ac(() => import('modules/fields/RemoteAutoCompleteExamples'), store)
                 }, {
                     path: '/components/LocalAutoComplete',
-                    component: ac(store, () => import('modules/fields/LocalAutoCompleteExamples'))
+                    component: ac(() => import('modules/fields/LocalAutoCompleteExamples'), store)
                 }, {
                     path: '/components/DropdownSelect',
-                    component: ac(store, () => import('modules/fields/DropdownSelectExamples'))
+                    component: ac(() => import('modules/fields/DropdownSelectExamples'), store)
                 }, {
                     path: '/components/MultipleSelect',
-                    component: ac(store, () => import('modules/fields/MultipleSelectExamples'))
+                    component: ac(() => import('modules/fields/MultipleSelectExamples'), store)
                 }, {
                     path: '/components/TreeSelect',
-                    component: ac(store, () => import('modules/fields/TreeSelectExamples'))
+                    component: ac(() => import('modules/fields/TreeSelectExamples'), store)
                 }, {
                     path: '/components/Checkbox',
-                    component: ac(store, () => import('modules/fields/CheckboxExamples'))
+                    component: ac(() => import('modules/fields/CheckboxExamples'), store)
                 }, {
                     path: '/components/RadioGroup',
-                    component: ac(store, () => import('modules/fields/RadioGroupExamples'))
+                    component: ac(() => import('modules/fields/RadioGroupExamples'), store)
                 }, {
                     path: '/components/ButtonCheckbox',
-                    component: ac(store, () => import('modules/fields/ButtonCheckboxExamples'))
+                    component: ac(() => import('modules/fields/ButtonCheckboxExamples'), store)
                 }, {
                     path: '/components/ButtonRadioGroup',
-                    component: ac(store, () => import('modules/fields/ButtonRadioGroupExamples'))
+                    component: ac(() => import('modules/fields/ButtonRadioGroupExamples'), store)
                 }, {
                     path: '/components/Switcher',
-                    component: ac(store, () => import('modules/fields/SwitcherExamples'))
+                    component: ac(() => import('modules/fields/SwitcherExamples'), store)
                 }, {
                     path: '/components/Slider',
-                    component: ac(store, () => import('modules/fields/SliderExamples'))
+                    component: ac(() => import('modules/fields/SliderExamples'), store)
                 }, {
                     path: '/components/EditableField',
-                    component: ac(store, () => import('modules/fields/EditableFieldExamples'))
+                    component: ac(() => import('modules/fields/EditableFieldExamples'), store)
                 }, {
                     path: '/components/FlashNumber',
-                    component: ac(store, () => import('modules/fields/FlashNumberExamples'))
+                    component: ac(() => import('modules/fields/FlashNumberExamples'), store)
                 }, {
                     path: '/components/Transfer',
-                    component: ac(store, () => import('modules/fields/TransferExamples'))
+                    component: ac(() => import('modules/fields/TransferExamples'), store)
                 }, {
                     path: '/components/TagField',
-                    component: ac(store, () => import('modules/fields/TagFieldExamples'))
+                    component: ac(() => import('modules/fields/TagFieldExamples'), store)
+                }, {
+                    path: '/components/DynamicRenderTagField',
+                    component: ac(() => import('modules/fields/DynamicRenderTagFieldExamples'), store)
                 }, {
                     path: '/components/Rate',
-                    component: ac(store, () => import('modules/fields/RateExamples'))
+                    component: ac(() => import('modules/fields/RateExamples'), store)
                 }, {
                     path: '/components/EditableSelect',
-                    component: ac(store, () => import('modules/fields/EditableSelectExamples'))
+                    component: ac(() => import('modules/fields/EditableSelectExamples'), store)
                 }, {
                     path: '/components/MaterialTextField',
-                    component: ac(store, () => import('modules/fields/MaterialTextFieldExamples'))
+                    component: ac(() => import('modules/fields/MaterialTextFieldExamples'), store)
                 }, {
                     path: '/components/MaterialDropdownSelect',
-                    component: ac(store, () => import('modules/fields/MaterialDropdownSelectExamples'))
+                    component: ac(() => import('modules/fields/MaterialDropdownSelectExamples'), store)
                 }, {
                     path: '/components/MaterialLocalAutoComplete',
-                    component: ac(store, () => import('modules/fields/MaterialLocalAutoCompleteExamples'))
+                    component: ac(() => import('modules/fields/MaterialLocalAutoCompleteExamples'), store)
                 }, {
                     path: '/components/MaterialTextArea',
-                    component: ac(store, () => import('modules/fields/MaterialTextAreaExamples'))
+                    component: ac(() => import('modules/fields/MaterialTextAreaExamples'), store)
                 }, {
                     path: '/components/MaterialEditableSelect',
-                    component: ac(store, () => import('modules/fields/MaterialEditableSelectExamples'))
+                    component: ac(() => import('modules/fields/MaterialEditableSelectExamples'), store)
                 }, {
                     path: '/components/MaterialTreeSelect',
-                    component: ac(store, () => import('modules/fields/MaterialTreeSelectExamples'))
+                    component: ac(() => import('modules/fields/MaterialTreeSelectExamples'), store)
                 }, {
                     path: '/components/DownloadField',
-                    component: ac(store, () => import('modules/fields/DownloadFieldExamples'))
+                    component: ac(() => import('modules/fields/DownloadFieldExamples'), store)
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- filter -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                 {
                     path: '/components/DropdownFilter',
-                    component: ac(store, () => import('modules/filter/DropdownFilterExamples'))
+                    component: ac(() => import('modules/filter/DropdownFilterExamples'), store)
                 }, {
                     path: '/components/MaterialDropdownFilter',
-                    component: ac(store, () => import('modules/filter/MaterialDropdownFilterExamples'))
+                    component: ac(() => import('modules/filter/MaterialDropdownFilterExamples'), store)
                 }, {
                     path: '/components/AutoCompleteFilter',
-                    component: ac(store, () => import('modules/filter/AutoCompleteFilterExamples'))
+                    component: ac(() => import('modules/filter/AutoCompleteFilterExamples'), store)
                 }, {
                     path: '/components/MaterialAutoCompleteFilter',
-                    component: ac(store, () => import('modules/filter/MaterialAutoCompleteFilterExamples'))
+                    component: ac(() => import('modules/filter/MaterialAutoCompleteFilterExamples'), store)
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- date -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                 {
                     path: '/components/DatePicker',
-                    component: ac(store, () => import('modules/date/DatePickerExamples'))
+                    component: ac(() => import('modules/date/DatePickerExamples'), store)
                 }, {
                     path: '/components/MonthPicker',
-                    component: ac(store, () => import('modules/date/MonthPickerExamples'))
+                    component: ac(() => import('modules/date/MonthPickerExamples'), store)
                 }, {
                     path: '/components/DateRangePicker',
-                    component: ac(store, () => import('modules/date/DateRangePickerExamples'))
+                    component: ac(() => import('modules/date/DateRangePickerExamples'), store)
                 }, {
                     path: '/components/TimePicker',
-                    component: ac(store, () => import('modules/date/TimePickerExamples'))
+                    component: ac(() => import('modules/date/TimePickerExamples'), store)
                 }, {
                     path: '/components/DateTimePicker',
-                    component: ac(store, () => import('modules/date/DateTimePickerExamples'))
+                    component: ac(() => import('modules/date/DateTimePickerExamples'), store)
                 },
                 {
                     path: '/components/MaterialDatePicker',
-                    component: ac(store, () => import('modules/date/MaterialDatePickerExamples'))
+                    component: ac(() => import('modules/date/MaterialDatePickerExamples'), store)
                 },
                 {
                     path: '/components/MaterialDateTimePicker',
-                    component: ac(store, () => import('modules/date/MaterialDateTimePickerExamples'))
+                    component: ac(() => import('modules/date/MaterialDateTimePickerExamples'), store)
                 },
                 {
                     path: '/components/MaterialTimePicker',
-                    component: ac(store, () => import('modules/date/MaterialTimePickerExamples'))
+                    component: ac(() => import('modules/date/MaterialTimePickerExamples'), store)
                 },
                 {
                     path: '/components/MaterialDateRangePicker',
-                    component: ac(store, () => import('modules/date/MaterialDateRangePickerExamples'))
+                    component: ac(() => import('modules/date/MaterialDateRangePickerExamples'), store)
                 },
                 {
                     path: '/components/MaterialMonthPicker',
-                    component: ac(store, () => import('modules/date/MaterialMonthPickerExamples'))
+                    component: ac(() => import('modules/date/MaterialMonthPickerExamples'), store)
                 },
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- pop -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                 {
                     path: '/components/Dialog',
-                    component: ac(store, () => import('modules/pop/DialogExamples'))
+                    component: ac(() => import('modules/pop/DialogExamples'), store)
                 }, {
                     path: '/components/Popup',
-                    component: ac(store, () => import('modules/pop/PopupExamples'))
+                    component: ac(() => import('modules/pop/PopupExamples'), store)
                 }, {
                     path: '/components/Popover',
-                    component: ac(store, () => import('modules/pop/PopoverExamples'))
+                    component: ac(() => import('modules/pop/PopoverExamples'), store)
                 }, {
                     path: '/components/Drawer',
-                    component: ac(store, () => import('modules/pop/DrawerExamples'))
+                    component: ac(() => import('modules/pop/DrawerExamples'), store)
                 }, {
                     path: '/components/Tip',
-                    component: ac(store, () => import('modules/pop/TipExamples'))
+                    component: ac(() => import('modules/pop/TipExamples'), store)
                 }, {
                     path: '/components/Toast',
-                    component: ac(store, () => import('modules/pop/ToastExamples'))
+                    component: ac(() => import('modules/pop/ToastExamples'), store)
                 }, {
                     path: '/components/Notification',
-                    component: ac(store, () => import('modules/pop/NotificationExamples'))
+                    component: ac(() => import('modules/pop/NotificationExamples'), store)
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- progresses -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                 {
                     path: '/components/CircularProgress',
-                    component: ac(store, () => import('modules/progress/CircularProgressExample'))
+                    component: ac(() => import('modules/progress/CircularProgressExample'), store)
                 }, {
                     path: '/components/LinearProgress',
-                    component: ac(store, () => import('modules/progress/LinearProgressExample'))
+                    component: ac(() => import('modules/progress/LinearProgressExample'), store)
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- layouts -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                 {
                     path: '/components/Crumbs',
-                    component: ac(store, () => import('modules/layout/CrumbsExamples'))
+                    component: ac(() => import('modules/layout/CrumbsExamples'), store)
                 }, {
                     path: '/components/Paper',
-                    component: ac(store, () => import('modules/layout/PaperExamples'))
+                    component: ac(() => import('modules/layout/PaperExamples'), store)
                 }, {
                     path: '/components/Widget',
-                    component: ac(store, () => import('modules/layout/WidgetExamples'))
+                    component: ac(() => import('modules/layout/WidgetExamples'), store)
                 }, {
                     path: '/components/List',
-                    component: ac(store, () => import('modules/layout/ListExamples'))
+                    component: ac(() => import('modules/layout/ListExamples'), store)
                 }, {
                     path: '/components/GroupList',
-                    component: ac(store, () => import('modules/layout/GroupListExamples'))
+                    component: ac(() => import('modules/layout/GroupListExamples'), store)
                 }, {
                     path: '/components/DynamicRenderList',
-                    component: ac(store, () => import('modules/layout/DynamicRenderListExamples'))
+                    component: ac(() => import('modules/layout/DynamicRenderListExamples'), store)
                 }, {
                     path: '/components/CascaderList',
-                    component: ac(store, () => import('modules/layout/CascaderListExamples'))
+                    component: ac(() => import('modules/layout/CascaderListExamples'), store)
                 }, {
                     path: '/components/Tab',
-                    component: ac(store, () => import('modules/layout/TabExamples'))
+                    component: ac(() => import('modules/layout/TabExamples'), store)
                 }, {
                     path: '/components/Accordion',
-                    component: ac(store, () => import('modules/layout/AccordionExamples'))
+                    component: ac(() => import('modules/layout/AccordionExamples'), store)
                 }, {
                     path: '/components/Table',
-                    component: ac(store, () => import('modules/layout/TableExamples'))
+                    component: ac(() => import('modules/layout/TableExamples'), store)
                 }, {
                     path: '/components/Waterfall',
-                    component: ac(store, () => import('modules/layout/WaterfallExamples'))
+                    component: ac(() => import('modules/layout/WaterfallExamples'), store)
                 }, {
                     path: '/components/Grid',
-                    component: ac(store, () => import('modules/layout/GridExamples'))
+                    component: ac(() => import('modules/layout/GridExamples'), store)
                 }, {
                     path: '/components/GroupGrid',
-                    component: ac(store, () => import('modules/layout/GroupGridExamples'))
+                    component: ac(() => import('modules/layout/GroupGridExamples'), store)
                 }, {
                     path: '/components/Tree',
-                    component: ac(store, () => import('modules/layout/TreeExamples'))
+                    component: ac(() => import('modules/layout/TreeExamples'), store)
                 }, {
                     path: '/components/Dropdown',
-                    component: ac(store, () => import('modules/layout/DropdownExamples'))
+                    component: ac(() => import('modules/layout/DropdownExamples'), store)
                 }, {
                     path: '/components/MaterialDropdown',
-                    component: ac(store, () => import('modules/layout/MaterialDropdownExamples'))
+                    component: ac(() => import('modules/layout/MaterialDropdownExamples'), store)
                 }, {
                     path: '/components/Pagging',
-                    component: ac(store, () => import('modules/layout/PaggingExamples'))
+                    component: ac(() => import('modules/layout/PaggingExamples'), store)
                 }, {
                     path: '/components/BriefPagging',
-                    component: ac(store, () => import('modules/layout/BriefPaggingExamples'))
+                    component: ac(() => import('modules/layout/BriefPaggingExamples'), store)
                 }, {
                     path: '/components/MaterialProvider',
-                    component: ac(store, () => import('modules/layout/MaterialProviderExamples'))
+                    component: ac(() => import('modules/layout/MaterialProviderExamples'), store)
                 }, {
                     path: '/components/TimeLine',
-                    component: ac(store, () => import('modules/layout/TimeLineExamples'))
+                    component: ac(() => import('modules/layout/TimeLineExamples'), store)
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- draggable -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                 {
                     path: '/components/DraggableList',
-                    component: ac(store, () => import('modules/draggable/DraggableListExamples'))
+                    component: ac(() => import('modules/draggable/DraggableListExamples'), store)
                 }, {
                     path: '/components/DraggableGrid',
-                    component: ac(store, () => import('modules/draggable/DraggableGridExamples'))
+                    component: ac(() => import('modules/draggable/DraggableGridExamples'), store)
                 }, {
                     path: '/components/DraggableTree',
-                    component: ac(store, () => import('modules/draggable/DraggableTreeExamples'))
+                    component: ac(() => import('modules/draggable/DraggableTreeExamples'), store)
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- steppers -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                 {
                     path: '/components/ArrowStep',
-                    component: ac(store, () => import('modules/stepper/ArrowStepExamples'))
+                    component: ac(() => import('modules/stepper/ArrowStepExamples'), store)
                 }, {
                     path: '/components/RoundStep',
-                    component: ac(store, () => import('modules/stepper/RoundStepExamples'))
+                    component: ac(() => import('modules/stepper/RoundStepExamples'), store)
                 }, {
                     path: '/components/ListStep',
-                    component: ac(store, () => import('modules/stepper/ListStepExamples'))
+                    component: ac(() => import('modules/stepper/ListStepExamples'), store)
                 }, {
                     path: '/components/DotStep',
-                    component: ac(store, () => import('modules/stepper/DotStepExamples'))
+                    component: ac(() => import('modules/stepper/DotStepExamples'), store)
                 }, {
                     path: '/components/PointStep',
-                    component: ac(store, () => import('modules/stepper/PointStepExamples'))
+                    component: ac(() => import('modules/stepper/PointStepExamples'), store)
                 }, {
                     path: '/components/VerticalPointStep',
-                    component: ac(store, () => import('modules/stepper/VerticalPointStepExamples'))
+                    component: ac(() => import('modules/stepper/VerticalPointStepExamples'), store)
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- loading -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                 {
                     path: '/components/SpanLoading',
-                    component: ac(store, () => import('modules/loading/SpanLoadingExamples'))
+                    component: ac(() => import('modules/loading/SpanLoadingExamples'), store)
                 }, {
                     path: '/components/CircularLoading',
-                    component: ac(store, () => import('modules/loading/CircularLoadingExamples'))
+                    component: ac(() => import('modules/loading/CircularLoadingExamples'), store)
                 }, {
                     path: '/components/PageLoading',
-                    component: ac(store, () => import('modules/loading/PageLoadingExamples'))
+                    component: ac(() => import('modules/loading/PageLoadingExamples'), store)
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- media -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
                 {
                     path: '/components/LazyImage',
-                    component: ac(store, () => import('modules/media/LazyImageExamples'))
+                    component: ac(() => import('modules/media/LazyImageExamples'), store)
                 }, {
                     path: '/components/ColorPicker',
-                    component: ac(store, () => import('modules/media/ColorPickerExamples'))
+                    component: ac(() => import('modules/media/ColorPickerExamples'), store)
                 }, {
                     path: '/components/HuePicker',
-                    component: ac(store, () => import('modules/media/HuePickerExamples'))
+                    component: ac(() => import('modules/media/HuePickerExamples'), store)
                 }
             ]
         }]

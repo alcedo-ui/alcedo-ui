@@ -40,7 +40,7 @@ class TouchRipple extends Component {
 
         // get pointer offset of el
         let pointerX, pointerY;
-        if (displayCenter) {
+        if (!e || displayCenter) {
             pointerX = elWidth / 2;
             pointerY = elHeight / 2;
         } else {
@@ -71,18 +71,21 @@ class TouchRipple extends Component {
 
     };
 
-    addRipple = e => {
+    addRipple = (e, props) => {
 
         if (this.ignoreNextMouseDown) {
             return;
         }
 
+        props = props || {};
+
         this.ignoreNextMouseDown = true;
         let {ripples} = this.state;
 
         ripples.push({
+            ...props,
             key: this.nextKey++,
-            style: this.getRippleStyle(e)
+            style: {...props.style, ...this.getRippleStyle(e)}
         });
 
         this.setState({

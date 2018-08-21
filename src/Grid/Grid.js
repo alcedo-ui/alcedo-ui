@@ -101,6 +101,10 @@ class Grid extends Component {
 
     renderGridItem = (item, index) => {
 
+        if (!item) {
+            return;
+        }
+
         const {
 
                 theme, itemHeight, col,
@@ -115,7 +119,7 @@ class Grid extends Component {
 
         return typeof item === 'object' ?
             (
-                <GridItem key={item[idField] || index}
+                <GridItem key={(idField in item && item[idField]) || index}
                           {...item}
                           index={index}
                           style={{height: itemHeight}}
@@ -193,9 +197,7 @@ class Grid extends Component {
             <div className={gridClassName}
                  disabled={disabled}
                  style={style}
-                 onWheel={e => {
-                     Event.wheelHandler(e, this.props);
-                 }}>
+                 onWheel={e => Event.wheelHandler(e, this.props)}>
 
                 {data && data.map((item, index) => this.renderGridItem(item, index))}
 

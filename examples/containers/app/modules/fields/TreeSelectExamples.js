@@ -19,31 +19,38 @@ class TreeSelectExamples extends Component {
             id: '0',
             text: 'Root',
             desc: 'Root',
+            title: 'Root',
             children: [{
                 id: '00',
                 text: 'Children 0 - 0',
-                desc: 'Children 0 - 0'
+                desc: 'Children 0 - 0',
+                title: 'Children 0 - 0'
             }, {
                 id: '01',
                 text: 'Children 0 - 1',
                 desc: 'Children 0 - 1',
+                title: 'Children 0 - 1',
                 children: [{
                     id: '010',
                     text: 'Children 0 - 1 - 0',
-                    desc: 'Children 0 - 1 - 0'
+                    desc: 'Children 0 - 1 - 0',
+                    title: 'Children 0 - 1 - 0'
                 }, {
                     id: '011',
                     text: 'Children 0 - 1 - 1',
-                    desc: 'Children 0 - 1 - 1'
+                    desc: 'Children 0 - 1 - 1',
+                    title: 'Children 0 - 1 - 1'
                 }, {
                     id: '012',
                     text: 'Children 0 - 1 - 2',
-                    desc: 'Children 0 - 1 - 2'
+                    desc: 'Children 0 - 1 - 2',
+                    title: 'Children 0 - 1 - 2'
                 }]
             }, {
                 id: '02',
                 text: 'Children 0 - 2',
-                desc: 'Children 0 - 2'
+                desc: 'Children 0 - 2',
+                title: 'Children 0 - 2'
             }]
         };
 
@@ -57,10 +64,11 @@ class TreeSelectExamples extends Component {
         return (
             <div className="example tree-select-examples">
 
-                <h2 className="examples-title">Tree</h2>
+                <h2 className="examples-title">Tree Select</h2>
 
                 <p>
-                    <span>Tree</span> can fully display the hierarchy, and has interactive functions such as
+                    <span>Tree Select</span>
+                    &nbsp;can fully display the hierarchy, and has interactive functions such as
                     expansion, withdrawal and selection.
                 </p>
 
@@ -76,7 +84,7 @@ class TreeSelectExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>Tree</code>simple example.</p>
+                                <p><code>Tree Select</code>&nbsp;simple example.</p>
 
                                 <TreeSelect data={this.data}
                                             value={{
@@ -105,6 +113,12 @@ class TreeSelectExamples extends Component {
                                             data={this.data}
                                             autoClose={false}
                                             isSelectRecursive={true}
+                                            collapsedIconCls="far fa-plus-square"
+                                            expandedIconCls="far fa-minus-square"
+                                            checkboxUncheckedIconCls="far fa-circle"
+                                            checkboxCheckedIconCls="fas fa-check-circle"
+                                            checkboxIndeterminateIconCls="fas fa-minus-circle"
+                                            useFilter={true}
                                             onChange={this.changeHandler}/>
                             </div>
                         </div>

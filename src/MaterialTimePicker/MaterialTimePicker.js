@@ -16,10 +16,13 @@ import Theme from '../Theme';
 import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
+import {findDOMNode} from 'react-dom';
+import DropdownCalculation from '../_vendors/DropdownCalculation';
 
 class MaterialTimePicker extends Component {
 
     static Theme = Theme;
+    static Position = Position;
 
     constructor(props, ...restArgs) {
 
@@ -33,7 +36,7 @@ class MaterialTimePicker extends Component {
             hour: moment().format('HH'),
             minute: moment().format('mm'),
             second: moment().format('ss'),
-            triggerEl: null
+            isAbove: false
         };
 
     }
@@ -87,8 +90,7 @@ class MaterialTimePicker extends Component {
     togglePopup = e => {
         if (this.validValue) {
             this.setState({
-                popupVisible: !this.state.popupVisible,
-                triggerEl: e.target
+                popupVisible: !this.state.popupVisible
             });
         }
     };
@@ -100,6 +102,21 @@ class MaterialTimePicker extends Component {
         }, () => {
             this.props.onChange && this.props.onChange(textFieldValue);
         });
+    };
+
+    popupRenderHandler = popupEl => {
+
+        if (this.props.position) {
+            return;
+        }
+
+        const isAbove = DropdownCalculation.isAbove(this.dropdownEl, this.triggerEl, findDOMNode(popupEl));
+        if (isAbove !== this.state.isAbove) {
+            this.setState({
+                isAbove
+            });
+        }
+
     };
 
     componentDidMount() {
@@ -118,6 +135,8 @@ class MaterialTimePicker extends Component {
                 console.error('Invalid date');
             }
         }
+
+        this.triggerEl = findDOMNode(this.refs.trigger);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -132,8 +151,9 @@ class MaterialTimePicker extends Component {
 
     render() {
 
-        const {className, style, name, placeholder, maxValue, minValue, dateFormat, label, isLabelAnimate, position, theme} = this.props,
-            {popupVisible, textFieldValue, hour, minute, second, triggerEl} = this.state,
+        const {className, style, name, placeholder, maxValue, minValue, dateFormat, label, isLabelAnimate, position,
+                theme, popupClassName, rightIconCls} = this.props,
+            {popupVisible, textFieldValue, hour, minute, second, isAbove} = this.state,
 
             pickerClassName = classNames('material-time-picker', {
                 [className]: className
@@ -155,16 +175,18 @@ class MaterialTimePicker extends Component {
                                              clearButtonVisible={false}
                                              isFocusedSelectAll={false}
                                              popupVisible={popupVisible}
+                                             rightIconCls={rightIconCls}
                                              onChange={this.textFieldChangeHandle}
                                              onClick={e => {
                                                  this.togglePopup(e);
                                              }}/>
 
-                <Popup className="material-time-picker-popup"
+                <Popup className={`material-time-picker-popup ${popupClassName}`}
                        visible={popupVisible}
-                       triggerEl={triggerEl}
-                       position={position}
+                       triggerEl={this.triggerEl}
+                       position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        hasTriangle={false}
+                       onRender={this.popupRenderHandler}
                        onRequestClose={() => {
                            this.closePopup();
                        }}>
@@ -189,6 +211,11 @@ MaterialTimePicker.propTypes = {
      * The CSS class name of the root element.
      */
     className: PropTypes.string,
+
+    /**
+     * The CSS class name of the popup element.
+     */
+    popupClassName: PropTypes.string,
 
     /**
      * Override the styles of the root element.
@@ -239,6 +266,7 @@ MaterialTimePicker.propTypes = {
 
 MaterialTimePicker.defaultProps = {
     name: '',
+    popupClassName: '',
     value: moment().format('HH:mm:ss'),
     placeholder: 'Time',
     dateFormat: 'HH:mm:ss',

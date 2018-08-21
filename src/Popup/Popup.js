@@ -30,6 +30,13 @@ class Popup extends Component {
 
     }
 
+    /**
+     * public
+     */
+    resetPosition = () => {
+        this.refs.popup && this.refs.popup.resetPosition();
+    };
+
     clearCloseTimeout = () => {
         if (this.closeTimeout) {
             clearTimeout(this.closeTimeout);
@@ -50,7 +57,7 @@ class Popup extends Component {
 
     };
 
-    mouseDownHandler = e => {
+    closeHandler = e => {
 
         const {visible, triggerEl, isBlurClose, triggerHandler, onRequestClose} = this.props,
             popupEl = this.refs.popup.getEl();
@@ -76,15 +83,8 @@ class Popup extends Component {
 
     };
 
-    /**
-     * public
-     */
-    resetPosition = () => {
-        this.refs.popup.resetPosition();
-    };
-
     componentDidMount() {
-        Event.addEvent(document, 'mousedown', this.mouseDownHandler);
+        Event.addEvent(document, 'click', this.closeHandler);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -100,7 +100,7 @@ class Popup extends Component {
     componentWillUnmount() {
 
         this.clearCloseTimeout();
-        Event.removeEvent(document, 'mousedown', this.mouseDownHandler);
+        Event.removeEvent(document, 'click', this.closeHandler);
 
         PopManagement.pop(this);
 
@@ -237,9 +237,6 @@ Popup.propTypes = {
 };
 
 Popup.defaultProps = {
-
-    theme: Theme.DEFAULT,
-    depth: 6,
 
     visible: false,
     hasTriangle: true,

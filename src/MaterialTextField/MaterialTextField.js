@@ -28,6 +28,20 @@ class MaterialTextField extends Component {
 
     }
 
+    /**
+     * public
+     */
+    focus = () => {
+        this.refs.textField.focus();
+    };
+
+    /**
+     * public
+     */
+    blur = () => {
+        this.refs.textField.blur();
+    };
+
     triggerChangeHandler = value => {
         this.setState({
             value
@@ -67,6 +81,7 @@ class MaterialTextField extends Component {
                               disabled={disabled}
                               required={required}>
                 <TextField {...restProps}
+                           ref="textField"
                            theme={theme}
                            value={value}
                            disabled={disabled}
@@ -272,23 +287,16 @@ MaterialTextField.defaultProps = {
     theme: Theme.DEFAULT,
 
     type: 'text',
-    name: '',
-    label: '',
     isLabelAnimate: true,
-    placeholder: '',
-    value: '',
-    iconCls: '',
     disabled: false,
     readOnly: false,
     autoFocus: false,
-    infoMsg: '',
 
     clearButtonVisible: true,
     passwordButtonVisible: true,
 
     // valid
     required: false,
-    patternInvalidMsg: '',
 
     autoComplete: 'off',
     autoCorrect: 'off',

@@ -8,19 +8,20 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import TreeSelect from '../TreeSelect';
-import Tip from '../Tip';
 import MaterialProvider from '../MaterialProvider';
 import Theme from '../Theme';
 
 import SelectMode from '../_statics/SelectMode';
+import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class MaterialTreeSelect extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
-    static Position = TreeSelect.Position;
+    static Position = Position;
 
     constructor(props, ...restArgs) {
 
@@ -32,6 +33,48 @@ class MaterialTreeSelect extends Component {
 
     }
 
+    /**
+     * public
+     */
+    startRipple = (e, props) => {
+        this.refs.treeSelect && this.refs.treeSelect.startRipple(e, props);
+    };
+
+    /**
+     * public
+     */
+    endRipple = () => {
+        this.refs.treeSelect && this.refs.treeSelect.endRipple();
+    };
+
+    /**
+     * public
+     */
+    triggerRipple = (e, props) => {
+        this.refs.treeSelect && this.refs.treeSelect.triggerRipple(e, props);
+    };
+
+    /**
+     * public
+     */
+    resetPopupPosition = () => {
+        this.refs.treeSelect && this.refs.treeSelect.resetPosition();
+    };
+
+    /**
+     * public
+     */
+    openPopup = () => {
+        this.refs.treeSelect && this.refs.treeSelect.openPopup();
+    };
+
+    /**
+     * public
+     */
+    closePopup = () => {
+        this.refs.treeSelect && this.refs.treeSelect.closePopup();
+    };
+
     triggerChangeHandler = value => {
         this.setState({
             value
@@ -41,16 +84,11 @@ class MaterialTreeSelect extends Component {
         });
     };
 
-    closePopup = () => {
-        this.refs.treeSelect && this.refs.treeSelect.closePopup();
-    };
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
     }
 
     render() {
@@ -74,13 +112,11 @@ class MaterialTreeSelect extends Component {
                               hasValue={value && value.length > 0}
                               disabled={disabled}
                               required={required}>
-
                 <TreeSelect {...restProps}
                             ref="treeSelect"
                             value={value}
                             disabled={disabled}
                             onChange={this.triggerChangeHandler}/>
-
             </MaterialProvider>
         );
 
@@ -114,7 +150,7 @@ MaterialTreeSelect.propTypes = {
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    position: PropTypes.oneOf(Util.enumerateValue(TreeSelect.Position)),
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
      * The name of the MaterialTreeSelect.
@@ -141,6 +177,7 @@ MaterialTreeSelect.propTypes = {
      */
     placeholder: PropTypes.string,
 
+    title: PropTypes.string,
     rightIconCls: PropTypes.string,
 
     /**
@@ -149,7 +186,7 @@ MaterialTreeSelect.propTypes = {
     /**
      * The options data.
      */
-    data: PropTypes.shape({
+    data: PropTypes.oneOfType([PropTypes.shape({
 
         /**
          * The CSS class name of the tree node.
@@ -204,12 +241,7 @@ MaterialTreeSelect.propTypes = {
         /**
          * The message of tip.
          */
-        tip: PropTypes.string,
-
-        /**
-         * The position of tip.
-         */
-        tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
+        title: PropTypes.string,
 
         children: PropTypes.array,
 
@@ -223,7 +255,7 @@ MaterialTreeSelect.propTypes = {
          */
         onClick: PropTypes.func
 
-    }),
+    }), PropTypes.array]),
 
     /**
      * The invalid message of dropDownSelect.
@@ -235,12 +267,12 @@ MaterialTreeSelect.propTypes = {
      */
     disabled: PropTypes.bool,
 
+    required: PropTypes.bool,
+
     /**
      * The select mode of listItem.Can be normal,checkbox.
      */
     selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
-
-    isSelectRecursive: PropTypes.bool,
 
     /**
      * The value field name in data. (default: "value")
@@ -272,9 +304,19 @@ MaterialTreeSelect.propTypes = {
      */
     autoClose: PropTypes.bool,
 
-    required: PropTypes.bool,
-
+    useFilter: PropTypes.bool,
+    filterIconCls: PropTypes.string,
+    noMatchedMsg: PropTypes.string,
     shouldPreventContainerScroll: PropTypes.bool,
+    isSelectRecursive: PropTypes.bool,
+    allowCollapse: PropTypes.bool,
+    collapsedIconCls: PropTypes.string,
+    expandedIconCls: PropTypes.string,
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
 
     popupChildren: PropTypes.any,
 
@@ -303,7 +345,6 @@ MaterialTreeSelect.propTypes = {
     onMouseOver: PropTypes.func,
     onMouseOut: PropTypes.func
 
-
 };
 
 MaterialTreeSelect.defaultProps = {
@@ -311,23 +352,26 @@ MaterialTreeSelect.defaultProps = {
     theme: Theme.DEFAULT,
     popupTheme: Theme.DEFAULT,
 
-    position: TreeSelect.Position.LEFT,
     isLabelAnimate: true,
     placeholder: 'Please select ...',
     rightIconCls: 'fas fa-angle-down',
     data: [],
     disabled: false,
     selectMode: SelectMode.SINGLE_SELECT,
-    isSelectRecursive: false,
 
     valueField: 'value',
     displayField: 'text',
     descriptionField: 'desc',
 
     autoClose: true,
-    required: false,
+    useFilter: false,
+    filterIconCls: 'fas fa-search',
 
-    shouldPreventContainerScroll: true
+    shouldPreventContainerScroll: true,
+    isSelectRecursive: false,
+    allowCollapse: true,
+
+    required: false
 
 };
 

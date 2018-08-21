@@ -1,16 +1,11 @@
-const ora = require('ora'),
-    chalk = require('chalk'),
-    webpack = require('webpack'),
+const webpack = require('webpack'),
+    log = require('friendly-errors-webpack-plugin/src/output'),
 
-    webpackConfig = require('./webpack.config.dll.js'),
+    webpackConfig = require('./webpack.config.dll.js');
 
-    spinner = ora('Building DLL...');
-
-spinner.start();
+log.title('info', 'WAIT', `Building DLL... `);
 
 webpack(webpackConfig, (err, stats) => {
-
-    spinner.stop();
 
     if (err) {
         throw err;
@@ -24,6 +19,6 @@ webpack(webpackConfig, (err, stats) => {
         chunkModules: false
     }) + '\n\n');
 
-    console.log(chalk.cyan('Build DLL Complete.'));
+    log.title('success', 'DONE', `Build DLL Complete `);
 
 });

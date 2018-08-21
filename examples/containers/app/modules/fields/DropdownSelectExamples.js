@@ -55,7 +55,8 @@ class DropdownSelectExamples extends Component {
                 <h2 className="example-title">Dropdown Select</h2>
 
                 <p>
-                    <span>Dropdown Select</span> use to store operating elements. Click on the contact
+                    <span>Dropdown Select</span>
+                    use to store operating elements. Click on the contact
                     and a drop-down menu will appear. You can select from the list and execute the appropriate command.
                 </p>
 
@@ -136,6 +137,8 @@ class DropdownSelectExamples extends Component {
                                                     selectAllText="All Example Items"
                                                     selectMode={DropdownSelect.SelectMode.MULTI_SELECT}
                                                     autoClose={false}
+                                                    checkboxUncheckedIconCls={'far fa-window-close'}
+                                                    checkboxCheckedIconCls={'fas fa-window-close'}
                                                     onChange={this.onChange}/>
 
                                 </div>
@@ -202,7 +205,6 @@ class DropdownSelectExamples extends Component {
                     </div>
 
                 </Widget>
-
 
                 <h2 className="example-title">Properties</h2>
 

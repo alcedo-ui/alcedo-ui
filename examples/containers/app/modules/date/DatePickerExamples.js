@@ -46,6 +46,9 @@ class DatePickerExamples extends Component {
                                 <DatePicker value={''}
                                             dateFormat={'YYYY-MM-DD'}
                                             name="date"
+                                            rightIconCls={'far fa-calendar-alt'}
+                                            popupClassName={'popupClassName'}
+                                            position={DatePicker.Position.TOP}
                                             autoClose={true}
                                             onChange={this.onChangeHandler}/>
 

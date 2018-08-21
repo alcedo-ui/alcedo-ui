@@ -20,10 +20,13 @@ import Theme from '../Theme';
 import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
+import {findDOMNode} from 'react-dom';
+import DropdownCalculation from '../_vendors/DropdownCalculation';
 
 class MaterialDateRangePicker extends Component {
 
     static Theme = Theme;
+    static Position = Position;
 
     constructor(props, ...restArgs) {
 
@@ -38,7 +41,7 @@ class MaterialDateRangePicker extends Component {
         this.state = {
             value: props.value, // Moment object
             popupVisible: false,
-            triggerEl: null,
+            isAbove: false,
             left: {
                 text: startTime,
                 datePickerLevel: 'day',
@@ -196,8 +199,7 @@ class MaterialDateRangePicker extends Component {
     togglePopup = e => {
         if (this.validValue) {
             this.setState({
-                popupVisible: !this.state.popupVisible,
-                triggerEl: e.target
+                popupVisible: !this.state.popupVisible
             });
         }
     };
@@ -242,6 +244,21 @@ class MaterialDateRangePicker extends Component {
         });
     };
 
+    popupRenderHandler = popupEl => {
+
+        if (this.props.position) {
+            return;
+        }
+
+        const isAbove = DropdownCalculation.isAbove(this.dropdownEl, this.triggerEl, findDOMNode(popupEl));
+        if (isAbove !== this.state.isAbove) {
+            this.setState({
+                isAbove
+            });
+        }
+
+    };
+
     componentDidMount() {
         const {value, dateFormat} = this.props;
         let state = cloneDeep(this.state);
@@ -284,6 +301,9 @@ class MaterialDateRangePicker extends Component {
             }
         }
 
+        this.datePicker = this.refs.datePicker;
+        this.triggerEl = findDOMNode(this.refs.trigger);
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -296,8 +316,10 @@ class MaterialDateRangePicker extends Component {
 
     render() {
 
-        const {className, style, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, position, theme} = this.props,
-            {popupVisible, left, right, startTime, endTime, hoverTime, triggerEl} = this.state,
+        const {className, style, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, position,
+                theme, popupClassName, rightIconCls, previousYearIconCls, previousMonthIconCls,
+                nextYearIconCls, nextMonthIconCls} = this.props,
+            {popupVisible, left, right, startTime, endTime, hoverTime, isAbove} = this.state,
 
             pickerClassName = classNames('material-date-range-picker', {
                 [className]: className
@@ -336,15 +358,17 @@ class MaterialDateRangePicker extends Component {
                                      clearButtonVisible={false}
                                      isFocusedSelectAll={false}
                                      popupVisible={popupVisible}
+                                     rightIconCls={rightIconCls}
                                      onClick={e => {
                                          this.togglePopup(e);
                                      }}/>
 
-                <Popup className={`material-date-range-picker-popup`}
+                <Popup className={`material-date-range-picker-popup ${popupClassName}`}
                        visible={popupVisible}
-                       triggerEl={triggerEl}
-                       position={position}
+                       triggerEl={this.triggerEl}
+                       position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        hasTriangle={false}
+                       onRender={this.popupRenderHandler}
                        onRequestClose={() => {
                            this.closePopup();
                        }}>
@@ -382,6 +406,10 @@ class MaterialDateRangePicker extends Component {
                                        startTime={startTime}
                                        endTime={endTime}
                                        hoverTime={hoverTime}
+                                       previousYearIconCls={previousYearIconCls}
+                                       previousMonthIconCls={previousMonthIconCls}
+                                       nextYearIconCls={nextYearIconCls}
+                                       nextMonthIconCls={nextMonthIconCls}
                                        monthAndYearChange={(obj) => {
                                            this.monthAndYearChangeHandle('left', obj);
                                        }}
@@ -402,6 +430,10 @@ class MaterialDateRangePicker extends Component {
                                                  day={left.day}
                                                  maxValue={leftMaxValue}
                                                  minValue={minValue}
+                                                 previousYearIconCls={previousYearIconCls}
+                                                 previousMonthIconCls={previousMonthIconCls}
+                                                 nextYearIconCls={nextYearIconCls}
+                                                 nextMonthIconCls={nextMonthIconCls}
                                                  onChange={(obj) => {
                                                      this.monthPickerChangeHandle('left', obj);
                                                  }}
@@ -415,6 +447,10 @@ class MaterialDateRangePicker extends Component {
                                                 day={left.day}
                                                 maxValue={leftMaxValue}
                                                 minValue={minValue}
+                                                previousYearIconCls={previousYearIconCls}
+                                                previousMonthIconCls={previousMonthIconCls}
+                                                nextYearIconCls={nextYearIconCls}
+                                                nextMonthIconCls={nextMonthIconCls}
                                                 onChange={(obj) => {
                                                     this.yearPickerChangeHandle('left', obj);
                                                 }}/>
@@ -436,6 +472,10 @@ class MaterialDateRangePicker extends Component {
                                        hoverTime={hoverTime}
                                        minValue={rightMinValue}
                                        maxValue={maxValue}
+                                       previousYearIconCls={previousYearIconCls}
+                                       previousMonthIconCls={previousMonthIconCls}
+                                       nextYearIconCls={nextYearIconCls}
+                                       nextMonthIconCls={nextMonthIconCls}
                                        monthAndYearChange={(obj) => {
                                            this.monthAndYearChangeHandle('right', obj);
                                        }}
@@ -456,6 +496,10 @@ class MaterialDateRangePicker extends Component {
                                                  day={right.day}
                                                  minValue={rightMinValue}
                                                  maxValue={maxValue}
+                                                 previousYearIconCls={previousYearIconCls}
+                                                 previousMonthIconCls={previousMonthIconCls}
+                                                 nextYearIconCls={nextYearIconCls}
+                                                 nextMonthIconCls={nextMonthIconCls}
                                                  onChange={(obj) => {
                                                      this.monthPickerChangeHandle('right', obj);
                                                  }}
@@ -469,6 +513,10 @@ class MaterialDateRangePicker extends Component {
                                                 day={right.day}
                                                 minValue={rightMinValue}
                                                 maxValue={maxValue}
+                                                previousYearIconCls={previousYearIconCls}
+                                                previousMonthIconCls={previousMonthIconCls}
+                                                nextYearIconCls={nextYearIconCls}
+                                                nextMonthIconCls={nextMonthIconCls}
                                                 onChange={(obj) => {
                                                     this.yearPickerChangeHandle('right', obj);
                                                 }}/>
@@ -488,6 +536,11 @@ MaterialDateRangePicker.propTypes = {
      * The CSS class name of the root element.
      */
     className: PropTypes.string,
+
+    /**
+     * The CSS class name of the popup element.
+     */
+    popupClassName: PropTypes.string,
 
     /**
      * Override the styles of the root element.
@@ -549,7 +602,12 @@ MaterialDateRangePicker.propTypes = {
 MaterialDateRangePicker.defaultProps = {
     name: '',
     placeholder: 'Date',
+    popupClassName: '',
     dateFormat: 'YYYY-MM-DD',
+    previousYearIconCls:'fas fa-angle-double-left',
+    previousMonthIconCls:'fas fa-angle-left',
+    nextYearIconCls:'fas fa-angle-double-right',
+    nextMonthIconCls:'fas fa-angle-right',
     position: Position.BOTTOM_LEFT
 };
 

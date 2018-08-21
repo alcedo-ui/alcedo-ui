@@ -31,13 +31,10 @@ class TableExamples extends Component {
             renderer: '${firstName} - ${lastName}'
         }, {
             header: 'Status',
-            renderer(rowData) {
-                return <Switcher value={!rowData.disabled}
-                                 size="small"
-                                 onClick={(e) => {
-                                     e.stopPropagation();
-                                 }}/>;
-            }
+            renderer: rowData =>
+                <Switcher value={!rowData.disabled}
+                          size="small"
+                          onClick={e => e.stopPropagation()}/>
         }];
 
         this.pageSizes = [{
@@ -69,8 +66,8 @@ class TableExamples extends Component {
         for (let i = 0; i < size; i++) {
             data.push({
                 id: i,
-                firstName: `firstNameaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa${i}`,
-                lastName: `lastName${i}`
+                firstName: `firstName ${i}`,
+                lastName: `lastName ${i}`
             });
         }
 
@@ -89,6 +86,18 @@ class TableExamples extends Component {
 
     };
 
+    sortHandler = (sortConfig) => {
+        console.log(sortConfig);
+    };
+
+    pageChangeHandler = (page, pageSize) => {
+        console.log(page, pageSize);
+    };
+
+    dataUpdateHandler = currentPageData => {
+        console.log(currentPageData);
+    };
+
     render() {
 
         const {data} = this.state;
@@ -99,7 +108,8 @@ class TableExamples extends Component {
                 <h2 className="example-title">Table</h2>
 
                 <p>
-                    <span>Tables</span> are used to display data and to organize it.
+                    <span>Tables</span>
+                    are used to display data and to organize it.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -119,7 +129,11 @@ class TableExamples extends Component {
                                        renderer: rowData =>
                                            <IconButton iconCls="fas fa-trash-alt"
                                                        onClick={() => this.deleteRow(rowData.id)}/>
-                                   }]}/>
+                                   }]}
+                                   paggingCountRenderer={count => <span>Self Defined Total Count: {count}</span>}
+                                   onSort={this.sortHandler}
+                                   onPageChange={this.pageChangeHandler}
+                                   onDataUpdate={this.dataUpdateHandler}/>
 
                         </div>
                     </div>
@@ -138,6 +152,7 @@ class TableExamples extends Component {
 
                             <Table columns={this.columns}
                                    selectMode={Table.SelectMode.MULTI_SELECT}
+                                   selectAllMode={Table.SelectAllMode.CURRENT_PAGE}
                                    data={data}
                                    paggingSelectedCountVisible={true}
                                    defaultPageSize={20}
@@ -145,12 +160,8 @@ class TableExamples extends Component {
                                    useFullPagging={true}
                                    sortAscIconCls="fas fa-caret-up"
                                    sortDescIconCls="fas fa-caret-down"
-                                   onPageChange={(page, pageSize) => {
-                                       console.log(`page: ${page}, pageSize: ${pageSize}`);
-                                   }}
-                                   onChange={value => {
-                                       console.log(value);
-                                   }}/>
+                                   onPageChange={(page, pageSize) => console.log(`page: ${page}, pageSize: ${pageSize}`)}
+                                   onChange={value => console.log(value)}/>
 
                         </div>
                     </div>

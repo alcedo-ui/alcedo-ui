@@ -35,64 +35,9 @@ class List extends Component {
 
     }
 
-    listItemSelectHandler = (item, index) => {
-
-        const {selectMode} = this.props;
-
-        let {value} = this.state;
-
-        if (selectMode === SelectMode.MULTI_SELECT) {
-
-            if (!value || !isArray(value)) {
-                value = [];
-            }
-
-            value.push(item);
-
-        } else if (selectMode === SelectMode.SINGLE_SELECT) {
-            value = item;
-        }
-
-        this.setState({
-            value
-        }, () => {
-            const {onItemSelect, onChange} = this.props;
-            onItemSelect && onItemSelect(item, index);
-            onChange && onChange(value, index);
-        });
-
-    };
-
-    listItemDeselectHandler = (item, index) => {
-
-        const {selectMode} = this.props;
-
-        if (selectMode !== SelectMode.MULTI_SELECT) {
-            return;
-        }
-
-        const {valueField, displayField} = this.props;
-        let {value} = this.state;
-
-        if (!value || !isArray(value)) {
-            value = [];
-        } else {
-            value = value.filter(valueItem => {
-                return Util.getValueByValueField(valueItem, valueField, displayField)
-                    != Util.getValueByValueField(item, valueField, displayField);
-            });
-        }
-
-        this.setState({
-            value
-        }, () => {
-            const {onItemDeselect, onChange} = this.props;
-            onItemDeselect && onItemDeselect(item, index);
-            onChange && onChange(value, index);
-        });
-
-    };
-
+    /**
+     * public
+     */
     adjustScroll = () => {
 
         const {data} = this.props,
@@ -117,6 +62,79 @@ class List extends Component {
 
     };
 
+    listItemSelectHandler = (item, index) => {
+
+        const {selectMode} = this.props,
+            {value} = this.state,
+            state = {};
+
+        if (selectMode === SelectMode.MULTI_SELECT) {
+
+            let result = value ? value.slice() : value;
+            if (!result || !isArray(result)) {
+                result = [];
+            }
+
+            result.push(item);
+
+            state.value = result;
+
+        } else if (selectMode === SelectMode.SINGLE_SELECT) {
+            state.value = item;
+        }
+
+        this.setState(state, () => {
+            const {onItemSelect, onChange} = this.props;
+            onItemSelect && onItemSelect(item, index);
+            onChange && onChange(state.value, index);
+        });
+
+    };
+
+    listItemDeselectHandler = (item, index) => {
+
+        const {selectMode} = this.props;
+
+        if (selectMode !== SelectMode.MULTI_SELECT) {
+            return;
+        }
+
+        const {valueField, displayField} = this.props,
+            {value: stateValue} = this.state;
+        let value = stateValue ? stateValue.slice() : stateValue;
+
+        if (!value || !isArray(value)) {
+            value = [];
+        } else {
+            value = value.filter(valueItem => {
+                return Util.getValueByValueField(valueItem, valueField, displayField)
+                    != Util.getValueByValueField(item, valueField, displayField);
+            });
+        }
+
+        this.setState({
+            value
+        }, () => {
+            const {onItemDeselect, onChange} = this.props;
+            onItemDeselect && onItemDeselect(item, index);
+            onChange && onChange(value, index);
+        });
+
+    };
+
+    isListDisabled = listDisabled => {
+        const {data} = this.props,
+            {value} = this.state;
+        return (typeof listDisabled === 'function' ? listDisabled(value, data) : listDisabled);
+    };
+
+    isItemDisabled = (listItemDisabled, itemDisabled, item) => {
+        const {data} = this.props,
+            {value} = this.state;
+        return (typeof listItemDisabled === 'function' ? listItemDisabled(item, value, data) : listItemDisabled)
+            || (typeof itemDisabled === 'function' ? itemDisabled(item, value, data) : itemDisabled);
+    };
+
     componentDidMount() {
         this.listEl = this.refs.list;
     }
@@ -131,11 +149,15 @@ class List extends Component {
 
     renderListItem = (item, index) => {
 
+        if (!item) {
+            return;
+        }
+
         const {
 
-                theme, itemHeight, idField, valueField, displayField, descriptionField, disabled, isLoading, renderer,
-
-                selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
+                theme, itemHeight, idField, valueField, displayField, descriptionField, disabled, itemDisabled,
+                isLoading, renderer, autoSelect, disableTouchRipple, selectTheme, selectMode, indeterminateCallback,
+                radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
                 onItemClick
@@ -144,58 +166,60 @@ class List extends Component {
             {value} = this.state;
 
         return typeof item === 'object' ?
-            (
-                <ListItem key={item[idField] || index}
-                          {...item}
-                          index={index}
-                          style={{height: itemHeight}}
-                          theme={item.theme || theme}
-                          selectTheme={item.selectTheme || selectTheme}
-                          radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
-                          radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
-                          checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
-                          checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
-                          checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
-                          data={item}
-                          checked={Calculation.isItemChecked(item, value, this.props)}
-                          value={Util.getValueByValueField(item, valueField, displayField)}
-                          text={Util.getTextByDisplayField(item, displayField, valueField)}
-                          desc={item[descriptionField] || null}
-                          disabled={disabled || item.disabled}
-                          isLoading={isLoading || item.isLoading}
-                          selectMode={selectMode}
-                          renderer={renderer}
-                          onClick={e => {
-                              onItemClick && onItemClick(item, index, e);
-                              item.onClick && item.onClick(e);
-                          }}
-                          onSelect={() => this.listItemSelectHandler(item, index)}
-                          onDeselect={() => this.listItemDeselectHandler(item, index)}/>
-            )
+            <ListItem key={(idField in item && item[idField]) || index}
+                      {...item}
+                      index={index}
+                      style={{height: itemHeight}}
+                      theme={item.theme || theme}
+                      selectTheme={item.selectTheme || selectTheme}
+                      radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
+                      radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
+                      checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
+                      checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
+                      checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
+                      data={item}
+                      checked={Calculation.isItemChecked(item, value, this.props)}
+                      value={Util.getValueByValueField(item, valueField, displayField)}
+                      text={Util.getTextByDisplayField(item, displayField, valueField)}
+                      desc={item[descriptionField] || null}
+                      disabled={this.isListDisabled(disabled) || this.isItemDisabled(itemDisabled, item.disabled, item)}
+                      isLoading={isLoading || item.isLoading}
+                      selectMode={selectMode}
+                      renderer={renderer}
+                      autoSelect={autoSelect}
+                      disableTouchRipple={item.disableTouchRipple || disableTouchRipple}
+                      indeterminateCallback={indeterminateCallback}
+                      onClick={e => {
+                          onItemClick && onItemClick(item, index, e);
+                          item.onClick && item.onClick(e);
+                      }}
+                      onSelect={() => this.listItemSelectHandler(item, index)}
+                      onDeselect={() => this.listItemDeselectHandler(item, index)}/>
             :
-            (
-                <ListItem key={index}
-                          index={index}
-                          style={{height: itemHeight}}
-                          theme={item.theme || theme}
-                          selectTheme={item.selectTheme || selectTheme}
-                          radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
-                          radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
-                          checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
-                          checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
-                          checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
-                          data={item}
-                          checked={Calculation.isItemChecked(item, value, this.props)}
-                          value={item}
-                          text={item}
-                          disabled={disabled}
-                          isLoading={isLoading}
-                          selectMode={selectMode}
-                          renderer={renderer}
-                          onClick={e => onItemClick && onItemClick(item, index, e)}
-                          onSelect={() => this.listItemSelectHandler(item, index)}
-                          onDeselect={() => this.listItemDeselectHandler(item, index)}/>
-            );
+            <ListItem key={index}
+                      index={index}
+                      style={{height: itemHeight}}
+                      theme={theme}
+                      selectTheme={selectTheme}
+                      radioUncheckedIconCls={radioUncheckedIconCls}
+                      radioCheckedIconCls={radioCheckedIconCls}
+                      checkboxUncheckedIconCls={checkboxUncheckedIconCls}
+                      checkboxCheckedIconCls={checkboxCheckedIconCls}
+                      checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
+                      data={item}
+                      checked={Calculation.isItemChecked(item, value, this.props)}
+                      value={item}
+                      text={item}
+                      disabled={disabled}
+                      isLoading={isLoading}
+                      selectMode={selectMode}
+                      renderer={renderer}
+                      autoSelect={autoSelect}
+                      disableTouchRipple={disableTouchRipple}
+                      indeterminateCallback={indeterminateCallback}
+                      onClick={e => onItemClick && onItemClick(item, index, e)}
+                      onSelect={() => this.listItemSelectHandler(item, index)}
+                      onDeselect={() => this.listItemDeselectHandler(item, index)}/>;
 
     };
 
@@ -210,11 +234,9 @@ class List extends Component {
         return (
             <div ref="list"
                  className={listClassName}
-                 disabled={disabled}
+                 disabled={this.isListDisabled(disabled)}
                  style={style}
-                 onWheel={e => {
-                     Event.wheelHandler(e, this.props);
-                 }}>
+                 onWheel={e => Event.wheelHandler(e, this.props)}>
 
                 {
                     data && data.map((item, index) => item === LIST_SEPARATOR ?
@@ -294,10 +316,12 @@ List.propTypes = {
          */
         desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
+        title: PropTypes.string,
+
         /**
          * If true,the list item will be disabled.
          */
-        disabled: PropTypes.bool,
+        disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 
         /**
          * If true,the button will be have loading effect.
@@ -371,12 +395,29 @@ List.propTypes = {
     /**
      * If true, the list will be disabled.
      */
-    disabled: PropTypes.bool,
+    disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+
+    /**
+     * List item disabled callback.
+     */
+    itemDisabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+
+    /**
+     * If true,the element's ripple effect will be disabled.
+     */
+    disableTouchRipple: PropTypes.bool,
 
     /**
      * If true, the list will be at loading status.
      */
     isLoading: PropTypes.bool,
+
+    /**
+     * Whether select when item clicked.
+     */
+    autoSelect: PropTypes.bool,
+
+    indeterminateCallback: PropTypes.func,
 
     shouldPreventContainerScroll: PropTypes.bool,
 
@@ -430,6 +471,9 @@ List.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
     disabled: false,
+    itemDisabled: false,
+    disableTouchRipple: false,
+    autoSelect: true,
     shouldPreventContainerScroll: true,
 
     checkboxUncheckedIconCls: 'far fa-square',

@@ -1,5 +1,19 @@
+@import '../../../../my-theme.scss';
+
 .cascader-list-examples {
-    .cascader-list {
-        margin: 0 10px 10px 0;
+
+    .cascader-list-wrapper {
+        display: inline-block;
+        border: 1px solid $theme-border;
+        overflow: hidden;
+
+        .cascader-list {
+            float: left;
+
+            .self-define-node-desc {
+                color: $theme-description;
+                margin-left: 4px;
+            }
+        }
     }
 }

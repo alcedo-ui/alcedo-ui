@@ -24,18 +24,33 @@ class BaseButton extends Component {
         super(props, ...restArgs);
     }
 
+    /**
+     * public
+     */
+    startRipple = (e, props) => {
+        !this.props.disableTouchRipple && this.refs.touchRipple && this.refs.touchRipple.addRipple(e, props);
+    };
+
+    /**
+     * public
+     */
+    endRipple = () => {
+        !this.props.disableTouchRipple && this.refs.touchRipple && this.refs.touchRipple.removeRipple();
+    };
+
+    /**
+     * public
+     */
+    triggerRipple = (e, props) => {
+        this.startRipple(e, props);
+        setTimeout(() => {
+            this.endRipple();
+        }, 250);
+    };
+
     clickHandler = e => {
-        e.preventDefault();
         const {disabled, isLoading, onClick} = this.props;
         !disabled && !isLoading && onClick && onClick(e);
-    };
-
-    startRipple = e => {
-        !this.props.disableTouchRipple && this.refs.touchRipple.addRipple(e);
-    };
-
-    endRipple = () => {
-        !this.props.disableTouchRipple && this.refs.touchRipple.removeRipple();
     };
 
     render() {
@@ -139,6 +154,7 @@ BaseButton.propTypes = {
     isRounded: PropTypes.bool,
     isCircular: PropTypes.bool,
 
+    title: PropTypes.string,
     value: PropTypes.any,
     type: PropTypes.string,
     disabled: PropTypes.bool,
@@ -171,7 +187,6 @@ BaseButton.defaultProps = {
     type: 'button',
     isLoading: false,
     disableTouchRipple: false,
-
     rippleDisplayCenter: false,
 
     tipPosition: Position.BOTTOM

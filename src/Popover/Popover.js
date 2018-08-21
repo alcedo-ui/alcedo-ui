@@ -28,6 +28,13 @@ class Popover extends Component {
 
     }
 
+    /**
+     * public
+     */
+    resetPosition = () => {
+        this.refs.popover.resetPosition();
+    };
+
     clearCloseTimeout = () => {
         if (this.closeTimeout) {
             clearTimeout(this.closeTimeout);
@@ -61,13 +68,6 @@ class Popover extends Component {
         Event.removeEvent(triggerEl, 'mouseout', this.mouseOutHandler);
         Event.removeEvent(el, 'mouseover', this.mouseOverHandler);
         Event.removeEvent(el, 'mousemove', this.mouseOutHandler);
-    };
-
-    /**
-     * public
-     */
-    resetPosition = () => {
-        this.refs.popover.resetPosition();
     };
 
     componentWillUnmount() {
@@ -201,8 +201,6 @@ Popover.propTypes = {
 };
 
 Popover.defaultProps = {
-
-    depth: 6,
 
     visible: false,
     hasTriangle: true,

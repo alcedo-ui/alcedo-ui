@@ -17,7 +17,8 @@ class LinearProgress extends Component {
     static WordStyle = {
         FRONT: 'linear-progress-one',
         MIDDLE: 'linear-progress-two',
-        FOLLOW: 'linear-progress-three'
+        FOLLOW: 'linear-progress-three',
+        END: 'linear-progress-four'
     };
     static Theme = Theme;
 
@@ -33,12 +34,13 @@ class LinearProgress extends Component {
 
     render() {
 
-        const {className, highlightWidth, style, word, wordStyle, theme, animation} = this.props,
+        const {className, highlightWidth, style, word, wordStyle, theme, animation, status, showIcon, successIcon, failureIcon} = this.props,
 
             progressClassName = classNames('linear-progress', {
                 [wordStyle]: wordStyle,
                 [`theme-${theme}`]: theme,
-                [className]: className
+                [className]: className,
+                [status]: status
             }),
 
             highlightClassName = classNames('linear-progress-highlight', {
@@ -57,14 +59,24 @@ class LinearProgress extends Component {
                  ref="progress">
 
                 {
-                    word ?
-                        (
-                            wordStyle === LinearProgress.WordStyle.FOLLOW ?
-                                <Percent endNum={parseInt(highlightWidth)}
-                                         move={true}/>
-                                :
-                                <Percent endNum={parseInt(highlightWidth)}/>
-                        )
+                    word && wordStyle === LinearProgress.WordStyle.FOLLOW ?
+                        <Percent endNum={parseInt(highlightWidth)}
+                                 status={status}
+                                 showIcon={showIcon}
+                                 successIcon={successIcon}
+                                 failureIcon={failureIcon}
+                                 move={true}/>
+                        :
+                        null
+                }
+
+                {
+                    word && wordStyle === LinearProgress.WordStyle.FRONT ?
+                        <Percent endNum={parseInt(highlightWidth)}
+                                 status={status}
+                                 showIcon={showIcon}
+                                 successIcon={successIcon}
+                                 failureIcon={failureIcon}/>
                         :
                         null
                 }
@@ -76,12 +88,27 @@ class LinearProgress extends Component {
                             wordStyle === LinearProgress.WordStyle.MIDDLE ?
                                 <Percent className="linear-progress-word"
                                          style={percentStyle}
+                                         status={status}
+                                         showIcon={showIcon}
+                                         successIcon={successIcon}
+                                         failureIcon={failureIcon}
                                          endNum={parseInt(highlightWidth)}/>
                                 :
                                 null
                         }
                     </div>
                 </div>
+
+                {
+                    word && wordStyle === LinearProgress.WordStyle.END ?
+                        <Percent endNum={parseInt(highlightWidth)}
+                                 status={status}
+                                 showIcon={showIcon}
+                                 successIcon={successIcon}
+                                 failureIcon={failureIcon}/>
+                        :
+                        null
+                }
 
             </div>
         );

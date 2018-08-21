@@ -2,7 +2,8 @@
 
 const os = require('os'),
     fs = require('fs'),
-    path = require('path');
+    path = require('path'),
+    log = require('friendly-errors-webpack-plugin/src/output');
 
 function isDirectory(path) {
     try {
@@ -12,10 +13,12 @@ function isDirectory(path) {
     }
 }
 
+log.title('info', 'WAIT', `Generating Components Index... `);
+
 fs.readdir('./src', (err, files) => {
 
     if (err) {
-        console.log('read src error');
+        log.title('error', 'ERROR', `read src error `);
     } else {
 
         try {
@@ -35,11 +38,11 @@ fs.readdir('./src', (err, files) => {
                 if (error) {
                     throw error;
                 }
-                console.log('Generate Components Index Successfully!\n');
+                log.title('success', 'DONE', `Generate Components Index Successfully! `);
             });
 
         } catch (e) {
-            console.error(e);
+            log.title('error', 'ERROR', e);
         }
 
     }

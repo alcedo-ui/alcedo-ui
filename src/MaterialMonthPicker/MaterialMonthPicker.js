@@ -16,10 +16,13 @@ import Popup from '../Popup';
 import Theme from '../Theme';
 
 import Position from '../_statics/Position';
+import {findDOMNode} from 'react-dom';
+import DropdownCalculation from '../_vendors/DropdownCalculation';
 
 class MaterialMonthPicker extends Component {
 
     static Theme = Theme;
+    static Position = Position;
 
     constructor(props, ...restArgs) {
 
@@ -30,6 +33,7 @@ class MaterialMonthPicker extends Component {
         this.state = {
             value: props.value,
             popupVisible: false,
+            isAbove: false,
             year: moment(props.value).format('YYYY'),
             month: moment(props.value).format('MM'),
             datePickerLevel: 'month',
@@ -98,8 +102,7 @@ class MaterialMonthPicker extends Component {
     togglePopup = e => {
         if (this.validValue) {
             this.setState({
-                popupVisible: !this.state.popupVisible,
-                triggerEl: e.target
+                popupVisible: !this.state.popupVisible
             });
         }
     };
@@ -111,6 +114,21 @@ class MaterialMonthPicker extends Component {
         }, () => {
             this.props.onChange && this.props.onChange(value && moment(value).format(this.props.dateFormat));
         });
+    };
+
+    popupRenderHandler = popupEl => {
+
+        if (this.props.position) {
+            return;
+        }
+
+        const isAbove = DropdownCalculation.isAbove(this.dropdownEl, this.triggerEl, findDOMNode(popupEl));
+        if (isAbove !== this.state.isAbove) {
+            this.setState({
+                isAbove
+            });
+        }
+
     };
 
     componentDidMount() {
@@ -130,6 +148,9 @@ class MaterialMonthPicker extends Component {
                 this.validValue = false;
             }
         }
+
+        this.datePicker = this.refs.datePicker;
+        this.triggerEl = findDOMNode(this.refs.trigger);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -145,8 +166,10 @@ class MaterialMonthPicker extends Component {
 
     render() {
 
-        const {className, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, position, theme} = this.props,
-            {value, popupVisible, datePickerLevel, year, month, triggerEl} = this.state,
+        const {className, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, position,
+                theme, popupClassName, rightIconCls, previousYearIconCls, previousMonthIconCls,
+                nextYearIconCls, nextMonthIconCls} = this.props,
+            {value, popupVisible, datePickerLevel, year, month, isAbove} = this.state,
 
             pickerClassName = classNames('material-month-picker', {
                 [className]: className
@@ -158,7 +181,7 @@ class MaterialMonthPicker extends Component {
             <div ref="datePicker"
                  className={pickerClassName}>
 
-                <MaterialDatePickerTextField ref="datePickerInput"
+                <MaterialDatePickerTextField ref="trigger"
                                              theme={theme}
                                              name={name}
                                              placeholder={placeholder}
@@ -169,16 +192,18 @@ class MaterialMonthPicker extends Component {
                                              popupVisible={popupVisible}
                                              label={label}
                                              isLabelAnimate={isLabelAnimate}
+                                             rightIconCls={rightIconCls}
                                              onChange={this.textFieldChangeHandle}
                                              onClick={e => {
                                                  this.togglePopup(e);
                                              }}/>
 
-                <Popup className="material-month-picker-popup"
+                <Popup className={`material-month-picker-popup ${popupClassName}`}
                        visible={popupVisible}
-                       triggerEl={triggerEl}
-                       position={position}
+                       triggerEl={this.triggerEl}
+                       position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        hasTriangle={false}
+                       onRender={this.popupRenderHandler}
                        onRequestClose={() => {
                            this.closePopup(3);
                        }}>
@@ -190,6 +215,10 @@ class MaterialMonthPicker extends Component {
                                          month={month}
                                          maxValue={maxValue}
                                          minValue={minValue}
+                                         previousYearIconCls={previousYearIconCls}
+                                         previousMonthIconCls={previousMonthIconCls}
+                                         nextYearIconCls={nextYearIconCls}
+                                         nextMonthIconCls={nextMonthIconCls}
                                          onChange={this.monthPickerChangeHandle}
                                          previousClick={this.datePickerChangeHandle}/>
                             :
@@ -198,6 +227,10 @@ class MaterialMonthPicker extends Component {
                                         month={month}
                                         maxValue={maxValue}
                                         minValue={minValue}
+                                        previousYearIconCls={previousYearIconCls}
+                                        previousMonthIconCls={previousMonthIconCls}
+                                        nextYearIconCls={nextYearIconCls}
+                                        nextMonthIconCls={nextMonthIconCls}
                                         onChange={this.yearPickerChangeHandle}/>
                     }
 
@@ -213,6 +246,11 @@ MaterialMonthPicker.propTypes = {
      * The CSS class name of the root element.
      */
     className: PropTypes.string,
+
+    /**
+     * The CSS class name of the popup element.
+     */
+    popupClassName: PropTypes.string,
 
     /**
      * Override the styles of the root element.
@@ -275,10 +313,15 @@ MaterialMonthPicker.defaultProps = {
     name: '',
     maxValue: '',
     minValue: '',
+    popupClassName: '',
     placeholder: 'Date',
     dateFormat: 'YYYY-MM',
     autoClose: true,
     isFooter: true,
+    previousYearIconCls:'fas fa-angle-double-left',
+    previousMonthIconCls:'fas fa-angle-left',
+    nextYearIconCls:'fas fa-angle-double-right',
+    nextMonthIconCls:'fas fa-angle-right',
     position: Position.BOTTOM_LEFT
 };
 

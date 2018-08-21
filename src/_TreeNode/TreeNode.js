@@ -3,19 +3,18 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import CircularLoading from '../CircularLoading';
-import TipProvider from '../TipProvider';
 import Theme from '../Theme';
 import IconButton from '../IconButton';
 import Radio from '../Radio';
 import Checkbox from '../Checkbox';
 
-import Position from '../_statics/Position';
 import SelectMode from '../_statics/SelectMode';
+import VirtualRoot from '../_statics/VirtualRoot';
 
 import Util from '../_vendors/Util';
 import Calculation from '../_vendors/Calculation';
@@ -37,7 +36,7 @@ class TreeNode extends Component {
 
     toggleTreeNode = e => {
 
-        e.stopPropagation();
+        e && e.stopPropagation();
 
         const {onNodeToggleStart} = this.props;
         onNodeToggleStart && onNodeToggleStart();
@@ -70,8 +69,6 @@ class TreeNode extends Component {
 
     clickHandler = e => {
 
-        e.preventDefault();
-
         const {data, path, disabled, isLoading, readOnly} = this.props;
 
         if (disabled || isLoading || readOnly || data.disabled || data.isLoading || data.readOnly) {
@@ -94,13 +91,52 @@ class TreeNode extends Component {
 
     };
 
+    renderChildren = () => {
+
+        const {depth, path, data} = this.props,
+            {collapsed} = this.state,
+            isVirtual = VirtualRoot in data,
+
+            childrenClassName = classNames('tree-node-children', {
+                collapsed
+            });
+
+        return data.children && data.children.length > 0 ?
+            <div className={childrenClassName}>
+                {
+                    data.children.map((item, index) =>
+                        <TreeNode {...this.props}
+                                  key={index}
+                                  data={item}
+                                  index={index}
+                                  depth={depth + (isVirtual ? 0 : 1)}
+                                  path={
+                                      path ?
+                                          [...path, {index, node: item}]
+                                          :
+                                          [{index, node: item}]
+                                  }/>
+                    )
+                }
+            </div>
+            :
+            null;
+
+    };
+
     render() {
+
+        const {data} = this.props;
+
+        if (VirtualRoot in data) {
+            return this.renderChildren();
+        }
 
         const {
 
-                index, depth, path, theme, selectTheme, selectMode, data, value,
+                index, depth, theme, selectTheme, selectMode, value,
                 disabled, isLoading, readOnly, allowCollapse, isSelectRecursive,
-                valueField, displayField, descriptionField,
+                valueField, displayField, descriptionField, filter,
 
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
@@ -111,10 +147,13 @@ class TreeNode extends Component {
             {collapsed} = this.state,
 
             checked = Calculation.isItemChecked(data, value, this.props),
-            indeterminate = Calculation.isItemIndeterminate(data, value, this.props),
+            indeterminate = Calculation.isNodeIndeterminate(data, value, this.props),
 
             isNodeLoading = data.isLoading || isLoading,
             isNodeDisabled = data.disabled || disabled || isNodeLoading,
+
+            isNodeMatched = !filter || (data && displayField in data
+                && data[displayField].toString().toUpperCase().includes(filter.toUpperCase())),
 
             nodeClassName = classNames('tree-node', {
                 [`theme-${theme}`]: theme,
@@ -125,151 +164,127 @@ class TreeNode extends Component {
                 paddingLeft: (depth + 1) * 20
             },
 
-            childrenClassName = classNames('tree-node-children', {
-                collapsed
-            }),
-
             loadingIconPosition = (data.rightIconCls && !data.iconCls) ? 'right' : 'left';
 
         return (
-            <div className="tree-node-wrapper">
-
-                <TipProvider className='block'
-                             text={data.tip}
-                             position={data.tipPosition}>
-
-                    <div className={nodeClassName}
-                         style={nodeStyle}
-                         disabled={isNodeDisabled}
-                         readOnly={readOnly}
-                         onClick={this.clickHandler}
-                         onMouseEnter={onMouseEnter}
-                         onMouseLeave={onMouseLeave}>
-
-                        <div className="tree-node-inner">
-
-                            {
-                                allowCollapse && data.children && data.children.length > 0 ?
-                                    <IconButton className="tree-node-collapse-icon"
-                                                iconCls={collapsed ?
-                                                    data.collapsedIconCls || collapsedIconCls
-                                                    :
-                                                    data.expandedIconCls || expandedIconCls}
-                                                onClick={this.toggleTreeNode}/>
-                                    :
-                                    null
-                            }
-
-                            {
-                                selectMode === SelectMode.SINGLE_SELECT && (radioUncheckedIconCls || radioCheckedIconCls) ?
-                                    <Radio className="tree-node-select"
-                                           theme={selectTheme}
-                                           checked={checked}
-                                           disabled={isNodeDisabled}
-                                           uncheckedIconCls={data.radioUncheckedIconCls || radioUncheckedIconCls}
-                                           checkedIconCls={data.radioCheckedIconCls || radioCheckedIconCls}
-                                           disableTouchRipple={true}/>
-                                    :
-                                    null
-                            }
-
-                            {
-                                selectMode === SelectMode.MULTI_SELECT ?
-                                    <Checkbox className="tree-node-select"
-                                              theme={selectTheme}
-                                              checked={checked}
-                                              indeterminate={isSelectRecursive ? indeterminate : false}
-                                              disabled={isNodeDisabled}
-                                              uncheckedIconCls={data.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
-                                              checkedIconCls={data.checkboxCheckedIconCls || checkboxCheckedIconCls}
-                                              indeterminateIconCls={data.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
-                                              disableTouchRipple={true}/>
-                                    :
-                                    null
-                            }
-
-                            {
-                                isNodeLoading && loadingIconPosition === 'left' ?
-                                    <div className="button-icon button-icon-left">
-                                        <CircularLoading className="button-loading-icon"
-                                                         size="small"/>
-                                    </div>
-                                    :
-                                    (
-                                        data.iconCls ?
-                                            <i className={`button-icon button-icon-left ${data.iconCls}`}
-                                               aria-hidden="true"></i>
-                                            :
-                                            null
-                                    )
-                            }
-
-                            {
-                                data.itemRenderer && typeof data.itemRenderer === 'function' ?
-                                    data.itemRenderer(data, index)
-                                    :
-                                    (
-                                        renderer && typeof renderer === 'function' ?
-                                            renderer(data, index)
-                                            :
-                                            (
-                                                data[descriptionField] ?
-                                                    <div className="tree-node-content">
-                                                    <span className="tree-node-content-value">
-                                                        {Util.getTextByDisplayField(data, displayField, valueField)}
-                                                    </span>
-                                                        <span className="tree-node-content-desc">
-                                                        {data[descriptionField]}
-                                                    </span>
-                                                    </div>
-                                                    :
-                                                    Util.getTextByDisplayField(data, displayField, valueField)
-                                            )
-                                    )
-                            }
-
-                            {
-                                isNodeLoading && loadingIconPosition === 'right' ?
-                                    <CircularLoading className="button-icon button-icon-right button-loading-icon"
-                                                     size="small"/>
-                                    :
-                                    (
-                                        data.rightIconCls ?
-                                            <i className={`button-icon button-icon-right ${data.rightIconCls}`}
-                                               aria-hidden="true"></i>
-                                            :
-                                            null
-                                    )
-                            }
-                        </div>
-
-                    </div>
-                </TipProvider>
+            <Fragment>
 
                 {
-                    data.children && data.children.length > 0 ?
-                        <div className={childrenClassName}>
-                            {
-                                data.children.map((item, index) =>
-                                    <TreeNode {...this.props}
-                                              key={index}
-                                              data={item}
-                                              index={index}
-                                              depth={depth + 1}
-                                              path={
-                                                  path ?
-                                                      [...path, {index, node: item}]
-                                                      :
-                                                      [{index, node: item}]
-                                              }/>
-                                )
-                            }
+                    isNodeMatched ?
+                        <div className={nodeClassName}
+                             style={nodeStyle}
+                             title={data.title}
+                             disabled={isNodeDisabled}
+                             readOnly={readOnly}
+                             onClick={this.clickHandler}
+                             onMouseEnter={onMouseEnter}
+                             onMouseLeave={onMouseLeave}>
+
+                            <div className="tree-node-inner">
+
+                                {
+                                    allowCollapse && data.children && data.children.length > 0 ?
+                                        <IconButton className="tree-node-collapse-icon"
+                                                    iconCls={collapsed ?
+                                                        data.collapsedIconCls || collapsedIconCls
+                                                        :
+                                                        data.expandedIconCls || expandedIconCls}
+                                                    onClick={this.toggleTreeNode}/>
+                                        :
+                                        null
+                                }
+
+                                {
+                                    selectMode === SelectMode.SINGLE_SELECT && (radioUncheckedIconCls || radioCheckedIconCls) ?
+                                        <Radio className="tree-node-select"
+                                               theme={selectTheme}
+                                               checked={checked}
+                                               disabled={isNodeDisabled}
+                                               uncheckedIconCls={data.radioUncheckedIconCls || radioUncheckedIconCls}
+                                               checkedIconCls={data.radioCheckedIconCls || radioCheckedIconCls}
+                                               disableTouchRipple={true}/>
+                                        :
+                                        null
+                                }
+
+                                {
+                                    selectMode === SelectMode.MULTI_SELECT ?
+                                        <Checkbox className="tree-node-select"
+                                                  theme={selectTheme}
+                                                  checked={checked}
+                                                  indeterminate={isSelectRecursive ? indeterminate : false}
+                                                  disabled={isNodeDisabled}
+                                                  uncheckedIconCls={data.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
+                                                  checkedIconCls={data.checkboxCheckedIconCls || checkboxCheckedIconCls}
+                                                  indeterminateIconCls={data.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
+                                                  disableTouchRipple={true}/>
+                                        :
+                                        null
+                                }
+
+                                {
+                                    isNodeLoading && loadingIconPosition === 'left' ?
+                                        <div className="button-icon button-icon-left">
+                                            <CircularLoading className="button-loading-icon"
+                                                             size="small"/>
+                                        </div>
+                                        :
+                                        (
+                                            data.iconCls ?
+                                                <i className={`button-icon button-icon-left ${data.iconCls}`}
+                                                   aria-hidden="true"></i>
+                                                :
+                                                null
+                                        )
+                                }
+
+                                {
+                                    data.itemRenderer && typeof data.itemRenderer === 'function' ?
+                                        data.itemRenderer(data, index)
+                                        :
+                                        (
+                                            renderer && typeof renderer === 'function' ?
+                                                renderer(data, index)
+                                                :
+                                                (
+                                                    data[descriptionField] ?
+                                                        <div className="tree-node-content">
+                                                            <span className="tree-node-content-value">
+                                                                {Util.getTextByDisplayField(data, displayField, valueField)}
+                                                            </span>
+                                                            <span className="tree-node-content-desc">
+                                                                {data[descriptionField]}
+                                                            </span>
+                                                        </div>
+                                                        :
+                                                        Util.getTextByDisplayField(data, displayField, valueField)
+                                                )
+                                        )
+                                }
+
+                                {
+                                    isNodeLoading && loadingIconPosition === 'right' ?
+                                        <CircularLoading className="button-icon button-icon-right button-loading-icon"
+                                                         size="small"/>
+                                        :
+                                        (
+                                            data.rightIconCls ?
+                                                <i className={`button-icon button-icon-right ${data.rightIconCls}`}
+                                                   aria-hidden="true"></i>
+                                                :
+                                                null
+                                        )
+                                }
+                            </div>
+
                         </div>
                         :
                         null
                 }
 
-            </div>
+                {this.renderChildren()}
+
+            </Fragment>
         );
 
     }
@@ -288,8 +303,8 @@ TreeNode.propTypes = {
 
     data: PropTypes.object,
     value: PropTypes.any,
+    filter: PropTypes.string,
 
-    idField: PropTypes.string,
     valueField: PropTypes.string,
     displayField: PropTypes.string,
     descriptionField: PropTypes.string,
@@ -331,7 +346,6 @@ TreeNode.defaultProps = {
     selectTheme: Theme.DEFAULT,
     selectMode: SelectMode.SINGLE_SELECT,
 
-    idField: 'id',
     valueField: 'value',
     displayField: 'text',
     descriptionField: 'desc',
@@ -342,8 +356,6 @@ TreeNode.defaultProps = {
     allowCollapse: true,
     isNodeToggling: false,
     isSelectRecursive: false,
-
-    tipPosition: Position.BOTTOM,
 
     collapsedIconCls: 'fas fa-caret-right',
     expandedIconCls: 'fas fa-caret-down',

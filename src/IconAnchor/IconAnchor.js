@@ -22,18 +22,33 @@ class IconAnchor extends Component {
         super(props, ...restArgs);
     }
 
+    /**
+     * public
+     */
+    startRipple = (e, props) => {
+        !this.props.disableTouchRipple && this.refs.touchRipple && this.refs.touchRipple.addRipple(e, props);
+    };
+
+    /**
+     * public
+     */
+    endRipple = () => {
+        !this.props.disableTouchRipple && this.refs.touchRipple && this.refs.touchRipple.removeRipple();
+    };
+
+    /**
+     * public
+     */
+    triggerRipple = (e, props) => {
+        this.startRipple(e, props);
+        setTimeout(() => {
+            this.endRipple();
+        }, 250);
+    };
+
     clickHandler = e => {
-        e.preventDefault();
         const {disabled, isLoading, onClick} = this.props;
         !disabled && !isLoading && onClick && onClick(e);
-    };
-
-    startRipple = e => {
-        this.refs.touchRipple.addRipple(e);
-    };
-
-    endRipple = () => {
-        this.refs.touchRipple.removeRipple();
     };
 
     render() {
@@ -41,7 +56,7 @@ class IconAnchor extends Component {
         const {
 
                 className, theme, iconCls, disabled, isLoading,
-                tip, tipPosition,
+                tip, tipPosition, disableTouchRipple,
 
                 ...restProps
 
@@ -75,7 +90,7 @@ class IconAnchor extends Component {
                     }
 
                     {
-                        disabled || isLoading ?
+                        disableTouchRipple ?
                             null
                             :
                             <TouchRipple ref="touchRipple"
@@ -134,6 +149,7 @@ IconAnchor.propTypes = {
     target: PropTypes.string,
 
     alt: PropTypes.string,
+    disableTouchRipple: PropTypes.bool,
 
     tip: PropTypes.string,
     tipPosition: PropTypes.oneOf(Util.enumerateValue(TipProvider.Position)),
@@ -153,6 +169,7 @@ IconAnchor.defaultProps = {
     isLoading: false,
     href: 'javascript:void(0)',
     target: '_blank',
+    disableTouchRipple: false,
 
     tipPosition: TipProvider.Position.BOTTOM
 

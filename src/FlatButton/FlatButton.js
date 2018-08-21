@@ -24,12 +24,25 @@ class FlatButton extends Component {
         super(props, ...restArgs);
     }
 
-    startRipple = e => {
-        this.refs.baseButton.startRipple(e);
+    /**
+     * public
+     */
+    startRipple = (e, props) => {
+        this.refs.baseButton && this.refs.baseButton.startRipple(e, props);
     };
 
+    /**
+     * public
+     */
     endRipple = () => {
-        this.refs.baseButton.endRipple();
+        this.refs.baseButton && this.refs.baseButton.endRipple();
+    };
+
+    /**
+     * public
+     */
+    triggerRipple = (e, props) => {
+        this.refs.baseButton && this.refs.baseButton.triggerRipple(e, props);
     };
 
     render() {
@@ -77,6 +90,11 @@ FlatButton.propTypes = {
      * If true,the button will be round.
      */
     isCircular: PropTypes.bool,
+
+    /**
+     * The title of the button.
+     */
+    title: PropTypes.string,
 
     /**
      * The text of the button.

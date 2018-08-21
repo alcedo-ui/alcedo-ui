@@ -60,7 +60,8 @@ class MaterialTreeSelectExamples extends Component {
                 <h2 className="examples-title">MaterialTreeSelectExamples</h2>
 
                 <p>
-                    <span>MaterialTreeSelect</span> use to store operating elements. Click on the contact and a
+                    <span>MaterialTreeSelect</span>
+                    use to store operating elements. Click on the contact and a
                     drop-down menu will appear. You can select from the list and execute the appropriate command.
                 </p>
 
@@ -113,6 +114,13 @@ class MaterialTreeSelectExamples extends Component {
                                                         selectMode={MaterialTreeSelect.SelectMode.MULTI_SELECT}
                                                         autoClose={false}
                                                         data={this.data}
+                                                        isSelectRecursive={true}
+                                                        useFilter={true}
+                                                        collapsedIconCls="far fa-plus-square"
+                                                        expandedIconCls="far fa-minus-square"
+                                                        checkboxUncheckedIconCls="far fa-circle"
+                                                        checkboxCheckedIconCls="fas fa-check-circle"
+                                                        checkboxIndeterminateIconCls="fas fa-minus-circle"
                                                         onChange={this.onChangeHandler}/>
                                 </div>
                             </div>

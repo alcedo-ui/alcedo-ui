@@ -30,7 +30,6 @@ class PointStepItem extends Component {
     };
 
     clickHandler = e => {
-        e.preventDefault();
         const {activatedStep, finishedStep, index, disabled, onClick} = this.props;
         !disabled && activatedStep !== index && finishedStep >= index && onClick && onClick(index, e);
     };
