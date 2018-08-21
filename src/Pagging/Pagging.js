@@ -41,8 +41,9 @@ class Pagging extends Component {
 
         const {
             count, page, total, pageSize, pageSizes,
-            selectedCount, selectedCountVisible, pageSizeVisible,
-            paggingPrevIconCls, paggingNextIconCls, paggingFirstIconCls, paggingLastIconCls, paggingCountRenderer
+            selectedCount, selectedCountVisible, pageSizeVisible, pageSizeRightIconCls,
+            paggingPrevIconCls, paggingNextIconCls, paggingFirstIconCls, paggingLastIconCls,
+            paggingCountRenderer
         } = this.props;
 
         return (
@@ -76,6 +77,7 @@ class Pagging extends Component {
                         pageSizeVisible ?
                             <PaggingSize pageSize={pageSize}
                                          pageSizes={pageSizes}
+                                         rightIconCls={pageSizeRightIconCls}
                                          onPageSizeChange={this.pageSizeChangedHandle}/>
                             :
                             null
@@ -152,6 +154,11 @@ Pagging.propTypes = {
     /**
      * Use this property to set prev button icon.
      */
+    pageSizeRightIconCls: PropTypes.string,
+
+    /**
+     * Use this property to set prev button icon.
+     */
     paggingPrevIconCls: PropTypes.string,
 
     /**
@@ -190,6 +197,7 @@ Pagging.defaultProps = {
     selectedCountVisible: false,
     pageSizeVisible: true,
 
+    pageSizeRightIconCls: 'fas fa-angle-down',
     paggingPrevIconCls: 'fas fa-angle-left',
     paggingNextIconCls: 'fas fa-angle-right',
     paggingFirstIconCls: 'fas fa-angle-double-left',
