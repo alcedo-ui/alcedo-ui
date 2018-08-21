@@ -39,9 +39,9 @@ class Table extends Component {
             /**
              * sort construct
              *  {
-			 *	    prop: '', // col name
-			 *	    type: 1: 'asc' | -1: 'desc'
-			 *  }
+             *	    prop: '', // col name
+             *	    type: 1: 'asc' | -1: 'desc'
+             *  }
              */
             sort: props.sortInitConfig,
 
@@ -529,7 +529,7 @@ class Table extends Component {
 
                 className, style, data, pageSizes, disabled, selectMode, emptyText,
 
-                sortAscIconCls, sortDescIconCls,
+                sortAscIconCls, sortDescIconCls, pageSizeRightIconCls,
                 paggingPrevIconCls, paggingNextIconCls, paggingFirstIconCls, paggingLastIconCls,
 
                 idProp, isPagging, useFullPagging, paggingSelectedCountVisible, paggingPageSizeVisible,
@@ -612,6 +612,7 @@ class Table extends Component {
                                          pageSizes={pageSizes}
                                          selectedCountVisible={paggingSelectedCountVisible}
                                          pageSizeVisible={paggingPageSizeVisible}
+                                         pageSizeRightIconCls={pageSizeRightIconCls}
                                          paggingPrevIconCls={paggingPrevIconCls}
                                          paggingNextIconCls={paggingNextIconCls}
                                          paggingFirstIconCls={paggingFirstIconCls}
@@ -627,6 +628,7 @@ class Table extends Component {
                                               pageSizes={pageSizes}
                                               selectedCountVisible={paggingSelectedCountVisible}
                                               pageSizeVisible={paggingPageSizeVisible}
+                                              pageSizeRightIconCls={pageSizeRightIconCls}
                                               paggingPrevIconCls={paggingPrevIconCls}
                                               paggingNextIconCls={paggingNextIconCls}
                                               paggingCountRenderer={paggingCountRenderer}
@@ -818,9 +820,30 @@ Table.propTypes = {
     defaultSortType: PropTypes.oneOf(Util.enumerateValue(SortType)),
     sortAscIconCls: PropTypes.string,
     sortDescIconCls: PropTypes.string,
+
+    /**
+     * Use this property to set page size right icon.
+     */
+    pageSizeRightIconCls: PropTypes.string,
+
+    /**
+     * Use this property to set prev button icon.
+     */
     paggingPrevIconCls: PropTypes.string,
+
+    /**
+     * Use this property to set next button icon.
+     */
     paggingNextIconCls: PropTypes.string,
+
+    /**
+     * Use this property to set first button icon.
+     */
     paggingFirstIconCls: PropTypes.string,
+
+    /**
+     * Use this property to set last button icon.
+     */
     paggingLastIconCls: PropTypes.string,
 
     paggingCountRenderer: PropTypes.func,
