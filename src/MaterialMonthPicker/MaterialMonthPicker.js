@@ -166,9 +166,11 @@ class MaterialMonthPicker extends Component {
 
     render() {
 
-        const {className, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, position,
+        const {
+                className, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, position,
                 theme, popupClassName, rightIconCls, previousYearIconCls, previousMonthIconCls,
-                nextYearIconCls, nextMonthIconCls} = this.props,
+                nextYearIconCls, nextMonthIconCls, readOnly
+            } = this.props,
             {value, popupVisible, datePickerLevel, year, month, isAbove} = this.state,
 
             pickerClassName = classNames('material-month-picker', {
@@ -186,7 +188,7 @@ class MaterialMonthPicker extends Component {
                                              name={name}
                                              placeholder={placeholder}
                                              value={textValue}
-                                             readOnly={!popupVisible}
+                                             readOnly={readOnly ? readOnly : !popupVisible}
                                              clearButtonVisible={false}
                                              isFocusedSelectAll={false}
                                              popupVisible={popupVisible}
@@ -303,6 +305,11 @@ MaterialMonthPicker.propTypes = {
     autoClose: PropTypes.bool,
 
     /**
+     * If true,materialMonthPicker textField is readOnly.
+     */
+    readOnly: PropTypes.bool,
+
+    /**
      * Callback function that is fired when the date value changes.
      */
     onChange: PropTypes.func
@@ -318,11 +325,12 @@ MaterialMonthPicker.defaultProps = {
     dateFormat: 'YYYY-MM',
     autoClose: true,
     isFooter: true,
-    previousYearIconCls:'fas fa-angle-double-left',
-    previousMonthIconCls:'fas fa-angle-left',
-    nextYearIconCls:'fas fa-angle-double-right',
-    nextMonthIconCls:'fas fa-angle-right',
-    position: Position.BOTTOM_LEFT
+    previousYearIconCls: 'fas fa-angle-double-left',
+    previousMonthIconCls: 'fas fa-angle-left',
+    nextYearIconCls: 'fas fa-angle-double-right',
+    nextMonthIconCls: 'fas fa-angle-right',
+    position: Position.BOTTOM_LEFT,
+    readOnly: false
 };
 
 export default MaterialMonthPicker;

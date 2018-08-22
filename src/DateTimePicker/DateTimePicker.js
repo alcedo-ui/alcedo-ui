@@ -237,9 +237,11 @@ class DateTimePicker extends Component {
 
     render() {
 
-        const {className, style, name, placeholder, dateFormat, maxValue, minValue, isFooter, disabled, position,
+        const {
+                className, style, name, placeholder, dateFormat, maxValue, minValue, isFooter, disabled, position,
                 popupClassName, rightIconCls, previousYearIconCls, previousMonthIconCls, nextYearIconCls,
-                nextMonthIconCls} = this.props,
+                nextMonthIconCls, readOnly
+            } = this.props,
             {value, popupVisible, datePickerLevel, year, month, day, hour, minute, second, isAbove} = this.state,
 
             pickerClassName = classNames('date-time-picker', {
@@ -258,7 +260,7 @@ class DateTimePicker extends Component {
                            name={name}
                            placeholder={placeholder}
                            value={textValue}
-                           readOnly={!popupVisible}
+                           readOnly={readOnly ? readOnly : !popupVisible}
                            disabled={disabled}
                            clearButtonVisible={false}
                            isFocusedSelectAll={popupVisible}
@@ -443,6 +445,11 @@ DateTimePicker.propTypes = {
     dateFormat: PropTypes.string,
 
     /**
+     * If true,dateTimePicker textField is readOnly.
+     */
+    readOnly: PropTypes.bool,
+
+    /**
      * Callback function that is fired when the date value changes.
      */
     onChange: PropTypes.func
@@ -457,11 +464,12 @@ DateTimePicker.defaultProps = {
     popupClassName: '',
     placeholder: 'Date',
     dateFormat: 'YYYY-MM-DD HH:mm:ss',
-    previousYearIconCls:'fas fa-angle-double-left',
-    previousMonthIconCls:'fas fa-angle-left',
-    nextYearIconCls:'fas fa-angle-double-right',
-    nextMonthIconCls:'fas fa-angle-right',
-    isFooter: true
+    previousYearIconCls: 'fas fa-angle-double-left',
+    previousMonthIconCls: 'fas fa-angle-left',
+    nextYearIconCls: 'fas fa-angle-double-right',
+    nextMonthIconCls: 'fas fa-angle-right',
+    isFooter: true,
+    readOnly: false
 };
 
 export default DateTimePicker;
