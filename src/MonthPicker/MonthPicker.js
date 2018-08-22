@@ -163,9 +163,11 @@ class MonthPicker extends Component {
 
     render() {
 
-        const {className, name, placeholder, dateFormat, maxValue, minValue, position,
+        const {
+                className, name, placeholder, dateFormat, maxValue, minValue, position,
                 popupClassName, rightIconCls, previousYearIconCls, previousMonthIconCls, nextYearIconCls,
-                nextMonthIconCls} = this.props,
+                nextMonthIconCls, readOnly
+            } = this.props,
             {value, popupVisible, datePickerLevel, year, month, isAbove} = this.state,
 
             pickerClassName = classNames('month-picker', {
@@ -183,7 +185,7 @@ class MonthPicker extends Component {
                            name={name}
                            placeholder={placeholder}
                            value={textValue}
-                           readOnly={!popupVisible}
+                           readOnly={readOnly ? readOnly : !popupVisible}
                            popupVisible={popupVisible}
                            clearButtonVisible={false}
                            isFocusedSelectAll={popupVisible}
@@ -288,6 +290,11 @@ MonthPicker.propTypes = {
     autoClose: PropTypes.bool,
 
     /**
+     * If true,monthPicker textField is readOnly.
+     */
+    readOnly: PropTypes.bool,
+
+    /**
      * Callback function that is fired when the date value changes.
      */
     onChange: PropTypes.func
@@ -303,11 +310,12 @@ MonthPicker.defaultProps = {
     dateFormat: 'YYYY-MM',
     autoClose: true,
     isFooter: true,
-    previousYearIconCls:'fas fa-angle-double-left',
-    previousMonthIconCls:'fas fa-angle-left',
-    nextYearIconCls:'fas fa-angle-double-right',
-    nextMonthIconCls:'fas fa-angle-right',
-    position: Position.BOTTOM_LEFT
+    previousYearIconCls: 'fas fa-angle-double-left',
+    previousMonthIconCls: 'fas fa-angle-left',
+    nextYearIconCls: 'fas fa-angle-double-right',
+    nextMonthIconCls: 'fas fa-angle-right',
+    position: Position.BOTTOM_LEFT,
+    readOnly: false
 };
 
 export default MonthPicker;

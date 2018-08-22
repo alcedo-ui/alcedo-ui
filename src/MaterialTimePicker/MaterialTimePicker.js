@@ -151,8 +151,10 @@ class MaterialTimePicker extends Component {
 
     render() {
 
-        const {className, style, name, placeholder, maxValue, minValue, dateFormat, label, isLabelAnimate, position,
-                theme, popupClassName, rightIconCls} = this.props,
+        const {
+                className, style, name, placeholder, maxValue, minValue, dateFormat, label, isLabelAnimate, position,
+                theme, popupClassName, rightIconCls, readOnly
+            } = this.props,
             {popupVisible, textFieldValue, hour, minute, second, isAbove} = this.state,
 
             pickerClassName = classNames('material-time-picker', {
@@ -171,7 +173,7 @@ class MaterialTimePicker extends Component {
                                              isLabelAnimate={isLabelAnimate}
                                              placeholder={placeholder}
                                              value={textFieldValue}
-                                             readOnly={!popupVisible}
+                                             readOnly={readOnly ? readOnly : !popupVisible}
                                              clearButtonVisible={false}
                                              isFocusedSelectAll={false}
                                              popupVisible={popupVisible}
@@ -258,6 +260,11 @@ MaterialTimePicker.propTypes = {
     placeholder: PropTypes.string,
 
     /**
+     * If true,materialTimePicker textField is readOnly.
+     */
+    readOnly: PropTypes.bool,
+
+    /**
      * Time format.
      */
     dateFormat: PropTypes.string
@@ -270,7 +277,8 @@ MaterialTimePicker.defaultProps = {
     value: moment().format('HH:mm:ss'),
     placeholder: 'Time',
     dateFormat: 'HH:mm:ss',
-    position: Position.BOTTOM_LEFT
+    position: Position.BOTTOM_LEFT,
+    readOnly: false
 };
 
 export default MaterialTimePicker;

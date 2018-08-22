@@ -320,7 +320,7 @@ class DateRangePicker extends Component {
 
         const {className, style, name, placeholder, dateFormat, maxValue, minValue, position,
                 popupClassName, rightIconCls, previousYearIconCls, previousMonthIconCls, nextYearIconCls,
-                nextMonthIconCls} = this.props,
+                nextMonthIconCls, readOnly} = this.props,
             {popupVisible, left, right, startTime, endTime, hoverTime, isAbove} = this.state,
 
             pickerClassName = classNames('date-range-picker', {
@@ -377,6 +377,7 @@ class DateRangePicker extends Component {
                                        placeholder={placeholder}
                                        value={left.text}
                                        clearButtonVisible={false}
+                                       readOnly={readOnly}
                                        onChange={(text) => {
                                            this.textFieldChangeHandle('left', text);
                                        }}/>
@@ -384,6 +385,7 @@ class DateRangePicker extends Component {
                                        placeholder={placeholder}
                                        value={right.text}
                                        clearButtonVisible={false}
+                                       readOnly={readOnly}
                                        onChange={(text) => {
                                            this.textFieldChangeHandle('right', text);
                                        }}/>
@@ -584,6 +586,11 @@ DateRangePicker.propTypes = {
     dateFormat: PropTypes.string,
 
     /**
+     * If true,dateRangePicker textField is readOnly.
+     */
+    readOnly: PropTypes.bool,
+
+    /**
      * If true,the date selection box will displayed.
      */
     popupVisible: PropTypes.bool,
@@ -604,7 +611,8 @@ DateRangePicker.defaultProps = {
     previousMonthIconCls:'fas fa-angle-left',
     nextYearIconCls:'fas fa-angle-double-right',
     nextMonthIconCls:'fas fa-angle-right',
-    position: Position.BOTTOM_LEFT
+    position: Position.BOTTOM_LEFT,
+    readOnly: false
 };
 
 export default DateRangePicker;

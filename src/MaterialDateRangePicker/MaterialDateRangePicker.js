@@ -318,7 +318,7 @@ class MaterialDateRangePicker extends Component {
 
         const {className, style, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, position,
                 theme, popupClassName, rightIconCls, previousYearIconCls, previousMonthIconCls,
-                nextYearIconCls, nextMonthIconCls} = this.props,
+                nextYearIconCls, nextMonthIconCls, readOnly} = this.props,
             {popupVisible, left, right, startTime, endTime, hoverTime, isAbove} = this.state,
 
             pickerClassName = classNames('material-date-range-picker', {
@@ -379,6 +379,7 @@ class MaterialDateRangePicker extends Component {
                                        placeholder={placeholder}
                                        value={left.text}
                                        clearButtonVisible={false}
+                                       readOnly={readOnly}
                                        onChange={(text) => {
                                            this.textFieldChangeHandle('left', text);
                                        }}/>
@@ -386,6 +387,7 @@ class MaterialDateRangePicker extends Component {
                                        placeholder={placeholder}
                                        value={right.text}
                                        clearButtonVisible={false}
+                                       readOnly={readOnly}
                                        onChange={(text) => {
                                            this.textFieldChangeHandle('right', text);
                                        }}/>
@@ -593,6 +595,11 @@ MaterialDateRangePicker.propTypes = {
     popupVisible: PropTypes.bool,
 
     /**
+     * If true,dateRangePicker textField is readOnly.
+     */
+    readOnly: PropTypes.bool,
+
+    /**
      * Callback function that is fired when the date value changes.
      */
     onChange: PropTypes.func
@@ -608,7 +615,8 @@ MaterialDateRangePicker.defaultProps = {
     previousMonthIconCls:'fas fa-angle-left',
     nextYearIconCls:'fas fa-angle-double-right',
     nextMonthIconCls:'fas fa-angle-right',
-    position: Position.BOTTOM_LEFT
+    position: Position.BOTTOM_LEFT,
+    readOnly: false
 };
 
 export default MaterialDateRangePicker;

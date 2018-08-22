@@ -201,7 +201,7 @@ class DatePicker extends Component {
         const {
                 className, name, placeholder, dateFormat, maxValue, minValue, isFooter, position,
                 popupClassName, rightIconCls, previousYearIconCls, previousMonthIconCls, nextYearIconCls,
-                nextMonthIconCls
+                nextMonthIconCls, readOnly
             } = this.props,
             {value, popupVisible, datePickerLevel, year, month, day, isAbove} = this.state,
 
@@ -222,7 +222,7 @@ class DatePicker extends Component {
                            placeholder={placeholder}
                            value={textValue}
                            rightIconCls={rightIconCls}
-                           readOnly={!popupVisible}
+                           readOnly={readOnly ? readOnly : !popupVisible}
                            popupVisible={popupVisible}
                            clearButtonVisible={false}
                            isFocusedSelectAll={popupVisible}
@@ -363,6 +363,11 @@ DatePicker.propTypes = {
     autoClose: PropTypes.bool,
 
     /**
+     * If true,datePicker textField is readOnly.
+     */
+    readOnly: PropTypes.bool,
+
+    /**
      * Callback function that is fired when the date value changes.
      */
     onChange: PropTypes.func
@@ -381,7 +386,8 @@ DatePicker.defaultProps = {
     nextYearIconCls: 'fas fa-angle-double-right',
     nextMonthIconCls: 'fas fa-angle-right',
     autoClose: true,
-    isFooter: true
+    isFooter: true,
+    readOnly: false
 };
 
 export default DatePicker;
