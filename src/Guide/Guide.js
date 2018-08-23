@@ -222,7 +222,7 @@ Guide.defaultProps = {
     hasTriangle: true,
     position: Position.BOTTOM,
     isAnimated: true,
-    iconVisible: false,
+    iconVisible: true,
 
     isBlurClose: true,
     isEscClose: true,
