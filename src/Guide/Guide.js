@@ -12,10 +12,8 @@ import TriggerPop from '../_TriggerPop';
 import Position from '../_statics/Position';
 import MsgType from '../_statics/MsgType';
 
-import Dom from '../_vendors/Dom';
 import Util from '../_vendors/Util';
 import PopManagement from '../_vendors/PopManagement';
-import IconButton from '../IconButton';
 import AnchorButton from '../AnchorButton';
 
 class Guide extends Component {
