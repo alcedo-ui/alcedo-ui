@@ -174,18 +174,21 @@ class GuideExamples extends Component {
                                 </div>
 
                                 <Guide visible={guideVisible[2]}
+                                       type={type}
                                        triggerEl={triggerEl[2]}
                                        position={Guide.Position.BOTTOM_LEFT}
                                        onRequestClose={() => this.closePopup(2)}>
                                     {message}
                                 </Guide>
                                 <Guide visible={guideVisible[3]}
+                                       type={type}
                                        triggerEl={triggerEl[3]}
                                        position={Guide.Position.BOTTOM}
                                        onRequestClose={() => this.closePopup(3)}>
                                     {message}
                                 </Guide>
                                 <Guide visible={guideVisible[4]}
+                                       type={type}
                                        triggerEl={triggerEl[4]}
                                        position={Guide.Position.BOTTOM_RIGHT}
                                        onRequestClose={() => this.closePopup(4)}>
@@ -193,18 +196,21 @@ class GuideExamples extends Component {
                                 </Guide>
 
                                 <Guide visible={guideVisible[5]}
+                                       type={type}
                                        triggerEl={triggerEl[5]}
                                        position={Guide.Position.TOP_LEFT}
                                        onRequestClose={() => this.closePopup(5)}>
                                     {message}
                                 </Guide>
                                 <Guide visible={guideVisible[6]}
+                                       type={type}
                                        triggerEl={triggerEl[6]}
                                        position={Guide.Position.TOP}
                                        onRequestClose={() => this.closePopup(6)}>
                                     {message}
                                 </Guide>
                                 <Guide visible={guideVisible[7]}
+                                       type={type}
                                        triggerEl={triggerEl[7]}
                                        position={Guide.Position.TOP_RIGHT}
                                        onRequestClose={() => this.closePopup(7)}>
@@ -212,18 +218,21 @@ class GuideExamples extends Component {
                                 </Guide>
 
                                 <Guide visible={guideVisible[8]}
+                                       type={type}
                                        triggerEl={triggerEl[8]}
                                        position={Guide.Position.LEFT_TOP}
                                        onRequestClose={() => this.closePopup(8)}>
                                     {message}
                                 </Guide>
                                 <Guide visible={guideVisible[9]}
+                                       type={type}
                                        triggerEl={triggerEl[9]}
                                        position={Guide.Position.LEFT}
                                        onRequestClose={() => this.closePopup(9)}>
                                     {message}
                                 </Guide>
                                 <Guide visible={guideVisible[10]}
+                                       type={type}
                                        triggerEl={triggerEl[10]}
                                        position={Guide.Position.LEFT_BOTTOM}
                                        onRequestClose={() => this.closePopup(10)}>
@@ -231,18 +240,21 @@ class GuideExamples extends Component {
                                 </Guide>
 
                                 <Guide visible={guideVisible[11]}
+                                       type={type}
                                        triggerEl={triggerEl[11]}
                                        position={Guide.Position.RIGHT_TOP}
                                        onRequestClose={() => this.closePopup(11)}>
                                     {message}
                                 </Guide>
                                 <Guide visible={guideVisible[12]}
+                                       type={type}
                                        triggerEl={triggerEl[12]}
                                        position={Guide.Position.RIGHT}
                                        onRequestClose={() => this.closePopup(12)}>
                                     {message}
                                 </Guide>
                                 <Guide visible={guideVisible[13]}
+                                       type={type}
                                        triggerEl={triggerEl[13]}
                                        position={Guide.Position.RIGHT_BOTTOM}
                                        onRequestClose={() => this.closePopup(13)}>
@@ -250,6 +262,7 @@ class GuideExamples extends Component {
                                 </Guide>
 
                                 <Guide visible={guideVisible[14]}
+                                       type={type}
                                        triggerEl={triggerEl[14]}
                                        position={Guide.Position.CENTER}
                                        onRequestClose={() => this.closePopup(14)}>
