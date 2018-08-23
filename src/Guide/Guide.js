@@ -15,6 +15,8 @@ import MsgType from '../_statics/MsgType';
 import Dom from '../_vendors/Dom';
 import Util from '../_vendors/Util';
 import PopManagement from '../_vendors/PopManagement';
+import IconButton from '../IconButton';
+import AnchorButton from '../AnchorButton';
 
 class Guide extends Component {
 
@@ -34,6 +36,19 @@ class Guide extends Component {
      */
     resetPosition = () => {
         this.refs.guide && this.refs.guide.resetPosition();
+    };
+
+    getIconCls = () => {
+        switch (this.props.type) {
+            case MsgType.SUCCESS:
+                return 'fas fa-check-circle';
+            case MsgType.WARNING:
+                return 'fas fa-exclamation-triangle';
+            case MsgType.ERROR:
+                return 'fas fa-times-circle';
+            default:
+                return 'fas fa-info-circle';
+        }
     };
 
     clearCloseTimeout = () => {
@@ -104,7 +119,8 @@ class Guide extends Component {
 
         const {
 
-                className, contentClassName,
+                className, contentClassName, type, iconCls, closeIconVisible, closeButtonVisible, closeButtonValue,
+                children,
 
                 // not passing down these props
                 triggerHandler, onRequestClose,
@@ -118,6 +134,8 @@ class Guide extends Component {
             }),
 
             guideContentClassName = classNames('guide-content', {
+                'theme-default': type === MsgType.DEFAULT,
+                [`theme-${type}`]: type !== MsgType.DEFAULT,
                 [contentClassName]: contentClassName
             });
 
@@ -125,7 +143,38 @@ class Guide extends Component {
             <TriggerPop {...restProps}
                         ref="guide"
                         className={guideClassName}
-                        contentClassName={guideContentClassName}/>
+                        contentClassName={guideContentClassName}>
+
+                {
+                    type === MsgType.DEFAULT ?
+                        null
+                        :
+                        <i className={`${iconCls ? iconCls : this.getIconCls()} guide-icon`}></i>
+                }
+
+                <div className="guide-message">
+                    {children}
+                </div>
+
+                {
+                    closeIconVisible ?
+                        <IconButton className="guide-close-icon"
+                                    iconCls="fas fa-times"
+                                    onClick={this.clickHandler}/>
+                        :
+                        null
+                }
+
+                {
+                    closeButtonVisible ?
+                        <AnchorButton className="guide-close-Button"
+                                      value={closeButtonValue}
+                                      onClick={this.clickHandler}/>
+                        :
+                        null
+                }
+
+            </TriggerPop>
         );
     }
 
@@ -151,6 +200,11 @@ Guide.propTypes = {
     style: PropTypes.object,
 
     /**
+     * The type of notification.
+     */
+    type: PropTypes.oneOf(Util.enumerateValue(MsgType)),
+
+    /**
      * This is the DOM element that will be used to set the position of the popover.
      */
     triggerEl: PropTypes.object,
@@ -172,6 +226,8 @@ Guide.propTypes = {
      */
     position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
+    iconCls: PropTypes.string,
+
     /**
      * If true,guide will have animation effects.
      */
@@ -187,6 +243,10 @@ Guide.propTypes = {
     shouldPreventContainerScroll: PropTypes.bool,
     isTriggerPositionFixed: PropTypes.bool,
     showModal: PropTypes.bool,
+
+    closeIconVisible: PropTypes.bool,
+    closeButtonVisible: PropTypes.bool,
+    closeButtonValue: PropTypes.string,
 
     /**
      * The function of guide event handler.
@@ -227,6 +287,7 @@ Guide.propTypes = {
 
 Guide.defaultProps = {
 
+    type: MsgType.INFO,
     visible: false,
     hasTriangle: true,
     position: Position.BOTTOM,
@@ -236,7 +297,11 @@ Guide.defaultProps = {
     isEscClose: true,
     shouldPreventContainerScroll: true,
     isTriggerPositionFixed: false,
-    showModal: false
+    showModal: false,
+
+    closeIconVisible: false,
+    closeButtonVisible: true,
+    closeButtonValue: 'Close'
 
 };
 
