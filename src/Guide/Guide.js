@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import TriggerPop from '../_TriggerPop';
-import Theme from '../Theme';
 
 import Position from '../_statics/Position';
 import MsgType from '../_statics/MsgType';
@@ -21,7 +20,6 @@ class Guide extends Component {
 
     static Position = Position;
     static Type = MsgType;
-    static Theme = Theme;
 
     constructor(props, ...restArgs) {
 
@@ -35,7 +33,7 @@ class Guide extends Component {
      * public
      */
     resetPosition = () => {
-        this.refs.popup && this.refs.popup.resetPosition();
+        this.refs.guide && this.refs.guide.resetPosition();
     };
 
     clearCloseTimeout = () => {
@@ -45,10 +43,10 @@ class Guide extends Component {
         }
     };
 
-    triggerHandler = (el, triggerEl, popupEl, currentVisible, isBlurClose) => {
+    triggerHandler = (el, triggerEl, guideEl, currentVisible, isBlurClose) => {
 
         while (el) {
-            if (el == popupEl) {
+            if (el == guideEl) {
                 return currentVisible;
             }
             el = el.parentNode;
@@ -61,7 +59,7 @@ class Guide extends Component {
     closeHandler = e => {
 
         const {visible, triggerEl, isBlurClose, triggerHandler, onRequestClose} = this.props,
-            popupEl = this.refs.popup.getEl();
+            guideEl = this.refs.guide.getEl();
 
         if (!triggerEl) {
             return;
@@ -70,9 +68,9 @@ class Guide extends Component {
         let currVisible;
 
         if (triggerHandler) {
-            currVisible = triggerHandler(e.target, triggerEl, popupEl, visible, isBlurClose);
+            currVisible = triggerHandler(e.target, triggerEl, guideEl, visible, isBlurClose);
         } else if (!Dom.isParent(e.target, triggerEl)) {
-            currVisible = this.triggerHandler(e.target, triggerEl, popupEl, visible, isBlurClose);
+            currVisible = this.triggerHandler(e.target, triggerEl, guideEl, visible, isBlurClose);
         }
 
         if (currVisible === false) {
@@ -115,19 +113,19 @@ class Guide extends Component {
 
             } = this.props,
 
-            popupClassName = classNames('popup', {
+            guideClassName = classNames('guide', {
                 [className]: className
             }),
 
-            popupContentClassName = classNames('popup-content', {
+            guideContentClassName = classNames('guide-content', {
                 [contentClassName]: contentClassName
             });
 
         return (
             <TriggerPop {...restProps}
-                        ref="popup"
-                        className={popupClassName}
-                        contentClassName={popupContentClassName}/>
+                        ref="guide"
+                        className={guideClassName}
+                        contentClassName={guideContentClassName}/>
         );
     }
 
@@ -153,11 +151,6 @@ Guide.propTypes = {
     style: PropTypes.object,
 
     /**
-     * The popover theme.Can be primary,highlight,success,warning,error.
-     */
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-    /**
      * This is the DOM element that will be used to set the position of the popover.
      */
     triggerEl: PropTypes.object,
@@ -175,12 +168,12 @@ Guide.propTypes = {
     triangle: PropTypes.element,
 
     /**
-     * The popup alignment.
+     * The guide alignment.
      */
     position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
-     * If true,popup will have animation effects.
+     * If true,guide will have animation effects.
      */
     isAnimated: PropTypes.bool,
 
@@ -196,27 +189,27 @@ Guide.propTypes = {
     showModal: PropTypes.bool,
 
     /**
-     * The function of popup event handler.
+     * The function of guide event handler.
      */
     triggerHandler: PropTypes.func,
 
     /**
-     * The function of popup render.
+     * The function of guide render.
      */
     onRender: PropTypes.func,
 
     /**
-     * The function of popup rendered.
+     * The function of guide rendered.
      */
     onRendered: PropTypes.func,
 
     /**
-     * The function of popup destroy.
+     * The function of guide destroy.
      */
     onDestroy: PropTypes.func,
 
     /**
-     * The function of popup destroyed.
+     * The function of guide destroyed.
      */
     onDestroyed: PropTypes.func,
 
