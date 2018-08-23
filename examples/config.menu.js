@@ -303,6 +303,9 @@ export default [{
     }, {
         text: 'Notification',
         route: '/components/Notification'
+    }, {
+        text: 'Guide',
+        route: '/components/Guide'
     }]
 }, {
     text: 'Media',
