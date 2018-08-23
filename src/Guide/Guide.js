@@ -119,7 +119,7 @@ class Guide extends Component {
 
         const {
 
-                className, contentClassName, type, iconCls, closeIconVisible, closeButtonVisible, closeButtonValue,
+                className, contentClassName, type, iconCls, closeButtonVisible, closeButtonValue,
                 children,
 
                 // not passing down these props
@@ -153,26 +153,19 @@ class Guide extends Component {
                 }
 
                 <div className="guide-message">
+
                     {children}
+
+                    {
+                        closeButtonVisible ?
+                            <AnchorButton className="guide-close-Button"
+                                          value={closeButtonValue}
+                                          onClick={this.clickHandler}/>
+                            :
+                            null
+                    }
+
                 </div>
-
-                {
-                    closeIconVisible ?
-                        <IconButton className="guide-close-icon"
-                                    iconCls="fas fa-times"
-                                    onClick={this.clickHandler}/>
-                        :
-                        null
-                }
-
-                {
-                    closeButtonVisible ?
-                        <AnchorButton className="guide-close-Button"
-                                      value={closeButtonValue}
-                                      onClick={this.clickHandler}/>
-                        :
-                        null
-                }
 
             </TriggerPop>
         );
@@ -244,7 +237,6 @@ Guide.propTypes = {
     isTriggerPositionFixed: PropTypes.bool,
     showModal: PropTypes.bool,
 
-    closeIconVisible: PropTypes.bool,
     closeButtonVisible: PropTypes.bool,
     closeButtonValue: PropTypes.string,
 
@@ -299,7 +291,6 @@ Guide.defaultProps = {
     isTriggerPositionFixed: false,
     showModal: false,
 
-    closeIconVisible: false,
     closeButtonVisible: true,
     closeButtonValue: 'Close'
 

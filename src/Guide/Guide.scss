@@ -19,7 +19,7 @@
         display: block;
         width: 200px;
         height: auto;
-        padding: 15px 15px 15px 50px;
+        padding: 12px 12px 12px 50px;
         box-sizing: border-box;
         border: none;
         border-left-width: $theme-border-radius;
@@ -43,14 +43,13 @@
         }
 
         .guide-close-Button {
-            position: absolute;
-            right: 15px;
-            bottom: 15px;
+            display: block;
             width: auto;
-            height: auto;
+            height: 20px;
             padding: 0px;
             color: inherit;
             opacity: .5;
+            margin-top: 4px;
             transition: opacity $theme-transition-duration ease-in-out;
 
             &:hover {
@@ -67,6 +66,7 @@
         .guide-message {
             text-align: left;
             font-size: 14px;
+            line-height: 20px;
             word-wrap: break-word;
             white-space: normal;
         }
