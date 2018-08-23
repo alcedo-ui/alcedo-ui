@@ -24,11 +24,7 @@ class Guide extends Component {
     static Type = MsgType;
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.closeTimeout = null;
-
     }
 
     /**
@@ -51,55 +47,9 @@ class Guide extends Component {
         }
     };
 
-    clearCloseTimeout = () => {
-        if (this.closeTimeout) {
-            clearTimeout(this.closeTimeout);
-            this.closeTimeout = null;
-        }
-    };
+    componentDidUpdate() {
 
-    triggerHandler = (el, triggerEl, guideEl, currentVisible, isBlurClose) => {
-
-        while (el) {
-            if (el == guideEl) {
-                return currentVisible;
-            }
-            el = el.parentNode;
-        }
-
-        return isBlurClose ? false : currentVisible;
-
-    };
-
-    closeHandler = e => {
-
-        const {visible, triggerEl, isBlurClose, triggerHandler, onRequestClose} = this.props,
-            guideEl = this.refs.guide.getEl();
-
-        if (!triggerEl) {
-            return;
-        }
-
-        let currVisible;
-
-        if (triggerHandler) {
-            currVisible = triggerHandler(e.target, triggerEl, guideEl, visible, isBlurClose);
-        } else if (!Dom.isParent(e.target, triggerEl)) {
-            currVisible = this.triggerHandler(e.target, triggerEl, guideEl, visible, isBlurClose);
-        }
-
-        if (currVisible === false) {
-            this.clearCloseTimeout();
-            this.closeTimeout = setTimeout(() => {
-                onRequestClose && onRequestClose(e);
-            });
-        }
-
-    };
-
-    componentWillReceiveProps(nextProps) {
-
-        const {visible, isEscClose} = nextProps;
+        const {visible, isEscClose} = this.props;
 
         if (isEscClose && visible) {
             PopManagement.push(this);
@@ -108,11 +58,7 @@ class Guide extends Component {
     }
 
     componentWillUnmount() {
-
-        this.clearCloseTimeout();
-
         PopManagement.pop(this);
-
     }
 
     render() {
@@ -120,10 +66,7 @@ class Guide extends Component {
         const {
 
                 className, contentClassName, type, iconCls, closeButtonVisible, closeButtonValue,
-                children,
-
-                // not passing down these props
-                triggerHandler, onRequestClose,
+                children, onRequestClose,
 
                 ...restProps
 
@@ -160,7 +103,7 @@ class Guide extends Component {
                         closeButtonVisible ?
                             <AnchorButton className="guide-close-Button"
                                           value={closeButtonValue}
-                                          onClick={this.clickHandler}/>
+                                          onClick={onRequestClose}/>
                             :
                             null
                     }
@@ -239,11 +182,6 @@ Guide.propTypes = {
 
     closeButtonVisible: PropTypes.bool,
     closeButtonValue: PropTypes.string,
-
-    /**
-     * The function of guide event handler.
-     */
-    triggerHandler: PropTypes.func,
 
     /**
      * The function of guide render.
