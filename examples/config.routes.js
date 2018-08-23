@@ -203,6 +203,9 @@ export default function configureRoutes(store) {
                 }, {
                     path: '/components/Notification',
                     component: ac(() => import('modules/pop/NotificationExamples'), store)
+                }, {
+                    path: '/components/Guide',
+                    component: ac(() => import('modules/pop/GuideExamples'), store)
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- progresses -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */

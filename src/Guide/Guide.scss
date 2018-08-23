@@ -1,0 +1,118 @@
+/**
+ * @file Guide style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+@mixin guide-theme($color) {
+    border-color: $color;
+
+    .guide-icon {
+        color: $color;
+    }
+}
+
+.paper.trigger-pop.guide {
+
+    .guide-content {
+        @include shadow(3);
+        position: relative;
+        display: block;
+        width: 200px;
+        height: auto;
+        padding: 12px 12px 12px 50px;
+        box-sizing: border-box;
+        border: none;
+        border-left-width: $theme-border-radius;
+        border-left-style: solid;
+        border-radius: $theme-border-radius;
+        color: $theme-field;
+        background: $theme-field-bg;
+        overflow: hidden;
+        transition: opacity $theme-transition-duration ease-in-out;
+
+        .guide-icon {
+            position: absolute;
+            top: 5px;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            left: 5px;
+            font-size: 20px;
+            color: inherit;
+            text-align: center;
+        }
+
+        .guide-close-Button {
+            display: block;
+            width: auto;
+            height: 20px;
+            padding: 0px;
+            color: inherit;
+            opacity: .5;
+            margin-top: 4px;
+            transition: opacity $theme-transition-duration ease-in-out;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+
+        .guide-title {
+            line-height: 20px;
+            opacity: .6;
+            text-align: left;
+        }
+
+        .guide-message {
+            text-align: left;
+            font-size: 14px;
+            line-height: 20px;
+            word-wrap: break-word;
+            white-space: normal;
+        }
+
+        &.theme-default {
+            padding-left: 15px;
+        }
+
+        // default theme
+        @include guide-theme($theme-border);
+
+        // other themes
+        &.theme-info {
+            @include guide-theme($theme-info);
+        }
+        &.theme-success {
+            @include guide-theme($theme-success);
+        }
+        &.theme-warning {
+            @include guide-theme($theme-warning);
+        }
+        &.theme-error {
+            @include guide-theme($theme-error);
+        }
+    }
+
+    &.has-close-button {
+        padding-bottom: 45px;
+    }
+
+    &.hidden {
+        opacity: 0;
+    }
+
+    &.leave {
+        margin-top: 0;
+        width: 0;
+        height: 0 !important;
+        padding: 0;
+        margin: 0;
+        transition: opacity $theme-transition-duration ease-in-out,
+        width $theme-transition-duration ease-in-out $theme-transition-duration,
+        height $theme-transition-duration ease-in-out $theme-transition-duration,
+        border $theme-transition-duration ease-in-out $theme-transition-duration,
+        padding $theme-transition-duration ease-in-out $theme-transition-duration,
+        margin $theme-transition-duration ease-in-out $theme-transition-duration;
+    }
+
+}

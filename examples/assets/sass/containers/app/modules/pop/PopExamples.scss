@@ -2,6 +2,10 @@
 
 .pop-examples {
 
+    .material-text-field {
+        margin-top: 24px;
+    }
+
     .trigger-button {
         width: 160px;
         height: 50px;
@@ -12,6 +16,7 @@
         position: relative;
         width: 500px;
         height: 280px;
+        margin-top: 32px;
 
         .button-group {
 
