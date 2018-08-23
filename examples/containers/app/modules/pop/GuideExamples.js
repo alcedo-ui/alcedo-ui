@@ -109,8 +109,7 @@ class GuideExamples extends Component {
                                                   value={type}
                                                   onChange={value => this.updateField('type', value)}/>
 
-                                <MaterialTextField className=""
-                                                   theme={MaterialTextField.Theme.HIGHLIGHT}
+                                <MaterialTextField theme={MaterialTextField.Theme.HIGHLIGHT}
                                                    value={message}
                                                    onChange={value => this.updateField('message', value)}/>
 

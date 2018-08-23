@@ -63,7 +63,7 @@ class Guide extends Component {
 
         const {
 
-                className, contentClassName, type, iconCls, closeButtonVisible, closeButtonValue,
+                className, contentClassName, type, iconVisible, iconCls, closeButtonVisible, closeButtonValue,
                 children, onRequestClose,
 
                 ...restProps
@@ -71,6 +71,7 @@ class Guide extends Component {
             } = this.props,
 
             guideClassName = classNames('guide', {
+                'icon-hidden': !iconVisible,
                 [className]: className
             }),
 
@@ -87,10 +88,10 @@ class Guide extends Component {
                         contentClassName={guideContentClassName}>
 
                 {
-                    type === MsgType.DEFAULT ?
+                    !iconVisible || type === MsgType.DEFAULT ?
                         null
                         :
-                        <i className={`${iconCls ? iconCls : this.getIconCls()} guide-icon`}></i>
+                        <i className={classNames(iconCls ? iconCls : this.getIconCls(), 'guide-icon')}></i>
                 }
 
                 <div className="guide-message">
@@ -160,6 +161,7 @@ Guide.propTypes = {
      */
     position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
+    iconVisible: PropTypes.bool,
     iconCls: PropTypes.string,
 
     /**
@@ -220,6 +222,7 @@ Guide.defaultProps = {
     hasTriangle: true,
     position: Position.BOTTOM,
     isAnimated: true,
+    iconVisible: true,
 
     isBlurClose: true,
     isEscClose: true,

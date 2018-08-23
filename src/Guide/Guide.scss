@@ -93,8 +93,10 @@
         }
     }
 
-    &.has-close-button {
-        padding-bottom: 45px;
+    &.icon-hidden {
+        .guide-content {
+            padding-left: 15px;
+        }
     }
 
     &.hidden {
