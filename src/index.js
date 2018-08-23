@@ -39,6 +39,7 @@ export GhostButton from './GhostButton';
 export Grid from './Grid';
 export GroupGrid from './GroupGrid';
 export GroupList from './GroupList';
+export Guide from './Guide';
 export HuePicker from './HuePicker';
 export IconAnchor from './IconAnchor';
 export IconButton from './IconButton';
@@ -103,4 +104,4 @@ export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 103;
+export const COMPONENTS_TOTAL_COUNT = 104;
