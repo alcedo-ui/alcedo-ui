@@ -1,5 +1,5 @@
 /**
- * @file Popup component
+ * @file Guide component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
@@ -11,6 +11,7 @@ import TriggerPop from '../_TriggerPop';
 import Theme from '../Theme';
 
 import Position from '../_statics/Position';
+import MsgType from '../_statics/MsgType';
 
 import Dom from '../_vendors/Dom';
 import Util from '../_vendors/Util';
@@ -19,6 +20,7 @@ import PopManagement from '../_vendors/PopManagement';
 class Guide extends Component {
 
     static Position = Position;
+    static Type = MsgType;
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
