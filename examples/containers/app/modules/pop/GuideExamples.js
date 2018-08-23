@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {findDOMNode} from 'react-dom';
 
 import RaisedButton from 'src/RaisedButton';
 import Guide from 'src/Guide';
@@ -12,7 +13,6 @@ import doc from 'assets/propTypes/Guide.json';
 
 import 'sass/containers/app/modules/pop/PopExamples.scss';
 import 'sass/containers/app/modules/pop/GuideExamples.scss';
-import {findDOMNode} from 'react-dom';
 
 class GuideExamples extends Component {
 
