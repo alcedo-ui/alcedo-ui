@@ -47,6 +47,10 @@ class Popup extends Component {
 
     triggerHandler = (el, triggerEl, popupEl, currentVisible, isBlurClose) => {
 
+        if (triggerEl && elContains(triggerEl, el)) {
+            return currentVisible;
+        }
+
         while (el) {
             if (el == popupEl) {
                 return currentVisible;
@@ -59,10 +63,6 @@ class Popup extends Component {
     };
 
     closeHandler = e => {
-
-        if (this.props.triggerEl && elContains(this.props.triggerEl, e.target)) {
-            return;
-        }
 
         const {visible, triggerEl, isBlurClose, triggerHandler, onRequestClose} = this.props,
             popupEl = this.refs.popup.getEl();
