@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import elContains from 'dom-helpers/query/contains';
 
 import TriggerPop from '../_TriggerPop';
 import Theme from '../Theme';
@@ -58,6 +59,10 @@ class Popup extends Component {
     };
 
     closeHandler = e => {
+
+        if (this.props.triggerEl && elContains(this.props.triggerEl, e.target)) {
+            return;
+        }
 
         const {visible, triggerEl, isBlurClose, triggerHandler, onRequestClose} = this.props,
             popupEl = this.refs.popup.getEl();
