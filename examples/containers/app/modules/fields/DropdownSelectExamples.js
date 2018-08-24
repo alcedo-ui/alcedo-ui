@@ -149,6 +149,7 @@ class DropdownSelectExamples extends Component {
 
                                 <div className="field-group">
                                     <DropdownSelect data={this.groupData}
+                                                    useFilter={true}
                                                     isGrouped={true}
                                                     displayField={'text'}
                                                     valueField={'value'}
