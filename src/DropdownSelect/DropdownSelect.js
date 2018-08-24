@@ -102,19 +102,23 @@ class DropdownSelect extends Component {
                 item[displayField].toString().toUpperCase().includes(filter.toUpperCase())
                 :
                 item.toString().toUpperCase().includes(filter.toUpperCase()));
-
+        // debugger
         if (isGrouped) {
 
-            let result = Object.assign(data);
+            return data && data.map(group => {
 
-            for (let i = 0, len = result.length; i < len; i++) {
-                let group = result[i];
-                group.children = filterFunc(group.children);
-                if (group.children.length < 1) {
-                    result.splice(i, 1);
-                    i--;
+                const children = filterFunc(group.children);
+
+                if (children.length < 1) {
+                    return;
+                } else {
+                    return {
+                        ...group,
+                        children
+                    };
                 }
-            }
+
+            }).filter(item => !!item);
 
         }
 
