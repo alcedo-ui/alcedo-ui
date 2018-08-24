@@ -685,8 +685,8 @@ DropdownSelect.propTypes = {
     useFilter: PropTypes.bool,
 
     /**
-        * If true,the dropDownSelect will be grouped.
-    */
+     * If true,the dropDownSelect will be grouped.
+     */
     isGrouped: PropTypes.bool,
 
     filterIconCls: PropTypes.string,
