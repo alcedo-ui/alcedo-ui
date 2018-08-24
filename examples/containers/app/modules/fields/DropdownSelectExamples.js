@@ -150,10 +150,8 @@ class DropdownSelectExamples extends Component {
                                 <div className="field-group">
                                     <DropdownSelect data={this.groupData}
                                                     isGrouped={true}
-                                                    selectMode={DropdownSelect.SelectMode.MULTI_SELECT}
                                                     displayField={'text'}
                                                     valueField={'value'}
-                                                    autoClose={false}
                                                     onChange={this.onChange}/>
                                 </div>
 
