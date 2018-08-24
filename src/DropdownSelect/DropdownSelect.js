@@ -684,6 +684,11 @@ DropdownSelect.propTypes = {
      */
     useFilter: PropTypes.bool,
 
+    /**
+        * If true,the dropDownSelect will be grouped.
+    */
+    isGrouped: PropTypes.bool,
+
     filterIconCls: PropTypes.string,
     useSelectAll: PropTypes.bool,
     selectAllText: PropTypes.string,
@@ -764,7 +769,8 @@ DropdownSelect.defaultProps = {
     shouldPreventContainerScroll: true,
     useDynamicRenderList: false,
     isHiddenInputFilter: false,
-    clearHiddenInputFilterInterval: 1000
+    clearHiddenInputFilterInterval: 1000,
+    isGrouped: false
 
 };
 
