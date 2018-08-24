@@ -16,7 +16,11 @@ class DropdownSelectExamples extends Component {
 
         super(props);
 
-        this.data = ['test0', 'test1', {
+        this.data = ['test0', {
+            text: 'test1', value: 1, children: [{
+                text: 'test111', value: 11
+            }]
+        }, {
             text: 'test2',
             value: 2,
             desc: 'Here is test2.',
@@ -31,6 +35,47 @@ class DropdownSelectExamples extends Component {
                 console.log('test6 selected!');
             }
         }, 'test7', 'test8', 'test9'];
+
+        this.groupData = [
+            {
+                name: 'test0', children: [{
+                    text: 'test001', value: 1
+                }, {
+                    text: 'test002', value: 2
+                }, {
+                    text: 'test003', value: 3
+                }, {
+                    text: 'test004', value: 4
+                }]
+            },
+            {
+                name: 'test1',
+                children: [{
+                    text: 'test111', value: 11
+                }]
+            }, {
+                name: 'test2',
+                children: [{
+                    text: 'test221', value: 221
+                }, {
+                    text: 'test222', value: 222
+                }, {
+                    text: 'test223', value: 223
+                }, {
+                    text: 'test224', value: 224
+                }]
+            }, {
+                name: 'test3',
+                children: [{
+                    text: 'test331', value: 331
+                }, {
+                    text: 'test332', value: 332
+                }, {
+                    text: 'test333', value: 333
+                }, {
+                    text: 'test334', value: 334
+                }]
+            }];
 
     }
 
@@ -81,6 +126,32 @@ class DropdownSelectExamples extends Component {
                                                             :
                                                             `${data} (${data})`;
                                                     }}
+                                                    onChange={this.onChange}/>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Group"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p><code>Dropdown Select</code> group example.</p>
+
+                                <div className="field-group">
+                                    <DropdownSelect data={this.groupData}
+                                                    isGrouped={true}
+                                                    displayField={'text'}
+                                                    valueField={'value'}
                                                     onChange={this.onChange}/>
                                 </div>
 

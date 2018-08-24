@@ -9,6 +9,7 @@ import classNames from 'classnames';
 
 import Dropdown from '../Dropdown';
 import TextField from '../TextField';
+import GroupList from '../GroupList';
 import List from '../List';
 import DynamicRenderList from '../DynamicRenderList';
 import Checkbox from '../Checkbox';
@@ -297,7 +298,7 @@ class DropdownSelect extends Component {
                 useDynamicRenderList, listHeight, itemHeight, scrollBuffer, renderer, selectMode, itemDisabled,
                 useFilter, filterIconCls, useSelectAll, selectAllText, valueField, displayField, descriptionField,
                 popupChildren, isHiddenInputFilter, noMatchedMsg, radioUncheckedIconCls, radioCheckedIconCls,
-                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
+                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls, isGrouped,
 
                 ...restProps
 
@@ -413,45 +414,66 @@ class DropdownSelect extends Component {
                                     }
                                 </div>
                                 :
-                                useDynamicRenderList ?
-                                    <DynamicRenderList className="dropdown-select-list"
-                                                       theme={popupTheme}
-                                                       selectMode={selectMode}
-                                                       data={listData}
-                                                       value={value}
-                                                       valueField={valueField}
-                                                       displayField={displayField}
-                                                       descriptionField={descriptionField}
-                                                       listHeight={listHeight}
-                                                       itemHeight={itemHeight}
-                                                       scrollBuffer={scrollBuffer}
-                                                       itemDisabled={itemDisabled}
-                                                       renderer={renderer}
-                                                       radioUncheckedIconCls={radioUncheckedIconCls}
-                                                       radioCheckedIconCls={radioCheckedIconCls}
-                                                       checkboxUncheckedIconCls={checkboxUncheckedIconCls}
-                                                       checkboxCheckedIconCls={checkboxCheckedIconCls}
-                                                       checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
-                                                       onItemClick={this.itemClickHandler}
-                                                       onChange={this.changeHandler}/>
+                                isGrouped ?
+                                    <GroupList className="group-select-list"
+                                               value={value}
+                                               selectMode={selectMode}
+                                               data={listData}
+                                               valueField={valueField}
+                                               displayField={displayField}
+                                               descriptionField={descriptionField}
+                                               listHeight={listHeight}
+                                               itemHeight={itemHeight}
+                                               scrollBuffer={scrollBuffer}
+                                               itemDisabled={itemDisabled}
+                                               renderer={renderer}
+                                               radioUncheckedIconCls={radioUncheckedIconCls}
+                                               radioCheckedIconCls={radioCheckedIconCls}
+                                               checkboxUncheckedIconCls={checkboxUncheckedIconCls}
+                                               checkboxCheckedIconCls={checkboxCheckedIconCls}
+                                               checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
+                                               onItemClick={this.itemClickHandler}
+                                               onChange={this.changeHandler}/>
                                     :
-                                    <List className="dropdown-select-list"
-                                          theme={popupTheme}
-                                          selectMode={selectMode}
-                                          data={listData}
-                                          value={value}
-                                          valueField={valueField}
-                                          displayField={displayField}
-                                          descriptionField={descriptionField}
-                                          itemDisabled={itemDisabled}
-                                          renderer={renderer}
-                                          radioUncheckedIconCls={radioUncheckedIconCls}
-                                          radioCheckedIconCls={radioCheckedIconCls}
-                                          checkboxUncheckedIconCls={checkboxUncheckedIconCls}
-                                          checkboxCheckedIconCls={checkboxCheckedIconCls}
-                                          checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
-                                          onItemClick={this.itemClickHandler}
-                                          onChange={this.changeHandler}/>
+                                    useDynamicRenderList ?
+                                        <DynamicRenderList className="dropdown-select-list"
+                                                           theme={popupTheme}
+                                                           selectMode={selectMode}
+                                                           data={listData}
+                                                           value={value}
+                                                           valueField={valueField}
+                                                           displayField={displayField}
+                                                           descriptionField={descriptionField}
+                                                           listHeight={listHeight}
+                                                           itemHeight={itemHeight}
+                                                           scrollBuffer={scrollBuffer}
+                                                           itemDisabled={itemDisabled}
+                                                           renderer={renderer}
+                                                           radioUncheckedIconCls={radioUncheckedIconCls}
+                                                           radioCheckedIconCls={radioCheckedIconCls}
+                                                           checkboxUncheckedIconCls={checkboxUncheckedIconCls}
+                                                           checkboxCheckedIconCls={checkboxCheckedIconCls}
+                                                           checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
+                                                           onItemClick={this.itemClickHandler}
+                                                           onChange={this.changeHandler}/>
+                                        :
+                                        <List className="dropdown-select-list"
+                                              theme={popupTheme}
+                                              selectMode={selectMode}
+                                              data={listData}
+                                              value={value}
+                                              valueField={valueField}
+                                              displayField={displayField}
+                                              descriptionField={descriptionField}
+                                              itemDisabled={itemDisabled}
+                                              renderer={renderer}
+                                              radioUncheckedIconCls={radioUncheckedIconCls}
+                                              radioCheckedIconCls={radioCheckedIconCls}
+                                              checkboxUncheckedIconCls={checkboxUncheckedIconCls}
+                                              checkboxCheckedIconCls={checkboxCheckedIconCls}
+                                              checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
+                                              onItemClick={this.itemClickHandler}
+                                              onChange={this.changeHandler}/>
                         }
 
                     </div>
