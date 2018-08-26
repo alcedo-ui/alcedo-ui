@@ -4,9 +4,10 @@
  */
 
 import React, {Component} from 'react';
+import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import elContains from 'dom-helpers/query/contains';
+import query from 'dom-helpers/query';
 
 import PositionPop from '../_PositionPop';
 import Paper from '../Paper';
@@ -53,13 +54,11 @@ class Drawer extends Component {
         Dom.removeClass(document.querySelector('body'), 'drawer-modal-lock');
     };
 
-    triggerHandler = (el, drawerEl, currentVisible, isBlurClose) => {
+    triggerHandler = (el, triggerEl, drawerEl, currentVisible, isBlurClose) => {
 
-        while (el) {
-            if (el == drawerEl) {
-                return currentVisible;
-            }
-            el = el.parentNode;
+        if ((triggerEl && el && query.contains(triggerEl, el))
+            || (drawerEl && el && query.contains(drawerEl, el))) {
+            return currentVisible;
         }
 
         return isBlurClose ? false : currentVisible;
@@ -68,19 +67,15 @@ class Drawer extends Component {
 
     closeHandler = e => {
 
-        if (this.props.triggerEl && elContains(this.props.triggerEl, e.target)) {
-            return;
-        }
-
-        const {visible, isBlurClose, triggerHandler, onRequestClose} = this.props,
-            drawerEl = this.refs.drawerContent;
+        const {visible, isBlurClose, triggerEl, triggerHandler, onRequestClose} = this.props,
+            drawerEl = findDOMNode(this.refs.drawerContent);
 
         let currVisible;
 
         if (triggerHandler) {
-            currVisible = triggerHandler(e.target, drawerEl, visible, isBlurClose);
+            currVisible = triggerHandler(e.target, triggerEl, drawerEl, visible, isBlurClose);
         } else if (!Dom.isParent(e.target)) {
-            currVisible = this.triggerHandler(e.target, drawerEl, visible, isBlurClose);
+            currVisible = this.triggerHandler(e.target, triggerEl, drawerEl, visible, isBlurClose);
         }
 
         if (currVisible === false) {
