@@ -23,7 +23,7 @@ class ToastExamples extends Component {
             type: Toaster.Type.INFO,
             position: Toaster.Position.TOP,
             message: 'Message',
-            toasts: []
+            toasts: {}
         };
 
         this.Type = Object.keys(Toaster.Type).map(item => ({
@@ -50,7 +50,11 @@ class ToastExamples extends Component {
 
         const {type, message, toasts} = this.state;
 
-        toasts.push({
+        if (!(position in toasts)) {
+            toasts[position] = [];
+        }
+
+        toasts[position].push({
             type,
             message
         });
@@ -64,13 +68,17 @@ class ToastExamples extends Component {
 
     toastPopHandler = () => {
         this.setState({
-            toasts: []
+            toasts: {}
         });
     };
 
     render() {
 
-        const {type, position, title, message, toasts} = this.state;
+        const {type, position, title, message, toasts} = this.state,
+            {
+                TOP_LEFT, TOP, TOP_RIGHT, RIGHT_TOP, RIGHT, RIGHT_BOTTOM, CENTER,
+                BOTTOM_LEFT, BOTTOM, BOTTOM_RIGHT, LEFT_TOP, LEFT, LEFT_BOTTOM
+            } = Toaster.Position;
 
         return (
             <div className="example pop-examples toast-examples">
@@ -78,7 +86,8 @@ class ToastExamples extends Component {
                 <h2 className="example-title">Toast</h2>
 
                 <p>
-                    <span>Toast</span> is a global display notification alert information .
+                    <span>Toast</span>
+                    is a global display notification alert information .
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -94,102 +103,108 @@ class ToastExamples extends Component {
 
                                 <ButtonRadioGroup data={this.Type}
                                                   value={type}
-                                                  onChange={value => {
-                                                      this.updateField('type', value);
-                                                  }}/>
+                                                  onChange={value => this.updateField('type', value)}/>
 
                                 <MaterialTextField theme={MaterialTextField.Theme.HIGHLIGHT}
                                                    value={message}
-                                                   onChange={value => {
-                                                       this.updateField('message', value);
-                                                   }}/>
+                                                   onChange={value => this.updateField('message', value)}/>
 
                                 <div className="button-group-wrapper">
 
                                     <div className="button-group top">
                                         <RaisedButton className="trigger-position-button"
                                                       value="Top Left"
-                                                      onClick={() => {
-                                                          this.addToast(Toaster.Position.TOP_LEFT);
-                                                      }}/>
+                                                      onClick={() => this.addToast(TOP_LEFT)}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Top"
-                                                      onClick={() => {
-                                                          this.addToast(Toaster.Position.TOP);
-                                                      }}/>
+                                                      onClick={() => this.addToast(TOP)}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Top right"
-                                                      onClick={() => {
-                                                          this.addToast(Toaster.Position.TOP_RIGHT);
-                                                      }}/>
+                                                      onClick={() => this.addToast(TOP_RIGHT)}/>
                                     </div>
 
                                     <div className="button-group right">
                                         <RaisedButton className="trigger-position-button"
                                                       value="Right Top"
-                                                      onClick={() => {
-                                                          this.addToast(Toaster.Position.RIGHT_TOP);
-                                                      }}/>
+                                                      onClick={() => this.addToast(RIGHT_TOP)}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Right"
-                                                      onClick={() => {
-                                                          this.addToast(Toaster.Position.RIGHT);
-                                                      }}/>
+                                                      onClick={() => this.addToast(RIGHT)}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Right Bottom"
-                                                      onClick={() => {
-                                                          this.addToast(Toaster.Position.RIGHT_BOTTOM);
-                                                      }}/>
+                                                      onClick={() => this.addToast(RIGHT_BOTTOM)}/>
                                     </div>
 
                                     <div className="button-group bottom">
                                         <RaisedButton className="trigger-position-button"
                                                       value="Bottom Left"
-                                                      onClick={() => {
-                                                          this.addToast(Toaster.Position.BOTTOM_LEFT);
-                                                      }}/>
+                                                      onClick={() => this.addToast(BOTTOM_LEFT)}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Bottom"
-                                                      onClick={() => {
-                                                          this.addToast(Toaster.Position.BOTTOM);
-                                                      }}/>
+                                                      onClick={() => this.addToast(BOTTOM)}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Bottom Right"
-                                                      onClick={() => {
-                                                          this.addToast(Toaster.Position.BOTTOM_RIGHT);
-                                                      }}/>
+                                                      onClick={() => this.addToast(BOTTOM_RIGHT)}/>
                                     </div>
 
                                     <div className="button-group left">
                                         <RaisedButton className="trigger-position-button"
                                                       value="Left Top"
-                                                      onClick={() => {
-                                                          this.addToast(Toaster.Position.LEFT_TOP);
-                                                      }}/>
+                                                      onClick={() => this.addToast(LEFT_TOP)}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Left"
-                                                      onClick={() => {
-                                                          this.addToast(Toaster.Position.LEFT);
-                                                      }}/>
+                                                      onClick={() => this.addToast(LEFT)}/>
                                         <RaisedButton className="trigger-position-button"
                                                       value="Left Bottom"
-                                                      onClick={() => {
-                                                          this.addToast(Toaster.Position.LEFT_BOTTOM);
-                                                      }}/>
+                                                      onClick={() => this.addToast(LEFT_BOTTOM)}/>
                                     </div>
 
                                     <div className="button-group center">
                                         <RaisedButton className="trigger-position-button"
                                                       value="Center"
-                                                      onClick={() => {
-                                                          this.addToast(Toaster.Position.CENTER);
-                                                      }}/>
+                                                      onClick={() => this.addToast(CENTER)}/>
                                     </div>
 
                                 </div>
 
-                                <Toaster toasts={toasts}
-                                         position={position}
+                                <Toaster toasts={toasts[TOP_LEFT]}
+                                         position={TOP_LEFT}
+                                         onToastPop={this.toastPopHandler}/>
+                                <Toaster toasts={toasts[TOP]}
+                                         position={TOP}
+                                         onToastPop={this.toastPopHandler}/>
+                                <Toaster toasts={toasts[TOP_RIGHT]}
+                                         position={TOP_RIGHT}
+                                         onToastPop={this.toastPopHandler}/>
+                                <Toaster toasts={toasts[RIGHT_TOP]}
+                                         position={RIGHT_TOP}
+                                         onToastPop={this.toastPopHandler}/>
+                                <Toaster toasts={toasts[RIGHT]}
+                                         position={RIGHT}
+                                         onToastPop={this.toastPopHandler}/>
+                                <Toaster toasts={toasts[RIGHT_BOTTOM]}
+                                         position={RIGHT_BOTTOM}
+                                         onToastPop={this.toastPopHandler}/>
+                                <Toaster toasts={toasts[CENTER]}
+                                         position={CENTER}
+                                         onToastPop={this.toastPopHandler}/>
+                                <Toaster toasts={toasts[BOTTOM_LEFT]}
+                                         position={BOTTOM_LEFT}
+                                         onToastPop={this.toastPopHandler}/>
+                                <Toaster toasts={toasts[BOTTOM]}
+                                         position={BOTTOM}
+                                         onToastPop={this.toastPopHandler}/>
+                                <Toaster toasts={toasts[BOTTOM_RIGHT]}
+                                         position={BOTTOM_RIGHT}
+                                         onToastPop={this.toastPopHandler}/>
+                                <Toaster toasts={toasts[LEFT_TOP]}
+                                         position={LEFT_TOP}
+                                         onToastPop={this.toastPopHandler}/>
+                                <Toaster toasts={toasts[LEFT]}
+                                         position={LEFT}
+                                         onToastPop={this.toastPopHandler}/>
+                                <Toaster toasts={toasts[LEFT_BOTTOM]}
+                                         position={LEFT_BOTTOM}
                                          onToastPop={this.toastPopHandler}/>
 
                             </div>
