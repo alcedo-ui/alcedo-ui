@@ -56,6 +56,11 @@ class Drawer extends Component {
 
     triggerHandler = (el, triggerEl, drawerEl, currentVisible, isBlurClose) => {
 
+        // el is missing
+        if (el && !query.contains(document, el)) {
+            return currentVisible;
+        }
+
         if ((triggerEl && el && query.contains(triggerEl, el))
             || (drawerEl && el && query.contains(drawerEl, el))) {
             return currentVisible;
