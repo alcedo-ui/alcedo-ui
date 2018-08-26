@@ -47,6 +47,11 @@ class Popup extends Component {
 
     triggerHandler = (el, triggerEl, popupEl, currentVisible, isBlurClose) => {
 
+        // el is missing
+        if (el && !query.contains(document, el)) {
+            return currentVisible;
+        }
+
         if ((triggerEl && el && query.contains(triggerEl, el))
             || (popupEl && el && query.contains(popupEl, el))) {
             return currentVisible;
