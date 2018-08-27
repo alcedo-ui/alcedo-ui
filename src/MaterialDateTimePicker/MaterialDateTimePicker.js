@@ -280,9 +280,7 @@ class MaterialDateTimePicker extends Component {
                        position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        hasTriangle={false}
                        onRender={this.popupRenderHandler}
-                       onRequestClose={() => {
-                           this.closePopup();
-                       }}>
+                       onRequestClose={this.closePopup}>
 
                     {
                         datePickerLevel == 'day' ?
@@ -478,10 +476,10 @@ MaterialDateTimePicker.defaultProps = {
     placeholder: 'Date',
     dateFormat: 'YYYY-MM-DD HH:mm:ss',
     isFooter: true,
-    previousYearIconCls:'fas fa-angle-double-left',
-    previousMonthIconCls:'fas fa-angle-left',
-    nextYearIconCls:'fas fa-angle-double-right',
-    nextMonthIconCls:'fas fa-angle-right',
+    previousYearIconCls: 'fas fa-angle-double-left',
+    previousMonthIconCls: 'fas fa-angle-left',
+    nextYearIconCls: 'fas fa-angle-double-right',
+    nextMonthIconCls: 'fas fa-angle-right',
     position: Position.BOTTOM_LEFT,
     readOnly: false
 };

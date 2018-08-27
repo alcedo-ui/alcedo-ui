@@ -193,9 +193,7 @@ class TimePicker extends Component {
                            position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                            hasTriangle={false}
                            onRender={this.popupRenderHandler}
-                           onRequestClose={() => {
-                               this.closePopup();
-                           }}>
+                           onRequestClose={this.closePopup}>
                         <TimeList hour={hour}
                                   minute={minute}
                                   second={second}
