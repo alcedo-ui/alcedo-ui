@@ -28,6 +28,7 @@ class TextField extends Component {
         super(props, ...restArgs);
 
         this.state = {
+            value: props.value,
             isFocused: props.autoFocus ? true : false,
             passwordVisible: false,
             infoVisible: false,
@@ -83,10 +84,13 @@ class TextField extends Component {
 
     clearValue = () => {
 
+        console.log('111');
+
         const {disabled, clearButtonVisible, onClear, onChange, onValid, onInvalid} = this.props,
             invalidMsgs = Valid.fieldValid('', this.props);
 
         !disabled && clearButtonVisible && this.setState({
+            value: '',
             invalidMsgs
         }, () => {
 
