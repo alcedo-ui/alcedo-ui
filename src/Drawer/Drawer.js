@@ -75,6 +75,10 @@ class Drawer extends Component {
         const {visible, isBlurClose, triggerEl, triggerHandler, onRequestClose} = this.props,
             drawerEl = findDOMNode(this.refs.drawerContent);
 
+        if (!visible || !triggerEl) {
+            return;
+        }
+
         let currVisible;
 
         if (triggerHandler) {
