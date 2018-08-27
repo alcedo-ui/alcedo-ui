@@ -66,7 +66,7 @@ class Popup extends Component {
         const {visible, triggerEl, isBlurClose, triggerHandler, onRequestClose} = this.props,
             popupEl = this.refs.popup.getEl();
 
-        if (!triggerEl) {
+        if (!visible || !triggerEl) {
             return;
         }
 
