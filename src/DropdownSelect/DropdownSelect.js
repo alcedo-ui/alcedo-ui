@@ -693,6 +693,9 @@ DropdownSelect.propTypes = {
     useSelectAll: PropTypes.bool,
     selectAllText: PropTypes.string,
 
+    isHiddenInputFilter: PropTypes.bool,
+    clearHiddenInputFilterInterval: PropTypes.number,
+
     /**
      * The message of no matching option.
      */
@@ -739,9 +742,7 @@ DropdownSelect.propTypes = {
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
     onMouseOver: PropTypes.func,
-    onMouseOut: PropTypes.func,
-    isHiddenInputFilter: PropTypes.bool,
-    clearHiddenInputFilterInterval: PropTypes.number
+    onMouseOut: PropTypes.func
 
 };
 
