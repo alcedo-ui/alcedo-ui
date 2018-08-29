@@ -42,6 +42,44 @@ class TreeSelect extends Component {
 
     }
 
+    /**
+     * public
+     */
+    startRipple = (e, props) => {
+        this.refs.dropdown && this.refs.dropdown.startRipple(e, props);
+    };
+
+    /**
+     * public
+     */
+    endRipple = () => {
+        this.refs.dropdown && this.refs.dropdown.endRipple();
+    };
+
+    /**
+     * public
+     */
+    triggerRipple = (e, props) => {
+        this.refs.dropdown && this.refs.dropdown.triggerRipple(e, props);
+    };
+
+    /**
+     * public
+     */
+    resetPopupPosition = () => {
+        this.refs.dropdown && this.refs.dropdown.resetPosition();
+    };
+
+    /**
+     * public
+     */
+    openPopup = () => {
+        this.refs.dropdown && this.refs.dropdown.openPopup();
+    };
+
+    /**
+     * public
+     */
     closePopup = () => {
         this.refs.dropdown && this.refs.dropdown.closePopup();
     };

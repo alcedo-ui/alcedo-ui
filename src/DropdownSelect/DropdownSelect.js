@@ -9,6 +9,7 @@ import classNames from 'classnames';
 
 import Dropdown from '../Dropdown';
 import TextField from '../TextField';
+import GroupList from '../GroupList';
 import List from '../List';
 import DynamicRenderList from '../DynamicRenderList';
 import Checkbox from '../Checkbox';
@@ -39,6 +40,44 @@ class DropdownSelect extends Component {
 
     }
 
+    /**
+     * public
+     */
+    startRipple = (e, props) => {
+        this.refs.dropdown && this.refs.dropdown.startRipple(e, props);
+    };
+
+    /**
+     * public
+     */
+    endRipple = () => {
+        this.refs.dropdown && this.refs.dropdown.endRipple();
+    };
+
+    /**
+     * public
+     */
+    triggerRipple = (e, props) => {
+        this.refs.dropdown && this.refs.dropdown.triggerRipple(e, props);
+    };
+
+    /**
+     * public
+     */
+    resetPopupPosition = () => {
+        this.refs.dropdown && this.refs.dropdown.resetPosition();
+    };
+
+    /**
+     * public
+     */
+    openPopup = () => {
+        this.refs.dropdown && this.refs.dropdown.openPopup();
+    };
+
+    /**
+     * public
+     */
     closePopup = () => {
         this.refs.dropdown && this.refs.dropdown.closePopup();
     };
@@ -63,19 +102,23 @@ class DropdownSelect extends Component {
                 item[displayField].toString().toUpperCase().includes(filter.toUpperCase())
                 :
                 item.toString().toUpperCase().includes(filter.toUpperCase()));
-
+        // debugger
         if (isGrouped) {
 
-            let result = Object.assign(data);
+            return data && data.map(group => {
 
-            for (let i = 0, len = result.length; i < len; i++) {
-                let group = result[i];
-                group.children = filterFunc(group.children);
-                if (group.children.length < 1) {
-                    result.splice(i, 1);
-                    i--;
+                const children = filterFunc(group.children);
+
+                if (children.length < 1) {
+                    return;
+                } else {
+                    return {
+                        ...group,
+                        children
+                    };
                 }
-            }
+
+            }).filter(item => !!item);
 
         }
 
@@ -256,10 +299,10 @@ class DropdownSelect extends Component {
         const {
 
                 className, triggerClassName, popupClassName, style, name, popupTheme, data, triggerRenderer,
-                useDynamicRenderList, listHeight, itemHeight, scrollBuffer, renderer, selectMode,
+                useDynamicRenderList, listHeight, itemHeight, scrollBuffer, renderer, selectMode, itemDisabled,
                 useFilter, filterIconCls, useSelectAll, selectAllText, valueField, displayField, descriptionField,
                 popupChildren, isHiddenInputFilter, noMatchedMsg, radioUncheckedIconCls, radioCheckedIconCls,
-                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
+                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls, isGrouped,
 
                 ...restProps
 
@@ -375,43 +418,66 @@ class DropdownSelect extends Component {
                                     }
                                 </div>
                                 :
-                                useDynamicRenderList ?
-                                    <DynamicRenderList className="dropdown-select-list"
-                                                       theme={popupTheme}
-                                                       selectMode={selectMode}
-                                                       data={listData}
-                                                       value={value}
-                                                       valueField={valueField}
-                                                       displayField={displayField}
-                                                       descriptionField={descriptionField}
-                                                       listHeight={listHeight}
-                                                       itemHeight={itemHeight}
-                                                       scrollBuffer={scrollBuffer}
-                                                       renderer={renderer}
-                                                       radioUncheckedIconCls={radioUncheckedIconCls}
-                                                       radioCheckedIconCls={radioCheckedIconCls}
-                                                       checkboxUncheckedIconCls={checkboxUncheckedIconCls}
-                                                       checkboxCheckedIconCls={checkboxCheckedIconCls}
-                                                       checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
-                                                       onItemClick={this.itemClickHandler}
-                                                       onChange={this.changeHandler}/>
+                                isGrouped ?
+                                    <GroupList className="group-select-list"
+                                               value={value}
+                                               selectMode={selectMode}
+                                               data={listData}
+                                               valueField={valueField}
+                                               displayField={displayField}
+                                               descriptionField={descriptionField}
+                                               listHeight={listHeight}
+                                               itemHeight={itemHeight}
+                                               scrollBuffer={scrollBuffer}
+                                               itemDisabled={itemDisabled}
+                                               renderer={renderer}
+                                               radioUncheckedIconCls={radioUncheckedIconCls}
+                                               radioCheckedIconCls={radioCheckedIconCls}
+                                               checkboxUncheckedIconCls={checkboxUncheckedIconCls}
+                                               checkboxCheckedIconCls={checkboxCheckedIconCls}
+                                               checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
+                                               onItemClick={this.itemClickHandler}
+                                               onChange={this.changeHandler}/>
                                     :
-                                    <List className="dropdown-select-list"
-                                          theme={popupTheme}
-                                          selectMode={selectMode}
-                                          data={listData}
-                                          value={value}
-                                          valueField={valueField}
-                                          displayField={displayField}
-                                          descriptionField={descriptionField}
-                                          renderer={renderer}
-                                          radioUncheckedIconCls={radioUncheckedIconCls}
-                                          radioCheckedIconCls={radioCheckedIconCls}
-                                          checkboxUncheckedIconCls={checkboxUncheckedIconCls}
-                                          checkboxCheckedIconCls={checkboxCheckedIconCls}
-                                          checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
-                                          onItemClick={this.itemClickHandler}
-                                          onChange={this.changeHandler}/>
+                                    useDynamicRenderList ?
+                                        <DynamicRenderList className="dropdown-select-list"
+                                                           theme={popupTheme}
+                                                           selectMode={selectMode}
+                                                           data={listData}
+                                                           value={value}
+                                                           valueField={valueField}
+                                                           displayField={displayField}
+                                                           descriptionField={descriptionField}
+                                                           listHeight={listHeight}
+                                                           itemHeight={itemHeight}
+                                                           scrollBuffer={scrollBuffer}
+                                                           itemDisabled={itemDisabled}
+                                                           renderer={renderer}
+                                                           radioUncheckedIconCls={radioUncheckedIconCls}
+                                                           radioCheckedIconCls={radioCheckedIconCls}
+                                                           checkboxUncheckedIconCls={checkboxUncheckedIconCls}
+                                                           checkboxCheckedIconCls={checkboxCheckedIconCls}
+                                                           checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
+                                                           onItemClick={this.itemClickHandler}
+                                                           onChange={this.changeHandler}/>
+                                        :
+                                        <List className="dropdown-select-list"
+                                              theme={popupTheme}
+                                              selectMode={selectMode}
+                                              data={listData}
+                                              value={value}
+                                              valueField={valueField}
+                                              displayField={displayField}
+                                              descriptionField={descriptionField}
+                                              itemDisabled={itemDisabled}
+                                              renderer={renderer}
+                                              radioUncheckedIconCls={radioUncheckedIconCls}
+                                              radioCheckedIconCls={radioCheckedIconCls}
+                                              checkboxUncheckedIconCls={checkboxUncheckedIconCls}
+                                              checkboxCheckedIconCls={checkboxCheckedIconCls}
+                                              checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
+                                              onItemClick={this.itemClickHandler}
+                                              onChange={this.changeHandler}/>
                         }
 
                     </div>
@@ -574,6 +640,11 @@ DropdownSelect.propTypes = {
     disabled: PropTypes.bool,
 
     /**
+     * List item disabled callback.
+     */
+    itemDisabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+
+    /**
      * The select mode of listItem.Can be normal,checkbox.
      */
     selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
@@ -612,6 +683,11 @@ DropdownSelect.propTypes = {
      * If true,the drop-down box will have search input.
      */
     useFilter: PropTypes.bool,
+
+    /**
+     * If true,the dropDownSelect will be grouped.
+     */
+    isGrouped: PropTypes.bool,
 
     filterIconCls: PropTypes.string,
     useSelectAll: PropTypes.bool,
@@ -664,8 +740,6 @@ DropdownSelect.propTypes = {
     onBlur: PropTypes.func,
     onMouseOver: PropTypes.func,
     onMouseOut: PropTypes.func,
-    onMouseOver: PropTypes.func,
-    onMouseOut: PropTypes.func,
     isHiddenInputFilter: PropTypes.bool,
     clearHiddenInputFilterInterval: PropTypes.number
 
@@ -680,6 +754,7 @@ DropdownSelect.defaultProps = {
     rightIconCls: 'fas fa-angle-down',
     data: [],
     disabled: false,
+    itemDisabled: false,
     selectMode: SelectMode.SINGLE_SELECT,
 
     valueField: 'value',
@@ -694,7 +769,8 @@ DropdownSelect.defaultProps = {
     shouldPreventContainerScroll: true,
     useDynamicRenderList: false,
     isHiddenInputFilter: false,
-    clearHiddenInputFilterInterval: 1000
+    clearHiddenInputFilterInterval: 1000,
+    isGrouped: false
 
 };
 

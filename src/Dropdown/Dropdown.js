@@ -36,32 +36,47 @@ class Dropdown extends Component {
     /**
      * public
      */
+    startRipple = (e, props) => {
+        this.refs.trigger && this.refs.trigger.startRipple(e, props);
+    };
+
+    /**
+     * public
+     */
+    endRipple = () => {
+        this.refs.trigger && this.refs.trigger.endRipple();
+    };
+
+    /**
+     * public
+     */
+    triggerRipple = (e, props) => {
+        this.refs.trigger && this.refs.trigger.triggerRipple(e, props);
+    };
+
+    /**
+     * public
+     */
     resetPopupPosition = () => {
-        this.refs.popup.resetPosition();
+        this.refs.popup && this.refs.popup.resetPosition();
     };
 
-    togglePopup = e => {
-
-        const popupVisible = !this.state.popupVisible;
-
+    /**
+     * public
+     */
+    openPopup = e => {
         this.setState({
-            popupVisible
+            popupVisible: true
         }, () => {
-
-            const {onTriggerClick, onFocus, onBlur, onOpenPopup} = this.props;
-            onTriggerClick && onTriggerClick(popupVisible);
-
-            if (popupVisible) {
-                onFocus && onFocus(e);
-                onOpenPopup && onOpenPopup(e);
-            } else {
-                onBlur && onBlur(e);
-            }
-
+            const {onOpenPopup, onFocus} = this.props;
+            onOpenPopup && onOpenPopup(e);
+            onFocus && onFocus(e);
         });
-
     };
 
+    /**
+     * public
+     */
     closePopup = e => {
         this.setState({
             popupVisible: false
@@ -70,6 +85,21 @@ class Dropdown extends Component {
             onClosePopup && onClosePopup(e);
             onBlur && onBlur(e);
         });
+    };
+
+    togglePopup = e => {
+
+        const {onTriggerClick} = this.props,
+            {popupVisible} = this.state;
+
+        onTriggerClick && onTriggerClick(popupVisible, e);
+
+        if (popupVisible) {
+            this.closePopup(e);
+        } else {
+            this.openPopup(e);
+        }
+
     };
 
     popupRenderHandler = popupEl => {

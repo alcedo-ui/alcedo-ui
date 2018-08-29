@@ -35,6 +35,33 @@ class List extends Component {
 
     }
 
+    /**
+     * public
+     */
+    adjustScroll = () => {
+
+        const {data} = this.props,
+            {value} = this.state,
+            index = data.indexOf(value);
+
+        if (index < 0) {
+            return;
+        }
+
+        const listHeight = this.listEl.clientHeight,
+            listScrollTop = this.listEl.scrollTop,
+            itemEl = this.listEl.childNodes[index],
+            itemHeight = itemEl.clientHeight,
+            itemTop = itemEl.offsetTop;
+
+        if (itemTop < listScrollTop) {
+            this.listEl.scrollTop = itemTop;
+        } else if (itemTop + itemHeight > listScrollTop + listHeight) {
+            this.listEl.scrollTop = itemTop + itemHeight - listHeight;
+        }
+
+    };
+
     listItemSelectHandler = (item, index) => {
 
         const {selectMode} = this.props,
@@ -95,28 +122,17 @@ class List extends Component {
 
     };
 
-    adjustScroll = () => {
-
+    isListDisabled = listDisabled => {
         const {data} = this.props,
-            {value} = this.state,
-            index = data.indexOf(value);
+            {value} = this.state;
+        return (typeof listDisabled === 'function' ? listDisabled(value, data) : listDisabled);
+    };
 
-        if (index < 0) {
-            return;
-        }
-
-        const listHeight = this.listEl.clientHeight,
-            listScrollTop = this.listEl.scrollTop,
-            itemEl = this.listEl.childNodes[index],
-            itemHeight = itemEl.clientHeight,
-            itemTop = itemEl.offsetTop;
-
-        if (itemTop < listScrollTop) {
-            this.listEl.scrollTop = itemTop;
-        } else if (itemTop + itemHeight > listScrollTop + listHeight) {
-            this.listEl.scrollTop = itemTop + itemHeight - listHeight;
-        }
-
+    isItemDisabled = (listItemDisabled, itemDisabled, item) => {
+        const {data} = this.props,
+            {value} = this.state;
+        return (typeof listItemDisabled === 'function' ? listItemDisabled(item, value, data) : listItemDisabled)
+            || (typeof itemDisabled === 'function' ? itemDisabled(item, value, data) : itemDisabled);
     };
 
     componentDidMount() {
@@ -139,8 +155,8 @@ class List extends Component {
 
         const {
 
-                theme, itemHeight, idField, valueField, displayField, descriptionField, disabled, isLoading, renderer,
-                autoSelect, disableTouchRipple, selectTheme, selectMode, indeterminateCallback,
+                theme, itemHeight, idField, valueField, displayField, descriptionField, disabled, itemDisabled,
+                isLoading, renderer, autoSelect, disableTouchRipple, selectTheme, selectMode, indeterminateCallback,
                 radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
@@ -166,7 +182,7 @@ class List extends Component {
                       value={Util.getValueByValueField(item, valueField, displayField)}
                       text={Util.getTextByDisplayField(item, displayField, valueField)}
                       desc={item[descriptionField] || null}
-                      disabled={disabled || item.disabled}
+                      disabled={this.isListDisabled(disabled) || this.isItemDisabled(itemDisabled, item.disabled, item)}
                       isLoading={isLoading || item.isLoading}
                       selectMode={selectMode}
                       renderer={renderer}
@@ -218,7 +234,7 @@ class List extends Component {
         return (
             <div ref="list"
                  className={listClassName}
-                 disabled={disabled}
+                 disabled={this.isListDisabled(disabled)}
                  style={style}
                  onWheel={e => Event.wheelHandler(e, this.props)}>
 
@@ -305,7 +321,7 @@ List.propTypes = {
         /**
          * If true,the list item will be disabled.
          */
-        disabled: PropTypes.bool,
+        disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 
         /**
          * If true,the button will be have loading effect.
@@ -379,7 +395,12 @@ List.propTypes = {
     /**
      * If true, the list will be disabled.
      */
-    disabled: PropTypes.bool,
+    disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+
+    /**
+     * List item disabled callback.
+     */
+    itemDisabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 
     /**
      * If true,the element's ripple effect will be disabled.
@@ -450,6 +471,7 @@ List.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
     disabled: false,
+    itemDisabled: false,
     disableTouchRipple: false,
     autoSelect: true,
     shouldPreventContainerScroll: true,

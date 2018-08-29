@@ -1,9 +1,9 @@
-const chalk = require('chalk'),
-    webpack = require('webpack'),
+const webpack = require('webpack'),
+    log = require('friendly-errors-webpack-plugin/src/output'),
 
     webpackConfig = require('./webpack.config.prod.js');
 
-console.log(chalk.cyan('Building For Production...\n'));
+log.title('info', 'WAIT', `Building Production... `);
 
 webpack(webpackConfig, (err, stats) => {
 
@@ -19,6 +19,6 @@ webpack(webpackConfig, (err, stats) => {
         chunkModules: false
     }) + '\n\n');
 
-    console.log(chalk.cyan('Build Complete.'));
+    log.title('success', 'DONE', `Build Complete `);
 
 });

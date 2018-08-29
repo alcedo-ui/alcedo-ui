@@ -57,7 +57,8 @@ input::-ms-clear {
 
         &.clear-icon {
             right: -99999px;
-            transition: right 0s;
+            //transition: right 0s;
+            transition: right 0s $theme-transition-duration;
         }
 
         &.password-visible-icon {
@@ -106,12 +107,6 @@ input::-ms-clear {
         line-height: 1;
         pointer-events: none;
         user-select: none;
-    }
-
-    &.focused {
-        .clear-icon {
-            transition: right 0s $theme-transition-duration;
-        }
     }
 
     &.has-icon {

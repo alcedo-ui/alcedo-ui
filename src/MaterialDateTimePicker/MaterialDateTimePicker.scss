@@ -10,6 +10,7 @@ input::-ms-clear {
 .material-date-time-picker {
     position: relative;
     width: 300px;
+    display: inline-block;
 
     .material-date-time-picker-field {
         width: 100%;

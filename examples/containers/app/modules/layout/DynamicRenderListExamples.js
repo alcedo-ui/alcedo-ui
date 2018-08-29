@@ -27,7 +27,11 @@ class DynamicRenderListExamples extends Component {
     }
 
     changeHandler = value => {
-        console.log(value);
+        console.log('onChange: ', value);
+    };
+
+    renderItemChangeHandler = data => {
+        console.log('onRenderItemChange: ', data);
     };
 
     render() {
@@ -37,7 +41,8 @@ class DynamicRenderListExamples extends Component {
                 <h2 className="example-title">DynamicRenderList</h2>
 
                 <p>
-                    <span>DynamicRenderList</span> are used to present multiple items vertically as a single continuous
+                    <span>DynamicRenderList</span>
+                    are used to present multiple items vertically as a single continuous
                     element. They can be configured for many uses such as a contacts list, nested lists, etc.
                 </p>
 
@@ -57,7 +62,8 @@ class DynamicRenderListExamples extends Component {
                                 <Paper>
                                     <DynamicRenderList data={this.listData}
                                                        selectMode={DynamicRenderList.SelectMode.MULTI_SELECT}
-                                                       onChange={this.changeHandler}/>
+                                                       onChange={this.changeHandler}
+                                                       onRenderItemChange={this.renderItemChangeHandler}/>
                                 </Paper>
 
                             </div>

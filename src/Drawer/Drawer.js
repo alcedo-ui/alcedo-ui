@@ -4,8 +4,10 @@
  */
 
 import React, {Component} from 'react';
+import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import query from 'dom-helpers/query';
 
 import PositionPop from '../_PositionPop';
 import Paper from '../Paper';
@@ -52,30 +54,33 @@ class Drawer extends Component {
         Dom.removeClass(document.querySelector('body'), 'drawer-modal-lock');
     };
 
-    triggerHandler = (el, drawerEl, currentVisible, isBlurClose) => {
+    triggerHandler = (el, triggerEl, drawerEl, currentVisible, isBlurClose) => {
 
-        while (el) {
-            if (el == drawerEl) {
-                return currentVisible;
-            }
-            el = el.parentNode;
+        // el is missing
+        if (el && !query.contains(document, el)) {
+            return currentVisible;
+        }
+
+        if ((triggerEl && el && query.contains(triggerEl, el))
+            || (drawerEl && el && query.contains(drawerEl, el))) {
+            return currentVisible;
         }
 
         return isBlurClose ? false : currentVisible;
 
     };
 
-    mouseDownHandler = e => {
+    closeHandler = e => {
 
-        const {visible, isBlurClose, triggerHandler, onRequestClose} = this.props,
-            drawerEl = this.refs.drawerContent;
+        const {visible, isBlurClose, triggerEl, triggerHandler, onRequestClose} = this.props,
+            drawerEl = findDOMNode(this.refs.drawerContent);
 
         let currVisible;
 
         if (triggerHandler) {
-            currVisible = triggerHandler(e.target, drawerEl, visible, isBlurClose);
+            currVisible = triggerHandler(e.target, triggerEl, drawerEl, visible, isBlurClose);
         } else if (!Dom.isParent(e.target)) {
-            currVisible = this.triggerHandler(e.target, drawerEl, visible, isBlurClose);
+            currVisible = this.triggerHandler(e.target, triggerEl, drawerEl, visible, isBlurClose);
         }
 
         if (currVisible === false) {
@@ -89,7 +94,7 @@ class Drawer extends Component {
 
     componentDidMount() {
         this.setBodyLock();
-        Event.addEvent(document, 'mousedown', this.mouseDownHandler);
+        Event.addEvent(document, 'click', this.closeHandler);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -110,7 +115,7 @@ class Drawer extends Component {
 
         this.resetBody();
         this.clearCloseTimeout();
-        Event.removeEvent(document, 'mousedown', this.mouseDownHandler);
+        Event.removeEvent(document, 'click', this.closeHandler);
 
         PopManagement.pop(this);
 
@@ -123,8 +128,7 @@ class Drawer extends Component {
                 className,
 
                 // not passing down these props
-                isBlurClose, isEscClose,
-                onRender, onRequestClose,
+                triggerEl, isBlurClose, isEscClose, onRender, onRequestClose,
 
                 ...restProps
 
@@ -169,6 +173,8 @@ Drawer.propTypes = {
      */
     position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
+    triggerEl: PropTypes.object,
+
     /**
      * If true,the element will disabled.
      */
@@ -195,6 +201,8 @@ Drawer.propTypes = {
      * The function of drawer render.
      */
     onRender: PropTypes.func,
+
+    triggerHandler: PropTypes.func,
 
     /**
      * The function that trigger when click submit.

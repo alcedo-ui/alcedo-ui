@@ -318,7 +318,9 @@ class DateRangePicker extends Component {
 
     render() {
 
-        const {className, style, name, placeholder, dateFormat, maxValue, minValue, position} = this.props,
+        const {className, style, name, placeholder, dateFormat, maxValue, minValue, position,
+                popupClassName, rightIconCls, previousYearIconCls, previousMonthIconCls, nextYearIconCls,
+                nextMonthIconCls, readOnly} = this.props,
             {popupVisible, left, right, startTime, endTime, hoverTime, isAbove} = this.state,
 
             pickerClassName = classNames('date-range-picker', {
@@ -352,21 +354,20 @@ class DateRangePicker extends Component {
                            placeholder={placeholder}
                            value={textFieldValue}
                            readOnly={true}
+                           rightIconCls={rightIconCls}
                            clearButtonVisible={false}
                            isFocusedSelectAll={false}
                            onClick={e => {
                                this.togglePopup(e);
                            }}/>
 
-                <Popup className={`date-range-picker-popup`}
+                <Popup className={`date-range-picker-popup ${popupClassName}`}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
                        position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        hasTriangle={false}
                        onRender={this.popupRenderHandler}
-                       onRequestClose={() => {
-                           this.closePopup();
-                       }}>
+                       onRequestClose={this.closePopup}>
 
                     <div className="calendar-date-input-wrap">
                         <div className="DateRangePickerHeaderInput">
@@ -374,6 +375,7 @@ class DateRangePicker extends Component {
                                        placeholder={placeholder}
                                        value={left.text}
                                        clearButtonVisible={false}
+                                       readOnly={readOnly}
                                        onChange={(text) => {
                                            this.textFieldChangeHandle('left', text);
                                        }}/>
@@ -381,6 +383,7 @@ class DateRangePicker extends Component {
                                        placeholder={placeholder}
                                        value={right.text}
                                        clearButtonVisible={false}
+                                       readOnly={readOnly}
                                        onChange={(text) => {
                                            this.textFieldChangeHandle('right', text);
                                        }}/>
@@ -402,6 +405,10 @@ class DateRangePicker extends Component {
                                 startTime={startTime}
                                 endTime={endTime}
                                 hoverTime={hoverTime}
+                                previousYearIconCls={previousYearIconCls}
+                                previousMonthIconCls={previousMonthIconCls}
+                                nextYearIconCls={nextYearIconCls}
+                                nextMonthIconCls={nextMonthIconCls}
                                 monthAndYearChange={(obj) => {
                                     this.monthAndYearChangeHandle('left', obj);
                                 }}
@@ -424,6 +431,10 @@ class DateRangePicker extends Component {
                                         day={left.day}
                                         maxValue={leftMaxValue}
                                         minValue={minValue}
+                                        previousYearIconCls={previousYearIconCls}
+                                        previousMonthIconCls={previousMonthIconCls}
+                                        nextYearIconCls={nextYearIconCls}
+                                        nextMonthIconCls={nextMonthIconCls}
                                         onChange={(obj) => {
                                             this.monthPickerChangeHandle('left', obj);
                                         }}
@@ -438,6 +449,10 @@ class DateRangePicker extends Component {
                                         day={left.day}
                                         maxValue={leftMaxValue}
                                         minValue={minValue}
+                                        previousYearIconCls={previousYearIconCls}
+                                        previousMonthIconCls={previousMonthIconCls}
+                                        nextYearIconCls={nextYearIconCls}
+                                        nextMonthIconCls={nextMonthIconCls}
                                         onChange={(obj) => {
                                             this.yearPickerChangeHandle('left', obj);
                                         }}/>
@@ -460,6 +475,10 @@ class DateRangePicker extends Component {
                                 hoverTime={hoverTime}
                                 minValue={rightMinValue}
                                 maxValue={maxValue}
+                                previousYearIconCls={previousYearIconCls}
+                                previousMonthIconCls={previousMonthIconCls}
+                                nextYearIconCls={nextYearIconCls}
+                                nextMonthIconCls={nextMonthIconCls}
                                 monthAndYearChange={(obj) => {
                                     this.monthAndYearChangeHandle('right', obj);
                                 }}
@@ -482,6 +501,10 @@ class DateRangePicker extends Component {
                                         day={right.day}
                                         minValue={rightMinValue}
                                         maxValue={maxValue}
+                                        previousYearIconCls={previousYearIconCls}
+                                        previousMonthIconCls={previousMonthIconCls}
+                                        nextYearIconCls={nextYearIconCls}
+                                        nextMonthIconCls={nextMonthIconCls}
                                         onChange={(obj) => {
                                             this.monthPickerChangeHandle('right', obj);
                                         }}
@@ -496,6 +519,10 @@ class DateRangePicker extends Component {
                                         day={right.day}
                                         minValue={rightMinValue}
                                         maxValue={maxValue}
+                                        previousYearIconCls={previousYearIconCls}
+                                        previousMonthIconCls={previousMonthIconCls}
+                                        nextYearIconCls={nextYearIconCls}
+                                        nextMonthIconCls={nextMonthIconCls}
                                         onChange={(obj) => {
                                             this.yearPickerChangeHandle('right', obj);
                                         }}/>
@@ -515,6 +542,11 @@ DateRangePicker.propTypes = {
      * The CSS class name of the root element.
      */
     className: PropTypes.string,
+
+    /**
+     * The CSS class name of the popup element.
+     */
+    popupClassName: PropTypes.string,
 
     /**
      * Override the styles of the root element.
@@ -552,6 +584,11 @@ DateRangePicker.propTypes = {
     dateFormat: PropTypes.string,
 
     /**
+     * If true,dateRangePicker textField is readOnly.
+     */
+    readOnly: PropTypes.bool,
+
+    /**
      * If true,the date selection box will displayed.
      */
     popupVisible: PropTypes.bool,
@@ -566,8 +603,14 @@ DateRangePicker.propTypes = {
 DateRangePicker.defaultProps = {
     name: '',
     placeholder: 'Date',
+    popupClassName: '',
     dateFormat: 'YYYY-MM-DD',
-    position: Position.BOTTOM_LEFT
+    previousYearIconCls:'fas fa-angle-double-left',
+    previousMonthIconCls:'fas fa-angle-left',
+    nextYearIconCls:'fas fa-angle-double-right',
+    nextMonthIconCls:'fas fa-angle-right',
+    position: Position.BOTTOM_LEFT,
+    readOnly: false
 };
 
 export default DateRangePicker;

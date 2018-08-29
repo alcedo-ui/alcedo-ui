@@ -18,7 +18,6 @@ import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
-import TreeCalculation from '../_vendors/TreeCalculation';
 import CascaderCalculation from '../_vendors/CascaderCalculation';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
@@ -42,6 +41,44 @@ class CascaderSelect extends Component {
 
     }
 
+    /**
+     * public
+     */
+    startRipple = (e, props) => {
+        this.refs.dropdown && this.refs.dropdown.startRipple(e, props);
+    };
+
+    /**
+     * public
+     */
+    endRipple = () => {
+        this.refs.dropdown && this.refs.dropdown.endRipple();
+    };
+
+    /**
+     * public
+     */
+    triggerRipple = (e, props) => {
+        this.refs.dropdown && this.refs.dropdown.triggerRipple(e, props);
+    };
+
+    /**
+     * public
+     */
+    resetPopupPosition = () => {
+        this.refs.dropdown && this.refs.dropdown.resetPosition();
+    };
+
+    /**
+     * public
+     */
+    openPopup = () => {
+        this.refs.dropdown && this.refs.dropdown.openPopup();
+    };
+
+    /**
+     * public
+     */
     closePopup = () => {
         this.refs.dropdown && this.refs.dropdown.closePopup();
     };

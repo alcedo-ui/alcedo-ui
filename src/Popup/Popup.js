@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import query from 'dom-helpers/query';
 
 import TriggerPop from '../_TriggerPop';
 import Theme from '../Theme';
@@ -30,6 +31,13 @@ class Popup extends Component {
 
     }
 
+    /**
+     * public
+     */
+    resetPosition = () => {
+        this.refs.popup && this.refs.popup.resetPosition();
+    };
+
     clearCloseTimeout = () => {
         if (this.closeTimeout) {
             clearTimeout(this.closeTimeout);
@@ -39,18 +47,21 @@ class Popup extends Component {
 
     triggerHandler = (el, triggerEl, popupEl, currentVisible, isBlurClose) => {
 
-        while (el) {
-            if (el == popupEl) {
-                return currentVisible;
-            }
-            el = el.parentNode;
+        // el is missing
+        if (el && !query.contains(document, el)) {
+            return currentVisible;
+        }
+
+        if ((triggerEl && el && query.contains(triggerEl, el))
+            || (popupEl && el && query.contains(popupEl, el))) {
+            return currentVisible;
         }
 
         return isBlurClose ? false : currentVisible;
 
     };
 
-    mouseDownHandler = e => {
+    closeHandler = e => {
 
         const {visible, triggerEl, isBlurClose, triggerHandler, onRequestClose} = this.props,
             popupEl = this.refs.popup.getEl();
@@ -76,15 +87,8 @@ class Popup extends Component {
 
     };
 
-    /**
-     * public
-     */
-    resetPosition = () => {
-        this.refs.popup.resetPosition();
-    };
-
     componentDidMount() {
-        Event.addEvent(document, 'mousedown', this.mouseDownHandler);
+        Event.addEvent(document, 'click', this.closeHandler);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -100,7 +104,7 @@ class Popup extends Component {
     componentWillUnmount() {
 
         this.clearCloseTimeout();
-        Event.removeEvent(document, 'mousedown', this.mouseDownHandler);
+        Event.removeEvent(document, 'click', this.closeHandler);
 
         PopManagement.pop(this);
 

@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {findDOMNode} from 'react-dom';
 import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
@@ -17,7 +18,6 @@ import Popup from '../Popup';
 import Theme from '../Theme';
 
 import Position from '../_statics/Position';
-import {findDOMNode} from 'react-dom';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
 
 class MaterialDatePicker extends Component {
@@ -197,11 +197,14 @@ class MaterialDatePicker extends Component {
     render() {
 
         const {
-                className, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, isFooter, position, theme
+                className, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, isFooter, position,
+                theme, popupClassName, rightIconCls, previousYearIconCls, previousMonthIconCls, nextYearIconCls,
+                nextMonthIconCls, readOnly
             } = this.props,
-            {value, popupVisible, datePickerLevel, year, month, day, isAbove, isHover, isFocus} = this.state,
+            {value, popupVisible, datePickerLevel, year, month, day, isAbove} = this.state,
 
             pickerClassName = classNames('material-date-picker', {
+                activated: popupVisible,
                 [className]: className
             }),
 
@@ -216,26 +219,23 @@ class MaterialDatePicker extends Component {
                                      placeholder={placeholder}
                                      value={textValue}
                                      theme={theme}
-                                     readOnly={!popupVisible}
+                                     readOnly={readOnly ? readOnly : !popupVisible}
                                      clearButtonVisible={false}
                                      isFocusedSelectAll={false}
                                      popupVisible={popupVisible}
                                      label={label}
                                      isLabelAnimate={isLabelAnimate}
+                                     rightIconCls={rightIconCls}
                                      onChange={this.textFieldChangeHandle}
-                                     onClick={e => {
-                                         this.togglePopup(e);
-                                     }}/>
+                                     onClick={e => this.togglePopup(e)}/>
 
-                <Popup className="material-date-picker-popup"
+                <Popup className={`material-date-picker-popup ${popupClassName}`}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
                        position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        hasTriangle={false}
                        onRender={this.popupRenderHandler}
-                       onRequestClose={() => {
-                           this.closePopup(3);
-                       }}>
+                       onRequestClose={this.closePopup}>
 
                     {
                         datePickerLevel == 'day' ?
@@ -247,6 +247,10 @@ class MaterialDatePicker extends Component {
                                        maxValue={maxValue}
                                        minValue={minValue}
                                        isFooter={isFooter}
+                                       previousYearIconCls={previousYearIconCls}
+                                       previousMonthIconCls={previousMonthIconCls}
+                                       nextYearIconCls={nextYearIconCls}
+                                       nextMonthIconCls={nextMonthIconCls}
                                        onChange={this.dayPickerChangeHandle}
                                        previousClick={this.datePickerChangeHandle}/>
                             : (
@@ -257,6 +261,10 @@ class MaterialDatePicker extends Component {
                                                  day={day}
                                                  maxValue={maxValue}
                                                  minValue={minValue}
+                                                 previousYearIconCls={previousYearIconCls}
+                                                 previousMonthIconCls={previousMonthIconCls}
+                                                 nextYearIconCls={nextYearIconCls}
+                                                 nextMonthIconCls={nextMonthIconCls}
                                                  onChange={this.monthPickerChangeHandle}
                                                  previousClick={this.datePickerChangeHandle}/>
                                     :
@@ -266,6 +274,10 @@ class MaterialDatePicker extends Component {
                                                 day={day}
                                                 maxValue={maxValue}
                                                 minValue={minValue}
+                                                previousYearIconCls={previousYearIconCls}
+                                                previousMonthIconCls={previousMonthIconCls}
+                                                nextYearIconCls={nextYearIconCls}
+                                                nextMonthIconCls={nextMonthIconCls}
                                                 onChange={this.yearPickerChangeHandle}/>
                             )
                     }
@@ -280,7 +292,7 @@ class MaterialDatePicker extends Component {
                                             <span className="item-gray">Today</span>
                                         </a>
                                         :
-                                        <a href="javascript:;"
+                                        <a href="javascript:void(0);"
                                            onClick={this.todayHandle}>
                                             Today
                                         </a>
@@ -302,6 +314,11 @@ MaterialDatePicker.propTypes = {
      * The CSS class name of the root element.
      */
     className: PropTypes.string,
+
+    /**
+     * The CSS class name of the popup element.
+     */
+    popupClassName: PropTypes.string,
 
     /**
      * Override the styles of the root element.
@@ -354,6 +371,11 @@ MaterialDatePicker.propTypes = {
     autoClose: PropTypes.bool,
 
     /**
+     * If true,datePicker textField is readOnly.
+     */
+    readOnly: PropTypes.bool,
+
+    /**
      * Callback function that is fired when the date value changes.
      */
     onChange: PropTypes.func
@@ -364,12 +386,18 @@ MaterialDatePicker.defaultProps = {
     name: '',
     maxValue: '',
     minValue: '',
+    popupClassName: '',
     placeholder: 'Date',
     dateFormat: 'YYYY-MM-DD',
     isLabelAnimate: true,
     autoClose: true,
     isFooter: true,
-    position: Position.BOTTOM_LEFT
+    previousYearIconCls: 'fas fa-angle-double-left',
+    previousMonthIconCls: 'fas fa-angle-left',
+    nextYearIconCls: 'fas fa-angle-double-right',
+    nextMonthIconCls: 'fas fa-angle-right',
+    position: Position.BOTTOM_LEFT,
+    readOnly: false
 };
 
 export default MaterialDatePicker;

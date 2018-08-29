@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {findDOMNode} from 'react-dom';
 import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
@@ -14,12 +15,11 @@ import DayPicker from '../_DayPicker';
 import MonthPicker from '../_MonthPicker';
 import YearPicker from '../_YearPicker';
 import Popup from '../Popup';
-
 import FlatButton from '../FlatButton';
-import {findDOMNode} from 'react-dom';
-import DropdownCalculation from '../_vendors/DropdownCalculation';
+
 import Theme from '../Theme';
 import Position from '../_statics/Position';
+import DropdownCalculation from '../_vendors/DropdownCalculation';
 
 class DatePicker extends Component {
 
@@ -196,13 +196,17 @@ class DatePicker extends Component {
         }
     }
 
-
     render() {
 
-        const {className, name, placeholder, dateFormat, maxValue, minValue, isFooter, position} = this.props,
+        const {
+                className, name, placeholder, dateFormat, maxValue, minValue, isFooter, position,
+                popupClassName, rightIconCls, previousYearIconCls, previousMonthIconCls, nextYearIconCls,
+                nextMonthIconCls, readOnly
+            } = this.props,
             {value, popupVisible, datePickerLevel, year, month, day, isAbove} = this.state,
 
             pickerClassName = classNames('date-picker', {
+                activated: popupVisible,
                 [className]: className
             }),
 
@@ -217,24 +221,21 @@ class DatePicker extends Component {
                            name={name}
                            placeholder={placeholder}
                            value={textValue}
-                           readOnly={!popupVisible}
+                           rightIconCls={rightIconCls}
+                           readOnly={readOnly ? readOnly : !popupVisible}
                            popupVisible={popupVisible}
                            clearButtonVisible={false}
                            isFocusedSelectAll={popupVisible}
-                           onClick={e => {
-                               this.togglePopup(e);
-                           }}
+                           onClick={e => this.togglePopup(e)}
                            onChange={this.textFieldChangeHandle}/>
 
-                <Popup className={`date-picker-popup`}
+                <Popup className={`date-picker-popup ${popupClassName}`}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
                        hasTriangle={false}
                        position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        onRender={this.popupRenderHandler}
-                       onRequestClose={() => {
-                           this.closePopup();
-                       }}>
+                       onRequestClose={this.closePopup}>
 
                     {
                         datePickerLevel == 'day' ?
@@ -247,6 +248,10 @@ class DatePicker extends Component {
                                 maxValue={maxValue}
                                 minValue={minValue}
                                 isFooter={isFooter}
+                                previousYearIconCls={previousYearIconCls}
+                                previousMonthIconCls={previousMonthIconCls}
+                                nextYearIconCls={nextYearIconCls}
+                                nextMonthIconCls={nextMonthIconCls}
                                 onChange={this.dayPickerChangeHandle}
                                 previousClick={this.datePickerChangeHandle}/>
                             : (
@@ -258,6 +263,10 @@ class DatePicker extends Component {
                                         day={day}
                                         maxValue={maxValue}
                                         minValue={minValue}
+                                        previousYearIconCls={previousYearIconCls}
+                                        previousMonthIconCls={previousMonthIconCls}
+                                        nextYearIconCls={nextYearIconCls}
+                                        nextMonthIconCls={nextMonthIconCls}
                                         onChange={this.monthPickerChangeHandle}
                                         previousClick={this.datePickerChangeHandle}/>
                                     :
@@ -268,6 +277,10 @@ class DatePicker extends Component {
                                         day={day}
                                         maxValue={maxValue}
                                         minValue={minValue}
+                                        previousYearIconCls={previousYearIconCls}
+                                        previousMonthIconCls={previousMonthIconCls}
+                                        nextYearIconCls={nextYearIconCls}
+                                        nextMonthIconCls={nextMonthIconCls}
                                         onChange={this.yearPickerChangeHandle}/>
                             )
                     }
@@ -278,15 +291,13 @@ class DatePicker extends Component {
                                 {
                                     (minValue && moment(this.props.value).isBefore(minValue))
                                     || (maxValue && moment(maxValue).isBefore(this.props.value)) ?
-                                        <a href="javascript:;">
+                                        <a href="javascript:void(0);">
                                             <span className="item-gray">Today</span>
                                         </a>
                                         :
                                         <FlatButton className='today-button'
                                                     value={'Today'}
-                                                    onClick={this.todayHandle}
-                                        />
-
+                                                    onClick={this.todayHandle}/>
                                 }
                             </div>
                             :
@@ -305,6 +316,11 @@ DatePicker.propTypes = {
      * The CSS class name of the root element.
      */
     className: PropTypes.string,
+
+    /**
+     * The CSS class name of the popup element.
+     */
+    popupClassName: PropTypes.string,
 
     /**
      * Override the styles of the root element.
@@ -347,6 +363,11 @@ DatePicker.propTypes = {
     autoClose: PropTypes.bool,
 
     /**
+     * If true,datePicker textField is readOnly.
+     */
+    readOnly: PropTypes.bool,
+
+    /**
      * Callback function that is fired when the date value changes.
      */
     onChange: PropTypes.func
@@ -358,9 +379,15 @@ DatePicker.defaultProps = {
     maxValue: '',
     minValue: '',
     placeholder: 'Date',
+    popupClassName: '',
     dateFormat: 'YYYY-MM-DD',
+    previousYearIconCls: 'fas fa-angle-double-left',
+    previousMonthIconCls: 'fas fa-angle-left',
+    nextYearIconCls: 'fas fa-angle-double-right',
+    nextMonthIconCls: 'fas fa-angle-right',
     autoClose: true,
-    isFooter: true
+    isFooter: true,
+    readOnly: false
 };
 
 export default DatePicker;

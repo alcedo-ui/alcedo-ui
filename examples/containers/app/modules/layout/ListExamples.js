@@ -34,7 +34,7 @@ class ListExamples extends Component {
             iconCls: 'fab fa-firefox',
             value: 'Firefox',
             text: 'Firefox',
-            disabled: true
+            disabled: (listItem, listValue, listData) => true
         }, {
             iconCls: 'fab fa-chrome',
             value: 'Chrome',
@@ -127,7 +127,7 @@ class ListExamples extends Component {
                 <h2 className="example-title">List</h2>
 
                 <p>
-                    <span>List </span>
+                    <span>List</span>
                     are used to present multiple items vertically as a single continuous
                     element. They can be configured for many uses such as a contacts list, nested lists, etc.
                 </p>
@@ -172,7 +172,10 @@ class ListExamples extends Component {
                                 <p>Set the <code>disabled</code> property to true for disabled items.</p>
 
                                 <Paper>
-                                    <List data={this.disabledListData}/>
+                                    <List data={this.disabledListData}
+                                          itemDisabled={(listItem, listValue, listData) =>
+                                              listItem && listItem.value === 'Chrome'
+                                          }/>
                                 </Paper>
 
                             </div>

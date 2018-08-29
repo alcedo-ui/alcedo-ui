@@ -69,17 +69,17 @@ class MaterialDatePickerTextField extends Component {
     render() {
 
         const {
-                className, style, theme, label, isLabelAnimate, disabled, required,
+                className, style, theme, label, isLabelAnimate, disabled, required, popupVisible,
                 ...restProps
             } = this.props,
             {value} = this.state,
 
             fieldClassName = classNames('material-date-picker-text-field', {
+                activated: popupVisible,
                 [className]: className
             });
 
         return (
-
             <MaterialProvider className={fieldClassName}
                               style={style}
                               theme={theme}
@@ -189,11 +189,6 @@ MaterialDatePickerTextField.propTypes = {
     passwordButtonVisible: PropTypes.bool,
 
 
-    /**
-     * If true,the textField will always Focus.
-     */
-    popupVisible: PropTypes.bool,
-
     // valid
     /**
      * If true,the textField must be required.
@@ -289,6 +284,12 @@ MaterialDatePickerTextField.propTypes = {
      * Callback function fired when password invisible.
      */
     onPasswordInvisible: PropTypes.func,
+
+
+    /**
+     * the datePicker is open if set to true.
+     */
+    popupVisible: PropTypes.bool,
 
     onMouseOver: PropTypes.func,
     onMouseOut: PropTypes.func

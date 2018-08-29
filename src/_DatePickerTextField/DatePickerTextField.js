@@ -68,8 +68,14 @@ class DatePickerTextField extends Component {
     render() {
 
         const {
+
                 className, theme, disabled, required,
+
+                // not passing down these props
+                popupVisible,
+
                 ...restProps
+
             } = this.props,
             {value} = this.state,
 
@@ -112,16 +118,6 @@ DatePickerTextField.propTypes = {
      * The name of the text field.
      */
     name: PropTypes.string,
-
-    /**
-     * The label of the text field.
-     */
-    label: PropTypes.any,
-
-    /**
-     * The animate of the text field.
-     */
-    isLabelAnimate: PropTypes.bool,
 
     /**
      * The placeholder of the text field.
@@ -173,11 +169,6 @@ DatePickerTextField.propTypes = {
      */
     passwordButtonVisible: PropTypes.bool,
 
-
-    /**
-     * If true,the textField will always Focus.
-     */
-    popupVisible: PropTypes.bool,
 
     // valid
     /**
@@ -275,6 +266,12 @@ DatePickerTextField.propTypes = {
      */
     onPasswordInvisible: PropTypes.func,
 
+
+    /**
+     * the datePicker is open if set to true.
+     */
+    popupVisible: PropTypes.bool,
+
     onMouseOver: PropTypes.func,
     onMouseOut: PropTypes.func
 
@@ -286,8 +283,7 @@ DatePickerTextField.defaultProps = {
 
     type: 'text',
     name: '',
-    label: '',
-    isLabelAnimate: true,
+
     placeholder: '',
     value: '',
     disabled: false,

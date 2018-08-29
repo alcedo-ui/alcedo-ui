@@ -118,6 +118,9 @@ export default [{
         text: 'TagField',
         route: '/components/TagField'
     }, {
+        text: 'DynamicRenderTagField',
+        route: '/components/DynamicRenderTagField'
+    }, {
         text: 'Rate',
         route: '/components/Rate'
     }, {
@@ -300,6 +303,9 @@ export default [{
     }, {
         text: 'Notification',
         route: '/components/Notification'
+    }, {
+        text: 'Guide',
+        route: '/components/Guide'
     }]
 }, {
     text: 'Media',

@@ -29,13 +29,26 @@ class AnchorButton extends Component {
 
     }
 
-    startRipple(e) {
-        this.refs.baseButton.startRipple(e);
-    }
+    /**
+     * public
+     */
+    startRipple = (e, props) => {
+        this.refs.baseButton && this.refs.baseButton.startRipple(e, props);
+    };
 
-    endRipple() {
-        this.refs.baseButton.endRipple();
-    }
+    /**
+     * public
+     */
+    endRipple = () => {
+        this.refs.baseButton && this.refs.baseButton.endRipple();
+    };
+
+    /**
+     * public
+     */
+    triggerRipple = (e, props) => {
+        this.refs.baseButton && this.refs.baseButton.triggerRipple(e, props);
+    };
 
     render() {
 

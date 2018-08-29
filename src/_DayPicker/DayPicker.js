@@ -227,7 +227,8 @@ class DayPicker extends Component {
 
     render() {
 
-        const {isFooter, isRange, startTime, endTime, hoverTime, maxValue, minValue} = this.props;
+        const {isFooter, isRange, startTime, endTime, hoverTime, maxValue, minValue, previousYearIconCls,
+            previousMonthIconCls, nextYearIconCls, nextMonthIconCls} = this.props;
 
         const {date_num_array, selectYear, selectMonth, selectDay, first_day, currentYear, currentMonth} = this.state;
 
@@ -341,28 +342,28 @@ class DayPicker extends Component {
                         minValue ?
                             (
                                 (moment(minValue).format('YYYY') < +selectYear - 1) || (moment(minValue).format('YYYY') == +selectYear - 1 && moment(minValue).format('MM') <= selectMonth) ?
-                                    <i className="fas fa-angle-double-left" onClick={previousYear}>
+                                    <i className={previousYearIconCls} onClick={previousYear}>
                                         <TouchRipple/>
                                     </i>
                                     :
                                     null
                             )
                             :
-                            <i className="fas fa-angle-double-left" onClick={previousYear}>
+                            <i className={previousYearIconCls} onClick={previousYear}>
                                 <TouchRipple/>
                             </i>
                     }
                     {
                         minValue ?
                             ((moment(minValue).format('YYYY') == selectYear && moment(minValue).format('MM') < selectMonth) || moment(minValue).format('YYYY') < selectYear ?
-                                    <i className="fas fa-angle-left" onClick={previousMonth}>
+                                    <i className={previousMonthIconCls} onClick={previousMonth}>
                                         <TouchRipple/>
                                     </i>
                                     :
                                     null
                             )
                             :
-                            <i className="fas fa-angle-left" onClick={previousMonth}>
+                            <i className={previousMonthIconCls} onClick={previousMonth}>
                                 <TouchRipple/>
                             </i>
 
@@ -374,14 +375,14 @@ class DayPicker extends Component {
                     {
                         maxValue ?
                             ((moment(maxValue).format('YYYY') == selectYear && selectMonth < moment(maxValue).format('MM')) || maxValue && selectYear < moment(maxValue).format('YYYY') ?
-                                    <i className="fas fa-angle-right" onClick={nextMonth}>
+                                    <i className={nextMonthIconCls} onClick={nextMonth}>
                                         <TouchRipple/>
                                     </i>
                                     :
                                     null
                             )
                             :
-                            <i className="fas fa-angle-right" onClick={nextMonth}>
+                            <i className={nextMonthIconCls} onClick={nextMonth}>
                                 <TouchRipple/>
                             </i>
 
@@ -389,14 +390,14 @@ class DayPicker extends Component {
                     {
                         maxValue ?
                             ((selectYear < +moment(maxValue).format('YYYY') - 1) || (selectYear == moment(maxValue).format('YYYY') - 1 && selectMonth <= moment(maxValue).format('MM')) ?
-                                    <i className="fas fa-angle-double-right" onClick={nextYear}>
+                                    <i className={nextYearIconCls} onClick={nextYear}>
                                         <TouchRipple/>
                                     </i>
                                     :
                                     null
                             )
                             :
-                            <i className="fas fa-angle-double-right" onClick={nextYear}>
+                            <i className={nextYearIconCls} onClick={nextYear}>
                                 <TouchRipple/>
                             </i>
 

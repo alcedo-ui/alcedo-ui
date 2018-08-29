@@ -151,7 +151,10 @@ class MaterialTimePicker extends Component {
 
     render() {
 
-        const {className, style, name, placeholder, maxValue, minValue, dateFormat, label, isLabelAnimate, position, theme} = this.props,
+        const {
+                className, style, name, placeholder, maxValue, minValue, dateFormat, label, isLabelAnimate, position,
+                theme, popupClassName, rightIconCls, readOnly
+            } = this.props,
             {popupVisible, textFieldValue, hour, minute, second, isAbove} = this.state,
 
             pickerClassName = classNames('material-time-picker', {
@@ -170,24 +173,23 @@ class MaterialTimePicker extends Component {
                                              isLabelAnimate={isLabelAnimate}
                                              placeholder={placeholder}
                                              value={textFieldValue}
-                                             readOnly={!popupVisible}
+                                             readOnly={readOnly ? readOnly : !popupVisible}
                                              clearButtonVisible={false}
                                              isFocusedSelectAll={false}
                                              popupVisible={popupVisible}
+                                             rightIconCls={rightIconCls}
                                              onChange={this.textFieldChangeHandle}
                                              onClick={e => {
                                                  this.togglePopup(e);
                                              }}/>
 
-                <Popup className="material-time-picker-popup"
+                <Popup className={`material-time-picker-popup ${popupClassName}`}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
                        position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        hasTriangle={false}
                        onRender={this.popupRenderHandler}
-                       onRequestClose={() => {
-                           this.closePopup();
-                       }}>
+                       onRequestClose={this.closePopup}>
                     <TimeList hour={hour}
                               minute={minute}
                               second={second}
@@ -209,6 +211,11 @@ MaterialTimePicker.propTypes = {
      * The CSS class name of the root element.
      */
     className: PropTypes.string,
+
+    /**
+     * The CSS class name of the popup element.
+     */
+    popupClassName: PropTypes.string,
 
     /**
      * Override the styles of the root element.
@@ -251,6 +258,11 @@ MaterialTimePicker.propTypes = {
     placeholder: PropTypes.string,
 
     /**
+     * If true,materialTimePicker textField is readOnly.
+     */
+    readOnly: PropTypes.bool,
+
+    /**
      * Time format.
      */
     dateFormat: PropTypes.string
@@ -259,10 +271,12 @@ MaterialTimePicker.propTypes = {
 
 MaterialTimePicker.defaultProps = {
     name: '',
+    popupClassName: '',
     value: moment().format('HH:mm:ss'),
     placeholder: 'Time',
     dateFormat: 'HH:mm:ss',
-    position: Position.BOTTOM_LEFT
+    position: Position.BOTTOM_LEFT,
+    readOnly: false
 };
 
 export default MaterialTimePicker;
