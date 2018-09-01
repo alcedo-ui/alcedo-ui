@@ -87,6 +87,7 @@
         "compression-webpack-plugin": "^1.1.12",
         "connect-history-api-fallback": "^1.5.0",
         "copy-webpack-plugin": "^4.5.2",
+        "core-js": "^2.5.7",
         "cross-env": "^5.2.0",
         "css-loader": "^1.0.0",
         "eventsource-polyfill": "^0.9.6",
