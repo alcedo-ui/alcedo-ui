@@ -57,10 +57,6 @@ module.exports = merge(baseWebpackConfig, {
 
         new webpack.DllReferencePlugin({
             context: __dirname,
-            manifest: require(utils.assetsVendorsAbsolutePath('polyfill-manifest.json'))
-        }),
-        new webpack.DllReferencePlugin({
-            context: __dirname,
             manifest: require(utils.assetsVendorsAbsolutePath('react-manifest.json'))
         }),
         new webpack.DllReferencePlugin({
@@ -82,7 +78,6 @@ module.exports = merge(baseWebpackConfig, {
 
         new HtmlIncludeAssetsPlugin({
             assets: [
-                vendorsAssets['polyfill'].js,
                 vendorsAssets['react'].js,
                 vendorsAssets['tools'].js
             ],
