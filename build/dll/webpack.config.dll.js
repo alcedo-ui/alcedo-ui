@@ -12,7 +12,6 @@ module.exports = {
     mode: 'production',
 
     entry: {
-        'polyfill': ['babel-polyfill'],
         'react': ['react', 'react-dom', 'react-redux', 'react-router', 'react-router-config', 'react-router-dom',
             'react-router-redux', 'redux', 'redux-thunk', 'react-transition-group'],
         'tools': ['classnames', 'history', 'moment']
