@@ -87,7 +87,9 @@ module.exports = {
     plugins: [
         new HappyPack({
             id: 'js',
-            loaders: ['babel-loader?cacheDirectory=true'],
+            loaders: [{
+                loader: 'babel-loader?cacheDirectory=true'
+            }],
             threads: 4,
             verbose: false
         })
