@@ -19,7 +19,7 @@ import Position from '../_statics/Position';
 import SelectMode from '../_statics/SelectMode';
 import DragDrop from '../_vendors/DragDrop';
 
-const DRAG_GRID_ITEM_SYMBOL = Symbol('DRAG_GRID_ITEM');
+const DRAG_GRID_ITEM_SYMBOL = 'DRAG_GRID_ITEM';
 
 @DropTarget(DRAG_GRID_ITEM_SYMBOL, DragDrop.getHorizontalTarget(), connect => ({
     connectDropTarget: connect.dropTarget()
