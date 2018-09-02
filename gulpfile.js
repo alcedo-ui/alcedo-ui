@@ -12,12 +12,12 @@ var gulp = require('gulp'),
  */
 gulp.task('propType', function () {
     return gulp.src(['./src/**/*.js', '!./src/**/index.js'])
-        .pipe(componentPropTypeJson())
-        .pipe(rename(function (path) {
-            path.dirname = '';
-            path.extname = '.json';
-        }))
-        .pipe(gulp.dest('./examples/assets/propTypes'));
+               .pipe(componentPropTypeJson())
+               .pipe(rename(function (path) {
+                   path.dirname = '';
+                   path.extname = '.json';
+               }))
+               .pipe(gulp.dest('./examples/assets/propTypes'));
 });
 
 /**
@@ -25,26 +25,26 @@ gulp.task('propType', function () {
  */
 gulp.task('copyES', function () {
     return gulp.src('./src/**/*.js')
-        .pipe(babel({
-            plugins: ['transform-runtime']
-        }))
-        .pipe(gulp.dest('./dist'));
+               .pipe(babel({
+                   plugins: ['@babel/runtime']
+               }))
+               .pipe(gulp.dest('./dist'));
 });
 gulp.task('copySASS', function () {
     return gulp.src('./src/**/*.scss')
-        .pipe(gulp.dest('./dist'));
+               .pipe(gulp.dest('./dist'));
 });
 gulp.task('copyAssets', function () {
     return gulp.src('./assets/**')
-        .pipe(gulp.dest('./dist/assets'));
+               .pipe(gulp.dest('./dist/assets'));
 });
 gulp.task('copyNpmFiles', function () {
     return gulp.src(['README.md', './LICENSE'])
-        .pipe(gulp.dest('./dist'));
+               .pipe(gulp.dest('./dist'));
 });
 gulp.task('copyPackageJson', function () {
     return gulp.src('./package.json')
-        .pipe(miniPackageJson())
-        .pipe(gulp.dest('./dist'));
+               .pipe(miniPackageJson())
+               .pipe(gulp.dest('./dist'));
 });
 gulp.task('copy', gulpSequence('copyES', 'copySASS', 'copyAssets', 'copyNpmFiles', 'copyPackageJson'));
