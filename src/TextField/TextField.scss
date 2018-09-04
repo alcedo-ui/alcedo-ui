@@ -91,6 +91,7 @@ input::-ms-clear {
         background: transparent;
         white-space: nowrap;
         color: inherit;
+        overflow: hidden;
         text-overflow: ellipsis;
     }
 
