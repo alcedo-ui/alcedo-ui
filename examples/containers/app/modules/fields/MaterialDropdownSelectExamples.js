@@ -72,7 +72,8 @@ class MaterialDropdownSelectExamples extends Component {
                                                             selectMode={MaterialDropdownSelect.SelectMode.MULTI_SELECT}
                                                             useSelectAll={true}
                                                             autoClose={false}
-                                                            data={this.data}/>
+                                                            data={this.data}
+                                                            tip="MaterialDropdownSelect Example"/>
                                 </div>
                             </div>
 
