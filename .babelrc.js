@@ -2,14 +2,10 @@ const presets = [
         [
             '@babel/preset-env',
             {
-                useBuiltIns: 'usage',
                 modules: false,
                 targets: {
-                    browsers: [
-                        'last 10 major versions',
-                        'safari >= 7',
-                        'ie >= 9'
-                    ]
+                    'safari': '7',
+                    'ie': '9'
                 }
             }
         ],
