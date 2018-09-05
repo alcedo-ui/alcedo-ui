@@ -547,6 +547,8 @@ DropdownSelect.propTypes = {
     placeholder: PropTypes.string,
 
     title: PropTypes.string,
+    tip: PropTypes.string,
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(Dropdown.TipPosition)),
 
     triggerRenderer: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
 
@@ -757,6 +759,7 @@ DropdownSelect.defaultProps = {
     disabled: false,
     itemDisabled: false,
     selectMode: SelectMode.SINGLE_SELECT,
+    tipPosition: Dropdown.TipPosition.BOTTOM,
 
     valueField: 'value',
     displayField: 'text',
