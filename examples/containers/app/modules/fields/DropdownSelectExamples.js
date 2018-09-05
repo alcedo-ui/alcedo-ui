@@ -268,6 +268,7 @@ class DropdownSelectExamples extends Component {
                                 <div className="field-group">
                                     <DropdownSelect data={data}
                                                     isHiddenInputFilter={true}
+                                                    tip="DropdownSelect Example"
                                                     onChange={this.onChange}/>
                                 </div>
 
