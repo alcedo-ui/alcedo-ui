@@ -38,9 +38,10 @@ module.exports = {
         }),
 
         new CompressionPlugin({
-            asset: '[path].gz[query]',
-            algorithm: 'gzip',
             test: new RegExp('\\.(' + config.productionGzipExtensions.join('|') + ')$'),
+            cache: true,
+            filename: '[path].gz[query]',
+            algorithm: 'gzip',
             threshold: 10240,
             minRatio: 0.8
         })
