@@ -27,6 +27,7 @@ class DropdownSelect extends Component {
     static SelectMode = SelectMode;
     static Theme = Theme;
     static Position = Position;
+    static TipPosition = Position;
 
     constructor(props, ...restArgs) {
 
