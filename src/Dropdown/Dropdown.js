@@ -254,7 +254,7 @@ Dropdown.propTypes = {
 
     title: PropTypes.string,
     tip: PropTypes.string,
-    tipPosition: PropTypes.oneOf(Util.enumerateValue(RaisedButton.TipPosition)),
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
      * If true, the dropDown will be disabled.
@@ -303,7 +303,7 @@ Dropdown.defaultProps = {
     disableTouchRipple: false,
     autoPopupWidth: true,
     autoClose: true,
-    tipPosition: RaisedButton.TipPosition.BOTTOM,
+    tipPosition: Position.BOTTOM,
 
     shouldPreventContainerScroll: true
 
