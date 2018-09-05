@@ -24,6 +24,7 @@ class MaterialCascaderSelect extends Component {
     static SelectMode = SelectMode;
     static Theme = Theme;
     static Position = Position;
+    static TipPosition = Position;
     static ExpandDirection = HorizontalDirection;
 
     constructor(props, ...restArgs) {
@@ -208,6 +209,8 @@ MaterialCascaderSelect.propTypes = {
     placeholder: PropTypes.string,
 
     title: PropTypes.string,
+    tip: PropTypes.string,
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
     triggerValue: PropTypes.string,
     rightIconCls: PropTypes.string,
 
@@ -401,7 +404,7 @@ MaterialCascaderSelect.defaultProps = {
     rightIconCls: 'fas fa-angle-down',
     disabled: false,
     isLoading: false,
-    selectMode: SelectMode.SINGLE_SELECT,
+    tipPosition: Position.BOTTOM,
 
     valueField: 'value',
     displayField: 'text',
