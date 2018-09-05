@@ -6,7 +6,6 @@
 import React, {Component, isValidElement, cloneElement} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
-import classNames from 'classnames';
 
 import Tip from '../Tip';
 import Theme from '../Theme';
@@ -48,16 +47,15 @@ class TipProvider extends Component {
 
     render() {
 
-        const {children, className, style, text, onTipRender, ...restProps} = this.props,
-            {tipVisible} = this.state,
+        const {children, text, onTipRender, ...restProps} = this.props,
+            {tipVisible} = this.state;
 
-            wrapperClassName = classNames('tip-provider', {
-                [className]: className
-            });
+        if (!text) {
+            return children;
+        }
 
         return (
-            <div className={wrapperClassName}
-                 style={style}>
+            <div className="tip-provider">
 
                 <div ref="triggerWrapper"
                      className="trigger-wrapper"
