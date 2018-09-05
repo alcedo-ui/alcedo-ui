@@ -129,7 +129,8 @@ class Dropdown extends Component {
                 children,
 
                 className, triggerClassName, popupClassName, style, triggerStyle, popupStyle, theme, popupTheme,
-                position, iconCls, triggerValue, title, rightIconCls, disabled, disableTouchRipple, autoPopupWidth,
+                position, iconCls, triggerValue, title, tip, tipPosition,
+                rightIconCls, disabled, disableTouchRipple, autoPopupWidth,
 
                 // events
                 onMouseOver, onMouseOut
@@ -166,6 +167,8 @@ class Dropdown extends Component {
                               theme={theme}
                               value={triggerValue}
                               title={title}
+                              tip={tip}
+                              tipPosition={tipPosition}
                               iconCls={iconCls}
                               rightIconCls={`${rightIconCls} dropdown-trigger-icon`}
                               disabled={disabled}
@@ -249,6 +252,8 @@ Dropdown.propTypes = {
     rightIconCls: PropTypes.string,
 
     title: PropTypes.string,
+    tip: PropTypes.string,
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(RaisedButton.TipPosition)),
 
     /**
      * If true, the dropDown will be disabled.
@@ -297,6 +302,7 @@ Dropdown.defaultProps = {
     disableTouchRipple: false,
     autoPopupWidth: true,
     autoClose: true,
+    tipPosition: RaisedButton.TipPosition.BOTTOM,
 
     shouldPreventContainerScroll: true
 

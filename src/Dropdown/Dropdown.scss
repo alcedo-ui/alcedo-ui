@@ -12,6 +12,12 @@
     width: 200px;
     height: 40px;
 
+    .tip-provider,
+    .trigger-wrapper {
+        width: 100%;
+        height: 100%;
+    }
+
     .raised-button.dropdown-trigger {
         width: 100%;
         height: 100%;
