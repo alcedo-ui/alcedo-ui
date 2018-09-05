@@ -22,6 +22,7 @@ class MaterialDropdownSelect extends Component {
     static SelectMode = SelectMode;
     static Theme = Theme;
     static Position = Position;
+    static TipPosition = Position;
 
     constructor(props, ...restArgs) {
 
@@ -180,6 +181,8 @@ MaterialDropdownSelect.propTypes = {
     placeholder: PropTypes.string,
 
     title: PropTypes.string,
+    tip: PropTypes.string,
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(DropdownSelect.TipPosition)),
 
     rightIconCls: PropTypes.string,
 
@@ -373,6 +376,7 @@ MaterialDropdownSelect.defaultProps = {
     selectAllText: 'Select All',
     isGrouped: false,
     required: false,
+    tipPosition: DropdownSelect.TipPosition.BOTTOM,
 
     shouldPreventContainerScroll: true
 
