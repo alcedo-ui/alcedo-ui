@@ -160,6 +160,8 @@ MaterialDropdown.propTypes = {
     placeholder: PropTypes.string,
 
     title: PropTypes.string,
+    tip: PropTypes.string,
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(Dropdown.TipPosition)),
 
     rightIconCls: PropTypes.string,
 
@@ -205,6 +207,7 @@ MaterialDropdown.defaultProps = {
     disableTouchRipple: false,
     autoClose: true,
     required: false,
+    tipPosition: Dropdown.TipPosition.BOTTOM,
 
     shouldPreventContainerScroll: true
 
