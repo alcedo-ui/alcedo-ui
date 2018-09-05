@@ -43,7 +43,7 @@ module.exports = {
             cache: true,
             filename: '[path].gz[query]',
             algorithm: 'gzip',
-            threshold: 10240,
+            threshold: 1,
             minRatio: 0.8
         })
 
