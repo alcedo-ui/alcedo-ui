@@ -182,7 +182,7 @@ MaterialDropdownSelect.propTypes = {
 
     title: PropTypes.string,
     tip: PropTypes.string,
-    tipPosition: PropTypes.oneOf(Util.enumerateValue(DropdownSelect.TipPosition)),
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     rightIconCls: PropTypes.string,
 
@@ -376,7 +376,7 @@ MaterialDropdownSelect.defaultProps = {
     selectAllText: 'Select All',
     isGrouped: false,
     required: false,
-    tipPosition: DropdownSelect.TipPosition.BOTTOM,
+    tipPosition: Position.BOTTOM,
 
     shouldPreventContainerScroll: true
 
