@@ -58,22 +58,6 @@ function isEnableCookieAndStorage() {
     return navigator.cookieEnabled && isEnableLocalStorage() && isEnableSessionStorage();
 }
 
-// function deepCopy(source) {
-//
-// 	let result = {};
-//
-// 	for (let key in source) {
-// 		if (typeof source[key] === 'object') {
-// 			result[key] = deepCopy(source[key]);
-// 		} else {
-// 			result[key] = source[key];
-// 		}
-// 	}
-//
-// 	return result;
-//
-// }
-
 function formatCapitalize(value) {
     return value ? value.charAt(0).toUpperCase() + value.substring(1).toLowerCase() : value;
 }
