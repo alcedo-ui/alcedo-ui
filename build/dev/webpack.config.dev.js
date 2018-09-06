@@ -3,7 +3,6 @@ const webpack = require('webpack'),
     HtmlWebpackPlugin = require('html-webpack-plugin'),
     FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin'),
 
-    config = require('../config.js'),
     baseWebpackConfig = require('../webpack.config.base.js'),
 
     env = process.env.NODE_ENV;
