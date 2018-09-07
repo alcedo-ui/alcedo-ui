@@ -27,6 +27,7 @@ class DropdownSelect extends Component {
     static SelectMode = SelectMode;
     static Theme = Theme;
     static Position = Position;
+    static TipPosition = Position;
 
     constructor(props, ...restArgs) {
 
@@ -547,6 +548,8 @@ DropdownSelect.propTypes = {
     placeholder: PropTypes.string,
 
     title: PropTypes.string,
+    tip: PropTypes.string,
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     triggerRenderer: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
 
@@ -757,6 +760,7 @@ DropdownSelect.defaultProps = {
     disabled: false,
     itemDisabled: false,
     selectMode: SelectMode.SINGLE_SELECT,
+    tipPosition: Position.BOTTOM,
 
     valueField: 'value',
     displayField: 'text',

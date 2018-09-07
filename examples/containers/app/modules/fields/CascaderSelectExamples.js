@@ -152,6 +152,7 @@ class CascaderSelectExamples extends Component {
 
                                 <CascaderSelect selectMode={CascaderSelect.SelectMode.MULTI_SELECT}
                                                 data={this.data}
+                                                tip="CascaderSelect Example"
                                                 renderer={node => {
                                                     return (
                                                         <div className="self-define-node">

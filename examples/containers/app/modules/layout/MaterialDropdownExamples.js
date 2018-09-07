@@ -39,7 +39,8 @@ class MaterialDropdownExamples extends Component {
 
                                 <MaterialDropdown theme={MaterialDropdown.Theme.HIGHLIGHT}
                                                   label="Label"
-                                                  triggerValue="Material Dropdown">
+                                                  triggerValue="Material Dropdown"
+                                                  tip="MaterialDropdown Example">
                                     <div className="dropdown-content">MaterialDropdown content</div>
                                 </MaterialDropdown>
 

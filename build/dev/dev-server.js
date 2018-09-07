@@ -34,7 +34,8 @@ devMiddleware.waitUntilValid(() => {
 module.exports = app.listen(config.dev.port, err => {
 
     if (err) {
-        return console.error(err);
+        log.title('error', 'ERROR', `${err} `);
+        return;
     }
 
     opn(uri);

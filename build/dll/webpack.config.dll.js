@@ -12,7 +12,7 @@ module.exports = {
     mode: 'production',
 
     entry: {
-        'polyfill': ['babel-polyfill'],
+        'polyfill': ['@babel/polyfill'],
         'react': ['react', 'react-dom', 'react-redux', 'react-router', 'react-router-config', 'react-router-dom',
             'react-router-redux', 'redux', 'redux-thunk', 'react-transition-group'],
         'tools': ['classnames', 'history', 'moment']
@@ -39,10 +39,11 @@ module.exports = {
         }),
 
         new CompressionPlugin({
-            asset: '[path].gz[query]',
-            algorithm: 'gzip',
             test: new RegExp('\\.(' + config.productionGzipExtensions.join('|') + ')$'),
-            threshold: 10240,
+            cache: true,
+            filename: '[path].gz[query]',
+            algorithm: 'gzip',
+            threshold: 1,
             minRatio: 0.8
         })
 

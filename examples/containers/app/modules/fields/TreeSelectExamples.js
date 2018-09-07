@@ -119,6 +119,7 @@ class TreeSelectExamples extends Component {
                                             checkboxCheckedIconCls="fas fa-check-circle"
                                             checkboxIndeterminateIconCls="fas fa-minus-circle"
                                             useFilter={true}
+                                            tip="TreeSelect Example"
                                             onChange={this.changeHandler}/>
                             </div>
                         </div>

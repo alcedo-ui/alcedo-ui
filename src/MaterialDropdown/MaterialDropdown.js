@@ -19,6 +19,7 @@ class MaterialDropdown extends Component {
 
     static Theme = Theme;
     static Position = Position;
+    static TipPosition = Position;
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
@@ -160,6 +161,8 @@ MaterialDropdown.propTypes = {
     placeholder: PropTypes.string,
 
     title: PropTypes.string,
+    tip: PropTypes.string,
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     rightIconCls: PropTypes.string,
 
@@ -205,6 +208,7 @@ MaterialDropdown.defaultProps = {
     disableTouchRipple: false,
     autoClose: true,
     required: false,
+    tipPosition: Position.BOTTOM,
 
     shouldPreventContainerScroll: true
 

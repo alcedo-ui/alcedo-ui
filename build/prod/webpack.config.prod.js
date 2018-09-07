@@ -90,9 +90,10 @@ module.exports = merge(baseWebpackConfig, {
         }),
 
         new CompressionPlugin({
-            asset: '[path].gz[query]',
-            algorithm: 'gzip',
             test: new RegExp('\\.(' + config.productionGzipExtensions.join('|') + ')$'),
+            cache: true,
+            filename: '[path].gz[query]',
+            algorithm: 'gzip',
             threshold: 1,
             minRatio: 0.8
         })

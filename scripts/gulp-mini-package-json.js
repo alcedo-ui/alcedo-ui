@@ -35,6 +35,7 @@ module.exports = () => {
                         'react-dom': data.dependencies['react-dom']
                     },
                     dependencies: {
+                        '@babel/runtime': data.devDependencies['@babel/runtime'],
                         'classnames': data.dependencies['classnames'],
                         'lodash': data.dependencies['lodash'],
                         'moment': data.dependencies['moment'],

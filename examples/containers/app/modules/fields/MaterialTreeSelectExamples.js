@@ -121,6 +121,7 @@ class MaterialTreeSelectExamples extends Component {
                                                         checkboxUncheckedIconCls="far fa-circle"
                                                         checkboxCheckedIconCls="fas fa-check-circle"
                                                         checkboxIndeterminateIconCls="fas fa-minus-circle"
+                                                        tip="MaterialTreeSelect Example"
                                                         onChange={this.onChangeHandler}/>
                                 </div>
                             </div>

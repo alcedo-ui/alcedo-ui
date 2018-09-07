@@ -149,6 +149,7 @@ class MaterialCascaderSelectExamples extends Component {
                                                             expandDirection={MaterialCascaderSelect.ExpandDirection.LEFT}
                                                             autoClose={false}
                                                             data={this.data}
+                                                            tip="MaterialCascaderSelect Example"
                                                             renderer={node => {
                                                                 return (
                                                                     <div className="self-define-node">

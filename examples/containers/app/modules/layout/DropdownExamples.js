@@ -60,7 +60,8 @@ class DropdownExamples extends Component {
 
                                 <Dropdown triggerValue="Toggle Dropdown"
                                           popupClassName="dropdown-examples-popup"
-                                          position={Dropdown.Position.TOP_LEFT}>
+                                          position={Dropdown.Position.TOP_LEFT}
+                                          tip="Dropdown Example">
                                     <div className="dropdown-content">Dropdown content</div>
                                 </Dropdown>
 

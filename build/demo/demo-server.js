@@ -2,6 +2,7 @@ const express = require('express'),
     history = require('connect-history-api-fallback'),
     opn = require('opn'),
     compression = require('compression'),
+    log = require('friendly-errors-webpack-plugin/src/output'),
 
     config = require('../config.js'),
 
@@ -21,10 +22,11 @@ app
 .listen(config.demo.port, err => {
 
     if (err) {
-        return console.log(err);
+        log.title('error', 'ERROR', `${err} `);
+        return;
     }
 
-    console.log('> Listening at ' + uri);
+    log.title('success', 'DONE', `Listening At ${uri} `);
 
     opn(uri);
 
