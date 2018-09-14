@@ -1,15 +1,42 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 
 import Table from 'src/Table';
 import Switcher from 'src/Switcher';
 import IconButton from 'src/IconButton';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import DownloadField from 'src/DownloadField';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Table.json';
 
 import 'sass/containers/app/modules/layout/TableExamples.scss';
+
+class DownloadButton extends Component {
+
+    constructor(props) {
+        super(props);
+    }
+
+    download = () => {
+        this.refs.downloadField && this.refs.downloadField.download();
+    };
+
+    render() {
+        return (
+            <Fragment>
+
+                <IconButton iconCls="fas fa-download"
+                            onClick={this.download}/>
+
+                <DownloadField ref="downloadField"
+                               url="https://nodejs.org/dist/v9.0.0/node-v9.0.0.pkg"
+                               onLoad={this.loadHandler}/>
+
+            </Fragment>
+        );
+    }
+}
 
 class TableExamples extends Component {
 
@@ -150,10 +177,13 @@ class TableExamples extends Component {
                             <p>A more complex example.Set the <code>hasLineNumber</code> and <code>isMultiSelect</code>
                                 to true for showLineNumber and checkbox.</p>
 
-                            <Table columns={this.columns}
+                            <Table data={data}
+                                   columns={[...this.columns, {
+                                       header: '',
+                                       renderer: () => <DownloadButton/>
+                                   }]}
                                    selectMode={Table.SelectMode.MULTI_SELECT}
                                    selectAllMode={Table.SelectAllMode.CURRENT_PAGE}
-                                   data={data}
                                    paggingSelectedCountVisible={true}
                                    defaultPageSize={20}
                                    pageSizes={this.pageSizes}
