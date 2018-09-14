@@ -30,8 +30,7 @@ class DownloadButton extends Component {
                             onClick={this.download}/>
 
                 <DownloadField ref="downloadField"
-                               url="https://nodejs.org/dist/v9.0.0/node-v9.0.0.pkg"
-                               onLoad={this.loadHandler}/>
+                               url="https://nodejs.org/dist/v9.0.0/node-v9.0.0.pkg"/>
 
             </Fragment>
         );
