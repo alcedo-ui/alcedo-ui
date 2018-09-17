@@ -9,11 +9,18 @@
     overflow-x: hidden;
     overflow-y: auto;
 
+    .draggable-list-items {
+        overflow: hidden;
+    }
+
     .draggable-list-separator {
         border-top: 1px solid $theme-border;
     }
 
-    .tip-provider > .trigger-wrapper {
-        display: block;
+    .tip-provider {
+
+        & > .trigger-wrapper {
+            display: block;
+        }
     }
 }
