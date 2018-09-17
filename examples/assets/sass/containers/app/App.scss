@@ -9,7 +9,6 @@
         min-height: 100vh;
         padding: 60px 0 0 250px;
         transition: all $theme-transition-duration ease-in-out;
-        overflow: auto;
 
         .content-router-view {
             @include float-fix;
