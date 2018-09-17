@@ -241,8 +241,8 @@ class DraggableList extends Component {
                         {
                             dropProvided => (
                                 <div ref={dropProvided.innerRef}
-                                     className="draggable-list-items">
-
+                                     className="draggable-list-items"
+                                     {...dropProvided.droppableProps}>
                                     {
                                         data && data.map((item, index) => item === LIST_SEPARATOR ?
                                             <div key={index}
@@ -250,9 +250,6 @@ class DraggableList extends Component {
                                             :
                                             this.renderListItem(item, index))
                                     }
-
-                                    {dropProvided.placeholder}
-
                                 </div>
                             )
                         }
