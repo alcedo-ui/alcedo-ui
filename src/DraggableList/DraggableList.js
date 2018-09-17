@@ -35,14 +35,9 @@ class DraggableList extends Component {
             value: Calculation.getInitValue(props)
         };
 
-        this.listItemSelectHandler = ::this.listItemSelectHandler;
-        this.listItemDeselectHandler = ::this.listItemDeselectHandler;
-        this.onItemDragEnd = ::this.onItemDragEnd;
-        this.renderListItem = ::this.renderListItem;
-
     }
 
-    listItemSelectHandler(item, index) {
+    listItemSelectHandler = (item, index) => {
 
         const {selectMode} = this.props;
 
@@ -68,9 +63,9 @@ class DraggableList extends Component {
             onChange && onChange(value, index);
         });
 
-    }
+    };
 
-    listItemDeselectHandler(item, index) {
+    listItemDeselectHandler = (item, index) => {
 
         const {selectMode} = this.props;
 
@@ -98,9 +93,9 @@ class DraggableList extends Component {
             onChange && onChange(value, index);
         });
 
-    }
+    };
 
-    onItemDragEnd(result) {
+    onItemDragEnd = result => {
 
         /**
          *  result: {
@@ -135,7 +130,7 @@ class DraggableList extends Component {
             onSequenceChange && onSequenceChange(data);
         });
 
-    }
+    };
 
     componentWillReceiveProps(nextProps) {
 
@@ -156,7 +151,7 @@ class DraggableList extends Component {
 
     }
 
-    renderListItem(item, index) {
+    renderListItem = (item, index) => {
 
         if (!item) {
             return;
@@ -222,7 +217,7 @@ class DraggableList extends Component {
                                    onItemClick && onItemClick(item, index, e);
                                }}/>;
 
-    }
+    };
 
     render() {
 
