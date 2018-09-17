@@ -137,7 +137,8 @@ class DraggableTreeNode extends Component {
                 {
                     dropProvided => (
                         <div ref={dropProvided.innerRef}
-                             className="draggable-tree-node-wrapper">
+                             className="draggable-tree-node-wrapper"
+                             {...dropProvided.droppableProps}>
 
                             <TipProvider text={data.tip}
                                          position={data.tipPosition}>
