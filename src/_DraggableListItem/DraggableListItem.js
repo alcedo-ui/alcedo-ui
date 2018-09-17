@@ -94,7 +94,8 @@ class DraggableListItem extends Component {
 
         return (
             <Draggable key={index}
-                       draggableId={index}>
+                       draggableId={index}
+                       index={index}>
                 {
                     dragProvided => (
                         <div>
