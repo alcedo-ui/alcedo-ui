@@ -47,8 +47,9 @@ class LocalAutoCompleteExamples extends Component {
         console.log('filter cleared');
     };
 
-    filterUniqueData = uniqueData => {
-        return this.data.filter(item => !uniqueData.includes(item));
+    filterUniqueData = (uniqueData, excludeIndex) => {
+        return this.data.filter(dataItem =>
+            uniqueData.findIndex((item, index) => index !== excludeIndex && item == dataItem) === -1);
     };
 
     onUniqueChange = (key, value) => {
@@ -61,8 +62,7 @@ class LocalAutoCompleteExamples extends Component {
 
     render() {
 
-        const {uniqueData} = this.state,
-            filteredData = this.filterUniqueData(uniqueData);
+        const {uniqueData} = this.state;
 
         return (
             <div className="example">
@@ -191,21 +191,24 @@ class LocalAutoCompleteExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <LocalAutoComplete popupStyle={{maxHeight: 300}}
-                                                   data={filteredData}
+                                                   data={this.filterUniqueData(uniqueData, 0)}
                                                    value={uniqueData[0] || null}
                                                    placeholder="Please select ..."
+                                                   minFilterLength={0}
                                                    onChange={value => this.onUniqueChange(0, value)}/>
 
                                 <LocalAutoComplete popupStyle={{maxHeight: 300}}
-                                                   data={filteredData}
+                                                   data={this.filterUniqueData(uniqueData, 1)}
                                                    value={uniqueData[1] || null}
                                                    placeholder="Please select ..."
+                                                   minFilterLength={0}
                                                    onChange={value => this.onUniqueChange(1, value)}/>
 
                                 <LocalAutoComplete popupStyle={{maxHeight: 300}}
-                                                   data={filteredData}
+                                                   data={this.filterUniqueData(uniqueData, 2)}
                                                    value={uniqueData[2] || null}
                                                    placeholder="Please select ..."
+                                                   minFilterLength={0}
                                                    onChange={value => this.onUniqueChange(2, value)}/>
 
                             </div>
