@@ -109,7 +109,7 @@ class LocalAutoCompleteExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="With mode"/>
+                    <WidgetHeader className="example-header" title="Disabled"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -134,7 +134,7 @@ class LocalAutoCompleteExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="With mode"/>
+                    <WidgetHeader className="example-header" title="Custom No Matched Message"/>
 
                     <div className="widget-content">
                         <div className="example-content">
