@@ -179,7 +179,7 @@ class EditableSelect extends Component {
 
         const {
                 className, popupClassName, style, popupStyle, name, placeholder,
-                disabled, valueField, descriptionField, position,
+                disabled, valueField, descriptionField, position, rightIconCls,
                 triggerTheme, isGrouped, onItemClick, renderer,
                 onMouseOver, onMouseOut
             } = this.props,
@@ -220,7 +220,7 @@ class EditableSelect extends Component {
                 <TextField ref="trigger"
                            className={triggerClassName}
                            value={value}
-                           rightIconCls={`fas fa-angle-${isAboveFinally ? 'up' : 'down'} editable-select-trigger-icon`}
+                           rightIconCls={`${rightIconCls} editable-select-trigger-icon`}
                            placeholder={placeholder}
                            disabled={disabled}
                            theme={triggerTheme}
@@ -275,6 +275,8 @@ EditableSelect.propTypes = {
      * Override the styles of the root element.
      */
     style: PropTypes.object,
+
+    rightIconCls: PropTypes.string,
 
     /**
      * Override the styles of the popup element.
@@ -448,6 +450,7 @@ EditableSelect.defaultProps = {
     name: '',
     value: '',
     placeholder: 'Please select ...',
+    rightIconCls: 'fas fa-angle-down',
     data: [],
     invalidMsg: '',
     disabled: false,

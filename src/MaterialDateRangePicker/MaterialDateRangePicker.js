@@ -316,9 +316,11 @@ class MaterialDateRangePicker extends Component {
 
     render() {
 
-        const {className, style, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, position,
+        const {
+                className, style, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, position,
                 theme, popupClassName, rightIconCls, previousYearIconCls, previousMonthIconCls,
-                nextYearIconCls, nextMonthIconCls, readOnly} = this.props,
+                nextYearIconCls, nextMonthIconCls, readOnly
+            } = this.props,
             {popupVisible, left, right, startTime, endTime, hoverTime, isAbove} = this.state,
 
             pickerClassName = classNames('material-date-range-picker', {
@@ -369,9 +371,7 @@ class MaterialDateRangePicker extends Component {
                        position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        hasTriangle={false}
                        onRender={this.popupRenderHandler}
-                       onRequestClose={() => {
-                           this.closePopup();
-                       }}>
+                       onRequestClose={this.closePopup}>
 
                     <div className="calendar-date-input-wrap">
                         <div className="DateRangePickerHeaderInput">
@@ -611,10 +611,10 @@ MaterialDateRangePicker.defaultProps = {
     placeholder: 'Date',
     popupClassName: '',
     dateFormat: 'YYYY-MM-DD',
-    previousYearIconCls:'fas fa-angle-double-left',
-    previousMonthIconCls:'fas fa-angle-left',
-    nextYearIconCls:'fas fa-angle-double-right',
-    nextMonthIconCls:'fas fa-angle-right',
+    previousYearIconCls: 'fas fa-angle-double-left',
+    previousMonthIconCls: 'fas fa-angle-left',
+    nextYearIconCls: 'fas fa-angle-double-right',
+    nextMonthIconCls: 'fas fa-angle-right',
     position: Position.BOTTOM_LEFT,
     readOnly: false
 };
