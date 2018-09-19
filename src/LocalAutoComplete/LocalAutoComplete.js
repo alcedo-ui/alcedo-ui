@@ -575,6 +575,11 @@ LocalAutoComplete.propTypes = {
     ]).isRequired,
 
     /**
+     * The value of LocalAutoComplete.
+     */
+    value: PropTypes.any,
+
+    /**
      * If true, the auto complete will be disabled.
      */
     disabled: PropTypes.bool,
