@@ -84,8 +84,6 @@ class TextField extends Component {
 
     clearValue = () => {
 
-        console.log('111');
-
         const {disabled, clearButtonVisible, onClear, onChange, onValid, onInvalid} = this.props,
             invalidMsgs = Valid.fieldValid('', this.props);
 
