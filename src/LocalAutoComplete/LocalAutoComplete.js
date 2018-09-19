@@ -24,6 +24,46 @@ import Event from '../_vendors/Event';
 import Dom from '../_vendors/Dom';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
+function filterData(filter, props) {
+
+    const {data, minFilterLength} = props;
+
+    if (!filter || filter.length < minFilterLength) {
+        return data;
+    }
+
+    const {valueField, displayField, renderer, filterCallback} = props;
+
+    if (filterCallback) {
+        return filterCallback(filter, data);
+    }
+
+    return data && data.filter(item => {
+
+        if (!item) {
+            return false;
+        }
+
+        if (renderer) {
+            return renderer(item).toString().toUpperCase().includes(filter.toUpperCase());
+        }
+
+        if (typeof item === 'object') {
+
+            const itemDisplay = Util.getTextByDisplayField(item, displayField, valueField);
+
+            if (itemDisplay) {
+                return itemDisplay.toString().toUpperCase().includes(filter.toUpperCase());
+            }
+
+        }
+
+        return item.toString().toUpperCase().includes(filter.toUpperCase());
+
+    });
+
+}
+
 class LocalAutoComplete extends Component {
 
     static Theme = Theme;
@@ -42,50 +82,10 @@ class LocalAutoComplete extends Component {
             filterFocused: false,
             popupVisible: false,
             isAbove: false,
-            listData: this.filterData(props.filterInitValue)
+            listData: filterData(props.filterInitValue, props)
         };
 
     }
-
-    filterData = (filter = this.state.filter, data = this.props.data) => {
-
-        const {minFilterLength} = this.props;
-
-        if (!filter || filter.length < minFilterLength) {
-            return data;
-        }
-
-        const {valueField, displayField, renderer, filterCallback} = this.props;
-
-        if (filterCallback) {
-            return filterCallback(filter, data);
-        }
-
-        return data && data.filter(item => {
-
-            if (!item) {
-                return false;
-            }
-
-            if (renderer) {
-                return renderer(item).toString().toUpperCase().includes(filter.toUpperCase());
-            }
-
-            if (typeof item === 'object') {
-
-                const itemDisplay = Util.getTextByDisplayField(item, displayField, valueField);
-
-                if (itemDisplay) {
-                    return itemDisplay.toString().toUpperCase().includes(filter.toUpperCase());
-                }
-
-            }
-
-            return item.toString().toUpperCase().includes(filter.toUpperCase());
-
-        });
-
-    };
 
     filterFocusHandler = (...args) => {
 
@@ -180,7 +180,7 @@ class LocalAutoComplete extends Component {
             state.value = null;
             state.tempSelectIndex = null;
         } else {
-            state.listData = this.filterData(filter);
+            state.listData = filterData(filter, this.props);
             state.tempSelectIndex = state.listData.length > 0 ? 0 : null;
         }
 
@@ -224,7 +224,7 @@ class LocalAutoComplete extends Component {
                 tempSelectIndex: null,
                 value,
                 filter,
-                listData: this.filterData(filter)
+                listData: filterData(filter, this.props)
             },
             isChanged = this.state.value != value;
 
@@ -259,7 +259,7 @@ class LocalAutoComplete extends Component {
                 :
                 Util.getTextByDisplayField(state.value, displayField, valueField);
 
-            state.listData = this.filterData(state.filter);
+            state.listData = filterData(state.filter, this.props);
 
         }
 
@@ -296,7 +296,8 @@ class LocalAutoComplete extends Component {
     static getDerivedStateFromProps(props, state) {
         return {
             prevProps: props,
-            value: ComponentUtil.getDerivedState(props, state, 'value')
+            value: ComponentUtil.getDerivedState(props, state, 'value'),
+            listData: filterData(state.filter, props)
         };
     }
 
@@ -337,7 +338,7 @@ class LocalAutoComplete extends Component {
                 disableTouchRipple: true
             }],
 
-            isEmpty = listData.length < 1,
+            isEmpty = listData && listData.length < 1,
             isAboveFinally = position === Position.TOP || position === Position.TOP_LEFT
                 || position === Position.TOP_RIGHT || (!position && isAbove),
 
