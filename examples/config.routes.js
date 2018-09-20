@@ -154,6 +154,9 @@ export default function configureRoutes(store) {
                 }, {
                     path: '/components/DateRangePicker',
                     component: ac(() => import('modules/date/DateRangePickerExamples'), store)
+                },  {
+                    path: '/components/DateRangeField',
+                    component: ac(() => import('modules/date/DateRangeFieldExamples'), store)
                 }, {
                     path: '/components/TimePicker',
                     component: ac(() => import('modules/date/TimePickerExamples'), store)

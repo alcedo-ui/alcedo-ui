@@ -367,9 +367,7 @@ class DateRangePicker extends Component {
                        position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        hasTriangle={false}
                        onRender={this.popupRenderHandler}
-                       onRequestClose={() => {
-                           this.closePopup();
-                       }}>
+                       onRequestClose={this.closePopup}>
 
                     <div className="calendar-date-input-wrap">
                         <div className="DateRangePickerHeaderInput">

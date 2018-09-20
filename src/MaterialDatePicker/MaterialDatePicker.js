@@ -235,7 +235,7 @@ class MaterialDatePicker extends Component {
                        position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        hasTriangle={false}
                        onRender={this.popupRenderHandler}
-                       onRequestClose={() => this.closePopup(3)}>
+                       onRequestClose={this.closePopup}>
 
                     {
                         datePickerLevel == 'day' ?

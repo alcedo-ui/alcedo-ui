@@ -185,6 +185,8 @@ MaterialEditableSelect.propTypes = {
      */
     style: PropTypes.object,
 
+    rightIconCls: PropTypes.string,
+
     /**
      * Override the styles of the popup element.
      */

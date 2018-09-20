@@ -37,6 +37,9 @@ export default [{
         text: 'DateRangePicker',
         route: '/components/DateRangePicker'
     }, {
+        text: 'DateRangeField',
+        route: '/components/DateRangeField'
+    }, {
         text: 'TimePicker',
         route: '/components/TimePicker'
     }, {

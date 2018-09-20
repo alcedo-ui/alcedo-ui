@@ -1,0 +1,279 @@
+/**
+ * @file DateRangePicker style
+ * @author sunday(sunday.wei@derbysoft.com)
+ */
+
+input::-ms-clear {
+    display: none;
+}
+
+.date-range-picker-content {
+    @include float-fix;
+    width: 600px;
+    border: 1px solid #dfdfdf;
+    .calendar {
+        width: 300px;
+        user-select: none;
+        float: left;
+        .calendar-header {
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            font-size: 14px;
+            border-bottom: 1px solid #dfdfdf;
+            span {
+                margin: 0 20px;
+                cursor: pointer;
+            }
+            i {
+                cursor: pointer;
+                width: 20px;
+                height: 18px;
+                font-size: 22px;
+                position: relative;
+                overflow: hidden;
+                color: #c5c9ce;
+            }
+            //span:hover, i:hover {
+            //    background: #ecf6fd;
+            //    border-radius: 4px;
+            //}
+        }
+        .calendar-body {
+            border-bottom: 1px solid #dfdfdf;
+            padding-bottom: 5px;
+            ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 10px;
+            }
+            .c-body-head {
+                overflow: hidden;
+                li {
+                    width: 14%;
+                    height: 14px;
+                    float: left;
+                    text-align: center;
+                }
+            }
+            .c-body-content {
+                width: 100%;
+                .content-row {
+                    width: 100%;
+                    height: 30px;
+                    overflow: hidden;
+                    padding: 0 10px;
+                    box-sizing: border-box;
+                    li {
+                        height: 30px;
+                        width: 14%;
+                        float: left;
+                        text-align: center;
+                        overflow: hidden;
+                        transition: none;
+                        a {
+                            display: inline-block;
+                            width: 30px;
+                            height: 30px;
+                            line-height: 30px;
+                            text-decoration: none;
+                            text-align: center;
+                            position: relative;
+                            transition: none;
+                            color: $theme-field;
+                            background: $theme-field-bg;
+                        }
+                    }
+                    li.current-days {
+                        cursor: pointer;
+                        a {
+                            color: $theme-field;
+                            background: $theme-field-bg;
+                            border-radius: 50%;
+                            overflow: hidden;
+                        }
+                        &:hover {
+                            a {
+                                background: $theme-field-bg-active;
+                                color: $theme-field-hover;
+                            }
+                        }
+                        &.active {
+                            a {
+                                border-radius: 50%;
+                                background: $theme-highlight;
+                                color: #fff;
+                            }
+                            &:hover {
+                                a {
+                                    background: theme-color-hover($theme-highlight);
+                                }
+                            }
+
+                        }
+
+                        &.start {
+                            a {
+                                border-bottom-left-radius: 50%;
+                                border-top-left-radius: 50%;
+                                border-bottom-right-radius: 0;
+                                border-top-right-radius: 0;
+                                background: $theme-highlight;
+                                color: #fff;
+                            }
+
+                        }
+                        &.end {
+                            a {
+                                border-bottom-right-radius: 50%;
+                                border-top-right-radius: 50%;
+                                border-bottom-left-radius: 0;
+                                border-top-left-radius: 0;
+                                background: $theme-highlight;
+                                color: #fff;
+                            }
+
+                        }
+                        &.start:hover,
+                        &.end:hover {
+                            a {
+                                background: theme-color-hover($theme-highlight);
+                            }
+
+                        }
+                    }
+                    li.item-gray {
+                        a {
+                            color: $theme-field-disabled;
+                            cursor: not-allowed;
+                        }
+                    }
+                }
+
+            }
+
+        }
+        .calendar-body.maxHeight {
+            border-bottom: none;
+            .c-body-content {
+                .content-row {
+                    height: 35px;
+                    li {
+                        height: 35px;
+                        a {
+                            width: 35px;
+                            height: 35px;
+                            line-height: 35px;
+                        }
+                    }
+                    li.hover {
+                        background: $theme-field-bg-active;
+                        color: $theme-field-hover;
+                    }
+                }
+                .margin-5 {
+                    height: 35px;
+                    li {
+                        height: 28px;
+                        a {
+                            width: 28px;
+                            height: 28px;
+                            line-height: 28px;
+                        }
+                    }
+                    li.hover,
+                    li.start,
+                    li.end {
+                        background: $theme-highlight;
+                        a {
+                            color: #fff;
+                            background: inherit;
+                        }
+                    }
+                    li.start,
+                    li:first-child,
+                    li.first-day {
+                        border-bottom-left-radius: 14px;
+                        border-top-left-radius: 14px;
+                    }
+                    li.end,
+                    li:last-child,
+                    li.last-day {
+                        border-bottom-right-radius: 14px;
+                        border-top-right-radius: 14px;
+                    }
+                    li.hover:hover,
+                    li.start:hover,
+                    li.end:hover {
+                        a {
+                            background: theme-color-hover($theme-highlight);
+                            color: #fff;
+                        }
+
+                    }
+                }
+
+            }
+        }
+        .calendar-month-body, .calendar-year-body {
+            border: none;
+            .c-body-content {
+                width: 100%;
+                padding-top: 14px;
+                .month, .year {
+                    height: 60px;
+                    li {
+                        height: 60px;
+                        width: 33.2%;
+                        text-align: center;
+                        a {
+                            display: inline-block;
+                            width: 40px;
+                            height: 40px;
+                            color: $theme-field;
+                            line-height: 40px;
+                            margin-top: 5px;
+                            border-radius: 50%;
+                            overflow: hidden;
+                        }
+
+                        &.current-months,
+                        &.current-years {
+                            &:hover {
+                                a {
+                                    background: $theme-field-bg-active;
+                                    color: $theme-field-hover;
+                                }
+                            }
+                            &.active {
+                                a {
+                                    background: $theme-highlight;
+                                    color: #fff;
+                                }
+                                &:hover {
+                                    a {
+                                        background: theme-color-hover($theme-highlight);
+                                        color: #fff;
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+        .calendar-footer {
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            a {
+                text-decoration: none;
+                color: $theme-field;
+                position: relative;
+                overflow: hidden;
+            }
+        }
+    }
+}
