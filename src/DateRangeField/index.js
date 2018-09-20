@@ -3,4 +3,4 @@
  * @author sunday(sunday.wei@derbysoft.com)
  */
 
-export default from './DateRangePickerContent';
+export default from './DateRangeField';

@@ -16,6 +16,7 @@ export CircularProgress from './CircularProgress';
 export ColorPicker from './ColorPicker';
 export Crumbs from './Crumbs';
 export DatePicker from './DatePicker';
+export DateRangeField from './DateRangeField';
 export DateRangePicker from './DateRangePicker';
 export DateTimePicker from './DateTimePicker';
 export Dialog from './Dialog';
@@ -104,4 +105,4 @@ export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 104;
+export const COMPONENTS_TOTAL_COUNT = 105;
