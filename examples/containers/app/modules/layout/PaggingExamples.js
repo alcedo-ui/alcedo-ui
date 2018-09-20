@@ -81,8 +81,7 @@ class PaggingExamples extends Component {
 
     render() {
 
-        const {pagging} = this.state,
-            totalPage = Math.ceil(this.generateData() / pagging.pageSize);
+        const {pagging} = this.state;
 
         return (
             <div className="example pagging-examples">
@@ -104,8 +103,7 @@ class PaggingExamples extends Component {
                             <p>A simple <code>Pagging</code> example.</p>
                             <Pagging selectedCountVisible={true}
                                      page={pagging.page}
-                                     count={this.generateData()}
-                                     total={totalPage}
+                                     total={this.generateData()}
                                      pageSize={pagging.pageSize}
                                      pageSizes={this.pageSizes}
                                      onChange={this.pageChangedHandler}/>
