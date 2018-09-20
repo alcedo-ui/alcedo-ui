@@ -29,12 +29,15 @@ class PaggingPage extends Component {
 
     render() {
 
-        const {page, total, paggingPrevIconCls, paggingNextIconCls, paggingFirstIconCls, paggingLastIconCls} = this.props;
+        const {
+            page, totalPage,
+            paggingPrevIconCls, paggingNextIconCls, paggingFirstIconCls, paggingLastIconCls
+        } = this.props;
 
         let pages = null;
-        if (total <= 7) {
+        if (totalPage <= 7) {
 
-            const arr = this.getArray(total);
+            const arr = this.getArray(totalPage);
 
             pages =
                 <div className="pages">
@@ -44,9 +47,7 @@ class PaggingPage extends Component {
                                         className="page"
                                         value={value}
                                         disabled={index == page}
-                                        onClick={() => {
-                                            this.jump(index);
-                                        }}/>
+                                        onClick={() => this.jump(index)}/>
                         )
                     }
                 </div>;
@@ -57,91 +58,63 @@ class PaggingPage extends Component {
                         <IconButton className="page"
                                     value="1"
                                     disabled={page == 0}
-                                    onClick={() => {
-                                        this.jump(0);
-                                    }}/>
+                                    onClick={() => this.jump(0)}/>
                         <IconButton className="page"
                                     value="2"
                                     disabled={page == 1}
-                                    onClick={() => {
-                                        this.jump(1);
-                                    }}/>
+                                    onClick={() => this.jump(1)}/>
                         <IconButton className="page"
                                     value="3"
                                     disabled={page == 2}
-                                    onClick={() => {
-                                        this.jump(2);
-                                    }}/>
+                                    onClick={() => this.jump(2)}/>
                         <IconButton className="page"
                                     value="4"
                                     disabled={page == 3}
-                                    onClick={() => {
-                                        this.jump(3);
-                                    }}/>
+                                    onClick={() => this.jump(3)}/>
                         <IconButton className="page"
                                     value="5"
                                     disabled={page == 4}
-                                    onClick={() => {
-                                        this.jump(4);
-                                    }}/>
+                                    onClick={() => this.jump(4)}/>
                         <IconButton className="page"
                                     value="6"
                                     disabled={page == 5}
-                                    onClick={() => {
-                                        this.jump(5);
-                                    }}/>
+                                    onClick={() => this.jump(5)}/>
                         <div className="apostrophe">...</div>
                         <IconButton className="page"
-                                    value={total}
-                                    onClick={() => {
-                                        this.jump(total - 1);
-                                    }}/>
+                                    value={totalPage}
+                                    onClick={() => this.jump(totalPage - 1)}/>
                     </div>;
-            } else if (page > total - 5) {
+            } else if (page > totalPage - 5) {
                 pages =
                     <div className="pages">
                         <IconButton className="page"
                                     value="1"
-                                    onClick={() => {
-                                        this.jump(0);
-                                    }}/>
+                                    onClick={() => this.jump(0)}/>
                         <div className="apostrophe">...</div>
                         <IconButton className="page"
-                                    value={total - 5}
-                                    disabled={page == total - 6}
-                                    onClick={() => {
-                                        this.jump(total - 6);
-                                    }}/>
+                                    value={totalPage - 5}
+                                    disabled={page == totalPage - 6}
+                                    onClick={() => this.jump(totalPage - 6)}/>
                         <IconButton className="page"
-                                    value={total - 4}
-                                    disabled={page == total - 5}
-                                    onClick={() => {
-                                        this.jump(total - 5);
-                                    }}/>
+                                    value={totalPage - 4}
+                                    disabled={page == totalPage - 5}
+                                    onClick={() => this.jump(totalPage - 5)}/>
                         <IconButton className="page"
-                                    value={total - 3}
-                                    disabled={page == total - 4}
-                                    onClick={() => {
-                                        this.jump(total - 4);
-                                    }}/>
+                                    value={totalPage - 3}
+                                    disabled={page == totalPage - 4}
+                                    onClick={() => this.jump(totalPage - 4)}/>
                         <IconButton className="page"
-                                    value={total - 2}
-                                    disabled={page == total - 3}
-                                    onClick={() => {
-                                        this.jump(total - 3);
-                                    }}/>
+                                    value={totalPage - 2}
+                                    disabled={page == totalPage - 3}
+                                    onClick={() => this.jump(totalPage - 3)}/>
                         <IconButton className="page"
-                                    value={total - 1}
-                                    disabled={page == total - 2}
-                                    onClick={() => {
-                                        this.jump(total - 2);
-                                    }}/>
+                                    value={totalPage - 1}
+                                    disabled={page == totalPage - 2}
+                                    onClick={() => this.jump(totalPage - 2)}/>
                         <IconButton className="page"
-                                    value={total}
-                                    disabled={page == total - 1}
-                                    onClick={() => {
-                                        this.jump(total - 1);
-                                    }}/>
+                                    value={totalPage}
+                                    disabled={page == totalPage - 1}
+                                    onClick={() => this.jump(totalPage - 1)}/>
                     </div>;
             } else {
                 pages =
@@ -152,36 +125,24 @@ class PaggingPage extends Component {
                         <div className="apostrophe">...</div>
                         <IconButton className="page"
                                     value={page - 1}
-                                    onClick={() => {
-                                        this.jump(page - 2);
-                                    }}/>
+                                    onClick={() => this.jump(page - 2)}/>
                         <IconButton className="page"
                                     value={page}
-                                    onClick={() => {
-                                        this.jump(page - 1);
-                                    }}/>
+                                    onClick={() => this.jump(page - 1)}/>
                         <IconButton className="page"
                                     value={page + 1}
                                     disabled={true}
-                                    onClick={() => {
-                                        this.jump(page);
-                                    }}/>
+                                    onClick={() => this.jump(page)}/>
                         <IconButton className="page"
                                     value={page + 2}
-                                    onClick={() => {
-                                        this.jump(page + 1);
-                                    }}/>
+                                    onClick={() => this.jump(page + 1)}/>
                         <IconButton className="page"
                                     value={page + 3}
-                                    onClick={() => {
-                                        this.jump(page + 2);
-                                    }}/>
+                                    onClick={() => this.jump(page + 2)}/>
                         <div className="apostrophe">...</div>
                         <IconButton className="page"
-                                    value={total}
-                                    onClick={() => {
-                                        this.jump(total - 1);
-                                    }}/>
+                                    value={totalPage}
+                                    onClick={() => this.jump(totalPage - 1)}/>
                     </div>;
             }
         }
@@ -192,32 +153,24 @@ class PaggingPage extends Component {
                 <IconButton className="ctrl"
                             iconCls={paggingFirstIconCls}
                             disabled={page == 0}
-                            onClick={() => {
-                                this.jump(0);
-                            }}/>
+                            onClick={() => this.jump(0)}/>
 
                 <IconButton className="ctrl"
                             iconCls={paggingPrevIconCls}
                             disabled={page == 0}
-                            onClick={() => {
-                                this.jump(page - 1 >= 0 ? page - 1 : 0);
-                            }}/>
+                            onClick={() => this.jump(page - 1 >= 0 ? page - 1 : 0)}/>
 
                 {pages}
 
                 <IconButton className="ctrl"
                             iconCls={paggingNextIconCls}
-                            disabled={page == total - 1 || total == 0}
-                            onClick={() => {
-                                this.jump(page + 1 <= total - 1 ? page + 1 : total - 1);
-                            }}/>
+                            disabled={page == totalPage - 1 || totalPage == 0}
+                            onClick={() => this.jump(page + 1 <= totalPage - 1 ? page + 1 : totalPage - 1)}/>
 
                 <IconButton className="ctrl"
                             iconCls={paggingLastIconCls}
-                            disabled={page == total - 1 || total == 0}
-                            onClick={() => {
-                                this.jump(total - 1);
-                            }}/>
+                            disabled={page == totalPage - 1 || totalPage == 0}
+                            onClick={() => this.jump(totalPage - 1)}/>
 
             </div>
         );
@@ -231,7 +184,7 @@ PaggingPage.propTypes = {
     style: PropTypes.object,
 
     page: PropTypes.number.isRequired,
-    total: PropTypes.number.isRequired,
+    totalPage: PropTypes.number.isRequired,
 
     paggingPrevIconCls: PropTypes.string,
     paggingNextIconCls: PropTypes.string,
@@ -245,7 +198,7 @@ PaggingPage.propTypes = {
 PaggingPage.defaultProps = {
 
     page: 0,
-    total: 0,
+    totalPage: 0,
 
     paggingPrevIconCls: 'fas fa-angle-left',
     paggingNextIconCls: 'fas fa-angle-right',
