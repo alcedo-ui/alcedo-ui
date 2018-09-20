@@ -42,12 +42,15 @@ class BriefPagging extends Component {
     render() {
 
         const {
-                count, page, total, pageSize, pageSizes, pageSizeRightIconCls,
+                total, page, pageSize, pageSizes, pageSizeRightIconCls,
                 selectedCount, selectedCountVisible, pageSizeVisible, paggingPrevIconCls, paggingNextIconCls,
                 paggingCountRenderer
             } = this.props,
-            startNumber = Valid.range(page * pageSize + 1, 0, count),
-            stopNumber = Valid.range((page + 1) * pageSize, 0, count);
+
+            totalPage = Math.ceil(total / pageSize),
+
+            startNumber = Valid.range(page * pageSize + 1, 0, total),
+            stopNumber = Valid.range((page + 1) * pageSize, 0, total);
 
         return (
             <div className="brief-pagging">
@@ -66,9 +69,9 @@ class BriefPagging extends Component {
                     <div className="brief-pagging-totle">
                         {
                             paggingCountRenderer ?
-                                paggingCountRenderer(count, page, total, pageSize, pageSizes)
+                                paggingCountRenderer(total, page, totalPage, pageSize, pageSizes)
                                 :
-                                `Total: ${count}`
+                                `Total: ${total}`
                         }
                     </div>
 
@@ -87,7 +90,7 @@ class BriefPagging extends Component {
                     }
 
                     <div className="brief-pagging-info">
-                        {`${startNumber}-${stopNumber} of ${count}`}
+                        {`${startNumber}-${stopNumber} of ${total}`}
                     </div>
 
                     <IconButton iconCls={paggingPrevIconCls}
@@ -95,7 +98,7 @@ class BriefPagging extends Component {
                                 onClick={() => this.pageChangedHandle(page - 1)}/>
 
                     <IconButton iconCls={paggingNextIconCls}
-                                disabled={page >= total - 1}
+                                disabled={page >= totalPage - 1}
                                 onClick={() => this.pageChangedHandle(page + 1)}/>
 
                 </div>
@@ -121,17 +124,12 @@ BriefPagging.propTypes = {
     /**
      * The total of data.
      */
-    count: PropTypes.number,
+    total: PropTypes.number,
 
     /**
      * The valid page.
      */
     page: PropTypes.number,
-
-    /**
-     * The page count.
-     */
-    total: PropTypes.number,
 
     /**
      * The number of per page.
@@ -184,9 +182,8 @@ BriefPagging.propTypes = {
 
 BriefPagging.defaultProps = {
 
-    count: 0,
-    page: 0,
     total: 0,
+    page: 0,
     pageSize: 10,
     pageSizes: [5, 10, 15, 20],
     selectedCount: 0,
