@@ -87,8 +87,7 @@ class BriefPaggingExamples extends Component {
 
     render() {
 
-        const {pagging} = this.state,
-            totalPage = Math.ceil(this.generateData() / pagging.pageSize);
+        const {pagging} = this.state;
 
         return (
             <div className="example brief-pagging-examples">
@@ -115,8 +114,7 @@ class BriefPaggingExamples extends Component {
 
                                 <BriefPagging selectedCountVisible={true}
                                               page={pagging.page}
-                                              count={this.generateData()}
-                                              total={totalPage}
+                                              total={this.generateData()}
                                               pageSize={pagging.pageSize}
                                               pageSizes={this.pageSizes}
                                               onChange={this.pageChangedHandler}/>
