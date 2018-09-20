@@ -604,7 +604,7 @@ class Table extends Component {
                         (
                             useFullPagging ?
                                 <Pagging page={pagging.page}
-                                         count={data.length}
+                                         total={data.length}
                                          selectedCount={this.calSelectedCount()}
                                          pageSize={pagging.pageSize}
                                          pageSizes={pageSizes}
@@ -619,7 +619,7 @@ class Table extends Component {
                                          onChange={this.pageChangedHandler}/>
                                 :
                                 <BriefPagging page={pagging.page}
-                                              count={data.length}
+                                              total={data.length}
                                               selectedCount={this.calSelectedCount()}
                                               pageSize={pagging.pageSize}
                                               pageSizes={pageSizes}
