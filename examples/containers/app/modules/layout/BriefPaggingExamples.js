@@ -56,6 +56,8 @@ class BriefPaggingExamples extends Component {
 
     pageChangedHandler = pagging => {
 
+        console.log('Page Changed::', pagging);
+
         if (typeof pagging.pageSize === 'object') {
             pagging.pageSize = pagging.pageSize.value;
         }
