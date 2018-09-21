@@ -30,12 +30,15 @@ class BriefPagging extends Component {
 
     pageSizeChangedHandle = pageSize => {
 
-        const {page, onChange} = this.props;
+        const {total, onChange} = this.props;
 
-        this.props.pageSize != pageSize && onChange && onChange({
-            page,
-            pageSize
-        });
+        if (this.props.pageSize != pageSize) {
+            const totalPage = Math.ceil(total / pageSize);
+            onChange && onChange({
+                page: Valid.range(totalPage - 1, 0),
+                pageSize
+            });
+        }
 
     };
 
