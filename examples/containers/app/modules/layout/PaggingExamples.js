@@ -53,6 +53,9 @@ class PaggingExamples extends Component {
     };
 
     pageChangedHandler = pagging => {
+
+        console.log('Page Changed::', pagging);
+
         if (typeof pagging.pageSize === 'object') {
             pagging.pageSize = pagging.pageSize.value;
         }
@@ -62,6 +65,7 @@ class PaggingExamples extends Component {
         }, () => {
             this.resetPage(this.generateData(100), pagging);
         });
+
     };
 
     resetPage = (data = this.generateData(100), pagging = this.state.pagging) => {
