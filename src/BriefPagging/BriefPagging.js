@@ -30,10 +30,18 @@ class BriefPagging extends Component {
 
     pageSizeChangedHandle = pageSize => {
 
-        const {total, onChange} = this.props;
+        const {total, pageSizeValueField, onChange} = this.props,
+            originPageSizeValue = typeof this.props.pageSize === 'object' ?
+                this.props.pageSize[pageSizeValueField]
+                :
+                this.props.pageSize,
+            pageSizeValue = typeof pageSize === 'object' ?
+                pageSize[pageSizeValueField]
+                :
+                pageSize;
 
-        if (this.props.pageSize != pageSize) {
-            const totalPage = Math.ceil(total / pageSize);
+        if (originPageSizeValue !== pageSizeValue) {
+            const totalPage = Math.ceil(total / pageSizeValue);
             onChange && onChange({
                 page: Valid.range(this.props.page, 0, totalPage - 1),
                 pageSize
@@ -45,7 +53,7 @@ class BriefPagging extends Component {
     render() {
 
         const {
-                total, page, pageSize, pageSizes, pageSizeRightIconCls,
+                total, page, pageSize, pageSizes, pageSizeRightIconCls, pageSizeValueField, pageSizeDisplayField,
                 selectedCount, selectedCountVisible, pageSizeVisible, paggingPrevIconCls, paggingNextIconCls,
                 paggingCountRenderer
             } = this.props,
@@ -86,6 +94,8 @@ class BriefPagging extends Component {
                         pageSizeVisible ?
                             <PaggingSize pageSize={pageSize}
                                          pageSizes={pageSizes}
+                                         valueField={pageSizeValueField}
+                                         displayField={pageSizeDisplayField}
                                          rightIconCls={pageSizeRightIconCls}
                                          onPageSizeChange={this.pageSizeChangedHandle}/>
                             :
@@ -145,6 +155,16 @@ BriefPagging.propTypes = {
     pageSizes: PropTypes.array,
 
     /**
+     * The value field name of PageSize. (default: "value")
+     */
+    pageSizeValueField: PropTypes.string,
+
+    /**
+     * The display field name of PageSize. (default: "text")
+     */
+    pageSizeDisplayField: PropTypes.string,
+
+    /**
      * The total count of selected.
      */
     selectedCount: PropTypes.number,
@@ -189,6 +209,8 @@ BriefPagging.defaultProps = {
     page: 0,
     pageSize: 10,
     pageSizes: [5, 10, 15, 20],
+    pageSizeValueField: 'value',
+    pageSizeDisplayField: 'text',
     selectedCount: 0,
 
     selectedCountVisible: false,
