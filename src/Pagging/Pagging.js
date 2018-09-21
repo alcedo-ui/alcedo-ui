@@ -35,7 +35,7 @@ class Pagging extends Component {
         if (this.props.pageSize != pageSize) {
             const totalPage = Math.ceil(total / pageSize);
             onChange && onChange({
-                page: Valid.range(totalPage - 1, 0),
+                page: Valid.range(this.props.page, 0, totalPage - 1),
                 pageSize
             });
         }
