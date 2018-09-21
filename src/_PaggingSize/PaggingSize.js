@@ -21,7 +21,7 @@ class PaggingSize extends Component {
 
     render() {
 
-        const {className, style, pageSize, pageSizes, rightIconCls} = this.props;
+        const {className, style, pageSize, pageSizes, valueField, displayField, rightIconCls} = this.props;
 
         let temp = pageSizes.find(item => item && item.value === pageSize),
             value = temp ? temp : pageSize;
@@ -36,6 +36,8 @@ class PaggingSize extends Component {
                                 value={value}
                                 data={pageSizes}
                                 autoClose={true}
+                                valueField={valueField}
+                                displayField={displayField}
                                 rightIconCls={rightIconCls}
                                 onChange={this.pageSizeChangeHandle}/>
 
@@ -53,6 +55,9 @@ PaggingSize.propTypes = {
     pageSize: PropTypes.number,
     pageSizes: PropTypes.array,
 
+    valueField: PropTypes.string,
+    displayField: PropTypes.string,
+
     rightIconCls: PropTypes.string,
 
     onPageSizeChange: PropTypes.func
@@ -60,8 +65,15 @@ PaggingSize.propTypes = {
 };
 
 PaggingSize.defaultProps = {
+
     pageSize: 10,
-    pageSizes: [5, 10, 15, 20]
+    pageSizes: [5, 10, 15, 20],
+
+    valueField: 'value',
+    displayField: 'text',
+
+    rightIconCls: 'fas fa-angle-down'
+
 };
 
 export default PaggingSize;
