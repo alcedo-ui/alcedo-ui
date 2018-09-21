@@ -400,7 +400,8 @@ class Table extends Component {
 
         this.setState(state, () => {
 
-            this.resetPage(this.props.data, pagging);
+            const {onPageChange} = this.props;
+            onPageChange && onPageChange(pagging.page, pagging.pageSize);
 
             if (isClearSelectionOnChangePage) {
                 const {onChange} = this.props;
