@@ -72,6 +72,17 @@
                 }
             }
         }
+
+        .no-matched {
+            line-height: 40px;
+            color: $theme-field;
+            padding: 0 12px;
+
+            .no-matched-icon {
+                color: $theme-warning;
+                margin-right: 10px;
+            }
+        }
     }
 
     &.above {

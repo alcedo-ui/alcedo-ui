@@ -180,7 +180,7 @@ class EditableSelect extends Component {
         const {
                 className, popupClassName, style, popupStyle, name, placeholder,
                 disabled, valueField, descriptionField, position, rightIconCls,
-                triggerTheme, isGrouped, onItemClick, renderer,
+                triggerTheme, isGrouped, onItemClick, renderer, noMatchedMsg,
                 onMouseOver, onMouseOut
             } = this.props,
             {value, listValue, popupVisible, isAbove} = this.state,
@@ -240,16 +240,33 @@ class EditableSelect extends Component {
                        onRender={this.popupRenderHandle}
                        onRequestClose={this.closePopup}>
 
-                    <List className="editable-select-list"
-                          isGrouped={isGrouped}
-                          data={listData.length < 1 ? [] : listData}
-                          valueField={valueField}
-                          value={listValue}
-                          displayField={valueField}
-                          descriptionField={descriptionField}
-                          renderer={renderer}
-                          onItemClick={onItemClick}
-                          onChange={this.changeHandle}/>
+                    {
+                        listData.length < 1 ?
+
+                            <div className="no-matched">
+                                {
+                                    noMatchedMsg ?
+                                        noMatchedMsg
+                                        :
+                                        <span>
+                                                <i className="fas fa-exclamation-triangle no-matched-icon"></i>
+                                                No matched value.
+                                            </span>
+                                }
+                            </div>
+                            :
+                            <List className="editable-select-list"
+                                  isGrouped={isGrouped}
+                                  data={listData}
+                                  valueField={valueField}
+                                  value={listValue}
+                                  displayField={valueField}
+                                  descriptionField={descriptionField}
+                                  renderer={renderer}
+                                  onItemClick={onItemClick}
+                                  onChange={this.changeHandle}/>
+
+                    }
 
                 </Popup>
 

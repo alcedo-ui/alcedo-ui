@@ -125,7 +125,7 @@ class EditableSelectExamples extends Component {
 
                                 <div className="field-group">
 
-                                    <EditableSelect data={this.data}
+                                    <EditableSelect data={[]}
                                                     onChange={this.onChange}
                                                     valueField={'text'}
                                                     useFilter={true}/>
