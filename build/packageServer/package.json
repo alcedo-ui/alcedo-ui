@@ -1,0 +1,11 @@
+{
+    "name": "alcedo-ui",
+    "author": "Alcedo-UI Team",
+    "version": "2.32.5",
+    "description": "A set of React components.",
+    "dependencies": {
+        "compression": "^1.7.2",
+        "express": "^4.16.3",
+        "path": "^0.12.7"
+    }
+}
