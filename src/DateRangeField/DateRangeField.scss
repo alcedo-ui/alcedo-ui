@@ -93,6 +93,21 @@ input::-ms-clear {
                             border-radius: 50%;
                             overflow: hidden;
                         }
+
+                        &.start,
+                        &.end,
+                        &.hover {
+                            a {
+                                width: 100%;
+                            }
+                        }
+
+                        &.hover {
+                            a {
+                                border-radius: 0;
+                            }
+                        }
+
                         &:hover {
                             a {
                                 background: $theme-field-bg-active;

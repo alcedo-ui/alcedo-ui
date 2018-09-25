@@ -342,28 +342,28 @@ class DayPicker extends Component {
                         minValue ?
                             (
                                 (moment(minValue).format('YYYY') < +selectYear - 1) || (moment(minValue).format('YYYY') == +selectYear - 1 && moment(minValue).format('MM') <= selectMonth) ?
-                                    <i className={previousYearIconCls} onClick={previousYear}>
+                                    <i className={`previous-year ${previousYearIconCls}`} onClick={previousYear}>
                                         <TouchRipple/>
                                     </i>
                                     :
                                     null
                             )
                             :
-                            <i className={previousYearIconCls} onClick={previousYear}>
+                            <i className={`previous-year ${previousYearIconCls}`} onClick={previousYear}>
                                 <TouchRipple/>
                             </i>
                     }
                     {
                         minValue ?
                             ((moment(minValue).format('YYYY') == selectYear && moment(minValue).format('MM') < selectMonth) || moment(minValue).format('YYYY') < selectYear ?
-                                    <i className={previousMonthIconCls} onClick={previousMonth}>
+                                    <i className={`previous-month ${previousMonthIconCls}`} onClick={previousMonth}>
                                         <TouchRipple/>
                                     </i>
                                     :
                                     null
                             )
                             :
-                            <i className={previousMonthIconCls} onClick={previousMonth}>
+                            <i className={`previous-month ${previousMonthIconCls}`} onClick={previousMonth}>
                                 <TouchRipple/>
                             </i>
 
@@ -375,14 +375,14 @@ class DayPicker extends Component {
                     {
                         maxValue ?
                             ((moment(maxValue).format('YYYY') == selectYear && selectMonth < moment(maxValue).format('MM')) || maxValue && selectYear < moment(maxValue).format('YYYY') ?
-                                    <i className={nextMonthIconCls} onClick={nextMonth}>
+                                    <i className={`next-month ${nextMonthIconCls}`} onClick={nextMonth}>
                                         <TouchRipple/>
                                     </i>
                                     :
                                     null
                             )
                             :
-                            <i className={nextMonthIconCls} onClick={nextMonth}>
+                            <i className={`next-month ${nextMonthIconCls}`} onClick={nextMonth}>
                                 <TouchRipple/>
                             </i>
 
@@ -390,14 +390,14 @@ class DayPicker extends Component {
                     {
                         maxValue ?
                             ((selectYear < +moment(maxValue).format('YYYY') - 1) || (selectYear == moment(maxValue).format('YYYY') - 1 && selectMonth <= moment(maxValue).format('MM')) ?
-                                    <i className={nextYearIconCls} onClick={nextYear}>
+                                    <i className={`next-year ${nextYearIconCls}`} onClick={nextYear}>
                                         <TouchRipple/>
                                     </i>
                                     :
                                     null
                             )
                             :
-                            <i className={nextYearIconCls} onClick={nextYear}>
+                            <i className={`next-year ${nextYearIconCls}`} onClick={nextYear}>
                                 <TouchRipple/>
                             </i>
 

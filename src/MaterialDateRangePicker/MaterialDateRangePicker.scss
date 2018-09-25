@@ -26,7 +26,7 @@ input::-ms-clear {
         @include shadow(3);
         width: 600px;
         height: 350px;
-        margin-top:1px;
+        margin-top: 1px;
 
         .calendar-date-input-wrap {
             height: 40px;
@@ -146,7 +146,21 @@ input::-ms-clear {
                                 border-radius: 50%;
                                 overflow: hidden;
                             }
-                            &:hover{
+
+                            &.start,
+                            &.end,
+                            &.hover {
+                                a {
+                                    width: 100%;
+                                }
+                            }
+
+                            &.hover {
+                                a {
+                                    border-radius: 0;
+                                }
+                            }
+                            &:hover {
                                 a {
                                     background: $theme-field-bg-active;
                                     color: $theme-field-hover;
@@ -158,7 +172,7 @@ input::-ms-clear {
                                     background: $theme-highlight;
                                     color: #fff;
                                 }
-                                &:hover{
+                                &:hover {
                                     a {
                                         background: theme-color-hover($theme-highlight);
                                     }
@@ -188,7 +202,7 @@ input::-ms-clear {
                                 }
 
                             }
-                            &.start:hover ,
+                            &.start:hover,
                             &.end:hover {
                                 a {
                                     background: theme-color-hover($theme-highlight);
@@ -292,8 +306,8 @@ input::-ms-clear {
                             }
 
                             &.current-months,
-                            &.current-years{
-                                &:hover{
+                            &.current-years {
+                                &:hover {
                                     a {
                                         background: $theme-field-bg-active;
                                         color: $theme-field-hover;

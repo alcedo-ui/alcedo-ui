@@ -155,7 +155,7 @@ class MonthPicker extends Component {
                         rightPreYear ?
                             null
                             :
-                            <i className={previousYearIconCls} onClick={previousYear}>
+                            <i className={`previous-year ${previousYearIconCls}`} onClick={previousYear}>
                                 <TouchRipple/>
                             </i>
                     }
@@ -164,7 +164,7 @@ class MonthPicker extends Component {
                     {
                         leftNextYear ?
                             null :
-                            <i className={nextYearIconCls} onClick={nextYear}>
+                            <i className={`next-year ${nextYearIconCls}`} onClick={nextYear}>
                                 <TouchRipple/>
                             </i>
                     }
