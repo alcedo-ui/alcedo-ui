@@ -77,7 +77,7 @@ class BriefPagging extends Component {
                             null
                     }
 
-                    <div className="brief-pagging-totle">
+                    <div className="brief-pagging-total">
                         {
                             paggingCountRenderer ?
                                 paggingCountRenderer(total, page, totalPage, pageSize, pageSizes)
