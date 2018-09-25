@@ -8,6 +8,7 @@ const fs = require('fs'),
 
     name = 'alcedo-ui',
     path = `./${name}`,
+    distPath = `${path}/dist`,
     zipPath = `./${name}.zip`;
 
 log.title('info', 'WAIT', 'Building Zip...');
@@ -24,10 +25,11 @@ if (fsExistsSync(path)) {
 
 // make temp dir
 fs.mkdirSync(path);
+fs.mkdirSync(distPath);
 
 // copy files
-copyRecursionSync(config.assetsDirectory, path, ['node_modules', '.DS_Store']);
-copyRecursionSync('./build/packageServer', path);
+copyRecursionSync(config.assetsDirectory, distPath, ['node_modules', '.DS_Store']);
+copyRecursionSync('./build/server', path);
 
 // make archive
 const output = fs.createWriteStream(zipPath),
