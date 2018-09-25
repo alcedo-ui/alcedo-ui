@@ -5,9 +5,11 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import PaggingSize from '../_PaggingSize';
 import PaggingPage from '../_PaggingPage';
+import Valid from '../_vendors/Valid';
 
 class Pagging extends Component {
 
@@ -28,26 +30,44 @@ class Pagging extends Component {
 
     pageSizeChangedHandle = pageSize => {
 
-        const {page, onChange} = this.props;
+        const {total, pageSizeValueField, onChange} = this.props,
+            originPageSizeValue = typeof this.props.pageSize === 'object' ?
+                this.props.pageSize[pageSizeValueField]
+                :
+                this.props.pageSize,
+            pageSizeValue = typeof pageSize === 'object' ?
+                pageSize[pageSizeValueField]
+                :
+                pageSize;
 
-        this.props.pageSize != pageSize && onChange && onChange({
-            page,
-            pageSize
-        });
+        if (originPageSizeValue !== pageSizeValue) {
+            const totalPage = Math.ceil(total / pageSizeValue);
+            onChange && onChange({
+                page: Valid.range(this.props.page, 0, totalPage - 1),
+                pageSize
+            });
+        }
 
     };
 
     render() {
 
         const {
-            count, page, total, pageSize, pageSizes,
-            selectedCount, selectedCountVisible, pageSizeVisible, pageSizeRightIconCls,
-            paggingPrevIconCls, paggingNextIconCls, paggingFirstIconCls, paggingLastIconCls,
-            paggingCountRenderer
-        } = this.props;
+                className, style, total, page, pageSize, pageSizes, pageSizeValueField, pageSizeDisplayField,
+                selectedCount, selectedCountVisible, pageSizeVisible, pageSizeRightIconCls,
+                paggingPrevIconCls, paggingNextIconCls, paggingFirstIconCls, paggingLastIconCls,
+                paggingCountRenderer
+            } = this.props,
+
+            totalPage = Math.ceil(total / pageSize),
+
+            paggingClassNames = classNames('pagging', {
+                [className]: className
+            });
 
         return (
-            <div className="pagging">
+            <div className={paggingClassNames}
+                 style={style}>
 
                 <div className="pagging-left">
 
@@ -63,9 +83,9 @@ class Pagging extends Component {
                     <div className="pagging-totle">
                         {
                             paggingCountRenderer ?
-                                paggingCountRenderer(count, page, total, pageSize, pageSizes)
+                                paggingCountRenderer(total, page, totalPage, pageSize, pageSizes)
                                 :
-                                `Total: ${count}`
+                                `Total: ${total}`
                         }
                     </div>
 
@@ -77,6 +97,8 @@ class Pagging extends Component {
                         pageSizeVisible ?
                             <PaggingSize pageSize={pageSize}
                                          pageSizes={pageSizes}
+                                         valueField={pageSizeValueField}
+                                         displayField={pageSizeDisplayField}
                                          rightIconCls={pageSizeRightIconCls}
                                          onPageSizeChange={this.pageSizeChangedHandle}/>
                             :
@@ -84,7 +106,7 @@ class Pagging extends Component {
                     }
 
                     <PaggingPage page={page}
-                                 total={total}
+                                 totalPage={totalPage}
                                  paggingPrevIconCls={paggingPrevIconCls}
                                  paggingNextIconCls={paggingNextIconCls}
                                  paggingFirstIconCls={paggingFirstIconCls}
@@ -114,17 +136,12 @@ Pagging.propTypes = {
     /**
      * The total of data.
      */
-    count: PropTypes.number,
+    total: PropTypes.number,
 
     /**
      * The valid page.
      */
     page: PropTypes.number,
-
-    /**
-     * The page count.
-     */
-    total: PropTypes.number,
 
     /**
      * The number of per page.
@@ -135,6 +152,16 @@ Pagging.propTypes = {
      * The array of pageSize.
      */
     pageSizes: PropTypes.array,
+
+    /**
+     * The value field name of PageSize. (default: "value")
+     */
+    pageSizeValueField: PropTypes.string,
+
+    /**
+     * The display field name of PageSize. (default: "text")
+     */
+    pageSizeDisplayField: PropTypes.string,
 
     /**
      * The total count of selected.
@@ -187,11 +214,12 @@ Pagging.propTypes = {
 
 Pagging.defaultProps = {
 
-    count: 0,
-    page: 0,
     total: 0,
+    page: 0,
     pageSize: 10,
     pageSizes: [5, 10, 15, 20],
+    pageSizeValueField: 'value',
+    pageSizeDisplayField: 'text',
     selectedCount: 0,
 
     selectedCountVisible: false,

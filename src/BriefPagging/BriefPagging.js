@@ -30,24 +30,38 @@ class BriefPagging extends Component {
 
     pageSizeChangedHandle = pageSize => {
 
-        const {page, onChange} = this.props;
+        const {total, pageSizeValueField, onChange} = this.props,
+            originPageSizeValue = typeof this.props.pageSize === 'object' ?
+                this.props.pageSize[pageSizeValueField]
+                :
+                this.props.pageSize,
+            pageSizeValue = typeof pageSize === 'object' ?
+                pageSize[pageSizeValueField]
+                :
+                pageSize;
 
-        this.props.pageSize != pageSize && onChange && onChange({
-            page,
-            pageSize
-        });
+        if (originPageSizeValue !== pageSizeValue) {
+            const totalPage = Math.ceil(total / pageSizeValue);
+            onChange && onChange({
+                page: Valid.range(this.props.page, 0, totalPage - 1),
+                pageSize
+            });
+        }
 
     };
 
     render() {
 
         const {
-                count, page, total, pageSize, pageSizes, pageSizeRightIconCls,
+                total, page, pageSize, pageSizes, pageSizeRightIconCls, pageSizeValueField, pageSizeDisplayField,
                 selectedCount, selectedCountVisible, pageSizeVisible, paggingPrevIconCls, paggingNextIconCls,
                 paggingCountRenderer
             } = this.props,
-            startNumber = Valid.range(page * pageSize + 1, 0, count),
-            stopNumber = Valid.range((page + 1) * pageSize, 0, count);
+
+            totalPage = Math.ceil(total / pageSize),
+
+            startNumber = Valid.range(page * pageSize + 1, 0, total),
+            stopNumber = Valid.range((page + 1) * pageSize, 0, total);
 
         return (
             <div className="brief-pagging">
@@ -66,9 +80,9 @@ class BriefPagging extends Component {
                     <div className="brief-pagging-totle">
                         {
                             paggingCountRenderer ?
-                                paggingCountRenderer(count, page, total, pageSize, pageSizes)
+                                paggingCountRenderer(total, page, totalPage, pageSize, pageSizes)
                                 :
-                                `Total: ${count}`
+                                `Total: ${total}`
                         }
                     </div>
 
@@ -80,6 +94,8 @@ class BriefPagging extends Component {
                         pageSizeVisible ?
                             <PaggingSize pageSize={pageSize}
                                          pageSizes={pageSizes}
+                                         valueField={pageSizeValueField}
+                                         displayField={pageSizeDisplayField}
                                          rightIconCls={pageSizeRightIconCls}
                                          onPageSizeChange={this.pageSizeChangedHandle}/>
                             :
@@ -87,7 +103,7 @@ class BriefPagging extends Component {
                     }
 
                     <div className="brief-pagging-info">
-                        {`${startNumber}-${stopNumber} of ${count}`}
+                        {`${startNumber}-${stopNumber} of ${total}`}
                     </div>
 
                     <IconButton iconCls={paggingPrevIconCls}
@@ -95,7 +111,7 @@ class BriefPagging extends Component {
                                 onClick={() => this.pageChangedHandle(page - 1)}/>
 
                     <IconButton iconCls={paggingNextIconCls}
-                                disabled={page >= total - 1}
+                                disabled={page >= totalPage - 1}
                                 onClick={() => this.pageChangedHandle(page + 1)}/>
 
                 </div>
@@ -121,17 +137,12 @@ BriefPagging.propTypes = {
     /**
      * The total of data.
      */
-    count: PropTypes.number,
+    total: PropTypes.number,
 
     /**
      * The valid page.
      */
     page: PropTypes.number,
-
-    /**
-     * The page count.
-     */
-    total: PropTypes.number,
 
     /**
      * The number of per page.
@@ -142,6 +153,16 @@ BriefPagging.propTypes = {
      * The array of pageSize.
      */
     pageSizes: PropTypes.array,
+
+    /**
+     * The value field name of PageSize. (default: "value")
+     */
+    pageSizeValueField: PropTypes.string,
+
+    /**
+     * The display field name of PageSize. (default: "text")
+     */
+    pageSizeDisplayField: PropTypes.string,
 
     /**
      * The total count of selected.
@@ -184,11 +205,12 @@ BriefPagging.propTypes = {
 
 BriefPagging.defaultProps = {
 
-    count: 0,
-    page: 0,
     total: 0,
+    page: 0,
     pageSize: 10,
     pageSizes: [5, 10, 15, 20],
+    pageSizeValueField: 'value',
+    pageSizeDisplayField: 'text',
     selectedCount: 0,
 
     selectedCountVisible: false,

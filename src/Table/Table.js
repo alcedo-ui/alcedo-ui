@@ -71,7 +71,7 @@ class Table extends Component {
         }
 
         return sortedData.slice(pagging.page * pagging.pageSize, (pagging.page + 1) * pagging.pageSize)
-        .filter(item => item && !item.disabled);
+                         .filter(item => item && !item.disabled);
 
     };
 
@@ -400,7 +400,8 @@ class Table extends Component {
 
         this.setState(state, () => {
 
-            this.resetPage(this.props.data, pagging);
+            const {onPageChange} = this.props;
+            onPageChange && onPageChange(pagging.page, pagging.pageSize);
 
             if (isClearSelectionOnChangePage) {
                 const {onChange} = this.props;
@@ -555,8 +556,7 @@ class Table extends Component {
             finalColumns = this.handleColumns();
 
         // handle data
-        const totalPage = Math.ceil(sortedData.length / pagging.pageSize),
-            finalData = isPagging ? this.paggingData(sortedData) : sortedData,
+        const finalData = isPagging ? this.paggingData(sortedData) : sortedData,
             finalDataCount = finalData.length;
 
         return (
@@ -605,9 +605,8 @@ class Table extends Component {
                         (
                             useFullPagging ?
                                 <Pagging page={pagging.page}
-                                         count={data.length}
+                                         total={data.length}
                                          selectedCount={this.calSelectedCount()}
-                                         total={totalPage}
                                          pageSize={pagging.pageSize}
                                          pageSizes={pageSizes}
                                          selectedCountVisible={paggingSelectedCountVisible}
@@ -621,9 +620,8 @@ class Table extends Component {
                                          onChange={this.pageChangedHandler}/>
                                 :
                                 <BriefPagging page={pagging.page}
-                                              count={data.length}
+                                              total={data.length}
                                               selectedCount={this.calSelectedCount()}
-                                              total={totalPage}
                                               pageSize={pagging.pageSize}
                                               pageSizes={pageSizes}
                                               selectedCountVisible={paggingSelectedCountVisible}

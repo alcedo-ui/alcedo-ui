@@ -53,6 +53,9 @@ class PaggingExamples extends Component {
     };
 
     pageChangedHandler = pagging => {
+
+        console.log('Page Changed::', pagging);
+
         if (typeof pagging.pageSize === 'object') {
             pagging.pageSize = pagging.pageSize.value;
         }
@@ -62,6 +65,7 @@ class PaggingExamples extends Component {
         }, () => {
             this.resetPage(this.generateData(100), pagging);
         });
+
     };
 
     resetPage = (data = this.generateData(100), pagging = this.state.pagging) => {
@@ -81,8 +85,7 @@ class PaggingExamples extends Component {
 
     render() {
 
-        const {pagging} = this.state,
-            totalPage = Math.ceil(this.generateData() / pagging.pageSize);
+        const {pagging} = this.state;
 
         return (
             <div className="example pagging-examples">
@@ -104,8 +107,7 @@ class PaggingExamples extends Component {
                             <p>A simple <code>Pagging</code> example.</p>
                             <Pagging selectedCountVisible={true}
                                      page={pagging.page}
-                                     count={this.generateData()}
-                                     total={totalPage}
+                                     total={this.generateData()}
                                      pageSize={pagging.pageSize}
                                      pageSizes={this.pageSizes}
                                      onChange={this.pageChangedHandler}/>
