@@ -265,39 +265,41 @@ class DateRangePicker extends Component {
         if (value && value.length) {
             let leftValue = value[0],
                 rightValue = value[1];
-            if (moment(leftValue, dateFormat).isValid() && moment(rightValue, dateFormat).isValid()) {
-                let leftYear = moment(value[0]).format('YYYY'),
-                    leftMonth = moment(value[0]).format('MM'),
-                    leftDay = moment(value[0]).format('DD'),
-                    rightYear = moment(value[1]).format('YYYY'),
-                    rightMonth = moment(value[1]).format('MM'),
-                    rightDay = moment(value[1]).format('DD');
-                state.left.text = leftValue;
-                state.left.year = leftYear;
-                state.left.month = leftMonth;
-                state.left.day = leftDay;
-                state.right.text = rightValue;
-                state.right.day = rightDay;
-                if (leftYear == rightYear && leftMonth == rightMonth) {
-                    if (leftMonth == 12) {
-                        state.right.year = +rightYear + 1;
-                        state.right.month = 1;
+            if (!!leftValue && !!rightValue) {
+                if (moment(leftValue, dateFormat).isValid() && moment(rightValue, dateFormat).isValid()) {
+                    let leftYear = moment(value[0]).format('YYYY'),
+                        leftMonth = moment(value[0]).format('MM'),
+                        leftDay = moment(value[0]).format('DD'),
+                        rightYear = moment(value[1]).format('YYYY'),
+                        rightMonth = moment(value[1]).format('MM'),
+                        rightDay = moment(value[1]).format('DD');
+                    state.left.text = leftValue;
+                    state.left.year = leftYear;
+                    state.left.month = leftMonth;
+                    state.left.day = leftDay;
+                    state.right.text = rightValue;
+                    state.right.day = rightDay;
+                    if (leftYear == rightYear && leftMonth == rightMonth) {
+                        if (leftMonth == 12) {
+                            state.right.year = +rightYear + 1;
+                            state.right.month = 1;
+                        } else {
+                            state.right.year = rightYear;
+                            state.right.month = +rightMonth + 1;
+                        }
                     } else {
                         state.right.year = rightYear;
-                        state.right.month = +rightMonth + 1;
+                        state.right.month = rightMonth;
                     }
+                    state.startTime = leftValue;
+                    state.endTime = rightValue;
+                    state.historyStartTime = leftValue;
+                    state.historyEndTime = rightValue;
+                    this.setState(state);
                 } else {
-                    state.right.year = rightYear;
-                    state.right.month = rightMonth;
+                    this.validValue = false;
+                    console.error('Invalid date');
                 }
-                state.startTime = leftValue;
-                state.endTime = rightValue;
-                state.historyStartTime = leftValue;
-                state.historyEndTime = rightValue;
-                this.setState(state);
-            } else {
-                this.validValue = false;
-                console.error('Invalid date');
             }
 
         }
@@ -318,9 +320,11 @@ class DateRangePicker extends Component {
 
     render() {
 
-        const {className, style, name, placeholder, dateFormat, maxValue, minValue, position,
+        const {
+                className, style, name, placeholder, dateFormat, maxValue, minValue, position,
                 popupClassName, rightIconCls, previousYearIconCls, previousMonthIconCls, nextYearIconCls,
-                nextMonthIconCls, readOnly} = this.props,
+                nextMonthIconCls, readOnly
+            } = this.props,
             {popupVisible, left, right, startTime, endTime, hoverTime, isAbove} = this.state,
 
             pickerClassName = classNames('date-range-picker', {
@@ -605,10 +609,10 @@ DateRangePicker.defaultProps = {
     placeholder: 'Date',
     popupClassName: '',
     dateFormat: 'YYYY-MM-DD',
-    previousYearIconCls:'fas fa-angle-double-left',
-    previousMonthIconCls:'fas fa-angle-left',
-    nextYearIconCls:'fas fa-angle-double-right',
-    nextMonthIconCls:'fas fa-angle-right',
+    previousYearIconCls: 'fas fa-angle-double-left',
+    previousMonthIconCls: 'fas fa-angle-left',
+    nextYearIconCls: 'fas fa-angle-double-right',
+    nextMonthIconCls: 'fas fa-angle-right',
     position: Position.BOTTOM_LEFT,
     readOnly: false
 };

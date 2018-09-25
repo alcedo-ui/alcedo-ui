@@ -227,8 +227,10 @@ class DayPicker extends Component {
 
     render() {
 
-        const {isFooter, isRange, startTime, endTime, hoverTime, maxValue, minValue, previousYearIconCls,
-            previousMonthIconCls, nextYearIconCls, nextMonthIconCls} = this.props;
+        const {
+            isFooter, isRange, startTime, endTime, hoverTime, maxValue, minValue, previousYearIconCls,
+            previousMonthIconCls, nextYearIconCls, nextMonthIconCls
+        } = this.props;
 
         const {date_num_array, selectYear, selectMonth, selectDay, first_day, currentYear, currentMonth} = this.state;
 
@@ -403,7 +405,7 @@ class DayPicker extends Component {
 
                     }
                 </div>
-                <div className={`calendar-body${isFooter ? '' : ' maxHeight'}`}>
+                <div className={`calendar-body calendar-day-body ${isFooter ? '' : ' maxHeight'}`}>
                     <ul className="c-body-head">
                         <li>Sun</li>
                         <li>Mon</li>
