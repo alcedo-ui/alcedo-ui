@@ -50,8 +50,6 @@
         .auto-complete-filter-list,
         .list {
             width: 100%;
-            max-height: 240px;
-            overflow-y: auto;
 
             .list-item.activated {
                 background: $theme-field-bg-active;
