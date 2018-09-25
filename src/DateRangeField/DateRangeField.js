@@ -91,10 +91,10 @@ class DateRangePickerContent extends Component {
             state.historyEndTime = endTime;
             state.hoverTime = '';
             this.setState(state, () => {
-                this.props.onChange({
-                    startTime: state.startTime,
-                    endTime: state.endTime
-                });
+                this.props.onChange && this.props.onChange([
+                    moment(state.startTime).format(this.props.dateFormat),
+                    moment(state.endTime).format(this.props.dateFormat)
+                ]);
             });
         } else {
             state[select].text = date.time;
