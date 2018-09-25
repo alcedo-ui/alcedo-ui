@@ -16,7 +16,7 @@
         "dll": "cross-env NODE_ENV=production node build/dll/dll.js",
         "package": "cross-env NODE_ENV=production node build/prod/prod.js",
         "build": "npm run clean && npm run compile && npm run dll && npm run package",
-        "demo": "cross-env NODE_ENV=production node build/demo/demo-server.js",
+        "demo": "cross-env NODE_ENV=production node build/demo/server.js",
         "start": "npm run build && npm run demo",
         "zip": "node build/zip/zip.js"
     },
