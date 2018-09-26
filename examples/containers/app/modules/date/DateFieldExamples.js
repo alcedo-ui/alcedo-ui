@@ -1,13 +1,13 @@
 import React, {Component, PropTypes} from 'react';
 
-import DateRangeField from 'src/DateRangeField';
+import DateField from 'src/DateField';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import doc from 'assets/propTypes/DateRangePicker.json';
+import doc from 'assets/propTypes/DateField.json';
 
-class DateRangeFieldExamples extends Component {
+class DateFieldExamples extends Component {
 
     constructor(props) {
         super(props);
@@ -22,10 +22,10 @@ class DateRangeFieldExamples extends Component {
 
             <div className="example date-range-picker-examples">
 
-                <h2 className="example-title">Date Range Field</h2>
+                <h2 className="example-title">Date Field</h2>
 
                 <p>
-                    <span>Date Range Field</span> is used to select a date range.
+                    <span>Date Field</span> is used to select a date range.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -39,10 +39,9 @@ class DateRangeFieldExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>Date Range Field</code>simple example.</p>
+                                <p><code>Date Field</code>simple example.</p>
 
-                                <DateRangeField onChange={this.onChangeHandler}
-                                                value={[null,null]}/>
+                                <DateField onChange={this.onChangeHandler}/>
 
                             </div>
 
@@ -60,12 +59,11 @@ class DateRangeFieldExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>Date Range Field</code> using the <code>value</code> property to set initial
+                                <p><code>Date Field</code> using the <code>value</code> property to set initial
                                     date and the <code>dateFormat</code> property to set date format.</p>
 
-                                <DateRangeField value={['2015-07-01', '2017-04-21']}
-                                                dateFormat={'YYYY-MM-DD'}
-                                                onChange={this.onChangeHandler}/>
+                                <DateField dateFormat={'YYYY-MM-DD'}
+                                           onChange={this.onChangeHandler}/>
 
                             </div>
 
@@ -83,4 +81,4 @@ class DateRangeFieldExamples extends Component {
     }
 };
 
-export default DateRangeFieldExamples;
+export default DateFieldExamples;

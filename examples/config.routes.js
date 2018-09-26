@@ -148,6 +148,9 @@ export default function configureRoutes(store) {
                 {
                     path: '/components/DatePicker',
                     component: ac(() => import('modules/date/DatePickerExamples'), store)
+                },{
+                    path: '/components/DateField',
+                    component: ac(() => import('modules/date/DateFieldExamples'), store)
                 }, {
                     path: '/components/MonthPicker',
                     component: ac(() => import('modules/date/MonthPickerExamples'), store)

@@ -31,6 +31,9 @@ export default [{
         text: 'DatePicker',
         route: '/components/DatePicker'
     }, {
+        text: 'DateField',
+        route: '/components/DateField'
+    }, {
         text: 'MonthPicker',
         route: '/components/MonthPicker'
     }, {
