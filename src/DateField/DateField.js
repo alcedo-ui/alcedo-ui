@@ -254,7 +254,7 @@ DateField.defaultProps = {
     previousMonthIconCls: 'fas fa-angle-left',
     nextYearIconCls: 'fas fa-angle-double-right',
     nextMonthIconCls: 'fas fa-angle-right',
-    isFooter: true
+    isFooter: false
 };
 
 export default DateField;

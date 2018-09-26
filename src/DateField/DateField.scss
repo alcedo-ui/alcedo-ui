@@ -35,7 +35,6 @@
             //}
         }
         .calendar-body {
-            border-bottom: 1px solid #dfdfdf;
             padding-bottom: 5px;
             ul {
                 list-style-type: none;
@@ -165,6 +164,7 @@
         height: 40px;
         line-height: 40px;
         text-align: center;
+        border-top: 1px solid #dfdfdf;
         a {
             text-decoration: none;
             color: $theme-field;

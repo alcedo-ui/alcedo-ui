@@ -63,6 +63,8 @@ class DateFieldExamples extends Component {
                                     date and the <code>dateFormat</code> property to set date format.</p>
 
                                 <DateField dateFormat={'YYYY-MM-DD'}
+                                           value={'2015-08-15'}
+                                           isFooter={true}
                                            onChange={this.onChangeHandler}/>
 
                             </div>
