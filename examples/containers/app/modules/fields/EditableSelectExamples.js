@@ -97,6 +97,8 @@ class EditableSelectExamples extends Component {
 
                                     <EditableSelect data={this.data}
                                                     onChange={this.onChange}
+                                                    useDynamicRenderList={true}
+                                                    useFilter={true}
                                                     renderer={data => {
                                                         return data ?
                                                             `[${data.value}] ${data.text}` : null;

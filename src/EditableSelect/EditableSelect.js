@@ -11,6 +11,8 @@ import classNames from 'classnames';
 import TextField from '../TextField';
 import Popup from '../Popup';
 import List from '../List';
+import DynamicRenderList from '../DynamicRenderList';
+import GroupList from '../GroupList';
 import Theme from '../Theme';
 
 import Position from '../_statics/Position';
@@ -180,7 +182,7 @@ class EditableSelect extends Component {
         const {
                 className, popupClassName, style, popupStyle, name, placeholder,
                 disabled, valueField, descriptionField, position, rightIconCls,
-                triggerTheme, isGrouped, onItemClick, renderer, noMatchedMsg,
+                triggerTheme, isGrouped, onItemClick, renderer, noMatchedMsg, useDynamicRenderList,
                 onMouseOver, onMouseOut
             } = this.props,
             {value, listValue, popupVisible, isAbove} = this.state,
@@ -255,16 +257,41 @@ class EditableSelect extends Component {
                                 }
                             </div>
                             :
-                            <List className="editable-select-list"
-                                  isGrouped={isGrouped}
-                                  data={listData}
-                                  valueField={valueField}
-                                  value={listValue}
-                                  displayField={valueField}
-                                  descriptionField={descriptionField}
-                                  renderer={renderer}
-                                  onItemClick={onItemClick}
-                                  onChange={this.changeHandle}/>
+
+                            isGrouped ?
+                                <GroupList className="editable-select-list"
+                                           data={listData}
+                                           value={listValue}
+                                           valueField={valueField}
+                                           displayField={valueField}
+                                           descriptionField={descriptionField}
+                                           renderer={renderer}
+                                           onItemClick={this.onItemClick}
+                                           onChange={this.changeHandler}/>
+                                :
+
+                                (
+                                    useDynamicRenderList ?
+                                        <DynamicRenderList className="editable-select-list"
+                                                           data={listData}
+                                                           value={listValue}
+                                                           valueField={valueField}
+                                                           displayField={valueField}
+                                                           descriptionField={descriptionField}
+                                                           renderer={renderer}
+                                                           onItemClick={onItemClick}
+                                                           onChange={this.changeHandle}/>
+                                        :
+                                        <List className="editable-select-list"
+                                              data={listData}
+                                              valueField={valueField}
+                                              value={listValue}
+                                              displayField={valueField}
+                                              descriptionField={descriptionField}
+                                              renderer={renderer}
+                                              onItemClick={onItemClick}
+                                              onChange={this.changeHandle}/>
+                                )
 
                     }
 
@@ -478,6 +505,7 @@ EditableSelect.defaultProps = {
     infoMsg: '',
     autoClose: true,
     useFilter: false,
+    useDynamicRenderList: false,
     triggerTheme: Theme.DEFAULT,
     isGrouped: false
 
