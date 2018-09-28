@@ -1,11 +1,10 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 
 import Table from 'src/Table';
 import Switcher from 'src/Switcher';
 import IconButton from 'src/IconButton';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-import DownloadField from 'src/DownloadField';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Table.json';
