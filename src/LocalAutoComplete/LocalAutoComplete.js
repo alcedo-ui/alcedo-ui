@@ -87,6 +87,14 @@ class LocalAutoComplete extends Component {
 
     }
 
+    noMatchHandler = () => {
+        const {onNoMatch} = this.props,
+            {listData, filter} = this.state;
+        if (!listData || listData.length < 1) {
+            onNoMatch && onNoMatch(filter);
+        }
+    };
+
     filterFocusHandler = (...args) => {
 
         if (this.props.disabled) {
@@ -111,12 +119,18 @@ class LocalAutoComplete extends Component {
     };
 
     filterBlurHandler = (...args) => {
+
         this.setState({
             filterFocused: false
         }, () => {
+
             const {onBlur} = this.props;
             onBlur && onBlur(...args);
+
+            this.noMatchHandler();
+
         });
+
     };
 
     filterKeyDownHandler = e => {
@@ -160,6 +174,8 @@ class LocalAutoComplete extends Component {
 
             const {onFilterPressEnter} = this.props;
             onFilterPressEnter && onFilterPressEnter(filter);
+
+            this.noMatchHandler();
 
             this.update();
 
@@ -310,7 +326,8 @@ class LocalAutoComplete extends Component {
                 renderer, useDynamicRenderList, listHeight, itemHeight, scrollBuffer, onFilterClear,
 
                 // not passing down these props
-                data, filterInitValue, minFilterLength, autoClose, onFilterPressEnter, filterCallback, onFilterChange,
+                data, filterInitValue, minFilterLength, autoClose, filterCallback,
+                onFilterPressEnter, onFilterChange, onNoMatch,
 
                 ...restProps
 
@@ -378,6 +395,7 @@ class LocalAutoComplete extends Component {
                            className={autoCompleteTriggerClassName}
                            value={filter}
                            onFocus={this.filterFocusHandler}
+                           onClick={this.filterFocusHandler}
                            onBlur={this.filterBlurHandler}
                            onChange={this.filterChangeHandler}
                            onKeyDown={this.filterKeyDownHandler}
@@ -688,6 +706,7 @@ LocalAutoComplete.propTypes = {
 
     onMouseOver: PropTypes.func,
     onMouseOut: PropTypes.func,
+    onNoMatch: PropTypes.func,
     onPopupClosed: PropTypes.func
 
 };

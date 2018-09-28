@@ -36,20 +36,24 @@ class LocalAutoCompleteExamples extends Component {
     }
 
     onChange = value => {
-        console.log('changed value: ', value);
+        console.log('Changed Value: ', value);
     };
 
     filterPressEnterHandler = value => {
-        console.log('filter value: ', value);
+        console.log('Filter Value: ', value);
     };
 
     filterClearHandler = () => {
-        console.log('filter cleared');
+        console.log('Filter Cleared');
     };
 
     filterUniqueData = (uniqueData, excludeIndex) => {
         return this.data.filter(dataItem =>
             uniqueData.findIndex((item, index) => index !== excludeIndex && item == dataItem) === -1);
+    };
+
+    noMatchHandler = filter => {
+        console.log('No Match: ', filter);
     };
 
     onUniqueChange = (key, value) => {
@@ -91,7 +95,8 @@ class LocalAutoCompleteExamples extends Component {
                                                    minFilterLength={0}
                                                    onChange={this.onChange}
                                                    onFilterPressEnter={this.filterPressEnterHandler}
-                                                   onFilterClear={this.filterClearHandler}/>
+                                                   onFilterClear={this.filterClearHandler}
+                                                   onNoMatch={this.noMatchHandler}/>
 
                             </div>
 
