@@ -4,7 +4,7 @@ const path = require('path'),
     compression = require('compression'),
     log = require('friendly-errors-webpack-plugin/src/output'),
 
-    port = '3000',
+    port = process.env.port || 3000,
 
     app = express();
 
