@@ -200,8 +200,17 @@ class Table extends Component {
         this.setState({
             value: result
         }, () => {
-            const {onChange} = this.props;
+
+            const {onChange, onSelectAll, onDeselectAll} = this.props;
+
             onChange && onChange(result);
+
+            if (checked) {
+                onSelectAll && onSelectAll(result);
+            } else {
+                onDeselectAll && onDeselectAll(result);
+            }
+
         });
 
     };
@@ -556,7 +565,7 @@ class Table extends Component {
                 defaultSortType, defaultPageSize, sortInitConfig, onPageChange, hasLineNumber, columns, selectTheme,
                 radioUncheckedIconCls, radioCheckedIconCls, checkboxUncheckedIconCls, checkboxCheckedIconCls,
                 checkboxIndeterminateIconCls, selectAllMode, isClearSelectionOnChangePage, sortFunc, onSort,
-                onDataUpdate,
+                onDataUpdate, onSelectAll, onDeselectAll,
 
                 ...restProps
 
@@ -882,6 +891,8 @@ Table.propTypes = {
      */
     onCellClick: PropTypes.func,
 
+    onSelectAll: PropTypes.func,
+    onDeselectAll: PropTypes.func,
     onSort: PropTypes.func,
     onPageChange: PropTypes.func,
     onChange: PropTypes.func,
