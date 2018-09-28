@@ -62,6 +62,22 @@ class Table extends Component {
 
     }
 
+    includes = (data, item) => {
+
+        if (!data || !item) {
+            return false;
+        }
+
+        const {idProp} = this.props;
+
+        if (idProp in item) {
+            return data.findIndex(dataItem => dataItem[idProp] === item[idProp]) !== -1;
+        } else {
+            return data.includes(item);
+        }
+
+    };
+
     getCurrentPageData = (state = this.state) => {
 
         const {sortedData, pagging} = state;
@@ -91,7 +107,7 @@ class Table extends Component {
             return dataLen > 0 && valueLen === dataLen;
         } else if (selectAllMode === SelectAllMode.CURRENT_PAGE) {
             const currentPageData = this.getCurrentPageData();
-            return currentPageData.every(item => value.includes(item));
+            return currentPageData.every(item => this.includes(value, item));
         }
 
     };
@@ -112,7 +128,7 @@ class Table extends Component {
             return dataLen > 0 && valueLen < dataLen;
         } else if (selectAllMode === SelectAllMode.CURRENT_PAGE) {
             const currentPageData = this.getCurrentPageData(),
-                len = currentPageData.reduce((result, item) => result + (value.includes(item) ? 1 : 0), 0);
+                len = currentPageData.reduce((result, item) => result + (this.includes(value, item) ? 1 : 0), 0);
             return len > 0 && len < Math.min(currentPageData.length, pagging.pageSize);
         }
 
@@ -129,8 +145,8 @@ class Table extends Component {
         switch (selectMode) {
             case SelectMode.MULTI_SELECT:
 
-                let index = value.findIndex(item => (idProp in item) && (idProp in rowData)
-                    && item[idProp] === rowData[idProp]);
+                let index = value.findIndex(item =>
+                    (idProp in item) && (idProp in rowData) && item[idProp] === rowData[idProp]);
 
                 if (index < 0) {
                     index = value.indexOf(rowData);
