@@ -30,6 +30,8 @@ class LocalAutoCompleteExamples extends Component {
         }, 'test7', 'test8', 'test9'];
 
         this.state = {
+            filter: '',
+            value: null,
             uniqueData: []
         };
 
@@ -37,6 +39,26 @@ class LocalAutoCompleteExamples extends Component {
 
     onChange = value => {
         console.log('Changed Value: ', value);
+    };
+
+    filterChangeHander = filter => {
+
+        console.log('Filter Changed Value: ', filter);
+
+        this.setState({
+            filter
+        });
+
+    };
+
+    onChangeHandler = value => {
+
+        console.log('Changed Value: ', value);
+
+        this.setState({
+            value
+        });
+
     };
 
     filterPressEnterHandler = value => {
@@ -53,7 +75,14 @@ class LocalAutoCompleteExamples extends Component {
     };
 
     noMatchHandler = filter => {
-        console.log('No Match: ', filter);
+
+        // console.log('No Match: ', filter);
+
+        const {value} = this.state;
+        this.setState({
+            filter: value ? (typeof value === 'object' ? value.text : value) : ''
+        });
+
     };
 
     onUniqueChange = (key, value) => {
@@ -66,7 +95,7 @@ class LocalAutoCompleteExamples extends Component {
 
     render() {
 
-        const {uniqueData} = this.state;
+        const {filter, value, uniqueData} = this.state;
 
         return (
             <div className="example">
@@ -91,11 +120,14 @@ class LocalAutoCompleteExamples extends Component {
                                 <p><code>LocalAutoComplete</code> simple example.</p>
 
                                 <LocalAutoComplete data={this.data}
+                                                   filter={filter}
+                                                   value={value}
                                                    placeholder="Please select ..."
                                                    minFilterLength={0}
-                                                   onChange={this.onChange}
+                                                   onChange={this.onChangeHandler}
                                                    onFilterPressEnter={this.filterPressEnterHandler}
                                                    onFilterClear={this.filterClearHandler}
+                                                   onFilterChange={this.filterChangeHander}
                                                    onNoMatch={this.noMatchHandler}/>
 
                             </div>
