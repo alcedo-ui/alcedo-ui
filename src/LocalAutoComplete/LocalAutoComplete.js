@@ -78,11 +78,11 @@ class LocalAutoComplete extends Component {
         this.state = {
             tempSelectIndex: null,
             value: props.value,
-            filter: props.filterInitValue,
+            filter: props.filter,
             filterFocused: false,
             popupVisible: false,
             isAbove: false,
-            listData: filterData(props.filterInitValue, props)
+            listData: filterData(props.filter, props)
         };
 
     }
@@ -310,10 +310,12 @@ class LocalAutoComplete extends Component {
     }
 
     static getDerivedStateFromProps(props, state) {
+        const filter = ComponentUtil.getDerivedState(props, state, 'filter');
         return {
             prevProps: props,
             value: ComponentUtil.getDerivedState(props, state, 'value'),
-            listData: filterData(state.filter, props)
+            filter,
+            listData: filterData(filter, props)
         };
     }
 
@@ -326,7 +328,7 @@ class LocalAutoComplete extends Component {
                 renderer, useDynamicRenderList, listHeight, itemHeight, scrollBuffer, onFilterClear,
 
                 // not passing down these props
-                data, filterInitValue, minFilterLength, autoClose, filterCallback,
+                data, filter: propsFilter, minFilterLength, autoClose, filterCallback,
                 onFilterPressEnter, onFilterChange, onNoMatch,
 
                 ...restProps
@@ -652,7 +654,7 @@ LocalAutoComplete.propTypes = {
 
     popupChildren: PropTypes.any,
 
-    filterInitValue: PropTypes.string,
+    filter: PropTypes.string,
 
     useDynamicRenderList: PropTypes.bool,
     listHeight: PropTypes.number,
@@ -725,7 +727,7 @@ LocalAutoComplete.defaultProps = {
     minFilterLength: 1,
     rightIconCls: 'fas fa-search',
     noMatchedPopupVisible: true,
-    filterInitValue: '',
+    filter: '',
     useDynamicRenderList: false
 
 };
