@@ -12,31 +12,6 @@ import doc from 'assets/propTypes/Table.json';
 
 import 'sass/containers/app/modules/layout/TableExamples.scss';
 
-class DownloadButton extends Component {
-
-    constructor(props) {
-        super(props);
-    }
-
-    download = () => {
-        this.refs.downloadField && this.refs.downloadField.download();
-    };
-
-    render() {
-        return (
-            <Fragment>
-
-                <IconButton iconCls="fas fa-download"
-                            onClick={this.download}/>
-
-                <DownloadField ref="downloadField"
-                               url="https://nodejs.org/dist/v9.0.0/node-v9.0.0.pkg"/>
-
-            </Fragment>
-        );
-    }
-}
-
 class TableExamples extends Component {
 
     constructor(props) {
@@ -113,15 +88,27 @@ class TableExamples extends Component {
     };
 
     sortHandler = (sortConfig) => {
-        console.log(sortConfig);
+        console.log('Sort Change Value: ', sortConfig);
     };
 
     pageChangeHandler = (page, pageSize) => {
-        console.log(page, pageSize);
+        console.log(`page: ${page}, pageSize: ${pageSize}`);
     };
 
     dataUpdateHandler = currentPageData => {
-        console.log(currentPageData);
+        console.log('Data Update Value: ', currentPageData);
+    };
+
+    selectAllHandler = value => {
+        console.log('Select All Value: ', value);
+    };
+
+    deselectAllHandler = value => {
+        console.log('Deselect All Value: ', value);
+    };
+
+    changeHandler = value => {
+        console.log('Changed Value: ', value);
     };
 
     render() {
@@ -177,10 +164,7 @@ class TableExamples extends Component {
                                 to true for showLineNumber and checkbox.</p>
 
                             <Table data={data}
-                                   columns={[...this.columns, {
-                                       header: '',
-                                       renderer: () => <DownloadButton/>
-                                   }]}
+                                   columns={this.columns}
                                    selectMode={Table.SelectMode.MULTI_SELECT}
                                    selectAllMode={Table.SelectAllMode.CURRENT_PAGE}
                                    paggingSelectedCountVisible={true}
@@ -189,8 +173,10 @@ class TableExamples extends Component {
                                    useFullPagging={true}
                                    sortAscIconCls="fas fa-caret-up"
                                    sortDescIconCls="fas fa-caret-down"
-                                   onPageChange={(page, pageSize) => console.log(`page: ${page}, pageSize: ${pageSize}`)}
-                                   onChange={value => console.log(value)}/>
+                                   onPageChange={this.pageChangeHandler}
+                                   onSelectAll={this.selectAllHandler}
+                                   onDeselectAll={this.deselectAllHandler}
+                                   onChange={this.changeHandler}/>
 
                         </div>
                     </div>
