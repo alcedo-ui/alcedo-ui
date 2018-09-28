@@ -72,7 +72,6 @@ class MaterialLocalAutoComplete extends Component {
             wrapperClassName = classNames('material-local-auto-complete', {
                 [className]: className
             }),
-
             autoCompleteClassName = classNames('material-local-auto-complete-popup', {
                 [popupClassName]: popupClassName
             });
