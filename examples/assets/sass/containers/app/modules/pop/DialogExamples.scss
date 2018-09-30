@@ -1,27 +1,8 @@
 @import '../../../../my-theme.scss';
 
-.dialog-examples {
-
-    .field-group {
-        @include float-fix;
-        float: none;
-
-        .radio {
-            width: 100px;
-            display: inline-block;
-        }
-
-        .text-field-label,
-        .text-field {
-            float: left;
-        }
-
-        .text-field-label {
-            font-size: 14px;
-            line-height: 50px;
-            width: 60px;
-        }
-    }
+.dialog-example-content {
+    width: 1000px;
+    height: 1000px;
 }
 
 .blur-modal {

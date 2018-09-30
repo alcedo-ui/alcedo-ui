@@ -64,7 +64,8 @@ class DialogExamples extends Component {
                 <h2 className="example-title">Dialog</h2>
 
                 <p>
-                    <span>Dialogs</span> contain text and UI controls focused on a specific task.They inform users about
+                    <span>Dialogs</span>
+                    contain text and UI controls focused on a specific task.They inform users about
                     critical information require users to make decisions.
                 </p>
 
@@ -96,7 +97,7 @@ class DialogExamples extends Component {
                                         onCancelButtonClick={this.cancelHandler}
                                         onCloseButtonClick={this.closeHandler}>
                                     <div className="dialog-example-content">
-                                        content
+                                        Content
                                     </div>
                                 </Dialog>
 
@@ -137,7 +138,7 @@ class DialogExamples extends Component {
                                         onCancelButtonClick={this.cancelHandler}
                                         onCloseButtonClick={this.closeHandler}>
                                     <div className="dialog-example-content">
-                                        content
+                                        Content
                                     </div>
                                 </Dialog>
 
