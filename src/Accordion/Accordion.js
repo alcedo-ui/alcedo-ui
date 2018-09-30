@@ -9,6 +9,7 @@ import classNames from 'classnames';
 
 import RaisedButton from '../RaisedButton';
 import Theme from '../Theme';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class Accordion extends Component {
 
@@ -19,7 +20,7 @@ class Accordion extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            collapsed: false,
+            collapsed: props.collapsed,
             contentHeight: null
         };
 
@@ -80,6 +81,13 @@ class Accordion extends Component {
         this.resetHeight();
     }
 
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            collapsed: ComponentUtil.getDerivedState(props, state, 'collapsed')
+        };
+    }
+
     render() {
 
         const {className, style, children, title, collapseIcon} = this.props,
@@ -129,6 +137,8 @@ Accordion.propTypes = {
      */
     title: PropTypes.string,
 
+    collapsed: PropTypes.bool,
+
     /**
      * Collapse icon.
      */
@@ -153,6 +163,7 @@ Accordion.propTypes = {
 
 Accordion.defaultProps = {
     title: 'title',
+    collapsed: false,
     collapseIcon: 'fas fa-angle-down'
 };
 
