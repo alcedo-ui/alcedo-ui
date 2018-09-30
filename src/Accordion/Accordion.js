@@ -29,7 +29,7 @@ class Accordion extends Component {
     /**
      * public
      */
-    resetHeight = () => {
+    resetHeight = callback => {
 
         if (this.state.collapsed) {
             return;
@@ -52,6 +52,8 @@ class Accordion extends Component {
         }, () => {
             this.setState({
                 contentHeight: el.clientHeight
+            }, () => {
+                callback && callback();
             });
         });
 
@@ -90,8 +92,26 @@ class Accordion extends Component {
             this.collpase();
     };
 
+    init = () => {
+        if (!this.props.collapsed) {
+            this.resetHeight();
+        } else {
+            setTimeout(() => {
+                this.setState({
+                    collapsed: false
+                }, () => {
+                    this.resetHeight(() => {
+                        this.setState({
+                            collapsed: this.props.collapsed
+                        });
+                    });
+                });
+            }, 0);
+        }
+    };
+
     componentDidMount() {
-        this.resetHeight();
+        this.init();
     }
 
     static getDerivedStateFromProps(props, state) {
