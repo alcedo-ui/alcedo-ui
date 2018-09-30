@@ -57,24 +57,37 @@ class Accordion extends Component {
 
     };
 
-    clickHandler = () => {
-
-        const {onCollpase, onExpand, onChange} = this.props;
-
-        const collapsed = !this.state.collapsed;
-
+    /**
+     * public
+     */
+    collpase = () => {
         this.setState({
-            collapsed
+            collapsed: true
         }, () => {
-            if (collapsed) {
-                onCollpase && onCollpase();
-                onChange && onChange(true);
-            } else {
-                onExpand && onExpand();
-                onChange && onChange(false);
-            }
+            const {onCollpase, onChange} = this.props;
+            onCollpase && onCollpase();
+            onChange && onChange(true);
         });
+    };
 
+    /**
+     * public
+     */
+    expand = () => {
+        this.setState({
+            collapsed: false
+        }, () => {
+            const {onExpand, onChange} = this.props;
+            onExpand && onExpand();
+            onChange && onChange(false);
+        });
+    };
+
+    clickHandler = () => {
+        this.state.collapsed ?
+            this.expand()
+            :
+            this.collpase();
     };
 
     componentDidMount() {
