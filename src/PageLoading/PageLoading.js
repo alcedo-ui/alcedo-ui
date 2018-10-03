@@ -16,8 +16,6 @@ class PageLoading extends Component {
 
         this.progressTimeout = null;
 
-        this.finishDuration = 100;
-
         this.defaultHighlightStyle = {
             width: 0,
             transition: 'width 0s'
@@ -67,7 +65,7 @@ class PageLoading extends Component {
         this.clearProgress();
         this.setLoading([{
             width: 100,
-            timeout: this.finishDuration
+            timeout: this.props.finishDuration
         }]);
     };
 
@@ -77,7 +75,7 @@ class PageLoading extends Component {
 
     render() {
 
-        const {className, style, visible, duration, showStripes} = this.props,
+        const {className, style, visible, duration, finishDuration, showStripes} = this.props,
             {highlightStyle} = this.state,
 
             loadingClassName = classNames('page-loading', {
@@ -87,7 +85,7 @@ class PageLoading extends Component {
 
         return (
             <CSSTransition in={visible}
-                           timeout={{exit: duration + this.finishDuration}}
+                           timeout={{exit: duration + finishDuration}}
                            classNames="page-loading"
                            onEnter={this.enterHandler}
                            onExit={this.exitHandler}>
@@ -111,6 +109,7 @@ PageLoading.propTypes = {
 
     visible: PropTypes.bool,
     duration: PropTypes.number,
+    finishDuration: PropTypes.number,
     showStripes: PropTypes.bool,
 
     loadingProgress: PropTypes.arrayOf(PropTypes.shape({
@@ -124,6 +123,7 @@ PageLoading.defaultProps = {
 
     visible: false,
     duration: 250,
+    finishDuration: 100,
     showStripes: true,
 
     loadingProgress: [{
