@@ -67,6 +67,7 @@ class AccordionExamples extends Component {
 
                                 <Paper>
                                     <Accordion ref="accordion"
+                                               collapsed={true}
                                                title="Title">
                                         <div className="accordion-example-content">
                                             content

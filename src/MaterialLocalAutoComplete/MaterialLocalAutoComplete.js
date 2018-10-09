@@ -27,7 +27,7 @@ class MaterialLocalAutoComplete extends Component {
 
         this.state = {
             value: props.value,
-            filter: props.filterInitValue
+            filter: props.filter
         };
 
     }
@@ -72,7 +72,6 @@ class MaterialLocalAutoComplete extends Component {
             wrapperClassName = classNames('material-local-auto-complete', {
                 [className]: className
             }),
-
             autoCompleteClassName = classNames('material-local-auto-complete-popup', {
                 [popupClassName]: popupClassName
             });
@@ -272,7 +271,7 @@ MaterialLocalAutoComplete.propTypes = {
 
     isLabelAnimate: PropTypes.bool,
 
-    filterInitValue: PropTypes.string,
+    filter: PropTypes.string,
 
     popupChildren: PropTypes.any,
 
@@ -341,7 +340,7 @@ MaterialLocalAutoComplete.defaultProps = {
     noMatchedPopupVisible: true,
     noMatchedMsg: '',
     required: false,
-    filterInitValue: ''
+    filter: ''
 
 };
 

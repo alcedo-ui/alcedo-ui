@@ -9,6 +9,7 @@ import classNames from 'classnames';
 
 import RaisedButton from '../RaisedButton';
 import Theme from '../Theme';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class Accordion extends Component {
 
@@ -19,7 +20,7 @@ class Accordion extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            collapsed: false,
+            collapsed: props.collapsed,
             contentHeight: null
         };
 
@@ -28,7 +29,7 @@ class Accordion extends Component {
     /**
      * public
      */
-    resetHeight = () => {
+    resetHeight = callback => {
 
         if (this.state.collapsed) {
             return;
@@ -51,33 +52,73 @@ class Accordion extends Component {
         }, () => {
             this.setState({
                 contentHeight: el.clientHeight
+            }, () => {
+                callback && callback();
             });
         });
 
     };
 
-    clickHandler = () => {
-
-        const {onCollpase, onExpand, onChange} = this.props;
-
-        const collapsed = !this.state.collapsed;
-
+    /**
+     * public
+     */
+    collpase = () => {
         this.setState({
-            collapsed
+            collapsed: true
         }, () => {
-            if (collapsed) {
-                onCollpase && onCollpase();
-                onChange && onChange(true);
-            } else {
-                onExpand && onExpand();
-                onChange && onChange(false);
-            }
+            const {onCollpase, onChange} = this.props;
+            onCollpase && onCollpase();
+            onChange && onChange(true);
         });
+    };
 
+    /**
+     * public
+     */
+    expand = () => {
+        this.setState({
+            collapsed: false
+        }, () => {
+            const {onExpand, onChange} = this.props;
+            onExpand && onExpand();
+            onChange && onChange(false);
+        });
+    };
+
+    clickHandler = () => {
+        this.state.collapsed ?
+            this.expand()
+            :
+            this.collpase();
+    };
+
+    init = () => {
+        if (!this.props.collapsed) {
+            this.resetHeight();
+        } else {
+            setTimeout(() => {
+                this.setState({
+                    collapsed: false
+                }, () => {
+                    this.resetHeight(() => {
+                        this.setState({
+                            collapsed: this.props.collapsed
+                        });
+                    });
+                });
+            }, 0);
+        }
     };
 
     componentDidMount() {
-        this.resetHeight();
+        this.init();
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            collapsed: ComponentUtil.getDerivedState(props, state, 'collapsed')
+        };
     }
 
     render() {
@@ -129,6 +170,8 @@ Accordion.propTypes = {
      */
     title: PropTypes.string,
 
+    collapsed: PropTypes.bool,
+
     /**
      * Collapse icon.
      */
@@ -153,6 +196,7 @@ Accordion.propTypes = {
 
 Accordion.defaultProps = {
     title: 'title',
+    collapsed: false,
     collapseIcon: 'fas fa-angle-down'
 };
 

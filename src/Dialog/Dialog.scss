@@ -45,6 +45,7 @@ body.dialog-modal-lock {
         box-sizing: border-box;
         background: $theme-field-bg;
         padding: 30px;
+        overflow: auto;
     }
 
     .dialog-buttons {
