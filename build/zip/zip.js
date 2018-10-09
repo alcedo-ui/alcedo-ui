@@ -47,7 +47,7 @@ output.on('close', () => {
         hash = crypto.createHash('sha256');
 
     rs.on('data', hash.update.bind(hash));
-    rs.on('end', function () {
+    rs.on('end', () => {
         log.title('success', 'DONE', [
             'Build Zip complete',
             `Archive: ${archive.pointer()} total bytes`,
@@ -57,5 +57,5 @@ output.on('close', () => {
 
 });
 archive.pipe(output);
-archive.directory(path, name);
+archive.directory(path, false);
 archive.finalize();
