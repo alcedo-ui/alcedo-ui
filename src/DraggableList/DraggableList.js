@@ -37,6 +37,25 @@ class DraggableList extends Component {
 
     }
 
+    isListDisabled = listDisabled => {
+        const {data} = this.props,
+            {value} = this.state;
+        return (typeof listDisabled === 'function' ? listDisabled(value, data) : listDisabled);
+    };
+
+    isItemDisabled = (listItemDisabled, item, itemDisabled) => {
+        const {data} = this.props,
+            {value} = this.state;
+        return (
+                listItemDisabled != undefined
+                && (typeof listItemDisabled === 'function' ? listItemDisabled(item, value, data) : listItemDisabled)
+            )
+            || (
+                itemDisabled != undefined
+                && (typeof itemDisabled === 'function' ? itemDisabled(item, value, data) : itemDisabled)
+            );
+    };
+
     listItemSelectHandler = (item, index) => {
 
         const {selectMode} = this.props;
@@ -159,7 +178,8 @@ class DraggableList extends Component {
 
         const {
 
-                theme, itemHeight, idField, valueField, displayField, descriptionField, disabled, isLoading, renderer,
+                theme, itemHeight, idField, valueField, displayField, descriptionField,
+                disabled, itemDisabled, isLoading, renderer,
 
                 selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
@@ -199,7 +219,8 @@ class DraggableList extends Component {
                                value={Util.getValueByValueField(item, valueField, displayField)}
                                text={Util.getTextByDisplayField(item, displayField, valueField)}
                                desc={item[descriptionField] || null}
-                               disabled={disabled || item.disabled}
+                               disabled={this.isListDisabled(disabled)
+                               || this.isItemDisabled(itemDisabled, item, item.disabled)}
                                isLoading={isLoading || item.isLoading}
                                onClick={e => {
                                    onItemClick && onItemClick(item, index, e);
@@ -211,11 +232,10 @@ class DraggableList extends Component {
                                data={item}
                                value={item}
                                text={item}
-                               disabled={disabled}
+                               disabled={this.isListDisabled(disabled)
+                               || this.isItemDisabled(itemDisabled, item)}
                                isLoading={isLoading}
-                               onClick={e => {
-                                   onItemClick && onItemClick(item, index, e);
-                               }}/>;
+                               onClick={e => onItemClick && onItemClick(item, index, e)}/>;
 
     };
 
@@ -406,6 +426,11 @@ DraggableList.propTypes = {
     disabled: PropTypes.bool,
 
     /**
+     * List item disabled callback.
+     */
+    itemDisabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+
+    /**
      * If true, the list will be at loading status.
      */
     isLoading: PropTypes.bool,
@@ -467,6 +492,7 @@ DraggableList.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
     disabled: false,
+    itemDisabled: false,
     shouldPreventContainerScroll: true,
 
     checkboxUncheckedIconCls: 'far fa-square',
