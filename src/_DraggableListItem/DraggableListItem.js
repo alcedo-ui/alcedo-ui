@@ -75,7 +75,7 @@ class DraggableListItem extends Component {
         const {
 
                 index, className, style, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
-                disabled, isLoading, renderer, itemRenderer, readOnly, anchorIconCls,
+                disabled, isLoading, renderer, itemRenderer, readOnly, isDragDisabled, anchorIconCls,
 
                 checked, selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
@@ -95,7 +95,8 @@ class DraggableListItem extends Component {
         return (
             <Draggable key={index}
                        draggableId={index}
-                       index={index}>
+                       index={index}
+                       isDragDisabled={isDragDisabled}>
                 {
                     dragProvided => (
                         <div>
@@ -249,6 +250,7 @@ DraggableListItem.propTypes = {
     checkboxCheckedIconCls: PropTypes.string,
     checkboxIndeterminateIconCls: PropTypes.string,
 
+    isDragDisabled: PropTypes.bool,
     anchorIconCls: PropTypes.string,
 
     itemRenderer: PropTypes.func,
@@ -282,6 +284,7 @@ DraggableListItem.defaultProps = {
     checkboxCheckedIconCls: 'fas fa-check-square',
     checkboxIndeterminateIconCls: 'fas fa-minus-square',
 
+    isDragDisabled: false,
     anchorIconCls: 'fas fa-bars'
 
 };
