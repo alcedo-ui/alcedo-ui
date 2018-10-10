@@ -99,6 +99,7 @@ class DraggableListExamples extends Component {
                                     <DraggableList style={{width: 240, height: 240}}
                                                    data={this.largeListData}
                                                    itemDisabled={item => item % 2 === 0}
+                                                   itemDragDisabled={item => item % 2 === 0}
                                                    onSequenceChange={this.sequenceChangeHandler}
                                                    onChange={this.valueChangeHandler}/>
                                 </div>
