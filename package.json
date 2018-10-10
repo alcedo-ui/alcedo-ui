@@ -80,7 +80,7 @@
         "@babel/preset-react": "^7.0.0",
         "@babel/runtime": "^7.1.2",
         "archiver": "^3.0.0",
-        "assets-webpack-plugin": "^3.9.6",
+        "assets-webpack-plugin": "^3.9.7",
         "autoprefixer": "^9.1.5",
         "babel-core": "^7.0.0-bridge.0",
         "babel-loader": "^8.0.4",
@@ -115,13 +115,13 @@
         "react-hot-loader": "^4.3.11",
         "rimraf": "^2.6.2",
         "sass-loader": "^7.1.0",
-        "style-loader": "^0.23.0",
+        "style-loader": "^0.23.1",
         "through2": "^2.0.3",
         "uglifyjs-webpack-plugin": "^2.0.1",
         "url-loader": "^1.1.1",
         "webpack": "^4.20.2",
         "webpack-dev-middleware": "^3.4.0",
-        "webpack-hot-middleware": "^2.24.2",
+        "webpack-hot-middleware": "^2.24.3",
         "webpack-merge": "^4.1.4"
     }
 }
