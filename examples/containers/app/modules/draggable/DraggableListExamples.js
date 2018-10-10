@@ -48,7 +48,8 @@ class DraggableListExamples extends Component {
                 <h2 className="example-title">DraggableList</h2>
 
                 <p>
-                    <span>DraggableList</span> is a list of elements that allow you to move elements with the mouse.
+                    <span>DraggableList</span>
+                    is a list of elements that allow you to move elements with the mouse.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -97,6 +98,7 @@ class DraggableListExamples extends Component {
                                 <div style={{width: 240, height: 240}}>
                                     <DraggableList style={{width: 240, height: 240}}
                                                    data={this.largeListData}
+                                                   itemDisabled={item => item % 2 === 0}
                                                    onSequenceChange={this.sequenceChangeHandler}
                                                    onChange={this.valueChangeHandler}/>
                                 </div>
