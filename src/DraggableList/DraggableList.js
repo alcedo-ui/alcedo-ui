@@ -56,6 +56,13 @@ class DraggableList extends Component {
             );
     };
 
+    isItemDragDisabled = item => {
+        const {data, itemDragDisabled} = this.props,
+            {value} = this.state;
+        return itemDragDisabled != undefined
+            && (typeof itemDragDisabled === 'function' ? itemDragDisabled(item, value, data) : itemDragDisabled);
+    };
+
     listItemSelectHandler = (item, index) => {
 
         const {selectMode} = this.props;
@@ -222,6 +229,7 @@ class DraggableList extends Component {
                                disabled={this.isListDisabled(disabled)
                                || this.isItemDisabled(itemDisabled, item, item.disabled)}
                                isLoading={isLoading || item.isLoading}
+                               isDragDisabled={this.isItemDragDisabled(item)}
                                onClick={e => {
                                    onItemClick && onItemClick(item, index, e);
                                    item.onClick && item.onClick(e);
@@ -235,6 +243,7 @@ class DraggableList extends Component {
                                disabled={this.isListDisabled(disabled)
                                || this.isItemDisabled(itemDisabled, item)}
                                isLoading={isLoading}
+                               isDragDisabled={this.isItemDragDisabled(item)}
                                onClick={e => onItemClick && onItemClick(item, index, e)}/>;
 
     };
@@ -435,6 +444,11 @@ DraggableList.propTypes = {
      */
     isLoading: PropTypes.bool,
 
+    /**
+     * List item drag disabled callback.
+     */
+    itemDragDisabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+
     shouldPreventContainerScroll: PropTypes.bool,
 
     radioUncheckedIconCls: PropTypes.string,
@@ -493,6 +507,8 @@ DraggableList.defaultProps = {
     descriptionField: 'desc',
     disabled: false,
     itemDisabled: false,
+    isLoading: false,
+    itemDragDisabled: false,
     shouldPreventContainerScroll: true,
 
     checkboxUncheckedIconCls: 'far fa-square',
