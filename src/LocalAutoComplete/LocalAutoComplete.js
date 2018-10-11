@@ -284,7 +284,7 @@ class LocalAutoComplete extends Component {
 
         }
 
-        if (Util.getValueByValueField(this.state.value, valueField, displayField)
+        if (value && Util.getValueByValueField(this.state.value, valueField, displayField)
             !== Util.getValueByValueField(value, valueField, displayField)) {
             valueChanged = true;
             state.value = listData[index];
