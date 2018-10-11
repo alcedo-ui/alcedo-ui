@@ -282,12 +282,12 @@ class LocalAutoComplete extends Component {
                 state.listData = filterData(state.filter, this.props);
             }
 
-        }
+            if (Util.getValueByValueField(this.state.value, valueField, displayField)
+                !== Util.getValueByValueField(value, valueField, displayField)) {
+                valueChanged = true;
+                state.value = listData[index];
+            }
 
-        if (value && Util.getValueByValueField(this.state.value, valueField, displayField)
-            !== Util.getValueByValueField(value, valueField, displayField)) {
-            valueChanged = true;
-            state.value = listData[index];
         }
 
         this.setState(state, () => {
