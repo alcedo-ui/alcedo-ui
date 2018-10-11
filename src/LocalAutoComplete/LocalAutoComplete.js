@@ -193,7 +193,6 @@ class LocalAutoComplete extends Component {
 
         if (!filter) {
             state.listData = data;
-            state.value = null;
             state.tempSelectIndex = null;
         } else {
             state.listData = filterData(filter, this.props);
@@ -262,7 +261,9 @@ class LocalAutoComplete extends Component {
             {filter, tempSelectIndex, listData} = this.state;
 
         let index = isNumber(tempSelectIndex) ? tempSelectIndex : 0,
-            state = {},
+            state = {
+                tempSelectIndex: null
+            },
             value,
             filterChanged = false,
             valueChanged = false;
@@ -280,14 +281,14 @@ class LocalAutoComplete extends Component {
 
         }
 
+        if (filterChanged) {
+            state.listData = filterData(state.filter, this.props);
+        }
+
         if (Util.getValueByValueField(this.state.value, valueField, displayField)
             !== Util.getValueByValueField(value, valueField, displayField)) {
-
             valueChanged = true;
-
             state.value = listData[index];
-            state.listData = filterData(state.filter, this.props);
-
         }
 
         this.setState(state, () => {
