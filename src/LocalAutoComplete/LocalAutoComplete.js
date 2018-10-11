@@ -276,13 +276,12 @@ class LocalAutoComplete extends Component {
                 renderer(value)
                 :
                 Util.getTextByDisplayField(value, displayField, valueField);
-
             filterChanged = state.filter !== filter;
 
-        }
+            if (filterChanged) {
+                state.listData = filterData(state.filter, this.props);
+            }
 
-        if (filterChanged) {
-            state.listData = filterData(state.filter, this.props);
         }
 
         if (Util.getValueByValueField(this.state.value, valueField, displayField)
