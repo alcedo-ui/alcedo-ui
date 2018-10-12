@@ -321,7 +321,7 @@ class MaterialDateRangePicker extends Component {
         const {
                 className, style, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, position,
                 theme, popupClassName, rightIconCls, previousYearIconCls, previousMonthIconCls,
-                nextYearIconCls, nextMonthIconCls, readOnly
+                nextYearIconCls, nextMonthIconCls, readOnly, disabled
             } = this.props,
             {popupVisible, left, right, startTime, endTime, hoverTime, isAbove} = this.state,
 
@@ -359,6 +359,7 @@ class MaterialDateRangePicker extends Component {
                                      isLabelAnimate={isLabelAnimate}
                                      value={textFieldValue}
                                      readOnly={true}
+                                     disabled={disabled}
                                      clearButtonVisible={false}
                                      isFocusedSelectAll={false}
                                      popupVisible={popupVisible}
@@ -602,6 +603,11 @@ MaterialDateRangePicker.propTypes = {
     readOnly: PropTypes.bool,
 
     /**
+     * If true,dateRangePicker textField is disabled.
+     */
+    disabled: PropTypes.bool,
+
+    /**
      * Callback function that is fired when the date value changes.
      */
     onChange: PropTypes.func
@@ -618,7 +624,8 @@ MaterialDateRangePicker.defaultProps = {
     nextYearIconCls: 'fas fa-angle-double-right',
     nextMonthIconCls: 'fas fa-angle-right',
     position: Position.BOTTOM_LEFT,
-    readOnly: false
+    readOnly: false,
+    disabled: false
 };
 
 export default MaterialDateRangePicker;

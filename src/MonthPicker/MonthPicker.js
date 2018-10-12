@@ -166,7 +166,7 @@ class MonthPicker extends Component {
         const {
                 className, name, placeholder, dateFormat, maxValue, minValue, position,
                 popupClassName, rightIconCls, previousYearIconCls, previousMonthIconCls, nextYearIconCls,
-                nextMonthIconCls, readOnly
+                nextMonthIconCls, readOnly, disabled
             } = this.props,
             {value, popupVisible, datePickerLevel, year, month, isAbove} = this.state,
 
@@ -188,6 +188,7 @@ class MonthPicker extends Component {
                            readOnly={readOnly ? readOnly : !popupVisible}
                            popupVisible={popupVisible}
                            clearButtonVisible={false}
+                           disabled={disabled}
                            isFocusedSelectAll={popupVisible}
                            rightIconCls={rightIconCls}
                            onClick={e => {
@@ -291,6 +292,10 @@ MonthPicker.propTypes = {
      * If true,monthPicker textField is readOnly.
      */
     readOnly: PropTypes.bool,
+    /**
+     * If true,monthPicker textField is disabled.
+     */
+    disabled: PropTypes.bool,
 
     /**
      * Callback function that is fired when the date value changes.
@@ -313,7 +318,8 @@ MonthPicker.defaultProps = {
     nextYearIconCls: 'fas fa-angle-double-right',
     nextMonthIconCls: 'fas fa-angle-right',
     position: Position.BOTTOM_LEFT,
-    readOnly: false
+    readOnly: false,
+    disabled: false
 };
 
 export default MonthPicker;

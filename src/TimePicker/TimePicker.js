@@ -155,7 +155,7 @@ class TimePicker extends Component {
 
         const {
                 className, style, name, placeholder, maxValue, minValue, dateFormat, position,
-                popupClassName, rightIconCls, readOnly
+                popupClassName, rightIconCls, readOnly, disabled
             } = this.props,
             {popupVisible, textFieldValue, hour, minute, second, isAbove} = this.state,
 
@@ -179,6 +179,7 @@ class TimePicker extends Component {
                                value={textFieldValue ? popupTextField : textFieldValue}
                                readOnly={readOnly ? readOnly : !popupVisible}
                                clearButtonVisible={false}
+                               disabled={disabled}
                                isFocusedSelectAll={popupVisible}
                                popupVisible={popupVisible}
                                rightIconCls={rightIconCls}
@@ -256,6 +257,10 @@ TimePicker.propTypes = {
      * If true,timePicker textField is readOnly.
      */
     readOnly: PropTypes.bool,
+    /**
+     * If true,timePicker textField is disabled.
+     */
+    disabled: PropTypes.bool,
 
     /**
      * Time format.
@@ -271,7 +276,8 @@ TimePicker.defaultProps = {
     popupClassName: '',
     dateFormat: 'HH:mm:ss',
     position: Position.BOTTOM_LEFT,
-    readOnly: false
+    readOnly: false,
+    disabled: false
 };
 
 export default TimePicker;

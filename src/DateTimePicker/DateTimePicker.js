@@ -446,6 +446,10 @@ DateTimePicker.propTypes = {
      * If true,dateTimePicker textField is readOnly.
      */
     readOnly: PropTypes.bool,
+    /**
+     * If true,dateTimePicker textField is disabled.
+     */
+    disabled: PropTypes.bool,
 
     /**
      * Callback function that is fired when the date value changes.
@@ -467,7 +471,8 @@ DateTimePicker.defaultProps = {
     nextYearIconCls: 'fas fa-angle-double-right',
     nextMonthIconCls: 'fas fa-angle-right',
     isFooter: true,
-    readOnly: false
+    readOnly: false,
+    disabled: false
 };
 
 export default DateTimePicker;

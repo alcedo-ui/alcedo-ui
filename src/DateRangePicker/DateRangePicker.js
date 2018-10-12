@@ -323,7 +323,7 @@ class DateRangePicker extends Component {
         const {
                 className, style, name, placeholder, dateFormat, maxValue, minValue, position,
                 popupClassName, rightIconCls, previousYearIconCls, previousMonthIconCls, nextYearIconCls,
-                nextMonthIconCls, readOnly
+                nextMonthIconCls, readOnly, disabled
             } = this.props,
             {popupVisible, left, right, startTime, endTime, hoverTime, isAbove} = this.state,
 
@@ -358,6 +358,7 @@ class DateRangePicker extends Component {
                            placeholder={placeholder}
                            value={textFieldValue}
                            readOnly={true}
+                           disabled={disabled}
                            rightIconCls={rightIconCls}
                            clearButtonVisible={false}
                            isFocusedSelectAll={false}
@@ -593,6 +594,11 @@ DateRangePicker.propTypes = {
     readOnly: PropTypes.bool,
 
     /**
+     * If true,dateRangePicker textField is disabled.
+     */
+    disabled: PropTypes.bool,
+
+    /**
      * If true,the date selection box will displayed.
      */
     popupVisible: PropTypes.bool,
@@ -614,7 +620,8 @@ DateRangePicker.defaultProps = {
     nextYearIconCls: 'fas fa-angle-double-right',
     nextMonthIconCls: 'fas fa-angle-right',
     position: Position.BOTTOM_LEFT,
-    readOnly: false
+    readOnly: false,
+    disabled: false
 };
 
 export default DateRangePicker;

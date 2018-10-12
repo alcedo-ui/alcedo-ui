@@ -111,6 +111,7 @@ class MaterialDatePickerExamples extends Component {
                                                     value="2017-12-12"
                                                     isLabelAnimate={false}
                                                     autoClose={false}
+                                                    disabled={true}
                                                     onChange={this.onChangeHandle}/>
 
                             </div>

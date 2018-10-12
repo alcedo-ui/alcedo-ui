@@ -199,7 +199,7 @@ class MaterialDatePicker extends Component {
         const {
                 className, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, isFooter, position,
                 theme, popupClassName, rightIconCls, previousYearIconCls, previousMonthIconCls, nextYearIconCls,
-                nextMonthIconCls, readOnly
+                nextMonthIconCls, readOnly, disabled
             } = this.props,
             {value, popupVisible, datePickerLevel, year, month, day, isAbove} = this.state,
 
@@ -220,6 +220,7 @@ class MaterialDatePicker extends Component {
                                      value={textValue}
                                      theme={theme}
                                      readOnly={readOnly ? readOnly : !popupVisible}
+                                     disabled={disabled}
                                      clearButtonVisible={false}
                                      isFocusedSelectAll={false}
                                      popupVisible={popupVisible}
@@ -376,6 +377,11 @@ MaterialDatePicker.propTypes = {
     readOnly: PropTypes.bool,
 
     /**
+     * If true,datePicker textField is disabled.
+     */
+    disabled: PropTypes.bool,
+
+    /**
      * Callback function that is fired when the date value changes.
      */
     onChange: PropTypes.func
@@ -397,7 +403,8 @@ MaterialDatePicker.defaultProps = {
     nextYearIconCls: 'fas fa-angle-double-right',
     nextMonthIconCls: 'fas fa-angle-right',
     position: Position.BOTTOM_LEFT,
-    readOnly: false
+    readOnly: false,
+    disabled: false
 };
 
 export default MaterialDatePicker;
