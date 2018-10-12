@@ -128,11 +128,17 @@ class List extends Component {
         return (typeof listDisabled === 'function' ? listDisabled(value, data) : listDisabled);
     };
 
-    isItemDisabled = (listItemDisabled, itemDisabled, item) => {
+    isItemDisabled = (listItemDisabled, item, itemDisabled) => {
         const {data} = this.props,
             {value} = this.state;
-        return (typeof listItemDisabled === 'function' ? listItemDisabled(item, value, data) : listItemDisabled)
-            || (typeof itemDisabled === 'function' ? itemDisabled(item, value, data) : itemDisabled);
+        return (
+                listItemDisabled != undefined
+                && (typeof listItemDisabled === 'function' ? listItemDisabled(item, value, data) : listItemDisabled)
+            )
+            || (
+                itemDisabled != undefined
+                && (typeof itemDisabled === 'function' ? itemDisabled(item, value, data) : itemDisabled)
+            );
     };
 
     componentDidMount() {
@@ -182,7 +188,7 @@ class List extends Component {
                       value={Util.getValueByValueField(item, valueField, displayField)}
                       text={Util.getTextByDisplayField(item, displayField, valueField)}
                       desc={item[descriptionField] || null}
-                      disabled={this.isListDisabled(disabled) || this.isItemDisabled(itemDisabled, item.disabled, item)}
+                      disabled={this.isListDisabled(disabled) || this.isItemDisabled(itemDisabled, item, item.disabled)}
                       isLoading={isLoading || item.isLoading}
                       selectMode={selectMode}
                       renderer={renderer}
@@ -210,7 +216,7 @@ class List extends Component {
                       checked={Calculation.isItemChecked(item, value, this.props)}
                       value={item}
                       text={item}
-                      disabled={disabled}
+                      disabled={this.isListDisabled(disabled) || this.isItemDisabled(itemDisabled, item)}
                       isLoading={isLoading}
                       selectMode={selectMode}
                       renderer={renderer}

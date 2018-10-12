@@ -193,7 +193,6 @@ class LocalAutoComplete extends Component {
 
         if (!filter) {
             state.listData = data;
-            state.value = null;
             state.tempSelectIndex = null;
         } else {
             state.listData = filterData(filter, this.props);
@@ -260,29 +259,44 @@ class LocalAutoComplete extends Component {
 
         const {displayField, valueField, renderer} = this.props,
             {filter, tempSelectIndex, listData} = this.state;
-        let state = null;
 
-        if (filter && listData && listData.length > 0) {
+        let index = isNumber(tempSelectIndex) ? tempSelectIndex : 0,
+            state = {
+                tempSelectIndex: null
+            },
+            value,
+            filterChanged = false,
+            valueChanged = false;
 
-            state = {};
+        if (listData && listData.length > 0) {
 
-            const index = isNumber(tempSelectIndex) ? tempSelectIndex : 0;
-
-            state.value = listData[index];
+            value = listData[index];
 
             state.filter = renderer ?
-                renderer(state.value)
+                renderer(value)
                 :
-                Util.getTextByDisplayField(state.value, displayField, valueField);
+                Util.getTextByDisplayField(value, displayField, valueField);
+            filterChanged = state.filter !== filter;
 
-            state.listData = filterData(state.filter, this.props);
+            if (filterChanged) {
+                state.listData = filterData(state.filter, this.props);
+            }
+
+            if (Util.getValueByValueField(this.state.value, valueField, displayField)
+                !== Util.getValueByValueField(value, valueField, displayField)) {
+                valueChanged = true;
+                state.value = listData[index];
+            }
 
         }
 
         this.setState(state, () => {
-            if (state) {
-                const {onFilterChange, onChange} = this.props;
+            if (filterChanged) {
+                const {onFilterChange} = this.props;
                 onFilterChange && onFilterChange(state.filter);
+            }
+            if (valueChanged) {
+                const {onChange} = this.props;
                 onChange && onChange(state.value);
             }
         });
