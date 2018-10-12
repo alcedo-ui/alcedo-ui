@@ -176,6 +176,12 @@ class DatePicker extends Component {
                 this.validValue = false;
                 console.error('Invalid date');
             }
+        } else {
+            state.value = '';
+            state.year = moment().year();
+            state.month = moment().month();
+            state.day = moment().day();
+            this.setState(state);
         }
     };
 
