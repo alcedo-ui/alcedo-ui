@@ -158,11 +158,10 @@ class MaterialDatePicker extends Component {
 
     };
 
-    componentDidMount() {
-        // debugger
-        const {value, dateFormat} = this.props;
+    validValueFormat = (value, dateFormat) => {
         let state = cloneDeep(this.state);
         if (value) {
+            // debugger
             if (moment(value, dateFormat).isValid()) {
                 const year = moment(value).format('YYYY'),
                     month = moment(value).format('MM'),
@@ -177,6 +176,12 @@ class MaterialDatePicker extends Component {
                 console.error('Invalid date');
             }
         }
+    };
+
+    componentDidMount() {
+        // debugger
+        const {value, dateFormat} = this.props;
+        this.validValueFormat(value, dateFormat);
 
         this.datePicker = this.refs.datePicker;
         this.triggerEl = findDOMNode(this.refs.trigger);
@@ -184,13 +189,7 @@ class MaterialDatePicker extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.props.value || nextProps.dateFormat !== this.props.dateFormat) {
-            this.setState({
-                value: moment(nextProps.value, nextProps.dateFormat),
-                dateFormat: nextProps.dateFormat,
-                year: moment(nextProps.value).format('YYYY'),
-                month: moment(nextProps.value).format('MM'),
-                day: moment(nextProps.value).format('DD')
-            });
+            this.validValueFormat(nextProps.value, nextProps.dateFormat);
         }
     }
 

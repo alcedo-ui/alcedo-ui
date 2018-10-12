@@ -88,9 +88,7 @@ class DateField extends Component {
         });
     };
 
-    componentDidMount() {
-        // debugger
-        const {value, dateFormat} = this.props;
+    validValueFormat = (value, dateFormat) => {
         let state = cloneDeep(this.state);
         if (value) {
             // debugger
@@ -104,20 +102,22 @@ class DateField extends Component {
                 state.day = day;
                 this.setState(state);
             } else {
+                this.validValue = false;
                 console.error('Invalid date');
             }
         }
+    };
+
+
+    componentDidMount() {
+        // debugger
+        const {value, dateFormat} = this.props;
+        this.validValueFormat(value, dateFormat);
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.value && nextProps.value !== this.props.value || nextProps.dateFormat !== this.props.dateFormat) {
-            this.setState({
-                value: moment(nextProps.value, nextProps.dateFormat),
-                dateFormat: nextProps.dateFormat,
-                year: moment(nextProps.value).format('YYYY'),
-                month: moment(nextProps.value).format('MM'),
-                day: moment(nextProps.value).format('DD')
-            });
+            this.validValueFormat(nextProps.value, nextProps.dateFormat);
         }
     }
 
