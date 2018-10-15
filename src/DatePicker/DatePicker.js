@@ -178,9 +178,9 @@ class DatePicker extends Component {
             }
         } else {
             state.value = '';
-            state.year = moment().year();
-            state.month = moment().month();
-            state.day = moment().day();
+            state.year = moment(this.defaultValue).format('YYYY');
+            state.month = moment(this.defaultValue).format('MM');
+            state.day = moment(this.defaultValue).format('DD');
             this.setState(state);
         }
     };
