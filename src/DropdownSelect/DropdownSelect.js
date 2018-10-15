@@ -98,11 +98,16 @@ class DropdownSelect extends Component {
             return data;
         }
 
-        const {displayField, isGrouped} = this.props,
+        const {displayField, isGrouped, filterCallback} = this.props,
             filterFunc = originData => originData.filter(item => typeof item === 'object' && !!item[displayField] ?
                 item[displayField].toString().toUpperCase().includes(filter.toUpperCase())
                 :
                 item.toString().toUpperCase().includes(filter.toUpperCase()));
+
+        if (filterCallback) {
+            return filterCallback(filter, data);
+        }
+
         // debugger
         if (isGrouped) {
 
@@ -720,6 +725,7 @@ DropdownSelect.propTypes = {
     checkboxIndeterminateIconCls: PropTypes.string,
 
     renderer: PropTypes.func,
+    filterCallback: PropTypes.func,
 
     /**
      * Callback function fired when the button is touch-tapped.
