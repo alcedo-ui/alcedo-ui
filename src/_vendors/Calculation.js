@@ -145,8 +145,8 @@ function isNodeIndeterminate(node, value, {valueField, displayField}) {
     Util.preOrderTraverse(node, nodeItem => {
         total++;
         if (value.findIndex(item =>
-                Util.getValueByValueField(item, valueField, displayField)
-                === Util.getValueByValueField(nodeItem, valueField, displayField)) > -1) {
+            Util.getValueByValueField(item, valueField, displayField)
+            === Util.getValueByValueField(nodeItem, valueField, displayField)) > -1) {
             count++;
         }
     });
@@ -155,6 +155,70 @@ function isNodeIndeterminate(node, value, {valueField, displayField}) {
 
 }
 
+function filterLocalAutoCompleteData(filter, props) {
+
+    const {data, minFilterLength} = props;
+
+    if (!filter || filter.length < minFilterLength) {
+        return data;
+    }
+
+    const {valueField, displayField, renderer, filterCallback} = props;
+
+    if (filterCallback) {
+        return filterCallback(filter, data);
+    }
+
+    return data && data.filter(item => {
+
+        if (!item) {
+            return false;
+        }
+
+        if (renderer) {
+            return renderer(item).toString().toUpperCase().includes(filter.toUpperCase());
+        }
+
+        if (typeof item === 'object') {
+
+            const itemDisplay = Util.getTextByDisplayField(item, displayField, valueField);
+
+            if (itemDisplay) {
+                return itemDisplay.toString().toUpperCase().includes(filter.toUpperCase());
+            }
+
+        }
+
+        return item.toString().toUpperCase().includes(filter.toUpperCase());
+
+    });
+
+}
+
+function sortTableData(data, sort, sortFunc) {
+
+    if (!sort) {
+        return data;
+    }
+
+    let copyData = data.slice();
+
+    if (sortFunc) {
+        copyData = sortFunc(copyData, sort);
+    } else {
+        copyData.sort((a, b) => {
+            if (!isNaN(a[sort.prop]) && !isNaN(b[sort.prop])) {
+                return (Number(a[sort.prop]) - Number(b[sort.prop])) * sort.type;
+            } else {
+                return (a[sort.prop] + '').localeCompare(b[sort.prop] + '') * sort.type;
+            }
+        });
+    }
+
+    return copyData;
+
+};
+
 export default {
     pageSize,
     displayIndexByScrollTop,
@@ -162,5 +226,7 @@ export default {
     getMultiSelectItemIndex,
     displayIndexByScrollTopMulColumns,
     isItemChecked,
-    isNodeIndeterminate
+    isNodeIndeterminate,
+    filterLocalAutoCompleteData,
+    sortTableData
 };
