@@ -5,6 +5,7 @@ import Switcher from 'src/Switcher';
 import IconButton from 'src/IconButton';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import RaisedButton from 'src/RaisedButton';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Table.json';
@@ -55,7 +56,8 @@ class TableExamples extends Component {
         }];
 
         this.state = {
-            data: this.generateData()
+            data: this.generateData(),
+            sort: null
         };
 
     }
@@ -86,8 +88,11 @@ class TableExamples extends Component {
 
     };
 
-    sortHandler = (sortConfig) => {
-        console.log('Sort Change Value: ', sortConfig);
+    sortHandler = sort => {
+        this.setState({
+            sort
+        });
+        console.log('Sort Change Value: ', sort);
     };
 
     pageChangeHandler = (page, pageSize) => {
@@ -110,9 +115,15 @@ class TableExamples extends Component {
         console.log('Changed Value: ', value);
     };
 
+    clearSort = () => {
+        this.setState({
+            sort: null
+        });
+    };
+
     render() {
 
-        const {data} = this.state;
+        const {data, sort} = this.state;
 
         return (
             <div className="example table-examples">
@@ -142,10 +153,16 @@ class TableExamples extends Component {
                                            <IconButton iconCls="fas fa-trash-alt"
                                                        onClick={() => this.deleteRow(rowData.id)}/>
                                    }]}
+                                   sort={sort}
                                    paggingCountRenderer={count => <span>Self Defined Total Count: {count}</span>}
                                    onSort={this.sortHandler}
                                    onPageChange={this.pageChangeHandler}
                                    onDataUpdate={this.dataUpdateHandler}/>
+
+                            <RaisedButton className="table-action"
+                                          theme={RaisedButton.Theme.PRIMARY}
+                                          value="Clear Table Sort"
+                                          onClick={this.clearSort}/>
 
                         </div>
                     </div>

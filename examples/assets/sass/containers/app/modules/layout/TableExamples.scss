@@ -1,8 +1,13 @@
 @import '../../../../my-theme.scss';
 
-.example-content {
+.table-examples {
+
     .paper {
         border: 1px solid $theme-border;
         overflow: auto;
+    }
+
+    .table-action {
+        margin: 16px 16px 0 0;
     }
 }
