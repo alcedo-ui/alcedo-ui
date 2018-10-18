@@ -23,46 +23,7 @@ import DropdownCalculation from '../_vendors/DropdownCalculation';
 import Event from '../_vendors/Event';
 import Dom from '../_vendors/Dom';
 import ComponentUtil from '../_vendors/ComponentUtil';
-
-function filterData(filter, props) {
-
-    const {data, minFilterLength} = props;
-
-    if (!filter || filter.length < minFilterLength) {
-        return data;
-    }
-
-    const {valueField, displayField, renderer, filterCallback} = props;
-
-    if (filterCallback) {
-        return filterCallback(filter, data);
-    }
-
-    return data && data.filter(item => {
-
-        if (!item) {
-            return false;
-        }
-
-        if (renderer) {
-            return renderer(item).toString().toUpperCase().includes(filter.toUpperCase());
-        }
-
-        if (typeof item === 'object') {
-
-            const itemDisplay = Util.getTextByDisplayField(item, displayField, valueField);
-
-            if (itemDisplay) {
-                return itemDisplay.toString().toUpperCase().includes(filter.toUpperCase());
-            }
-
-        }
-
-        return item.toString().toUpperCase().includes(filter.toUpperCase());
-
-    });
-
-}
+import Calculation from '../_vendors/Calculation';
 
 class LocalAutoComplete extends Component {
 
@@ -82,7 +43,7 @@ class LocalAutoComplete extends Component {
             filterFocused: false,
             popupVisible: false,
             isAbove: false,
-            listData: filterData(props.filter, props)
+            listData: Calculation.filterLocalAutoCompleteData(props.filter, props)
         };
 
     }
@@ -195,7 +156,7 @@ class LocalAutoComplete extends Component {
             state.listData = data;
             state.tempSelectIndex = null;
         } else {
-            state.listData = filterData(filter, this.props);
+            state.listData = Calculation.filterLocalAutoCompleteData(filter, this.props);
             state.tempSelectIndex = state.listData.length > 0 ? 0 : null;
         }
 
@@ -239,7 +200,7 @@ class LocalAutoComplete extends Component {
                 tempSelectIndex: null,
                 value,
                 filter,
-                listData: filterData(filter, this.props)
+                listData: Calculation.filterLocalAutoCompleteData(filter, this.props)
             },
             isChanged = this.state.value != value;
 
@@ -279,7 +240,7 @@ class LocalAutoComplete extends Component {
             filterChanged = state.filter !== filter;
 
             if (filterChanged) {
-                state.listData = filterData(state.filter, this.props);
+                state.listData = Calculation.filterLocalAutoCompleteData(state.filter, this.props);
             }
 
             if (Util.getValueByValueField(this.state.value, valueField, displayField)
@@ -329,7 +290,7 @@ class LocalAutoComplete extends Component {
             prevProps: props,
             value: ComponentUtil.getDerivedState(props, state, 'value'),
             filter,
-            listData: filterData(filter, props)
+            listData: Calculation.filterLocalAutoCompleteData(filter, props)
         };
     }
 
