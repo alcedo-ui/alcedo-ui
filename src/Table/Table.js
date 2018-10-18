@@ -23,6 +23,7 @@ import SortType from '../_statics/SortType';
 import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
 import Calculation from '../_vendors/Calculation';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class Table extends Component {
 
@@ -43,7 +44,7 @@ class Table extends Component {
              *	    type: 1: 'asc' | -1: 'desc'
              *  }
              */
-            sort: props.sortInitConfig,
+            sort: props.sort,
 
             scrollTop: 0,
             scrollLeft: 0,
@@ -56,7 +57,7 @@ class Table extends Component {
 
             value: Calculation.getInitValue(props),
 
-            sortedData: this.sortData(props.data, props.sortInitConfig)
+            sortedData: Calculation.sortTableData(props.data, props.sort, props.sortFunc)
 
         };
 
@@ -217,7 +218,7 @@ class Table extends Component {
 
     sortHandler = col => {
 
-        const {data, defaultSortType} = this.props;
+        const {data, defaultSortType, sortFunc} = this.props;
         let {sort} = this.state,
             type = col.defaultSortType || defaultSortType;
 
@@ -230,7 +231,7 @@ class Table extends Component {
             type
         };
 
-        const sortedData = this.sortData(data, sort);
+        const sortedData = Calculation.sortTableData(data, sort, sortFunc);
 
         this.setState({
             sort,
@@ -239,31 +240,6 @@ class Table extends Component {
             const {onSort} = this.props;
             onSort && onSort(sort);
         });
-
-    };
-
-    sortData = (data, sort = (this.state ? this.state.sort : null)) => {
-
-        if (!sort) {
-            return data;
-        }
-
-        const {sortFunc} = this.props;
-        let copyData = data.slice();
-
-        if (sortFunc) {
-            copyData = sortFunc(copyData, sort);
-        } else {
-            copyData.sort((a, b) => {
-                if (!isNaN(a[sort.prop]) && !isNaN(b[sort.prop])) {
-                    return (Number(a[sort.prop]) - Number(b[sort.prop])) * sort.type;
-                } else {
-                    return (a[sort.prop] + '').localeCompare(b[sort.prop] + '') * sort.type;
-                }
-            });
-        }
-
-        return copyData;
 
     };
 
@@ -526,27 +502,28 @@ class Table extends Component {
         onDataUpdate && onDataUpdate(this.getCurrentPageData());
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentDidUpdate(prevProps) {
 
-        if (nextProps.data.length !== this.props.data.length) {
-            this.resetPage(nextProps.data);
+        const {onDataUpdate} = this.props;
+        onDataUpdate && onDataUpdate(this.getCurrentPageData());
+
+        if (prevProps.data.length !== this.props.data.length) {
+            this.resetPage(this.props.data);
         }
-
-        let state = {
-            sortedData: this.sortData(nextProps.data)
-        };
-
-        if (nextProps.value !== this.state.value) {
-            state.value = Calculation.getInitValue(nextProps);
-        }
-
-        this.setState(state);
 
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        const {onDataUpdate} = this.props;
-        onDataUpdate && onDataUpdate(this.getCurrentPageData());
+    static getDerivedStateFromProps(props, state) {
+        const sort = ComponentUtil.getDerivedState(props, state, 'sort');
+        return {
+            prevProps: props,
+            sort,
+            sortedData: Calculation.sortTableData(props.data, sort, props.sortFunc),
+            value: Calculation.getInitValue({
+                value: ComponentUtil.getDerivedState(props, state, 'value'),
+                selectMode: props.selectMode
+            })
+        };
     }
 
     render() {
@@ -562,7 +539,7 @@ class Table extends Component {
                 paggingCountRenderer,
 
                 // not passing down these props
-                defaultSortType, defaultPageSize, sortInitConfig, onPageChange, hasLineNumber, columns, selectTheme,
+                defaultSortType, defaultPageSize, sort: propsSort, onPageChange, hasLineNumber, columns, selectTheme,
                 radioUncheckedIconCls, radioCheckedIconCls, checkboxUncheckedIconCls, checkboxCheckedIconCls,
                 checkboxIndeterminateIconCls, selectAllMode, isClearSelectionOnChangePage, sortFunc, onSort,
                 onDataUpdate, onSelectAll, onDeselectAll,
@@ -818,9 +795,9 @@ Table.propTypes = {
     isClearSelectionOnChangePage: PropTypes.bool,
 
     /**
-     * Sort init config.
+     * Sort config
      */
-    sortInitConfig: PropTypes.shape({
+    sort: PropTypes.shape({
 
         /**
          * Specify the sorting column.
