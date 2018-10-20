@@ -9,6 +9,8 @@ import classNames from 'classnames';
 
 import FlatButton from '../FlatButton';
 
+import ComponentUtil from '../_vendors/ComponentUtil';
+
 class Tab extends Component {
 
     constructor(props, ...restArgs) {
@@ -25,9 +27,21 @@ class Tab extends Component {
         this.setState({
             activatedIndex
         }, () => {
+
             item.onActive && item.onActive(item, activatedIndex);
+
+            const {onIndexChange} = this.props;
+            onIndexChange && onIndexChange(activatedIndex, item);
+
         });
     };
+
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            activatedIndex: ComponentUtil.getDerivedState(props, state, 'activatedIndex')
+        };
+    }
 
     render() {
 
@@ -191,7 +205,9 @@ Tab.propTypes = {
     /**
      * If true,the tabs is FullWidth.
      */
-    isTabFullWidth: PropTypes.bool
+    isTabFullWidth: PropTypes.bool,
+
+    onIndexChange: PropTypes.func
 
 };
 
@@ -201,6 +217,7 @@ Tab.defaultProps = {
 
     activatedIndex: 0,
     isTabFullWidth: true
+
 
 };
 
