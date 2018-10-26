@@ -61,11 +61,13 @@ class TimePicker extends Component {
                 const hour = moment(validDate).format('HH'),
                     minute = moment(validDate).format('mm'),
                     second = moment(validDate).format('ss');
-                this.setState({
+                !this.props.disabled && this.setState({
                     textFieldValue: text,
                     hour: hour,
                     minute: minute,
                     second: second
+                }, () => {
+                    this.props.onChange && this.props.onChange(text);
                 });
             }
         } else {
@@ -79,11 +81,13 @@ class TimePicker extends Component {
         let timer = obj.hour + ':' + obj.minute + ':' + obj.second;
         let validDate = '1970-01-01 ' + timer;
         timer = moment(validDate).format(this.props.dateFormat);
-        this.setState({
+        !this.props.disabled && this.setState({
             hour: obj.hour,
             minute: obj.minute,
             second: obj.second,
             textFieldValue: timer
+        }, () => {
+            this.props.onChange && this.props.onChange(timer);
         });
     };
 
@@ -96,11 +100,8 @@ class TimePicker extends Component {
     };
 
     closePopup = () => {
-        const {textFieldValue} = this.state;
-        !this.props.disabled && this.setState({
+        this.setState({
             popupVisible: false
-        }, () => {
-            this.props.onChange && this.props.onChange(textFieldValue);
         });
     };
 

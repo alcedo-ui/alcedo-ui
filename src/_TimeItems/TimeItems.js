@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Event from '../_vendors/Event';
+import Util from '../_vendors/Util';
 
 class TimeItems extends Component {
 
@@ -58,6 +59,12 @@ class TimeItems extends Component {
     mouseOutHandler = () => {
         this.itemsEl && (this.itemsEl.style.overflowY = 'hidden');
     };
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.value !== this.props.value) {
+            this.scrollTo(this.itemsEl, +(nextProps.value) * 30, 200);
+        }
+    }
 
     componentDidMount() {
 
