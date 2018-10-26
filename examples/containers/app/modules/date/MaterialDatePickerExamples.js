@@ -30,12 +30,14 @@ class MaterialDatePickerExamples extends Component {
     };
 
     startChangeHandler = start => {
+        console.log(start);
         this.setState({
             start
         });
     };
 
     endChangeHandler = end => {
+        console.log(end);
         this.setState({
             end
         });
