@@ -189,7 +189,7 @@ class DraggableList extends Component {
                 disabled, itemDisabled, isLoading, renderer,
 
                 selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
-                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
+                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls, anchorIconCls,
 
                 onItemClick
 
@@ -207,6 +207,7 @@ class DraggableList extends Component {
                 checkboxUncheckedIconCls: item.checkboxUncheckedIconCls || checkboxUncheckedIconCls,
                 checkboxCheckedIconCls: item.checkboxCheckedIconCls || checkboxCheckedIconCls,
                 checkboxIndeterminateIconCls: item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls,
+                anchorIconCls: item.anchorIconCls || anchorIconCls,
                 checked: Calculation.isItemChecked(item, value, self.props),
                 selectMode,
                 renderer,
@@ -456,6 +457,7 @@ DraggableList.propTypes = {
     checkboxUncheckedIconCls: PropTypes.string,
     checkboxCheckedIconCls: PropTypes.string,
     checkboxIndeterminateIconCls: PropTypes.string,
+    anchorIconCls: PropTypes.string,
 
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
@@ -513,7 +515,8 @@ DraggableList.defaultProps = {
 
     checkboxUncheckedIconCls: 'far fa-square',
     checkboxCheckedIconCls: 'fas fa-check-square',
-    checkboxIndeterminateIconCls: 'fas fa-minus-square'
+    checkboxIndeterminateIconCls: 'fas fa-minus-square',
+    anchorIconCls: 'fas fa-bars'
 
 };
 
