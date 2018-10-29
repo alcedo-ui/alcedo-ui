@@ -259,38 +259,43 @@ class DateRangePicker extends Component {
 
     };
 
-    componentDidMount() {
-        const {value, dateFormat} = this.props;
+    setDateRange = (start, end) => {
+        if (start.year == end.year && start.month == end.month) {
+            if (start.month == 12) {
+                end.year = +(end.year) + 1;
+                end.month = 1;
+            } else {
+                end.year = end.year;
+                end.month = +(end.month) + 1;
+            }
+        } else {
+            end.year = end.year;
+            end.month = end.month;
+        }
+
+        return {
+            start,
+            end
+        };
+    };
+
+    setValue = (value, format) => {
         let state = cloneDeep(this.state);
-        if (value && value.length) {
+        if (value && value.length > 1) {
             let leftValue = value[0],
                 rightValue = value[1];
-            if (!!leftValue && !!rightValue) {
-                if (moment(leftValue, dateFormat).isValid() && moment(rightValue, dateFormat).isValid()) {
-                    let leftYear = moment(value[0]).format('YYYY'),
-                        leftMonth = moment(value[0]).format('MM'),
-                        leftDay = moment(value[0]).format('DD'),
-                        rightYear = moment(value[1]).format('YYYY'),
-                        rightMonth = moment(value[1]).format('MM'),
-                        rightDay = moment(value[1]).format('DD');
+            if (!!leftValue) {
+                if (moment(leftValue, format).isValid() || (!!rightValue && moment(leftValue, format).isValid())) {
                     state.left.text = leftValue;
-                    state.left.year = leftYear;
-                    state.left.month = leftMonth;
-                    state.left.day = leftDay;
+                    state.left.year = moment(value[0]).format('YYYY');
+                    state.left.month = moment(value[0]).format('MM');
+                    state.left.day = moment(value[0]).format('DD');
                     state.right.text = rightValue;
-                    state.right.day = rightDay;
-                    if (leftYear == rightYear && leftMonth == rightMonth) {
-                        if (leftMonth == 12) {
-                            state.right.year = +rightYear + 1;
-                            state.right.month = 1;
-                        } else {
-                            state.right.year = rightYear;
-                            state.right.month = +rightMonth + 1;
-                        }
-                    } else {
-                        state.right.year = rightYear;
-                        state.right.month = rightMonth;
-                    }
+                    state.right.year = rightValue ? moment(value[1]).format('YYYY') : moment(value[0]).format('YYYY');
+                    state.right.month = rightValue ? moment(value[1]).format('MM') : moment(value[0]).format('MM');
+                    state.right.day = rightValue ? moment(value[1]).format('DD') : moment(value[0]).format('DD');
+                    state.left = this.setDateRange(state.left, state.right).start;
+                    state.right = this.setDateRange(state.left, state.right).end;
                     state.startTime = leftValue;
                     state.endTime = rightValue;
                     state.historyStartTime = leftValue;
@@ -300,21 +305,36 @@ class DateRangePicker extends Component {
                     this.validValue = false;
                     console.error('Invalid date');
                 }
+            } else {
+                state.left.text = '';
+                state.right.text = '';
+                state.left.year = moment().format('YYYY');
+                state.left.month = moment().format('MM');
+                state.left.day = moment().format('DD');
+                state.right.year = moment().format('YYYY');
+                state.right.month = moment().format('MM');
+                state.right.day = moment().format('DD');
+                state.startTime = '';
+                state.endTime = '';
+                state.historyStartTime = '';
+                state.historyEndTime = '';
+                state.left = this.setDateRange(state.left, state.right).start;
+                state.right = this.setDateRange(state.left, state.right).end;
+                this.setState(state);
             }
-
         }
+    };
 
+    componentDidMount() {
+        const {value, dateFormat} = this.props;
+        this.setValue(value, dateFormat);
         this.datePicker = this.refs.datePicker;
         this.triggerEl = findDOMNode(this.refs.trigger);
-
-
     }
 
     componentWillReceiveProps(nextProps) {
         if (JSON.stringify(nextProps.value) !== JSON.stringify(this.props.value) || nextProps.dateFormat !== this.props.dateFormat) {
-            this.setState({
-                value: nextProps.value
-            });
+            this.setValue(nextProps.value, nextProps.dateFormat);
         }
     }
 
