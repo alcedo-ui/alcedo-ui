@@ -18,6 +18,7 @@ import Position from '../_statics/Position';
 import Event from '../_vendors/Event';
 import Util from '../_vendors/Util';
 import TriggerPopCalculation from '../_vendors/TriggerPopCalculation';
+import Dom from '../_vendors/Dom';
 
 class TriggerPop extends Component {
 
@@ -27,6 +28,8 @@ class TriggerPop extends Component {
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
+
+        this.scrollEl = null;
 
         this.state = {
             enter: false,
@@ -85,8 +88,36 @@ class TriggerPop extends Component {
         TriggerPopCalculation.setStyle(triggerEl, this.transitionEl, position, isTriggerPositionFixed);
     };
 
+    addWatchScroll = () => {
+
+        const {triggerEl} = this.props;
+
+        if (!triggerEl) {
+            return;
+        }
+
+        const scrollEl = Dom.getClosestScrollable(triggerEl);
+
+        if (!scrollEl || scrollEl == document.body) {
+            return;
+        }
+
+        this.scrollEl = scrollEl;
+
+        Event.addEvent(scrollEl, 'scroll', this.resizeHandler);
+
+    };
+
     componentDidMount() {
         Event.addEvent(window, 'resize', this.resizeHandler);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (!prevProps.visible && this.props.visible) {
+            this.addWatchScroll();
+        } else if (prevProps.visible && !this.props.visible) {
+            Event.removeEvent(this.scrollEl, 'scroll', this.resizeHandler);
+        }
     }
 
     componentWillReceiveProps(nextProps) {
