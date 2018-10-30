@@ -12,6 +12,7 @@ import CircularLoading from '../CircularLoading';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class Switcher extends Component {
 
@@ -59,12 +60,11 @@ class Switcher extends Component {
 
     };
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: !!nextProps.value
-            });
-        }
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
     }
 
     render() {
