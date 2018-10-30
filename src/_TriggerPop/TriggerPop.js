@@ -116,7 +116,8 @@ class TriggerPop extends Component {
         if (!prevProps.visible && this.props.visible) {
             this.addWatchScroll();
         } else if (prevProps.visible && !this.props.visible) {
-            Event.removeEvent(this.scrollEl, 'scroll', this.resizeHandler);
+            this.scrollEl && Event.removeEvent(this.scrollEl, 'scroll', this.resizeHandler);
+            this.scrollEl = null;
         }
     }
 
