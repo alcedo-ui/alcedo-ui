@@ -97,7 +97,27 @@ class SwitcherExamples extends Component {
                                 <p>Set the size property to small for small size switcher.</p>
 
                                 <Switcher theme={Switcher.Theme.HIGHLIGHT}
-                                          size={Switcher.Size.SMALL}
+                                          size={Switcher.Size.SMALL}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Other Config"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>Display a hint icon.</p>
+
+                                <Switcher theme={Switcher.Theme.HIGHLIGHT}
                                           labelVisible={true}/>
 
                             </div>
