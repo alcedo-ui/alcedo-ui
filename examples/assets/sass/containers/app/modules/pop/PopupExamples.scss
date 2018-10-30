@@ -17,7 +17,11 @@
     }
 }
 
-.customized-dialog-content {
+.popup-dialog-content {
     width: 1000px;
     height: 1000px;
+
+    .dialog-trigger-button {
+        width: auto;
+    }
 }

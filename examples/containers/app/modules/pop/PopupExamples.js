@@ -446,9 +446,9 @@ class PopupExamples extends Component {
 
                                 <Dialog visible={popupVisible[17]}
                                         onRender={this.dialogRenderHandler}>
-                                    <div className="customized-dialog-content">
+                                    <div className="popup-dialog-content">
                                         <RaisedButton ref="trigger18"
-                                                      className="trigger-button"
+                                                      className="dialog-trigger-button"
                                                       value="Toggle Popup"
                                                       onClick={() => this.togglePopup(18)}/>
                                     </div>
