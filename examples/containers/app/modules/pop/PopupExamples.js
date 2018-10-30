@@ -445,7 +445,8 @@ class PopupExamples extends Component {
                                               onClick={() => this.togglePopup(17)}/>
 
                                 <Dialog visible={popupVisible[17]}
-                                        onRender={this.dialogRenderHandler}>
+                                        onRender={this.dialogRenderHandler}
+                                        onRequestClose={() => this.closePopup(17)}>
                                     <div className="popup-dialog-content">
                                         <RaisedButton ref="trigger18"
                                                       className="dialog-trigger-button"
