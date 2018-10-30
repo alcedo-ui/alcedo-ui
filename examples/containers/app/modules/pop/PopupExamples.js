@@ -77,6 +77,18 @@ class PopupExamples extends Component {
 
     };
 
+    dialogRenderHandler = () => {
+
+        const triggerEl = this.state.triggerEl;
+
+        triggerEl[18] = findDOMNode(this.refs['trigger18']);
+
+        this.setState({
+            triggerEl
+        });
+
+    };
+
     componentDidMount() {
 
         const triggerEl = {};
@@ -407,6 +419,45 @@ class PopupExamples extends Component {
                                            </svg>
                                        }
                                        onRequestClose={() => this.closePopup(16)}>
+                                    <div style={{padding: 20}}>
+                                        Popup Content
+                                    </div>
+                                </Popup>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="In Dialog"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="popup-example-wrapper">
+
+                                <RaisedButton className="trigger-button"
+                                              value="Show Dialog"
+                                              onClick={() => this.togglePopup(17)}/>
+
+                                <Dialog visible={popupVisible[17]}
+                                        onRender={this.dialogRenderHandler}>
+                                    <div className="customized-dialog-content">
+                                        <RaisedButton ref="trigger18"
+                                                      className="trigger-button"
+                                                      value="Toggle Popup"
+                                                      onClick={() => this.togglePopup(18)}/>
+                                    </div>
+                                </Dialog>
+
+                                <Popup className="customized-popup in-dialog"
+                                       visible={popupVisible[18]}
+                                       triggerEl={triggerEl[18]}
+                                       onRequestClose={() => this.closePopup(18)}>
                                     <div style={{padding: 20}}>
                                         Popup Content
                                     </div>
