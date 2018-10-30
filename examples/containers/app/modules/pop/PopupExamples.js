@@ -6,6 +6,7 @@ import Popup from 'src/Popup';
 import List from 'src/List';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import Dialog from 'src/Dialog';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Popup.json';
@@ -80,7 +81,7 @@ class PopupExamples extends Component {
 
         const triggerEl = {};
 
-        for (let i = 0; i <= 16; i++) {
+        for (let i = 0; i <= 18; i++) {
             triggerEl[i] = findDOMNode(this.refs[`trigger${i}`]);
         }
 
@@ -120,16 +121,12 @@ class PopupExamples extends Component {
                                 <RaisedButton ref="trigger0"
                                               className="trigger-button"
                                               value="Toggle Popup"
-                                              onClick={() => {
-                                                  this.togglePopup(0);
-                                              }}/>
+                                              onClick={() => this.togglePopup(0)}/>
 
                                 <Popup theme={Popup.Theme.PRIMARY}
                                        visible={popupVisible[0]}
                                        triggerEl={triggerEl[0]}
-                                       onRequestClose={() => {
-                                           this.closePopup(0);
-                                       }}>
+                                       onRequestClose={() => this.closePopup(0)}>
                                     <div style={{padding: 20, color: '#fff'}}>
                                         Popup Content
                                     </div>
@@ -159,16 +156,12 @@ class PopupExamples extends Component {
                                 <RaisedButton ref="trigger1"
                                               className="trigger-button"
                                               value="Toggle Popup"
-                                              onClick={() => {
-                                                  this.togglePopup(1);
-                                              }}/>
+                                              onClick={() => this.togglePopup(1)}/>
 
                                 <Popup visible={popupVisible[1]}
                                        triggerEl={triggerEl[1]}
                                        hasTriangle={false}
-                                       onRequestClose={() => {
-                                           this.closePopup(1);
-                                       }}>
+                                       onRequestClose={() => this.closePopup(1)}>
                                     <List data={this.data}/>
                                 </Popup>
 
@@ -198,93 +191,67 @@ class PopupExamples extends Component {
                                         <RaisedButton ref="trigger5"
                                                       className="trigger-position-button"
                                                       value="Top Left"
-                                                      onClick={() => {
-                                                          this.togglePopup(5);
-                                                      }}/>
+                                                      onClick={() => this.togglePopup(5)}/>
                                         <RaisedButton ref="trigger6"
                                                       className="trigger-position-button"
                                                       value="Top"
-                                                      onClick={() => {
-                                                          this.togglePopup(6);
-                                                      }}/>
+                                                      onClick={() => this.togglePopup(6)}/>
                                         <RaisedButton ref="trigger7"
                                                       className="trigger-position-button"
                                                       value="Top right"
-                                                      onClick={() => {
-                                                          this.togglePopup(7);
-                                                      }}/>
+                                                      onClick={() => this.togglePopup(7)}/>
                                     </div>
 
                                     <div className="button-group right">
                                         <RaisedButton ref="trigger11"
                                                       className="trigger-position-button"
                                                       value="Right Top"
-                                                      onClick={() => {
-                                                          this.togglePopup(11);
-                                                      }}/>
+                                                      onClick={() => this.togglePopup(11)}/>
                                         <RaisedButton ref="trigger12"
                                                       className="trigger-position-button"
                                                       value="Right"
-                                                      onClick={() => {
-                                                          this.togglePopup(12);
-                                                      }}/>
+                                                      onClick={() => this.togglePopup(12)}/>
                                         <RaisedButton ref="trigger13"
                                                       className="trigger-position-button"
                                                       value="Right Bottom"
-                                                      onClick={() => {
-                                                          this.togglePopup(13);
-                                                      }}/>
+                                                      onClick={() => this.togglePopup(13)}/>
                                     </div>
 
                                     <div className="button-group bottom">
                                         <RaisedButton ref="trigger2"
                                                       className="trigger-position-button"
                                                       value="Bottom Left"
-                                                      onClick={() => {
-                                                          this.togglePopup(2);
-                                                      }}/>
+                                                      onClick={() => this.togglePopup(2)}/>
                                         <RaisedButton ref="trigger3"
                                                       className="trigger-position-button"
                                                       value="Bottom"
-                                                      onClick={() => {
-                                                          this.togglePopup(3);
-                                                      }}/>
+                                                      onClick={() => this.togglePopup(3)}/>
                                         <RaisedButton ref="trigger4"
                                                       className="trigger-position-button"
                                                       value="Bottom Right"
-                                                      onClick={() => {
-                                                          this.togglePopup(4);
-                                                      }}/>
+                                                      onClick={() => this.togglePopup(4)}/>
                                     </div>
 
                                     <div className="button-group left">
                                         <RaisedButton ref="trigger8"
                                                       className="trigger-position-button"
                                                       value="Left Top"
-                                                      onClick={() => {
-                                                          this.togglePopup(8);
-                                                      }}/>
+                                                      onClick={() => this.togglePopup(8)}/>
                                         <RaisedButton ref="trigger9"
                                                       className="trigger-position-button"
                                                       value="Left"
-                                                      onClick={() => {
-                                                          this.togglePopup(9);
-                                                      }}/>
+                                                      onClick={() => this.togglePopup(9)}/>
                                         <RaisedButton ref="trigger10"
                                                       className="trigger-position-button"
                                                       value="Left Bottom"
-                                                      onClick={() => {
-                                                          this.togglePopup(10);
-                                                      }}/>
+                                                      onClick={() => this.togglePopup(10)}/>
                                     </div>
 
                                     <div className="button-group center">
                                         <RaisedButton ref="trigger14"
                                                       className="trigger-position-button"
                                                       value="Center"
-                                                      onClick={() => {
-                                                          this.togglePopup(14);
-                                                      }}/>
+                                                      onClick={() => this.togglePopup(14)}/>
                                     </div>
 
                                 </div>
@@ -292,109 +259,83 @@ class PopupExamples extends Component {
                                 <Popup visible={popupVisible[2]}
                                        triggerEl={triggerEl[2]}
                                        position={Popup.Position.BOTTOM_LEFT}
-                                       onRequestClose={() => {
-                                           this.closePopup(2);
-                                       }}>
+                                       onRequestClose={() => this.closePopup(2)}>
                                     <List data={this.data}/>
                                 </Popup>
                                 <Popup visible={popupVisible[3]}
                                        triggerEl={triggerEl[3]}
                                        position={Popup.Position.BOTTOM}
-                                       onRequestClose={() => {
-                                           this.closePopup(3);
-                                       }}>
+                                       onRequestClose={() => this.closePopup(3)}>
                                     <List data={this.data}/>
                                 </Popup>
                                 <Popup visible={popupVisible[4]}
                                        triggerEl={triggerEl[4]}
                                        position={Popup.Position.BOTTOM_RIGHT}
-                                       onRequestClose={() => {
-                                           this.closePopup(4);
-                                       }}>
+                                       onRequestClose={() => this.closePopup(4)}>
                                     <List data={this.data}/>
                                 </Popup>
 
                                 <Popup visible={popupVisible[5]}
                                        triggerEl={triggerEl[5]}
                                        position={Popup.Position.TOP_LEFT}
-                                       onRequestClose={() => {
-                                           this.closePopup(5);
-                                       }}>
+                                       onRequestClose={() => this.closePopup(5)}>
                                     <List data={this.data}/>
                                 </Popup>
                                 <Popup visible={popupVisible[6]}
                                        triggerEl={triggerEl[6]}
                                        position={Popup.Position.TOP}
-                                       onRequestClose={() => {
-                                           this.closePopup(6);
-                                       }}>
+                                       onRequestClose={() => this.closePopup(6)}>
                                     <List data={this.data}/>
                                 </Popup>
                                 <Popup visible={popupVisible[7]}
                                        triggerEl={triggerEl[7]}
                                        position={Popup.Position.TOP_RIGHT}
-                                       onRequestClose={() => {
-                                           this.closePopup(7);
-                                       }}>
+                                       onRequestClose={() => this.closePopup(7)}>
                                     <List data={this.data}/>
                                 </Popup>
 
                                 <Popup visible={popupVisible[8]}
                                        triggerEl={triggerEl[8]}
                                        position={Popup.Position.LEFT_TOP}
-                                       onRequestClose={() => {
-                                           this.closePopup(8);
-                                       }}>
+                                       onRequestClose={() => this.closePopup(8)}>
                                     <List data={this.data}/>
                                 </Popup>
                                 <Popup visible={popupVisible[9]}
                                        triggerEl={triggerEl[9]}
                                        position={Popup.Position.LEFT}
-                                       onRequestClose={() => {
-                                           this.closePopup(9);
-                                       }}>
+                                       onRequestClose={() => this.closePopup(9)}>
                                     <List data={this.data}/>
                                 </Popup>
                                 <Popup visible={popupVisible[10]}
                                        triggerEl={triggerEl[10]}
                                        position={Popup.Position.LEFT_BOTTOM}
-                                       onRequestClose={() => {
-                                           this.closePopup(10);
-                                       }}>
+                                       onRequestClose={() => this.closePopup(10)}>
                                     <List data={this.data}/>
                                 </Popup>
 
                                 <Popup visible={popupVisible[11]}
                                        triggerEl={triggerEl[11]}
                                        position={Popup.Position.RIGHT_TOP}
-                                       onRequestClose={() => {
-                                           this.closePopup(11);
-                                       }}>
+                                       onRequestClose={() => this.closePopup(11)}>
                                     <List data={this.data}/>
                                 </Popup>
                                 <Popup visible={popupVisible[12]}
                                        triggerEl={triggerEl[12]}
                                        position={Popup.Position.RIGHT}
-                                       onRequestClose={() => {
-                                           this.closePopup(12);
-                                       }}>
+                                       onRequestClose={() => this.closePopup(12)}>
                                     <List data={this.data}/>
                                 </Popup>
                                 <Popup visible={popupVisible[13]}
                                        triggerEl={triggerEl[13]}
                                        position={Popup.Position.RIGHT_BOTTOM}
-                                       onRequestClose={() => {
-                                           this.closePopup(13);
-                                       }}>
+                                       onRequestClose={() => this.closePopup(13)}>
                                     <List data={this.data}/>
                                 </Popup>
 
                                 <Popup visible={popupVisible[14]}
                                        triggerEl={triggerEl[14]}
                                        position={Popup.Position.CENTER}
-                                       onRequestClose={() => {
-                                           this.closePopup(14);
-                                       }}>
+                                       onRequestClose={() => this.closePopup(14)}>
                                     <List data={this.data}/>
                                 </Popup>
 
@@ -419,19 +360,13 @@ class PopupExamples extends Component {
                                 <RaisedButton ref="trigger15"
                                               className="trigger-button"
                                               value="Toggle Popup"
-                                              onMouseEnter={() => {
-                                                  this.openPopup(15);
-                                              }}
-                                              onMouseLeave={() => {
-                                                  this.closePopup(15);
-                                              }}/>
+                                              onMouseEnter={() => this.openPopup(15)}
+                                              onMouseLeave={() => this.closePopup(15)}/>
 
                                 <Popup theme={Popup.Theme.PRIMARY}
                                        visible={popupVisible[15]}
                                        triggerEl={triggerEl[15]}
-                                       onRequestClose={() => {
-                                           this.closePopup(15);
-                                       }}>
+                                       onRequestClose={() => this.closePopup(15)}>
                                     <div style={{padding: 20, color: '#fff'}}>
                                         Popup Content
                                     </div>
@@ -456,9 +391,7 @@ class PopupExamples extends Component {
                                 <RaisedButton ref="trigger16"
                                               className="trigger-button"
                                               value="Toggle Popup"
-                                              onClick={() => {
-                                                  this.togglePopup(16);
-                                              }}/>
+                                              onClick={() => this.togglePopup(16)}/>
 
                                 <Popup className="customized-popup"
                                        visible={popupVisible[16]}
@@ -473,9 +406,7 @@ class PopupExamples extends Component {
                                                          style={{stroke: '#e7e7e7', fill: '#fff'}}/>
                                            </svg>
                                        }
-                                       onRequestClose={() => {
-                                           this.closePopup(16);
-                                       }}>
+                                       onRequestClose={() => this.closePopup(16)}>
                                     <div style={{padding: 20}}>
                                         Popup Content
                                     </div>
