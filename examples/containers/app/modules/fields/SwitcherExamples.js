@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import Switcher from 'src/Switcher';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import RaisedButton from 'src/RaisedButton';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Switcher.json';
@@ -12,10 +13,37 @@ import 'sass/containers/app/modules/fields/SwitcherExamples.scss';
 class SwitcherExamples extends Component {
 
     constructor(props) {
+
         super(props);
+
+        this.state = {
+            value: true
+        };
+
     }
 
+    updateValue = value => {
+        this.setState({
+            value
+        });
+    };
+
+    setActive = () => {
+        this.setState({
+            value: true
+        });
+    };
+
+    setInactive = () => {
+        this.setState({
+            value: false
+        });
+    };
+
     render() {
+
+        const {value} = this.state;
+
         return (
             <div className="example switcher-examples">
 
@@ -38,7 +66,17 @@ class SwitcherExamples extends Component {
 
                                 <p>Switcher simple example.Set the value property to true for active status.</p>
 
-                                <Switcher value={true}/>
+                                <Switcher value={value}
+                                          onChange={this.updateValue}/>
+
+                                <br/>
+
+                                <RaisedButton className="switcher-ctrl"
+                                              value="On"
+                                              onClick={this.setActive}/>
+                                <RaisedButton className="switcher-ctrl"
+                                              value="Off"
+                                              onClick={this.setInactive}/>
 
                             </div>
 
