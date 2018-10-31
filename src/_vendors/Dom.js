@@ -169,6 +169,29 @@ function isParent(el, parentEl) {
 
 }
 
+function isScrollable(...values) {
+    return values.some(value => value === 'auto' || value === 'scroll');
+}
+
+function isElementScrollable(el) {
+    const style = window.getComputedStyle(el);
+    return isScrollable(style.overflow, style.overflowY, style.overflowX);
+};
+
+function getClosestScrollable(el) {
+
+    if (el == null) {
+        return null;
+    }
+
+    if (!isElementScrollable(el)) {
+        return getClosestScrollable(el.parentElement);
+    }
+
+    return el;
+
+}
+
 export default {
     getOffset,
     getScrollHeight,
@@ -179,5 +202,6 @@ export default {
     removeClass,
     toggleClass,
     findParentByClassName,
-    isParent
+    isParent,
+    getClosestScrollable
 };

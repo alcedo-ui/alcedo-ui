@@ -11,4 +11,17 @@
     .popup-content {
         border: 1px solid #e7e7e7;
     }
+
+    &.in-dialog {
+        z-index: $pop-z-index + 1;
+    }
+}
+
+.popup-dialog-content {
+    width: 1000px;
+    height: 1000px;
+
+    .dialog-trigger-button {
+        width: auto;
+    }
 }

@@ -1,7 +1,7 @@
 {
     "name": "alcedo-ui",
     "author": "Alcedo-UI Team",
-    "version": "2.35.3",
+    "version": "2.35.5",
     "description": "A set of React components.",
     "main": "./src/index.js",
     "scripts": {
@@ -94,7 +94,7 @@
         "core-js": "^2.5.7",
         "cross-env": "^5.2.0",
         "crypto": "^1.0.1",
-        "css-loader": "^1.0.0",
+        "css-loader": "^1.0.1",
         "eventsource-polyfill": "^0.9.6",
         "express": "^4.16.4",
         "fast-sass-loader": "^1.4.6",
