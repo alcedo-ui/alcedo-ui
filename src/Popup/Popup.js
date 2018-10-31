@@ -201,6 +201,7 @@ Popup.propTypes = {
     isEscClose: PropTypes.bool,
     shouldPreventContainerScroll: PropTypes.bool,
     isTriggerPositionFixed: PropTypes.bool,
+    resetPositionWait: PropTypes.number,
     showModal: PropTypes.bool,
 
     /**
@@ -251,6 +252,7 @@ Popup.defaultProps = {
     isEscClose: true,
     shouldPreventContainerScroll: true,
     isTriggerPositionFixed: false,
+    resetPositionWait: 250,
     showModal: false
 
 };
