@@ -102,6 +102,7 @@ Tip.propTypes = {
     depth: PropTypes.number,
 
     isTriggerPositionFixed: PropTypes.bool,
+    resetPositionWait: PropTypes.number,
     showModal: PropTypes.bool,
 
     /**
@@ -141,6 +142,7 @@ Tip.defaultProps = {
     isAnimated: true,
     shouldPreventContainerScroll: true,
     isTriggerPositionFixed: false,
+    resetPositionWait: 250,
     showModal: false
 
 };
