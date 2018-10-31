@@ -178,7 +178,7 @@ Guide.propTypes = {
     isEscClose: PropTypes.bool,
     shouldPreventContainerScroll: PropTypes.bool,
     isTriggerPositionFixed: PropTypes.bool,
-    resetPositionWait: PropTypes.bool,
+    resetPositionWait: PropTypes.number,
     showModal: PropTypes.bool,
 
     closeButtonVisible: PropTypes.bool,
