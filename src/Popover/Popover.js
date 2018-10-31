@@ -166,7 +166,7 @@ Popover.propTypes = {
     isBlurClose: PropTypes.bool,
     shouldPreventContainerScroll: PropTypes.bool,
     isTriggerPositionFixed: PropTypes.bool,
-    resetPositionWait: PropTypes.bool,
+    resetPositionWait: PropTypes.number,
     showModal: PropTypes.bool,
 
     /**
