@@ -172,11 +172,8 @@ class MaterialDateTimePicker extends Component {
     };
 
     closePopup = () => {
-        const {value} = this.state;
         !this.props.disabled && this.setState({
             popupVisible: false
-        }, () => {
-            this.props.onChange && this.props.onChange(value && moment(value).format(this.props.dateFormat));
         });
     };
 
