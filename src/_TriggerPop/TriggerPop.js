@@ -75,9 +75,9 @@ class TriggerPop extends Component {
         });
     };
 
-    resizeHandler = debounce(() => {
+    debounceResetPosition = debounce(() => {
         this.resetPosition();
-    }, 250);
+    }, this.props.resetPositionWait);
 
     getEl = () => {
         return this.transitionEl;
@@ -104,19 +104,19 @@ class TriggerPop extends Component {
 
         this.scrollEl = scrollEl;
 
-        Event.addEvent(scrollEl, 'scroll', this.resizeHandler);
+        Event.addEvent(scrollEl, 'scroll', this.debounceResetPosition);
 
     };
 
     componentDidMount() {
-        Event.addEvent(window, 'resize', this.resizeHandler);
+        Event.addEvent(window, 'resize', this.debounceResetPosition);
     }
 
     componentDidUpdate(prevProps) {
         if (!prevProps.visible && this.props.visible) {
             this.addWatchScroll();
         } else if (prevProps.visible && !this.props.visible) {
-            this.scrollEl && Event.removeEvent(this.scrollEl, 'scroll', this.resizeHandler);
+            this.scrollEl && Event.removeEvent(this.scrollEl, 'scroll', this.debounceResetPosition);
             this.scrollEl = null;
         }
     }
@@ -136,7 +136,7 @@ class TriggerPop extends Component {
     }
 
     componentWillUnmount() {
-        Event.removeEvent(window, 'resize', this.resizeHandler);
+        Event.removeEvent(window, 'resize', this.debounceResetPosition);
     }
 
     render() {
@@ -288,6 +288,7 @@ TriggerPop.propTypes = {
     isEscClose: PropTypes.bool,
     shouldPreventContainerScroll: PropTypes.bool,
     isTriggerPositionFixed: PropTypes.bool,
+    resetPositionWait: PropTypes.number,
 
     /**
      * The function of popup render.
@@ -331,7 +332,8 @@ TriggerPop.defaultProps = {
     isBlurClose: true,
     isEscClose: true,
     shouldPreventContainerScroll: true,
-    isTriggerPositionFixed: false
+    isTriggerPositionFixed: false,
+    resetPositionWait: 250
 
 };
 
