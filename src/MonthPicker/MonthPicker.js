@@ -61,6 +61,8 @@ class MonthPicker extends Component {
                         value: moment(text, dateFormat),
                         year: year,
                         month: month
+                    }, () => {
+                        this.props.onChange && this.props.onChange(text && moment(text).format(this.props.dateFormat));
                     });
                 }
             } else {
@@ -74,19 +76,15 @@ class MonthPicker extends Component {
     };
 
     monthPickerChangeHandle = date => {
-        const {dateFormat, autoClose} = this.props;
+        const {dateFormat, autoClose, onChange} = this.props;
         let state = cloneDeep(this.state);
         state.popupVisible = !autoClose;
         state.value = moment(`${date.year}-${date.month}`, dateFormat);
         state.year = date.year;
         state.month = date.month;
-        if (state.popupVisible) {
-            this.setState(state);
-        } else {
-            !this.props.disabled && this.setState(state, () => {
-                this.props.onChange && this.props.onChange(state.value && moment(state.value).format(dateFormat));
-            });
-        }
+        this.setState(state, () => {
+            onChange(moment(state.value).format(dateFormat));
+        });
     };
 
     yearPickerChangeHandle = year => {
@@ -105,11 +103,8 @@ class MonthPicker extends Component {
     };
 
     closePopup = () => {
-        const {value} = this.state;
         !this.props.disabled && this.setState({
             popupVisible: false
-        }, () => {
-            this.props.onChange && this.props.onChange(value && moment(value).format(this.props.dateFormat));
         });
     };
 
