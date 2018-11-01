@@ -132,7 +132,7 @@ class RemoteAutoComplete extends Component {
 
     render() {
 
-        const {data, className, style, placeholder} = this.props,
+        const {data, className, style, placeholder, resetPopPositionWait} = this.props,
             {value, focus, loading} = this.state,
             {liHeight, maxHeight, inputHeight, borderWidth} = this,
 
@@ -177,7 +177,8 @@ class RemoteAutoComplete extends Component {
                     <Popup visible={focus}
                            triggerEl={this.triggerEl}
                            hasTriangle={false}
-                           style={{width: this.triggerEl && getComputedStyle(this.triggerEl).width}}>
+                           style={{width: this.triggerEl && getComputedStyle(this.triggerEl).width}}
+                           resetPositionWait={resetPopPositionWait}>
                         <ul className="auto-complete-list"
                             style={ulStyle}>
                             {
@@ -235,6 +236,8 @@ RemoteAutoComplete.propTypes = {
      */
     placeholder: PropTypes.string,
 
+    resetPopPositionWait: PropTypes.number,
+
     /**
      * Callback function fired when value change.
      */
@@ -255,7 +258,8 @@ RemoteAutoComplete.defaultProps = {
     value: '',
     data: [],
     searchLength: 1,
-    loading: false
+    loading: false,
+    resetPopPositionWait: 250
 };
 
 export default RemoteAutoComplete;
