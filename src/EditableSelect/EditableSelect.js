@@ -181,7 +181,7 @@ class EditableSelect extends Component {
 
         const {
                 className, popupClassName, style, popupStyle, name, placeholder,
-                disabled, valueField, descriptionField, position, rightIconCls,
+                disabled, valueField, descriptionField, position, rightIconCls, resetPopPositionWait,
                 triggerTheme, isGrouped, onItemClick, renderer, noMatchedMsg, useDynamicRenderList,
                 onMouseOver, onMouseOut
             } = this.props,
@@ -239,6 +239,7 @@ class EditableSelect extends Component {
                        triggerHandler={this.triggerHandler}
                        hasTriangle={false}
                        position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
+                       resetPositionWait={resetPopPositionWait}
                        onRender={this.popupRenderHandle}
                        onRequestClose={this.closePopup}>
 
@@ -251,9 +252,9 @@ class EditableSelect extends Component {
                                         noMatchedMsg
                                         :
                                         <span>
-                                                <i className="fas fa-exclamation-triangle no-matched-icon"></i>
-                                                No matched value.
-                                            </span>
+                                            <i className="fas fa-exclamation-triangle no-matched-icon"></i>
+                                            No matched value.
+                                        </span>
                                 }
                             </div>
                             :
@@ -474,6 +475,8 @@ EditableSelect.propTypes = {
      */
     isGrouped: PropTypes.bool,
 
+    resetPopPositionWait: PropTypes.number,
+
     /**
      * Callback function fired when the button is touch-tapped.
      */
@@ -507,7 +510,8 @@ EditableSelect.defaultProps = {
     useFilter: false,
     useDynamicRenderList: false,
     triggerTheme: Theme.DEFAULT,
-    isGrouped: false
+    isGrouped: false,
+    resetPopPositionWait: 250
 
 };
 
