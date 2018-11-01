@@ -288,7 +288,7 @@ class AutoCompleteFilter extends Component {
         const {
                 className, popupClassName, style, popupStyle, theme, popupTheme, name, placeholder,
                 disabled, iconCls, rightIconCls, valueField, displayField, descriptionField, position,
-                noMatchedPopupVisible, noMatchedMsg, popupChildren, renderer, resetPositionWait,
+                noMatchedPopupVisible, noMatchedMsg, popupChildren, renderer, resetPopPositionWait,
                 useDynamicRenderList, listHeight, itemHeight, scrollBuffer,
                 onFilterClear, onMouseOver, onMouseOut
             } = this.props,
@@ -377,7 +377,7 @@ class AutoCompleteFilter extends Component {
                                triggerEl={this.triggerEl}
                                hasTriangle={false}
                                position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
-                               resetPositionWait={resetPositionWait}
+                               resetPositionWait={resetPopPositionWait}
                                onRender={this.popupRenderHandler}
                                onRequestClose={this.closePopup}>
 
@@ -603,7 +603,7 @@ AutoCompleteFilter.propTypes = {
     filterInitValue: PropTypes.string,
 
     useDynamicRenderList: PropTypes.bool,
-    resetPositionWait: PropTypes.number,
+    resetPopPositionWait: PropTypes.number,
     listHeight: PropTypes.number,
     itemHeight: PropTypes.number,
     scrollBuffer: PropTypes.number,
@@ -671,7 +671,7 @@ AutoCompleteFilter.defaultProps = {
     noMatchedPopupVisible: true,
     filterInitValue: '',
     useDynamicRenderList: false,
-    resetPositionWait: 250
+    resetPopPositionWait: 250
 
 };
 
