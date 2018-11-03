@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {DragDropContext} from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
 import DraggableGrid from 'src/DraggableGrid';
 import Widget from 'src/Widget';
@@ -7,6 +9,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/DraggableGrid.json';
 
+@DragDropContext(HTML5Backend)
 class DraggableGridExamples extends Component {
 
     constructor(props) {
