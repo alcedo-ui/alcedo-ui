@@ -42,9 +42,28 @@ module.exports = merge(baseWebpackConfig, {
                     priority: 2,
                     reuseExistingChunk: true
                 },
-                commons: {
-                    name: 'commons',
+                reactBeautifulDnd: {
+                    name: 'reactBeautifulDnd',
+                    test: /[\\/]node_modules[\\/]react-beautiful-dnd[\\/]/,
+                    chunks: 'all',
+                    priority: 1,
+                    reuseExistingChunk: true
+                },
+                nodeModules: {
+                    name: 'nodeModules',
                     test: /[\\/]node_modules[\\/]/,
+                    chunks: 'all',
+                    reuseExistingChunk: true
+                },
+                components: {
+                    name: 'components',
+                    test: /[\\/]src[\\/]/,
+                    chunks: 'all',
+                    reuseExistingChunk: true
+                },
+                styles: {
+                    name: 'styles',
+                    test: /\.css$/,
                     chunks: 'all',
                     reuseExistingChunk: true
                 }
