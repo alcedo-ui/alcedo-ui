@@ -1,14 +1,12 @@
 const path = require('path'),
 
-    MiniCssExtractPlugin = require('mini-css-extract-plugin'),
     HappyPack = require('happypack'),
     autoprefixer = require('autoprefixer'),
 
     config = require('./config.js'),
     utils = require('./utils.js'),
 
-    env = process.env.NODE_ENV,
-    cssLoaderConfig = [env === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader, {
+    cssLoaderConfig = ['style-loader', {
         loader: 'css-loader',
         options: {
             minimize: true,
