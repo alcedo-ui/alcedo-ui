@@ -43,7 +43,7 @@ module.exports = {
             'src': resolve('src'),
             'examples': resolve('examples'),
             'assets': resolve('examples/assets'),
-            'sass': resolve('examples/assets/sass'),
+            'scss': resolve('examples/assets/scss'),
             'stylesheets': resolve('examples/assets/stylesheets'),
             'components': resolve('examples/components'),
             'containers': resolve('examples/containers'),
