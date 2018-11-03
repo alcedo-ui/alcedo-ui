@@ -2,7 +2,6 @@ const path = require('path'),
     webpack = require('webpack'),
     merge = require('webpack-merge'),
     CopyPlugin = require('copy-webpack-plugin'),
-    OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin'),
     HtmlPlugin = require('html-webpack-plugin'),
     HtmlIncludeAssetsPlugin = require('html-webpack-include-assets-plugin'),
     CompressionPlugin = require('compression-webpack-plugin'),
@@ -69,10 +68,7 @@ module.exports = merge(baseWebpackConfig, {
                     reuseExistingChunk: true
                 }
             }
-        },
-        minimizer: [
-            new OptimizeCSSAssetsPlugin({})
-        ]
+        }
     },
 
     plugins: [
