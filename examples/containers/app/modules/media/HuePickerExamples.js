@@ -9,7 +9,7 @@ import doc from 'assets/propTypes/HuePicker.json';
 
 import Color from 'src/_vendors/Color';
 
-import 'assets/scss/containers/app/modules/media/HuePickerExamples.scss';
+import 'scss/containers/app/modules/media/HuePickerExamples.scss';
 
 class HuePickerExamples extends Component {
 

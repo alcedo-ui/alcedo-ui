@@ -8,7 +8,7 @@ import * as actions from 'reduxes/actions';
 import Paper from 'src/Paper';
 import FlatButton from 'src/FlatButton';
 
-import 'assets/scss/containers/landing/sections/LandingExamples.scss';
+import 'scss/containers/landing/sections/LandingExamples.scss';
 
 class LandingExamples extends Component {
 

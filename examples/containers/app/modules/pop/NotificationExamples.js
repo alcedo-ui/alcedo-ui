@@ -10,8 +10,8 @@ import MaterialTextField from 'src/MaterialTextField';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Notification.json';
 
-import 'assets/scss/containers/app/modules/pop/PopExamples.scss';
-import 'assets/scss/containers/app/modules/pop/NotificationExamples.scss';
+import 'scss/containers/app/modules/pop/PopExamples.scss';
+import 'scss/containers/app/modules/pop/NotificationExamples.scss';
 
 class NotificationExamples extends Component {
 

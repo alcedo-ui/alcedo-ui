@@ -12,8 +12,8 @@ import NavMenu from './navMenu/NavMenu';
 import NavBar from './navBar/NavBar';
 import PageLoading from 'src/PageLoading';
 
-import 'assets/scss/containers/app/App.scss';
-import 'assets/scss/containers/app/example.scss';
+import 'scss/containers/app/App.scss';
+import 'scss/containers/app/example.scss';
 
 class App extends Component {
 

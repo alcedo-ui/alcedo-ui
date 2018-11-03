@@ -8,7 +8,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/VerticalPointStep.json';
 
-import 'assets/scss/containers/app/modules/stepper/VerticalPointStepExamples.scss';
+import 'scss/containers/app/modules/stepper/VerticalPointStepExamples.scss';
 
 class VerticalPointStepExamples extends Component {
 

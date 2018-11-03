@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import 'assets/scss/containers/landing/sections/LandingGetStarted.scss';
+import 'scss/containers/landing/sections/LandingGetStarted.scss';
 
 class LandingGetStarted extends Component {
 

@@ -8,7 +8,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/DraggableTree.json';
 
-import 'assets/scss/containers/app/modules/draggable/DraggableTreeExamples.scss';
+import 'scss/containers/app/modules/draggable/DraggableTreeExamples.scss';
 
 class DraggableTreeExamples extends Component {
 

@@ -9,7 +9,7 @@ import doc from 'assets/propTypes/ColorPicker.json';
 
 import Color from 'src/_vendors/Color';
 
-import 'assets/scss/containers/app/modules/media/ColorPickerExamples.scss';
+import 'scss/containers/app/modules/media/ColorPickerExamples.scss';
 
 class ColorPickerExamples extends Component {
 

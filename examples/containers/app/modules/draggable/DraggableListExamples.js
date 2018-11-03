@@ -7,7 +7,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/DraggableList.json';
 
-import 'assets/scss/containers/app/modules/draggable/DraggableListExamples.scss';
+import 'scss/containers/app/modules/draggable/DraggableListExamples.scss';
 
 class DraggableListExamples extends Component {
 

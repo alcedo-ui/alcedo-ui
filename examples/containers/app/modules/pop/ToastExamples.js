@@ -10,8 +10,8 @@ import MaterialTextField from 'src/MaterialTextField';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Toast.json';
 
-import 'assets/scss/containers/app/modules/pop/PopExamples.scss';
-import 'assets/scss/containers/app/modules/pop/ToastExamples.scss';
+import 'scss/containers/app/modules/pop/PopExamples.scss';
+import 'scss/containers/app/modules/pop/ToastExamples.scss';
 
 class ToastExamples extends Component {
 

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import IconAnchor from 'src/IconAnchor';
 
-import 'assets/scss/containers/landing/LandingFoot.scss';
+import 'scss/containers/landing/LandingFoot.scss';
 
 class LandingFoot extends Component {
 

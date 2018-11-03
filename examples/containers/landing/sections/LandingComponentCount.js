@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import {COMPONENTS_TOTAL_COUNT} from 'src';
 
-import 'assets/scss/containers/landing/sections/LandingComponentCount.scss';
+import 'scss/containers/landing/sections/LandingComponentCount.scss';
 
 class LandingComponentCount extends Component {
 

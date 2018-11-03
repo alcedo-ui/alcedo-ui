@@ -11,7 +11,7 @@ import LandingFoot from './LandingFoot';
 
 import Event from 'vendors/Event';
 
-import 'assets/scss/containers/landing/Landing.scss';
+import 'scss/containers/landing/Landing.scss';
 
 class Landing extends Component {
 

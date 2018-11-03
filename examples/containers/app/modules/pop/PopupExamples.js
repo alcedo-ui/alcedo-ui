@@ -11,8 +11,8 @@ import Dialog from 'src/Dialog';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Popup.json';
 
-import 'assets/scss/containers/app/modules/pop/PopExamples.scss';
-import 'assets/scss/containers/app/modules/pop/PopupExamples.scss';
+import 'scss/containers/app/modules/pop/PopExamples.scss';
+import 'scss/containers/app/modules/pop/PopupExamples.scss';
 
 class PopupExamples extends Component {
 

@@ -7,7 +7,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/IconButton.json';
 
-import 'assets/scss/containers/app/modules/buttons/IconButtonExamples.scss';
+import 'scss/containers/app/modules/buttons/IconButtonExamples.scss';
 
 class IconButtonExamples extends Component {
 

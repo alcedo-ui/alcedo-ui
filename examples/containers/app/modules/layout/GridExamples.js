@@ -8,7 +8,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Grid.json';
 
-import 'assets/scss/containers/app/modules/layout/GridExamples.scss';
+import 'scss/containers/app/modules/layout/GridExamples.scss';
 
 class GridExamples extends Component {
 

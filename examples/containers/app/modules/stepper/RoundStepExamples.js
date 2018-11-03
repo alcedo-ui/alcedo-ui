@@ -8,7 +8,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/RoundStep.json';
 
-import 'assets/scss/containers/app/modules/stepper/RoundStepExamples.scss';
+import 'scss/containers/app/modules/stepper/RoundStepExamples.scss';
 
 class RoundStepExamples extends Component {
 

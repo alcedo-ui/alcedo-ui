@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Table from 'src/Table';
 
-import 'assets/scss/components/PropTypeDescTable.scss';
+import 'scss/components/PropTypeDescTable.scss';
 
 class PropTypeDescTable extends Component {
 

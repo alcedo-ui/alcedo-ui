@@ -7,7 +7,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/LinearProgress.json';
 
-import 'assets/scss/containers/app/modules/progress/LinearProgressExample.scss';
+import 'scss/containers/app/modules/progress/LinearProgressExample.scss';
 
 class LinearProgressExample extends Component {
 

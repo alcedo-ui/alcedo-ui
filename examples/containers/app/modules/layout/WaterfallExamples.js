@@ -9,7 +9,7 @@ import ButtonRadioGroup from 'src/ButtonRadioGroup';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Waterfall.json';
 
-import 'assets/scss/containers/app/modules/layout/WaterfallExamples.scss';
+import 'scss/containers/app/modules/layout/WaterfallExamples.scss';
 
 class WaterfallExamples extends Component {
 

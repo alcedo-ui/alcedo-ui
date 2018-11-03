@@ -11,7 +11,7 @@ import {ConnectedRouter} from 'react-router-redux';
 import configureStore from 'reduxes/store';
 import configureRoutes from './config.routes';
 
-import 'assets/scss/index.scss';
+import 'scss/index.scss';
 
 const history = createHashHistory(),
     store = configureStore(history);

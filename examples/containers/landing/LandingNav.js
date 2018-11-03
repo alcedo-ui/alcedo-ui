@@ -4,7 +4,7 @@ import classnames from 'classnames';
 
 import IconAnchor from 'src/IconAnchor';
 
-import 'assets/scss/containers/landing/LandingNav.scss';
+import 'scss/containers/landing/LandingNav.scss';
 
 class LandingNav extends Component {
 

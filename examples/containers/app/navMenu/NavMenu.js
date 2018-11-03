@@ -8,7 +8,7 @@ import * as actions from 'reduxes/actions';
 import TextField from 'src/TextField';
 import NavMenuList from './NavMenuList';
 
-import 'assets/scss/containers/app/navMenu/NavMenu.scss';
+import 'scss/containers/app/navMenu/NavMenu.scss';
 
 class NavMenu extends Component {
 

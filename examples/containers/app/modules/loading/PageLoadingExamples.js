@@ -8,7 +8,7 @@ import RaisedButton from 'src/RaisedButton';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/PageLoading.json';
 
-import 'assets/scss/containers/app/modules/loading/PageLoadingExamples.scss';
+import 'scss/containers/app/modules/loading/PageLoadingExamples.scss';
 
 class PageLoadingExamples extends Component {
 

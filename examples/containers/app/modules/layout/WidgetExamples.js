@@ -7,7 +7,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Widget.json';
 
-import 'assets/scss/containers/app/modules/layout/WidgetExamples.scss';
+import 'scss/containers/app/modules/layout/WidgetExamples.scss';
 
 class WidgetExamples extends Component {
 

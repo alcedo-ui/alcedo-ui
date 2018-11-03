@@ -11,8 +11,8 @@ import Theme from 'src/Theme';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/Tip.json';
 
-import 'assets/scss/containers/app/modules/pop/PopExamples.scss';
-import 'assets/scss/containers/app/modules/pop/TipExamples.scss';
+import 'scss/containers/app/modules/pop/PopExamples.scss';
+import 'scss/containers/app/modules/pop/TipExamples.scss';
 
 class TipExamples extends Component {
 
