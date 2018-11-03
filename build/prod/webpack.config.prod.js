@@ -3,6 +3,7 @@ const path = require('path'),
     merge = require('webpack-merge'),
     CopyPlugin = require('copy-webpack-plugin'),
     MiniCssExtractPlugin = require('mini-css-extract-plugin'),
+    OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin'),
     HtmlPlugin = require('html-webpack-plugin'),
     HtmlIncludeAssetsPlugin = require('html-webpack-include-assets-plugin'),
     CompressionPlugin = require('compression-webpack-plugin'),
@@ -34,13 +35,24 @@ module.exports = merge(baseWebpackConfig, {
         },
         splitChunks: {
             cacheGroups: {
+                lodash: {
+                    name: 'lodash',
+                    test: /[\\/]node_modules[\\/]lodash[\\/]/,
+                    chunks: 'all',
+                    priority: 2,
+                    reuseExistingChunk: true
+                },
                 commons: {
                     name: 'commons',
                     test: /[\\/]node_modules[\\/]/,
-                    chunks: 'all'
+                    chunks: 'all',
+                    reuseExistingChunk: true
                 }
             }
-        }
+        },
+        minimizer: [
+            new OptimizeCSSAssetsPlugin({})
+        ]
     },
 
     plugins: [
@@ -60,6 +72,10 @@ module.exports = merge(baseWebpackConfig, {
         new webpack.DllReferencePlugin({
             context: __dirname,
             manifest: require(utils.assetsVendorsAbsolutePath('polyfill-manifest.json'))
+        }),
+        new webpack.DllReferencePlugin({
+            context: __dirname,
+            manifest: require(utils.assetsVendorsAbsolutePath('moment-manifest.json'))
         }),
         new webpack.DllReferencePlugin({
             context: __dirname,
@@ -90,6 +106,7 @@ module.exports = merge(baseWebpackConfig, {
         new HtmlIncludeAssetsPlugin({
             assets: [
                 vendorsAssets['polyfill'].js,
+                vendorsAssets['moment'].js,
                 vendorsAssets['react'].js,
                 vendorsAssets['tools'].js
             ],
