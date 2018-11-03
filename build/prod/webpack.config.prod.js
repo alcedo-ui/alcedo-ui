@@ -33,39 +33,10 @@ module.exports = merge(baseWebpackConfig, {
         },
         splitChunks: {
             cacheGroups: {
-                componentsStyles: {
-                    name: 'componentsStyles',
-                    test: /[\\/]scss[\\/]index\.scss/,
-                    chunks: 'all',
-                    priority: 4,
-                    reuseExistingChunk: true
-                },
-                lodash: {
-                    name: 'lodash',
-                    test: /[\\/]lodash[\\/]/,
-                    chunks: 'all',
-                    priority: 3,
-                    reuseExistingChunk: true
-                },
-                reactBeautifulDnd: {
-                    name: 'reactBeautifulDnd',
-                    test: /[\\/]react-beautiful-dnd[\\/]/,
-                    chunks: 'all',
-                    priority: 2,
-                    reuseExistingChunk: true
-                },
-                components: {
-                    name: 'components',
-                    test: /[\\/]src[\\/]/,
-                    chunks: 'all',
-                    priority: 1,
-                    reuseExistingChunk: true
-                },
-                styles: {
-                    name: 'styles',
-                    test: /\.css$/,
-                    chunks: 'all',
-                    reuseExistingChunk: true
+                nodeModules: {
+                    name: 'nodeModules',
+                    test: /[\\/]node_modules[\\/]/,
+                    chunks: 'all'
                 }
             }
         }
