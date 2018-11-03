@@ -4,8 +4,6 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {Redirect} from 'react-router';
 import {renderRoutes} from 'react-router-config';
-import {DragDropContext} from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
 import classnames from 'classnames';
 
 import * as actions from 'reduxes/actions';
@@ -17,7 +15,6 @@ import PageLoading from 'src/PageLoading';
 import 'sass/containers/app/App.scss';
 import 'sass/containers/app/example.scss';
 
-@DragDropContext(HTML5Backend)
 class App extends Component {
 
     constructor(props) {
