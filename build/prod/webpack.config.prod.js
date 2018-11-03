@@ -34,28 +34,30 @@ module.exports = merge(baseWebpackConfig, {
         },
         splitChunks: {
             cacheGroups: {
+                componentsStyles: {
+                    name: 'componentsStyles',
+                    test: /[\\/]scss[\\/]index\.scss/,
+                    chunks: 'all',
+                    priority: 4,
+                    reuseExistingChunk: true
+                },
                 lodash: {
                     name: 'lodash',
-                    test: /[\\/]node_modules[\\/]lodash[\\/]/,
+                    test: /[\\/]lodash[\\/]/,
                     chunks: 'all',
-                    priority: 1,
+                    priority: 3,
                     reuseExistingChunk: true
                 },
                 reactBeautifulDnd: {
                     name: 'reactBeautifulDnd',
-                    test: /[\\/]node_modules[\\/]react-beautiful-dnd[\\/]/,
+                    test: /[\\/]react-beautiful-dnd[\\/]/,
                     chunks: 'all',
+                    priority: 2,
                     reuseExistingChunk: true
                 },
                 components: {
                     name: 'components',
                     test: /[\\/]src[\\/]/,
-                    chunks: 'all',
-                    reuseExistingChunk: true
-                },
-                componentsStyles: {
-                    name: 'componentsStyles',
-                    test: /[\\/]scss[\\/]index\.scss/,
                     chunks: 'all',
                     priority: 1,
                     reuseExistingChunk: true
@@ -134,7 +136,7 @@ module.exports = merge(baseWebpackConfig, {
             threshold: 1,
             minRatio: 0.8
         })
-        
+
         // new BundleAnalyzerPlugin()
 
     ]
