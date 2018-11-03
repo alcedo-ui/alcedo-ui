@@ -55,7 +55,7 @@ module.exports = merge(baseWebpackConfig, {
                 },
                 componentsStyles: {
                     name: 'componentsStyles',
-                    test: /[\\/]scss[\\/]index.scss/,
+                    test: /[\\/]scss[\\/]index\.scss/,
                     chunks: 'all',
                     priority: 1,
                     reuseExistingChunk: true
