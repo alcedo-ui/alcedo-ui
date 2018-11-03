@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {DragDropContext} from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
 import DraggableTree from 'src/DraggableTree';
 import Paper from 'src/Paper';
@@ -10,6 +12,7 @@ import doc from 'assets/propTypes/DraggableTree.json';
 
 import 'sass/containers/app/modules/draggable/DraggableTreeExamples.scss';
 
+@DragDropContext(HTML5Backend)
 class DraggableTreeExamples extends Component {
 
     constructor(props) {
@@ -65,7 +68,8 @@ class DraggableTreeExamples extends Component {
                 <h2 className="example-title">DraggableTree</h2>
 
                 <p>
-                    <span>DraggableTree</span> is a list of elements that allow you to move elements with the mouse.
+                    <span>DraggableTree</span>
+                    is a list of elements that allow you to move elements with the mouse.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
