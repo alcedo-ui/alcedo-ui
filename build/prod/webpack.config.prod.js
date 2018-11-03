@@ -2,6 +2,7 @@ const path = require('path'),
     webpack = require('webpack'),
     merge = require('webpack-merge'),
     CopyPlugin = require('copy-webpack-plugin'),
+    MiniCssExtractPlugin = require('mini-css-extract-plugin'),
     HtmlPlugin = require('html-webpack-plugin'),
     HtmlIncludeAssetsPlugin = require('html-webpack-include-assets-plugin'),
     CompressionPlugin = require('compression-webpack-plugin'),
@@ -67,6 +68,11 @@ module.exports = merge(baseWebpackConfig, {
         new webpack.DllReferencePlugin({
             context: __dirname,
             manifest: require(utils.assetsVendorsAbsolutePath('tools-manifest.json'))
+        }),
+
+        new MiniCssExtractPlugin({
+            filename: '[name].[contenthash].css',
+            chunkFilename: utils.assetsSubPath('style/[id].[contenthash].css')
         }),
 
         new HtmlPlugin({
