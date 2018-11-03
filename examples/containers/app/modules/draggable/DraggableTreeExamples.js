@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import {DragDropContext} from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
 
 import DraggableTree from 'src/DraggableTree';
 import Paper from 'src/Paper';
@@ -12,7 +10,6 @@ import doc from 'assets/propTypes/DraggableTree.json';
 
 import 'sass/containers/app/modules/draggable/DraggableTreeExamples.scss';
 
-@DragDropContext(HTML5Backend)
 class DraggableTreeExamples extends Component {
 
     constructor(props) {
