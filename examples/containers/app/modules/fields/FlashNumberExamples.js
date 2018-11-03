@@ -8,7 +8,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/FlashNumber.json';
 
-import 'sass/containers/app/modules/fields/FlashNumberExamples.scss';
+import 'assets/scss/containers/app/modules/fields/FlashNumberExamples.scss';
 
 class FlashNumberExamples extends Component {
 

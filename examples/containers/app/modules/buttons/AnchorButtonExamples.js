@@ -7,7 +7,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/AnchorButton.json';
 
-import 'sass/containers/app/modules/buttons/AnchorButtonExamples.scss';
+import 'assets/scss/containers/app/modules/buttons/AnchorButtonExamples.scss';
 
 class AnchorButtonExamples extends Component {
 

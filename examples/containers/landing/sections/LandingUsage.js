@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import landingExampleHTML from './landingExample.html';
 
-import 'sass/containers/landing/sections/LandingUsage.scss';
+import 'assets/scss/containers/landing/sections/LandingUsage.scss';
 
 class LandingUsage extends Component {
 

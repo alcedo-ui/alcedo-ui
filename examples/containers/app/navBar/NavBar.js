@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import Brand from './Brand';
 import IconAnchor from 'src/IconAnchor';
 
-import 'sass/containers/app/navBar/nav/Nav.scss';
+import 'assets/scss/containers/app/navBar/nav/Nav.scss';
 
 class NavBar extends Component {
 

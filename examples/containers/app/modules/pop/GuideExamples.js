@@ -11,8 +11,8 @@ import MaterialTextField from 'src/MaterialTextField';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Guide.json';
 
-import 'sass/containers/app/modules/pop/PopExamples.scss';
-import 'sass/containers/app/modules/pop/GuideExamples.scss';
+import 'assets/scss/containers/app/modules/pop/PopExamples.scss';
+import 'assets/scss/containers/app/modules/pop/GuideExamples.scss';
 
 class GuideExamples extends Component {
 

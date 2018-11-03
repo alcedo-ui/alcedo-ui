@@ -8,7 +8,7 @@ import Paper from 'src/Paper';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/DynamicRenderList.json';
 
-import 'sass/containers/app/modules/layout/DynamicRenderListExamples.scss';
+import 'assets/scss/containers/app/modules/layout/DynamicRenderListExamples.scss';
 
 class DynamicRenderListExamples extends Component {
 

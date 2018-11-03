@@ -8,7 +8,7 @@ import Paper from 'src/Paper';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/List.json';
 
-import 'sass/containers/app/modules/layout/ListExamples.scss';
+import 'assets/scss/containers/app/modules/layout/ListExamples.scss';
 
 class ListExamples extends Component {
 

@@ -9,7 +9,7 @@ import RaisedButton from 'src/RaisedButton';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Accordion.json';
 
-import 'sass/containers/app/modules/layout/AccordionExamples.scss';
+import 'assets/scss/containers/app/modules/layout/AccordionExamples.scss';
 
 class AccordionExamples extends Component {
 

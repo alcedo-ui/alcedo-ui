@@ -7,7 +7,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Anchor.json';
 
-import 'sass/containers/app/modules/anchor/AnchorExamples.scss';
+import 'assets/scss/containers/app/modules/anchor/AnchorExamples.scss';
 
 class AnchorExamples extends Component {
 

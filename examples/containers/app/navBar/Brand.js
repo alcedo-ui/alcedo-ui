@@ -9,7 +9,7 @@ import * as actions from 'reduxes/actions';
 import IconButton from 'src/IconButton';
 import IconAnchor from 'src/IconAnchor';
 
-import 'sass/containers/app/navBar/brand/Brand.scss';
+import 'assets/scss/containers/app/navBar/brand/Brand.scss';
 
 class Brand extends Component {
 

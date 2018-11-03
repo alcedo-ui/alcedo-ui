@@ -8,7 +8,7 @@ import Paper from 'src/Paper';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/GroupList.json';
 
-import 'sass/containers/app/modules/layout/GroupListExamples.scss';
+import 'assets/scss/containers/app/modules/layout/GroupListExamples.scss';
 
 class GroupListExamples extends Component {
 

@@ -8,7 +8,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/PointStep.json';
 
-import 'sass/containers/app/modules/stepper/PointStepExamples.scss';
+import 'assets/scss/containers/app/modules/stepper/PointStepExamples.scss';
 
 class PointStepExamples extends Component {
 

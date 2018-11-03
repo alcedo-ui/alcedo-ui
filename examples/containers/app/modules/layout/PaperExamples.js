@@ -7,7 +7,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Paper.json';
 
-import 'sass/containers/app/modules/layout/PaperExamples.scss';
+import 'assets/scss/containers/app/modules/layout/PaperExamples.scss';
 
 class PaperExamples extends Component {
 

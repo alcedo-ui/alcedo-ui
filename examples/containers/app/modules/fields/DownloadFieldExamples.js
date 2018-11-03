@@ -8,7 +8,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/DownloadField.json';
 
-import 'sass/containers/app/modules/fields/DownloadFieldExamples.scss';
+import 'assets/scss/containers/app/modules/fields/DownloadFieldExamples.scss';
 
 class DownloadFieldExamples extends Component {
 

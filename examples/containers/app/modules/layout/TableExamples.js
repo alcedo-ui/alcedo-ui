@@ -10,7 +10,7 @@ import RaisedButton from 'src/RaisedButton';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Table.json';
 
-import 'sass/containers/app/modules/layout/TableExamples.scss';
+import 'assets/scss/containers/app/modules/layout/TableExamples.scss';
 
 class TableExamples extends Component {
 
