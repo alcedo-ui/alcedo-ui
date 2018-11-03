@@ -38,20 +38,26 @@ module.exports = merge(baseWebpackConfig, {
                     name: 'lodash',
                     test: /[\\/]node_modules[\\/]lodash[\\/]/,
                     chunks: 'all',
-                    priority: 2,
+                    priority: 1,
                     reuseExistingChunk: true
                 },
                 reactBeautifulDnd: {
                     name: 'reactBeautifulDnd',
                     test: /[\\/]node_modules[\\/]react-beautiful-dnd[\\/]/,
                     chunks: 'all',
-                    priority: 1,
                     reuseExistingChunk: true
                 },
                 components: {
                     name: 'components',
                     test: /[\\/]src[\\/]/,
                     chunks: 'all',
+                    reuseExistingChunk: true
+                },
+                componentsStyles: {
+                    name: 'componentsStyles',
+                    test: /[\\/]scss[\\/]index.scss/,
+                    chunks: 'all',
+                    priority: 1,
                     reuseExistingChunk: true
                 },
                 styles: {
