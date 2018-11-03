@@ -49,12 +49,6 @@ module.exports = merge(baseWebpackConfig, {
                     priority: 1,
                     reuseExistingChunk: true
                 },
-                nodeModules: {
-                    name: 'nodeModules',
-                    test: /[\\/]node_modules[\\/]/,
-                    chunks: 'all',
-                    reuseExistingChunk: true
-                },
                 components: {
                     name: 'components',
                     test: /[\\/]src[\\/]/,
