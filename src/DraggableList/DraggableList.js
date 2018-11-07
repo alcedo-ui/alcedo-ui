@@ -357,6 +357,11 @@ DraggableList.propTypes = {
         desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
         /**
+         * The title value of the list button.
+         */
+        title: PropTypes.string,
+
+        /**
          * If true,the list item will be disabled.
          */
         disabled: PropTypes.bool,
