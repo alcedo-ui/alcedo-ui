@@ -131,7 +131,7 @@ class Dropdown extends Component {
 
                 className, triggerClassName, popupClassName, style, triggerStyle, popupStyle, theme, popupTheme,
                 position, iconCls, triggerValue, title, tip, tipPosition,
-                rightIconCls, disabled, disableTouchRipple, autoPopupWidth,
+                rightIconCls, disabled, disableTouchRipple, autoPopupWidth, resetPopPositionWait,
 
                 // events
                 onMouseOver, onMouseOut
@@ -187,6 +187,7 @@ class Dropdown extends Component {
                        hasTriangle={false}
                        position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        shouldPreventContainerScroll={false}
+                       resetPositionWait={resetPopPositionWait}
                        onRender={this.popupRenderHandler}
                        onRequestClose={this.closePopup}>
 
@@ -274,6 +275,7 @@ Dropdown.propTypes = {
     autoClose: PropTypes.bool,
 
     shouldPreventContainerScroll: PropTypes.bool,
+    resetPopPositionWait: PropTypes.number,
 
     /**
      * Callback function fired when the popup is open.
@@ -305,7 +307,8 @@ Dropdown.defaultProps = {
     autoClose: true,
     tipPosition: Position.BOTTOM,
 
-    shouldPreventContainerScroll: true
+    shouldPreventContainerScroll: true,
+    resetPopPositionWait: 250
 
 };
 
