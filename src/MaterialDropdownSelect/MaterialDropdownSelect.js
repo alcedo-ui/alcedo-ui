@@ -334,6 +334,7 @@ MaterialDropdownSelect.propTypes = {
     required: PropTypes.bool,
 
     shouldPreventContainerScroll: PropTypes.bool,
+    resetPopPositionWait: PropTypes.number,
 
     /**
      * Callback function fired when the button is touch-tapped.
@@ -378,7 +379,8 @@ MaterialDropdownSelect.defaultProps = {
     required: false,
     tipPosition: Position.BOTTOM,
 
-    shouldPreventContainerScroll: true
+    shouldPreventContainerScroll: true,
+    resetPopPositionWait: 250
 
 };
 
