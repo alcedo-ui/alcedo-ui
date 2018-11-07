@@ -7,6 +7,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import Transition from 'react-transition-group/Transition';
+import eventsOn from 'dom-helpers/events/on';
+import eventsOff from 'dom-helpers/events/off';
 import classNames from 'classnames';
 
 import Portal from '../Portal';
@@ -104,19 +106,19 @@ class TriggerPop extends Component {
 
         this.scrollEl = scrollEl;
 
-        Event.addEvent(scrollEl, 'scroll', this.debounceResetPosition);
+        eventsOn(scrollEl, 'scroll', this.debounceResetPosition);
 
     };
 
     componentDidMount() {
-        Event.addEvent(window, 'resize', this.debounceResetPosition);
+        eventsOn(window, 'resize', this.debounceResetPosition);
     }
 
     componentDidUpdate(prevProps) {
         if (!prevProps.visible && this.props.visible) {
             this.addWatchScroll();
         } else if (prevProps.visible && !this.props.visible) {
-            this.scrollEl && Event.removeEvent(this.scrollEl, 'scroll', this.debounceResetPosition);
+            this.scrollEl && eventsOff(this.scrollEl, 'scroll', this.debounceResetPosition);
             this.scrollEl = null;
         }
     }
@@ -136,7 +138,7 @@ class TriggerPop extends Component {
     }
 
     componentWillUnmount() {
-        Event.removeEvent(window, 'resize', this.debounceResetPosition);
+        eventsOff(window, 'resize', this.debounceResetPosition);
     }
 
     render() {
