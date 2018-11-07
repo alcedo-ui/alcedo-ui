@@ -353,6 +353,8 @@ MaterialCascaderSelect.propTypes = {
 
     popupChildren: PropTypes.any,
 
+    resetPopPositionWait: PropTypes.number,
+
     renderer: PropTypes.func,
 
     triggerRenderer: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
@@ -416,7 +418,9 @@ MaterialCascaderSelect.defaultProps = {
     isSelectRecursive: true,
     allowCollapse: true,
 
-    required: false
+    required: false,
+
+    resetPopPositionWait: 250
 
 };
 
