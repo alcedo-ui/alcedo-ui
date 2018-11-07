@@ -543,6 +543,8 @@ TreeSelect.propTypes = {
 
     popupChildren: PropTypes.any,
 
+    resetPopPositionWait: PropTypes.number,
+
     renderer: PropTypes.func,
 
     triggerRenderer: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
@@ -591,7 +593,8 @@ TreeSelect.defaultProps = {
 
     shouldPreventContainerScroll: true,
     isSelectRecursive: false,
-    allowCollapse: true
+    allowCollapse: true,
+    resetPopPositionWait: 250
 
 };
 
