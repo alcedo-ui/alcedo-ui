@@ -323,6 +323,8 @@ MaterialTreeSelect.propTypes = {
 
     popupChildren: PropTypes.any,
 
+    resetPopPositionWait: PropTypes.number,
+
     renderer: PropTypes.func,
 
     triggerRenderer: PropTypes.func,
@@ -375,7 +377,9 @@ MaterialTreeSelect.defaultProps = {
     isSelectRecursive: false,
     allowCollapse: true,
 
-    required: false
+    required: false,
+
+    resetPopPositionWait: 250
 
 };
 
