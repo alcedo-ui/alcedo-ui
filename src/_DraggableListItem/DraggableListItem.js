@@ -74,7 +74,7 @@ class DraggableListItem extends Component {
 
         const {
 
-                index, className, style, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
+                index, className, style, theme, data, text, desc, title, iconCls, rightIconCls, tip, tipPosition,
                 disabled, isLoading, renderer, itemRenderer, readOnly, isDragDisabled, anchorIconCls,
 
                 checked, selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
@@ -113,6 +113,7 @@ class DraggableListItem extends Component {
                                          style={style}
                                          disabled={disabled || isLoading}
                                          readOnly={readOnly}
+                                         title={title}
                                          onClick={this.clickHandler}
                                          onMouseEnter={onMouseEnter}
                                          onMouseLeave={onMouseLeave}>
@@ -232,6 +233,7 @@ DraggableListItem.propTypes = {
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     text: PropTypes.any,
     desc: PropTypes.string,
+    title: PropTypes.string,
 
     disabled: PropTypes.bool,
     isLoading: PropTypes.bool,
