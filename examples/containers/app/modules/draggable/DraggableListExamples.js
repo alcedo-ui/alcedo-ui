@@ -18,7 +18,7 @@ class DraggableListExamples extends Component {
         this.listData = [{
             iconCls: 'fab fa-facebook',
             text: 'Facebook',
-            tip: 'Facebook'
+            title: 'Facebook'
         }, {
             iconCls: 'fab fa-twitter',
             text: 'Twitter',
