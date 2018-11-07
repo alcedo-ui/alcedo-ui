@@ -458,6 +458,7 @@ class PopupExamples extends Component {
                                 <Popup className="customized-popup in-dialog"
                                        visible={popupVisible[18]}
                                        triggerEl={triggerEl[18]}
+                                       resetPositionWait={0}
                                        onRequestClose={() => this.closePopup(18)}>
                                     <div style={{padding: 20}}>
                                         Popup Content
