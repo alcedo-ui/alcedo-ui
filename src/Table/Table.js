@@ -275,9 +275,9 @@ class Table extends Component {
             const {onChange, onSelect, onDeselect} = this.props;
 
             if (checked) {
-                onSelect && onSelect([rowData]);
+                onSelect && onSelect(rowData);
             } else {
-                onDeselect && onDeselect([rowData]);
+                onDeselect && onDeselect(rowData);
             }
 
             onChange && onChange(value, rowIndex);
