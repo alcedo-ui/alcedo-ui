@@ -275,9 +275,9 @@ class Table extends Component {
             const {onChange, onSelect, onDeselect} = this.props;
 
             if (checked) {
-                onSelect && onSelect(rowData);
+                onSelect && onSelect(rowData, rowIndex, value);
             } else {
-                onDeselect && onDeselect(rowData);
+                onDeselect && onDeselect(rowData, rowIndex, value);
             }
 
             onChange && onChange(value, rowIndex);
@@ -302,9 +302,9 @@ class Table extends Component {
             const {onChange, onSelect, onDeselect} = this.props;
 
             if (checked) {
-                onSelect && onSelect(rowData);
+                onSelect && onSelect(rowData, rowIndex, value);
             } else {
-                onDeselect && onDeselect(rowData);
+                onDeselect && onDeselect(rowData, rowIndex, value);
             }
 
             onChange && onChange(value, rowIndex);
