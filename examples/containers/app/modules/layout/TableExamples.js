@@ -103,12 +103,12 @@ class TableExamples extends Component {
         console.log('Data Update Value: ', currentPageData);
     };
 
-    selectHandler = value => {
-        console.log('Select Value: ', value);
+    selectHandler = (rowData, rowIndex, value) => {
+        console.log('Select Value: ', rowData);
     };
 
-    deselectHandler = value => {
-        console.log('Deselect Value: ', value);
+    deselectHandler = (rowData, rowIndex, value) => {
+        console.log('Deselect Value: ', rowData);
     };
 
     selectAllHandler = value => {
