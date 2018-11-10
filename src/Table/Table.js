@@ -251,9 +251,11 @@ class Table extends Component {
 
         const {idProp} = this.props,
             {value} = this.state,
-            checked = this.isItemChecked(rowData, value);
+            checked = !this.isItemChecked(rowData, value);
 
         if (checked) {
+            value.push(rowData);
+        } else {
 
             let index = value.findIndex(item => (idProp in item) && (idProp in rowData)
                 && item[idProp] === rowData[idProp]);
@@ -264,8 +266,6 @@ class Table extends Component {
 
             value.splice(index, 1);
 
-        } else {
-            value.push(rowData);
         }
 
         this.setState({
@@ -542,7 +542,7 @@ class Table extends Component {
                 defaultSortType, defaultPageSize, sort: propsSort, onPageChange, hasLineNumber, columns, selectTheme,
                 radioUncheckedIconCls, radioCheckedIconCls, checkboxUncheckedIconCls, checkboxCheckedIconCls,
                 checkboxIndeterminateIconCls, selectAllMode, isClearSelectionOnChangePage, sortFunc, onSort,
-                onDataUpdate, onSelectAll, onDeselectAll,
+                onDataUpdate, onSelect, onDeselect, onSelectAll, onDeselectAll,
 
                 ...restProps
 
