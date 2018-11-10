@@ -103,6 +103,14 @@ class TableExamples extends Component {
         console.log('Data Update Value: ', currentPageData);
     };
 
+    selectHandler = value => {
+        console.log('Select Value: ', value);
+    };
+
+    deselectHandler = value => {
+        console.log('Deselect Value: ', value);
+    };
+
     selectAllHandler = value => {
         console.log('Select All Value: ', value);
     };
@@ -190,6 +198,8 @@ class TableExamples extends Component {
                                    sortAscIconCls="fas fa-caret-up"
                                    sortDescIconCls="fas fa-caret-down"
                                    onPageChange={this.pageChangeHandler}
+                                   onSelect={this.selectHandler}
+                                   onDeselect={this.deselectHandler}
                                    onSelectAll={this.selectAllHandler}
                                    onDeselectAll={this.deselectAllHandler}
                                    onChange={this.changeHandler}/>
