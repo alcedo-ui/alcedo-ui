@@ -20,17 +20,21 @@ input::-ms-clear {
 
         border-radius: $theme-border-radius !important;
 
-        &.focused{
-            border:1px solid $theme-border;
+        &.focused {
+            border: 1px solid $theme-border;
             @include shadow(1);
         }
 
         input {
             cursor: pointer;
         }
+        .icon-button {
+            z-index: 0;
+        }
 
     }
 }
+
 .popup {
     &.month-picker-popup {
         width: 300px;
@@ -125,7 +129,7 @@ input::-ms-clear {
                                 border-radius: 50%;
                                 overflow: hidden;
                             }
-                            &:hover{
+                            &:hover {
                                 a {
                                     background: $theme-field-bg-active;
                                     color: $theme-field-hover;
@@ -137,7 +141,7 @@ input::-ms-clear {
                                     background: $theme-highlight;
                                     color: #fff;
                                 }
-                                &:hover{
+                                &:hover {
                                     a {
                                         background: theme-color-hover($theme-highlight);
                                     }
@@ -178,8 +182,8 @@ input::-ms-clear {
                                 overflow: hidden;
                             }
                             &.current-months,
-                            &.current-years{
-                                &:hover{
+                            &.current-years {
+                                &:hover {
                                     a {
                                         background: $theme-field-bg-active;
                                         color: $theme-field-hover;

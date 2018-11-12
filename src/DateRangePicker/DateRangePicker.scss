@@ -26,6 +26,10 @@ input::-ms-clear {
         input {
             cursor: pointer;
         }
+
+        .icon-button {
+            z-index: 0;
+        }
     }
 }
 
