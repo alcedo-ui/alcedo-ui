@@ -57,7 +57,7 @@ class Table extends Component {
 
             value: Calculation.getInitValue(props),
 
-            sortedData: Calculation.sortTableData(props.data, props.sort, props.sortFunc)
+            sortedData: props.autoSort ? Calculation.sortTableData(props.data, props.sort, props.sortFunc) : props.data
 
         };
 
@@ -518,21 +518,17 @@ class Table extends Component {
 
     static getDerivedStateFromProps(props, state) {
 
-        const sort = ComponentUtil.getDerivedState(props, state, 'sort'),
-            result = {
-                prevProps: props,
-                sort,
-                value: Calculation.getInitValue({
-                    value: ComponentUtil.getDerivedState(props, state, 'value'),
-                    selectMode: props.selectMode
-                })
-            };
+        const sort = ComponentUtil.getDerivedState(props, state, 'sort');
 
-        if (props.autoSort) {
-            result.sortedData = Calculation.sortTableData(props.data, sort, props.sortFunc);
-        }
-
-        return result;
+        return {
+            prevProps: props,
+            sort,
+            sortedData: props.autoSort ? Calculation.sortTableData(props.data, sort, props.sortFunc) : props.data,
+            value: Calculation.getInitValue({
+                value: ComponentUtil.getDerivedState(props, state, 'value'),
+                selectMode: props.selectMode
+            })
+        };
 
     }
 
