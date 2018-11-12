@@ -7,6 +7,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import Transition from 'react-transition-group/Transition';
+import eventsOn from 'dom-helpers/events/on';
+import eventsOff from 'dom-helpers/events/off';
 import classNames from 'classnames';
 
 import Portal from '../Portal';
@@ -75,9 +77,9 @@ class TriggerPop extends Component {
         });
     };
 
-    resizeHandler = debounce(() => {
+    debounceResetPosition = debounce(() => {
         this.resetPosition();
-    }, 250);
+    }, this.props.resetPositionWait);
 
     getEl = () => {
         return this.transitionEl;
@@ -104,19 +106,19 @@ class TriggerPop extends Component {
 
         this.scrollEl = scrollEl;
 
-        Event.addEvent(scrollEl, 'scroll', this.resizeHandler);
+        eventsOn(scrollEl, 'scroll', this.debounceResetPosition);
 
     };
 
     componentDidMount() {
-        Event.addEvent(window, 'resize', this.resizeHandler);
+        eventsOn(window, 'resize', this.debounceResetPosition);
     }
 
     componentDidUpdate(prevProps) {
         if (!prevProps.visible && this.props.visible) {
             this.addWatchScroll();
         } else if (prevProps.visible && !this.props.visible) {
-            this.scrollEl && Event.removeEvent(this.scrollEl, 'scroll', this.resizeHandler);
+            this.scrollEl && eventsOff(this.scrollEl, 'scroll', this.debounceResetPosition);
             this.scrollEl = null;
         }
     }
@@ -136,7 +138,7 @@ class TriggerPop extends Component {
     }
 
     componentWillUnmount() {
-        Event.removeEvent(window, 'resize', this.resizeHandler);
+        eventsOff(window, 'resize', this.debounceResetPosition);
     }
 
     render() {
@@ -150,6 +152,7 @@ class TriggerPop extends Component {
 
                 // not passing down these props
                 isEscClose, isBlurClose, shouldPreventContainerScroll, triggerEl, isTriggerPositionFixed,
+                resetPositionWait,
                 onRender, onRendered, onDestroy, onDestroyed,
 
                 ...restProps
@@ -288,6 +291,7 @@ TriggerPop.propTypes = {
     isEscClose: PropTypes.bool,
     shouldPreventContainerScroll: PropTypes.bool,
     isTriggerPositionFixed: PropTypes.bool,
+    resetPositionWait: PropTypes.number,
 
     /**
      * The function of popup render.
@@ -331,7 +335,8 @@ TriggerPop.defaultProps = {
     isBlurClose: true,
     isEscClose: true,
     shouldPreventContainerScroll: true,
-    isTriggerPositionFixed: false
+    isTriggerPositionFixed: false,
+    resetPositionWait: 250
 
 };
 

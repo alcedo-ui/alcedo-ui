@@ -3,7 +3,7 @@
 import '@babel/polyfill';
 import React from 'react';
 import {render} from 'react-dom';
-import createHashHistory from 'history/createHashHistory';
+import {createHashHistory} from 'history';
 import {renderRoutes} from 'react-router-config';
 import {Provider} from 'react-redux';
 import {ConnectedRouter} from 'react-router-redux';
@@ -11,7 +11,7 @@ import {ConnectedRouter} from 'react-router-redux';
 import configureStore from 'reduxes/store';
 import configureRoutes from './config.routes';
 
-import 'sass/index.scss';
+import 'scss/index.scss';
 
 const history = createHashHistory(),
     store = configureStore(history);

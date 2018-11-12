@@ -181,6 +181,7 @@ MaterialDropdown.propTypes = {
     required: PropTypes.bool,
 
     shouldPreventContainerScroll: PropTypes.bool,
+    resetPopPositionWait: PropTypes.number,
 
     /**
      * Callback function fired when the popup is closed.
@@ -210,7 +211,8 @@ MaterialDropdown.defaultProps = {
     required: false,
     tipPosition: Position.BOTTOM,
 
-    shouldPreventContainerScroll: true
+    shouldPreventContainerScroll: true,
+    resetPopPositionWait: 250
 
 };
 

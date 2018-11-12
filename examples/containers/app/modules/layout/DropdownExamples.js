@@ -7,7 +7,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Dropdown.json';
 
-import 'sass/containers/app/modules/layout/DropdownExamples.scss';
+import 'scss/containers/app/modules/layout/DropdownExamples.scss';
 
 class DropdownExamples extends Component {
 

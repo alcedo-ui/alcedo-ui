@@ -494,6 +494,8 @@ CascaderSelect.propTypes = {
 
     popupChildren: PropTypes.any,
 
+    resetPopPositionWait: PropTypes.number,
+
     renderer: PropTypes.func,
 
     triggerRenderer: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
@@ -555,7 +557,9 @@ CascaderSelect.defaultProps = {
 
     shouldPreventContainerScroll: true,
     isSelectRecursive: true,
-    allowCollapse: true
+    allowCollapse: true,
+
+    resetPopPositionWait: 250
 
 };
 

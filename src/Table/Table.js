@@ -57,7 +57,7 @@ class Table extends Component {
 
             value: Calculation.getInitValue(props),
 
-            sortedData: Calculation.sortTableData(props.data, props.sort, props.sortFunc)
+            sortedData: props.autoSort ? Calculation.sortTableData(props.data, props.sort, props.sortFunc) : props.data
 
         };
 
@@ -218,7 +218,7 @@ class Table extends Component {
 
     sortHandler = col => {
 
-        const {data, defaultSortType, sortFunc} = this.props;
+        const {data, defaultSortType, autoSort, sortFunc} = this.props;
         let {sort} = this.state,
             type = col.defaultSortType || defaultSortType;
 
@@ -231,15 +231,18 @@ class Table extends Component {
             type
         };
 
-        const sortedData = Calculation.sortTableData(data, sort, sortFunc);
-
         this.setState({
-            sort,
-            sortedData
+            sort
         }, () => {
             const {onSort} = this.props;
             onSort && onSort(sort);
         });
+
+        if (autoSort) {
+            this.setState({
+                sortedData: Calculation.sortTableData(data, sort, sortFunc)
+            });
+        }
 
     };
 
@@ -251,9 +254,11 @@ class Table extends Component {
 
         const {idProp} = this.props,
             {value} = this.state,
-            checked = this.isItemChecked(rowData, value);
+            checked = !this.isItemChecked(rowData, value);
 
         if (checked) {
+            value.push(rowData);
+        } else {
 
             let index = value.findIndex(item => (idProp in item) && (idProp in rowData)
                 && item[idProp] === rowData[idProp]);
@@ -264,8 +269,6 @@ class Table extends Component {
 
             value.splice(index, 1);
 
-        } else {
-            value.push(rowData);
         }
 
         this.setState({
@@ -275,9 +278,9 @@ class Table extends Component {
             const {onChange, onSelect, onDeselect} = this.props;
 
             if (checked) {
-                onSelect && onSelect([rowData]);
+                onSelect && onSelect(rowData, rowIndex, value);
             } else {
-                onDeselect && onDeselect([rowData]);
+                onDeselect && onDeselect(rowData, rowIndex, value);
             }
 
             onChange && onChange(value, rowIndex);
@@ -302,9 +305,9 @@ class Table extends Component {
             const {onChange, onSelect, onDeselect} = this.props;
 
             if (checked) {
-                onSelect && onSelect(rowData);
+                onSelect && onSelect(rowData, rowIndex, value);
             } else {
-                onDeselect && onDeselect(rowData);
+                onDeselect && onDeselect(rowData, rowIndex, value);
             }
 
             onChange && onChange(value, rowIndex);
@@ -514,16 +517,19 @@ class Table extends Component {
     }
 
     static getDerivedStateFromProps(props, state) {
+
         const sort = ComponentUtil.getDerivedState(props, state, 'sort');
+
         return {
             prevProps: props,
             sort,
-            sortedData: Calculation.sortTableData(props.data, sort, props.sortFunc),
+            sortedData: props.autoSort ? Calculation.sortTableData(props.data, sort, props.sortFunc) : props.data,
             value: Calculation.getInitValue({
                 value: ComponentUtil.getDerivedState(props, state, 'value'),
                 selectMode: props.selectMode
             })
         };
+
     }
 
     render() {
@@ -541,8 +547,8 @@ class Table extends Component {
                 // not passing down these props
                 defaultSortType, defaultPageSize, sort: propsSort, onPageChange, hasLineNumber, columns, selectTheme,
                 radioUncheckedIconCls, radioCheckedIconCls, checkboxUncheckedIconCls, checkboxCheckedIconCls,
-                checkboxIndeterminateIconCls, selectAllMode, isClearSelectionOnChangePage, sortFunc, onSort,
-                onDataUpdate, onSelectAll, onDeselectAll,
+                checkboxIndeterminateIconCls, selectAllMode, isClearSelectionOnChangePage, autoSort, sortFunc, onSort,
+                onDataUpdate, onSelect, onDeselect, onSelectAll, onDeselectAll,
 
                 ...restProps
 
@@ -811,15 +817,16 @@ Table.propTypes = {
 
     }),
 
+    defaultSortType: PropTypes.oneOf(Util.enumerateValue(SortType)),
+    sortAscIconCls: PropTypes.string,
+    sortDescIconCls: PropTypes.string,
+    autoSort: PropTypes.bool,
+
     radioUncheckedIconCls: PropTypes.string,
     radioCheckedIconCls: PropTypes.string,
     checkboxUncheckedIconCls: PropTypes.string,
     checkboxCheckedIconCls: PropTypes.string,
     checkboxIndeterminateIconCls: PropTypes.string,
-
-    defaultSortType: PropTypes.oneOf(Util.enumerateValue(SortType)),
-    sortAscIconCls: PropTypes.string,
-    sortDescIconCls: PropTypes.string,
 
     /**
      * Use this property to set page size right icon.
@@ -900,6 +907,7 @@ Table.defaultProps = {
     isClearSelectionOnChangePage: false,
 
     defaultSortType: SortType.ASC,
+    autoSort: true,
 
     checkboxUncheckedIconCls: 'far fa-square',
     checkboxCheckedIconCls: 'fas fa-check-square',

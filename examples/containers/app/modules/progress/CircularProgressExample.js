@@ -7,7 +7,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/CircularProgress.json';
 
-import 'sass/containers/app/modules/progress/CircularProgressExample.scss';
+import 'scss/containers/app/modules/progress/CircularProgressExample.scss';
 
 class CircularProgressExample extends Component {
 

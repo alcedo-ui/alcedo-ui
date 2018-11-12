@@ -8,7 +8,7 @@ import Crumbs from 'src/Crumbs';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Crumbs.json';
 
-import 'sass/containers/app/modules/layout/CrumbsExamples.scss';
+import 'scss/containers/app/modules/layout/CrumbsExamples.scss';
 
 class CrumbsExamples extends Component {
 

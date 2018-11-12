@@ -5,6 +5,7 @@ const path = require('path'),
     HtmlPlugin = require('html-webpack-plugin'),
     HtmlIncludeAssetsPlugin = require('html-webpack-include-assets-plugin'),
     CompressionPlugin = require('compression-webpack-plugin'),
+    // BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin,
 
     config = require('../config.js'),
     baseWebpackConfig = require('../webpack.config.base.js'),
@@ -28,13 +29,13 @@ module.exports = merge(baseWebpackConfig, {
 
     optimization: {
         runtimeChunk: {
-            name: 'manifest'
+            name: 'runtime'
         },
         splitChunks: {
             cacheGroups: {
-                commons: {
+                nodeModules: {
+                    name: 'nodeModules',
                     test: /[\\/]node_modules[\\/]/,
-                    name: 'vendor',
                     chunks: 'all'
                 }
             }
@@ -61,6 +62,10 @@ module.exports = merge(baseWebpackConfig, {
         }),
         new webpack.DllReferencePlugin({
             context: __dirname,
+            manifest: require(utils.assetsVendorsAbsolutePath('moment-manifest.json'))
+        }),
+        new webpack.DllReferencePlugin({
+            context: __dirname,
             manifest: require(utils.assetsVendorsAbsolutePath('react-manifest.json'))
         }),
         new webpack.DllReferencePlugin({
@@ -83,6 +88,7 @@ module.exports = merge(baseWebpackConfig, {
         new HtmlIncludeAssetsPlugin({
             assets: [
                 vendorsAssets['polyfill'].js,
+                vendorsAssets['moment'].js,
                 vendorsAssets['react'].js,
                 vendorsAssets['tools'].js
             ],
@@ -97,6 +103,8 @@ module.exports = merge(baseWebpackConfig, {
             threshold: 1,
             minRatio: 0.8
         })
+
+        // new BundleAnalyzerPlugin()
 
     ]
 

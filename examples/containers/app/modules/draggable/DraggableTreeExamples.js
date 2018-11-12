@@ -8,7 +8,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/DraggableTree.json';
 
-import 'sass/containers/app/modules/draggable/DraggableTreeExamples.scss';
+import 'scss/containers/app/modules/draggable/DraggableTreeExamples.scss';
 
 class DraggableTreeExamples extends Component {
 
@@ -65,7 +65,8 @@ class DraggableTreeExamples extends Component {
                 <h2 className="example-title">DraggableTree</h2>
 
                 <p>
-                    <span>DraggableTree</span> is a list of elements that allow you to move elements with the mouse.
+                    <span>DraggableTree</span>
+                    is a list of elements that allow you to move elements with the mouse.
                 </p>
 
                 <h2 className="example-title">Examples</h2>

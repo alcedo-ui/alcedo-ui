@@ -7,7 +7,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/DraggableList.json';
 
-import 'sass/containers/app/modules/draggable/DraggableListExamples.scss';
+import 'scss/containers/app/modules/draggable/DraggableListExamples.scss';
 
 class DraggableListExamples extends Component {
 
@@ -18,7 +18,7 @@ class DraggableListExamples extends Component {
         this.listData = [{
             iconCls: 'fab fa-facebook',
             text: 'Facebook',
-            tip: 'Facebook'
+            title: 'Facebook'
         }, {
             iconCls: 'fab fa-twitter',
             text: 'Twitter',

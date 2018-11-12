@@ -7,7 +7,7 @@ import * as actions from 'reduxes/actions';
 
 import FlatButton from 'src/FlatButton';
 
-import 'sass/containers/landing/sections/LandingIntro.scss';
+import 'scss/containers/landing/sections/LandingIntro.scss';
 
 class LandingIntro extends Component {
 

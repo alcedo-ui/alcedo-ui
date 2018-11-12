@@ -7,7 +7,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/FlatButton.json';
 
-import 'sass/containers/app/modules/buttons/FlatButtonExamples.scss';
+import 'scss/containers/app/modules/buttons/FlatButtonExamples.scss';
 
 class FlatButtonExamples extends Component {
 

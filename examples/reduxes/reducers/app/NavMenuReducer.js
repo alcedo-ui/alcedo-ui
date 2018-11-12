@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 
 import * as types from 'reduxes/actionTypes';
 import DEFAULT_MENU from 'examples/config.menu';
@@ -48,7 +48,7 @@ function sortMenu(arrays) {
 
 function getMenu(filter) {
 
-    let menu = _.cloneDeep(DEFAULT_MENU);
+    let menu = cloneDeep(DEFAULT_MENU);
 
     if (filter) {
         filterMenu(menu, filter);

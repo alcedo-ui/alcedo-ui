@@ -10,8 +10,8 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Drawer.json';
 
-import 'sass/containers/app/modules/pop/PopExamples.scss';
-import 'sass/containers/app/modules/pop/DrawerExamples.scss';
+import 'scss/containers/app/modules/pop/PopExamples.scss';
+import 'scss/containers/app/modules/pop/DrawerExamples.scss';
 
 class DrawerExamples extends Component {
 

@@ -8,7 +8,7 @@ import CascaderList from 'src/CascaderList';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/CascaderList.json';
 
-import 'sass/containers/app/modules/layout/CascaderListExamples.scss';
+import 'scss/containers/app/modules/layout/CascaderListExamples.scss';
 
 class CascaderListExamples extends Component {
 

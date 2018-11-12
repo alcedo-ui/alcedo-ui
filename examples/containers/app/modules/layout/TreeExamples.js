@@ -8,7 +8,7 @@ import Tree from 'src/Tree';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/Tree.json';
 
-import 'sass/containers/app/modules/layout/TreeExamples.scss';
+import 'scss/containers/app/modules/layout/TreeExamples.scss';
 
 class TreeExamples extends Component {
 

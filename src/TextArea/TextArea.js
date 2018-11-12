@@ -52,15 +52,22 @@ class TextArea extends Component {
         this.refs.input.blur();
     };
 
+    /**
+     * public
+     */
+    resetHeight = () => {
+        if (this.props.autoHeight && this.inputEl) {
+            this.inputEl.style.height = Math.max(this.inputEl.scrollHeight, this.inputElInitHeight) + 'px';
+        }
+    };
+
     changeHandler = e => {
 
         const {onValid, onInvalid} = this.props,
             value = e.target.value,
             invalidMsgs = Valid.fieldValid(value, this.props);
 
-        if (this.props.autoHeight) {
-            this.inputEl.style.height = Math.max(this.inputEl.scrollHeight, this.inputElInitHeight) + 'px';
-        }
+        this.resetHeight();
 
         this.setState({
             invalidMsgs,
@@ -177,14 +184,16 @@ class TextArea extends Component {
 
     componentDidMount() {
 
-        if (this.props.autoFocus === true) {
-            this.refs.input.focus();
-        }
-
         this.inputEl = this.refs.input;
         this.inputElInitHeight = parseInt(this.inputEl.offsetHeight);
 
         this.clearButtonEl = findDOMNode(this.refs.clearButton);
+
+        this.resetHeight();
+
+        if (this.props.autoFocus === true && this.inputEl) {
+            this.inputEl.focus();
+        }
 
     }
 

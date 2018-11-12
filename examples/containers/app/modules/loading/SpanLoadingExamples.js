@@ -8,7 +8,7 @@ import Switcher from 'src/Switcher';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/SpanLoading.json';
 
-import 'sass/containers/app/modules/loading/SpanLoadingExamples.scss';
+import 'scss/containers/app/modules/loading/SpanLoadingExamples.scss';
 
 class SpanLoadingExamples extends Component {
 

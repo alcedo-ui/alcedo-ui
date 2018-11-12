@@ -322,6 +322,9 @@ List.propTypes = {
          */
         desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
+        /**
+         * The title value of the list button.
+         */
         title: PropTypes.string,
 
         /**

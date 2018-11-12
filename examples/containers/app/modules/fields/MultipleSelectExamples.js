@@ -7,7 +7,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/MultipleSelect.json';
 
-import 'sass/containers/app/modules/fields/MultipleSelectExamples.scss';
+import 'scss/containers/app/modules/fields/MultipleSelectExamples.scss';
 
 class MultipleSelectExamples extends Component {
 

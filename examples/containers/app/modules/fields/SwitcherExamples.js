@@ -8,7 +8,7 @@ import RaisedButton from 'src/RaisedButton';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Switcher.json';
 
-import 'sass/containers/app/modules/fields/SwitcherExamples.scss';
+import 'scss/containers/app/modules/fields/SwitcherExamples.scss';
 
 class SwitcherExamples extends Component {
 

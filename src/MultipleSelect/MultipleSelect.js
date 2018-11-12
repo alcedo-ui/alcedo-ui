@@ -216,7 +216,7 @@ class MultipleSelect extends Component {
 
         const {
                 className, popupClassName, style, popupStyle, theme, name, placeholder, isGrouped,
-                useDynamicRenderList, listHeight, itemHeight, scrollBuffer, position,
+                useDynamicRenderList, listHeight, itemHeight, scrollBuffer, position, resetPopPositionWait,
                 disabled, iconCls, rightIconCls, valueField, displayField, descriptionField, noMatchedMsg
             } = this.props,
             {selectedCollapsed, isAbove, value, filter, popupVisible} = this.state,
@@ -336,6 +336,7 @@ class MultipleSelect extends Component {
                        triggerEl={this.triggerEl}
                        hasTriangle={false}
                        position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
+                       resetPositionWait={resetPopPositionWait}
                        onRender={this.popupRenderHandler}
                        onRequestClose={this.closePopup}>
 
@@ -549,6 +550,7 @@ MultipleSelect.propTypes = {
     isGrouped: PropTypes.bool,
 
     useDynamicRenderList: PropTypes.bool,
+    resetPopPositionWait: PropTypes.number,
     listHeight: PropTypes.number,
     itemHeight: PropTypes.number,
     scrollBuffer: PropTypes.number,
@@ -588,7 +590,8 @@ MultipleSelect.defaultProps = {
     rightIconCls: '',
     noMatchedMsg: '',
     isGrouped: false,
-    useDynamicRenderList: false
+    useDynamicRenderList: false,
+    resetPopPositionWait: 250
 
 };
 

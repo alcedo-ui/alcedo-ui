@@ -300,7 +300,8 @@ class LocalAutoComplete extends Component {
 
                 className, triggerClassName, popupClassName, style, popupStyle, popupTheme, name, position,
                 valueField, displayField, descriptionField, noMatchedPopupVisible, noMatchedMsg, popupChildren,
-                renderer, useDynamicRenderList, listHeight, itemHeight, scrollBuffer, onFilterClear,
+                renderer, useDynamicRenderList, listHeight, itemHeight, scrollBuffer, resetPopPositionWait,
+                onFilterClear,
 
                 // not passing down these props
                 data, filter: propsFilter, minFilterLength, autoClose, filterCallback,
@@ -392,6 +393,7 @@ class LocalAutoComplete extends Component {
                                triggerEl={this.triggerEl}
                                hasTriangle={false}
                                position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
+                               resetPositionWait={resetPopPositionWait}
                                onRender={this.popupRenderHandler}
                                onRequestClose={this.closePopup}>
 
@@ -632,6 +634,7 @@ LocalAutoComplete.propTypes = {
     filter: PropTypes.string,
 
     useDynamicRenderList: PropTypes.bool,
+    resetPopPositionWait: PropTypes.number,
     listHeight: PropTypes.number,
     itemHeight: PropTypes.number,
     scrollBuffer: PropTypes.number,
@@ -703,7 +706,8 @@ LocalAutoComplete.defaultProps = {
     rightIconCls: 'fas fa-search',
     noMatchedPopupVisible: true,
     filter: '',
-    useDynamicRenderList: false
+    useDynamicRenderList: false,
+    resetPopPositionWait: 250
 
 };
 

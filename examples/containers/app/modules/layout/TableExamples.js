@@ -10,7 +10,7 @@ import RaisedButton from 'src/RaisedButton';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Table.json';
 
-import 'sass/containers/app/modules/layout/TableExamples.scss';
+import 'scss/containers/app/modules/layout/TableExamples.scss';
 
 class TableExamples extends Component {
 
@@ -103,6 +103,14 @@ class TableExamples extends Component {
         console.log('Data Update Value: ', currentPageData);
     };
 
+    selectHandler = (rowData, rowIndex, value) => {
+        console.log('Select Value: ', rowData);
+    };
+
+    deselectHandler = (rowData, rowIndex, value) => {
+        console.log('Deselect Value: ', rowData);
+    };
+
     selectAllHandler = value => {
         console.log('Select All Value: ', value);
     };
@@ -190,6 +198,8 @@ class TableExamples extends Component {
                                    sortAscIconCls="fas fa-caret-up"
                                    sortDescIconCls="fas fa-caret-down"
                                    onPageChange={this.pageChangeHandler}
+                                   onSelect={this.selectHandler}
+                                   onDeselect={this.deselectHandler}
                                    onSelectAll={this.selectAllHandler}
                                    onDeselectAll={this.deselectAllHandler}
                                    onChange={this.changeHandler}/>

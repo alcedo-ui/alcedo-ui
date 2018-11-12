@@ -7,7 +7,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Slider.json';
 
-import 'sass/containers/app/modules/fields/SliderExamples.scss';
+import 'scss/containers/app/modules/fields/SliderExamples.scss';
 
 class SliderExamples extends Component {
 

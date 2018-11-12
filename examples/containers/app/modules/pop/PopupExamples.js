@@ -11,8 +11,8 @@ import Dialog from 'src/Dialog';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Popup.json';
 
-import 'sass/containers/app/modules/pop/PopExamples.scss';
-import 'sass/containers/app/modules/pop/PopupExamples.scss';
+import 'scss/containers/app/modules/pop/PopExamples.scss';
+import 'scss/containers/app/modules/pop/PopupExamples.scss';
 
 class PopupExamples extends Component {
 
@@ -458,6 +458,7 @@ class PopupExamples extends Component {
                                 <Popup className="customized-popup in-dialog"
                                        visible={popupVisible[18]}
                                        triggerEl={triggerEl[18]}
+                                       resetPositionWait={0}
                                        onRequestClose={() => this.closePopup(18)}>
                                     <div style={{padding: 20}}>
                                         Popup Content

@@ -8,7 +8,7 @@ import Theme from 'src/Theme';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/DropdownSelect.json';
 
-import 'sass/containers/app/modules/fields/DropdownSelectExamples.scss';
+import 'scss/containers/app/modules/fields/DropdownSelectExamples.scss';
 
 class DropdownSelectExamples extends Component {
 

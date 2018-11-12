@@ -7,7 +7,7 @@ import Transfer from 'src/Transfer';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Transfer.json';
 
-import 'sass/containers/app/modules/fields/TransferExamples.scss';
+import 'scss/containers/app/modules/fields/TransferExamples.scss';
 
 class TransferExamples extends Component {
 

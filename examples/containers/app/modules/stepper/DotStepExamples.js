@@ -8,7 +8,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/DotStep.json';
 
-import 'sass/containers/app/modules/stepper/DotStepExamples.scss';
+import 'scss/containers/app/modules/stepper/DotStepExamples.scss';
 
 class DotStepExamples extends Component {
 

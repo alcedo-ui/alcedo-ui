@@ -10,8 +10,8 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Popover.json';
 
-import 'sass/containers/app/modules/pop/PopExamples.scss';
-import 'sass/containers/app/modules/pop/PopoverExamples.scss';
+import 'scss/containers/app/modules/pop/PopExamples.scss';
+import 'scss/containers/app/modules/pop/PopoverExamples.scss';
 
 class PopoverExamples extends Component {
 

@@ -8,7 +8,7 @@ import Paper from 'src/Paper';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/GroupGrid.json';
 
-import 'sass/containers/app/modules/layout/GroupGridExamples.scss';
+import 'scss/containers/app/modules/layout/GroupGridExamples.scss';
 
 class GroupGridExamples extends Component {
 

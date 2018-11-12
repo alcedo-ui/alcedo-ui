@@ -1,0 +1,14 @@
+@import '../../../../my-theme.scss';
+
+.table-examples {
+
+    .paper {
+        border: 1px solid $theme-border;
+        overflow: auto;
+    }
+
+    .table-action {
+        width: auto;
+        margin: 16px 16px 0 0;
+    }
+}

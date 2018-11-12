@@ -10,8 +10,8 @@ import Event from 'vendors/Event';
 import Config from 'examples/config';
 
 import 'assets/font-awesome/css/fontawesome-all.min.css';
-import 'sass/global.scss';
-import 'sass/containers/Root.scss';
+import 'scss/global.scss';
+import 'scss/containers/Root.scss';
 
 class Root extends Component {
 
