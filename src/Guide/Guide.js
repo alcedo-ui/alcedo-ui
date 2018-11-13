@@ -8,13 +8,13 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import TriggerPop from '../_TriggerPop';
+import AnchorButton from '../AnchorButton';
 
 import Position from '../_statics/Position';
 import MsgType from '../_statics/MsgType';
 
 import Util from '../_vendors/Util';
 import PopManagement from '../_vendors/PopManagement';
-import AnchorButton from '../AnchorButton';
 
 class Guide extends Component {
 
@@ -45,19 +45,23 @@ class Guide extends Component {
         }
     };
 
-    componentDidUpdate() {
+    renderHandler = (...args) => {
 
-        const {visible, isEscClose} = this.props;
+        PopManagement.push(this);
 
-        if (isEscClose && visible) {
-            PopManagement.push(this);
-        }
+        const {onRender} = this.props;
+        onRender && onRender(...args);
 
-    }
+    };
 
-    componentWillUnmount() {
+    destroyHandler = (...args) => {
+
         PopManagement.pop(this);
-    }
+
+        const {onDestroy} = this.props;
+        onDestroy && onDestroy(...args);
+
+    };
 
     render() {
 
@@ -85,7 +89,9 @@ class Guide extends Component {
             <TriggerPop {...restProps}
                         ref="guide"
                         className={guideClassName}
-                        contentClassName={guideContentClassName}>
+                        contentClassName={guideContentClassName}
+                        onRender={this.renderHandler}
+                        onDestroy={this.destroyHandler}>
 
                 {
                     !iconVisible || type === MsgType.DEFAULT ?
