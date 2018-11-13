@@ -51,8 +51,15 @@ function addKeyDownEvent() {
     }
 }
 
+function getIndex(context) {
+    return context && list && list.length > 0 ?
+        list.findIndex(item => item && item == context)
+        :
+        -1;
+}
+
 function has(context) {
-    return context && list && list.length > 0 && list.findIndex(item => item && item == context) !== -1;
+    return getIndex(context) !== -1;
 }
 
 function pop(context) {
@@ -61,7 +68,7 @@ function pop(context) {
         return;
     }
 
-    const index = context && list ? list.findIndex(item => item && item == context) : -1;
+    const index = getIndex(context);
     if (index > -1) {
         list.splice(index, 1);
     }
@@ -91,6 +98,8 @@ function push(context) {
 addKeyDownEvent();
 
 export default {
+    getIndex,
+    has,
     push,
     pop
 };
