@@ -7,7 +7,6 @@ import addClass from 'dom-helpers/class/addClass';
 import removeClass from 'dom-helpers/class/removeClass';
 import hasClass from 'dom-helpers/class/hasClass';
 
-import Dialog from '../Dialog';
 import Event from './Event';
 
 const list = [];
@@ -30,12 +29,10 @@ function setBodyUnlock() {
 function keyDownHandler(e) {
     if (e.keyCode === 27) { // esc
 
-        const context = list && list.length > 0 ? list[list.length - 1] : null;
+        const item = list && list.length > 0 ? list[list.length - 1] : null;
 
-        pop(context);
-
-        if (context) {
-            const {onRequestClose} = context.props;
+        if (item && item.popContext) {
+            const {onRequestClose} = item.popContext.props;
             onRequestClose && onRequestClose(e);
         }
 
@@ -49,42 +46,30 @@ function addKeyDownEvent() {
     }
 }
 
-function getIndex(context) {
-    return context && list && list.length > 0 ?
-        list.findIndex(item => item && item == context)
+function getIndex(popContext) {
+    return popContext && list && list.length > 0 ?
+        list.findIndex(item => item && item.popContext && item.popContext == popContext)
         :
         -1;
 }
 
-function has(context) {
-    return getIndex(context) !== -1;
+function has(popContext) {
+    return getIndex(popContext) !== -1;
 }
 
-function pop(context) {
+function push(popContext, config) {
 
-    if (context) {
-        const index = getIndex(context);
-        if (index > -1) {
-            list.splice(index, 1);
-        }
-    }
+    addKeyDownEvent();
 
-    // remove body lock
-    if (!list || list.length < 1
-        || list.findIndex(item => item && item instanceof Dialog && item.props && item.props.showModal) === -1) {
-        setBodyUnlock();
-    }
+    if (!has(popContext)) {
 
-}
-
-function push(context) {
-
-    if (!has(context)) {
-
-        list.push(context);
+        list.push({
+            popContext,
+            config
+        });
 
         // if it is Dialog, set body lock
-        if (context instanceof Dialog && context.props.showModal) {
+        if (config && config.shouldLockBody) {
             setBodyLock();
         }
 
@@ -92,7 +77,22 @@ function push(context) {
 
 }
 
-addKeyDownEvent();
+function pop(popContext) {
+
+    if (popContext) {
+        const index = getIndex(popContext);
+        if (index > -1) {
+            list.splice(index, 1);
+        }
+    }
+
+    // if there is no shouldLockBody pop in list, remove body lock
+    if (!list || list.length < 1
+        || !list.some(item => item && item.config && item.config.shouldLockBody)) {
+        setBodyUnlock();
+    }
+
+}
 
 export default {
     getIndex,
