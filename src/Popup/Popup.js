@@ -87,27 +87,31 @@ class Popup extends Component {
 
     };
 
+    renderHandler = (...args) => {
+
+        PopManagement.push(this);
+
+        const {onRender} = this.props;
+        onRender && onRender(...args);
+
+    };
+
+    destroyHandler = (...args) => {
+
+        PopManagement.pop(this);
+
+        const {onDestroy} = this.props;
+        onDestroy && onDestroy(...args);
+
+    };
+
     componentDidMount() {
         Event.addEvent(document, 'click', this.closeHandler);
     }
 
-    componentWillReceiveProps(nextProps) {
-
-        const {visible, isEscClose} = nextProps;
-
-        if (isEscClose && visible) {
-            PopManagement.push(this);
-        }
-
-    }
-
     componentWillUnmount() {
-
         this.clearCloseTimeout();
         Event.removeEvent(document, 'click', this.closeHandler);
-
-        PopManagement.pop(this);
-
     }
 
     render() {
@@ -135,7 +139,9 @@ class Popup extends Component {
             <TriggerPop {...restProps}
                         ref="popup"
                         className={popupClassName}
-                        contentClassName={popupContentClassName}/>
+                        contentClassName={popupContentClassName}
+                        onRender={this.renderHandler}
+                        onDestroy={this.destroyHandler}/>
         );
     }
 
