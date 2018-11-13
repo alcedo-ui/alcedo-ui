@@ -27,19 +27,17 @@ function setBodyUnlock() {
     }
 };
 
-function callback(e, context) {
-    const {onRequestClose} = context.props;
-    onRequestClose && onRequestClose(e);
-}
-
 function keyDownHandler(e) {
     if (e.keyCode === 27) { // esc
 
-        if (list.length < 1) {
-            return;
-        }
+        const context = list && list.length > 0 ? list[list.length - 1] : null;
 
-        callback(e, list.pop());
+        pop(context);
+
+        if (context) {
+            const {onRequestClose} = context.props;
+            onRequestClose && onRequestClose(e);
+        }
 
     }
 }
@@ -64,17 +62,16 @@ function has(context) {
 
 function pop(context) {
 
-    if (list.length < 1) {
-        return;
-    }
-
-    const index = getIndex(context);
-    if (index > -1) {
-        list.splice(index, 1);
+    if (context) {
+        const index = getIndex(context);
+        if (index > -1) {
+            list.splice(index, 1);
+        }
     }
 
     // remove body lock
-    if (list.findIndex(item => item && item instanceof Dialog && item.props && item.props.showModal) === -1) {
+    if (!list || list.length < 1
+        || list.findIndex(item => item && item instanceof Dialog && item.props && item.props.showModal) === -1) {
         setBodyUnlock();
     }
 
