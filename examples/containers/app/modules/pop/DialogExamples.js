@@ -18,7 +18,9 @@ class DialogExamples extends Component {
 
         this.state = {
             dialogVisible1: false,
-            dialogVisible2: false
+            dialogVisible2: false,
+            dialogVisible3: false,
+            dialogVisible4: false
         };
 
     }
@@ -56,7 +58,7 @@ class DialogExamples extends Component {
 
     render() {
 
-        const {dialogVisible1, dialogVisible2} = this.state;
+        const {dialogVisible1, dialogVisible2, dialogVisible3, dialogVisible4} = this.state;
 
         return (
             <div className="example dialog-examples">
@@ -139,6 +141,47 @@ class DialogExamples extends Component {
                                         onCloseButtonClick={this.closeHandler}>
                                     <div className="dialog-example-content">
                                         Content
+                                    </div>
+                                </Dialog>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Nexted Dialogs"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="popup-example-wrapper">
+
+                                <RaisedButton className="trigger-button"
+                                              value="Toggle Dialog"
+                                              style={{width: '120px'}}
+                                              onClick={() => this.openDialog(3)}/>
+
+                                <Dialog visible={dialogVisible3}
+                                        title="Dialog"
+                                        onRequestClose={() => this.closeDialog(3)}>
+                                    <div className="dialog-example-content">
+
+                                        <RaisedButton className="trigger-button"
+                                                      value="Toggle Dialog"
+                                                      style={{width: '120px'}}
+                                                      onClick={() => this.openDialog(4)}/>
+
+                                        <Dialog visible={dialogVisible4}
+                                                title="Dialog"
+                                                onRequestClose={() => this.closeDialog(4)}>
+                                            <div className="dialog-example-content">
+                                                Content
+                                            </div>
+                                        </Dialog>
+
                                     </div>
                                 </Dialog>
 
