@@ -16,7 +16,6 @@ import Theme from '../Theme';
 
 import Position from '../_statics/Position';
 
-import Dom from '../_vendors/Dom';
 import Util from '../_vendors/Util';
 import PopManagement from '../_vendors/PopManagement';
 
@@ -28,20 +27,6 @@ class Dialog extends Component {
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
     }
-
-    setBodyLock = (props = this.props) => {
-
-        if (!props) {
-            return;
-        }
-
-        props.showModal && Dom.toggleClass(document.querySelector('body'), 'dialog-modal-lock', props.visible);
-
-    };
-
-    resetBody = () => {
-        Dom.removeClass(document.querySelector('body'), 'dialog-modal-lock');
-    };
 
     okButtonClickHandler = () => {
 
@@ -86,31 +71,23 @@ class Dialog extends Component {
 
     };
 
-    componentDidMount() {
-        this.setBodyLock();
-    }
+    renderHandler = (...args) => {
 
-    componentWillReceiveProps(nextProps) {
+        PopManagement.push(this);
 
-        const {visible, isEscClose} = nextProps;
+        const {onRender} = this.props;
+        onRender && onRender(...args);
 
-        if (visible !== this.props.visible) {
-            this.setBodyLock(nextProps);
-        }
+    };
 
-        if (isEscClose && visible) {
-            PopManagement.push(this);
-        }
-
-    }
-
-    componentWillUnmount() {
-
-        this.resetBody();
+    destroyHandler = (...args) => {
 
         PopManagement.pop(this);
 
-    }
+        const {onDestroy} = this.props;
+        onDestroy && onDestroy(...args);
+
+    };
 
     render() {
 
@@ -145,7 +122,9 @@ class Dialog extends Component {
                          visible={visible}
                          container={<Paper depth={6}></Paper>}
                          showModal={showModal}
-                         modalClassName={modalClassName}>
+                         modalClassName={modalClassName}
+                         onRender={this.renderHandler}
+                         onDestroy={this.destroyHandler}>
 
                 <div className="dialog-title">
 
