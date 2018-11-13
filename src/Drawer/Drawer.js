@@ -40,20 +40,6 @@ class Drawer extends Component {
         }
     };
 
-    setBodyLock = (props = this.props) => {
-
-        if (!props) {
-            return;
-        }
-
-        props.showModal && Dom.toggleClass(document.querySelector('body'), 'drawer-modal-lock', props.visible);
-
-    };
-
-    resetBody = () => {
-        Dom.removeClass(document.querySelector('body'), 'drawer-modal-lock');
-    };
-
     triggerHandler = (el, triggerEl, drawerEl, currentVisible, isBlurClose) => {
 
         // el is missing
@@ -96,33 +82,31 @@ class Drawer extends Component {
 
     };
 
-    componentDidMount() {
-        this.setBodyLock();
-        Event.addEvent(document, 'click', this.closeHandler);
-    }
+    renderHandler = (...args) => {
 
-    componentWillReceiveProps(nextProps) {
+        PopManagement.push(this);
 
-        const {visible, isEscClose} = nextProps;
+        const {onRender} = this.props;
+        onRender && onRender(...args);
 
-        if (visible !== this.props.visible) {
-            this.setBodyLock(nextProps);
-        }
+    };
 
-        if (isEscClose && visible) {
-            PopManagement.push(this);
-        }
-
-    }
-
-    componentWillUnmount() {
-
-        this.resetBody();
-        this.clearCloseTimeout();
-        Event.removeEvent(document, 'click', this.closeHandler);
+    destroyHandler = (...args) => {
 
         PopManagement.pop(this);
 
+        const {onDestroy} = this.props;
+        onDestroy && onDestroy(...args);
+
+    };
+
+    componentDidMount() {
+        Event.addEvent(document, 'click', this.closeHandler);
+    }
+
+    componentWillUnmount() {
+        this.clearCloseTimeout();
+        Event.removeEvent(document, 'click', this.closeHandler);
     }
 
     render() {
@@ -148,7 +132,9 @@ class Drawer extends Component {
                          container={
                              <Paper ref="drawerContent"
                                     depth={6}></Paper>
-                         }/>
+                         }
+                         onRender={this.renderHandler}
+                         onDestroy={this.destroyHandler}/>
         );
 
     }
