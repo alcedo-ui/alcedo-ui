@@ -3,9 +3,29 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+import addClass from 'dom-helpers/class/addClass';
+import removeClass from 'dom-helpers/class/removeClass';
+import hasClass from 'dom-helpers/class/hasClass';
+
+import Dialog from '../Dialog';
 import Event from './Event';
 
 const list = [];
+let initial = false;
+
+function setBodyLock() {
+    const body = document.querySelector('body');
+    if (!hasClass(body, 'dialog-modal-lock')) {
+        addClass(body, 'dialog-modal-lock');
+    }
+};
+
+function setBodyUnlock() {
+    const body = document.querySelector('body');
+    if (hasClass(body, 'dialog-modal-lock')) {
+        removeClass(body, 'dialog-modal-lock');
+    }
+};
 
 function callback(e, context) {
     const {onRequestClose} = context.props;
@@ -25,7 +45,14 @@ function keyDownHandler(e) {
 }
 
 function addKeyDownEvent() {
-    Event.addEvent(document, 'keydown', keyDownHandler);
+    if (!initial) {
+        Event.addEvent(document, 'keydown', keyDownHandler);
+        initial = true;
+    }
+}
+
+function has(context) {
+    return context && list && list.length > 0 && list.findIndex(item => item && item == context) !== -1;
 }
 
 function pop(context) {
@@ -34,18 +61,30 @@ function pop(context) {
         return;
     }
 
-    const index = list ? list.findIndex(item => item == context) : -1;
+    const index = context && list ? list.findIndex(item => item && item == context) : -1;
     if (index > -1) {
         list.splice(index, 1);
+    }
+
+    // remove body lock
+    if (list.findIndex(item => item && item instanceof Dialog && item.props && item.props.showModal) === -1) {
+        setBodyUnlock();
     }
 
 }
 
 function push(context) {
 
-    pop(context);
+    if (!has(context)) {
 
-    list.push(context);
+        list.push(context);
+
+        // if it is Dialog, set body lock
+        if (context instanceof Dialog && context.props.showModal) {
+            setBodyLock();
+        }
+
+    }
 
 }
 
