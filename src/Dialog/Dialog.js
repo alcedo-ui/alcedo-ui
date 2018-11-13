@@ -73,7 +73,9 @@ class Dialog extends Component {
 
     renderHandler = (...args) => {
 
-        PopManagement.push(this);
+        PopManagement.push(this, {
+            shouldLockBody: this.props.showModal
+        });
 
         const {onRender} = this.props;
         onRender && onRender(...args);
