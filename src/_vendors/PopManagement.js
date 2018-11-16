@@ -79,12 +79,17 @@ function push(popContext, config) {
 
 function pop(popContext) {
 
-    if (popContext) {
-        const index = getIndex(popContext);
-        if (index > -1) {
-            list.splice(index, 1);
-        }
+    if (!popContext) {
+        return;
     }
+
+    const index = getIndex(popContext);
+
+    if (index === -1) {
+        return;
+    }
+
+    list.splice(index, 1);
 
     // if there is no shouldLockBody pop in list, remove body lock
     if (!list || list.length < 1
