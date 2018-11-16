@@ -63,6 +63,10 @@ class Guide extends Component {
 
     };
 
+    componentWillUnmount() {
+        PopManagement.pop(this);
+    }
+
     render() {
 
         const {
