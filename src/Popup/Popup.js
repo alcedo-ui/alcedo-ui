@@ -110,8 +110,12 @@ class Popup extends Component {
     }
 
     componentWillUnmount() {
+
         this.clearCloseTimeout();
         Event.removeEvent(document, 'click', this.closeHandler);
+
+        PopManagement.pop(this);
+
     }
 
     render() {
