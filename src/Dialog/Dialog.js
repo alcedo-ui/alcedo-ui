@@ -91,6 +91,10 @@ class Dialog extends Component {
 
     };
 
+    componentWillUnmount() {
+        PopManagement.pop(this);
+    }
+
     render() {
 
         const {
