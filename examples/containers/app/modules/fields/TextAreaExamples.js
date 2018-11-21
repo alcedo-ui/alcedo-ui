@@ -51,6 +51,7 @@ class TextAreaExamples extends Component {
                                       autoHeight={false}
                                       wordCountVisible={true}
                                       maxLength={100}
+                                      isStrictMaxLength={true}
                                       onChange={this.changeHandler}/>
                         </div>
                     </div>
