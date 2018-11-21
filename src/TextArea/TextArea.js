@@ -57,6 +57,7 @@ class TextArea extends Component {
      */
     resetHeight = () => {
         if (this.props.autoHeight && this.inputEl) {
+            this.inputEl.style.height = '1px';
             this.inputEl.style.height = Math.max(this.inputEl.scrollHeight, this.inputElInitHeight) + 'px';
         }
     };
