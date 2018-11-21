@@ -40,7 +40,8 @@ class TextFieldExamples extends Component {
                 <h2 className="example-title">TextField</h2>
 
                 <p>
-                    <span>TextField</span> allow users to input text.
+                    <span>TextField</span>
+                    allow users to input text.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
