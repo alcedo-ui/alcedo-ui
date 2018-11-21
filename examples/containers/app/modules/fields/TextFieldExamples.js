@@ -61,6 +61,7 @@ class TextFieldExamples extends Component {
                                 <div className="field-group">
                                     <label className="text-field-label">Default</label>
                                     <TextField value={value[0] || ''}
+                                               maxLength={20}
                                                onChange={v => this.changeHandler(v, 0)}/>
                                 </div>
 
