@@ -211,7 +211,7 @@ class TextArea extends Component {
 
                 children, className, triggerClassName, placeholderClassName, style, theme,
                 type, iconCls, disabled, infoMsg, autoHeight, wordCountVisible, placeholder,
-                clearButtonVisible, rightIconCls, passwordButtonVisible, fieldMsgVisible, maxLength,
+                clearButtonVisible, rightIconCls, passwordButtonVisible, fieldMsgVisible, maxLength, isStrictMaxLength,
                 onIconClick, onRightIconClick,
 
                 // not passing down these props
@@ -297,6 +297,7 @@ class TextArea extends Component {
                           className={fieldInputClassName}
                           type={inputType}
                           value={value}
+                          maxLength={isStrictMaxLength ? maxLength : null}
                           onChange={this.changeHandler}
                           onKeyDown={this.keyDownHandler}
                           onMouseOver={this.mouseOverHandler}
@@ -446,9 +447,8 @@ TextArea.propTypes = {
     passwordButtonVisible: PropTypes.bool,
 
     autoHeight: PropTypes.bool,
-
     wordCountVisible: PropTypes.bool,
-
+    isStrictMaxLength: PropTypes.bool,
     isFocusedSelectAll: PropTypes.bool,
 
     // valid
@@ -553,6 +553,7 @@ TextArea.defaultProps = {
     infoMsg: '',
     autoHeight: false,
     wordCountVisible: false,
+    isStrictMaxLength: false,
     isFocusedSelectAll: false,
 
     clearButtonVisible: false,
