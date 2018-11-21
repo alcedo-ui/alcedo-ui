@@ -205,6 +205,7 @@ class TextField extends Component {
 
                 children, className, triggerClassName, placeholderClassName, style, theme, type, iconCls, disabled,
                 infoMsg, placeholder, clearButtonVisible, rightIconCls, passwordButtonVisible, fieldMsgVisible,
+                maxLength, isStrictMaxLength,
                 onIconClick, onRightIconClick,
 
                 // not passing down these props
@@ -283,6 +284,7 @@ class TextField extends Component {
                        type={inputType}
                        value={value}
                        disabled={disabled}
+                       maxLength={isStrictMaxLength ? maxLength : null}
                        onChange={this.changeHandler}
                        onKeyDown={this.keyDownHandler}
                        onMouseOver={this.mouseOverHandler}
@@ -459,6 +461,7 @@ TextField.propTypes = {
      */
     patternInvalidMsg: PropTypes.string,
 
+    isStrictMaxLength: PropTypes.bool,
     fieldMsgVisible: PropTypes.bool,
 
     /**
@@ -540,7 +543,7 @@ TextField.defaultProps = {
     autoCorrect: 'off',
     autoCapitalize: 'off',
     spellCheck: 'false',
-
+    isStrictMaxLength: true,
     fieldMsgVisible: false
 
 };
