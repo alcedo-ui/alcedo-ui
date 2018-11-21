@@ -97,7 +97,7 @@ class TextArea extends Component {
             value: ''
         }, () => {
 
-            this.refs.input.focus();
+            this.focus();
 
             onClear && onClear();
             onChange && onChange('');
@@ -117,7 +117,7 @@ class TextArea extends Component {
             passwordVisible
         }, () => {
 
-            this.refs.input.focus();
+            this.focus();
 
             passwordVisible
                 ? (onPasswordVisible && onPasswordVisible())
@@ -192,7 +192,7 @@ class TextArea extends Component {
         this.resetHeight();
 
         if (this.props.autoFocus === true && this.inputEl) {
-            this.inputEl.focus();
+            this.focus();
         }
 
     }
