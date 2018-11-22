@@ -29,7 +29,7 @@ class TreeNode extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            collapsed: false
+            collapsed: props.collapsed
         };
 
     }
@@ -313,6 +313,7 @@ TreeNode.propTypes = {
     isLoading: PropTypes.bool,
     readOnly: PropTypes.bool,
     allowCollapse: PropTypes.bool,
+    collapsed: PropTypes.bool,
     isNodeToggling: PropTypes.bool,
     isSelectRecursive: PropTypes.bool,
 
@@ -354,6 +355,7 @@ TreeNode.defaultProps = {
     isLoading: false,
     readOnly: false,
     allowCollapse: true,
+    collapsed: false,
     isNodeToggling: false,
     isSelectRecursive: false,
 
