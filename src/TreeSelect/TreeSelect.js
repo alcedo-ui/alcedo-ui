@@ -230,7 +230,8 @@ class TreeSelect extends Component {
 
                 className, triggerClassName, popupClassName, style, name, data, popupTheme, renderer,
                 selectMode, valueField, displayField, descriptionField, triggerRenderer,
-                useFilter, filterIconCls, isSelectRecursive, allowCollapse, onNodeClick, popupChildren, noMatchedMsg,
+                useFilter, filterIconCls, isSelectRecursive, allowCollapse, collapsed,
+                onNodeClick, popupChildren, noMatchedMsg,
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
@@ -323,6 +324,7 @@ class TreeSelect extends Component {
                                       descriptionField={descriptionField}
                                       isSelectRecursive={isSelectRecursive}
                                       allowCollapse={allowCollapse}
+                                      collapsed={collapsed}
                                       collapsedIconCls={collapsedIconCls}
                                       expandedIconCls={expandedIconCls}
                                       radioUncheckedIconCls={radioUncheckedIconCls}
@@ -533,6 +535,7 @@ TreeSelect.propTypes = {
     shouldPreventContainerScroll: PropTypes.bool,
     isSelectRecursive: PropTypes.bool,
     allowCollapse: PropTypes.bool,
+    collapsed: PropTypes.bool,
     collapsedIconCls: PropTypes.string,
     expandedIconCls: PropTypes.string,
     radioUncheckedIconCls: PropTypes.string,
@@ -594,6 +597,7 @@ TreeSelect.defaultProps = {
     shouldPreventContainerScroll: true,
     isSelectRecursive: false,
     allowCollapse: true,
+    collapsed: false,
     resetPopPositionWait: 250
 
 };
