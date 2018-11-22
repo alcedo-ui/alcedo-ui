@@ -262,7 +262,7 @@ class DraggableTree extends Component {
     render() {
 
         const {
-                children, className, style, theme, allowCollapse,
+                children, className, style, theme, allowCollapse, collapsed,
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
                 idField, valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
@@ -296,6 +296,7 @@ class DraggableTree extends Component {
                                        selectMode={selectMode}
                                        renderer={renderer}
                                        allowCollapse={allowCollapse}
+                                       collapsed={collapsed}
                                        collapsedIconCls={collapsedIconCls}
                                        expandedIconCls={expandedIconCls}
                                        radioUncheckedIconCls={radioUncheckedIconCls}
@@ -460,6 +461,7 @@ DraggableTree.propTypes = {
     shouldPreventContainerScroll: PropTypes.bool,
     isSelectRecursive: PropTypes.bool,
     allowCollapse: PropTypes.bool,
+    collapsed: PropTypes.bool,
     collapsedIconCls: PropTypes.string,
     expandedIconCls: PropTypes.string,
     radioUncheckedIconCls: PropTypes.string,
@@ -523,7 +525,8 @@ DraggableTree.defaultProps = {
     readOnly: false,
     shouldPreventContainerScroll: true,
     isSelectRecursive: false,
-    allowCollapse: true
+    allowCollapse: true,
+    collapsed: false
 
 };
 
