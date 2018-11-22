@@ -215,7 +215,7 @@ class Tree extends Component {
     render() {
 
         const {
-                children, className, style, theme, data, filter, allowCollapse,
+                children, className, style, theme, data, filter, allowCollapse, collapsed,
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
                 valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
@@ -246,6 +246,7 @@ class Tree extends Component {
                           selectMode={selectMode}
                           renderer={renderer}
                           allowCollapse={allowCollapse}
+                          collapsed={collapsed}
                           collapsedIconCls={collapsedIconCls}
                           expandedIconCls={expandedIconCls}
                           radioUncheckedIconCls={radioUncheckedIconCls}
@@ -401,6 +402,7 @@ Tree.propTypes = {
     shouldPreventContainerScroll: PropTypes.bool,
     isSelectRecursive: PropTypes.bool,
     allowCollapse: PropTypes.bool,
+    collapsed: PropTypes.bool,
     collapsedIconCls: PropTypes.string,
     expandedIconCls: PropTypes.string,
     radioUncheckedIconCls: PropTypes.string,
@@ -458,7 +460,8 @@ Tree.defaultProps = {
     readOnly: false,
     shouldPreventContainerScroll: true,
     isSelectRecursive: false,
-    allowCollapse: true
+    allowCollapse: true,
+    collapsed: false
 
 };
 
