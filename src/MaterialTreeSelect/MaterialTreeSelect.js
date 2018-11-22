@@ -313,6 +313,7 @@ MaterialTreeSelect.propTypes = {
     shouldPreventContainerScroll: PropTypes.bool,
     isSelectRecursive: PropTypes.bool,
     allowCollapse: PropTypes.bool,
+    collapsed: PropTypes.bool,
     collapsedIconCls: PropTypes.string,
     expandedIconCls: PropTypes.string,
     radioUncheckedIconCls: PropTypes.string,
@@ -376,6 +377,7 @@ MaterialTreeSelect.defaultProps = {
     shouldPreventContainerScroll: true,
     isSelectRecursive: false,
     allowCollapse: true,
+    collapsed: false,
 
     required: false,
 
