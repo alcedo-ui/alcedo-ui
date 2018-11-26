@@ -5,15 +5,16 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import isArray from 'lodash/isArray';
 import {DragDropContext} from 'react-beautiful-dnd';
 import classNames from 'classnames';
+import isArray from 'lodash/isArray';
 
 import DraggableTreeNode from '../_DraggableTreeNode';
 import Tip from '../Tip';
 import Theme from '../Theme';
 
 import SelectMode from '../_statics/SelectMode';
+import VirtualRoot from '../_statics/VirtualRoot';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
@@ -86,17 +87,23 @@ class DraggableTree extends Component {
      */
     updateValue = value => {
 
-        const {data} = this.props;
+        const {data, valueField, displayField} = this.props;
         let result = [];
 
-        Util.postOrderTraverse(data, node => {
-            if (!node.children || node.children.length < 1) {
-                if (value.includes(node)) {
-                    result.push(node);
-                }
-            } else {
-                if (node.children.every(child => result.includes(child))) {
-                    result.push(node);
+        Util.postOrderTraverse(isArray(data) ? {[VirtualRoot]: true, children: data} : data, node => {
+            if (!(VirtualRoot in node)) {
+                if (!node.children || node.children.length < 1) {
+                    if (value.findIndex(item =>
+                        Util.getValueByValueField(item, valueField, displayField)
+                        === Util.getValueByValueField(node, valueField, displayField)) > -1) {
+                        result.push(node);
+                    }
+                } else {
+                    if (node.children.every(child => result.findIndex(item =>
+                        Util.getValueByValueField(item, valueField, displayField)
+                        === Util.getValueByValueField(child, valueField, displayField)) > -1)) {
+                        result.push(node);
+                    }
                 }
             }
         });
@@ -283,7 +290,7 @@ class DraggableTree extends Component {
                      style={style}
                      onWheel={e => Event.wheelHandler(e, this.props)}>
 
-                    <DraggableTreeNode data={data}
+                    <DraggableTreeNode data={isArray(data) ? {[VirtualRoot]: true, children: data} : data}
                                        value={value}
                                        theme={theme}
                                        idField={idField}
