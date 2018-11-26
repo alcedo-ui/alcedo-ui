@@ -68,19 +68,18 @@ class ButtonRadioGroup extends Component {
                 {
                     data && data.map((item, index) => {
 
-                            const isChecked = item.value == value;
+                        const isChecked = item.value == value;
 
-                            return (
-                                <ButtonRadio key={index}
-                                             theme={isChecked ? activatedTheme : theme}
-                                             data={item}
-                                             disabled={disabled || item.disabled}
-                                             isChecked={isChecked}
-                                             onClick={this.changeHandler}/>
-                            );
+                        return (
+                            <ButtonRadio key={index}
+                                         theme={isChecked ? activatedTheme : theme}
+                                         data={item}
+                                         disabled={disabled || item.disabled}
+                                         isChecked={isChecked}
+                                         onClick={this.changeHandler}/>
+                        );
 
-                        }
-                    )
+                    })
                 }
 
             </div>
