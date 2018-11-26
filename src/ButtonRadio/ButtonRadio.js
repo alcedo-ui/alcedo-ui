@@ -21,25 +21,29 @@ class ButtonRadio extends Component {
     }
 
     clickHandler = () => {
-        const {data, onClick} = this.props;
-        onClick && onClick(data);
+        const {onClick} = this.props;
+        onClick && onClick();
     };
 
     render() {
 
-        const {theme, data, disabled, isChecked} = this.props,
+        const {
+                className, style, theme,
+                label, disabled, isChecked, onClick
+            } = this.props,
 
             wrapperClassName = classNames('button-radio', {
                 activated: isChecked,
-                [data.className]: data.className
+                [className]: className
             });
 
         return (
             <RaisedButton className={wrapperClassName}
+                          style={style}
                           theme={theme}
-                          value={data.label}
+                          value={label}
                           disabled={disabled}
-                          onClick={this.clickHandler}/>
+                          onClick={onClick}/>
         );
 
     }
@@ -53,38 +57,30 @@ ButtonRadio.propTypes = {
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
-     * Data for ButtonRadio.
+     * The className of RaisedButton.
      */
-    data: PropTypes.shape({
+    className: PropTypes.string,
 
-        /**
-         * The className of RaisedButton.
-         */
-        className: PropTypes.string,
+    /**
+     * The style of RaisedButton.
+     */
+    style: PropTypes.object,
 
-        /**
-         * The style of RaisedButton.
-         */
-        style: PropTypes.object,
+    /**
+     * The label of RaisedButton.
+     */
+    label: PropTypes.any,
 
-        /**
-         * The label of RaisedButton.
-         */
-        label: PropTypes.any,
+    /**
+     * The value of RaisedButton.
+     */
+    value: PropTypes.any,
 
-        /**
-         * The value of RaisedButton.
-         */
-        value: PropTypes.any,
-
-        /**
-         * If true, the RaisedButton will be disabled.
-         */
-        disabled: PropTypes.bool
-
-    }).isRequired,
-
+    /**
+     * If true, the RaisedButton will be disabled.
+     */
     disabled: PropTypes.bool,
+
     isChecked: PropTypes.bool,
 
     onClick: PropTypes.func

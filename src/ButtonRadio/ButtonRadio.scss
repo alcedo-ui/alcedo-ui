@@ -23,6 +23,8 @@
     &:hover {
         z-index: 1;
         box-shadow: none;
+        border-color: $theme-border;
+        background: $theme-secondary;
     }
 
     &.activated {
