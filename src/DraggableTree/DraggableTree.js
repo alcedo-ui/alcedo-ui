@@ -357,7 +357,7 @@ DraggableTree.propTypes = {
     /**
      * Children passed into the tree node.
      */
-    data: PropTypes.shape({
+    data: PropTypes.oneOfType([PropTypes.shape({
 
         /**
          * The CSS class name of the tree node.
@@ -431,7 +431,7 @@ DraggableTree.propTypes = {
          */
         onClick: PropTypes.func
 
-    }),
+    }), PropTypes.array]),
 
     /**
      * The id field name in data. (default: "id")
