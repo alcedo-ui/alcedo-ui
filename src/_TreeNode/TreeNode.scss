@@ -148,32 +148,35 @@
         &.theme-primary {
             @include tree-node-theme($theme-secondary, $theme-primary);
         }
+
         &.theme-secondary {
             @include tree-node-theme($theme-primary, $theme-secondary);
         }
+
         &.theme-highlight {
             @include tree-node-theme(#fff, $theme-highlight);
         }
+
         &.theme-info {
             @include tree-node-theme(#fff, $theme-info);
         }
+
         &.theme-success {
             @include tree-node-theme(#fff, $theme-success);
         }
+
         &.theme-warning {
             @include tree-node-theme(#fff, $theme-warning);
         }
+
         &.theme-error {
             @include tree-node-theme(#fff, $theme-error);
         }
     }
 
-    .tree-node-children {
-
-        &.collapsed {
-            height: 0;
-            overflow: hidden;
-        }
+    .tree-node-children.collapsed {
+        height: 0;
+        overflow: hidden;
     }
 
     .tip-provider > .trigger-wrapper {

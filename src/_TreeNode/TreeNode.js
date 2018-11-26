@@ -29,7 +29,7 @@ class TreeNode extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            collapsed: props.data[VirtualRoot] ? false : props.collapsed
+            collapsed: props.data && props.data[VirtualRoot] ? false : props.collapsed
         };
 
     }
