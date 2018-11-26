@@ -48,9 +48,11 @@ class TreeExamples extends Component {
             }]
         };
 
+        this.arrayData = this.data.children;
+
     }
 
-    nodeClickHandler = (node) => {
+    nodeClickHandler = node => {
         console.log('Node Clicked::', node);
     };
 
@@ -111,16 +113,17 @@ class TreeExamples extends Component {
                         <div className="example-content">
                             <div className="examples-wrapper">
                                 <Paper className="tree-wrapper">
-                                    <Tree data={this.data}
+                                    <Tree data={this.arrayData}
+                                          collapsed={true}
                                           collapsedIconCls="far fa-plus-square"
                                           expandedIconCls="far fa-minus-square"
-                                          renderer={node => {
-                                              return <div className="self-define-node">
+                                          renderer={node =>
+                                              <div className="self-define-node">
                                                   <span className="self-define-node-id">{node.id}</span>
                                                   <span className="self-define-node-text">{node.text}</span>
                                                   <span className="self-define-node-desc">{node.desc}</span>
-                                              </div>;
-                                          }}
+                                              </div>
+                                          }
                                           onNodeSelect={this.nodeSelectHandler}
                                           onChange={this.changeHandler}/>
                                 </Paper>
