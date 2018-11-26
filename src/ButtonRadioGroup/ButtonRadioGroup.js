@@ -72,11 +72,11 @@ class ButtonRadioGroup extends Component {
 
                         return (
                             <ButtonRadio key={index}
+                                         {...item}
                                          theme={isChecked ? activatedTheme : theme}
-                                         data={item}
                                          disabled={disabled || item.disabled}
                                          isChecked={isChecked}
-                                         onClick={this.changeHandler}/>
+                                         onClick={() => this.changeHandler(item)}/>
                         );
 
                     })
