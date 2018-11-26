@@ -4,8 +4,10 @@
  */
 
 .raised-button.button-radio {
+    position: relative;
     border-radius: 0;
-    border-right: none;
+    box-shadow: none;
+    margin-right: -1px;
 
     &:first-child {
         border-top-left-radius: $theme-border-radius;
@@ -15,6 +17,19 @@
     &:last-child {
         border-top-right-radius: $theme-border-radius;
         border-bottom-right-radius: $theme-border-radius;
-        border-right: 1px solid $theme-border;
+        margin-right: 0;
+    }
+
+    &:hover {
+        z-index: 1;
+        box-shadow: none;
+    }
+
+    &.activated {
+        border-color: $theme-border;
+
+        &:hover {
+            border-color: $theme-border;
+        }
     }
 }
