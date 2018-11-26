@@ -208,22 +208,22 @@ class DraggableTree extends Component {
         onNodeDragStart && onNodeDragStart(initial);
     };
 
+    /**
+     * @param result [Object]
+     *  {
+     *      draggableId,
+     *      type,
+     *      source: {
+     *          droppableId,
+     *          index
+     *      },
+     *      destination: {
+     *          droppableId,
+     *          index
+     *      }
+     *  }
+     */
     onNodeDragEnd = result => {
-
-        /**
-         *  result: {
-         *      draggableId,
-         *      type,
-         *      source: {
-         *          droppableId,
-         *          index
-         *      },
-         *      destination: {
-         *          droppableId,
-         *          index
-         *      }
-         *  }
-         */
 
         if (!result || !('draggableId' in result)
             || !result.source || !('index' in result.source)
@@ -235,7 +235,10 @@ class DraggableTree extends Component {
             sourceIndex = result.source.index,
             destinationIndex = result.destination.index;
 
-        TreeCalculation.findNodeById(data, result.draggableId, (node, index, parent) => {
+        TreeCalculation.findNodeById(isArray(data) ? {
+            [VirtualRoot]: true,
+            children: data
+        } : data, result.draggableId, (node, index, parent) => {
 
             if (!parent.children || !(sourceIndex in parent.children) || !(destinationIndex in parent.children)) {
                 return;
