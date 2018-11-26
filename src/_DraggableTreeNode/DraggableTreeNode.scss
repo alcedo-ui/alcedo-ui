@@ -172,32 +172,35 @@
         &.theme-primary {
             @include draggable-tree-node-theme($theme-secondary, $theme-primary);
         }
+
         &.theme-secondary {
             @include draggable-tree-node-theme($theme-primary, $theme-secondary);
         }
+
         &.theme-highlight {
             @include draggable-tree-node-theme(#fff, $theme-highlight);
         }
+
         &.theme-info {
             @include draggable-tree-node-theme(#fff, $theme-info);
         }
+
         &.theme-success {
             @include draggable-tree-node-theme(#fff, $theme-success);
         }
+
         &.theme-warning {
             @include draggable-tree-node-theme(#fff, $theme-warning);
         }
+
         &.theme-error {
             @include draggable-tree-node-theme(#fff, $theme-error);
         }
     }
 
-    .draggable-tree-node-children {
-
-        &.collapsed {
-            height: 0;
-            overflow: hidden;
-        }
+    .draggable-tree-node-children.collapsed {
+        height: 0;
+        overflow: hidden;
     }
 
     .tip-provider > .trigger-wrapper {

@@ -17,6 +17,7 @@ import Checkbox from '../Checkbox';
 
 import Position from '../_statics/Position';
 import SelectMode from '../_statics/SelectMode';
+import VirtualRoot from '../_statics/VirtualRoot';
 
 import Util from '../_vendors/Util';
 import Calculation from '../_vendors/Calculation';
@@ -31,7 +32,7 @@ class DraggableTreeNode extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            collapsed: props.collapsed
+            collapsed: props.data && props.data[VirtualRoot] ? false : props.collapsed
         };
 
     }
@@ -95,11 +96,50 @@ class DraggableTreeNode extends Component {
 
     };
 
+    renderChildren = () => {
+
+        const {depth, path, data} = this.props,
+            {collapsed} = this.state,
+            isVirtual = VirtualRoot in data,
+
+            childrenClassName = classNames('draggable-tree-node-children', {
+                collapsed
+            });
+
+        return data.children && data.children.length > 0 ?
+            <div className={childrenClassName}>
+                {
+                    data.children.map((item, index) =>
+                        <DraggableTreeNode {...this.props}
+                                           key={index}
+                                           data={item}
+                                           index={index}
+                                           depth={depth + (isVirtual ? 0 : 1)}
+                                           path={
+                                               path ?
+                                                   [...path, {index, node: item}]
+                                                   :
+                                                   [{index, node: item}]
+                                           }/>
+                    )
+                }
+            </div>
+            :
+            null;
+
+    };
+
     render() {
+
+        const {data} = this.props;
+
+        if (VirtualRoot in data) {
+            return this.renderChildren();
+        }
 
         const {
 
-                index, depth, path, theme, selectTheme, selectMode, data, value,
+                index, depth, path, theme, selectTheme, selectMode, value,
                 disabled, isLoading, readOnly, allowCollapse, isSelectRecursive,
                 valueField, displayField, descriptionField,
 
