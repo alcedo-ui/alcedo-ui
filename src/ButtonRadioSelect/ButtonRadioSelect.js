@@ -18,21 +18,40 @@ class ButtonRadioSelect extends Component {
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
+
         super(props, ...restArgs);
+
+        this.state = {
+
+        };
+
     }
 
     render() {
 
         const {
-            className, style, theme,
-            data
-        } = this.props;
+                className, triggerClassName, popupClassName, style, theme,
+                data
+            } = this.props,
+
+            selectClassName = classNames('button-radio-select', {
+                [className]: className
+            }),
+            btnClassName = classNames('button-radio-select-trigger', {
+                [triggerClassName]: triggerClassName
+            }),
+            popClassName = classNames('button-radio-select-popup', {
+                [popupClassName]: popupClassName
+            });
 
         return (
-            <Dropdown className={className}
+            <Dropdown className={selectClassName}
+                      triggerClassName={btnClassName}
+                      popupClassName={popClassName}
                       style={style}
                       theme={theme}
-                      position={Dropdown.Position.Right}>
+                      position={Dropdown.Position.RIGHT}
+                      autoPopupWidth={false}>
                 <ButtonRadioGroup data={data}/>
             </Dropdown>
         );
@@ -46,6 +65,16 @@ ButtonRadioSelect.propTypes = {
      * The CSS class name of the root element.
      */
     className: PropTypes.string,
+
+    /**
+     * The CSS class name of the trigger element.
+     */
+    triggerClassName: PropTypes.string,
+
+    /**
+     * The CSS class name of the popup element.
+     */
+    popupClassName: PropTypes.string,
 
     /**
      * Override the styles of the root element.
