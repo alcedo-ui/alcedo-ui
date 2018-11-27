@@ -328,17 +328,17 @@ List.propTypes = {
         title: PropTypes.string,
 
         /**
-         * If true,the list item will be disabled.
+         * If true, the list item will be disabled.
          */
         disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 
         /**
-         * If true,the button will be have loading effect.
+         * If true, the button will be have loading effect.
          */
         isLoading: PropTypes.bool,
 
         /**
-         * If true,the element's ripple effect will be disabled.
+         * If true, the element's ripple effect will be disabled.
          */
         disableTouchRipple: PropTypes.bool,
 
@@ -363,7 +363,7 @@ List.propTypes = {
         tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
 
         /**
-         * If true,the item will have center displayed ripple effect.
+         * If true, the item will have center displayed ripple effect.
          */
         rippleDisplayCenter: PropTypes.bool,
 
