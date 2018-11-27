@@ -24,7 +24,8 @@ class ButtonRadioSelect extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            popVisible: false
+            popVisible: false,
+            value: props.value
         };
 
     }
@@ -70,6 +71,14 @@ class ButtonRadioSelect extends Component {
 
     };
 
+    changeHandler = value => {
+        this.setState({
+            value
+        }, () => {
+            this.closePopup();
+        });
+    };
+
     componentDidMount() {
         this.triggerEl = findDOMNode(this.refs.trigger);
     }
@@ -107,9 +116,11 @@ class ButtonRadioSelect extends Component {
                        position={Popup.Position.RIGHT}
                        triggerEl={this.triggerEl}
                        visible={popVisible}
-                       hasTriangle={false}>
+                       hasTriangle={false}
+                       onRequestClose={this.closePopup}>
                     <ButtonRadioGroup data={data}
-                                      themetheme/>
+                                      theme={theme}
+                                      onChange={this.changeHandler}/>
                 </Popup>
 
             </div>
@@ -196,6 +207,20 @@ ButtonRadioSelect.propTypes = {
      * If true, the ButtonRadioGroup will be disabled.
      */
     disabled: PropTypes.bool,
+
+    /**
+     * Callback function fired when the popup is open.
+     */
+    onOpenPopup: PropTypes.func,
+
+    /**
+     * Callback function fired when the popup is close.
+     */
+    onClosePopup: PropTypes.func,
+
+    onFocus: PropTypes.func,
+    onBlur: PropTypes.func,
+    onTriggerClick: Popup.func,
 
     /**
      * Callback function fired when click RaisedButton.
