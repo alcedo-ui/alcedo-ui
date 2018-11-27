@@ -35,14 +35,14 @@
     .button-radio-group {
         float: right;
 
-        .button-radio {
-            width: auto;
-
+        .list-item {
             &:first-child {
                 border-left: none;
                 border-top-left-radius: 0;
                 border-bottom-left-radius: 0;
             }
+
+
         }
     }
 
