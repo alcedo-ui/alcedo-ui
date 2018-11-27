@@ -7,7 +7,7 @@ import MaterialDropdownSelect from 'src/MaterialDropdownSelect';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import MaterialDropdownSelectDoc from 'examples/assets/propTypes/MaterialDropdownSelect.json';
 
-import 'scss/containers/app/modules/fields/MaterialDropdownSelectExamples.scss';
+import 'scss/containers/app/modules/field/MaterialDropdownSelectExamples.scss';
 
 class MaterialDropdownSelectExamples extends Component {
 

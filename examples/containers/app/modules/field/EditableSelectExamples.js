@@ -7,7 +7,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/EditableSelect.json';
 
-import 'scss/containers/app/modules/fields/EditableSelectExamples.scss';
+import 'scss/containers/app/modules/field/EditableSelectExamples.scss';
 
 class EditableSelectExamples extends Component {
 

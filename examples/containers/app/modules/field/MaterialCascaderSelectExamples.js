@@ -7,7 +7,7 @@ import MaterialCascaderSelect from 'src/MaterialCascaderSelect';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/MaterialCascaderSelect.json';
 
-import 'scss/containers/app/modules/fields/MaterialCascaderSelectExamples.scss';
+import 'scss/containers/app/modules/field/MaterialCascaderSelectExamples.scss';
 
 class MaterialCascaderSelectExamples extends Component {
 

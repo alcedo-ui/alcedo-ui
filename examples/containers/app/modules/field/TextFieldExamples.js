@@ -8,7 +8,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/TextField.json';
 
-import 'scss/containers/app/modules/fields/TextFieldExamples.scss';
+import 'scss/containers/app/modules/field/TextFieldExamples.scss';
 
 class TextFieldExamples extends Component {
 

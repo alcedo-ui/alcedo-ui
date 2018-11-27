@@ -7,7 +7,7 @@ import CascaderSelect from 'src/CascaderSelect';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/CascaderSelect.json';
 
-import 'scss/containers/app/modules/fields/CascaderSelectExamples.scss';
+import 'scss/containers/app/modules/field/CascaderSelectExamples.scss';
 
 class CascaderSelectExamples extends Component {
 

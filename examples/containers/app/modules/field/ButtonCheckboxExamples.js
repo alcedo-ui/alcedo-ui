@@ -7,7 +7,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/ButtonCheckbox.json';
 
-import 'scss/containers/app/modules/fields/ButtonCheckboxExamples.scss';
+import 'scss/containers/app/modules/field/ButtonCheckboxExamples.scss';
 
 class ButtonCheckboxExamples extends Component {
 

@@ -7,7 +7,7 @@ import TreeSelect from 'src/TreeSelect';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/TreeSelect.json';
 
-import 'scss/containers/app/modules/fields/TreeSelectExamples.scss';
+import 'scss/containers/app/modules/field/TreeSelectExamples.scss';
 
 class TreeSelectExamples extends Component {
 

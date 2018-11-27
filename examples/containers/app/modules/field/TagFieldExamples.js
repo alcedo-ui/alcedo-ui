@@ -7,7 +7,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/TagField.json';
 
-import 'scss/containers/app/modules/fields/TagFieldExamples.scss';
+import 'scss/containers/app/modules/field/TagFieldExamples.scss';
 
 class TagFieldExamples extends Component {
 

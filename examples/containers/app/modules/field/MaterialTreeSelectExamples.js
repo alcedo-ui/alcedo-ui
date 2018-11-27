@@ -7,7 +7,7 @@ import MaterialTreeSelect from 'src/MaterialTreeSelect';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/MaterialTreeSelect.json';
 
-import 'scss/containers/app/modules/fields/MaterialTreeSelectExamples.scss';
+import 'scss/containers/app/modules/field/MaterialTreeSelectExamples.scss';
 
 class MaterialTreeSelectExamples extends Component {
 
