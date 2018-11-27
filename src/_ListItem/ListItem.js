@@ -88,8 +88,9 @@ class ListItem extends Component {
 
         const {
 
-                index, className, style, theme, data, text, desc, title, iconCls, rightIconCls, tip, tipPosition,
-                disabled, isLoading, disableTouchRipple, rippleDisplayCenter, renderer, itemRenderer, readOnly,
+                index, className, style, theme, activatedTheme, data, text, desc, title, iconCls, rightIconCls,
+                tip, tipPosition, disabled, isLoading, disableTouchRipple, rippleDisplayCenter, readOnly,
+                renderer, itemRenderer,
 
                 checked, selectTheme, selectMode, indeterminateCallback, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
@@ -99,7 +100,8 @@ class ListItem extends Component {
             } = this.props,
 
             listItemClassName = classNames('list-item', {
-                [`theme-${theme}`]: theme,
+                [`theme-${theme}`]: !checked && theme,
+                [`theme-${activatedTheme}`]: checked && activatedTheme,
                 activated: checked,
                 [className]: className
             }),
@@ -227,6 +229,7 @@ ListItem.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+    activatedTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
     selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
@@ -275,6 +278,7 @@ ListItem.defaultProps = {
     index: 0,
 
     theme: Theme.DEFAULT,
+    activatedTheme: Theme.DEFAULT,
 
     selectTheme: Theme.DEFAULT,
     selectMode: SelectMode.SINGLE_SELECT,
