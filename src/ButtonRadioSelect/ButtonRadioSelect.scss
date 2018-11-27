@@ -3,13 +3,45 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-.button-radio-select {
+.dropdown.button-radio-select {
 
-    .button-radio-select-trigger {
+    .raised-button.dropdown-trigger.button-radio-select-trigger {
+        width: auto;
+        box-shadow: none;
 
+        .dropdown-trigger-icon {
+            display: none;
+        }
+
+        &.activated {
+            border-bottom-left-radius: $theme-border-radius;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
     }
 }
 
-.trigger-pop.button-radio-select-popup {
+.trigger-pop.popup.button-radio-select-popup {
     width: auto;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+
+    .button-radio-group {
+        .button-radio {
+            &:first-child {
+                border-left: none;
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+        }
+    }
+
+    &.trigger-pop-animated {
+        transition: width $theme-transition-duration ease-in-out;
+
+        &.hidden {
+            width: 0;
+        }
+    }
 }
