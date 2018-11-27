@@ -164,9 +164,9 @@ class List extends Component {
 
         const {
 
-                theme, itemHeight, idField, valueField, displayField, descriptionField, disabled, itemDisabled,
-                isLoading, renderer, autoSelect, disableTouchRipple, selectTheme, selectMode, indeterminateCallback,
-                radioUncheckedIconCls, radioCheckedIconCls,
+                theme, activatedTheme, itemHeight, idField, valueField, displayField, descriptionField, disabled,
+                itemDisabled, isLoading, renderer, autoSelect, disableTouchRipple, selectTheme, selectMode,
+                indeterminateCallback, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
                 onItemClick
@@ -180,6 +180,7 @@ class List extends Component {
                       index={index}
                       style={{height: itemHeight}}
                       theme={item.theme || theme}
+                      activatedTheme={item.activatedTheme || activatedTheme}
                       selectTheme={item.selectTheme || selectTheme}
                       radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
                       radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
@@ -209,6 +210,7 @@ class List extends Component {
                       index={index}
                       style={{height: itemHeight}}
                       theme={theme}
+                      activatedTheme={activatedTheme}
                       selectTheme={selectTheme}
                       radioUncheckedIconCls={radioUncheckedIconCls}
                       radioCheckedIconCls={radioCheckedIconCls}
@@ -281,6 +283,11 @@ List.propTypes = {
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
+     * The theme of the list item activated.
+     */
+    activatedTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
      * The theme of the list item select radio or checkbox.
      */
     selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
@@ -309,6 +316,11 @@ List.propTypes = {
          * The theme of the list button.
          */
         theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+        /**
+         * The theme of the list button activated.
+         */
+        activatedTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
         /**
          * The text value of the list button.Type can be string or number.
@@ -474,6 +486,7 @@ List.propTypes = {
 List.defaultProps = {
 
     theme: Theme.DEFAULT,
+    activatedTheme: Theme.DEFAULT,
 
     selectTheme: Theme.DEFAULT,
     selectMode: SelectMode.SINGLE_SELECT,
