@@ -238,7 +238,7 @@ ButtonRadioGroup.propTypes = {
 ButtonRadioGroup.defaultProps = {
 
     theme: Theme.DEFAULT,
-
+    activatedTheme: Theme.PRIMARY,
     selectTheme: Theme.DEFAULT,
 
     idField: 'id',
