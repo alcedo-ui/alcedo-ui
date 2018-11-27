@@ -126,6 +126,11 @@ export default function configureRoutes(store) {
                         /* webpackChunkName: "ButtonRadioGroupExamples" */
                         'modules/fields/ButtonRadioGroupExamples'), store)
                 }, {
+                    path: '/components/ButtonRadioSelect',
+                    component: ac(() => import(
+                        /* webpackChunkName: "ButtonRadioSelectExamples" */
+                        'modules/fields/ButtonRadioSelectExamples'), store)
+                }, {
                     path: '/components/Switcher',
                     component: ac(() => import(
                         /* webpackChunkName: "SwitcherExamples" */
