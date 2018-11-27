@@ -45,7 +45,7 @@ class ButtonRadioSelectExamples extends Component {
 
                 <p>
                     <span>ButtonRadioSelect</span>
-                    is a radio select use button style.
+                    &nbsp;is a radio select use button style.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
