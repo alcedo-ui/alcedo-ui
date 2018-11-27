@@ -4,11 +4,13 @@
  */
 
 import React, {Component} from 'react';
+import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import RaisedButton from '../RaisedButton';
+import Popup from '../Popup';
 import ButtonRadioGroup from '../ButtonRadioGroup';
-import Dropdown from '../Dropdown';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
@@ -22,9 +24,54 @@ class ButtonRadioSelect extends Component {
         super(props, ...restArgs);
 
         this.state = {
-
+            popVisible: false
         };
 
+    }
+
+    /**
+     * public
+     */
+    openPopup = e => {
+        this.setState({
+            popVisible: true
+        }, () => {
+            const {onOpenPopup, onFocus} = this.props;
+            onOpenPopup && onOpenPopup(e);
+            onFocus && onFocus(e);
+        });
+    };
+
+    /**
+     * public
+     */
+    closePopup = e => {
+        this.setState({
+            popVisible: false
+        }, () => {
+            const {onClosePopup, onBlur} = this.props;
+            onClosePopup && onClosePopup(e);
+            onBlur && onBlur(e);
+        });
+    };
+
+    toggle = e => {
+
+        const {onTriggerClick} = this.props,
+            {popVisible} = this.state;
+
+        onTriggerClick && onTriggerClick(popVisible, e);
+
+        if (popVisible) {
+            this.closePopup(e);
+        } else {
+            this.openPopup(e);
+        }
+
+    };
+
+    componentDidMount() {
+        this.triggerEl = findDOMNode(this.refs.trigger);
     }
 
     render() {
@@ -33,11 +80,13 @@ class ButtonRadioSelect extends Component {
                 className, triggerClassName, popupClassName, style, theme,
                 data
             } = this.props,
+            {popVisible} = this.state,
 
             selectClassName = classNames('button-radio-select', {
                 [className]: className
             }),
             btnClassName = classNames('button-radio-select-trigger', {
+                activated: popVisible,
                 [triggerClassName]: triggerClassName
             }),
             popClassName = classNames('button-radio-select-popup', {
@@ -45,15 +94,25 @@ class ButtonRadioSelect extends Component {
             });
 
         return (
-            <Dropdown className={selectClassName}
-                      triggerClassName={btnClassName}
-                      popupClassName={popClassName}
-                      style={style}
-                      theme={theme}
-                      position={Dropdown.Position.RIGHT}
-                      autoPopupWidth={false}>
-                <ButtonRadioGroup data={data}/>
-            </Dropdown>
+            <div className={selectClassName}
+                 style={style}>
+
+                <RaisedButton ref="trigger"
+                              className={btnClassName}
+                              theme={theme}
+                              onClick={this.toggle}/>
+
+                <Popup className={popClassName}
+                       theme={theme}
+                       position={Popup.Position.RIGHT}
+                       triggerEl={this.triggerEl}
+                       visible={popVisible}
+                       hasTriangle={false}>
+                    <ButtonRadioGroup data={data}
+                                      themetheme/>
+                </Popup>
+
+            </div>
         );
 
     }

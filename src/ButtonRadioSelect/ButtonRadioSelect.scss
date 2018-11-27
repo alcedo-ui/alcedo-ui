@@ -3,11 +3,12 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-.dropdown.button-radio-select {
+.button-radio-select {
 
-    .raised-button.dropdown-trigger.button-radio-select-trigger {
+    .button-radio-select-trigger {
         width: auto;
         box-shadow: none;
+        padding: 0 16px;
 
         .dropdown-trigger-icon {
             display: none;
@@ -25,10 +26,17 @@
     width: auto;
     box-shadow: none;
     border: none;
-    border-radius: 0;
+
+    .popup-content {
+        border-radius: 0;
+    }
 
     .button-radio-group {
+        float: right;
+
         .button-radio {
+            width: auto;
+
             &:first-child {
                 border-left: none;
                 border-top-left-radius: 0;
@@ -41,6 +49,7 @@
         transition: width $theme-transition-duration ease-in-out;
 
         &.hidden {
+            opacity: 1;
             width: 0;
         }
     }
