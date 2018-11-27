@@ -3,9 +3,9 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-.button-radio-select {
+.dropdown.button-radio-select {
 
-    .button-radio-select-trigger {
+    .raised-button.dropdown-trigger.button-radio-select-trigger {
         width: auto;
         box-shadow: none;
         padding: 0 16px;
@@ -26,6 +26,7 @@
     width: auto;
     box-shadow: none;
     border: none;
+    border-radius: 0;
 
     .popup-content {
         border-radius: 0;
@@ -51,6 +52,7 @@
         &.hidden {
             opacity: 1;
             width: 0;
+            transform: scale(1);
         }
     }
 }
