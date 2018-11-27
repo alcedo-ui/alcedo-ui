@@ -129,8 +129,8 @@ class Dropdown extends Component {
 
                 children,
 
-                className, triggerClassName, popupClassName, style, triggerStyle, popupStyle, theme, popupTheme,
-                position, iconCls, triggerValue, title, tip, tipPosition,
+                className, triggerClassName, popupClassName, style, triggerStyle, popupStyle,
+                theme, activatedTheme, popupTheme, position, iconCls, triggerValue, title, tip, tipPosition,
                 rightIconCls, disabled, disableTouchRipple, autoPopupWidth, resetPopPositionWait,
 
                 // events
@@ -165,7 +165,7 @@ class Dropdown extends Component {
                 <RaisedButton ref="trigger"
                               className={buttonClassName}
                               style={triggerStyle}
-                              theme={theme}
+                              theme={popupVisible ? activatedTheme : theme}
                               value={triggerValue}
                               title={title}
                               tip={tip}
@@ -239,6 +239,11 @@ Dropdown.propTypes = {
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
+     * The theme.
+     */
+    activatedTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
      * The popup theme.
      */
     popupTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
@@ -298,6 +303,7 @@ Dropdown.propTypes = {
 Dropdown.defaultProps = {
 
     theme: Theme.DEFAULT,
+    activatedTheme: Theme.DEFAULT,
     popupTheme: Theme.DEFAULT,
 
     rightIconCls: 'fas fa-angle-down',
