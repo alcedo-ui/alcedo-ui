@@ -7,7 +7,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import ButtonRadio from '../ButtonRadio';
+import List from '../List';
+import Tip from '../Tip';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
@@ -17,72 +18,20 @@ class ButtonRadioGroup extends Component {
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.state = {
-            value: props.value
-        };
-
-    }
-
-    changeHandler = item => {
-        this.setState({
-            value: item.value
-        }, () => {
-            !this.props.disabled && this.props.onChange && this.props.onChange(item.value);
-        });
-    };
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: !!nextProps.value
-            });
-        }
     }
 
     render() {
 
-        const {className, style, theme, activatedTheme, name, disabled, data} = this.props,
-            {value} = this.state,
+        const {className, ...restProps} = this.props,
 
-            groupClassName = classNames('button-radio-group', {
+            fieldClassName = classNames('button-radio-group', {
                 [className]: className
             });
 
         return (
-            <div className={groupClassName}
-                 style={style}
-                 disabled={disabled}>
-
-                {
-                    name ?
-                        <input type="hidden"
-                               name={name}
-                               value={value}/>
-                        :
-                        null
-                }
-
-                {
-                    data && data.map((item, index) => {
-
-                        const isChecked = item.value == value;
-
-                        return (
-                            <ButtonRadio key={index}
-                                         {...item}
-                                         theme={isChecked ? activatedTheme : theme}
-                                         disabled={disabled || item.disabled}
-                                         isChecked={isChecked}
-                                         onClick={() => this.changeHandler(item)}/>
-                        );
-
-                    })
-                }
-
-            </div>
+            <List {...restProps}
+                  className={fieldClassName}/>
         );
 
     }
@@ -101,64 +50,186 @@ ButtonRadioGroup.propTypes = {
     style: PropTypes.object,
 
     /**
-     * The ButtonCheckbox theme.
+     * The theme of the ButtonRadioGroup item.
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
-     * The ButtonCheckbox activated theme.
+     * The theme of the ButtonRadioGroup item select radio or checkbox.
      */
-    activatedTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
-     * The hidden input name for form submit.
+     * Children passed into the ButtonRadio.
      */
-    name: PropTypes.string,
-
-    /**
-     * Data for ButtonRadioGroup.
-     */
-    data: PropTypes.arrayOf(PropTypes.shape({
+    data: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.shape({
 
         /**
-         * The className of RaisedButton.
+         * The CSS class name of the ButtonRadioGroup button.
          */
         className: PropTypes.string,
 
         /**
-         * The style of RaisedButton.
+         * Override the styles of the ButtonRadioGroup button.
          */
         style: PropTypes.object,
 
         /**
-         * The label of RaisedButton.
+         * The theme of the ButtonRadioGroup button.
          */
-        label: PropTypes.any,
+        theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
         /**
-         * The value of RaisedButton.
+         * The text value of the ButtonRadioGroup button.Type can be string or number.
          */
-        value: PropTypes.any,
+        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
         /**
-         * If true, the RaisedButton will be disabled.
+         * The ButtonRadioGroup item's display text. Type can be string, number or bool.
          */
-        disabled: PropTypes.bool
+        text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-    })).isRequired,
+        /**
+         * The desc value of the ButtonRadioGroup button. Type can be string or number.
+         */
+        desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+        /**
+         * The title value of the ButtonRadioGroup button.
+         */
+        title: PropTypes.string,
+
+        /**
+         * If true, the ButtonRadioGroup item will be disabled.
+         */
+        disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+
+        /**
+         * If true, the button will be have loading effect.
+         */
+        isLoading: PropTypes.bool,
+
+        /**
+         * If true, the element's ripple effect will be disabled.
+         */
+        disableTouchRipple: PropTypes.bool,
+
+        /**
+         * Use this property to display an icon. It will display on the left.
+         */
+        iconCls: PropTypes.string,
+
+        /**
+         * Use this property to display an icon. It will display on the right.
+         */
+        rightIconCls: PropTypes.string,
+
+        /**
+         * The message of tip.
+         */
+        tip: PropTypes.string,
+
+        /**
+         * The position of tip.
+         */
+        tipPosition: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
+
+        /**
+         * If true, the item will have center displayed ripple effect.
+         */
+        rippleDisplayCenter: PropTypes.bool,
+
+        /**
+         * You can create a complicated renderer callback instead of value and desc prop.
+         */
+        itemRenderer: PropTypes.func,
+
+        /**
+         * Callback function fired when a ButtonRadioGroup item touch-tapped.
+         */
+        onClick: PropTypes.func
+
+    }), PropTypes.string, PropTypes.number, PropTypes.symbol])),
+
+    value: PropTypes.any,
 
     /**
-     * Set one of the button activation.
+     * The id field name in data. (default: "id")
      */
-    value: PropTypes.any,
+    idField: PropTypes.string,
+
+    /**
+     * The value field name in data. (default: "value")
+     */
+    valueField: PropTypes.string,
+
+    /**
+     * The display field name in data. (default: "text")
+     */
+    displayField: PropTypes.string,
+
+    /**
+     * The description field name in data. (default: "desc")
+     */
+    descriptionField: PropTypes.string,
 
     /**
      * If true, the ButtonRadioGroup will be disabled.
      */
-    disabled: PropTypes.bool,
+    disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 
     /**
-     * Callback function fired when click RaisedButton.
+     * ButtonRadio disabled callback.
+     */
+    itemDisabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+
+    /**
+     * If true,the element's ripple effect will be disabled.
+     */
+    disableTouchRipple: PropTypes.bool,
+
+    /**
+     * If true, the ButtonRadioGroup will be at loading status.
+     */
+    isLoading: PropTypes.bool,
+
+    /**
+     * Whether select when item clicked.
+     */
+    autoSelect: PropTypes.bool,
+
+    indeterminateCallback: PropTypes.func,
+
+    shouldPreventContainerScroll: PropTypes.bool,
+
+    radioUncheckedIconCls: PropTypes.string,
+    radioCheckedIconCls: PropTypes.string,
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
+
+    /**
+     * You can create a complicated renderer callback instead of value and desc prop.
+     */
+    renderer: PropTypes.func,
+
+    /**
+     * Callback function fired when the ButtonRadio touch tap.
+     */
+    onItemClick: PropTypes.func,
+
+    /**
+     * Callback function fired when the ButtonRadio select.
+     */
+    onItemSelect: PropTypes.func,
+
+    /**
+     * Callback function fired when the ButtonRadio deselect.
+     */
+    onItemDeselect: PropTypes.func,
+
+    /**
+     * Callback function fired when the ButtonRadioGroup changed.
      */
     onChange: PropTypes.func
 
@@ -167,10 +238,22 @@ ButtonRadioGroup.propTypes = {
 ButtonRadioGroup.defaultProps = {
 
     theme: Theme.DEFAULT,
-    activatedTheme: Theme.PRIMARY,
 
-    value: '',
-    disabled: false
+    selectTheme: Theme.DEFAULT,
+
+    idField: 'id',
+    valueField: 'value',
+    displayField: 'text',
+    descriptionField: 'desc',
+    disabled: false,
+    itemDisabled: false,
+    disableTouchRipple: false,
+    autoSelect: true,
+    shouldPreventContainerScroll: true,
+
+    checkboxUncheckedIconCls: 'far fa-square',
+    checkboxCheckedIconCls: 'fas fa-check-square',
+    checkboxIndeterminateIconCls: 'fas fa-minus-square'
 
 };
 

@@ -5,4 +5,28 @@
 
 .button-radio-group {
     white-space: nowrap;
+
+    .list-item {
+        position: relative;
+        display: inline-block;
+        width: auto;
+        border: 1px solid $theme-border;
+        margin-right: -1px;
+
+        &:first-child {
+            border-top-left-radius: $theme-border-radius;
+            border-bottom-left-radius: $theme-border-radius;
+        }
+
+        &:last-child {
+            border-top-right-radius: $theme-border-radius;
+            border-bottom-right-radius: $theme-border-radius;
+            margin-right: 0;
+        }
+
+        &.activated {
+            background: $theme-primary;
+            color: #fff;
+        }
+    }
 }
