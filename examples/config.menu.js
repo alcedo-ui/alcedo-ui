@@ -103,6 +103,9 @@ export default [{
         text: 'ButtonRadioGroup',
         route: '/components/ButtonRadioGroup'
     }, {
+        text: 'ButtonRadioSelect',
+        route: '/components/ButtonRadioSelect'
+    }, {
         text: 'Switcher',
         route: '/components/Switcher'
     }, {
