@@ -45,7 +45,7 @@ class ButtonRadioSelectExamples extends Component {
 
                 <p>
                     <span>ButtonRadioSelect</span>
-                    is a radio group use button style.
+                    is a radio select use button style.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -59,7 +59,7 @@ class ButtonRadioSelectExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>Button Radio Group</code> simple example.</p>
+                                <p><code>Button Radio Select</code> simple example.</p>
 
                                 <ButtonRadioSelect data={this.data}
                                                    onChange={this.changeHandler}/>
