@@ -31,7 +31,8 @@ class ButtonRadioSelect extends Component {
         return (
             <Dropdown className={className}
                       style={style}
-                      theme={theme}>
+                      theme={theme}
+                      position={Dropdown.Position.Right}>
                 <ButtonRadioGroup data={data}/>
             </Dropdown>
         );
