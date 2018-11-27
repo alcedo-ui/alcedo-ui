@@ -31,7 +31,7 @@ class ButtonRadioGroupExamples extends Component {
             value: 5
         }];
 
-        this.datas = [{
+        this.data2 = [{
             label: 'one',
             value: 1
         }, {
@@ -122,7 +122,7 @@ class ButtonRadioGroupExamples extends Component {
                                 <p>Set the <code>disabled</code> property to true for disabling the ButtonRadioGroup.
                                 </p>
 
-                                <ButtonRadioGroup data={this.datas}
+                                <ButtonRadioGroup data={this.data2}
                                                   disabled={true}
                                                   onChange={this.changeHandler}/>
 
