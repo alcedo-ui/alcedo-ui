@@ -13,6 +13,7 @@ import ButtonRadioGroup from '../ButtonRadioGroup';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class ButtonRadioSelect extends Component {
 
@@ -32,11 +33,26 @@ class ButtonRadioSelect extends Component {
     changeHandler = value => {
         this.setState({
             value
+        }, () => {
+
+            this.dropdown.closePopup();
+
+            const {onChange} = this.props;
+            onChange && onChange(value);
+
         });
     };
 
     componentDidMount() {
+        this.dropdown = this.refs.dropdown;
         this.triggerEl = findDOMNode(this.refs.trigger);
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
     }
 
     render() {
@@ -58,7 +74,8 @@ class ButtonRadioSelect extends Component {
             });
 
         return (
-            <Dropdown className={selectClassName}
+            <Dropdown ref="dropdown"
+                      className={selectClassName}
                       triggerClassName={btnClassName}
                       popupClassName={popClassName}
                       theme={theme}
@@ -161,9 +178,6 @@ ButtonRadioSelect.propTypes = {
      * Callback function fired when the popup is close.
      */
     onClosePopup: PropTypes.func,
-
-    onFocus: PropTypes.func,
-    onBlur: PropTypes.func,
 
     /**
      * Callback function fired when click RaisedButton.
