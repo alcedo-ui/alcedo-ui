@@ -74,7 +74,8 @@ class RadioGroupExamples extends Component {
                 <h2 className="example-title">RadioGroup</h2>
 
                 <p>
-                    <span>RadioGroup</span> is one of a set of mutually exclusive option groupButtons. When a button is
+                    <span>RadioGroup</span>
+                    is one of a set of mutually exclusive option groupButtons. When a button is
                     selected, the previously selected button becomes unselected.
                 </p>
 
