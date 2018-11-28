@@ -219,16 +219,6 @@ ButtonRadioGroup.propTypes = {
     onItemClick: PropTypes.func,
 
     /**
-     * Callback function fired when the ButtonRadio select.
-     */
-    onItemSelect: PropTypes.func,
-
-    /**
-     * Callback function fired when the ButtonRadio deselect.
-     */
-    onItemDeselect: PropTypes.func,
-
-    /**
      * Callback function fired when the ButtonRadioGroup changed.
      */
     onChange: PropTypes.func
