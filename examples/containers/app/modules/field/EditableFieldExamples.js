@@ -78,8 +78,7 @@ class EditableFieldExamples extends Component {
 
                                 <EditableField value={this.state.value}
                                                onBlur={this.onBlur}
-                                               disabled={true}
-                                               title={'Click to edit'}/>
+                                               title="Click to Edit"/>
                                 ,&nbsp;
                                 <EditableField value={this.state.value}
                                                autoWidth={true}
