@@ -38,7 +38,8 @@ class DropdownExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <Dropdown triggerValue="Toggle Dropdown"
-                                          popupClassName="dropdown-examples-popup">
+                                          popupClassName="dropdown-examples-popup"
+                                          tip="Dropdown">
                                     <div className="dropdown-content">Dropdown content</div>
                                 </Dropdown>
 
