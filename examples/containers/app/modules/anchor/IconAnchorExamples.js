@@ -42,17 +42,19 @@ class IconAnchorExamples extends Component {
                                 <IconAnchor iconCls="fab fa-github"
                                             style={{fontSize: '14px'}}
                                             className="github-icon"
-                                            disabled={true}/>
+                                            tip="Github"/>
 
                                 <IconAnchor iconCls="fab fa-github"
                                             style={{fontSize: '14px'}}
                                             className="github-icon"
-                                            href="https://github.com/alcedo-ui/alcedo-ui"/>
+                                            href="https://github.com/alcedo-ui/alcedo-ui"
+                                            tip="Github"/>
 
                                 <IconAnchor iconCls="fab fa-github"
                                             style={{fontSize: '14px'}}
                                             className="github-icon"
-                                            href="https://github.com/alcedo-ui/alcedo-ui"/>
+                                            href="https://github.com/alcedo-ui/alcedo-ui"
+                                            tip="Github"/>
 
                             </div>
 
