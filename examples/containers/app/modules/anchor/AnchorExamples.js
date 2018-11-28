@@ -37,39 +37,47 @@ class AnchorExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <Anchor>
+                                <Anchor tip="Default">
                                     Default
                                 </Anchor>
 
-                                <Anchor theme={Anchor.Theme.PRIMARY}>
+                                <Anchor theme={Anchor.Theme.PRIMARY}
+                                        tip="Primary">
                                     Primary
                                 </Anchor>
 
-                                <Anchor theme={Anchor.Theme.SECONDARY}>
+                                <Anchor theme={Anchor.Theme.SECONDARY}
+                                        tip="Secondary">
                                     Secondary
                                 </Anchor>
 
-                                <Anchor theme={Anchor.Theme.HIGHLIGHT}>
+                                <Anchor theme={Anchor.Theme.HIGHLIGHT}
+                                        tip="Highlight">
                                     Highlight
                                 </Anchor>
 
-                                <Anchor theme={Anchor.Theme.INFO}>
+                                <Anchor theme={Anchor.Theme.INFO}
+                                        tip="Info">
                                     Info
                                 </Anchor>
 
-                                <Anchor theme={Anchor.Theme.SUCCESS}>
+                                <Anchor theme={Anchor.Theme.SUCCESS}
+                                        tip="Success">
                                     Success
                                 </Anchor>
 
-                                <Anchor theme={Anchor.Theme.WARNING}>
+                                <Anchor theme={Anchor.Theme.WARNING}
+                                        tip="Warning">
                                     Warning
                                 </Anchor>
 
-                                <Anchor theme={Anchor.Theme.ERROR}>
+                                <Anchor theme={Anchor.Theme.ERROR}
+                                        tip="Error">
                                     Error
                                 </Anchor>
 
-                                <Anchor disabled={true}>
+                                <Anchor disabled={true}
+                                        tip="Disabled">
                                     Disabled
                                 </Anchor>
 
