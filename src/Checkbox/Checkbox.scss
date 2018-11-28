@@ -98,21 +98,27 @@
     &.theme-primary {
         @include checkbox-theme($theme-primary);
     }
+
     &.theme-secondary {
         @include checkbox-theme($theme-secondary);
     }
+
     &.theme-highlight {
         @include checkbox-theme($theme-highlight);
     }
+
     &.theme-info {
         @include checkbox-theme($theme-info);
     }
+
     &.theme-success {
         @include checkbox-theme($theme-success);
     }
+
     &.theme-warning {
         @include checkbox-theme($theme-warning);
     }
+
     &.theme-error {
         @include checkbox-theme($theme-error);
     }
