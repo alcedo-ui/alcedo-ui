@@ -23,7 +23,8 @@ class FlatButtonExamples extends Component {
                 <h2 className="example-title">Flat Button</h2>
 
                 <p>
-                    <span>Flat Button</span> are used for general functions and reduce the amount of layering on the
+                    <span>Flat Button</span>
+                    are used for general functions and reduce the amount of layering on the
                     screen, making it more readable.
                 </p>
 
@@ -44,30 +45,39 @@ class FlatButtonExamples extends Component {
                                     , <code>error</code> and <code>disabled</code> props applied.
                                 </p>
 
-                                <FlatButton value="Default"/>
+                                <FlatButton value="Default"
+                                            tip="Default"/>
 
                                 <FlatButton value="Primary"
+                                            tip="Primary"
                                             theme={FlatButton.Theme.PRIMARY}/>
 
                                 <FlatButton value="Secondary"
+                                            tip="Secondary"
                                             theme={FlatButton.Theme.SECONDARY}/>
 
                                 <FlatButton value="Highlight"
+                                            tip="Highlight"
                                             theme={FlatButton.Theme.HIGHLIGHT}/>
 
                                 <FlatButton value="Info"
+                                            tip="Info"
                                             theme={FlatButton.Theme.INFO}/>
 
                                 <FlatButton value="Success"
+                                            tip="Success"
                                             theme={FlatButton.Theme.SUCCESS}/>
 
                                 <FlatButton value="Warning"
+                                            tip="Warning"
                                             theme={FlatButton.Theme.WARNING}/>
 
                                 <FlatButton value="Error"
+                                            tip="Error"
                                             theme={FlatButton.Theme.ERROR}/>
 
                                 <FlatButton value="Disabled"
+                                            tip="Disabled"
                                             disabled={true}/>
 
                             </div>
