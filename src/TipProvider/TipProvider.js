@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component, isValidElement, cloneElement} from 'react';
+import React, {Component, isValidElement, cloneElement, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 import classNames from 'classnames';
@@ -48,7 +48,7 @@ class TipProvider extends Component {
 
     render() {
 
-        const {children, providerClassName, text, onTipRender, ...restProps} = this.props,
+        const {children, text, onTipRender, ...restProps} = this.props,
             {tipVisible} = this.state;
 
         if (!text) {
@@ -56,25 +56,15 @@ class TipProvider extends Component {
         }
 
         return (
-            <div className={classNames('tip-provider', {
-                [providerClassName]: providerClassName
-            })}>
+            <Fragment>
 
-                <div ref="triggerWrapper"
-                     className="trigger-wrapper"
-                     onMouseOver={this.showTip}
-                     onMouseOut={this.hideTip}>
-                    {
-                        isValidElement(children) ?
-                            cloneElement(children, {
-                                ref: 'trigger'
-                            })
-                            :
-                            <span ref="trigger">
-                                {children}
-                            </span>
-                    }
-                </div>
+                {
+                    cloneElement(children, {
+                        ref: 'trigger',
+                        onMouseOver: this.showTip,
+                        onMouseOut: this.hideTip
+                    })
+                }
 
                 <Tip {...restProps}
                      triggerEl={this.triggerEl}
@@ -83,18 +73,13 @@ class TipProvider extends Component {
                     {text}
                 </Tip>
 
-            </div>
+            </Fragment>
         );
     }
 
 }
 
 TipProvider.propTypes = {
-
-    /**
-     * The CSS class name of the root element.
-     */
-    providerClassName: PropTypes.string,
 
     /**
      * The CSS class name of the tip element.
