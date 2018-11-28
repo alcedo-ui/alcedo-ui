@@ -14,38 +14,25 @@ class ButtonRadioGroupExamples extends Component {
         super(props);
 
         this.data = [{
-            label: 1,
-            value: 1
+            text: 1,
+            value: 1,
+            tip: 1
         }, {
-            label: 2,
-            value: 2
+            text: 2,
+            value: 2,
+            tip: 2
         }, {
-            label: 3,
-            value: 3
+            text: 3,
+            value: 3,
+            tip: 3
         }, {
-            label: 4,
+            text: 4,
             value: 4,
-            disabled: true
+            tip: 4
         }, {
-            label: 5,
-            value: 5
-        }];
-
-        this.data2 = [{
-            label: 'one',
-            value: 1
-        }, {
-            label: 2,
-            value: 2
-        }, {
-            label: 'three',
-            value: 3
-        }, {
-            label: 4,
-            value: 4
-        }, {
-            label: 5,
-            value: 5
+            text: 5,
+            value: 5,
+            tip: 5
         }];
 
     }
@@ -62,7 +49,8 @@ class ButtonRadioGroupExamples extends Component {
                 <h2 className="example-title">ButtonRadioGroup</h2>
 
                 <p>
-                    <span>ButtonRadioGroup</span> is a radio group use button style.
+                    <span>ButtonRadioGroup</span>
+                    is a radio group use button style.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -76,54 +64,10 @@ class ButtonRadioGroupExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>Button Radio Group</code> simple example.</p>
-
-                                <ButtonRadioGroup data={this.data}
-                                                  onChange={this.changeHandler}/>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header" title="With value"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <div className="examples-wrapper">
-
                                 <p>Set the <code>value</code> property to activate one button.</p>
 
                                 <ButtonRadioGroup data={this.data}
                                                   value={1}
-                                                  onChange={this.changeHandler}/>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header" title="With disabled"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <div className="examples-wrapper">
-
-                                <p>Set the <code>disabled</code> property to true for disabling the ButtonRadioGroup.
-                                </p>
-
-                                <ButtonRadioGroup data={this.data2}
-                                                  disabled={true}
                                                   onChange={this.changeHandler}/>
 
                             </div>
