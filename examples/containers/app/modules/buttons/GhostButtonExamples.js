@@ -23,7 +23,8 @@ class GhostButtonExamples extends Component {
                 <h2 className="example-title">Ghost Button</h2>
 
                 <p>
-                    <span>Ghost Button</span> outside only to wire frame outline,within only the text represent its
+                    <span>Ghost Button</span>
+                    outside only to wire frame outline,within only the text represent its
                     function,background revealed,and the entire page/background combined into a design.
                 </p>
 
@@ -44,27 +45,35 @@ class GhostButtonExamples extends Component {
                                 </p>
 
                                 <GhostButton value="Primary"
+                                             tip="Primary"
                                              theme={GhostButton.Theme.PRIMARY}/>
 
                                 <GhostButton value="Secondary"
+                                             tip="Secondary"
                                              theme={GhostButton.Theme.SECONDARY}/>
 
                                 <GhostButton value="Highlight"
+                                             tip="Highlight"
                                              theme={GhostButton.Theme.HIGHLIGHT}/>
 
                                 <GhostButton value="Info"
+                                             tip="Info"
                                              theme={GhostButton.Theme.INFO}/>
 
                                 <GhostButton value="Success"
+                                             tip="Success"
                                              theme={GhostButton.Theme.SUCCESS}/>
 
                                 <GhostButton value="Warning"
+                                             tip="Warning"
                                              theme={GhostButton.Theme.WARNING}/>
 
                                 <GhostButton value="Error"
+                                             tip="Error"
                                              theme={GhostButton.Theme.ERROR}/>
 
                                 <GhostButton value="Disabled"
+                                             tip="Disabled"
                                              disabled={true}/>
 
                             </div>
