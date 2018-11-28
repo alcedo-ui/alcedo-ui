@@ -132,27 +132,29 @@
         &.theme-primary {
             @include draggable-grid-item-theme($theme-secondary, $theme-primary);
         }
+
         &.theme-secondary {
             @include draggable-grid-item-theme($theme-primary, $theme-secondary);
         }
+
         &.theme-highlight {
             @include draggable-grid-item-theme(#fff, $theme-highlight);
         }
+
         &.theme-info {
             @include draggable-grid-item-theme(#fff, $theme-info);
         }
+
         &.theme-success {
             @include draggable-grid-item-theme(#fff, $theme-success);
         }
+
         &.theme-warning {
             @include draggable-grid-item-theme(#fff, $theme-warning);
         }
+
         &.theme-error {
             @include draggable-grid-item-theme(#fff, $theme-error);
         }
-    }
-
-    .tip-provider > .trigger-wrapper {
-        display: block;
     }
 }
