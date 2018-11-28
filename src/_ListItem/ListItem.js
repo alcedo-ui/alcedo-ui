@@ -236,9 +236,9 @@ ListItem.propTypes = {
 
     data: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    text: PropTypes.any,
-    desc: PropTypes.string,
-    title: PropTypes.string,
+    text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    desc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    title: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     disabled: PropTypes.bool,
     isLoading: PropTypes.bool,
@@ -250,7 +250,7 @@ ListItem.propTypes = {
     iconCls: PropTypes.string,
     rightIconCls: PropTypes.string,
 
-    tip: PropTypes.string,
+    tip: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     radioUncheckedIconCls: PropTypes.string,
