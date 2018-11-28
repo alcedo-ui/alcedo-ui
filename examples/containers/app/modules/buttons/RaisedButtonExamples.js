@@ -23,7 +23,8 @@ class RaisedButtonExamples extends Component {
                 <h2 className="example-title">Raised Button</h2>
 
                 <p>
-                    <span>Raised Button</span> is used to add dimension to mostly flat layouts and emphasizes important
+                    <span>Raised Button</span>
+                    is used to add dimension to mostly flat layouts and emphasizes important
                     functions on your page.
                 </p>
 
@@ -43,30 +44,39 @@ class RaisedButtonExamples extends Component {
                                     , <code>warning</code>, <code>error</code> and <code>disabled</code> props applied.
                                 </p>
 
-                                <RaisedButton value="Default"/>
+                                <RaisedButton value="Default"
+                                              tip="Default"/>
 
                                 <RaisedButton value="Primary"
+                                              tip="Primary"
                                               theme={RaisedButton.Theme.PRIMARY}/>
 
                                 <RaisedButton value="Secondary"
+                                              tip="Secondary"
                                               theme={RaisedButton.Theme.SECONDARY}/>
 
                                 <RaisedButton value="Highlight"
+                                              tip="Highlight"
                                               theme={RaisedButton.Theme.HIGHLIGHT}/>
 
                                 <RaisedButton value="Info"
+                                              tip="Info"
                                               theme={RaisedButton.Theme.INFO}/>
 
                                 <RaisedButton value="Success"
+                                              tip="Success"
                                               theme={RaisedButton.Theme.SUCCESS}/>
 
                                 <RaisedButton value="Warning"
+                                              tip="Warning"
                                               theme={RaisedButton.Theme.WARNING}/>
 
                                 <RaisedButton value="Error"
+                                              tip="Error"
                                               theme={RaisedButton.Theme.ERROR}/>
 
                                 <RaisedButton value="Disabled"
+                                              tip="Disabled"
                                               disabled={true}/>
 
                             </div>
