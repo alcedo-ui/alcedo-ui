@@ -42,12 +42,14 @@ class IconButtonExamples extends Component {
                                     example.
                                 </p>
 
-                                <IconButton iconCls="fas fa-plus"/>
+                                <IconButton iconCls="fas fa-plus"
+                                            tip="Add"/>
 
-                                <IconButton iconCls="fas fa-trash-alt"/>
+                                <IconButton iconCls="fas fa-trash-alt"
+                                            tip="Delete"/>
 
                                 <IconButton iconCls="fas fa-wrench"
-                                            disabled={true}/>
+                                            tip="Tool"/>
 
                             </div>
 
