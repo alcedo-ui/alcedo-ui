@@ -117,8 +117,8 @@ class ButtonRadioSelect extends Component {
 
         const {
                 className, style, triggerClassName, triggerStyle, popupClassName, popupStyle,
-                theme, popupTheme, activatedTheme,
-                data, ...restProps
+                theme, popupTheme, activatedTheme, idField, valueField, displayField, descriptionField,
+                data, renderer, onItemClick, ...restProps
             } = this.props,
             {value} = this.state,
 
@@ -147,10 +147,16 @@ class ButtonRadioSelect extends Component {
                       position={Dropdown.Position.RIGHT}
                       autoPopupWidth={false}
                       triggerValue={this.getTriggerValue()}>
-                <ButtonRadioGroup data={data}
-                                  value={value}
-                                  theme={theme}
+                <ButtonRadioGroup theme={theme}
                                   activatedTheme={theme}
+                                  data={data}
+                                  value={value}
+                                  idField={idField}
+                                  valueField={valueField}
+                                  displayField={displayField}
+                                  descriptionField={descriptionField}
+                                  renderer={renderer}
+                                  onItemClick={onItemClick}
                                   onChange={this.changeHandler}/>
             </Dropdown>
         );
@@ -239,6 +245,11 @@ ButtonRadioSelect.propTypes = {
     disabled: PropTypes.bool,
 
     /**
+     * The id field name in data. (default: "id")
+     */
+    idField: PropTypes.string,
+
+    /**
      * The value field name in data. (default: "value")
      */
     valueField: PropTypes.string,
@@ -258,6 +269,13 @@ ButtonRadioSelect.propTypes = {
      */
     autoClose: PropTypes.bool,
 
+    /**
+     * You can create a complicated renderer callback instead of value and desc prop.
+     */
+    renderer: PropTypes.func,
+
+    onItemClick: Position.func,
+
     onChange: PropTypes.func
 
 };
@@ -272,6 +290,7 @@ ButtonRadioSelect.defaultProps = {
     disabled: false,
     tipPosition: Position.BOTTOM,
 
+    idField: 'id',
     valueField: 'value',
     displayField: 'text',
     descriptionField: 'desc',
