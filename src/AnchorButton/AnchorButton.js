@@ -21,12 +21,7 @@ class AnchorButton extends Component {
     static TipPosition = Position;
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.startRipple = ::this.startRipple;
-        this.endRipple = ::this.endRipple;
-
     }
 
     /**
