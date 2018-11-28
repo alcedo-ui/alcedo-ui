@@ -97,7 +97,7 @@ ButtonRadioGroup.propTypes = {
         /**
          * The title value of the ButtonRadioGroup button.
          */
-        title: PropTypes.string,
+        title: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
         /**
          * If true, the ButtonRadioGroup item will be disabled.
@@ -127,7 +127,7 @@ ButtonRadioGroup.propTypes = {
         /**
          * The message of tip.
          */
-        tip: PropTypes.string,
+        tip: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
         /**
          * The position of tip.
@@ -149,7 +149,7 @@ ButtonRadioGroup.propTypes = {
          */
         onClick: PropTypes.func
 
-    }), PropTypes.string, PropTypes.number, PropTypes.symbol])),
+    }), PropTypes.string, PropTypes.number])),
 
     value: PropTypes.any,
 
