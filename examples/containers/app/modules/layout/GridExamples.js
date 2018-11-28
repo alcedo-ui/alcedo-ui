@@ -24,11 +24,13 @@ class GridExamples extends Component {
         }, {
             iconCls: 'fab fa-twitter',
             text: 'Twitter',
-            desc: 'Here is a Twitter Desc.'
+            desc: 'Here is a Twitter Desc.',
+            tip: 'Twitter'
         }, {
             iconCls: 'fab fa-google-plus-g',
             text: 'Google+',
-            desc: 'Here is a Google+ Desc.'
+            desc: 'Here is a Google+ Desc.',
+            tip: 'Google+'
         }];
 
     }
@@ -56,7 +58,8 @@ class GridExamples extends Component {
                 <h2 className="example-title">Grid</h2>
 
                 <p>
-                    <span>Grid</span> system.
+                    <span>Grid</span>
+                    system.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
