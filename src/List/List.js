@@ -340,7 +340,7 @@ List.propTypes = {
         /**
          * The title value of the list button.
          */
-        title: PropTypes.string,
+        title: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
         /**
          * If true, the list item will be disabled.
@@ -370,7 +370,7 @@ List.propTypes = {
         /**
          * The message of tip.
          */
-        tip: PropTypes.string,
+        tip: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
         /**
          * The position of tip.
