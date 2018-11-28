@@ -19,15 +19,18 @@ class ListExamples extends Component {
         this.listData = [{
             iconCls: 'fab fa-facebook',
             value: 'Facebook',
-            text: 'Facebook'
+            text: 'Facebook',
+            tip: 'Facebook'
         }, {
             iconCls: 'fab fa-twitter',
             value: 'Twitter',
-            text: 'Twitter'
+            text: 'Twitter',
+            tip: 'Twitter'
         }, {
             iconCls: 'fab fa-google-plus-g',
             value: 'Google+',
-            text: 'Google+'
+            text: 'Google+',
+            tip: 'Google+'
         }];
 
         this.disabledListData = [{
