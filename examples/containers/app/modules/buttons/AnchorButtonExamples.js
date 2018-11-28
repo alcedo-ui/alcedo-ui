@@ -23,7 +23,8 @@ class AnchorButtonExamples extends Component {
                 <h2 className="example-title">Anchor Button</h2>
 
                 <p>
-                    <span>Anchor Button</span> are used for general functions and reduce the amount of layering on the
+                    <span>Anchor Button</span>
+                    are used for general functions and reduce the amount of layering on the
                     screen, making it more readable.
                 </p>
 
@@ -44,30 +45,39 @@ class AnchorButtonExamples extends Component {
                                     , <code>error</code> and <code>disabled</code> props applied.
                                 </p>
 
-                                <AnchorButton value="Default"/>
+                                <AnchorButton value="Default"
+                                              tip="Default"/>
 
                                 <AnchorButton value="Primary"
+                                              tip="Primary"
                                               theme={AnchorButton.Theme.PRIMARY}/>
 
                                 <AnchorButton value="Secondary"
+                                              tip="Secondary"
                                               theme={AnchorButton.Theme.SECONDARY}/>
 
                                 <AnchorButton value="Highlight"
+                                              tip="Highlight"
                                               theme={AnchorButton.Theme.HIGHLIGHT}/>
 
                                 <AnchorButton value="Info"
+                                              tip="Info"
                                               theme={AnchorButton.Theme.INFO}/>
 
                                 <AnchorButton value="Success"
+                                              tip="Success"
                                               theme={AnchorButton.Theme.SUCCESS}/>
 
                                 <AnchorButton value="Warning"
+                                              tip="Warning"
                                               theme={AnchorButton.Theme.WARNING}/>
 
                                 <AnchorButton value="Error"
+                                              tip="Error"
                                               theme={AnchorButton.Theme.ERROR}/>
 
                                 <AnchorButton value="Disabled"
+                                              tip="Disabled"
                                               disabled={true}/>
 
                             </div>
