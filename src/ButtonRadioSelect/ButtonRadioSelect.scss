@@ -29,20 +29,18 @@
     border-radius: 0;
 
     .popup-content {
+        float: right;
+        width: auto;
         border-radius: 0;
     }
 
     .button-radio-group {
-        float: right;
-
         .list-item {
             &:first-child {
                 border-left: none;
                 border-top-left-radius: 0;
                 border-bottom-left-radius: 0;
             }
-
-
         }
     }
 
