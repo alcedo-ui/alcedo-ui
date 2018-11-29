@@ -102,6 +102,21 @@ class ButtonRadioSelect extends Component {
 
     };
 
+    filterData = () => {
+
+        const {data, valueField, displayField} = this.props,
+            {value} = this.state;
+
+        if (!value) {
+            return data;
+        }
+
+        return data.filter(item => item
+            && Util.getValueByValueField(item, valueField, displayField)
+            !== Util.getValueByValueField(value, valueField, displayField));
+
+    };
+
     componentDidMount() {
         this.triggerEl = findDOMNode(this.refs.trigger);
     }
@@ -149,7 +164,7 @@ class ButtonRadioSelect extends Component {
                       triggerValue={this.getTriggerValue()}>
                 <ButtonRadioGroup theme={theme}
                                   activatedTheme={theme}
-                                  data={data}
+                                  data={this.filterData()}
                                   value={value}
                                   idField={idField}
                                   valueField={valueField}
