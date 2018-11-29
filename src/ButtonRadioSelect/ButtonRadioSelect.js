@@ -274,7 +274,7 @@ ButtonRadioSelect.propTypes = {
      */
     renderer: PropTypes.func,
 
-    onItemClick: Position.func,
+    onItemClick: PropTypes.func,
 
     onChange: PropTypes.func
 
