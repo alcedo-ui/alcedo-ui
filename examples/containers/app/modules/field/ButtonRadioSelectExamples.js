@@ -65,6 +65,7 @@ class ButtonRadioSelectExamples extends Component {
 
                                 <ButtonRadioSelect popupClassName="button-radio-select-example-pop"
                                                    data={this.data}
+                                                   value={this.data[0]}
                                                    onChange={this.changeHandler}/>
 
                             </div>
