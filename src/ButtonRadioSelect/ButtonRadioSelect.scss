@@ -9,6 +9,7 @@
         width: auto;
         box-shadow: none;
         padding: 0 16px;
+        transition: border-radius $theme-transition-duration ease-in-out $theme-transition-duration;
 
         .dropdown-trigger-icon {
             display: none;
@@ -18,6 +19,7 @@
             border-bottom-left-radius: $theme-border-radius;
             border-top-right-radius: 0;
             border-bottom-right-radius: 0;
+            transition: border-radius 0s;
         }
     }
 }
