@@ -1,0 +1,11 @@
+@import '../../../../my-theme.scss';
+
+.trigger-pop.popup.button-radio-select-example-pop {
+    width: 196px;
+
+    .button-radio-group > .list-item {
+        width: 40px;
+        padding: 0;
+        text-align: center;
+    }
+}

@@ -7,6 +7,8 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/ButtonRadioSelect.json';
 
+import 'scss/containers/app/modules/field/ButtonRadioSelectExamples.scss';
+
 class ButtonRadioSelectExamples extends Component {
 
     constructor(props) {
@@ -38,7 +40,7 @@ class ButtonRadioSelectExamples extends Component {
 
     render() {
         return (
-            <div className="example button-radio-group-examples">
+            <div className="example button-radio-select-examples">
 
 
                 <h2 className="example-title">ButtonRadioSelect</h2>
@@ -61,7 +63,8 @@ class ButtonRadioSelectExamples extends Component {
 
                                 <p><code>Button Radio Select</code> simple example.</p>
 
-                                <ButtonRadioSelect data={this.data}
+                                <ButtonRadioSelect popupClassName="button-radio-select-example-pop"
+                                                   data={this.data}
                                                    onChange={this.changeHandler}/>
 
                             </div>
