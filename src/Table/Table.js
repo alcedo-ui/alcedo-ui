@@ -163,7 +163,8 @@ class Table extends Component {
 
     headCheckBoxChangeHandler = checked => {
 
-        const {selectAllMode, data} = this.props;
+        const {selectAllMode, data} = this.props,
+            {value} = this.state;
         let result;
 
         if (selectAllMode === SelectAllMode.ALL) {
@@ -171,7 +172,6 @@ class Table extends Component {
         } else {
 
             const {idProp} = this.props,
-                {value} = this.state,
                 currentPageData = this.getCurrentPageData();
             result = value.slice();
 
@@ -209,7 +209,7 @@ class Table extends Component {
             if (checked) {
                 onSelectAll && onSelectAll(result);
             } else {
-                onDeselectAll && onDeselectAll(result);
+                onDeselectAll && onDeselectAll(value);
             }
 
         });
