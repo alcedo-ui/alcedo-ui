@@ -12,6 +12,7 @@ import Tip from '../Tip';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
+import Position from '../_statics/Position';
 
 class TipProvider extends Component {
 
@@ -23,22 +24,22 @@ class TipProvider extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            tipVisible: false
+            visible: props.visible
         };
 
     }
 
     showTip = () => {
-        if (!this.state.tipVisible) {
+        if (!this.state.visible) {
             this.setState({
-                tipVisible: true
+                visible: true
             });
         }
     };
 
     hideTip = () => {
         this.setState({
-            tipVisible: false
+            visible: false
         });
     };
 
@@ -49,7 +50,7 @@ class TipProvider extends Component {
     render() {
 
         const {children, text, onTipRender, ...restProps} = this.props,
-            {tipVisible} = this.state;
+            {visible} = this.state;
 
         if (!text) {
             return children;
@@ -86,7 +87,7 @@ class TipProvider extends Component {
 
                 <Tip {...restProps}
                      triggerEl={this.triggerEl}
-                     visible={tipVisible}
+                     visible={visible}
                      onRender={onTipRender}>
                     {text}
                 </Tip>
@@ -100,14 +101,36 @@ class TipProvider extends Component {
 TipProvider.propTypes = {
 
     /**
-     * The CSS class name of the tip element.
+     * The CSS class name of the root element.
      */
     className: PropTypes.string,
+
+    /**
+     * The CSS class name of the content element.
+     */
+    contentClassName: PropTypes.string,
+
+    modalClassName: PropTypes.string,
 
     /**
      * Override the styles of the root element.
      */
     style: PropTypes.object,
+
+    /**
+     * The popover theme.Can be primary,highlight,success,warning,error.
+     */
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * This is the DOM element that will be used to set the position of the popover.
+     */
+    triggerEl: PropTypes.object,
+
+    /**
+     * If true,the popover is visible.
+     */
+    visible: PropTypes.bool,
 
     /**
      * If true,the popover will have a triangle on the top of the DOM element.
@@ -117,14 +140,9 @@ TipProvider.propTypes = {
     triangle: PropTypes.element,
 
     /**
-     * The popover theme.Can be primary,highlight,success,warning,error.
-     */
-    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-    /**
      * The popover alignment.
      */
-    position: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
      * If true, menu will have animation effects.
@@ -139,18 +157,33 @@ TipProvider.propTypes = {
     depth: PropTypes.number,
 
     isTriggerPositionFixed: PropTypes.bool,
+    resetPositionWait: PropTypes.number,
+    showModal: PropTypes.bool,
 
     /**
      * The function of tip render.
      */
-    onTipRender: PropTypes.func,
+    onRender: PropTypes.func,
+
+    /**
+     * The function of tip rendered.
+     */
+    onRendered: PropTypes.func,
+
+    /**
+     * The function of tip destroy.
+     */
+    onDestroy: PropTypes.func,
+
+    /**
+     * The function of tip destroyed.
+     */
+    onDestroyed: PropTypes.func,
 
     /**
      * Callback function fired when wrapper wheeled.
      */
-    onWheel: PropTypes.func,
-
-    text: PropTypes.any
+    onWheel: PropTypes.func
 
 };
 
@@ -158,11 +191,14 @@ TipProvider.defaultProps = {
 
     theme: Theme.DARK,
 
+    visible: false,
     hasTriangle: true,
-    position: Tip.Position.BOTTOM,
+    position: Position.BOTTOM,
     isAnimated: true,
     shouldPreventContainerScroll: true,
-    isTriggerPositionFixed: false
+    isTriggerPositionFixed: false,
+    resetPositionWait: 250,
+    showModal: false
 
 };
 
