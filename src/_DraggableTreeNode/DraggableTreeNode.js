@@ -147,7 +147,7 @@ class DraggableTreeNode extends Component {
                                 isVirtual ?
                                     null
                                     :
-                                    <TipProvider text={data.tip}
+                                    <TipProvider tipContent={data.tip}
                                                  position={data.tipPosition}>
 
                                         <div className={nodeClassName}
