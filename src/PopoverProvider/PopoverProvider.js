@@ -8,13 +8,16 @@ import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 
 import Popover from '../Popover';
+
 import Theme from '../Theme';
+import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class PopoverProvider extends Component {
 
-    static Position = Tip.Position;
+    static Position = Position;
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
@@ -22,22 +25,22 @@ class PopoverProvider extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            tipVisible: false
+            visible: props.visible
         };
 
     }
 
     showTip = () => {
-        if (!this.state.tipVisible) {
+        if (!this.state.visible) {
             this.setState({
-                tipVisible: true
+                visible: true
             });
         }
     };
 
     hideTip = () => {
         this.setState({
-            tipVisible: false
+            visible: false
         });
     };
 
@@ -45,12 +48,19 @@ class PopoverProvider extends Component {
         this.refs.trigger && (this.triggerEl = findDOMNode(this.refs.trigger));
     }
 
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'visible')
+        };
+    }
+
     render() {
 
-        const {children, text, onTipRender, ...restProps} = this.props,
-            {tipVisible} = this.state;
+        const {children, popoverContent, ...restProps} = this.props,
+            {visible} = this.state;
 
-        if (!text) {
+        if (!popoverContent) {
             return children;
         }
 
@@ -85,9 +95,8 @@ class PopoverProvider extends Component {
 
                 <Popover {...restProps}
                          triggerEl={this.triggerEl}
-                         visible={tipVisible}
-                         onRender={onTipRender}>
-                    {text}
+                         visible={visible}>
+                    {popoverContent}
                 </Popover>
 
             </Fragment>
@@ -99,14 +108,31 @@ class PopoverProvider extends Component {
 PopoverProvider.propTypes = {
 
     /**
-     * The CSS class name of the tip element.
+     * The CSS class name of the root element.
      */
     className: PropTypes.string,
+
+    /**
+     * The CSS class name of the content element.
+     */
+    contentClassName: PropTypes.string,
+
+    modalClassName: PropTypes.string,
 
     /**
      * Override the styles of the root element.
      */
     style: PropTypes.object,
+
+    /**
+     * This is the DOM element that will be used to set the position of the popover.
+     */
+    triggerEl: PropTypes.object,
+
+    /**
+     * If true,the popover is visible.
+     */
+    visible: PropTypes.bool,
 
     /**
      * If true,the popover will have a triangle on the top of the DOM element.
@@ -121,47 +147,73 @@ PopoverProvider.propTypes = {
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
-     * The popover alignment.
+     * The popover alignment.The value can be Popover.Position.LEFT or Popover.Position.RIGHT.
      */
-    position: PropTypes.oneOf(Util.enumerateValue(Tip.Position)),
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
-     * If true, menu will have animation effects.
+     * If true, popover will have animation effects.
      */
     isAnimated: PropTypes.bool,
-
-    shouldPreventContainerScroll: PropTypes.bool,
 
     /**
      * The depth of Paper component.
      */
     depth: PropTypes.number,
 
+    isBlurClose: PropTypes.bool,
+    shouldPreventContainerScroll: PropTypes.bool,
     isTriggerPositionFixed: PropTypes.bool,
+    resetPositionWait: PropTypes.number,
+    showModal: PropTypes.bool,
 
     /**
-     * The function of tip render.
+     * The function of popover render.
      */
-    onTipRender: PropTypes.func,
+    onRender: PropTypes.func,
+
+    /**
+     * The function of popover rendered.
+     */
+    onRendered: PropTypes.func,
+
+    /**
+     * The function of popover destroy.
+     */
+    onDestroy: PropTypes.func,
+
+    /**
+     * The function of popover destroyed.
+     */
+    onDestroyed: PropTypes.func,
+
+    /**
+     * Callback function fired when the popover is requested to be closed.
+     */
+    onRequestClose: PropTypes.func,
 
     /**
      * Callback function fired when wrapper wheeled.
      */
     onWheel: PropTypes.func,
 
-    text: PropTypes.any
+    popoverContent: PropTypes.any
 
 };
 
 PopoverProvider.defaultProps = {
 
-    theme: Theme.DARK,
-
+    visible: false,
     hasTriangle: true,
-    position: Tip.Position.BOTTOM,
+    theme: Theme.DEFAULT,
+    position: Position.BOTTOM,
     isAnimated: true,
+
+    isBlurClose: true,
     shouldPreventContainerScroll: true,
-    isTriggerPositionFixed: false
+    isTriggerPositionFixed: false,
+    resetPositionWait: 250,
+    showModal: false
 
 };
 
