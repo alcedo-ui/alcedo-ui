@@ -87,7 +87,7 @@ function getInitValue(props) {
         return;
     }
 
-    if (value) {
+    if (value != null) {
         return value;
     }
 
@@ -118,7 +118,7 @@ function getMultiSelectItemIndex(item, value, {selectMode, valueField, displayFi
 
 function isItemChecked(item, value, {selectMode, valueField, displayField}) {
 
-    if (!item || !value) {
+    if (!item || value == null) {
         return false;
     }
 
