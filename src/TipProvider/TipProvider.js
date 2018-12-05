@@ -30,7 +30,7 @@ class TipProvider extends Component {
 
     }
 
-    showTip = () => {
+    show = () => {
         if (!this.state.visible) {
             this.setState({
                 visible: true
@@ -38,7 +38,7 @@ class TipProvider extends Component {
         }
     };
 
-    hideTip = () => {
+    hide = () => {
         this.setState({
             visible: false
         });
@@ -77,7 +77,7 @@ class TipProvider extends Component {
                                 children.props.onMouseOver(e);
                             }
 
-                            this.showTip();
+                            this.show();
 
                         },
                         onMouseOut: e => {
@@ -87,7 +87,7 @@ class TipProvider extends Component {
                                 children.props.onMouseOut(e);
                             }
 
-                            this.hideTip();
+                            this.hide();
 
                         }
                     })
