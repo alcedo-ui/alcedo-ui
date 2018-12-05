@@ -392,8 +392,7 @@ class PopoverExamples extends Component {
                                                  }>
                                     <RaisedButton className="trigger-button"
                                                   value="Toggle Popover"
-                                                  onMouseOver={() => console.log('onMouseOver')}
-                                                  onMouseOut={() => console.log('onMouseOut')}/>
+                                                  onMouseOver={() => console.log('onMouseOver')}/>
                                 </PopoverProvider>
                             </div>
 
