@@ -3,6 +3,7 @@ import {findDOMNode} from 'react-dom';
 
 import RaisedButton from 'src/RaisedButton';
 import Popover from 'src/Popover';
+import PopoverProvider from 'src/PopoverProvider';
 import List from 'src/List';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
@@ -432,6 +433,35 @@ class PopoverExamples extends Component {
                                     </div>
                                 </Popover>
 
+                            </div>
+
+                        </div>
+                    </div>
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Popover Provider"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="popup-example-wrapper">
+                                <PopoverProvider className="customized-popover"
+                                                 visible={menuVisible[16]}
+                                                 triggerEl={triggerEl[16]}
+                                                 popoverContent={
+                                                     <div style={{padding: 20}}>
+                                                         Popover
+                                                     </div>
+                                                 }
+                                                 onRequestClose={() => this.hideMenu(16)}>
+                                    <RaisedButton ref="trigger16"
+                                                  className="trigger-button"
+                                                  value="Toggle Popover"
+                                                  onMouseOver={() => this.showMenu(16)}/>
+                                </PopoverProvider>
                             </div>
 
                         </div>
