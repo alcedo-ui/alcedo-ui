@@ -19,18 +19,10 @@ class NotificationExamples extends Component {
 
         super(props);
 
-        this.state = {
-            type: Notifier.Type.INFO,
-            position: Notifier.Position.BOTTOM_RIGHT,
-            title: 'Title',
-            message: 'Message',
-            notifications: {}
-        };
-
         this.Type = Object.keys(Notifier.Type).map(item => ({
             className: `type-${item.toLowerCase()}`,
             iconCls: 'fas fa-check',
-            label: item,
+            text: item,
             value: Notifier.Type[item]
         }));
 
@@ -38,6 +30,14 @@ class NotificationExamples extends Component {
             label: item,
             value: Notifier.Position[item]
         }));
+
+        this.state = {
+            type: Notifier.Type.INFO,
+            position: Notifier.Position.BOTTOM_RIGHT,
+            title: 'Title',
+            message: 'Message',
+            notifications: {}
+        };
 
     }
 
@@ -105,7 +105,7 @@ class NotificationExamples extends Component {
 
                                 <ButtonRadioGroup data={this.Type}
                                                   value={type}
-                                                  onChange={value => this.updateField('type', value)}/>
+                                                  onChange={item => this.updateField('type', item.value)}/>
 
                                 <MaterialTextField theme={MaterialTextField.Theme.HIGHLIGHT}
                                                    value={title}
