@@ -385,18 +385,15 @@ class PopoverExamples extends Component {
 
                             <div className="popup-example-wrapper">
                                 <PopoverProvider className="customized-popover"
-                                                 visible={menuVisible[16]}
-                                                 triggerEl={triggerEl[16]}
                                                  popoverContent={
                                                      <div style={{padding: 20}}>
                                                          Popover Content
                                                      </div>
-                                                 }
-                                                 onRequestClose={() => this.hide(16)}>
-                                    <RaisedButton ref="trigger16"
-                                                  className="trigger-button"
+                                                 }>
+                                    <RaisedButton className="trigger-button"
                                                   value="Toggle Popover"
-                                                  onMouseOver={() => this.show(16)}/>
+                                                  onMouseOver={() => console.log('onMouseOver')}
+                                                  onMouseOut={() => console.log('onMouseOut')}/>
                                 </PopoverProvider>
                             </div>
 
