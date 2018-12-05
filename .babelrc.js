@@ -12,13 +12,8 @@ const presets = [
         '@babel/preset-react'
     ],
     commonPlugins = [
+        ['@babel/plugin-proposal-decorators', {legacy: true}],
         '@babel/plugin-proposal-class-properties',
-        [
-            '@babel/plugin-proposal-decorators',
-            {
-                legacy: true
-            }
-        ],
         '@babel/plugin-proposal-do-expressions',
         '@babel/plugin-proposal-export-default-from',
         '@babel/plugin-proposal-export-namespace-from',
@@ -29,12 +24,7 @@ const presets = [
         '@babel/plugin-proposal-nullish-coalescing-operator',
         '@babel/plugin-proposal-numeric-separator',
         '@babel/plugin-proposal-optional-chaining',
-        [
-            '@babel/plugin-proposal-pipeline-operator',
-            {
-                proposal: 'minimal'
-            }
-        ],
+        ['@babel/plugin-proposal-pipeline-operator', {proposal: 'minimal'}],
         '@babel/plugin-proposal-throw-expressions',
         '@babel/plugin-syntax-dynamic-import',
         '@babel/plugin-syntax-import-meta',
