@@ -342,7 +342,9 @@ class TipExamples extends Component {
 
                             <TipProvider text="Tip Content">
                                 <RaisedButton className="trigger-button"
-                                              value="Show Tip"/>
+                                              value="Show Tip"
+                                              onMouseOver={() => console.log('onMouseOver')}
+                                              onMouseOut={() => console.log('onMouseOut')}/>
                             </TipProvider>
 
                         </div>
