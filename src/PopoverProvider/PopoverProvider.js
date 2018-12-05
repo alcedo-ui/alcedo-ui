@@ -79,23 +79,14 @@ class PopoverProvider extends Component {
 
                             this.show();
 
-                        },
-                        onMouseOut: e => {
-
-                            if (children && children.props && children.props.onMouseOut
-                                && typeof children.props.onMouseOut === 'function') {
-                                children.props.onMouseOut(e);
-                            }
-
-                            this.hide();
-
                         }
                     })
                 }
 
                 <Popover {...restProps}
                          triggerEl={this.triggerEl}
-                         visible={visible}>
+                         visible={visible}
+                         onRequestClose={this.hide}>
                     {popoverContent}
                 </Popover>
 
