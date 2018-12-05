@@ -61,8 +61,26 @@ class TipProvider extends Component {
                 {
                     cloneElement(children, {
                         ref: 'trigger',
-                        onMouseOver: this.showTip,
-                        onMouseOut: this.hideTip
+                        onMouseOver: e => {
+
+                            if (children && children.props && children.props.onMouseOver
+                                && typeof children.props.onMouseOver === 'function') {
+                                children.props.onMouseOver(e);
+                            }
+
+                            this.showTip();
+
+                        },
+                        onMouseOut: e => {
+
+                            if (children && children.props && children.props.onMouseOut
+                                && typeof children.props.onMouseOut === 'function') {
+                                children.props.onMouseOut(e);
+                            }
+
+                            this.hideTip();
+
+                        }
                     })
                 }
 
