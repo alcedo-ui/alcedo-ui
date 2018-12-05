@@ -109,7 +109,7 @@ class ListItem extends Component {
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
-            <TipProvider text={tip}
+            <TipProvider tipContent={tip}
                          position={tipPosition}>
 
                 <div className={listItemClassName}
