@@ -3,6 +3,7 @@ import {findDOMNode} from 'react-dom';
 
 import RaisedButton from 'src/RaisedButton';
 import Popup from 'src/Popup';
+import PopupProvider from 'src/PopupProvider';
 import List from 'src/List';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
@@ -467,6 +468,29 @@ class PopupExamples extends Component {
 
                             </div>
 
+                        </div>
+                    </div>
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Popup Provider"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+                            <div className="popup-example-wrapper">
+                                <PopupProvider className="customized-popover"
+                                               popupContent={
+                                                   <div style={{padding: 20}}>
+                                                       Popup Content
+                                                   </div>
+                                               }>
+                                    <RaisedButton className="trigger-button"
+                                                  value="Toggle Popup"
+                                                  onClick={() => console.log('onClick')}/>
+                                </PopupProvider>
+                            </div>
                         </div>
                     </div>
                 </Widget>
