@@ -20,19 +20,19 @@ class GuideExamples extends Component {
 
         super(props);
 
+        this.Type = Object.keys(Guide.Type).map(item => ({
+            className: `type-${item.toLowerCase()}`,
+            iconCls: 'fas fa-check',
+            text: item,
+            value: Guide.Type[item]
+        }));
+
         this.state = {
             type: Guide.Type.INFO,
             message: 'Message',
             guideVisible: {},
             triggerEl: {}
         };
-
-        this.Type = Object.keys(Guide.Type).map(item => ({
-            className: `type-${item.toLowerCase()}`,
-            iconCls: 'fas fa-check',
-            label: item,
-            value: Guide.Type[item]
-        }));
 
     }
 
@@ -107,7 +107,7 @@ class GuideExamples extends Component {
 
                                 <ButtonRadioGroup data={this.Type}
                                                   value={type}
-                                                  onChange={value => this.updateField('type', value)}/>
+                                                  onChange={item => this.updateField('type', item.value)}/>
 
                                 <MaterialTextField theme={MaterialTextField.Theme.HIGHLIGHT}
                                                    value={message}
