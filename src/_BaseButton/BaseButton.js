@@ -75,7 +75,7 @@ class BaseButton extends Component {
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
-            <TipProvider text={tip}
+            <TipProvider tipContent={tip}
                          position={tipPosition}>
 
                 <button {...restProps}
