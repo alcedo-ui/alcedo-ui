@@ -106,7 +106,7 @@ class DraggableListItem extends Component {
                                  {...dragProvided.dragHandleProps}>
 
                                 <TipProvider className='block'
-                                             text={tip}
+                                             tipContent={tip}
                                              position={tipPosition}>
 
                                     <div className={listItemClassName}
