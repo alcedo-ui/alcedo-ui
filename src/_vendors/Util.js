@@ -122,12 +122,12 @@ function tree(data, callback) {
 
 function getValueByValueField(data, valueField = 'value', displayField = 'text') {
 
-    if (!data) {
+    if (data == null) {
         return;
     }
 
     if (typeof data === 'object') {
-        return data[valueField] || data[displayField];
+        return data[valueField] == null ? data[displayField] : data[valueField];
     }
 
     return data;
@@ -136,12 +136,12 @@ function getValueByValueField(data, valueField = 'value', displayField = 'text')
 
 function getTextByDisplayField(data, displayField = 'text', valueField = 'value') {
 
-    if (!data) {
+    if (data == null) {
         return '';
     }
 
     if (typeof data === 'object') {
-        return data[displayField] || data[valueField];
+        return data[displayField] == null ? data[valueField] : data[displayField];
     }
 
     return data;
