@@ -149,7 +149,7 @@ class EditableField extends Component {
         let inputStyle = autoWidth && typeof inputAutoWidth === 'number' ? {width: parseInt(inputAutoWidth) + 42} : {};
 
         return (
-            <TipProvider text={tip}
+            <TipProvider tipContent={tip}
                          position={tipPosition}>
                 <div ref="editableField"
                      className={fieldClassName}
