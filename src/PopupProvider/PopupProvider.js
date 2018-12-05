@@ -30,12 +30,10 @@ class PopupProvider extends Component {
 
     }
 
-    show = () => {
-        if (!this.state.visible) {
-            this.setState({
-                visible: true
-            });
-        }
+    toggle = () => {
+        this.setState({
+            visible: !this.state.visible
+        });
     };
 
     hide = () => {
@@ -70,24 +68,14 @@ class PopupProvider extends Component {
                 {
                     cloneElement(children, {
                         ref: 'trigger',
-                        onMouseOver: e => {
+                        onClick: e => {
 
-                            if (children && children.props && children.props.onMouseOver
-                                && typeof children.props.onMouseOver === 'function') {
-                                children.props.onMouseOver(e);
+                            if (children && children.props && children.props.onClick
+                                && typeof children.props.onClick === 'function') {
+                                children.props.onClick(e);
                             }
 
-                            this.show();
-
-                        },
-                        onMouseOut: e => {
-
-                            if (children && children.props && children.props.onMouseOut
-                                && typeof children.props.onMouseOut === 'function') {
-                                children.props.onMouseOut(e);
-                            }
-
-                            this.hide();
+                            this.toggle();
 
                         }
                     })
@@ -95,7 +83,8 @@ class PopupProvider extends Component {
 
                 <Popup {...restProps}
                        triggerEl={this.triggerEl}
-                       visible={visible}>
+                       visible={visible}
+                       onRequestClose={this.hide}>
                     {popupContent}
                 </Popup>
 
