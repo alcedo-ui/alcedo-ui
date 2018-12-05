@@ -76,6 +76,7 @@ export PointStep from './PointStep';
 export Popover from './Popover';
 export PopoverProvider from './PopoverProvider';
 export Popup from './Popup';
+export PopupProvider from './PopupProvider';
 export Portal from './Portal';
 export Radio from './Radio';
 export RadioGroup from './RadioGroup';
@@ -107,4 +108,4 @@ export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 107;
+export const COMPONENTS_TOTAL_COUNT = 108;
