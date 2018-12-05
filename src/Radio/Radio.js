@@ -103,7 +103,7 @@ class Radio extends Component {
             });
 
         return (
-            <TipProvider text={tip}
+            <TipProvider tipContent={tip}
                          position={tipPosition}>
 
                 <div className={radioClassName}
