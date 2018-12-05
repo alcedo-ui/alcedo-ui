@@ -27,7 +27,7 @@ class PopoverExamples extends Component {
 
     }
 
-    showMenu = id => {
+    show = id => {
 
         const {menuVisible} = this.state;
 
@@ -39,7 +39,7 @@ class PopoverExamples extends Component {
 
     };
 
-    hideMenu = id => {
+    hide = id => {
 
         const {menuVisible} = this.state;
 
@@ -110,16 +110,12 @@ class PopoverExamples extends Component {
                                 <RaisedButton ref="trigger0"
                                               className="trigger-button"
                                               value="Toggle Popover"
-                                              onMouseOver={() => {
-                                                  this.showMenu(0);
-                                              }}/>
+                                              onMouseOver={() => this.show(0)}/>
 
                                 <Popover theme={Popover.Theme.PRIMARY}
                                          visible={menuVisible[0]}
                                          triggerEl={triggerEl[0]}
-                                         onRequestClose={() => {
-                                             this.hideMenu(0);
-                                         }}>
+                                         onRequestClose={() => this.hide(0)}>
                                     <div style={{padding: 20, color: '#fff'}}>
                                         Popover Content
                                     </div>
@@ -149,16 +145,12 @@ class PopoverExamples extends Component {
                                 <RaisedButton ref="trigger1"
                                               className="trigger-button"
                                               value="Toggle Popover"
-                                              onMouseOver={() => {
-                                                  this.showMenu(1);
-                                              }}/>
+                                              onMouseOver={() => this.show(1)}/>
 
                                 <Popover visible={menuVisible[1]}
                                          triggerEl={triggerEl[1]}
                                          hasTriangle={false}
-                                         onRequestClose={() => {
-                                             this.hideMenu(1);
-                                         }}>
+                                         onRequestClose={() => this.hide(1)}>
                                     <List data={items}/>
                                 </Popover>
 
@@ -189,93 +181,67 @@ class PopoverExamples extends Component {
                                         <RaisedButton ref="trigger5"
                                                       className="trigger-position-button"
                                                       value="Top Left"
-                                                      onMouseOver={() => {
-                                                          this.showMenu(5);
-                                                      }}/>
+                                                      onMouseOver={() => this.show(5)}/>
                                         <RaisedButton ref="trigger6"
                                                       className="trigger-position-button"
                                                       value="Top"
-                                                      onMouseOver={() => {
-                                                          this.showMenu(6);
-                                                      }}/>
+                                                      onMouseOver={() => this.show(6)}/>
                                         <RaisedButton ref="trigger7"
                                                       className="trigger-position-button"
                                                       value="Top right"
-                                                      onMouseOver={() => {
-                                                          this.showMenu(7);
-                                                      }}/>
+                                                      onMouseOver={() => this.show(7)}/>
                                     </div>
 
                                     <div className="button-group right">
                                         <RaisedButton ref="trigger11"
                                                       className="trigger-position-button"
                                                       value="Right Top"
-                                                      onMouseOver={() => {
-                                                          this.showMenu(11);
-                                                      }}/>
+                                                      onMouseOver={() => this.show(11)}/>
                                         <RaisedButton ref="trigger12"
                                                       className="trigger-position-button"
                                                       value="Right"
-                                                      onMouseOver={() => {
-                                                          this.showMenu(12);
-                                                      }}/>
+                                                      onMouseOver={() => this.show(12)}/>
                                         <RaisedButton ref="trigger13"
                                                       className="trigger-position-button"
                                                       value="Right Bottom"
-                                                      onMouseOver={() => {
-                                                          this.showMenu(13);
-                                                      }}/>
+                                                      onMouseOver={() => this.show(13)}/>
                                     </div>
 
                                     <div className="button-group bottom">
                                         <RaisedButton ref="trigger2"
                                                       className="trigger-position-button"
                                                       value="Bottom Left"
-                                                      onMouseOver={() => {
-                                                          this.showMenu(2);
-                                                      }}/>
+                                                      onMouseOver={() => this.show(2)}/>
                                         <RaisedButton ref="trigger3"
                                                       className="trigger-position-button"
                                                       value="Bottom"
-                                                      onMouseOver={() => {
-                                                          this.showMenu(3);
-                                                      }}/>
+                                                      onMouseOver={() => this.show(3)}/>
                                         <RaisedButton ref="trigger4"
                                                       className="trigger-position-button"
                                                       value="Bottom Right"
-                                                      onMouseOver={() => {
-                                                          this.showMenu(4);
-                                                      }}/>
+                                                      onMouseOver={() => this.show(4)}/>
                                     </div>
 
                                     <div className="button-group left">
                                         <RaisedButton ref="trigger8"
                                                       className="trigger-position-button"
                                                       value="Left Top"
-                                                      onMouseOver={() => {
-                                                          this.showMenu(8);
-                                                      }}/>
+                                                      onMouseOver={() => this.show(8)}/>
                                         <RaisedButton ref="trigger9"
                                                       className="trigger-position-button"
                                                       value="Left"
-                                                      onMouseOver={() => {
-                                                          this.showMenu(9);
-                                                      }}/>
+                                                      onMouseOver={() => this.show(9)}/>
                                         <RaisedButton ref="trigger10"
                                                       className="trigger-position-button"
                                                       value="Left Bottom"
-                                                      onMouseOver={() => {
-                                                          this.showMenu(10);
-                                                      }}/>
+                                                      onMouseOver={() => this.show(10)}/>
                                     </div>
 
                                     <div className="button-group center">
                                         <RaisedButton ref="trigger14"
                                                       className="trigger-position-button"
                                                       value="Center"
-                                                      onMouseOver={() => {
-                                                          this.showMenu(14);
-                                                      }}/>
+                                                      onMouseOver={() => this.show(14)}/>
                                     </div>
 
                                 </div>
@@ -283,109 +249,83 @@ class PopoverExamples extends Component {
                                 <Popover visible={menuVisible[2]}
                                          triggerEl={triggerEl[2]}
                                          position={Popover.Position.BOTTOM_LEFT}
-                                         onRequestClose={() => {
-                                             this.hideMenu(2);
-                                         }}>
+                                         onRequestClose={() => this.hide(2)}>
                                     <List data={items}/>
                                 </Popover>
                                 <Popover visible={menuVisible[3]}
                                          triggerEl={triggerEl[3]}
                                          position={Popover.Position.BOTTOM}
-                                         onRequestClose={() => {
-                                             this.hideMenu(3);
-                                         }}>
+                                         onRequestClose={() => this.hide(3)}>
                                     <List data={items}/>
                                 </Popover>
                                 <Popover visible={menuVisible[4]}
                                          triggerEl={triggerEl[4]}
                                          position={Popover.Position.BOTTOM_RIGHT}
-                                         onRequestClose={() => {
-                                             this.hideMenu(4);
-                                         }}>
+                                         onRequestClose={() => this.hide(4)}>
                                     <List data={items}/>
                                 </Popover>
 
                                 <Popover visible={menuVisible[5]}
                                          triggerEl={triggerEl[5]}
                                          position={Popover.Position.TOP_LEFT}
-                                         onRequestClose={() => {
-                                             this.hideMenu(5);
-                                         }}>
+                                         onRequestClose={() => this.hide(5)}>
                                     <List data={items}/>
                                 </Popover>
                                 <Popover visible={menuVisible[6]}
                                          triggerEl={triggerEl[6]}
                                          position={Popover.Position.TOP}
-                                         onRequestClose={() => {
-                                             this.hideMenu(6);
-                                         }}>
+                                         onRequestClose={() => this.hide(6)}>
                                     <List data={items}/>
                                 </Popover>
                                 <Popover visible={menuVisible[7]}
                                          triggerEl={triggerEl[7]}
                                          position={Popover.Position.TOP_RIGHT}
-                                         onRequestClose={() => {
-                                             this.hideMenu(7);
-                                         }}>
+                                         onRequestClose={() => this.hide(7)}>
                                     <List data={items}/>
                                 </Popover>
 
                                 <Popover visible={menuVisible[8]}
                                          triggerEl={triggerEl[8]}
                                          position={Popover.Position.LEFT_TOP}
-                                         onRequestClose={() => {
-                                             this.hideMenu(8);
-                                         }}>
+                                         onRequestClose={() => this.hide(8)}>
                                     <List data={items}/>
                                 </Popover>
                                 <Popover visible={menuVisible[9]}
                                          triggerEl={triggerEl[9]}
                                          position={Popover.Position.LEFT}
-                                         onRequestClose={() => {
-                                             this.hideMenu(9);
-                                         }}>
+                                         onRequestClose={() => this.hide(9)}>
                                     <List data={items}/>
                                 </Popover>
                                 <Popover visible={menuVisible[10]}
                                          triggerEl={triggerEl[10]}
                                          position={Popover.Position.LEFT_BOTTOM}
-                                         onRequestClose={() => {
-                                             this.hideMenu(10);
-                                         }}>
+                                         onRequestClose={() => this.hide(10)}>
                                     <List data={items}/>
                                 </Popover>
 
                                 <Popover visible={menuVisible[11]}
                                          triggerEl={triggerEl[11]}
                                          position={Popover.Position.RIGHT_TOP}
-                                         onRequestClose={() => {
-                                             this.hideMenu(11);
-                                         }}>
+                                         onRequestClose={() => this.hide(11)}>
                                     <List data={items}/>
                                 </Popover>
                                 <Popover visible={menuVisible[12]}
                                          triggerEl={triggerEl[12]}
                                          position={Popover.Position.RIGHT}
-                                         onRequestClose={() => {
-                                             this.hideMenu(12);
-                                         }}>
+                                         onRequestClose={() => this.hide(12)}>
                                     <List data={items}/>
                                 </Popover>
                                 <Popover visible={menuVisible[13]}
                                          triggerEl={triggerEl[13]}
                                          position={Popover.Position.RIGHT_BOTTOM}
-                                         onRequestClose={() => {
-                                             this.hideMenu(13);
-                                         }}>
+                                         onRequestClose={() => this.hide(13)}>
                                     <List data={items}/>
                                 </Popover>
 
                                 <Popover visible={menuVisible[14]}
                                          triggerEl={triggerEl[14]}
                                          position={Popover.Position.CENTER}
-                                         onRequestClose={() => {
-                                             this.hideMenu(14);
-                                         }}>
+                                         onRequestClose={() => this.hide(14)}>
                                     <List data={items}/>
                                 </Popover>
 
@@ -408,9 +348,7 @@ class PopoverExamples extends Component {
                                 <RaisedButton ref="trigger15"
                                               className="trigger-button"
                                               value="Toggle Popover"
-                                              onMouseOver={() => {
-                                                  this.showMenu(15);
-                                              }}/>
+                                              onMouseOver={() => this.show(15)}/>
 
                                 <Popover className="customized-popover"
                                          visible={menuVisible[15]}
@@ -425,9 +363,7 @@ class PopoverExamples extends Component {
                                                            style={{stroke: '#e7e7e7', fill: '#fff'}}/>
                                              </svg>
                                          }
-                                         onRequestClose={() => {
-                                             this.hideMenu(15);
-                                         }}>
+                                         onRequestClose={() => this.hide(15)}>
                                     <div style={{padding: 20}}>
                                         Popover Content
                                     </div>
@@ -456,11 +392,11 @@ class PopoverExamples extends Component {
                                                          Popover Content
                                                      </div>
                                                  }
-                                                 onRequestClose={() => this.hideMenu(16)}>
+                                                 onRequestClose={() => this.hide(16)}>
                                     <RaisedButton ref="trigger16"
                                                   className="trigger-button"
                                                   value="Toggle Popover"
-                                                  onMouseOver={() => this.showMenu(16)}/>
+                                                  onMouseOver={() => this.show(16)}/>
                                 </PopoverProvider>
                             </div>
 
