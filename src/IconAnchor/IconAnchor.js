@@ -68,7 +68,7 @@ class IconAnchor extends Component {
             });
 
         return (
-            <TipProvider text={tip}
+            <TipProvider tipContent={tip}
                          position={tipPosition}>
 
                 <a {...restProps}
