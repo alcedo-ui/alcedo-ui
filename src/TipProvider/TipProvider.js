@@ -17,7 +17,7 @@ import ComponentUtil from '../_vendors/ComponentUtil';
 
 class TipProvider extends Component {
 
-    static Position = Tip.Position;
+    static Position = Position;
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
