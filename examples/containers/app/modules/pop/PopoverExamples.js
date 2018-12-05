@@ -121,7 +121,7 @@ class PopoverExamples extends Component {
                                              this.hideMenu(0);
                                          }}>
                                     <div style={{padding: 20, color: '#fff'}}>
-                                        Popover
+                                        Popover Content
                                     </div>
                                 </Popover>
 
@@ -429,7 +429,7 @@ class PopoverExamples extends Component {
                                              this.hideMenu(15);
                                          }}>
                                     <div style={{padding: 20}}>
-                                        Popover
+                                        Popover Content
                                     </div>
                                 </Popover>
 
@@ -453,7 +453,7 @@ class PopoverExamples extends Component {
                                                  triggerEl={triggerEl[16]}
                                                  popoverContent={
                                                      <div style={{padding: 20}}>
-                                                         Popover
+                                                         Popover Content
                                                      </div>
                                                  }
                                                  onRequestClose={() => this.hideMenu(16)}>
