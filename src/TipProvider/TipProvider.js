@@ -3,16 +3,17 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component, isValidElement, cloneElement, Fragment} from 'react';
+import React, {Component, cloneElement, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
-import classNames from 'classnames';
 
 import Tip from '../Tip';
+
 import Theme from '../Theme';
+import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
-import Position from '../_statics/Position';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class TipProvider extends Component {
 
@@ -47,12 +48,19 @@ class TipProvider extends Component {
         this.refs.trigger && (this.triggerEl = findDOMNode(this.refs.trigger));
     }
 
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'visible')
+        };
+    }
+
     render() {
 
-        const {children, text, onTipRender, ...restProps} = this.props,
+        const {children, tipContent, ...restProps} = this.props,
             {visible} = this.state;
 
-        if (!text) {
+        if (!tipContent) {
             return children;
         }
 
@@ -87,9 +95,8 @@ class TipProvider extends Component {
 
                 <Tip {...restProps}
                      triggerEl={this.triggerEl}
-                     visible={visible}
-                     onRender={onTipRender}>
-                    {text}
+                     visible={visible}>
+                    {tipContent}
                 </Tip>
 
             </Fragment>
@@ -183,7 +190,9 @@ TipProvider.propTypes = {
     /**
      * Callback function fired when wrapper wheeled.
      */
-    onWheel: PropTypes.func
+    onWheel: PropTypes.func,
+
+    tipContent: PropTypes.any
 
 };
 
