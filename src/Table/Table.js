@@ -724,11 +724,10 @@ Table.propTypes = {
          */
         headerStyle: PropTypes.object,
 
-        // header renderer
-        // (1) string，example： 'id'
-        // (2) callback，example：function (colIndex) {return colIndex;}
         /**
          * The render content in header.
+         * (1) string，example： 'id'
+         * (2) callback，example：function (colIndex) {return colIndex;}
          */
         header: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 
@@ -742,12 +741,11 @@ Table.propTypes = {
          */
         cellStyle: PropTypes.object,
 
-        // cell renderer
-        // (1) data key，example： 'id'
-        // (2) data key tamplate，example：'${id} - ${name}'
-        // (3) callback，example：function (rowData, rowIndex, colIndex) {return rowData.id;}
         /**
          * The render content in table.
+         * (1) data key，example： 'id'
+         * (2) data key tamplate，example：'${id} - ${name}'
+         * (3) callback，example：function (rowData, rowIndex, colIndex) {return rowData.id;}
          */
         renderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 
@@ -761,7 +759,9 @@ Table.propTypes = {
          */
         sortProp: PropTypes.string,
 
-        defaultSortType: PropTypes.oneOf(Util.enumerateValue(SortType))
+        defaultSortType: PropTypes.oneOf(Util.enumerateValue(SortType)),
+
+        span: PropTypes.func
 
     })).isRequired,
 
