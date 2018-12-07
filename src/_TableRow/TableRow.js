@@ -19,15 +19,53 @@ class TableRow extends Component {
             return template;
         }
 
-        if (/\$\{.+\}/.test(template)) { // 配置的 renderer 中包含 ${...}，用数据替换
+        if (/\$\{.+\}/.test(template)) { // handle replacement in template
             let result = template;
             for (let key in data) {
                 result = result.replace(new RegExp('\\$\\{' + key + '\\}', 'g'), data[key]);
             }
             return result;
-        } else { // 直接显示字段
+        } else { // show prop value directly
             return data[template];
         }
+
+    };
+
+    calSpan = (col, colIndex) => {
+        return col.span && typeof col.span === 'function' ?
+            col.span(this.props.rowIndex, colIndex)
+            :
+            null;
+    };
+
+    calColumns = () => {
+
+        const {columns} = this.props,
+            result = [];
+        let spanFlag = 0;
+
+        for (let i = 0, len = columns.length; i < len; i++) {
+
+            if (spanFlag > 1) {
+                spanFlag--;
+                continue;
+            }
+
+            const col = columns[i],
+                span = this.calSpan(columns[i], i);
+
+            if (span && span > 1) {
+                spanFlag = span;
+            }
+
+            result.push({
+                col,
+                span
+            });
+
+        }
+
+        return result;
 
     };
 
@@ -58,7 +96,9 @@ class TableRow extends Component {
 
     render() {
 
-        const {data, columns, isChecked, disabled} = this.props,
+        const {data, isChecked, disabled} = this.props,
+
+            columns = this.calColumns(),
 
             trClassName = classNames('table-row', {
                 activated: isChecked,
@@ -70,20 +110,19 @@ class TableRow extends Component {
                 style={data.rowStyle}
                 disabled={disabled}
                 onClick={this.rowClickHandler}>
-
                 {
-                    columns && columns.map((col, colIndex) =>
+                    columns && columns.map(({col, span}, colIndex) =>
                         <td key={colIndex}
                             className={classNames('table-data', {
                                 [col.cellClassName]: col.cellClassName
                             })}
                             style={col.cellStyle}
+                            colSpan={span}
                             onClick={e => this.cellClickHandler(e, colIndex)}>
                             {this.contentRenderer(col.renderer, colIndex)}
                         </td>
                     )
                 }
-
             </tr>
         );
 
