@@ -723,8 +723,8 @@ DropdownSelect.propTypes = {
     checkboxUncheckedIconCls: PropTypes.string,
     checkboxCheckedIconCls: PropTypes.string,
     checkboxIndeterminateIconCls: PropTypes.string,
-
     resetPopPositionWait: PropTypes.number,
+    autoPopupWidth: PropTypes.bool,
 
     renderer: PropTypes.func,
     filterCallback: PropTypes.func,
@@ -784,7 +784,8 @@ DropdownSelect.defaultProps = {
     isHiddenInputFilter: false,
     clearHiddenInputFilterInterval: 1000,
     isGrouped: false,
-    resetPopPositionWait: 250
+    resetPopPositionWait: 250,
+    autoPopupWidth: true
 
 };
 
