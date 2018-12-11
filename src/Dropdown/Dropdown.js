@@ -131,7 +131,7 @@ class Dropdown extends Component {
 
                 className, triggerClassName, popupClassName, style, triggerStyle, popupStyle,
                 theme, activatedTheme, popupTheme, position, iconCls, triggerValue, title, tip, tipPosition,
-                rightIconCls, disabled, disableTouchRipple, autoPopupWidth, resetPopPositionWait,
+                rightIconCls, disabled, isLoading, disableTouchRipple, autoPopupWidth, resetPopPositionWait,
 
                 // events
                 onMouseOver, onMouseOut
@@ -173,6 +173,7 @@ class Dropdown extends Component {
                               iconCls={iconCls}
                               rightIconCls={`${rightIconCls} dropdown-trigger-icon`}
                               disabled={disabled}
+                              isLoading={isLoading}
                               disableTouchRipple={disableTouchRipple}
                               onMouseOver={onMouseOver}
                               onMouseOut={onMouseOut}
@@ -267,6 +268,11 @@ Dropdown.propTypes = {
      */
     disabled: PropTypes.bool,
 
+    /**
+     * If true, the dropDown will be loading.
+     */
+    isLoading: PropTypes.bool,
+
     disableTouchRipple: PropTypes.bool,
 
     /**
@@ -308,6 +314,7 @@ Dropdown.defaultProps = {
 
     rightIconCls: 'fas fa-angle-down',
     disabled: false,
+    isLoading: false,
     disableTouchRipple: false,
     autoPopupWidth: true,
     autoClose: true,
