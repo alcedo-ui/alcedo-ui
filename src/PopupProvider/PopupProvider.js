@@ -30,12 +30,18 @@ class PopupProvider extends Component {
 
     }
 
+    /**
+     * public
+     */
     toggle = () => {
         this.setState({
             visible: !this.state.visible
         });
     };
 
+    /**
+     * public
+     */
     hide = () => {
         this.setState({
             visible: false
