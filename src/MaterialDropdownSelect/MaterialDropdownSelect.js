@@ -272,6 +272,11 @@ MaterialDropdownSelect.propTypes = {
     disabled: PropTypes.bool,
 
     /**
+     * If true,the dropDownSelect will be loading.
+     */
+    isLoading: PropTypes.bool,
+
+    /**
      * The mode of listItem.Can be normal,checkbox.
      */
     selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
@@ -364,6 +369,7 @@ MaterialDropdownSelect.defaultProps = {
     rightIconCls: 'fas fa-angle-down',
     data: [],
     disabled: false,
+    isLoading: false,
     selectMode: SelectMode.SINGLE_SELECT,
 
     valueField: 'value',
