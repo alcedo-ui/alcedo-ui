@@ -171,6 +171,11 @@ MaterialDropdown.propTypes = {
      */
     disabled: PropTypes.bool,
 
+    /**
+     * If true, the dropDown will be loading.
+     */
+    isLoading: PropTypes.bool,
+
     disableTouchRipple: PropTypes.bool,
 
     /**
@@ -206,6 +211,7 @@ MaterialDropdown.defaultProps = {
     placeholder: 'Please select ...',
     rightIconCls: 'fas fa-angle-down',
     disabled: false,
+    isLoading: false,
     disableTouchRipple: false,
     autoClose: true,
     required: false,
