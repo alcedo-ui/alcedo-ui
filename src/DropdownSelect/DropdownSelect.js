@@ -648,6 +648,11 @@ DropdownSelect.propTypes = {
     disabled: PropTypes.bool,
 
     /**
+     * If true,the dropDownSelect will be loading.
+     */
+    isLoading: PropTypes.bool,
+
+    /**
      * List item disabled callback.
      */
     itemDisabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
@@ -766,6 +771,7 @@ DropdownSelect.defaultProps = {
     rightIconCls: 'fas fa-angle-down',
     data: [],
     disabled: false,
+    isLoading: false,
     itemDisabled: false,
     selectMode: SelectMode.SINGLE_SELECT,
     tipPosition: Position.BOTTOM,
