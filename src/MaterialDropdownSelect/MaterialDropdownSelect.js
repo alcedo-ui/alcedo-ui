@@ -259,7 +259,7 @@ MaterialDropdownSelect.propTypes = {
         // grouped
         PropTypes.array
 
-    ]).isRequired,
+    ]),
 
     /**
      * The invalid message of dropDownSelect.
