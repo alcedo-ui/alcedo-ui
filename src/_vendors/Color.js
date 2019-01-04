@@ -7,7 +7,7 @@ import Valid from './Valid';
 
 /**
  * Convert Hue percent value to RGB value
- * @param Hue percent value
+ * @param Hue percent value {number}
  * @returns RGB {number[R, G, B]}
  * @private
  */
@@ -25,7 +25,7 @@ function _getHueRGB(percent) {
 
 /**
  * Convert Hue degree value to RGB value
- * @param Hue degree value
+ * @param Hue degree value {number}
  * @returns RGB {number[R, G, B]}
  */
 function hue2rgb(hue) {
@@ -45,6 +45,11 @@ function hue2rgb(hue) {
 
 }
 
+/**
+ * Convert RGB value to HSB value
+ * @param RGB value {number[R, G, B]}
+ * @returns HSB value {number[H, S, B]}
+ */
 function rgb2hsb(rgb) {
 
     if (!Valid.isRGB(rgb)) {
