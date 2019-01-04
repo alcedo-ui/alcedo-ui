@@ -5,6 +5,12 @@
 
 import Valid from './Valid';
 
+/**
+ * Convert Hue percent value to RGB value
+ * @param Hue perCent
+ * @returns RGB {number[R, G, B]}
+ * @private
+ */
 function _getHueRGB(perCent) {
 
     const data = [[255, 0, 0], [255, 255, 0], [0, 255, 0], [0, 255, 255], [0, 0, 255], [255, 0, 255], [255, 0, 0]];
