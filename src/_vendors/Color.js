@@ -7,32 +7,37 @@ import Valid from './Valid';
 
 /**
  * Convert Hue percent value to RGB value
- * @param Hue perCent
+ * @param Hue percent value
  * @returns RGB {number[R, G, B]}
  * @private
  */
-function _getHueRGB(perCent) {
+function _getHueRGB(percent) {
 
     const data = [[255, 0, 0], [255, 255, 0], [0, 255, 0], [0, 255, 255], [0, 0, 255], [255, 0, 255], [255, 0, 0]];
 
-    if (Valid.isPerCent(perCent)) {
-        return data[Math.floor(perCent * 6)];
+    if (Valid.isPerCent(percent)) {
+        return data[Math.floor(percent * 6)];
     }
 
     return data[0];
 
 }
 
+/**
+ * Convert Hue degree value to RGB value
+ * @param Hue degree value
+ * @returns RGB {number[R, G, B]}
+ */
 function hue2rgb(hue) {
 
     if (!Valid.isDeg(hue)) {
         return;
     }
 
-    const perCent = hue / 360,
-        int = Math.floor(perCent * 6),
-        offset = Math.round((perCent * 6 - int) * 255),
-        rgb = _getHueRGB(perCent);
+    const percent = hue / 360,
+        int = Math.floor(percent * 6),
+        offset = Math.round((percent * 6 - int) * 255),
+        rgb = _getHueRGB(percent);
 
     rgb[(int * 2 + 1) % 3] += offset * (Valid.isOdd(int) ? -1 : 1);
 
