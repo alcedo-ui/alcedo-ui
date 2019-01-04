@@ -76,6 +76,11 @@ function rgb2hsb(rgb) {
 
 }
 
+/**
+ * Convert HSB value to RGB value
+ * @param HSB value {number[H, S, B]}
+ * @returns RGB value {number[R, G, B]}
+ */
 function hsb2rgb(hsb) {
 
     if (!Valid.isHSB(hsb)) {
@@ -130,6 +135,11 @@ function hsb2rgb(hsb) {
 
 }
 
+/**
+ * Convert RGB value to hex format
+ * @param RGB value {number[R, G, B]}
+ * @returns RGB hex value {string}
+ */
 function rgb2hex(rgb) {
 
     if (!rgb || !Valid.isRGB(rgb)) {
@@ -140,6 +150,12 @@ function rgb2hex(rgb) {
 
 }
 
+/**
+ * Convert RGB hex value to RGB format
+ * @param RGB hex value {string}
+ * @param hasHash {bool}
+ * @returns RGB value {number[R, G, B]}
+ */
 function hex2rgb(hex, hasHash) {
 
     if (!Valid.isHex(hex, hasHash)) {
