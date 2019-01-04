@@ -9,7 +9,6 @@ const path = require('path'),
     cssLoaderConfig = ['style-loader', {
         loader: 'css-loader',
         options: {
-            minimize: true,
             importLoaders: 1
         }
     }, {
