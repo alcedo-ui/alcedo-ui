@@ -138,6 +138,7 @@ class PopupExamples extends Component {
 
                                 <Popup theme={Popup.Theme.PRIMARY}
                                        visible={popupVisible[0]}
+                                       parentEl={document.querySelector('.popup-examples')}
                                        triggerEl={triggerEl[0]}
                                        onRequestClose={() => this.closePopup(0)}>
                                     <div style={{padding: 20, color: '#fff'}}>

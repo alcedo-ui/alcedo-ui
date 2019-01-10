@@ -50,7 +50,7 @@ function leftHorizontalRight(triggerEl, triggerOffset) {
     return triggerOffset.left + triggerEl.offsetWidth;
 }
 
-function getStyle(triggerEl, popupEl, position, isTriggerPositionFixed) {
+function getStyle(parentEl, triggerEl, popupEl, position, isTriggerPositionFixed) {
 
     if (!triggerEl || !popupEl) {
         return;
@@ -137,9 +137,9 @@ function getStyle(triggerEl, popupEl, position, isTriggerPositionFixed) {
 
 }
 
-function setStyle(triggerEl, popupEl, position, isTriggerPositionFixed) {
+function setStyle(parentEl, triggerEl, popupEl, position, isTriggerPositionFixed) {
 
-    const style = getStyle(triggerEl, popupEl, position, isTriggerPositionFixed);
+    const style = getStyle(parentEl, triggerEl, popupEl, position, isTriggerPositionFixed);
 
     if (!style) {
         return;

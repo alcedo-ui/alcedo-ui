@@ -86,8 +86,8 @@ class TriggerPop extends Component {
     };
 
     resetPosition = (props = this.props) => {
-        const {triggerEl, position, isTriggerPositionFixed} = props;
-        TriggerPopCalculation.setStyle(triggerEl, this.transitionEl, position, isTriggerPositionFixed);
+        const {parentEl, triggerEl, position, isTriggerPositionFixed} = props;
+        TriggerPopCalculation.setStyle(parentEl, triggerEl, this.transitionEl, position, isTriggerPositionFixed);
     };
 
     addWatchScroll = () => {
