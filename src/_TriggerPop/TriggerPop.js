@@ -147,8 +147,8 @@ class TriggerPop extends Component {
 
                 children,
 
-                className, contentClassName, modalClassName, style, theme, hasTriangle, triangle, position,
-                isAnimated, visible, showModal,
+                className, contentClassName, modalClassName, style, theme, parentEl,
+                hasTriangle, triangle, position, isAnimated, visible, showModal,
 
                 // not passing down these props
                 isEscClose, isBlurClose, shouldPreventContainerScroll, triggerEl, isTriggerPositionFixed,
@@ -180,7 +180,8 @@ class TriggerPop extends Component {
             });
 
         return (
-            <Portal visible={!exited}>
+            <Portal visible={!exited}
+                    parentEl={parentEl}>
 
                 {
                     showModal ?
@@ -253,6 +254,8 @@ TriggerPop.propTypes = {
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
+    parentEl: PropTypes.object,
+
     /**
      * This is the DOM element that will be used to set the position of the trigger pop.
      */
@@ -323,6 +326,7 @@ TriggerPop.propTypes = {
 TriggerPop.defaultProps = {
 
     theme: Theme.DEFAULT,
+    parentEl: document.body,
     depth: 3,
 
     visible: false,
