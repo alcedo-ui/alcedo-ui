@@ -71,7 +71,8 @@ class Guide extends Component {
 
         const {
 
-                className, contentClassName, type, iconVisible, iconCls, closeButtonVisible, closeButtonValue,
+                className, contentClassName,
+                type, iconVisible, iconCls, closeButtonVisible, closeButtonValue,
                 children, onRequestClose,
 
                 ...restProps
@@ -148,6 +149,8 @@ Guide.propTypes = {
      * The type of notification.
      */
     type: PropTypes.oneOf(Util.enumerateValue(MsgType)),
+
+    parentEl: PropTypes.object,
 
     /**
      * This is the DOM element that will be used to set the position of the popover.
@@ -227,6 +230,8 @@ Guide.propTypes = {
 };
 
 Guide.defaultProps = {
+
+    parentEl: document.body,
 
     type: MsgType.INFO,
     visible: false,
