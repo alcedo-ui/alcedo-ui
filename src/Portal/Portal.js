@@ -27,7 +27,7 @@ class Portal extends Component {
 
         const {
 
-            className,
+            className, parentEl,
 
             // not passing down these props
             children, visible,
@@ -35,6 +35,10 @@ class Portal extends Component {
             ...restProps
 
         } = this.props;
+
+        if (!parentEl) {
+            return;
+        }
 
         this.wrapper = document.createElement('div');
         this.wrapper.className = classNames('portal', {
@@ -45,7 +49,7 @@ class Portal extends Component {
             this.wrapper[key] = restProps[key];
         }
 
-        document.body.appendChild(this.wrapper);
+        parentEl.appendChild(this.wrapper);
 
     };
 
@@ -61,10 +65,14 @@ class Portal extends Component {
     };
 
     unmountWrapper = () => {
-        if (this.wrapper) {
-            document.body.removeChild(this.wrapper);
+
+        const {parentEl} = this.props;
+
+        if (this.wrapper && parentEl) {
+            parentEl.removeChild(this.wrapper);
             this.wrapper = null;
         }
+
     };
 
     componentWillReceiveProps(nextProps) {
@@ -85,11 +93,13 @@ class Portal extends Component {
 }
 
 Portal.propTypes = {
-    visible: PropTypes.bool
+    visible: PropTypes.bool,
+    parentEl: PropTypes.object
 };
 
 Portal.defaultProps = {
-    visible: false
+    visible: false,
+    parentEl: document.body
 };
 
 export default Portal;
