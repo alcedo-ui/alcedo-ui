@@ -169,6 +169,8 @@ Toaster.propTypes = {
      */
     style: PropTypes.object,
 
+    parentEl: PropTypes.object,
+
     /**
      * Children passed into the toaster.
      */
@@ -221,8 +223,12 @@ Toaster.propTypes = {
 };
 
 Toaster.defaultProps = {
+
+    parentEl: document.body,
+
     position: Position.TOP,
     duration: 2500
+
 };
 
 export default Toaster;
