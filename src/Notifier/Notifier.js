@@ -169,6 +169,8 @@ Notifier.propTypes = {
      */
     style: PropTypes.object,
 
+    parentEl: PropTypes.object,
+
     /**
      * Children passed into the notifier.
      */
@@ -226,8 +228,12 @@ Notifier.propTypes = {
 };
 
 Notifier.defaultProps = {
+
+    parentEl: document.body,
+
     position: Position.BOTTOM_RIGHT,
     duration: 0
+
 };
 
 export default Notifier;
