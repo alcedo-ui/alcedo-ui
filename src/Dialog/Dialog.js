@@ -218,6 +218,8 @@ Dialog.propTypes = {
      */
     style: PropTypes.object,
 
+    parentEl: PropTypes.object,
+
     /**
      * The dialog alignment.
      */
@@ -352,6 +354,8 @@ Dialog.propTypes = {
 };
 
 Dialog.defaultProps = {
+
+    parentEl: document.body,
 
     position: Position.CENTER,
     disabled: false,
