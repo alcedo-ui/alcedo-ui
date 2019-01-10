@@ -109,7 +109,8 @@ class PositionPop extends Component {
 
         const {
 
-                className, theme, position, isAnimated, visible, container, showModal, modalClassName,
+                className, theme, parentEl,
+                position, isAnimated, visible, container, showModal, modalClassName,
 
                 // not passing down these props
                 isEscClose, isBlurClose, shouldPreventContainerScroll,
@@ -135,7 +136,8 @@ class PositionPop extends Component {
             });
 
         return (
-            <Portal visible={!exited}>
+            <Portal visible={!exited}
+                    parentEl={parentEl}>
 
                 {
                     showModal ?
@@ -193,6 +195,8 @@ PositionPop.propTypes = {
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
+    parentEl: PropTypes.object,
+
     /**
      * The trigger pop alignment.The value can be Popup.Position.LEFT or Popup.Position.RIGHT.
      */
@@ -246,6 +250,7 @@ PositionPop.propTypes = {
 
 PositionPop.defaultProps = {
 
+    parentEl: document.body,
     depth: 6,
 
     visible: false,
