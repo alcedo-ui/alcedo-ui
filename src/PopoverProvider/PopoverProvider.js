@@ -115,6 +115,8 @@ PopoverProvider.propTypes = {
      */
     style: PropTypes.object,
 
+    parentEl: PropTypes.object,
+
     /**
      * This is the DOM element that will be used to set the position of the popover.
      */
@@ -193,6 +195,8 @@ PopoverProvider.propTypes = {
 };
 
 PopoverProvider.defaultProps = {
+
+    parentEl: document.body,
 
     visible: false,
     hasTriangle: true,
