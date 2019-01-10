@@ -164,6 +164,8 @@ Drawer.propTypes = {
      */
     style: PropTypes.object,
 
+    parentEl: PropTypes.object,
+
     /**
      * The drawer alignment.
      */
@@ -208,6 +210,8 @@ Drawer.propTypes = {
 };
 
 Drawer.defaultProps = {
+
+    parentEl: document.body,
 
     position: Position.LEFT,
     disabled: false,
