@@ -22,7 +22,7 @@ class Portal extends Component {
     renderWrapper = () => {
 
         if (this.wrapper) {
-            return;
+            return this.wrapper;
         }
 
         const {
@@ -37,7 +37,7 @@ class Portal extends Component {
         } = this.props;
 
         if (!parentEl) {
-            return;
+            return null;
         }
 
         this.wrapper = document.createElement('div');
@@ -49,13 +49,15 @@ class Portal extends Component {
             this.wrapper[key] = restProps[key];
         }
 
-        parentEl.appendChild(this.wrapper);
+        return parentEl.appendChild(this.wrapper);
 
     };
 
     renderPortal = () => {
 
-        this.renderWrapper();
+        if (!this.renderWrapper()) {
+            return null;
+        }
 
         return this.portal = createPortal(
             this.props.children,
