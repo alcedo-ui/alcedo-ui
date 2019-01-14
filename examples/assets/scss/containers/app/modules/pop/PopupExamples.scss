@@ -17,15 +17,11 @@
     }
 }
 
-.popup-dialog .dialog-content {
-    position: relative;
+.popup-dialog-content-scroller {
+    width: 1000px;
+    height: 1000px;
 
-    .popup-dialog-content-scroller {
-        width: 1000px;
-        height: 1000px;
-
-        .dialog-trigger-button {
-            width: auto;
-        }
+    .dialog-trigger-button {
+        width: auto;
     }
 }
