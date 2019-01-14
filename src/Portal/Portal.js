@@ -7,6 +7,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {createPortal} from 'react-dom';
 import classNames from 'classnames';
+import addClass from 'dom-helpers/class/addClass';
+import removeClass from 'dom-helpers/class/removeClass';
 
 class Portal extends Component {
 
@@ -40,6 +42,8 @@ class Portal extends Component {
             return null;
         }
 
+        addClass(parentEl, 'portal-parent');
+
         this.wrapper = document.createElement('div');
         this.wrapper.className = classNames('portal', {
             [className]: className
@@ -72,6 +76,7 @@ class Portal extends Component {
 
         if (this.wrapper && parentEl) {
             parentEl.removeChild(this.wrapper);
+            removeClass(parentEl, 'portal-parent');
             this.wrapper = null;
         }
 
