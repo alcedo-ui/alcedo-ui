@@ -1,3 +1,5 @@
+import contains from 'dom-helpers/query/contains';
+
 /**
  * @file Dom vendor
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
@@ -29,17 +31,23 @@ function getOffset(el, parentEl) {
 
     while (el.offsetParent) {
 
-        el = el.offsetParent;
-
-        if (parentEl && parentEl !== document.body) {
-            offset.top = offset.top - getScrollTop(parentEl);
-            offset.left = offset.left - getScrollLeft(parentEl);
+        if (parentEl && el.offsetParent.contains(parentEl)) {
             break;
         }
 
+        el = el.offsetParent;
+
+        // if (parentEl && parentEl !== document.body) {
+        //     offset.top = offset.top - getScrollTop(parentEl);
+        //     offset.left = offset.left - getScrollLeft(parentEl);
+        //     break;
+        // }
+
         offset.top += el.offsetTop;
         offset.left += el.offsetLeft;
+
     }
+
     return offset;
 
 }
