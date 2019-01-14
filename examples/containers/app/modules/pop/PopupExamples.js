@@ -446,10 +446,11 @@ class PopupExamples extends Component {
                                               value="Show Dialog"
                                               onClick={() => this.togglePopup(17)}/>
 
-                                <Dialog visible={popupVisible[17]}
+                                <Dialog className="popup-dialog"
+                                        visible={popupVisible[17]}
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.closePopup(17)}>
-                                    <div className="popup-dialog-content">
+                                    <div className="popup-dialog-content-scroller">
                                         <RaisedButton ref="trigger18"
                                                       className="dialog-trigger-button"
                                                       value="Toggle Popup"
@@ -460,7 +461,8 @@ class PopupExamples extends Component {
                                 <Popup className="customized-popup in-dialog"
                                        visible={popupVisible[18]}
                                        triggerEl={triggerEl[18]}
-                                       parentEl={document.querySelector('.dialog-content')}
+                                       parentEl={document.querySelector('.popup-dialog .dialog-content')}
+                                       position={Popup.Position.BOTTOM_LEFT}
                                        resetPositionWait={0}
                                        onRequestClose={() => this.closePopup(18)}>
                                     <div style={{padding: 20}}>
