@@ -41,7 +41,6 @@ class TriggerPop extends Component {
     }
 
     enterHandler = el => {
-
         this.transitionEl = el;
         this.resetPosition();
 
@@ -178,6 +177,8 @@ class TriggerPop extends Component {
             popContentClassName = classNames('trigger-pop-content', {
                 [contentClassName]: contentClassName
             });
+
+        // console.log(parentEl);
 
         return (
             <Portal visible={!exited}

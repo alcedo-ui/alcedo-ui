@@ -12,7 +12,9 @@ import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Guide.json';
 
 import 'scss/containers/app/modules/pop/PopExamples.scss';
-import 'scss/containers/app/modules/pop/GuideExamples.scss';
+// import 'scss/containers/app/modules/pop/GuideExamples.scss';
+import '../../../../assets/scss/containers/app/modules/pop/GuideExamples.scss'
+import Dialog from 'src/Dialog';
 
 class GuideExamples extends Component {
 
@@ -66,6 +68,16 @@ class GuideExamples extends Component {
 
     };
 
+    dialogRenderHandler = () => {
+
+        const triggerEl = this.state.triggerEl;
+        triggerEl[16] = findDOMNode(this.refs['trigger16']);
+
+        this.setState({
+            triggerEl
+        });
+    };
+
     componentDidMount() {
 
         const triggerEl = {};
@@ -85,7 +97,7 @@ class GuideExamples extends Component {
         const {type, message, guideVisible, triggerEl} = this.state;
 
         return (
-            <div className="example pop-examples notification-examples">
+            <div className="example pop-examples notification-examples guide-examples">
 
                 <h2 className="example-title">Guide</h2>
 
@@ -285,6 +297,44 @@ class GuideExamples extends Component {
                         </div>
                     </div>
 
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Guide in Dialog"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="guide-example-wrapper">
+                                <RaisedButton className="trigger-button"
+                                              value="Show Dialog"
+                                              onClick={() => this.showGuide(15)}/>
+
+                                <Dialog visible={guideVisible[15]}
+                                        onRender={this.dialogRenderHandler}
+                                        onRequestClose={() => this.hideGuide(15)}>
+                                    <div className="guide-dialog-content">
+                                        <RaisedButton ref="trigger16"
+                                                      className="dialog-trigger-button"
+                                                      value="Toggle Popover"
+                                                      onClick={() => this.showGuide(16)}/>
+                                        <Guide visible={guideVisible[16]}
+                                               type={type}
+                                               triggerEl={triggerEl[16]}
+                                               parentEl={document.querySelector('.dialog-content')}
+                                               position={Guide.Position.BOTTOM}
+                                               onRequestClose={() => this.hideGuide(16)}>
+                                            {message}
+                                        </Guide>
+                                    </div>
+                                </Dialog>
+
+                            </div>
+
+                        </div>
+                    </div>
                 </Widget>
 
                 <h2 className="example-title">Properties</h2>

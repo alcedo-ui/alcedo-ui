@@ -56,7 +56,8 @@ function getStyle(parentEl, triggerEl, popupEl, position, isTriggerPositionFixed
         return;
     }
 
-    const triggerOffset = Dom.getOffset(triggerEl);
+    const triggerOffset = Dom.getOffset(triggerEl, parentEl);
+
     let result = {};
 
     switch (position) {

@@ -121,7 +121,7 @@ class Notifier extends Component {
 
         const {
 
-                className, position, duration,
+                className, position, duration,parentEl,
 
                 // not passing down these props
                 onNotificationPop,
@@ -141,7 +141,8 @@ class Notifier extends Component {
                          ref="notifier"
                          className={notifierClassName}
                          visible={visible}
-                         position={position}>
+                         position={position}
+                         parentEl={parentEl}>
                 {
                     notifications && notifications.map(options =>
                         <Notification {...options}

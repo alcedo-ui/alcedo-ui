@@ -13,6 +13,7 @@ import doc from 'assets/propTypes/Popover.json';
 
 import 'scss/containers/app/modules/pop/PopExamples.scss';
 import 'scss/containers/app/modules/pop/PopoverExamples.scss';
+import Dialog from 'src/Dialog';
 
 class PopoverExamples extends Component {
 
@@ -50,6 +51,18 @@ class PopoverExamples extends Component {
         });
 
     };
+
+    dialogRenderHandler = () => {
+
+        const triggerEl = this.state.triggerEl;
+        triggerEl[17] = findDOMNode(this.refs['trigger17']);
+
+        this.setState({
+            triggerEl
+        });
+    };
+
+
 
     componentDidMount() {
 
@@ -394,6 +407,44 @@ class PopoverExamples extends Component {
                                                   value="Toggle Popover"
                                                   onMouseOver={() => console.log('onMouseOver')}/>
                                 </PopoverProvider>
+                            </div>
+
+                        </div>
+                    </div>
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Popover in Dialog"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="popup-example-wrapper">
+                                <RaisedButton className="trigger-button"
+                                              value="Show Dialog"
+                                              onClick={() => this.show(16)}/>
+
+                                <Dialog visible={menuVisible[16]}
+                                        onRender={this.dialogRenderHandler}
+                                        onRequestClose={() => this.hide(16)}>
+                                    <div className="popup-dialog-content">
+                                        <PopoverProvider className="customized-popover"
+                                                         parentEl={document.querySelector('.dialog-content')}
+                                                         popoverContent={
+                                                             <div style={{padding: 20}}>
+                                                                 Popover Content
+                                                             </div>
+                                                         }>
+                                            <RaisedButton ref="trigger17"
+                                                          className="dialog-trigger-button"
+                                                          value="Toggle Popover"
+                                                          />
+                                        </PopoverProvider>
+                                    </div>
+                                </Dialog>
+
                             </div>
 
                         </div>

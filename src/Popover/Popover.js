@@ -78,7 +78,7 @@ class Popover extends Component {
 
         const {
 
-                className, contentClassName,
+                className, contentClassName,parentEl,
 
                 // not passing down these props
                 onRequestClose,
@@ -99,6 +99,7 @@ class Popover extends Component {
             <TriggerPop {...restProps}
                         ref="popover"
                         className={popoverClassName}
+                        parentEl={parentEl}
                         contentClassName={popoverContentClassName}
                         onRender={this.renderHandler}
                         onDestroy={this.destroyHandler}/>

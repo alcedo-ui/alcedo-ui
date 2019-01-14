@@ -4,6 +4,7 @@
  */
 
 import Position from '../_statics/Position';
+import Dom from './Dom';
 
 function horizontalCenter(popupEl) {
     return (window.innerWidth - popupEl.offsetWidth) / 2;
@@ -13,7 +14,7 @@ function verticalMiddle(popupEl) {
     return (window.innerHeight - popupEl.offsetHeight) / 2;
 }
 
-function getStyle(popupEl, position) {
+function getStyle(parentEl, popupEl, position) {
 
     if (!popupEl) {
         return;
@@ -93,9 +94,9 @@ function getStyle(popupEl, position) {
 
 }
 
-function setStyle(popupEl, position) {
+function setStyle(parentEl, popupEl, position) {
 
-    const style = getStyle(popupEl, position);
+    const style = getStyle(parentEl, popupEl, position);
 
     if (!style) {
         return;

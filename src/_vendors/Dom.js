@@ -3,33 +3,43 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-function getOffset(el) {
+function getOffset(el, parentEl) {
 
     if (!el) {
         return null;
     }
 
-    if (el.getBoundingClientRect) {
-
-        const result = el.getBoundingClientRect();
-
-        return {
-            top: result.top + getScrollTop(),
-            left: result.left + getScrollLeft()
-        };
-
-    }
+    // if (el.getBoundingClientRect) {
+    //
+    //     const result = el.getBoundingClientRect();
+    //
+    //     // console.log(getScrollLeft());
+    //
+    //     return {
+    //         top: result.top + getScrollTop(),
+    //         left: result.left + getScrollLeft()
+    //     };
+    //
+    // }
 
     let offset = {
         top: el.offsetTop,
         left: el.offsetLeft
     };
+
     while (el.offsetParent) {
+
         el = el.offsetParent;
+
+        if (parentEl && parentEl !== document.body) {
+            offset.top = offset.top - getScrollTop(parentEl);
+            offset.left = offset.left - getScrollLeft(parentEl);
+            break;
+        }
+
         offset.top += el.offsetTop;
         offset.left += el.offsetLeft;
     }
-
     return offset;
 
 }
@@ -38,20 +48,28 @@ function getScrollHeight() {
     return document.body.scrollHeight || document.documentElement.scrollHeight;
 }
 
-function getScrollLeft() {
+function getScrollLeft(parentEl) {
 
     if (window.SCROLL_EL && window.SCROLL_EL.scrollLeft) {
         return SCROLL_EL.scrollLeft;
+    }
+
+    if (parentEl && parentEl !== document.body) {
+        return parentEl.scrollLeft;
     }
 
     return document.body.scrollLeft || document.documentElement.scrollLeft;
 
 }
 
-function getScrollTop() {
+function getScrollTop(parentEl) {
 
     if (window.SCROLL_EL && window.SCROLL_EL.scrollTop) {
         return SCROLL_EL.scrollTop;
+    }
+
+    if (parentEl && parentEl !== document.body) {
+        return parentEl.scrollTop;
     }
 
     return document.body.scrollTop || document.documentElement.scrollTop;

@@ -12,6 +12,9 @@ import doc from 'assets/propTypes/Notification.json';
 
 import 'scss/containers/app/modules/pop/PopExamples.scss';
 import 'scss/containers/app/modules/pop/NotificationExamples.scss';
+import Dialog from '../../../../../src/Dialog';
+import TipProvider from '../../../../../src/TipProvider';
+import {findDOMNode} from 'react-dom';
 
 class NotificationExamples extends Component {
 
@@ -36,7 +39,9 @@ class NotificationExamples extends Component {
             position: Notifier.Position.BOTTOM_RIGHT,
             title: 'Title',
             message: 'Message',
-            notifications: {}
+            notifications: {},
+            NotificationVisible: {},
+            triggerEl: {}
         };
 
     }
@@ -74,9 +79,46 @@ class NotificationExamples extends Component {
         });
     };
 
+    showNotification = id => {
+
+        const {NotificationVisible} = this.state;
+
+        NotificationVisible[id] = true;
+
+        this.setState({
+            NotificationVisible
+        });
+
+    };
+
+    hideNotification = id => {
+
+        const {NotificationVisible} = this.state;
+
+        NotificationVisible[id] = false;
+
+        this.setState({
+            NotificationVisible
+        });
+
+    };
+
+    dialogRenderHandler = () => {
+
+        const triggerEl = this.state.triggerEl;
+        triggerEl[2] = findDOMNode(this.refs['trigger2']);
+
+        this.setState({
+            triggerEl
+        });
+    };
+
     render() {
 
-        const {type, position, title, message, notifications} = this.state,
+        const {
+                type, position, title, message, notifications,
+                NotificationVisible, triggerEl
+            } = this.state,
             {
                 TOP_LEFT, TOP, TOP_RIGHT, RIGHT_TOP, RIGHT, RIGHT_BOTTOM, CENTER,
                 BOTTOM_LEFT, BOTTOM, BOTTOM_RIGHT, LEFT_TOP, LEFT, LEFT_BOTTOM
@@ -212,6 +254,46 @@ class NotificationExamples extends Component {
                                 <Notifier notifications={notifications[LEFT_BOTTOM]}
                                           position={LEFT_BOTTOM}
                                           onNotificationPop={this.notificationPopHandler}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Notification in Dialog"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <RaisedButton className="trigger-button"
+                                              value="Show Dialog"
+                                              onClick={() => this.showNotification(1)}/>
+
+                                <Dialog visible={NotificationVisible[1]}
+                                        onRender={this.dialogRenderHandler}
+                                        onRequestClose={() => this.hideNotification(1)}>
+
+                                    <div className="guide-dialog-content">
+
+                                        <RaisedButton className="trigger-position-button"
+                                                      value="BOTTOM"
+                                                      ref="trigger1"
+                                                      onClick={() => this.addNotification(BOTTOM)}/>
+
+                                        <Notifier notifications={notifications[BOTTOM]}
+                                                  position={BOTTOM}
+                                                  // triggerEl={triggerEl[2]}
+                                                  parentEl={document.querySelector('.dialog-content')}
+                                                  onNotificationPop={this.notificationPopHandler}/>
+
+                                    </div>
+                                </Dialog>
 
                             </div>
 

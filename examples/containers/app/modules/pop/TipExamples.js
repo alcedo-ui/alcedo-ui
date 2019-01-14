@@ -13,6 +13,8 @@ import doc from 'examples/assets/propTypes/Tip.json';
 
 import 'scss/containers/app/modules/pop/PopExamples.scss';
 import 'scss/containers/app/modules/pop/TipExamples.scss';
+import Dialog from '../../../../../src/Dialog';
+import Guide from '../../../../../src/Guide';
 
 class TipExamples extends Component {
 
@@ -49,6 +51,16 @@ class TipExamples extends Component {
             tipVisible
         });
 
+    };
+
+    dialogRenderHandler = () => {
+
+        const triggerEl = this.state.triggerEl;
+        triggerEl[14] = findDOMNode(this.refs['trigger14']);
+
+        this.setState({
+            triggerEl
+        });
     };
 
     componentDidMount() {
@@ -330,28 +342,67 @@ class TipExamples extends Component {
 
                         </div>
                     </div>
-                </Widget><Widget>
+                </Widget>
 
-                <WidgetHeader className="example-header"
-                              title="Use Tip Provider"/>
+                <Widget>
 
-                <div className="widget-content">
-                    <div className="example-content">
+                    <WidgetHeader className="example-header"
+                                  title="Use Tip Provider"/>
 
-                        <div className="popup-example-wrapper">
+                    <div className="widget-content">
+                        <div className="example-content">
 
-                            <TipProvider tipContent="Tip Content">
-                                <RaisedButton className="trigger-button"
-                                              value="Show Tip"
-                                              onMouseOver={() => console.log('onMouseOver')}
-                                              onMouseOut={() => console.log('onMouseOut')}/>
-                            </TipProvider>
+                            <div className="popup-example-wrapper">
+
+                                <TipProvider tipContent="Tip Content">
+                                    <RaisedButton className="trigger-button"
+                                                  value="Show Tip"
+                                                  onMouseOver={() => console.log('onMouseOver')}
+                                                  onMouseOut={() => console.log('onMouseOut')}/>
+                                </TipProvider>
+
+                            </div>
 
                         </div>
-
                     </div>
-                </div>
-            </Widget>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Tip in Dialog"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="popup-example-wrapper">
+
+                                <RaisedButton className="trigger-button"
+                                              value="Show Dialog"
+                                              onClick={() => this.showTip(13)}/>
+
+                                <Dialog visible={tipVisible[13]}
+                                        onRender={this.dialogRenderHandler}
+                                        onRequestClose={() => this.hideTip(13)}>
+
+                                    <div className="guide-dialog-content">
+                                        <TipProvider tipContent="Tip Content"
+                                                     triggerEl={triggerEl[14]}
+                                                     parentEl={document.querySelector('.dialog-content')}>
+                                            <RaisedButton className="trigger-button"
+                                                          value="Show Tip"
+                                                          ref="trigger17"/>
+                                        </TipProvider>
+                                    </div>
+                                </Dialog>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
 
                 <h2 className="example-title">Properties</h2>
 

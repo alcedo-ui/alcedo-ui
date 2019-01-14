@@ -12,6 +12,8 @@ import doc from 'assets/propTypes/Drawer.json';
 
 import 'scss/containers/app/modules/pop/PopExamples.scss';
 import 'scss/containers/app/modules/pop/DrawerExamples.scss';
+import Dialog from '../../../../../src/Dialog';
+import TipProvider from '../../../../../src/TipProvider';
 
 class DrawerExamples extends Component {
 
@@ -34,7 +36,7 @@ class DrawerExamples extends Component {
         }];
 
         this.state = {
-            popupVisible: {}
+            popupVisible: {},
         };
 
     }
@@ -74,6 +76,7 @@ class DrawerExamples extends Component {
         });
 
     };
+
 
     componentDidMount() {
         this.trigger0El = findDOMNode(this.refs.trigger0);

@@ -80,7 +80,7 @@ class PositionPop extends Component {
     };
 
     resetPosition = (props = this.props) => {
-        PositionPopCalculation.setStyle(this.transitionEl, props.position);
+        PositionPopCalculation.setStyle(props.parentEl, this.transitionEl, props.position);
     };
 
     componentDidMount() {
@@ -110,7 +110,8 @@ class PositionPop extends Component {
         const {
 
                 className, theme, parentEl,
-                position, isAnimated, visible, container, showModal, modalClassName,
+                position, isAnimated, visible, container, showModal,
+                modalClassName,
 
                 // not passing down these props
                 isEscClose, isBlurClose, shouldPreventContainerScroll,
