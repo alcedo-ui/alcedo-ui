@@ -20,6 +20,7 @@ import Position from '../_statics/Position';
 import Event from '../_vendors/Event';
 import Util from '../_vendors/Util';
 import TriggerPopCalculation from '../_vendors/TriggerPopCalculation';
+
 // import Dom from '../_vendors/Dom';
 
 class TriggerPop extends Component {
@@ -41,6 +42,7 @@ class TriggerPop extends Component {
     }
 
     enterHandler = el => {
+
         this.transitionEl = el;
         this.resetPosition();
 
