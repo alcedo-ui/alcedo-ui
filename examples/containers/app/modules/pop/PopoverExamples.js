@@ -116,7 +116,7 @@ class PopoverExamples extends Component {
                     <div className="widget-content">
                         <div className="example-content">
 
-                            <div className="popup-example-wrapper">
+                            <div className="popover-example-wrapper">
 
                                 <p><code>Popover</code> simple example.</p>
 
@@ -148,7 +148,7 @@ class PopoverExamples extends Component {
                     <div className="widget-content">
                         <div className="example-content">
 
-                            <div className="popup-example-wrapper">
+                            <div className="popover-example-wrapper">
 
                                 <p>
                                     Set <code>hasTriangle</code> to false,the popover will have
@@ -181,7 +181,7 @@ class PopoverExamples extends Component {
                     <div className="widget-content">
                         <div className="example-content">
 
-                            <div className="popup-example-wrapper">
+                            <div className="popover-example-wrapper">
 
                                 <p>
                                     Set the <code>value</code> property to show different position
@@ -356,7 +356,7 @@ class PopoverExamples extends Component {
                     <div className="widget-content">
                         <div className="example-content">
 
-                            <div className="popup-example-wrapper">
+                            <div className="popover-example-wrapper">
 
                                 <RaisedButton ref="trigger15"
                                               className="trigger-button"
@@ -396,7 +396,7 @@ class PopoverExamples extends Component {
                     <div className="widget-content">
                         <div className="example-content">
 
-                            <div className="popup-example-wrapper">
+                            <div className="popover-example-wrapper">
                                 <PopoverProvider className="customized-popover"
                                                  popoverContent={
                                                      <div style={{padding: 20}}>
@@ -421,7 +421,7 @@ class PopoverExamples extends Component {
                     <div className="widget-content">
                         <div className="example-content">
 
-                            <div className="popup-example-wrapper">
+                            <div className="popover-example-wrapper">
                                 <RaisedButton className="trigger-button"
                                               value="Show Dialog"
                                               onClick={() => this.show(16)}/>
@@ -429,7 +429,7 @@ class PopoverExamples extends Component {
                                 <Dialog visible={menuVisible[16]}
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(16)}>
-                                    <div className="popup-dialog-content-scroller">
+                                    <div className="popover-dialog-content-scroller">
                                         <PopoverProvider className="customized-popover"
                                                          position={PopoverProvider.Position.BOTTOM_LEFT}
                                                          parentEl={document.querySelector('.dialog-content')}
