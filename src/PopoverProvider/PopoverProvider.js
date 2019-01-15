@@ -57,7 +57,7 @@ class PopoverProvider extends Component {
 
     render() {
 
-        const {children, popoverContent, parentEl, ...restProps} = this.props,
+        const {children, popoverContent, ...restProps} = this.props,
             {visible} = this.state;
 
         if (!popoverContent) {
@@ -86,7 +86,6 @@ class PopoverProvider extends Component {
                 <Popover {...restProps}
                          triggerEl={this.triggerEl}
                          visible={visible}
-                         parentEl={parentEl}
                          onRequestClose={this.hide}>
                     {popoverContent}
                 </Popover>
