@@ -11,3 +11,12 @@
         border: 1px solid #e7e7e7;
     }
 }
+
+.tip-dialog-content-scroller {
+    width: 1000px;
+    height: 1000px;
+
+    .dialog-trigger-button {
+        width: auto;
+    }
+}

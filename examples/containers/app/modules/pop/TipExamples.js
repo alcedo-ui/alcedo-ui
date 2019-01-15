@@ -7,14 +7,13 @@ import TipProvider from 'src/TipProvider';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import Theme from 'src/Theme';
+import Dialog from 'src/Dialog';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/Tip.json';
 
 import 'scss/containers/app/modules/pop/PopExamples.scss';
 import 'scss/containers/app/modules/pop/TipExamples.scss';
-import Dialog from '../../../../../src/Dialog';
-import Guide from '../../../../../src/Guide';
 
 class TipExamples extends Component {
 
@@ -385,11 +384,11 @@ class TipExamples extends Component {
                                 <Dialog visible={tipVisible[13]}
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hideTip(13)}>
-
-                                    <div className="guide-dialog-content">
+                                    <div className="tip-dialog-content-scroller">
                                         <TipProvider tipContent="Tip Content"
                                                      triggerEl={triggerEl[14]}
-                                                     parentEl={document.querySelector('.dialog-content')}>
+                                                     parentEl={document.querySelector('.dialog-content')}
+                                                     position={TipProvider.Position.BOTTOM_LEFT}>
                                             <RaisedButton className="trigger-button"
                                                           value="Show Tip"
                                                           ref="trigger17"/>
