@@ -36,13 +36,6 @@ function getOffset(el, parentEl) {
         }
 
         el = el.offsetParent;
-
-        // if (parentEl && parentEl !== document.body) {
-        //     offset.top = offset.top - getScrollTop(parentEl);
-        //     offset.left = offset.left - getScrollLeft(parentEl);
-        //     break;
-        // }
-
         offset.top += el.offsetTop;
         offset.left += el.offsetLeft;
 
