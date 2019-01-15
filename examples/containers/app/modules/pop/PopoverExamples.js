@@ -429,7 +429,7 @@ class PopoverExamples extends Component {
                                 <Dialog visible={menuVisible[16]}
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(16)}>
-                                    <div className="popup-dialog-content">
+                                    <div className="popup-dialog-content-scroller">
                                         <PopoverProvider className="customized-popover"
                                                          parentEl={document.querySelector('.dialog-content')}
                                                          popoverContent={
