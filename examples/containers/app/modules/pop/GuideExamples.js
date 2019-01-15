@@ -7,14 +7,13 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import ButtonRadioGroup from 'src/ButtonRadioGroup';
 import MaterialTextField from 'src/MaterialTextField';
+import Dialog from 'src/Dialog';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Guide.json';
 
 import 'scss/containers/app/modules/pop/PopExamples.scss';
-// import 'scss/containers/app/modules/pop/GuideExamples.scss';
-import '../../../../assets/scss/containers/app/modules/pop/GuideExamples.scss'
-import Dialog from 'src/Dialog';
+import 'scss/containers/app/modules/pop/GuideExamples.scss';
 
 class GuideExamples extends Component {
 
@@ -315,21 +314,22 @@ class GuideExamples extends Component {
                                 <Dialog visible={guideVisible[15]}
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hideGuide(15)}>
-                                    <div className="guide-dialog-content">
+                                    <div className="guide-dialog-content-scroller">
                                         <RaisedButton ref="trigger16"
                                                       className="dialog-trigger-button"
-                                                      value="Toggle Popover"
+                                                      value="Toggle Guide"
                                                       onClick={() => this.showGuide(16)}/>
-                                        <Guide visible={guideVisible[16]}
-                                               type={type}
-                                               triggerEl={triggerEl[16]}
-                                               parentEl={document.querySelector('.dialog-content')}
-                                               position={Guide.Position.BOTTOM}
-                                               onRequestClose={() => this.hideGuide(16)}>
-                                            {message}
-                                        </Guide>
                                     </div>
                                 </Dialog>
+
+                                <Guide visible={guideVisible[16]}
+                                       type={type}
+                                       triggerEl={triggerEl[16]}
+                                       parentEl={document.querySelector('.dialog-content')}
+                                       position={Guide.Position.BOTTOM_LEFT}
+                                       onRequestClose={() => this.hideGuide(16)}>
+                                    {message}
+                                </Guide>
 
                             </div>
 

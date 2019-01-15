@@ -1,12 +1,9 @@
 @import '../../../../my-theme.scss';
 
-.guide-examples {
-
-
-}
-.guide-dialog-content {
+.guide-dialog-content-scroller {
     width: 1000px;
     height: 1000px;
+
     .dialog-trigger-button {
         width: auto;
     }
