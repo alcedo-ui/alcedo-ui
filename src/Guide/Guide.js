@@ -73,7 +73,7 @@ class Guide extends Component {
 
                 className, contentClassName,
                 type, iconVisible, iconCls, closeButtonVisible, closeButtonValue,
-                children, onRequestClose,parentEl,
+                children, onRequestClose,
 
                 ...restProps
 
@@ -93,7 +93,6 @@ class Guide extends Component {
         return (
             <TriggerPop {...restProps}
                         ref="guide"
-                        parentEl={parentEl}
                         className={guideClassName}
                         contentClassName={guideContentClassName}
                         onRender={this.renderHandler}
