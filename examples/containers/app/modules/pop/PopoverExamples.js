@@ -7,13 +7,13 @@ import PopoverProvider from 'src/PopoverProvider';
 import List from 'src/List';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import Dialog from 'src/Dialog';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Popover.json';
 
 import 'scss/containers/app/modules/pop/PopExamples.scss';
 import 'scss/containers/app/modules/pop/PopoverExamples.scss';
-import Dialog from 'src/Dialog';
 
 class PopoverExamples extends Component {
 
@@ -431,6 +431,7 @@ class PopoverExamples extends Component {
                                         onRequestClose={() => this.hide(16)}>
                                     <div className="popup-dialog-content-scroller">
                                         <PopoverProvider className="customized-popover"
+                                                         position={PopoverProvider.Position.BOTTOM_LEFT}
                                                          parentEl={document.querySelector('.dialog-content')}
                                                          popoverContent={
                                                              <div style={{padding: 20}}>
@@ -439,8 +440,7 @@ class PopoverExamples extends Component {
                                                          }>
                                             <RaisedButton ref="trigger17"
                                                           className="dialog-trigger-button"
-                                                          value="Toggle Popover"
-                                                          />
+                                                          value="Toggle Popover"/>
                                         </PopoverProvider>
                                     </div>
                                 </Dialog>
