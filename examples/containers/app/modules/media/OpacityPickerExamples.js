@@ -55,11 +55,13 @@ class OpacityPickerExamples extends Component {
 
                                 <div className="picked-opacity-wrapper">
 
-                                    <div className="picked-opacity"
-                                         style={{
-                                             background: '#38b1eb',
-                                             opacity: opacity
-                                         }}></div>
+                                    <div className="picked-opacity">
+                                        <div className="picked-opacity-color"
+                                             style={{
+                                                 background: '#38b1eb',
+                                                 opacity: opacity
+                                             }}></div>
+                                    </div>
 
                                     <div className="picked-opacity-value">{opacity}</div>
 
