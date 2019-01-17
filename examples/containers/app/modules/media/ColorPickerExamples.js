@@ -23,7 +23,7 @@ class ColorPickerExamples extends Component {
 
     }
 
-    changeHandler = value => {
+    handleChange = value => {
         this.setState({
             value
         });
@@ -50,7 +50,7 @@ class ColorPickerExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <ColorPicker value={value}
-                                             onChange={this.changeHandler}/>
+                                             onChange={this.handleChange}/>
 
                                 <div className="picked-color-wrapper">
 
