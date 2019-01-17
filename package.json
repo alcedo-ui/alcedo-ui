@@ -85,7 +85,7 @@
         "babel-core": "7.0.0-bridge.0",
         "babel-loader": "8.0.5",
         "babel-plugin-transform-import-sync": "2.0.0",
-        "babel-plugin-transform-react-remove-prop-types": "0.4.21",
+        "babel-plugin-transform-react-remove-prop-types": "0.4.23",
         "browserify": "16.2.3",
         "compression": "1.7.3",
         "compression-webpack-plugin": "2.0.0",
