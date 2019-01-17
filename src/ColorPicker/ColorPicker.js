@@ -104,6 +104,23 @@ class ColorPicker extends Component {
 
     }
 
+    // handleHueChange = hue => {
+    //
+    //     const {hsb} = this.state;
+    //     hsb[0] = hue;
+    //
+    //     const value = Color.hsb2rgb(hsb);
+    //
+    //     this.setState({
+    //         value,
+    //         hsb
+    //     }, () => {
+    //         const {onChange} = this.props;
+    //         onChange && onChange(value);
+    //     });
+    //
+    // };
+
     render() {
 
         const {className, style} = this.props,
