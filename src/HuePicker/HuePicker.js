@@ -10,6 +10,7 @@ import classNames from 'classnames';
 import Event from '../_vendors/Event';
 import Dom from '../_vendors/Dom';
 import Valid from '../_vendors/Valid';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class HuePicker extends Component {
 
@@ -17,14 +18,19 @@ class HuePicker extends Component {
 
         super(props, ...restArgs);
 
+        this.activated = false;
+
         this.state = {
             value: props.value
         };
 
-        this.activated = false;
-
     }
 
+    /**
+     * get slider css left by hue value
+     * @param value
+     * @returns {number}
+     */
     calcSliderLeft = (value = this.state.value) => {
 
         const barEl = this.huePickerBarEl,
@@ -57,6 +63,10 @@ class HuePicker extends Component {
         this.activated = false;
     };
 
+    /**
+     * handle mouse event change
+     * @param mouseX
+     */
     handleChange = mouseX => {
 
         const elOffset = Dom.getOffset(this.huePickerBarEl);
@@ -91,17 +101,16 @@ class HuePicker extends Component {
 
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
-    }
-
     componentWillUnmount() {
         Event.removeEvent(document, 'mousemove', this.mouseMoveHandler);
         Event.removeEvent(document, 'mouseup', this.mouseUpHandler);
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
     }
 
     render() {
