@@ -80,7 +80,7 @@ class HuePicker extends Component {
             width = barWidth - sliderWidth,
             offsetX = Valid.range(mouseX - elOffset.left - halfSliderWidth, 0, width),
             perCent = offsetX / width,
-            value = perCent * 360;
+            value = Math.round(perCent * 360);
 
         this.setState({
             value
@@ -109,7 +109,7 @@ class HuePicker extends Component {
     static getDerivedStateFromProps(props, state) {
         return {
             prevProps: props,
-            value: ComponentUtil.getDerivedState(props, state, 'value')
+            value: Math.round(ComponentUtil.getDerivedState(props, state, 'value'))
         };
     }
 
