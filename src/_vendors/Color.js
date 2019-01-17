@@ -72,7 +72,7 @@ function rgb2hsb(rgb) {
         h = (r - g) * 60 / (max - min) + 240;
     }
 
-    return [h, max === 0 ? 0 : (max - min) / max, max / 255];
+    return [h ? Math.round(h) : h, max === 0 ? 0 : (max - min) / max, max / 255];
 
 }
 
