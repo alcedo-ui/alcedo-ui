@@ -62,13 +62,13 @@ function rgb2hsb(rgb) {
 
     let h = 0;
 
-    if (max == r && g >= b) {
+    if (max === r && g >= b) {
         h = (g - b) * 60 / (max - min) + 0;
-    } else if (max == r && g < b) {
+    } else if (max === r && g < b) {
         h = (g - b) * 60 / (max - min) + 360;
-    } else if (max == g) {
+    } else if (max === g) {
         h = (b - r) * 60 / (max - min) + 120;
-    } else if (max == b) {
+    } else if (max === b) {
         h = (r - g) * 60 / (max - min) + 240;
     }
 
