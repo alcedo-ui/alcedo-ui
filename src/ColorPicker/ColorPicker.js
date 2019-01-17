@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import sum from 'lodash/sum';
 import classNames from 'classnames';
+import isEqual from 'lodash/isEqual';
 
 import Dom from '../_vendors/Dom';
 import Event from '../_vendors/Event';
@@ -94,13 +95,17 @@ class ColorPicker extends Component {
 
     static getDerivedStateFromProps(props, state) {
 
-        const value = ComponentUtil.getDerivedState(props, state, 'value');
+        const value = ComponentUtil.getDerivedState(props, state, 'value'),
+            result = {
+                prevProps: props,
+                value
+            };
 
-        return {
-            prevProps: props,
-            value,
-            hsb: Color.rgb2hsb(value)
-        };
+        if (!isEqual(value, state.value)) {
+            result.hsb = Color.rgb2hsb(value);
+        }
+
+        return result;
 
     }
 
