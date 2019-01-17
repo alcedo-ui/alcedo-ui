@@ -36,7 +36,7 @@ class OpacityPickerExamples extends Component {
         return (
             <div className="example opacity-picker-examples">
 
-                <h2 className="example-title">Transparency Picker</h2>
+                <h2 className="example-title">Opacity Picker</h2>
 
                 <h2 className="example-title">Examples</h2>
 

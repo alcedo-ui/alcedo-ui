@@ -1,15 +1,15 @@
 @import '../../../../my-theme.scss';
 
-.transparency-picker-examples {
+.opacity-picker-examples {
 
     .examples-wrapper {
 
-        .picked-transparency-wrapper {
+        .picked-opacity-wrapper {
             margin-top: 8px;
             border-top: 1px solid $theme-border;
             padding-top: 8px;
 
-            .picked-transparency {
+            .picked-opacity {
                 display: inline-block;
                 width: 20px;
                 height: 20px;
@@ -17,7 +17,7 @@
                 vertical-align: bottom;
             }
 
-            .picked-transparency-value {
+            .picked-opacity-value {
                 display: inline-block;
                 line-height: 20px;
                 user-select: none;
