@@ -101,6 +101,7 @@ export TipProvider from './TipProvider';
 export Toaster from './Toaster';
 export TouchRipple from './TouchRipple';
 export Transfer from './Transfer';
+export TransparencyPicker from './TransparencyPicker';
 export Tree from './Tree';
 export TreeSelect from './TreeSelect';
 export VerticalPointStep from './VerticalPointStep';
@@ -108,4 +109,4 @@ export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 108;
+export const COMPONENTS_TOTAL_COUNT = 109;
