@@ -8,12 +8,11 @@ import PropTypes from 'prop-types';
 import sum from 'lodash/sum';
 import classNames from 'classnames';
 
-import HuePicker from '../HuePicker';
-
 import Dom from '../_vendors/Dom';
 import Event from '../_vendors/Event';
 import Valid from '../_vendors/Valid';
 import Color from '../_vendors/Color';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class ColorPicker extends Component {
 
@@ -32,12 +31,12 @@ class ColorPicker extends Component {
 
     mouseDownHandler = e => {
         this.activated = true;
-        this.changeHandler(e.pageX, e.pageY);
+        this.handleChange(e.pageX, e.pageY);
     };
 
     mouseMoveHandler = e => {
         if (this.activated) {
-            this.changeHandler(e.pageX, e.pageY);
+            this.handleChange(e.pageX, e.pageY);
         }
     };
 
@@ -45,7 +44,12 @@ class ColorPicker extends Component {
         this.activated = false;
     };
 
-    changeHandler = (mouseX, mouseY) => {
+    /**
+     *
+     * @param mouseX
+     * @param mouseY
+     */
+    handleChange = (mouseX, mouseY) => {
 
         const elOffset = Dom.getOffset(this.colorPickerAreaEl);
         if (!elOffset) {
@@ -74,23 +78,6 @@ class ColorPicker extends Component {
 
     };
 
-    hueChangeHandler = hue => {
-
-        const {hsb} = this.state;
-        hsb[0] = hue;
-
-        const value = Color.hsb2rgb(hsb);
-
-        this.setState({
-            value,
-            hsb
-        }, () => {
-            const {onChange} = this.props;
-            onChange && onChange(value);
-        });
-
-    };
-
     componentDidMount() {
 
         this.colorPickerAreaEl = this.refs.colorPickerArea;
@@ -100,17 +87,21 @@ class ColorPicker extends Component {
 
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
-    }
-
     componentWillUnmount() {
         Event.removeEvent(document, 'mousemove', this.mouseMoveHandler);
         Event.removeEvent(document, 'mouseup', this.mouseUpHandler);
+    }
+
+    static getDerivedStateFromProps(props, state) {
+
+        const value = ComponentUtil.getDerivedState(props, state, 'value');
+
+        return {
+            prevProps: props,
+            value,
+            hsb: Color.rgb2hsb(value)
+        };
+
     }
 
     render() {
@@ -118,6 +109,9 @@ class ColorPicker extends Component {
         const {className, style} = this.props,
             {value, hsb} = this.state,
 
+            pickerClassName = classNames('color-picker', {
+                [className]: className
+            }),
             areaStyle = {
                 background: `rgb(${Color.hue2rgb(hsb[0]).join(', ')})`
             },
@@ -131,9 +125,8 @@ class ColorPicker extends Component {
             };
 
         return (
-            <div className={'color-picker' + (className ? ' ' + className : '')}
+            <div className={pickerClassName}
                  style={style}>
-
                 <div ref="colorPickerArea"
                      className="color-picker-area"
                      style={areaStyle}
@@ -146,10 +139,6 @@ class ColorPicker extends Component {
                          style={cursorStyle}></div>
 
                 </div>
-
-                <HuePicker value={hsb[0]}
-                           onChange={this.hueChangeHandler}/>
-
             </div>
         );
 
