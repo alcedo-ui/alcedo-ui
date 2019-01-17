@@ -75,7 +75,7 @@ function isDeg(deg) {
 
 function isRGB(rgb) {
     return rgb && isArray(rgb) && rgb.length === 3
-        && rgb.filter(item => isInteger(item) && item >= 0 && item <= 255).length === 3;
+        && rgb.filter(item => item >= 0 && item <= 255).length === 3;
 }
 
 function isHSB(hsb) {
