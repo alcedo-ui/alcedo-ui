@@ -25,14 +25,31 @@ class HuePicker extends Component {
 
     }
 
+    calcSliderLeft = (value = this.state.value) => {
+
+        const barEl = this.huePickerBarEl,
+            sliderEl = this.huePickerSliderEl;
+
+        if (!value || !barEl || !sliderEl) {
+            return 0;
+        }
+
+        const barWidth = barEl.offsetWidth,
+            sliderWidth = sliderEl.offsetWidth,
+            width = barWidth - sliderWidth;
+
+        return value / 360 * width;
+
+    };
+
     mouseDownHandler = e => {
         this.activated = true;
-        this.changeHandler(e.pageX);
+        this.handleChange(e.pageX);
     };
 
     mouseMoveHandler = e => {
         if (this.activated) {
-            this.changeHandler(e.pageX);
+            this.handleChange(e.pageX);
         }
     };
 
@@ -40,15 +57,18 @@ class HuePicker extends Component {
         this.activated = false;
     };
 
-    changeHandler = mouseX => {
+    handleChange = mouseX => {
 
         const elOffset = Dom.getOffset(this.huePickerBarEl);
         if (!elOffset) {
             return;
         }
 
-        const width = this.huePickerBarEl.offsetWidth,
-            offsetX = Valid.range(mouseX - elOffset.left, 0, width),
+        const barWidth = this.huePickerBarEl.offsetWidth,
+            sliderWidth = this.huePickerSliderEl.offsetWidth,
+            halfSliderWidth = sliderWidth / 2,
+            width = barWidth - sliderWidth,
+            offsetX = Valid.range(mouseX - elOffset.left - halfSliderWidth, 0, width),
             perCent = offsetX / width,
             value = perCent * 360;
 
@@ -64,6 +84,7 @@ class HuePicker extends Component {
     componentDidMount() {
 
         this.huePickerBarEl = this.refs.huePickerBar;
+        this.huePickerSliderEl = this.refs.huePickerSlider;
 
         Event.addEvent(document, 'mousemove', this.mouseMoveHandler);
         Event.addEvent(document, 'mouseup', this.mouseUpHandler);
@@ -86,31 +107,20 @@ class HuePicker extends Component {
     render() {
 
         const {className, style} = this.props,
-            {value} = this.state,
-
             pickerClassName = classNames('hue-picker', {
                 [className]: className
-            }),
-            pointerStyle = {
-                left: `${value / 360 * 100}%`
-            };
+            });
 
         return (
             <div className={pickerClassName}
                  style={style}>
-
                 <div ref="huePickerBar"
                      className="hue-picker-bar"
                      onMouseDown={this.mouseDownHandler}>
-
-                    <div className="hue-picker-pointer-wrapper"
-                         style={pointerStyle}>
-                        <i className="fas fa-caret-down hue-picker-pointer-top"></i>
-                        <i className="fas fa-caret-up hue-picker-pointer-bottom"></i>
-                    </div>
-
+                    <div ref="huePickerSlider"
+                         className="hue-picker-slider"
+                         style={{left: this.calcSliderLeft()}}></div>
                 </div>
-
             </div>
         );
 
