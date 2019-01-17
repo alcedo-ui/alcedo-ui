@@ -115,7 +115,7 @@ class TransparencyPicker extends Component {
 
     render() {
 
-        const {className, style} = this.props,
+        const {className, style, color} = this.props,
             pickerClassName = classNames('transparency-picker', {
                 [className]: className
             });
@@ -126,9 +126,16 @@ class TransparencyPicker extends Component {
                 <div ref="huePickerBar"
                      className="transparency-picker-bar"
                      onMouseDown={this.mouseDownHandler}>
+
+                    <div className="transparency-picker-color-overlay"
+                         style={{
+                             background: `linear-gradient(90deg, transparent, rgb(${color.join(',')}))`
+                         }}></div>
+
                     <div ref="huePickerSlider"
                          className="transparency-picker-slider"
                          style={{left: this.calcSliderLeft()}}></div>
+
                 </div>
             </div>
         );
@@ -149,16 +156,22 @@ TransparencyPicker.propTypes = {
     style: PropTypes.object,
 
     /**
-     * transparency value (deg).
+     * Transparency value ( range: [0, 1] ).
      */
     value: PropTypes.number,
+
+    /**
+     * Color display
+     */
+    color: PropTypes.array,
 
     onChange: PropTypes.func
 
 };
 
 TransparencyPicker.defaultProps = {
-    value: 0
+    value: 1,
+    color: [0, 0, 0]
 };
 
 export default TransparencyPicker;
