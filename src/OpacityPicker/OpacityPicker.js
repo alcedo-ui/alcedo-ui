@@ -1,5 +1,5 @@
 /**
- * @file TransparencyPicker component
+ * @file OpacityPicker component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
@@ -12,7 +12,7 @@ import Dom from '../_vendors/Dom';
 import Valid from '../_vendors/Valid';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
-class TransparencyPicker extends Component {
+class OpacityPicker extends Component {
 
     constructor(props, ...restArgs) {
 
@@ -27,7 +27,7 @@ class TransparencyPicker extends Component {
     }
 
     /**
-     * get slider css left by transparency value
+     * get slider css left by opacity value
      * @param value
      * @returns {number}
      */
@@ -116,7 +116,7 @@ class TransparencyPicker extends Component {
     render() {
 
         const {className, style, color} = this.props,
-            pickerClassName = classNames('transparency-picker', {
+            pickerClassName = classNames('opacity-picker', {
                 [className]: className
             });
 
@@ -124,16 +124,16 @@ class TransparencyPicker extends Component {
             <div className={pickerClassName}
                  style={style}>
                 <div ref="huePickerBar"
-                     className="transparency-picker-bar"
+                     className="opacity-picker-bar"
                      onMouseDown={this.mouseDownHandler}>
 
-                    <div className="transparency-picker-color-overlay"
+                    <div className="opacity-picker-color-overlay"
                          style={{
                              background: `linear-gradient(90deg, transparent, rgb(${color.join(',')}))`
                          }}></div>
 
                     <div ref="huePickerSlider"
-                         className="transparency-picker-slider"
+                         className="opacity-picker-slider"
                          style={{left: this.calcSliderLeft()}}></div>
 
                 </div>
@@ -143,7 +143,7 @@ class TransparencyPicker extends Component {
     }
 }
 
-TransparencyPicker.propTypes = {
+OpacityPicker.propTypes = {
 
     /**
      * The CSS class name of the root element.
@@ -169,9 +169,9 @@ TransparencyPicker.propTypes = {
 
 };
 
-TransparencyPicker.defaultProps = {
+OpacityPicker.defaultProps = {
     value: 1,
     color: [0, 0, 0]
 };
 
-export default TransparencyPicker;
+export default OpacityPicker;
