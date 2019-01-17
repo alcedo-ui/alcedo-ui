@@ -547,10 +547,10 @@ export default function configureRoutes(store) {
                         /* webpackChunkName: "HuePickerExamples" */
                         'modules/media/HuePickerExamples'), store)
                 }, {
-                    path: '/components/TransparencyPicker',
+                    path: '/components/OpacityPicker',
                     component: ac(() => import(
-                        /* webpackChunkName: "TransparencyPickerExamples" */
-                        'modules/media/TransparencyPickerExamples'), store)
+                        /* webpackChunkName: "OpacityPickerExamples" */
+                        'modules/media/OpacityPickerExamples'), store)
                 }
             ]
         }]
