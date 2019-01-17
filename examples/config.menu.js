@@ -327,5 +327,8 @@ export default [{
     }, {
         text: 'HuePicker',
         route: '/components/HuePicker'
+    }, {
+        text: 'TransparencyPicker',
+        route: '/components/TransparencyPicker'
     }]
 }];

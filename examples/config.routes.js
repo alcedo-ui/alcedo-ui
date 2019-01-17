@@ -546,6 +546,11 @@ export default function configureRoutes(store) {
                     component: ac(() => import(
                         /* webpackChunkName: "HuePickerExamples" */
                         'modules/media/HuePickerExamples'), store)
+                }, {
+                    path: '/components/TransparencyPicker',
+                    component: ac(() => import(
+                        /* webpackChunkName: "TransparencyPickerExamples" */
+                        'modules/media/TransparencyPickerExamples'), store)
                 }
             ]
         }]
