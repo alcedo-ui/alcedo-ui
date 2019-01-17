@@ -44,7 +44,7 @@ class OpacityPicker extends Component {
             sliderWidth = sliderEl.offsetWidth,
             width = barWidth - sliderWidth;
 
-        return value / 360 * width;
+        return value * width;
 
     };
 
@@ -79,8 +79,7 @@ class OpacityPicker extends Component {
             halfSliderWidth = sliderWidth / 2,
             width = barWidth - sliderWidth,
             offsetX = Valid.range(mouseX - elOffset.left - halfSliderWidth, 0, width),
-            perCent = offsetX / width,
-            value = perCent * 360;
+            value = offsetX / width;
 
         this.setState({
             value
