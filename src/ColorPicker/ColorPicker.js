@@ -45,7 +45,7 @@ class ColorPicker extends Component {
     };
 
     /**
-     *
+     * handle mouse event to calc new value
      * @param mouseX
      * @param mouseY
      */
@@ -157,6 +157,9 @@ ColorPicker.propTypes = {
      */
     style: PropTypes.object,
 
+    /**
+     * rgb array
+     */
     value: PropTypes.array
 
 };
