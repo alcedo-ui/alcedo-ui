@@ -74,11 +74,16 @@ class OpacityPicker extends Component {
             return;
         }
 
-        const barWidth = this.huePickerBarEl.offsetWidth,
+        const {scrollEl} = this.props,
+            {left} = Dom.getTotalScrollOffset(this.huePickerBarEl, scrollEl),
+            barWidth = this.huePickerBarEl.offsetWidth,
             sliderWidth = this.huePickerSliderEl.offsetWidth,
+
             halfSliderWidth = sliderWidth / 2,
             width = barWidth - sliderWidth,
-            offsetX = Valid.range(mouseX - elOffset.left - halfSliderWidth, 0, width),
+
+            offsetX = Valid.range(mouseX - elOffset.left - halfSliderWidth + left, 0, width),
+
             value = offsetX / width;
 
         this.setState({
@@ -164,13 +169,16 @@ OpacityPicker.propTypes = {
      */
     color: PropTypes.array,
 
+    scrollEl: PropTypes.object,
+
     onChange: PropTypes.func
 
 };
 
 OpacityPicker.defaultProps = {
     value: 1,
-    color: [0, 0, 0]
+    color: [0, 0, 0],
+    scrollEl: document.body
 };
 
 export default OpacityPicker;
