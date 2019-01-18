@@ -74,12 +74,17 @@ class HuePicker extends Component {
             return;
         }
 
-        const barWidth = this.huePickerBarEl.offsetWidth,
+        const {scrollEl} = this.props,
+            {left} = Dom.getTotalScrollOffset(this.huePickerBarEl, scrollEl),
+            barWidth = this.huePickerBarEl.offsetWidth,
             sliderWidth = this.huePickerSliderEl.offsetWidth,
+
             halfSliderWidth = sliderWidth / 2,
             width = barWidth - sliderWidth,
-            offsetX = Valid.range(mouseX - elOffset.left - halfSliderWidth, 0, width),
+
+            offsetX = Valid.range(mouseX - elOffset.left - halfSliderWidth + left, 0, width),
             perCent = offsetX / width,
+
             value = Math.round(perCent * 360);
 
         this.setState({
@@ -153,12 +158,15 @@ HuePicker.propTypes = {
      */
     value: PropTypes.number,
 
+    scrollEl: PropTypes.object,
+
     onChange: PropTypes.func
 
 };
 
 HuePicker.defaultProps = {
-    value: 0
+    value: 0,
+    scrollEl: document.body
 };
 
 export default HuePicker;
