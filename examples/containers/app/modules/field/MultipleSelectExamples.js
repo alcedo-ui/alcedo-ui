@@ -3,11 +3,15 @@ import React, {Component} from 'react';
 import MultipleSelect from 'src/MultipleSelect';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import RaisedButton from 'src/RaisedButton';
+import Dialog from 'src/Dialog';
+import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/MultipleSelect.json';
 
 import 'scss/containers/app/modules/field/MultipleSelectExamples.scss';
+
 
 class MultipleSelectExamples extends Component {
 
@@ -80,7 +84,46 @@ class MultipleSelectExamples extends Component {
             }]
         }];
 
+        this.state = {
+            MultipleSelectVisible: {},
+            triggerEl: {}
+        };
+
     }
+
+    show = id => {
+
+        const {MultipleSelectVisible} = this.state;
+
+        MultipleSelectVisible[id] = true;
+
+        this.setState({
+            MultipleSelectVisible
+        });
+
+    };
+
+    hide = id => {
+
+        const {MultipleSelectVisible} = this.state;
+
+        MultipleSelectVisible[id] = false;
+
+        this.setState({
+            MultipleSelectVisible
+        });
+
+    };
+
+    dialogRenderHandler = () => {
+
+        const triggerEl = this.state.triggerEl;
+        triggerEl[1] = findDOMNode(this.refs['trigger1']);
+
+        this.setState({
+            triggerEl
+        });
+    };
 
     onChangeHandler = value => {
 
@@ -94,7 +137,7 @@ class MultipleSelectExamples extends Component {
 
     render() {
 
-        const {value} = this.state;
+        const {value, MultipleSelectVisible, triggerEl} = this.state;
 
         return (
             <div className="example multiple-select-examples">
@@ -150,6 +193,45 @@ class MultipleSelectExamples extends Component {
                                     <MultipleSelect isGrouped={true}
                                                     data={this.groupedData}/>
                                 </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="In Dialog"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>Multiple Select simple default example.</p>
+
+                                <RaisedButton className="trigger-button dialog-button"
+                                              value="Show Dialog"
+                                              onClick={() => this.show(1)}/>
+
+                                <Dialog visible={MultipleSelectVisible[1]}
+                                        onRender={this.dialogRenderHandler}
+                                        onRequestClose={() => this.hide(1)}>
+                                    <div className="popover-dialog-content-scroller">
+                                        <div className="field-group">
+                                            <label className="multiple-select-label">Number</label>
+                                            <MultipleSelect isGrouped={true}
+                                                            parentEl={document.querySelector('.dialog-content')}
+                                                            triggerEl={triggerEl}
+                                                            data={this.groupedData}/>
+                                        </div>
+
+                                    </div>
+                                </Dialog>
+
+
 
                             </div>
 

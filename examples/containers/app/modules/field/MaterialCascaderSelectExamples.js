@@ -3,11 +3,15 @@ import React, {Component} from 'react';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import MaterialCascaderSelect from 'src/MaterialCascaderSelect';
+import RaisedButton from 'src/RaisedButton';
+import Dialog from 'src/Dialog';
+import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/MaterialCascaderSelect.json';
 
 import 'scss/containers/app/modules/field/MaterialCascaderSelectExamples.scss';
+
 
 class MaterialCascaderSelectExamples extends Component {
 
@@ -82,13 +86,54 @@ class MaterialCascaderSelectExamples extends Component {
             value: 'Antarctica'
         }];
 
+        this.state = {
+            MaterialCascaderSelectVisible: {},
+            triggerEl: {}
+        };
+
     }
+
+    show = id => {
+
+        const {MaterialCascaderSelectVisible} = this.state;
+
+        MaterialCascaderSelectVisible[id] = true;
+
+        this.setState({
+            MaterialCascaderSelectVisible
+        });
+
+    };
+
+    hide = id => {
+
+        const {MaterialCascaderSelectVisible} = this.state;
+
+        MaterialCascaderSelectVisible[id] = false;
+
+        this.setState({
+            MaterialCascaderSelectVisible
+        });
+
+    };
+
+    dialogRenderHandler = () => {
+
+        const triggerEl = this.state.triggerEl;
+        triggerEl[1] = findDOMNode(this.refs['trigger1']);
+
+        this.setState({
+            triggerEl
+        });
+    };
 
     onChangeHandler = value => {
         console.log(value);
     };
 
     render() {
+
+        const {MaterialCascaderSelectVisible, triggerEl} = this.state;
         return (
             <div className="example material-cascader-select-examples">
 
@@ -171,6 +216,70 @@ class MaterialCascaderSelectExamples extends Component {
                                                             checkboxIndeterminateIconCls="fas fa-minus-circle"
                                                             onChange={this.onChangeHandler}/>
                                 </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="In Dialog"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p><code>Material Cascader Select</code> simple example.</p>
+
+                                <RaisedButton className="trigger-button dialog-button"
+                                              value="Show Dialog"
+                                              onClick={() => this.show(1)}/>
+
+                                <Dialog visible={MaterialCascaderSelectVisible[1]}
+                                        onRender={this.dialogRenderHandler}
+                                        onRequestClose={() => this.hide(1)}>
+                                    <div className="popover-dialog-content-scroller">
+                                        <div className="field-group">
+                                            <MaterialCascaderSelect theme={MaterialCascaderSelect.Theme.HIGHLIGHT}
+                                                                    label="Label"
+                                                                    placeholder="Placeholder"
+                                                                    selectMode={MaterialCascaderSelect.SelectMode.MULTI_SELECT}
+                                                                    position={MaterialCascaderSelect.Position.BOTTOM_RIGHT}
+                                                                    expandDirection={MaterialCascaderSelect.ExpandDirection.LEFT}
+                                                                    autoClose={false}
+                                                                    data={this.data}
+                                                                    parentEl={document.querySelector('.dialog-content')}
+                                                                    triggerEl={triggerEl}
+                                                                    tip="MaterialCascaderSelect Example"
+                                                                    renderer={node => {
+                                                                        return (
+                                                                            <div className="self-define-node">
+                                                                        <span
+                                                                            className="self-define-node-text">{node.text}</span>
+                                                                                {
+                                                                                    node.children && node.children.length > 0 ?
+                                                                                        <span className="self-define-node-desc">
+                                                                                    ({node.children.length})
+                                                                                </span>
+                                                                                        :
+                                                                                        null
+                                                                                }
+                                                                            </div>
+                                                                        );
+                                                                    }}
+                                                                    checkboxUncheckedIconCls="far fa-circle"
+                                                                    checkboxCheckedIconCls="fas fa-check-circle"
+                                                                    checkboxIndeterminateIconCls="fas fa-minus-circle"
+                                                                    onChange={this.onChangeHandler}/>
+                                        </div>
+                                    </div>
+                                </Dialog>
+
+
                             </div>
 
                         </div>

@@ -301,7 +301,7 @@ class LocalAutoComplete extends Component {
                 className, triggerClassName, popupClassName, style, popupStyle, popupTheme, name, position,
                 valueField, displayField, descriptionField, noMatchedPopupVisible, noMatchedMsg, popupChildren,
                 renderer, useDynamicRenderList, listHeight, itemHeight, scrollBuffer, resetPopPositionWait,
-                onFilterClear,
+                onFilterClear, parentEl,
 
                 // not passing down these props
                 data, filter: propsFilter, minFilterLength, autoClose, filterCallback,
@@ -391,6 +391,7 @@ class LocalAutoComplete extends Component {
                                theme={popupTheme}
                                visible={popupVisible}
                                triggerEl={this.triggerEl}
+                               parentEl={parentEl}
                                hasTriangle={false}
                                position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                                resetPositionWait={resetPopPositionWait}

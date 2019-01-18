@@ -6,12 +6,12 @@ import WidgetHeader from 'src/WidgetHeader';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
 
+import {findDOMNode} from 'react-dom';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Dropdown.json';
 
 import 'scss/containers/app/modules/layout/DropdownExamples.scss';
 
-import {findDOMNode} from 'react-dom';
 
 class DropdownExamples extends Component {
 

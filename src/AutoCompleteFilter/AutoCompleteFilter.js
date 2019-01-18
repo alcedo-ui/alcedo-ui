@@ -290,7 +290,7 @@ class AutoCompleteFilter extends Component {
                 disabled, iconCls, rightIconCls, valueField, displayField, descriptionField, position,
                 noMatchedPopupVisible, noMatchedMsg, popupChildren, renderer, resetPopPositionWait,
                 useDynamicRenderList, listHeight, itemHeight, scrollBuffer,
-                onFilterClear, onMouseOver, onMouseOut
+                onFilterClear, onMouseOver, onMouseOut, parentEl
             } = this.props,
             {isAbove, tempSelectIndex, value, filter, popupVisible, listData} = this.state,
 
@@ -375,6 +375,7 @@ class AutoCompleteFilter extends Component {
                                theme={popupTheme}
                                visible={popupVisible}
                                triggerEl={this.triggerEl}
+                               parentEl={parentEl}
                                hasTriangle={false}
                                position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                                resetPositionWait={resetPopPositionWait}

@@ -3,9 +3,15 @@ import React, {Component} from 'react';
 import AutoCompleteFilter from 'src/AutoCompleteFilter';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import RaisedButton from 'src/RaisedButton';
+import Dialog from 'src/Dialog';
+
+import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/AutoCompleteFilter.json';
+
+import 'scss/containers/app/modules/filter/AutoCompleteFilterExamples.scss';
 
 class AutoCompleteFilterExamples extends Component {
 
@@ -29,7 +35,46 @@ class AutoCompleteFilterExamples extends Component {
             }
         }, 'test7', 'test8', 'test9'];
 
+        this.state = {
+            AutoCompleteFilterVisible: {},
+            triggerEl: {}
+        };
+
     }
+
+    show = id => {
+
+        const {AutoCompleteFilterVisible} = this.state;
+
+        AutoCompleteFilterVisible[id] = true;
+
+        this.setState({
+            AutoCompleteFilterVisible
+        });
+
+    };
+
+    hide = id => {
+
+        const {AutoCompleteFilterVisible} = this.state;
+
+        AutoCompleteFilterVisible[id] = false;
+
+        this.setState({
+            AutoCompleteFilterVisible
+        });
+
+    };
+
+    dialogRenderHandler = () => {
+
+        const triggerEl = this.state.triggerEl;
+        triggerEl[1] = findDOMNode(this.refs['trigger1']);
+
+        this.setState({
+            triggerEl
+        });
+    };
 
     changeHandler = item => {
         console.log('select item: ', item);
@@ -44,6 +89,9 @@ class AutoCompleteFilterExamples extends Component {
     };
 
     render() {
+
+        const {AutoCompleteFilterVisible, triggerEl} = this.state;
+
         return (
             <div className="example">
 
@@ -155,6 +203,48 @@ class AutoCompleteFilterExamples extends Component {
                                                     }}
                                                     placeholder="Please select ..."
                                                     changeHandler={this.changeHandler}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="In Dialog"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p><code>AutoCompleteFilter</code> simple example.</p>
+
+                                <RaisedButton className="trigger-button dialog-button"
+                                              value="Show Dialog"
+                                              onClick={() => this.show(1)}/>
+
+                                <Dialog visible={AutoCompleteFilterVisible[1]}
+                                        onRender={this.dialogRenderHandler}
+                                        onRequestClose={() => this.hide(1)}>
+                                    <div className="popover-dialog-content-scroller">
+                                        <AutoCompleteFilter popupStyle={{maxHeight: 300}}
+                                                            noMatchedMsg="There have no matched value."
+                                                            data={this.data}
+                                                            renderer={data => {
+                                                                return data && typeof data === 'object' ?
+                                                                    `${data.text} (${data.value})`
+                                                                    :
+                                                                    `${data} (${data})`;
+                                                            }}
+                                                            placeholder="Please select ..."
+                                                            parentEl={document.querySelector('.dialog-content')}
+                                                            triggerEl={triggerEl}
+                                                            changeHandler={this.changeHandler}/>
+                                    </div>
+                                </Dialog>
 
                             </div>
 

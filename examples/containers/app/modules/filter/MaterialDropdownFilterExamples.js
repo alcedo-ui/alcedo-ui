@@ -3,9 +3,16 @@ import React, {Component} from 'react';
 import MaterialDropdownFilter from 'src/MaterialDropdownFilter';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import RaisedButton from 'src/RaisedButton';
+import Dialog from 'src/Dialog';
+
+import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/MaterialDropdownFilter.json';
+
+import 'scss/containers/app/modules/filter/MaterialDropdownFilterExamples.scss';
+
 
 class MaterialDropdownFilterExamples extends Component {
 
@@ -29,7 +36,46 @@ class MaterialDropdownFilterExamples extends Component {
             }
         }, 'test7', 'test8', 'test9'];
 
+    this.state = {
+        MaterialDropdownFilterVisible: {},
+        triggerEl: {}
+    };
+
     }
+
+    show = id => {
+
+        const {MaterialDropdownFilterVisible} = this.state;
+
+        MaterialDropdownFilterVisible[id] = true;
+
+        this.setState({
+            MaterialDropdownFilterVisible
+        });
+
+    };
+
+    hide = id => {
+
+        const {MaterialDropdownFilterVisible} = this.state;
+
+        MaterialDropdownFilterVisible[id] = false;
+
+        this.setState({
+            MaterialDropdownFilterVisible
+        });
+
+    };
+
+    dialogRenderHandler = () => {
+
+        const triggerEl = this.state.triggerEl;
+        triggerEl[1] = findDOMNode(this.refs['trigger1']);
+
+        this.setState({
+            triggerEl
+        });
+    };
 
     onChange = item => {
         console.log('select item: ', item);
@@ -44,6 +90,8 @@ class MaterialDropdownFilterExamples extends Component {
     };
 
     render() {
+
+        const {MaterialDropdownFilterVisible, triggerEl} = this.state;
 
         return (
             <div className="example">
@@ -101,6 +149,46 @@ class MaterialDropdownFilterExamples extends Component {
                                                         onChange={this.onChange}
                                                         onFilterPressEnter={this.filterPressEnterHandle}
                                                         onFilterClear={this.filterClearHandle}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Basic"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p><code>MaterialDropdownFilter</code> simple example.</p>
+
+                                <RaisedButton className="trigger-button dialog-button"
+                                              value="Show Dialog"
+                                              onClick={() => this.show(1)}/>
+
+                                <Dialog visible={MaterialDropdownFilterVisible[1]}
+                                        onRender={this.dialogRenderHandler}
+                                        onRequestClose={() => this.hide(1)}>
+                                    <div className="popover-dialog-content-scroller">
+                                        <MaterialDropdownFilter theme={MaterialDropdownFilter.Theme.HIGHLIGHT}
+                                                                label="Label"
+                                                                placeholder="Please select ..."
+                                                                parentEl={document.querySelector('.dialog-content')}
+                                                                triggerEl={triggerEl}
+                                                                data={this.data}
+                                                                onChange={this.onChange}
+                                                                onFilterPressEnter={this.filterPressEnterHandle}
+                                                                onFilterClear={this.filterClearHandle}/>
+
+                                    </div>
+                                </Dialog>
+
 
                             </div>
 

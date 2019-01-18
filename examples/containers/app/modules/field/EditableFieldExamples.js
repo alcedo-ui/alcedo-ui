@@ -3,9 +3,18 @@ import React, {Component, PropTypes} from 'react';
 import EditableField from 'src/EditableField';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import RaisedButton from 'src/RaisedButton';
+import Dialog from 'src/Dialog';
+
+import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/EditableField.json';
+
+
+import 'scss/containers/app/modules/field/EditableFieldExamples.scss';
+
+
 
 class EditableFieldExamples extends Component {
 
@@ -15,10 +24,45 @@ class EditableFieldExamples extends Component {
 
         this.state = {
             value: 'text',
-            disabled: false
+            disabled: false,
+            EditableFieldSelectVisible: {},
+            triggerEl: {}
         };
-
     }
+
+    show = id => {
+
+        const {EditableFieldSelectVisible} = this.state;
+
+        EditableFieldSelectVisible[id] = true;
+
+        this.setState({
+            EditableFieldSelectVisible
+        });
+
+    };
+
+    hide = id => {
+
+        const {EditableFieldSelectVisible} = this.state;
+
+        EditableFieldSelectVisible[id] = false;
+
+        this.setState({
+            EditableFieldSelectVisible
+        });
+
+    };
+
+    dialogRenderHandler = () => {
+
+        const triggerEl = this.state.triggerEl;
+        triggerEl[1] = findDOMNode(this.refs['trigger1']);
+
+        this.setState({
+            triggerEl
+        });
+    };
 
     onClick = e => {
         if (e && e.stopPropagation) {
@@ -54,6 +98,8 @@ class EditableFieldExamples extends Component {
     };
 
     render() {
+
+        const {EditableFieldSelectVisible, triggerEl} = this.state;
         return (
             <div className="example editable-field-examples">
 
@@ -131,6 +177,41 @@ class EditableFieldExamples extends Component {
                                                onBlur={this.onBlur}
                                                maxLength={5}
                                                tip="this is a tip"/>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="In Dialog"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p><code>Editable Field</code> simple example.</p>
+
+                                <RaisedButton className="trigger-button dialog-button"
+                                              value="Show Dialog"
+                                              onClick={() => this.show(1)}/>
+
+                                <Dialog visible={EditableFieldSelectVisible[1]}
+                                        onRender={this.dialogRenderHandler}
+                                        onRequestClose={() => this.hide(1)}>
+                                    <div className="popover-dialog-content-scroller">
+                                        <EditableField value={this.state.value}
+                                                       onBlur={this.onBlur}
+                                                       maxLength={5}
+                                                       parentEl={document.querySelector('.dialog-content')}
+                                                       triggerEl={triggerEl}
+                                                       tip="this is a tip"/>
+                                    </div>
+                                </Dialog>
+
                             </div>
 
                         </div>

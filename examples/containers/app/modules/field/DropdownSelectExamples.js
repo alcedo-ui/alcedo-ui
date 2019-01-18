@@ -4,11 +4,17 @@ import DropdownSelect from 'src/DropdownSelect';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import Theme from 'src/Theme';
+import RaisedButton from 'src/RaisedButton';
+import Dialog from 'src/Dialog';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/DropdownSelect.json';
 
+import {findDOMNode} from 'react-dom';
+
 import 'scss/containers/app/modules/field/DropdownSelectExamples.scss';
+
+
 
 class DropdownSelectExamples extends Component {
 
@@ -77,13 +83,54 @@ class DropdownSelectExamples extends Component {
                 }]
             }];
 
+        this.state = {
+            DropdownSelectVisible: {},
+            triggerEl: {}
+        };
+
     }
+
+    show = id => {
+
+        const {DropdownSelectVisible} = this.state;
+
+        DropdownSelectVisible[id] = true;
+
+        this.setState({
+            DropdownSelectVisible
+        });
+
+    };
+
+    hide = id => {
+
+        const {DropdownSelectVisible} = this.state;
+
+        DropdownSelectVisible[id] = false;
+
+        this.setState({
+            DropdownSelectVisible
+        });
+
+    };
+
+    dialogRenderHandler = () => {
+
+        const triggerEl = this.state.triggerEl;
+        triggerEl[1] = findDOMNode(this.refs['trigger1']);
+
+        this.setState({
+            triggerEl
+        });
+    };
 
     onChange = value => {
         console.log(value);
     };
 
     render() {
+
+        const {DropdownSelectVisible, triggerEl} = this.state;
 
         const data = ['a000', 'booo', {
             text: 'c000',
@@ -272,6 +319,44 @@ class DropdownSelectExamples extends Component {
                                                     tip="DropdownSelect Example"
                                                     onChange={this.onChange}/>
                                 </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="In Dialog"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>Set the <code>autoClose</code> property to false,the select list will not close when
+                                    choose one item.</p>
+
+                                <RaisedButton className="trigger-button dialog-button"
+                                              value="Show Dialog"
+                                              onClick={() => this.show(1)}/>
+
+                                <Dialog visible={DropdownSelectVisible[1]}
+                                        onRender={this.dialogRenderHandler}
+                                        onRequestClose={() => this.hide(1)}>
+                                    <div className="popover-dialog-content-scroller">
+                                        <div className="field-group">
+                                            <DropdownSelect data={data}
+                                                            isHiddenInputFilter={true}
+                                                            parentEl={document.querySelector('.dialog-content')}
+                                                            triggerEl={triggerEl}
+                                                            tip="DropdownSelect Example"
+                                                            onChange={this.onChange}/>
+                                        </div>
+                                    </div>
+                                </Dialog>
 
                             </div>
 

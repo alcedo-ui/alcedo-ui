@@ -3,11 +3,15 @@ import React, {Component} from 'react';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import MaterialDropdownSelect from 'src/MaterialDropdownSelect';
+import RaisedButton from 'src/RaisedButton';
+import Dialog from 'src/Dialog';
+import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import MaterialDropdownSelectDoc from 'examples/assets/propTypes/MaterialDropdownSelect.json';
 
 import 'scss/containers/app/modules/field/MaterialDropdownSelectExamples.scss';
+
 
 class MaterialDropdownSelectExamples extends Component {
 
@@ -31,7 +35,46 @@ class MaterialDropdownSelectExamples extends Component {
             }
         }, 'test7', 'test8', 'test9'];
 
+        this.state = {
+            MaterialDropdownSelectVisible: {},
+            triggerEl: {}
+        };
+
     }
+
+    show = id => {
+
+        const {MaterialDropdownSelectVisible} = this.state;
+
+        MaterialDropdownSelectVisible[id] = true;
+
+        this.setState({
+            MaterialDropdownSelectVisible
+        });
+
+    };
+
+    hide = id => {
+
+        const {MaterialDropdownSelectVisible} = this.state;
+
+        MaterialDropdownSelectVisible[id] = false;
+
+        this.setState({
+            MaterialDropdownSelectVisible
+        });
+
+    };
+
+    dialogRenderHandler = () => {
+
+        const triggerEl = this.state.triggerEl;
+        triggerEl[1] = findDOMNode(this.refs['trigger1']);
+
+        this.setState({
+            triggerEl
+        });
+    };
 
     onChangeHandle = value => {
         this.setState({
@@ -40,6 +83,8 @@ class MaterialDropdownSelectExamples extends Component {
     };
 
     render() {
+
+        const {MaterialDropdownSelectVisible, triggerEl} = this.state;
         return (
             <div className="example material-dropdown-select-examples">
 
@@ -55,8 +100,37 @@ class MaterialDropdownSelectExamples extends Component {
 
                 <Widget>
 
+                <WidgetHeader className="example-header"
+                              title="Basic"/>
+
+                <div className="widget-content">
+                    <div className="example-content">
+
+                        <div className="examples-wrapper">
+
+                            <p><code>MaterialDropdownSelect</code> simple example.</p>
+
+                            <div className="field-group">
+                                <MaterialDropdownSelect theme={MaterialDropdownSelect.Theme.HIGHLIGHT}
+                                                        label="Label"
+                                                        placeholder="Placeholder"
+                                                        selectMode={MaterialDropdownSelect.SelectMode.MULTI_SELECT}
+                                                        useSelectAll={true}
+                                                        autoClose={false}
+                                                        data={this.data}
+                                                        tip="MaterialDropdownSelect Example"/>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </Widget>
+
+                <Widget>
+
                     <WidgetHeader className="example-header"
-                                  title="Basic"/>
+                                  title="In Dialog"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -65,16 +139,29 @@ class MaterialDropdownSelectExamples extends Component {
 
                                 <p><code>MaterialDropdownSelect</code> simple example.</p>
 
-                                <div className="field-group">
-                                    <MaterialDropdownSelect theme={MaterialDropdownSelect.Theme.HIGHLIGHT}
-                                                            label="Label"
-                                                            placeholder="Placeholder"
-                                                            selectMode={MaterialDropdownSelect.SelectMode.MULTI_SELECT}
-                                                            useSelectAll={true}
-                                                            autoClose={false}
-                                                            data={this.data}
-                                                            tip="MaterialDropdownSelect Example"/>
-                                </div>
+                                <RaisedButton className="trigger-button dialog-button"
+                                              value="Show Dialog"
+                                              onClick={() => this.show(1)}/>
+
+                                <Dialog visible={MaterialDropdownSelectVisible[1]}
+                                        onRender={this.dialogRenderHandler}
+                                        onRequestClose={() => this.hide(1)}>
+                                    <div className="popover-dialog-content-scroller">
+                                        <div className="field-group">
+                                            <MaterialDropdownSelect theme={MaterialDropdownSelect.Theme.HIGHLIGHT}
+                                                                    label="Label"
+                                                                    placeholder="Placeholder"
+                                                                    selectMode={MaterialDropdownSelect.SelectMode.MULTI_SELECT}
+                                                                    parentEl={document.querySelector('.dialog-content')}
+                                                                    triggerEl={triggerEl}
+                                                                    useSelectAll={true}
+                                                                    autoClose={false}
+                                                                    data={this.data}
+                                                                    tip="MaterialDropdownSelect Example"/>
+                                        </div>
+                                    </div>
+                                </Dialog>
+
                             </div>
 
                         </div>

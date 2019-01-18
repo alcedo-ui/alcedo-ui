@@ -3,9 +3,16 @@ import React, {Component} from 'react';
 import LocalAutoComplete from 'src/LocalAutoComplete';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import RaisedButton from 'src/RaisedButton';
+import Dialog from 'src/Dialog';
+import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/LocalAutoComplete.json';
+
+
+import 'scss/containers/app/modules/field/LocalAutoCompleteExamples.scss';
+
 
 class LocalAutoCompleteExamples extends Component {
 
@@ -32,10 +39,46 @@ class LocalAutoCompleteExamples extends Component {
         this.state = {
             filter: '',
             value: null,
-            uniqueData: []
+            uniqueData: [],
+            LocalAutoCompleteVisible: {},
+            triggerEl: {}
         };
 
     }
+
+    show = id => {
+
+        const {LocalAutoCompleteVisible} = this.state;
+
+        LocalAutoCompleteVisible[id] = true;
+
+        this.setState({
+            LocalAutoCompleteVisible
+        });
+
+    };
+
+    hide = id => {
+
+        const {LocalAutoCompleteVisible} = this.state;
+
+        LocalAutoCompleteVisible[id] = false;
+
+        this.setState({
+            LocalAutoCompleteVisible
+        });
+
+    };
+
+    dialogRenderHandler = () => {
+
+        const triggerEl = this.state.triggerEl;
+        triggerEl[1] = findDOMNode(this.refs['trigger1']);
+
+        this.setState({
+            triggerEl
+        });
+    };
 
     onChange = value => {
         console.log('Changed Value: ', value);
@@ -95,7 +138,10 @@ class LocalAutoCompleteExamples extends Component {
 
     render() {
 
-        const {filter, value, uniqueData} = this.state;
+        const {
+            filter, value, uniqueData,
+            LocalAutoCompleteVisible, triggerEl
+        } = this.state;
 
         return (
             <div className="example">
@@ -247,6 +293,49 @@ class LocalAutoCompleteExamples extends Component {
                                                    placeholder="Please select ..."
                                                    minFilterLength={0}
                                                    onChange={value => this.onUniqueChange(2, value)}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="In Dialog"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>Set the <code>noMatchedMsg</code> property for no matched message.</p>
+
+                                <RaisedButton className="trigger-button dialog-button"
+                                              value="Show Dialog"
+                                              onClick={() => this.show(1)}/>
+
+                                <Dialog visible={LocalAutoCompleteVisible[1]}
+                                        onRender={this.dialogRenderHandler}
+                                        onRequestClose={() => this.hide(1)}>
+                                    <div className="popover-dialog-content-scroller">
+                                        <LocalAutoComplete popupStyle={{maxHeight: 300}}
+                                                           noMatchedMsg="There have no matched value."
+                                                           data={this.data}
+                                                           renderer={data => {
+                                                               return data && typeof data === 'object' ?
+                                                                   `${data.text} (${data.value})`
+                                                                   :
+                                                                   `${data} (${data})`;
+                                                           }}
+                                                           parentEl={document.querySelector('.dialog-content')}
+                                                           triggerEl={triggerEl}
+                                                           placeholder="Please select ..."
+                                                           onChange={this.onChange}/>
+                                    </div>
+                                </Dialog>
+
 
                             </div>
 
