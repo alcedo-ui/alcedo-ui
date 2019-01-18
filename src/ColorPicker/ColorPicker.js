@@ -73,8 +73,6 @@ class ColorPicker extends Component {
 
             value = Color.rgb2hex(Color.hsb2rgb([hue, s, b]));
 
-        console.log(top);
-
         this.setState({
             value,
             s,
