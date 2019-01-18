@@ -60,17 +60,20 @@ class ColorPicker extends Component {
             return;
         }
 
-        const {hue} = this.props,
+        const {hue, scrollEl} = this.props,
             width = this.colorPickerAreaEl.offsetWidth,
             height = this.colorPickerAreaEl.offsetHeight,
+            {left, top} = Dom.getTotalScrollOffset(this.colorPickerAreaEl, scrollEl),
 
-            x = Valid.range(mouseX - elOffset.left, 0, width),
-            y = Valid.range(mouseY - elOffset.top, 0, height),
+            x = Valid.range(mouseX - elOffset.left + left, 0, width),
+            y = Valid.range(mouseY - elOffset.top + top, 0, height),
 
             s = x / width,
             b = 1 - y / height,
 
             value = Color.rgb2hex(Color.hsb2rgb([hue, s, b]));
+
+        console.log(top);
 
         this.setState({
             value,
@@ -199,13 +202,16 @@ ColorPicker.propTypes = {
     /**
      * rgb hex value
      */
-    value: PropTypes.string
+    value: PropTypes.string,
+
+    scrollEl: PropTypes.object
 
 };
 
 ColorPicker.defaultProps = {
     hue: 0,
-    value: 'ff0000'
+    value: 'ff0000',
+    scrollEl: document.body
 };
 
 export default ColorPicker;
