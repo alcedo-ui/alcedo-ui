@@ -133,7 +133,7 @@ class OpacityPicker extends Component {
 
                     <div className="opacity-picker-color-overlay"
                          style={{
-                             background: `linear-gradient(90deg, transparent, #${color}))`
+                             background: `linear-gradient(90deg, transparent, #${color})`
                          }}></div>
 
                     <div ref="huePickerSlider"
