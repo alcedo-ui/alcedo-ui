@@ -156,17 +156,18 @@ function rgb2hex(rgb) {
 /**
  * Convert RGB hex value to RGB format
  * @param RGB hex value {string}
- * @param hasHash {bool}
  * @returns RGB value {number[R, G, B]}
  */
-function hex2rgb(hex, hasHash) {
+function hex2rgb(hex) {
 
-    if (!Valid.isHex(hex, hasHash)) {
+    if (!Valid.isHex(hex)) {
         return;
     }
 
+    const hasHash = hex[0] === '#',
+        j = hasHash ? 1 : 0;
+
     function fn(i) {
-        const j = hasHash ? 1 : 0;
         return parseInt(hex.slice(i + j, i + j + 2), 16);
     }
 
