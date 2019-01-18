@@ -5,7 +5,7 @@ import contains from 'dom-helpers/query/contains';
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-function getOffset(el, parentEl) {
+function getOffset(el, parentEl = document.body) {
 
     if (!el) {
         return null;
@@ -211,6 +211,27 @@ function getClosestScrollable(el) {
 
 }
 
+function getTotalScrollOffset(el, scrollEl = document.body) {
+
+    const result = {
+        left: 0,
+        top: 0
+    };
+
+    if (!el || !scrollEl) {
+        return result;
+    }
+
+    while (el && contains(scrollEl, el)) {
+        result.left += el.scrollLeft;
+        result.top += el.scrollTop;
+        el = el.parentElement;
+    }
+
+    return result;
+
+}
+
 export default {
     getOffset,
     getScrollHeight,
@@ -222,5 +243,6 @@ export default {
     toggleClass,
     findParentByClassName,
     isParent,
-    getClosestScrollable
+    getClosestScrollable,
+    getTotalScrollOffset
 };
