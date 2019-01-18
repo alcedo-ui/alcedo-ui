@@ -83,7 +83,9 @@ function isHSB(hsb) {
         && isDeg(hsb[0]) && isInRange(hsb[1], 0, 1) && isInRange(hsb[2], 0, 1);
 }
 
-function isHex(hex, hasHash) {
+function isHex(hex) {
+
+    const hasHash = hex[0] === '#';
 
     if (!hex) {
         return false;
