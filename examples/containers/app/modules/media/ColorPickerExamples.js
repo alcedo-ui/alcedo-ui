@@ -83,10 +83,14 @@ class ColorPickerExamples extends Component {
                                                        popupContent={
                                                            <ColorPicker hue={Color.rgb2hsb(Color.hex2rgb('38b1eb'))[0]}
                                                                         value={value}
+                                                                        scrollEl={document.querySelector('.color-select-scroller-wrapper')}
                                                                         onChange={this.handleChange}/>
                                                        }>
-                                            <div className="color-select"
-                                                 style={{background: `#${value}`}}></div>
+                                            <div>
+                                                <div className="picked-color color-select"
+                                                     style={{background: `#${value}`}}></div>
+                                                <div className="picked-color-value">#{value}</div>
+                                            </div>
                                         </PopupProvider>
                                     </div>
                                 </div>
