@@ -5,11 +5,12 @@
 
 .color-picker {
     width: 200px;
+    height: 200px;
 
     .color-picker-area {
         position: relative;
         width: 100%;
-        height: 200px;
+        height: 100%;
 
         .color-picker-area-white-overlay,
         .color-picker-area-black-overlay {
