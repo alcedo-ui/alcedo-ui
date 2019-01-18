@@ -8,8 +8,6 @@ import PopupProvider from 'src/PopupProvider';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/OpacityPicker.json';
 
-import Color from 'src/_vendors/Color';
-
 import 'scss/containers/app/modules/media/OpacityPickerExamples.scss';
 
 class OpacityPickerExamples extends Component {
@@ -51,7 +49,7 @@ class OpacityPickerExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <OpacityPicker value={opacity}
-                                               color={Color.hex2rgb('38b1eb')}
+                                               color="38b1eb"
                                                onChange={this.changeHandler}/>
 
                                 <div className="picked-opacity-wrapper">
@@ -91,7 +89,7 @@ class OpacityPickerExamples extends Component {
                                                        parentEl={document.querySelector('.opacity-select-scroller-wrapper')}
                                                        popupContent={
                                                            <OpacityPicker value={opacity}
-                                                                          color={Color.hex2rgb('38b1eb')}
+                                                                          color="38b1eb"
                                                                           scrollEl={document.querySelector('.opacity-select-scroller-wrapper')}
                                                                           onChange={this.changeHandler}/>
                                                        }>
