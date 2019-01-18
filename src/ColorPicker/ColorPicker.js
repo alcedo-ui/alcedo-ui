@@ -7,7 +7,6 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import sum from 'lodash/sum';
 import classNames from 'classnames';
-import isEqual from 'lodash/isEqual';
 
 import Dom from '../_vendors/Dom';
 import Event from '../_vendors/Event';
@@ -21,9 +20,13 @@ class ColorPicker extends Component {
 
         super(props, ...restArgs);
 
+        const hsb = Color.rgb2hsb(Color.hex2rgb(props.value));
         this.state = {
             value: props.value,
-            hsb: Color.rgb2hsb(props.value)
+            s: hsb ? hsb[1] : 0,
+            b: hsb ? hsb[2] : 0,
+            x: hsb ? `${hsb[1] * 100}%` : 0,
+            y: hsb ? `${(1 - hsb[2]) * 100}%` : 0
         };
 
         this.activated = false;
@@ -57,21 +60,24 @@ class ColorPicker extends Component {
             return;
         }
 
-        const width = this.colorPickerAreaEl.offsetWidth,
+        const {hue} = this.props,
+            width = this.colorPickerAreaEl.offsetWidth,
             height = this.colorPickerAreaEl.offsetHeight,
 
-            offsetX = Valid.range(mouseX - elOffset.left, 0, width),
-            offsetY = Valid.range(mouseY - elOffset.top, 0, height),
+            x = Valid.range(mouseX - elOffset.left, 0, width),
+            y = Valid.range(mouseY - elOffset.top, 0, height),
 
-            s = offsetX / width,
-            b = 1 - offsetY / height,
+            s = x / width,
+            b = 1 - y / height,
 
-            hsb = [this.state.hsb[0], s, b],
-            value = Color.hsb2rgb(hsb);
+            value = Color.rgb2hex(Color.hsb2rgb([hue, s, b]));
 
         this.setState({
             value,
-            hsb
+            s,
+            b,
+            x,
+            y
         }, () => {
             const {onChange} = this.props;
             onChange && onChange(value);
@@ -95,17 +101,21 @@ class ColorPicker extends Component {
 
     static getDerivedStateFromProps(props, state) {
 
-        const value = ComponentUtil.getDerivedState(props, state, 'value'),
-            result = {
-                prevProps: props,
-                value
-            };
+        const value = ComponentUtil.getDerivedState(props, state, 'value');
 
-        if (!isEqual(value, state.value)) {
-            result.hsb = Color.rgb2hsb(value);
+        if (value === state.value) {
+            return null;
         }
 
-        return result;
+        const hsb = Color.rgb2hsb(Color.hex2rgb(value));
+        return {
+            prevProps: props,
+            value,
+            s: hsb ? hsb[1] : 0,
+            b: hsb ? hsb[2] : 0,
+            x: hsb ? `${hsb[1] * 100}%` : 0,
+            y: hsb ? `${(1 - hsb[2]) * 100}%` : 0
+        };
 
     }
 
@@ -128,22 +138,24 @@ class ColorPicker extends Component {
 
     render() {
 
-        const {className, style} = this.props,
-            {value, hsb} = this.state,
+        const {className, style, hue} = this.props,
+            {value, x, y} = this.state,
 
             pickerClassName = classNames('color-picker', {
                 [className]: className
             }),
+
+            areaColor = Color.hue2rgb(hue),
             areaStyle = {
-                background: `rgb(${Color.hue2rgb(hsb[0]).join(', ')})`
+                background: areaColor ? `rgb(${areaColor.join(', ')})` : null
             },
 
             cursorClassName = classNames('color-picker-cursor', {
-                light: sum(value) / 3 < 128
+                light: sum(Color.hex2rgb(value)) / 3 < 128
             }),
             cursorStyle = {
-                left: `${hsb[1] * 100}%`,
-                top: `${(1 - hsb[2]) * 100}%`
+                left: x,
+                top: y
             };
 
         return (
@@ -180,14 +192,20 @@ ColorPicker.propTypes = {
     style: PropTypes.object,
 
     /**
-     * rgb array
+     * hue value (deg)
      */
-    value: PropTypes.array
+    hue: PropTypes.number,
+
+    /**
+     * rgb hex value
+     */
+    value: PropTypes.string
 
 };
 
 ColorPicker.defaultProps = {
-    value: [255, 0, 0]
+    hue: 0,
+    value: 'ff0000'
 };
 
 export default ColorPicker;
