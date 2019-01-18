@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import ColorPicker from 'src/ColorPicker';
+import PopupProvider from 'src/PopupProvider';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/ColorPicker.json';
@@ -18,7 +19,7 @@ class ColorPickerExamples extends Component {
         super(props);
 
         this.state = {
-            value: Color.hex2rgb('38b1eb')
+            value: '38b1eb'
         };
 
     }
@@ -49,17 +50,40 @@ class ColorPickerExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <ColorPicker value={value}
+                                <ColorPicker hue={Color.rgb2hsb(Color.hex2rgb('38b1eb'))[0]}
+                                             value={value}
                                              onChange={this.handleChange}/>
 
                                 <div className="picked-color-wrapper">
-
                                     <div className="picked-color"
-                                         style={{background: `rgb(${value.join(', ')})`}}></div>
-
-                                    <div className="picked-color-value">{value.join(', ')}</div>
-
+                                         style={{background: `#${value}`}}></div>
+                                    <div className="picked-color-value">#{value}</div>
                                 </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Basic"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <PopupProvider popupContent={
+                                    <ColorPicker hue={Color.rgb2hsb(Color.hex2rgb('38b1eb'))[0]}
+                                                 value={value}
+                                                 onChange={this.handleChange}/>
+                                }>
+                                    <div className="color-select"
+                                         style={{background: `#${value}`}}></div>
+                                </PopupProvider>
 
                             </div>
 
