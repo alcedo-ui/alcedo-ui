@@ -53,7 +53,7 @@ function hue2rgb(hue) {
 function rgb2hsb(rgb) {
 
     if (!Valid.isRGB(rgb)) {
-        return;
+        return null;
     }
 
     const [r, g, b] = rgb,
@@ -84,7 +84,7 @@ function rgb2hsb(rgb) {
 function hsb2rgb(hsb) {
 
     if (!Valid.isHSB(hsb)) {
-        return;
+        return null;
     }
 
     let [h, s, v] = hsb;
@@ -146,7 +146,10 @@ function rgb2hex(rgb) {
         return;
     }
 
-    return rgb.map(item => item.toString(16)).join('');
+    return rgb.map(item => {
+        const result = item.toString(16);
+        return result.length < 2 ? `0${result}` : result;
+    }).join('');
 
 }
 
