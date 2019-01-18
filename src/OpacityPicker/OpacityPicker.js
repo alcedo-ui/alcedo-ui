@@ -133,7 +133,7 @@ class OpacityPicker extends Component {
 
                     <div className="opacity-picker-color-overlay"
                          style={{
-                             background: `linear-gradient(90deg, transparent, rgb(${color.join(',')}))`
+                             background: `linear-gradient(90deg, transparent, #${color}))`
                          }}></div>
 
                     <div ref="huePickerSlider"
@@ -165,9 +165,9 @@ OpacityPicker.propTypes = {
     value: PropTypes.number,
 
     /**
-     * Color display
+     * Color hex value
      */
-    color: PropTypes.array,
+    color: PropTypes.string,
 
     scrollEl: PropTypes.object,
 
@@ -177,7 +177,7 @@ OpacityPicker.propTypes = {
 
 OpacityPicker.defaultProps = {
     value: 1,
-    color: [0, 0, 0],
+    color: '000000',
     scrollEl: document.body
 };
 
