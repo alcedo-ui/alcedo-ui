@@ -76,14 +76,20 @@ class ColorPickerExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <PopupProvider popupContent={
-                                    <ColorPicker hue={Color.rgb2hsb(Color.hex2rgb('38b1eb'))[0]}
-                                                 value={value}
-                                                 onChange={this.handleChange}/>
-                                }>
-                                    <div className="color-select"
-                                         style={{background: `#${value}`}}></div>
-                                </PopupProvider>
+                                <div className="color-select-scroller-wrapper">
+                                    <div className="color-select-scroller">
+                                        <PopupProvider position={PopupProvider.Position.BOTTOM_LEFT}
+                                                       parentEl={document.querySelector('.color-select-scroller-wrapper')}
+                                                       popupContent={
+                                                           <ColorPicker hue={Color.rgb2hsb(Color.hex2rgb('38b1eb'))[0]}
+                                                                        value={value}
+                                                                        onChange={this.handleChange}/>
+                                                       }>
+                                            <div className="color-select"
+                                                 style={{background: `#${value}`}}></div>
+                                        </PopupProvider>
+                                    </div>
+                                </div>
 
                             </div>
 

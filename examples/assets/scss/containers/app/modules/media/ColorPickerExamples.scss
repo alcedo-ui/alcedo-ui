@@ -24,9 +24,20 @@
             }
         }
 
-        .color-select {
-            width: 24px;
-            height: 24px;
+        .color-select-scroller-wrapper {
+            width: 200px;
+            height: 200px;
+            overflow: auto;
+
+            .color-select-scroller {
+                width: 1000px;
+                height: 1000px;
+
+                .color-select {
+                    width: 24px;
+                    height: 24px;
+                }
+            }
         }
 
     }
