@@ -154,7 +154,7 @@ class MaterialTimePicker extends Component {
 
         const {
                 className, style, name, placeholder, maxValue, minValue, dateFormat, label, isLabelAnimate, position,
-                theme, popupClassName, rightIconCls, readOnly, disabled
+                theme, popupClassName, rightIconCls, readOnly, disabled, parentEl
             } = this.props,
             {popupVisible, textFieldValue, hour, minute, second, isAbove} = this.state,
 
@@ -188,6 +188,7 @@ class MaterialTimePicker extends Component {
                 <Popup className={`material-time-picker-popup ${popupClassName}`}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
+                       parentEl={parentEl}
                        position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        hasTriangle={false}
                        onRender={this.popupRenderHandler}

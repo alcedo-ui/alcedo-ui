@@ -343,7 +343,7 @@ class DateRangePicker extends Component {
         const {
                 className, style, name, placeholder, dateFormat, maxValue, minValue, position,
                 popupClassName, rightIconCls, previousYearIconCls, previousMonthIconCls, nextYearIconCls,
-                nextMonthIconCls, readOnly, disabled
+                nextMonthIconCls, readOnly, disabled, parentEl
             } = this.props,
             {popupVisible, left, right, startTime, endTime, hoverTime, isAbove} = this.state,
 
@@ -388,6 +388,7 @@ class DateRangePicker extends Component {
 
                 <Popup className={`date-range-picker-popup ${popupClassName}`}
                        visible={popupVisible}
+                       parentEl={parentEl}
                        triggerEl={this.triggerEl}
                        position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        hasTriangle={false}

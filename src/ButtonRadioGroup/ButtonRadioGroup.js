@@ -54,6 +54,8 @@ ButtonRadioGroup.propTypes = {
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
+    parentEl: PropTypes.object,
+
     /**
      * The theme of the ButtonRadioGroup item select radio or checkbox.
      */
@@ -226,6 +228,8 @@ ButtonRadioGroup.propTypes = {
 };
 
 ButtonRadioGroup.defaultProps = {
+
+    parentEl: document.body,
 
     theme: Theme.DEFAULT,
     activatedTheme: Theme.PRIMARY,

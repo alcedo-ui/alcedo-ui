@@ -3,21 +3,69 @@ import React, {Component, PropTypes} from 'react';
 import TimePicker from 'src/TimePicker';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import RaisedButton from 'src/RaisedButton';
+import Dialog from 'src/Dialog';
+import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/TimePicker.json';
+
+import 'scss/containers/app/modules/date/DateInDialog.scss'
+
 
 class TimePickerExamples extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            TimePickerVisible: {},
+            triggerEl: {}
+        };
+
     }
+
+    show = id => {
+
+        const {TimePickerVisible} = this.state;
+
+        TimePickerVisible[id] = true;
+
+        this.setState({
+            TimePickerVisible
+        });
+
+    };
+
+    hide = id => {
+
+        const {TimePickerVisible} = this.state;
+
+        TimePickerVisible[id] = false;
+
+        this.setState({
+            TimePickerVisible
+        });
+
+    };
+
+    dialogRenderHandler = () => {
+
+        const triggerEl = this.state.triggerEl;
+        triggerEl[1] = findDOMNode(this.refs['trigger1']);
+
+        this.setState({
+            triggerEl
+        });
+    };
 
     onChangeHandler = value => {
         console.log(value);
     };
 
     render() {
+
+        const {TimePickerVisible, triggerEl} = this.state;
+
         return (
             <div className="example time-picker-examples">
 
@@ -114,6 +162,47 @@ class TimePickerExamples extends Component {
 
                         </div>
                     </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="In Dialog"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p><code>Time Picker</code> using the <code>placeholder</code> property to set time
+                                    default value and using the <code>dateFormat</code> property constructor set time
+                                    format.</p>
+
+                                <RaisedButton className="trigger-button dialog-button"
+                                              value="Show Dialog"
+                                              onClick={() => this.show(1)}/>
+
+                                <Dialog visible={TimePickerVisible[1]}
+                                        onRender={this.dialogRenderHandler}
+                                        onRequestClose={() => this.hide(1)}>
+
+                                    <div className="popover-dialog-content-scroller">
+                                        <TimePicker value="12:00"
+                                                    dateFormat="HH:mm"
+                                                    maxValue="23:56"
+                                                    minValue="01:20"
+                                                    parentEl={document.querySelector('.dialog-content')}
+                                                    triggerEl={triggerEl}
+                                                    onChange={this.onChangeHandler}/>
+                                    </div>
+
+                                </Dialog>
+
+                            </div>
+
+                        </div>
+                    </div>
+
                 </Widget>
 
                 <h2 className="example-title">Properties</h2>

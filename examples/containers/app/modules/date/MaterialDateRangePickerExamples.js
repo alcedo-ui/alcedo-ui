@@ -3,21 +3,67 @@ import React, {Component, PropTypes} from 'react';
 import MaterialDateRangePicker from 'src/MaterialDateRangePicker';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import RaisedButton from 'src/RaisedButton';
+import Dialog from 'src/Dialog';
+import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/MaterialDateRangePicker.json';
+
+import 'scss/containers/app/modules/date/DateInDialog.scss';
 
 class MaterialDateRangePickerExamples extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            MaterialDateRangePickerVisible: {},
+            triggerEl: {}
+        };
+
     }
+
+    show = id => {
+
+        const {MaterialDateRangePickerVisible} = this.state;
+
+        MaterialDateRangePickerVisible[id] = true;
+
+        this.setState({
+            MaterialDateRangePickerVisible
+        });
+
+    };
+
+    hide = id => {
+
+        const {MaterialDateRangePickerVisible} = this.state;
+
+        MaterialDateRangePickerVisible[id] = false;
+
+        this.setState({
+            MaterialDateRangePickerVisible
+        });
+
+    };
+
+    dialogRenderHandler = () => {
+
+        const triggerEl = this.state.triggerEl;
+        triggerEl[1] = findDOMNode(this.refs['trigger1']);
+
+        this.setState({
+            triggerEl
+        });
+    };
 
     onChangeHandle = value => {
         console.log(value);
     };
 
     render() {
+
+        const {MaterialDateRangePickerVisible, triggerEl} = this.state;
         return (
             <div className="example date-range-picker-examples">
 
@@ -122,6 +168,47 @@ class MaterialDateRangePickerExamples extends Component {
                                                          maxValue={'2018-12-21'}
                                                          minValue={'2017-02-01'}
                                                          onChange={this.onChangeHandle}/>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="In Dialog"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p><code>Material Date Range Picker</code> using the <code>placeholder</code> property
+                                    to set
+                                    default value.</p>
+
+                                <RaisedButton className="trigger-button dialog-button"
+                                              value="Show Dialog"
+                                              onClick={() => this.show(1)}/>
+
+                                <Dialog visible={MaterialDateRangePickerVisible[1]}
+                                        onRender={this.dialogRenderHandler}
+                                        onRequestClose={() => this.hide(1)}>
+
+                                    <div className="popover-dialog-content-scroller">
+                                        <MaterialDateRangePicker label={`date range`}
+                                                                 isLabelAnimate={false}
+                                                                 dateFormat={'YYYY-MM-DD'}
+                                                                 popupVisible={true}
+                                                                 maxValue={'2018-12-21'}
+                                                                 minValue={'2017-02-01'}
+                                                                 parentEl={document.querySelector('.dialog-content')}
+                                                                 triggerEl={triggerEl}
+                                                                 onChange={this.onChangeHandle}/>
+                                    </div>
+                                </Dialog>
+
                             </div>
 
                         </div>

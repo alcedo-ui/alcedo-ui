@@ -218,7 +218,6 @@ class MaterialTreeSelectExamples extends Component {
                                     </div>
                                 </Dialog>
 
-
                             </div>
 
                         </div>

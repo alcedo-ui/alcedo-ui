@@ -6,6 +6,12 @@ import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/ButtonRadioGroup.json';
+import RaisedButton from '../../../../../src/RaisedButton';
+import Dialog from '../../../../../src/Dialog';
+import TimePicker from '../../../../../src/TimePicker';
+import {findDOMNode} from 'react-dom';
+
+import '../../../../../examples/assets/scss/containers/app/modules/field/ButtonRadioGroupExamples.scss'
 
 class ButtonRadioGroupExamples extends Component {
 
@@ -35,13 +41,54 @@ class ButtonRadioGroupExamples extends Component {
             tip: 5
         }];
 
+        this.state = {
+            ButtonRadioGroupVisible: {},
+            triggerEl: {}
+        };
+
     }
+
+    show = id => {
+
+        const {ButtonRadioGroupVisible} = this.state;
+
+        ButtonRadioGroupVisible[id] = true;
+
+        this.setState({
+            ButtonRadioGroupVisible
+        });
+
+    };
+
+    hide = id => {
+
+        const {ButtonRadioGroupVisible} = this.state;
+
+        ButtonRadioGroupVisible[id] = false;
+
+        this.setState({
+            ButtonRadioGroupVisible
+        });
+
+    };
+
+    dialogRenderHandler = () => {
+
+        const triggerEl = this.state.triggerEl;
+        triggerEl[1] = findDOMNode(this.refs['trigger1']);
+
+        this.setState({
+            triggerEl
+        });
+    };
 
     changeHandler = value => {
         console.log(value);
     };
 
     render() {
+
+        const {ButtonRadioGroupVisible, triggerEl} = this.state;
         return (
             <div className="example button-radio-group-examples">
 
@@ -69,6 +116,43 @@ class ButtonRadioGroupExamples extends Component {
                                 <ButtonRadioGroup data={this.data}
                                                   value={1}
                                                   onChange={this.changeHandler}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="In Dialog"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>Set the <code>value</code> property to activate one button.</p>
+
+                                <RaisedButton className="trigger-button dialog-button"
+                                              value="Show Dialog"
+                                              onClick={() => this.show(1)}/>
+
+                                <Dialog visible={ButtonRadioGroupVisible[1]}
+                                        onRender={this.dialogRenderHandler}
+                                        onRequestClose={() => this.hide(1)}>
+
+                                    <div className="popover-dialog-content-scroller">
+                                        <ButtonRadioGroup data={this.data}
+                                                          parentEl={document.querySelector('.dialog-content')}
+                                                          triggerEl={triggerEl}
+                                                          value={1}
+                                                          onChange={this.changeHandler}/>
+                                    </div>
+
+                                </Dialog>
+
 
                             </div>
 

@@ -3,15 +3,15 @@ import React, {Component} from 'react';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import TreeSelect from 'src/TreeSelect';
+import RaisedButton from 'src/RaisedButton';
+import Dialog from 'src/Dialog';
+import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/TreeSelect.json';
 
 import 'scss/containers/app/modules/field/TreeSelectExamples.scss';
-import RaisedButton from '../../../../../src/RaisedButton';
-import Dialog from '../../../../../src/Dialog';
-import MaterialTreeSelect from '../../../../../src/MaterialTreeSelect';
-import {findDOMNode} from 'react-dom';
+
 
 class TreeSelectExamples extends Component {
 
