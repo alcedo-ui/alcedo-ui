@@ -537,6 +537,11 @@ export default function configureRoutes(store) {
                         /* webpackChunkName: "LazyImageExamples" */
                         'modules/media/LazyImageExamples'), store)
                 }, {
+                    path: '/components/ColorBlock',
+                    component: ac(() => import(
+                        /* webpackChunkName: "ColorBlockExamples" */
+                        'modules/media/ColorBlockExamples'), store)
+                }, {
                     path: '/components/ColorPicker',
                     component: ac(() => import(
                         /* webpackChunkName: "ColorPickerExamples" */
