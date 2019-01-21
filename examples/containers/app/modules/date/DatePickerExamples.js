@@ -211,6 +211,7 @@ class DatePickerExamples extends Component {
                                                         onChange={this.onChangeHandler}/>
                                         </div>
                                     </div>
+
                                 </Dialog>
 
                             </div>

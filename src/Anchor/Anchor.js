@@ -56,6 +56,7 @@ class Anchor extends Component {
 
                 children, className, style, theme,
                 iconCls, rightIconCls, disabled, isLoading, tip, tipPosition,
+                parentEl,
 
                 ...restProps
 
@@ -72,6 +73,7 @@ class Anchor extends Component {
 
         return (
             <TipProvider tipContent={tip}
+                         parentEl={parentEl}
                          position={tipPosition}>
 
                 <a {...restProps}

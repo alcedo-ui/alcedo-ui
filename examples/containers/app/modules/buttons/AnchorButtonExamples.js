@@ -3,6 +3,9 @@ import React, {Component} from 'react';
 import AnchorButton from 'src/AnchorButton';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import RaisedButton from 'src/RaisedButton';
+import Dialog from 'src/Dialog';
+import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/AnchorButton.json';
@@ -13,9 +16,50 @@ class AnchorButtonExamples extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            AnchorButtonVisible: {},
+            triggerEl: {}
+        };
+
     }
 
+    show = id => {
+
+        const {AnchorButtonVisible} = this.state;
+
+        AnchorButtonVisible[id] = true;
+
+        this.setState({
+            AnchorButtonVisible
+        });
+
+    };
+
+    hide = id => {
+
+        const {AnchorButtonVisible} = this.state;
+
+        AnchorButtonVisible[id] = false;
+
+        this.setState({
+            AnchorButtonVisible
+        });
+
+    };
+
+    dialogRenderHandler = () => {
+
+        const triggerEl = this.state.triggerEl;
+        triggerEl[1] = findDOMNode(this.refs['trigger1']);
+
+        this.setState({
+            triggerEl
+        });
+    };
+
     render() {
+
+        const {AnchorButtonVisible, triggerEl} = this.state;
 
         return (
             <div className="example anchor-button-examples">
@@ -199,6 +243,94 @@ class AnchorButtonExamples extends Component {
                                 <AnchorButton value="Warning"
                                               theme={AnchorButton.Theme.WARNING}
                                               isCircular={true}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="In Dialog"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>
+                                    <code>Anchor Button</code> with default
+                                    theme, <code>success</code>, <code>warning</code>
+                                    , <code>error</code> and <code>disabled</code> props applied.
+                                </p>
+
+                                <RaisedButton className="trigger-button dialog-button"
+                                              value="Show Dialog"
+                                              onClick={() => this.show(1)}/>
+
+                                <Dialog visible={AnchorButtonVisible[1]}
+                                        onRender={this.dialogRenderHandler}
+                                        onRequestClose={() => this.hide(1)}>
+                                    <div className="popover-dialog-content-scroller">
+
+                                        <AnchorButton value="Default"
+                                                      parentEl={document.querySelector('.dialog-content')}
+                                                      triggerEl={triggerEl}
+                                                      tip="Default"/>
+
+                                        <AnchorButton value="Primary"
+                                                      tip="Primary"
+                                                      parentEl={document.querySelector('.dialog-content')}
+                                                      triggerEl={triggerEl}
+                                                      theme={AnchorButton.Theme.PRIMARY}/>
+
+                                        <AnchorButton value="Secondary"
+                                                      tip="Secondary"
+                                                      parentEl={document.querySelector('.dialog-content')}
+                                                      triggerEl={triggerEl}
+                                                      theme={AnchorButton.Theme.SECONDARY}/>
+
+                                        <AnchorButton value="Highlight"
+                                                      tip="Highlight"
+                                                      parentEl={document.querySelector('.dialog-content')}
+                                                      triggerEl={triggerEl}
+                                                      theme={AnchorButton.Theme.HIGHLIGHT}/>
+
+                                        <AnchorButton value="Info"
+                                                      tip="Info"
+                                                      parentEl={document.querySelector('.dialog-content')}
+                                                      triggerEl={triggerEl}
+                                                      theme={AnchorButton.Theme.INFO}/>
+
+                                        <AnchorButton value="Success"
+                                                      tip="Success"
+                                                      parentEl={document.querySelector('.dialog-content')}
+                                                      triggerEl={triggerEl}
+                                                      theme={AnchorButton.Theme.SUCCESS}/>
+
+                                        <AnchorButton value="Warning"
+                                                      tip="Warning"
+                                                      parentEl={document.querySelector('.dialog-content')}
+                                                      triggerEl={triggerEl}
+                                                      theme={AnchorButton.Theme.WARNING}/>
+
+                                        <AnchorButton value="Error"
+                                                      tip="Error"
+                                                      parentEl={document.querySelector('.dialog-content')}
+                                                      triggerEl={triggerEl}
+                                                      theme={AnchorButton.Theme.ERROR}/>
+
+                                        <AnchorButton value="Disabled"
+                                                      tip="Disabled"
+                                                      parentEl={document.querySelector('.dialog-content')}
+                                                      triggerEl={triggerEl}
+                                                      disabled={true}/>
+
+                                    </div>
+
+                                </Dialog>
 
                             </div>
 
