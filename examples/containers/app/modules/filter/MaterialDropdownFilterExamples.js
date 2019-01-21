@@ -5,7 +5,6 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
-
 import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
@@ -36,10 +35,10 @@ class MaterialDropdownFilterExamples extends Component {
             }
         }, 'test7', 'test8', 'test9'];
 
-    this.state = {
-        MaterialDropdownFilterVisible: {},
-        triggerEl: {}
-    };
+        this.state = {
+            MaterialDropdownFilterVisible: {},
+            triggerEl: {}
+        };
 
     }
 
@@ -159,7 +158,7 @@ class MaterialDropdownFilterExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Basic"/>
+                    <WidgetHeader className="example-header" title="In Dialog"/>
 
                     <div className="widget-content">
                         <div className="example-content">

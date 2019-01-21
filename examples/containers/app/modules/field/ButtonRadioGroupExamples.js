@@ -3,15 +3,14 @@ import React, {Component} from 'react';
 import ButtonRadioGroup from 'src/ButtonRadioGroup';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import RaisedButton from 'src/RaisedButton';
+import Dialog from 'src/Dialog';
+import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/ButtonRadioGroup.json';
-import RaisedButton from '../../../../../src/RaisedButton';
-import Dialog from '../../../../../src/Dialog';
-import TimePicker from '../../../../../src/TimePicker';
-import {findDOMNode} from 'react-dom';
 
-import '../../../../../examples/assets/scss/containers/app/modules/field/ButtonRadioGroupExamples.scss'
+import 'scss/containers/app/modules/field/ButtonRadioGroupExamples.scss';
 
 class ButtonRadioGroupExamples extends Component {
 
@@ -152,7 +151,6 @@ class ButtonRadioGroupExamples extends Component {
                                     </div>
 
                                 </Dialog>
-
 
                             </div>
 

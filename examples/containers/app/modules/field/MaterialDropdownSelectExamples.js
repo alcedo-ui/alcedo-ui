@@ -100,32 +100,32 @@ class MaterialDropdownSelectExamples extends Component {
 
                 <Widget>
 
-                <WidgetHeader className="example-header"
-                              title="Basic"/>
+                    <WidgetHeader className="example-header"
+                                  title="Basic"/>
 
-                <div className="widget-content">
-                    <div className="example-content">
+                    <div className="widget-content">
+                        <div className="example-content">
 
-                        <div className="examples-wrapper">
+                            <div className="examples-wrapper">
 
-                            <p><code>MaterialDropdownSelect</code> simple example.</p>
+                                <p><code>MaterialDropdownSelect</code> simple example.</p>
 
-                            <div className="field-group">
-                                <MaterialDropdownSelect theme={MaterialDropdownSelect.Theme.HIGHLIGHT}
-                                                        label="Label"
-                                                        placeholder="Placeholder"
-                                                        selectMode={MaterialDropdownSelect.SelectMode.MULTI_SELECT}
-                                                        useSelectAll={true}
-                                                        autoClose={false}
-                                                        data={this.data}
-                                                        tip="MaterialDropdownSelect Example"/>
+                                <div className="field-group">
+                                    <MaterialDropdownSelect theme={MaterialDropdownSelect.Theme.HIGHLIGHT}
+                                                            label="Label"
+                                                            placeholder="Placeholder"
+                                                            selectMode={MaterialDropdownSelect.SelectMode.MULTI_SELECT}
+                                                            useSelectAll={true}
+                                                            autoClose={false}
+                                                            data={this.data}
+                                                            tip="MaterialDropdownSelect Example"/>
+                                </div>
                             </div>
+
                         </div>
-
                     </div>
-                </div>
 
-            </Widget>
+                </Widget>
 
                 <Widget>
 

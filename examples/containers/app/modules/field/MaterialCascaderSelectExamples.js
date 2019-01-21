@@ -262,7 +262,8 @@ class MaterialCascaderSelectExamples extends Component {
                                                                             className="self-define-node-text">{node.text}</span>
                                                                                 {
                                                                                     node.children && node.children.length > 0 ?
-                                                                                        <span className="self-define-node-desc">
+                                                                                        <span
+                                                                                            className="self-define-node-desc">
                                                                                     ({node.children.length})
                                                                                 </span>
                                                                                         :

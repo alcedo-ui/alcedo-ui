@@ -10,7 +10,7 @@ import {findDOMNode} from 'react-dom';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/MaterialDateTimePicker.json';
 
-import 'scss/containers/app/modules/date/DateInDialog.scss'
+import 'scss/containers/app/modules/date/DateInDialog.scss';
 
 class MaterialDateTimePickerExamples extends Component {
 

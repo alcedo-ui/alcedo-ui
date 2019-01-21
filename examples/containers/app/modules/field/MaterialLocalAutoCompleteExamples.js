@@ -166,7 +166,6 @@ class MaterialLocalAutoCompleteExamples extends Component {
                                 </Dialog>
 
 
-
                             </div>
 
                         </div>

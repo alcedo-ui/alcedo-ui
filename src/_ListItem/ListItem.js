@@ -95,7 +95,8 @@ class ListItem extends Component {
                 checked, selectTheme, selectMode, indeterminateCallback, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
-                onMouseEnter, onMouseLeave
+                onMouseEnter, onMouseLeave,
+                parentEl
 
             } = this.props,
 
@@ -110,6 +111,7 @@ class ListItem extends Component {
 
         return (
             <TipProvider tipContent={tip}
+                         parentEl={parentEl}
                          position={tipPosition}>
 
                 <div className={listItemClassName}

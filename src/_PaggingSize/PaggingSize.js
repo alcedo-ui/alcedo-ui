@@ -21,7 +21,10 @@ class PaggingSize extends Component {
 
     render() {
 
-        const {className, style, pageSize, pageSizes, valueField, displayField, rightIconCls} = this.props;
+        const {
+            className, style, pageSize, pageSizes, valueField, displayField, rightIconCls,
+            parentEl
+        } = this.props;
 
         let temp = pageSizes.find(item => item && item.value === pageSize),
             value = temp ? temp : pageSize;
@@ -38,6 +41,7 @@ class PaggingSize extends Component {
                                 autoClose={true}
                                 valueField={valueField}
                                 displayField={displayField}
+                                parentEl={parentEl}
                                 rightIconCls={rightIconCls}
                                 onChange={this.pageSizeChangeHandle}/>
 
