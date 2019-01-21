@@ -55,12 +55,9 @@ class HuePickerExamples extends Component {
                                            onChange={this.changeHandler}/>
 
                                 <div className="picked-hue-wrapper">
-
                                     <ColorBlock className="picked-hue"
                                                 value={Color.rgb2hex(Color.hue2rgb(hue))}/>
-
                                     <div className="picked-hue-value">{hue}°</div>
-
                                 </div>
 
                             </div>
@@ -90,7 +87,7 @@ class HuePickerExamples extends Component {
                                                                       onChange={this.changeHandler}/>
                                                        }>
                                             <div>
-                                                <ColorBlock className="picked-hue hue-select"
+                                                <ColorBlock className="picked-hue"
                                                             value={Color.rgb2hex(Color.hue2rgb(hue))}/>
                                                 <div className="picked-hue-value">{hue}°</div>
                                             </div>

@@ -12,8 +12,6 @@
 
         .picked-hue {
             display: inline-block;
-            width: 24px;
-            height: 24px;
             margin-right: 16px;
             vertical-align: bottom;
         }
@@ -32,11 +30,6 @@
             .hue-select-scroller {
                 width: 1000px;
                 height: 1000px;
-
-                .hue-select {
-                    width: 24px;
-                    height: 24px;
-                }
             }
         }
 
