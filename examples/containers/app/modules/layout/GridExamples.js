@@ -4,6 +4,9 @@ import Paper from 'src/Paper';
 import Grid from 'src/Grid';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import RaisedButton from 'src/RaisedButton';
+import Dialog from 'src/Dialog';
+import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Grid.json';
@@ -33,7 +36,46 @@ class GridExamples extends Component {
             tip: 'Google+'
         }];
 
+        this.state = {
+            GridVisible: {},
+            triggerEl: {}
+        };
+
     }
+
+    show = id => {
+
+        const {GridVisible} = this.state;
+
+        GridVisible[id] = true;
+
+        this.setState({
+            GridVisible
+        });
+
+    };
+
+    hide = id => {
+
+        const {GridVisible} = this.state;
+
+        GridVisible[id] = false;
+
+        this.setState({
+            GridVisible
+        });
+
+    };
+
+    dialogRenderHandler = () => {
+
+        const triggerEl = this.state.triggerEl;
+        triggerEl[1] = findDOMNode(this.refs['trigger1']);
+
+        this.setState({
+            triggerEl
+        });
+    };
 
     changeHandler = value => {
         console.log('changed::', value);
@@ -52,6 +94,8 @@ class GridExamples extends Component {
     };
 
     render() {
+
+        const {GridVisible, triggerEl} = this.state;
         return (
             <div className="example grid-examples">
 
@@ -110,6 +154,51 @@ class GridExamples extends Component {
                                           onItemSelect={this.itemSelectHandler}
                                           onItemDeselect={this.itemDeselectHandler}/>
                                 </Paper>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="In Dialog"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>
+                                    A <code>Grid</code> with select mode.Can
+                                    be <code>SINGLE_SELECT</code>, <code>MULTI_SELECT</code>.
+                                </p>
+
+                                <RaisedButton className="trigger-button dialog-button"
+                                              value="Show Dialog"
+                                              onClick={() => this.show(1)}/>
+
+                                <Dialog visible={GridVisible[1]}
+                                        onRender={this.dialogRenderHandler}
+                                        onRequestClose={() => this.hide(1)}>
+                                    <div className="popover-dialog-content-scroller">
+
+                                        <Paper>
+                                            <Grid selectMode={Grid.SelectMode.MULTI_SELECT}
+                                                  data={this.descListData}
+                                                  parentEl={document.querySelector('.dialog-content')}
+                                                  triggerEl={triggerEl}
+                                                  onChange={this.changeHandler}
+                                                  onItemClick={this.itemClickHandler}
+                                                  onItemSelect={this.itemSelectHandler}
+                                                  onItemDeselect={this.itemDeselectHandler}/>
+                                        </Paper>
+
+                                    </div>
+
+                                </Dialog>
 
                             </div>
 

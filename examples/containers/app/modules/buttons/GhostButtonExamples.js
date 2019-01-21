@@ -3,20 +3,59 @@ import React, {Component} from 'react';
 import GhostButton from 'src/GhostButton';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import RaisedButton from 'src/RaisedButton';
+import Dialog from 'src/Dialog';
+import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/GhostButton.json';
 
 import 'scss/containers/app/modules/buttons/GhostButtonExamples.scss';
-import RaisedButton from '../../../../../src/RaisedButton';
-import Dialog from '../../../../../src/Dialog';
-import AnchorButton from '../../../../../src/AnchorButton';
 
 class GhostButtonExamples extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            GhostButtonVisible: {},
+            triggerEl: {}
+        };
+
     }
+
+    show = id => {
+
+        const {GhostButtonVisible} = this.state;
+
+        GhostButtonVisible[id] = true;
+
+        this.setState({
+            GhostButtonVisible
+        });
+
+    };
+
+    hide = id => {
+
+        const {GhostButtonVisible} = this.state;
+
+        GhostButtonVisible[id] = false;
+
+        this.setState({
+            GhostButtonVisible
+        });
+
+    };
+
+    dialogRenderHandler = () => {
+
+        const triggerEl = this.state.triggerEl;
+        triggerEl[1] = findDOMNode(this.refs['trigger1']);
+
+        this.setState({
+            triggerEl
+        });
+    };
 
     render() {
 
@@ -201,7 +240,7 @@ class GhostButtonExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Basic"/>
+                    <WidgetHeader className="example-header" title="In Dialog"/>
 
                     <div className="widget-content">
                         <div className="example-content">
