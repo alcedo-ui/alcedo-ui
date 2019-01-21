@@ -13,6 +13,7 @@ export Checkbox from './Checkbox';
 export CheckboxGroup from './CheckboxGroup';
 export CircularLoading from './CircularLoading';
 export CircularProgress from './CircularProgress';
+export ColorBlock from './ColorBlock';
 export ColorPicker from './ColorPicker';
 export Crumbs from './Crumbs';
 export DateField from './DateField';
@@ -109,4 +110,4 @@ export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 109;
+export const COMPONENTS_TOTAL_COUNT = 110;
