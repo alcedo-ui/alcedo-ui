@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import OpacityPicker from 'src/OpacityPicker';
+import ColorBlock from 'src/ColorBlock';
 import PopupProvider from 'src/PopupProvider';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
@@ -53,17 +54,10 @@ class OpacityPickerExamples extends Component {
                                                onChange={this.changeHandler}/>
 
                                 <div className="picked-opacity-wrapper">
-
-                                    <div className="picked-opacity">
-                                        <div className="picked-opacity-color"
-                                             style={{
-                                                 background: '#38b1eb',
-                                                 opacity: opacity
-                                             }}></div>
-                                    </div>
-
+                                    <ColorBlock className="picked-opacity"
+                                                value="38b1eb"
+                                                opacity={opacity}/>
                                     <div className="picked-opacity-value">{opacity}</div>
-
                                 </div>
 
                             </div>
@@ -94,13 +88,9 @@ class OpacityPickerExamples extends Component {
                                                                           onChange={this.changeHandler}/>
                                                        }>
                                             <div className="picked-opacity-wrapper">
-                                                <div className="picked-opacity">
-                                                    <div className="picked-opacity-color"
-                                                         style={{
-                                                             background: '#38b1eb',
-                                                             opacity: opacity
-                                                         }}></div>
-                                                </div>
+                                                <ColorBlock className="picked-opacity"
+                                                            value="38b1eb"
+                                                            opacity={opacity}/>
                                                 <div className="picked-opacity-value">{opacity}</div>
                                             </div>
                                         </PopupProvider>
