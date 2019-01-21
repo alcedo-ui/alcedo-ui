@@ -84,7 +84,7 @@ class OpacityPicker extends Component {
 
             offsetX = Valid.range(mouseX - elOffset.left - halfSliderWidth + left, 0, width),
 
-            value = offsetX / width;
+            value = Math.round(offsetX / width * 100) / 100;
 
         this.setState({
             value
