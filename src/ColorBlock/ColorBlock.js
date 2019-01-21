@@ -16,7 +16,6 @@ class ColorBlock extends Component {
     render() {
 
         const {className, style, color, opacity} = this.props,
-
             wrapperClassName = classNames('color-block', {
                 [className]: className
             });
@@ -25,7 +24,7 @@ class ColorBlock extends Component {
             <div className={wrapperClassName}
                  style={style}>
                 <div className="color-block-overlay"
-                     style={{background: color, opacity}}></div>
+                     style={{background: `#${color}`, opacity}}></div>
             </div>
         );
 
