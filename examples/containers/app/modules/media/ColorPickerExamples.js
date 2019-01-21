@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import ColorPicker from 'src/ColorPicker';
+import ColorBlock from 'src/ColorBlock';
 import PopupProvider from 'src/PopupProvider';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
@@ -55,8 +56,8 @@ class ColorPickerExamples extends Component {
                                              onChange={this.handleChange}/>
 
                                 <div className="picked-color-wrapper">
-                                    <div className="picked-color"
-                                         style={{background: `#${value}`}}></div>
+                                    <ColorBlock className="picked-color"
+                                                value={value}/>
                                     <div className="picked-color-value">#{value}</div>
                                 </div>
 
@@ -87,8 +88,8 @@ class ColorPickerExamples extends Component {
                                                                         onChange={this.handleChange}/>
                                                        }>
                                             <div>
-                                                <div className="picked-color color-select"
-                                                     style={{background: `#${value}`}}></div>
+                                                <ColorBlock className="picked-color color-select"
+                                                            value={value}/>
                                                 <div className="picked-color-value">#{value}</div>
                                             </div>
                                         </PopupProvider>
