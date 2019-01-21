@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import HuePicker from 'src/HuePicker';
+import ColorBlock from 'src/ColorBlock';
 import PopupProvider from 'src/PopupProvider';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
@@ -55,8 +56,8 @@ class HuePickerExamples extends Component {
 
                                 <div className="picked-hue-wrapper">
 
-                                    <div className="picked-hue"
-                                         style={{background: `rgb(${Color.hue2rgb(hue).join(', ')})`}}></div>
+                                    <ColorBlock className="picked-hue"
+                                                value={Color.rgb2hex(Color.hue2rgb(hue))}/>
 
                                     <div className="picked-hue-value">{hue}°</div>
 
@@ -89,8 +90,8 @@ class HuePickerExamples extends Component {
                                                                       onChange={this.changeHandler}/>
                                                        }>
                                             <div>
-                                                <div className="picked-hue hue-select"
-                                                     style={{background: `rgb(${Color.hue2rgb(hue).join(', ')})`}}></div>
+                                                <ColorBlock className="picked-hue hue-select"
+                                                            value={Color.rgb2hex(Color.hue2rgb(hue))}/>
                                                 <div className="picked-hue-value">{hue}°</div>
                                             </div>
                                         </PopupProvider>
