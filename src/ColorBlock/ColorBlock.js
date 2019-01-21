@@ -15,16 +15,17 @@ class ColorBlock extends Component {
 
     render() {
 
-        const {className, style, color, opacity} = this.props,
+        const {className, style, value, opacity, ...restProps} = this.props,
             wrapperClassName = classNames('color-block', {
                 [className]: className
             });
 
         return (
-            <div className={wrapperClassName}
+            <div {...restProps}
+                 className={wrapperClassName}
                  style={style}>
                 <div className="color-block-overlay"
-                     style={{background: `#${color}`, opacity}}></div>
+                     style={{background: `#${value}`, opacity}}></div>
             </div>
         );
 
@@ -46,14 +47,14 @@ ColorBlock.propTypes = {
     /**
      * rgb hex value
      */
-    color: PropTypes.string,
+    value: PropTypes.string,
 
     opacity: PropTypes.number
 
 };
 
 ColorBlock.defaultProps = {
-    color: 'ff0000',
+    value: 'ff0000',
     opacity: 1
 };
 
