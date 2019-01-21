@@ -31,7 +31,7 @@ class ColorBlockExamples extends Component {
                         <div className="example-content">
                             <div className="examples-wrapper">
 
-                                <ColorBlock color="38b1eb"
+                                <ColorBlock value="38b1eb"
                                             opacity={.5}/>
 
                                 <p>Color: #38b1eb, Opacity: 0.5</p>
