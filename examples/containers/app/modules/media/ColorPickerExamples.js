@@ -88,7 +88,7 @@ class ColorPickerExamples extends Component {
                                                                         onChange={this.handleChange}/>
                                                        }>
                                             <div>
-                                                <ColorBlock className="picked-color color-select"
+                                                <ColorBlock className="picked-color"
                                                             value={value}/>
                                                 <div className="picked-color-value">#{value}</div>
                                             </div>

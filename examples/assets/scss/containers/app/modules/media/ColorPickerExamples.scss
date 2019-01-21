@@ -12,15 +12,13 @@
 
         .picked-color {
             display: inline-block;
-            width: 20px;
-            height: 20px;
             margin-right: 16px;
             vertical-align: bottom;
         }
 
         .picked-color-value {
             display: inline-block;
-            line-height: 20px;
+            line-height: 24px;
             user-select: none;
         }
 
@@ -32,11 +30,6 @@
             .color-select-scroller {
                 width: 1000px;
                 height: 1000px;
-
-                .color-select {
-                    width: 24px;
-                    height: 24px;
-                }
             }
         }
 
