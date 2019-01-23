@@ -1,4 +1,5 @@
 import contains from 'dom-helpers/query/contains';
+import position from 'dom-helpers/query/position';
 
 /**
  * @file Dom vendor
@@ -11,20 +12,7 @@ function getOffset(el, parentEl = document.body) {
         return null;
     }
 
-    // if (el.getBoundingClientRect) {
-    //
-    //     const result = el.getBoundingClientRect();
-    //
-    //     // console.log(getScrollLeft());
-    //
-    //     return {
-    //         top: result.top + getScrollTop(),
-    //         left: result.left + getScrollLeft()
-    //     };
-    //
-    // }
-
-    let offset = {
+    let result = {
         top: el.offsetTop,
         left: el.offsetLeft
     };
@@ -36,12 +24,14 @@ function getOffset(el, parentEl = document.body) {
         }
 
         el = el.offsetParent;
-        offset.top += el.offsetTop;
-        offset.left += el.offsetLeft;
+
+        const p = position(el);
+        result.top += p.top;
+        result.left += p.left;
 
     }
 
-    return offset;
+    return result;
 
 }
 
