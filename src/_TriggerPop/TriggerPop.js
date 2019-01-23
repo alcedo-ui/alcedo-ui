@@ -20,7 +20,7 @@ import Position from '../_statics/Position';
 import Event from '../_vendors/Event';
 import Util from '../_vendors/Util';
 import TriggerPopCalculation from '../_vendors/TriggerPopCalculation';
-import Dom from '../_vendors/Dom';
+// import Dom from '../_vendors/Dom';
 
 class TriggerPop extends Component {
 
@@ -90,38 +90,38 @@ class TriggerPop extends Component {
         TriggerPopCalculation.setStyle(parentEl, triggerEl, this.transitionEl, position, isTriggerPositionFixed);
     };
 
-    addWatchScroll = () => {
-
-        const {triggerEl} = this.props;
-
-        if (!triggerEl) {
-            return;
-        }
-
-        const scrollEl = Dom.getClosestScrollable(triggerEl);
-
-        if (!scrollEl || scrollEl == document.body) {
-            return;
-        }
-
-        this.scrollEl = scrollEl;
-
-        eventsOn(scrollEl, 'scroll', this.debounceResetPosition);
-
-    };
+    // addWatchScroll = () => {
+    //
+    //     const {triggerEl} = this.props;
+    //
+    //     if (!triggerEl) {
+    //         return;
+    //     }
+    //
+    //     const scrollEl = Dom.getClosestScrollable(triggerEl);
+    //
+    //     if (!scrollEl || scrollEl == document.body) {
+    //         return;
+    //     }
+    //
+    //     this.scrollEl = scrollEl;
+    //
+    //     eventsOn(scrollEl, 'scroll', this.debounceResetPosition);
+    //
+    // };
 
     componentDidMount() {
         eventsOn(window, 'resize', this.debounceResetPosition);
     }
 
-    componentDidUpdate(prevProps) {
-        if (!prevProps.visible && this.props.visible) {
-            this.addWatchScroll();
-        } else if (prevProps.visible && !this.props.visible) {
-            this.scrollEl && eventsOff(this.scrollEl, 'scroll', this.debounceResetPosition);
-            this.scrollEl = null;
-        }
-    }
+    // componentDidUpdate(prevProps) {
+    //     if (!prevProps.visible && this.props.visible) {
+    //         this.addWatchScroll();
+    //     } else if (prevProps.visible && !this.props.visible) {
+    //         this.scrollEl && eventsOff(this.scrollEl, 'scroll', this.debounceResetPosition);
+    //         this.scrollEl = null;
+    //     }
+    // }
 
     componentWillReceiveProps(nextProps) {
 
