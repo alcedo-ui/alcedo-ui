@@ -7,9 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {createPortal} from 'react-dom';
 import classNames from 'classnames';
-import addClass from 'dom-helpers/class/addClass';
-import removeClass from 'dom-helpers/class/removeClass';
-import portalManagement from 'src/_vendors/PortalManagement'
+import portalManagement from '../_vendors/PortalManagement';
 
 class Portal extends Component {
 
