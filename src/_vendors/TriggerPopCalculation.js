@@ -130,8 +130,8 @@ function getStyle(parentEl, triggerEl, popupEl, position, isTriggerPositionFixed
 
     if (isTriggerPositionFixed) {
         result.position = 'fixed';
-        result.left -= Dom.getScrollLeft();
-        result.top -= Dom.getScrollTop();
+        // result.left -= Dom.getScrollLeft();
+        // result.top -= Dom.getScrollTop();
     }
 
     return result;
