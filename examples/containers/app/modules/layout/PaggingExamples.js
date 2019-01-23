@@ -3,11 +3,15 @@ import React, {Component} from 'react';
 import Pagging from 'src/Pagging';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import RaisedButton from 'src/RaisedButton';
+import Dialog from 'src/Dialog';
+import Valid from 'src/_vendors/Valid';
+import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Pagging.json';
 
-import Valid from 'src/_vendors/Valid';
+import 'scss/containers/app/modules/layout/PaggingExamples.scss';
 
 class PaggingExamples extends Component {
 
@@ -36,10 +40,46 @@ class PaggingExamples extends Component {
             pagging: {
                 pageSize: 30,
                 page: 0
-            }
+            },
+            PaggingVisible: {},
+            triggerEl: {}
         };
 
     }
+
+    show = id => {
+
+        const {PaggingVisible} = this.state;
+
+        PaggingVisible[id] = true;
+
+        this.setState({
+            PaggingVisible
+        });
+
+    };
+
+    hide = id => {
+
+        const {PaggingVisible} = this.state;
+
+        PaggingVisible[id] = false;
+
+        this.setState({
+            PaggingVisible
+        });
+
+    };
+
+    dialogRenderHandler = () => {
+
+        const triggerEl = this.state.triggerEl;
+        triggerEl[1] = findDOMNode(this.refs['trigger1']);
+
+        this.setState({
+            triggerEl
+        });
+    };
 
     generateData = (size = 100) => {
         let data = [];
@@ -85,7 +125,7 @@ class PaggingExamples extends Component {
 
     render() {
 
-        const {pagging} = this.state;
+        const {pagging, PaggingVisible, triggerEl} = this.state;
 
         return (
             <div className="example pagging-examples">
@@ -111,6 +151,40 @@ class PaggingExamples extends Component {
                                      pageSize={pagging.pageSize}
                                      pageSizes={this.pageSizes}
                                      onChange={this.pageChangedHandler}/>
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="In Dialog"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+                            <p>A simple <code>Pagging</code> example.</p>
+
+                            <RaisedButton className="trigger-button dialog-button"
+                                          value="Show Dialog"
+                                          onClick={() => this.show(1)}/>
+
+                            <Dialog visible={PaggingVisible[1]}
+                                    onRender={this.dialogRenderHandler}
+                                    onRequestClose={() => this.hide(1)}>
+
+                                <div className="popover-dialog-content-scroller">
+                                    <Pagging selectedCountVisible={true}
+                                             parentEl={document.querySelector('.dialog-content')}
+                                             triggerEl={triggerEl}
+                                             page={pagging.page}
+                                             total={this.generateData()}
+                                             pageSize={pagging.pageSize}
+                                             pageSizes={this.pageSizes}
+                                             onChange={this.pageChangedHandler}/>
+                                </div>
+
+                            </Dialog>
+
                         </div>
                     </div>
 

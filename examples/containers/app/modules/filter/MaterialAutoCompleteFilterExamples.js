@@ -3,9 +3,15 @@ import React, {Component} from 'react';
 import MaterialAutoCompleteFilter from 'src/MaterialAutoCompleteFilter';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import RaisedButton from 'src/RaisedButton';
+import Dialog from 'src/Dialog';
+
+import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/MaterialAutoCompleteFilter.json';
+
+import 'scss/containers/app/modules/filter/MaterialAutoCompleteFilterExamples.scss';
 
 class MaterialAutoCompleteFilterExamples extends Component {
 
@@ -29,7 +35,46 @@ class MaterialAutoCompleteFilterExamples extends Component {
             }
         }, 'test7', 'test8', 'test9'];
 
+        this.state = {
+            MaterialAutoCompleteFilterVisible: {},
+            triggerEl: {}
+        };
+
     }
+
+    show = id => {
+
+        const {MaterialAutoCompleteFilterVisible} = this.state;
+
+        MaterialAutoCompleteFilterVisible[id] = true;
+
+        this.setState({
+            MaterialAutoCompleteFilterVisible
+        });
+
+    };
+
+    hide = id => {
+
+        const {MaterialAutoCompleteFilterVisible} = this.state;
+
+        MaterialAutoCompleteFilterVisible[id] = false;
+
+        this.setState({
+            MaterialAutoCompleteFilterVisible
+        });
+
+    };
+
+    dialogRenderHandler = () => {
+
+        const triggerEl = this.state.triggerEl;
+        triggerEl[1] = findDOMNode(this.refs['trigger1']);
+
+        this.setState({
+            triggerEl
+        });
+    };
 
     onChange = item => {
         console.log('select item: ', item);
@@ -44,6 +89,8 @@ class MaterialAutoCompleteFilterExamples extends Component {
     };
 
     render() {
+
+        const {MaterialAutoCompleteFilterVisible, triggerEl} = this.state;
         return (
             <div className="example material-auto-complete-examples">
 
@@ -74,6 +121,47 @@ class MaterialAutoCompleteFilterExamples extends Component {
                                                             onChange={this.onChange}
                                                             onFilterPressEnter={this.filterPressEnterHandle}
                                                             onFilterClear={this.filterClearHandle}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="In Dialog"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p><code>MaterialAutoCompleteFilter</code> simple example.</p>
+
+                                <RaisedButton className="trigger-button dialog-button"
+                                              value="Show Dialog"
+                                              onClick={() => this.show(1)}/>
+
+                                <Dialog visible={MaterialAutoCompleteFilterVisible[1]}
+                                        onRender={this.dialogRenderHandler}
+                                        onRequestClose={() => this.hide(1)}>
+                                    <div className="popover-dialog-content-scroller">
+                                        <MaterialAutoCompleteFilter theme={MaterialAutoCompleteFilter.Theme.HIGHLIGHT}
+                                                                    filterInitValue={'test'}
+                                                                    data={this.data}
+                                                                    label="Label"
+                                                                    placeholder="Please select ..."
+                                                                    parentEl={document.querySelector('.dialog-content')}
+                                                                    triggerEl={triggerEl}
+                                                                    onChange={this.onChange}
+                                                                    onFilterPressEnter={this.filterPressEnterHandle}
+                                                                    onFilterClear={this.filterClearHandle}/>
+
+                                    </div>
+                                </Dialog>
+
 
                             </div>
 

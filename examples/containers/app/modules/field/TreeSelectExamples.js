@@ -3,11 +3,15 @@ import React, {Component} from 'react';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import TreeSelect from 'src/TreeSelect';
+import RaisedButton from 'src/RaisedButton';
+import Dialog from 'src/Dialog';
+import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/TreeSelect.json';
 
 import 'scss/containers/app/modules/field/TreeSelectExamples.scss';
+
 
 class TreeSelectExamples extends Component {
 
@@ -54,13 +58,54 @@ class TreeSelectExamples extends Component {
             }]
         };
 
+        this.state = {
+            TreeSelectVisible: {},
+            triggerEl: {}
+        };
+
     }
+
+    show = id => {
+
+        const {TreeSelectVisible} = this.state;
+
+        TreeSelectVisible[id] = true;
+
+        this.setState({
+            TreeSelectVisible
+        });
+
+    };
+
+    hide = id => {
+
+        const {TreeSelectVisible} = this.state;
+
+        TreeSelectVisible[id] = false;
+
+        this.setState({
+            TreeSelectVisible
+        });
+
+    };
+
+    dialogRenderHandler = () => {
+
+        const triggerEl = this.state.triggerEl;
+        triggerEl[1] = findDOMNode(this.refs['trigger1']);
+
+        this.setState({
+            triggerEl
+        });
+    };
 
     changeHandler = value => {
         console.log(value);
     };
 
     render() {
+
+        const {TreeSelectVisible, triggerEl} = this.state;
         return (
             <div className="example tree-select-examples">
 
@@ -121,6 +166,46 @@ class TreeSelectExamples extends Component {
                                             useFilter={true}
                                             tip="TreeSelect Example"
                                             onChange={this.changeHandler}/>
+                            </div>
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="In Dialog"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+                            <div className="examples-wrapper">
+
+                                <RaisedButton className="trigger-button dialog-button"
+                                              value="Show Dialog"
+                                              onClick={() => this.show(1)}/>
+
+                                <Dialog visible={TreeSelectVisible[1]}
+                                        onRender={this.dialogRenderHandler}
+                                        onRequestClose={() => this.hide(1)}>
+                                    <div className="popover-dialog-content-scroller">
+                                        <TreeSelect selectMode={TreeSelect.SelectMode.MULTI_SELECT}
+                                                    data={this.data}
+                                                    autoClose={false}
+                                                    isSelectRecursive={true}
+                                                    collapsedIconCls="far fa-plus-square"
+                                                    expandedIconCls="far fa-minus-square"
+                                                    checkboxUncheckedIconCls="far fa-circle"
+                                                    checkboxCheckedIconCls="fas fa-check-circle"
+                                                    checkboxIndeterminateIconCls="fas fa-minus-circle"
+                                                    useFilter={true}
+                                                    parentEl={document.querySelector('.dialog-content')}
+                                                    triggerEl={triggerEl}
+                                                    tip="TreeSelect Example"
+                                                    onChange={this.changeHandler}/>
+                                    </div>
+                                </Dialog>
+
                             </div>
                         </div>
                     </div>

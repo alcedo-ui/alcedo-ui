@@ -3,11 +3,15 @@ import React, {Component} from 'react';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import MaterialTreeSelect from 'src/MaterialTreeSelect';
+import RaisedButton from 'src/RaisedButton';
+import Dialog from 'src/Dialog';
+import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/MaterialTreeSelect.json';
 
 import 'scss/containers/app/modules/field/MaterialTreeSelectExamples.scss';
+
 
 class MaterialTreeSelectExamples extends Component {
 
@@ -47,13 +51,54 @@ class MaterialTreeSelectExamples extends Component {
             }]
         };
 
+        this.state = {
+            MaterialTreeSelectVisible: {},
+            triggerEl: {}
+        };
+
     }
+
+    show = id => {
+
+        const {MaterialTreeSelectVisible} = this.state;
+
+        MaterialTreeSelectVisible[id] = true;
+
+        this.setState({
+            MaterialTreeSelectVisible
+        });
+
+    };
+
+    hide = id => {
+
+        const {MaterialTreeSelectVisible} = this.state;
+
+        MaterialTreeSelectVisible[id] = false;
+
+        this.setState({
+            MaterialTreeSelectVisible
+        });
+
+    };
+
+    dialogRenderHandler = () => {
+
+        const triggerEl = this.state.triggerEl;
+        triggerEl[1] = findDOMNode(this.refs['trigger1']);
+
+        this.setState({
+            triggerEl
+        });
+    };
 
     onChangeHandler = value => {
         console.log(value);
     };
 
     render() {
+
+        const {MaterialTreeSelectVisible, triggerEl} = this.state;
         return (
             <div className="example material-tree-select-examples">
 
@@ -124,6 +169,55 @@ class MaterialTreeSelectExamples extends Component {
                                                         tip="MaterialTreeSelect Example"
                                                         onChange={this.onChangeHandler}/>
                                 </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="In Dialog"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p><code>MaterialDropdownSelect</code> simple example.</p>
+
+                                <RaisedButton className="trigger-button dialog-button"
+                                              value="Show Dialog"
+                                              onClick={() => this.show(1)}/>
+
+                                <Dialog visible={MaterialTreeSelectVisible[1]}
+                                        onRender={this.dialogRenderHandler}
+                                        onRequestClose={() => this.hide(1)}>
+                                    <div className="popover-dialog-content-scroller">
+                                        <div className="field-group">
+                                            <MaterialTreeSelect theme={MaterialTreeSelect.Theme.HIGHLIGHT}
+                                                                label="Label"
+                                                                placeholder="Placeholder"
+                                                                selectMode={MaterialTreeSelect.SelectMode.MULTI_SELECT}
+                                                                autoClose={false}
+                                                                data={this.data}
+                                                                isSelectRecursive={true}
+                                                                useFilter={true}
+                                                                parentEl={document.querySelector('.dialog-content')}
+                                                                triggerEl={triggerEl}
+                                                                collapsedIconCls="far fa-plus-square"
+                                                                expandedIconCls="far fa-minus-square"
+                                                                checkboxUncheckedIconCls="far fa-circle"
+                                                                checkboxCheckedIconCls="fas fa-check-circle"
+                                                                checkboxIndeterminateIconCls="fas fa-minus-circle"
+                                                                tip="MaterialTreeSelect Example"
+                                                                onChange={this.onChangeHandler}/>
+                                        </div>
+                                    </div>
+                                </Dialog>
+
                             </div>
 
                         </div>

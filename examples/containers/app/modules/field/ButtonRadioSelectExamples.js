@@ -3,11 +3,17 @@ import React, {Component} from 'react';
 import ButtonRadioSelect from 'src/ButtonRadioSelect';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import RaisedButton from 'src/RaisedButton';
+import Dialog from 'src/Dialog';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/ButtonRadioSelect.json';
 
+import {findDOMNode} from 'react-dom';
+
 import 'scss/containers/app/modules/field/ButtonRadioSelectExamples.scss';
+
+
 
 class ButtonRadioSelectExamples extends Component {
 
@@ -32,13 +38,55 @@ class ButtonRadioSelectExamples extends Component {
             value: 5
         }];
 
+        this.state = {
+            ButtonRadioSelectVisible: {},
+            triggerEl: {}
+        };
+
     }
+
+    show = id => {
+
+        const {ButtonRadioSelectVisible} = this.state;
+
+        ButtonRadioSelectVisible[id] = true;
+
+        this.setState({
+            ButtonRadioSelectVisible
+        });
+
+    };
+
+    hide = id => {
+
+        const {ButtonRadioSelectVisible} = this.state;
+
+        ButtonRadioSelectVisible[id] = false;
+
+        this.setState({
+            ButtonRadioSelectVisible
+        });
+
+    };
+
+    dialogRenderHandler = () => {
+
+        const triggerEl = this.state.triggerEl;
+        triggerEl[1] = findDOMNode(this.refs['trigger1']);
+
+        this.setState({
+            triggerEl
+        });
+    };
 
     changeHandler = value => {
         console.log(value);
     };
 
     render() {
+
+        const {ButtonRadioSelectVisible, triggerEl} = this.state;
+
         return (
             <div className="example button-radio-select-examples">
 
@@ -67,6 +115,41 @@ class ButtonRadioSelectExamples extends Component {
                                                    data={this.data}
                                                    value={this.data[0]}
                                                    onChange={this.changeHandler}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="In Dialog"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p><code>Button Radio Select</code> simple example.</p>
+
+                                <RaisedButton className="trigger-button dialog-button"
+                                              value="Show Dialog"
+                                              onClick={() => this.show(1)}/>
+
+                                <Dialog visible={ButtonRadioSelectVisible[1]}
+                                        onRender={this.dialogRenderHandler}
+                                        onRequestClose={() => this.hide(1)}>
+                                    <div className="popover-dialog-content-scroller">
+                                        <ButtonRadioSelect popupClassName="button-radio-select-example-pop"
+                                                           data={this.data}
+                                                           value={this.data[0]}
+                                                           parentEl={document.querySelector('.dialog-content')}
+                                                           triggerEl={triggerEl}
+                                                           onChange={this.changeHandler}/>
+                                    </div>
+                                </Dialog>
 
                             </div>
 

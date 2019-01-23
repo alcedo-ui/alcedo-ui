@@ -140,7 +140,8 @@ class EditableField extends Component {
 
         const {
                 children, className, style, name, disabled, tip, tipPosition, title,
-                onMouseDown, onClick, showModal, maxLength, autoWidth
+                onMouseDown, onClick, showModal, maxLength, autoWidth,
+                parentEl
             } = this.props,
             {changeText, text, hide, inputAutoWidth} = this.state,
             fieldClassName = classNames('editable-field', {
@@ -150,6 +151,7 @@ class EditableField extends Component {
 
         return (
             <TipProvider tipContent={tip}
+                         parentEl={parentEl}
                          position={tipPosition}>
                 <div ref="editableField"
                      className={fieldClassName}

@@ -3,21 +3,69 @@ import React, {Component, PropTypes} from 'react';
 import DateRangePicker from 'src/DateRangePicker';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import Dialog from 'src/Dialog';
+import RaisedButton from 'src/RaisedButton';
+import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/DateRangePicker.json';
+
+
+import 'scss/containers/app/modules/date/DateInDialog.scss';
+
 
 class DateRangePickerExamples extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            DateRangePickerVisible: {},
+            triggerEl: {}
+        };
+
     }
+
+    show = id => {
+
+        const {DateRangePickerVisible} = this.state;
+
+        DateRangePickerVisible[id] = true;
+
+        this.setState({
+            DateRangePickerVisible
+        });
+
+    };
+
+    hide = id => {
+
+        const {DateRangePickerVisible} = this.state;
+
+        DateRangePickerVisible[id] = false;
+
+        this.setState({
+            DateRangePickerVisible
+        });
+
+    };
+
+    dialogRenderHandler = () => {
+
+        const triggerEl = this.state.triggerEl;
+        triggerEl[1] = findDOMNode(this.refs['trigger1']);
+
+        this.setState({
+            triggerEl
+        });
+    };
 
     onChangeHandler = value => {
         console.log(value);
     };
 
     render() {
+
+        const {DateRangePickerVisible, triggerEl} = this.state;
         return (
 
             <div className="example date-range-picker-examples">
@@ -114,6 +162,45 @@ class DateRangePickerExamples extends Component {
                                                  maxValue={'2018-12-21'}
                                                  minValue={'2017-02-01'}
                                                  onChange={this.onChangeHandler}/>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="In Dialog"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p><code>Date Range Picker</code> using the <code>placeholder</code> property to set
+                                    default value.</p>
+
+                                <RaisedButton className="trigger-button dialog-button"
+                                              value="Show Dialog"
+                                              onClick={() => this.show(1)}/>
+
+                                <Dialog visible={DateRangePickerVisible[1]}
+                                        onRender={this.dialogRenderHandler}
+                                        onRequestClose={() => this.hide(1)}>
+                                    <div className="popover-dialog-content-scroller">
+                                        <div className="field-group">
+                                            <DateRangePicker dateFormat={'YYYY-MM-DD'}
+                                                             popupVisible={true}
+                                                             parentEl={document.querySelector('.dialog-content')}
+                                                             triggerEl={triggerEl}
+                                                             maxValue={'2018-12-21'}
+                                                             minValue={'2017-02-01'}
+                                                             onChange={this.onChangeHandler}/>
+                                        </div>
+                                    </div>
+                                </Dialog>
+
                             </div>
 
                         </div>

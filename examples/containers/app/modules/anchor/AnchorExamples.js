@@ -3,6 +3,9 @@ import React, {Component} from 'react';
 import Anchor from 'src/Anchor';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import RaisedButton from 'src/RaisedButton';
+import Dialog from 'src/Dialog';
+import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Anchor.json';
@@ -13,9 +16,50 @@ class AnchorExamples extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            AnchorVisible: {},
+            triggerEl: {}
+        };
+
     }
 
+    show = id => {
+
+        const {AnchorVisible} = this.state;
+
+        AnchorVisible[id] = true;
+
+        this.setState({
+            AnchorVisible
+        });
+
+    };
+
+    hide = id => {
+
+        const {AnchorVisible} = this.state;
+
+        AnchorVisible[id] = false;
+
+        this.setState({
+            AnchorVisible
+        });
+
+    };
+
+    dialogRenderHandler = () => {
+
+        const triggerEl = this.state.triggerEl;
+        triggerEl[1] = findDOMNode(this.refs['trigger1']);
+
+        this.setState({
+            triggerEl
+        });
+    };
+
     render() {
+
+        const {AnchorVisible, triggerEl} = this.state;
 
         return (
             <div className="example anchor-examples">
@@ -115,6 +159,95 @@ class AnchorExamples extends Component {
                                         rightIconCls="fas fa-angle-right">
                                     Next
                                 </Anchor>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="In Dialog"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <RaisedButton className="trigger-button dialog-button"
+                                              value="Show Dialog"
+                                              onClick={() => this.show(1)}/>
+
+                                <Dialog visible={AnchorVisible[1]}
+                                        onRender={this.dialogRenderHandler}
+                                        onRequestClose={() => this.hide(1)}>
+                                    <div className="popover-dialog-content-scroller">
+
+                                        <Anchor tip="Default"
+                                                parentEl={document.querySelector('.dialog-content')}
+                                                triggerEl={triggerEl}>
+                                            Default
+                                        </Anchor>
+
+                                        <Anchor theme={Anchor.Theme.PRIMARY}
+                                                parentEl={document.querySelector('.dialog-content')}
+                                                triggerEl={triggerEl}
+                                                tip="Primary">
+                                            Primary
+                                        </Anchor>
+
+                                        <Anchor theme={Anchor.Theme.SECONDARY}
+                                                parentEl={document.querySelector('.dialog-content')}
+                                                triggerEl={triggerEl}
+                                                tip="Secondary">
+                                            Secondary
+                                        </Anchor>
+
+                                        <Anchor theme={Anchor.Theme.HIGHLIGHT}
+                                                parentEl={document.querySelector('.dialog-content')}
+                                                triggerEl={triggerEl}
+                                                tip="Highlight">
+                                            Highlight
+                                        </Anchor>
+
+                                        <Anchor theme={Anchor.Theme.INFO}
+                                                parentEl={document.querySelector('.dialog-content')}
+                                                triggerEl={triggerEl}
+                                                tip="Info">
+                                            Info
+                                        </Anchor>
+
+                                        <Anchor theme={Anchor.Theme.SUCCESS}
+                                                parentEl={document.querySelector('.dialog-content')}
+                                                triggerEl={triggerEl}
+                                                tip="Success">
+                                            Success
+                                        </Anchor>
+
+                                        <Anchor theme={Anchor.Theme.WARNING}
+                                                parentEl={document.querySelector('.dialog-content')}
+                                                triggerEl={triggerEl}
+                                                tip="Warning">
+                                            Warning
+                                        </Anchor>
+
+                                        <Anchor theme={Anchor.Theme.ERROR}
+                                                parentEl={document.querySelector('.dialog-content')}
+                                                triggerEl={triggerEl}
+                                                tip="Error">
+                                            Error
+                                        </Anchor>
+
+                                        <Anchor disabled={true}
+                                                tip="Disabled">
+                                            Disabled
+                                        </Anchor>
+
+                                    </div>
+
+                                </Dialog>
 
                             </div>
 

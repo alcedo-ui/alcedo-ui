@@ -238,7 +238,7 @@ class MaterialDateTimePicker extends Component {
         const {
                 className, style, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, isFooter,
                 position, theme, popupClassName, rightIconCls, previousYearIconCls, previousMonthIconCls,
-                nextYearIconCls, nextMonthIconCls, readOnly, disabled
+                nextYearIconCls, nextMonthIconCls, readOnly, disabled, parentEl
             } = this.props,
             {value, popupVisible, datePickerLevel, year, month, day, hour, minute, second, isAbove} = this.state,
 
@@ -275,6 +275,7 @@ class MaterialDateTimePicker extends Component {
                 <Popup className={`material-date-time-picker-popup ${popupClassName}`}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
+                       parentEl={parentEl}
                        position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        hasTriangle={false}
                        onRender={this.popupRenderHandler}

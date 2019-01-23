@@ -42,7 +42,7 @@ class DateRangeFieldExamples extends Component {
                                 <p><code>Date Range Field</code>simple example.</p>
 
                                 <DateRangeField onChange={this.onChangeHandler}
-                                                value={[null,null]}/>
+                                                value={[null, null]}/>
 
                             </div>
 

@@ -57,6 +57,7 @@ class IconAnchor extends Component {
 
                 className, theme, iconCls, disabled, isLoading,
                 tip, tipPosition, disableTouchRipple,
+                parentEl,
 
                 ...restProps
 
@@ -69,6 +70,7 @@ class IconAnchor extends Component {
 
         return (
             <TipProvider tipContent={tip}
+                         parentEl={parentEl}
                          position={tipPosition}>
 
                 <a {...restProps}

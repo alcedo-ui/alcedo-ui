@@ -59,7 +59,7 @@ class BaseButton extends Component {
 
                 children, className, style, theme, isRounded, isCircular, disableTouchRipple,
                 iconCls, rightIconCls, type, value, disabled, readOnly, isLoading, rippleDisplayCenter,
-                tip, tipPosition, renderer,
+                tip, tipPosition, renderer,parentEl, triggerEl,
 
                 ...restProps
 
@@ -76,6 +76,8 @@ class BaseButton extends Component {
 
         return (
             <TipProvider tipContent={tip}
+                         triggerEl={triggerEl}
+                         parentEl={parentEl}
                          position={tipPosition}>
 
                 <button {...restProps}

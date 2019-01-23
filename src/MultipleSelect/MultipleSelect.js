@@ -217,7 +217,8 @@ class MultipleSelect extends Component {
         const {
                 className, popupClassName, style, popupStyle, theme, name, placeholder, isGrouped,
                 useDynamicRenderList, listHeight, itemHeight, scrollBuffer, position, resetPopPositionWait,
-                disabled, iconCls, rightIconCls, valueField, displayField, descriptionField, noMatchedMsg
+                disabled, iconCls, rightIconCls, valueField, displayField, descriptionField, noMatchedMsg,
+                parentEl
             } = this.props,
             {selectedCollapsed, isAbove, value, filter, popupVisible} = this.state,
 
@@ -334,6 +335,7 @@ class MultipleSelect extends Component {
                        theme={theme}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
+                       parentEl={parentEl}
                        hasTriangle={false}
                        position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        resetPositionWait={resetPopPositionWait}

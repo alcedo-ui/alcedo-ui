@@ -79,7 +79,8 @@ class GridItem extends Component {
                 checked, selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
-                onMouseEnter, onMouseLeave
+                onMouseEnter, onMouseLeave,
+                parentEl
 
             } = this.props,
 
@@ -96,6 +97,7 @@ class GridItem extends Component {
                  style={col ? {width: `${100 / col}%`} : null}>
 
                 <TipProvider tipContent={tip}
+                             parentEl={parentEl}
                              position={tipPosition}>
                     <div className={listItemClassName}
                          style={style}

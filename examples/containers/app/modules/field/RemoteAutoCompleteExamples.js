@@ -3,9 +3,14 @@ import React, {Component} from 'react';
 import RemoteAutoComplete from 'src/RemoteAutoComplete';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import RaisedButton from 'src/RaisedButton';
+import Dialog from 'src/Dialog';
+import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/RemoteAutoComplete.json';
+
+import 'scss/containers/app/modules/field/RemoteAutoCompleteExamples.scss';
 
 class RemoteAutoCompleteExamples extends Component {
 
@@ -20,10 +25,46 @@ class RemoteAutoCompleteExamples extends Component {
         this.state = {
             chooseData: [],
             text: '',
-            loading: false
+            loading: false,
+            RemoteAutoCompleteVisible: {},
+            triggerEl: {}
         };
 
     }
+
+    show = id => {
+
+        const {RemoteAutoCompleteVisible} = this.state;
+
+        RemoteAutoCompleteVisible[id] = true;
+
+        this.setState({
+            RemoteAutoCompleteVisible
+        });
+
+    };
+
+    hide = id => {
+
+        const {RemoteAutoCompleteVisible} = this.state;
+
+        RemoteAutoCompleteVisible[id] = false;
+
+        this.setState({
+            RemoteAutoCompleteVisible
+        });
+
+    };
+
+    dialogRenderHandler = () => {
+
+        const triggerEl = this.state.triggerEl;
+        triggerEl[1] = findDOMNode(this.refs['trigger1']);
+
+        this.setState({
+            triggerEl
+        });
+    };
 
     /**
      * 若input输入时，长度大于searchLength，则进行获取数据操作，并修改chooseData，否则置空。
@@ -69,7 +110,7 @@ class RemoteAutoCompleteExamples extends Component {
 
     render() {
 
-        const {chooseData, text, loading} = this.state;
+        const {chooseData, text, loading, RemoteAutoCompleteVisible, triggerEl} = this.state;
 
         return (
             <div className="example auto-complete-examples">
@@ -84,7 +125,7 @@ class RemoteAutoCompleteExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Remote Auto Complete Example"/>
+                    <WidgetHeader className="example-header" title="In Dialog"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -93,11 +134,25 @@ class RemoteAutoCompleteExamples extends Component {
 
                                 <p>Remote Auto Complete simple default example.</p>
 
-                                <RemoteAutoComplete data={chooseData}
-                                                    onChange={this.onChange}
-                                                    value={text}
-                                                    onBlur={this.onBlur}
-                                                    loading={loading}/>
+                                <RaisedButton className="trigger-button dialog-button"
+                                              value="Show Dialog"
+                                              onClick={() => this.show(1)}/>
+
+                                <Dialog visible={RemoteAutoCompleteVisible[1]}
+                                        onRender={this.dialogRenderHandler}
+                                        onRequestClose={() => this.hide(1)}>
+
+                                    <div className="popover-dialog-content-scroller">
+                                        <RemoteAutoComplete data={chooseData}
+                                                            onChange={this.onChange}
+                                                            value={text}
+                                                            parentEl={document.querySelector('.dialog-content')}
+                                                            triggerEl={triggerEl}
+                                                            onBlur={this.onBlur}
+                                                            loading={loading}/>
+                                    </div>
+
+                                </Dialog>
 
                             </div>
 

@@ -4,9 +4,14 @@ import BriefPagging from 'src/BriefPagging';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import Valid from 'src/_vendors/Valid';
+import RaisedButton from 'src/RaisedButton';
+import Dialog from 'src/Dialog';
+import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/BriefPagging.json';
+
+import 'scss/containers/app/modules/layout/BriefPaggingExamples.scss';
 
 class BriefPaggingExamples extends Component {
 
@@ -35,10 +40,46 @@ class BriefPaggingExamples extends Component {
             pagging: {
                 pageSize: 10,
                 page: 0
-            }
+            },
+            BriefPaggingVisible: {},
+            triggerEl: {}
         };
 
     }
+
+    show = id => {
+
+        const {BriefPaggingVisible} = this.state;
+
+        BriefPaggingVisible[id] = true;
+
+        this.setState({
+            BriefPaggingVisible
+        });
+
+    };
+
+    hide = id => {
+
+        const {BriefPaggingVisible} = this.state;
+
+        BriefPaggingVisible[id] = false;
+
+        this.setState({
+            BriefPaggingVisible
+        });
+
+    };
+
+    dialogRenderHandler = () => {
+
+        const triggerEl = this.state.triggerEl;
+        triggerEl[1] = findDOMNode(this.refs['trigger1']);
+
+        this.setState({
+            triggerEl
+        });
+    };
 
     generateData = (size = 100) => {
 
@@ -89,7 +130,7 @@ class BriefPaggingExamples extends Component {
 
     render() {
 
-        const {pagging} = this.state;
+        const {pagging, BriefPaggingVisible, triggerEl} = this.state;
 
         return (
             <div className="example brief-pagging-examples">
@@ -120,6 +161,46 @@ class BriefPaggingExamples extends Component {
                                               pageSize={pagging.pageSize}
                                               pageSizes={this.pageSizes}
                                               onChange={this.pageChangedHandler}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="In Dialog"/>
+
+                    <div className="widget-content">
+
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>A simple <code>BriefPagging</code> example.</p>
+
+                                <RaisedButton className="trigger-button dialog-button"
+                                              value="Show Dialog"
+                                              onClick={() => this.show(1)}/>
+
+                                <Dialog visible={BriefPaggingVisible[1]}
+                                        onRender={this.dialogRenderHandler}
+                                        onRequestClose={() => this.hide(1)}>
+
+                                    <div className="popover-dialog-content-scroller">
+                                        <BriefPagging selectedCountVisible={true}
+                                                      parentEl={document.querySelector('.dialog-content')}
+                                                      triggerEl={triggerEl}
+                                                      page={pagging.page}
+                                                      total={this.generateData()}
+                                                      pageSize={pagging.pageSize}
+                                                      pageSizes={this.pageSizes}
+                                                      onChange={this.pageChangedHandler}/>
+                                    </div>
+
+                                </Dialog>
 
                             </div>
 

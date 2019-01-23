@@ -57,7 +57,7 @@ class TipProvider extends Component {
 
     render() {
 
-        const {children, tipContent, ...restProps} = this.props,
+        const {children, tipContent, parentEl,  ...restProps} = this.props,
             {visible} = this.state;
 
         if (!tipContent) {
@@ -95,6 +95,7 @@ class TipProvider extends Component {
 
                 <Tip {...restProps}
                      triggerEl={this.triggerEl}
+                     parentEl={parentEl}
                      visible={visible}>
                     {tipContent}
                 </Tip>

@@ -358,6 +358,7 @@ class DropdownSelect extends Component {
                           popupClassName={'dropdown-select-popup' + (popupClassName ? ' ' + popupClassName : '')}
                           popupTheme={popupTheme}
                           triggerValue={this.getTriggerValue()}
+
                           onOpenPopup={this.popupOpenHandler}
                           onClosePopup={this.popupCloseHandler}>
 

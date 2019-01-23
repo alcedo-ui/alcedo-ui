@@ -112,7 +112,8 @@ class Grid extends Component {
                 selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
-                idField, valueField, displayField, descriptionField, disabled, isLoading, renderer, onItemClick
+                idField, valueField, displayField, descriptionField, disabled, isLoading, renderer, onItemClick,
+                parentEl
 
             } = this.props,
             {value} = this.state;
@@ -124,6 +125,7 @@ class Grid extends Component {
                           index={index}
                           style={{height: itemHeight}}
                           theme={item.theme || theme}
+                          parentEl={parentEl}
                           col={col}
                           selectTheme={item.selectTheme || selectTheme}
                           radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
@@ -157,6 +159,7 @@ class Grid extends Component {
                           index={index}
                           style={{height: itemHeight}}
                           theme={item.theme || theme}
+                          parentEl={parentEl}
                           col={col}
                           selectTheme={item.selectTheme || selectTheme}
                           radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}

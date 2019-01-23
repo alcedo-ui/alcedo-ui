@@ -169,7 +169,8 @@ class List extends Component {
                 indeterminateCallback, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
-                onItemClick
+                onItemClick,
+                parentEl
 
             } = this.props,
             {value} = this.state;
@@ -178,6 +179,7 @@ class List extends Component {
             <ListItem key={(idField in item && item[idField]) || index}
                       {...item}
                       index={index}
+                      parentEl={parentEl}
                       style={{height: itemHeight}}
                       theme={item.theme || theme}
                       activatedTheme={item.activatedTheme || activatedTheme}
@@ -208,6 +210,7 @@ class List extends Component {
             :
             <ListItem key={index}
                       index={index}
+                      parentEl={parentEl}
                       style={{height: itemHeight}}
                       theme={theme}
                       activatedTheme={activatedTheme}

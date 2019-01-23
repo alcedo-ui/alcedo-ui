@@ -55,7 +55,7 @@ class BriefPagging extends Component {
         const {
                 total, page, pageSize, pageSizes, pageSizeRightIconCls, pageSizeValueField, pageSizeDisplayField,
                 selectedCount, selectedCountVisible, pageSizeVisible, paggingPrevIconCls, paggingNextIconCls,
-                paggingCountRenderer
+                paggingCountRenderer, parentEl
             } = this.props,
 
             totalPage = Math.ceil(total / pageSize),
@@ -96,6 +96,7 @@ class BriefPagging extends Component {
                                          pageSizes={pageSizes}
                                          valueField={pageSizeValueField}
                                          displayField={pageSizeDisplayField}
+                                         parentEl={parentEl}
                                          rightIconCls={pageSizeRightIconCls}
                                          onPageSizeChange={this.pageSizeChangedHandle}/>
                             :

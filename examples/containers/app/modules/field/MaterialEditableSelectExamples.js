@@ -3,9 +3,14 @@ import React, {Component} from 'react';
 import MaterialEditableSelect from 'src/MaterialEditableSelect';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import RaisedButton from 'src/RaisedButton';
+import Dialog from 'src/Dialog';
+import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/MaterialEditableSelect.json';
+
+import 'scss/containers/app/modules/field/MaterialEditableSelectExamples.scss';
 
 class MaterialEditableSelectExamples extends Component {
 
@@ -61,13 +66,54 @@ class MaterialEditableSelectExamples extends Component {
             }]
         }];
 
+        this.state = {
+            MaterialEditableSelectVisible: {},
+            triggerEl: {}
+        };
+
     }
+
+    show = id => {
+
+        const {MaterialEditableSelectVisible} = this.state;
+
+        MaterialEditableSelectVisible[id] = true;
+
+        this.setState({
+            MaterialEditableSelectVisible
+        });
+
+    };
+
+    hide = id => {
+
+        const {MaterialEditableSelectVisible} = this.state;
+
+        MaterialEditableSelectVisible[id] = false;
+
+        this.setState({
+            MaterialEditableSelectVisible
+        });
+
+    };
+
+    dialogRenderHandler = () => {
+
+        const triggerEl = this.state.triggerEl;
+        triggerEl[1] = findDOMNode(this.refs['trigger1']);
+
+        this.setState({
+            triggerEl
+        });
+    };
 
     onChange = value => {
         console.log(value);
     };
 
     render() {
+
+        const {MaterialEditableSelectVisible, triggerEl} = this.state;
         return (
             <div className="example edit-able-select-examples">
 
@@ -128,6 +174,49 @@ class MaterialEditableSelectExamples extends Component {
                                                             useFilter={true}/>
 
                                 </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="In Dialog"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p><code>Editable Select</code> simple example.</p>
+
+                                <RaisedButton className="trigger-button dialog-button"
+                                              value="Show Dialog"
+                                              onClick={() => this.show(1)}/>
+
+                                <Dialog visible={MaterialEditableSelectVisible[1]}
+                                        onRender={this.dialogRenderHandler}
+                                        onRequestClose={() => this.hide(1)}>
+
+                                    <div className="popover-dialog-content-scroller">
+
+                                        <div className="field-group">
+
+                                            <MaterialEditableSelect data={this.data}
+                                                                    label="MaterialEditableSelect"
+                                                                    parentEl={document.querySelector('.dialog-content')}
+                                                                    triggerEl={triggerEl}
+                                                                    onChange={this.onChange}
+                                                                    autoClose={false}
+                                                                    useFilter={true}/>
+
+                                        </div>
+                                    </div>
+                                </Dialog>
+
 
                             </div>
 

@@ -3,19 +3,64 @@ import React, {Component} from 'react';
 import FlatButton from 'src/FlatButton';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import RaisedButton from 'src/RaisedButton';
+import Dialog from 'src/Dialog';
+import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/FlatButton.json';
 
 import 'scss/containers/app/modules/buttons/FlatButtonExamples.scss';
 
+
 class FlatButtonExamples extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            FlatButtonVisible: {},
+            triggerEl: {}
+        };
+
     }
 
+    show = id => {
+
+        const {FlatButtonVisible} = this.state;
+
+        FlatButtonVisible[id] = true;
+
+        this.setState({
+            FlatButtonVisible
+        });
+
+    };
+
+    hide = id => {
+
+        const {FlatButtonVisible} = this.state;
+
+        FlatButtonVisible[id] = false;
+
+        this.setState({
+            FlatButtonVisible
+        });
+
+    };
+
+    dialogRenderHandler = () => {
+
+        const triggerEl = this.state.triggerEl;
+        triggerEl[1] = findDOMNode(this.refs['trigger1']);
+
+        this.setState({
+            triggerEl
+        });
+    };
+
     render() {
+
+        const {FlatButtonVisible, triggerEl} = this.state;
 
         return (
             <div className="example flat-button-examples">
@@ -199,6 +244,96 @@ class FlatButtonExamples extends Component {
                                 <FlatButton value="Warning"
                                             theme={FlatButton.Theme.WARNING}
                                             isCircular={true}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="In Dialog"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>
+                                    <code>Flat Button</code> with default
+                                    theme, <code>success</code>, <code>warning</code>
+                                    , <code>error</code> and <code>disabled</code> props applied.
+                                </p>
+
+                                <RaisedButton className="trigger-button dialog-button"
+                                              value="Show Dialog"
+                                              onClick={() => this.show(1)}/>
+
+                                <Dialog visible={FlatButtonVisible[1]}
+                                        onRender={this.dialogRenderHandler}
+                                        onRequestClose={() => this.hide(1)}>
+                                    <div className="popover-dialog-content-scroller">
+
+                                        <FlatButton value="Default"
+                                                    parentEl={document.querySelector('.dialog-content')}
+                                                    triggerEl={triggerEl}
+                                                    tip="Default"/>
+
+                                        <FlatButton value="Primary"
+                                                    tip="Primary"
+                                                    parentEl={document.querySelector('.dialog-content')}
+                                                    triggerEl={triggerEl}
+                                                    theme={FlatButton.Theme.PRIMARY}/>
+
+                                        <FlatButton value="Secondary"
+                                                    tip="Secondary"
+                                                    parentEl={document.querySelector('.dialog-content')}
+                                                    triggerEl={triggerEl}
+                                                    theme={FlatButton.Theme.SECONDARY}/>
+
+                                        <FlatButton value="Highlight"
+                                                    tip="Highlight"
+                                                    parentEl={document.querySelector('.dialog-content')}
+                                                    triggerEl={triggerEl}
+                                                    theme={FlatButton.Theme.HIGHLIGHT}/>
+
+                                        <FlatButton value="Info"
+                                                    tip="Info"
+                                                    parentEl={document.querySelector('.dialog-content')}
+                                                    triggerEl={triggerEl}
+                                                    theme={FlatButton.Theme.INFO}/>
+
+                                        <FlatButton value="Success"
+                                                    tip="Success"
+                                                    parentEl={document.querySelector('.dialog-content')}
+                                                    triggerEl={triggerEl}
+                                                    theme={FlatButton.Theme.SUCCESS}/>
+
+                                        <FlatButton value="Warning"
+                                                    tip="Warning"
+                                                    parentEl={document.querySelector('.dialog-content')}
+                                                    triggerEl={triggerEl}
+                                                    theme={FlatButton.Theme.WARNING}/>
+
+                                        <FlatButton value="Error"
+                                                    tip="Error"
+                                                    parentEl={document.querySelector('.dialog-content')}
+                                                    triggerEl={triggerEl}
+                                                    theme={FlatButton.Theme.ERROR}/>
+
+                                        <FlatButton value="Disabled"
+                                                    tip="Disabled"
+                                                    parentEl={document.querySelector('.dialog-content')}
+                                                    triggerEl={triggerEl}
+                                                    disabled={true}/>
+
+                                    </div>
+
+                                </Dialog>
+
+
 
                             </div>
 

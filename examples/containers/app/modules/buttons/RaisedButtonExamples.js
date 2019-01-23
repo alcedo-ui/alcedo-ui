@@ -8,14 +8,58 @@ import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/RaisedButton.json';
 
 import 'scss/containers/app/modules/buttons/RaisedButtonExamples.scss';
+import Dialog from '../../../../../src/Dialog';
+import IconButton from '../../../../../src/IconButton';
+import {findDOMNode} from 'react-dom';
 
 class RaisedButtonExamples extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            RaisedButtonVisible: {},
+            triggerEl: {}
+        };
+
     }
 
+    show = id => {
+
+        const {RaisedButtonVisible} = this.state;
+
+        RaisedButtonVisible[id] = true;
+
+        this.setState({
+            RaisedButtonVisible
+        });
+
+    };
+
+    hide = id => {
+
+        const {RaisedButtonVisible} = this.state;
+
+        RaisedButtonVisible[id] = false;
+
+        this.setState({
+            RaisedButtonVisible
+        });
+
+    };
+
+    dialogRenderHandler = () => {
+
+        const triggerEl = this.state.triggerEl;
+        triggerEl[1] = findDOMNode(this.refs['trigger1']);
+
+        this.setState({
+            triggerEl
+        });
+    };
+
     render() {
+
+        const {RaisedButtonVisible, triggerEl} = this.state;
 
         return (
             <div className="example raised-button-examples">
@@ -200,6 +244,93 @@ class RaisedButtonExamples extends Component {
                                 <RaisedButton value="Next"
                                               theme={RaisedButton.Theme.PRIMARY}
                                               isCircular={true}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="In Dialog"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>
+                                    <code>Raised Button</code> with default theme, <code>success</code>
+                                    , <code>warning</code>, <code>error</code> and <code>disabled</code> props applied.
+                                </p>
+
+                                <RaisedButton className="trigger-button dialog-button"
+                                              value="Show Dialog"
+                                              onClick={() => this.show(1)}/>
+
+                                <Dialog visible={RaisedButtonVisible[1]}
+                                        onRender={this.dialogRenderHandler}
+                                        onRequestClose={() => this.hide(1)}>
+                                    <div className="popover-dialog-content-scroller">
+
+                                        <RaisedButton value="Default"
+                                                      tip="Default"
+                                                      parentEl={document.querySelector('.dialog-content')}
+                                                      triggerEl={triggerEl}/>
+
+                                        <RaisedButton value="Primary"
+                                                      tip="Primary"
+                                                      parentEl={document.querySelector('.dialog-content')}
+                                                      triggerEl={triggerEl}
+                                                      theme={RaisedButton.Theme.PRIMARY}/>
+
+                                        <RaisedButton value="Secondary"
+                                                      tip="Secondary"
+                                                      parentEl={document.querySelector('.dialog-content')}
+                                                      triggerEl={triggerEl}
+                                                      theme={RaisedButton.Theme.SECONDARY}/>
+
+                                        <RaisedButton value="Highlight"
+                                                      tip="Highlight"
+                                                      parentEl={document.querySelector('.dialog-content')}
+                                                      triggerEl={triggerEl}
+                                                      theme={RaisedButton.Theme.HIGHLIGHT}/>
+
+                                        <RaisedButton value="Info"
+                                                      tip="Info"
+                                                      parentEl={document.querySelector('.dialog-content')}
+                                                      triggerEl={triggerEl}
+                                                      theme={RaisedButton.Theme.INFO}/>
+
+                                        <RaisedButton value="Success"
+                                                      tip="Success"
+                                                      parentEl={document.querySelector('.dialog-content')}
+                                                      triggerEl={triggerEl}
+                                                      theme={RaisedButton.Theme.SUCCESS}/>
+
+                                        <RaisedButton value="Warning"
+                                                      tip="Warning"
+                                                      parentEl={document.querySelector('.dialog-content')}
+                                                      triggerEl={triggerEl}
+                                                      theme={RaisedButton.Theme.WARNING}/>
+
+                                        <RaisedButton value="Error"
+                                                      tip="Error"
+                                                      parentEl={document.querySelector('.dialog-content')}
+                                                      triggerEl={triggerEl}
+                                                      theme={RaisedButton.Theme.ERROR}/>
+
+                                        <RaisedButton value="Disabled"
+                                                      tip="Disabled"
+                                                      parentEl={document.querySelector('.dialog-content')}
+                                                      triggerEl={triggerEl}
+                                                      disabled={true}/>
+
+                                    </div>
+
+                                </Dialog>
 
                             </div>
 

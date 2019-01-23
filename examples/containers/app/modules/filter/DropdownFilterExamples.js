@@ -3,9 +3,16 @@ import React, {Component} from 'react';
 import DropdownFilter from 'src/DropdownFilter';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import RaisedButton from 'src/RaisedButton';
+import Dialog from 'src/Dialog';
+
+import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/DropdownFilter.json';
+
+import 'scss/containers/app/modules/filter/DropdownFilterExamples.scss';
+
 
 class DropdownFilterExamples extends Component {
 
@@ -29,7 +36,46 @@ class DropdownFilterExamples extends Component {
             }
         }, 'test7', 'test8', 'test9'];
 
+        this.state = {
+            DropdownFilterVisible: {},
+            triggerEl: {}
+        };
+
     }
+
+    show = id => {
+
+        const {DropdownFilterVisible} = this.state;
+
+        DropdownFilterVisible[id] = true;
+
+        this.setState({
+            DropdownFilterVisible
+        });
+
+    };
+
+    hide = id => {
+
+        const {DropdownFilterVisible} = this.state;
+
+        DropdownFilterVisible[id] = false;
+
+        this.setState({
+            DropdownFilterVisible
+        });
+
+    };
+
+    dialogRenderHandler = () => {
+
+        const triggerEl = this.state.triggerEl;
+        triggerEl[1] = findDOMNode(this.refs['trigger1']);
+
+        this.setState({
+            triggerEl
+        });
+    };
 
     onChange = item => {
         console.log('select item: ', item);
@@ -44,6 +90,9 @@ class DropdownFilterExamples extends Component {
     };
 
     render() {
+
+        const {DropdownFilterVisible, triggerEl} = this.state;
+
         return (
             <div className="example auto-complete-examples">
 
@@ -96,6 +145,43 @@ class DropdownFilterExamples extends Component {
                                                 onChange={this.onChange}
                                                 onFilterPressEnter={this.filterPressEnterHandle}
                                                 onFilterClear={this.filterClearHandle}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="In Dialog"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p><code>DropdownFilter</code> multiple example.</p>
+
+                                <RaisedButton className="trigger-button dialog-button"
+                                              value="Show Dialog"
+                                              onClick={() => this.show(1)}/>
+
+                                <Dialog visible={DropdownFilterVisible[1]}
+                                        onRender={this.dialogRenderHandler}
+                                        onRequestClose={() => this.hide(1)}>
+                                    <div className="popover-dialog-content-scroller">
+                                        <DropdownFilter data={this.data}
+                                                        placeholder="Please select ..."
+                                                        selectMode={DropdownFilter.SelectMode.MULTI_SELECT}
+                                                        parentEl={document.querySelector('.dialog-content')}
+                                                        triggerEl={triggerEl}
+                                                        onChange={this.onChange}
+                                                        onFilterPressEnter={this.filterPressEnterHandle}
+                                                        onFilterClear={this.filterClearHandle}/>
+                                    </div>
+                                </Dialog>
 
                             </div>
 

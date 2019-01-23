@@ -343,7 +343,7 @@ class MaterialDateRangePicker extends Component {
         const {
                 className, style, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, position,
                 theme, popupClassName, rightIconCls, previousYearIconCls, previousMonthIconCls,
-                nextYearIconCls, nextMonthIconCls, readOnly, disabled
+                nextYearIconCls, nextMonthIconCls, readOnly, disabled, parentEl
             } = this.props,
             {popupVisible, left, right, startTime, endTime, hoverTime, isAbove} = this.state,
 
@@ -393,6 +393,7 @@ class MaterialDateRangePicker extends Component {
                 <Popup className={`material-date-range-picker-popup ${popupClassName}`}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
+                       parentEl={parentEl}
                        position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        hasTriangle={false}
                        onRender={this.popupRenderHandler}

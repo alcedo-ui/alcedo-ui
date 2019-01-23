@@ -179,6 +179,7 @@ class TriggerPop extends Component {
                 [contentClassName]: contentClassName
             });
 
+
         return (
             <Portal visible={!exited}
                     parentEl={parentEl}>

@@ -9,6 +9,7 @@ import {createPortal} from 'react-dom';
 import classNames from 'classnames';
 import addClass from 'dom-helpers/class/addClass';
 import removeClass from 'dom-helpers/class/removeClass';
+import portalManagement from 'src/_vendors/PortalManagement'
 
 class Portal extends Component {
 
@@ -42,7 +43,8 @@ class Portal extends Component {
             return null;
         }
 
-        addClass(parentEl, 'portal-parent');
+        // addClass(parentEl, 'portal-parent');
+
 
         this.wrapper = document.createElement('div');
         this.wrapper.className = classNames('portal', {
@@ -52,6 +54,8 @@ class Portal extends Component {
         for (let key in restProps) {
             this.wrapper[key] = restProps[key];
         }
+
+        portalManagement.push(parentEl, this.wrapper);
 
         return parentEl.appendChild(this.wrapper);
 
@@ -76,7 +80,8 @@ class Portal extends Component {
 
         if (this.wrapper && parentEl) {
             parentEl.removeChild(this.wrapper);
-            removeClass(parentEl, 'portal-parent');
+            portalManagement.pop(parentEl, this.wrapper);
+            // removeClass(parentEl, 'portal-parent');
             this.wrapper = null;
         }
 

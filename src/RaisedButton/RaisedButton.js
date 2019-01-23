@@ -80,6 +80,8 @@ RaisedButton.propTypes = {
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
+    parentEl:PropTypes.object,
+
     /**
      * If true,the button will have rounded corners.
      */
@@ -151,6 +153,8 @@ RaisedButton.propTypes = {
 };
 
 RaisedButton.defaultProps = {
+
+    parentEl: document.body,
 
     theme: Theme.DEFAULT,
 

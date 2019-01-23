@@ -165,7 +165,7 @@ class MaterialMonthPicker extends Component {
         const {
                 className, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, position,
                 theme, popupClassName, rightIconCls, previousYearIconCls, previousMonthIconCls,
-                nextYearIconCls, nextMonthIconCls, readOnly, disabled
+                nextYearIconCls, nextMonthIconCls, readOnly, disabled, parentEl
             } = this.props,
             {value, popupVisible, datePickerLevel, year, month, isAbove} = this.state,
 
@@ -200,6 +200,7 @@ class MaterialMonthPicker extends Component {
                 <Popup className={`material-month-picker-popup ${popupClassName}`}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
+                       parentEl={parentEl}
                        position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        hasTriangle={false}
                        onRender={this.popupRenderHandler}

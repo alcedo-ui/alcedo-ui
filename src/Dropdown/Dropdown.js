@@ -132,6 +132,7 @@ class Dropdown extends Component {
                 className, triggerClassName, popupClassName, style, triggerStyle, popupStyle,
                 theme, activatedTheme, popupTheme, position, iconCls, triggerValue, title, tip, tipPosition,
                 rightIconCls, disabled, isLoading, disableTouchRipple, autoPopupWidth, resetPopPositionWait,
+                parentEl, triggerEl,
 
                 // events
                 onMouseOver, onMouseOut
@@ -170,6 +171,8 @@ class Dropdown extends Component {
                               title={title}
                               tip={tip}
                               tipPosition={tipPosition}
+                              triggerEl={triggerEl}
+                              parentEl={parentEl}
                               iconCls={iconCls}
                               rightIconCls={`${rightIconCls} dropdown-trigger-icon`}
                               disabled={disabled}
@@ -185,6 +188,7 @@ class Dropdown extends Component {
                        theme={popupTheme}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
+                       parentEl={parentEl}
                        hasTriangle={false}
                        position={position ? position : (isAboveFinally ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        shouldPreventContainerScroll={false}
@@ -251,6 +255,8 @@ Dropdown.propTypes = {
 
     position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
+    parentEl: PropTypes.object,
+
     /**
      * The value of the dropDown trigger.
      */
@@ -307,6 +313,8 @@ Dropdown.propTypes = {
 };
 
 Dropdown.defaultProps = {
+
+    parentEl: document.body,
 
     theme: Theme.DEFAULT,
     activatedTheme: Theme.DEFAULT,

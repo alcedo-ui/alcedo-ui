@@ -3,6 +3,9 @@ import React, {Component} from 'react';
 import GhostButton from 'src/GhostButton';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import RaisedButton from 'src/RaisedButton';
+import Dialog from 'src/Dialog';
+import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/GhostButton.json';
@@ -13,9 +16,50 @@ class GhostButtonExamples extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            GhostButtonVisible: {},
+            triggerEl: {}
+        };
+
     }
 
+    show = id => {
+
+        const {GhostButtonVisible} = this.state;
+
+        GhostButtonVisible[id] = true;
+
+        this.setState({
+            GhostButtonVisible
+        });
+
+    };
+
+    hide = id => {
+
+        const {GhostButtonVisible} = this.state;
+
+        GhostButtonVisible[id] = false;
+
+        this.setState({
+            GhostButtonVisible
+        });
+
+    };
+
+    dialogRenderHandler = () => {
+
+        const triggerEl = this.state.triggerEl;
+        triggerEl[1] = findDOMNode(this.refs['trigger1']);
+
+        this.setState({
+            triggerEl
+        });
+    };
+
     render() {
+
+        const {GhostButtonVisible, triggerEl} = this.state;
 
         return (
             <div className="example ghost-button-examples">
@@ -186,6 +230,88 @@ class GhostButtonExamples extends Component {
                                 <GhostButton value="Next"
                                              theme={GhostButton.Theme.PRIMARY}
                                              isCircular={true}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="In Dialog"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>
+                                    <code>Ghost Button</code> with default theme, <code>success</code>
+                                    , <code>warning</code>, <code>error</code> and <code>disabled</code> props applied.
+                                </p>
+
+                                <RaisedButton className="trigger-button dialog-button"
+                                              value="Show Dialog"
+                                              onClick={() => this.show(1)}/>
+
+                                <Dialog visible={GhostButtonVisible[1]}
+                                        onRender={this.dialogRenderHandler}
+                                        onRequestClose={() => this.hide(1)}>
+                                    <div className="popover-dialog-content-scroller">
+
+                                        <GhostButton value="Primary"
+                                                     tip="Primary"
+                                                     parentEl={document.querySelector('.dialog-content')}
+                                                     triggerEl={triggerEl}
+                                                     theme={GhostButton.Theme.PRIMARY}/>
+
+                                        <GhostButton value="Secondary"
+                                                     tip="Secondary"
+                                                     parentEl={document.querySelector('.dialog-content')}
+                                                     triggerEl={triggerEl}
+                                                     theme={GhostButton.Theme.SECONDARY}/>
+
+                                        <GhostButton value="Highlight"
+                                                     tip="Highlight"
+                                                     parentEl={document.querySelector('.dialog-content')}
+                                                     triggerEl={triggerEl}
+                                                     theme={GhostButton.Theme.HIGHLIGHT}/>
+
+                                        <GhostButton value="Info"
+                                                     tip="Info"
+                                                     parentEl={document.querySelector('.dialog-content')}
+                                                     triggerEl={triggerEl}
+                                                     theme={GhostButton.Theme.INFO}/>
+
+                                        <GhostButton value="Success"
+                                                     tip="Success"
+                                                     parentEl={document.querySelector('.dialog-content')}
+                                                     triggerEl={triggerEl}
+                                                     theme={GhostButton.Theme.SUCCESS}/>
+
+                                        <GhostButton value="Warning"
+                                                     tip="Warning"
+                                                     parentEl={document.querySelector('.dialog-content')}
+                                                     triggerEl={triggerEl}
+                                                     theme={GhostButton.Theme.WARNING}/>
+
+                                        <GhostButton value="Error"
+                                                     tip="Error"
+                                                     parentEl={document.querySelector('.dialog-content')}
+                                                     triggerEl={triggerEl}
+                                                     theme={GhostButton.Theme.ERROR}/>
+
+                                        <GhostButton value="Disabled"
+                                                     tip="Disabled"
+                                                     parentEl={document.querySelector('.dialog-content')}
+                                                     triggerEl={triggerEl}
+                                                     disabled={true}/>
+
+                                    </div>
+
+                                </Dialog>
 
                             </div>
 

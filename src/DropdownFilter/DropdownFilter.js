@@ -178,6 +178,7 @@ class DropdownFilter extends Component {
                 disabled, iconCls, rightIconCls, valueField, displayField, descriptionField, position,
                 useDynamicRenderList, listHeight, itemHeight, scrollBuffer,
                 noMatchedPopupVisible, noMatchedMsg, popupChildren, renderer,
+                parentEl,
 
                 radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
@@ -258,6 +259,7 @@ class DropdownFilter extends Component {
                                theme={popupTheme}
                                visible={popupVisible}
                                triggerEl={this.triggerEl}
+                               parentEl={parentEl}
                                hasTriangle={false}
                                position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                                onRender={this.popupRenderHandler}

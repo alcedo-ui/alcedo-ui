@@ -3,19 +3,68 @@ import React, {Component} from 'react';
 import Dropdown from 'src/Dropdown';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import RaisedButton from 'src/RaisedButton';
+import Dialog from 'src/Dialog';
 
+import {findDOMNode} from 'react-dom';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Dropdown.json';
 
 import 'scss/containers/app/modules/layout/DropdownExamples.scss';
 
+
 class DropdownExamples extends Component {
 
     constructor(props) {
+
         super(props);
+
+        this.state = {
+            DropdownVisible: {},
+            triggerEl: {}
+        };
+
     }
 
+    show = id => {
+
+        const {DropdownVisible} = this.state;
+
+        DropdownVisible[id] = true;
+
+        this.setState({
+            DropdownVisible
+        });
+
+    };
+
+    hide = id => {
+
+        const {DropdownVisible} = this.state;
+
+        DropdownVisible[id] = false;
+
+        this.setState({
+            DropdownVisible
+        });
+
+    };
+
+    dialogRenderHandler = () => {
+
+        const triggerEl = this.state.triggerEl;
+        triggerEl[1] = findDOMNode(this.refs['trigger1']);
+
+        this.setState({
+            triggerEl
+        });
+    };
+
+
     render() {
+
+        const {DropdownVisible,triggerEl}=this.state;
+
         return (
             <div className="example dropdown-examples">
 
@@ -65,6 +114,42 @@ class DropdownExamples extends Component {
                                           tip="Dropdown Example">
                                     <div className="dropdown-content">Dropdown content</div>
                                 </Dropdown>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Dropdown in Dialog"/>
+
+                    <div className="widget-content">
+
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <RaisedButton className="trigger-button dialog-button"
+                                              value="Show Dialog"
+                                              onClick={() => this.show(1)}/>
+
+                                <Dialog visible={DropdownVisible[1]}
+                                        onRender={this.dialogRenderHandler}
+                                        onRequestClose={() => this.hide(1)}>
+                                    <div className="popover-dialog-content-scroller">
+                                        <Dropdown triggerValue="Toggle Dropdown"
+                                                  ref="trigger1"
+                                                  popupClassName="dropdown-examples-popup"
+                                                  position={Dropdown.Position.BOTTOM}
+                                                  parentEl={document.querySelector('.dialog-content')}
+                                                  triggerEl={triggerEl}
+                                                  tip="Dialog Dropdown Example">
+                                            <div className="dropdown-content">Dialog Dropdown content</div>
+                                        </Dropdown>
+                                    </div>
+                                </Dialog>
 
                             </div>
                         </div>

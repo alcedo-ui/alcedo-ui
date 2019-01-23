@@ -56,7 +56,7 @@ class Pagging extends Component {
                 className, style, total, page, pageSize, pageSizes, pageSizeValueField, pageSizeDisplayField,
                 selectedCount, selectedCountVisible, pageSizeVisible, pageSizeRightIconCls,
                 paggingPrevIconCls, paggingNextIconCls, paggingFirstIconCls, paggingLastIconCls,
-                paggingCountRenderer
+                paggingCountRenderer, parentEl
             } = this.props,
 
             totalPage = Math.ceil(total / pageSize),
@@ -99,6 +99,7 @@ class Pagging extends Component {
                                          pageSizes={pageSizes}
                                          valueField={pageSizeValueField}
                                          displayField={pageSizeDisplayField}
+                                         parentEl={parentEl}
                                          rightIconCls={pageSizeRightIconCls}
                                          onPageSizeChange={this.pageSizeChangedHandle}/>
                             :

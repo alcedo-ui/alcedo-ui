@@ -183,7 +183,7 @@ class EditableSelect extends Component {
                 className, popupClassName, style, popupStyle, name, placeholder,
                 disabled, valueField, descriptionField, position, rightIconCls, resetPopPositionWait,
                 triggerTheme, isGrouped, onItemClick, renderer, noMatchedMsg, useDynamicRenderList,
-                onMouseOver, onMouseOut
+                onMouseOver, onMouseOut, parentEl
             } = this.props,
             {value, listValue, popupVisible, isAbove} = this.state,
 
@@ -237,6 +237,7 @@ class EditableSelect extends Component {
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
                        triggerHandler={this.triggerHandler}
+                       parentEl={parentEl}
                        hasTriangle={false}
                        position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        resetPositionWait={resetPopPositionWait}
