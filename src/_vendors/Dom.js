@@ -1,5 +1,4 @@
 import contains from 'dom-helpers/query/contains';
-import position from 'dom-helpers/query/position';
 
 /**
  * @file Dom vendor
@@ -12,7 +11,7 @@ function getOffset(el, parentEl = document.body) {
         return null;
     }
 
-    let result = {
+    let offset = {
         top: el.offsetTop,
         left: el.offsetLeft
     };
@@ -23,15 +22,22 @@ function getOffset(el, parentEl = document.body) {
             break;
         }
 
+        // append layout offset
         el = el.offsetParent;
+        offset.top += el.offsetTop;
+        offset.left += el.offsetLeft;
 
-        const p = position(el);
-        result.top += p.top;
-        result.left += p.left;
+        // append transform offset
+        const transform = window.getComputedStyle(el).transform,
+            m = transform.match(/matrix\(\d+,\s?\d+,\s?\d+,\s?\d+,\s?(\d+),\s?(\d+)\)/);
+        if (m) {
+            offset.top += +m[2];
+            offset.left += +m[1];
+        }
 
     }
 
-    return result;
+    return offset;
 
 }
 
