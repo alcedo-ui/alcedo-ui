@@ -34,8 +34,15 @@ class Popup extends Component {
     /**
      * public
      */
+    getEl = () => {
+        return this.refs.pop && this.refs.pop.getEl();
+    };
+
+    /**
+     * public
+     */
     resetPosition = () => {
-        this.refs.popup && this.refs.popup.resetPosition();
+        this.refs.pop && this.refs.pop.resetPosition();
     };
 
     clearCloseTimeout = () => {
@@ -64,7 +71,7 @@ class Popup extends Component {
     closeHandler = e => {
 
         const {visible, triggerEl, isBlurClose, triggerHandler, onRequestClose} = this.props,
-            popupEl = this.refs.popup.getEl();
+            popupEl = this.refs.pop.getEl();
 
         if (!visible || !triggerEl) {
             return;
@@ -141,7 +148,7 @@ class Popup extends Component {
 
         return (
             <TriggerPop {...restProps}
-                        ref="popup"
+                        ref="pop"
                         className={popupClassName}
                         contentClassName={popupContentClassName}
                         onRender={this.renderHandler}
