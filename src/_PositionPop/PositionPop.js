@@ -34,6 +34,13 @@ class PositionPop extends Component {
 
     }
 
+    /**
+     * public
+     */
+    getEl = () => {
+        return this.transitionEl;
+    };
+
     enterHandler = el => {
 
         this.transitionEl = el;
@@ -74,10 +81,6 @@ class PositionPop extends Component {
     resizeHandler = debounce(() => {
         this.resetPosition();
     }, 250);
-
-    getEl = () => {
-        return this.transitionEl;
-    };
 
     resetPosition = (props = this.props) => {
         PositionPopCalculation.setStyle(props.parentEl, this.transitionEl, props.position);
