@@ -28,6 +28,13 @@ class Dialog extends Component {
         super(props, ...restArgs);
     }
 
+    /**
+     * public
+     */
+    getEl = () => {
+        return this.refs.pop && this.refs.pop.getEl();
+    };
+
     okButtonClickHandler = () => {
 
         const {visible, onOKButtonClick} = this.props;
@@ -123,6 +130,7 @@ class Dialog extends Component {
 
         return (
             <PositionPop {...restProps}
+                         ref="pop"
                          className={dialogClassName}
                          position={position}
                          visible={visible}
