@@ -157,7 +157,7 @@ class Dialog extends Component {
                 </div>
 
                 <div className="dialog-content">
-                    {children}
+                    {visible && children}
                 </div>
 
                 <div className="dialog-buttons">
