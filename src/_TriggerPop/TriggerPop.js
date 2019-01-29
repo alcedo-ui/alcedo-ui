@@ -40,6 +40,13 @@ class TriggerPop extends Component {
 
     }
 
+    /**
+     * public
+     */
+    getEl = () => {
+        return this.transitionEl;
+    };
+
     enterHandler = el => {
 
         this.transitionEl = el;
@@ -80,10 +87,6 @@ class TriggerPop extends Component {
     debounceResetPosition = debounce(() => {
         this.resetPosition();
     }, this.props.resetPositionWait);
-
-    getEl = () => {
-        return this.transitionEl;
-    };
 
     resetPosition = (props = this.props) => {
         const {parentEl, triggerEl, position, isTriggerPositionFixed} = props;
