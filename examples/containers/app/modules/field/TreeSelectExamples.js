@@ -177,21 +177,24 @@ class TreeSelectExamples extends Component {
                                         visible={TreeSelectVisible[1]}
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
-                                    <div className="popover-dialog-content-scroller">
-                                        <TreeSelect selectMode={TreeSelect.SelectMode.MULTI_SELECT}
-                                                    data={this.data}
-                                                    autoClose={false}
-                                                    isSelectRecursive={true}
-                                                    collapsedIconCls="far fa-plus-square"
-                                                    expandedIconCls="far fa-minus-square"
-                                                    checkboxUncheckedIconCls="far fa-circle"
-                                                    checkboxCheckedIconCls="fas fa-check-circle"
-                                                    checkboxIndeterminateIconCls="fas fa-minus-circle"
-                                                    useFilter={true}
-                                                    parentEl={document.querySelector('.tree-select-dialog .dialog-content')}
-                                                    tip="TreeSelect Example"
-                                                    onChange={this.changeHandler}/>
-                                    </div>
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
+                                                <TreeSelect selectMode={TreeSelect.SelectMode.MULTI_SELECT}
+                                                            data={this.data}
+                                                            autoClose={false}
+                                                            isSelectRecursive={true}
+                                                            collapsedIconCls="far fa-plus-square"
+                                                            expandedIconCls="far fa-minus-square"
+                                                            checkboxUncheckedIconCls="far fa-circle"
+                                                            checkboxCheckedIconCls="fas fa-check-circle"
+                                                            checkboxIndeterminateIconCls="fas fa-minus-circle"
+                                                            useFilter={true}
+                                                            parentEl={dialogContentEl}
+                                                            tip="TreeSelect Example"
+                                                            onChange={this.changeHandler}/>
+                                            </div>
+                                    }
                                 </Dialog>
 
                             </div>
