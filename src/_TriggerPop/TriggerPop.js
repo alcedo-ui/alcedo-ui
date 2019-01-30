@@ -64,7 +64,7 @@ class TriggerPop extends Component {
 
                 children,
 
-                className, contentClassName, style, theme,
+                className, contentClassName, theme,
                 hasTriangle, triangle, position, isAnimated,
 
                 // not passing down these props
@@ -91,8 +91,7 @@ class TriggerPop extends Component {
             <Pop {...restProps}
                  ref="pop"
                  className={popClassName}
-                 style={style}
-                 contianer={Paper}
+                 container={<Paper></Paper>}
                  isAnimated={isAnimated}
                  onWheel={e => Event.wheelHandler(e, this.props)}
                  resetPosition={this.resetPosition}
