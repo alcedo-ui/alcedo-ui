@@ -157,8 +157,7 @@ class Pop extends Component {
                 modalClassName, className, parentEl, isAnimated, visible, showModal,
 
                 // not passing down these props
-                contentClassName, hasTriangle, triangle, position,
-                shouldPreventContainerScroll, triggerEl, isTriggerPositionFixed, resetPositionWait,
+                contentClassName, position, triggerEl, resetPositionWait,
                 resetPosition, onEnter, onEntered, onExit, onExited,
 
                 ...restProps
@@ -248,13 +247,6 @@ Pop.propTypes = {
      */
     visible: PropTypes.bool,
 
-    /**
-     * If true,the trigger pop will have a triangle on the top of the DOM element.
-     */
-    hasTriangle: PropTypes.bool,
-
-    triangle: PropTypes.element,
-
     showModal: PropTypes.bool,
 
     /**
@@ -272,8 +264,6 @@ Pop.propTypes = {
      */
     depth: PropTypes.number,
 
-    shouldPreventContainerScroll: PropTypes.bool,
-    isTriggerPositionFixed: PropTypes.bool,
     resetPositionWait: PropTypes.number,
 
     /**
@@ -296,11 +286,6 @@ Pop.propTypes = {
      */
     onExited: PropTypes.func,
 
-    /**
-     * Callback function fired when wrapper wheeled.
-     */
-    onWheel: PropTypes.func,
-
     resetPosition: PropTypes.func
 
 };
@@ -312,14 +297,10 @@ Pop.defaultProps = {
     depth: 3,
 
     visible: false,
-    hasTriangle: true,
-    triangle: <div className="trigger-pop-triangle"></div>,
     showModal: false,
     position: Position.BOTTOM,
     isAnimated: true,
 
-    shouldPreventContainerScroll: true,
-    isTriggerPositionFixed: false,
     resetPositionWait: 250
 
 };
