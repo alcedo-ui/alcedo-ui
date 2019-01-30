@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -75,21 +75,24 @@ class TriggerPop extends Component {
                  isAnimated={isAnimated}
                  onWheel={e => Event.wheelHandler(e, this.props)}
                  resetPosition={this.resetPosition}>
-
                 {
-                    hasTriangle ?
-                        <div className="trigger-pop-triangle-wrapper">
-                            {triangle}
-                        </div>
-                        :
-                        null
+                    popEl =>
+                        <Fragment>
+                            {
+                                hasTriangle ?
+                                    <div className="trigger-pop-triangle-wrapper">
+                                        {triangle}
+                                    </div>
+                                    :
+                                    null
+                            }
+
+                            <div className={popContentClassName}
+                                 onWheel={e => Event.wheelHandler(e, this.props)}>
+                                {typeof children === 'function' ? children(popEl) : children}
+                            </div>
+                        </Fragment>
                 }
-
-                <div className={popContentClassName}
-                     onWheel={e => Event.wheelHandler(e, this.props)}>
-                    {children}
-                </div>
-
             </Pop>
         );
 
