@@ -74,11 +74,7 @@ class TriggerPop extends Component {
                  container={<Paper></Paper>}
                  isAnimated={isAnimated}
                  onWheel={e => Event.wheelHandler(e, this.props)}
-                 resetPosition={this.resetPosition}
-                 onRender={this.enterHandler}
-                 onRendered={this.enteredHandler}
-                 onDestroy={this.exitHandler}
-                 onDestroyed={this.exitedHandler}>
+                 resetPosition={this.resetPosition}>
 
                 {
                     hasTriangle ?
