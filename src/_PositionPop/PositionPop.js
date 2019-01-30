@@ -67,7 +67,7 @@ class PositionPop extends Component {
                  isAnimated={isAnimated}
                  onWheel={e => Event.wheelHandler(e, this.props)}
                  resetPosition={this.resetPosition}>
-                {children}
+                {popEl => typeof children === 'function' ? children(popEl) : children}
             </Pop>
         );
 
