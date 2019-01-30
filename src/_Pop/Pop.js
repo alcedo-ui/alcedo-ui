@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, cloneElement} from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import Transition from 'react-transition-group/Transition';
@@ -151,9 +151,7 @@ class Pop extends Component {
 
         const {
 
-                children,
-
-                contianer: Contianer,
+                container,
                 modalClassName, className, parentEl, isAnimated, visible, showModal,
 
                 // not passing down these props
@@ -198,10 +196,12 @@ class Pop extends Component {
                             onEntered={this.handleEntered}
                             onExit={this.handleExit}
                             onExited={this.handleExited}>
-                    <Contianer {...restProps}
-                               className={popClassName}>
-                        {children}
-                    </Contianer>
+                    {
+                        cloneElement(container, {
+                            ...restProps,
+                            className: popClassName
+                        })
+                    }
                 </Transition>
 
             </Portal>
