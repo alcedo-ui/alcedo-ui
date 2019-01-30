@@ -5,13 +5,11 @@ import WidgetHeader from 'src/WidgetHeader';
 import TreeSelect from 'src/TreeSelect';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
-import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/TreeSelect.json';
 
 import 'scss/containers/app/modules/field/TreeSelectExamples.scss';
-
 
 class TreeSelectExamples extends Component {
 
@@ -59,8 +57,7 @@ class TreeSelectExamples extends Component {
         };
 
         this.state = {
-            TreeSelectVisible: {},
-            triggerEl: {}
+            TreeSelectVisible: {}
         };
 
     }
@@ -89,23 +86,14 @@ class TreeSelectExamples extends Component {
 
     };
 
-    dialogRenderHandler = () => {
-
-        const triggerEl = this.state.triggerEl;
-        triggerEl[1] = findDOMNode(this.refs['trigger1']);
-
-        this.setState({
-            triggerEl
-        });
-    };
-
     changeHandler = value => {
         console.log(value);
     };
 
     render() {
 
-        const {TreeSelectVisible, triggerEl} = this.state;
+        const {TreeSelectVisible} = this.state;
+
         return (
             <div className="example tree-select-examples">
 
@@ -200,7 +188,6 @@ class TreeSelectExamples extends Component {
                                                     checkboxIndeterminateIconCls="fas fa-minus-circle"
                                                     useFilter={true}
                                                     parentEl={document.querySelector('.dialog-content')}
-                                                    triggerEl={triggerEl}
                                                     tip="TreeSelect Example"
                                                     onChange={this.changeHandler}/>
                                     </div>
