@@ -163,7 +163,7 @@ class Dialog extends Component {
                             <div className="dialog-content">
                                 {
                                     typeof children === 'function' ?
-                                        children(popEl, popEl && popEl.querySelector('.dialog-content'))
+                                        children(popEl && popEl.querySelector('.dialog-content'), popEl)
                                         :
                                         children
                                 }
