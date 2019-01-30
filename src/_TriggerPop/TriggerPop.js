@@ -78,6 +78,7 @@ class TriggerPop extends Component {
                 {
                     popEl =>
                         <Fragment>
+
                             {
                                 hasTriangle ?
                                     <div className="trigger-pop-triangle-wrapper">
@@ -91,6 +92,7 @@ class TriggerPop extends Component {
                                  onWheel={e => Event.wheelHandler(e, this.props)}>
                                 {typeof children === 'function' ? children(popEl) : children}
                             </div>
+                            
                         </Fragment>
                 }
             </Pop>
