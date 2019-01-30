@@ -29,27 +29,7 @@ class PositionPop extends Component {
      * public
      */
     getEl = () => {
-        return this.transitionEl;
-    };
-
-    enterHandler = el => {
-        const {onRender} = this.props;
-        onRender && onRender(el);
-    };
-
-    enteredHandler = el => {
-        const {onRendered} = this.props;
-        onRendered && onRendered(el);
-    };
-
-    exitHandler = el => {
-        const {onDestroy} = this.props;
-        onDestroy && onDestroy(el);
-    };
-
-    exitedHandler = el => {
-        const {onDestroyed} = this.props;
-        onDestroyed && onDestroyed(el);
+        return this.refs.pop && this.refs.pop.getEl();
     };
 
     resetPosition = transitionEl => {
@@ -67,7 +47,6 @@ class PositionPop extends Component {
 
                 // not passing down these props
                 isEscClose, isBlurClose, shouldPreventContainerScroll,
-                onRender, onRendered, onDestroy, onDestroyed,
 
                 ...restProps
 
@@ -87,11 +66,7 @@ class PositionPop extends Component {
                  container={container}
                  isAnimated={isAnimated}
                  onWheel={e => Event.wheelHandler(e, this.props)}
-                 resetPosition={this.resetPosition}
-                 onEnter={this.enterHandler}
-                 onEntered={this.enteredHandler}
-                 onExit={this.exitHandler}
-                 onExited={this.exitedHandler}>
+                 resetPosition={this.resetPosition}>
                 {children}
             </Pop>
         );
