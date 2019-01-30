@@ -75,7 +75,7 @@ class TriggerPop extends Component {
 
             } = this.props,
 
-            popupClassName = classNames('trigger-pop', {
+            popClassName = classNames('trigger-pop', {
                 'trigger-pop-has-triangle': hasTriangle,
                 [`theme-${theme}`]: theme,
                 [`trigger-pop-${position}`]: position,
@@ -90,7 +90,7 @@ class TriggerPop extends Component {
         return (
             <Pop {...restProps}
                  ref="pop"
-                 className={popupClassName}
+                 className={popClassName}
                  style={style}
                  contianer={Paper}
                  isAnimated={isAnimated}
