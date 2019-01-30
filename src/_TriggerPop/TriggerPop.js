@@ -117,31 +117,37 @@ class TriggerPop extends Component {
         eventsOn(window, 'resize', this.debounceResetPosition);
     }
 
-    // componentDidUpdate(prevProps) {
-    //     if (!prevProps.visible && this.props.visible) {
-    //         this.addWatchScroll();
-    //     } else if (prevProps.visible && !this.props.visible) {
-    //         this.scrollEl && eventsOff(this.scrollEl, 'scroll', this.debounceResetPosition);
-    //         this.scrollEl = null;
-    //     }
-    // }
+    componentDidUpdate(prevProps) {
 
-    componentWillReceiveProps(nextProps) {
-
-        if (nextProps.visible) {
-            this.setState({
-                exited: !nextProps.visible
-            });
+        if (prevProps.position !== this.props.position) {
+            this.resetPosition(this.props);
         }
 
-        if (nextProps.position !== this.props.position) {
-            this.resetPosition(nextProps);
-        }
+        // if (!prevProps.visible && this.props.visible) {
+        //     this.addWatchScroll();
+        // } else if (prevProps.visible && !this.props.visible) {
+        //     this.scrollEl && eventsOff(this.scrollEl, 'scroll', this.debounceResetPosition);
+        //     this.scrollEl = null;
+        // }
 
     }
 
     componentWillUnmount() {
         eventsOff(window, 'resize', this.debounceResetPosition);
+    }
+
+    static getDerivedStateFromProps(props) {
+
+        const result = {
+            prevProps: props
+        };
+
+        if (props.visible) {
+            result.exited = !props.visible;
+        }
+
+        return result;
+
     }
 
     render() {
