@@ -33,7 +33,8 @@ class Pop extends Component {
 
         this.state = {
             enter: false,
-            exited: true
+            exited: true,
+            transitionEl: null
         };
 
     }
@@ -42,18 +43,17 @@ class Pop extends Component {
      * public
      */
     getEl = () => {
-        return this.transitionEl;
+        return this.state.transitionEl;
     };
 
     handleEnter = el => {
 
-        this.transitionEl = el;
-
         const {triggerEl, resetPosition} = this.props;
-        resetPosition && resetPosition(this.transitionEl);
+        resetPosition && resetPosition(el);
 
         this.setState({
-            enter: true
+            enter: true,
+            transitionEl: el
         }, () => {
             const {onRender} = this.props;
             onRender && onRender(el, triggerEl);
@@ -77,7 +77,8 @@ class Pop extends Component {
 
     handleExited = el => {
         this.setState({
-            exited: true
+            exited: true,
+            transitionEl: null
         }, () => {
             const {triggerEl, onDestroyed} = this.props;
             onDestroyed && onDestroyed(el, triggerEl);
@@ -86,7 +87,7 @@ class Pop extends Component {
 
     debounceResetPosition = debounce(() => {
         const {resetPosition} = this.props;
-        resetPosition && resetPosition(this.transitionEl);
+        resetPosition && resetPosition(this.state.transitionEl);
     }, this.props.resetPositionWait);
 
     // addWatchScroll = () => {
@@ -117,7 +118,7 @@ class Pop extends Component {
 
         if (prevProps.position !== this.props.position) {
             const {resetPosition} = this.props;
-            resetPosition && resetPosition(this.transitionEl);
+            resetPosition && resetPosition(this.state.transitionEl);
         }
 
         // if (!prevProps.visible && this.props.visible) {
@@ -151,7 +152,7 @@ class Pop extends Component {
 
         const {
 
-                container,
+                children, container,
                 modalClassName, className, parentEl, isAnimated, visible, showModal,
 
                 // not passing down these props
@@ -161,7 +162,7 @@ class Pop extends Component {
                 ...restProps
 
             } = this.props,
-            {enter, exited} = this.state,
+            {enter, exited, transitionEl} = this.state,
 
             popModalClassName = classNames('pop-modal', {
                 hidden: !enter,
@@ -199,7 +200,8 @@ class Pop extends Component {
                     {
                         cloneElement(container, {
                             ...restProps,
-                            className: popClassName
+                            className: popClassName,
+                            children: typeof children === 'function' ? children(transitionEl) : children
                         })
                     }
                 </Transition>
