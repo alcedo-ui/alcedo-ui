@@ -173,7 +173,8 @@ class TreeSelectExamples extends Component {
                                               value="Show Dialog"
                                               onClick={() => this.show(1)}/>
 
-                                <Dialog visible={TreeSelectVisible[1]}
+                                <Dialog className="tree-select-dialog"
+                                        visible={TreeSelectVisible[1]}
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
                                     <div className="popover-dialog-content-scroller">
@@ -187,7 +188,7 @@ class TreeSelectExamples extends Component {
                                                     checkboxCheckedIconCls="fas fa-check-circle"
                                                     checkboxIndeterminateIconCls="fas fa-minus-circle"
                                                     useFilter={true}
-                                                    parentEl={document.querySelector('.dialog-content')}
+                                                    parentEl={document.querySelector('.tree-select-dialog .dialog-content')}
                                                     tip="TreeSelect Example"
                                                     onChange={this.changeHandler}/>
                                     </div>
