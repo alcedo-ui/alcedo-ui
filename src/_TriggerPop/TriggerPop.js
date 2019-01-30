@@ -5,13 +5,9 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import debounce from 'lodash/debounce';
-import Transition from 'react-transition-group/Transition';
-import eventsOn from 'dom-helpers/events/on';
-import eventsOff from 'dom-helpers/events/off';
 import classNames from 'classnames';
 
-import Portal from '../Portal';
+import Pop from '../_Pop';
 import Paper from '../Paper';
 import Theme from '../Theme';
 
@@ -20,7 +16,6 @@ import Position from '../_statics/Position';
 import Event from '../_vendors/Event';
 import Util from '../_vendors/Util';
 import TriggerPopCalculation from '../_vendors/TriggerPopCalculation';
-// import Dom from '../_vendors/Dom';
 
 class TriggerPop extends Component {
 
@@ -28,37 +23,19 @@ class TriggerPop extends Component {
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        // this.scrollEl = null;
-
-        this.state = {
-            enter: false,
-            exited: true
-        };
-
     }
 
     /**
      * public
      */
     getEl = () => {
-        return this.transitionEl;
+        return this.refs.pop && this.refs.pop.getEl();
     };
 
     enterHandler = el => {
-
-        this.transitionEl = el;
-        this.resetPosition();
-
-        this.setState({
-            enter: true
-        }, () => {
-            const {onRender} = this.props;
-            onRender && onRender(el, this.props.triggerEl);
-        });
-
+        const {onRender} = this.props;
+        onRender && onRender(el, this.props.triggerEl);
     };
 
     enteredHandler = el => {
@@ -67,88 +44,19 @@ class TriggerPop extends Component {
     };
 
     exitHandler = el => {
-        this.setState({
-            enter: false
-        }, () => {
-            const {onDestroy} = this.props;
-            onDestroy && onDestroy(el, this.props.triggerEl);
-        });
+        const {onDestroy} = this.props;
+        onDestroy && onDestroy(el, this.props.triggerEl);
     };
 
     exitedHandler = el => {
-        this.setState({
-            exited: true
-        }, () => {
-            const {onDestroyed} = this.props;
-            onDestroyed && onDestroyed(el, this.props.triggerEl);
-        });
+        const {onDestroyed} = this.props;
+        onDestroyed && onDestroyed(el, this.props.triggerEl);
     };
 
-    debounceResetPosition = debounce(() => {
-        this.resetPosition();
-    }, this.props.resetPositionWait);
-
-    resetPosition = (props = this.props) => {
-        const {parentEl, triggerEl, position, isTriggerPositionFixed} = props;
-        TriggerPopCalculation.setStyle(parentEl, triggerEl, this.transitionEl, position, isTriggerPositionFixed);
+    resetPosition = (transitionEl) => {
+        const {parentEl, triggerEl, position, isTriggerPositionFixed} = this.props;
+        TriggerPopCalculation.setStyle(parentEl, triggerEl, transitionEl, position, isTriggerPositionFixed);
     };
-
-    // addWatchScroll = () => {
-    //
-    //     const {triggerEl} = this.props;
-    //
-    //     if (!triggerEl) {
-    //         return;
-    //     }
-    //
-    //     const scrollEl = Dom.getClosestScrollable(triggerEl);
-    //
-    //     if (!scrollEl || scrollEl == document.body) {
-    //         return;
-    //     }
-    //
-    //     this.scrollEl = scrollEl;
-    //
-    //     eventsOn(scrollEl, 'scroll', this.debounceResetPosition);
-    //
-    // };
-
-    componentDidMount() {
-        eventsOn(window, 'resize', this.debounceResetPosition);
-    }
-
-    componentDidUpdate(prevProps) {
-
-        if (prevProps.position !== this.props.position) {
-            this.resetPosition(this.props);
-        }
-
-        // if (!prevProps.visible && this.props.visible) {
-        //     this.addWatchScroll();
-        // } else if (prevProps.visible && !this.props.visible) {
-        //     this.scrollEl && eventsOff(this.scrollEl, 'scroll', this.debounceResetPosition);
-        //     this.scrollEl = null;
-        // }
-
-    }
-
-    componentWillUnmount() {
-        eventsOff(window, 'resize', this.debounceResetPosition);
-    }
-
-    static getDerivedStateFromProps(props) {
-
-        const result = {
-            prevProps: props
-        };
-
-        if (props.visible) {
-            result.exited = !props.visible;
-        }
-
-        return result;
-
-    }
 
     render() {
 
@@ -156,27 +64,18 @@ class TriggerPop extends Component {
 
                 children,
 
-                className, contentClassName, modalClassName, style, theme, parentEl,
-                hasTriangle, triangle, position, isAnimated, visible, showModal,
+                className, contentClassName, style, theme,
+                hasTriangle, triangle, position, isAnimated,
 
                 // not passing down these props
                 isEscClose, isBlurClose, shouldPreventContainerScroll, triggerEl, isTriggerPositionFixed,
-                resetPositionWait,
                 onRender, onRendered, onDestroy, onDestroyed,
 
                 ...restProps
 
             } = this.props,
-            {enter, exited} = this.state,
-
-            popModalClassName = classNames('trigger-pop-modal', {
-                hidden: !enter,
-                'trigger-pop-modal-animated': isAnimated,
-                [modalClassName]: modalClassName
-            }),
 
             popupClassName = classNames('trigger-pop', {
-                hidden: !enter,
                 'trigger-pop-has-triangle': hasTriangle,
                 [`theme-${theme}`]: theme,
                 [`trigger-pop-${position}`]: position,
@@ -188,52 +87,35 @@ class TriggerPop extends Component {
                 [contentClassName]: contentClassName
             });
 
-
         return (
-            <Portal visible={!exited}
-                    parentEl={parentEl}>
+            <Pop {...restProps}
+                 ref="pop"
+                 className={popupClassName}
+                 style={style}
+                 contianer={Paper}
+                 isAnimated={isAnimated}
+                 onWheel={e => Event.wheelHandler(e, this.props)}
+                 resetPosition={this.resetPosition}
+                 onEnter={this.enterHandler}
+                 onEntered={this.enteredHandler}
+                 onExit={this.exitHandler}
+                 onExited={this.exitedHandler}>
 
                 {
-                    showModal ?
-                        <Transition appear
-                                    in={visible}
-                                    timeout={250}>
-                            <div className={popModalClassName}></div>
-                        </Transition>
+                    hasTriangle ?
+                        <div className="trigger-pop-triangle-wrapper">
+                            {triangle}
+                        </div>
                         :
                         null
                 }
 
-                <Transition appear
-                            in={visible}
-                            timeout={250}
-                            onEnter={this.enterHandler}
-                            onEntered={this.enteredHandler}
-                            onExit={this.exitHandler}
-                            onExited={this.exitedHandler}>
-                    <Paper {...restProps}
-                           className={popupClassName}
-                           style={style}
-                           onWheel={e => Event.wheelHandler(e, this.props)}>
+                <div className={popContentClassName}
+                     onWheel={e => Event.wheelHandler(e, this.props)}>
+                    {children}
+                </div>
 
-                        {
-                            hasTriangle ?
-                                <div className="trigger-pop-triangle-wrapper">
-                                    {triangle}
-                                </div>
-                                :
-                                null
-                        }
-
-                        <div className={popContentClassName}
-                             onWheel={e => Event.wheelHandler(e, this.props)}>
-                            {children}
-                        </div>
-
-                    </Paper>
-                </Transition>
-
-            </Portal>
+            </Pop>
         );
 
     }
