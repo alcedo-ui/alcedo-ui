@@ -49,29 +49,29 @@ class Pop extends Component {
 
         this.transitionEl = el;
 
-        const {resetPosition} = this.props;
+        const {triggerEl, resetPosition} = this.props;
         resetPosition && resetPosition(this.transitionEl);
 
         this.setState({
             enter: true
         }, () => {
-            const {onEnter} = this.props;
-            onEnter && onEnter(el);
+            const {onRender} = this.props;
+            onRender && onRender(el, triggerEl);
         });
 
     };
 
     handleEntered = el => {
-        const {onEntered} = this.props;
-        onEntered && onEntered(el);
+        const {triggerEl, onRendered} = this.props;
+        onRendered && onRendered(el, triggerEl);
     };
 
     handleExit = el => {
         this.setState({
             enter: false
         }, () => {
-            const {onExit} = this.props;
-            onExit && onExit(el);
+            const {triggerEl, onDestroy} = this.props;
+            onDestroy && onDestroy(el, triggerEl);
         });
     };
 
@@ -79,8 +79,8 @@ class Pop extends Component {
         this.setState({
             exited: true
         }, () => {
-            const {onExited} = this.props;
-            onExited && onExited(el);
+            const {triggerEl, onDestroyed} = this.props;
+            onDestroyed && onDestroyed(el, triggerEl);
         });
     };
 
@@ -156,7 +156,7 @@ class Pop extends Component {
 
                 // not passing down these props
                 contentClassName, position, triggerEl, resetPositionWait,
-                resetPosition, onEnter, onEntered, onExit, onExited,
+                resetPosition, onRender, onRendered, onDestroy, onDestroyed,
 
                 ...restProps
 
@@ -269,22 +269,22 @@ Pop.propTypes = {
     /**
      * The function of popup render.
      */
-    onEnter: PropTypes.func,
+    onRender: PropTypes.func,
 
     /**
      * The function of popup rendered.
      */
-    onEntered: PropTypes.func,
+    onRendered: PropTypes.func,
 
     /**
      * The function of popup destroy.
      */
-    onExit: PropTypes.func,
+    onDestroy: PropTypes.func,
 
     /**
      * The function of popup destroyed.
      */
-    onExited: PropTypes.func,
+    onDestroyed: PropTypes.func,
 
     resetPosition: PropTypes.func
 
