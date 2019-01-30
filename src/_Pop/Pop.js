@@ -55,23 +55,23 @@ class Pop extends Component {
         this.setState({
             enter: true
         }, () => {
-            const {onRender} = this.props;
-            onRender && onRender(el);
+            const {onEnter} = this.props;
+            onEnter && onEnter(el);
         });
 
     };
 
     handleEntered = el => {
-        const {onRendered} = this.props;
-        onRendered && onRendered(el);
+        const {onEntered} = this.props;
+        onEntered && onEntered(el);
     };
 
     handleExit = el => {
         this.setState({
             enter: false
         }, () => {
-            const {onDestroy} = this.props;
-            onDestroy && onDestroy(el);
+            const {onExit} = this.props;
+            onExit && onExit(el);
         });
     };
 
@@ -79,8 +79,8 @@ class Pop extends Component {
         this.setState({
             exited: true
         }, () => {
-            const {onDestroyed} = this.props;
-            onDestroyed && onDestroyed(el);
+            const {onExited} = this.props;
+            onExited && onExited(el);
         });
     };
 
@@ -153,13 +153,13 @@ class Pop extends Component {
 
                 children,
 
-                className, contentClassName, modalClassName, style, theme, parentEl,
-                hasTriangle, triangle, position, isAnimated, visible, showModal,
+                contianer: Contianer,
+                modalClassName, className, parentEl, isAnimated, visible, showModal,
 
                 // not passing down these props
-                isEscClose, isBlurClose, shouldPreventContainerScroll, triggerEl, isTriggerPositionFixed,
-                resetPositionWait,
-                onRender, onRendered, onDestroy, onDestroyed,
+                contentClassName, hasTriangle, triangle, position,
+                shouldPreventContainerScroll, triggerEl, isTriggerPositionFixed, resetPositionWait,
+                resetPosition, onEnter, onEntered, onExit, onExited,
 
                 ...restProps
 
@@ -170,8 +170,12 @@ class Pop extends Component {
                 hidden: !enter,
                 'pop-modal-animated': isAnimated,
                 [modalClassName]: modalClassName
-            });
+            }),
 
+            popClassName = classNames({
+                hidden: !enter,
+                [className]: className
+            });
 
         return (
             <Portal visible={!exited}
@@ -195,7 +199,10 @@ class Pop extends Component {
                             onEntered={this.handleEntered}
                             onExit={this.handleExit}
                             onExited={this.handleExited}>
-                    {children}
+                    <Contianer {...restProps}
+                               className={popClassName}>
+                        {children}
+                    </Contianer>
                 </Transition>
 
             </Portal>
@@ -265,8 +272,6 @@ Pop.propTypes = {
      */
     depth: PropTypes.number,
 
-    isBlurClose: PropTypes.bool,
-    isEscClose: PropTypes.bool,
     shouldPreventContainerScroll: PropTypes.bool,
     isTriggerPositionFixed: PropTypes.bool,
     resetPositionWait: PropTypes.number,
@@ -274,22 +279,22 @@ Pop.propTypes = {
     /**
      * The function of popup render.
      */
-    onRender: PropTypes.func,
+    onEnter: PropTypes.func,
 
     /**
      * The function of popup rendered.
      */
-    onRendered: PropTypes.func,
+    onEntered: PropTypes.func,
 
     /**
      * The function of popup destroy.
      */
-    onDestroy: PropTypes.func,
+    onExit: PropTypes.func,
 
     /**
      * The function of popup destroyed.
      */
-    onDestroyed: PropTypes.func,
+    onExited: PropTypes.func,
 
     /**
      * Callback function fired when wrapper wheeled.
@@ -313,8 +318,6 @@ Pop.defaultProps = {
     position: Position.BOTTOM,
     isAnimated: true,
 
-    isBlurClose: true,
-    isEscClose: true,
     shouldPreventContainerScroll: true,
     isTriggerPositionFixed: false,
     resetPositionWait: 250
