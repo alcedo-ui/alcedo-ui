@@ -33,26 +33,6 @@ class TriggerPop extends Component {
         return this.refs.pop && this.refs.pop.getEl();
     };
 
-    enterHandler = el => {
-        const {onRender} = this.props;
-        onRender && onRender(el, this.props.triggerEl);
-    };
-
-    enteredHandler = el => {
-        const {onRendered} = this.props;
-        onRendered && onRendered(el, this.props.triggerEl);
-    };
-
-    exitHandler = el => {
-        const {onDestroy} = this.props;
-        onDestroy && onDestroy(el, this.props.triggerEl);
-    };
-
-    exitedHandler = el => {
-        const {onDestroyed} = this.props;
-        onDestroyed && onDestroyed(el, this.props.triggerEl);
-    };
-
     resetPosition = (transitionEl) => {
         const {parentEl, triggerEl, position, isTriggerPositionFixed} = this.props;
         TriggerPopCalculation.setStyle(parentEl, triggerEl, transitionEl, position, isTriggerPositionFixed);
@@ -68,7 +48,7 @@ class TriggerPop extends Component {
                 hasTriangle, triangle, position, isAnimated,
 
                 // not passing down these props
-                isEscClose, isBlurClose, shouldPreventContainerScroll, triggerEl, isTriggerPositionFixed,
+                isEscClose, isBlurClose, shouldPreventContainerScroll, isTriggerPositionFixed,
                 onRender, onRendered, onDestroy, onDestroyed,
 
                 ...restProps
@@ -95,10 +75,10 @@ class TriggerPop extends Component {
                  isAnimated={isAnimated}
                  onWheel={e => Event.wheelHandler(e, this.props)}
                  resetPosition={this.resetPosition}
-                 onEnter={this.enterHandler}
-                 onEntered={this.enteredHandler}
-                 onExit={this.exitHandler}
-                 onExited={this.exitedHandler}>
+                 onRender={this.enterHandler}
+                 onRendered={this.enteredHandler}
+                 onDestroy={this.exitHandler}
+                 onDestroyed={this.exitedHandler}>
 
                 {
                     hasTriangle ?
