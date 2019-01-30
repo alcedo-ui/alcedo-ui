@@ -90,22 +90,28 @@ class PositionPop extends Component {
         Event.addEvent(window, 'resize', this.resizeHandler);
     }
 
-    componentWillReceiveProps(nextProps) {
-
-        if (nextProps.visible) {
-            this.setState({
-                exited: false
-            });
+    componentDidUpdate(prevProps) {
+        if (prevProps.position !== this.props.position) {
+            this.resetPosition(this.props);
         }
-
-        if (nextProps.position !== this.props.position) {
-            this.resetPosition(nextProps);
-        }
-
     }
 
     componentWillUnmount() {
         Event.removeEvent(window, 'resize', this.resizeHandler);
+    }
+
+    static getDerivedStateFromProps(props) {
+
+        const result = {
+            prevProps: props
+        };
+
+        if (props.visible) {
+            result.exited = false;
+        }
+
+        return result;
+
     }
 
     render() {
