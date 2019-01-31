@@ -1,0 +1,42 @@
+@import '../../../../my-theme.scss';
+
+.opacity-picker-examples {
+
+    .examples-wrapper {
+
+        .picked-opacity-wrapper {
+            margin-top: 8px;
+            border-top: 1px solid $theme-border;
+            padding-top: 8px;
+        }
+
+        .picked-opacity {
+            display: inline-block;
+            margin-right: 16px;
+            vertical-align: bottom;
+        }
+
+        .picked-opacity-value {
+            display: inline-block;
+            line-height: 24px;
+            user-select: none;
+        }
+
+        .opacity-select-scroller-wrapper {
+            width: 200px;
+            height: 200px;
+            overflow: auto;
+
+            .opacity-select-scroller {
+                width: 1000px;
+                height: 1000px;
+            }
+        }
+
+    }
+
+}
+
+.opacity-select-pop {
+    width: auto !important;
+}

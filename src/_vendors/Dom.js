@@ -5,24 +5,11 @@ import contains from 'dom-helpers/query/contains';
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-function getOffset(el, parentEl) {
+function getOffset(el, parentEl = document.body) {
 
     if (!el) {
         return null;
     }
-
-    // if (el.getBoundingClientRect) {
-    //
-    //     const result = el.getBoundingClientRect();
-    //
-    //     // console.log(getScrollLeft());
-    //
-    //     return {
-    //         top: result.top + getScrollTop(),
-    //         left: result.left + getScrollLeft()
-    //     };
-    //
-    // }
 
     let offset = {
         top: el.offsetTop,
@@ -35,9 +22,18 @@ function getOffset(el, parentEl) {
             break;
         }
 
+        // append layout offset
         el = el.offsetParent;
         offset.top += el.offsetTop;
         offset.left += el.offsetLeft;
+
+        // append transform offset
+        const transform = window.getComputedStyle(el).transform,
+            m = transform.match(/matrix\(\d+,\s?\d+,\s?\d+,\s?\d+,\s?(\d+),\s?(\d+)\)/);
+        if (m) {
+            offset.top += +m[2];
+            offset.left += +m[1];
+        }
 
     }
 
@@ -211,6 +207,27 @@ function getClosestScrollable(el) {
 
 }
 
+function getTotalScrollOffset(el, scrollEl = document.body) {
+
+    const result = {
+        left: 0,
+        top: 0
+    };
+
+    if (!el || !scrollEl) {
+        return result;
+    }
+
+    while (el && contains(scrollEl, el)) {
+        result.left += el.scrollLeft;
+        result.top += el.scrollTop;
+        el = el.parentElement;
+    }
+
+    return result;
+
+}
+
 export default {
     getOffset,
     getScrollHeight,
@@ -222,5 +239,6 @@ export default {
     toggleClass,
     findParentByClassName,
     isParent,
-    getClosestScrollable
+    getClosestScrollable,
+    getTotalScrollOffset
 };

@@ -3,6 +3,8 @@ import React, {Component} from 'react';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import HuePicker from 'src/HuePicker';
+import ColorBlock from 'src/ColorBlock';
+import PopupProvider from 'src/PopupProvider';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/HuePicker.json';
@@ -53,12 +55,44 @@ class HuePickerExamples extends Component {
                                            onChange={this.changeHandler}/>
 
                                 <div className="picked-hue-wrapper">
-
-                                    <div className="picked-hue"
-                                         style={{background: `rgb(${Color.hue2rgb(hue).join(', ')})`}}></div>
-
+                                    <ColorBlock className="picked-hue"
+                                                value={Color.rgb2hex(Color.hue2rgb(hue))}/>
                                     <div className="picked-hue-value">{hue}°</div>
+                                </div>
 
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Basic"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <div className="hue-select-scroller-wrapper">
+                                    <div className="hue-select-scroller">
+                                        <PopupProvider className="hue-select-pop"
+                                                       position={PopupProvider.Position.BOTTOM_LEFT}
+                                                       parentEl={document.querySelector('.hue-select-scroller-wrapper')}
+                                                       popupContent={
+                                                           <HuePicker value={hue}
+                                                                      scrollEl={document.querySelector('.hue-select-scroller-wrapper')}
+                                                                      onChange={this.changeHandler}/>
+                                                       }>
+                                            <div>
+                                                <ColorBlock className="picked-hue"
+                                                            value={Color.rgb2hex(Color.hue2rgb(hue))}/>
+                                                <div className="picked-hue-value">{hue}°</div>
+                                            </div>
+                                        </PopupProvider>
+                                    </div>
                                 </div>
 
                             </div>

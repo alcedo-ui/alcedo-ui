@@ -537,6 +537,11 @@ export default function configureRoutes(store) {
                         /* webpackChunkName: "LazyImageExamples" */
                         'modules/media/LazyImageExamples'), store)
                 }, {
+                    path: '/components/ColorBlock',
+                    component: ac(() => import(
+                        /* webpackChunkName: "ColorBlockExamples" */
+                        'modules/media/ColorBlockExamples'), store)
+                }, {
                     path: '/components/ColorPicker',
                     component: ac(() => import(
                         /* webpackChunkName: "ColorPickerExamples" */
@@ -546,6 +551,11 @@ export default function configureRoutes(store) {
                     component: ac(() => import(
                         /* webpackChunkName: "HuePickerExamples" */
                         'modules/media/HuePickerExamples'), store)
+                }, {
+                    path: '/components/OpacityPicker',
+                    component: ac(() => import(
+                        /* webpackChunkName: "OpacityPickerExamples" */
+                        'modules/media/OpacityPickerExamples'), store)
                 }
             ]
         }]

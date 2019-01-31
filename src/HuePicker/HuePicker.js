@@ -10,6 +10,7 @@ import classNames from 'classnames';
 import Event from '../_vendors/Event';
 import Dom from '../_vendors/Dom';
 import Valid from '../_vendors/Valid';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class HuePicker extends Component {
 
@@ -17,22 +18,44 @@ class HuePicker extends Component {
 
         super(props, ...restArgs);
 
+        this.activated = false;
+
         this.state = {
             value: props.value
         };
 
-        this.activated = false;
-
     }
+
+    /**
+     * get slider css left by hue value
+     * @param value
+     * @returns {number}
+     */
+    calcSliderLeft = (value = this.state.value) => {
+
+        const barEl = this.huePickerBarEl,
+            sliderEl = this.huePickerSliderEl;
+
+        if (!value || !barEl || !sliderEl) {
+            return 0;
+        }
+
+        const barWidth = barEl.offsetWidth,
+            sliderWidth = sliderEl.offsetWidth,
+            width = barWidth - sliderWidth;
+
+        return value / 360 * width;
+
+    };
 
     mouseDownHandler = e => {
         this.activated = true;
-        this.changeHandler(e.pageX);
+        this.handleChange(e.pageX);
     };
 
     mouseMoveHandler = e => {
         if (this.activated) {
-            this.changeHandler(e.pageX);
+            this.handleChange(e.pageX);
         }
     };
 
@@ -40,17 +63,29 @@ class HuePicker extends Component {
         this.activated = false;
     };
 
-    changeHandler = mouseX => {
+    /**
+     * handle mouse event change
+     * @param mouseX
+     */
+    handleChange = mouseX => {
 
         const elOffset = Dom.getOffset(this.huePickerBarEl);
         if (!elOffset) {
             return;
         }
 
-        const width = this.huePickerBarEl.offsetWidth,
-            offsetX = Valid.range(mouseX - elOffset.left, 0, width),
+        const {scrollEl} = this.props,
+            {left} = Dom.getTotalScrollOffset(this.huePickerBarEl, scrollEl),
+            barWidth = this.huePickerBarEl.offsetWidth,
+            sliderWidth = this.huePickerSliderEl.offsetWidth,
+
+            halfSliderWidth = sliderWidth / 2,
+            width = barWidth - sliderWidth,
+
+            offsetX = Valid.range(mouseX - elOffset.left - halfSliderWidth + left, 0, width),
             perCent = offsetX / width,
-            value = perCent * 360;
+
+            value = Math.round(perCent * 360);
 
         this.setState({
             value
@@ -64,18 +99,11 @@ class HuePicker extends Component {
     componentDidMount() {
 
         this.huePickerBarEl = this.refs.huePickerBar;
+        this.huePickerSliderEl = this.refs.huePickerSlider;
 
         Event.addEvent(document, 'mousemove', this.mouseMoveHandler);
         Event.addEvent(document, 'mouseup', this.mouseUpHandler);
 
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
     }
 
     componentWillUnmount() {
@@ -83,34 +111,30 @@ class HuePicker extends Component {
         Event.removeEvent(document, 'mouseup', this.mouseUpHandler);
     }
 
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: Math.round(ComponentUtil.getDerivedState(props, state, 'value'))
+        };
+    }
+
     render() {
 
         const {className, style} = this.props,
-            {value} = this.state,
-
             pickerClassName = classNames('hue-picker', {
                 [className]: className
-            }),
-            pointerStyle = {
-                left: `${value / 360 * 100}%`
-            };
+            });
 
         return (
             <div className={pickerClassName}
                  style={style}>
-
                 <div ref="huePickerBar"
                      className="hue-picker-bar"
                      onMouseDown={this.mouseDownHandler}>
-
-                    <div className="hue-picker-pointer-wrapper"
-                         style={pointerStyle}>
-                        <i className="fas fa-caret-down hue-picker-pointer-top"></i>
-                        <i className="fas fa-caret-up hue-picker-pointer-bottom"></i>
-                    </div>
-
+                    <div ref="huePickerSlider"
+                         className="hue-picker-slider"
+                         style={{left: this.calcSliderLeft()}}></div>
                 </div>
-
             </div>
         );
 
@@ -134,12 +158,15 @@ HuePicker.propTypes = {
      */
     value: PropTypes.number,
 
+    scrollEl: PropTypes.object,
+
     onChange: PropTypes.func
 
 };
 
 HuePicker.defaultProps = {
-    value: 0
+    value: 0,
+    scrollEl: document.body
 };
 
 export default HuePicker;

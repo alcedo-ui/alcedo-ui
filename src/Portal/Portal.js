@@ -7,9 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {createPortal} from 'react-dom';
 import classNames from 'classnames';
-import addClass from 'dom-helpers/class/addClass';
-import removeClass from 'dom-helpers/class/removeClass';
-import portalManagement from 'src/_vendors/PortalManagement'
+import portalManagement from '../_vendors/PortalManagement';
 
 class Portal extends Component {
 
@@ -22,6 +20,10 @@ class Portal extends Component {
 
     }
 
+    /**
+     * render portal element to dom and return it
+     * @returns {*}
+     */
     renderWrapper = () => {
 
         if (this.wrapper) {
@@ -43,9 +45,6 @@ class Portal extends Component {
             return null;
         }
 
-        // addClass(parentEl, 'portal-parent');
-
-
         this.wrapper = document.createElement('div');
         this.wrapper.className = classNames('portal', {
             [className]: className
@@ -55,6 +54,7 @@ class Portal extends Component {
             this.wrapper[key] = restProps[key];
         }
 
+        // handle all portals in portalManagement
         portalManagement.push(parentEl, this.wrapper);
 
         return parentEl.appendChild(this.wrapper);
@@ -79,19 +79,22 @@ class Portal extends Component {
         const {parentEl} = this.props;
 
         if (this.wrapper && parentEl) {
+
             parentEl.removeChild(this.wrapper);
+
+            // handle all portals in portalManagement
             portalManagement.pop(parentEl, this.wrapper);
-            // removeClass(parentEl, 'portal-parent');
+
             this.wrapper = null;
+
         }
 
     };
 
-    componentWillReceiveProps(nextProps) {
-        if (!nextProps.visible) {
+    componentDidUpdate() {
+        if (!this.props.visible) {
             this.unmountWrapper();
         }
-
     }
 
     componentWillUnmount() {

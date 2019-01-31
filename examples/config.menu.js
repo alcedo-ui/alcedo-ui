@@ -322,10 +322,16 @@ export default [{
         text: 'LazyImage',
         route: '/components/LazyImage'
     }, {
+        text: 'ColorBlock',
+        route: '/components/ColorBlock'
+    }, {
         text: 'ColorPicker',
         route: '/components/ColorPicker'
     }, {
         text: 'HuePicker',
         route: '/components/HuePicker'
+    }, {
+        text: 'OpacityPicker',
+        route: '/components/OpacityPicker'
     }]
 }];

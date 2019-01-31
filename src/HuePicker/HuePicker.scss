@@ -4,42 +4,34 @@
  */
 
 .hue-picker {
-    width: 200px;
-    height: 20px;
-    padding: 10px 0;
+    width: 240px;
+    height: 16px;
 
     .hue-picker-bar {
-        height: 100%;
         position: relative;
+        height: 100%;
         background: linear-gradient(270deg, #f00, #ff0080, #f0f, #8000ff, #0021f5,
             #0080ff, #73fbfd, #00ff80, #75fa4c, #80ff00, #ff0, #ff8000, #f00);
         cursor: pointer;
 
-        .hue-picker-pointer-wrapper {
+        .hue-picker-slider {
             position: absolute;
-            left: 0;
             top: 0;
-            height: 20px;
+            left: 0;
+            box-sizing: border-box;
+            width: 8px;
+            height: 100%;
+            padding: 1px;
             user-select: none;
             pointer-events: none;
 
-            .hue-picker-pointer-top,
-            .hue-picker-pointer-bottom {
-                position: absolute;
-                color: $theme-field;
-                font-size: 12px;
-                width: 8px;
-                line-height: 6px;
-                text-align: center;
-                left: -4px;
-            }
-
-            .hue-picker-pointer-top {
-                top: -5px;
-            }
-
-            .hue-picker-pointer-bottom {
-                bottom: -5px;
+            &::after {
+                content: "";
+                display: block;
+                width: 100%;
+                height: 100%;
+                background: $theme-field-bg;
+                border-radius: 2px;
             }
         }
     }

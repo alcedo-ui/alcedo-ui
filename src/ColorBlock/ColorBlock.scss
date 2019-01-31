@@ -1,0 +1,21 @@
+/**
+ * @file ColorBlock style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+.color-block {
+    width: 24px;
+    height: 24px;
+    background: #eee;
+    background-image: linear-gradient(45deg, #ccc 25%, transparent 0),
+    linear-gradient(45deg, transparent 75%, #ccc 0),
+    linear-gradient(45deg, #ccc 25%, transparent 0),
+    linear-gradient(45deg, transparent 75%, #ccc 0);
+    background-size: 16px 16px;
+    background-position: 0 0, 8px 8px, 8px 8px, 16px 16px;
+
+    .color-block-overlay {
+        width: 100%;
+        height: 100%;
+    }
+}

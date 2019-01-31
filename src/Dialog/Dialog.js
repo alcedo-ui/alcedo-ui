@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Children, cloneElement, Component} from 'react';
+import React, {Children, cloneElement, Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -27,6 +27,13 @@ class Dialog extends Component {
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
     }
+
+    /**
+     * public
+     */
+    getEl = () => {
+        return this.refs.pop && this.refs.pop.getEl();
+    };
 
     okButtonClickHandler = () => {
 
@@ -123,6 +130,7 @@ class Dialog extends Component {
 
         return (
             <PositionPop {...restProps}
+                         ref="pop"
                          className={dialogClassName}
                          position={position}
                          visible={visible}
@@ -132,67 +140,80 @@ class Dialog extends Component {
                          onRender={this.renderHandler}
                          onDestroy={this.destroyHandler}>
 
-                <div className="dialog-title">
+                {
+                    popEl => (
+                        <Fragment>
 
-                    {title}
+                            <div className="dialog-title">
 
-                    {
-                        closeButtonVisible ?
-                            <IconButton className="dialog-title-close-button"
-                                        iconCls={closeIconCls}
-                                        disabled={disabled}
-                                        onClick={this.closeButtonClickHandler}/>
-                            :
-                            null
-                    }
+                                {title}
 
-                </div>
+                                {
+                                    closeButtonVisible ?
+                                        <IconButton className="dialog-title-close-button"
+                                                    iconCls={closeIconCls}
+                                                    disabled={disabled}
+                                                    onClick={this.closeButtonClickHandler}/>
+                                        :
+                                        null
+                                }
 
-                <div className="dialog-content">
-                    {children}
-                </div>
+                            </div>
 
-                <div className="dialog-buttons">
+                            <div className="dialog-content">
+                                {
+                                    typeof children === 'function' ?
+                                        children(popEl && popEl.querySelector('.dialog-content'), popEl)
+                                        :
+                                        children
+                                }
+                            </div>
 
-                    {
-                        buttons ?
-                            Children.map(buttons, button => cloneElement(button, {
-                                isLoading,
-                                disabled
-                            }))
-                            :
-                            null
-                    }
+                            <div className="dialog-buttons">
 
-                    {
-                        !buttons && okButtonVisible ?
-                            <RaisedButton className="ok-button"
-                                          value={okButtonText}
-                                          iconCls={okButtonIconCls}
-                                          theme={okButtonTheme}
-                                          disabled={okButtonDisabled}
-                                          isLoading={isLoading || okButtonIsLoading}
-                                          disableTouchRipple={true}
-                                          onClick={this.okButtonClickHandler}/>
-                            :
-                            null
-                    }
+                                {
+                                    buttons ?
+                                        Children.map(buttons, button => cloneElement(button, {
+                                            isLoading,
+                                            disabled
+                                        }))
+                                        :
+                                        null
+                                }
 
-                    {
-                        !buttons && cancelButtonVisible ?
-                            <FlatButton className="cancel-button"
-                                        value={cancelButtonText}
-                                        iconCls={cancelButtonIconCls}
-                                        theme={cancelButtonTheme}
-                                        disabled={cancelButtonDisabled}
-                                        isLoading={isLoading || cancelButtonIsLoading}
-                                        disableTouchRipple={true}
-                                        onClick={this.cancelButtonClickHandler}/>
-                            :
-                            null
-                    }
+                                {
+                                    !buttons && okButtonVisible ?
+                                        <RaisedButton className="ok-button"
+                                                      value={okButtonText}
+                                                      iconCls={okButtonIconCls}
+                                                      theme={okButtonTheme}
+                                                      disabled={okButtonDisabled}
+                                                      isLoading={isLoading || okButtonIsLoading}
+                                                      disableTouchRipple={true}
+                                                      onClick={this.okButtonClickHandler}/>
+                                        :
+                                        null
+                                }
 
-                </div>
+                                {
+                                    !buttons && cancelButtonVisible ?
+                                        <FlatButton className="cancel-button"
+                                                    value={cancelButtonText}
+                                                    iconCls={cancelButtonIconCls}
+                                                    theme={cancelButtonTheme}
+                                                    disabled={cancelButtonDisabled}
+                                                    isLoading={isLoading || cancelButtonIsLoading}
+                                                    disableTouchRipple={true}
+                                                    onClick={this.cancelButtonClickHandler}/>
+                                        :
+                                        null
+                                }
+
+                            </div>
+
+                        </Fragment>
+                    )
+                }
 
             </PositionPop>
         );

@@ -1,3 +1,5 @@
+import isEqual from 'lodash/isEqual';
+
 function getDerivedState(props, state, key) {
 
     if (!props || !state || !key) {
@@ -7,10 +9,10 @@ function getDerivedState(props, state, key) {
     const prevProps = state.prevProps;
 
     return prevProps ?
-        prevProps[key] !== props[key] ?
-            props[key]
-            :
+        isEqual(prevProps[key], props[key]) ?
             state[key]
+            :
+            props[key]
         :
         props[key];
 

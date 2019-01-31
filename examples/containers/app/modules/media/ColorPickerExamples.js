@@ -3,6 +3,8 @@ import React, {Component} from 'react';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import ColorPicker from 'src/ColorPicker';
+import ColorBlock from 'src/ColorBlock';
+import PopupProvider from 'src/PopupProvider';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/ColorPicker.json';
@@ -18,12 +20,12 @@ class ColorPickerExamples extends Component {
         super(props);
 
         this.state = {
-            value: Color.hex2rgb('38b1eb')
+            value: '38b1eb'
         };
 
     }
 
-    changeHandler = value => {
+    handleChange = value => {
         this.setState({
             value
         });
@@ -49,16 +51,49 @@ class ColorPickerExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <ColorPicker value={value}
-                                             onChange={this.changeHandler}/>
+                                <ColorPicker hue={Color.rgb2hsb(Color.hex2rgb('38b1eb'))[0]}
+                                             value={value}
+                                             onChange={this.handleChange}/>
 
                                 <div className="picked-color-wrapper">
+                                    <ColorBlock className="picked-color"
+                                                value={value}/>
+                                    <div className="picked-color-value">#{value}</div>
+                                </div>
 
-                                    <div className="picked-color"
-                                         style={{background: `rgb(${value.join(', ')})`}}></div>
+                            </div>
 
-                                    <div className="picked-color-value">{value.join(', ')}</div>
+                        </div>
+                    </div>
 
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Basic"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <div className="color-select-scroller-wrapper">
+                                    <div className="color-select-scroller">
+                                        <PopupProvider position={PopupProvider.Position.BOTTOM_LEFT}
+                                                       parentEl={document.querySelector('.color-select-scroller-wrapper')}
+                                                       popupContent={
+                                                           <ColorPicker hue={Color.rgb2hsb(Color.hex2rgb('38b1eb'))[0]}
+                                                                        value={value}
+                                                                        scrollEl={document.querySelector('.color-select-scroller-wrapper')}
+                                                                        onChange={this.handleChange}/>
+                                                       }>
+                                            <div>
+                                                <ColorBlock className="picked-color"
+                                                            value={value}/>
+                                                <div className="picked-color-value">#{value}</div>
+                                            </div>
+                                        </PopupProvider>
+                                    </div>
                                 </div>
 
                             </div>
