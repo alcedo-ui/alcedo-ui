@@ -5,7 +5,6 @@ import WidgetHeader from 'src/WidgetHeader';
 import CascaderSelect from 'src/CascaderSelect';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
-import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/CascaderSelect.json';
@@ -88,7 +87,6 @@ class CascaderSelectExamples extends Component {
 
         this.state = {
             CascaderSelectVisible: {},
-            triggerEl: {}
         };
 
     }
@@ -119,12 +117,6 @@ class CascaderSelectExamples extends Component {
 
     dialogRenderHandler = () => {
 
-        const triggerEl = this.state.triggerEl;
-        triggerEl[1] = findDOMNode(this.refs['trigger1']);
-
-        this.setState({
-            triggerEl
-        });
     };
 
     nodeClickHandler = (node) => {
@@ -149,7 +141,7 @@ class CascaderSelectExamples extends Component {
 
     render() {
 
-        const {CascaderSelectVisible, triggerEl} = this.state;
+        const {CascaderSelectVisible} = this.state;
 
         return (
             <div className="example cascader-select-examples">
@@ -240,31 +232,36 @@ class CascaderSelectExamples extends Component {
                                 <Dialog visible={CascaderSelectVisible[1]}
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
-                                    <div className="popover-dialog-content-scroller">
-                                        <CascaderSelect selectMode={CascaderSelect.SelectMode.MULTI_SELECT}
-                                                        data={this.data}
-                                                        parentEl={document.querySelector('.dialog-content')}
-                                                        triggerEl={triggerEl}
-                                                        tip="CascaderSelect Example"
-                                                        renderer={node => {
-                                                            return (
-                                                                <div className="self-define-node">
-                                                                    <span className="self-define-node-text">{node.text}</span>
-                                                                    {
-                                                                        node.children && node.children.length > 0 ?
-                                                                            <span className="self-define-node-desc">
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
+                                                <CascaderSelect selectMode={CascaderSelect.SelectMode.MULTI_SELECT}
+                                                                data={this.data}
+                                                                parentEl={dialogContentEl}
+                                                                tip="CascaderSelect Example"
+                                                                renderer={node => {
+                                                                    return (
+                                                                        <div className="self-define-node">
+                                                                            <span
+                                                                                className="self-define-node-text">{node.text}</span>
+                                                                            {
+                                                                                node.children && node.children.length > 0 ?
+                                                                                    <span
+                                                                                        className="self-define-node-desc">
                                                                         ({node.children.length})
                                                                     </span>
-                                                                            :
-                                                                            null
-                                                                    }
-                                                                </div>
-                                                            );
-                                                        }}
-                                                        onNodeClick={this.nodeClickHandler}
-                                                        onNodeSelect={this.nodeSelectHandler}
-                                                        onChange={this.changeHandler}/>
-                                    </div>
+                                                                                    :
+                                                                                    null
+                                                                            }
+                                                                        </div>
+                                                                    );
+                                                                }}
+                                                                onNodeClick={this.nodeClickHandler}
+                                                                onNodeSelect={this.nodeSelectHandler}
+                                                                onChange={this.changeHandler}/>
+                                            </div>
+                                    }
+
                                 </Dialog>
 
                             </div>

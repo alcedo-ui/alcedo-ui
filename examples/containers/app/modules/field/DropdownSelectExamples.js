@@ -10,8 +10,6 @@ import Dialog from 'src/Dialog';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/DropdownSelect.json';
 
-import {findDOMNode} from 'react-dom';
-
 import 'scss/containers/app/modules/field/DropdownSelectExamples.scss';
 
 
@@ -84,8 +82,7 @@ class DropdownSelectExamples extends Component {
             }];
 
         this.state = {
-            DropdownSelectVisible: {},
-            triggerEl: {}
+            DropdownSelectVisible: {}
         };
 
     }
@@ -116,12 +113,6 @@ class DropdownSelectExamples extends Component {
 
     dialogRenderHandler = () => {
 
-        const triggerEl = this.state.triggerEl;
-        triggerEl[1] = findDOMNode(this.refs['trigger1']);
-
-        this.setState({
-            triggerEl
-        });
     };
 
     onChange = value => {
@@ -130,7 +121,7 @@ class DropdownSelectExamples extends Component {
 
     render() {
 
-        const {DropdownSelectVisible, triggerEl} = this.state;
+        const {DropdownSelectVisible} = this.state;
 
         const data = ['a000', 'booo', {
             text: 'c000',
@@ -346,16 +337,19 @@ class DropdownSelectExamples extends Component {
                                 <Dialog visible={DropdownSelectVisible[1]}
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
-                                    <div className="popover-dialog-content-scroller">
-                                        <div className="field-group">
-                                            <DropdownSelect data={data}
-                                                            isHiddenInputFilter={true}
-                                                            parentEl={document.querySelector('.dialog-content')}
-                                                            triggerEl={triggerEl}
-                                                            tip="DropdownSelect Example"
-                                                            onChange={this.onChange}/>
-                                        </div>
-                                    </div>
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
+                                                <div className="field-group">
+                                                    <DropdownSelect data={data}
+                                                                    isHiddenInputFilter={true}
+                                                                    parentEl={dialogContentEl}
+                                                                    tip="DropdownSelect Example"
+                                                                    onChange={this.onChange}/>
+                                                </div>
+                                            </div>
+                                    }
+
                                 </Dialog>
 
                             </div>

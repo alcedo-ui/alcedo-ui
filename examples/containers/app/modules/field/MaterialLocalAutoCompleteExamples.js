@@ -5,7 +5,6 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
-import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/MaterialLocalAutoComplete.json';
@@ -38,8 +37,7 @@ class MaterialLocalAutoCompleteExamples extends Component {
         }, 'test7', 'test8', 'test9'];
 
         this.state = {
-            MaterialLocalAutoCompleteVisible: {},
-            triggerEl: {}
+            MaterialLocalAutoCompleteVisible: {}
         };
 
     }
@@ -70,12 +68,6 @@ class MaterialLocalAutoCompleteExamples extends Component {
 
     dialogRenderHandler = () => {
 
-        const triggerEl = this.state.triggerEl;
-        triggerEl[1] = findDOMNode(this.refs['trigger1']);
-
-        this.setState({
-            triggerEl
-        });
     };
 
     onChange = item => {
@@ -92,7 +84,7 @@ class MaterialLocalAutoCompleteExamples extends Component {
 
     render() {
 
-        const {MaterialLocalAutoCompleteVisible, triggerEl} = this.state;
+        const {MaterialLocalAutoCompleteVisible} = this.state;
         return (
             <div className="example auto-complete-examples">
 
@@ -149,20 +141,24 @@ class MaterialLocalAutoCompleteExamples extends Component {
                                 <Dialog visible={MaterialLocalAutoCompleteVisible[1]}
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
-                                    <div className="popover-dialog-content-scroller">
-                                        <div className="field-group">
-                                            <MaterialLocalAutoComplete theme={MaterialLocalAutoComplete.Theme.HIGHLIGHT}
-                                                                       filterInitValue={'test'}
-                                                                       data={this.data}
-                                                                       label="Label"
-                                                                       placeholder="Please select ..."
-                                                                       parentEl={document.querySelector('.dialog-content')}
-                                                                       triggerEl={triggerEl}
-                                                                       onChange={this.onChange}
-                                                                       onFilterPressEnter={this.filterPressEnterHandle}
-                                                                       onFilterClear={this.filterClearHandle}/>
-                                        </div>
-                                    </div>
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
+                                                <div className="field-group">
+                                                    <MaterialLocalAutoComplete
+                                                        theme={MaterialLocalAutoComplete.Theme.HIGHLIGHT}
+                                                        filterInitValue={'test'}
+                                                        data={this.data}
+                                                        label="Label"
+                                                        placeholder="Please select ..."
+                                                        parentEl={dialogContentEl}
+                                                        onChange={this.onChange}
+                                                        onFilterPressEnter={this.filterPressEnterHandle}
+                                                        onFilterClear={this.filterClearHandle}/>
+                                                </div>
+                                            </div>
+                                    }
+
                                 </Dialog>
 
 

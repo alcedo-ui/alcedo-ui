@@ -5,7 +5,6 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
-import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/MaterialEditableSelect.json';
@@ -67,8 +66,7 @@ class MaterialEditableSelectExamples extends Component {
         }];
 
         this.state = {
-            MaterialEditableSelectVisible: {},
-            triggerEl: {}
+            MaterialEditableSelectVisible: {}
         };
 
     }
@@ -99,12 +97,6 @@ class MaterialEditableSelectExamples extends Component {
 
     dialogRenderHandler = () => {
 
-        const triggerEl = this.state.triggerEl;
-        triggerEl[1] = findDOMNode(this.refs['trigger1']);
-
-        this.setState({
-            triggerEl
-        });
     };
 
     onChange = value => {
@@ -113,7 +105,7 @@ class MaterialEditableSelectExamples extends Component {
 
     render() {
 
-        const {MaterialEditableSelectVisible, triggerEl} = this.state;
+        const {MaterialEditableSelectVisible} = this.state;
         return (
             <div className="example edit-able-select-examples">
 
@@ -200,21 +192,24 @@ class MaterialEditableSelectExamples extends Component {
                                 <Dialog visible={MaterialEditableSelectVisible[1]}
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
 
-                                    <div className="popover-dialog-content-scroller">
+                                                <div className="field-group">
 
-                                        <div className="field-group">
+                                                    <MaterialEditableSelect data={this.data}
+                                                                            label="MaterialEditableSelect"
+                                                                            parentEl={dialogContentEl}
+                                                                            onChange={this.onChange}
+                                                                            autoClose={false}
+                                                                            useFilter={true}/>
 
-                                            <MaterialEditableSelect data={this.data}
-                                                                    label="MaterialEditableSelect"
-                                                                    parentEl={document.querySelector('.dialog-content')}
-                                                                    triggerEl={triggerEl}
-                                                                    onChange={this.onChange}
-                                                                    autoClose={false}
-                                                                    useFilter={true}/>
+                                                </div>
+                                            </div>
+                                    }
 
-                                        </div>
-                                    </div>
+
                                 </Dialog>
 
 

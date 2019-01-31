@@ -5,7 +5,6 @@ import WidgetHeader from 'src/WidgetHeader';
 import MaterialDropdownSelect from 'src/MaterialDropdownSelect';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
-import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import MaterialDropdownSelectDoc from 'examples/assets/propTypes/MaterialDropdownSelect.json';
@@ -36,8 +35,7 @@ class MaterialDropdownSelectExamples extends Component {
         }, 'test7', 'test8', 'test9'];
 
         this.state = {
-            MaterialDropdownSelectVisible: {},
-            triggerEl: {}
+            MaterialDropdownSelectVisible: {}
         };
 
     }
@@ -68,12 +66,6 @@ class MaterialDropdownSelectExamples extends Component {
 
     dialogRenderHandler = () => {
 
-        const triggerEl = this.state.triggerEl;
-        triggerEl[1] = findDOMNode(this.refs['trigger1']);
-
-        this.setState({
-            triggerEl
-        });
     };
 
     onChangeHandle = value => {
@@ -84,7 +76,7 @@ class MaterialDropdownSelectExamples extends Component {
 
     render() {
 
-        const {MaterialDropdownSelectVisible, triggerEl} = this.state;
+        const {MaterialDropdownSelectVisible} = this.state;
         return (
             <div className="example material-dropdown-select-examples">
 
@@ -146,20 +138,24 @@ class MaterialDropdownSelectExamples extends Component {
                                 <Dialog visible={MaterialDropdownSelectVisible[1]}
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
-                                    <div className="popover-dialog-content-scroller">
-                                        <div className="field-group">
-                                            <MaterialDropdownSelect theme={MaterialDropdownSelect.Theme.HIGHLIGHT}
-                                                                    label="Label"
-                                                                    placeholder="Placeholder"
-                                                                    selectMode={MaterialDropdownSelect.SelectMode.MULTI_SELECT}
-                                                                    parentEl={document.querySelector('.dialog-content')}
-                                                                    triggerEl={triggerEl}
-                                                                    useSelectAll={true}
-                                                                    autoClose={false}
-                                                                    data={this.data}
-                                                                    tip="MaterialDropdownSelect Example"/>
-                                        </div>
-                                    </div>
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
+                                                <div className="field-group">
+                                                    <MaterialDropdownSelect
+                                                        theme={MaterialDropdownSelect.Theme.HIGHLIGHT}
+                                                        label="Label"
+                                                        placeholder="Placeholder"
+                                                        selectMode={MaterialDropdownSelect.SelectMode.MULTI_SELECT}
+                                                        parentEl={dialogContentEl}
+                                                        useSelectAll={true}
+                                                        autoClose={false}
+                                                        data={this.data}
+                                                        tip="MaterialDropdownSelect Example"/>
+                                                </div>
+                                            </div>
+                                    }
+
                                 </Dialog>
 
                             </div>

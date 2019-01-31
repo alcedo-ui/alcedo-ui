@@ -5,7 +5,6 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
-import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/EditableSelect.json';
@@ -69,7 +68,6 @@ class EditableSelectExamples extends Component {
 
         this.state = {
             EditableSelectVisible: {},
-            triggerEl: {}
         };
     }
 
@@ -99,12 +97,6 @@ class EditableSelectExamples extends Component {
 
     dialogRenderHandler = () => {
 
-        const triggerEl = this.state.triggerEl;
-        triggerEl[1] = findDOMNode(this.refs['trigger1']);
-
-        this.setState({
-            triggerEl
-        });
     };
 
     onChange = value => {
@@ -113,7 +105,7 @@ class EditableSelectExamples extends Component {
 
     render() {
 
-        const {EditableSelectVisible, triggerEl} = this.state;
+        const {EditableSelectVisible} = this.state;
         return (
             <div className="example editable-select-examples">
 
@@ -203,17 +195,20 @@ class EditableSelectExamples extends Component {
                                 <Dialog visible={EditableSelectVisible[1]}
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
-                                    <div className="popover-dialog-content-scroller">
-                                        <div className="field-group">
-                                            <EditableSelect data={[]}
-                                                            onChange={this.onChange}
-                                                            valueField={'text'}
-                                                            parentEl={document.querySelector('.dialog-content')}
-                                                            triggerEl={triggerEl}
-                                                            useFilter={true}/>
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
+                                                <div className="field-group">
+                                                    <EditableSelect data={[]}
+                                                                    onChange={this.onChange}
+                                                                    valueField={'text'}
+                                                                    parentEl={dialogContentEl}
+                                                                    useFilter={true}/>
 
-                                        </div>
-                                    </div>
+                                                </div>
+                                            </div>
+                                    }
+
                                 </Dialog>
 
                             </div>

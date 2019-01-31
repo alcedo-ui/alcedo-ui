@@ -6,8 +6,6 @@ import WidgetHeader from 'src/WidgetHeader';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
 
-import {findDOMNode} from 'react-dom';
-
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/EditableField.json';
 
@@ -25,8 +23,7 @@ class EditableFieldExamples extends Component {
         this.state = {
             value: 'text',
             disabled: false,
-            EditableFieldSelectVisible: {},
-            triggerEl: {}
+            EditableFieldSelectVisible: {}
         };
     }
 
@@ -56,12 +53,6 @@ class EditableFieldExamples extends Component {
 
     dialogRenderHandler = () => {
 
-        const triggerEl = this.state.triggerEl;
-        triggerEl[1] = findDOMNode(this.refs['trigger1']);
-
-        this.setState({
-            triggerEl
-        });
     };
 
     onClick = e => {
@@ -99,7 +90,7 @@ class EditableFieldExamples extends Component {
 
     render() {
 
-        const {EditableFieldSelectVisible, triggerEl} = this.state;
+        const {EditableFieldSelectVisible} = this.state;
         return (
             <div className="example editable-field-examples">
 
@@ -202,14 +193,17 @@ class EditableFieldExamples extends Component {
                                 <Dialog visible={EditableFieldSelectVisible[1]}
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
-                                    <div className="popover-dialog-content-scroller">
-                                        <EditableField value={this.state.value}
-                                                       onBlur={this.onBlur}
-                                                       maxLength={5}
-                                                       parentEl={document.querySelector('.dialog-content')}
-                                                       triggerEl={triggerEl}
-                                                       tip="this is a tip"/>
-                                    </div>
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
+                                                <EditableField value={this.state.value}
+                                                               onBlur={this.onBlur}
+                                                               maxLength={5}
+                                                               parentEl={dialogContentEl}
+                                                               tip="this is a tip"/>
+                                            </div>
+                                    }
+
                                 </Dialog>
 
                             </div>

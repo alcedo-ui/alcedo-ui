@@ -5,7 +5,6 @@ import WidgetHeader from 'src/WidgetHeader';
 import MaterialTreeSelect from 'src/MaterialTreeSelect';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
-import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/MaterialTreeSelect.json';
@@ -52,8 +51,7 @@ class MaterialTreeSelectExamples extends Component {
         };
 
         this.state = {
-            MaterialTreeSelectVisible: {},
-            triggerEl: {}
+            MaterialTreeSelectVisible: {}
         };
 
     }
@@ -84,12 +82,6 @@ class MaterialTreeSelectExamples extends Component {
 
     dialogRenderHandler = () => {
 
-        const triggerEl = this.state.triggerEl;
-        triggerEl[1] = findDOMNode(this.refs['trigger1']);
-
-        this.setState({
-            triggerEl
-        });
     };
 
     onChangeHandler = value => {
@@ -98,7 +90,7 @@ class MaterialTreeSelectExamples extends Component {
 
     render() {
 
-        const {MaterialTreeSelectVisible, triggerEl} = this.state;
+        const {MaterialTreeSelectVisible} = this.state;
         return (
             <div className="example material-tree-select-examples">
 
@@ -195,27 +187,30 @@ class MaterialTreeSelectExamples extends Component {
                                 <Dialog visible={MaterialTreeSelectVisible[1]}
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
-                                    <div className="popover-dialog-content-scroller">
-                                        <div className="field-group">
-                                            <MaterialTreeSelect theme={MaterialTreeSelect.Theme.HIGHLIGHT}
-                                                                label="Label"
-                                                                placeholder="Placeholder"
-                                                                selectMode={MaterialTreeSelect.SelectMode.MULTI_SELECT}
-                                                                autoClose={false}
-                                                                data={this.data}
-                                                                isSelectRecursive={true}
-                                                                useFilter={true}
-                                                                parentEl={document.querySelector('.dialog-content')}
-                                                                triggerEl={triggerEl}
-                                                                collapsedIconCls="far fa-plus-square"
-                                                                expandedIconCls="far fa-minus-square"
-                                                                checkboxUncheckedIconCls="far fa-circle"
-                                                                checkboxCheckedIconCls="fas fa-check-circle"
-                                                                checkboxIndeterminateIconCls="fas fa-minus-circle"
-                                                                tip="MaterialTreeSelect Example"
-                                                                onChange={this.onChangeHandler}/>
-                                        </div>
-                                    </div>
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
+                                                <div className="field-group">
+                                                    <MaterialTreeSelect theme={MaterialTreeSelect.Theme.HIGHLIGHT}
+                                                                        label="Label"
+                                                                        placeholder="Placeholder"
+                                                                        selectMode={MaterialTreeSelect.SelectMode.MULTI_SELECT}
+                                                                        autoClose={false}
+                                                                        data={this.data}
+                                                                        isSelectRecursive={true}
+                                                                        useFilter={true}
+                                                                        parentEl={dialogContentEl}
+                                                                        collapsedIconCls="far fa-plus-square"
+                                                                        expandedIconCls="far fa-minus-square"
+                                                                        checkboxUncheckedIconCls="far fa-circle"
+                                                                        checkboxCheckedIconCls="fas fa-check-circle"
+                                                                        checkboxIndeterminateIconCls="fas fa-minus-circle"
+                                                                        tip="MaterialTreeSelect Example"
+                                                                        onChange={this.onChangeHandler}/>
+                                                </div>
+                                            </div>
+                                    }
+
                                 </Dialog>
 
                             </div>

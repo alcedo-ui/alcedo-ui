@@ -5,7 +5,6 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
-import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/ButtonRadioGroup.json';
@@ -41,8 +40,7 @@ class ButtonRadioGroupExamples extends Component {
         }];
 
         this.state = {
-            ButtonRadioGroupVisible: {},
-            triggerEl: {}
+            ButtonRadioGroupVisible: {}
         };
 
     }
@@ -73,12 +71,6 @@ class ButtonRadioGroupExamples extends Component {
 
     dialogRenderHandler = () => {
 
-        const triggerEl = this.state.triggerEl;
-        triggerEl[1] = findDOMNode(this.refs['trigger1']);
-
-        this.setState({
-            triggerEl
-        });
     };
 
     changeHandler = value => {
@@ -87,7 +79,7 @@ class ButtonRadioGroupExamples extends Component {
 
     render() {
 
-        const {ButtonRadioGroupVisible, triggerEl} = this.state;
+        const {ButtonRadioGroupVisible} = this.state;
         return (
             <div className="example button-radio-group-examples">
 
@@ -142,13 +134,15 @@ class ButtonRadioGroupExamples extends Component {
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
 
-                                    <div className="popover-dialog-content-scroller">
-                                        <ButtonRadioGroup data={this.data}
-                                                          parentEl={document.querySelector('.dialog-content')}
-                                                          triggerEl={triggerEl}
-                                                          value={1}
-                                                          onChange={this.changeHandler}/>
-                                    </div>
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
+                                                <ButtonRadioGroup data={this.data}
+                                                                  parentEl={dialogContentEl}
+                                                                  value={1}
+                                                                  onChange={this.changeHandler}/>
+                                            </div>
+                                    }
 
                                 </Dialog>
 

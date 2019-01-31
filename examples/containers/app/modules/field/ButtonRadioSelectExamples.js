@@ -9,8 +9,6 @@ import Dialog from 'src/Dialog';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/ButtonRadioSelect.json';
 
-import {findDOMNode} from 'react-dom';
-
 import 'scss/containers/app/modules/field/ButtonRadioSelectExamples.scss';
 
 
@@ -39,8 +37,7 @@ class ButtonRadioSelectExamples extends Component {
         }];
 
         this.state = {
-            ButtonRadioSelectVisible: {},
-            triggerEl: {}
+            ButtonRadioSelectVisible: {}
         };
 
     }
@@ -71,12 +68,6 @@ class ButtonRadioSelectExamples extends Component {
 
     dialogRenderHandler = () => {
 
-        const triggerEl = this.state.triggerEl;
-        triggerEl[1] = findDOMNode(this.refs['trigger1']);
-
-        this.setState({
-            triggerEl
-        });
     };
 
     changeHandler = value => {
@@ -85,7 +76,7 @@ class ButtonRadioSelectExamples extends Component {
 
     render() {
 
-        const {ButtonRadioSelectVisible, triggerEl} = this.state;
+        const {ButtonRadioSelectVisible} = this.state;
 
         return (
             <div className="example button-radio-select-examples">
@@ -141,14 +132,17 @@ class ButtonRadioSelectExamples extends Component {
                                 <Dialog visible={ButtonRadioSelectVisible[1]}
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
-                                    <div className="popover-dialog-content-scroller">
-                                        <ButtonRadioSelect popupClassName="button-radio-select-example-pop"
-                                                           data={this.data}
-                                                           value={this.data[0]}
-                                                           parentEl={document.querySelector('.dialog-content')}
-                                                           triggerEl={triggerEl}
-                                                           onChange={this.changeHandler}/>
-                                    </div>
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
+                                                <ButtonRadioSelect popupClassName="button-radio-select-example-pop"
+                                                                   data={this.data}
+                                                                   value={this.data[0]}
+                                                                   parentEl={dialogContentEl}
+                                                                   onChange={this.changeHandler}/>
+                                            </div>
+                                    }
+
                                 </Dialog>
 
                             </div>

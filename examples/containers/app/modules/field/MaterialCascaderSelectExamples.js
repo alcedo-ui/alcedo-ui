@@ -5,7 +5,6 @@ import WidgetHeader from 'src/WidgetHeader';
 import MaterialCascaderSelect from 'src/MaterialCascaderSelect';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
-import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/MaterialCascaderSelect.json';
@@ -87,8 +86,7 @@ class MaterialCascaderSelectExamples extends Component {
         }];
 
         this.state = {
-            MaterialCascaderSelectVisible: {},
-            triggerEl: {}
+            MaterialCascaderSelectVisible: {}
         };
 
     }
@@ -119,12 +117,6 @@ class MaterialCascaderSelectExamples extends Component {
 
     dialogRenderHandler = () => {
 
-        const triggerEl = this.state.triggerEl;
-        triggerEl[1] = findDOMNode(this.refs['trigger1']);
-
-        this.setState({
-            triggerEl
-        });
     };
 
     onChangeHandler = value => {
@@ -133,7 +125,7 @@ class MaterialCascaderSelectExamples extends Component {
 
     render() {
 
-        const {MaterialCascaderSelectVisible, triggerEl} = this.state;
+        const {MaterialCascaderSelectVisible} = this.state;
         return (
             <div className="example material-cascader-select-examples">
 
@@ -242,42 +234,46 @@ class MaterialCascaderSelectExamples extends Component {
                                 <Dialog visible={MaterialCascaderSelectVisible[1]}
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
-                                    <div className="popover-dialog-content-scroller">
-                                        <div className="field-group">
-                                            <MaterialCascaderSelect theme={MaterialCascaderSelect.Theme.HIGHLIGHT}
-                                                                    label="Label"
-                                                                    placeholder="Placeholder"
-                                                                    selectMode={MaterialCascaderSelect.SelectMode.MULTI_SELECT}
-                                                                    position={MaterialCascaderSelect.Position.BOTTOM_RIGHT}
-                                                                    expandDirection={MaterialCascaderSelect.ExpandDirection.LEFT}
-                                                                    autoClose={false}
-                                                                    data={this.data}
-                                                                    parentEl={document.querySelector('.dialog-content')}
-                                                                    triggerEl={triggerEl}
-                                                                    tip="MaterialCascaderSelect Example"
-                                                                    renderer={node => {
-                                                                        return (
-                                                                            <div className="self-define-node">
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
+                                                <div className="field-group">
+                                                    <MaterialCascaderSelect
+                                                        theme={MaterialCascaderSelect.Theme.HIGHLIGHT}
+                                                        label="Label"
+                                                        placeholder="Placeholder"
+                                                        selectMode={MaterialCascaderSelect.SelectMode.MULTI_SELECT}
+                                                        position={MaterialCascaderSelect.Position.BOTTOM_RIGHT}
+                                                        expandDirection={MaterialCascaderSelect.ExpandDirection.LEFT}
+                                                        autoClose={false}
+                                                        data={this.data}
+                                                        parentEl={dialogContentEl}
+                                                        tip="MaterialCascaderSelect Example"
+                                                        renderer={node => {
+                                                            return (
+                                                                <div className="self-define-node">
                                                                         <span
                                                                             className="self-define-node-text">{node.text}</span>
-                                                                                {
-                                                                                    node.children && node.children.length > 0 ?
-                                                                                        <span
-                                                                                            className="self-define-node-desc">
+                                                                    {
+                                                                        node.children && node.children.length > 0 ?
+                                                                            <span
+                                                                                className="self-define-node-desc">
                                                                                     ({node.children.length})
                                                                                 </span>
-                                                                                        :
-                                                                                        null
-                                                                                }
-                                                                            </div>
-                                                                        );
-                                                                    }}
-                                                                    checkboxUncheckedIconCls="far fa-circle"
-                                                                    checkboxCheckedIconCls="fas fa-check-circle"
-                                                                    checkboxIndeterminateIconCls="fas fa-minus-circle"
-                                                                    onChange={this.onChangeHandler}/>
-                                        </div>
-                                    </div>
+                                                                            :
+                                                                            null
+                                                                    }
+                                                                </div>
+                                                            );
+                                                        }}
+                                                        checkboxUncheckedIconCls="far fa-circle"
+                                                        checkboxCheckedIconCls="fas fa-check-circle"
+                                                        checkboxIndeterminateIconCls="fas fa-minus-circle"
+                                                        onChange={this.onChangeHandler}/>
+                                                </div>
+                                            </div>
+                                    }
+
                                 </Dialog>
 
 

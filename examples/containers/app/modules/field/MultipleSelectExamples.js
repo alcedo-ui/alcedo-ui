@@ -5,7 +5,6 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
-import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/MultipleSelect.json';
@@ -86,7 +85,6 @@ class MultipleSelectExamples extends Component {
 
         this.state = {
             MultipleSelectVisible: {},
-            triggerEl: {}
         };
 
     }
@@ -117,12 +115,6 @@ class MultipleSelectExamples extends Component {
 
     dialogRenderHandler = () => {
 
-        const triggerEl = this.state.triggerEl;
-        triggerEl[1] = findDOMNode(this.refs['trigger1']);
-
-        this.setState({
-            triggerEl
-        });
     };
 
     onChangeHandler = value => {
@@ -137,7 +129,7 @@ class MultipleSelectExamples extends Component {
 
     render() {
 
-        const {value, MultipleSelectVisible, triggerEl} = this.state;
+        const {value, MultipleSelectVisible} = this.state;
 
         return (
             <div className="example multiple-select-examples">
@@ -219,16 +211,18 @@ class MultipleSelectExamples extends Component {
                                 <Dialog visible={MultipleSelectVisible[1]}
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
-                                    <div className="popover-dialog-content-scroller">
-                                        <div className="field-group">
-                                            <label className="multiple-select-label">Number</label>
-                                            <MultipleSelect isGrouped={true}
-                                                            parentEl={document.querySelector('.dialog-content')}
-                                                            triggerEl={triggerEl}
-                                                            data={this.groupedData}/>
-                                        </div>
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
+                                                <div className="field-group">
+                                                    <label className="multiple-select-label">Number</label>
+                                                    <MultipleSelect isGrouped={true}
+                                                                    parentEl={dialogContentEl}
+                                                                    data={this.groupedData}/>
+                                                </div>
+                                            </div>
+                                    }
 
-                                    </div>
                                 </Dialog>
 
 
