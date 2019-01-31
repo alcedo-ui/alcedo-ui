@@ -33,7 +33,11 @@ class TriggerPop extends Component {
         return this.refs.pop && this.refs.pop.getEl();
     };
 
-    resetPosition = (transitionEl) => {
+    /**
+     * reset pop position
+     * @param transitionEl
+     */
+    resetPosition = transitionEl => {
         const {parentEl, triggerEl, position, isTriggerPositionFixed} = this.props;
         TriggerPopCalculation.setStyle(parentEl, triggerEl, transitionEl, position, isTriggerPositionFixed);
     };
@@ -76,7 +80,7 @@ class TriggerPop extends Component {
                  onWheel={e => Event.wheelHandler(e, this.props)}
                  resetPosition={this.resetPosition}>
                 {
-                    popEl =>
+                    popEl => (
                         <Fragment>
 
                             {
@@ -92,8 +96,9 @@ class TriggerPop extends Component {
                                  onWheel={e => Event.wheelHandler(e, this.props)}>
                                 {typeof children === 'function' ? children(popEl) : children}
                             </div>
-                            
+
                         </Fragment>
+                    )
                 }
             </Pop>
         );
