@@ -5,12 +5,11 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
-import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/IconAnchor.json';
 
-import 'scss/containers/app/modules/anchor/IconAnchorExamples.scss'
+import 'scss/containers/app/modules/anchor/IconAnchorExamples.scss';
 
 
 class IconAnchorExamples extends Component {
@@ -18,8 +17,7 @@ class IconAnchorExamples extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            IncoAnchorVisible: {},
-            triggerEl: {}
+            IncoAnchorVisible: {}
         };
 
     }
@@ -50,17 +48,11 @@ class IconAnchorExamples extends Component {
 
     dialogRenderHandler = () => {
 
-        const triggerEl = this.state.triggerEl;
-        triggerEl[1] = findDOMNode(this.refs['trigger1']);
-
-        this.setState({
-            triggerEl
-        });
     };
 
     render() {
 
-        const {IncoAnchorVisible, triggerEl} = this.state;
+        const {IncoAnchorVisible} = this.state;
 
         return (
             <div className="example icon-anchor-examples">
@@ -214,32 +206,33 @@ class IconAnchorExamples extends Component {
                                 <Dialog visible={IncoAnchorVisible[1]}
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
-                                    <div className="popover-dialog-content-scroller">
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
 
-                                        <IconAnchor iconCls="fab fa-github"
-                                                    style={{fontSize: '14px'}}
-                                                    className="github-icon"
-                                                    parentEl={document.querySelector('.dialog-content')}
-                                                    triggerEl={triggerEl}
-                                                    tip="Github"/>
+                                                <IconAnchor iconCls="fab fa-github"
+                                                            style={{fontSize: '14px'}}
+                                                            className="github-icon"
+                                                            parentEl={dialogContentEl}
+                                                            tip="Github"/>
 
-                                        <IconAnchor iconCls="fab fa-github"
-                                                    style={{fontSize: '14px'}}
-                                                    className="github-icon"
-                                                    href="https://github.com/alcedo-ui/alcedo-ui"
-                                                    parentEl={document.querySelector('.dialog-content')}
-                                                    triggerEl={triggerEl}
-                                                    tip="Github"/>
+                                                <IconAnchor iconCls="fab fa-github"
+                                                            style={{fontSize: '14px'}}
+                                                            className="github-icon"
+                                                            href="https://github.com/alcedo-ui/alcedo-ui"
+                                                            parentEl={dialogContentEl}
+                                                            tip="Github"/>
 
-                                        <IconAnchor iconCls="fab fa-github"
-                                                    style={{fontSize: '14px'}}
-                                                    className="github-icon"
-                                                    href="https://github.com/alcedo-ui/alcedo-ui"
-                                                    parentEl={document.querySelector('.dialog-content')}
-                                                    triggerEl={triggerEl}
-                                                    tip="Github"/>
+                                                <IconAnchor iconCls="fab fa-github"
+                                                            style={{fontSize: '14px'}}
+                                                            className="github-icon"
+                                                            href="https://github.com/alcedo-ui/alcedo-ui"
+                                                            parentEl={dialogContentEl}
+                                                            tip="Github"/>
 
-                                    </div>
+                                            </div>
+                                    }
+
 
                                 </Dialog>
 

@@ -5,7 +5,6 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
-import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/IconButton.json';
@@ -17,8 +16,7 @@ class IconButtonExamples extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            IcontButtonVisible: {},
-            triggerEl: {}
+            IcontButtonVisible: {}
         };
 
     }
@@ -49,17 +47,11 @@ class IconButtonExamples extends Component {
 
     dialogRenderHandler = () => {
 
-        const triggerEl = this.state.triggerEl;
-        triggerEl[1] = findDOMNode(this.refs['trigger1']);
-
-        this.setState({
-            triggerEl
-        });
     };
 
     render() {
 
-        const {IcontButtonVisible, triggerEl} = this.state;
+        const {IcontButtonVisible} = this.state;
 
         return (
             <div className="example icon-button-examples">
@@ -151,24 +143,24 @@ class IconButtonExamples extends Component {
                                 <Dialog visible={IcontButtonVisible[1]}
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
-                                    <div className="popover-dialog-content-scroller">
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
 
-                                        <IconButton iconCls="fas fa-plus"
-                                                    parentEl={document.querySelector('.dialog-content')}
-                                                    triggerEl={triggerEl}
-                                                    tip="Add"/>
+                                                <IconButton iconCls="fas fa-plus"
+                                                            parentEl={dialogContentEl}
+                                                            tip="Add"/>
 
-                                        <IconButton iconCls="fas fa-trash-alt"
-                                                    parentEl={document.querySelector('.dialog-content')}
-                                                    triggerEl={triggerEl}
-                                                    tip="Delete"/>
+                                                <IconButton iconCls="fas fa-trash-alt"
+                                                            parentEl={dialogContentEl}
+                                                            tip="Delete"/>
 
-                                        <IconButton iconCls="fas fa-wrench"
-                                                    parentEl={document.querySelector('.dialog-content')}
-                                                    triggerEl={triggerEl}
-                                                    tip="Tool"/>
+                                                <IconButton iconCls="fas fa-wrench"
+                                                            parentEl={dialogContentEl}
+                                                            tip="Tool"/>
 
-                                    </div>
+                                            </div>
+                                    }
 
                                 </Dialog>
 

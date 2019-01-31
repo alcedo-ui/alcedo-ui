@@ -5,7 +5,6 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
-import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/FlatButton.json';
@@ -18,8 +17,7 @@ class FlatButtonExamples extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            FlatButtonVisible: {},
-            triggerEl: {}
+            FlatButtonVisible: {}
         };
 
     }
@@ -50,17 +48,11 @@ class FlatButtonExamples extends Component {
 
     dialogRenderHandler = () => {
 
-        const triggerEl = this.state.triggerEl;
-        triggerEl[1] = findDOMNode(this.refs['trigger1']);
-
-        this.setState({
-            triggerEl
-        });
     };
 
     render() {
 
-        const {FlatButtonVisible, triggerEl} = this.state;
+        const {FlatButtonVisible} = this.state;
 
         return (
             <div className="example flat-button-examples">
@@ -274,66 +266,58 @@ class FlatButtonExamples extends Component {
                                 <Dialog visible={FlatButtonVisible[1]}
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
-                                    <div className="popover-dialog-content-scroller">
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
 
-                                        <FlatButton value="Default"
-                                                    parentEl={document.querySelector('.dialog-content')}
-                                                    triggerEl={triggerEl}
-                                                    tip="Default"/>
+                                                <FlatButton value="Default"
+                                                            parentEl={dialogContentEl}
+                                                            tip="Default"/>
 
-                                        <FlatButton value="Primary"
-                                                    tip="Primary"
-                                                    parentEl={document.querySelector('.dialog-content')}
-                                                    triggerEl={triggerEl}
-                                                    theme={FlatButton.Theme.PRIMARY}/>
+                                                <FlatButton value="Primary"
+                                                            tip="Primary"
+                                                            parentEl={dialogContentEl}
+                                                            theme={FlatButton.Theme.PRIMARY}/>
 
-                                        <FlatButton value="Secondary"
-                                                    tip="Secondary"
-                                                    parentEl={document.querySelector('.dialog-content')}
-                                                    triggerEl={triggerEl}
-                                                    theme={FlatButton.Theme.SECONDARY}/>
+                                                <FlatButton value="Secondary"
+                                                            tip="Secondary"
+                                                            parentEl={dialogContentEl}
+                                                            theme={FlatButton.Theme.SECONDARY}/>
 
-                                        <FlatButton value="Highlight"
-                                                    tip="Highlight"
-                                                    parentEl={document.querySelector('.dialog-content')}
-                                                    triggerEl={triggerEl}
-                                                    theme={FlatButton.Theme.HIGHLIGHT}/>
+                                                <FlatButton value="Highlight"
+                                                            tip="Highlight"
+                                                            parentEl={dialogContentEl}
+                                                            theme={FlatButton.Theme.HIGHLIGHT}/>
 
-                                        <FlatButton value="Info"
-                                                    tip="Info"
-                                                    parentEl={document.querySelector('.dialog-content')}
-                                                    triggerEl={triggerEl}
-                                                    theme={FlatButton.Theme.INFO}/>
+                                                <FlatButton value="Info"
+                                                            tip="Info"
+                                                            parentEl={dialogContentEl}
+                                                            theme={FlatButton.Theme.INFO}/>
 
-                                        <FlatButton value="Success"
-                                                    tip="Success"
-                                                    parentEl={document.querySelector('.dialog-content')}
-                                                    triggerEl={triggerEl}
-                                                    theme={FlatButton.Theme.SUCCESS}/>
+                                                <FlatButton value="Success"
+                                                            tip="Success"
+                                                            parentEl={dialogContentEl}
+                                                            theme={FlatButton.Theme.SUCCESS}/>
 
-                                        <FlatButton value="Warning"
-                                                    tip="Warning"
-                                                    parentEl={document.querySelector('.dialog-content')}
-                                                    triggerEl={triggerEl}
-                                                    theme={FlatButton.Theme.WARNING}/>
+                                                <FlatButton value="Warning"
+                                                            tip="Warning"
+                                                            parentEl={dialogContentEl}
+                                                            theme={FlatButton.Theme.WARNING}/>
 
-                                        <FlatButton value="Error"
-                                                    tip="Error"
-                                                    parentEl={document.querySelector('.dialog-content')}
-                                                    triggerEl={triggerEl}
-                                                    theme={FlatButton.Theme.ERROR}/>
+                                                <FlatButton value="Error"
+                                                            tip="Error"
+                                                            parentEl={dialogContentEl}
+                                                            theme={FlatButton.Theme.ERROR}/>
 
-                                        <FlatButton value="Disabled"
-                                                    tip="Disabled"
-                                                    parentEl={document.querySelector('.dialog-content')}
-                                                    triggerEl={triggerEl}
-                                                    disabled={true}/>
+                                                <FlatButton value="Disabled"
+                                                            tip="Disabled"
+                                                            parentEl={dialogContentEl}
+                                                            disabled={true}/>
 
-                                    </div>
+                                            </div>
+                                    }
 
                                 </Dialog>
-
-
 
                             </div>
 

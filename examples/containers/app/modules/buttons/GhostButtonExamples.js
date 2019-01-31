@@ -5,7 +5,6 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
-import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/GhostButton.json';
@@ -17,8 +16,7 @@ class GhostButtonExamples extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            GhostButtonVisible: {},
-            triggerEl: {}
+            GhostButtonVisible: {}
         };
 
     }
@@ -49,17 +47,11 @@ class GhostButtonExamples extends Component {
 
     dialogRenderHandler = () => {
 
-        const triggerEl = this.state.triggerEl;
-        triggerEl[1] = findDOMNode(this.refs['trigger1']);
-
-        this.setState({
-            triggerEl
-        });
     };
 
     render() {
 
-        const {GhostButtonVisible, triggerEl} = this.state;
+        const {GhostButtonVisible} = this.state;
 
         return (
             <div className="example ghost-button-examples">
@@ -259,57 +251,52 @@ class GhostButtonExamples extends Component {
                                 <Dialog visible={GhostButtonVisible[1]}
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
-                                    <div className="popover-dialog-content-scroller">
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
 
-                                        <GhostButton value="Primary"
-                                                     tip="Primary"
-                                                     parentEl={document.querySelector('.dialog-content')}
-                                                     triggerEl={triggerEl}
-                                                     theme={GhostButton.Theme.PRIMARY}/>
+                                                <GhostButton value="Primary"
+                                                             tip="Primary"
+                                                             parentEl={dialogContentEl}
+                                                             theme={GhostButton.Theme.PRIMARY}/>
 
-                                        <GhostButton value="Secondary"
-                                                     tip="Secondary"
-                                                     parentEl={document.querySelector('.dialog-content')}
-                                                     triggerEl={triggerEl}
-                                                     theme={GhostButton.Theme.SECONDARY}/>
+                                                <GhostButton value="Secondary"
+                                                             tip="Secondary"
+                                                             parentEl={dialogContentEl}
+                                                             theme={GhostButton.Theme.SECONDARY}/>
 
-                                        <GhostButton value="Highlight"
-                                                     tip="Highlight"
-                                                     parentEl={document.querySelector('.dialog-content')}
-                                                     triggerEl={triggerEl}
-                                                     theme={GhostButton.Theme.HIGHLIGHT}/>
+                                                <GhostButton value="Highlight"
+                                                             tip="Highlight"
+                                                             parentEl={dialogContentEl}
+                                                             theme={GhostButton.Theme.HIGHLIGHT}/>
 
-                                        <GhostButton value="Info"
-                                                     tip="Info"
-                                                     parentEl={document.querySelector('.dialog-content')}
-                                                     triggerEl={triggerEl}
-                                                     theme={GhostButton.Theme.INFO}/>
+                                                <GhostButton value="Info"
+                                                             tip="Info"
+                                                             parentEl={dialogContentEl}
+                                                             theme={GhostButton.Theme.INFO}/>
 
-                                        <GhostButton value="Success"
-                                                     tip="Success"
-                                                     parentEl={document.querySelector('.dialog-content')}
-                                                     triggerEl={triggerEl}
-                                                     theme={GhostButton.Theme.SUCCESS}/>
+                                                <GhostButton value="Success"
+                                                             tip="Success"
+                                                             parentEl={dialogContentEl}
+                                                             theme={GhostButton.Theme.SUCCESS}/>
 
-                                        <GhostButton value="Warning"
-                                                     tip="Warning"
-                                                     parentEl={document.querySelector('.dialog-content')}
-                                                     triggerEl={triggerEl}
-                                                     theme={GhostButton.Theme.WARNING}/>
+                                                <GhostButton value="Warning"
+                                                             tip="Warning"
+                                                             parentEl={dialogContentEl}
+                                                             theme={GhostButton.Theme.WARNING}/>
 
-                                        <GhostButton value="Error"
-                                                     tip="Error"
-                                                     parentEl={document.querySelector('.dialog-content')}
-                                                     triggerEl={triggerEl}
-                                                     theme={GhostButton.Theme.ERROR}/>
+                                                <GhostButton value="Error"
+                                                             tip="Error"
+                                                             parentEl={dialogContentEl}
+                                                             theme={GhostButton.Theme.ERROR}/>
 
-                                        <GhostButton value="Disabled"
-                                                     tip="Disabled"
-                                                     parentEl={document.querySelector('.dialog-content')}
-                                                     triggerEl={triggerEl}
-                                                     disabled={true}/>
+                                                <GhostButton value="Disabled"
+                                                             tip="Disabled"
+                                                             parentEl={dialogContentEl}
+                                                             disabled={true}/>
 
-                                    </div>
+                                            </div>
+                                    }
 
                                 </Dialog>
 
