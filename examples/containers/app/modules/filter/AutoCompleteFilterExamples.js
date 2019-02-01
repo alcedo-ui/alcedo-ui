@@ -6,8 +6,6 @@ import WidgetHeader from 'src/WidgetHeader';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
 
-import {findDOMNode} from 'react-dom';
-
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/AutoCompleteFilter.json';
 
@@ -36,8 +34,7 @@ class AutoCompleteFilterExamples extends Component {
         }, 'test7', 'test8', 'test9'];
 
         this.state = {
-            AutoCompleteFilterVisible: {},
-            triggerEl: {}
+            AutoCompleteFilterVisible: {}
         };
 
     }
@@ -68,12 +65,6 @@ class AutoCompleteFilterExamples extends Component {
 
     dialogRenderHandler = () => {
 
-        const triggerEl = this.state.triggerEl;
-        triggerEl[1] = findDOMNode(this.refs['trigger1']);
-
-        this.setState({
-            triggerEl
-        });
     };
 
     changeHandler = item => {
@@ -90,7 +81,7 @@ class AutoCompleteFilterExamples extends Component {
 
     render() {
 
-        const {AutoCompleteFilterVisible, triggerEl} = this.state;
+        const {AutoCompleteFilterVisible} = this.state;
 
         return (
             <div className="example">
@@ -229,21 +220,23 @@ class AutoCompleteFilterExamples extends Component {
                                 <Dialog visible={AutoCompleteFilterVisible[1]}
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
-                                    <div className="popover-dialog-content-scroller">
-                                        <AutoCompleteFilter popupStyle={{maxHeight: 300}}
-                                                            noMatchedMsg="There have no matched value."
-                                                            data={this.data}
-                                                            renderer={data => {
-                                                                return data && typeof data === 'object' ?
-                                                                    `${data.text} (${data.value})`
-                                                                    :
-                                                                    `${data} (${data})`;
-                                                            }}
-                                                            placeholder="Please select ..."
-                                                            parentEl={document.querySelector('.dialog-content')}
-                                                            triggerEl={triggerEl}
-                                                            changeHandler={this.changeHandler}/>
-                                    </div>
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
+                                                <AutoCompleteFilter popupStyle={{maxHeight: 300}}
+                                                                    noMatchedMsg="There have no matched value."
+                                                                    data={this.data}
+                                                                    renderer={data => {
+                                                                        return data && typeof data === 'object' ?
+                                                                            `${data.text} (${data.value})`
+                                                                            :
+                                                                            `${data} (${data})`;
+                                                                    }}
+                                                                    placeholder="Please select ..."
+                                                                    parentEl={dialogContentEl}
+                                                                    changeHandler={this.changeHandler}/>
+                                            </div>
+                                    }
                                 </Dialog>
 
                             </div>

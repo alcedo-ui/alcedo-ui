@@ -6,8 +6,6 @@ import WidgetHeader from 'src/WidgetHeader';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
 
-import {findDOMNode} from 'react-dom';
-
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/DropdownFilter.json';
 
@@ -37,8 +35,7 @@ class DropdownFilterExamples extends Component {
         }, 'test7', 'test8', 'test9'];
 
         this.state = {
-            DropdownFilterVisible: {},
-            triggerEl: {}
+            DropdownFilterVisible: {}
         };
 
     }
@@ -69,12 +66,6 @@ class DropdownFilterExamples extends Component {
 
     dialogRenderHandler = () => {
 
-        const triggerEl = this.state.triggerEl;
-        triggerEl[1] = findDOMNode(this.refs['trigger1']);
-
-        this.setState({
-            triggerEl
-        });
     };
 
     onChange = item => {
@@ -91,7 +82,7 @@ class DropdownFilterExamples extends Component {
 
     render() {
 
-        const {DropdownFilterVisible, triggerEl} = this.state;
+        const {DropdownFilterVisible} = this.state;
 
         return (
             <div className="example auto-complete-examples">
@@ -171,16 +162,18 @@ class DropdownFilterExamples extends Component {
                                 <Dialog visible={DropdownFilterVisible[1]}
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
-                                    <div className="popover-dialog-content-scroller">
-                                        <DropdownFilter data={this.data}
-                                                        placeholder="Please select ..."
-                                                        selectMode={DropdownFilter.SelectMode.MULTI_SELECT}
-                                                        parentEl={document.querySelector('.dialog-content')}
-                                                        triggerEl={triggerEl}
-                                                        onChange={this.onChange}
-                                                        onFilterPressEnter={this.filterPressEnterHandle}
-                                                        onFilterClear={this.filterClearHandle}/>
-                                    </div>
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
+                                                <DropdownFilter data={this.data}
+                                                                placeholder="Please select ..."
+                                                                selectMode={DropdownFilter.SelectMode.MULTI_SELECT}
+                                                                parentEl={dialogContentEl}
+                                                                onChange={this.onChange}
+                                                                onFilterPressEnter={this.filterPressEnterHandle}
+                                                                onFilterClear={this.filterClearHandle}/>
+                                            </div>
+                                    }
                                 </Dialog>
 
                             </div>

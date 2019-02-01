@@ -5,7 +5,6 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
-import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/MaterialDropdownFilter.json';
@@ -36,8 +35,7 @@ class MaterialDropdownFilterExamples extends Component {
         }, 'test7', 'test8', 'test9'];
 
         this.state = {
-            MaterialDropdownFilterVisible: {},
-            triggerEl: {}
+            MaterialDropdownFilterVisible: {}
         };
 
     }
@@ -68,12 +66,6 @@ class MaterialDropdownFilterExamples extends Component {
 
     dialogRenderHandler = () => {
 
-        const triggerEl = this.state.triggerEl;
-        triggerEl[1] = findDOMNode(this.refs['trigger1']);
-
-        this.setState({
-            triggerEl
-        });
     };
 
     onChange = item => {
@@ -90,7 +82,7 @@ class MaterialDropdownFilterExamples extends Component {
 
     render() {
 
-        const {MaterialDropdownFilterVisible, triggerEl} = this.state;
+        const {MaterialDropdownFilterVisible} = this.state;
 
         return (
             <div className="example">
@@ -174,20 +166,21 @@ class MaterialDropdownFilterExamples extends Component {
                                 <Dialog visible={MaterialDropdownFilterVisible[1]}
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
-                                    <div className="popover-dialog-content-scroller">
-                                        <MaterialDropdownFilter theme={MaterialDropdownFilter.Theme.HIGHLIGHT}
-                                                                label="Label"
-                                                                placeholder="Please select ..."
-                                                                parentEl={document.querySelector('.dialog-content')}
-                                                                triggerEl={triggerEl}
-                                                                data={this.data}
-                                                                onChange={this.onChange}
-                                                                onFilterPressEnter={this.filterPressEnterHandle}
-                                                                onFilterClear={this.filterClearHandle}/>
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
+                                                <MaterialDropdownFilter theme={MaterialDropdownFilter.Theme.HIGHLIGHT}
+                                                                        label="Label"
+                                                                        placeholder="Please select ..."
+                                                                        parentEl={dialogContentEl}
+                                                                        data={this.data}
+                                                                        onChange={this.onChange}
+                                                                        onFilterPressEnter={this.filterPressEnterHandle}
+                                                                        onFilterClear={this.filterClearHandle}/>
 
-                                    </div>
+                                            </div>
+                                    }
                                 </Dialog>
-
 
                             </div>
 

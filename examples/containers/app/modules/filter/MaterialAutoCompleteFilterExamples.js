@@ -6,8 +6,6 @@ import WidgetHeader from 'src/WidgetHeader';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
 
-import {findDOMNode} from 'react-dom';
-
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/MaterialAutoCompleteFilter.json';
 
@@ -36,8 +34,7 @@ class MaterialAutoCompleteFilterExamples extends Component {
         }, 'test7', 'test8', 'test9'];
 
         this.state = {
-            MaterialAutoCompleteFilterVisible: {},
-            triggerEl: {}
+            MaterialAutoCompleteFilterVisible: {}
         };
 
     }
@@ -68,12 +65,6 @@ class MaterialAutoCompleteFilterExamples extends Component {
 
     dialogRenderHandler = () => {
 
-        const triggerEl = this.state.triggerEl;
-        triggerEl[1] = findDOMNode(this.refs['trigger1']);
-
-        this.setState({
-            triggerEl
-        });
     };
 
     onChange = item => {
@@ -90,7 +81,7 @@ class MaterialAutoCompleteFilterExamples extends Component {
 
     render() {
 
-        const {MaterialAutoCompleteFilterVisible, triggerEl} = this.state;
+        const {MaterialAutoCompleteFilterVisible} = this.state;
         return (
             <div className="example material-auto-complete-examples">
 
@@ -147,19 +138,23 @@ class MaterialAutoCompleteFilterExamples extends Component {
                                 <Dialog visible={MaterialAutoCompleteFilterVisible[1]}
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
-                                    <div className="popover-dialog-content-scroller">
-                                        <MaterialAutoCompleteFilter theme={MaterialAutoCompleteFilter.Theme.HIGHLIGHT}
-                                                                    filterInitValue={'test'}
-                                                                    data={this.data}
-                                                                    label="Label"
-                                                                    placeholder="Please select ..."
-                                                                    parentEl={document.querySelector('.dialog-content')}
-                                                                    triggerEl={triggerEl}
-                                                                    onChange={this.onChange}
-                                                                    onFilterPressEnter={this.filterPressEnterHandle}
-                                                                    onFilterClear={this.filterClearHandle}/>
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
+                                                <MaterialAutoCompleteFilter
+                                                    theme={MaterialAutoCompleteFilter.Theme.HIGHLIGHT}
+                                                    filterInitValue={'test'}
+                                                    data={this.data}
+                                                    label="Label"
+                                                    placeholder="Please select ..."
+                                                    parentEl={dialogContentEl}
+                                                    onChange={this.onChange}
+                                                    onFilterPressEnter={this.filterPressEnterHandle}
+                                                    onFilterClear={this.filterClearHandle}/>
 
-                                    </div>
+                                            </div>
+                                    }
+
                                 </Dialog>
 
 
