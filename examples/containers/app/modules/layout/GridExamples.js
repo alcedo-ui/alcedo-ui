@@ -6,7 +6,6 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
-import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Grid.json';
@@ -37,8 +36,7 @@ class GridExamples extends Component {
         }];
 
         this.state = {
-            GridVisible: {},
-            triggerEl: {}
+            GridVisible: {}
         };
 
     }
@@ -69,12 +67,6 @@ class GridExamples extends Component {
 
     dialogRenderHandler = () => {
 
-        const triggerEl = this.state.triggerEl;
-        triggerEl[1] = findDOMNode(this.refs['trigger1']);
-
-        this.setState({
-            triggerEl
-        });
     };
 
     changeHandler = value => {
@@ -95,7 +87,7 @@ class GridExamples extends Component {
 
     render() {
 
-        const {GridVisible, triggerEl} = this.state;
+        const {GridVisible} = this.state;
         return (
             <div className="example grid-examples">
 
@@ -183,21 +175,20 @@ class GridExamples extends Component {
                                 <Dialog visible={GridVisible[1]}
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
-                                    <div className="popover-dialog-content-scroller">
-
-                                        <Paper>
-                                            <Grid selectMode={Grid.SelectMode.MULTI_SELECT}
-                                                  data={this.descListData}
-                                                  parentEl={document.querySelector('.dialog-content')}
-                                                  triggerEl={triggerEl}
-                                                  onChange={this.changeHandler}
-                                                  onItemClick={this.itemClickHandler}
-                                                  onItemSelect={this.itemSelectHandler}
-                                                  onItemDeselect={this.itemDeselectHandler}/>
-                                        </Paper>
-
-                                    </div>
-
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
+                                                <Paper>
+                                                    <Grid selectMode={Grid.SelectMode.MULTI_SELECT}
+                                                          data={this.descListData}
+                                                          parentEl={dialogContentEl}
+                                                          onChange={this.changeHandler}
+                                                          onItemClick={this.itemClickHandler}
+                                                          onItemSelect={this.itemSelectHandler}
+                                                          onItemDeselect={this.itemDeselectHandler}/>
+                                                </Paper>
+                                            </div>
+                                    }
                                 </Dialog>
 
                             </div>

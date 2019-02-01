@@ -6,7 +6,6 @@ import WidgetHeader from 'src/WidgetHeader';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
 
-import {findDOMNode} from 'react-dom';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Dropdown.json';
 
@@ -20,8 +19,7 @@ class MaterialDropdownExamples extends Component {
         super(props);
 
         this.state = {
-            MaterialDropdownVisible: {},
-            triggerEl: {}
+            MaterialDropdownVisible: {}
         };
 
     }
@@ -52,17 +50,11 @@ class MaterialDropdownExamples extends Component {
 
     dialogRenderHandler = () => {
 
-        const triggerEl = this.state.triggerEl;
-        triggerEl[1] = findDOMNode(this.refs['trigger1']);
-
-        this.setState({
-            triggerEl
-        });
     };
 
     render() {
 
-        const {MaterialDropdownVisible,triggerEl}=this.state;
+        const {MaterialDropdownVisible}=this.state;
 
         return (
             <div className="example material-dropdown-examples">
@@ -115,20 +107,19 @@ class MaterialDropdownExamples extends Component {
                                 <Dialog visible={MaterialDropdownVisible[1]}
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
-                                    <div className="popover-dialog-content-scroller">
-                                        <MaterialDropdown theme={MaterialDropdown.Theme.HIGHLIGHT}
-                                                          label="Label"
-                                                          triggerValue="Material Dropdown"
-                                                          parentEl={document.querySelector('.dialog-content')}
-                                                          triggerEl={triggerEl}
-                                                          tip="MaterialDropdown Example">
-                                            <div className="dropdown-content">MaterialDropdown content</div>
-                                        </MaterialDropdown>
-                                    </div>
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
+                                                <MaterialDropdown theme={MaterialDropdown.Theme.HIGHLIGHT}
+                                                                  label="Label"
+                                                                  triggerValue="Material Dropdown"
+                                                                  parentEl={dialogContentEl}
+                                                                  tip="MaterialDropdown Example">
+                                                    <div className="dropdown-content">MaterialDropdown content</div>
+                                                </MaterialDropdown>
+                                            </div>
+                                    }
                                 </Dialog>
-
-
-
                             </div>
                         </div>
                     </div>

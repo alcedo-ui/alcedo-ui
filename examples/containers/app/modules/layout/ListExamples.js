@@ -6,7 +6,6 @@ import WidgetHeader from 'src/WidgetHeader';
 import Paper from 'src/Paper';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
-import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/List.json';
@@ -109,8 +108,7 @@ class ListExamples extends Component {
         }];
 
         this.state = {
-            ListVisible: {},
-            triggerEl: {}
+            ListVisible: {}
         };
 
     }
@@ -141,12 +139,6 @@ class ListExamples extends Component {
 
     dialogRenderHandler = () => {
 
-        const triggerEl = this.state.triggerEl;
-        triggerEl[1] = findDOMNode(this.refs['trigger1']);
-
-        this.setState({
-            triggerEl
-        });
     };
 
     changeHandler = value => {
@@ -167,7 +159,7 @@ class ListExamples extends Component {
 
     render() {
 
-        const {ListVisible, triggerEl} = this.state;
+        const {ListVisible} = this.state;
         return (
             <div className="example list-examples">
 
@@ -369,20 +361,19 @@ class ListExamples extends Component {
                                 <Dialog visible={ListVisible[1]}
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
-                                    <div className="popover-dialog-content-scroller">
-
-                                        <Paper>
-                                            <List data={this.listData}
-                                                  parentEl={document.querySelector('.dialog-content')}
-                                                  triggerEl={triggerEl}
-                                                  onChange={this.changeHandler}
-                                                  onItemClick={this.itemClickHandler}
-                                                  onItemSelect={this.itemSelectHandler}
-                                                  onItemDeselect={this.itemDeselectHandler}/>
-                                        </Paper>
-
-                                    </div>
-
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
+                                                <Paper>
+                                                    <List data={this.listData}
+                                                          parentEl={dialogContentEl}
+                                                          onChange={this.changeHandler}
+                                                          onItemClick={this.itemClickHandler}
+                                                          onItemSelect={this.itemSelectHandler}
+                                                          onItemDeselect={this.itemDeselectHandler}/>
+                                                </Paper>
+                                            </div>
+                                    }
                                 </Dialog>
 
                             </div>

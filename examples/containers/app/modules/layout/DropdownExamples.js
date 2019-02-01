@@ -6,7 +6,6 @@ import WidgetHeader from 'src/WidgetHeader';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
 
-import {findDOMNode} from 'react-dom';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Dropdown.json';
 
@@ -20,8 +19,7 @@ class DropdownExamples extends Component {
         super(props);
 
         this.state = {
-            DropdownVisible: {},
-            triggerEl: {}
+            DropdownVisible: {}
         };
 
     }
@@ -52,18 +50,12 @@ class DropdownExamples extends Component {
 
     dialogRenderHandler = () => {
 
-        const triggerEl = this.state.triggerEl;
-        triggerEl[1] = findDOMNode(this.refs['trigger1']);
-
-        this.setState({
-            triggerEl
-        });
     };
 
 
     render() {
 
-        const {DropdownVisible,triggerEl}=this.state;
+        const {DropdownVisible}=this.state;
 
         return (
             <div className="example dropdown-examples">
@@ -138,17 +130,20 @@ class DropdownExamples extends Component {
                                 <Dialog visible={DropdownVisible[1]}
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
-                                    <div className="popover-dialog-content-scroller">
-                                        <Dropdown triggerValue="Toggle Dropdown"
-                                                  ref="trigger1"
-                                                  popupClassName="dropdown-examples-popup"
-                                                  position={Dropdown.Position.BOTTOM}
-                                                  parentEl={document.querySelector('.dialog-content')}
-                                                  triggerEl={triggerEl}
-                                                  tip="Dialog Dropdown Example">
-                                            <div className="dropdown-content">Dialog Dropdown content</div>
-                                        </Dropdown>
-                                    </div>
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
+                                                <Dropdown triggerValue="Toggle Dropdown"
+                                                          ref="trigger1"
+                                                          popupClassName="dropdown-examples-popup"
+                                                          position={Dropdown.Position.BOTTOM}
+                                                          parentEl={dialogContentEl}
+                                                          tip="Dialog Dropdown Example">
+                                                    <div className="dropdown-content">Dialog Dropdown content</div>
+                                                </Dropdown>
+                                            </div>
+                                    }
+
                                 </Dialog>
 
                             </div>

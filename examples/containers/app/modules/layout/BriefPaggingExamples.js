@@ -6,7 +6,6 @@ import WidgetHeader from 'src/WidgetHeader';
 import Valid from 'src/_vendors/Valid';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
-import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/BriefPagging.json';
@@ -41,8 +40,7 @@ class BriefPaggingExamples extends Component {
                 pageSize: 10,
                 page: 0
             },
-            BriefPaggingVisible: {},
-            triggerEl: {}
+            BriefPaggingVisible: {}
         };
 
     }
@@ -73,12 +71,6 @@ class BriefPaggingExamples extends Component {
 
     dialogRenderHandler = () => {
 
-        const triggerEl = this.state.triggerEl;
-        triggerEl[1] = findDOMNode(this.refs['trigger1']);
-
-        this.setState({
-            triggerEl
-        });
     };
 
     generateData = (size = 100) => {
@@ -130,7 +122,7 @@ class BriefPaggingExamples extends Component {
 
     render() {
 
-        const {pagging, BriefPaggingVisible, triggerEl} = this.state;
+        const {pagging, BriefPaggingVisible} = this.state;
 
         return (
             <div className="example brief-pagging-examples">
@@ -189,16 +181,18 @@ class BriefPaggingExamples extends Component {
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
 
-                                    <div className="popover-dialog-content-scroller">
-                                        <BriefPagging selectedCountVisible={true}
-                                                      parentEl={document.querySelector('.dialog-content')}
-                                                      triggerEl={triggerEl}
-                                                      page={pagging.page}
-                                                      total={this.generateData()}
-                                                      pageSize={pagging.pageSize}
-                                                      pageSizes={this.pageSizes}
-                                                      onChange={this.pageChangedHandler}/>
-                                    </div>
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
+                                                <BriefPagging selectedCountVisible={true}
+                                                              parentEl={dialogContentEl}
+                                                              page={pagging.page}
+                                                              total={this.generateData()}
+                                                              pageSize={pagging.pageSize}
+                                                              pageSizes={this.pageSizes}
+                                                              onChange={this.pageChangedHandler}/>
+                                            </div>
+                                    }
 
                                 </Dialog>
 

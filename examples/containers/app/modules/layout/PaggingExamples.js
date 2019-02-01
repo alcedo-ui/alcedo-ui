@@ -6,7 +6,6 @@ import WidgetHeader from 'src/WidgetHeader';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
 import Valid from 'src/_vendors/Valid';
-import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Pagging.json';
@@ -41,8 +40,7 @@ class PaggingExamples extends Component {
                 pageSize: 30,
                 page: 0
             },
-            PaggingVisible: {},
-            triggerEl: {}
+            PaggingVisible: {}
         };
 
     }
@@ -73,12 +71,6 @@ class PaggingExamples extends Component {
 
     dialogRenderHandler = () => {
 
-        const triggerEl = this.state.triggerEl;
-        triggerEl[1] = findDOMNode(this.refs['trigger1']);
-
-        this.setState({
-            triggerEl
-        });
     };
 
     generateData = (size = 100) => {
@@ -125,7 +117,7 @@ class PaggingExamples extends Component {
 
     render() {
 
-        const {pagging, PaggingVisible, triggerEl} = this.state;
+        const {pagging, PaggingVisible} = this.state;
 
         return (
             <div className="example pagging-examples">
@@ -171,18 +163,18 @@ class PaggingExamples extends Component {
                             <Dialog visible={PaggingVisible[1]}
                                     onRender={this.dialogRenderHandler}
                                     onRequestClose={() => this.hide(1)}>
-
-                                <div className="popover-dialog-content-scroller">
-                                    <Pagging selectedCountVisible={true}
-                                             parentEl={document.querySelector('.dialog-content')}
-                                             triggerEl={triggerEl}
-                                             page={pagging.page}
-                                             total={this.generateData()}
-                                             pageSize={pagging.pageSize}
-                                             pageSizes={this.pageSizes}
-                                             onChange={this.pageChangedHandler}/>
-                                </div>
-
+                                {
+                                    dialogContentEl =>
+                                        <div className="popover-dialog-content-scroller">
+                                            <Pagging selectedCountVisible={true}
+                                                     parentEl={dialogContentEl}
+                                                     page={pagging.page}
+                                                     total={this.generateData()}
+                                                     pageSize={pagging.pageSize}
+                                                     pageSizes={this.pageSizes}
+                                                     onChange={this.pageChangedHandler}/>
+                                        </div>
+                                }
                             </Dialog>
 
                         </div>
