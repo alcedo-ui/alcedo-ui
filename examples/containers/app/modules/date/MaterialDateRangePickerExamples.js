@@ -5,7 +5,6 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
-import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/MaterialDateRangePicker.json';
@@ -17,8 +16,7 @@ class MaterialDateRangePickerExamples extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            MaterialDateRangePickerVisible: {},
-            triggerEl: {}
+            MaterialDateRangePickerVisible: {}
         };
 
     }
@@ -49,12 +47,6 @@ class MaterialDateRangePickerExamples extends Component {
 
     dialogRenderHandler = () => {
 
-        const triggerEl = this.state.triggerEl;
-        triggerEl[1] = findDOMNode(this.refs['trigger1']);
-
-        this.setState({
-            triggerEl
-        });
     };
 
     onChangeHandle = value => {
@@ -63,7 +55,7 @@ class MaterialDateRangePickerExamples extends Component {
 
     render() {
 
-        const {MaterialDateRangePickerVisible, triggerEl} = this.state;
+        const {MaterialDateRangePickerVisible} = this.state;
         return (
             <div className="example date-range-picker-examples">
 
@@ -196,17 +188,20 @@ class MaterialDateRangePickerExamples extends Component {
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
 
-                                    <div className="popover-dialog-content-scroller">
-                                        <MaterialDateRangePicker label={`date range`}
-                                                                 isLabelAnimate={false}
-                                                                 dateFormat={'YYYY-MM-DD'}
-                                                                 popupVisible={true}
-                                                                 maxValue={'2018-12-21'}
-                                                                 minValue={'2017-02-01'}
-                                                                 parentEl={document.querySelector('.dialog-content')}
-                                                                 triggerEl={triggerEl}
-                                                                 onChange={this.onChangeHandle}/>
-                                    </div>
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
+                                                <MaterialDateRangePicker label={`date range`}
+                                                                         isLabelAnimate={false}
+                                                                         dateFormat={'YYYY-MM-DD'}
+                                                                         popupVisible={true}
+                                                                         maxValue={'2018-12-21'}
+                                                                         minValue={'2017-02-01'}
+                                                                         parentEl={dialogContentEl}
+                                                                         onChange={this.onChangeHandle}/>
+                                            </div>
+                                    }
+
                                 </Dialog>
 
                             </div>

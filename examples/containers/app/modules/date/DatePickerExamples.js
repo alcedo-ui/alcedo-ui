@@ -5,11 +5,9 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
-import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/DatePicker.json';
-
 
 import 'scss/containers/app/modules/date/DateInDialog.scss';
 
@@ -18,8 +16,7 @@ class DatePickerExamples extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            DatePickerVisible: {},
-            triggerEl: {}
+            DatePickerVisible: {}
         };
 
     }
@@ -50,12 +47,6 @@ class DatePickerExamples extends Component {
 
     dialogRenderHandler = () => {
 
-        const triggerEl = this.state.triggerEl;
-        triggerEl[1] = findDOMNode(this.refs['trigger1']);
-
-        this.setState({
-            triggerEl
-        });
     };
 
     onChangeHandler = value => {
@@ -64,7 +55,7 @@ class DatePickerExamples extends Component {
 
     render() {
 
-        const {DatePickerVisible, triggerEl} = this.state;
+        const {DatePickerVisible} = this.state;
 
         return (
             <div className="example time-picker-examples">
@@ -199,18 +190,21 @@ class DatePickerExamples extends Component {
                                 <Dialog visible={DatePickerVisible[1]}
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
-                                    <div className="popover-dialog-content-scroller">
-                                        <div className="field-group">
-                                            <DatePicker name="date"
-                                                        dateFormat='YYYY-MM-DD'
-                                                        maxValue='2020-02-01'
-                                                        minValue='2017-02-03'
-                                                        parentEl={document.querySelector('.dialog-content')}
-                                                        triggerEl={triggerEl}
-                                                        autoClose={false}
-                                                        onChange={this.onChangeHandler}/>
-                                        </div>
-                                    </div>
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
+                                                <div className="field-group">
+                                                    <DatePicker name="date"
+                                                                dateFormat='YYYY-MM-DD'
+                                                                maxValue='2020-02-01'
+                                                                minValue='2017-02-03'
+                                                                parentEl={dialogContentEl}
+                                                                autoClose={false}
+                                                                onChange={this.onChangeHandler}/>
+                                                </div>
+                                            </div>
+                                    }
+
 
                                 </Dialog>
 

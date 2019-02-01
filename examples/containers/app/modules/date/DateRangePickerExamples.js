@@ -5,22 +5,18 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import Dialog from 'src/Dialog';
 import RaisedButton from 'src/RaisedButton';
-import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/DateRangePicker.json';
 
-
 import 'scss/containers/app/modules/date/DateInDialog.scss';
-
 
 class DateRangePickerExamples extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            DateRangePickerVisible: {},
-            triggerEl: {}
+            DateRangePickerVisible: {}
         };
 
     }
@@ -51,12 +47,6 @@ class DateRangePickerExamples extends Component {
 
     dialogRenderHandler = () => {
 
-        const triggerEl = this.state.triggerEl;
-        triggerEl[1] = findDOMNode(this.refs['trigger1']);
-
-        this.setState({
-            triggerEl
-        });
     };
 
     onChangeHandler = value => {
@@ -65,7 +55,7 @@ class DateRangePickerExamples extends Component {
 
     render() {
 
-        const {DateRangePickerVisible, triggerEl} = this.state;
+        const {DateRangePickerVisible} = this.state;
         return (
 
             <div className="example date-range-picker-examples">
@@ -188,17 +178,19 @@ class DateRangePickerExamples extends Component {
                                 <Dialog visible={DateRangePickerVisible[1]}
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
-                                    <div className="popover-dialog-content-scroller">
-                                        <div className="field-group">
-                                            <DateRangePicker dateFormat={'YYYY-MM-DD'}
-                                                             popupVisible={true}
-                                                             parentEl={document.querySelector('.dialog-content')}
-                                                             triggerEl={triggerEl}
-                                                             maxValue={'2018-12-21'}
-                                                             minValue={'2017-02-01'}
-                                                             onChange={this.onChangeHandler}/>
-                                        </div>
-                                    </div>
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
+                                                <div className="field-group">
+                                                    <DateRangePicker dateFormat={'YYYY-MM-DD'}
+                                                                     popupVisible={true}
+                                                                     parentEl={dialogContentEl}
+                                                                     maxValue={'2018-12-21'}
+                                                                     minValue={'2017-02-01'}
+                                                                     onChange={this.onChangeHandler}/>
+                                                </div>
+                                            </div>
+                                    }
                                 </Dialog>
 
                             </div>

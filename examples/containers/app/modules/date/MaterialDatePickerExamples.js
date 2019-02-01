@@ -24,8 +24,7 @@ class MaterialDatePickerExamples extends Component {
         this.state = {
             start: this.yesterday(),
             end: this.yesterday(),
-            MaterialDatePickerVisible: {},
-            triggerEl: {}
+            MaterialDatePickerVisible: {}
         };
 
     }
@@ -56,12 +55,6 @@ class MaterialDatePickerExamples extends Component {
 
     dialogRenderHandler = () => {
 
-        const triggerEl = this.state.triggerEl;
-        triggerEl[1] = findDOMNode(this.refs['trigger1']);
-
-        this.setState({
-            triggerEl
-        });
     };
 
     yesterday = () => {
@@ -88,7 +81,7 @@ class MaterialDatePickerExamples extends Component {
 
     render() {
 
-        const {start, end, MaterialDatePickerVisible, triggerEl} = this.state;
+        const {start, end, MaterialDatePickerVisible} = this.state;
 
         return (
             <div className="example time-picker-examples">
@@ -188,26 +181,28 @@ class MaterialDatePickerExamples extends Component {
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
 
-                                    <div className="popover-dialog-content-scroller">
-                                        <MaterialDatePicker label="Start"
-                                                            value={start}
-                                                            maxValue={end}
-                                                            rightIconCls="far fa-calendar-alt"
-                                                            popupClassName="popupClassName"
-                                                            parentEl={document.querySelector('.dialog-content')}
-                                                            triggerEl={triggerEl}
-                                                            onChange={this.startChangeHandler}/>
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
+                                                <MaterialDatePicker label="Start"
+                                                                    value={start}
+                                                                    maxValue={end}
+                                                                    rightIconCls="far fa-calendar-alt"
+                                                                    popupClassName="popupClassName"
+                                                                    parentEl={dialogContentEl}
+                                                                    onChange={this.startChangeHandler}/>
 
-                                        <MaterialDatePicker label="End"
-                                                            value={end}
-                                                            minValue={start}
-                                                            maxValue={this.yesterday()}
-                                                            rightIconCls="far fa-calendar-alt"
-                                                            popupClassName="popupClassName"
-                                                            parentEl={document.querySelector('.dialog-content')}
-                                                            triggerEl={triggerEl}
-                                                            onChange={this.endChangeHandler}/>
-                                    </div>
+                                                <MaterialDatePicker label="End"
+                                                                    value={end}
+                                                                    minValue={start}
+                                                                    maxValue={this.yesterday()}
+                                                                    rightIconCls="far fa-calendar-alt"
+                                                                    popupClassName="popupClassName"
+                                                                    parentEl={dialogContentEl}
+                                                                    onChange={this.endChangeHandler}/>
+                                            </div>
+                                    }
+
                                 </Dialog>
 
                             </div>

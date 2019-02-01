@@ -5,7 +5,6 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
-import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/MaterialDateTimePicker.json';
@@ -17,8 +16,7 @@ class MaterialDateTimePickerExamples extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            MaterialDateTimePickerVisible: {},
-            triggerEl: {}
+            MaterialDateTimePickerVisible: {}
         };
 
     }
@@ -49,12 +47,6 @@ class MaterialDateTimePickerExamples extends Component {
 
     dialogRenderHandler = () => {
 
-        const triggerEl = this.state.triggerEl;
-        triggerEl[1] = findDOMNode(this.refs['trigger1']);
-
-        this.setState({
-            triggerEl
-        });
     };
 
     onChangeHandler = value => {
@@ -63,7 +55,7 @@ class MaterialDateTimePickerExamples extends Component {
 
     render() {
 
-        const {MaterialDateTimePickerVisible, triggerEl} = this.state;
+        const {MaterialDateTimePickerVisible} = this.state;
         return (
             <div className="example time-picker-examples">
 
@@ -151,16 +143,18 @@ class MaterialDateTimePickerExamples extends Component {
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
 
-                                    <div className="popover-dialog-content-scroller">
-                                        <MaterialDateTimePicker name="date"
-                                                                label={'date'}
-                                                                theme={MaterialDateTimePicker.Theme.HIGHLIGHT}
-                                                                value="2018-02-02 12:23:00"
-                                                                isLabelAnimate={false}
-                                                                parentEl={document.querySelector('.dialog-content')}
-                                                                triggerEl={triggerEl}
-                                                                onChange={this.onChangeHandler}/>
-                                    </div>
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
+                                                <MaterialDateTimePicker name="date"
+                                                                        label={'date'}
+                                                                        theme={MaterialDateTimePicker.Theme.HIGHLIGHT}
+                                                                        value="2018-02-02 12:23:00"
+                                                                        isLabelAnimate={false}
+                                                                        parentEl={dialogContentEl}
+                                                                        onChange={this.onChangeHandler}/>
+                                            </div>
+                                    }
 
                                 </Dialog>
 

@@ -5,7 +5,6 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
-import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/DateTimePicker.json';
@@ -19,8 +18,7 @@ class DateTimePickerExamples extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            DateTimePickerVisible: {},
-            triggerEl: {}
+            DateTimePickerVisible: {}
         };
 
     }
@@ -51,12 +49,6 @@ class DateTimePickerExamples extends Component {
 
     dialogRenderHandler = () => {
 
-        const triggerEl = this.state.triggerEl;
-        triggerEl[1] = findDOMNode(this.refs['trigger1']);
-
-        this.setState({
-            triggerEl
-        });
     };
 
     onChangeHandle = value => {
@@ -65,7 +57,7 @@ class DateTimePickerExamples extends Component {
 
     render() {
 
-        const {DateTimePickerVisible, triggerEl} = this.state;
+        const {DateTimePickerVisible} = this.state;
         return (
             <div className="example date-time-picker-examples">
 
@@ -188,16 +180,19 @@ class DateTimePickerExamples extends Component {
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
 
-                                    <div className="popover-dialog-content-scroller">
-                                        <DateTimePicker value='2017-04-21 12:23:10'
-                                                        maxValue="2017-09-12 12:23:00"
-                                                        minValue='2017-01-01 12:55:55'
-                                                        dateFormat="YYYY/MM/DD HH:mm"
-                                                        placeholder="2017-05-03 11:05:20"
-                                                        parentEl={document.querySelector('.dialog-content')}
-                                                        triggerEl={triggerEl}
-                                                        onChange={this.onChangeHandle}/>
-                                    </div>
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
+                                                <DateTimePicker value='2017-04-21 12:23:10'
+                                                                maxValue="2017-09-12 12:23:00"
+                                                                minValue='2017-01-01 12:55:55'
+                                                                dateFormat="YYYY/MM/DD HH:mm"
+                                                                placeholder="2017-05-03 11:05:20"
+                                                                parentEl={dialogContentEl}
+                                                                onChange={this.onChangeHandle}/>
+                                            </div>
+                                    }
+
                                 </Dialog>
 
                             </div>

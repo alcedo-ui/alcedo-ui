@@ -5,7 +5,6 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
-import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/MaterialTimePicker.json';
@@ -17,8 +16,7 @@ class MaterialTimePickerExamples extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            MaterialTimePickerVisible: {},
-            triggerEl: {}
+            MaterialTimePickerVisible: {}
         };
 
     }
@@ -49,12 +47,6 @@ class MaterialTimePickerExamples extends Component {
 
     dialogRenderHandler = () => {
 
-        const triggerEl = this.state.triggerEl;
-        triggerEl[1] = findDOMNode(this.refs['trigger1']);
-
-        this.setState({
-            triggerEl
-        });
     };
 
     onChangeHandler = value => {
@@ -63,7 +55,7 @@ class MaterialTimePickerExamples extends Component {
 
     render() {
 
-        const {MaterialTimePickerVisible, triggerEl} = this.state;
+        const {MaterialTimePickerVisible} = this.state;
 
         return (
             <div className="example time-picker-examples">
@@ -194,16 +186,18 @@ class MaterialTimePickerExamples extends Component {
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
 
-                                    <div className="popover-dialog-content-scroller">
-                                        <MaterialTimePicker label={'time'}
-                                                            value="12:00"
-                                                            dateFormat="HH:mm"
-                                                            maxValue="23:56"
-                                                            minValue="01:20"
-                                                            parentEl={document.querySelector('.dialog-content')}
-                                                            triggerEl={triggerEl}
-                                                            onChange={this.onChangeHandler}/>
-                                    </div>
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
+                                                <MaterialTimePicker label={'time'}
+                                                                    value="12:00"
+                                                                    dateFormat="HH:mm"
+                                                                    maxValue="23:56"
+                                                                    minValue="01:20"
+                                                                    parentEl={dialogContentEl}
+                                                                    onChange={this.onChangeHandler}/>
+                                            </div>
+                                    }
 
                                 </Dialog>
 
