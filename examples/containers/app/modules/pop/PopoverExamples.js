@@ -42,6 +42,8 @@ class PopoverExamples extends Component {
 
     hide = id => {
 
+        console.log('22');
+
         const {menuVisible} = this.state;
 
         menuVisible[id] = false;
@@ -429,20 +431,24 @@ class PopoverExamples extends Component {
                                 <Dialog visible={menuVisible[16]}
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(16)}>
-                                    <div className="popover-dialog-content-scroller">
-                                        <PopoverProvider className="customized-popover"
-                                                         position={PopoverProvider.Position.BOTTOM_LEFT}
-                                                         parentEl={document.querySelector('.dialog-content')}
-                                                         popoverContent={
-                                                             <div style={{padding: 20}}>
-                                                                 Popover Content
-                                                             </div>
-                                                         }>
-                                            <RaisedButton ref="trigger17"
-                                                          className="dialog-trigger-button"
-                                                          value="Toggle Popover"/>
-                                        </PopoverProvider>
-                                    </div>
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
+                                                <PopoverProvider className="customized-popover"
+                                                                 position={PopoverProvider.Position.BOTTOM_LEFT}
+                                                                 parentEl={dialogContentEl}
+                                                                 popoverContent={
+                                                                     <div style={{padding: 20}}>
+                                                                         Popover Content
+                                                                     </div>
+                                                                 }>
+                                                    <RaisedButton ref="trigger17"
+                                                                  className="dialog-trigger-button"
+                                                                  value="Toggle Popover"/>
+                                                </PopoverProvider>
+                                            </div>
+                                    }
+
                                 </Dialog>
 
                             </div>

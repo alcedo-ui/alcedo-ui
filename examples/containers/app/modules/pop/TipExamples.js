@@ -384,16 +384,19 @@ class TipExamples extends Component {
                                 <Dialog visible={tipVisible[13]}
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hideTip(13)}>
-                                    <div className="tip-dialog-content-scroller">
-                                        <TipProvider tipContent="Tip Content"
-                                                     triggerEl={triggerEl[14]}
-                                                     parentEl={document.querySelector('.dialog-content')}
-                                                     position={TipProvider.Position.BOTTOM_LEFT}>
-                                            <RaisedButton className="trigger-button"
-                                                          value="Show Tip"
-                                                          ref="trigger17"/>
-                                        </TipProvider>
-                                    </div>
+                                    {
+                                        dialogContentEl =>
+                                            <div className="tip-dialog-content-scroller">
+                                                <TipProvider tipContent="Tip Content"
+                                                             triggerEl={triggerEl[14]}
+                                                             parentEl={dialogContentEl}
+                                                             position={TipProvider.Position.BOTTOM_LEFT}>
+                                                    <RaisedButton className="trigger-button"
+                                                                  value="Show Tip"
+                                                                  ref="trigger17"/>
+                                                </TipProvider>
+                                            </div>
+                                    }
                                 </Dialog>
 
                             </div>

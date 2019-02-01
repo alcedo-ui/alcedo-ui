@@ -435,50 +435,6 @@ class PopupExamples extends Component {
                 <Widget>
 
                     <WidgetHeader className="example-header"
-                                  title="In Dialog"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <div className="popup-example-wrapper">
-
-                                <RaisedButton className="trigger-button"
-                                              value="Show Dialog"
-                                              onClick={() => this.togglePopup(17)}/>
-
-                                <Dialog className="popup-dialog"
-                                        visible={popupVisible[17]}
-                                        onRender={this.dialogRenderHandler}
-                                        onRequestClose={() => this.closePopup(17)}>
-                                    <div className="popup-dialog-content-scroller">
-                                        <RaisedButton ref="trigger18"
-                                                      className="dialog-trigger-button"
-                                                      value="Toggle Popup"
-                                                      onClick={() => this.togglePopup(18)}/>
-                                    </div>
-                                </Dialog>
-
-                                <Popup className="customized-popup in-dialog"
-                                       visible={popupVisible[18]}
-                                       triggerEl={triggerEl[18]}
-                                       parentEl={document.querySelector('.popup-dialog .dialog-content')}
-                                       position={Popup.Position.BOTTOM_LEFT}
-                                       resetPositionWait={0}
-                                       onRequestClose={() => this.closePopup(18)}>
-                                    <div style={{padding: 20}}>
-                                        Popup Content
-                                    </div>
-                                </Popup>
-
-                            </div>
-
-                        </div>
-                    </div>
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header"
                                   title="Popup Provider"/>
 
                     <div className="widget-content">
@@ -495,6 +451,50 @@ class PopupExamples extends Component {
                                                   onClick={() => console.log('onClick')}/>
                                 </PopupProvider>
                             </div>
+                        </div>
+                    </div>
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="In Dialog"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="popup-example-wrapper">
+
+                                <RaisedButton className="trigger-button"
+                                              value="Show Dialog"
+                                              onClick={() => this.togglePopup(17)}/>
+
+                                <Dialog className="popup-dialog"
+                                        visible={popupVisible[17]}
+                                        onRender={this.dialogRenderHandler}
+                                        onRequestClose={() => this.closePopup(17)}>
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popup-dialog-content-scroller">
+                                                <RaisedButton ref="trigger18"
+                                                              className="dialog-trigger-button"
+                                                              value="Toggle Popup"
+                                                              onClick={() => this.togglePopup(18)}/>
+                                                <Popup className="customized-popup in-dialog"
+                                                       visible={popupVisible[18]}
+                                                       triggerEl={triggerEl[18]}
+                                                       parentEl={dialogContentEl}
+                                                       position={Popup.Position.BOTTOM_LEFT}
+                                                       onRequestClose={() => this.closePopup(18)}>
+                                                    <div style={{padding: 20}}>
+                                                        Popup Content
+                                                    </div>
+                                                </Popup>
+                                            </div>
+                                    }
+                                </Dialog>
+                            </div>
+
                         </div>
                     </div>
                 </Widget>

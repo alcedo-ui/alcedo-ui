@@ -6,15 +6,13 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import ButtonRadioGroup from 'src/ButtonRadioGroup';
 import MaterialTextField from 'src/MaterialTextField';
+import Dialog from 'src/Dialog';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Notification.json';
 
 import 'scss/containers/app/modules/pop/PopExamples.scss';
 import 'scss/containers/app/modules/pop/NotificationExamples.scss';
-import Dialog from '../../../../../src/Dialog';
-import TipProvider from '../../../../../src/TipProvider';
-import {findDOMNode} from 'react-dom';
 
 class NotificationExamples extends Component {
 
@@ -40,8 +38,7 @@ class NotificationExamples extends Component {
             title: 'Title',
             message: 'Message',
             notifications: {},
-            NotificationVisible: {},
-            triggerEl: {}
+            NotificationVisible: {}
         };
 
     }
@@ -105,19 +102,13 @@ class NotificationExamples extends Component {
 
     dialogRenderHandler = () => {
 
-        const triggerEl = this.state.triggerEl;
-        triggerEl[2] = findDOMNode(this.refs['trigger2']);
-
-        this.setState({
-            triggerEl
-        });
     };
 
     render() {
 
         const {
                 type, position, title, message, notifications,
-                NotificationVisible, triggerEl
+                NotificationVisible
             } = this.state,
             {
                 TOP_LEFT, TOP, TOP_RIGHT, RIGHT_TOP, RIGHT, RIGHT_BOTTOM, CENTER,
@@ -279,20 +270,23 @@ class NotificationExamples extends Component {
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hideNotification(1)}>
 
-                                    <div className="guide-dialog-content">
+                                    {
+                                        dialogContentEl =>
+                                            <div className="guide-dialog-content">
 
-                                        <RaisedButton className="trigger-position-button"
-                                                      value="BOTTOM"
-                                                      ref="trigger1"
-                                                      onClick={() => this.addNotification(BOTTOM)}/>
+                                                <RaisedButton className="trigger-position-button"
+                                                              value="BOTTOM"
+                                                              ref="trigger1"
+                                                              onClick={() => this.addNotification(BOTTOM)}/>
 
-                                        <Notifier notifications={notifications[BOTTOM]}
-                                                  position={BOTTOM}
-                                                  // triggerEl={triggerEl[2]}
-                                                  parentEl={document.querySelector('.dialog-content')}
-                                                  onNotificationPop={this.notificationPopHandler}/>
+                                                <Notifier notifications={notifications[BOTTOM]}
+                                                          position={BOTTOM}
+                                                          parentEl={dialogContentEl}
+                                                          onNotificationPop={this.notificationPopHandler}/>
 
-                                    </div>
+                                            </div>
+                                    }
+
                                 </Dialog>
 
                             </div>
