@@ -4,6 +4,8 @@ import TextField from 'src/TextField';
 import TextFieldGroup from 'src/TextFieldGroup';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import RaisedButton from 'src/RaisedButton';
+import Dialog from 'src/Dialog';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/TextField.json';
@@ -17,10 +19,35 @@ class TextFieldExamples extends Component {
         super(props);
 
         this.state = {
-            value: {}
+            value: {},
+            TextFieldVisible: {}
         };
 
     }
+
+    show = id => {
+
+        const {TextFieldVisible} = this.state;
+
+        TextFieldVisible[id] = true;
+
+        this.setState({
+            TextFieldVisible
+        });
+
+    };
+
+    hide = id => {
+
+        const {TextFieldVisible} = this.state;
+
+        TextFieldVisible[id] = false;
+
+        this.setState({
+            TextFieldVisible
+        });
+
+    };
 
     changeHandler = (v, index) => {
         const {value} = this.state;
@@ -32,7 +59,7 @@ class TextFieldExamples extends Component {
 
     render() {
 
-        const {value} = this.state;
+        const {value, TextFieldVisible} = this.state;
 
         return (
             <div className="example text-field-examples">
@@ -297,6 +324,124 @@ class TextFieldExamples extends Component {
                                                value={value[16] || ''}
                                                onChange={v => this.changeHandler(v, 16)}/>
                                 </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Valid In Dialog"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p><code>TextField</code> with <code>pattern</code> and <code>patternInvalidMsg</code>
+                                    applied.</p>
+
+                                <RaisedButton className="trigger-button dialog-button"
+                                              value="Show Dialog"
+                                              onClick={() => this.show(1)}/>
+
+                                <Dialog visible={TextFieldVisible[1]}
+                                        onRequestClose={() => this.hide(1)}>
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
+                                                <div>Required</div>
+                                                <div className='field-group'>
+                                                    <TextField required={true}
+                                                               clearButtonVisible={false}
+                                                               fieldMsgVisible={true}
+                                                               value={value[7] || ''}
+                                                               parentEl={dialogContentEl}
+                                                               onChange={v => this.changeHandler(v, 7)}/>
+                                                </div>
+
+                                                <div>NUMBER</div>
+                                                <div className="field-group">
+                                                    <TextField type={TextField.Type.NUMBER}
+                                                               fieldMsgVisible={true}
+                                                               value={value[8] || ''}
+                                                               parentEl={dialogContentEl}
+                                                               onChange={v => this.changeHandler(v, 8)}/>
+                                                </div>
+
+                                                <div>Integer</div>
+                                                <div className="field-group">
+                                                    <TextField type={TextField.Type.INTEGER}
+                                                               fieldMsgVisible={true}
+                                                               value={value[9] || ''}
+                                                               parentEl={dialogContentEl}
+                                                               onChange={v => this.changeHandler(v, 9)}/>
+                                                </div>
+
+                                                <div>Positive Integer</div>
+                                                <div className="field-group">
+                                                    <TextField type={TextField.Type.POSITIVE_INTEGER}
+                                                               fieldMsgVisible={true}
+                                                               value={value[10] || ''}
+                                                               parentEl={dialogContentEl}
+                                                               onChange={v => this.changeHandler(v, 10)}/>
+                                                </div>
+
+                                                <div>Nonnegative Integer</div>
+                                                <div className="field-group">
+                                                    <TextField type={TextField.Type.NONNEGATIVE_INTEGER}
+                                                               fieldMsgVisible={true}
+                                                               value={value[11] || ''}
+                                                               parentEl={dialogContentEl}
+                                                               onChange={v => this.changeHandler(v, 11)}/>
+                                                </div>
+
+                                                <div>Negative Integer</div>
+                                                <div className="field-group">
+                                                    <TextField type={TextField.Type.NEGATIVE_INTEGER}
+                                                               fieldMsgVisible={true}
+                                                               value={value[12] || ''}
+                                                               parentEl={dialogContentEl}
+                                                               onChange={v => this.changeHandler(v, 12)}/>
+                                                </div>
+
+                                                <div>Nonpositive Integer</div>
+                                                <div className="field-group">
+                                                    <TextField type={TextField.Type.NONPOSITIVE_INTEGER}
+                                                               fieldMsgVisible={true}
+                                                               value={value[13] || ''}
+                                                               parentEl={dialogContentEl}
+                                                               onChange={v => this.changeHandler(v, 13)}/>
+                                                </div>
+
+                                                <div>Min / Max</div>
+                                                <div className="field-group">
+                                                    <TextField type={TextField.Type.NUMBER}
+                                                               min={0}
+                                                               max={100}
+                                                               fieldMsgVisible={true}
+                                                               value={value[14] || ''}
+                                                               parentEl={dialogContentEl}
+                                                               onChange={v => this.changeHandler(v, 14)}/>
+                                                </div>
+
+                                                <div>Self Defined Pattern (Only a, b, c is allowed)</div>
+                                                <div className="field-group">
+                                                    <TextField pattern={/^[abc]*$/}
+                                                               patternInvalidMsg="Only a, b, c is allowed"
+                                                               fieldMsgVisible={true}
+                                                               value={value[15] || ''}
+                                                               parentEl={dialogContentEl}
+                                                               onChange={v => this.changeHandler(v, 15)}/>
+                                                </div>
+                                            </div>
+                                    }
+
+                                </Dialog>
 
                             </div>
 

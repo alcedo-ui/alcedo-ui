@@ -25,7 +25,10 @@ class FieldMsg extends Component {
 
     render() {
 
-        const {children, className, style, type, visible, triggerEl, position, msg} = this.props,
+        const {
+                children, className, style, type, visible,
+                triggerEl, position, msg, parentEl
+            } = this.props,
 
             wrapperClassName = classNames('field-msg', {
                 [className]: className
@@ -38,6 +41,7 @@ class FieldMsg extends Component {
                  theme={type}
                  visible={visible}
                  triggerEl={triggerEl}
+                 parentEl={parentEl}
                  position={position}>
 
                 {msg}

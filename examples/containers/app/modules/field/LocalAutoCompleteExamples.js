@@ -5,7 +5,6 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
-import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/LocalAutoComplete.json';
@@ -40,8 +39,7 @@ class LocalAutoCompleteExamples extends Component {
             filter: '',
             value: null,
             uniqueData: [],
-            LocalAutoCompleteVisible: {},
-            triggerEl: {}
+            LocalAutoCompleteVisible: {}
         };
 
     }
@@ -72,12 +70,6 @@ class LocalAutoCompleteExamples extends Component {
 
     dialogRenderHandler = () => {
 
-        const triggerEl = this.state.triggerEl;
-        triggerEl[1] = findDOMNode(this.refs['trigger1']);
-
-        this.setState({
-            triggerEl
-        });
     };
 
     onChange = value => {
@@ -140,7 +132,7 @@ class LocalAutoCompleteExamples extends Component {
 
         const {
             filter, value, uniqueData,
-            LocalAutoCompleteVisible, triggerEl
+            LocalAutoCompleteVisible
         } = this.state;
 
         return (
@@ -319,21 +311,24 @@ class LocalAutoCompleteExamples extends Component {
                                 <Dialog visible={LocalAutoCompleteVisible[1]}
                                         onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
-                                    <div className="popover-dialog-content-scroller">
-                                        <LocalAutoComplete popupStyle={{maxHeight: 300}}
-                                                           noMatchedMsg="There have no matched value."
-                                                           data={this.data}
-                                                           renderer={data => {
-                                                               return data && typeof data === 'object' ?
-                                                                   `${data.text} (${data.value})`
-                                                                   :
-                                                                   `${data} (${data})`;
-                                                           }}
-                                                           parentEl={document.querySelector('.dialog-content')}
-                                                           triggerEl={triggerEl}
-                                                           placeholder="Please select ..."
-                                                           onChange={this.onChange}/>
-                                    </div>
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
+                                                <LocalAutoComplete popupStyle={{maxHeight: 300}}
+                                                                   noMatchedMsg="There have no matched value."
+                                                                   data={this.data}
+                                                                   renderer={data => {
+                                                                       return data && typeof data === 'object' ?
+                                                                           `${data.text} (${data.value})`
+                                                                           :
+                                                                           `${data} (${data})`;
+                                                                   }}
+                                                                   parentEl={dialogContentEl}
+                                                                   placeholder="Please select ..."
+                                                                   onChange={this.onChange}/>
+                                            </div>
+                                    }
+
                                 </Dialog>
 
 

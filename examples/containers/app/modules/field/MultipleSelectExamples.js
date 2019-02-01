@@ -225,7 +225,6 @@ class MultipleSelectExamples extends Component {
 
                                 </Dialog>
 
-
                             </div>
 
                         </div>

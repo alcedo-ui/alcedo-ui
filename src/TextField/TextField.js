@@ -207,6 +207,7 @@ class TextField extends Component {
                 infoMsg, placeholder, clearButtonVisible, rightIconCls, passwordButtonVisible, fieldMsgVisible,
                 maxLength, isStrictMaxLength,
                 onIconClick, onRightIconClick,
+                parentEl,
 
                 // not passing down these props
                 value: v, autoFocus, pattern, patternInvalidMsg, isFocusedSelectAll,
@@ -325,12 +326,14 @@ class TextField extends Component {
                           msg={infoMsg}
                           visible={!!(fieldMsgVisible && infoVisible && infoMsg)}
                           triggerEl={this.inputEl}
+                          parentEl={parentEl}
                           position={FieldMsg.Position.TOP_LEFT}/>
 
                 <FieldMsg type="error"
                           msg={invalidMsgs && invalidMsgs.join(', ')}
                           visible={!!(fieldMsgVisible && errorVisible && invalidMsgs && invalidMsgs.length > 0)}
-                          triggerEl={this.inputEl}/>
+                          triggerEl={this.inputEl}
+                          parentEl={parentEl}/>
 
                 {children}
 
