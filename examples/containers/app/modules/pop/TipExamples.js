@@ -22,63 +22,36 @@ class TipExamples extends Component {
         super(props);
 
         this.state = {
-            tipVisible: {},
-            triggerEl: {}
+            popVisible: {}
         };
 
     }
 
-    showTip = id => {
+    show = id => {
 
-        const {tipVisible} = this.state;
-
-        tipVisible[id] = true;
+        const popVisible = {...this.state.popVisible};
+        popVisible[id] = true;
 
         this.setState({
-            tipVisible
+            popVisible
         });
 
     };
 
-    hideTip = id => {
+    hide = id => {
 
-        const {tipVisible} = this.state;
-
-        tipVisible[id] = false;
+        const popVisible = {...this.state.popVisible};
+        popVisible[id] = false;
 
         this.setState({
-            tipVisible
+            popVisible
         });
 
     };
-
-    dialogRenderHandler = () => {
-
-        const triggerEl = this.state.triggerEl;
-        triggerEl[14] = findDOMNode(this.refs['trigger14']);
-
-        this.setState({
-            triggerEl
-        });
-    };
-
-    componentDidMount() {
-
-        const triggerEl = {};
-
-        for (let i = 0; i <= 12; i++) {
-            triggerEl[i] = findDOMNode(this.refs[`trigger${i}`]);
-        }
-
-        this.setState({
-            triggerEl
-        });
-
-    }
 
     render() {
 
-        const {tipVisible, triggerEl} = this.state;
+        const {popVisible} = this.state;
 
         return (
             <div className="example pop-examples tip-examples">
@@ -109,187 +82,139 @@ class TipExamples extends Component {
                                 <div className="button-group-wrapper">
 
                                     <div className="button-group top">
-                                        <RaisedButton ref="trigger3"
+                                        <RaisedButton ref={el => this.trigger3 = findDOMNode(el)}
                                                       className="trigger-position-button"
                                                       value="Top Left"
-                                                      onMouseOver={() => {
-                                                          this.showTip(3);
-                                                      }}
-                                                      onMouseOut={() => {
-                                                          this.hideTip(3);
-                                                      }}/>
-                                        <RaisedButton ref="trigger4"
+                                                      onMouseOver={() => this.show(3)}
+                                                      onMouseOut={() => this.hide(3)}/>
+                                        <RaisedButton ref={el => this.trigger4 = findDOMNode(el)}
                                                       className="trigger-position-button"
                                                       value="Top"
-                                                      onMouseOver={() => {
-                                                          this.showTip(4);
-                                                      }}
-                                                      onMouseOut={() => {
-                                                          this.hideTip(4);
-                                                      }}/>
-                                        <RaisedButton ref="trigger5"
+                                                      onMouseOver={() => this.show(4)}
+                                                      onMouseOut={() => this.hide(4)}/>
+                                        <RaisedButton ref={el => this.trigger5 = findDOMNode(el)}
                                                       className="trigger-position-button"
                                                       value="Top right"
-                                                      onMouseOver={() => {
-                                                          this.showTip(5);
-                                                      }}
-                                                      onMouseOut={() => {
-                                                          this.hideTip(5);
-                                                      }}/>
+                                                      onMouseOver={() => this.show(5)}
+                                                      onMouseOut={() => this.hide(5)}/>
                                     </div>
 
                                     <div className="button-group right">
-                                        <RaisedButton ref="trigger9"
+                                        <RaisedButton ref={el => this.trigger9 = findDOMNode(el)}
                                                       className="trigger-position-button"
                                                       value="Right Top"
-                                                      onMouseOver={() => {
-                                                          this.showTip(9);
-                                                      }}
-                                                      onMouseOut={() => {
-                                                          this.hideTip(9);
-                                                      }}/>
-                                        <RaisedButton ref="trigger10"
+                                                      onMouseOver={() => this.show(9)}
+                                                      onMouseOut={() => this.hide(9)}/>
+                                        <RaisedButton ref={el => this.trigger10 = findDOMNode(el)}
                                                       className="trigger-position-button"
                                                       value="Right"
-                                                      onMouseOver={() => {
-                                                          this.showTip(10);
-                                                      }}
-                                                      onMouseOut={() => {
-                                                          this.hideTip(10);
-                                                      }}/>
-                                        <RaisedButton ref="trigger11"
+                                                      onMouseOver={() => this.show(10)}
+                                                      onMouseOut={() => this.hide(10)}/>
+                                        <RaisedButton ref={el => this.trigger11 = findDOMNode(el)}
                                                       className="trigger-position-button"
                                                       value="Right Bottom"
-                                                      onMouseOver={() => {
-                                                          this.showTip(11);
-                                                      }}
-                                                      onMouseOut={() => {
-                                                          this.hideTip(11);
-                                                      }}/>
+                                                      onMouseOver={() => this.show(11)}
+                                                      onMouseOut={() => this.hide(11)}/>
                                     </div>
 
                                     <div className="button-group bottom">
-                                        <RaisedButton ref="trigger0"
+                                        <RaisedButton ref={el => this.trigger0 = findDOMNode(el)}
                                                       className="trigger-position-button"
                                                       value="Bottom Left"
-                                                      onMouseOver={() => {
-                                                          this.showTip(0);
-                                                      }}
-                                                      onMouseOut={() => {
-                                                          this.hideTip(0);
-                                                      }}/>
-                                        <RaisedButton ref="trigger1"
+                                                      onMouseOver={() => this.show(0)}
+                                                      onMouseOut={() => this.hide(0)}/>
+                                        <RaisedButton ref={el => this.trigger1 = findDOMNode(el)}
                                                       className="trigger-position-button"
                                                       value="Bottom"
-                                                      onMouseOver={() => {
-                                                          this.showTip(1);
-                                                      }}
-                                                      onMouseOut={() => {
-                                                          this.hideTip(1);
-                                                      }}/>
-                                        <RaisedButton ref="trigger2"
+                                                      onMouseOver={() => this.show(1)}
+                                                      onMouseOut={() => this.hide(1)}/>
+                                        <RaisedButton ref={el => this.trigger2 = findDOMNode(el)}
                                                       className="trigger-position-button"
                                                       value="Bottom Right"
-                                                      onMouseOver={() => {
-                                                          this.showTip(2);
-                                                      }}
-                                                      onMouseOut={() => {
-                                                          this.hideTip(2);
-                                                      }}/>
+                                                      onMouseOver={() => this.show(2)}
+                                                      onMouseOut={() => this.hide(2)}/>
                                     </div>
 
                                     <div className="button-group left">
-                                        <RaisedButton ref="trigger6"
+                                        <RaisedButton ref={el => this.trigger6 = findDOMNode(el)}
                                                       className="trigger-position-button"
                                                       value="Left Top"
-                                                      onMouseOver={() => {
-                                                          this.showTip(6);
-                                                      }}
-                                                      onMouseOut={() => {
-                                                          this.hideTip(6);
-                                                      }}/>
-                                        <RaisedButton ref="trigger7"
+                                                      onMouseOver={() => this.show(6)}
+                                                      onMouseOut={() => this.hide(6)}/>
+                                        <RaisedButton ref={el => this.trigger7 = findDOMNode(el)}
                                                       className="trigger-position-button"
                                                       value="Left"
-                                                      onMouseOver={() => {
-                                                          this.showTip(7);
-                                                      }}
-                                                      onMouseOut={() => {
-                                                          this.hideTip(7);
-                                                      }}/>
-                                        <RaisedButton ref="trigger8"
+                                                      onMouseOver={() => this.show(7)}
+                                                      onMouseOut={() => this.hide(7)}/>
+                                        <RaisedButton ref={el => this.trigger8 = findDOMNode(el)}
                                                       className="trigger-position-button"
                                                       value="Left Bottom"
-                                                      onMouseOver={() => {
-                                                          this.showTip(8);
-                                                      }}
-                                                      onMouseOut={() => {
-                                                          this.hideTip(8);
-                                                      }}/>
+                                                      onMouseOver={() => this.show(8)}
+                                                      onMouseOut={() => this.hide(8)}/>
                                     </div>
 
                                 </div>
 
-                                <Tip visible={tipVisible[0]}
-                                     triggerEl={triggerEl[0]}
+                                <Tip visible={popVisible[0]}
+                                     triggerEl={this.trigger0}
                                      position={Tip.Position.BOTTOM_LEFT}>
                                     Tip Content
                                 </Tip>
-                                <Tip visible={tipVisible[1]}
-                                     triggerEl={triggerEl[1]}
+                                <Tip visible={popVisible[1]}
+                                     triggerEl={this.trigger1}
                                      position={Tip.Position.BOTTOM}>
                                     Tip Content
                                 </Tip>
-                                <Tip visible={tipVisible[2]}
-                                     triggerEl={triggerEl[2]}
+                                <Tip visible={popVisible[2]}
+                                     triggerEl={this.trigger2}
                                      position={Tip.Position.BOTTOM_RIGHT}>
                                     Tip Content
                                 </Tip>
 
-                                <Tip visible={tipVisible[3]}
-                                     triggerEl={triggerEl[3]}
+                                <Tip visible={popVisible[3]}
+                                     triggerEl={this.trigger3}
                                      position={Tip.Position.TOP_LEFT}>
                                     Tip Content
                                 </Tip>
-                                <Tip visible={tipVisible[4]}
-                                     triggerEl={triggerEl[4]}
+                                <Tip visible={popVisible[4]}
+                                     triggerEl={this.trigger4}
                                      position={Tip.Position.TOP}>
                                     Tip Content
                                 </Tip>
-                                <Tip visible={tipVisible[5]}
-                                     triggerEl={triggerEl[5]}
+                                <Tip visible={popVisible[5]}
+                                     triggerEl={this.trigger5}
                                      position={Tip.Position.TOP_RIGHT}>
                                     Tip Content
                                 </Tip>
 
-                                <Tip visible={tipVisible[6]}
-                                     triggerEl={triggerEl[6]}
+                                <Tip visible={popVisible[6]}
+                                     triggerEl={this.trigger6}
                                      position={Tip.Position.LEFT_TOP}>
                                     Tip Content
                                 </Tip>
-                                <Tip visible={tipVisible[7]}
-                                     triggerEl={triggerEl[7]}
+                                <Tip visible={popVisible[7]}
+                                     triggerEl={this.trigger7}
                                      position={Tip.Position.LEFT}>
                                     Tip Content
                                 </Tip>
-                                <Tip visible={tipVisible[8]}
-                                     triggerEl={triggerEl[8]}
+                                <Tip visible={popVisible[8]}
+                                     triggerEl={this.trigger8}
                                      position={Tip.Position.LEFT_BOTTOM}>
                                     Tip Content
                                 </Tip>
 
-                                <Tip visible={tipVisible[9]}
-                                     triggerEl={triggerEl[9]}
+                                <Tip visible={popVisible[9]}
+                                     triggerEl={this.trigger9}
                                      position={Tip.Position.RIGHT_TOP}>
                                     Tip Content
                                 </Tip>
-                                <Tip visible={tipVisible[10]}
-                                     triggerEl={triggerEl[10]}
+                                <Tip visible={popVisible[10]}
+                                     triggerEl={this.trigger10}
                                      position={Tip.Position.RIGHT}>
                                     Tip Content
                                 </Tip>
-                                <Tip visible={tipVisible[11]}
-                                     triggerEl={triggerEl[11]}
+                                <Tip visible={popVisible[11]}
+                                     triggerEl={this.trigger11}
                                      position={Tip.Position.RIGHT_BOTTOM}>
                                     Tip Content
                                 </Tip>
@@ -310,20 +235,16 @@ class TipExamples extends Component {
 
                             <div className="popup-example-wrapper">
 
-                                <RaisedButton ref="trigger12"
+                                <RaisedButton ref={el => this.trigger12 = findDOMNode(el)}
                                               className="trigger-button"
                                               value="Show Tip"
-                                              onMouseOver={() => {
-                                                  this.showTip(12);
-                                              }}
-                                              onMouseOut={() => {
-                                                  this.hideTip(12);
-                                              }}/>
+                                              onMouseOver={() => this.show(12)}
+                                              onMouseOut={() => this.hide(12)}/>
 
                                 <Tip className="customized-tip"
                                      theme={Theme.DEFAULT}
-                                     visible={tipVisible[12]}
-                                     triggerEl={triggerEl[12]}
+                                     visible={popVisible[12]}
+                                     triggerEl={this.trigger12}
                                      triangle={
                                          <svg xmlns="http://www.w3.org/2000/svg"
                                               version="1.1"
@@ -379,22 +300,34 @@ class TipExamples extends Component {
 
                                 <RaisedButton className="trigger-button"
                                               value="Show Dialog"
-                                              onClick={() => this.showTip(13)}/>
+                                              onClick={() => this.show(13)}/>
 
-                                <Dialog visible={tipVisible[13]}
+                                <Dialog visible={popVisible[13]}
                                         onRender={this.dialogRenderHandler}
-                                        onRequestClose={() => this.hideTip(13)}>
+                                        onRequestClose={() => this.hide(13)}>
                                     {
                                         dialogContentEl =>
                                             <div className="tip-dialog-content-scroller">
+
+                                                <RaisedButton ref={el => this.trigger14 = findDOMNode(el)}
+                                                              className="dialog-trigger-button"
+                                                              value="Left Bottom"
+                                                              onMouseOver={() => this.show(14)}
+                                                              onMouseOut={() => this.hide(14)}/>
+                                                <Tip visible={popVisible[14]}
+                                                     triggerEl={this.trigger14}
+                                                     parentEl={dialogContentEl}
+                                                     position={Tip.Position.BOTTOM_LEFT}>
+                                                    Tip Content
+                                                </Tip>
+
                                                 <TipProvider tipContent="Tip Content"
-                                                             triggerEl={triggerEl[14]}
                                                              parentEl={dialogContentEl}
                                                              position={TipProvider.Position.BOTTOM_LEFT}>
-                                                    <RaisedButton className="trigger-button"
-                                                                  value="Show Tip"
-                                                                  ref="trigger17"/>
+                                                    <RaisedButton className="dialog-trigger-button"
+                                                                  value="Show Tip"/>
                                                 </TipProvider>
+
                                             </div>
                                     }
                                 </Dialog>
