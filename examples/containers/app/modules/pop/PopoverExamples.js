@@ -42,8 +42,6 @@ class PopoverExamples extends Component {
 
     hide = id => {
 
-        console.log('22');
-
         const {menuVisible} = this.state;
 
         menuVisible[id] = false;
@@ -62,9 +60,8 @@ class PopoverExamples extends Component {
         this.setState({
             triggerEl
         });
+
     };
-
-
 
     componentDidMount() {
 
