@@ -424,6 +424,7 @@ class PopoverExamples extends Component {
                         <div className="example-content">
 
                             <div className="popover-example-wrapper">
+
                                 <RaisedButton className="trigger-button"
                                               value="Show Dialog"
                                               onClick={() => this.show(16)}/>
@@ -434,6 +435,19 @@ class PopoverExamples extends Component {
                                     {
                                         dialogContentEl =>
                                             <div className="popover-dialog-content-scroller">
+
+                                                <RaisedButton ref="trigger17"
+                                                              className="dialog-trigger-button block"
+                                                              value="Toggle Popover"
+                                                              onMouseOver={() => this.show(17)}/>
+                                                <Popover visible={menuVisible[17]}
+                                                         triggerEl={triggerEl[17]}
+                                                         position={Popover.Position.BOTTOM_LEFT}
+                                                         parentEl={dialogContentEl}
+                                                         onRequestClose={() => this.hide(17)}>
+                                                    <List data={items}/>
+                                                </Popover>
+
                                                 <PopoverProvider className="customized-popover"
                                                                  position={PopoverProvider.Position.BOTTOM_LEFT}
                                                                  parentEl={dialogContentEl}
@@ -442,10 +456,11 @@ class PopoverExamples extends Component {
                                                                          Popover Content
                                                                      </div>
                                                                  }>
-                                                    <RaisedButton ref="trigger17"
-                                                                  className="dialog-trigger-button"
+                                                    <RaisedButton ref="trigger18"
+                                                                  className="dialog-trigger-button block"
                                                                   value="Toggle Popover"/>
                                                 </PopoverProvider>
+
                                             </div>
                                     }
 

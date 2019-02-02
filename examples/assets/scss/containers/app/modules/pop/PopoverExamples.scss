@@ -21,5 +21,10 @@
 
     .dialog-trigger-button {
         width: auto;
+
+        &.block {
+            display: block;
+            margin-bottom: 16px;
+        }
     }
 }
