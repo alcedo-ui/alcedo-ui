@@ -441,7 +441,6 @@ class PopupExamples extends Component {
 
                                 <Dialog className="popup-dialog"
                                         visible={popVisible[17]}
-                                        onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(17)}>
                                     {
                                         dialogContentEl =>
