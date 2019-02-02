@@ -31,7 +31,7 @@ class GuideExamples extends Component {
         this.state = {
             type: Guide.Type.INFO,
             message: 'Message',
-            guideVisible: {}
+            popVisible: {}
         };
 
     }
@@ -44,31 +44,29 @@ class GuideExamples extends Component {
 
     show = id => {
 
-        const {guideVisible} = this.state;
-
-        guideVisible[id] = true;
+        const popVisible = {...this.state.popVisible};
+        popVisible[id] = true;
 
         this.setState({
-            guideVisible
+            popVisible
         });
 
     };
 
     hide = id => {
 
-        const {guideVisible} = this.state;
-
-        guideVisible[id] = false;
+        const popVisible = {...this.state.popVisible};
+        popVisible[id] = false;
 
         this.setState({
-            guideVisible
+            popVisible
         });
 
     };
 
     render() {
 
-        const {type, message, guideVisible} = this.state;
+        const {type, message, popVisible} = this.state;
 
         return (
             <div className="example pop-examples notification-examples guide-examples">
@@ -170,21 +168,21 @@ class GuideExamples extends Component {
 
                                 </div>
 
-                                <Guide visible={guideVisible[2]}
+                                <Guide visible={popVisible[2]}
                                        type={type}
                                        triggerEl={this.trigger2}
                                        position={Guide.Position.BOTTOM_LEFT}
                                        onRequestClose={() => this.hide(2)}>
                                     {message}
                                 </Guide>
-                                <Guide visible={guideVisible[3]}
+                                <Guide visible={popVisible[3]}
                                        type={type}
                                        triggerEl={this.trigger3}
                                        position={Guide.Position.BOTTOM}
                                        onRequestClose={() => this.hide(3)}>
                                     {message}
                                 </Guide>
-                                <Guide visible={guideVisible[4]}
+                                <Guide visible={popVisible[4]}
                                        type={type}
                                        triggerEl={this.trigger4}
                                        position={Guide.Position.BOTTOM_RIGHT}
@@ -192,21 +190,21 @@ class GuideExamples extends Component {
                                     {message}
                                 </Guide>
 
-                                <Guide visible={guideVisible[5]}
+                                <Guide visible={popVisible[5]}
                                        type={type}
                                        triggerEl={this.trigger5}
                                        position={Guide.Position.TOP_LEFT}
                                        onRequestClose={() => this.hide(5)}>
                                     {message}
                                 </Guide>
-                                <Guide visible={guideVisible[6]}
+                                <Guide visible={popVisible[6]}
                                        type={type}
                                        triggerEl={this.trigger6}
                                        position={Guide.Position.TOP}
                                        onRequestClose={() => this.hide(6)}>
                                     {message}
                                 </Guide>
-                                <Guide visible={guideVisible[7]}
+                                <Guide visible={popVisible[7]}
                                        type={type}
                                        triggerEl={this.trigger7}
                                        position={Guide.Position.TOP_RIGHT}
@@ -214,21 +212,21 @@ class GuideExamples extends Component {
                                     {message}
                                 </Guide>
 
-                                <Guide visible={guideVisible[8]}
+                                <Guide visible={popVisible[8]}
                                        type={type}
                                        triggerEl={this.trigger8}
                                        position={Guide.Position.LEFT_TOP}
                                        onRequestClose={() => this.hide(8)}>
                                     {message}
                                 </Guide>
-                                <Guide visible={guideVisible[9]}
+                                <Guide visible={popVisible[9]}
                                        type={type}
                                        triggerEl={this.trigger9}
                                        position={Guide.Position.LEFT}
                                        onRequestClose={() => this.hide(9)}>
                                     {message}
                                 </Guide>
-                                <Guide visible={guideVisible[10]}
+                                <Guide visible={popVisible[10]}
                                        type={type}
                                        triggerEl={this.trigger10}
                                        position={Guide.Position.LEFT_BOTTOM}
@@ -236,21 +234,21 @@ class GuideExamples extends Component {
                                     {message}
                                 </Guide>
 
-                                <Guide visible={guideVisible[11]}
+                                <Guide visible={popVisible[11]}
                                        type={type}
                                        triggerEl={this.trigger11}
                                        position={Guide.Position.RIGHT_TOP}
                                        onRequestClose={() => this.hide(11)}>
                                     {message}
                                 </Guide>
-                                <Guide visible={guideVisible[12]}
+                                <Guide visible={popVisible[12]}
                                        type={type}
                                        triggerEl={this.trigger12}
                                        position={Guide.Position.RIGHT}
                                        onRequestClose={() => this.hide(12)}>
                                     {message}
                                 </Guide>
-                                <Guide visible={guideVisible[13]}
+                                <Guide visible={popVisible[13]}
                                        type={type}
                                        triggerEl={this.trigger13}
                                        position={Guide.Position.RIGHT_BOTTOM}
@@ -258,7 +256,7 @@ class GuideExamples extends Component {
                                     {message}
                                 </Guide>
 
-                                <Guide visible={guideVisible[14]}
+                                <Guide visible={popVisible[14]}
                                        type={type}
                                        triggerEl={this.trigger14}
                                        position={Guide.Position.CENTER}
@@ -286,7 +284,7 @@ class GuideExamples extends Component {
                                               value="Show Dialog"
                                               onClick={() => this.show(15)}/>
 
-                                <Dialog visible={guideVisible[15]}
+                                <Dialog visible={popVisible[15]}
                                         onRequestClose={() => this.hide(15)}>
                                     {
                                         dialogContentEl =>
@@ -296,7 +294,7 @@ class GuideExamples extends Component {
                                                               className="dialog-trigger-button"
                                                               value="Toggle Guide"
                                                               onClick={() => this.show(16)}/>
-                                                <Guide visible={guideVisible[16]}
+                                                <Guide visible={popVisible[16]}
                                                        type={type}
                                                        triggerEl={this.trigger16}
                                                        parentEl={dialogContentEl}
