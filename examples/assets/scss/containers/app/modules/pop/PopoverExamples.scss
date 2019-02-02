@@ -20,11 +20,8 @@
     height: 1000px;
 
     .dialog-trigger-button {
+        display: block;
         width: auto;
-
-        &.block {
-            display: block;
-            margin-bottom: 16px;
-        }
+        margin-bottom: 16px;
     }
 }
