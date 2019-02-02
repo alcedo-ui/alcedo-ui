@@ -303,7 +303,6 @@ class TipExamples extends Component {
                                               onClick={() => this.show(13)}/>
 
                                 <Dialog visible={popVisible[13]}
-                                        onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(13)}>
                                     {
                                         dialogContentEl =>
