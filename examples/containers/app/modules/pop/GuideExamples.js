@@ -31,7 +31,8 @@ class GuideExamples extends Component {
         this.state = {
             type: Guide.Type.INFO,
             message: 'Message',
-            popVisible: {}
+            guideVisible: {},
+            triggerEl: {}
         };
 
     }
@@ -42,31 +43,61 @@ class GuideExamples extends Component {
         this.setState(state);
     };
 
-    show = id => {
+    showGuide = id => {
 
-        const popVisible = {...this.state.popVisible};
-        popVisible[id] = true;
+        const {guideVisible} = this.state;
+
+        guideVisible[id] = true;
 
         this.setState({
-            popVisible
+            guideVisible
         });
 
     };
 
-    hide = id => {
+    hideGuide = id => {
 
-        const popVisible = {...this.state.popVisible};
-        popVisible[id] = false;
+        const {guideVisible} = this.state;
+
+        guideVisible[id] = false;
 
         this.setState({
-            popVisible
+            guideVisible
+        }, () => {
+            if (id == '15') {
+                this.hideGuide(16);
+            }
         });
 
     };
+
+    dialogRenderHandler = () => {
+
+        const triggerEl = this.state.triggerEl;
+        triggerEl[16] = findDOMNode(this.refs['trigger16']);
+
+        this.setState({
+            triggerEl
+        });
+    };
+
+    componentDidMount() {
+
+        const triggerEl = {};
+
+        for (let i = 0; i <= 16; i++) {
+            triggerEl[i] = findDOMNode(this.refs[`trigger${i}`]);
+        }
+
+        this.setState({
+            triggerEl
+        });
+
+    }
 
     render() {
 
-        const {type, message, popVisible} = this.state;
+        const {type, message, guideVisible, triggerEl} = this.state;
 
         return (
             <div className="example pop-examples notification-examples guide-examples">
@@ -100,167 +131,167 @@ class GuideExamples extends Component {
                                 <div className="button-group-wrapper">
 
                                     <div className="button-group top">
-                                        <RaisedButton ref={el => this.trigger5 = findDOMNode(el)}
+                                        <RaisedButton ref="trigger5"
                                                       className="trigger-position-button"
                                                       value="Top Left"
-                                                      onClick={() => this.show(5)}/>
-                                        <RaisedButton ref={el => this.trigger6 = findDOMNode(el)}
+                                                      onClick={() => this.showGuide(5)}/>
+                                        <RaisedButton ref="trigger6"
                                                       className="trigger-position-button"
                                                       value="Top"
-                                                      onClick={() => this.show(6)}/>
-                                        <RaisedButton ref={el => this.trigger7 = findDOMNode(el)}
+                                                      onClick={() => this.showGuide(6)}/>
+                                        <RaisedButton ref="trigger7"
                                                       className="trigger-position-button"
                                                       value="Top right"
-                                                      onClick={() => this.show(7)}/>
+                                                      onClick={() => this.showGuide(7)}/>
                                     </div>
 
                                     <div className="button-group right">
-                                        <RaisedButton ref={el => this.trigger11 = findDOMNode(el)}
+                                        <RaisedButton ref="trigger11"
                                                       className="trigger-position-button"
                                                       value="Right Top"
-                                                      onClick={() => this.show(11)}/>
-                                        <RaisedButton ref={el => this.trigger12 = findDOMNode(el)}
+                                                      onClick={() => this.showGuide(11)}/>
+                                        <RaisedButton ref="trigger12"
                                                       className="trigger-position-button"
                                                       value="Right"
-                                                      onClick={() => this.show(12)}/>
-                                        <RaisedButton ref={el => this.trigger13 = findDOMNode(el)}
+                                                      onClick={() => this.showGuide(12)}/>
+                                        <RaisedButton ref="trigger13"
                                                       className="trigger-position-button"
                                                       value="Right Bottom"
-                                                      onClick={() => this.show(13)}/>
+                                                      onClick={() => this.showGuide(13)}/>
                                     </div>
 
                                     <div className="button-group bottom">
-                                        <RaisedButton ref={el => this.trigger2 = findDOMNode(el)}
+                                        <RaisedButton ref="trigger2"
                                                       className="trigger-position-button"
                                                       value="Bottom Left"
-                                                      onClick={() => this.show(2)}/>
-                                        <RaisedButton ref={el => this.trigger3 = findDOMNode(el)}
+                                                      onClick={() => this.showGuide(2)}/>
+                                        <RaisedButton ref="trigger3"
                                                       className="trigger-position-button"
                                                       value="Bottom"
-                                                      onClick={() => this.show(3)}/>
-                                        <RaisedButton ref={el => this.trigger4 = findDOMNode(el)}
+                                                      onClick={() => this.showGuide(3)}/>
+                                        <RaisedButton ref="trigger4"
                                                       className="trigger-position-button"
                                                       value="Bottom Right"
-                                                      onClick={() => this.show(4)}/>
+                                                      onClick={() => this.showGuide(4)}/>
                                     </div>
 
                                     <div className="button-group left">
-                                        <RaisedButton ref={el => this.trigger8 = findDOMNode(el)}
+                                        <RaisedButton ref="trigger8"
                                                       className="trigger-position-button"
                                                       value="Left Top"
-                                                      onClick={() => this.show(8)}/>
-                                        <RaisedButton ref={el => this.trigger9 = findDOMNode(el)}
+                                                      onClick={() => this.showGuide(8)}/>
+                                        <RaisedButton ref="trigger9"
                                                       className="trigger-position-button"
                                                       value="Left"
-                                                      onClick={() => this.show(9)}/>
-                                        <RaisedButton ref={el => this.trigger10 = findDOMNode(el)}
+                                                      onClick={() => this.showGuide(9)}/>
+                                        <RaisedButton ref="trigger10"
                                                       className="trigger-position-button"
                                                       value="Left Bottom"
-                                                      onClick={() => this.show(10)}/>
+                                                      onClick={() => this.showGuide(10)}/>
                                     </div>
 
                                     <div className="button-group center">
-                                        <RaisedButton ref={el => this.trigger14 = findDOMNode(el)}
+                                        <RaisedButton ref="trigger14"
                                                       className="trigger-position-button"
                                                       value="Center"
-                                                      onClick={() => this.show(14)}/>
+                                                      onClick={() => this.showGuide(14)}/>
                                     </div>
 
                                 </div>
 
-                                <Guide visible={popVisible[2]}
+                                <Guide visible={guideVisible[2]}
                                        type={type}
-                                       triggerEl={this.trigger2}
+                                       triggerEl={triggerEl[2]}
                                        position={Guide.Position.BOTTOM_LEFT}
-                                       onRequestClose={() => this.hide(2)}>
+                                       onRequestClose={() => this.hideGuide(2)}>
                                     {message}
                                 </Guide>
-                                <Guide visible={popVisible[3]}
+                                <Guide visible={guideVisible[3]}
                                        type={type}
-                                       triggerEl={this.trigger3}
+                                       triggerEl={triggerEl[3]}
                                        position={Guide.Position.BOTTOM}
-                                       onRequestClose={() => this.hide(3)}>
+                                       onRequestClose={() => this.hideGuide(3)}>
                                     {message}
                                 </Guide>
-                                <Guide visible={popVisible[4]}
+                                <Guide visible={guideVisible[4]}
                                        type={type}
-                                       triggerEl={this.trigger4}
+                                       triggerEl={triggerEl[4]}
                                        position={Guide.Position.BOTTOM_RIGHT}
-                                       onRequestClose={() => this.hide(4)}>
+                                       onRequestClose={() => this.hideGuide(4)}>
                                     {message}
                                 </Guide>
 
-                                <Guide visible={popVisible[5]}
+                                <Guide visible={guideVisible[5]}
                                        type={type}
-                                       triggerEl={this.trigger5}
+                                       triggerEl={triggerEl[5]}
                                        position={Guide.Position.TOP_LEFT}
-                                       onRequestClose={() => this.hide(5)}>
+                                       onRequestClose={() => this.hideGuide(5)}>
                                     {message}
                                 </Guide>
-                                <Guide visible={popVisible[6]}
+                                <Guide visible={guideVisible[6]}
                                        type={type}
-                                       triggerEl={this.trigger6}
+                                       triggerEl={triggerEl[6]}
                                        position={Guide.Position.TOP}
-                                       onRequestClose={() => this.hide(6)}>
+                                       onRequestClose={() => this.hideGuide(6)}>
                                     {message}
                                 </Guide>
-                                <Guide visible={popVisible[7]}
+                                <Guide visible={guideVisible[7]}
                                        type={type}
-                                       triggerEl={this.trigger7}
+                                       triggerEl={triggerEl[7]}
                                        position={Guide.Position.TOP_RIGHT}
-                                       onRequestClose={() => this.hide(7)}>
+                                       onRequestClose={() => this.hideGuide(7)}>
                                     {message}
                                 </Guide>
 
-                                <Guide visible={popVisible[8]}
+                                <Guide visible={guideVisible[8]}
                                        type={type}
-                                       triggerEl={this.trigger8}
+                                       triggerEl={triggerEl[8]}
                                        position={Guide.Position.LEFT_TOP}
-                                       onRequestClose={() => this.hide(8)}>
+                                       onRequestClose={() => this.hideGuide(8)}>
                                     {message}
                                 </Guide>
-                                <Guide visible={popVisible[9]}
+                                <Guide visible={guideVisible[9]}
                                        type={type}
-                                       triggerEl={this.trigger9}
+                                       triggerEl={triggerEl[9]}
                                        position={Guide.Position.LEFT}
-                                       onRequestClose={() => this.hide(9)}>
+                                       onRequestClose={() => this.hideGuide(9)}>
                                     {message}
                                 </Guide>
-                                <Guide visible={popVisible[10]}
+                                <Guide visible={guideVisible[10]}
                                        type={type}
-                                       triggerEl={this.trigger10}
+                                       triggerEl={triggerEl[10]}
                                        position={Guide.Position.LEFT_BOTTOM}
-                                       onRequestClose={() => this.hide(10)}>
+                                       onRequestClose={() => this.hideGuide(10)}>
                                     {message}
                                 </Guide>
 
-                                <Guide visible={popVisible[11]}
+                                <Guide visible={guideVisible[11]}
                                        type={type}
-                                       triggerEl={this.trigger11}
+                                       triggerEl={triggerEl[11]}
                                        position={Guide.Position.RIGHT_TOP}
-                                       onRequestClose={() => this.hide(11)}>
+                                       onRequestClose={() => this.hideGuide(11)}>
                                     {message}
                                 </Guide>
-                                <Guide visible={popVisible[12]}
+                                <Guide visible={guideVisible[12]}
                                        type={type}
-                                       triggerEl={this.trigger12}
+                                       triggerEl={triggerEl[12]}
                                        position={Guide.Position.RIGHT}
-                                       onRequestClose={() => this.hide(12)}>
+                                       onRequestClose={() => this.hideGuide(12)}>
                                     {message}
                                 </Guide>
-                                <Guide visible={popVisible[13]}
+                                <Guide visible={guideVisible[13]}
                                        type={type}
-                                       triggerEl={this.trigger13}
+                                       triggerEl={triggerEl[13]}
                                        position={Guide.Position.RIGHT_BOTTOM}
-                                       onRequestClose={() => this.hide(13)}>
+                                       onRequestClose={() => this.hideGuide(13)}>
                                     {message}
                                 </Guide>
 
-                                <Guide visible={popVisible[14]}
+                                <Guide visible={guideVisible[14]}
                                        type={type}
-                                       triggerEl={this.trigger14}
+                                       triggerEl={triggerEl[14]}
                                        position={Guide.Position.CENTER}
-                                       onRequestClose={() => this.hide(14)}>
+                                       onRequestClose={() => this.hideGuide(14)}>
                                     {message}
                                 </Guide>
 
@@ -282,27 +313,26 @@ class GuideExamples extends Component {
                             <div className="guide-example-wrapper">
                                 <RaisedButton className="trigger-button"
                                               value="Show Dialog"
-                                              onClick={() => this.show(15)}/>
+                                              onClick={() => this.showGuide(15)}/>
 
-                                <Dialog visible={popVisible[15]}
-                                        onRequestClose={() => this.hide(15)}>
+                                <Dialog visible={guideVisible[15]}
+                                        onRender={this.dialogRenderHandler}
+                                        onRequestClose={() => this.hideGuide(15)}>
                                     {
                                         dialogContentEl =>
                                             <div className="guide-dialog-content-scroller">
-
-                                                <RaisedButton ref={el => this.trigger16 = findDOMNode(el)}
+                                                <RaisedButton ref="trigger16"
                                                               className="dialog-trigger-button"
                                                               value="Toggle Guide"
-                                                              onClick={() => this.show(16)}/>
-                                                <Guide visible={popVisible[16]}
+                                                              onClick={() => this.showGuide(16)}/>
+                                                <Guide visible={guideVisible[16]}
                                                        type={type}
-                                                       triggerEl={this.trigger16}
+                                                       triggerEl={triggerEl[16]}
                                                        parentEl={dialogContentEl}
                                                        position={Guide.Position.BOTTOM_LEFT}
-                                                       onRequestClose={() => this.hide(16)}>
+                                                       onRequestClose={() => this.hideGuide(16)}>
                                                     {message}
                                                 </Guide>
-
                                             </div>
                                     }
                                 </Dialog>
