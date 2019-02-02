@@ -431,7 +431,6 @@ class PopoverExamples extends Component {
 
                                             </div>
                                     }
-
                                 </Dialog>
 
                             </div>
