@@ -53,7 +53,6 @@ class TriggerPop extends Component {
 
                 // not passing down these props
                 isEscClose, isBlurClose, shouldPreventContainerScroll, isTriggerPositionFixed,
-                onRender, onRendered, onDestroy, onDestroyed,
 
                 ...restProps
 
