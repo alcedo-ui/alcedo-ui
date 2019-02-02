@@ -405,7 +405,7 @@ class PopoverExamples extends Component {
                                             <div className="popover-dialog-content-scroller">
 
                                                 <RaisedButton ref={el => this.trigger17 = findDOMNode(el)}
-                                                              className="dialog-trigger-button block"
+                                                              className="dialog-trigger-button"
                                                               value="Toggle Popover"
                                                               onMouseOver={() => this.show(17)}/>
                                                 <Popover visible={popVisible[17]}
@@ -425,7 +425,7 @@ class PopoverExamples extends Component {
                                                                      </div>
                                                                  }>
                                                     <RaisedButton ref={el => this.trigger18 = findDOMNode(el)}
-                                                                  className="dialog-trigger-button block"
+                                                                  className="dialog-trigger-button"
                                                                   value="Toggle Popover Provider"/>
                                                 </PopoverProvider>
 

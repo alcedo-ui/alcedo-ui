@@ -446,6 +446,7 @@ class PopupExamples extends Component {
                                     {
                                         dialogContentEl =>
                                             <div className="popup-dialog-content-scroller">
+
                                                 <RaisedButton ref={el => this.trigger18 = findDOMNode(el)}
                                                               className="dialog-trigger-button"
                                                               value="Toggle Popup"
@@ -460,6 +461,19 @@ class PopupExamples extends Component {
                                                         Popup Content
                                                     </div>
                                                 </Popup>
+
+                                                <PopupProvider className="customized-popover"
+                                                               position={PopupProvider.Position.BOTTOM_LEFT}
+                                                               parentEl={dialogContentEl}
+                                                               popupContent={
+                                                                   <div style={{padding: 20}}>
+                                                                       Popup Content
+                                                                   </div>
+                                                               }>
+                                                    <RaisedButton className="dialog-trigger-button"
+                                                                  value="Toggle PopupProvider"/>
+                                                </PopupProvider>
+
                                             </div>
                                     }
                                 </Dialog>
