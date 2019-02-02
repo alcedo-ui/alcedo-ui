@@ -45,10 +45,6 @@ class DateRangePickerExamples extends Component {
 
     };
 
-    dialogRenderHandler = () => {
-
-    };
-
     onChangeHandler = value => {
         console.log(value);
     };
@@ -176,7 +172,6 @@ class DateRangePickerExamples extends Component {
                                               onClick={() => this.show(1)}/>
 
                                 <Dialog visible={DateRangePickerVisible[1]}
-                                        onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
                                     {
                                         dialogContentEl =>

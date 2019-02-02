@@ -69,10 +69,6 @@ class ButtonRadioGroupExamples extends Component {
 
     };
 
-    dialogRenderHandler = () => {
-
-    };
-
     changeHandler = value => {
         console.log(value);
     };
@@ -131,7 +127,6 @@ class ButtonRadioGroupExamples extends Component {
                                               onClick={() => this.show(1)}/>
 
                                 <Dialog visible={ButtonRadioGroupVisible[1]}
-                                        onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
 
                                     {

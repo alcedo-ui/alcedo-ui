@@ -6,7 +6,6 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
-import {findDOMNode} from 'react-dom';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/MaterialDatePicker.json';
@@ -50,10 +49,6 @@ class MaterialDatePickerExamples extends Component {
         this.setState({
             MaterialDatePickerVisible
         });
-
-    };
-
-    dialogRenderHandler = () => {
 
     };
 
@@ -178,7 +173,6 @@ class MaterialDatePickerExamples extends Component {
                                               onClick={() => this.show(1)}/>
 
                                 <Dialog visible={MaterialDatePickerVisible[1]}
-                                        onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
 
                                     {

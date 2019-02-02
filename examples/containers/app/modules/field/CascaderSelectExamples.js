@@ -115,10 +115,6 @@ class CascaderSelectExamples extends Component {
 
     };
 
-    dialogRenderHandler = () => {
-
-    };
-
     nodeClickHandler = (node) => {
         console.log('Node Clicked::', node);
     };
@@ -230,7 +226,6 @@ class CascaderSelectExamples extends Component {
                                               onClick={() => this.show(1)}/>
 
                                 <Dialog visible={CascaderSelectVisible[1]}
-                                        onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
                                     {
                                         dialogContentEl =>

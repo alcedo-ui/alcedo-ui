@@ -46,9 +46,6 @@ class IconAnchorExamples extends Component {
 
     };
 
-    dialogRenderHandler = () => {
-
-    };
 
     render() {
 
@@ -204,7 +201,6 @@ class IconAnchorExamples extends Component {
                                               onClick={() => this.show(1)}/>
 
                                 <Dialog visible={IncoAnchorVisible[1]}
-                                        onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
                                     {
                                         dialogContentEl =>

@@ -48,10 +48,6 @@ class MaterialDropdownExamples extends Component {
 
     };
 
-    dialogRenderHandler = () => {
-
-    };
-
     render() {
 
         const {MaterialDropdownVisible}=this.state;
@@ -105,7 +101,6 @@ class MaterialDropdownExamples extends Component {
                                               onClick={() => this.show(1)}/>
 
                                 <Dialog visible={MaterialDropdownVisible[1]}
-                                        onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
                                     {
                                         dialogContentEl =>

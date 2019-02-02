@@ -46,10 +46,6 @@ class TimePickerExamples extends Component {
 
     };
 
-    dialogRenderHandler = () => {
-
-    };
-
     onChangeHandler = value => {
         console.log(value);
     };
@@ -175,7 +171,6 @@ class TimePickerExamples extends Component {
                                               onClick={() => this.show(1)}/>
 
                                 <Dialog visible={TimePickerVisible[1]}
-                                        onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
 
                                     {

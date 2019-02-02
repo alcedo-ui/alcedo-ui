@@ -45,9 +45,6 @@ class AnchorButtonExamples extends Component {
 
     };
 
-    dialogRenderHandler = () => {
-
-    };
 
     render() {
 
@@ -263,7 +260,6 @@ class AnchorButtonExamples extends Component {
                                               onClick={() => this.show(1)}/>
 
                                 <Dialog visible={AnchorButtonVisible[1]}
-                                        onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
                                     {
                                         dialogContentEl =>

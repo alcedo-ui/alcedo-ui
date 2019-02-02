@@ -63,10 +63,6 @@ class AutoCompleteFilterExamples extends Component {
 
     };
 
-    dialogRenderHandler = () => {
-
-    };
-
     changeHandler = item => {
         console.log('select item: ', item);
     };
@@ -218,7 +214,6 @@ class AutoCompleteFilterExamples extends Component {
                                               onClick={() => this.show(1)}/>
 
                                 <Dialog visible={AutoCompleteFilterVisible[1]}
-                                        onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
                                     {
                                         dialogContentEl =>

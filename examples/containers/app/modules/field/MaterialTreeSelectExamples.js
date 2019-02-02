@@ -80,10 +80,6 @@ class MaterialTreeSelectExamples extends Component {
 
     };
 
-    dialogRenderHandler = () => {
-
-    };
-
     onChangeHandler = value => {
         console.log(value);
     };
@@ -185,7 +181,6 @@ class MaterialTreeSelectExamples extends Component {
                                               onClick={() => this.show(1)}/>
 
                                 <Dialog visible={MaterialTreeSelectVisible[1]}
-                                        onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
                                     {
                                         dialogContentEl =>

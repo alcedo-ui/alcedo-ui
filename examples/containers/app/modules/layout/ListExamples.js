@@ -137,10 +137,6 @@ class ListExamples extends Component {
 
     };
 
-    dialogRenderHandler = () => {
-
-    };
-
     changeHandler = value => {
         console.log('changed::', value);
     };
@@ -359,7 +355,6 @@ class ListExamples extends Component {
                                               onClick={() => this.show(1)}/>
 
                                 <Dialog visible={ListVisible[1]}
-                                        onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
                                     {
                                         dialogContentEl =>

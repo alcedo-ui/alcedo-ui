@@ -45,10 +45,6 @@ class MaterialDateTimePickerExamples extends Component {
 
     };
 
-    dialogRenderHandler = () => {
-
-    };
-
     onChangeHandler = value => {
         console.log(value);
     };
@@ -140,7 +136,6 @@ class MaterialDateTimePickerExamples extends Component {
                                               onClick={() => this.show(1)}/>
 
                                 <Dialog visible={MaterialDateTimePickerVisible[1]}
-                                        onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
 
                                     {

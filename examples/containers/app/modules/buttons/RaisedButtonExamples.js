@@ -44,10 +44,6 @@ class RaisedButtonExamples extends Component {
 
     };
 
-    dialogRenderHandler = () => {
-
-    };
-
     render() {
 
         const {RaisedButtonVisible} = this.state;
@@ -262,7 +258,6 @@ class RaisedButtonExamples extends Component {
                                               onClick={() => this.show(1)}/>
 
                                 <Dialog visible={RaisedButtonVisible[1]}
-                                        onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
                                     {
                                         dialogContentEl =>

@@ -64,10 +64,6 @@ class MaterialDropdownFilterExamples extends Component {
 
     };
 
-    dialogRenderHandler = () => {
-
-    };
-
     onChange = item => {
         console.log('select item: ', item);
     };
@@ -164,7 +160,6 @@ class MaterialDropdownFilterExamples extends Component {
                                               onClick={() => this.show(1)}/>
 
                                 <Dialog visible={MaterialDropdownFilterVisible[1]}
-                                        onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
                                     {
                                         dialogContentEl =>

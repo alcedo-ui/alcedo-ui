@@ -65,10 +65,6 @@ class GridExamples extends Component {
 
     };
 
-    dialogRenderHandler = () => {
-
-    };
-
     changeHandler = value => {
         console.log('changed::', value);
     };
@@ -173,7 +169,6 @@ class GridExamples extends Component {
                                               onClick={() => this.show(1)}/>
 
                                 <Dialog visible={GridVisible[1]}
-                                        onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
                                     {
                                         dialogContentEl =>

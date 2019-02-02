@@ -45,10 +45,6 @@ class MonthPickerExamples extends Component {
 
     };
 
-    dialogRenderHandler = () => {
-
-    };
-
     onChangeHandle = value => {
         console.log(value);
     };
@@ -113,7 +109,6 @@ class MonthPickerExamples extends Component {
                                               onClick={() => this.show(1)}/>
 
                                 <Dialog visible={MonthPickerVisible[1]}
-                                        onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
 
                                     {

@@ -51,10 +51,6 @@ class EditableFieldExamples extends Component {
 
     };
 
-    dialogRenderHandler = () => {
-
-    };
-
     onClick = e => {
         if (e && e.stopPropagation) {
             e.stopPropagation();
@@ -191,7 +187,6 @@ class EditableFieldExamples extends Component {
                                               onClick={() => this.show(1)}/>
 
                                 <Dialog visible={EditableFieldSelectVisible[1]}
-                                        onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
                                     {
                                         dialogContentEl =>

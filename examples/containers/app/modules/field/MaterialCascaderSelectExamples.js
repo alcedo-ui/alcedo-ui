@@ -115,10 +115,6 @@ class MaterialCascaderSelectExamples extends Component {
 
     };
 
-    dialogRenderHandler = () => {
-
-    };
-
     onChangeHandler = value => {
         console.log(value);
     };
@@ -232,7 +228,6 @@ class MaterialCascaderSelectExamples extends Component {
                                               onClick={() => this.show(1)}/>
 
                                 <Dialog visible={MaterialCascaderSelectVisible[1]}
-                                        onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
                                     {
                                         dialogContentEl =>

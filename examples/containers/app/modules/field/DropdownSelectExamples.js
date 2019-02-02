@@ -111,10 +111,6 @@ class DropdownSelectExamples extends Component {
 
     };
 
-    dialogRenderHandler = () => {
-
-    };
-
     onChange = value => {
         console.log(value);
     };
@@ -335,7 +331,6 @@ class DropdownSelectExamples extends Component {
                                               onClick={() => this.show(1)}/>
 
                                 <Dialog visible={DropdownSelectVisible[1]}
-                                        onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
                                     {
                                         dialogContentEl =>

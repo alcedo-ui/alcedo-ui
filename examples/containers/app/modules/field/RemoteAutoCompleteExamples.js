@@ -56,15 +56,6 @@ class RemoteAutoCompleteExamples extends Component {
 
     };
 
-    dialogRenderHandler = () => {
-
-        const triggerEl = this.state.triggerEl;
-        triggerEl[1] = findDOMNode(this.refs['trigger1']);
-
-        this.setState({
-            triggerEl
-        });
-    };
 
     /**
      * 若input输入时，长度大于searchLength，则进行获取数据操作，并修改chooseData，否则置空。
@@ -139,18 +130,20 @@ class RemoteAutoCompleteExamples extends Component {
                                               onClick={() => this.show(1)}/>
 
                                 <Dialog visible={RemoteAutoCompleteVisible[1]}
-                                        onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
 
-                                    <div className="popover-dialog-content-scroller">
-                                        <RemoteAutoComplete data={chooseData}
-                                                            onChange={this.onChange}
-                                                            value={text}
-                                                            parentEl={document.querySelector('.dialog-content')}
-                                                            triggerEl={triggerEl}
-                                                            onBlur={this.onBlur}
-                                                            loading={loading}/>
-                                    </div>
+                                    {
+                                        dialogContentEl =>
+                                            <div className="popover-dialog-content-scroller">
+                                                <RemoteAutoComplete data={chooseData}
+                                                                    onChange={this.onChange}
+                                                                    value={text}
+                                                                    parentEl={dialogContentEl}
+                                                                    triggerEl={triggerEl}
+                                                                    onBlur={this.onBlur}
+                                                                    loading={loading}/>
+                                            </div>
+                                    }
 
                                 </Dialog>
 

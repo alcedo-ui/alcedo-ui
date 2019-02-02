@@ -95,10 +95,6 @@ class MaterialEditableSelectExamples extends Component {
 
     };
 
-    dialogRenderHandler = () => {
-
-    };
-
     onChange = value => {
         console.log(value);
     };
@@ -190,7 +186,6 @@ class MaterialEditableSelectExamples extends Component {
                                               onClick={() => this.show(1)}/>
 
                                 <Dialog visible={MaterialEditableSelectVisible[1]}
-                                        onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
                                     {
                                         dialogContentEl =>

@@ -45,9 +45,6 @@ class IconButtonExamples extends Component {
 
     };
 
-    dialogRenderHandler = () => {
-
-    };
 
     render() {
 
@@ -141,7 +138,6 @@ class IconButtonExamples extends Component {
                                               onClick={() => this.show(1)}/>
 
                                 <Dialog visible={IcontButtonVisible[1]}
-                                        onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
                                     {
                                         dialogContentEl =>

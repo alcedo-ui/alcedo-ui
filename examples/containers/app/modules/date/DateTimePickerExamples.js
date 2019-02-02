@@ -47,10 +47,6 @@ class DateTimePickerExamples extends Component {
 
     };
 
-    dialogRenderHandler = () => {
-
-    };
-
     onChangeHandle = value => {
         console.log(value);
     };
@@ -177,7 +173,6 @@ class DateTimePickerExamples extends Component {
                                               onClick={() => this.show(1)}/>
 
                                 <Dialog visible={DateTimePickerVisible[1]}
-                                        onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
 
                                     {

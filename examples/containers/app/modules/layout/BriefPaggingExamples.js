@@ -69,10 +69,6 @@ class BriefPaggingExamples extends Component {
 
     };
 
-    dialogRenderHandler = () => {
-
-    };
-
     generateData = (size = 100) => {
 
         let data = [];
@@ -178,7 +174,6 @@ class BriefPaggingExamples extends Component {
                                               onClick={() => this.show(1)}/>
 
                                 <Dialog visible={BriefPaggingVisible[1]}
-                                        onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
 
                                     {

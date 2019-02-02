@@ -69,10 +69,6 @@ class PaggingExamples extends Component {
 
     };
 
-    dialogRenderHandler = () => {
-
-    };
-
     generateData = (size = 100) => {
         let data = [];
         for (let i = 0; i < size; i++) {
@@ -161,7 +157,6 @@ class PaggingExamples extends Component {
                                           onClick={() => this.show(1)}/>
 
                             <Dialog visible={PaggingVisible[1]}
-                                    onRender={this.dialogRenderHandler}
                                     onRequestClose={() => this.hide(1)}>
                                 {
                                     dialogContentEl =>

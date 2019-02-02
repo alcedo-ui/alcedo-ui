@@ -66,10 +66,6 @@ class MaterialLocalAutoCompleteExamples extends Component {
 
     };
 
-    dialogRenderHandler = () => {
-
-    };
-
     onChange = item => {
         console.log('select item: ', item);
     };
@@ -139,7 +135,6 @@ class MaterialLocalAutoCompleteExamples extends Component {
                                               onClick={() => this.show(1)}/>
 
                                 <Dialog visible={MaterialLocalAutoCompleteVisible[1]}
-                                        onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
                                     {
                                         dialogContentEl =>

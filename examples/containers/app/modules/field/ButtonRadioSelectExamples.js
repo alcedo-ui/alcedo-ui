@@ -66,10 +66,6 @@ class ButtonRadioSelectExamples extends Component {
 
     };
 
-    dialogRenderHandler = () => {
-
-    };
-
     changeHandler = value => {
         console.log(value);
     };
@@ -130,7 +126,6 @@ class ButtonRadioSelectExamples extends Component {
                                               onClick={() => this.show(1)}/>
 
                                 <Dialog visible={ButtonRadioSelectVisible[1]}
-                                        onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
                                     {
                                         dialogContentEl =>

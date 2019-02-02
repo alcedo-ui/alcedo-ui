@@ -68,10 +68,6 @@ class LocalAutoCompleteExamples extends Component {
 
     };
 
-    dialogRenderHandler = () => {
-
-    };
-
     onChange = value => {
         console.log('Changed Value: ', value);
     };
@@ -309,7 +305,6 @@ class LocalAutoCompleteExamples extends Component {
                                               onClick={() => this.show(1)}/>
 
                                 <Dialog visible={LocalAutoCompleteVisible[1]}
-                                        onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
                                     {
                                         dialogContentEl =>

@@ -113,10 +113,6 @@ class MultipleSelectExamples extends Component {
 
     };
 
-    dialogRenderHandler = () => {
-
-    };
-
     onChangeHandler = value => {
 
         console.log('value changed: ', value);
@@ -209,7 +205,6 @@ class MultipleSelectExamples extends Component {
                                               onClick={() => this.show(1)}/>
 
                                 <Dialog visible={MultipleSelectVisible[1]}
-                                        onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hide(1)}>
                                     {
                                         dialogContentEl =>
