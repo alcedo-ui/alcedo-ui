@@ -16,24 +16,27 @@ function getOffset(el, parentEl = document.body) {
         left: el.offsetLeft
     };
 
-    while (el.offsetParent) {
+    // handle offset
+    let offsetParent = el.offsetParent;
+    while (offsetParent) {
 
-        if (parentEl && el.offsetParent.contains(parentEl)) {
+        if (parentEl && offsetParent.contains(parentEl)) {
             break;
         }
 
         // append layout offset
-        el = el.offsetParent;
-        offset.top += el.offsetTop;
-        offset.left += el.offsetLeft;
+        offset.top += offsetParent.offsetTop;
+        offset.left += offsetParent.offsetLeft;
 
         // append transform offset
-        const transform = window.getComputedStyle(el).transform,
+        const transform = window.getComputedStyle(offsetParent).transform,
             m = transform.match(/matrix\(\d+,\s?\d+,\s?\d+,\s?\d+,\s?(\d+),\s?(\d+)\)/);
         if (m) {
             offset.top += +m[2];
             offset.left += +m[1];
         }
+
+        offsetParent = offsetParent.offsetParent;
 
     }
 
