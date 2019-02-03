@@ -1,9 +1,9 @@
-import contains from 'dom-helpers/query/contains';
-
 /**
  * @file Dom vendor
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
+
+import contains from 'dom-helpers/query/contains';
 
 function getOffset(el, parentEl = document.body) {
 
