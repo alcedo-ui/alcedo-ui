@@ -40,6 +40,22 @@ function getOffset(el, parentEl = document.body) {
 
     }
 
+    // handle scroll
+    let scrollParent = getClosestScrollable(el.parentElement);
+    while (scrollParent) {
+
+        if (parentEl && scrollParent.contains(parentEl)) {
+            break;
+        }
+
+        // drop scroll offset
+        offset.top -= scrollParent.scrollTop;
+        offset.left -= scrollParent.scrollLeft;
+
+        scrollParent = getClosestScrollable(scrollParent.parentElement);
+
+    }
+
     return offset;
 
 }
