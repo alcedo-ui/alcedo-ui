@@ -30,10 +30,11 @@ function getOffset(el, parentEl = document.body) {
 
         // append transform offset
         const transform = window.getComputedStyle(offsetParent).transform,
-            m = transform.match(/matrix\(\d+,\s?\d+,\s?\d+,\s?\d+,\s?(\d+),\s?(\d+)\)/);
-        if (m) {
-            offset.top += +m[2];
-            offset.left += +m[1];
+            matched = transform.match(/^matrix\((.*)\)$/);
+        if (matched && matched[1]) {
+            const matrix = matched[1].split(/\s*,\s*/);
+            offset.top += +matrix[5];
+            offset.left += +matrix[4];
         }
 
         offsetParent = offsetParent.offsetParent;
