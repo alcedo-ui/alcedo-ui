@@ -55,11 +55,6 @@ class ColorPicker extends Component {
      */
     handleChange = (mouseX, mouseY) => {
 
-        const elOffset = Dom.getOffset(this.colorPickerAreaEl);
-        if (!elOffset) {
-            return;
-        }
-
         const {hue} = this.props,
             width = this.colorPickerAreaEl.offsetWidth,
             height = this.colorPickerAreaEl.offsetHeight,
