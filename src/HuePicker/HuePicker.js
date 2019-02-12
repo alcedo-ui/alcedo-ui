@@ -74,8 +74,7 @@ class HuePicker extends Component {
             return;
         }
 
-        const {scrollEl} = this.props,
-            {left} = Dom.getTotalScrollOffset(this.huePickerBarEl, scrollEl),
+        const {left} = Dom.getOffset(this.huePickerBarEl),
             barWidth = this.huePickerBarEl.offsetWidth,
             sliderWidth = this.huePickerSliderEl.offsetWidth,
 
@@ -158,15 +157,12 @@ HuePicker.propTypes = {
      */
     value: PropTypes.number,
 
-    scrollEl: PropTypes.object,
-
     onChange: PropTypes.func
 
 };
 
 HuePicker.defaultProps = {
-    value: 0,
-    scrollEl: document.body
+    value: 0
 };
 
 export default HuePicker;
