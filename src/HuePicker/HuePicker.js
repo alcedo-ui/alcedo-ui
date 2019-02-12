@@ -69,11 +69,6 @@ class HuePicker extends Component {
      */
     handleChange = mouseX => {
 
-        const elOffset = Dom.getOffset(this.huePickerBarEl);
-        if (!elOffset) {
-            return;
-        }
-
         const {left} = Dom.getOffset(this.huePickerBarEl),
             barWidth = this.huePickerBarEl.offsetWidth,
             sliderWidth = this.huePickerSliderEl.offsetWidth,
@@ -81,7 +76,7 @@ class HuePicker extends Component {
             halfSliderWidth = sliderWidth / 2,
             width = barWidth - sliderWidth,
 
-            offsetX = Valid.range(mouseX - elOffset.left - halfSliderWidth + left, 0, width),
+            offsetX = Valid.range(mouseX - halfSliderWidth - left, 0, width),
             perCent = offsetX / width,
 
             value = Math.round(perCent * 360);
