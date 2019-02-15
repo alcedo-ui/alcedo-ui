@@ -5,6 +5,37 @@
 
 import contains from 'dom-helpers/query/contains';
 
+function getPosition(el, parentEl = document.body) {
+
+    if (!el) {
+        return null;
+    }
+
+    let offset = {
+        top: el.offsetTop,
+        left: el.offsetLeft
+    };
+
+    // handle offset
+    let offsetParent = el.offsetParent;
+    while (offsetParent) {
+
+        if (parentEl && offsetParent.contains(parentEl)) {
+            break;
+        }
+
+        // append layout offset
+        offset.top += offsetParent.offsetTop;
+        offset.left += offsetParent.offsetLeft;
+
+        offsetParent = offsetParent.offsetParent;
+
+    }
+
+    return offset;
+
+}
+
 function getOffset(el, parentEl = document.body) {
 
     if (!el) {
@@ -249,6 +280,7 @@ function getTotalScrollOffset(el, scrollEl = document.body) {
 }
 
 export default {
+    getPosition,
     getOffset,
     getScrollHeight,
     getScrollLeft,
