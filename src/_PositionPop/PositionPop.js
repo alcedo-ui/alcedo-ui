@@ -36,7 +36,7 @@ class PositionPop extends Component {
      * reset pop position
      * @param transitionEl
      */
-    resetPosition = transitionEl => {
+    resetPosition = (transitionEl = this.refs.pop.getEl()) => {
         const {parentEl, position} = this.props;
         PositionPopCalculation.setStyle(parentEl, transitionEl, position);
     };
