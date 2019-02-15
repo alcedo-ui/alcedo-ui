@@ -11,7 +11,6 @@ import doc from 'assets/propTypes/CascaderSelect.json';
 
 import 'scss/containers/app/modules/field/CascaderSelectExamples.scss';
 
-
 class CascaderSelectExamples extends Component {
 
     constructor(props) {
@@ -86,7 +85,7 @@ class CascaderSelectExamples extends Component {
         }];
 
         this.state = {
-            CascaderSelectVisible: {},
+            CascaderSelectVisible: {}
         };
 
     }
@@ -243,8 +242,8 @@ class CascaderSelectExamples extends Component {
                                                                                 node.children && node.children.length > 0 ?
                                                                                     <span
                                                                                         className="self-define-node-desc">
-                                                                        ({node.children.length})
-                                                                    </span>
+                                                                                        ({node.children.length})
+                                                                                    </span>
                                                                                     :
                                                                                     null
                                                                             }
