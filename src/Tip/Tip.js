@@ -24,10 +24,11 @@ class Tip extends Component {
 
     render() {
 
-        const {className, contentClassName,
+        const {
+                className, contentClassName,
                 parentEl,
                 ...restProps
-        } = this.props,
+            } = this.props,
 
             tipClassName = classNames('tip', {
                 [className]: className
@@ -108,6 +109,7 @@ Tip.propTypes = {
     depth: PropTypes.number,
 
     isTriggerPositionFixed: PropTypes.bool,
+    shouldFollowScroll: PropTypes.bool,
     resetPositionWait: PropTypes.number,
     showModal: PropTypes.bool,
 
@@ -150,6 +152,7 @@ Tip.defaultProps = {
     isAnimated: true,
     shouldPreventContainerScroll: true,
     isTriggerPositionFixed: false,
+    shouldFollowScroll: false,
     resetPositionWait: 250,
     showModal: false
 
