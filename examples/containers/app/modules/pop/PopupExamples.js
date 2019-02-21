@@ -473,6 +473,33 @@ class PopupExamples extends Component {
                                                                   value="Toggle PopupProvider"/>
                                                 </PopupProvider>
 
+                                                <RaisedButton ref={el => this.trigger19 = findDOMNode(el)}
+                                                              className="dialog-trigger-button"
+                                                              value="Toggle Popup"
+                                                              onClick={() => this.toggle(19)}/>
+                                                <Popup className="customized-popup in-dialog"
+                                                       visible={popVisible[19]}
+                                                       triggerEl={this.trigger19}
+                                                       position={Popup.Position.BOTTOM_LEFT}
+                                                       isTriggerPositionFixed={true}
+                                                       onRequestClose={() => this.hide(19)}>
+                                                    <div style={{padding: 20}}>
+                                                        Popup Content
+                                                    </div>
+                                                </Popup>
+
+                                                <PopupProvider className="customized-popover"
+                                                               position={PopupProvider.Position.BOTTOM_LEFT}
+                                                               isTriggerPositionFixed={true}
+                                                               popupContent={
+                                                                   <div style={{padding: 20}}>
+                                                                       Popup Content
+                                                                   </div>
+                                                               }>
+                                                    <RaisedButton className="dialog-trigger-button"
+                                                                  value="Toggle PopupProvider"/>
+                                                </PopupProvider>
+
                                             </div>
                                     }
                                 </Dialog>
