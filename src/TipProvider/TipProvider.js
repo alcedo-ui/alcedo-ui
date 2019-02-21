@@ -167,7 +167,10 @@ TipProvider.propTypes = {
     depth: PropTypes.number,
 
     isTriggerPositionFixed: PropTypes.bool,
+
     shouldFollowScroll: PropTypes.bool,
+    scrollEl: PropTypes.object,
+
     resetPositionWait: PropTypes.number,
     showModal: PropTypes.bool,
 
