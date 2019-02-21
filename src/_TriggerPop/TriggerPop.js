@@ -49,15 +49,13 @@ class TriggerPop extends Component {
 
         const {parentEl, triggerEl, position, isTriggerPositionFixed, shouldFollowScroll} = this.props;
 
-        shouldFollowScroll && this.handleScrollEl();
-
-        TriggerPopCalculation.setStyle(parentEl, triggerEl, transitionEl, this.scrollEl,
+        TriggerPopCalculation.setStyle(parentEl, triggerEl, transitionEl, this.getScrollEl(),
             position, isTriggerPositionFixed, shouldFollowScroll);
 
     };
 
 
-    handleScrollEl = (triggerEl = this.props.triggerEl) => {
+    getScrollEl = (triggerEl = this.props.triggerEl) => {
 
         if (this.scrollEl) {
             return;
@@ -72,7 +70,7 @@ class TriggerPop extends Component {
         this.resetPosition();
     };
 
-    addWatchScroll = () => {
+    addWatchScroll = (scrollEl = this.getScrollEl()) => {
 
         const {triggerEl} = this.props;
 
@@ -80,16 +78,21 @@ class TriggerPop extends Component {
             return;
         }
 
-        eventsOn(this.scrollEl, 'scroll', this.handleScroll);
+        scrollEl && eventsOn(scrollEl, 'scroll', this.handleScroll);
 
     };
 
+    removeWatchScroll = (scrollEl = this.getScrollEl()) => {
+        scrollEl && eventsOff(scrollEl, 'scroll', this.handleScroll);
+    };
+
     componentDidUpdate(prevProps) {
-        if (!prevProps.visible && this.props.visible) {
-            this.addWatchScroll();
-        } else if (prevProps.visible && !this.props.visible) {
-            this.scrollEl && eventsOff(this.scrollEl, 'scroll', this.handleScroll);
-            this.scrollEl = null;
+        if (this.props.shouldFollowScroll) {
+            if (!prevProps.visible && this.props.visible) {
+                this.addWatchScroll();
+            } else if (prevProps.visible && !this.props.visible) {
+                this.removeWatchScroll();
+            }
         }
     }
 
