@@ -191,6 +191,7 @@ Guide.propTypes = {
     isEscClose: PropTypes.bool,
     shouldPreventContainerScroll: PropTypes.bool,
     isTriggerPositionFixed: PropTypes.bool,
+    shouldFollowScroll: PropTypes.bool,
     resetPositionWait: PropTypes.number,
     showModal: PropTypes.bool,
 
@@ -244,6 +245,7 @@ Guide.defaultProps = {
     isEscClose: true,
     shouldPreventContainerScroll: true,
     isTriggerPositionFixed: false,
+    shouldFollowScroll: false,
     resetPositionWait: 250,
     showModal: false,
 
