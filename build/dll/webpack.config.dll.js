@@ -28,6 +28,8 @@ module.exports = {
 
     plugins: [
 
+        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+
         new webpack.DllPlugin({
             context: __dirname,
             path: utils.assetsVendorsAbsolutePath('[name]-manifest.json'),
