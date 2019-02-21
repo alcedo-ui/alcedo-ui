@@ -6,6 +6,8 @@
 import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import eventsOn from 'dom-helpers/events/on';
+import eventsOff from 'dom-helpers/events/off';
 
 import Pop from '../_Pop';
 import Paper from '../Paper';
@@ -16,6 +18,7 @@ import Position from '../_statics/Position';
 import Event from '../_vendors/Event';
 import Util from '../_vendors/Util';
 import TriggerPopCalculation from '../_vendors/TriggerPopCalculation';
+import Dom from '../_vendors/Dom';
 
 class TriggerPop extends Component {
 
@@ -23,7 +26,12 @@ class TriggerPop extends Component {
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
+
         super(props, ...restArgs);
+
+        // closest scrollable element of trigger
+        this.scrollEl = null;
+
     }
 
     /**
@@ -38,9 +46,52 @@ class TriggerPop extends Component {
      * @param transitionEl
      */
     resetPosition = (transitionEl = this.refs.pop.getEl()) => {
-        const {parentEl, triggerEl, position, isTriggerPositionFixed} = this.props;
-        TriggerPopCalculation.setStyle(parentEl, triggerEl, transitionEl, position, isTriggerPositionFixed);
+
+        const {parentEl, triggerEl, position, isTriggerPositionFixed, shouldFollowScroll} = this.props;
+
+        shouldFollowScroll && this.handleScrollEl();
+
+        TriggerPopCalculation.setStyle(parentEl, triggerEl, transitionEl, this.scrollEl,
+            position, isTriggerPositionFixed, shouldFollowScroll);
+
     };
+
+
+    handleScrollEl = (triggerEl = this.props.triggerEl) => {
+
+        if (this.scrollEl) {
+            return;
+        }
+
+        const scrollEl = Dom.getClosestScrollable(triggerEl);
+        this.scrollEl = scrollEl || document.body;
+
+    };
+
+    handleScroll = () => {
+        this.resetPosition();
+    };
+
+    addWatchScroll = () => {
+
+        const {triggerEl} = this.props;
+
+        if (!triggerEl) {
+            return;
+        }
+
+        eventsOn(this.scrollEl, 'scroll', this.handleScroll);
+
+    };
+
+    componentDidUpdate(prevProps) {
+        if (!prevProps.visible && this.props.visible) {
+            this.addWatchScroll();
+        } else if (prevProps.visible && !this.props.visible) {
+            this.scrollEl && eventsOff(this.scrollEl, 'scroll', this.handleScroll);
+            this.scrollEl = null;
+        }
+    }
 
     render() {
 
@@ -52,7 +103,8 @@ class TriggerPop extends Component {
                 hasTriangle, triangle, position, isAnimated,
 
                 // not passing down these props
-                isEscClose, isBlurClose, shouldPreventContainerScroll, isTriggerPositionFixed,
+                isEscClose, isBlurClose, shouldPreventContainerScroll,
+                isTriggerPositionFixed, shouldFollowScroll,
 
                 ...restProps
 
@@ -170,6 +222,7 @@ TriggerPop.propTypes = {
     isEscClose: PropTypes.bool,
     shouldPreventContainerScroll: PropTypes.bool,
     isTriggerPositionFixed: PropTypes.bool,
+    shouldFollowScroll: PropTypes.bool,
     resetPositionWait: PropTypes.number,
 
     /**
@@ -216,6 +269,7 @@ TriggerPop.defaultProps = {
     isEscClose: true,
     shouldPreventContainerScroll: true,
     isTriggerPositionFixed: false,
+    shouldFollowScroll: false,
     resetPositionWait: 250
 
 };
