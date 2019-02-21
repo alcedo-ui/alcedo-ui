@@ -478,9 +478,9 @@ class PopupExamples extends Component {
                                                               value="Toggle Popup"
                                                               onClick={() => this.toggle(19)}/>
                                                 <Popup className="customized-popup in-dialog"
+                                                       position={Popup.Position.BOTTOM_LEFT}
                                                        visible={popVisible[19]}
                                                        triggerEl={this.trigger19}
-                                                       position={Popup.Position.BOTTOM_LEFT}
                                                        isTriggerPositionFixed={true}
                                                        shouldFollowScroll={true}
                                                        onRequestClose={() => this.hide(19)}>
@@ -492,6 +492,7 @@ class PopupExamples extends Component {
                                                 <PopupProvider className="customized-popover"
                                                                position={PopupProvider.Position.BOTTOM_LEFT}
                                                                isTriggerPositionFixed={true}
+                                                               shouldFollowScroll={true}
                                                                popupContent={
                                                                    <div style={{padding: 20}}>
                                                                        Popup Content
