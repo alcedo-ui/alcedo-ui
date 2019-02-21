@@ -57,7 +57,7 @@ class TipProvider extends Component {
 
     render() {
 
-        const {children, tipContent, parentEl,  ...restProps} = this.props,
+        const {children, tipContent, parentEl, ...restProps} = this.props,
             {visible} = this.state;
 
         if (!tipContent) {
@@ -167,6 +167,7 @@ TipProvider.propTypes = {
     depth: PropTypes.number,
 
     isTriggerPositionFixed: PropTypes.bool,
+    shouldFollowScroll: PropTypes.bool,
     resetPositionWait: PropTypes.number,
     showModal: PropTypes.bool,
 
@@ -211,6 +212,7 @@ TipProvider.defaultProps = {
     isAnimated: true,
     shouldPreventContainerScroll: true,
     isTriggerPositionFixed: false,
+    shouldFollowScroll: false,
     resetPositionWait: 250,
     showModal: false
 
