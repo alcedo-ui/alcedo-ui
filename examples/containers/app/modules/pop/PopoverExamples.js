@@ -408,9 +408,9 @@ class PopoverExamples extends Component {
                                                               className="dialog-trigger-button"
                                                               value="Toggle Popover"
                                                               onMouseOver={() => this.show(17)}/>
-                                                <Popover visible={popVisible[17]}
+                                                <Popover position={Popover.Position.BOTTOM_LEFT}
+                                                         visible={popVisible[17]}
                                                          triggerEl={this.trigger17}
-                                                         position={Popover.Position.BOTTOM_LEFT}
                                                          parentEl={dialogContentEl}
                                                          onRequestClose={() => this.hide(17)}>
                                                     <List data={items}/>
@@ -419,6 +419,32 @@ class PopoverExamples extends Component {
                                                 <PopoverProvider className="customized-popover"
                                                                  position={PopoverProvider.Position.BOTTOM_LEFT}
                                                                  parentEl={dialogContentEl}
+                                                                 popoverContent={
+                                                                     <div style={{padding: 20}}>
+                                                                         Popover Content
+                                                                     </div>
+                                                                 }>
+                                                    <RaisedButton className="dialog-trigger-button"
+                                                                  value="Toggle Popover Provider"/>
+                                                </PopoverProvider>
+
+                                                <RaisedButton ref={el => this.trigger18 = findDOMNode(el)}
+                                                              className="dialog-trigger-button"
+                                                              value="Toggle Popover"
+                                                              onMouseOver={() => this.show(18)}/>
+                                                <Popover position={Popover.Position.BOTTOM_LEFT}
+                                                         visible={popVisible[18]}
+                                                         triggerEl={this.trigger18}
+                                                         isTriggerPositionFixed={true}
+                                                         shouldFollowScroll={true}
+                                                         onRequestClose={() => this.hide(18)}>
+                                                    <List data={items}/>
+                                                </Popover>
+
+                                                <PopoverProvider className="customized-popover"
+                                                                 position={PopoverProvider.Position.BOTTOM_LEFT}
+                                                                 isTriggerPositionFixed={true}
+                                                                 shouldFollowScroll={true}
                                                                  popoverContent={
                                                                      <div style={{padding: 20}}>
                                                                          Popover Content
