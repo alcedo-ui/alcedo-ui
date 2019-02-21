@@ -50,7 +50,7 @@ function leftHorizontalRight(triggerEl, triggerOffset) {
     return triggerOffset.left + triggerEl.offsetWidth;
 }
 
-function getStyle(parentEl, triggerEl, popupEl, position, isTriggerPositionFixed) {
+function getStyle(parentEl, triggerEl, popupEl, scrollEl, position, isTriggerPositionFixed, shouldFollowScroll) {
 
     if (!triggerEl || !popupEl) {
         return;
@@ -133,17 +133,20 @@ function getStyle(parentEl, triggerEl, popupEl, position, isTriggerPositionFixed
 
     if (isTriggerPositionFixed) {
         result.position = 'fixed';
-        // result.left -= Dom.getScrollLeft();
-        // result.top -= Dom.getScrollTop();
+    }
+
+    if (shouldFollowScroll) {
+        result.left -= Dom.getScrollLeft(scrollEl);
+        result.top -= Dom.getScrollTop(scrollEl);
     }
 
     return result;
 
 }
 
-function setStyle(parentEl, triggerEl, popupEl, position, isTriggerPositionFixed) {
+function setStyle(parentEl, triggerEl, popupEl, scrollEl, position, isTriggerPositionFixed, shouldFollowScroll) {
 
-    const style = getStyle(parentEl, triggerEl, popupEl, position, isTriggerPositionFixed);
+    const style = getStyle(parentEl, triggerEl, popupEl, scrollEl, position, isTriggerPositionFixed, shouldFollowScroll);
 
     if (!style) {
         return;
@@ -152,8 +155,8 @@ function setStyle(parentEl, triggerEl, popupEl, position, isTriggerPositionFixed
     popupEl.style.left = style.left + 'px';
     popupEl.style.top = style.top + 'px';
 
-    if (isTriggerPositionFixed) {
-        popupEl.style.position = 'fixed';
+    if (style.position) {
+        popupEl.style.position = style.position;
     }
 
 }
