@@ -310,13 +310,13 @@ class TipExamples extends Component {
 
                                                 <RaisedButton ref={el => this.trigger14 = findDOMNode(el)}
                                                               className="dialog-trigger-button"
-                                                              value="Left Bottom"
+                                                              value="Tip"
                                                               onMouseOver={() => this.show(14)}
                                                               onMouseOut={() => this.hide(14)}/>
-                                                <Tip visible={popVisible[14]}
+                                                <Tip position={Tip.Position.BOTTOM_LEFT}
+                                                     visible={popVisible[14]}
                                                      triggerEl={this.trigger14}
-                                                     parentEl={dialogContentEl}
-                                                     position={Tip.Position.BOTTOM_LEFT}>
+                                                     parentEl={dialogContentEl}>
                                                     Tip Content
                                                 </Tip>
 
@@ -324,7 +324,28 @@ class TipExamples extends Component {
                                                              parentEl={dialogContentEl}
                                                              position={TipProvider.Position.BOTTOM_LEFT}>
                                                     <RaisedButton className="dialog-trigger-button"
-                                                                  value="Show Tip"/>
+                                                                  value="TipProvider"/>
+                                                </TipProvider>
+
+                                                <RaisedButton ref={el => this.trigger15 = findDOMNode(el)}
+                                                              className="dialog-trigger-button"
+                                                              value="Tip"
+                                                              onMouseOver={() => this.show(15)}
+                                                              onMouseOut={() => this.hide(15)}/>
+                                                <Tip position={Tip.Position.BOTTOM_LEFT}
+                                                     visible={popVisible[15]}
+                                                     triggerEl={this.trigger15}
+                                                     isTriggerPositionFixed={true}
+                                                     shouldFollowScroll={true}>
+                                                    Tip Content
+                                                </Tip>
+
+                                                <TipProvider tipContent="Tip Content"
+                                                             position={TipProvider.Position.BOTTOM_LEFT}
+                                                             isTriggerPositionFixed={true}
+                                                             shouldFollowScroll={true}>
+                                                    <RaisedButton className="dialog-trigger-button"
+                                                                  value="TipProvider"/>
                                                 </TipProvider>
 
                                             </div>
