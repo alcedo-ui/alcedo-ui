@@ -56,7 +56,10 @@ function getStyle(parentEl, triggerEl, popupEl, position, isTriggerPositionFixed
         return;
     }
 
-    const triggerOffset = Dom.getOffset(triggerEl, parentEl);
+    const triggerOffset = parentEl == document.body ?
+        Dom.getPosition(triggerEl, parentEl)
+        :
+        Dom.getOffset(triggerEl, parentEl);
 
     let result = {};
 
