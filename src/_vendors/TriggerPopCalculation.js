@@ -56,10 +56,7 @@ function getStyle(parentEl, triggerEl, popupEl, scrollEl, position, isTriggerPos
         return;
     }
 
-    const triggerOffset = parentEl == document.body ?
-        Dom.getPosition(triggerEl, parentEl)
-        :
-        Dom.getOffset(triggerEl, parentEl);
+    const triggerOffset = Dom.getOffset(triggerEl, parentEl);
 
     let result = {};
 
@@ -133,11 +130,6 @@ function getStyle(parentEl, triggerEl, popupEl, scrollEl, position, isTriggerPos
 
     if (isTriggerPositionFixed) {
         result.position = 'fixed';
-    }
-
-    if (shouldFollowScroll) {
-        result.left -= Dom.getScrollLeft(scrollEl);
-        result.top -= Dom.getScrollTop(scrollEl);
     }
 
     return result;
