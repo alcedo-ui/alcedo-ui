@@ -54,8 +54,16 @@ class TriggerPop extends Component {
 
     };
 
-
+    /**
+     * find the closest scrollable parent element
+     * @param triggerEl
+     * @returns {*}
+     */
     getScrollEl = (triggerEl = this.props.triggerEl) => {
+
+        if (this.props.scrollEl) {
+            return this.props.scrollEl;
+        }
 
         if (this.scrollEl) {
             return this.scrollEl;
@@ -66,10 +74,17 @@ class TriggerPop extends Component {
 
     };
 
+    /**
+     * scroll event callback
+     */
     handleScroll = () => {
         this.resetPosition();
     };
 
+    /**
+     * add scroll event
+     * @param scrollEl
+     */
     addWatchScroll = (scrollEl = this.getScrollEl()) => {
 
         const {triggerEl} = this.props;
@@ -82,6 +97,10 @@ class TriggerPop extends Component {
 
     };
 
+    /**
+     * remove scroll event
+     * @param scrollEl
+     */
     removeWatchScroll = (scrollEl = this.getScrollEl()) => {
         scrollEl && eventsOff(scrollEl, 'scroll', this.handleScroll);
     };
@@ -223,7 +242,10 @@ TriggerPop.propTypes = {
     isEscClose: PropTypes.bool,
     shouldPreventContainerScroll: PropTypes.bool,
     isTriggerPositionFixed: PropTypes.bool,
+
     shouldFollowScroll: PropTypes.bool,
+    scrollEl: PropTypes.object,
+
     resetPositionWait: PropTypes.number,
 
     /**
