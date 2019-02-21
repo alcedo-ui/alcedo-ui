@@ -309,6 +309,20 @@ class GuideExamples extends Component {
                                                     {message}
                                                 </Guide>
 
+                                                <RaisedButton ref={el => this.trigger17 = findDOMNode(el)}
+                                                              className="dialog-trigger-button"
+                                                              value="Toggle Guide"
+                                                              onClick={() => this.show(17)}/>
+                                                <Guide position={Guide.Position.BOTTOM_LEFT}
+                                                       visible={guideVisible[17]}
+                                                       type={type}
+                                                       triggerEl={this.trigger17}
+                                                       isTriggerPositionFixed={true}
+                                                       shouldFollowScroll={true}
+                                                       onRequestClose={() => this.hide(17)}>
+                                                    {message}
+                                                </Guide>
+
                                             </div>
                                     }
                                 </Dialog>
