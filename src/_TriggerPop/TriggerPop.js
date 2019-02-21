@@ -58,11 +58,11 @@ class TriggerPop extends Component {
     getScrollEl = (triggerEl = this.props.triggerEl) => {
 
         if (this.scrollEl) {
-            return;
+            return this.scrollEl;
         }
 
         const scrollEl = Dom.getClosestScrollable(triggerEl);
-        this.scrollEl = scrollEl || document.body;
+        return this.scrollEl = scrollEl || document.body;
 
     };
 
@@ -87,12 +87,10 @@ class TriggerPop extends Component {
     };
 
     componentDidUpdate(prevProps) {
-        if (this.props.shouldFollowScroll) {
-            if (!prevProps.visible && this.props.visible) {
-                this.addWatchScroll();
-            } else if (prevProps.visible && !this.props.visible) {
-                this.removeWatchScroll();
-            }
+        if (this.props.shouldFollowScroll && !prevProps.visible && this.props.visible) {
+            this.addWatchScroll();
+        } else if (prevProps.shouldFollowScroll && prevProps.visible && !this.props.visible) {
+            this.removeWatchScroll();
         }
     }
 
