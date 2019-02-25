@@ -289,6 +289,16 @@ ButtonRadioSelect.propTypes = {
      */
     renderer: PropTypes.func,
 
+    /**
+     * Callback function fired when the popup is open.
+     */
+    onOpenPopup: PropTypes.func,
+
+    /**
+     * Callback function fired when the popup is close.
+     */
+    onClosePopup: PropTypes.func,
+
     onItemClick: PropTypes.func,
 
     onChange: PropTypes.func
