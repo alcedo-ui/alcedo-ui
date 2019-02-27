@@ -89,9 +89,15 @@ class TableRow extends Component {
         !disabled && onRowClick && onRowClick(data, rowIndex, e);
     };
 
-    cellClickHandler = (e, colIndex, col) => {
-        const {data, rowIndex, disabled, isExpanded, onCellClick, onExpand, onCollapse} = this.props;
+    cellClickHandler = (e, colIndex) => {
+        const {data, rowIndex, disabled, onCellClick} = this.props;
         !disabled && onCellClick && onCellClick(data, rowIndex, colIndex, e);
+
+    };
+
+    toggleExpandHandler = (colIndex, col) => {
+        const {data, isExpanded, onExpand, onCollapse} = this.props;
+
         if (!col.collapseAble || !data[col.childrenNumKey]) {
             return;
         }
@@ -105,11 +111,12 @@ class TableRow extends Component {
 
     render() {
 
-        const {data, isChecked, disabled, isExpanded, expandedIconCls} = this.props,
+        const {data, className, isChecked, disabled, isExpanded, expandedIconCls} = this.props,
 
             columns = this.calColumns(),
 
             trClassName = classNames('table-row', {
+                [className]: className,
                 activated: isChecked,
                 [data.rowClassName]: data.rowClassName
             });
@@ -123,7 +130,8 @@ class TableRow extends Component {
                     columns && columns.map(({col, span}, colIndex) =>
                         <td key={colIndex}
                             className={classNames('table-data', {
-                                [col.cellClassName]: col.cellClassName
+                                [col.cellClassName]: col.cellClassName,
+                                'expanded-children-column': col.collapseAble
                             })}
                             style={col.cellStyle}
                             colSpan={span}
@@ -132,7 +140,7 @@ class TableRow extends Component {
                             <i className={classNames('collapsed-icon', {
                                 [expandedIconCls]: expandedIconCls,
                                 ['expanded-icon']: isExpanded
-                            })}/>}
+                            })} onClick={() => this.toggleExpandHandler(colIndex, col)}/>}
                             {this.contentRenderer(col.renderer, colIndex)}
                         </td>
                     )
@@ -151,6 +159,7 @@ TableRow.propTypes = {
     isChecked: PropTypes.bool,
     disabled: PropTypes.bool,
     expandedIconCls: PropTypes.string,
+    className: PropTypes.string,
 
     onRowClick: PropTypes.func,
     onCellClick: PropTypes.func
@@ -158,6 +167,7 @@ TableRow.propTypes = {
 };
 
 TableRow.defaultProps = {
+    className: '',
     rowIndex: 0,
     expandedIconCls: 'fas fa-angle-right',
     columns: [],

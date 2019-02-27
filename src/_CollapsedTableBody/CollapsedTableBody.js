@@ -118,15 +118,15 @@ class CollapsedTableBody extends Component {
                                             <Fragment>
                                                 {
                                                     row.children.map((childRow, childIndex) => childRow ?
-                                                        <TableRow
-                                                            key={idProp && idProp in childRow ? childRow[idProp] : childIndex + 'child'}
-                                                            rowIndex={startIndex + childIndex}
-                                                            columns={columns}
-                                                            data={childRow}
-                                                            isChecked={this.isItemChecked(childRow)}
-                                                            disabled={disabled || childRow.disabled}
-                                                            onRowClick={onRowClick}
-                                                            onCellClick={onCellClick}/>
+                                                        <TableRow className="expanded-children-row"
+                                                                  key={idProp && idProp in childRow ? childRow[idProp] : childIndex + 'child'}
+                                                                  rowIndex={startIndex + childIndex}
+                                                                  columns={columns}
+                                                                  data={childRow}
+                                                                  isChecked={this.isItemChecked(childRow)}
+                                                                  disabled={disabled || childRow.disabled}
+                                                                  onRowClick={onRowClick}
+                                                                  onCellClick={onCellClick}/>
                                                         :
                                                         null
                                                     )
@@ -136,15 +136,15 @@ class CollapsedTableBody extends Component {
                                             <Fragment>
                                                 {
                                                     row.children.slice(0, expandedChildrenLimit).map((childRow, childIndex) => childRow ?
-                                                        <TableRow
-                                                            key={idProp && idProp in childRow ? childRow[idProp] : childIndex + 'child'}
-                                                            rowIndex={startIndex + childIndex}
-                                                            columns={columns}
-                                                            data={childRow}
-                                                            isChecked={this.isItemChecked(childRow)}
-                                                            disabled={disabled || childRow.disabled}
-                                                            onRowClick={onRowClick}
-                                                            onCellClick={onCellClick}/>
+                                                        <TableRow className="expanded-children-row"
+                                                                  key={idProp && idProp in childRow ? childRow[idProp] : childIndex + 'child'}
+                                                                  rowIndex={startIndex + childIndex}
+                                                                  columns={columns}
+                                                                  data={childRow}
+                                                                  isChecked={this.isItemChecked(childRow)}
+                                                                  disabled={disabled || childRow.disabled}
+                                                                  onRowClick={onRowClick}
+                                                                  onCellClick={onCellClick}/>
                                                         :
                                                         null
                                                     )

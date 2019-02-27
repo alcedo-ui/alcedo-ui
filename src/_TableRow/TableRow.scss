@@ -10,7 +10,7 @@
 
     .table-data {
         text-align: left;
-        padding: 15px;
+        padding: 15px 24px;
         transition: none;
         cursor: default;
         overflow: hidden;
@@ -23,13 +23,21 @@
         }
 
         .collapsed-icon {
+            cursor: pointer;
             position: absolute;
-            margin-left: -8px;
+            margin-left: -14px;
             transition: transform 0.5s;
 
             &.expanded-icon {
                 transform: rotate(90deg);
             }
+        }
+    }
+
+    &.expanded-children-row {
+
+        .expanded-children-column {
+            padding: 15px 32px;
         }
     }
 
