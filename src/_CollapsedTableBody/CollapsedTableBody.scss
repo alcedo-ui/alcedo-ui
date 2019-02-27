@@ -1,0 +1,20 @@
+.collapsed-table-body {
+
+    .table-row {
+        border-top: 1px solid $theme-border;
+    }
+
+    .view-all {
+        cursor: pointer;
+        display: block;
+        width: 100%;
+        text-align: center;
+        line-height: 48px;
+        color: #06789d;
+        text-decoration: underline;
+    }
+
+    .is-expand-loading {
+        padding: 18px 0;
+    }
+}

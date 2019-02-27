@@ -12,6 +12,7 @@ import Checkbox from '../Checkbox';
 import Radio from '../Radio';
 import Thead from '../_Thead';
 import TableBody from '../_TableBody';
+import CollapsedTableBody from '../_CollapsedTableBody';
 import Pagging from '../Pagging';
 import BriefPagging from '../BriefPagging';
 import Theme from '../Theme';
@@ -88,7 +89,7 @@ class Table extends Component {
         }
 
         return sortedData.slice(pagging.page * pagging.pageSize, (pagging.page + 1) * pagging.pageSize)
-                         .filter(item => item && !item.disabled);
+            .filter(item => item && !item.disabled);
 
     };
 
@@ -316,6 +317,18 @@ class Table extends Component {
 
     };
 
+    expandClickHandle = (row, rowIndex, colIndex) => {
+        this.props.onExpandHandle && this.props.onExpandHandle(row, rowIndex, colIndex);
+    };
+
+    viewAllClickHandle = (row, rowIndex) => {
+        this.props.onViewAllHandle && this.props.onViewAllHandle(row, rowIndex);
+    };
+
+    collapseClickHandle = (row, rowIndex, colIndex) => {
+        this.props.onCollapseHandle && this.props.onCollapseHandle(row, rowIndex, colIndex);
+    }
+
     rowClickHandler = (rowData, rowIndex, e) => {
 
         if (!rowData) {
@@ -542,13 +555,13 @@ class Table extends Component {
                 paggingPrevIconCls, paggingNextIconCls, paggingFirstIconCls, paggingLastIconCls,
 
                 idProp, isPagging, useFullPagging, paggingSelectedCountVisible, paggingPageSizeVisible,
-                paggingCountRenderer,
+                paggingCountRenderer,expandedChildrenLimit, expandedIconCls,
 
                 // not passing down these props
                 defaultSortType, defaultPageSize, sort: propsSort, onPageChange, hasLineNumber, columns, selectTheme,
                 radioUncheckedIconCls, radioCheckedIconCls, checkboxUncheckedIconCls, checkboxCheckedIconCls,
                 checkboxIndeterminateIconCls, selectAllMode, isClearSelectionOnChangePage, autoSort, sortFunc, onSort,
-                onDataUpdate, onSelect, onDeselect, onSelectAll, onDeselectAll,
+                onDataUpdate, onSelect, onDeselect, onSelectAll, onDeselectAll, collapsed,
 
                 ...restProps
 
@@ -585,14 +598,30 @@ class Table extends Component {
 
                         {
                             finalData && finalDataCount > 0 ?
-                                <TableBody columns={finalColumns}
-                                           data={finalData}
-                                           idProp={idProp}
-                                           value={value}
-                                           selectMode={selectMode}
-                                           disabled={disabled}
-                                           onRowClick={this.rowClickHandler}
-                                           onCellClick={this.cellClickHandler}/>
+                                collapsed ?
+                                    <CollapsedTableBody columns={finalColumns}
+                                                        data={finalData}
+                                                        idProp={idProp}
+                                                        value={value}
+                                                        selectMode={selectMode}
+                                                        disabled={disabled}
+                                                        expandedChildrenLimit={expandedChildrenLimit}
+                                                        expandedIconCls={expandedIconCls}
+                                                        onRowClick={this.rowClickHandler}
+                                                        onCellClick={this.cellClickHandler}
+                                                        onExpandClick={this.expandClickHandle}
+                                                        onCollapseClick={this.collapseClickHandle}
+                                                        onViewAllClick={this.viewAllClickHandle}/>
+                                    :
+                                    <TableBody columns={finalColumns}
+                                               data={finalData}
+                                               idProp={idProp}
+                                               value={value}
+                                               selectMode={selectMode}
+                                               disabled={disabled}
+                                               onRowClick={this.rowClickHandler}
+                                               onCellClick={this.cellClickHandler}
+                                               onViewAllClick={this.viewAllClickHandle}/>
                                 :
                                 <tbody className="table-body">
                                     <tr className="table-row">

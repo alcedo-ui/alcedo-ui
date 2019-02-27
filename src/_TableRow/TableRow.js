@@ -89,14 +89,23 @@ class TableRow extends Component {
         !disabled && onRowClick && onRowClick(data, rowIndex, e);
     };
 
-    cellClickHandler = (e, colIndex) => {
-        const {data, rowIndex, disabled, onCellClick} = this.props;
+    cellClickHandler = (e, colIndex, col) => {
+        const {data, rowIndex, disabled, isExpanded, onCellClick, onExpand, onCollapse} = this.props;
         !disabled && onCellClick && onCellClick(data, rowIndex, colIndex, e);
+        if (!col.collapseAble || data[col.childrenNumKey] === 0) {
+            return;
+        }
+
+        if (isExpanded) {
+            onCollapse && onCollapse(colIndex);
+        } else {
+            onExpand && onExpand(colIndex);
+        }
     };
 
     render() {
 
-        const {data, isChecked, disabled} = this.props,
+        const {data, isChecked, disabled, isExpanded, expandedIconCls} = this.props,
 
             columns = this.calColumns(),
 
@@ -118,7 +127,12 @@ class TableRow extends Component {
                             })}
                             style={col.cellStyle}
                             colSpan={span}
-                            onClick={e => this.cellClickHandler(e, colIndex)}>
+                            onClick={e => this.cellClickHandler(e, colIndex, col)}>
+                            {col.collapseAble && data[col.childrenNumKey] > 0 &&
+                            <i className={classNames('collapsed-icon', {
+                                [expandedIconCls]: expandedIconCls,
+                                ['expanded-icon']: isExpanded
+                            })}/>}
                             {this.contentRenderer(col.renderer, colIndex)}
                         </td>
                     )
@@ -136,6 +150,7 @@ TableRow.propTypes = {
     data: PropTypes.object,
     isChecked: PropTypes.bool,
     disabled: PropTypes.bool,
+    expandedIconCls: PropTypes.string,
 
     onRowClick: PropTypes.func,
     onCellClick: PropTypes.func
@@ -144,6 +159,7 @@ TableRow.propTypes = {
 
 TableRow.defaultProps = {
     rowIndex: 0,
+    expandedIconCls: 'fas fa-angle-right',
     columns: [],
     data: {},
     isChecked: false,

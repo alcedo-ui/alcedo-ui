@@ -28,6 +28,8 @@ class TableExamples extends Component {
         }, {
             header: 'Name',
             sortable: true,
+            collapseAble: true,
+            childrenNumKey: 'childrenNum',
             sortProp: 'firstName',
             renderer: '${firstName} - ${lastName}'
         }, {
@@ -93,6 +95,75 @@ class TableExamples extends Component {
             sort
         });
         console.log('Sort Change Value: ', sort);
+    };
+
+    toggleCollapseRow = (index) => {
+
+
+        setTimeout(() => {
+            let data = this.state.data.slice();
+            data[0].children = [{
+                id: 100,
+                firstName: `firstName`,
+                lastName: `lastName`
+            }, {
+                id: 101,
+                firstName: `firstName`,
+                lastName: `lastName`
+            }, {
+                id: 102,
+                firstName: `firstName`,
+                lastName: `lastName`
+            }, {
+                id: 103,
+                firstName: `firstName`,
+                lastName: `lastName`
+            }, {
+                id: 104,
+                firstName: `firstName`,
+                lastName: `lastName`
+            }, {
+                id: 105,
+                firstName: `firstName`,
+                lastName: `lastName`
+            }, {
+                id: 106,
+                firstName: `firstName`,
+                lastName: `lastName`
+            }, {
+                id: 107,
+                firstName: `firstName`,
+                lastName: `lastName`
+            }, {
+                id: 108,
+                firstName: `firstName`,
+                lastName: `lastName`
+            }, {
+                id: 109,
+                firstName: `firstName`,
+                lastName: `lastName`
+            }, {
+                id: 110,
+                firstName: `firstName`,
+                lastName: `lastName`
+            }, {
+                id: 111,
+                firstName: `firstName`,
+                lastName: `lastName`
+            }];
+            this.setState({
+                data
+            });
+        }, 1000);
+
+    };
+
+    viewAllHandler = (rowIndex) => {
+        // let data = this.state.data.slice();
+        // data[rowIndex].viewAll = !data[rowIndex].viewAll;
+        // this.setState({
+        //     data
+        // });
     };
 
     pageChangeHandler = (page, pageSize) => {
@@ -162,7 +233,12 @@ class TableExamples extends Component {
                                                        onClick={() => this.deleteRow(rowData.id)}/>
                                    }]}
                                    sort={sort}
+                                   collapsed={true}
+                                   expandedChildrenLimit={8}
                                    paggingCountRenderer={count => <span>Self Defined Total Count: {count}</span>}
+                                   onViewAllHandle={this.viewAllHandler}
+                                   onExpandHandle={this.toggleCollapseRow}
+                                   onCollapseHandle={this.toggleCollapseRow}
                                    onSort={this.sortHandler}
                                    onPageChange={this.pageChangeHandler}
                                    onDataUpdate={this.dataUpdateHandler}/>
