@@ -71,7 +71,8 @@ class TableExamples extends Component {
             data.push({
                 id: i,
                 firstName: `firstName ${i}`,
-                lastName: `lastName ${i}`
+                lastName: `lastName ${i}`,
+                childrenNum: i === 0 ? 9 : 0
             });
         }
 

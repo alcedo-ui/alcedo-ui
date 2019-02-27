@@ -92,7 +92,7 @@ class TableRow extends Component {
     cellClickHandler = (e, colIndex, col) => {
         const {data, rowIndex, disabled, isExpanded, onCellClick, onExpand, onCollapse} = this.props;
         !disabled && onCellClick && onCellClick(data, rowIndex, colIndex, e);
-        if (!col.collapseAble || data[col.childrenNumKey] === 0) {
+        if (!col.collapseAble || !data[col.childrenNumKey]) {
             return;
         }
 

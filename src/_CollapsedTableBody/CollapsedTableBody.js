@@ -81,7 +81,7 @@ class CollapsedTableBody extends Component {
 
         const {
             columns, data, startIndex, idProp, disabled, value, selectMode, expandedChildrenLimit, expandedIconCls,
-            onRowClick, onCellClick, onExpandClick
+            onRowClick, onCellClick
         } = this.props, {expandedList} = this.state;
 
         return (
@@ -107,55 +107,55 @@ class CollapsedTableBody extends Component {
                                       }}/>
                             {
                                 expandedList[row[idProp]] ?
-                                    row.children.length === 0 ?
+                                    !row.children || row.children.length === 0 ?
                                         <tr>
                                             <td>
                                                 <div className="is-expand-loading"><CircularLoading/></div>
                                             </td>
                                         </tr>
                                         :
-                                    (row.children.length <= expandedChildrenLimit || expandedList[row[idProp]] === 'ALL') ?
-                                        <Fragment>
-                                            {
-                                                row.children.map((childRow, childIndex) => childRow ?
-                                                    <TableRow
-                                                        key={idProp && idProp in childRow ? childRow[idProp] : childIndex + 'child'}
-                                                        rowIndex={startIndex + childIndex}
-                                                        columns={columns}
-                                                        data={childRow}
-                                                        isChecked={this.isItemChecked(childRow)}
-                                                        disabled={disabled || childRow.disabled}
-                                                        onRowClick={onRowClick}
-                                                        onCellClick={onCellClick}/>
-                                                    :
-                                                    null
-                                                )
-                                            }
-                                        </Fragment>
-                                        :
-                                        <Fragment>
-                                            {
-                                                row.children.slice(0, expandedChildrenLimit).map((childRow, childIndex) => childRow ?
-                                                    <TableRow
-                                                        key={idProp && idProp in childRow ? childRow[idProp] : childIndex + 'child'}
-                                                        rowIndex={startIndex + childIndex}
-                                                        columns={columns}
-                                                        data={childRow}
-                                                        isChecked={this.isItemChecked(childRow)}
-                                                        disabled={disabled || childRow.disabled}
-                                                        onRowClick={onRowClick}
-                                                        onCellClick={onCellClick}/>
-                                                    :
-                                                    null
-                                                )
-                                            }
-                                            <tr>
-                                                <td><span className="view-all" onClick={() => {
-                                                    this.onViewAllClick(row, rowIndex);
-                                                }}>View All({row.children.length})</span>
-                                                </td>
-                                            </tr>
-                                        </Fragment>
+                                        (row.children.length <= expandedChildrenLimit || expandedList[row[idProp]] === 'ALL') ?
+                                            <Fragment>
+                                                {
+                                                    row.children.map((childRow, childIndex) => childRow ?
+                                                        <TableRow
+                                                            key={idProp && idProp in childRow ? childRow[idProp] : childIndex + 'child'}
+                                                            rowIndex={startIndex + childIndex}
+                                                            columns={columns}
+                                                            data={childRow}
+                                                            isChecked={this.isItemChecked(childRow)}
+                                                            disabled={disabled || childRow.disabled}
+                                                            onRowClick={onRowClick}
+                                                            onCellClick={onCellClick}/>
+                                                        :
+                                                        null
+                                                    )
+                                                }
+                                            </Fragment>
+                                            :
+                                            <Fragment>
+                                                {
+                                                    row.children.slice(0, expandedChildrenLimit).map((childRow, childIndex) => childRow ?
+                                                        <TableRow
+                                                            key={idProp && idProp in childRow ? childRow[idProp] : childIndex + 'child'}
+                                                            rowIndex={startIndex + childIndex}
+                                                            columns={columns}
+                                                            data={childRow}
+                                                            isChecked={this.isItemChecked(childRow)}
+                                                            disabled={disabled || childRow.disabled}
+                                                            onRowClick={onRowClick}
+                                                            onCellClick={onCellClick}/>
+                                                        :
+                                                        null
+                                                    )
+                                                }
+                                                <tr>
+                                                    <td><span className="view-all" onClick={() => {
+                                                        this.onViewAllClick(row, rowIndex);
+                                                    }}>View All({row.children.length})</span>
+                                                    </td>
+                                                </tr>
+                                            </Fragment>
                                     :
                                     null
                             }
