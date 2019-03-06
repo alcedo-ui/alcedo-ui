@@ -16,11 +16,20 @@ import 'scss/index.scss';
 const history = createHashHistory(),
     store = configureStore(history);
 
-render(
-    <Provider store={store}>
-        <ConnectedRouter history={history}>
-            {renderRoutes(configureRoutes(store))}
-        </ConnectedRouter>
-    </Provider>,
-    document.getElementById('app-container')
-);
+function renderAppContainer() {
+    render(
+        <Provider store={store}>
+            <ConnectedRouter history={history}>
+                {renderRoutes(configureRoutes(store))}
+            </ConnectedRouter>
+        </Provider>,
+        document.getElementById('app-container')
+    );
+}
+
+renderAppContainer();
+
+// 热替换
+if (process.env.NODE_ENV === 'development' && module.hot) {
+    module.hot.accept('examples/config.routes.js', renderAppContainer);
+}
