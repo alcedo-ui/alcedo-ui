@@ -29,7 +29,11 @@ function renderAppContainer() {
 
 renderAppContainer();
 
-// 热替换
+// hot
 if (process.env.NODE_ENV === 'development' && module.hot) {
     module.hot.accept('examples/config.routes.js', renderAppContainer);
+    module.hot.accept('reduxes/store', renderAppContainer);
+    module.hot.accept('reduxes/reducers', () => {
+        store.replaceReducer(require('reduxes/reducers').default);
+    });
 }
