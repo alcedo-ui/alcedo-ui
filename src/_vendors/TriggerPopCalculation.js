@@ -3,6 +3,8 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+import queryContains from 'dom-helpers/query/contains';
+
 import Dom from './Dom';
 import Position from '../_statics/Position';
 
@@ -128,7 +130,9 @@ function getStyle(parentEl, triggerEl, popupEl, scrollEl, position) {
         }
     }
 
-    if (Dom.getClosestFixed(triggerEl)) {
+    // to solve the fixed parent element problem
+    const closestFixedEl = Dom.getClosestFixed(triggerEl);
+    if (closestFixedEl && parentEl && queryContains(parentEl, closestFixedEl)) {
         result.position = 'fixed';
     }
 
