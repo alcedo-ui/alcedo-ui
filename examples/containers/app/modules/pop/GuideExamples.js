@@ -317,7 +317,6 @@ class GuideExamples extends Component {
                                                        visible={guideVisible[17]}
                                                        type={type}
                                                        triggerEl={this.trigger17}
-                                                       isTriggerPositionFixed={true}
                                                        shouldFollowScroll={true}
                                                        onRequestClose={() => this.hide(17)}>
                                                     {message}
