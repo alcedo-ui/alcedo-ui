@@ -259,6 +259,8 @@ export default {
     toggleClass,
     findParentByClassName,
     isParent,
+    isScrollable,
+    isElementScrollable,
     getClosestScrollable,
     getTotalScrollOffset
 };
