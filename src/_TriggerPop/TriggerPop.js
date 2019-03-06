@@ -47,10 +47,9 @@ class TriggerPop extends Component {
      */
     resetPosition = (transitionEl = this.refs.pop.getEl()) => {
 
-        const {parentEl, triggerEl, position, isTriggerPositionFixed} = this.props;
+        const {parentEl, triggerEl, position} = this.props;
 
-        TriggerPopCalculation.setStyle(parentEl, triggerEl, transitionEl, this.getScrollEl(),
-            position, isTriggerPositionFixed);
+        TriggerPopCalculation.setStyle(parentEl, triggerEl, transitionEl, this.getScrollEl(), position);
 
     };
 
@@ -124,7 +123,7 @@ class TriggerPop extends Component {
 
                 // not passing down these props
                 isEscClose, isBlurClose, shouldPreventContainerScroll,
-                isTriggerPositionFixed, shouldFollowScroll,
+                shouldFollowScroll,
 
                 ...restProps
 
@@ -241,7 +240,6 @@ TriggerPop.propTypes = {
     isBlurClose: PropTypes.bool,
     isEscClose: PropTypes.bool,
     shouldPreventContainerScroll: PropTypes.bool,
-    isTriggerPositionFixed: PropTypes.bool,
 
     shouldFollowScroll: PropTypes.bool,
     scrollEl: PropTypes.object,
@@ -291,7 +289,6 @@ TriggerPop.defaultProps = {
     isBlurClose: true,
     isEscClose: true,
     shouldPreventContainerScroll: true,
-    isTriggerPositionFixed: false,
     shouldFollowScroll: false,
     resetPositionWait: 250
 
