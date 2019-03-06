@@ -108,8 +108,6 @@ Tip.propTypes = {
      */
     depth: PropTypes.number,
 
-    isTriggerPositionFixed: PropTypes.bool,
-
     shouldFollowScroll: PropTypes.bool,
     scrollEl: PropTypes.object,
 
@@ -154,7 +152,6 @@ Tip.defaultProps = {
     position: Position.BOTTOM,
     isAnimated: true,
     shouldPreventContainerScroll: true,
-    isTriggerPositionFixed: false,
     shouldFollowScroll: false,
     resetPositionWait: 250,
     showModal: false
