@@ -87,7 +87,8 @@ class CascaderSelect extends Component {
     getTriggerValue = (props = this.props) => {
 
         const {data, selectMode, placeholder, triggerRenderer, renderer, displayField, valueField} = props,
-            {value, path} = this.state,
+            {value} = this.state,
+            path = CascaderCalculation.calPath(value, data, props),
             isMultiSelect = selectMode === SelectMode.MULTI_SELECT;
 
         if (triggerRenderer) {
