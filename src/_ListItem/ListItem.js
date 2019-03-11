@@ -100,10 +100,13 @@ class ListItem extends Component {
 
             } = this.props,
 
+            indeterminated = indeterminateCallback && indeterminateCallback(data) || false,
+
             listItemClassName = classNames('list-item', {
                 [`theme-${theme}`]: !checked && theme,
                 [`theme-${activatedTheme}`]: checked && activatedTheme,
                 activated: checked,
+                indeterminated,
                 [className]: className
             }),
 
@@ -142,7 +145,7 @@ class ListItem extends Component {
                             <Checkbox className="list-item-select"
                                       theme={selectTheme}
                                       checked={checked}
-                                      indeterminate={indeterminateCallback && indeterminateCallback(data)}
+                                      indeterminate={indeterminated}
                                       disabled={disabled || isLoading}
                                       uncheckedIconCls={checkboxUncheckedIconCls}
                                       checkedIconCls={checkboxCheckedIconCls}
