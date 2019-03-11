@@ -93,6 +93,10 @@ class CascaderListExamples extends Component {
         console.log('Node Selected::', node, path);
     };
 
+    pathChangeHandler = path => {
+        console.log('Path::', path);
+    };
+
     changeHandler = value => {
         console.log('Changed::', value);
     };
@@ -127,6 +131,7 @@ class CascaderListExamples extends Component {
                                     <CascaderList data={this.data}
                                                   onNodeClick={this.nodeClickHandler}
                                                   onNodeSelect={this.nodeSelectHandler}
+                                                  onPathChange={this.pathChangeHandler}
                                                   onChange={this.changeHandler}/>
                                 </Paper>
 
@@ -147,21 +152,19 @@ class CascaderListExamples extends Component {
                             <div className="examples-wrapper">
                                 <Paper className="cascader-list-wrapper">
                                     <CascaderList data={this.data}
-                                                  renderer={node => {
-                                                      return (
-                                                          <div className="self-define-node">
-                                                              <span className="self-define-node-text">{node.text}</span>
-                                                              {
-                                                                  node.children && node.children.length > 0 ?
-                                                                      <span className="self-define-node-desc">
-                                                                          ({node.children.length})
-                                                                      </span>
-                                                                      :
-                                                                      null
-                                                              }
-                                                          </div>
-                                                      );
-                                                  }}
+                                                  renderer={node =>
+                                                      <div className="self-define-node">
+                                                          <span className="self-define-node-text">{node.text}</span>
+                                                          {
+                                                              node.children && node.children.length > 0 ?
+                                                                  <span className="self-define-node-desc">
+                                                                      ({node.children.length})
+                                                                  </span>
+                                                                  :
+                                                                  null
+                                                          }
+                                                      </div>
+                                                  }
                                                   expandDirection={CascaderList.ExpandDirection.LEFT}
                                                   onNodeSelect={this.nodeSelectHandler}
                                                   onChange={this.changeHandler}/>
@@ -184,21 +187,19 @@ class CascaderListExamples extends Component {
                                     <CascaderList selectMode={CascaderList.SelectMode.MULTI_SELECT}
                                                   data={this.data}
                                                   idField="value"
-                                                  renderer={node => {
-                                                      return (
-                                                          <div className="self-define-node">
-                                                              <span className="self-define-node-text">{node.text}</span>
-                                                              {
-                                                                  node.children && node.children.length > 0 ?
-                                                                      <span className="self-define-node-desc">
-                                                                          ({node.children.length})
-                                                                      </span>
-                                                                      :
-                                                                      null
-                                                              }
-                                                          </div>
-                                                      );
-                                                  }}
+                                                  renderer={node =>
+                                                      <div className="self-define-node">
+                                                          <span className="self-define-node-text">{node.text}</span>
+                                                          {
+                                                              node.children && node.children.length > 0 ?
+                                                                  <span className="self-define-node-desc">
+                                                                      ({node.children.length})
+                                                                  </span>
+                                                                  :
+                                                                  null
+                                                          }
+                                                      </div>
+                                                  }
                                                   checkboxUncheckedIconCls="far fa-circle"
                                                   checkboxCheckedIconCls="fas fa-check-circle"
                                                   checkboxIndeterminateIconCls="fas fa-minus-circle"
