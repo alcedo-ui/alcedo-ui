@@ -5,10 +5,20 @@
 
 import Util from './Util';
 
+/**
+ * Whether a node has children
+ * @param node
+ * @returns {boolean}
+ */
 function hasChildren(node) {
-    return node && node.children && node.children.length > 0;
+    return node && node.children && node.children.length > 0 || false;
 }
 
+/**
+ * Calculate the max depth of current cascader path
+ * @param activatedPath
+ * @returns {*}
+ */
 function getMaxDepth(activatedPath) {
 
     if (!activatedPath || activatedPath.length < 1) {
@@ -26,6 +36,13 @@ function getMaxDepth(activatedPath) {
 
 }
 
+/**
+ * Calculate the cascader path according to the value
+ * @param value
+ * @param data
+ * @param props
+ * @returns {*|*|*}
+ */
 function calPath(value, data, props) {
 
     if (!value || !data) {
@@ -36,6 +53,16 @@ function calPath(value, data, props) {
 
 }
 
+/**
+ * Traverse the tree data to Calculate the cascader path
+ * @param node
+ * @param value
+ * @param props
+ * @param rootList
+ * @param parent
+ * @param index
+ * @returns {*}
+ */
 function traverseDataCalPath(node, value, props, rootList, parent, index = 0) {
 
     if (!node || node.length < 1 || !value) {
