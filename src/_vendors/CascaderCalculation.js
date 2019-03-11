@@ -5,6 +5,10 @@
 
 import Util from './Util';
 
+function hasChildren(node) {
+    return node && node.children && node.children.length > 0;
+}
+
 function getMaxDepth(activatedPath) {
 
     if (!activatedPath || activatedPath.length < 1) {
@@ -85,6 +89,7 @@ function traverseDataCalPath(node, value, props, rootList, parent, index = 0) {
 }
 
 export default {
+    hasChildren,
     getMaxDepth,
     calPath
 };
