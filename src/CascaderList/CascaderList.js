@@ -156,7 +156,7 @@ class CascaderList extends Component {
         this.setState(state, () => {
             const {onNodeSelect, onChange} = this.props;
             onNodeSelect && onNodeSelect(node, path);
-            onChange && onChange(state.value);
+            state.value && onChange && onChange(state.value);
         });
 
     };
