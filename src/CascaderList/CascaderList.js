@@ -118,7 +118,7 @@ class CascaderList extends Component {
             activatedPath: path
         }, () => {
             const {onPathChange} = this.props;
-            onPathChange && onPathChange();
+            onPathChange && onPathChange(path);
         });
 
     };
@@ -149,7 +149,7 @@ class CascaderList extends Component {
 
             state.value = result;
 
-        } else if (selectMode === SelectMode.SINGLE_SELECT) {
+        } else if (selectMode === SelectMode.SINGLE_SELECT && !CascaderCalculation.hasChildren(node)) {
             state.value = node;
         }
 
@@ -443,6 +443,8 @@ CascaderList.propTypes = {
      * Callback function fired when the tree node deselected.
      */
     onNodeDeselect: PropTypes.func,
+
+    onPathChange: PropTypes.func,
 
     /**
      * Callback function fired when the tree changed.
