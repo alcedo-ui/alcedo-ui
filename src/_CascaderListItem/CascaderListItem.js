@@ -97,6 +97,29 @@ class CascaderListItem extends Component {
 
     };
 
+    listItemClickHanlder = (node, index, e) => {
+
+        const {data, disabled, isLoading, readOnly} = this.props;
+
+        if (disabled || isLoading || readOnly || data.disabled || data.isLoading || data.readOnly) {
+            return;
+        }
+
+        const {onNodeClick} = this.props;
+        onNodeClick && onNodeClick(node, index, this.getPath(index), e);
+
+    };
+
+    listItemSelectHanlder = (node, index) => {
+        const {onNodeSelect} = this.props;
+        onNodeSelect && onNodeSelect(node, this.getPath(index));
+    };
+
+    listItemDeselectHanlder = (node, index) => {
+        const {onNodeDeselect} = this.props;
+        onNodeDeselect && onNodeDeselect(node, this.getPath(index));
+    };
+
     listItemRenderer = (node, index) => {
 
         if (!node) {
@@ -157,34 +180,11 @@ class CascaderListItem extends Component {
 
     };
 
-    listItemClickHanlder = (node, index, e) => {
-
-        const {data, disabled, isLoading, readOnly} = this.props;
-
-        if (disabled || isLoading || readOnly || data.disabled || data.isLoading || data.readOnly) {
-            return;
-        }
-
-        const {onNodeClick} = this.props;
-        onNodeClick && onNodeClick(node, index, this.getPath(index), e);
-
-    };
-
-    listItemSelectHanlder = (node, index) => {
-        const {onNodeSelect} = this.props;
-        onNodeSelect && onNodeSelect(node, this.getPath(index));
-    };
-
-    listItemDeselectHanlder = (node, index) => {
-        const {onNodeDeselect} = this.props;
-        onNodeDeselect && onNodeDeselect(node, this.getPath(index));
-    };
-
     render() {
 
         const {
 
-                depth, theme, listWidth, selectTheme, selectMode, expandDirection, data, value,
+                activatedPath, depth, theme, listWidth, selectTheme, selectMode, expandDirection, data, value,
                 disabled, isLoading, readOnly, idField, valueField, displayField, descriptionField,
 
                 radioUncheckedIconCls, radioCheckedIconCls,
@@ -217,7 +217,7 @@ class CascaderListItem extends Component {
                       selectTheme={selectTheme}
                       selectMode={selectMode}
                       data={data}
-                      value={value}
+                      value={activatedPath && activatedPath[depth] && activatedPath[depth].node || null}
                       disabled={disabled}
                       isLoading={isLoading}
                       readOnly={readOnly}
