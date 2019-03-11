@@ -34,6 +34,7 @@
                 color: $theme-description;
             }
 
+            &.indeterminated,
             &.activated {
                 background: $theme-secondary;
             }

@@ -87,6 +87,18 @@ class CascaderListItem extends Component {
 
     };
 
+    getValue = () => {
+
+        const {selectMode, value, activatedPath, depth} = this.props;
+
+        if (selectMode === SelectMode.MULTI_SELECT) {
+            return value || [];
+        }
+
+        return activatedPath && activatedPath[depth] && activatedPath[depth].node || null;
+
+    };
+
     isListItemIndeterminate = node => {
 
         if (!this.props.isSelectRecursive) {
@@ -217,7 +229,7 @@ class CascaderListItem extends Component {
                       selectTheme={selectTheme}
                       selectMode={selectMode}
                       data={data}
-                      value={activatedPath && activatedPath[depth] && activatedPath[depth].node || null}
+                      value={this.getValue()}
                       disabled={disabled}
                       isLoading={isLoading}
                       readOnly={readOnly}
