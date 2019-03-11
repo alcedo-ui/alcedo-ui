@@ -33,6 +33,10 @@
                 text-align: right;
                 color: $theme-description;
             }
+
+            &.activated {
+                background: $theme-secondary;
+            }
         }
 
         &.first {

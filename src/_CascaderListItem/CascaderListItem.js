@@ -14,6 +14,7 @@ import SelectMode from '../_statics/SelectMode';
 import HorizontalDirection from '../_statics/HorizontalDirection';
 
 import Calculation from '../_vendors/Calculation';
+import CascaderCalculation from '../_vendors/CascaderCalculation';
 import Util from '../_vendors/Util';
 
 class CascaderListItem extends Component {
@@ -98,7 +99,12 @@ class CascaderListItem extends Component {
 
     listItemRenderer = (node, index) => {
 
-        const {expandDirection, valueField, displayField, descriptionField, expandedIconCls, renderer} = this.props;
+        if (!node) {
+            return null;
+        }
+
+        const {expandDirection, valueField, displayField, descriptionField, expandedIconCls, renderer} = this.props,
+            hasChildren = CascaderCalculation.hasChildren(node);
 
         let text, desc;
         if (!renderer) {
@@ -110,7 +116,7 @@ class CascaderListItem extends Component {
             <Fragment>
 
                 {
-                    expandDirection === HorizontalDirection.LEFT && this.isExpanded(node, index) ?
+                    expandDirection === HorizontalDirection.LEFT && hasChildren ?
                         <i className={classNames('cascader-list-item-expand-icon',
                             expandedIconCls || 'fas fa-chevron-left')}
                            aria-hidden="true"></i>
@@ -138,7 +144,7 @@ class CascaderListItem extends Component {
                 }
 
                 {
-                    expandDirection === HorizontalDirection.RIGHT && this.isExpanded(node, index) ?
+                    expandDirection === HorizontalDirection.RIGHT && hasChildren ?
                         <i className={classNames('cascader-list-item-expand-icon',
                             expandedIconCls || 'fas fa-chevron-right')}
                            aria-hidden="true"></i>
@@ -185,6 +191,7 @@ class CascaderListItem extends Component {
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls
 
             } = this.props,
+
             activatedIndex = this.getActivatedIndex(),
             hasChild = activatedIndex > -1 && data[activatedIndex] && data[activatedIndex].children
                 && data[activatedIndex].children.length > 0,
