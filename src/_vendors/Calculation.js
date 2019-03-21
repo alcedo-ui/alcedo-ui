@@ -144,7 +144,7 @@ function isNodeIndeterminate(node, value, {valueField, displayField}) {
 
     Util.preOrderTraverse(node, nodeItem => {
         total++;
-        if (value.findIndex(item =>
+        if (value && value.findIndex(item =>
             Util.getValueByValueField(item, valueField, displayField)
             === Util.getValueByValueField(nodeItem, valueField, displayField)) > -1) {
             count++;
