@@ -101,7 +101,7 @@ class CascaderListItem extends Component {
 
     isListItemIndeterminate = node => {
 
-        if (!this.props.isSelectRecursive) {
+        if (!this.props.isSelectRecursive || this.props.selectMode === SelectMode.SINGLE_SELECT) {
             return false;
         }
 
