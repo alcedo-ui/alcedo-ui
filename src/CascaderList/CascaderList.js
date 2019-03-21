@@ -31,9 +31,10 @@ class CascaderList extends Component {
 
         super(props, ...restArgs);
 
+        const value = Calculation.getInitValue(props);
         this.state = {
-            value: Calculation.getInitValue(props),
-            activatedPath: []
+            value,
+            activatedPath: CascaderCalculation.calPath(value, props.data, props)
         };
 
     }
