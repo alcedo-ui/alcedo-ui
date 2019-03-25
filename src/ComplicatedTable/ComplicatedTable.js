@@ -5,11 +5,16 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
+
+import Header from '../ComplicatedTableHeader';
+import Content from '../ComplicatedTableContent';
+import Footer from '../ComplicatedTableFooter';
+import Pagination from '../ComplicatedTablePagination';
 
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
 import SortType from '../_statics/SortType';
-import classNames from 'classnames';
 
 class ComplicatedTable extends Component {
 
@@ -32,6 +37,11 @@ class ComplicatedTable extends Component {
         return (
             <div className={tableClassName}
                  style={style}>
+
+                <Header/>
+                <Content/>
+                <Footer/>
+                <Pagination/>
 
             </div>
         );
