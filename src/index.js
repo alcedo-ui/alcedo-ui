@@ -16,6 +16,10 @@ export CircularProgress from './CircularProgress';
 export ColorBlock from './ColorBlock';
 export ColorPicker from './ColorPicker';
 export ComplicatedTable from './ComplicatedTable';
+export ComplicatedTableContent from './ComplicatedTableContent';
+export ComplicatedTableFooter from './ComplicatedTableFooter';
+export ComplicatedTableHeader from './ComplicatedTableHeader';
+export ComplicatedTablePagination from './ComplicatedTablePagination';
 export Crumbs from './Crumbs';
 export DateField from './DateField';
 export DatePicker from './DatePicker';
@@ -111,4 +115,4 @@ export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 111;
+export const COMPONENTS_TOTAL_COUNT = 115;
