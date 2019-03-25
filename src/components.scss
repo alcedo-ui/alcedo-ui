@@ -15,10 +15,10 @@
 @import './ColorBlock/ColorBlock.scss';
 @import './ColorPicker/ColorPicker.scss';
 @import './ComplicatedTable/ComplicatedTable.scss';
-@import './ComplicatedTableContent/ComplicatedTableContent.scss';
-@import './ComplicatedTableFooter/ComplicatedTableFooter.scss';
-@import './ComplicatedTableHeader/ComplicatedTableHeader.scss';
-@import './ComplicatedTablePagination/ComplicatedTablePagination.scss';
+@import '_ComplicatedTableContent/ComplicatedTableContent.scss';
+@import '_ComplicatedTableFooter/ComplicatedTableFooter.scss';
+@import '_ComplicatedTableHeader/ComplicatedTableHeader.scss';
+@import '_ComplicatedTablePagination/ComplicatedTablePagination.scss';
 @import './Crumbs/Crumbs.scss';
 @import './DateField/DateField.scss';
 @import './DatePicker/DatePicker.scss';

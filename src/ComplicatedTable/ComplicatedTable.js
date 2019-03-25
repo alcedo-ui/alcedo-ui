@@ -7,10 +7,10 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import Header from '../ComplicatedTableHeader';
-import Content from '../ComplicatedTableContent';
-import Footer from '../ComplicatedTableFooter';
-import Pagination from '../ComplicatedTablePagination';
+import Header from '../_ComplicatedTableHeader';
+import Content from '../_ComplicatedTableContent';
+import Footer from '../_ComplicatedTableFooter';
+import Pagination from '../_ComplicatedTablePagination';
 
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
