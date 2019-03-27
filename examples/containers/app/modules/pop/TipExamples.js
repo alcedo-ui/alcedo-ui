@@ -335,14 +335,12 @@ class TipExamples extends Component {
                                                 <Tip position={Tip.Position.BOTTOM_LEFT}
                                                      visible={popVisible[15]}
                                                      triggerEl={this.trigger15}
-                                                     isTriggerPositionFixed={true}
                                                      shouldFollowScroll={true}>
                                                     Tip Content
                                                 </Tip>
 
                                                 <TipProvider tipContent="Tip Content"
                                                              position={TipProvider.Position.BOTTOM_LEFT}
-                                                             isTriggerPositionFixed={true}
                                                              shouldFollowScroll={true}>
                                                     <RaisedButton className="dialog-trigger-button"
                                                                   value="Toggle TipProvider"/>

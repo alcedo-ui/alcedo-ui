@@ -87,7 +87,8 @@ class CascaderSelect extends Component {
     getTriggerValue = (props = this.props) => {
 
         const {data, selectMode, placeholder, triggerRenderer, renderer, displayField, valueField} = props,
-            {value, path} = this.state,
+            {value} = this.state,
+            path = CascaderCalculation.calPath(value, data, props),
             isMultiSelect = selectMode === SelectMode.MULTI_SELECT;
 
         if (triggerRenderer) {
@@ -136,11 +137,11 @@ class CascaderSelect extends Component {
 
     };
 
-    pathChangeHandler = () => {
+    handlePathChange = () => {
         this.refs.dropdown.resetPopupPosition();
     };
 
-    nodeSelectHandler = (node, path) => {
+    handleNodeSelect = (node, path) => {
 
         const {onNodeSelect} = this.props;
         onNodeSelect && onNodeSelect(node, path);
@@ -155,7 +156,7 @@ class CascaderSelect extends Component {
 
     };
 
-    changeHandler = value => {
+    handleChange = value => {
 
         const {autoClose} = this.props;
         if (autoClose) {
@@ -171,7 +172,7 @@ class CascaderSelect extends Component {
 
     };
 
-    popupClosedHandler = e => {
+    handlePopupClosed = e => {
         this.setState({
             popupVisible: false
         }, () => {
@@ -236,7 +237,7 @@ class CascaderSelect extends Component {
                           popupTheme={popupTheme}
                           autoPopupWidth={false}
                           triggerValue={this.getTriggerValue()}
-                          onClosePopup={this.popupClosedHandler}>
+                          onClosePopup={this.handlePopupClosed}>
 
                     <div className="cascader-select-list-scroller"
                          onWheel={e => Event.wheelHandler(e, this.props)}>
@@ -263,10 +264,10 @@ class CascaderSelect extends Component {
                                       checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
                                       renderer={renderer}
                                       onNodeClick={onNodeClick}
-                                      onNodeSelect={this.nodeSelectHandler}
+                                      onNodeSelect={this.handleNodeSelect}
                                       onNodeDeselect={onNodeDeselect}
-                                      onChange={this.changeHandler}
-                                      onPathChange={this.pathChangeHandler}/>
+                                      onChange={this.handleChange}
+                                      onPathChange={this.handlePathChange}/>
 
                     </div>
 
@@ -481,7 +482,6 @@ CascaderSelect.propTypes = {
      */
     autoClose: PropTypes.bool,
 
-    isTriggerPositionFixed: PropTypes.bool,
     shouldPreventContainerScroll: PropTypes.bool,
     isSelectRecursive: PropTypes.bool,
     allowCollapse: PropTypes.bool,
@@ -556,7 +556,6 @@ CascaderSelect.defaultProps = {
 
     autoClose: false,
 
-    isTriggerPositionFixed: false,
     shouldPreventContainerScroll: true,
     isSelectRecursive: true,
     allowCollapse: true,

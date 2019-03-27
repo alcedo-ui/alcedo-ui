@@ -1,5 +1,12 @@
-if (process.env.NODE_ENV === 'development') {
-	module.exports = require('./configureStore.dev.js');
-} else {
-	module.exports = require('./configureStore.prod.js');
-}
+import {createStore, applyMiddleware} from 'redux';
+import thunk from 'redux-thunk';
+import {routerMiddleware} from 'connected-react-router';
+import createRootReducer from 'reduxes/reducers';
+
+export default history => createStore(
+    createRootReducer(history),
+    applyMiddleware(
+        thunk,
+        routerMiddleware(history)
+    )
+)

@@ -435,7 +435,6 @@ class PopoverExamples extends Component {
                                                 <Popover position={Popover.Position.BOTTOM_LEFT}
                                                          visible={popVisible[18]}
                                                          triggerEl={this.trigger18}
-                                                         isTriggerPositionFixed={true}
                                                          shouldFollowScroll={true}
                                                          onRequestClose={() => this.hide(18)}>
                                                     <List data={items}/>
@@ -443,7 +442,6 @@ class PopoverExamples extends Component {
 
                                                 <PopoverProvider className="customized-popover"
                                                                  position={PopoverProvider.Position.BOTTOM_LEFT}
-                                                                 isTriggerPositionFixed={true}
                                                                  shouldFollowScroll={true}
                                                                  popoverContent={
                                                                      <div style={{padding: 20}}>

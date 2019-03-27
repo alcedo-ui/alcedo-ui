@@ -14,6 +14,7 @@ import SelectMode from '../_statics/SelectMode';
 import HorizontalDirection from '../_statics/HorizontalDirection';
 
 import Calculation from '../_vendors/Calculation';
+import CascaderCalculation from '../_vendors/CascaderCalculation';
 import Util from '../_vendors/Util';
 
 class CascaderListItem extends Component {
@@ -86,9 +87,21 @@ class CascaderListItem extends Component {
 
     };
 
+    getValue = () => {
+
+        const {selectMode, value, activatedPath, depth} = this.props;
+
+        if (selectMode === SelectMode.MULTI_SELECT) {
+            return value || [];
+        }
+
+        return activatedPath && activatedPath[depth] && activatedPath[depth].node || null;
+
+    };
+
     isListItemIndeterminate = node => {
 
-        if (!this.props.isSelectRecursive) {
+        if (!this.props.isSelectRecursive || this.props.selectMode === SelectMode.SINGLE_SELECT) {
             return false;
         }
 
@@ -96,9 +109,37 @@ class CascaderListItem extends Component {
 
     };
 
+    listItemClickHanlder = (node, index, e) => {
+
+        const {data, disabled, isLoading, readOnly} = this.props;
+
+        if (disabled || isLoading || readOnly || data.disabled || data.isLoading || data.readOnly) {
+            return;
+        }
+
+        const {onNodeClick} = this.props;
+        onNodeClick && onNodeClick(node, index, this.getPath(index), e);
+
+    };
+
+    listItemSelectHanlder = (node, index) => {
+        const {onNodeSelect} = this.props;
+        onNodeSelect && onNodeSelect(node, this.getPath(index));
+    };
+
+    listItemDeselectHanlder = (node, index) => {
+        const {onNodeDeselect} = this.props;
+        onNodeDeselect && onNodeDeselect(node, this.getPath(index));
+    };
+
     listItemRenderer = (node, index) => {
 
-        const {expandDirection, valueField, displayField, descriptionField, expandedIconCls, renderer} = this.props;
+        if (!node) {
+            return null;
+        }
+
+        const {expandDirection, valueField, displayField, descriptionField, expandedIconCls, renderer} = this.props,
+            hasChildren = CascaderCalculation.hasChildren(node);
 
         let text, desc;
         if (!renderer) {
@@ -110,7 +151,7 @@ class CascaderListItem extends Component {
             <Fragment>
 
                 {
-                    expandDirection === HorizontalDirection.LEFT && this.isExpanded(node, index) ?
+                    expandDirection === HorizontalDirection.LEFT && hasChildren ?
                         <i className={classNames('cascader-list-item-expand-icon',
                             expandedIconCls || 'fas fa-chevron-left')}
                            aria-hidden="true"></i>
@@ -138,7 +179,7 @@ class CascaderListItem extends Component {
                 }
 
                 {
-                    expandDirection === HorizontalDirection.RIGHT && this.isExpanded(node, index) ?
+                    expandDirection === HorizontalDirection.RIGHT && hasChildren ?
                         <i className={classNames('cascader-list-item-expand-icon',
                             expandedIconCls || 'fas fa-chevron-right')}
                            aria-hidden="true"></i>
@@ -151,40 +192,18 @@ class CascaderListItem extends Component {
 
     };
 
-    listItemClickHanlder = (node, index, e) => {
-
-        const {data, disabled, isLoading, readOnly} = this.props;
-
-        if (disabled || isLoading || readOnly || data.disabled || data.isLoading || data.readOnly) {
-            return;
-        }
-
-        const {onNodeClick} = this.props;
-        onNodeClick && onNodeClick(node, index, this.getPath(index), e);
-
-    };
-
-    listItemSelectHanlder = (node, index) => {
-        const {onNodeSelect} = this.props;
-        onNodeSelect && onNodeSelect(node, this.getPath(index));
-    };
-
-    listItemDeselectHanlder = (node, index) => {
-        const {onNodeDeselect} = this.props;
-        onNodeDeselect && onNodeDeselect(node, this.getPath(index));
-    };
-
     render() {
 
         const {
 
-                depth, theme, listWidth, selectTheme, selectMode, expandDirection, data, value,
+                activatedPath, depth, theme, listWidth, selectTheme, selectMode, expandDirection, data, value,
                 disabled, isLoading, readOnly, idField, valueField, displayField, descriptionField,
 
                 radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls
 
             } = this.props,
+
             activatedIndex = this.getActivatedIndex(),
             hasChild = activatedIndex > -1 && data[activatedIndex] && data[activatedIndex].children
                 && data[activatedIndex].children.length > 0,
@@ -210,7 +229,7 @@ class CascaderListItem extends Component {
                       selectTheme={selectTheme}
                       selectMode={selectMode}
                       data={data}
-                      value={value}
+                      value={this.getValue()}
                       disabled={disabled}
                       isLoading={isLoading}
                       readOnly={readOnly}

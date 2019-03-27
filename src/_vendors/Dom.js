@@ -248,6 +248,24 @@ function getTotalScrollOffset(el, scrollEl = document.body) {
 
 }
 
+function isElementFixed(el) {
+    return window.getComputedStyle(el).position === 'fixed';
+};
+
+function getClosestFixed(el) {
+
+    if (el == null) {
+        return null;
+    }
+
+    if (!isElementFixed(el)) {
+        return getClosestFixed(el.parentElement);
+    }
+
+    return el;
+
+}
+
 export default {
     getOffset,
     getScrollHeight,
@@ -259,6 +277,10 @@ export default {
     toggleClass,
     findParentByClassName,
     isParent,
+    isScrollable,
+    isElementScrollable,
     getClosestScrollable,
-    getTotalScrollOffset
+    getTotalScrollOffset,
+    isElementFixed,
+    getClosestFixed
 };

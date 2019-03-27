@@ -1,4 +1,4 @@
-import {push, replace, go, goBack, goForward} from 'react-router-redux';
+import {push, replace, go, goBack, goForward} from 'connected-react-router';
 
 export const routerPush = route => dispatch => {
     dispatch(push(route));

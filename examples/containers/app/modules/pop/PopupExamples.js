@@ -481,7 +481,6 @@ class PopupExamples extends Component {
                                                        position={Popup.Position.BOTTOM_LEFT}
                                                        visible={popVisible[19]}
                                                        triggerEl={this.trigger19}
-                                                       isTriggerPositionFixed={true}
                                                        shouldFollowScroll={true}
                                                        onRequestClose={() => this.hide(19)}>
                                                     <div style={{padding: 20}}>
@@ -491,7 +490,6 @@ class PopupExamples extends Component {
 
                                                 <PopupProvider className="customized-popover"
                                                                position={PopupProvider.Position.BOTTOM_LEFT}
-                                                               isTriggerPositionFixed={true}
                                                                shouldFollowScroll={true}
                                                                popupContent={
                                                                    <div style={{padding: 20}}>

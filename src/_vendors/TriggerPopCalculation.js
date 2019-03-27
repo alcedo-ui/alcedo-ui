@@ -3,6 +3,8 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+import queryContains from 'dom-helpers/query/contains';
+
 import Dom from './Dom';
 import Position from '../_statics/Position';
 
@@ -50,7 +52,7 @@ function leftHorizontalRight(triggerEl, triggerOffset) {
     return triggerOffset.left + triggerEl.offsetWidth;
 }
 
-function getStyle(parentEl, triggerEl, popupEl, scrollEl, position, isTriggerPositionFixed) {
+function getStyle(parentEl, triggerEl, popupEl, scrollEl, position) {
 
     if (!triggerEl || !popupEl) {
         return;
@@ -128,7 +130,9 @@ function getStyle(parentEl, triggerEl, popupEl, scrollEl, position, isTriggerPos
         }
     }
 
-    if (isTriggerPositionFixed) {
+    // to solve the fixed parent element problem
+    const closestFixedEl = Dom.getClosestFixed(triggerEl);
+    if (closestFixedEl && parentEl && queryContains(parentEl, closestFixedEl)) {
         result.position = 'fixed';
     }
 
@@ -136,9 +140,9 @@ function getStyle(parentEl, triggerEl, popupEl, scrollEl, position, isTriggerPos
 
 }
 
-function setStyle(parentEl, triggerEl, popupEl, scrollEl, position, isTriggerPositionFixed) {
+function setStyle(parentEl, triggerEl, popupEl, scrollEl, position) {
 
-    const style = getStyle(parentEl, triggerEl, popupEl, scrollEl, position, isTriggerPositionFixed);
+    const style = getStyle(parentEl, triggerEl, popupEl, scrollEl, position);
 
     if (!style) {
         return;

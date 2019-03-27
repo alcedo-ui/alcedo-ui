@@ -167,7 +167,6 @@ Popover.propTypes = {
 
     isBlurClose: PropTypes.bool,
     shouldPreventContainerScroll: PropTypes.bool,
-    isTriggerPositionFixed: PropTypes.bool,
 
     shouldFollowScroll: PropTypes.bool,
     scrollEl: PropTypes.object,
@@ -219,7 +218,6 @@ Popover.defaultProps = {
 
     isBlurClose: true,
     shouldPreventContainerScroll: true,
-    isTriggerPositionFixed: false,
     shouldFollowScroll: false,
     resetPositionWait: 250,
     showModal: false

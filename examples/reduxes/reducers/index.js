@@ -1,18 +1,16 @@
 import {combineReducers} from 'redux';
-import {routerReducer} from 'react-router-redux';
+import {connectRouter} from 'connected-react-router';
 
 import device from './app/DeviceReducer';
 import navMenu from './app/NavMenuReducer';
 import loadComponent from './app/LoadComponentReducer';
 
-const rootReducer = combineReducers({
+export default history => combineReducers({
+
+    router: connectRouter(history),
 
     device,
     navMenu,
-    loadComponent,
-
-    router: routerReducer
+    loadComponent
 
 });
-
-export default rootReducer;

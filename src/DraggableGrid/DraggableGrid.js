@@ -6,7 +6,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import isArray from 'lodash/isArray';
-import withScrolling, {createVerticalStrength, createHorizontalStrength} from 'react-dnd-scrollzone';
 import classNames from 'classnames';
 
 import DraggableGridItem from '../_DraggableGridItem';
@@ -18,8 +17,6 @@ import SelectMode from '../_statics/SelectMode';
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import Calculation from '../_vendors/Calculation';
-
-const ScrollingComponent = withScrolling('div');
 
 class DraggableGrid extends Component {
 
@@ -151,13 +148,10 @@ class DraggableGrid extends Component {
             });
 
         return (
-            <ScrollingComponent className={gridClassName}
-                                disabled={disabled}
-                                style={style}
-                                strengthMultiplier={scrollSpeed}
-                                verticalStrength={createVerticalStrength(scrollBuffer)}
-                                horizontalStrength={createHorizontalStrength(scrollBuffer)}
-                                onWheel={e => Event.wheelHandler(e, this.props)}>
+            <div className={gridClassName}
+                 disabled={disabled}
+                 style={style}
+                 onWheel={e => Event.wheelHandler(e, this.props)}>
 
                 {
                     data && data.map((item, index) => {
@@ -225,7 +219,7 @@ class DraggableGrid extends Component {
 
                 {children}
 
-            </ScrollingComponent>
+            </div>
         );
     }
 }

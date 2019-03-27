@@ -161,7 +161,6 @@ PopupProvider.propTypes = {
     isBlurClose: PropTypes.bool,
     isEscClose: PropTypes.bool,
     shouldPreventContainerScroll: PropTypes.bool,
-    isTriggerPositionFixed: PropTypes.bool,
 
     shouldFollowScroll: PropTypes.bool,
     scrollEl: PropTypes.object,
@@ -220,7 +219,6 @@ PopupProvider.defaultProps = {
     isBlurClose: true,
     isEscClose: true,
     shouldPreventContainerScroll: true,
-    isTriggerPositionFixed: false,
     shouldFollowScroll: false,
     resetPositionWait: 250,
     showModal: false
