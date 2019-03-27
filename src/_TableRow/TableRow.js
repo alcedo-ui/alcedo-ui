@@ -95,8 +95,10 @@ class TableRow extends Component {
 
     };
 
-    toggleExpandHandler = (colIndex, col) => {
+    toggleExpandHandler = (colIndex, col, e) => {
         const {data, isExpanded, onExpand, onCollapse} = this.props;
+
+        e.stopPropagation();
 
         if (!col.collapseAble || !data[col.childrenNumKey]) {
             return;
@@ -131,7 +133,8 @@ class TableRow extends Component {
                         <td key={colIndex}
                             className={classNames('table-data', {
                                 [col.cellClassName]: col.cellClassName,
-                                'expanded-children-column': col.collapseAble
+                                'expanded-children-column': col.collapseAble,
+                                'root': data.isRoot && col.collapseAble
                             })}
                             style={col.cellStyle}
                             colSpan={span}
@@ -140,7 +143,7 @@ class TableRow extends Component {
                             <i className={classNames('collapsed-icon', {
                                 [expandedIconCls]: expandedIconCls,
                                 ['expanded-icon']: isExpanded
-                            })} onClick={() => this.toggleExpandHandler(colIndex, col)}/>}
+                            })} onClick={(e) => this.toggleExpandHandler(colIndex, col, e)}/>}
                             {this.contentRenderer(col.renderer, colIndex)}
                         </td>
                     )

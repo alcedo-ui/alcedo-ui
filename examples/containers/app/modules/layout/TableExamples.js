@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 
-import Table from 'src/ComplicatedTable';
+import Table from 'src/Table';
 import Switcher from 'src/Switcher';
 import IconButton from 'src/IconButton';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import RaisedButton from 'src/RaisedButton';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Table.json';
@@ -231,8 +232,69 @@ class TableExamples extends Component {
                                        renderer: rowData =>
                                            <IconButton iconCls="fas fa-trash-alt"
                                                        onClick={() => this.deleteRow(rowData.id)}/>
-                                   }]}/>
+                                   }]}
+                                   sort={sort}
+                                   collapsed={true}
+                                   expandedChildrenLimit={8}
+                                   paggingCountRenderer={count => <span>Self Defined Total Count: {count}</span>}
+                                   selectMode={Table.SelectMode.MULTI_SELECT}
+                                   onViewAllHandle={this.viewAllHandler}
+                                   onExpandHandle={this.toggleCollapseRow}
+                                   onCollapseHandle={this.toggleCollapseRow}
+                                   onSort={this.sortHandler}
+                                   onPageChange={this.pageChangeHandler}
+                                   onDataUpdate={this.dataUpdateHandler}/>
 
+                            <RaisedButton className="table-action"
+                                          theme={RaisedButton.Theme.PRIMARY}
+                                          value="Clear Table Sort"
+                                          onClick={this.clearSort}/>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="With hasLineNumber and isMultiSelect"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <p>A more complex example.Set the <code>hasLineNumber</code> and <code>isMultiSelect</code>
+                                to true for showLineNumber and checkbox.</p>
+
+                            <Table data={data}
+                                   columns={this.columns}
+                                   selectMode={Table.SelectMode.MULTI_SELECT}
+                                   selectAllMode={Table.SelectAllMode.CURRENT_PAGE}
+                                   paggingSelectedCountVisible={true}
+                                   defaultPageSize={20}
+                                   pageSizes={this.pageSizes}
+                                   useFullPagging={true}
+                                   sortAscIconCls="fas fa-caret-up"
+                                   sortDescIconCls="fas fa-caret-down"
+                                   onPageChange={this.pageChangeHandler}
+                                   onSelect={this.selectHandler}
+                                   onDeselect={this.deselectHandler}
+                                   onSelectAll={this.selectAllHandler}
+                                   onDeselectAll={this.deselectAllHandler}
+                                   onChange={this.changeHandler}/>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Empty"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+                            <Table columns={this.columns}
+                                   data={[]}/>
                         </div>
                     </div>
 
