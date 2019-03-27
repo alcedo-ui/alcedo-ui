@@ -1,4 +1,4 @@
-const opn = require('opn'),
+const open = require('open'),
     webpack = require('webpack'),
     express = require('express'),
     log = require('friendly-errors-webpack-plugin/src/output'),
@@ -22,10 +22,9 @@ compiler.hooks.compilation.tap('html-webpack-plugin-after-emit', () => {
     hotMiddleware.publish({action: 'reload'});
 });
 
-app
-.use(devMiddleware)
-.use(hotMiddleware)
-.use(config.dev.assetsVirtualRoot, express.static('./static'));
+app.use(devMiddleware)
+   .use(hotMiddleware)
+   .use(config.dev.assetsVirtualRoot, express.static('./static'));
 
 devMiddleware.waitUntilValid(() => {
     log.title('success', 'DONE', `Listening At ${uri} `);
@@ -38,6 +37,6 @@ module.exports = app.listen(config.dev.port, err => {
         return;
     }
 
-    opn(uri);
+    open(uri);
 
 });
