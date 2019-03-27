@@ -73,10 +73,6 @@ class CollapsedTableBody extends Component {
         });
     };
 
-    onViewPartClick = (row, rowIndex) => {
-
-    };
-
     render() {
 
         const {
