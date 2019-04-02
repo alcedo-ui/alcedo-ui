@@ -410,6 +410,11 @@ export default function configureRoutes(store) {
                         /* webpackChunkName: "TableExamples" */
                         'modules/layout/TableExamples'), store)
                 }, {
+                    path: '/components/ComplicatedTable',
+                    component: ac(() => import(
+                        /* webpackChunkName: "ComplicatedTableExamples" */
+                        'modules/layout/ComplicatedTableExamples'), store)
+                }, {
                     path: '/components/Waterfall',
                     component: ac(() => import(
                         /* webpackChunkName: "WaterfallExamples" */

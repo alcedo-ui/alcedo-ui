@@ -214,6 +214,9 @@ export default [{
         text: 'Table',
         route: '/components/Table'
     }, {
+        text: 'ComplicatedTable',
+        route: '/components/ComplicatedTable'
+    }, {
         text: 'Waterfall',
         route: '/components/Waterfall'
     }, {
