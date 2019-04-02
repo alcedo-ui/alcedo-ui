@@ -89,7 +89,7 @@ class Table extends Component {
         }
 
         return sortedData.slice(pagging.page * pagging.pageSize, (pagging.page + 1) * pagging.pageSize)
-            .filter(item => item && !item.disabled);
+                         .filter(item => item && !item.disabled);
 
     };
 
@@ -327,7 +327,7 @@ class Table extends Component {
 
     collapseClickHandle = (row, rowIndex, colIndex) => {
         this.props.onCollapseHandle && this.props.onCollapseHandle(row, rowIndex, colIndex);
-    }
+    };
 
     rowClickHandler = (rowData, rowIndex, e) => {
 
@@ -343,16 +343,15 @@ class Table extends Component {
         const {onRowClick} = this.props;
         onRowClick && onRowClick(rowData, rowIndex, e);
 
-        const {selectMode} = this.props;
-
-        switch (selectMode) {
-            case SelectMode.MULTI_SELECT:
-                this.multiSelectHandler(rowData, rowIndex);
-                return;
-            case SelectMode.SINGLE_SELECT:
-                this.singleSelectHandler(rowData, rowIndex);
-                return;
-        }
+        // const {selectMode} = this.props;
+        // switch (selectMode) {
+        //     case SelectMode.MULTI_SELECT:
+        //         this.multiSelectHandler(rowData, rowIndex);
+        //         return;
+        //     case SelectMode.SINGLE_SELECT:
+        //         this.singleSelectHandler(rowData, rowIndex);
+        //         return;
+        // }
 
     };
 
@@ -477,14 +476,15 @@ class Table extends Component {
                               indeterminateIconCls={checkboxIndeterminateIconCls}
                               onChange={this.headCheckBoxChangeHandler}/>,
                 cellClassName: 'table-select-td',
-                renderer: rowData =>
+                renderer: (rowData, rowIndex) =>
                     <Checkbox className="table-select"
                               theme={selectTheme}
                               checked={this.isItemChecked(rowData, value)}
                               disabled={disabled || rowData.disabled}
                               uncheckedIconCls={checkboxUncheckedIconCls}
                               checkedIconCls={checkboxCheckedIconCls}
-                              indeterminateIconCls={checkboxIndeterminateIconCls}/>
+                              indeterminateIconCls={checkboxIndeterminateIconCls}
+                              onChange={() => this.multiSelectHandler(rowData, rowIndex)}/>
             });
         } else if (selectMode === SelectMode.SINGLE_SELECT && (radioUncheckedIconCls || radioCheckedIconCls)) {
             finalColumns.unshift({
@@ -495,7 +495,8 @@ class Table extends Component {
                            checked={this.isItemChecked(rowData, value)}
                            disabled={disabled || rowData.disabled}
                            uncheckedIconCls={radioUncheckedIconCls}
-                           checkedIconCls={radioCheckedIconCls}/>
+                           checkedIconCls={radioCheckedIconCls}
+                           onChange={() => this.singleSelectHandler(rowData, rowIndex)}/>
             });
         }
 
@@ -555,7 +556,7 @@ class Table extends Component {
                 paggingPrevIconCls, paggingNextIconCls, paggingFirstIconCls, paggingLastIconCls,
 
                 idProp, isPagging, useFullPagging, paggingSelectedCountVisible, paggingPageSizeVisible,
-                paggingCountRenderer,expandedChildrenLimit, expandedIconCls,
+                paggingCountRenderer, expandedChildrenLimit, expandedIconCls,
 
                 // not passing down these props
                 defaultSortType, defaultPageSize, sort: propsSort, onPageChange, hasLineNumber, columns, selectTheme,
