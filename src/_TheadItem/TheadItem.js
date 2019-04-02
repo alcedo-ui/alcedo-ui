@@ -15,7 +15,7 @@ class TheadItem extends Component {
         super(props, ...restArgs);
     }
 
-    headerRenderer = () => {
+    handleRender = () => {
 
         const {renderer, colIndex} = this.props;
 
@@ -28,7 +28,7 @@ class TheadItem extends Component {
 
     };
 
-    clickHandler = () => {
+    handleClick = () => {
         const {sortable, onSort} = this.props;
         sortable && onSort && onSort();
     };
@@ -50,11 +50,11 @@ class TheadItem extends Component {
             <th className={tableHeaderClassName}
                 style={style}
                 title={typeof renderer === 'string' ? renderer : null}
-                onClick={this.clickHandler}>
+                onClick={this.handleClick}>
 
                 <div className="thead-item-inner">
 
-                    {this.headerRenderer()}
+                    {this.handleRender()}
 
                     {
                         sortable ?
