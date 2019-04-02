@@ -1,5 +1,5 @@
 /**
- * @file TableHeader component
+ * @file TheadItem component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
@@ -9,7 +9,7 @@ import classNames from 'classnames';
 
 import TableHeaderSortIcon from '../_TableHeaderSortIcon';
 
-class TableHeader extends Component {
+class TheadItem extends Component {
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
@@ -17,13 +17,13 @@ class TableHeader extends Component {
 
     headerRenderer = () => {
 
-        const {header, colIndex} = this.props;
+        const {renderer, colIndex} = this.props;
 
-        switch (typeof header) {
+        switch (typeof renderer) {
             case 'function':
-                return header(colIndex);
+                return renderer(colIndex);
             default:
-                return header;
+                return renderer;
         }
 
     };
@@ -36,13 +36,11 @@ class TableHeader extends Component {
     render() {
 
         const {
-                className, style, header, hidden,
+                className, style, renderer, hidden,
                 sortable, sortProp, sort, sortAscIconCls, sortDescIconCls
             } = this.props,
 
-            finalHeader = this.headerRenderer(),
-
-            tableHeaderClassName = classNames('table-header', {
+            tableHeaderClassName = classNames('thead-item', {
                 sortable: sortable,
                 hidden: hidden,
                 [className]: className
@@ -51,12 +49,12 @@ class TableHeader extends Component {
         return (
             <th className={tableHeaderClassName}
                 style={style}
-                title={typeof header === 'string' ? header : null}
+                title={typeof renderer === 'string' ? renderer : null}
                 onClick={this.clickHandler}>
 
-                <div className="table-header-inner">
+                <div className="thead-item-inner">
 
-                    {finalHeader}
+                    {this.headerRenderer()}
 
                     {
                         sortable ?
@@ -76,12 +74,12 @@ class TableHeader extends Component {
     }
 }
 
-TableHeader.propTypes = {
+TheadItem.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
 
-    header: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    renderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     colIndex: PropTypes.number,
     sortable: PropTypes.bool,
     sortProp: PropTypes.string,
@@ -94,10 +92,10 @@ TableHeader.propTypes = {
 
 };
 
-TableHeader.defaultProps = {
+TheadItem.defaultProps = {
     colIndex: 0,
     sortable: false,
     hidden: false
 };
 
-export default TableHeader;
+export default TheadItem;

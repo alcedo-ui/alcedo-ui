@@ -1,6 +1,6 @@
 /**
- * @file TableHeader
+ * @file TheadItem
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-export default from './TableHeader';
+export default from './TheadItem';
