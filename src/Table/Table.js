@@ -476,14 +476,15 @@ class Table extends Component {
                               indeterminateIconCls={checkboxIndeterminateIconCls}
                               onChange={this.headCheckBoxChangeHandler}/>,
                 cellClassName: 'table-select-td',
-                renderer: rowData =>
+                renderer: (rowData, rowIndex) =>
                     <Checkbox className="table-select"
                               theme={selectTheme}
                               checked={this.isItemChecked(rowData, value)}
                               disabled={disabled || rowData.disabled}
                               uncheckedIconCls={checkboxUncheckedIconCls}
                               checkedIconCls={checkboxCheckedIconCls}
-                              indeterminateIconCls={checkboxIndeterminateIconCls}/>
+                              indeterminateIconCls={checkboxIndeterminateIconCls}
+                              onChange={() => this.multiSelectHandler(rowData, rowIndex)}/>
             });
         } else if (selectMode === SelectMode.SINGLE_SELECT && (radioUncheckedIconCls || radioCheckedIconCls)) {
             finalColumns.unshift({
@@ -494,7 +495,8 @@ class Table extends Component {
                            checked={this.isItemChecked(rowData, value)}
                            disabled={disabled || rowData.disabled}
                            uncheckedIconCls={radioUncheckedIconCls}
-                           checkedIconCls={radioCheckedIconCls}/>
+                           checkedIconCls={radioCheckedIconCls}
+                           onChange={() => this.singleSelectHandler(rowData, rowIndex)}/>
             });
         }
 
