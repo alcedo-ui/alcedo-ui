@@ -17,7 +17,10 @@ class Thead extends Component {
 
     render() {
 
-        const {className, style, columns, sort, sortAscIconCls, sortDescIconCls, hidden, onSort} = this.props;
+        const {
+            className, style, columns, sort, sortAscIconCls, sortDescIconCls, hidden,
+            onSort
+        } = this.props;
 
         return (
             <thead className={classNames('thead', {
@@ -39,7 +42,7 @@ class Thead extends Component {
                                        sortAscIconCls={sortAscIconCls}
                                        sortDescIconCls={sortDescIconCls}
                                        hidden={hidden}
-                                       onSort={() => onSort(item)}/>
+                                       onSort={() => onSort && onSort(item)}/>
                             :
                             null
                         )
