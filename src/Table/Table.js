@@ -89,7 +89,7 @@ class Table extends Component {
         }
 
         return sortedData.slice(pagging.page * pagging.pageSize, (pagging.page + 1) * pagging.pageSize)
-            .filter(item => item && !item.disabled);
+                         .filter(item => item && !item.disabled);
 
     };
 
@@ -327,7 +327,7 @@ class Table extends Component {
 
     collapseClickHandle = (row, rowIndex, colIndex) => {
         this.props.onCollapseHandle && this.props.onCollapseHandle(row, rowIndex, colIndex);
-    }
+    };
 
     rowClickHandler = (rowData, rowIndex, e) => {
 
@@ -343,16 +343,15 @@ class Table extends Component {
         const {onRowClick} = this.props;
         onRowClick && onRowClick(rowData, rowIndex, e);
 
-        const {selectMode} = this.props;
-
-        switch (selectMode) {
-            case SelectMode.MULTI_SELECT:
-                this.multiSelectHandler(rowData, rowIndex);
-                return;
-            case SelectMode.SINGLE_SELECT:
-                this.singleSelectHandler(rowData, rowIndex);
-                return;
-        }
+        // const {selectMode} = this.props;
+        // switch (selectMode) {
+        //     case SelectMode.MULTI_SELECT:
+        //         this.multiSelectHandler(rowData, rowIndex);
+        //         return;
+        //     case SelectMode.SINGLE_SELECT:
+        //         this.singleSelectHandler(rowData, rowIndex);
+        //         return;
+        // }
 
     };
 
@@ -555,7 +554,7 @@ class Table extends Component {
                 paggingPrevIconCls, paggingNextIconCls, paggingFirstIconCls, paggingLastIconCls,
 
                 idProp, isPagging, useFullPagging, paggingSelectedCountVisible, paggingPageSizeVisible,
-                paggingCountRenderer,expandedChildrenLimit, expandedIconCls,
+                paggingCountRenderer, expandedChildrenLimit, expandedIconCls,
 
                 // not passing down these props
                 defaultSortType, defaultPageSize, sort: propsSort, onPageChange, hasLineNumber, columns, selectTheme,
