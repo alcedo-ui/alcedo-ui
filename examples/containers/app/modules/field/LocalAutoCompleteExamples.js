@@ -9,9 +9,7 @@ import Dialog from 'src/Dialog';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/LocalAutoComplete.json';
 
-
 import 'scss/containers/app/modules/field/LocalAutoCompleteExamples.scss';
-
 
 class LocalAutoCompleteExamples extends Component {
 
