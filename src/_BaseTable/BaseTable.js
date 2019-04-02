@@ -7,9 +7,12 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import Thead from '../_Thead';
+
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
 import SortType from '../_statics/SortType';
+import Util from '../_vendors/Util';
 
 class BaseTable extends Component {
 
@@ -21,10 +24,13 @@ class BaseTable extends Component {
         super(props, ...restArgs);
     }
 
-
     render() {
 
-        const {className, style} = this.props,
+        const {
+                className, style, columns, sort,
+                sortAscIconCls, sortDescIconCls,
+                onSort
+            } = this.props,
 
             tableClassName = classNames('base-table', {
                 [className]: className
@@ -33,7 +39,15 @@ class BaseTable extends Component {
         return (
             <div className={tableClassName}
                  style={style}>
+                <table>
 
+                    <Thead columns={columns}
+                           sort={sort}
+                           sortAscIconCls={sortAscIconCls}
+                           sortDescIconCls={sortDescIconCls}
+                           onSort={onSort}/>
+
+                </table>
             </div>
         );
 
@@ -50,10 +64,107 @@ BaseTable.propTypes = {
     /**
      * Override the styles of the root element.
      */
-    style: PropTypes.object
+    style: PropTypes.object,
+
+    /**
+     * Children passed into table header.
+     */
+    columns: PropTypes.arrayOf(PropTypes.shape({
+
+        /**
+         * The class name of header.
+         */
+        headerClassName: PropTypes.string,
+
+        /**
+         * Override the styles of header.
+         */
+        headerStyle: PropTypes.object,
+
+        /**
+         * The render content in header.
+         * (1) string，example： 'id'
+         * (2) callback，example：function (colIndex) {return colIndex;}
+         */
+        headerRenderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+
+        /**
+         * The class name of td.
+         */
+        cellClassName: PropTypes.string,
+
+        /**
+         * Override the styles of td.
+         */
+        cellStyle: PropTypes.object,
+
+        /**
+         * The render content in table.
+         * (1) data key，example： 'id'
+         * (2) data key tamplate，example：'${id} - ${name}'
+         * (3) callback，example：function (rowData, rowIndex, colIndex) {return rowData.id;}
+         */
+        cellRenderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+
+        /**
+         * The class name of footer.
+         */
+        footerClassName: PropTypes.string,
+
+        /**
+         * Override the styles of footer.
+         */
+        footerStyle: PropTypes.object,
+
+        /**
+         * The render content in footer.
+         * (1) string，example： 'id'
+         * (2) callback，example：function (colIndex) {return colIndex;}
+         */
+        footerRenderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+
+        /**
+         * If true,this column can be sorted.
+         */
+        sortable: PropTypes.bool,
+
+        /**
+         * Sort field.
+         */
+        sortProp: PropTypes.string,
+
+        defaultSortType: PropTypes.oneOf(Util.enumerateValue(SortType)),
+
+        span: PropTypes.func
+
+    })).isRequired,
+
+    data: PropTypes.array,
+
+    sort: PropTypes.shape({
+
+        /**
+         * Specify the sorting column.
+         */
+        prop: PropTypes.string,
+
+        /**
+         * If type equals 1,data will ascending ordered,else type equals -1,data will descending ordered.
+         */
+        type: PropTypes.oneOf([1, -1])
+
+    }),
+
+    sortAscIconCls: PropTypes.string,
+    sortDescIconCls: PropTypes.string,
+
+    onSort: PropTypes.func
 
 };
 
-BaseTable.defaultProps = {};
+BaseTable.defaultProps = {
+    sortAscIconCls: 'fas fa-angle-up',
+    sortDescIconCls: 'fas fa-angle-down'
+};
 
 export default BaseTable;
