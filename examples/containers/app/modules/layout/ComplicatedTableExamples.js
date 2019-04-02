@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
 
-import Table from 'src/Table';
+import Table from 'src/ComplicatedTable';
 import Switcher from 'src/Switcher';
 import IconButton from 'src/IconButton';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-import RaisedButton from 'src/RaisedButton';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Table.json';
@@ -195,12 +194,6 @@ class ComplicatedTableExamples extends Component {
         console.log('Changed Value: ', value);
     };
 
-    clearSort = () => {
-        this.setState({
-            sort: null
-        });
-    };
-
     render() {
 
         const {data, sort} = this.state;
@@ -244,11 +237,6 @@ class ComplicatedTableExamples extends Component {
                                    onSort={this.sortHandler}
                                    onPageChange={this.pageChangeHandler}
                                    onDataUpdate={this.dataUpdateHandler}/>
-
-                            <RaisedButton className="table-action"
-                                          theme={RaisedButton.Theme.PRIMARY}
-                                          value="Clear Table Sort"
-                                          onClick={this.clearSort}/>
 
                         </div>
                     </div>
