@@ -30,7 +30,7 @@ class ComplicatedTable extends Component {
 
     render() {
 
-        const {className, style} = this.props,
+        const {className, style, columns, data} = this.props,
 
             tableClassName = classNames('complicated-table', {
                 [className]: className
@@ -44,7 +44,8 @@ class ComplicatedTable extends Component {
                 <Header/>
 
                 {/* table area */}
-                <Content/>
+                <Content columns={columns}
+                         data={data}/>
 
                 {/* table footer */}
                 <Footer/>
@@ -161,7 +162,9 @@ ComplicatedTable.propTypes = {
 
         span: PropTypes.func
 
-    })).isRequired
+    })).isRequired,
+
+    data: PropTypes.array
 
 };
 
