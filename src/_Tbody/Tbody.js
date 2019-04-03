@@ -40,7 +40,7 @@ class Tbody extends Component {
     render() {
 
         const {
-            columns, data, startIndex, idProp, disabled,
+            columns, columnsWithSpan, data, startIndex, idProp, disabled,
             onRowClick, onCellClick
         } = this.props;
 
@@ -51,6 +51,7 @@ class Tbody extends Component {
                         <Tr key={idProp && idProp in row ? row[idProp] : rowIndex}
                             rowIndex={startIndex + rowIndex}
                             columns={columns}
+                            columnsWithSpan={columnsWithSpan}
                             data={row}
                             isChecked={this.isItemChecked(row)}
                             disabled={disabled || row.disabled}
@@ -69,6 +70,7 @@ class Tbody extends Component {
 Tbody.propTypes = {
 
     columns: PropTypes.array,
+    columnsWithSpan: PropTypes.array,
     data: PropTypes.array,
     startIndex: PropTypes.number,
     idProp: PropTypes.string,
