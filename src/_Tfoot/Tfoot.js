@@ -9,7 +9,17 @@ import classNames from 'classnames';
 
 import Td from '../_Td';
 
+import SelectMode from '../_statics/SelectMode';
+import SelectAllMode from '../_statics/SelectAllMode';
+import SortType from '../_statics/SortType';
+
+import Util from '../_vendors/Util';
+
 class Tfoot extends Component {
+
+    static SelectMode = SelectMode;
+    static SelectAllMode = SelectAllMode;
+    static SortType = SortType;
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
