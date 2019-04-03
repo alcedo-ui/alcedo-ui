@@ -1,0 +1,30 @@
+/**
+ * @file td style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+.table td {
+    text-align: left;
+    padding: 15px 24px;
+    transition: none;
+    cursor: default;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    &.empty {
+        text-align: center;
+        color: $theme-description;
+    }
+
+    .collapsed-icon {
+        cursor: pointer;
+        position: absolute;
+        margin-left: -14px;
+        transition: transform 0.5s;
+
+        &.expanded-icon {
+            transform: rotate(90deg);
+        }
+    }
+}
