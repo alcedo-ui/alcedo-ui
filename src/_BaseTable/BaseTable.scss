@@ -4,5 +4,7 @@
  */
 
 .base-table {
-
+    & > table {
+        min-width: 100%;
+    }
 }

@@ -224,10 +224,15 @@ class TableExamples extends Component {
 
                             <p>A simple <code>Table</code> example.</p>
 
+                            <RaisedButton className="table-action"
+                                          theme={RaisedButton.Theme.PRIMARY}
+                                          value="Clear Table Sort"
+                                          onClick={this.clearSort}/>
+
                             <Table data={data}
                                    columns={[...this.columns, {
-                                       header: 'Action',
-                                       renderer: rowData =>
+                                       headerRenderer: 'Action',
+                                       cellRenderer: rowData =>
                                            <IconButton iconCls="fas fa-trash-alt"
                                                        onClick={() => this.deleteRow(rowData.id)}/>
                                    }]}
@@ -241,11 +246,6 @@ class TableExamples extends Component {
                                    onSort={this.sortHandler}
                                    onPageChange={this.pageChangeHandler}
                                    onDataUpdate={this.dataUpdateHandler}/>
-
-                            <RaisedButton className="table-action"
-                                          theme={RaisedButton.Theme.PRIMARY}
-                                          value="Clear Table Sort"
-                                          onClick={this.clearSort}/>
 
                         </div>
                     </div>
