@@ -7,7 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import TableHeaderSortIcon from '../_TableHeaderSortIcon';
+import ThSortIcon from '../_ThSortIcon';
 
 class Th extends Component {
 
@@ -36,18 +36,16 @@ class Th extends Component {
     render() {
 
         const {
-                className, style, renderer, hidden,
-                sortable, sortProp, sort, sortAscIconCls, sortDescIconCls
-            } = this.props,
+            className, style, renderer, hidden,
+            sortable, sortProp, sort, sortAscIconCls, sortDescIconCls
+        } = this.props;
 
-            tableHeaderClassName = classNames('th', {
+        return (
+            <th className={classNames('th', {
                 sortable: sortable,
                 hidden: hidden,
                 [className]: className
-            });
-
-        return (
-            <th className={tableHeaderClassName}
+            })}
                 style={style}
                 title={typeof renderer === 'string' ? renderer : null}
                 onClick={this.handleClick}>
@@ -58,10 +56,10 @@ class Th extends Component {
 
                     {
                         sortable ?
-                            <TableHeaderSortIcon sort={sort}
-                                                 sortProp={sortProp}
-                                                 sortAscIconCls={sortAscIconCls}
-                                                 sortDescIconCls={sortDescIconCls}/>
+                            <ThSortIcon sort={sort}
+                                        sortProp={sortProp}
+                                        sortAscIconCls={sortAscIconCls}
+                                        sortDescIconCls={sortDescIconCls}/>
                             :
                             null
                     }
