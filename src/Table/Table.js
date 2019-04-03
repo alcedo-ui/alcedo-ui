@@ -12,11 +12,13 @@ import Content from '../_ComplicatedTableContent';
 import Footer from '../_ComplicatedTableFooter';
 import Pagination from '../_ComplicatedTablePagination';
 
+import Theme from '../Theme';
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
 import SortType from '../_statics/SortType';
+
 import Util from '../_vendors/Util';
-import Theme from '../Theme';
+import Calculation from '../_vendors/Calculation';
 
 class Table extends Component {
 
@@ -25,7 +27,29 @@ class Table extends Component {
     static SortType = SortType;
 
     constructor(props, ...restArgs) {
+
         super(props, ...restArgs);
+
+        this.state = {
+
+            /**
+             * sort construct
+             *  {
+             *	    prop: '', // col name
+             *	    type: 1: 'asc' | -1: 'desc'
+             *  }
+             */
+            sort: props.sort,
+
+            pagination: {
+                pageSize: Calculation.pageSize(props.defaultPageSize, props.pageSizes, 10),
+                page: props.page
+            },
+
+            value: Calculation.getInitValue(props)
+
+        };
+
     }
 
     render() {
@@ -164,14 +188,27 @@ Table.propTypes = {
 
     })).isRequired,
 
-    data: PropTypes.array
+    data: PropTypes.array,
+
+    isPaginated: PropTypes.bool,
+    page: PropTypes.number,
+    defaultPageSize: PropTypes.number,
+    pageSizes: PropTypes.array
 
 };
 
 Table.defaultProps = {
+
     selectMode: SelectMode.SINGLE_SELECT,
     selectAllMode: SelectAllMode.CURRENT_PAGE,
-    defaultSortType: SortType.ASC
+
+    defaultSortType: SortType.ASC,
+
+    isPaginated: true,
+    page: 0,
+    defaultPageSize: 10,
+    pageSizes: [5, 10, 15, 20]
+
 };
 
 export default Table;
