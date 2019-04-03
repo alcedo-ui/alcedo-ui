@@ -7,7 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import TheadItem from '../_TheadItem';
+import Th from '../_Th';
 
 class Thead extends Component {
 
@@ -31,18 +31,18 @@ class Thead extends Component {
                 <tr>
                     {
                         columns && columns.map((item, index) => item ?
-                            <TheadItem key={index}
-                                       className={item.headerClassName}
-                                       style={item.headerStyle}
-                                       renderer={item.headerRenderer}
-                                       colIndex={index}
-                                       sortable={item.sortable}
-                                       sortProp={item.sortProp}
-                                       sort={sort}
-                                       sortAscIconCls={sortAscIconCls}
-                                       sortDescIconCls={sortDescIconCls}
-                                       hidden={hidden}
-                                       onSort={() => onSort && onSort(item)}/>
+                            <Th key={index}
+                                className={item.headerClassName}
+                                style={item.headerStyle}
+                                renderer={item.headerRenderer}
+                                colIndex={index}
+                                sortable={item.sortable}
+                                sortProp={item.sortProp}
+                                sort={sort}
+                                sortAscIconCls={sortAscIconCls}
+                                sortDescIconCls={sortDescIconCls}
+                                hidden={hidden}
+                                onSort={() => onSort && onSort(item)}/>
                             :
                             null
                         )
