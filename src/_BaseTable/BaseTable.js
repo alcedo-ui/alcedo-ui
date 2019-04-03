@@ -9,10 +9,12 @@ import classNames from 'classnames';
 
 import Thead from '../_Thead';
 import Tbody from '../_Tbody';
+import Tfoot from '../_Tfoot';
 
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
 import SortType from '../_statics/SortType';
+
 import Util from '../_vendors/Util';
 
 class BaseTable extends Component {
@@ -25,13 +27,53 @@ class BaseTable extends Component {
         super(props, ...restArgs);
     }
 
+    calSpan = (col, colIndex) => {
+        return col.span && typeof col.span === 'function' ?
+            col.span(this.props.rowIndex, colIndex)
+            :
+            null;
+    };
+
+    calColumns = () => {
+
+        const {columns} = this.props,
+            result = [];
+        let spanFlag = 0;
+
+        for (let i = 0, len = columns.length; i < len; i++) {
+
+            if (spanFlag > 1) {
+                spanFlag--;
+                continue;
+            }
+
+            const col = columns[i],
+                span = this.calSpan(columns[i], i);
+
+            if (span && span > 1) {
+                spanFlag = span;
+            }
+
+            result.push({
+                col,
+                span
+            });
+
+        }
+
+        return result;
+
+    };
+
     render() {
 
         const {
-                className, style, columns, data, sort,
+                className, style, columns, data, sort, disabled,
                 sortAscIconCls, sortDescIconCls,
-                onSort
+                onSort, onRowClick, onCellClick, onFootClick
             } = this.props,
+
+            columnsWithSpan = this.calColumns(),
 
             tableClassName = classNames('base-table', {
                 [className]: className
@@ -49,7 +91,17 @@ class BaseTable extends Component {
                            onSort={onSort}/>
 
                     <Tbody columns={columns}
-                           data={data}/>
+                           columnsWithSpan={columnsWithSpan}
+                           data={data}
+                           disabled={disabled}
+                           onRowClick={onRowClick}
+                           onCellClick={onCellClick}/>
+
+                    <Tfoot columnsWithSpan={columnsWithSpan}
+                           data={data}
+                           disabled={disabled}
+                           onFootClick={onFootClick}
+                           onCellClick={onCellClick}/>
 
                 </table>
             </div>
