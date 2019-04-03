@@ -78,9 +78,10 @@ class Tr extends Component {
                 {
                     columns && columns.map((column, colIndex) =>
                         <Td key={colIndex}
-                            column={column}
                             rowIndex={rowIndex}
                             colIndex={colIndex}
+                            column={column}
+                            data={data}
                             isExpanded={isExpanded}
                             disabled={disabled}
                             expandedIconCls={expandedIconCls}

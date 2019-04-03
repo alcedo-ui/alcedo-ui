@@ -8,34 +8,7 @@
     background: $theme-field-bg;
     border-bottom: 1px solid $theme-border;
 
-    .table-data {
-        text-align: left;
-        padding: 15px 24px;
-        transition: none;
-        cursor: default;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-
-        &.empty {
-            text-align: center;
-            color: $theme-description;
-        }
-
-        .collapsed-icon {
-            cursor: pointer;
-            position: absolute;
-            margin-left: -14px;
-            transition: transform 0.5s;
-
-            &.expanded-icon {
-                transform: rotate(90deg);
-            }
-        }
-    }
-
     &.expanded-children-row {
-
         .expanded-children-column {
             padding: 15px 32px;
         }
@@ -44,7 +17,7 @@
     &:hover {
         background: theme-color-hover($theme-secondary);
 
-        .table-data.empty {
+        td.empty {
             background: $theme-field-bg;
         }
     }
@@ -53,7 +26,7 @@
         color: $theme-field-disabled;
         background: $theme-field-bg-disabled;
 
-        .table-data {
+        td {
             cursor: not-allowed;
         }
     }
