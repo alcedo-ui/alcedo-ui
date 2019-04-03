@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Thead from '../_Thead';
+import Tbody from '../_Tbody';
 
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
@@ -27,7 +28,7 @@ class BaseTable extends Component {
     render() {
 
         const {
-                className, style, columns, sort,
+                className, style, columns, data, sort,
                 sortAscIconCls, sortDescIconCls,
                 onSort
             } = this.props,
@@ -46,6 +47,9 @@ class BaseTable extends Component {
                            sortAscIconCls={sortAscIconCls}
                            sortDescIconCls={sortDescIconCls}
                            onSort={onSort}/>
+
+                    <Tbody columns={columns}
+                           data={data}/>
 
                 </table>
             </div>

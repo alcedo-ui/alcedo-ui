@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
 
-import TableRow from '../_TableRow';
+import TableRow from '../_Tr';
 import CircularLoading from '../CircularLoading';
 
 import SelectMode from '../_statics/SelectMode';
