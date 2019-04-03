@@ -1,5 +1,5 @@
 /**
- * @file TheadItem component
+ * @file Th component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
@@ -9,7 +9,7 @@ import classNames from 'classnames';
 
 import TableHeaderSortIcon from '../_TableHeaderSortIcon';
 
-class TheadItem extends Component {
+class Th extends Component {
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
@@ -40,7 +40,7 @@ class TheadItem extends Component {
                 sortable, sortProp, sort, sortAscIconCls, sortDescIconCls
             } = this.props,
 
-            tableHeaderClassName = classNames('thead-item', {
+            tableHeaderClassName = classNames('th', {
                 sortable: sortable,
                 hidden: hidden,
                 [className]: className
@@ -52,7 +52,7 @@ class TheadItem extends Component {
                 title={typeof renderer === 'string' ? renderer : null}
                 onClick={this.handleClick}>
 
-                <div className="thead-item-inner">
+                <div className="th-inner">
 
                     {this.handleRender()}
 
@@ -74,7 +74,7 @@ class TheadItem extends Component {
     }
 }
 
-TheadItem.propTypes = {
+Th.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
@@ -92,10 +92,10 @@ TheadItem.propTypes = {
 
 };
 
-TheadItem.defaultProps = {
+Th.defaultProps = {
     colIndex: 0,
     sortable: false,
     hidden: false
 };
 
-export default TheadItem;
+export default Th;

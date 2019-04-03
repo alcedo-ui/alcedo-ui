@@ -3,11 +3,11 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-.thead-item {
+.th {
     border-left: 1px solid $theme-border;
     padding: 0;
 
-    .thead-item-inner {
+    .th-inner {
         position: relative;
         box-sizing: content-box;
         display: block;
@@ -28,14 +28,14 @@
     }
 
     &.sortable {
-        .thead-item-inner {
+        .th-inner {
             padding-right: 30px;
             cursor: pointer;
         }
     }
 
     &.hidden {
-        .thead-item-inner {
+        .th-inner {
             height: 0;
             line-height: 0;
             padding-top: 0;
