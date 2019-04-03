@@ -1,18 +1,18 @@
 /**
- * @file TableBody component
+ * @file Tbody component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import TableRow from '../_TableRow';
+import Tr from '../_Tr';
 
 import SelectMode from '../_statics/SelectMode';
 
 import Util from '../_vendors/Util';
 
-class TableBody extends Component {
+class Tbody extends Component {
 
     static SelectMode = SelectMode;
 
@@ -45,17 +45,17 @@ class TableBody extends Component {
         } = this.props;
 
         return (
-            <tbody className="table-body">
+            <tbody>
                 {
                     data && data.map((row, rowIndex) => row ?
-                        <TableRow key={idProp && idProp in row ? row[idProp] : rowIndex}
-                                  rowIndex={startIndex + rowIndex}
-                                  columns={columns}
-                                  data={row}
-                                  isChecked={this.isItemChecked(row)}
-                                  disabled={disabled || row.disabled}
-                                  onRowClick={onRowClick}
-                                  onCellClick={onCellClick}/>
+                        <Tr key={idProp && idProp in row ? row[idProp] : rowIndex}
+                            rowIndex={startIndex + rowIndex}
+                            columns={columns}
+                            data={row}
+                            isChecked={this.isItemChecked(row)}
+                            disabled={disabled || row.disabled}
+                            onRowClick={onRowClick}
+                            onCellClick={onCellClick}/>
                         :
                         null
                     )
@@ -66,7 +66,7 @@ class TableBody extends Component {
     }
 }
 
-TableBody.propTypes = {
+Tbody.propTypes = {
 
     columns: PropTypes.array,
     data: PropTypes.array,
@@ -82,7 +82,7 @@ TableBody.propTypes = {
 
 };
 
-TableBody.defaultProps = {
+Tbody.defaultProps = {
     data: [],
     columns: [],
     startIndex: 0,
@@ -91,4 +91,4 @@ TableBody.defaultProps = {
     disabled: false
 };
 
-export default TableBody;
+export default Tbody;

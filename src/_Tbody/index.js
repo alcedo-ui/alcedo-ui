@@ -1,6 +1,6 @@
 /**
- * @file TableBody
+ * @file Tbody
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-export default from './TableBody';
+export default from './Tbody';
