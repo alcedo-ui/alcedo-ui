@@ -19,22 +19,20 @@ class TableExamples extends Component {
         super(props);
 
         this.columns = [{
-            header: 'ID',
-            sortable: true,
-            sortProp: 'id',
-            renderer: 'id',
             headerClassName: 'test-header',
-            cellClassName: 'test-cell'
-        }, {
-            header: 'Name',
+            headerRenderer: 'ID',
+            cellClassName: 'test-cell',
+            cellRenderer: 'id',
             sortable: true,
-            collapseAble: true,
-            childrenNumKey: 'childrenNum',
-            sortProp: 'firstName',
-            renderer: '${firstName} - ${lastName}'
+            sortProp: 'id'
         }, {
-            header: 'Status',
-            renderer: rowData =>
+            headerRenderer: 'Name',
+            cellRenderer: '${firstName} - ${lastName}',
+            sortable: true,
+            sortProp: 'firstName'
+        }, {
+            headerRenderer: 'Status',
+            cellRenderer: rowData =>
                 <Switcher value={!rowData.disabled}
                           size="small"
                           onClick={e => e.stopPropagation()}/>
