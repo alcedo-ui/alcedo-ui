@@ -1,6 +1,6 @@
 /**
- * @file TableRow
+ * @file Tr
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-export default from './TableRow';
+export default from './Tr';
