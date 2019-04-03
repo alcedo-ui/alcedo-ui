@@ -15,44 +15,6 @@ class Tr extends Component {
         super(props, ...restArgs);
     }
 
-    calSpan = (col, colIndex) => {
-        return col.span && typeof col.span === 'function' ?
-            col.span(this.props.rowIndex, colIndex)
-            :
-            null;
-    };
-
-    calColumns = () => {
-
-        const {columns} = this.props,
-            result = [];
-        let spanFlag = 0;
-
-        for (let i = 0, len = columns.length; i < len; i++) {
-
-            if (spanFlag > 1) {
-                spanFlag--;
-                continue;
-            }
-
-            const col = columns[i],
-                span = this.calSpan(columns[i], i);
-
-            if (span && span > 1) {
-                spanFlag = span;
-            }
-
-            result.push({
-                col,
-                span
-            });
-
-        }
-
-        return result;
-
-    };
-
     handleClick = e => {
         const {data, rowIndex, disabled, onRowClick} = this.props;
         !disabled && onRowClick && onRowClick(data, rowIndex, e);
@@ -61,10 +23,9 @@ class Tr extends Component {
     render() {
 
         const {
-                className, rowIndex, data, isChecked, disabled, isExpanded, expandedIconCls,
-                onCellClick
-            } = this.props,
-            columns = this.calColumns();
+            className, columnsWithSpan, rowIndex, data, isChecked, disabled, isExpanded, expandedIconCls,
+            onCellClick
+        } = this.props;
 
         return (
             <tr className={classNames({
@@ -76,7 +37,7 @@ class Tr extends Component {
                 disabled={disabled}
                 onClick={this.handleClick}>
                 {
-                    columns && columns.map((column, colIndex) =>
+                    columnsWithSpan && columnsWithSpan.map((column, colIndex) =>
                         <Td key={colIndex}
                             rowIndex={rowIndex}
                             colIndex={colIndex}
@@ -98,6 +59,7 @@ Tr.propTypes = {
 
     rowIndex: PropTypes.number,
     columns: PropTypes.array,
+    columnsWithSpan: PropTypes.array,
     data: PropTypes.object,
     isChecked: PropTypes.bool,
     disabled: PropTypes.bool,
