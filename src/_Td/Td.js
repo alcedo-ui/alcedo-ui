@@ -31,17 +31,17 @@ class Td extends Component {
 
     };
 
-    handleRenderer = (renderer, colIndex) => {
+    handleRenderer = (cellRenderer, colIndex) => {
 
         const {rowIndex, data} = this.props;
 
-        switch (typeof renderer) {
+        switch (typeof cellRenderer) {
             case 'string':
-                return this.stringContentRenderer(data, renderer);
+                return this.stringContentRenderer(data, cellRenderer);
             case 'function':
-                return renderer(data, rowIndex, colIndex);
+                return cellRenderer(data, rowIndex, colIndex);
             default:
-                return renderer;
+                return cellRenderer;
         }
 
     };
@@ -86,14 +86,14 @@ class Td extends Component {
                     col.collapseAble && data[col.childrenNumKey] > 0 ?
                         <i className={classNames('collapsed-icon', {
                             [expandedIconCls]: expandedIconCls,
-                            ['expanded-icon']: isExpanded
+                            'expanded-icon': isExpanded
                         })}
                            onClick={e => this.toggleExpandHandler(colIndex, col, e)}/>
                         :
                         null
                 }
 
-                {this.handleRenderer(col.renderer, colIndex)}
+                {this.handleRenderer(col.cellRenderer, colIndex)}
 
             </td>
         );
