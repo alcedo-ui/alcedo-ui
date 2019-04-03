@@ -252,50 +252,50 @@ class TableExamples extends Component {
 
                 </Widget>
 
-                <Widget>
+                {/*<Widget>*/}
 
-                    <WidgetHeader className="example-header" title="With hasLineNumber and isMultiSelect"/>
+                {/*<WidgetHeader className="example-header" title="With hasLineNumber and isMultiSelect"/>*/}
 
-                    <div className="widget-content">
-                        <div className="example-content">
+                {/*<div className="widget-content">*/}
+                {/*<div className="example-content">*/}
 
-                            <p>A more complex example.Set the <code>hasLineNumber</code> and <code>isMultiSelect</code>
-                                to true for showLineNumber and checkbox.</p>
+                {/*<p>A more complex example.Set the <code>hasLineNumber</code> and <code>isMultiSelect</code>*/}
+                {/*to true for showLineNumber and checkbox.</p>*/}
 
-                            <Table data={data}
-                                   columns={this.columns}
-                                   selectMode={Table.SelectMode.MULTI_SELECT}
-                                   selectAllMode={Table.SelectAllMode.CURRENT_PAGE}
-                                   paggingSelectedCountVisible={true}
-                                   defaultPageSize={20}
-                                   pageSizes={this.pageSizes}
-                                   useFullPagging={true}
-                                   sortAscIconCls="fas fa-caret-up"
-                                   sortDescIconCls="fas fa-caret-down"
-                                   onPageChange={this.pageChangeHandler}
-                                   onSelect={this.selectHandler}
-                                   onDeselect={this.deselectHandler}
-                                   onSelectAll={this.selectAllHandler}
-                                   onDeselectAll={this.deselectAllHandler}
-                                   onChange={this.changeHandler}/>
+                {/*<Table data={data}*/}
+                {/*columns={this.columns}*/}
+                {/*selectMode={Table.SelectMode.MULTI_SELECT}*/}
+                {/*selectAllMode={Table.SelectAllMode.CURRENT_PAGE}*/}
+                {/*paggingSelectedCountVisible={true}*/}
+                {/*defaultPageSize={20}*/}
+                {/*pageSizes={this.pageSizes}*/}
+                {/*useFullPagging={true}*/}
+                {/*sortAscIconCls="fas fa-caret-up"*/}
+                {/*sortDescIconCls="fas fa-caret-down"*/}
+                {/*onPageChange={this.pageChangeHandler}*/}
+                {/*onSelect={this.selectHandler}*/}
+                {/*onDeselect={this.deselectHandler}*/}
+                {/*onSelectAll={this.selectAllHandler}*/}
+                {/*onDeselectAll={this.deselectAllHandler}*/}
+                {/*onChange={this.changeHandler}/>*/}
 
-                        </div>
-                    </div>
+                {/*</div>*/}
+                {/*</div>*/}
 
-                </Widget>
+                {/*</Widget>*/}
 
-                <Widget>
+                {/*<Widget>*/}
 
-                    <WidgetHeader className="example-header" title="Empty"/>
+                {/*<WidgetHeader className="example-header" title="Empty"/>*/}
 
-                    <div className="widget-content">
-                        <div className="example-content">
-                            <Table columns={this.columns}
-                                   data={[]}/>
-                        </div>
-                    </div>
+                {/*<div className="widget-content">*/}
+                {/*<div className="example-content">*/}
+                {/*<Table columns={this.columns}*/}
+                {/*data={[]}/>*/}
+                {/*</div>*/}
+                {/*</div>*/}
 
-                </Widget>
+                {/*</Widget>*/}
 
                 <h2 className="example-title">Properties</h2>
 
