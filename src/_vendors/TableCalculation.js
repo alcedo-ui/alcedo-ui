@@ -40,7 +40,32 @@ function getColumnsWithSpan(columns, rowIndex) {
 
 }
 
+function sortTableData(data, sorting, sortFunc) {
+
+    if (!sorting) {
+        return data;
+    }
+
+    let copyData = data.slice();
+
+    if (sortFunc) {
+        copyData = sortFunc(copyData, sorting);
+    } else {
+        copyData.sort((a, b) => {
+            if (!isNaN(a[sorting.prop]) && !isNaN(b[sorting.prop])) {
+                return (Number(a[sorting.prop]) - Number(b[sorting.prop])) * sorting.type;
+            } else {
+                return (a[sorting.prop] + '').localeCompare(b[sorting.prop] + '') * sorting.type;
+            }
+        });
+    }
+
+    return copyData;
+
+}
+
 export default {
     calcSpan,
-    getColumnsWithSpan
+    getColumnsWithSpan,
+    sortTableData
 };

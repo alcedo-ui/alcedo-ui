@@ -195,30 +195,6 @@ function filterLocalAutoCompleteData(filter, props) {
 
 }
 
-function sortTableData(data, sort, sortFunc) {
-
-    if (!sort) {
-        return data;
-    }
-
-    let copyData = data.slice();
-
-    if (sortFunc) {
-        copyData = sortFunc(copyData, sort);
-    } else {
-        copyData.sort((a, b) => {
-            if (!isNaN(a[sort.prop]) && !isNaN(b[sort.prop])) {
-                return (Number(a[sort.prop]) - Number(b[sort.prop])) * sort.type;
-            } else {
-                return (a[sort.prop] + '').localeCompare(b[sort.prop] + '') * sort.type;
-            }
-        });
-    }
-
-    return copyData;
-
-};
-
 export default {
     pageSize,
     displayIndexByScrollTop,
@@ -227,6 +203,5 @@ export default {
     displayIndexByScrollTopMulColumns,
     isItemChecked,
     isNodeIndeterminate,
-    filterLocalAutoCompleteData,
-    sortTableData
+    filterLocalAutoCompleteData
 };
