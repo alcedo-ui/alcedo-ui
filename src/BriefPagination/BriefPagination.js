@@ -6,7 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import PaggingSize from '../_PaggingSize';
+import PaginationSize from '../_PaginationSize';
 import IconButton from '../IconButton';
 
 import Valid from '../_vendors/Valid';
@@ -92,13 +92,13 @@ class BriefPagination extends Component {
 
                     {
                         pageSizeVisible ?
-                            <PaggingSize pageSize={pageSize}
-                                         pageSizes={pageSizes}
-                                         valueField={pageSizeValueField}
-                                         displayField={pageSizeDisplayField}
-                                         parentEl={parentEl}
-                                         rightIconCls={pageSizeRightIconCls}
-                                         onPageSizeChange={this.pageSizeChangedHandle}/>
+                            <PaginationSize pageSize={pageSize}
+                                            pageSizes={pageSizes}
+                                            valueField={pageSizeValueField}
+                                            displayField={pageSizeDisplayField}
+                                            parentEl={parentEl}
+                                            rightIconCls={pageSizeRightIconCls}
+                                            onPageSizeChange={this.pageSizeChangedHandle}/>
                             :
                             null
                     }
