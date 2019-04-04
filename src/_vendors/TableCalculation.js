@@ -3,9 +3,9 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-function calcSpan(rowIndex, column, colIndex) {
+function calcSpan(column, colIndex, rowIndex) {
     return column.span && typeof column.span === 'function' ?
-        column.span(rowIndex, colIndex)
+        column.span(colIndex, rowIndex)
         :
         null;
 }
@@ -23,7 +23,7 @@ function getColumnsWithSpan(columns, rowIndex) {
         }
 
         const column = columns[i],
-            span = calcSpan(rowIndex, columns[i], i);
+            span = calcSpan(columns[i], i, rowIndex);
 
         if (span && span > 1) {
             spanFlag = span;
