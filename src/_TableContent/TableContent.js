@@ -1,5 +1,5 @@
 /**
- * @file ComplicatedTableContent component
+ * @file TableContent component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
@@ -16,7 +16,7 @@ import SortType from '../_statics/SortType';
 
 import Util from '../_vendors/Util';
 
-class ComplicatedTableContent extends Component {
+class TableContent extends Component {
 
     static SelectMode = SelectMode;
     static SelectAllMode = SelectAllMode;
@@ -55,7 +55,7 @@ class ComplicatedTableContent extends Component {
         } = this.props;
 
         return (
-            <div className={classNames('complicated-table-content', {
+            <div className={classNames('table-content', {
                 [className]: className
             })}
                  style={style}>
@@ -68,7 +68,7 @@ class ComplicatedTableContent extends Component {
     }
 }
 
-ComplicatedTableContent.propTypes = {
+TableContent.propTypes = {
 
     /**
      * The CSS class name of the root element.
@@ -191,7 +191,7 @@ ComplicatedTableContent.propTypes = {
 
 };
 
-ComplicatedTableContent.defaultProps = {
+TableContent.defaultProps = {
 
     selectMode: SelectMode.SINGLE_SELECT,
     selectAllMode: SelectAllMode.CURRENT_PAGE,
@@ -207,4 +207,4 @@ ComplicatedTableContent.defaultProps = {
 
 };
 
-export default ComplicatedTableContent;
+export default TableContent;
