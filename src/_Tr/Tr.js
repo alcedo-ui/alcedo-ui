@@ -11,7 +11,7 @@ import Td from '../_Td';
 
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
-import SortType from '../_statics/SortType';
+import SortingType from '../_statics/SortingType';
 
 import Util from '../_vendors/Util';
 import TableCalculation from '../_vendors/TableCalculation';
@@ -20,7 +20,7 @@ class Tr extends Component {
 
     static SelectMode = SelectMode;
     static SelectAllMode = SelectAllMode;
-    static SortType = SortType;
+    static SortingType = SortingType;
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
@@ -140,9 +140,9 @@ Tr.propTypes = {
         /**
          * Sort field.
          */
-        sortProp: PropTypes.string,
+        sortingProp: PropTypes.string,
 
-        defaultSortType: PropTypes.oneOf(Util.enumerateValue(SortType)),
+        defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType)),
 
         /**
          * Column span callback
