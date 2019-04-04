@@ -9,7 +9,18 @@ import classNames from 'classnames';
 
 import Td from '../_Td';
 
+import SelectMode from '../_statics/SelectMode';
+import SelectAllMode from '../_statics/SelectAllMode';
+import SortType from '../_statics/SortType';
+
+import Util from '../_vendors/Util';
+import TableCalculation from '../_vendors/TableCalculation';
+
 class Tr extends Component {
+
+    static SelectMode = SelectMode;
+    static SelectAllMode = SelectAllMode;
+    static SortType = SortType;
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
@@ -23,9 +34,11 @@ class Tr extends Component {
     render() {
 
         const {
-            className, columnsWithSpan, rowIndex, data, isChecked, disabled, isExpanded, expandedIconCls,
-            onCellClick
-        } = this.props;
+                className, columns, rowIndex, data, isChecked, disabled,
+                onCellClick
+            } = this.props,
+
+            columnsWithSpan = TableCalculation.getColumnsWithSpan(columns, rowIndex);
 
         return (
             <tr className={classNames({
@@ -37,16 +50,19 @@ class Tr extends Component {
                 disabled={disabled}
                 onClick={this.handleClick}>
                 {
-                    columnsWithSpan && columnsWithSpan.map((column, colIndex) =>
+                    columnsWithSpan && columnsWithSpan.map(({column, span}, colIndex) => column ?
                         <Td key={colIndex}
                             rowIndex={rowIndex}
                             colIndex={colIndex}
-                            column={column}
                             data={data}
-                            isExpanded={isExpanded}
+                            className={column.cellClassName}
+                            style={column.cellStyle}
+                            renderer={column.cellRenderer}
+                            span={span}
                             disabled={disabled}
-                            expandedIconCls={expandedIconCls}
                             onCellClick={onCellClick}/>
+                        :
+                        null
                     )
                 }
             </tr>
@@ -58,12 +74,83 @@ class Tr extends Component {
 Tr.propTypes = {
 
     rowIndex: PropTypes.number,
-    columns: PropTypes.array,
-    columnsWithSpan: PropTypes.array,
+
+    /**
+     * Children passed into table header.
+     */
+    columns: PropTypes.arrayOf(PropTypes.shape({
+
+        /**
+         * The class name of header.
+         */
+        headerClassName: PropTypes.string,
+
+        /**
+         * Override the styles of header.
+         */
+        headerStyle: PropTypes.object,
+
+        /**
+         * The render content in header.
+         * (1) string，example： 'id'
+         * (2) callback，example：function (colIndex) {return colIndex;}
+         */
+        headerRenderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+
+        /**
+         * The class name of td.
+         */
+        cellClassName: PropTypes.string,
+
+        /**
+         * Override the styles of td.
+         */
+        cellStyle: PropTypes.object,
+
+        /**
+         * The render content in table.
+         * (1) data key，example： 'id'
+         * (2) data key tamplate，example：'${id} - ${name}'
+         * (3) callback，example：function (rowData, rowIndex, colIndex) {return rowData.id;}
+         */
+        cellRenderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+
+        /**
+         * The class name of footer.
+         */
+        footerClassName: PropTypes.string,
+
+        /**
+         * Override the styles of footer.
+         */
+        footerStyle: PropTypes.object,
+
+        /**
+         * The render content in footer.
+         * (1) string，example： 'id'
+         * (2) callback，example：function (colIndex) {return colIndex;}
+         */
+        footerRenderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+
+        /**
+         * If true,this column can be sorted.
+         */
+        sortable: PropTypes.bool,
+
+        /**
+         * Sort field.
+         */
+        sortProp: PropTypes.string,
+
+        defaultSortType: PropTypes.oneOf(Util.enumerateValue(SortType)),
+
+        span: PropTypes.func
+
+    })).isRequired,
+
     data: PropTypes.object,
     isChecked: PropTypes.bool,
     disabled: PropTypes.bool,
-    expandedIconCls: PropTypes.string,
     className: PropTypes.string,
 
     onRowClick: PropTypes.func,
@@ -72,11 +159,7 @@ Tr.propTypes = {
 };
 
 Tr.defaultProps = {
-    className: '',
     rowIndex: 0,
-    expandedIconCls: 'fas fa-angle-right',
-    columns: [],
-    data: {},
     isChecked: false,
     disabled: false
 };
