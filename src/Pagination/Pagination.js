@@ -1,5 +1,5 @@
 /**
- * @file Pagging component
+ * @file Pagination component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
@@ -11,7 +11,7 @@ import PaggingSize from '../_PaggingSize';
 import PaggingPage from '../_PaggingPage';
 import Valid from '../_vendors/Valid';
 
-class Pagging extends Component {
+class Pagination extends Component {
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
@@ -55,35 +55,35 @@ class Pagging extends Component {
         const {
                 className, style, total, page, pageSize, pageSizes, pageSizeValueField, pageSizeDisplayField,
                 selectedCount, selectedCountVisible, pageSizeVisible, pageSizeRightIconCls,
-                paggingPrevIconCls, paggingNextIconCls, paggingFirstIconCls, paggingLastIconCls,
-                paggingCountRenderer, parentEl
+                paginationPrevIconCls, paginationNextIconCls, paginationFirstIconCls, paginationLastIconCls,
+                paginationCountRenderer, parentEl
             } = this.props,
 
             totalPage = Math.ceil(total / pageSize),
 
-            paggingClassNames = classNames('pagging', {
+            paginationClassNames = classNames('pagination', {
                 [className]: className
             });
 
         return (
-            <div className={paggingClassNames}
+            <div className={paginationClassNames}
                  style={style}>
 
-                <div className="pagging-left">
+                <div className="pagination-left">
 
                     {
                         selectedCountVisible ?
-                            <div className="pagging-selected">
+                            <div className="pagination-selected">
                                 {`Selected: ${selectedCount}`}
                             </div>
                             :
                             null
                     }
 
-                    <div className="pagging-total">
+                    <div className="pagination-total">
                         {
-                            paggingCountRenderer ?
-                                paggingCountRenderer(total, page, totalPage, pageSize, pageSizes)
+                            paginationCountRenderer ?
+                                paginationCountRenderer(total, page, totalPage, pageSize, pageSizes)
                                 :
                                 `Total: ${total}`
                         }
@@ -91,7 +91,7 @@ class Pagging extends Component {
 
                 </div>
 
-                <div className="pagging-right">
+                <div className="pagination-right">
 
                     {
                         pageSizeVisible ?
@@ -108,10 +108,10 @@ class Pagging extends Component {
 
                     <PaggingPage page={page}
                                  totalPage={totalPage}
-                                 paggingPrevIconCls={paggingPrevIconCls}
-                                 paggingNextIconCls={paggingNextIconCls}
-                                 paggingFirstIconCls={paggingFirstIconCls}
-                                 paggingLastIconCls={paggingLastIconCls}
+                                 paginationPrevIconCls={paginationPrevIconCls}
+                                 paginationNextIconCls={paginationNextIconCls}
+                                 paginationFirstIconCls={paginationFirstIconCls}
+                                 paginationLastIconCls={paginationLastIconCls}
                                  onPageChange={this.pageChangedHandle}/>
 
                 </div>
@@ -122,7 +122,7 @@ class Pagging extends Component {
     }
 }
 
-Pagging.propTypes = {
+Pagination.propTypes = {
 
     /**
      * The CSS class name of the root element.
@@ -187,24 +187,26 @@ Pagging.propTypes = {
     /**
      * Use this property to set prev button icon.
      */
-    paggingPrevIconCls: PropTypes.string,
+    paginationPrevIconCls: PropTypes.string,
 
     /**
      * Use this property to set next button icon.
      */
-    paggingNextIconCls: PropTypes.string,
+    paginationNextIconCls: PropTypes.string,
 
     /**
      * Use this property to set first button icon.
      */
-    paggingFirstIconCls: PropTypes.string,
+    paginationFirstIconCls: PropTypes.string,
 
     /**
      * Use this property to set last button icon.
      */
-    paggingLastIconCls: PropTypes.string,
+    paginationLastIconCls: PropTypes.string,
 
-    paggingCountRenderer: PropTypes.func,
+    paginationCountRenderer: PropTypes.func,
+
+    parentEl: PropTypes.object,
 
     /**
      * Callback function fired when Pagging component change.
@@ -213,7 +215,7 @@ Pagging.propTypes = {
 
 };
 
-Pagging.defaultProps = {
+Pagination.defaultProps = {
 
     total: 0,
     page: 0,
@@ -227,11 +229,11 @@ Pagging.defaultProps = {
     pageSizeVisible: true,
 
     pageSizeRightIconCls: 'fas fa-angle-down',
-    paggingPrevIconCls: 'fas fa-angle-left',
-    paggingNextIconCls: 'fas fa-angle-right',
-    paggingFirstIconCls: 'fas fa-angle-double-left',
-    paggingLastIconCls: 'fas fa-angle-double-right'
+    paginationPrevIconCls: 'fas fa-angle-left',
+    paginationNextIconCls: 'fas fa-angle-right',
+    paginationFirstIconCls: 'fas fa-angle-double-left',
+    paginationLastIconCls: 'fas fa-angle-double-right'
 
 };
 
-export default Pagging;
+export default Pagination;

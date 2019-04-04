@@ -1,9 +1,9 @@
 /**
- * @file Pagging style
+ * @file Pagination style
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-.pagging {
+.pagination {
     @include float-fix;
     box-sizing: border-box;
     width: 100%;
@@ -14,18 +14,18 @@
     background: $theme-field-bg;
     border-top: 1px solid transparentize($theme-border, .6);
 
-    .pagging-left {
+    .pagination-left {
         float: left;
         line-height: 40px;
 
-        .pagging-selected,
-        .pagging-total {
+        .pagination-selected,
+        .pagination-total {
             float: left;
             margin-right: 20px;
         }
     }
 
-    .pagging-right {
+    .pagination-right {
         float: right;
         line-height: 40px;
     }

@@ -1,6 +1,6 @@
 /**
- * @file BriefPagging
+ * @file Pagination
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-export default from './BriefPagging';
+export default from './Pagination';
