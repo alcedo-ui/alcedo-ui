@@ -7,8 +7,9 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import PaggingSize from '../_PaggingSize';
-import PaggingPage from '../_PaggingPage';
+import PaginationSize from '../_PaginationSize';
+import PaginationPage from '../_PaginationPage';
+
 import Valid from '../_vendors/Valid';
 
 class Pagination extends Component {
@@ -17,7 +18,7 @@ class Pagination extends Component {
         super(props, ...restArgs);
     }
 
-    pageChangedHandle = page => {
+    handlePageChange = page => {
 
         const {pageSize, onChange} = this.props;
 
@@ -28,7 +29,7 @@ class Pagination extends Component {
 
     };
 
-    pageSizeChangedHandle = pageSize => {
+    handlePageSizeChange = pageSize => {
 
         const {total, pageSizeValueField, onChange} = this.props,
             originPageSizeValue = typeof this.props.pageSize === 'object' ?
@@ -95,24 +96,24 @@ class Pagination extends Component {
 
                     {
                         pageSizeVisible ?
-                            <PaggingSize pageSize={pageSize}
-                                         pageSizes={pageSizes}
-                                         valueField={pageSizeValueField}
-                                         displayField={pageSizeDisplayField}
-                                         parentEl={parentEl}
-                                         rightIconCls={pageSizeRightIconCls}
-                                         onPageSizeChange={this.pageSizeChangedHandle}/>
+                            <PaginationSize pageSize={pageSize}
+                                            pageSizes={pageSizes}
+                                            valueField={pageSizeValueField}
+                                            displayField={pageSizeDisplayField}
+                                            parentEl={parentEl}
+                                            rightIconCls={pageSizeRightIconCls}
+                                            onPageSizeChange={this.handlePageSizeChange}/>
                             :
                             null
                     }
 
-                    <PaggingPage page={page}
-                                 totalPage={totalPage}
-                                 paginationPrevIconCls={paginationPrevIconCls}
-                                 paginationNextIconCls={paginationNextIconCls}
-                                 paginationFirstIconCls={paginationFirstIconCls}
-                                 paginationLastIconCls={paginationLastIconCls}
-                                 onPageChange={this.pageChangedHandle}/>
+                    <PaginationPage page={page}
+                                    totalPage={totalPage}
+                                    paginationPrevIconCls={paginationPrevIconCls}
+                                    paginationNextIconCls={paginationNextIconCls}
+                                    paginationFirstIconCls={paginationFirstIconCls}
+                                    paginationLastIconCls={paginationLastIconCls}
+                                    onPageChange={this.handlePageChange}/>
 
                 </div>
 
