@@ -17,11 +17,11 @@ class Th extends Component {
 
     handleRender = () => {
 
-        const {renderer, colIndex} = this.props;
+        const {colIndex, data, renderer} = this.props;
 
         switch (typeof renderer) {
             case 'function':
-                return renderer(colIndex);
+                return renderer(data, colIndex);
             default:
                 return renderer;
         }
@@ -36,14 +36,13 @@ class Th extends Component {
     render() {
 
         const {
-            className, style, renderer, hidden,
+            className, style, renderer,
             sortable, sortProp, sort, sortAscIconCls, sortDescIconCls
         } = this.props;
 
         return (
             <th className={classNames('th', {
                 sortable: sortable,
-                hidden: hidden,
                 [className]: className
             })}
                 style={style}
@@ -79,21 +78,25 @@ Th.propTypes = {
 
     renderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     colIndex: PropTypes.number,
+    data: PropTypes.array,
     sortable: PropTypes.bool,
     sortProp: PropTypes.string,
     sort: PropTypes.object,
     sortAscIconCls: PropTypes.string,
     sortDescIconCls: PropTypes.string,
-    hidden: PropTypes.bool,
 
     onSort: PropTypes.func
 
 };
 
 Th.defaultProps = {
+
     colIndex: 0,
     sortable: false,
-    hidden: false
+
+    sortAscIconCls: 'fas fa-angle-up',
+    sortDescIconCls: 'fas fa-angle-down'
+
 };
 
 export default Th;
