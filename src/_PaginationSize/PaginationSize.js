@@ -1,5 +1,5 @@
 /**
- * @file PaggingSize component
+ * @file PaginationSize component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
@@ -8,13 +8,13 @@ import PropTypes from 'prop-types';
 
 import DropdownSelect from '../DropdownSelect';
 
-class PaggingSize extends Component {
+class PaginationSize extends Component {
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
     }
 
-    pageSizeChangeHandle = newPageSize => {
+    handlePageSizeChange = newPageSize => {
         const {pageSize, onPageSizeChange} = this.props;
         pageSize != newPageSize && onPageSizeChange && onPageSizeChange(newPageSize);
     };
@@ -22,20 +22,20 @@ class PaggingSize extends Component {
     render() {
 
         const {
-            className, style, pageSize, pageSizes, valueField, displayField, rightIconCls,
-            parentEl
-        } = this.props;
+                className, style, pageSize, pageSizes, valueField, displayField, rightIconCls,
+                parentEl
+            } = this.props,
 
-        let temp = pageSizes.find(item => item && item.value === pageSize),
+            temp = pageSizes.find(item => item && item.value === pageSize),
             value = temp ? temp : pageSize;
 
         return (
-            <div className={`pagging-size ${className}`}
+            <div className={`pagination-size ${className}`}
                  style={style}>
 
                 <label>Show Rows:</label>
 
-                <DropdownSelect className="pagging-size-select"
+                <DropdownSelect className="pagination-size-select"
                                 value={value}
                                 data={pageSizes}
                                 autoClose={true}
@@ -43,7 +43,7 @@ class PaggingSize extends Component {
                                 displayField={displayField}
                                 parentEl={parentEl}
                                 rightIconCls={rightIconCls}
-                                onChange={this.pageSizeChangeHandle}/>
+                                onChange={this.handlePageSizeChange}/>
 
             </div>
         );
@@ -51,7 +51,7 @@ class PaggingSize extends Component {
     }
 }
 
-PaggingSize.propTypes = {
+PaginationSize.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
@@ -64,11 +64,13 @@ PaggingSize.propTypes = {
 
     rightIconCls: PropTypes.string,
 
+    parentEl: PropTypes.object,
+
     onPageSizeChange: PropTypes.func
 
 };
 
-PaggingSize.defaultProps = {
+PaginationSize.defaultProps = {
 
     pageSize: 10,
     pageSizes: [5, 10, 15, 20],
@@ -80,4 +82,4 @@ PaggingSize.defaultProps = {
 
 };
 
-export default PaggingSize;
+export default PaginationSize;

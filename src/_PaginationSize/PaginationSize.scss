@@ -1,9 +1,9 @@
 /**
- * @file PaggingSize style
+ * @file PaginationSize style
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-.pagging-size {
+.pagination-size {
     @include float-fix;
     float: left;
 
@@ -11,7 +11,7 @@
         float: left;
     }
 
-    .pagging-size-select {
+    .pagination-size-select {
         margin-left: 10px;
         width: auto;
         height: 40px;
