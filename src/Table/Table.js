@@ -38,6 +38,9 @@ class Table extends Component {
 
     }
 
+    /**
+     * handle sort changed
+     */
     handleSort = sort => {
         this.setState({
             sort

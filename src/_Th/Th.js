@@ -15,6 +15,10 @@ class Th extends Component {
         super(props, ...restArgs);
     }
 
+    /**
+     * handle th content render
+     * @returns {*}
+     */
     handleRender = () => {
 
         const {colIndex, data, renderer} = this.props;
@@ -28,6 +32,9 @@ class Th extends Component {
 
     };
 
+    /**
+     * handle th click and trigger sort callback
+     */
     handleClick = () => {
         const {sortable, onSort} = this.props;
         sortable && onSort && onSort();

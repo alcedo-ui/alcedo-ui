@@ -26,6 +26,11 @@ class ComplicatedTableContent extends Component {
         super(props, ...restArgs);
     }
 
+    /**
+     * slice data by pagination
+     * @param data
+     * @returns {*[]}
+     */
     paginateData = (data = this.props.data) => {
 
         const {pagination} = this.props,
