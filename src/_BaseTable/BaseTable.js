@@ -27,44 +27,6 @@ class BaseTable extends Component {
         super(props, ...restArgs);
     }
 
-    // calSpan = (col, colIndex) => {
-    //     return col.span && typeof col.span === 'function' ?
-    //         col.span(this.props.rowIndex, colIndex)
-    //         :
-    //         null;
-    // };
-    //
-    // calColumns = () => {
-    //
-    //     const {columns} = this.props,
-    //         result = [];
-    //     let spanFlag = 0;
-    //
-    //     for (let i = 0, len = columns.length; i < len; i++) {
-    //
-    //         if (spanFlag > 1) {
-    //             spanFlag--;
-    //             continue;
-    //         }
-    //
-    //         const col = columns[i],
-    //             span = this.calSpan(columns[i], i);
-    //
-    //         if (span && span > 1) {
-    //             spanFlag = span;
-    //         }
-    //
-    //         result.push({
-    //             col,
-    //             span
-    //         });
-    //
-    //     }
-    //
-    //     return result;
-    //
-    // };
-
     render() {
 
         const {
@@ -72,8 +34,6 @@ class BaseTable extends Component {
                 sortAscIconCls, sortDescIconCls,
                 onSort, onHeadClick, onRowClick, onCellClick, onFootClick
             } = this.props,
-
-            // columnsWithSpan = this.calColumns(),
 
             tableClassName = classNames('base-table', {
                 [className]: className
