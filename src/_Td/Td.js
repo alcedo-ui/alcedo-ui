@@ -71,14 +71,14 @@ class Td extends Component {
 
 Td.propTypes = {
 
-    className: PropTypes.number,
+    className: PropTypes.string,
     style: PropTypes.object,
 
     rowIndex: PropTypes.number,
     colIndex: PropTypes.number,
 
     data: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-    Renderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    renderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     span: PropTypes.number,
 
     isChecked: PropTypes.bool,
