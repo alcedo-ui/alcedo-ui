@@ -7,7 +7,9 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import ThSortIcon from '../_ThSortIcon';
+import ThSortIcon from '../_ThSortingIcon';
+import Util from '../_vendors/Util';
+import SortingType from '../_statics/SortingType';
 
 class Th extends Component {
 
@@ -33,18 +35,36 @@ class Th extends Component {
     };
 
     /**
-     * handle th click and trigger sort callback
+     * handle th click and trigger sorting callback
      */
     handleClick = () => {
-        const {sortable, onSort} = this.props;
-        sortable && onSort && onSort();
+
+        const {sortable, onSortChange} = this.props;
+
+        if (!sortable || !onSortChange) {
+            return;
+        }
+
+        const {sorting, defaultSortingType, sortingProp} = this.props,
+            result = {};
+
+        if (sorting && sorting.prop === sortingProp) {
+            result.prop = sorting.prop;
+            result.type = -sorting.type;
+        } else {
+            result.prop = sortingProp;
+            result.type = defaultSortingType;
+        }
+
+        onSortChange && onSortChange(result);
+
     };
 
     render() {
 
         const {
             className, style, renderer,
-            sortable, sortProp, sort, sortAscIconCls, sortDescIconCls
+            sortable, sortingProp, sorting, sortingAscIconCls, sortingDescIconCls
         } = this.props;
 
         return (
@@ -62,10 +82,10 @@ class Th extends Component {
 
                     {
                         sortable ?
-                            <ThSortIcon sort={sort}
-                                        sortProp={sortProp}
-                                        sortAscIconCls={sortAscIconCls}
-                                        sortDescIconCls={sortDescIconCls}/>
+                            <ThSortIcon sorting={sorting}
+                                        sortingProp={sortingProp}
+                                        sortingAscIconCls={sortingAscIconCls}
+                                        sortingDescIconCls={sortingDescIconCls}/>
                             :
                             null
                     }
@@ -86,23 +106,32 @@ Th.propTypes = {
     renderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     colIndex: PropTypes.number,
     data: PropTypes.array,
-    sortable: PropTypes.bool,
-    sortProp: PropTypes.string,
-    sort: PropTypes.object,
-    sortAscIconCls: PropTypes.string,
-    sortDescIconCls: PropTypes.string,
 
-    onSort: PropTypes.func
+    /**
+     * sorting
+     */
+    sorting: PropTypes.shape({
+        prop: PropTypes.string,
+        type: PropTypes.oneOf(Util.enumerateValue(SortingType))
+    }),
+    defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType)),
+    sortingAscIconCls: PropTypes.string,
+    sortingDescIconCls: PropTypes.string,
+    sortable: PropTypes.bool,
+    sortingProp: PropTypes.string,
+
+    onSortChange: PropTypes.func
 
 };
 
 Th.defaultProps = {
 
     colIndex: 0,
-    sortable: false,
 
-    sortAscIconCls: 'fas fa-angle-up',
-    sortDescIconCls: 'fas fa-angle-down'
+    defaultSortingType: SortingType.ASC,
+    sortingAscIconCls: 'fas fa-angle-up',
+    sortingDescIconCls: 'fas fa-angle-down',
+    sortable: false
 
 };
 
