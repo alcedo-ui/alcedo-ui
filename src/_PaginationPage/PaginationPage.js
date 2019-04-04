@@ -1,5 +1,5 @@
 /**
- * @file PaggingPage component
+ * @file PaginationPage component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import IconButton from '../IconButton';
 
-class PaggingPage extends Component {
+class PaginationPage extends Component {
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
@@ -31,7 +31,7 @@ class PaggingPage extends Component {
 
         const {
             page, totalPage,
-            paggingPrevIconCls, paggingNextIconCls, paggingFirstIconCls, paggingLastIconCls
+            paginationPrevIconCls, paginationNextIconCls, paginationFirstIconCls, paginationLastIconCls
         } = this.props;
 
         let pages = null;
@@ -148,27 +148,27 @@ class PaggingPage extends Component {
         }
 
         return (
-            <div className="pagging-page">
+            <div className="pagination-page">
 
                 <IconButton className="ctrl"
-                            iconCls={paggingFirstIconCls}
+                            iconCls={paginationFirstIconCls}
                             disabled={page == 0}
                             onClick={() => this.jump(0)}/>
 
                 <IconButton className="ctrl"
-                            iconCls={paggingPrevIconCls}
+                            iconCls={paginationPrevIconCls}
                             disabled={page == 0}
                             onClick={() => this.jump(page - 1 >= 0 ? page - 1 : 0)}/>
 
                 {pages}
 
                 <IconButton className="ctrl"
-                            iconCls={paggingNextIconCls}
+                            iconCls={paginationNextIconCls}
                             disabled={page == totalPage - 1 || totalPage == 0}
                             onClick={() => this.jump(page + 1 <= totalPage - 1 ? page + 1 : totalPage - 1)}/>
 
                 <IconButton className="ctrl"
-                            iconCls={paggingLastIconCls}
+                            iconCls={paginationLastIconCls}
                             disabled={page == totalPage - 1 || totalPage == 0}
                             onClick={() => this.jump(totalPage - 1)}/>
 
@@ -178,7 +178,7 @@ class PaggingPage extends Component {
     }
 }
 
-PaggingPage.propTypes = {
+PaginationPage.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
@@ -186,25 +186,25 @@ PaggingPage.propTypes = {
     page: PropTypes.number.isRequired,
     totalPage: PropTypes.number.isRequired,
 
-    paggingPrevIconCls: PropTypes.string,
-    paggingNextIconCls: PropTypes.string,
-    paggingFirstIconCls: PropTypes.string,
-    paggingLastIconCls: PropTypes.string,
+    paginationPrevIconCls: PropTypes.string,
+    paginationNextIconCls: PropTypes.string,
+    paginationFirstIconCls: PropTypes.string,
+    paginationLastIconCls: PropTypes.string,
 
     onPageChange: PropTypes.func
 
 };
 
-PaggingPage.defaultProps = {
+PaginationPage.defaultProps = {
 
     page: 0,
     totalPage: 0,
 
-    paggingPrevIconCls: 'fas fa-angle-left',
-    paggingNextIconCls: 'fas fa-angle-right',
-    paggingFirstIconCls: 'fas fa-angle-double-left',
-    paggingLastIconCls: 'fas fa-angle-double-right'
+    paginationPrevIconCls: 'fas fa-angle-left',
+    paginationNextIconCls: 'fas fa-angle-right',
+    paginationFirstIconCls: 'fas fa-angle-double-left',
+    paginationLastIconCls: 'fas fa-angle-double-right'
 
 };
 
-export default PaggingPage;
+export default PaginationPage;
