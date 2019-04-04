@@ -152,6 +152,10 @@ BaseTable.propTypes = {
 
         defaultSortType: PropTypes.oneOf(Util.enumerateValue(SortType)),
 
+        /**
+         * Column span callback
+         * example: function (colIndex, rowIndex) {return colIndex === 0 ? 2 : null;}
+         */
         span: PropTypes.func
 
     })).isRequired,

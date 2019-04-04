@@ -91,7 +91,7 @@ Tfoot.propTypes = {
         /**
          * The render content in header.
          * (1) string，example： 'id'
-         * (2) callback，example：function (colIndex) {return colIndex;}
+         * (2) callback，example：function (tableData, colIndex) {return colIndex;}
          */
         headerRenderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 
@@ -126,7 +126,7 @@ Tfoot.propTypes = {
         /**
          * The render content in footer.
          * (1) string，example： 'id'
-         * (2) callback，example：function (colIndex) {return colIndex;}
+         * (2) callback，example：function (tableData, colIndex) {return colIndex;}
          */
         footerRenderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 
@@ -142,6 +142,10 @@ Tfoot.propTypes = {
 
         defaultSortType: PropTypes.oneOf(Util.enumerateValue(SortType)),
 
+        /**
+         * Column span callback
+         * example: function (colIndex, rowIndex) {return colIndex === 0 ? 2 : null;}
+         */
         span: PropTypes.func
 
     })).isRequired,
