@@ -9,13 +9,13 @@ import classNames from 'classnames';
 
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
-import SortType from '../_statics/SortType';
+import SortingType from '../_statics/SortingType';
 
 class TableHeader extends Component {
 
     static SelectMode = SelectMode;
     static SelectAllMode = SelectAllMode;
-    static SortType = SortType;
+    static SortingType = SortingType;
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
@@ -23,14 +23,12 @@ class TableHeader extends Component {
 
     render() {
 
-        const {className, style} = this.props,
-
-            tableClassName = classNames('table-header', {
-                [className]: className
-            });
+        const {className, style} = this.props;
 
         return (
-            <div className={tableClassName}
+            <div className={classNames('table-header', {
+                [className]: className
+            })}
                  style={style}>
 
             </div>
