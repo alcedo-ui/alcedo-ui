@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import BriefPagging from 'src/BriefPagging';
+import BriefPagination from 'src/BriefPagination';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import Valid from 'src/_vendors/Valid';
@@ -8,11 +8,11 @@ import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import doc from 'assets/propTypes/BriefPagging.json';
+import doc from 'assets/propTypes/BriefPagination.json';
 
-import 'scss/containers/app/modules/layout/BriefPaggingExamples.scss';
+import 'scss/containers/app/modules/layout/BriefPaginationExamples.scss';
 
-class BriefPaggingExamples extends Component {
+class BriefPaginationExamples extends Component {
 
     constructor(props) {
 
@@ -40,31 +40,31 @@ class BriefPaggingExamples extends Component {
                 pageSize: 10,
                 page: 0
             },
-            BriefPaggingVisible: {}
+            BriefPaginationVisible: {}
         };
 
     }
 
     show = id => {
 
-        const {BriefPaggingVisible} = this.state;
+        const {BriefPaginationVisible} = this.state;
 
-        BriefPaggingVisible[id] = true;
+        BriefPaginationVisible[id] = true;
 
         this.setState({
-            BriefPaggingVisible
+            BriefPaginationVisible
         });
 
     };
 
     hide = id => {
 
-        const {BriefPaggingVisible} = this.state;
+        const {BriefPaginationVisible} = this.state;
 
-        BriefPaggingVisible[id] = false;
+        BriefPaginationVisible[id] = false;
 
         this.setState({
-            BriefPaggingVisible
+            BriefPaginationVisible
         });
 
     };
@@ -118,15 +118,15 @@ class BriefPaggingExamples extends Component {
 
     render() {
 
-        const {pagging, BriefPaggingVisible} = this.state;
+        const {pagging, BriefPaginationVisible} = this.state;
 
         return (
             <div className="example brief-pagging-examples">
 
-                <h2 className="example-title">BriefPagging</h2>
+                <h2 className="example-title">BriefPagination</h2>
 
                 <p>
-                    A <span>BriefPagging</span> element used for dividing long list, each time only loads a page.
+                    A <span>BriefPagination</span> element used for dividing long list, each time only loads a page.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -141,14 +141,14 @@ class BriefPaggingExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p>A simple <code>BriefPagging</code> example.</p>
+                                <p>A simple <code>BriefPagination</code> example.</p>
 
-                                <BriefPagging selectedCountVisible={true}
-                                              page={pagging.page}
-                                              total={this.generateData()}
-                                              pageSize={pagging.pageSize}
-                                              pageSizes={this.pageSizes}
-                                              onChange={this.pageChangedHandler}/>
+                                <BriefPagination selectedCountVisible={true}
+                                                 page={pagging.page}
+                                                 total={this.generateData()}
+                                                 pageSize={pagging.pageSize}
+                                                 pageSizes={this.pageSizes}
+                                                 onChange={this.pageChangedHandler}/>
 
                             </div>
 
@@ -167,25 +167,25 @@ class BriefPaggingExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p>A simple <code>BriefPagging</code> example.</p>
+                                <p>A simple <code>BriefPagination</code> example.</p>
 
                                 <RaisedButton className="trigger-button dialog-button"
                                               value="Show Dialog"
                                               onClick={() => this.show(1)}/>
 
-                                <Dialog visible={BriefPaggingVisible[1]}
+                                <Dialog visible={BriefPaginationVisible[1]}
                                         onRequestClose={() => this.hide(1)}>
 
                                     {
                                         dialogContentEl =>
                                             <div className="popover-dialog-content-scroller">
-                                                <BriefPagging selectedCountVisible={true}
-                                                              parentEl={dialogContentEl}
-                                                              page={pagging.page}
-                                                              total={this.generateData()}
-                                                              pageSize={pagging.pageSize}
-                                                              pageSizes={this.pageSizes}
-                                                              onChange={this.pageChangedHandler}/>
+                                                <BriefPagination selectedCountVisible={true}
+                                                                 parentEl={dialogContentEl}
+                                                                 page={pagging.page}
+                                                                 total={this.generateData()}
+                                                                 pageSize={pagging.pageSize}
+                                                                 pageSizes={this.pageSizes}
+                                                                 onChange={this.pageChangedHandler}/>
                                             </div>
                                     }
 
@@ -207,4 +207,4 @@ class BriefPaggingExamples extends Component {
     }
 };
 
-export default BriefPaggingExamples;
+export default BriefPaginationExamples;
