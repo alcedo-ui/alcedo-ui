@@ -42,7 +42,6 @@ class Table extends Component {
      * handle sort change
      */
     handleSortChange = sorting => {
-        console.log('handleSortChange::', sorting);
         this.setState({
             sorting
         }, () => {
