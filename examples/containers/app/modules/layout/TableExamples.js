@@ -24,12 +24,12 @@ class TableExamples extends Component {
             cellClassName: 'test-cell',
             cellRenderer: 'id',
             sortable: true,
-            sortProp: 'id'
+            sortingProp: 'id'
         }, {
             headerRenderer: 'Name',
             cellRenderer: '${firstName} - ${lastName}',
             sortable: true,
-            sortProp: 'firstName'
+            sortingProp: 'firstName'
         }, {
             headerRenderer: 'Status',
             cellRenderer: rowData =>
@@ -243,7 +243,7 @@ class TableExamples extends Component {
                                    onViewAllHandle={this.viewAllHandler}
                                    onExpandHandle={this.toggleCollapseRow}
                                    onCollapseHandle={this.toggleCollapseRow}
-                                   onSort={this.sortHandler}
+                                   onSortChange={this.sortHandler}
                                    onPageChange={this.pageChangeHandler}
                                    onDataUpdate={this.dataUpdateHandler}/>
 
@@ -270,8 +270,8 @@ class TableExamples extends Component {
                 {/*defaultPageSize={20}*/}
                 {/*pageSizes={this.pageSizes}*/}
                 {/*useFullPagging={true}*/}
-                {/*sortAscIconCls="fas fa-caret-up"*/}
-                {/*sortDescIconCls="fas fa-caret-down"*/}
+                {/*sortingAscIconCls="fas fa-caret-up"*/}
+                {/*sortingDescIconCls="fas fa-caret-down"*/}
                 {/*onPageChange={this.pageChangeHandler}*/}
                 {/*onSelect={this.selectHandler}*/}
                 {/*onDeselect={this.deselectHandler}*/}
