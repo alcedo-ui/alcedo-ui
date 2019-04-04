@@ -1,15 +1,15 @@
 /**
- * @file ThSortIcon style
+ * @file ThSortingIcon style
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-.th-sort-icon-wrapper {
+.th-sorting-icon-wrapper {
     position: absolute;
     right: 0;
     top: 15px;
     padding: 3px;
 
-    .th-sort-icon {
+    .th-sorting-icon {
         display: block;
         width: 24px;
         height: 12px;
@@ -20,13 +20,13 @@
     }
 
     &.asc {
-        .th-sort-icon.up {
+        .th-sorting-icon.up {
             color: $theme-field;
         }
     }
 
     &.desc {
-        .th-sort-icon.down {
+        .th-sorting-icon.down {
             color: $theme-field;
         }
     }
