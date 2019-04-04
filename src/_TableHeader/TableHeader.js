@@ -1,5 +1,5 @@
 /**
- * @file ComplicatedTableHeader component
+ * @file TableHeader component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
@@ -11,7 +11,7 @@ import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
 import SortType from '../_statics/SortType';
 
-class ComplicatedTableHeader extends Component {
+class TableHeader extends Component {
 
     static SelectMode = SelectMode;
     static SelectAllMode = SelectAllMode;
@@ -25,7 +25,7 @@ class ComplicatedTableHeader extends Component {
 
         const {className, style} = this.props,
 
-            tableClassName = classNames('complicated-table-header', {
+            tableClassName = classNames('table-header', {
                 [className]: className
             });
 
@@ -38,7 +38,7 @@ class ComplicatedTableHeader extends Component {
     }
 }
 
-ComplicatedTableHeader.propTypes = {
+TableHeader.propTypes = {
 
     /**
      * The CSS class name of the root element.
@@ -52,6 +52,6 @@ ComplicatedTableHeader.propTypes = {
 
 };
 
-ComplicatedTableHeader.defaultProps = {};
+TableHeader.defaultProps = {};
 
-export default ComplicatedTableHeader;
+export default TableHeader;
