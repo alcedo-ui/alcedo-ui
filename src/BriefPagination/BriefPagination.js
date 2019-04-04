@@ -1,5 +1,5 @@
 /**
- * @file BriefPagging component
+ * @file BriefPagination component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
@@ -11,7 +11,7 @@ import IconButton from '../IconButton';
 
 import Valid from '../_vendors/Valid';
 
-class BriefPagging extends Component {
+class BriefPagination extends Component {
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
@@ -54,8 +54,8 @@ class BriefPagging extends Component {
 
         const {
                 total, page, pageSize, pageSizes, pageSizeRightIconCls, pageSizeValueField, pageSizeDisplayField,
-                selectedCount, selectedCountVisible, pageSizeVisible, paggingPrevIconCls, paggingNextIconCls,
-                paggingCountRenderer, parentEl
+                selectedCount, selectedCountVisible, pageSizeVisible, paginationPrevIconCls, paginationNextIconCls,
+                paginationCountRenderer, parentEl
             } = this.props,
 
             totalPage = Math.ceil(total / pageSize),
@@ -64,23 +64,23 @@ class BriefPagging extends Component {
             stopNumber = Valid.range((page + 1) * pageSize, 0, total);
 
         return (
-            <div className="brief-pagging">
+            <div className="brief-pagination">
 
-                <div className="brief-pagging-left">
+                <div className="brief-pagination-left">
 
                     {
                         selectedCountVisible ?
-                            <div className="brief-pagging-selected">
+                            <div className="brief-pagination-selected">
                                 {`Selected: ${selectedCount}`}
                             </div>
                             :
                             null
                     }
 
-                    <div className="brief-pagging-total">
+                    <div className="brief-pagination-total">
                         {
-                            paggingCountRenderer ?
-                                paggingCountRenderer(total, page, totalPage, pageSize, pageSizes)
+                            paginationCountRenderer ?
+                                paginationCountRenderer(total, page, totalPage, pageSize, pageSizes)
                                 :
                                 `Total: ${total}`
                         }
@@ -88,7 +88,7 @@ class BriefPagging extends Component {
 
                 </div>
 
-                <div className="brief-pagging-right">
+                <div className="brief-pagination-right">
 
                     {
                         pageSizeVisible ?
@@ -103,15 +103,15 @@ class BriefPagging extends Component {
                             null
                     }
 
-                    <div className="brief-pagging-info">
+                    <div className="brief-pagination-info">
                         {`${startNumber}-${stopNumber} of ${total}`}
                     </div>
 
-                    <IconButton iconCls={paggingPrevIconCls}
+                    <IconButton iconCls={paginationPrevIconCls}
                                 disabled={page <= 0}
                                 onClick={() => this.pageChangedHandle(page - 1)}/>
 
-                    <IconButton iconCls={paggingNextIconCls}
+                    <IconButton iconCls={paginationNextIconCls}
                                 disabled={page >= totalPage - 1}
                                 onClick={() => this.pageChangedHandle(page + 1)}/>
 
@@ -123,7 +123,7 @@ class BriefPagging extends Component {
     }
 }
 
-BriefPagging.propTypes = {
+BriefPagination.propTypes = {
 
     /**
      * The CSS class name of the root element.
@@ -188,14 +188,16 @@ BriefPagging.propTypes = {
     /**
      * Use this property to set prev button icon.
      */
-    paggingPrevIconCls: PropTypes.string,
+    paginationPrevIconCls: PropTypes.string,
 
     /**
      * Use this property to set next button icon.
      */
-    paggingNextIconCls: PropTypes.string,
+    paginationNextIconCls: PropTypes.string,
 
-    paggingCountRenderer: PropTypes.func,
+    paginationCountRenderer: PropTypes.func,
+
+    parentEl: PropTypes.object,
 
     /**
      * Callback function fired when Pagging component change.
@@ -204,7 +206,7 @@ BriefPagging.propTypes = {
 
 };
 
-BriefPagging.defaultProps = {
+BriefPagination.defaultProps = {
 
     total: 0,
     page: 0,
@@ -218,9 +220,9 @@ BriefPagging.defaultProps = {
     pageSizeVisible: true,
 
     pageSizeRightIconCls: 'fas fa-angle-down',
-    paggingPrevIconCls: 'fas fa-angle-left',
-    paggingNextIconCls: 'fas fa-angle-right'
+    paginationPrevIconCls: 'fas fa-angle-left',
+    paginationNextIconCls: 'fas fa-angle-right'
 
 };
 
-export default BriefPagging;
+export default BriefPagination;

@@ -1,9 +1,9 @@
 /**
- * @file BriefPagging style
+ * @file BriefPagination style
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-.brief-pagging {
+.brief-pagination {
     @include float-fix;
     box-sizing: border-box;
     width: 100%;
@@ -14,26 +14,26 @@
     background: $theme-field-bg;
     border-top: 1px solid $theme-border;
 
-    .brief-pagging-left {
+    .brief-pagination-left {
         float: left;
         line-height: 40px;
 
-        .brief-pagging-selected,
-        .brief-pagging-total {
+        .brief-pagination-selected,
+        .brief-pagination-total {
             float: left;
             margin-right: 20px;
         }
     }
 
-    .brief-pagging-right {
+    .brief-pagination-right {
         float: right;
         line-height: 40px;
 
-        .pagging-size {
+        .pagination-size {
             float: left;
         }
 
-        .brief-pagging-info {
+        .brief-pagination-info {
             float: left;
             margin: 0 10px;
         }
