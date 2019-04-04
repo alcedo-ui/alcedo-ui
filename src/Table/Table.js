@@ -10,7 +10,7 @@ import classNames from 'classnames';
 import Header from '../_ComplicatedTableHeader';
 import Content from '../_ComplicatedTableContent';
 import Footer from '../_ComplicatedTableFooter';
-import Pagination from '../_ComplicatedTablePagination';
+import Pagination from '../_TablePagination';
 
 import Theme from '../Theme';
 import SelectMode from '../_statics/SelectMode';
@@ -41,18 +41,31 @@ class Table extends Component {
     /**
      * handle sort changed
      */
-    handleSort = sort => {
+    handleSortChange = sort => {
         this.setState({
             sort
         }, () => {
-            const {onSort} = this.props;
-            onSort && onSort(sort);
+            const {onSortChange} = this.props;
+            onSortChange && onSortChange(sort);
+        });
+    };
+
+    handlePaginationChange = pagination => {
+        this.setState({
+            pagination
+        }, () => {
+            const {onPaginationChange} = this.props;
+            onPaginationChange && onPaginationChange(pagination);
         });
     };
 
     render() {
 
-        const {className, style, ...restProps} = this.props,
+        const {
+                className, style,
+                isPaginated, pageSizes,
+                ...restProps
+            } = this.props,
             {sort, pagination, value} = this.state,
 
             tableClassName = classNames('table', {
@@ -71,13 +84,23 @@ class Table extends Component {
                          sort={sort}
                          pagination={pagination}
                          value={value}
-                         onSort={this.handleSort}/>
+                         isPaginated={isPaginated}
+                         onSortChange={this.handleSortChange}/>
 
                 {/* table footer */}
                 <Footer/>
 
                 {/* table pagination */}
-                <Pagination/>
+                {
+                    isPaginated ?
+                        <Pagination {...restProps}
+                                    pagination={pagination}
+                                    pageSizes={pageSizes}
+                                    value={value}
+                                    onChange={this.handlePaginationChange}/>
+                        :
+                        null
+                }
 
             </div>
         );
@@ -203,8 +226,10 @@ Table.propTypes = {
         page: PropTypes.number
     }),
     pageSizes: PropTypes.array,
+    useFullPagination: PropTypes.bool,
 
-    onSort: PropTypes.func
+    onSortChange: PropTypes.func,
+    onPaginationChange: PropTypes.func
 
 };
 
@@ -220,7 +245,8 @@ Table.defaultProps = {
         pageSize: 10,
         page: 0
     },
-    pageSizes: [5, 10, 15, 20]
+    pageSizes: [5, 10, 15, 20],
+    useFullPagination: false
 
 };
 
