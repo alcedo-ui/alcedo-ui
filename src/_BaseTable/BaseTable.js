@@ -85,6 +85,7 @@ class BaseTable extends Component {
                 <table>
 
                     <Thead columns={columns}
+                           data={data}
                            sort={sort}
                            sortAscIconCls={sortAscIconCls}
                            sortDescIconCls={sortDescIconCls}
@@ -140,7 +141,7 @@ BaseTable.propTypes = {
         /**
          * The render content in header.
          * (1) string，example： 'id'
-         * (2) callback，example：function (colIndex) {return colIndex;}
+         * (2) callback，example：function (tableData, colIndex) {return colIndex;}
          */
         headerRenderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 
@@ -175,7 +176,7 @@ BaseTable.propTypes = {
         /**
          * The render content in footer.
          * (1) string，example： 'id'
-         * (2) callback，example：function (colIndex) {return colIndex;}
+         * (2) callback，example：function (tableData, colIndex) {return colIndex;}
          */
         footerRenderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 
