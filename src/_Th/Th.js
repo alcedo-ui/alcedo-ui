@@ -48,7 +48,7 @@ class Th extends Component {
         } = this.props;
 
         return (
-            <th className={classNames('th', {
+            <th className={classNames({
                 sortable: sortable,
                 [className]: className
             })}
