@@ -12,19 +12,30 @@ import BaseTable from '../_BaseTable';
 import Theme from '../Theme';
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
-import SortType from '../_statics/SortType';
+import SortingType from '../_statics/SortingType';
 
 import Util from '../_vendors/Util';
+import TableCalculation from '../_vendors/TableCalculation';
 
 class TableContent extends Component {
 
     static SelectMode = SelectMode;
     static SelectAllMode = SelectAllMode;
-    static SortType = SortType;
+    static SortingType = SortingType;
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
     }
+
+    /**
+     * sort data by sorting
+     * @param data
+     * @returns {*[]}
+     */
+    sortData = (data = this.props.data) => {
+        const {sorting, sortingFunc} = this.props;
+        return sorting ? TableCalculation.sortTableData(data, sorting, sortingFunc) : data;
+    };
 
     /**
      * slice data by pagination
@@ -33,8 +44,13 @@ class TableContent extends Component {
      */
     paginateData = (data = this.props.data) => {
 
-        const {pagination} = this.props,
-            {pageSize, page} = pagination,
+        const {pagination} = this.props;
+
+        if (!pagination) {
+            return data;
+        }
+
+        const {pageSize, page} = pagination,
             len = data.length;
 
         let start = page * pageSize,
@@ -60,7 +76,7 @@ class TableContent extends Component {
             })}
                  style={style}>
                 <BaseTable {...restProps}
-                           data={isPaginated ? this.paginateData() : data}
+                           data={this.paginateData(this.sortData(data))}
                            isPaginated={isPaginated}/>
             </div>
         );
@@ -94,11 +110,6 @@ TableContent.propTypes = {
      * The select all mode of table, all or current page.
      */
     selectAllMode: PropTypes.oneOf(Util.enumerateValue(SelectAllMode)),
-
-    /**
-     * Default sort type of table.
-     */
-    defaultSortType: PropTypes.oneOf(Util.enumerateValue(SortType)),
 
     /**
      * Children passed into table header.
@@ -163,11 +174,11 @@ TableContent.propTypes = {
         sortable: PropTypes.bool,
 
         /**
-         * Sort field.
+         * Sorting property.
          */
-        sortProp: PropTypes.string,
+        sortingProp: PropTypes.string,
 
-        defaultSortType: PropTypes.oneOf(Util.enumerateValue(SortType)),
+        defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType)),
 
         span: PropTypes.func
 
@@ -175,11 +186,21 @@ TableContent.propTypes = {
 
     data: PropTypes.array,
 
-    sort: PropTypes.shape({
+    /**
+     * sorting
+     */
+    sorting: PropTypes.shape({
         prop: PropTypes.string,
-        type: PropTypes.oneOf(Util.enumerateValue(SortType))
+        type: PropTypes.oneOf(Util.enumerateValue(SortingType))
     }),
+    defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType)),
+    sortingAscIconCls: PropTypes.string,
+    sortingDescIconCls: PropTypes.string,
+    sortingFunc: PropTypes.func,
 
+    /**
+     * pagination
+     */
     isPaginated: PropTypes.bool,
     pagination: PropTypes.shape({
         pageSize: PropTypes.number,
@@ -187,7 +208,10 @@ TableContent.propTypes = {
     }),
     pageSizes: PropTypes.array,
 
-    onSort: PropTypes.func
+    /**
+     * callback
+     */
+    onSortChange: PropTypes.func
 
 };
 
@@ -196,7 +220,9 @@ TableContent.defaultProps = {
     selectMode: SelectMode.SINGLE_SELECT,
     selectAllMode: SelectAllMode.CURRENT_PAGE,
 
-    defaultSortType: SortType.ASC,
+    defaultSortingType: SortingType.ASC,
+    sortingAscIconCls: 'fas fa-angle-up',
+    sortingDescIconCls: 'fas fa-angle-down',
 
     isPaginated: true,
     pagination: {
