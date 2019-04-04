@@ -33,7 +33,7 @@ class Tfoot extends Component {
     render() {
 
         const {
-            className, columnsWithSpan, data, disabled,
+            className, columns, data, disabled,
             onCellClick
         } = this.props;
 
@@ -47,7 +47,7 @@ class Tfoot extends Component {
                    onClick={this.handleClick}>
                 <tr>
                     {
-                        columnsWithSpan && columnsWithSpan.map((column, colIndex) =>
+                        columns && columns.map((column, colIndex) =>
                             <Td key={colIndex}
                                 colIndex={colIndex}
                                 data={data}
@@ -73,7 +73,7 @@ Tfoot.propTypes = {
     /**
      * Children passed into table header.
      */
-    columnsWithSpan: PropTypes.arrayOf(PropTypes.shape({
+    columns: PropTypes.arrayOf(PropTypes.shape({
 
         /**
          * The class name of header.
