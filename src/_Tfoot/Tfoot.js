@@ -14,6 +14,7 @@ import SelectAllMode from '../_statics/SelectAllMode';
 import SortType from '../_statics/SortType';
 
 import Util from '../_vendors/Util';
+import TableCalculation from '../_vendors/TableCalculation';
 
 class Tfoot extends Component {
 
@@ -33,9 +34,11 @@ class Tfoot extends Component {
     render() {
 
         const {
-            className, columns, data, disabled,
-            onCellClick
-        } = this.props;
+                className, columns, data, disabled,
+                onCellClick
+            } = this.props,
+
+            columnsWithSpan = TableCalculation.getColumnsWithSpan(columns);
 
         return (
             <tfoot className={classNames({
@@ -47,14 +50,14 @@ class Tfoot extends Component {
                    onClick={this.handleClick}>
                 <tr>
                     {
-                        columns && columns.map((column, colIndex) =>
+                        columnsWithSpan && columnsWithSpan.map(({column, span}, colIndex) =>
                             <Td key={colIndex}
                                 colIndex={colIndex}
                                 data={data}
                                 className={column.footerClassName}
                                 style={column.footerStyle}
                                 renderer={column.footerRenderer}
-                                span={column.span}
+                                span={span}
                                 disabled={disabled}
                                 onCellClick={onCellClick}/>
                         )
