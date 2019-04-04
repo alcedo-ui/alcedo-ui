@@ -1,5 +1,5 @@
 /**
- * @file ComplicatedTableFooter component
+ * @file TableFooter component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
@@ -11,7 +11,7 @@ import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
 import SortType from '../_statics/SortType';
 
-class ComplicatedTableFooter extends Component {
+class TableFooter extends Component {
 
     static SelectMode = SelectMode;
     static SelectAllMode = SelectAllMode;
@@ -23,14 +23,12 @@ class ComplicatedTableFooter extends Component {
 
     render() {
 
-        const {className, style} = this.props,
-
-            tableClassName = classNames('complicated-table-footer', {
-                [className]: className
-            });
+        const {className, style} = this.props;
 
         return (
-            <div className={tableClassName}
+            <div className={classNames('table-footer', {
+                [className]: className
+            })}
                  style={style}>
 
             </div>
@@ -38,7 +36,7 @@ class ComplicatedTableFooter extends Component {
     }
 }
 
-ComplicatedTableFooter.propTypes = {
+TableFooter.propTypes = {
 
     /**
      * The CSS class name of the root element.
@@ -52,6 +50,6 @@ ComplicatedTableFooter.propTypes = {
 
 };
 
-ComplicatedTableFooter.defaultProps = {};
+TableFooter.defaultProps = {};
 
-export default ComplicatedTableFooter;
+export default TableFooter;
