@@ -1,5 +1,5 @@
 /**
- * @file SortType static
+ * @file SortingType static
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
