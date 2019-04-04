@@ -8,6 +8,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Th from '../_Th';
+import Util from '../_vendors/Util';
+import SortingType from '../_statics/SortingType';
 
 class Thead extends Component {
 
@@ -18,8 +20,9 @@ class Thead extends Component {
     render() {
 
         const {
-            className, style, columns, data, sort, sortAscIconCls, sortDescIconCls,
-            onSort
+            className, style, columns, data,
+            sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls,
+            onSortChange
         } = this.props;
 
         return (
@@ -36,12 +39,13 @@ class Thead extends Component {
                                 renderer={item.headerRenderer}
                                 colIndex={index}
                                 data={data}
+                                sorting={sorting}
+                                defaultSortingType={item.defaultSortingType || defaultSortingType}
+                                sortingAscIconCls={sortingAscIconCls}
+                                sortingDescIconCls={sortingDescIconCls}
                                 sortable={item.sortable}
-                                sortProp={item.sortProp}
-                                sort={sort}
-                                sortAscIconCls={sortAscIconCls}
-                                sortDescIconCls={sortDescIconCls}
-                                onSort={() => onSort && onSort(item)}/>
+                                sortingProp={item.sortingProp}
+                                onSortChange={onSortChange}/>
                             :
                             null
                         )
@@ -60,17 +64,26 @@ Thead.propTypes = {
 
     columns: PropTypes.array,
     data: PropTypes.array,
-    sort: PropTypes.object,
-    sortAscIconCls: PropTypes.string,
-    sortDescIconCls: PropTypes.string,
 
-    onSort: PropTypes.func
+    /**
+     * sorting
+     */
+    sorting: PropTypes.shape({
+        prop: PropTypes.string,
+        type: PropTypes.oneOf(Util.enumerateValue(SortingType))
+    }),
+    defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType)),
+    sortingAscIconCls: PropTypes.string,
+    sortingDescIconCls: PropTypes.string,
+
+    onSortChange: PropTypes.func
 
 };
 
 Thead.defaultProps = {
-    sortAscIconCls: 'fas fa-angle-up',
-    sortDescIconCls: 'fas fa-angle-down'
+    defaultSortingType: SortingType.ASC,
+    sortingAscIconCls: 'fas fa-angle-up',
+    sortingDescIconCls: 'fas fa-angle-down'
 };
 
 export default Thead;
