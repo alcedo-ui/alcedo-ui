@@ -27,53 +27,53 @@ class BaseTable extends Component {
         super(props, ...restArgs);
     }
 
-    calSpan = (col, colIndex) => {
-        return col.span && typeof col.span === 'function' ?
-            col.span(this.props.rowIndex, colIndex)
-            :
-            null;
-    };
-
-    calColumns = () => {
-
-        const {columns} = this.props,
-            result = [];
-        let spanFlag = 0;
-
-        for (let i = 0, len = columns.length; i < len; i++) {
-
-            if (spanFlag > 1) {
-                spanFlag--;
-                continue;
-            }
-
-            const col = columns[i],
-                span = this.calSpan(columns[i], i);
-
-            if (span && span > 1) {
-                spanFlag = span;
-            }
-
-            result.push({
-                col,
-                span
-            });
-
-        }
-
-        return result;
-
-    };
+    // calSpan = (col, colIndex) => {
+    //     return col.span && typeof col.span === 'function' ?
+    //         col.span(this.props.rowIndex, colIndex)
+    //         :
+    //         null;
+    // };
+    //
+    // calColumns = () => {
+    //
+    //     const {columns} = this.props,
+    //         result = [];
+    //     let spanFlag = 0;
+    //
+    //     for (let i = 0, len = columns.length; i < len; i++) {
+    //
+    //         if (spanFlag > 1) {
+    //             spanFlag--;
+    //             continue;
+    //         }
+    //
+    //         const col = columns[i],
+    //             span = this.calSpan(columns[i], i);
+    //
+    //         if (span && span > 1) {
+    //             spanFlag = span;
+    //         }
+    //
+    //         result.push({
+    //             col,
+    //             span
+    //         });
+    //
+    //     }
+    //
+    //     return result;
+    //
+    // };
 
     render() {
 
         const {
                 className, style, columns, data, sort, disabled,
                 sortAscIconCls, sortDescIconCls,
-                onSort, onRowClick, onCellClick, onFootClick
+                onSort, onHeadClick, onRowClick, onCellClick, onFootClick
             } = this.props,
 
-            columnsWithSpan = this.calColumns(),
+            // columnsWithSpan = this.calColumns(),
 
             tableClassName = classNames('base-table', {
                 [className]: className
@@ -89,16 +89,16 @@ class BaseTable extends Component {
                            sort={sort}
                            sortAscIconCls={sortAscIconCls}
                            sortDescIconCls={sortDescIconCls}
-                           onSort={onSort}/>
+                           onSort={onSort}
+                           onHeadClick={onHeadClick}/>
 
                     <Tbody columns={columns}
-                           columnsWithSpan={columnsWithSpan}
                            data={data}
                            disabled={disabled}
                            onRowClick={onRowClick}
                            onCellClick={onCellClick}/>
 
-                    <Tfoot columnsWithSpan={columnsWithSpan}
+                    <Tfoot columns={columns}
                            data={data}
                            disabled={disabled}
                            onFootClick={onFootClick}
@@ -212,10 +212,16 @@ BaseTable.propTypes = {
 
     }),
 
+    disabled: PropTypes.bool,
+
     sortAscIconCls: PropTypes.string,
     sortDescIconCls: PropTypes.string,
 
-    onSort: PropTypes.func
+    onSort: PropTypes.func,
+    onHeadClick: PropTypes.func,
+    onRowClick: PropTypes.func,
+    onCellClick: PropTypes.func,
+    onFootClick: PropTypes.func
 
 };
 
