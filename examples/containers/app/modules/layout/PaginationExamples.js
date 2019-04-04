@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import Pagging from 'src/Pagging';
+import Pagination from 'src/Pagination';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import RaisedButton from 'src/RaisedButton';
@@ -8,11 +8,11 @@ import Dialog from 'src/Dialog';
 import Valid from 'src/_vendors/Valid';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
-import doc from 'assets/propTypes/Pagging.json';
+import doc from 'assets/propTypes/Pagination.json';
 
-import 'scss/containers/app/modules/layout/PaggingExamples.scss';
+import 'scss/containers/app/modules/layout/PaginationExamples.scss';
 
-class PaggingExamples extends Component {
+class PaginationExamples extends Component {
 
     constructor(props) {
 
@@ -40,31 +40,31 @@ class PaggingExamples extends Component {
                 pageSize: 30,
                 page: 0
             },
-            PaggingVisible: {}
+            PaginationVisible: {}
         };
 
     }
 
     show = id => {
 
-        const {PaggingVisible} = this.state;
+        const {PaginationVisible} = this.state;
 
-        PaggingVisible[id] = true;
+        PaginationVisible[id] = true;
 
         this.setState({
-            PaggingVisible
+            PaginationVisible
         });
 
     };
 
     hide = id => {
 
-        const {PaggingVisible} = this.state;
+        const {PaginationVisible} = this.state;
 
-        PaggingVisible[id] = false;
+        PaginationVisible[id] = false;
 
         this.setState({
-            PaggingVisible
+            PaginationVisible
         });
 
     };
@@ -113,15 +113,15 @@ class PaggingExamples extends Component {
 
     render() {
 
-        const {pagging, PaggingVisible} = this.state;
+        const {pagging, PaginationVisible} = this.state;
 
         return (
             <div className="example pagging-examples">
 
-                <h2 className="example-title">Pagging</h2>
+                <h2 className="example-title">Pagination</h2>
 
                 <p>
-                    A <span>Pagging</span> element used for dividing long list, each time only loads a page.
+                    A <span>Pagination</span> element used for dividing long list, each time only loads a page.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -132,13 +132,13 @@ class PaggingExamples extends Component {
 
                     <div className="widget-content">
                         <div className="example-content">
-                            <p>A simple <code>Pagging</code> example.</p>
-                            <Pagging selectedCountVisible={true}
-                                     page={pagging.page}
-                                     total={this.generateData()}
-                                     pageSize={pagging.pageSize}
-                                     pageSizes={this.pageSizes}
-                                     onChange={this.pageChangedHandler}/>
+                            <p>A simple <code>Pagination</code> example.</p>
+                            <Pagination selectedCountVisible={true}
+                                        page={pagging.page}
+                                        total={this.generateData()}
+                                        pageSize={pagging.pageSize}
+                                        pageSizes={this.pageSizes}
+                                        onChange={this.pageChangedHandler}/>
                         </div>
                     </div>
 
@@ -150,24 +150,24 @@ class PaggingExamples extends Component {
 
                     <div className="widget-content">
                         <div className="example-content">
-                            <p>A simple <code>Pagging</code> example.</p>
+                            <p>A simple <code>Pagination</code> example.</p>
 
                             <RaisedButton className="trigger-button dialog-button"
                                           value="Show Dialog"
                                           onClick={() => this.show(1)}/>
 
-                            <Dialog visible={PaggingVisible[1]}
+                            <Dialog visible={PaginationVisible[1]}
                                     onRequestClose={() => this.hide(1)}>
                                 {
                                     dialogContentEl =>
                                         <div className="popover-dialog-content-scroller">
-                                            <Pagging selectedCountVisible={true}
-                                                     parentEl={dialogContentEl}
-                                                     page={pagging.page}
-                                                     total={this.generateData()}
-                                                     pageSize={pagging.pageSize}
-                                                     pageSizes={this.pageSizes}
-                                                     onChange={this.pageChangedHandler}/>
+                                            <Pagination selectedCountVisible={true}
+                                                        parentEl={dialogContentEl}
+                                                        page={pagging.page}
+                                                        total={this.generateData()}
+                                                        pageSize={pagging.pageSize}
+                                                        pageSizes={this.pageSizes}
+                                                        onChange={this.pageChangedHandler}/>
                                         </div>
                                 }
                             </Dialog>
@@ -186,4 +186,4 @@ class PaggingExamples extends Component {
     }
 };
 
-export default PaggingExamples;
+export default PaginationExamples;
