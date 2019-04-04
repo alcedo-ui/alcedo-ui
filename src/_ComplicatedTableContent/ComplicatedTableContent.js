@@ -7,11 +7,13 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import Table from '../_BaseTable';
+import BaseTable from '../_BaseTable';
 
+import Theme from '../Theme';
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
 import SortType from '../_statics/SortType';
+
 import Util from '../_vendors/Util';
 
 class ComplicatedTableContent extends Component {
@@ -24,11 +26,27 @@ class ComplicatedTableContent extends Component {
         super(props, ...restArgs);
     }
 
+    paginateData = (data = this.props.data) => {
+
+        const {pagination} = this.props,
+            {pageSize, page} = pagination,
+            len = data.length;
+
+        let start = page * pageSize,
+            stop = start + pageSize;
+
+        start = start < 0 ? 0 : start;
+        stop = stop > len ? len : stop;
+
+        return data.slice(start, stop);
+
+    };
+
     render() {
 
         const {
-            className, style, columns, data,
-            onSort
+            className, style, data, isPaginated,
+            ...restProps
         } = this.props;
 
         return (
@@ -36,11 +54,12 @@ class ComplicatedTableContent extends Component {
                 [className]: className
             })}
                  style={style}>
-                <Table columns={columns}
-                       data={data}
-                       onSort={onSort}/>
+                <BaseTable {...restProps}
+                           data={isPaginated ? this.paginateData() : data}
+                           isPaginated={isPaginated}/>
             </div>
         );
+
     }
 }
 
@@ -55,6 +74,26 @@ ComplicatedTableContent.propTypes = {
      * Override the styles of the root element.
      */
     style: PropTypes.object,
+
+    /**
+     * The theme of the table select radio or checkbox.
+     */
+    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+
+    /**
+     * The select mode of table.
+     */
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+
+    /**
+     * The select all mode of table, all or current page.
+     */
+    selectAllMode: PropTypes.oneOf(Util.enumerateValue(SelectAllMode)),
+
+    /**
+     * Default sort type of table.
+     */
+    defaultSortType: PropTypes.oneOf(Util.enumerateValue(SortType)),
 
     /**
      * Children passed into table header.
@@ -131,10 +170,36 @@ ComplicatedTableContent.propTypes = {
 
     data: PropTypes.array,
 
+    sort: PropTypes.shape({
+        prop: PropTypes.string,
+        type: PropTypes.oneOf(Util.enumerateValue(SortType))
+    }),
+
+    isPaginated: PropTypes.bool,
+    pagination: PropTypes.shape({
+        pageSize: PropTypes.number,
+        page: PropTypes.number
+    }),
+    pageSizes: PropTypes.array,
+
     onSort: PropTypes.func
 
 };
 
-ComplicatedTableContent.defaultProps = {};
+ComplicatedTableContent.defaultProps = {
+
+    selectMode: SelectMode.SINGLE_SELECT,
+    selectAllMode: SelectAllMode.CURRENT_PAGE,
+
+    defaultSortType: SortType.ASC,
+
+    isPaginated: true,
+    pagination: {
+        pageSize: 10,
+        page: 0
+    },
+    pageSizes: [5, 10, 15, 20]
+
+};
 
 export default ComplicatedTableContent;
