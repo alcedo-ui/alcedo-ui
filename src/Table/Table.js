@@ -31,30 +31,26 @@ class Table extends Component {
         super(props, ...restArgs);
 
         this.state = {
-
-            /**
-             * sort construct
-             *  {
-             *	    prop: '', // col name
-             *	    type: 1: 'asc' | -1: 'desc'
-             *  }
-             */
             sort: props.sort,
-
-            pagination: {
-                pageSize: Calculation.pageSize(props.defaultPageSize, props.pageSizes, 10),
-                page: props.page
-            },
-
+            pagination: props.pagination,
             value: Calculation.getInitValue(props)
-
         };
 
     }
 
+    handleSort = sort => {
+        this.setState({
+            sort
+        }, () => {
+            const {onSort} = this.props;
+            onSort && onSort(sort);
+        });
+    };
+
     render() {
 
-        const {className, style, columns, data} = this.props,
+        const {className, style, ...restProps} = this.props,
+            {sort, pagination, value} = this.state,
 
             tableClassName = classNames('table', {
                 [className]: className
@@ -68,8 +64,11 @@ class Table extends Component {
                 <Header/>
 
                 {/* table area */}
-                <Content columns={columns}
-                         data={data}/>
+                <Content {...restProps}
+                         sort={sort}
+                         pagination={pagination}
+                         value={value}
+                         onSort={this.handleSort}/>
 
                 {/* table footer */}
                 <Footer/>
@@ -190,10 +189,19 @@ Table.propTypes = {
 
     data: PropTypes.array,
 
+    sort: PropTypes.shape({
+        prop: PropTypes.string,
+        type: PropTypes.oneOf(Util.enumerateValue(SortType))
+    }),
+
     isPaginated: PropTypes.bool,
-    page: PropTypes.number,
-    defaultPageSize: PropTypes.number,
-    pageSizes: PropTypes.array
+    pagination: PropTypes.shape({
+        pageSize: PropTypes.number,
+        page: PropTypes.number
+    }),
+    pageSizes: PropTypes.array,
+
+    onSort: PropTypes.func
 
 };
 
@@ -205,8 +213,10 @@ Table.defaultProps = {
     defaultSortType: SortType.ASC,
 
     isPaginated: true,
-    page: 0,
-    defaultPageSize: 10,
+    pagination: {
+        pageSize: 10,
+        page: 0
+    },
     pageSizes: [5, 10, 15, 20]
 
 };
