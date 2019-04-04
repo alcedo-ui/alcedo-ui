@@ -3,14 +3,8 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-.thead {
+.table thead {
     tr {
         border-bottom: 1px solid $theme-border;
-    }
-
-    &.hidden {
-        tr {
-            border-bottom: none;
-        }
     }
 }

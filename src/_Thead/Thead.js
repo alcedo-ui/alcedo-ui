@@ -23,7 +23,7 @@ class Thead extends Component {
         } = this.props;
 
         return (
-            <thead className={classNames('thead', {
+            <thead className={classNames({
                 [className]: className
             })}
                    style={style}>
