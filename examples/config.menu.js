@@ -232,11 +232,11 @@ export default [{
         text: 'MaterialDropdown',
         route: '/components/MaterialDropdown'
     }, {
-        text: 'Pagging',
-        route: '/components/Pagging'
+        text: 'Pagination',
+        route: '/components/Pagination'
     }, {
-        text: 'BriefPagging',
-        route: '/components/BriefPagging'
+        text: 'BriefPagination',
+        route: '/components/BriefPagination'
     }, {
         text: 'MaterialProvider',
         route: '/components/MaterialProvider'

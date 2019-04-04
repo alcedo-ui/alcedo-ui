@@ -440,15 +440,15 @@ export default function configureRoutes(store) {
                         /* webpackChunkName: "MaterialDropdownExamples" */
                         'modules/layout/MaterialDropdownExamples'), store)
                 }, {
-                    path: '/components/Pagging',
+                    path: '/components/Pagination',
                     component: ac(() => import(
-                        /* webpackChunkName: "PaggingExamples" */
-                        'modules/layout/PaggingExamples'), store)
+                        /* webpackChunkName: "PaginationExamples" */
+                        'modules/layout/PaginationExamples'), store)
                 }, {
-                    path: '/components/BriefPagging',
+                    path: '/components/BriefPagination',
                     component: ac(() => import(
-                        /* webpackChunkName: "BriefPaggingExamples" */
-                        'modules/layout/BriefPaggingExamples'), store)
+                        /* webpackChunkName: "BriefPaginationExamples" */
+                        'modules/layout/BriefPaginationExamples'), store)
                 }, {
                     path: '/components/MaterialProvider',
                     component: ac(() => import(
