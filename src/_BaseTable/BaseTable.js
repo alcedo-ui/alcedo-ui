@@ -13,7 +13,7 @@ import Tfoot from '../_Tfoot';
 
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
-import SortType from '../_statics/SortType';
+import SortingType from '../_statics/SortingType';
 
 import Util from '../_vendors/Util';
 
@@ -21,7 +21,7 @@ class BaseTable extends Component {
 
     static SelectMode = SelectMode;
     static SelectAllMode = SelectAllMode;
-    static SortType = SortType;
+    static SortingType = SortingType;
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
@@ -30,9 +30,9 @@ class BaseTable extends Component {
     render() {
 
         const {
-                className, style, columns, data, sort, disabled,
-                sortAscIconCls, sortDescIconCls,
-                onSort, onHeadClick, onRowClick, onCellClick, onFootClick
+                className, style, columns, data, disabled,
+                sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, sortingFunc,
+                onSortChange, onHeadClick, onRowClick, onCellClick, onFootClick
             } = this.props,
 
             tableClassName = classNames('base-table', {
@@ -46,10 +46,11 @@ class BaseTable extends Component {
 
                     <Thead columns={columns}
                            data={data}
-                           sort={sort}
-                           sortAscIconCls={sortAscIconCls}
-                           sortDescIconCls={sortDescIconCls}
-                           onSort={onSort}
+                           sorting={sorting}
+                           defaultSortingType={defaultSortingType}
+                           sortingAscIconCls={sortingAscIconCls}
+                           sortingDescIconCls={sortingDescIconCls}
+                           onSortChange={onSortChange}
                            onHeadClick={onHeadClick}/>
 
                     <Tbody columns={columns}
@@ -141,16 +142,16 @@ BaseTable.propTypes = {
         footerRenderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 
         /**
-         * If true,this column can be sorted.
+         * If true, this column can be sorted.
          */
         sortable: PropTypes.bool,
 
         /**
          * Sort field.
          */
-        sortProp: PropTypes.string,
+        sortingProp: PropTypes.string,
 
-        defaultSortType: PropTypes.oneOf(Util.enumerateValue(SortType)),
+        defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType)),
 
         /**
          * Column span callback
@@ -162,26 +163,21 @@ BaseTable.propTypes = {
 
     data: PropTypes.array,
 
-    sort: PropTypes.shape({
-
-        /**
-         * Specify the sorting column.
-         */
-        prop: PropTypes.string,
-
-        /**
-         * If type equals 1,data will ascending ordered,else type equals -1,data will descending ordered.
-         */
-        type: PropTypes.oneOf([1, -1])
-
-    }),
-
     disabled: PropTypes.bool,
 
-    sortAscIconCls: PropTypes.string,
-    sortDescIconCls: PropTypes.string,
+    /**
+     * sorting
+     */
+    sorting: PropTypes.shape({
+        prop: PropTypes.string,
+        type: PropTypes.oneOf(Util.enumerateValue(SortingType))
+    }),
+    defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType)),
+    sortingAscIconCls: PropTypes.string,
+    sortingDescIconCls: PropTypes.string,
+    sortingFunc: PropTypes.func,
 
-    onSort: PropTypes.func,
+    onSortChange: PropTypes.func,
     onHeadClick: PropTypes.func,
     onRowClick: PropTypes.func,
     onCellClick: PropTypes.func,
@@ -190,8 +186,9 @@ BaseTable.propTypes = {
 };
 
 BaseTable.defaultProps = {
-    sortAscIconCls: 'fas fa-angle-up',
-    sortDescIconCls: 'fas fa-angle-down'
+    defaultSortingType: SortingType.ASC,
+    sortingAscIconCls: 'fas fa-angle-up',
+    sortingDescIconCls: 'fas fa-angle-down'
 };
 
 export default BaseTable;
