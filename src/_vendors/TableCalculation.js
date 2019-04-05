@@ -64,8 +64,13 @@ function sortTableData(data, sorting, sortFunc) {
 
 }
 
+function hasFooterRenderer(columns) {
+    return columns.some(item => item.footerRenderer);
+}
+
 export default {
     calcSpan,
     getColumnsWithSpan,
-    sortTableData
+    sortTableData,
+    hasFooterRenderer
 };

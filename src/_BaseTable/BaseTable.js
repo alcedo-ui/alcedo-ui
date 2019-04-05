@@ -16,6 +16,7 @@ import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
 
 import Util from '../_vendors/Util';
+import TableCalculation from '../_vendors/TableCalculation';
 
 class BaseTable extends Component {
 
@@ -59,11 +60,17 @@ class BaseTable extends Component {
                            onRowClick={onRowClick}
                            onCellClick={onCellClick}/>
 
-                    <Tfoot columns={columns}
-                           data={data}
-                           disabled={disabled}
-                           onFootClick={onFootClick}
-                           onCellClick={onCellClick}/>
+                    {/** render foot if a footerRenderer exists in columns */}
+                    {
+                        TableCalculation.hasFooterRenderer(columns) ?
+                            <Tfoot columns={columns}
+                                   data={data}
+                                   disabled={disabled}
+                                   onFootClick={onFootClick}
+                                   onCellClick={onCellClick}/>
+                            :
+                            null
+                    }
 
                 </table>
             </div>
