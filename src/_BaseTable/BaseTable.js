@@ -31,17 +31,15 @@ class BaseTable extends Component {
     render() {
 
         const {
-                className, style, columns, data, disabled,
-                sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, sortingFunc,
-                onSortChange, onHeadClick, onRowClick, onCellClick, onFootClick
-            } = this.props,
-
-            tableClassName = classNames('base-table', {
-                [className]: className
-            });
+            className, style, columns, data, disabled,
+            sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, sortingFunc,
+            onSortChange, onHeadClick, onRowClick, onCellClick, onFootClick
+        } = this.props;
 
         return (
-            <div className={tableClassName}
+            <div className={classNames('base-table', {
+                [className]: className
+            })}
                  style={style}>
                 <table>
 
