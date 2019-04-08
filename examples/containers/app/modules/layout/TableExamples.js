@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
+import round from 'lodash/round';
 
 import Table from 'src/Table';
 import Switcher from 'src/Switcher';
@@ -18,21 +19,56 @@ class TableExamples extends Component {
 
         super(props);
 
+        this.state = {
+            data: this.generateData(),
+            sort: null
+        };
+
         this.columns = [{
-            headerClassName: 'test-header',
-            headerRenderer: 'ID',
-            cellClassName: 'test-cell',
-            cellRenderer: 'id',
+            headRenderer: 'ID',
+            bodyRenderer: 'id',
             sortable: true,
             sortingProp: 'id'
         }, {
-            headerRenderer: 'Name',
-            cellRenderer: '${firstName} - ${lastName}',
+            headRenderer: 'Name',
+            bodyRenderer: '${firstName} ${lastName}',
             sortable: true,
             sortingProp: 'firstName'
         }, {
+            headRenderer: 'Age',
+            headAlign: Table.Align.RIGHT,
+            bodyRenderer: 'age',
+            bodyAlign: Table.Align.RIGHT,
+            sortable: true,
+            sortingProp: 'age',
+            footRenderer: () => {
+                const {data} = this.state;
+                return (
+                    <Fragment>
+                        <div>(Average)</div>
+                        <div>{data.reduce((a, b) => a + b.age, 0) / data.length}</div>
+                    </Fragment>
+                );
+            }
+        }, {
+            headRenderer: 'Deposit',
+            headAlign: Table.Align.RIGHT,
+            bodyRenderer: '$ ${deposit}',
+            bodyAlign: Table.Align.RIGHT,
+            sortable: true,
+            sortingProp: 'deposit',
+            footRenderer: () => {
+                const {data} = this.state;
+                return (
+                    <Fragment>
+                        <div>(Sum)</div>
+                        <div>{data.reduce((a, b) => round(a + b.deposit, 2), 0)}</div>
+                    </Fragment>
+                );
+            }
+        }, {
             headerRenderer: 'Status',
-            cellRenderer: rowData =>
+            bodyRenderer: rowData =>
                 <Switcher value={!rowData.disabled}
                           size="small"
                           onClick={e => e.stopPropagation()}/>
@@ -55,11 +91,6 @@ class TableExamples extends Component {
             text: '50 / page'
         }];
 
-        this.state = {
-            data: this.generateData(),
-            sort: null
-        };
-
     }
 
     generateData = (size = 100) => {
@@ -68,8 +99,10 @@ class TableExamples extends Component {
         for (let i = 0; i < size; i++) {
             data.push({
                 id: i,
-                firstName: `firstName ${i}`,
-                lastName: `lastName ${i}`,
+                firstName: `firstName${i}`,
+                lastName: `lastName${i}`,
+                age: Math.floor(Math.random() * 100),
+                deposit: round(Math.random() * 1000000, 2),
                 childrenNum: i === 0 ? 9 : 0
             });
         }
@@ -94,75 +127,6 @@ class TableExamples extends Component {
             sort
         });
         console.log('Sort Change Value: ', sort);
-    };
-
-    toggleCollapseRow = (index) => {
-
-
-        setTimeout(() => {
-            let data = this.state.data.slice();
-            data[0].children = [{
-                id: 100,
-                firstName: `firstName`,
-                lastName: `lastName`
-            }, {
-                id: 101,
-                firstName: `firstName`,
-                lastName: `lastName`
-            }, {
-                id: 102,
-                firstName: `firstName`,
-                lastName: `lastName`
-            }, {
-                id: 103,
-                firstName: `firstName`,
-                lastName: `lastName`
-            }, {
-                id: 104,
-                firstName: `firstName`,
-                lastName: `lastName`
-            }, {
-                id: 105,
-                firstName: `firstName`,
-                lastName: `lastName`
-            }, {
-                id: 106,
-                firstName: `firstName`,
-                lastName: `lastName`
-            }, {
-                id: 107,
-                firstName: `firstName`,
-                lastName: `lastName`
-            }, {
-                id: 108,
-                firstName: `firstName`,
-                lastName: `lastName`
-            }, {
-                id: 109,
-                firstName: `firstName`,
-                lastName: `lastName`
-            }, {
-                id: 110,
-                firstName: `firstName`,
-                lastName: `lastName`
-            }, {
-                id: 111,
-                firstName: `firstName`,
-                lastName: `lastName`
-            }];
-            this.setState({
-                data
-            });
-        }, 1000);
-
-    };
-
-    viewAllHandler = (rowIndex) => {
-        // let data = this.state.data.slice();
-        // data[rowIndex].viewAll = !data[rowIndex].viewAll;
-        // this.setState({
-        //     data
-        // });
     };
 
     pageChangeHandler = (page, pageSize) => {
@@ -232,19 +196,14 @@ class TableExamples extends Component {
                             <Table data={data}
                                    columns={[...this.columns, {
                                        headerRenderer: 'Action',
-                                       cellRenderer: rowData =>
+                                       bodyRenderer: rowData =>
                                            <IconButton iconCls="fas fa-trash-alt"
                                                        onClick={() => this.deleteRow(rowData.id)}/>
                                    }]}
                                    sort={sort}
-                                   collapsed={true}
-                                   expandedChildrenLimit={8}
-                                   paggingCountRenderer={count => <span>Self Defined Total Count: {count}</span>}
                                    isHeadFixed={true}
                                    isFootFixed={true}
-                                   onViewAllHandle={this.viewAllHandler}
-                                   onExpandHandle={this.toggleCollapseRow}
-                                   onCollapseHandle={this.toggleCollapseRow}
+                                   paggingCountRenderer={count => <span>Self Defined Total Count: {count}</span>}
                                    onSortChange={this.sortHandler}
                                    onPageChange={this.pageChangeHandler}
                                    onDataUpdate={this.dataUpdateHandler}/>

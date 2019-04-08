@@ -2,8 +2,9 @@
 
 .table-examples {
 
-    .paper {
-        border: 1px solid $theme-border;
+    th.align-right > th-column,
+    td.align-right {
+        text-align: right;
     }
 
     .table-action {
