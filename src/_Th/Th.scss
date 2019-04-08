@@ -6,10 +6,10 @@
 .table th {
     padding: 0;
 
-    .th-inner {
-        position: relative;
+    .th-column {
         box-sizing: content-box;
-        display: block;
+        display: table;
+        width: 100%;
         height: 30px;
         line-height: 30px;
         padding: 15px 15px 14px;
@@ -17,9 +17,11 @@
         font-weight: normal;
         color: $theme-field;
         cursor: default;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+
+        .th-column-title {
+            display: table-cell;
+            vertical-align: middle;
+        }
     }
 
     &:first-child {
@@ -27,7 +29,7 @@
     }
 
     &.sortable {
-        .th-inner {
+        .th-column {
             padding-right: 30px;
             cursor: pointer;
         }

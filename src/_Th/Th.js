@@ -76,9 +76,11 @@ class Th extends Component {
                 title={typeof renderer === 'string' ? renderer : null}
                 onClick={this.handleClick}>
 
-                <div className="th-inner">
+                <div className="th-column">
 
-                    {this.handleRender()}
+                    <span className="th-column-title">
+                        {this.handleRender()}
+                    </span>
 
                     {
                         sortable ?
