@@ -240,6 +240,8 @@ class TableExamples extends Component {
                                    collapsed={true}
                                    expandedChildrenLimit={8}
                                    paggingCountRenderer={count => <span>Self Defined Total Count: {count}</span>}
+                                   isHeadFixed={true}
+                                   isFootFixed={true}
                                    onViewAllHandle={this.viewAllHandler}
                                    onExpandHandle={this.toggleCollapseRow}
                                    onCollapseHandle={this.toggleCollapseRow}
