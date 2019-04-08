@@ -32,7 +32,8 @@ class BaseTable extends Component {
     render() {
 
         const {
-            className, style, columns, data, disabled,
+            className, style, columns, data,
+            disabled, isHeadHidden, isBodyHidden, isFootHidden,
             sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, sortingFunc,
             onSortChange, onHeadClick, onRowClick, onCellClick, onFootClick
         } = this.props;
@@ -42,29 +43,40 @@ class BaseTable extends Component {
                 [className]: className
             })}
                  style={style}>
-                <table>
+                <table cellPadding={0}
+                       cellSpacing={0}>
 
                     <ColGroup columns={columns}/>
 
-                    <Thead columns={columns}
-                           data={data}
-                           sorting={sorting}
-                           defaultSortingType={defaultSortingType}
-                           sortingAscIconCls={sortingAscIconCls}
-                           sortingDescIconCls={sortingDescIconCls}
-                           sortingFunc={sortingFunc}
-                           onSortChange={onSortChange}
-                           onHeadClick={onHeadClick}/>
+                    {
+                        !isHeadHidden ?
+                            <Thead columns={columns}
+                                   data={data}
+                                   sorting={sorting}
+                                   defaultSortingType={defaultSortingType}
+                                   sortingAscIconCls={sortingAscIconCls}
+                                   sortingDescIconCls={sortingDescIconCls}
+                                   sortingFunc={sortingFunc}
+                                   onSortChange={onSortChange}
+                                   onHeadClick={onHeadClick}/>
+                            :
+                            null
+                    }
 
-                    <Tbody columns={columns}
-                           data={data}
-                           disabled={disabled}
-                           onRowClick={onRowClick}
-                           onCellClick={onCellClick}/>
+                    {
+                        !isBodyHidden ?
+                            <Tbody columns={columns}
+                                   data={data}
+                                   disabled={disabled}
+                                   onRowClick={onRowClick}
+                                   onCellClick={onCellClick}/>
+                            :
+                            null
+                    }
 
                     {/** render foot if a footerRenderer exists in columns */}
                     {
-                        TableCalculation.hasFooterRenderer(columns) ?
+                        !isFootHidden && TableCalculation.hasFooterRenderer(columns) ?
                             <Tfoot columns={columns}
                                    data={data}
                                    disabled={disabled}
@@ -183,6 +195,9 @@ BaseTable.propTypes = {
     data: PropTypes.array,
 
     disabled: PropTypes.bool,
+    isHeadHidden: PropTypes.bool,
+    isBodyHidden: PropTypes.bool,
+    isFootHidden: PropTypes.bool,
 
     /**
      * sorting
@@ -205,9 +220,16 @@ BaseTable.propTypes = {
 };
 
 BaseTable.defaultProps = {
+
+    disabled: false,
+    isHeadHidden: false,
+    isBodyHidden: false,
+    isFootHidden: false,
+
     defaultSortingType: SortingType.ASC,
     sortingAscIconCls: 'fas fa-angle-up',
     sortingDescIconCls: 'fas fa-angle-down'
+
 };
 
 export default BaseTable;
