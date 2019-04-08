@@ -1,12 +1,6 @@
 @import '../../../../my-theme.scss';
 
 .table-examples {
-
-    th.align-right > th-column,
-    td.align-right {
-        text-align: right;
-    }
-
     .table-action {
         width: auto;
         margin: 16px 16px 0 0;
