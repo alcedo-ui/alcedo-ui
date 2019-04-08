@@ -3,4 +3,4 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-export PaginationPage from './PaginationPage';
+export default from './PaginationPage';
