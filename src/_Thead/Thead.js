@@ -47,6 +47,7 @@ class Thead extends Component {
                                 className={item.headClassName}
                                 style={item.headStyle}
                                 renderer={item.headRenderer}
+                                align={item.headAlign}
                                 colIndex={index}
                                 data={data}
                                 sorting={sorting}
