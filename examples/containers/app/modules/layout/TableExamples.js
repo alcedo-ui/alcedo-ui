@@ -54,7 +54,7 @@ class TableExamples extends Component {
         }, {
             headRenderer: 'Deposit',
             headAlign: Table.Align.RIGHT,
-            bodyRenderer: '$ ${deposit}',
+            bodyRenderer: '$${deposit}',
             bodyAlign: Table.Align.RIGHT,
             footAlign: Table.Align.RIGHT,
             sortable: true,
@@ -64,7 +64,7 @@ class TableExamples extends Component {
                 return (
                     <Fragment>
                         <div>Sum</div>
-                        <div>{data.reduce((a, b) => round(a + b.deposit, 2), 0)}</div>
+                        <div>${data.reduce((a, b) => round(a + b.deposit, 2), 0)}</div>
                     </Fragment>
                 );
             }
