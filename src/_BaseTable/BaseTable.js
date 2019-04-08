@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import ColGroup from '../_ColGroup';
 import Thead from '../_Thead';
 import Tbody from '../_Tbody';
 import Tfoot from '../_Tfoot';
@@ -43,12 +44,15 @@ class BaseTable extends Component {
                  style={style}>
                 <table>
 
+                    <ColGroup columns={columns}/>
+
                     <Thead columns={columns}
                            data={data}
                            sorting={sorting}
                            defaultSortingType={defaultSortingType}
                            sortingAscIconCls={sortingAscIconCls}
                            sortingDescIconCls={sortingDescIconCls}
+                           sortingFunc={sortingFunc}
                            onSortChange={onSortChange}
                            onHeadClick={onHeadClick}/>
 
@@ -93,6 +97,16 @@ BaseTable.propTypes = {
      * Children passed into table header.
      */
     columns: PropTypes.arrayOf(PropTypes.shape({
+
+        /**
+         * width of column
+         */
+        width: PropTypes.number,
+
+        /**
+         * minimum width of column
+         */
+        minWidth: PropTypes.number,
 
         /**
          * The class name of header.
