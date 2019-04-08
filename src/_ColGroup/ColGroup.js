@@ -11,6 +11,7 @@ import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
 
 import Util from '../_vendors/Util';
+import HorizontalAlign from '../_statics/HorizontalAlign';
 
 class ColGroup extends Component {
 
@@ -66,29 +67,34 @@ ColGroup.propTypes = {
         /**
          * The class name of header.
          */
-        headerClassName: PropTypes.string,
+        headClassName: PropTypes.string,
 
         /**
          * Override the styles of header.
          */
-        headerStyle: PropTypes.object,
+        headStyle: PropTypes.object,
+
+        /**
+         * align of table header cell
+         */
+        headAlign: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
 
         /**
          * The render content in header.
          * (1) string，example： 'id'
-         * (2) callback，example：function (tableData, colIndex) {return colIndex;}
+         * (2) callback，example：function (colIndex) {return colIndex;}
          */
-        headerRenderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+        headRenderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 
         /**
          * The class name of td.
          */
-        cellClassName: PropTypes.string,
+        bodyClassName: PropTypes.string,
 
         /**
          * Override the styles of td.
          */
-        cellStyle: PropTypes.object,
+        bodyStyle: PropTypes.object,
 
         /**
          * The render content in table.
@@ -96,44 +102,50 @@ ColGroup.propTypes = {
          * (2) data key tamplate，example：'${id} - ${name}'
          * (3) callback，example：function (rowData, rowIndex, colIndex) {return rowData.id;}
          */
-        cellRenderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+        bodyRenderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+
+        /**
+         * align of table body cell
+         */
+        bodyAlign: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
 
         /**
          * The class name of footer.
          */
-        footerClassName: PropTypes.string,
+        footClassName: PropTypes.string,
 
         /**
          * Override the styles of footer.
          */
-        footerStyle: PropTypes.object,
+        footStyle: PropTypes.object,
 
         /**
          * The render content in footer.
          * (1) string，example： 'id'
-         * (2) callback，example：function (tableData, colIndex) {return colIndex;}
+         * (2) callback，example：function (colIndex) {return colIndex;}
          */
-        footerRenderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+        footRenderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 
         /**
-         * If true, this column can be sorted.
+         * align of table footer cell
+         */
+        footAlign: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
+
+        /**
+         * If true,this column can be sorted.
          */
         sortable: PropTypes.bool,
 
         /**
-         * Sort field.
+         * Sorting property.
          */
         sortingProp: PropTypes.string,
 
         defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType)),
 
-        /**
-         * Column span callback
-         * example: function (colIndex, rowIndex) {return colIndex === 0 ? 2 : null;}
-         */
         span: PropTypes.func
 
-    })).isRequired
+    })).isRequired,
 
 };
 
