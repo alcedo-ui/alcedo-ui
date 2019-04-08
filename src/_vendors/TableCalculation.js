@@ -3,14 +3,15 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-function calcSpan(column, colIndex, rowIndex) {
-    return column.span && typeof column.span === 'function' ?
-        column.span(colIndex, rowIndex)
+function calcSpan(type, column, colIndex, rowIndex) {
+    const span = column[`${type}Span`];
+    return span && typeof span === 'function' ?
+        span(colIndex, rowIndex)
         :
-        null;
+        +span;
 }
 
-function getColumnsWithSpan(columns, rowIndex) {
+function getColumnsWithSpan(type, columns, rowIndex) {
 
     const result = [];
     let spanFlag = 0;
@@ -23,7 +24,7 @@ function getColumnsWithSpan(columns, rowIndex) {
         }
 
         const column = columns[i],
-            span = calcSpan(columns[i], i, rowIndex);
+            span = calcSpan(type, columns[i], i, rowIndex);
 
         if (span && span > 1) {
             spanFlag = span;
