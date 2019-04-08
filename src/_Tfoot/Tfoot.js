@@ -59,6 +59,7 @@ class Tfoot extends Component {
                                 className={column.footClassName}
                                 style={column.footStyle}
                                 renderer={column.footRenderer}
+                                align={column.footAlign}
                                 span={span}
                                 disabled={disabled}
                                 onCellClick={onCellClick}/>
