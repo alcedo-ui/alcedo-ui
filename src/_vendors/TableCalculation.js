@@ -65,7 +65,7 @@ function sortTableData(data, sorting, sortFunc) {
 }
 
 function hasFooterRenderer(columns) {
-    return columns.some(item => item.footerRenderer);
+    return columns.some(item => item.footRenderer);
 }
 
 export default {
