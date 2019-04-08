@@ -7,7 +7,13 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import HorizontalAlign from '../_statics/HorizontalAlign';
+
+import Util from '../_vendors/Util';
+
 class Td extends Component {
+
+    static Align = HorizontalAlign;
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
@@ -53,10 +59,11 @@ class Td extends Component {
 
     render() {
 
-        const {className, style, span} = this.props;
+        const {className, style, align, span} = this.props;
 
         return (
             <td className={classNames({
+                [`align-${align}`]: align !== HorizontalAlign.LEFT,
                 [className]: className
             })}
                 style={style}
@@ -79,6 +86,7 @@ Td.propTypes = {
 
     data: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
     renderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    align: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
     span: PropTypes.number,
 
     isChecked: PropTypes.bool,

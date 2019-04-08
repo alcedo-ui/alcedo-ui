@@ -9,11 +9,6 @@
     transition: none;
     cursor: default;
 
-    &.empty {
-        text-align: center;
-        color: $theme-description;
-    }
-
     .collapsed-icon {
         cursor: pointer;
         position: absolute;
@@ -23,5 +18,18 @@
         &.expanded-icon {
             transform: rotate(90deg);
         }
+    }
+
+    &.empty {
+        text-align: center;
+        color: $theme-description;
+    }
+
+    &.align-center {
+        text-align: center;
+    }
+
+    &.align-right {
+        text-align: right;
     }
 }
