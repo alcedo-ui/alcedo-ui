@@ -8,10 +8,16 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import ThSortIcon from '../_ThSortingIcon';
-import Util from '../_vendors/Util';
+
+import HorizontalAlign from '../_statics/HorizontalAlign';
 import SortingType from '../_statics/SortingType';
 
+import Util from '../_vendors/Util';
+
 class Th extends Component {
+
+    static Align = HorizontalAlign;
+    static SortingType = SortingType;
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
@@ -63,12 +69,13 @@ class Th extends Component {
     render() {
 
         const {
-            className, style, renderer,
+            className, style, renderer, align,
             sortable, sortingProp, sorting, sortingAscIconCls, sortingDescIconCls
         } = this.props;
 
         return (
             <th className={classNames({
+                [`align-${align}`]: align !== HorizontalAlign.LEFT,
                 sortable: sortable,
                 [className]: className
             })}
@@ -106,6 +113,7 @@ Th.propTypes = {
     style: PropTypes.object,
 
     renderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    align: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
     colIndex: PropTypes.number,
     data: PropTypes.array,
 

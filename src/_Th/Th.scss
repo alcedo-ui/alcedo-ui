@@ -5,14 +5,14 @@
 
 .table th {
     padding: 0;
+    text-align: left;
 
     .th-column {
         box-sizing: content-box;
-        display: table;
-        width: 100%;
+        display: inline-block;
         height: 30px;
         line-height: 30px;
-        padding: 15px 15px 14px;
+        padding: 16px;
         text-align: left;
         font-weight: normal;
         color: $theme-field;
@@ -28,9 +28,16 @@
         border-left: none;
     }
 
+    &.align-center {
+        text-align: center;
+    }
+
+    &.align-right {
+        text-align: right;
+    }
+
     &.sortable {
         .th-column {
-            padding-right: 30px;
             cursor: pointer;
         }
     }
