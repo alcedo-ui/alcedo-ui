@@ -7,7 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import Td from '../_Td';
+import Tf from '../_Tf';
 
 import HorizontalAlign from '../_statics/HorizontalAlign';
 import SelectMode from '../_statics/SelectMode';
@@ -40,7 +40,7 @@ class Tfoot extends Component {
                 onCellClick
             } = this.props,
 
-            columnsWithSpan = TableCalculation.getColumnsWithSpan(columns);
+            columnsWithSpan = TableCalculation.getColumnsWithSpan('foot', columns);
 
         return (
             <tfoot className={classNames({
@@ -53,7 +53,7 @@ class Tfoot extends Component {
                 <tr>
                     {
                         columnsWithSpan && columnsWithSpan.map(({column, span}, colIndex) =>
-                            <Td key={colIndex}
+                            <Tf key={colIndex}
                                 colIndex={colIndex}
                                 data={data}
                                 className={column.footClassName}
@@ -102,16 +102,21 @@ Tfoot.propTypes = {
         headStyle: PropTypes.object,
 
         /**
-         * align of table header cell
-         */
-        headAlign: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
-
-        /**
          * The render content in header.
          * (1) string，example： 'id'
          * (2) callback，example：function (colIndex) {return colIndex;}
          */
         headRenderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+
+        /**
+         * align of table header cell
+         */
+        headAlign: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
+
+        /**
+         * column span of table header
+         */
+        headSpan: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
 
         /**
          * The class name of td.
@@ -137,6 +142,11 @@ Tfoot.propTypes = {
         bodyAlign: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
 
         /**
+         * column span of table body
+         */
+        bodySpan: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+
+        /**
          * The class name of footer.
          */
         footClassName: PropTypes.string,
@@ -159,6 +169,11 @@ Tfoot.propTypes = {
         footAlign: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
 
         /**
+         * column span of table foot
+         */
+        footSpan: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+
+        /**
          * If true,this column can be sorted.
          */
         sortable: PropTypes.bool,
@@ -168,9 +183,7 @@ Tfoot.propTypes = {
          */
         sortingProp: PropTypes.string,
 
-        defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType)),
-
-        span: PropTypes.func
+        defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType))
 
     })).isRequired,
 
