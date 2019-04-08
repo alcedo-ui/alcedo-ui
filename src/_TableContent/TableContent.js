@@ -66,18 +66,52 @@ class TableContent extends Component {
     render() {
 
         const {
-            className, style, data, isPaginated,
-            ...restProps
-        } = this.props;
+                className, style, columns, data, isPaginated,
+                ...restProps
+            } = this.props,
+
+            isHeadFixed = this.props.isHeadFixed,
+            isFootFixed = TableCalculation.hasFooterRenderer(columns) && this.props.isFootFixed,
+
+            tableData = this.paginateData(this.sortData(data));
 
         return (
             <div className={classNames('table-content', {
                 [className]: className
             })}
                  style={style}>
+
+                {
+                    isHeadFixed ?
+                        <BaseTable {...restProps}
+                                   columns={columns}
+                                   data={tableData}
+                                   isPaginated={isPaginated}
+                                   isBodyHidden={true}
+                                   isFootHidden={true}/>
+                        :
+                        null
+                }
+
                 <BaseTable {...restProps}
-                           data={this.paginateData(this.sortData(data))}
-                           isPaginated={isPaginated}/>
+                           columns={columns}
+                           data={tableData}
+                           isPaginated={isPaginated}
+                           isHeadHidden={isHeadFixed}
+                           isFootHidden={isFootFixed}/>
+
+                {
+                    isFootFixed ?
+                        <BaseTable {...restProps}
+                                   columns={columns}
+                                   data={tableData}
+                                   isPaginated={isPaginated}
+                                   isHeadHidden={true}
+                                   isBodyHidden={true}/>
+                        :
+                        null
+                }
+
             </div>
         );
 
@@ -115,6 +149,16 @@ TableContent.propTypes = {
      * Children passed into table header.
      */
     columns: PropTypes.arrayOf(PropTypes.shape({
+
+        /**
+         * width of column
+         */
+        width: PropTypes.number,
+
+        /**
+         * minimum width of column
+         */
+        minWidth: PropTypes.number,
 
         /**
          * The class name of header.
@@ -209,6 +253,12 @@ TableContent.propTypes = {
     pageSizes: PropTypes.array,
 
     /**
+     * fixed
+     */
+    isHeadFixed: PropTypes.bool,
+    isFootFixed: PropTypes.bool,
+
+    /**
      * callback
      */
     onSortChange: PropTypes.func
@@ -229,7 +279,10 @@ TableContent.defaultProps = {
         pageSize: 10,
         page: 0
     },
-    pageSizes: [5, 10, 15, 20]
+    pageSizes: [5, 10, 15, 20],
+
+    isHeadFixed: false,
+    isFootFixed: false
 
 };
 
