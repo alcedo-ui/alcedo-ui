@@ -144,6 +144,16 @@ Table.propTypes = {
     columns: PropTypes.arrayOf(PropTypes.shape({
 
         /**
+         * width of column
+         */
+        width: PropTypes.number,
+
+        /**
+         * minimum width of column
+         */
+        minWidth: PropTypes.number,
+
+        /**
          * The class name of header.
          */
         headerClassName: PropTypes.string,
@@ -233,6 +243,12 @@ Table.propTypes = {
     pageSizes: PropTypes.array,
     useFullPagination: PropTypes.bool,
 
+    /**
+     * fixed
+     */
+    isHeadFixed: PropTypes.bool,
+    isFootFixed: PropTypes.bool,
+
     onSortChange: PropTypes.func,
     onPaginationChange: PropTypes.func
 
@@ -253,7 +269,10 @@ Table.defaultProps = {
         page: 0
     },
     pageSizes: [5, 10, 15, 20],
-    useFullPagination: false
+    useFullPagination: false,
+
+    isHeadFixed: false,
+    isFootFixed: false
 
 };
 
