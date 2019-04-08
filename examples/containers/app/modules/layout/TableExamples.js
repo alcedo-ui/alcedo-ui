@@ -69,7 +69,7 @@ class TableExamples extends Component {
                 );
             }
         }, {
-            headerRenderer: 'Status',
+            headRenderer: 'Status',
             bodyRenderer: rowData =>
                 <Switcher value={!rowData.disabled}
                           size="small"
@@ -197,7 +197,7 @@ class TableExamples extends Component {
 
                             <Table data={data}
                                    columns={[...this.columns, {
-                                       headerRenderer: 'Action',
+                                       headRenderer: 'Action',
                                        bodyRenderer: rowData =>
                                            <IconButton iconCls="fas fa-trash-alt"
                                                        onClick={() => this.deleteRow(rowData.id)}/>
