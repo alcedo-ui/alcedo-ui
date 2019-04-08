@@ -60,6 +60,7 @@ class Tr extends Component {
                             className={column.bodyClassName}
                             style={column.bodyStyle}
                             renderer={column.bodyRenderer}
+                            align={column.bodyAlign}
                             span={span}
                             disabled={disabled}
                             onCellClick={onCellClick}/>
