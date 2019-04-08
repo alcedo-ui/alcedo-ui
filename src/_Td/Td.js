@@ -63,11 +63,11 @@ class Td extends Component {
 
         return (
             <td className={classNames({
-                [`align-${align}`]: align !== HorizontalAlign.LEFT,
+                [`align-${align}`]: align && align !== HorizontalAlign.LEFT,
                 [className]: className
             })}
                 style={style}
-                colSpan={span}
+                colSpan={span || null}
                 onClick={this.handleClick}>
                 {this.handleRenderer()}
             </td>
