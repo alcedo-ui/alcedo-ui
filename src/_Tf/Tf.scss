@@ -1,0 +1,17 @@
+/**
+ * @file Tf style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+.table .base-table table > tfoot > tr > td {
+    padding: 0;
+    text-align: left;
+
+    &.align-center {
+        text-align: center;
+    }
+
+    &.align-right {
+        text-align: right;
+    }
+}
