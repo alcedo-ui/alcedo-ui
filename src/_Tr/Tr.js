@@ -81,6 +81,16 @@ Tr.propTypes = {
     columns: PropTypes.arrayOf(PropTypes.shape({
 
         /**
+         * width of column
+         */
+        width: PropTypes.number,
+
+        /**
+         * minimum width of column
+         */
+        minWidth: PropTypes.number,
+
+        /**
          * The class name of header.
          */
         headerClassName: PropTypes.string,
