@@ -100,16 +100,21 @@ Tbody.propTypes = {
         headStyle: PropTypes.object,
 
         /**
-         * align of table header cell
-         */
-        headAlign: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
-
-        /**
          * The render content in header.
          * (1) string，example： 'id'
          * (2) callback，example：function (colIndex) {return colIndex;}
          */
         headRenderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+
+        /**
+         * align of table header cell
+         */
+        headAlign: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
+
+        /**
+         * column span of table header
+         */
+        headSpan: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
 
         /**
          * The class name of td.
@@ -135,6 +140,11 @@ Tbody.propTypes = {
         bodyAlign: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
 
         /**
+         * column span of table body
+         */
+        bodySpan: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+
+        /**
          * The class name of footer.
          */
         footClassName: PropTypes.string,
@@ -157,6 +167,11 @@ Tbody.propTypes = {
         footAlign: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
 
         /**
+         * column span of table foot
+         */
+        footSpan: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+
+        /**
          * If true,this column can be sorted.
          */
         sortable: PropTypes.bool,
@@ -166,9 +181,7 @@ Tbody.propTypes = {
          */
         sortingProp: PropTypes.string,
 
-        defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType)),
-
-        span: PropTypes.func
+        defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType))
 
     })).isRequired,
 
