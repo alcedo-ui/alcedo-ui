@@ -4,10 +4,8 @@
  */
 
 .th-sorting-icon-wrapper {
-    position: absolute;
-    right: 0;
-    top: 15px;
-    padding: 3px;
+    display: table-cell;
+    vertical-align: middle;
 
     .th-sorting-icon {
         display: block;
