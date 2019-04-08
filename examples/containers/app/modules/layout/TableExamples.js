@@ -27,6 +27,8 @@ class TableExamples extends Component {
         this.columns = [{
             headRenderer: 'ID',
             bodyRenderer: 'id',
+            footRenderer: 'Total',
+            footSpan: 2,
             sortable: true,
             sortingProp: 'id'
         }, {
