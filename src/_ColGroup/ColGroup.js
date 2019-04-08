@@ -29,11 +29,12 @@ class ColGroup extends Component {
         return columns ?
             <colgroup>
                 {
-                    columns.map(column => column ?
-                        <col style={{
-                            width: column.width,
-                            minWidth: column.minWidth
-                        }}/>
+                    columns.map((column, index) => column ?
+                        <col key={index}
+                             style={{
+                                 width: column.width || 100,
+                                 minWidth: column.minWidth || 100
+                             }}/>
                         :
                         null
                     )
