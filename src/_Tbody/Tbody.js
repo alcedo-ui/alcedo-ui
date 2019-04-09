@@ -14,6 +14,7 @@ import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
 
 import Util from '../_vendors/Util';
+import TableFragment from '../_statics/TableFragment';
 
 class Tbody extends Component {
 
@@ -46,7 +47,7 @@ class Tbody extends Component {
     render() {
 
         const {
-            columns, data, startIndex, idProp, disabled,
+            fragment, columns, data, startIndex, idProp, disabled,
             onRowClick, onCellClick
         } = this.props;
 
@@ -56,6 +57,7 @@ class Tbody extends Component {
                     data && data.map((row, rowIndex) => row ?
                         <Tr key={idProp && idProp in row ? row[idProp] : rowIndex}
                             rowIndex={startIndex + rowIndex}
+                            fragment={fragment}
                             columns={columns}
                             data={row}
                             isChecked={this.isItemChecked(row)}
@@ -73,6 +75,8 @@ class Tbody extends Component {
 }
 
 Tbody.propTypes = {
+
+    fragment: PropTypes.oneOf(Util.enumerateValue(TableFragment)),
 
     /**
      * Children passed into table header.
