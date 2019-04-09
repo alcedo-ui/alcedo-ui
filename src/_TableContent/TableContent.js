@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -28,7 +28,14 @@ class TableContent extends Component {
     static SortingType = SortingType;
 
     constructor(props, ...restArgs) {
+
         super(props, ...restArgs);
+
+        this.wrapper = createRef();
+        this.body = createRef();
+        this.head = createRef();
+        this.foot = createRef();
+
     }
 
     /**
@@ -67,6 +74,31 @@ class TableContent extends Component {
 
     };
 
+    getFixedStyle = fragment => {
+
+        if (!this.wrapper || !this.wrapper.current || !fragment) {
+            return null;
+        }
+
+        switch (fragment) {
+            case TableFragment.HEAD:
+                return {
+                    height: window.getComputedStyle(this.wrapper.current.querySelector('.table-content-body thead')).height
+                };
+            case TableFragment.FOOT:
+                return {
+                    height: window.getComputedStyle(this.wrapper.current.querySelector('.table-content-body tfoot')).height
+                };
+        }
+
+        return null;
+
+    };
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+
+    }
+
     render() {
 
         const {
@@ -77,23 +109,39 @@ class TableContent extends Component {
             isHeadFixed = this.props.isHeadFixed,
             isFootFixed = TableCalculation.hasFooterRenderer(columns) && this.props.isFootFixed,
 
-            tableData = this.paginateData(this.sortData(data));
+            tableData = this.paginateData(this.sortData(data)),
 
-        return (
-            <div className={classNames('table-content', {
-                [className]: className
-            })}
-                 style={style}>
-
+            content = (
                 <BaseTable {...restProps}
-                           fragment={isHeadFixed || isFootFixed ? TableFragment.BODY : null}
+                           ref={this.body}
+                           className="table-content-body"
                            columns={columns}
                            data={tableData}
                            isPaginated={isPaginated}/>
+            );
+
+        return (
+            <div ref={this.wrapper}
+                 className={classNames('table-content', {
+                     [className]: className
+                 })}
+                 style={style}>
+
+                {
+                    isHeadFixed || isFootFixed ?
+                        <div className="table-content-scroller">
+                            {content}
+                        </div>
+                        :
+                        content
+                }
 
                 {
                     isHeadFixed ?
                         <BaseTable {...restProps}
+                                   ref={this.head}
+                                   className="table-content-fixed-head"
+                                   style={this.getFixedStyle(TableFragment.HEAD)}
                                    fragment={TableFragment.HEAD}
                                    columns={columns}
                                    data={tableData}
@@ -105,6 +153,9 @@ class TableContent extends Component {
                 {
                     isFootFixed ?
                         <BaseTable {...restProps}
+                                   ref={this.foot}
+                                   className="table-content-fixed-foot"
+                                   style={this.getFixedStyle(TableFragment.HEAD)}
                                    fragment={TableFragment.FOOT}
                                    columns={columns}
                                    data={tableData}
