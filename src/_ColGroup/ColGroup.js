@@ -6,15 +6,19 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
+import TableFragment from '../_statics/TableFragment';
+import HorizontalAlign from '../_statics/HorizontalAlign';
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
 
 import Util from '../_vendors/Util';
-import HorizontalAlign from '../_statics/HorizontalAlign';
+import TableCalculation from '../_vendors/TableCalculation';
 
 class ColGroup extends Component {
 
+    static Fragment = TableFragment;
+    static Align = HorizontalAlign;
     static SelectMode = SelectMode;
     static SelectAllMode = SelectAllMode;
     static SortingType = SortingType;
@@ -25,16 +29,23 @@ class ColGroup extends Component {
 
     render() {
 
-        const {columns} = this.props;
+        const {fragment, columns} = this.props;
 
-        return columns ?
+        if (!columns) {
+            return null;
+        }
+
+        const columnsWithSpan = TableCalculation.getColumnsWithSpan(fragment, columns);
+
+        return columnsWithSpan ?
             <colgroup>
                 {
-                    columns.map((column, index) => column ?
+                    columnsWithSpan.map(({column, span}, index) => column ?
                         <col key={index}
+                             span={span || null}
                              style={{
-                                 width: column.width || 100,
-                                 minWidth: column.minWidth || 100
+                                 width: column.width || (span && 100 * span) || 100,
+                                 minWidth: column.minWidth || (span && 100 * span) || 100
                              }}/>
                         :
                         null
@@ -48,6 +59,8 @@ class ColGroup extends Component {
 }
 
 ColGroup.propTypes = {
+
+    fragment: PropTypes.oneOf(Util.enumerateValue(TableFragment)),
 
     /**
      * Children passed into table header.
