@@ -32,12 +32,12 @@ class Thead extends Component {
     render() {
 
         const {
-                className, style, fragment, columns, data,
+                className, style, columns, data,
                 sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls,
                 onSortChange
             } = this.props,
 
-            columnsWithSpan = TableCalculation.getColumnsWithSpan(fragment, columns);
+            columnsWithSpan = TableCalculation.getColumnsWithSpan(TableFragment.HEAD, columns);
 
         return (
             <thead className={classNames({
@@ -80,8 +80,6 @@ Thead.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
-
-    fragment: PropTypes.oneOf(Util.enumerateValue(TableFragment)),
 
     /**
      * Children passed into table header.
