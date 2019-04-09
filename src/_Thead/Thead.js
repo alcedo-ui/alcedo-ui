@@ -15,6 +15,8 @@ import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
 
 import Util from '../_vendors/Util';
+import TableFragment from '../_statics/TableFragment';
+import TableCalculation from '../_vendors/TableCalculation';
 
 class Thead extends Component {
 
@@ -30,10 +32,12 @@ class Thead extends Component {
     render() {
 
         const {
-            className, style, columns, data,
-            sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls,
-            onSortChange
-        } = this.props;
+                className, style, fragment, columns, data,
+                sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls,
+                onSortChange
+            } = this.props,
+
+            columnsWithSpan = TableCalculation.getColumnsWithSpan(fragment, columns);
 
         return (
             <thead className={classNames({
@@ -42,24 +46,28 @@ class Thead extends Component {
                    style={style}>
                 <tr>
                     {
-                        columns && columns.map((item, index) => item ?
-                            <Th key={index}
-                                className={item.headClassName}
-                                style={item.headStyle}
-                                renderer={item.headRenderer}
-                                align={item.headAlign}
-                                colIndex={index}
-                                data={data}
-                                sorting={sorting}
-                                defaultSortingType={item.defaultSortingType || defaultSortingType}
-                                sortingAscIconCls={sortingAscIconCls}
-                                sortingDescIconCls={sortingDescIconCls}
-                                sortable={item.sortable}
-                                sortingProp={item.sortingProp}
-                                onSortChange={onSortChange}/>
+                        columnsWithSpan ?
+                            columnsWithSpan.map(({column, span}, index) => column ?
+                                <Th key={index}
+                                    className={column.headClassName}
+                                    style={column.headStyle}
+                                    renderer={column.headRenderer}
+                                    align={column.headAlign}
+                                    colIndex={index}
+                                    data={data}
+                                    span={span}
+                                    sorting={sorting}
+                                    defaultSortingType={column.defaultSortingType || defaultSortingType}
+                                    sortingAscIconCls={sortingAscIconCls}
+                                    sortingDescIconCls={sortingDescIconCls}
+                                    sortable={column.sortable}
+                                    sortingProp={column.sortingProp}
+                                    onSortChange={onSortChange}/>
+                                :
+                                null
+                            )
                             :
                             null
-                        )
                     }
                 </tr>
             </thead>
@@ -72,6 +80,8 @@ Thead.propTypes = {
 
     className: PropTypes.string,
     style: PropTypes.object,
+
+    fragment: PropTypes.oneOf(Util.enumerateValue(TableFragment)),
 
     /**
      * Children passed into table header.
