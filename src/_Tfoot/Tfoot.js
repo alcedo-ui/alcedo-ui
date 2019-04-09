@@ -9,6 +9,7 @@ import classNames from 'classnames';
 
 import Tf from '../_Tf';
 
+import TableFragment from '../_statics/TableFragment';
 import HorizontalAlign from '../_statics/HorizontalAlign';
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
@@ -16,7 +17,6 @@ import SortingType from '../_statics/SortingType';
 
 import Util from '../_vendors/Util';
 import TableCalculation from '../_vendors/TableCalculation';
-import TableFragment from '../_statics/TableFragment';
 
 class Tfoot extends Component {
 
@@ -37,11 +37,11 @@ class Tfoot extends Component {
     render() {
 
         const {
-                className, fragment, columns, data, disabled,
+                className, columns, data, disabled,
                 onCellClick
             } = this.props,
 
-            columnsWithSpan = TableCalculation.getColumnsWithSpan(fragment, columns);
+            columnsWithSpan = TableCalculation.getColumnsWithSpan(TableFragment.FOOT, columns);
 
         return (
             <tfoot className={classNames({
@@ -76,8 +76,6 @@ class Tfoot extends Component {
 Tfoot.propTypes = {
 
     className: PropTypes.string,
-
-    fragment: PropTypes.oneOf(Util.enumerateValue(TableFragment)),
 
     /**
      * Children passed into table header.
