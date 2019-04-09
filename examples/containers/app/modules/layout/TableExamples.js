@@ -269,6 +269,6 @@ class TableExamples extends Component {
             </div>
         );
     }
-};
+}
 
 export default TableExamples;
