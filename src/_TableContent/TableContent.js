@@ -4,6 +4,7 @@
  */
 
 import React, {Component, createRef} from 'react';
+import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -35,6 +36,10 @@ class TableContent extends Component {
         this.body = createRef();
         this.head = createRef();
         this.foot = createRef();
+
+        this.bodyEl = null;
+        this.headEl = null;
+        this.footEl = null;
 
     }
 
@@ -83,11 +88,11 @@ class TableContent extends Component {
         switch (fragment) {
             case TableFragment.HEAD:
                 return {
-                    height: window.getComputedStyle(this.wrapper.current.querySelector('.table-content-body thead')).height
+                    height: window.getComputedStyle(this.bodyEl.querySelector('thead')).height
                 };
             case TableFragment.FOOT:
                 return {
-                    height: window.getComputedStyle(this.wrapper.current.querySelector('.table-content-body tfoot')).height
+                    height: window.getComputedStyle(this.bodyEl.querySelector('tfoot')).height
                 };
         }
 
@@ -95,20 +100,49 @@ class TableContent extends Component {
 
     };
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    getFixedColumnsWidth = () => {
 
+        this.bodyEl && console.log(this.bodyEl.querySelectorAll('thead th'));
+
+    };
+
+    // refreshFixedHeadFoot = () => {
+    //
+    //     const {columns, isHeadFixed} = this.props,
+    //         isFootFixed = TableCalculation.hasFooterRenderer(columns) && this.props.isFootFixed;
+    //
+    //     if (!isHeadFixed && !isFootFixed) {
+    //         return;
+    //     }
+    //
+    //     if (isHeadFixed) {
+    //         this.headEl.style.height = window.getComputedStyle(this.bodyEl.querySelector('thead')).height;
+    //     }
+    //
+    //     if (isFootFixed) {
+    //         this.footEl.style.height = window.getComputedStyle(this.bodyEl.querySelector('thead')).height;
+    //     }
+    //
+    // };
+    //
+    // componentDidUpdate(prevProps, prevState, snapshot) {
+    //     this.refreshFixedHeadFoot();
+    // }
+
+    componentDidMount() {
+        this.bodyEl = findDOMNode(this.body.current);
+        console.log(this.bodyEl);
     }
 
     render() {
 
         const {
-                className, style, columns, data, isPaginated,
+                className, style, columns, data, isHeadFixed, isPaginated,
                 ...restProps
             } = this.props,
 
-            isHeadFixed = this.props.isHeadFixed,
             isFootFixed = TableCalculation.hasFooterRenderer(columns) && this.props.isFootFixed,
-
+            columnsWidth = this.getFixedColumnsWidth(),
             tableData = this.paginateData(this.sortData(data));
 
         return (
