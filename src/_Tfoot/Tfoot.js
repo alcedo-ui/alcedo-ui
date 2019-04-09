@@ -16,6 +16,7 @@ import SortingType from '../_statics/SortingType';
 
 import Util from '../_vendors/Util';
 import TableCalculation from '../_vendors/TableCalculation';
+import TableFragment from '../_statics/TableFragment';
 
 class Tfoot extends Component {
 
@@ -36,11 +37,11 @@ class Tfoot extends Component {
     render() {
 
         const {
-                className, columns, data, disabled,
+                className, fragment, columns, data, disabled,
                 onCellClick
             } = this.props,
 
-            columnsWithSpan = TableCalculation.getColumnsWithSpan('foot', columns);
+            columnsWithSpan = TableCalculation.getColumnsWithSpan(fragment, columns);
 
         return (
             <tfoot className={classNames({
@@ -75,6 +76,8 @@ class Tfoot extends Component {
 Tfoot.propTypes = {
 
     className: PropTypes.string,
+
+    fragment: PropTypes.oneOf(Util.enumerateValue(TableFragment)),
 
     /**
      * Children passed into table header.
