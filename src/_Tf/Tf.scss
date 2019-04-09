@@ -3,8 +3,8 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-.table .base-table table > tfoot > tr > td {
-    padding: 0;
+.table .base-table table > thead > tr > td {
+    padding: 16px;
     text-align: left;
 
     &.align-center {

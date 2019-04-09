@@ -48,7 +48,7 @@ class Tf extends Component {
                 [className]: className
             })}
                 style={style}
-                colSpan={span}
+                colSpan={span || null}
                 onClick={onCellClick}>
                 {this.handleRender()}
             </td>
