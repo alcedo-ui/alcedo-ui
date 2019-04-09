@@ -85,10 +85,15 @@ class TableContent extends Component {
             })}
                  style={style}>
 
+                <BaseTable {...restProps}
+                           fragment={isHeadFixed || isFootFixed ? TableFragment.BODY : null}
+                           columns={columns}
+                           data={tableData}
+                           isPaginated={isPaginated}/>
+
                 {
                     isHeadFixed ?
                         <BaseTable {...restProps}
-                                   className="table-fixed-header"
                                    fragment={TableFragment.HEAD}
                                    columns={columns}
                                    data={tableData}
@@ -97,16 +102,9 @@ class TableContent extends Component {
                         null
                 }
 
-                <BaseTable {...restProps}
-                           fragment={isHeadFixed || isFootFixed ? TableFragment.BODY : null}
-                           columns={columns}
-                           data={tableData}
-                           isPaginated={isPaginated}/>
-
                 {
                     isFootFixed ?
                         <BaseTable {...restProps}
-                                   className="table-fixed-footer"
                                    fragment={TableFragment.FOOT}
                                    columns={columns}
                                    data={tableData}
