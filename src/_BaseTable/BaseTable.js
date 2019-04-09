@@ -12,6 +12,7 @@ import Thead from '../_Thead';
 import Tbody from '../_Tbody';
 import Tfoot from '../_Tfoot';
 
+import TableFragment from '../_statics/TableFragment';
 import HorizontalAlign from '../_statics/HorizontalAlign';
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
@@ -22,6 +23,7 @@ import TableCalculation from '../_vendors/TableCalculation';
 
 class BaseTable extends Component {
 
+    static Fragment = TableFragment;
     static Align = HorizontalAlign;
     static SelectMode = SelectMode;
     static SelectAllMode = SelectAllMode;
@@ -35,7 +37,7 @@ class BaseTable extends Component {
 
         const {
             className, style, columns, data,
-            disabled, isHeadHidden, isBodyHidden, isFootHidden,
+            disabled, fragment,
             sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, sortingFunc,
             onSortChange, onHeadClick, onRowClick, onCellClick, onFootClick
         } = this.props;
@@ -48,11 +50,13 @@ class BaseTable extends Component {
                 <table cellPadding={0}
                        cellSpacing={0}>
 
-                    <ColGroup columns={columns}/>
+                    <ColGroup fragment={fragment}
+                              columns={columns}/>
 
                     {
-                        !isHeadHidden ?
-                            <Thead columns={columns}
+                        !fragment || fragment === TableFragment.HEAD ?
+                            <Thead fragment={fragment}
+                                   columns={columns}
                                    data={data}
                                    sorting={sorting}
                                    defaultSortingType={defaultSortingType}
@@ -66,8 +70,9 @@ class BaseTable extends Component {
                     }
 
                     {
-                        !isBodyHidden ?
-                            <Tbody columns={columns}
+                        !fragment || fragment === TableFragment.BODY ?
+                            <Tbody fragment={fragment}
+                                   columns={columns}
                                    data={data}
                                    disabled={disabled}
                                    onRowClick={onRowClick}
@@ -78,8 +83,9 @@ class BaseTable extends Component {
 
                     {/** render foot if a footRenderer exists in columns */}
                     {
-                        !isFootHidden && TableCalculation.hasFooterRenderer(columns) ?
-                            <Tfoot columns={columns}
+                        (!fragment || fragment === TableFragment.FOOT) && TableCalculation.hasFooterRenderer(columns) ?
+                            <Tfoot fragment={fragment}
+                                   columns={columns}
                                    data={data}
                                    disabled={disabled}
                                    onFootClick={onFootClick}
@@ -106,6 +112,8 @@ BaseTable.propTypes = {
      * Override the styles of the root element.
      */
     style: PropTypes.object,
+
+    fragment: PropTypes.oneOf(Util.enumerateValue(TableFragment)),
 
     /**
      * Children passed into table header.
@@ -221,9 +229,6 @@ BaseTable.propTypes = {
     data: PropTypes.array,
 
     disabled: PropTypes.bool,
-    isHeadHidden: PropTypes.bool,
-    isBodyHidden: PropTypes.bool,
-    isFootHidden: PropTypes.bool,
 
     /**
      * sorting
@@ -248,9 +253,6 @@ BaseTable.propTypes = {
 BaseTable.defaultProps = {
 
     disabled: false,
-    isHeadHidden: false,
-    isBodyHidden: false,
-    isFootHidden: false,
 
     defaultSortingType: SortingType.ASC,
     sortingAscIconCls: 'fas fa-angle-up',
