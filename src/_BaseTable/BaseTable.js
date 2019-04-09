@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component, createRef} from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -18,6 +18,7 @@ import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
 
 import Util from '../_vendors/Util';
+import TableCalculation from '../_vendors/TableCalculation';
 
 class BaseTable extends Component {
 
@@ -28,76 +29,62 @@ class BaseTable extends Component {
     static SortingType = SortingType;
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.wrapper = createRef();
-
     }
-
-    getHeight = () => {
-
-        const {fragment} = this.props;
-
-        if (!this.wrapper || !this.wrapper.current || !fragment) {
-            return null;
-        }
-
-        switch (fragment) {
-            case TableFragment.HEAD:
-                return window.getComputedStyle(this.wrapper.current.querySelector('thead')).height;
-            case TableFragment.FOOT:
-                return window.getComputedStyle(this.wrapper.current.querySelector('tfoot')).height;
-        }
-
-        return null;
-
-    };
 
     render() {
 
         const {
-            className, style, columns, data,
-            disabled, fragment,
+            className, style, fragment, columns, data, disabled,
             sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, sortingFunc,
             onSortChange, onHeadClick, onRowClick, onCellClick, onFootClick
         } = this.props;
 
         return (
-            <div ref={this.wrapper}
-                 className={classNames('base-table', {
-                     [`base-table-fixed-${fragment}`]: fragment,
-                     [className]: className
-                 })}
-                 style={{
-                     ...style,
-                     height: this.getHeight()
-                 }}>
+            <div className={classNames('base-table', {
+                [className]: className
+            })}
+                 style={style}>
                 <table cellPadding={0}
                        cellSpacing={0}>
 
-                    <Thead columns={columns}
-                           data={data}
-                           sorting={sorting}
-                           defaultSortingType={defaultSortingType}
-                           sortingAscIconCls={sortingAscIconCls}
-                           sortingDescIconCls={sortingDescIconCls}
-                           sortingFunc={sortingFunc}
-                           onSortChange={onSortChange}
-                           onHeadClick={onHeadClick}/>
+                    {
+                        !fragment || fragment === TableFragment.HEAD ?
+                            <Thead columns={columns}
+                                   data={data}
+                                   sorting={sorting}
+                                   defaultSortingType={defaultSortingType}
+                                   sortingAscIconCls={sortingAscIconCls}
+                                   sortingDescIconCls={sortingDescIconCls}
+                                   sortingFunc={sortingFunc}
+                                   onSortChange={onSortChange}
+                                   onHeadClick={onHeadClick}/>
+                            :
+                            null
+                    }
 
-                    <Tbody columns={columns}
-                           data={data}
-                           disabled={disabled}
-                           onRowClick={onRowClick}
-                           onCellClick={onCellClick}/>
+                    {
+                        !fragment ?
+                            <Tbody columns={columns}
+                                   data={data}
+                                   disabled={disabled}
+                                   onRowClick={onRowClick}
+                                   onCellClick={onCellClick}/>
+                            :
+                            null
+                    }
 
                     {/** render foot if a footRenderer exists in columns */}
-                    <Tfoot columns={columns}
-                           data={data}
-                           disabled={disabled}
-                           onFootClick={onFootClick}
-                           onCellClick={onCellClick}/>
+                    {
+                        (!fragment || fragment === TableFragment.FOOT) && TableCalculation.hasFooterRenderer(columns) ?
+                            <Tfoot columns={columns}
+                                   data={data}
+                                   disabled={disabled}
+                                   onFootClick={onFootClick}
+                                   onCellClick={onCellClick}/>
+                            :
+                            null
+                    }
 
                 </table>
             </div>
