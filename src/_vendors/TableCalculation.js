@@ -13,6 +13,13 @@ function calcSpan(type, column, colIndex, rowIndex) {
 
 function getColumnsWithSpan(type, columns, rowIndex) {
 
+    if (!type) {
+        return columns.map(column => ({
+            column,
+            span: 1
+        }));
+    }
+
     const result = [];
     let spanFlag = 0;
 
