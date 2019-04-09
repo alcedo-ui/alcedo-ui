@@ -16,6 +16,7 @@ import SortingType from '../_statics/SortingType';
 
 import Util from '../_vendors/Util';
 import TableCalculation from '../_vendors/TableCalculation';
+import TableFragment from '../_statics/TableFragment';
 
 class Tr extends Component {
 
@@ -36,11 +37,11 @@ class Tr extends Component {
     render() {
 
         const {
-                className, columns, rowIndex, data, isChecked, disabled,
+                className, fragment, columns, rowIndex, data, isChecked, disabled,
                 onCellClick
             } = this.props,
 
-            columnsWithSpan = TableCalculation.getColumnsWithSpan('body', columns, rowIndex);
+            columnsWithSpan = TableCalculation.getColumnsWithSpan(fragment, columns, rowIndex);
 
         return (
             <tr className={classNames({
@@ -77,6 +78,8 @@ class Tr extends Component {
 Tr.propTypes = {
 
     rowIndex: PropTypes.number,
+
+    fragment: PropTypes.oneOf(Util.enumerateValue(TableFragment)),
 
     /**
      * Children passed into table header.
