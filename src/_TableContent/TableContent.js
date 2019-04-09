@@ -10,6 +10,7 @@ import classNames from 'classnames';
 import BaseTable from '../_BaseTable';
 
 import Theme from '../Theme';
+import TableFragment from '../_statics/TableFragment';
 import HorizontalAlign from '../_statics/HorizontalAlign';
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
@@ -20,6 +21,7 @@ import TableCalculation from '../_vendors/TableCalculation';
 
 class TableContent extends Component {
 
+    static Fragment = TableFragment;
     static Align = HorizontalAlign;
     static SelectMode = SelectMode;
     static SelectAllMode = SelectAllMode;
@@ -87,31 +89,28 @@ class TableContent extends Component {
                     isHeadFixed ?
                         <BaseTable {...restProps}
                                    className="table-fixed-header"
+                                   fragment={TableFragment.HEAD}
                                    columns={columns}
                                    data={tableData}
-                                   isPaginated={isPaginated}
-                                   isBodyHidden={true}
-                                   isFootHidden={true}/>
+                                   isPaginated={isPaginated}/>
                         :
                         null
                 }
 
                 <BaseTable {...restProps}
+                           fragment={isHeadFixed || isFootFixed ? TableFragment.BODY : null}
                            columns={columns}
                            data={tableData}
-                           isPaginated={isPaginated}
-                           isHeadHidden={isHeadFixed}
-                           isFootHidden={isFootFixed}/>
+                           isPaginated={isPaginated}/>
 
                 {
                     isFootFixed ?
                         <BaseTable {...restProps}
                                    className="table-fixed-footer"
+                                   fragment={TableFragment.FOOT}
                                    columns={columns}
                                    data={tableData}
-                                   isPaginated={isPaginated}
-                                   isHeadHidden={true}
-                                   isBodyHidden={true}/>
+                                   isPaginated={isPaginated}/>
                         :
                         null
                 }
