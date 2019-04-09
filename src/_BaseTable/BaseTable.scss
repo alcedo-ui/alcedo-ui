@@ -7,4 +7,39 @@
     & > table {
         min-width: 100%;
     }
+
+    &.base-table-fixed-head {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+
+        & > table {
+            & > tbody,
+            & > tfoot {
+                visibility: hidden;
+            }
+        }
+    }
+
+    &.base-table-fixed-body > table {
+        & > thead,
+        & > tfoot {
+            visibility: hidden;
+        }
+    }
+
+    &.base-table-fixed-foot {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+
+        & > table {
+            & > thead,
+            & > tbody {
+                visibility: hidden;
+            }
+        }
+    }
 }

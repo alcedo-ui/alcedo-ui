@@ -44,55 +44,53 @@ class BaseTable extends Component {
 
         return (
             <div className={classNames('base-table', {
+                [`base-table-fixed-${fragment}`]: fragment,
                 [className]: className
             })}
                  style={style}>
                 <table cellPadding={0}
                        cellSpacing={0}>
 
-                    <ColGroup fragment={fragment}
-                              columns={columns}/>
+                    {/*<ColGroup fragment={fragment}*/}
+                    {/*columns={columns}/>*/}
 
-                    {
-                        !fragment || fragment === TableFragment.HEAD ?
-                            <Thead fragment={fragment}
-                                   columns={columns}
-                                   data={data}
-                                   sorting={sorting}
-                                   defaultSortingType={defaultSortingType}
-                                   sortingAscIconCls={sortingAscIconCls}
-                                   sortingDescIconCls={sortingDescIconCls}
-                                   sortingFunc={sortingFunc}
-                                   onSortChange={onSortChange}
-                                   onHeadClick={onHeadClick}/>
-                            :
-                            null
-                    }
+                    {/*{*/}
+                    {/*!fragment || fragment === TableFragment.HEAD ?*/}
+                    <Thead columns={columns}
+                           data={data}
+                           sorting={sorting}
+                           defaultSortingType={defaultSortingType}
+                           sortingAscIconCls={sortingAscIconCls}
+                           sortingDescIconCls={sortingDescIconCls}
+                           sortingFunc={sortingFunc}
+                           onSortChange={onSortChange}
+                           onHeadClick={onHeadClick}/>
+                    {/*:*/}
+                    {/*null*/}
+                    {/*}*/}
 
-                    {
-                        !fragment || fragment === TableFragment.BODY ?
-                            <Tbody fragment={fragment}
-                                   columns={columns}
-                                   data={data}
-                                   disabled={disabled}
-                                   onRowClick={onRowClick}
-                                   onCellClick={onCellClick}/>
-                            :
-                            null
-                    }
+                    {/*{*/}
+                    {/*!fragment || fragment === TableFragment.BODY ?*/}
+                    <Tbody columns={columns}
+                           data={data}
+                           disabled={disabled}
+                           onRowClick={onRowClick}
+                           onCellClick={onCellClick}/>
+                    {/*:*/}
+                    {/*null*/}
+                    {/*}*/}
 
                     {/** render foot if a footRenderer exists in columns */}
-                    {
-                        (!fragment || fragment === TableFragment.FOOT) && TableCalculation.hasFooterRenderer(columns) ?
-                            <Tfoot fragment={fragment}
-                                   columns={columns}
-                                   data={data}
-                                   disabled={disabled}
-                                   onFootClick={onFootClick}
-                                   onCellClick={onCellClick}/>
-                            :
-                            null
-                    }
+                    {/*{*/}
+                    {/*(!fragment || fragment === TableFragment.FOOT) && TableCalculation.hasFooterRenderer(columns) ?*/}
+                    <Tfoot columns={columns}
+                           data={data}
+                           disabled={disabled}
+                           onFootClick={onFootClick}
+                           onCellClick={onCellClick}/>
+                    {/*:*/}
+                    {/*null*/}
+                    {/*}*/}
 
                 </table>
             </div>
