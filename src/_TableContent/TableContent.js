@@ -109,16 +109,7 @@ class TableContent extends Component {
             isHeadFixed = this.props.isHeadFixed,
             isFootFixed = TableCalculation.hasFooterRenderer(columns) && this.props.isFootFixed,
 
-            tableData = this.paginateData(this.sortData(data)),
-
-            content = (
-                <BaseTable {...restProps}
-                           ref={this.body}
-                           className="table-content-body"
-                           columns={columns}
-                           data={tableData}
-                           isPaginated={isPaginated}/>
-            );
+            tableData = this.paginateData(this.sortData(data));
 
         return (
             <div ref={this.wrapper}
@@ -127,14 +118,14 @@ class TableContent extends Component {
                  })}
                  style={style}>
 
-                {
-                    isHeadFixed || isFootFixed ?
-                        <div className="table-content-scroller">
-                            {content}
-                        </div>
-                        :
-                        content
-                }
+                <div className="table-content-scroller">
+                    <BaseTable {...restProps}
+                               ref={this.body}
+                               className="table-content-body"
+                               columns={columns}
+                               data={tableData}
+                               isPaginated={isPaginated}/>
+                </div>
 
                 {
                     isHeadFixed ?
