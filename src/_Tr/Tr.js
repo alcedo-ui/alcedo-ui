@@ -9,6 +9,7 @@ import classNames from 'classnames';
 
 import Td from '../_Td';
 
+import TableFragment from '../_statics/TableFragment';
 import HorizontalAlign from '../_statics/HorizontalAlign';
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
@@ -16,7 +17,6 @@ import SortingType from '../_statics/SortingType';
 
 import Util from '../_vendors/Util';
 import TableCalculation from '../_vendors/TableCalculation';
-import TableFragment from '../_statics/TableFragment';
 
 class Tr extends Component {
 
@@ -37,11 +37,11 @@ class Tr extends Component {
     render() {
 
         const {
-                className, fragment, columns, rowIndex, data, isChecked, disabled,
+                className, columns, rowIndex, data, isChecked, disabled,
                 onCellClick
             } = this.props,
 
-            columnsWithSpan = TableCalculation.getColumnsWithSpan(fragment, columns, rowIndex);
+            columnsWithSpan = TableCalculation.getColumnsWithSpan(TableFragment.BODY, columns, rowIndex);
 
         return (
             <tr className={classNames({
@@ -78,8 +78,6 @@ class Tr extends Component {
 Tr.propTypes = {
 
     rowIndex: PropTypes.number,
-
-    fragment: PropTypes.oneOf(Util.enumerateValue(TableFragment)),
 
     /**
      * Children passed into table header.
