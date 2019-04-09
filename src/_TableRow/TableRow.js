@@ -133,7 +133,8 @@ class TableRow extends Component {
                         <td key={colIndex}
                             className={classNames('table-data', {
                                 [col.cellClassName]: col.cellClassName,
-                                'expanded-children-column': col.collapseAble
+                                'expanded-children-column': col.collapseAble,
+                                'table-row-root': data.isRoot && col.collapseAble
                             })}
                             style={col.cellStyle}
                             colSpan={span}
