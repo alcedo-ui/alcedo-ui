@@ -290,8 +290,7 @@ class DraggableTree extends Component {
 
                 <div className={treeClassName}
                      disabled={disabled}
-                     style={style}
-                     onWheel={e => Event.wheelHandler(e, this.props)}>
+                     style={style}>
 
                     <DraggableTreeNode data={isArray(data) ? {[VirtualRoot]: true, children: data} : data}
                                        value={value}
@@ -468,7 +467,6 @@ DraggableTree.propTypes = {
 
     readOnly: PropTypes.bool,
 
-    shouldPreventContainerScroll: PropTypes.bool,
     isSelectRecursive: PropTypes.bool,
     allowCollapse: PropTypes.bool,
     collapsed: PropTypes.bool,
@@ -533,7 +531,6 @@ DraggableTree.defaultProps = {
     disabled: false,
     isLoading: false,
     readOnly: false,
-    shouldPreventContainerScroll: true,
     isSelectRecursive: false,
     allowCollapse: true,
     collapsed: false
