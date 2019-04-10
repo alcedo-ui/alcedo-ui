@@ -230,8 +230,7 @@ class Tree extends Component {
         return (
             <div className={treeClassName}
                  disabled={disabled}
-                 style={style}
-                 onWheel={e => Event.wheelHandler(e, this.props)}>
+                 style={style}>
 
                 <TreeNode data={isArray(data) ? {[VirtualRoot]: true, children: data} : data}
                           value={value}
@@ -399,7 +398,6 @@ Tree.propTypes = {
 
     readOnly: PropTypes.bool,
 
-    shouldPreventContainerScroll: PropTypes.bool,
     isSelectRecursive: PropTypes.bool,
     allowCollapse: PropTypes.bool,
     collapsed: PropTypes.bool,
@@ -458,7 +456,6 @@ Tree.defaultProps = {
     disabled: false,
     isLoading: false,
     readOnly: false,
-    shouldPreventContainerScroll: true,
     isSelectRecursive: false,
     allowCollapse: true,
     collapsed: false
