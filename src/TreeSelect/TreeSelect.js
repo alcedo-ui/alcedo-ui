@@ -289,8 +289,7 @@ class TreeSelect extends Component {
                         }
                     </div>
 
-                    <div className="tree-select-list-scroller"
-                         onWheel={e => Event.wheelHandler(e, this.props)}>
+                    <div className="tree-select-list-scroller">
 
                         {
                             useFilter ?
@@ -532,7 +531,6 @@ TreeSelect.propTypes = {
     useFilter: PropTypes.bool,
     filterIconCls: PropTypes.string,
     noMatchedMsg: PropTypes.string,
-    shouldPreventContainerScroll: PropTypes.bool,
     isSelectRecursive: PropTypes.bool,
     allowCollapse: PropTypes.bool,
     collapsed: PropTypes.bool,
@@ -594,7 +592,6 @@ TreeSelect.defaultProps = {
     useFilter: false,
     filterIconCls: 'fas fa-search',
 
-    shouldPreventContainerScroll: true,
     isSelectRecursive: false,
     allowCollapse: true,
     collapsed: false,
