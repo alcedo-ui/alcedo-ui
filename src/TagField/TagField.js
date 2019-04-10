@@ -338,8 +338,7 @@ class TagField extends Component {
             <div ref="wrapper"
                  className={fieldClassName}
                  style={style}
-                 disabled={disabled}
-                 onWheel={e => Event.wheelHandler(e, this.props)}>
+                 disabled={disabled}>
 
                 {
                     indexData && indexData.map(index => index === this.inputSymbol ?
@@ -411,7 +410,6 @@ TagField.propTypes = {
 
     disabled: PropTypes.bool,
     placeholder: PropTypes.string,
-    shouldPreventContainerScroll: PropTypes.bool,
     isTagAutoWidth: PropTypes.bool,
     tagRemoveIconCls: PropTypes.string,
 
@@ -437,7 +435,6 @@ TagField.defaultProps = {
     disabled: false,
 
     placeholder: '',
-    shouldPreventContainerScroll: true,
     isTagAutoWidth: true,
     tagRemoveIconCls: 'fas fa-times'
 
