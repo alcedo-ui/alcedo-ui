@@ -122,8 +122,7 @@ class TriggerPop extends Component {
                 hasTriangle, triangle, position, isAnimated,
 
                 // not passing down these props
-                isEscClose, isBlurClose, shouldPreventContainerScroll,
-                shouldFollowScroll,
+                isEscClose, isBlurClose, shouldFollowScroll,
 
                 ...restProps
 
@@ -147,7 +146,6 @@ class TriggerPop extends Component {
                  className={popClassName}
                  container={<Paper></Paper>}
                  isAnimated={isAnimated}
-                 onWheel={e => Event.wheelHandler(e, this.props)}
                  resetPosition={this.resetPosition}>
                 {
                     popEl => (
@@ -162,8 +160,7 @@ class TriggerPop extends Component {
                                     null
                             }
 
-                            <div className={popContentClassName}
-                                 onWheel={e => Event.wheelHandler(e, this.props)}>
+                            <div className={popContentClassName}>
                                 {typeof children === 'function' ? children(popEl) : children}
                             </div>
 
@@ -239,7 +236,6 @@ TriggerPop.propTypes = {
 
     isBlurClose: PropTypes.bool,
     isEscClose: PropTypes.bool,
-    shouldPreventContainerScroll: PropTypes.bool,
 
     shouldFollowScroll: PropTypes.bool,
     scrollEl: PropTypes.object,
@@ -288,7 +284,6 @@ TriggerPop.defaultProps = {
 
     isBlurClose: true,
     isEscClose: true,
-    shouldPreventContainerScroll: true,
     shouldFollowScroll: false,
     resetPositionWait: 250
 
