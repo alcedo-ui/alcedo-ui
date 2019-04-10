@@ -239,8 +239,7 @@ class CascaderSelect extends Component {
                           triggerValue={this.getTriggerValue()}
                           onClosePopup={this.handlePopupClosed}>
 
-                    <div className="cascader-select-list-scroller"
-                         onWheel={e => Event.wheelHandler(e, this.props)}>
+                    <div className="cascader-select-list-scroller">
 
                         <CascaderList className="cascader-select-list"
                                       theme={popupTheme}
@@ -482,7 +481,6 @@ CascaderSelect.propTypes = {
      */
     autoClose: PropTypes.bool,
 
-    shouldPreventContainerScroll: PropTypes.bool,
     isSelectRecursive: PropTypes.bool,
     allowCollapse: PropTypes.bool,
     collapsedIconCls: PropTypes.string,
@@ -556,7 +554,6 @@ CascaderSelect.defaultProps = {
 
     autoClose: false,
 
-    shouldPreventContainerScroll: true,
     isSelectRecursive: true,
     allowCollapse: true,
 
