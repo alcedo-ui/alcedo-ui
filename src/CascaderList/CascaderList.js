@@ -230,8 +230,7 @@ class CascaderList extends Component {
         return (
             <div className={wrapperClassName}
                  style={wrapperStyle}
-                 disabled={disabled}
-                 onWheel={e => Event.wheelHandler(e, this.props)}>
+                 disabled={disabled}>
 
                 <CascaderListItem expandDirection={expandDirection}
                                   activatedPath={activatedPath}
@@ -416,7 +415,6 @@ CascaderList.propTypes = {
 
     readOnly: PropTypes.bool,
 
-    shouldPreventContainerScroll: PropTypes.bool,
     isSelectRecursive: PropTypes.bool,
     expandedIconCls: PropTypes.string,
     radioUncheckedIconCls: PropTypes.string,
@@ -475,7 +473,6 @@ CascaderList.defaultProps = {
     disabled: false,
     isLoading: false,
     readOnly: false,
-    shouldPreventContainerScroll: true,
     isSelectRecursive: true
 
 };
