@@ -54,56 +54,56 @@ function triggerPopupEventHandle(el, triggerEl, popupEl, currentVisible) {
 
 }
 
-function preventContainerScroll(e) {
+// function preventContainerScroll(e) {
+//
+//     const {currentTarget, deltaX, deltaY} = e,
+//         {
+//             clientWidth, scrollWidth, scrollLeft,
+//             clientHeight, scrollHeight, scrollTop
+//         } = currentTarget;
+//
+//     if (
+//         (
+//             scrollWidth > clientWidth
+//             &&
+//             (
+//                 (deltaX < 0 && scrollLeft <= 0)
+//                 ||
+//                 (deltaX > 0 && scrollLeft >= scrollWidth - clientWidth)
+//             )
+//         )
+//         ||
+//         (
+//             scrollHeight > clientHeight
+//             &&
+//             (
+//                 (deltaY < 0 && scrollTop <= 0)
+//                 ||
+//                 (deltaY > 0 && scrollTop >= scrollHeight - clientHeight)
+//             )
+//         )
+//     ) {
+//         e.preventDefault();
+//     }
+//
+// }
 
-    const {currentTarget, deltaX, deltaY} = e,
-        {
-            clientWidth, scrollWidth, scrollLeft,
-            clientHeight, scrollHeight, scrollTop
-        } = currentTarget;
-
-    if (
-        (
-            scrollWidth > clientWidth
-            &&
-            (
-                (deltaX < 0 && scrollLeft <= 0)
-                ||
-                (deltaX > 0 && scrollLeft >= scrollWidth - clientWidth)
-            )
-        )
-        ||
-        (
-            scrollHeight > clientHeight
-            &&
-            (
-                (deltaY < 0 && scrollTop <= 0)
-                ||
-                (deltaY > 0 && scrollTop >= scrollHeight - clientHeight)
-            )
-        )
-    ) {
-        e.preventDefault();
-    }
-
-}
-
-function wheelHandler(e, props) {
-
-    if (!this || !props) {
-        return;
-    }
-
-    const {shouldPreventContainerScroll, onWheel} = props;
-    shouldPreventContainerScroll && preventContainerScroll(e);
-    onWheel && onWheel(e);
-
-}
+// function wheelHandler(e, props) {
+//
+//     if (!props) {
+//         return;
+//     }
+//
+//     const {shouldPreventContainerScroll, onWheel} = props;
+//     shouldPreventContainerScroll && preventContainerScroll(e);
+//     onWheel && onWheel(e);
+//
+// }
 
 export default {
     addEvent,
     removeEvent,
-    triggerPopupEventHandle,
-    preventContainerScroll,
-    wheelHandler
+    triggerPopupEventHandle
+    // preventContainerScroll
+    // wheelHandler
 };
