@@ -394,8 +394,7 @@ class DropdownSelect extends Component {
                     </div>
 
                     <div className="dropdown-select-list-scroller"
-                         ref="dropdownSelectListScroller"
-                         onWheel={e => Event.wheelHandler(e, this.props)}>
+                         ref="dropdownSelectListScroller">
 
                         {
                             useFilter ?
@@ -715,8 +714,6 @@ DropdownSelect.propTypes = {
      */
     noMatchedMsg: PropTypes.string,
 
-    shouldPreventContainerScroll: PropTypes.bool,
-
     popupChildren: PropTypes.any,
 
     useDynamicRenderList: PropTypes.bool,
@@ -786,7 +783,6 @@ DropdownSelect.defaultProps = {
     filterIconCls: 'fas fa-search',
     useSelectAll: false,
     selectAllText: 'Select All',
-    shouldPreventContainerScroll: true,
     useDynamicRenderList: false,
     isHiddenInputFilter: false,
     clearHiddenInputFilterInterval: 1000,
