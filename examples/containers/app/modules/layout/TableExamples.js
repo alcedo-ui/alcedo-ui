@@ -41,9 +41,6 @@ class TableExamples extends Component {
             headAlign: Table.Align.RIGHT,
             bodyRenderer: 'age',
             bodyAlign: Table.Align.RIGHT,
-            footAlign: Table.Align.RIGHT,
-            sortable: true,
-            sortingProp: 'age',
             footRenderer: () => {
                 const {data} = this.state;
                 return (
@@ -52,24 +49,23 @@ class TableExamples extends Component {
                         <div>{data.reduce((a, b) => a + b.age, 0) / data.length}</div>
                     </Fragment>
                 );
-            }
+            },
+            footAlign: Table.Align.RIGHT,
+            sortable: true,
+            sortingProp: 'age'
         }, {
             headRenderer: 'Deposit',
             headAlign: Table.Align.RIGHT,
             bodyRenderer: '$${deposit}',
             bodyAlign: Table.Align.RIGHT,
+            footRenderer: () =>
+                <Fragment>
+                    <div>Sum</div>
+                    <div>${this.state.data.reduce((a, b) => round(a + b.deposit, 2), 0)}</div>
+                </Fragment>,
             footAlign: Table.Align.RIGHT,
             sortable: true,
-            sortingProp: 'deposit',
-            footRenderer: () => {
-                const {data} = this.state;
-                return (
-                    <Fragment>
-                        <div>Sum</div>
-                        <div>${data.reduce((a, b) => round(a + b.deposit, 2), 0)}</div>
-                    </Fragment>
-                );
-            }
+            sortingProp: 'deposit'
         }, {
             headRenderer: 'Status',
             bodyRenderer: rowData =>
