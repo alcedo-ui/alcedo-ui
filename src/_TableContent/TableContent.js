@@ -19,7 +19,6 @@ import SortingType from '../_statics/SortingType';
 
 import Util from '../_vendors/Util';
 import TableCalculation from '../_vendors/TableCalculation';
-import Event from '../_vendors/Event';
 
 class TableContent extends Component {
 
@@ -33,13 +32,12 @@ class TableContent extends Component {
 
         super(props, ...restArgs);
 
+        this.bodyWrapper = createRef();
         this.body = createRef();
         this.head = createRef();
         this.foot = createRef();
 
         this.bodyEl = null;
-        this.headEl = null;
-        this.footEl = null;
 
     }
 
@@ -85,19 +83,6 @@ class TableContent extends Component {
         };
     };
 
-    getBodyWrapperStyle = (headHeight, footHeight) => {
-
-        if (!this.bodyEl) {
-            return null;
-        }
-
-        return {
-            height: parseInt(window.getComputedStyle(this.bodyEl).height) - (footHeight || 0),
-            marginTop: -headHeight
-        };
-
-    };
-
     getFixedFragmentHeight = fragment => {
 
         if (!this.bodyEl || !fragment) {
@@ -133,18 +118,34 @@ class TableContent extends Component {
 
     };
 
+    fixBodyHeight = () => {
+
+        const {isHeadFixed, isFootFixed} = this.props;
+
+        if (isHeadFixed || isFootFixed) {
+            const height = parseInt(window.getComputedStyle(this.bodyEl).height)
+                - (this.getFixedFragmentHeight(TableFragment.FOOT) || 0);
+            if (height) {
+                this.bodyWrapperEl.style.height = `${height}px`;
+            }
+        }
+    };
+
     componentDidMount() {
         this.bodyEl = findDOMNode(this.body.current);
+        this.bodyWrapperEl = this.bodyWrapper.current;
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        this.fixBodyHeight();
     }
 
     render() {
 
         const {
-                className, style, columns, data, isHeadFixed, isPaginated,
+                className, style, columns, data, isHeadFixed, isFootFixed, isPaginated,
                 ...restProps
             } = this.props,
-
-            isFootFixed = TableCalculation.hasFooterRenderer(columns) && this.props.isFootFixed,
 
             fixedHeadHeight = this.getFixedFragmentHeight(TableFragment.HEAD),
             fixedFootHeight = this.getFixedFragmentHeight(TableFragment.FOOT),
@@ -175,8 +176,11 @@ class TableContent extends Component {
 
                 <div className="table-content-scroller"
                      style={this.getScollerStyle(fixedHeadHeight, fixedFootHeight)}>
-                    <div className="table-content-body-wrapper"
-                         style={this.getBodyWrapperStyle(fixedHeadHeight, fixedFootHeight)}>
+                    <div ref={this.bodyWrapper}
+                         className="table-content-body-wrapper"
+                         style={fixedHeadHeight != null ? {
+                             marginTop: -fixedHeadHeight
+                         } : null}>
                         <BaseTable {...restProps}
                                    ref={this.body}
                                    className="table-content-body"
