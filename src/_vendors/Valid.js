@@ -23,7 +23,7 @@ function isMac() {
 
 function isWindows() {
     return /windows|win32/i.test(navigator.userAgent);
-};
+}
 
 function isInteger(value) {
     return /^(0|-?[0-9][1-9]*)$/.test(value);
