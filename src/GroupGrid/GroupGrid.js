@@ -52,8 +52,7 @@ class GroupGrid extends Component {
         return (
             <div className={gridClassName}
                  style={style}
-                 disabled={disabled}
-                 onWheel={e => Event.wheelHandler(e, this.props)}>
+                 disabled={disabled}>
 
                 {
                     data && data.map((item, index) =>
@@ -225,8 +224,6 @@ GroupGrid.propTypes = {
      */
     selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
-    shouldPreventContainerScroll: PropTypes.bool,
-
     radioUncheckedIconCls: PropTypes.string,
     radioCheckedIconCls: PropTypes.string,
     checkboxUncheckedIconCls: PropTypes.string,
@@ -268,7 +265,6 @@ GroupGrid.defaultProps = {
     descriptionField: 'desc',
     disabled: false,
     selectMode: SelectMode.SINGLE_SELECT,
-    shouldPreventContainerScroll: true,
 
     radioUncheckedIconCls: 'fas fa-check',
     radioCheckedIconCls: 'fas fa-check',
