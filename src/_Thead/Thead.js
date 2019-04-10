@@ -29,10 +29,25 @@ class Thead extends Component {
         super(props, ...restArgs);
     }
 
+    getStyle = (headStyle, index) => {
+
+        const {columnsWidth} = this.props;
+
+        if (!columnsWidth || !columnsWidth[index]) {
+            return headStyle;
+        }
+
+        return {
+            ...headStyle,
+            width: columnsWidth[index]
+        };
+
+    };
+
     render() {
 
         const {
-                className, style, columns, data,
+                className, style, columns, columnsWidth, data,
                 sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls,
                 onSortChange
             } = this.props,
@@ -50,7 +65,7 @@ class Thead extends Component {
                             columnsWithSpan.map(({column, span}, index) => column ?
                                 <Th key={index}
                                     className={column.headClassName}
-                                    style={column.headStyle}
+                                    style={this.getStyle(column.headStyle, index)}
                                     renderer={column.headRenderer}
                                     align={column.headAlign}
                                     colIndex={index}
@@ -191,6 +206,8 @@ Thead.propTypes = {
         defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType))
 
     })).isRequired,
+
+    columnsWidth: PropTypes.arrayOf(PropTypes.number),
 
     data: PropTypes.array,
 
