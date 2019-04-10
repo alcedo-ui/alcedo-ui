@@ -145,8 +145,7 @@ class DynamicRenderList extends Component {
             <div ref="dynamicRenderList"
                  className={listClassName}
                  style={{...style, height: listHeight}}
-                 onScroll={this.scrollHandler}
-                 onWheel={e => Event.wheelHandler(e, this.props)}>
+                 onScroll={this.scrollHandler}>
 
                 <div className="dynamic-render-list-scroller"
                      style={scrollerStyle}>
@@ -315,8 +314,6 @@ DynamicRenderList.propTypes = {
      */
     selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
-    shouldPreventContainerScroll: PropTypes.bool,
-
     radioUncheckedIconCls: PropTypes.string,
     radioCheckedIconCls: PropTypes.string,
     checkboxUncheckedIconCls: PropTypes.string,
@@ -375,7 +372,6 @@ DynamicRenderList.defaultProps = {
     disabled: false,
     itemDisabled: false,
     selectMode: SelectMode.SINGLE_SELECT,
-    shouldPreventContainerScroll: true,
 
     checkboxUncheckedIconCls: 'far fa-square',
     checkboxCheckedIconCls: 'fas fa-check-square',
