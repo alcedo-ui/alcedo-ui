@@ -264,8 +264,7 @@ class DraggableList extends Component {
 
                 <div className={listClassName}
                      disabled={disabled}
-                     style={style}
-                     onWheel={e => Event.wheelHandler(e, this.props)}>
+                     style={style}>
 
                     <Droppable droppableId="droppable">
                         {
@@ -459,8 +458,6 @@ DraggableList.propTypes = {
      */
     itemDragDisabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 
-    shouldPreventContainerScroll: PropTypes.bool,
-
     radioUncheckedIconCls: PropTypes.string,
     radioCheckedIconCls: PropTypes.string,
     checkboxUncheckedIconCls: PropTypes.string,
@@ -520,7 +517,6 @@ DraggableList.defaultProps = {
     itemDisabled: false,
     isLoading: false,
     itemDragDisabled: false,
-    shouldPreventContainerScroll: true,
 
     checkboxUncheckedIconCls: 'far fa-square',
     checkboxCheckedIconCls: 'fas fa-check-square',
