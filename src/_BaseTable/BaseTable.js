@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import ColGroup from '../_ColGroup';
 import Thead from '../_Thead';
 import Tbody from '../_Tbody';
 import Tfoot from '../_Tfoot';
@@ -47,6 +48,13 @@ class BaseTable extends Component {
                  style={style}>
                 <table cellPadding={0}
                        cellSpacing={0}>
+
+                    {
+                        !fragment ?
+                            <ColGroup columns={columns}/>
+                            :
+                            null
+                    }
 
                     {
                         !fragment || fragment === TableFragment.HEAD ?
