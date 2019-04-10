@@ -50,7 +50,7 @@ class PositionPop extends Component {
                 container, className, theme, position, isAnimated,
 
                 // not passing down these props
-                isEscClose, isBlurClose, shouldPreventContainerScroll,
+                isEscClose, isBlurClose,
 
                 ...restProps
 
@@ -69,7 +69,6 @@ class PositionPop extends Component {
                  className={popClassName}
                  container={container}
                  isAnimated={isAnimated}
-                 onWheel={e => Event.wheelHandler(e, this.props)}
                  resetPosition={this.resetPosition}>
                 {popEl => typeof children === 'function' ? children(popEl) : children}
             </Pop>
@@ -120,7 +119,6 @@ PositionPop.propTypes = {
 
     isBlurClose: PropTypes.bool,
     isEscClose: PropTypes.bool,
-    shouldPreventContainerScroll: PropTypes.bool,
 
     container: PropTypes.node,
 
@@ -166,7 +164,6 @@ PositionPop.defaultProps = {
 
     isBlurClose: true,
     isEscClose: true,
-    shouldPreventContainerScroll: true,
 
     container: <div></div>,
 
