@@ -5,50 +5,7 @@
 
 .base-table {
     & > table {
+        table-layout: fixed;
         min-width: 100%;
-    }
-
-    &.table-content-fixed-head {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        overflow: hidden;
-
-        & > table {
-            & > tbody,
-            & > tfoot {
-                visibility: hidden;
-                opacity: 0;
-            }
-        }
-    }
-
-    &.base-table-fixed-body > table {
-        & > thead,
-        & > tfoot {
-            visibility: hidden;
-            opacity: 0;
-        }
-    }
-
-    &.table-content-fixed-foot {
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        overflow: hidden;
-
-        & > table {
-            position: absolute;
-            left: 0;
-            bottom: 0;
-
-            & > thead,
-            & > tbody {
-                visibility: hidden;
-                opacity: 0;
-            }
-        }
     }
 }
