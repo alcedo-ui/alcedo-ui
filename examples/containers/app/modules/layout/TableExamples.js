@@ -32,6 +32,7 @@ class TableExamples extends Component {
             sortable: true,
             sortingProp: 'id'
         }, {
+            width: 300,
             headRenderer: 'Name',
             bodyRenderer: '${firstName} ${lastName}',
             sortable: true,
