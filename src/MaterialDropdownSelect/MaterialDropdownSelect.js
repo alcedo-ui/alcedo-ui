@@ -338,7 +338,6 @@ MaterialDropdownSelect.propTypes = {
 
     required: PropTypes.bool,
 
-    shouldPreventContainerScroll: PropTypes.bool,
     resetPopPositionWait: PropTypes.number,
 
     /**
@@ -385,7 +384,6 @@ MaterialDropdownSelect.defaultProps = {
     required: false,
     tipPosition: Position.BOTTOM,
 
-    shouldPreventContainerScroll: true,
     resetPopPositionWait: 250
 
 };
