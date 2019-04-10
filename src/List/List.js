@@ -249,8 +249,7 @@ class List extends Component {
             <div ref="list"
                  className={listClassName}
                  disabled={this.isListDisabled(disabled)}
-                 style={style}
-                 onWheel={e => Event.wheelHandler(e, this.props)}>
+                 style={style}>
 
                 {
                     data && data.map((item, index) => item === LIST_SEPARATOR ?
@@ -446,8 +445,6 @@ List.propTypes = {
 
     indeterminateCallback: PropTypes.func,
 
-    shouldPreventContainerScroll: PropTypes.bool,
-
     radioUncheckedIconCls: PropTypes.string,
     radioCheckedIconCls: PropTypes.string,
     checkboxUncheckedIconCls: PropTypes.string,
@@ -502,7 +499,6 @@ List.defaultProps = {
     itemDisabled: false,
     disableTouchRipple: false,
     autoSelect: true,
-    shouldPreventContainerScroll: true,
 
     checkboxUncheckedIconCls: 'far fa-square',
     checkboxCheckedIconCls: 'fas fa-check-square',
