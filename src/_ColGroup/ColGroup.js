@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import isEmpty from 'lodash/isEmpty';
 
 import TableFragment from '../_statics/TableFragment';
 import HorizontalAlign from '../_statics/HorizontalAlign';
@@ -13,7 +14,6 @@ import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
 
 import Util from '../_vendors/Util';
-import TableCalculation from '../_vendors/TableCalculation';
 
 class ColGroup extends Component {
 
@@ -27,26 +27,31 @@ class ColGroup extends Component {
         super(props, ...restArgs);
     }
 
-    render() {
+    getColStyle = column => {
 
-        const {fragment, columns} = this.props;
+        const result = {};
 
-        if (!columns) {
-            return null;
+        if (column.width != null) {
+            result.width = column.width;
+        }
+        if (column.minWidth != null) {
+            result.minWidth = column.minWidth;
         }
 
-        const columnsWithSpan = TableCalculation.getColumnsWithSpan(fragment, columns);
+        return isEmpty(result) ? null : result;
 
-        return columnsWithSpan ?
+    };
+
+    render() {
+
+        const {columns} = this.props;
+
+        return columns ?
             <colgroup>
                 {
-                    columnsWithSpan.map(({column, span}, index) => column ?
+                    columns.map((column, index) => column ?
                         <col key={index}
-                             span={span || null}
-                             style={{
-                                 width: column.width || (span && 100 * span) || 100,
-                                 minWidth: column.minWidth || (span && 100 * span) || 100
-                             }}/>
+                             style={this.getColStyle(column)}/>
                         :
                         null
                     )
@@ -59,8 +64,6 @@ class ColGroup extends Component {
 }
 
 ColGroup.propTypes = {
-
-    fragment: PropTypes.oneOf(Util.enumerateValue(TableFragment)),
 
     /**
      * Children passed into table header.
