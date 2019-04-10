@@ -6,8 +6,49 @@
 .table-content {
     position: relative;
 
+    .table-content-fixed-head {
+
+        & > table {
+            & > tbody,
+            & > tfoot {
+                visibility: hidden;
+                opacity: 0;
+            }
+        }
+    }
+
     .table-content-scroller {
-        height: 100%;
         overflow: auto;
+
+        .table-content-body-wrapper {
+            overflow: hidden;
+
+            .table-content-body {
+
+            }
+        }
+    }
+
+    .table-content-fixed-foot {
+
+        & > table {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+
+            & > thead,
+            & > tbody {
+                visibility: hidden;
+                opacity: 0;
+            }
+        }
+    }
+
+    .table-content-fixed-head tr {
+        background: transparent;
+    }
+
+    .table-content-fixed-foot tr {
+        background: transparent;
     }
 }

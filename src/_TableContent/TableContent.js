@@ -32,7 +32,6 @@ class TableContent extends Component {
 
         super(props, ...restArgs);
 
-        this.wrapper = createRef();
         this.body = createRef();
         this.head = createRef();
         this.foot = createRef();
@@ -79,21 +78,39 @@ class TableContent extends Component {
 
     };
 
-    getFixedStyle = fragment => {
+    getScollerStyle = (headHeight, footHeight) => {
+        return {
+            height: `calc(100%${headHeight ? ` - ${headHeight}px` : ''}${footHeight ? ` - ${footHeight}px` : ''})`
+        };
+    };
 
-        if (!this.wrapper || !this.wrapper.current || !fragment) {
+    getBodyWrapperStyle = (headHeight, footHeight) => {
+
+        if (!this.bodyEl) {
+            return null;
+        }
+
+        return {
+            height: parseInt(window.getComputedStyle(this.bodyEl).height) - (footHeight || 0),
+            marginTop: -headHeight
+        };
+
+    };
+
+    getFixedFragmentHeight = fragment => {
+
+        if (!this.bodyEl || !fragment) {
             return null;
         }
 
         switch (fragment) {
-            case TableFragment.HEAD:
-                return {
-                    height: window.getComputedStyle(this.bodyEl.querySelector('thead')).height
-                };
+            case TableFragment.HEAD: {
+                const el = this.bodyEl.querySelector('thead');
+                return el ? parseInt(window.getComputedStyle(el).height) : null;
+            }
             case TableFragment.FOOT:
-                return {
-                    height: window.getComputedStyle(this.bodyEl.querySelector('tfoot')).height
-                };
+                const el = this.bodyEl.querySelector('tfoot');
+                return el ? parseInt(window.getComputedStyle(el).height) : null;
         }
 
         return null;
@@ -102,36 +119,21 @@ class TableContent extends Component {
 
     getFixedColumnsWidth = () => {
 
-        this.bodyEl && console.log(this.bodyEl.querySelectorAll('thead th'));
+        if (!this.bodyEl) {
+            return null;
+        }
+
+        return {
+            [TableFragment.HEAD]: [].map.call(this.bodyEl.querySelectorAll('thead th'),
+                el => parseInt(window.getComputedStyle(el).width)),
+            [TableFragment.FOOT]: [].map.call(this.bodyEl.querySelectorAll('tfoot td'),
+                el => parseInt(window.getComputedStyle(el).width))
+        };
 
     };
 
-    // refreshFixedHeadFoot = () => {
-    //
-    //     const {columns, isHeadFixed} = this.props,
-    //         isFootFixed = TableCalculation.hasFooterRenderer(columns) && this.props.isFootFixed;
-    //
-    //     if (!isHeadFixed && !isFootFixed) {
-    //         return;
-    //     }
-    //
-    //     if (isHeadFixed) {
-    //         this.headEl.style.height = window.getComputedStyle(this.bodyEl.querySelector('thead')).height;
-    //     }
-    //
-    //     if (isFootFixed) {
-    //         this.footEl.style.height = window.getComputedStyle(this.bodyEl.querySelector('thead')).height;
-    //     }
-    //
-    // };
-    //
-    // componentDidUpdate(prevProps, prevState, snapshot) {
-    //     this.refreshFixedHeadFoot();
-    // }
-
     componentDidMount() {
         this.bodyEl = findDOMNode(this.body.current);
-        console.log(this.bodyEl);
     }
 
     render() {
@@ -142,47 +144,56 @@ class TableContent extends Component {
             } = this.props,
 
             isFootFixed = TableCalculation.hasFooterRenderer(columns) && this.props.isFootFixed,
+
+            fixedHeadHeight = this.getFixedFragmentHeight(TableFragment.HEAD),
+            fixedFootHeight = this.getFixedFragmentHeight(TableFragment.FOOT),
+
             columnsWidth = this.getFixedColumnsWidth(),
             tableData = this.paginateData(this.sortData(data));
 
         return (
-            <div ref={this.wrapper}
-                 className={classNames('table-content', {
-                     [className]: className
-                 })}
+            <div className={classNames('table-content', {
+                [className]: className
+            })}
                  style={style}>
-
-                <div className="table-content-scroller">
-                    <BaseTable {...restProps}
-                               ref={this.body}
-                               className="table-content-body"
-                               columns={columns}
-                               data={tableData}
-                               isPaginated={isPaginated}/>
-                </div>
 
                 {
                     isHeadFixed ?
                         <BaseTable {...restProps}
                                    ref={this.head}
                                    className="table-content-fixed-head"
-                                   style={this.getFixedStyle(TableFragment.HEAD)}
+                                   style={fixedHeadHeight ? {height: fixedHeadHeight} : null}
                                    fragment={TableFragment.HEAD}
                                    columns={columns}
+                                   columnsWidth={columnsWidth && columnsWidth[TableFragment.HEAD]}
                                    data={tableData}
                                    isPaginated={isPaginated}/>
                         :
                         null
                 }
 
+                <div className="table-content-scroller"
+                     style={this.getScollerStyle(fixedHeadHeight, fixedFootHeight)}>
+                    <div className="table-content-body-wrapper"
+                         style={this.getBodyWrapperStyle(fixedHeadHeight, fixedFootHeight)}>
+                        <BaseTable {...restProps}
+                                   ref={this.body}
+                                   className="table-content-body"
+                                   columns={columns}
+                                   data={tableData}
+                                   isPaginated={isPaginated}/>
+                    </div>
+                </div>
+
                 {
                     isFootFixed ?
                         <BaseTable {...restProps}
                                    ref={this.foot}
                                    className="table-content-fixed-foot"
-                                   style={this.getFixedStyle(TableFragment.HEAD)}
+                                   style={fixedFootHeight ? {height: fixedFootHeight} : null}
                                    fragment={TableFragment.FOOT}
                                    columns={columns}
+                                   columnsWidth={columnsWidth && columnsWidth[TableFragment.FOOT]}
                                    data={tableData}
                                    isPaginated={isPaginated}/>
                         :
