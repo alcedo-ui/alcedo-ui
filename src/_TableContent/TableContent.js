@@ -19,6 +19,7 @@ import SortingType from '../_statics/SortingType';
 
 import Util from '../_vendors/Util';
 import TableCalculation from '../_vendors/TableCalculation';
+import Event from '../_vendors/Event';
 
 class TableContent extends Component {
 
