@@ -150,8 +150,7 @@ class DraggableGrid extends Component {
         return (
             <div className={gridClassName}
                  disabled={disabled}
-                 style={style}
-                 onWheel={e => Event.wheelHandler(e, this.props)}>
+                 style={style}>
 
                 {
                     data && data.map((item, index) => {
@@ -380,8 +379,6 @@ DraggableGrid.propTypes = {
      */
     scrollBuffer: PropTypes.number,
 
-    shouldPreventContainerScroll: PropTypes.bool,
-
     radioUncheckedIconCls: PropTypes.string,
     radioCheckedIconCls: PropTypes.string,
     checkboxUncheckedIconCls: PropTypes.string,
@@ -442,7 +439,6 @@ DraggableGrid.defaultProps = {
 
     scrollSpeed: 20,
     scrollBuffer: 40,
-    shouldPreventContainerScroll: true,
 
     checkboxUncheckedIconCls: 'far fa-square',
     checkboxCheckedIconCls: 'fas fa-check-square',
