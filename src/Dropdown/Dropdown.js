@@ -191,7 +191,6 @@ class Dropdown extends Component {
                        parentEl={parentEl}
                        hasTriangle={false}
                        position={position ? position : (isAboveFinally ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
-                       shouldPreventContainerScroll={false}
                        resetPositionWait={resetPopPositionWait}
                        onRender={this.popupRenderHandler}
                        onRequestClose={this.closePopup}>
@@ -291,7 +290,6 @@ Dropdown.propTypes = {
      */
     autoClose: PropTypes.bool,
 
-    shouldPreventContainerScroll: PropTypes.bool,
     resetPopPositionWait: PropTypes.number,
 
     /**
@@ -328,7 +326,6 @@ Dropdown.defaultProps = {
     autoClose: true,
     tipPosition: Position.BOTTOM,
 
-    shouldPreventContainerScroll: true,
     resetPopPositionWait: 250
 
 };
