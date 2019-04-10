@@ -54,8 +54,7 @@ class GroupList extends Component {
         return (
             <div className={listClassName}
                  style={style}
-                 disabled={disabled}
-                 onWheel={e => Event.wheelHandler(e, this.props)}>
+                 disabled={disabled}>
 
                 {
                     data && data.map((item, index) => item === LIST_SEPARATOR ?
@@ -230,8 +229,6 @@ GroupList.propTypes = {
      */
     selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
-    shouldPreventContainerScroll: PropTypes.bool,
-
     radioUncheckedIconCls: PropTypes.string,
     radioCheckedIconCls: PropTypes.string,
     checkboxUncheckedIconCls: PropTypes.string,
@@ -273,7 +270,6 @@ GroupList.defaultProps = {
     descriptionField: 'desc',
     disabled: false,
     selectMode: SelectMode.SINGLE_SELECT,
-    shouldPreventContainerScroll: true,
 
     radioUncheckedIconCls: 'fas fa-check',
     radioCheckedIconCls: 'fas fa-check',
