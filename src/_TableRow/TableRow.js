@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import CircularLoading from '../CircularLoading';
 
 class TableRow extends Component {
 
@@ -113,7 +114,7 @@ class TableRow extends Component {
 
     render() {
 
-        const {data, className, isChecked, disabled, isExpanded, expandedIconCls} = this.props,
+        const {data, className, isChecked, disabled, isExpanded, expandedIconCls, isLoadingRow} = this.props,
 
             columns = this.calColumns(),
 
@@ -129,24 +130,31 @@ class TableRow extends Component {
                 disabled={disabled}
                 onClick={this.rowClickHandler}>
                 {
-                    columns && columns.map(({col, span}, colIndex) =>
-                        <td key={colIndex}
-                            className={classNames('table-data', {
-                                [col.cellClassName]: col.cellClassName,
-                                'expanded-children-column': col.collapseAble,
-                                'table-row-root': data.isRoot && col.collapseAble
-                            })}
-                            style={col.cellStyle}
-                            colSpan={span}
-                            onClick={e => this.cellClickHandler(e, colIndex, col)}>
-                            {col.collapseAble && data[col.childrenNumKey] > 0 &&
-                            <i className={classNames('collapsed-icon', {
-                                [expandedIconCls]: expandedIconCls,
-                                ['expanded-icon']: isExpanded
-                            })} onClick={(e) => this.toggleExpandHandler(colIndex, col, e)}/>}
-                            {this.contentRenderer(col.renderer, colIndex)}
-                        </td>
-                    )
+                    isLoadingRow ?
+                        columns && columns.map(({col, span}, colIndex) =>
+                            <td key={'loading' + colIndex}>
+                                {colIndex === 0 && <div className="is-expand-loading"><CircularLoading/></div>}
+                            </td>
+                        )
+                        :
+                        columns && columns.map(({col, span}, colIndex) =>
+                            <td key={colIndex}
+                                className={classNames('table-data', {
+                                    [col.cellClassName]: col.cellClassName,
+                                    'expanded-children-column': col.collapseAble,
+                                    'table-row-root': data.isRoot && col.collapseAble
+                                })}
+                                style={col.cellStyle}
+                                colSpan={span}
+                                onClick={e => this.cellClickHandler(e, colIndex, col)}>
+                                {col.collapseAble && data[col.childrenNumKey] > 0 &&
+                                <i className={classNames('collapsed-icon', {
+                                    [expandedIconCls]: expandedIconCls,
+                                    ['expanded-icon']: isExpanded
+                                })} onClick={(e) => this.toggleExpandHandler(colIndex, col, e)}/>}
+                                {this.contentRenderer(col.renderer, colIndex)}
+                            </td>
+                        )
                 }
             </tr>
         );
@@ -161,6 +169,7 @@ TableRow.propTypes = {
     data: PropTypes.object,
     isChecked: PropTypes.bool,
     disabled: PropTypes.bool,
+    isLoadingRow: PropTypes.bool,
     expandedIconCls: PropTypes.string,
     className: PropTypes.string,
 
@@ -176,7 +185,8 @@ TableRow.defaultProps = {
     columns: [],
     data: {},
     isChecked: false,
-    disabled: false
+    disabled: false,
+    isLoadingRow: false
 };
 
 export default TableRow;

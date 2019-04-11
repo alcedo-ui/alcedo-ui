@@ -603,6 +603,7 @@ class Table extends Component {
                                     <CollapsedTableBody columns={finalColumns}
                                                         data={finalData}
                                                         idProp={idProp}
+                                                        sort={sort}
                                                         value={value}
                                                         selectMode={selectMode}
                                                         disabled={disabled}

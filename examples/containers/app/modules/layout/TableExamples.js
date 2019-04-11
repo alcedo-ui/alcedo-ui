@@ -155,7 +155,7 @@ class TableExamples extends Component {
             this.setState({
                 data
             });
-        }, 1000);
+        }, 10000);
 
     };
 

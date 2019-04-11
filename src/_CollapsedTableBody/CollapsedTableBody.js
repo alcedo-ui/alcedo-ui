@@ -1,8 +1,8 @@
 import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
+import isEqual from 'lodash/isEqual';
 
 import TableRow from '../_TableRow';
-import CircularLoading from '../CircularLoading';
 
 import SelectMode from '../_statics/SelectMode';
 
@@ -16,7 +16,8 @@ class CollapsedTableBody extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            expandedList: {}
+            expandedList: {},
+            prevProps: props
         };
     }
 
@@ -73,6 +74,16 @@ class CollapsedTableBody extends Component {
         });
     };
 
+    static getDerivedStateFromProps = (props, state) => {
+        if (!isEqual(state.prevProps.sort, props.sort)) {
+            return {
+                expandedList: {},
+                prevProps: props
+            };
+        }
+        return null;
+    };
+
     render() {
 
         const {
@@ -104,11 +115,10 @@ class CollapsedTableBody extends Component {
                             {
                                 expandedList[row[idProp]] ?
                                     !row.children || row.children.length === 0 ?
-                                        <tr>
-                                            <td>
-                                                <div className="is-expand-loading"><CircularLoading/></div>
-                                            </td>
-                                        </tr>
+                                        <TableRow
+                                            key={idProp && idProp in row ? row[idProp] + 'loading' : rowIndex + 'loading'}
+                                            columns={columns}
+                                            isLoadingRow={true}/>
                                         :
                                         (row.children.length <= expandedChildrenLimit || expandedList[row[idProp]] === 'ALL') ?
                                             <Fragment>
