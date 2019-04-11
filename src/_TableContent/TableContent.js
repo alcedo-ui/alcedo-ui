@@ -19,6 +19,7 @@ import SortingType from '../_statics/SortingType';
 
 import Util from '../_vendors/Util';
 import TableCalculation from '../_vendors/TableCalculation';
+import TableFixedPosition from '../_statics/TableFixedPosition';
 
 class TableContent extends Component {
 
@@ -40,6 +41,79 @@ class TableContent extends Component {
         this.bodyEl = null;
 
     }
+
+    /**
+     * calculate table body scroller height
+     * @param headHeight
+     * @param footHeight
+     * @returns {{height: string}}
+     */
+    getScollerStyle = (headHeight, footHeight) => {
+        return {
+            height: `calc(100%${headHeight ? ` - ${headHeight}px` : ''}${footHeight ? ` - ${footHeight}px` : ''})`
+        };
+    };
+
+    /**
+     * calculate table fragment(head/foot) height
+     * @param fragment
+     * @returns {null|any}
+     */
+    getFixedFragmentHeight = fragment => {
+
+        if (!this.bodyEl || !fragment) {
+            return null;
+        }
+
+        switch (fragment) {
+            case TableFragment.HEAD: {
+                const el = this.bodyEl.querySelector('thead');
+                return el ? parseInt(window.getComputedStyle(el).height) : null;
+            }
+            case TableFragment.FOOT:
+                const el = this.bodyEl.querySelector('tfoot');
+                return el ? parseInt(window.getComputedStyle(el).height) : null;
+        }
+
+        return null;
+
+    };
+
+    /**
+     * calculate each head and foot column width
+     * @returns {null|{[p: string]: *|*}}
+     */
+    getFixedColumnsWidth = () => {
+
+        if (!this.bodyEl) {
+            return null;
+        }
+
+        return {
+            [TableFragment.HEAD]: [].map.call(this.bodyEl.querySelectorAll('thead th'),
+                el => parseInt(window.getComputedStyle(el).width)),
+            [TableFragment.FOOT]: [].map.call(this.bodyEl.querySelectorAll('tfoot td'),
+                el => parseInt(window.getComputedStyle(el).width))
+        };
+
+    };
+
+    /**
+     * update body height
+     */
+    fixBodyHeight = () => {
+
+        const {isHeadFixed, isFootFixed} = this.props;
+
+        if (isHeadFixed || isFootFixed) {
+            const height = parseInt(window.getComputedStyle(this.bodyEl).height)
+                - (this.getFixedFragmentHeight(TableFragment.FOOT) || 0);
+            if (height) {
+                this.bodyWrapperEl.style.height = `${height}px`;
+            }
+        }
+
+    };
 
     /**
      * sort data by sorting
@@ -75,60 +149,6 @@ class TableContent extends Component {
 
         return data.slice(start, stop);
 
-    };
-
-    getScollerStyle = (headHeight, footHeight) => {
-        return {
-            height: `calc(100%${headHeight ? ` - ${headHeight}px` : ''}${footHeight ? ` - ${footHeight}px` : ''})`
-        };
-    };
-
-    getFixedFragmentHeight = fragment => {
-
-        if (!this.bodyEl || !fragment) {
-            return null;
-        }
-
-        switch (fragment) {
-            case TableFragment.HEAD: {
-                const el = this.bodyEl.querySelector('thead');
-                return el ? parseInt(window.getComputedStyle(el).height) : null;
-            }
-            case TableFragment.FOOT:
-                const el = this.bodyEl.querySelector('tfoot');
-                return el ? parseInt(window.getComputedStyle(el).height) : null;
-        }
-
-        return null;
-
-    };
-
-    getFixedColumnsWidth = () => {
-
-        if (!this.bodyEl) {
-            return null;
-        }
-
-        return {
-            [TableFragment.HEAD]: [].map.call(this.bodyEl.querySelectorAll('thead th'),
-                el => parseInt(window.getComputedStyle(el).width)),
-            [TableFragment.FOOT]: [].map.call(this.bodyEl.querySelectorAll('tfoot td'),
-                el => parseInt(window.getComputedStyle(el).width))
-        };
-
-    };
-
-    fixBodyHeight = () => {
-
-        const {isHeadFixed, isFootFixed} = this.props;
-
-        if (isHeadFixed || isFootFixed) {
-            const height = parseInt(window.getComputedStyle(this.bodyEl).height)
-                - (this.getFixedFragmentHeight(TableFragment.FOOT) || 0);
-            if (height) {
-                this.bodyWrapperEl.style.height = `${height}px`;
-            }
-        }
     };
 
     componentDidMount() {
@@ -242,6 +262,11 @@ TableContent.propTypes = {
      * Children passed into table header.
      */
     columns: PropTypes.arrayOf(PropTypes.shape({
+
+        /**
+         * fixed position of column ( true / 'left' / 'right' )
+         */
+        fixed: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(Util.enumerateValue(TableFixedPosition))]),
 
         /**
          * width of column
