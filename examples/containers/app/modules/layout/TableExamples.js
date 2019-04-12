@@ -25,6 +25,7 @@ class TableExamples extends Component {
         };
 
         this.columns = [{
+            fixed: Table.Fixed.LEFT,
             headRenderer: 'ID',
             bodyRenderer: 'id',
             footRenderer: 'Total',
@@ -32,6 +33,7 @@ class TableExamples extends Component {
             sortable: true,
             sortingProp: 'id'
         }, {
+            fixed: Table.Fixed.LEFT,
             width: 300,
             headRenderer: 'Name',
             bodyRenderer: '${firstName} ${lastName}',
@@ -68,6 +70,7 @@ class TableExamples extends Component {
             sortable: true,
             sortingProp: 'deposit'
         }, {
+            fixed: Table.Fixed.RIGHT,
             headRenderer: 'Status',
             bodyRenderer: rowData =>
                 <Switcher value={!rowData.disabled}
@@ -196,6 +199,7 @@ class TableExamples extends Component {
 
                             <Table data={data}
                                    columns={[...this.columns, {
+                                       fixed: Table.Fixed.RIGHT,
                                        headRenderer: 'Action',
                                        bodyRenderer: rowData =>
                                            <IconButton iconCls="fas fa-trash-alt"
