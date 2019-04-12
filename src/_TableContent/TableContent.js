@@ -3,11 +3,12 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component, createRef} from 'react';
+import React, {Component, createRef, Fragment} from 'react';
 import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import FixedTable from '../_TableContentFixedTable';
 import BaseTable from '../_BaseTable';
 
 import Theme from '../Theme';
@@ -19,12 +20,12 @@ import SortingType from '../_statics/SortingType';
 
 import Util from '../_vendors/Util';
 import TableCalculation from '../_vendors/TableCalculation';
-import TableFixedPosition from '../_statics/TableFixedPosition';
 
 class TableContent extends Component {
 
     static Fragment = TableFragment;
     static Align = HorizontalAlign;
+    static Fixed = HorizontalAlign;
     static SelectMode = SelectMode;
     static SelectAllMode = SelectAllMode;
     static SortingType = SortingType;
@@ -42,16 +43,37 @@ class TableContent extends Component {
 
     }
 
+    getColumns = () => {
+
+        const {columns} = this.props,
+            result = {
+                [HorizontalAlign.LEFT]: [],
+                [HorizontalAlign.CENTER]: [],
+                [HorizontalAlign.RIGHT]: []
+            };
+
+        columns.forEach(column => {
+            if (column.fixed === true || column.fixed === HorizontalAlign.LEFT) {
+                result[HorizontalAlign.LEFT].push(column);
+            } else if (column.fixed === HorizontalAlign.RIGHT) {
+                result[HorizontalAlign.RIGHT].push(column);
+            } else {
+                result[HorizontalAlign.CENTER].push(column);
+            }
+        });
+
+        return result;
+
+    };
+
     /**
      * calculate table body scroller height
      * @param headHeight
      * @param footHeight
      * @returns {{height: string}}
      */
-    getScollerStyle = (headHeight, footHeight) => {
-        return {
-            height: `calc(100%${headHeight ? ` - ${headHeight}px` : ''}${footHeight ? ` - ${footHeight}px` : ''})`
-        };
+    getbodyScollerHeight = (headHeight, footHeight) => {
+        return `calc(100%${headHeight ? ` - ${headHeight}px` : ''}${footHeight ? ` - ${footHeight}px` : ''})`;
     };
 
     /**
@@ -163,12 +185,25 @@ class TableContent extends Component {
     render() {
 
         const {
-                className, style, columns, data, isHeadFixed, isFootFixed, isPaginated,
+                className, style, data, isHeadFixed, isFootFixed, isPaginated,
                 ...restProps
             } = this.props,
 
+            columns = this.getColumns();
+
+        if (!columns) {
+            return null;
+        }
+
+        const bodyColumns = [
+                ...columns[HorizontalAlign.LEFT],
+                ...columns[HorizontalAlign.CENTER],
+                ...columns[HorizontalAlign.RIGHT]
+            ],
+
             fixedHeadHeight = this.getFixedFragmentHeight(TableFragment.HEAD),
             fixedFootHeight = this.getFixedFragmentHeight(TableFragment.FOOT),
+            bodyScrollerHeight = this.getbodyScollerHeight(fixedHeadHeight, fixedFootHeight),
 
             columnsWidth = this.getFixedColumnsWidth(),
             tableData = this.paginateData(this.sortData(data));
@@ -186,7 +221,7 @@ class TableContent extends Component {
                                    className="table-content-fixed-head"
                                    style={fixedHeadHeight ? {height: fixedHeadHeight} : null}
                                    fragment={TableFragment.HEAD}
-                                   columns={columns}
+                                   columns={bodyColumns}
                                    columnsWidth={columnsWidth && columnsWidth[TableFragment.HEAD]}
                                    data={tableData}
                                    isPaginated={isPaginated}/>
@@ -195,7 +230,7 @@ class TableContent extends Component {
                 }
 
                 <div className="table-content-scroller"
-                     style={this.getScollerStyle(fixedHeadHeight, fixedFootHeight)}>
+                     style={{height: bodyScrollerHeight}}>
                     <div ref={this.bodyWrapper}
                          className="table-content-body-wrapper"
                          style={fixedHeadHeight != null ? {
@@ -204,7 +239,7 @@ class TableContent extends Component {
                         <BaseTable {...restProps}
                                    ref={this.body}
                                    className="table-content-body"
-                                   columns={columns}
+                                   columns={bodyColumns}
                                    data={tableData}
                                    isPaginated={isPaginated}/>
                     </div>
@@ -217,10 +252,38 @@ class TableContent extends Component {
                                    className="table-content-fixed-foot"
                                    style={fixedFootHeight ? {height: fixedFootHeight} : null}
                                    fragment={TableFragment.FOOT}
-                                   columns={columns}
+                                   columns={bodyColumns}
                                    columnsWidth={columnsWidth && columnsWidth[TableFragment.FOOT]}
                                    data={tableData}
                                    isPaginated={isPaginated}/>
+                        :
+                        null
+                }
+
+                {
+                    columns[HorizontalAlign.LEFT] && columns[HorizontalAlign.LEFT].length > 0 ?
+                        <FixedTable {...restProps}
+                                    className="table-content-fixed-left"
+                                    columns={columns[HorizontalAlign.LEFT]}
+                                    data={tableData}
+                                    fixedHeadHeight={fixedHeadHeight}
+                                    fixedFootHeight={fixedFootHeight}
+                                    bodyScrollerHeight={bodyScrollerHeight}
+                                    columnsWidth={columnsWidth}/>
+                        :
+                        null
+                }
+
+                {
+                    columns[HorizontalAlign.RIGHT] && columns[HorizontalAlign.RIGHT].length > 0 ?
+                        <FixedTable {...restProps}
+                                    className="table-content-fixed-right"
+                                    columns={columns[HorizontalAlign.RIGHT]}
+                                    data={tableData}
+                                    fixedHeadHeight={fixedHeadHeight}
+                                    fixedFootHeight={fixedFootHeight}
+                                    bodyScrollerHeight={bodyScrollerHeight}
+                                    columnsWidth={columnsWidth}/>
                         :
                         null
                 }
@@ -266,7 +329,7 @@ TableContent.propTypes = {
         /**
          * fixed position of column ( true / 'left' / 'right' )
          */
-        fixed: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(Util.enumerateValue(TableFixedPosition))]),
+        fixed: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(Util.enumerateValue(HorizontalAlign))]),
 
         /**
          * width of column
