@@ -25,6 +25,7 @@ class Table extends Component {
 
     static Theme = Theme;
     static Align = HorizontalAlign;
+    static Fixed = HorizontalAlign;
     static SelectMode = SelectMode;
     static SelectAllMode = SelectAllMode;
     static SortingType = SortingType;
@@ -145,6 +146,11 @@ Table.propTypes = {
      * Children passed into table header.
      */
     columns: PropTypes.arrayOf(PropTypes.shape({
+
+        /**
+         * fixed position of column ( true / 'left' / 'right' )
+         */
+        fixed: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(Util.enumerateValue(HorizontalAlign))]),
 
         /**
          * width of column
