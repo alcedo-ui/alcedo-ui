@@ -36,7 +36,7 @@ class BaseTable extends Component {
     render() {
 
         const {
-            className, style, fragment, columns, columnsWidth, data, disabled,
+            className, style, fragment, columns, data, disabled,
             sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, sortingFunc,
             onSortChange, onHeadClick, onRowClick, onCellClick, onFootClick
         } = this.props;
@@ -59,7 +59,6 @@ class BaseTable extends Component {
                     {
                         !fragment || fragment === TableFragment.HEAD ?
                             <Thead columns={columns}
-                                   columnsWidth={columnsWidth}
                                    data={data}
                                    sorting={sorting}
                                    defaultSortingType={defaultSortingType}
@@ -87,7 +86,6 @@ class BaseTable extends Component {
                     {
                         (!fragment || fragment === TableFragment.FOOT) && TableCalculation.hasFooterRenderer(columns) ?
                             <Tfoot columns={columns}
-                                   columnsWidth={columnsWidth}
                                    data={data}
                                    disabled={disabled}
                                    onFootClick={onFootClick}
@@ -227,8 +225,6 @@ BaseTable.propTypes = {
         defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType))
 
     })).isRequired,
-
-    columnsWidth: PropTypes.arrayOf(PropTypes.number),
 
     data: PropTypes.array,
 
