@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 
 import BaseTable from '../_BaseTable';
@@ -27,14 +27,23 @@ class TableContentFixedTable extends Component {
     static SortingType = SortingType;
 
     constructor(props, ...restArgs) {
+
         super(props, ...restArgs);
+
+        this.body = createRef();
+
+    }
+
+    componentDidMount() {
+        const {onGetBodyInstance} = this.props;
+        onGetBodyInstance && onGetBodyInstance(this.body);
     }
 
     render() {
 
         const {
             className, style, columns, data, isHeadFixed, isFootFixed, isPaginated,
-            fixedHeadHeight, fixedFootHeight, bodyScrollerHeight, columnsWidth,
+            fixedHeadHeight, fixedFootHeight, bodyScrollerHeight,
             ...restProps
         } = this.props;
 
@@ -48,7 +57,6 @@ class TableContentFixedTable extends Component {
                                    style={fixedHeadHeight ? {height: fixedHeadHeight} : null}
                                    fragment={TableFragment.HEAD}
                                    columns={columns}
-                                   columnsWidth={columnsWidth && columnsWidth[TableFragment.HEAD]}
                                    data={data}
                                    isPaginated={isPaginated}/>
                         :
@@ -60,6 +68,7 @@ class TableContentFixedTable extends Component {
                     <div className="table-content-body-wrapper"
                          style={fixedHeadHeight != null ? {marginTop: -fixedHeadHeight} : null}>
                         <BaseTable {...restProps}
+                                   ref={this.body}
                                    className="table-content-body"
                                    columns={columns}
                                    data={data}
@@ -74,7 +83,6 @@ class TableContentFixedTable extends Component {
                                    style={fixedFootHeight ? {height: fixedFootHeight} : null}
                                    fragment={TableFragment.FOOT}
                                    columns={columns}
-                                   columnsWidth={columnsWidth && columnsWidth[TableFragment.FOOT]}
                                    data={data}
                                    isPaginated={isPaginated}/>
                         :
@@ -262,11 +270,11 @@ TableContentFixedTable.propTypes = {
     fixedHeadHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     fixedFootHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     bodyScrollerHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    columnsWidth: PropTypes.object,
 
     /**
      * callback
      */
+    onGetBodyInstance: PropTypes.func,
     onSortChange: PropTypes.func
 
 };
