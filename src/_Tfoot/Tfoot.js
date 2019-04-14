@@ -29,21 +29,6 @@ class Tfoot extends Component {
         super(props, ...restArgs);
     }
 
-    getStyle = (footStyle, index) => {
-
-        const {columnsWidth} = this.props;
-
-        if (!columnsWidth || !columnsWidth[index]) {
-            return footStyle;
-        }
-
-        return {
-            ...footStyle,
-            width: columnsWidth[index]
-        };
-
-    };
-
     handleClick = e => {
         const {data, disabled, onFootClick} = this.props;
         !disabled && onFootClick && onFootClick(data, e);
@@ -52,7 +37,7 @@ class Tfoot extends Component {
     render() {
 
         const {
-                className, columns, columnsWidth, data, disabled,
+                className, columns, data, disabled,
                 onCellClick
             } = this.props,
 
@@ -71,7 +56,7 @@ class Tfoot extends Component {
                         columnsWithSpan && columnsWithSpan.map(({column, span}, index) =>
                             <Tf key={index}
                                 className={column.footClassName}
-                                style={this.getStyle(column.footStyle, index)}
+                                style={column.footStyle}
                                 colIndex={index}
                                 data={data}
                                 renderer={column.footRenderer}
@@ -202,8 +187,6 @@ Tfoot.propTypes = {
         defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType))
 
     })).isRequired,
-
-    columnsWidth: PropTypes.arrayOf(PropTypes.number),
 
     data: PropTypes.array,
     disabled: PropTypes.bool,
