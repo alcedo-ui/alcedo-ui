@@ -3,13 +3,12 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component, createRef, Fragment} from 'react';
+import React, {Component, createRef} from 'react';
 import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import FixedTable from '../_TableContentFixedTable';
-import BaseTable from '../_BaseTable';
 
 import Theme from '../Theme';
 import TableFragment from '../_statics/TableFragment';
@@ -36,9 +35,8 @@ class TableContent extends Component {
 
         this.bodyWrapper = createRef();
         this.body = createRef();
-        this.head = createRef();
-        this.foot = createRef();
 
+        this.bodyWrapperEl = null;
         this.bodyEl = null;
 
     }
@@ -123,17 +121,19 @@ class TableContent extends Component {
     /**
      * update body height
      */
-    fixBodyHeight = () => {
+    fixLayout = () => {
 
-        const {isHeadFixed, isFootFixed} = this.props;
+        // const {isHeadFixed, isFootFixed} = this.props;
+        //
+        // if (isHeadFixed || isFootFixed) {
+        //     const height = parseInt(window.getComputedStyle(this.bodyEl).height)
+        //         - (this.getFixedFragmentHeight(TableFragment.FOOT) || 0);
+        //     if (height) {
+        //         this.bodyWrapperEl.style.height = `${height}px`;
+        //     }
+        // }
 
-        if (isHeadFixed || isFootFixed) {
-            const height = parseInt(window.getComputedStyle(this.bodyEl).height)
-                - (this.getFixedFragmentHeight(TableFragment.FOOT) || 0);
-            if (height) {
-                this.bodyWrapperEl.style.height = `${height}px`;
-            }
-        }
+        const columnsWidth = this.getFixedColumnsWidth();
 
     };
 
@@ -174,12 +174,12 @@ class TableContent extends Component {
     };
 
     componentDidMount() {
-        this.bodyEl = findDOMNode(this.body.current);
         this.bodyWrapperEl = this.bodyWrapper.current;
+        // this.bodyEl = findDOMNode(this.body.current);
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        this.fixBodyHeight();
+        this.fixLayout();
     }
 
     render() {
@@ -201,11 +201,10 @@ class TableContent extends Component {
                 ...columns[HorizontalAlign.RIGHT]
             ],
 
-            fixedHeadHeight = this.getFixedFragmentHeight(TableFragment.HEAD),
-            fixedFootHeight = this.getFixedFragmentHeight(TableFragment.FOOT),
-            bodyScrollerHeight = this.getbodyScollerHeight(fixedHeadHeight, fixedFootHeight),
+            // fixedHeadHeight = this.getFixedFragmentHeight(TableFragment.HEAD),
+            // fixedFootHeight = this.getFixedFragmentHeight(TableFragment.FOOT),
+            // bodyScrollerHeight = this.getbodyScollerHeight(fixedHeadHeight, fixedFootHeight),
 
-            columnsWidth = this.getFixedColumnsWidth(),
             tableData = this.paginateData(this.sortData(data));
 
         return (
@@ -214,62 +213,18 @@ class TableContent extends Component {
             })}
                  style={style}>
 
-                {
-                    isHeadFixed ?
-                        <BaseTable {...restProps}
-                                   ref={this.head}
-                                   className="table-content-fixed-head"
-                                   style={fixedHeadHeight ? {height: fixedHeadHeight} : null}
-                                   fragment={TableFragment.HEAD}
-                                   columns={bodyColumns}
-                                   columnsWidth={columnsWidth && columnsWidth[TableFragment.HEAD]}
-                                   data={tableData}
-                                   isPaginated={isPaginated}/>
-                        :
-                        null
-                }
-
-                <div className="table-content-scroller"
-                     style={{height: bodyScrollerHeight}}>
-                    <div ref={this.bodyWrapper}
-                         className="table-content-body-wrapper"
-                         style={fixedHeadHeight != null ? {
-                             marginTop: -fixedHeadHeight
-                         } : null}>
-                        <BaseTable {...restProps}
-                                   ref={this.body}
-                                   className="table-content-body"
-                                   columns={bodyColumns}
-                                   data={tableData}
-                                   isPaginated={isPaginated}/>
-                    </div>
-                </div>
-
-                {
-                    isFootFixed ?
-                        <BaseTable {...restProps}
-                                   ref={this.foot}
-                                   className="table-content-fixed-foot"
-                                   style={fixedFootHeight ? {height: fixedFootHeight} : null}
-                                   fragment={TableFragment.FOOT}
-                                   columns={bodyColumns}
-                                   columnsWidth={columnsWidth && columnsWidth[TableFragment.FOOT]}
-                                   data={tableData}
-                                   isPaginated={isPaginated}/>
-                        :
-                        null
-                }
+                <FixedTable {...restProps}
+                            className="table-content-center"
+                            columns={bodyColumns}
+                            data={tableData}
+                            onGetBodyInstance={el => this.bodyEl = findDOMNode(el.current)}/>
 
                 {
                     columns[HorizontalAlign.LEFT] && columns[HorizontalAlign.LEFT].length > 0 ?
                         <FixedTable {...restProps}
                                     className="table-content-fixed-left"
                                     columns={columns[HorizontalAlign.LEFT]}
-                                    data={tableData}
-                                    fixedHeadHeight={fixedHeadHeight}
-                                    fixedFootHeight={fixedFootHeight}
-                                    bodyScrollerHeight={bodyScrollerHeight}
-                                    columnsWidth={columnsWidth}/>
+                                    data={tableData}/>
                         :
                         null
                 }
@@ -279,11 +234,7 @@ class TableContent extends Component {
                         <FixedTable {...restProps}
                                     className="table-content-fixed-right"
                                     columns={columns[HorizontalAlign.RIGHT]}
-                                    data={tableData}
-                                    fixedHeadHeight={fixedHeadHeight}
-                                    fixedFootHeight={fixedFootHeight}
-                                    bodyScrollerHeight={bodyScrollerHeight}
-                                    columnsWidth={columnsWidth}/>
+                                    data={tableData}/>
                         :
                         null
                 }
