@@ -6,6 +6,8 @@
 import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import eventsOn from 'dom-helpers/events/on';
+import eventsOff from 'dom-helpers/events/off';
 
 import Table from '../_TableContentTable';
 
@@ -96,14 +98,23 @@ class TableContent extends Component {
 
     };
 
-    componentDidMount() {
-        this.wrapperEl = this.wrapper && this.wrapper.current;
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    fixLayout = () => {
         if ((this.props.isHeadFixed || this.props.isFootFixed) && this.wrapperEl) {
             TableCalculation.fixLayout(this.wrapperEl);
         }
+    };
+
+    componentDidMount() {
+        this.wrapperEl = this.wrapper && this.wrapper.current;
+        eventsOn(window, 'resize', this.fixLayout);
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        this.fixLayout();
+    }
+
+    componentWillUnmount() {
+        eventsOff(window, 'resize', this.fixLayout);
     }
 
     render() {
