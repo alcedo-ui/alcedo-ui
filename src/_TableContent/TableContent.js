@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import sum from 'lodash/sum';
 
-import FixedTable from '../_TableContentFixedTable';
+import Table from '../_TableContentTable';
 
 import Theme from '../Theme';
 import TableFragment from '../_statics/TableFragment';
@@ -106,6 +106,20 @@ class TableContent extends Component {
                 }
             });
 
+        this.wrapperEl.querySelector('.table-content-center .table-content-fixed-head').querySelectorAll('th')
+            .forEach((el, index) => {
+                if (el) {
+                    el.style.width = `${columnsWidth[TableFragment.HEAD][index]}px`;
+                }
+            });
+
+        this.wrapperEl.querySelector('.table-content-center .table-content-fixed-foot').querySelectorAll('td')
+            .forEach((el, index) => {
+                if (el) {
+                    el.style.width = `${columnsWidth[TableFragment.FOOT][index]}px`;
+                }
+            });
+
     };
 
     /**
@@ -174,32 +188,32 @@ class TableContent extends Component {
                  })}
                  style={style}>
 
-                <FixedTable {...restProps}
-                            className="table-content-center"
-                            columns={[
-                                ...columns[HorizontalAlign.LEFT],
-                                ...columns[HorizontalAlign.CENTER],
-                                ...columns[HorizontalAlign.RIGHT]
-                            ]}
-                            data={tableData}
-                            onGetInstance={el => this.tableWrappeEl = findDOMNode(el.current)}/>
+                <Table {...restProps}
+                       className="table-content-center"
+                       columns={[
+                           ...columns[HorizontalAlign.LEFT],
+                           ...columns[HorizontalAlign.CENTER],
+                           ...columns[HorizontalAlign.RIGHT]
+                       ]}
+                       data={tableData}
+                       onGetInstance={el => this.tableWrappeEl = findDOMNode(el.current)}/>
 
                 {
                     columns[HorizontalAlign.LEFT] && columns[HorizontalAlign.LEFT].length > 0 ?
-                        <FixedTable {...restProps}
-                                    className="table-content-fixed-left"
-                                    columns={columns[HorizontalAlign.LEFT]}
-                                    data={tableData}/>
+                        <Table {...restProps}
+                               className="table-content-fixed-left"
+                               columns={columns[HorizontalAlign.LEFT]}
+                               data={tableData}/>
                         :
                         null
                 }
 
                 {
                     columns[HorizontalAlign.RIGHT] && columns[HorizontalAlign.RIGHT].length > 0 ?
-                        <FixedTable {...restProps}
-                                    className="table-content-fixed-right"
-                                    columns={columns[HorizontalAlign.RIGHT]}
-                                    data={tableData}/>
+                        <Table {...restProps}
+                               className="table-content-fixed-right"
+                               columns={columns[HorizontalAlign.RIGHT]}
+                               data={tableData}/>
                         :
                         null
                 }
