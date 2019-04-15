@@ -4,10 +4,8 @@
  */
 
 import React, {Component, createRef} from 'react';
-import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import sum from 'lodash/sum';
 
 import Table from '../_TableContentTable';
 
@@ -35,9 +33,7 @@ class TableContent extends Component {
         super(props, ...restArgs);
 
         this.wrapper = createRef();
-
         this.wrapperEl = null;
-        this.tableWrappeEl = null;
 
     }
 
@@ -61,64 +57,6 @@ class TableContent extends Component {
         });
 
         return result;
-
-    };
-
-    /**
-     * update body height
-     */
-    fixLayout = () => {
-
-        const {isHeadFixed, isFootFixed} = this.props,
-            tableEl = this.tableWrappeEl.querySelector('.table-content-body');
-
-        if ((!isHeadFixed && !isFootFixed) || !this.wrapperEl || !tableEl) {
-            return;
-        }
-
-        const tableWrapperEl = this.tableWrappeEl.querySelector('.table-content-body-wrapper'),
-
-            tableHeight = parseInt(window.getComputedStyle(tableEl).height),
-            columnsWidth = TableCalculation.getColumnsWidth(tableEl),
-            rowsHeight = TableCalculation.getRowsHeight(tableEl),
-
-            fixedHeadHeight = sum(rowsHeight[TableFragment.HEAD]) || 0,
-            fixedFootHeight = sum(rowsHeight[TableFragment.FOOT]) || 0,
-
-            scrollerHeight = `calc(100%${fixedHeadHeight ? ` - ${fixedHeadHeight}px` : ''}${fixedFootHeight ? ` - ${fixedFootHeight}px` : ''})`;
-
-        // console.log('columnsWidth::', columnsWidth);
-        // console.log('rowsHeight::', rowsHeight);
-        // console.log('bodyScollerHeight::', bodyScollerHeight);
-
-        this.wrapperEl.querySelectorAll('.table-content-scroller')
-            .forEach(el => {
-                if (el) {
-                    el.style.height = scrollerHeight;
-                }
-            });
-
-        this.wrapperEl.querySelectorAll('.table-content-body-wrapper')
-            .forEach(el => {
-                if (el) {
-                    el.style.height = `${tableHeight - fixedHeadHeight}px`;
-                    el.style.marginTop = `${-fixedHeadHeight}px`;
-                }
-            });
-
-        this.wrapperEl.querySelector('.table-content-center .table-content-fixed-head').querySelectorAll('th')
-            .forEach((el, index) => {
-                if (el) {
-                    el.style.width = `${columnsWidth[TableFragment.HEAD][index]}px`;
-                }
-            });
-
-        this.wrapperEl.querySelector('.table-content-center .table-content-fixed-foot').querySelectorAll('td')
-            .forEach((el, index) => {
-                if (el) {
-                    el.style.width = `${columnsWidth[TableFragment.FOOT][index]}px`;
-                }
-            });
 
     };
 
@@ -163,7 +101,9 @@ class TableContent extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        this.fixLayout();
+        if ((this.props.isHeadFixed || this.props.isFootFixed) && this.wrapperEl) {
+            TableCalculation.fixLayout(this.wrapperEl);
+        }
     }
 
     render() {
@@ -195,8 +135,7 @@ class TableContent extends Component {
                            ...columns[HorizontalAlign.CENTER],
                            ...columns[HorizontalAlign.RIGHT]
                        ]}
-                       data={tableData}
-                       onGetInstance={el => this.tableWrappeEl = findDOMNode(el.current)}/>
+                       data={tableData}/>
 
                 {
                     columns[HorizontalAlign.LEFT] && columns[HorizontalAlign.LEFT].length > 0 ?
