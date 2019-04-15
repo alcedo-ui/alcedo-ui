@@ -7,6 +7,7 @@ import classnames from 'classnames';
 import sum from 'lodash/sum';
 
 import TableFragment from '../_statics/TableFragment';
+import HorizontalAlign from '../_statics/HorizontalAlign';
 
 function calcSpan(type, column, colIndex, rowIndex) {
     const span = column[`${type}Span`];
@@ -148,14 +149,98 @@ function handleFixedColumns(columns) {
 
 }
 
-function fixLayout(el) {
+function fixWidths(wrapperEl, columnsWidth, fixed) {
 
-    if (!el) {
+    if (!wrapperEl) {
         return;
     }
 
-    const tableEl = el.querySelector('.table-content-center .table-content-body');
-    // tableWrapperEl = el.querySelector('.table-content-center .table-content-body-wrapper');
+    const selector = `.table-content-${fixed ? `fixed-${fixed}` : 'center'}`;
+
+    /**
+     * head
+     */
+    const head = wrapperEl.querySelector(`${selector} .table-content-fixed-head`);
+    if (head) {
+        const cols = head.querySelectorAll('col');
+        if (cols) {
+            if (fixed === HorizontalAlign.RIGHT) {
+                cols.forEach((el, index) => {
+                    if (el) {
+                        el.style.width = `${columnsWidth[TableFragment.HEAD]
+                            [columnsWidth[TableFragment.HEAD].length - (cols.length - index)]}px`;
+                    }
+                });
+            } else {
+                cols.forEach((el, index) => {
+                    if (el) {
+                        el.style.width = `${columnsWidth[TableFragment.HEAD][index]}px`;
+                    }
+                });
+            }
+        }
+    }
+
+    /**
+     * body
+     */
+    if (fixed) {
+        const body = wrapperEl.querySelector(`${selector} .table-content-body`);
+        if (body) {
+            const cols = body.querySelectorAll('col');
+            if (cols) {
+                if (fixed === HorizontalAlign.RIGHT) {
+                    cols.forEach((el, index) => {
+                        if (el) {
+                            el.style.width = `${columnsWidth[TableFragment.BODY]
+                                [columnsWidth[TableFragment.BODY].length - (cols.length - index)]}px`;
+                        }
+                    });
+                } else {
+                    cols.forEach((el, index) => {
+                        if (el) {
+                            el.style.width = `${columnsWidth[TableFragment.BODY][index]}px`;
+                        }
+                    });
+                }
+            }
+        }
+    }
+
+    /**
+     * foot
+     */
+    const foot = wrapperEl.querySelector(`${selector} .table-content-fixed-foot`);
+    if (foot) {
+        const cols = foot.querySelectorAll('td');
+        if (cols) {
+            if (fixed === HorizontalAlign.RIGHT) {
+                cols.forEach((el, index) => {
+                    if (el) {
+                        el.style.width = `${columnsWidth[TableFragment.FOOT]
+                            [columnsWidth[TableFragment.FOOT].length - (cols.length - index)]}px`;
+                    }
+                });
+            } else {
+                cols.forEach((el, index) => {
+                    if (el) {
+                        el.style.width = `${columnsWidth[TableFragment.FOOT][index]}px`;
+                    }
+                });
+            }
+        }
+    }
+
+}
+
+function fixLayout(wrapperEl) {
+
+    if (!wrapperEl) {
+        return;
+    }
+
+    const tableEl = wrapperEl.querySelector('.table-content-center .table-content-body');
+    // tableWrapperEl = wrapperEl.querySelector('.table-content-center .table-content-body-wrapper');
 
     if (!tableEl) {
         return;
@@ -170,78 +255,30 @@ function fixLayout(el) {
 
         scrollerHeight = `calc(100%${fixedHeadHeight ? ` - ${fixedHeadHeight}px` : ''}${fixedFootHeight ? ` - ${fixedFootHeight}px` : ''})`;
 
-    console.log(columnsWidth);
-
     /**
      * all body wrapper
      */
-    el.querySelectorAll('.table-content-center .table-content-body-wrapper')
-      .forEach(el => {
-          if (el) {
-              el.style.height = `${tableHeight - fixedHeadHeight}px`;
-              el.style.marginTop = `${-fixedHeadHeight}px`;
-          }
-      });
+    wrapperEl.querySelectorAll('.table-content-center .table-content-body-wrapper')
+             .forEach(el => {
+                 if (el) {
+                     el.style.height = `${tableHeight - fixedHeadHeight}px`;
+                     el.style.marginTop = `${-fixedHeadHeight}px`;
+                 }
+             });
 
     /**
      * body scroller
      */
-    el.querySelectorAll('.table-content-scroller')
-      .forEach(el => {
-          if (el) {
-              el.style.height = scrollerHeight;
-          }
-      });
+    wrapperEl.querySelectorAll('.table-content-scroller')
+             .forEach(el => {
+                 if (el) {
+                     el.style.height = scrollerHeight;
+                 }
+             });
 
-    /**
-     * body head
-     */
-    el.querySelector('.table-content-center .table-content-fixed-head').querySelectorAll('col')
-      .forEach((el, index) => {
-          if (el) {
-              el.style.width = `${columnsWidth[TableFragment.HEAD][index]}px`;
-          }
-      });
-
-    /**
-     * body foot
-     */
-    el.querySelector('.table-content-center .table-content-fixed-foot').querySelectorAll('td')
-      .forEach((el, index) => {
-          if (el) {
-              el.style.width = `${columnsWidth[TableFragment.FOOT][index]}px`;
-          }
-      });
-
-    /**
-     * left head
-     */
-    el.querySelector('.table-content-fixed-left .table-content-fixed-head').querySelectorAll('col')
-      .forEach((el, index) => {
-          if (el) {
-              el.style.width = `${columnsWidth[TableFragment.HEAD][index]}px`;
-          }
-      });
-
-    /**
-     * left body
-     */
-    el.querySelector('.table-content-fixed-left .table-content-body').querySelectorAll('col')
-      .forEach((el, index) => {
-          if (el) {
-              el.style.width = `${columnsWidth[TableFragment.BODY][index]}px`;
-          }
-      });
-
-    /**
-     * left foot
-     */
-    el.querySelector('.table-content-fixed-left .table-content-fixed-foot').querySelectorAll('td')
-      .forEach((el, index) => {
-          if (el) {
-              el.style.width = `${columnsWidth[TableFragment.FOOT][index]}px`;
-          }
-      });
+    fixWidths(wrapperEl, columnsWidth);
+    fixWidths(wrapperEl, columnsWidth, HorizontalAlign.LEFT);
+    fixWidths(wrapperEl, columnsWidth, HorizontalAlign.RIGHT);
 
 }
 
