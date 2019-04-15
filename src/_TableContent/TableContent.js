@@ -131,9 +131,9 @@ class TableContent extends Component {
                 <Table {...restProps}
                        className="table-content-center"
                        columns={[
-                           ...columns[HorizontalAlign.LEFT],
+                           ...TableCalculation.handleFixedColumns(columns[HorizontalAlign.LEFT]),
                            ...columns[HorizontalAlign.CENTER],
-                           ...columns[HorizontalAlign.RIGHT]
+                           ...TableCalculation.handleFixedColumns(columns[HorizontalAlign.RIGHT])
                        ]}
                        data={tableData}/>
 

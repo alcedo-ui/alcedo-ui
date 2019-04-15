@@ -42,10 +42,6 @@
 
         .table-content-body-wrapper {
             overflow: hidden;
-
-            .table-content-body {
-
-            }
         }
     }
 
@@ -70,5 +66,9 @@
 
     .table-content-fixed-foot tr {
         background: transparent;
+    }
+
+    .table-fixed-column {
+        visibility: hidden;
     }
 }
