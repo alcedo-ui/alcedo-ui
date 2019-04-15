@@ -34,7 +34,6 @@ class TableContentTable extends Component {
 
         const {
             className, style, columns, data, isHeadFixed, isFootFixed, isPaginated,
-            fixedHeadHeight, fixedFootHeight, bodyScrollerHeight,
             ...restProps
         } = this.props;
 
@@ -46,7 +45,6 @@ class TableContentTable extends Component {
                     isHeadFixed ?
                         <BaseTable {...restProps}
                                    className="table-content-fixed-head"
-                                   style={fixedHeadHeight ? {height: fixedHeadHeight} : null}
                                    fragment={TableFragment.HEAD}
                                    columns={columns}
                                    data={data}
@@ -55,10 +53,8 @@ class TableContentTable extends Component {
                         null
                 }
 
-                <div className="table-content-scroller"
-                     style={{height: bodyScrollerHeight}}>
-                    <div className="table-content-body-wrapper"
-                         style={fixedHeadHeight != null ? {marginTop: -fixedHeadHeight} : null}>
+                <div className="table-content-scroller">
+                    <div className="table-content-body-wrapper">
                         <BaseTable {...restProps}
                                    className="table-content-body"
                                    columns={columns}
@@ -71,7 +67,6 @@ class TableContentTable extends Component {
                     isFootFixed ?
                         <BaseTable {...restProps}
                                    className="table-content-fixed-foot"
-                                   style={fixedFootHeight ? {height: fixedFootHeight} : null}
                                    fragment={TableFragment.FOOT}
                                    columns={columns}
                                    data={data}
@@ -258,10 +253,6 @@ TableContentTable.propTypes = {
      */
     isHeadFixed: PropTypes.bool,
     isFootFixed: PropTypes.bool,
-
-    fixedHeadHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    fixedFootHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    bodyScrollerHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
     /**
      * callback
