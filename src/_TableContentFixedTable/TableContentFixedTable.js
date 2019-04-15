@@ -30,13 +30,13 @@ class TableContentFixedTable extends Component {
 
         super(props, ...restArgs);
 
-        this.body = createRef();
+        this.wrapper = createRef();
 
     }
 
     componentDidMount() {
-        const {onGetBodyInstance} = this.props;
-        onGetBodyInstance && onGetBodyInstance(this.body);
+        const {onGetInstance} = this.props;
+        onGetInstance && onGetInstance(this.wrapper);
     }
 
     render() {
@@ -48,8 +48,10 @@ class TableContentFixedTable extends Component {
         } = this.props;
 
         return (
-            <div className={className}
+            <div ref={this.wrapper}
+                 className={className}
                  style={style}>
+
                 {
                     isHeadFixed ?
                         <BaseTable {...restProps}
@@ -68,7 +70,6 @@ class TableContentFixedTable extends Component {
                     <div className="table-content-body-wrapper"
                          style={fixedHeadHeight != null ? {marginTop: -fixedHeadHeight} : null}>
                         <BaseTable {...restProps}
-                                   ref={this.body}
                                    className="table-content-body"
                                    columns={columns}
                                    data={data}
@@ -88,6 +89,7 @@ class TableContentFixedTable extends Component {
                         :
                         null
                 }
+
             </div>
         );
 
@@ -274,7 +276,7 @@ TableContentFixedTable.propTypes = {
     /**
      * callback
      */
-    onGetBodyInstance: PropTypes.func,
+    onGetInstance: PropTypes.func,
     onSortChange: PropTypes.func
 
 };
