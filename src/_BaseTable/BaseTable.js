@@ -50,8 +50,8 @@ class BaseTable extends Component {
                        cellSpacing={0}>
 
                     {
-                        !fragment ?
-                            <ColGroup columns={columns}/>
+                        fragment !== TableFragment.FOOT ?
+                            <ColGroup columns={TableCalculation.getColumnsWithSpan(fragment, columns)}/>
                             :
                             null
                     }
