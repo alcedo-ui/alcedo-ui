@@ -3,6 +3,8 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+import sum from 'lodash/sum';
+
 import TableFragment from '../_statics/TableFragment';
 
 function calcSpan(type, column, colIndex, rowIndex) {
@@ -120,11 +122,22 @@ function getRowsHeight(tableEl) {
 
 }
 
+/**
+ * calculate table body scroller height
+ * @param headHeight
+ * @param footHeight
+ * @returns {{height: string}}
+ */
+function getbodyScollerHeight(headHeight, footHeight) {
+    return `calc(100%${headHeight ? ` - ${sum(headHeight)}px` : ''}${footHeight ? ` - ${sum(footHeight)}px` : ''})`;
+}
+
 export default {
     calcSpan,
     getColumnsWithSpan,
     sortTableData,
     hasFooterRenderer,
     getColumnsWidth,
-    getRowsHeight
+    getRowsHeight,
+    getbodyScollerHeight
 };
