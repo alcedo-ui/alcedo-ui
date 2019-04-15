@@ -3,6 +3,8 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+import TableFragment from '../_statics/TableFragment';
+
 function calcSpan(type, column, colIndex, rowIndex) {
     const span = column[`${type}Span`];
     return span && typeof span === 'function' ?
@@ -76,9 +78,53 @@ function hasFooterRenderer(columns) {
     return columns.some(item => item.footRenderer);
 }
 
+/**
+ * calculate each head, body and foot column width
+ * @returns {null|{[p: string]: *|*}}
+ */
+function getColumnsWidth(tableEl) {
+
+    if (!tableEl) {
+        return null;
+    }
+
+    return {
+        [TableFragment.HEAD]: [].map.call(tableEl.querySelectorAll('thead th'),
+            el => parseInt(window.getComputedStyle(el).width)),
+        [TableFragment.BODY]: [].map.call(tableEl.querySelector('tbody tr').querySelectorAll('td'),
+            el => parseInt(window.getComputedStyle(el).width)),
+        [TableFragment.FOOT]: [].map.call(tableEl.querySelectorAll('tfoot td'),
+            el => parseInt(window.getComputedStyle(el).width))
+    };
+
+}
+
+/**
+ * calculate each head, body and foot row height
+ * @returns {null|{[p: string]: *|*}}
+ */
+function getRowsHeight(tableEl) {
+
+    if (!tableEl) {
+        return null;
+    }
+
+    return {
+        [TableFragment.HEAD]: [].map.call(tableEl.querySelectorAll('thead tr'),
+            el => parseInt(window.getComputedStyle(el).height)),
+        [TableFragment.BODY]: [].map.call(tableEl.querySelectorAll('tbody tr'),
+            el => parseInt(window.getComputedStyle(el).height)),
+        [TableFragment.FOOT]: [].map.call(tableEl.querySelectorAll('tfoot tr'),
+            el => parseInt(window.getComputedStyle(el).height))
+    };
+
+}
+
 export default {
     calcSpan,
     getColumnsWithSpan,
     sortTableData,
-    hasFooterRenderer
+    hasFooterRenderer,
+    getColumnsWidth,
+    getRowsHeight
 };
