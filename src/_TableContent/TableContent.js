@@ -7,6 +7,7 @@ import React, {Component, createRef} from 'react';
 import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import sum from 'lodash/sum';
 
 import FixedTable from '../_TableContentFixedTable';
 
@@ -33,11 +34,7 @@ class TableContent extends Component {
 
         super(props, ...restArgs);
 
-        this.bodyWrapper = createRef();
-        this.body = createRef();
-
-        this.bodyWrapperEl = null;
-        this.bodyEl = null;
+        this.tableWrappeEl = null;
 
     }
 
@@ -65,75 +62,40 @@ class TableContent extends Component {
     };
 
     /**
-     * calculate table body scroller height
-     * @param headHeight
-     * @param footHeight
-     * @returns {{height: string}}
-     */
-    getbodyScollerHeight = (headHeight, footHeight) => {
-        return `calc(100%${headHeight ? ` - ${headHeight}px` : ''}${footHeight ? ` - ${footHeight}px` : ''})`;
-    };
-
-    /**
-     * calculate table fragment(head/foot) height
-     * @param fragment
-     * @returns {null|any}
-     */
-    getFixedFragmentHeight = fragment => {
-
-        if (!this.bodyEl || !fragment) {
-            return null;
-        }
-
-        switch (fragment) {
-            case TableFragment.HEAD: {
-                const el = this.bodyEl.querySelector('thead');
-                return el ? parseInt(window.getComputedStyle(el).height) : null;
-            }
-            case TableFragment.FOOT:
-                const el = this.bodyEl.querySelector('tfoot');
-                return el ? parseInt(window.getComputedStyle(el).height) : null;
-        }
-
-        return null;
-
-    };
-
-    /**
-     * calculate each head and foot column width
-     * @returns {null|{[p: string]: *|*}}
-     */
-    getFixedColumnsWidth = () => {
-
-        if (!this.bodyEl) {
-            return null;
-        }
-
-        return {
-            [TableFragment.HEAD]: [].map.call(this.bodyEl.querySelectorAll('thead th'),
-                el => parseInt(window.getComputedStyle(el).width)),
-            [TableFragment.FOOT]: [].map.call(this.bodyEl.querySelectorAll('tfoot td'),
-                el => parseInt(window.getComputedStyle(el).width))
-        };
-
-    };
-
-    /**
      * update body height
      */
     fixLayout = () => {
 
-        // const {isHeadFixed, isFootFixed} = this.props;
-        //
-        // if (isHeadFixed || isFootFixed) {
-        //     const height = parseInt(window.getComputedStyle(this.bodyEl).height)
-        //         - (this.getFixedFragmentHeight(TableFragment.FOOT) || 0);
-        //     if (height) {
-        //         this.bodyWrapperEl.style.height = `${height}px`;
-        //     }
-        // }
+        const {isHeadFixed, isFootFixed} = this.props,
+            tableEl = this.tableWrappeEl.querySelector('.table-content-body');
 
-        const columnsWidth = this.getFixedColumnsWidth();
+        if ((isHeadFixed || isFootFixed) && tableEl) {
+
+            const scrollerEl = this.tableWrappeEl.querySelector('.table-content-scroller'),
+                tableWrapperEl = this.tableWrappeEl.querySelector('.table-content-body-wrapper'),
+
+                tableHeight = parseInt(window.getComputedStyle(tableEl).height),
+                columnsWidth = TableCalculation.getColumnsWidth(tableEl),
+                rowsHeight = TableCalculation.getRowsHeight(tableEl),
+
+                fixedHeadHeight = sum(rowsHeight[TableFragment.HEAD]) || 0,
+                fixedFootHeight = sum(rowsHeight[TableFragment.FOOT]) || 0;
+
+            // console.log('columnsWidth::', columnsWidth);
+            // console.log('rowsHeight::', rowsHeight);
+            // console.log('bodyScollerHeight::', bodyScollerHeight);
+
+            if (scrollerEl) {
+                scrollerEl.style.height =
+                    `calc(100%${fixedHeadHeight ? ` - ${fixedHeadHeight}px` : ''}${fixedFootHeight ? ` - ${fixedFootHeight}px` : ''})`;
+            }
+
+            if (tableWrapperEl) {
+                tableWrapperEl.style.height = `${tableHeight - fixedHeadHeight}px`;
+                tableWrapperEl.style.marginTop = `${-fixedHeadHeight}px`;
+            }
+
+        }
 
     };
 
@@ -173,11 +135,6 @@ class TableContent extends Component {
 
     };
 
-    componentDidMount() {
-        this.bodyWrapperEl = this.bodyWrapper.current;
-        // this.bodyEl = findDOMNode(this.body.current);
-    }
-
     componentDidUpdate(prevProps, prevState, snapshot) {
         this.fixLayout();
     }
@@ -185,7 +142,7 @@ class TableContent extends Component {
     render() {
 
         const {
-                className, style, data, isHeadFixed, isFootFixed, isPaginated,
+                className, style, data,
                 ...restProps
             } = this.props,
 
@@ -195,17 +152,7 @@ class TableContent extends Component {
             return null;
         }
 
-        const bodyColumns = [
-                ...columns[HorizontalAlign.LEFT],
-                ...columns[HorizontalAlign.CENTER],
-                ...columns[HorizontalAlign.RIGHT]
-            ],
-
-            // fixedHeadHeight = this.getFixedFragmentHeight(TableFragment.HEAD),
-            // fixedFootHeight = this.getFixedFragmentHeight(TableFragment.FOOT),
-            // bodyScrollerHeight = this.getbodyScollerHeight(fixedHeadHeight, fixedFootHeight),
-
-            tableData = this.paginateData(this.sortData(data));
+        const tableData = this.paginateData(this.sortData(data));
 
         return (
             <div className={classNames('table-content', {
@@ -215,9 +162,13 @@ class TableContent extends Component {
 
                 <FixedTable {...restProps}
                             className="table-content-center"
-                            columns={bodyColumns}
+                            columns={[
+                                ...columns[HorizontalAlign.LEFT],
+                                ...columns[HorizontalAlign.CENTER],
+                                ...columns[HorizontalAlign.RIGHT]
+                            ]}
                             data={tableData}
-                            onGetBodyInstance={el => this.bodyEl = findDOMNode(el.current)}/>
+                            onGetInstance={el => this.tableWrappeEl = findDOMNode(el.current)}/>
 
                 {
                     columns[HorizontalAlign.LEFT] && columns[HorizontalAlign.LEFT].length > 0 ?
