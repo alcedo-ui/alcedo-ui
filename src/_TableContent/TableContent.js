@@ -34,6 +34,9 @@ class TableContent extends Component {
 
         super(props, ...restArgs);
 
+        this.wrapper = createRef();
+
+        this.wrapperEl = null;
         this.tableWrappeEl = null;
 
     }
@@ -69,33 +72,39 @@ class TableContent extends Component {
         const {isHeadFixed, isFootFixed} = this.props,
             tableEl = this.tableWrappeEl.querySelector('.table-content-body');
 
-        if ((isHeadFixed || isFootFixed) && tableEl) {
-
-            const scrollerEl = this.tableWrappeEl.querySelector('.table-content-scroller'),
-                tableWrapperEl = this.tableWrappeEl.querySelector('.table-content-body-wrapper'),
-
-                tableHeight = parseInt(window.getComputedStyle(tableEl).height),
-                columnsWidth = TableCalculation.getColumnsWidth(tableEl),
-                rowsHeight = TableCalculation.getRowsHeight(tableEl),
-
-                fixedHeadHeight = sum(rowsHeight[TableFragment.HEAD]) || 0,
-                fixedFootHeight = sum(rowsHeight[TableFragment.FOOT]) || 0;
-
-            // console.log('columnsWidth::', columnsWidth);
-            // console.log('rowsHeight::', rowsHeight);
-            // console.log('bodyScollerHeight::', bodyScollerHeight);
-
-            if (scrollerEl) {
-                scrollerEl.style.height =
-                    `calc(100%${fixedHeadHeight ? ` - ${fixedHeadHeight}px` : ''}${fixedFootHeight ? ` - ${fixedFootHeight}px` : ''})`;
-            }
-
-            if (tableWrapperEl) {
-                tableWrapperEl.style.height = `${tableHeight - fixedHeadHeight}px`;
-                tableWrapperEl.style.marginTop = `${-fixedHeadHeight}px`;
-            }
-
+        if ((!isHeadFixed && !isFootFixed) || !this.wrapperEl || !tableEl) {
+            return;
         }
+
+        const tableWrapperEl = this.tableWrappeEl.querySelector('.table-content-body-wrapper'),
+
+            tableHeight = parseInt(window.getComputedStyle(tableEl).height),
+            columnsWidth = TableCalculation.getColumnsWidth(tableEl),
+            rowsHeight = TableCalculation.getRowsHeight(tableEl),
+
+            fixedHeadHeight = sum(rowsHeight[TableFragment.HEAD]) || 0,
+            fixedFootHeight = sum(rowsHeight[TableFragment.FOOT]) || 0,
+
+            scrollerHeight = `calc(100%${fixedHeadHeight ? ` - ${fixedHeadHeight}px` : ''}${fixedFootHeight ? ` - ${fixedFootHeight}px` : ''})`;
+
+        // console.log('columnsWidth::', columnsWidth);
+        // console.log('rowsHeight::', rowsHeight);
+        // console.log('bodyScollerHeight::', bodyScollerHeight);
+
+        this.wrapperEl.querySelectorAll('.table-content-scroller')
+            .forEach(el => {
+                if (el) {
+                    el.style.height = scrollerHeight;
+                }
+            });
+
+        this.wrapperEl.querySelectorAll('.table-content-body-wrapper')
+            .forEach(el => {
+                if (el) {
+                    el.style.height = `${tableHeight - fixedHeadHeight}px`;
+                    el.style.marginTop = `${-fixedHeadHeight}px`;
+                }
+            });
 
     };
 
@@ -135,6 +144,10 @@ class TableContent extends Component {
 
     };
 
+    componentDidMount() {
+        this.wrapperEl = this.wrapper && this.wrapper.current;
+    }
+
     componentDidUpdate(prevProps, prevState, snapshot) {
         this.fixLayout();
     }
@@ -155,9 +168,10 @@ class TableContent extends Component {
         const tableData = this.paginateData(this.sortData(data));
 
         return (
-            <div className={classNames('table-content', {
-                [className]: className
-            })}
+            <div ref={this.wrapper}
+                 className={classNames('table-content', {
+                     [className]: className
+                 })}
                  style={style}>
 
                 <FixedTable {...restProps}

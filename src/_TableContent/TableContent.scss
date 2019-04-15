@@ -6,7 +6,9 @@
 .table-content {
     position: relative;
 
-    .table-content-center {
+    .table-content-center,
+    .table-content-fixed-left,
+    .table-content-fixed-right {
         height: 100%;
     }
 
