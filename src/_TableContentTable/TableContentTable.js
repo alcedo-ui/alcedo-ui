@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component, createRef} from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import BaseTable from '../_BaseTable';
@@ -27,16 +27,7 @@ class TableContentTable extends Component {
     static SortingType = SortingType;
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.wrapper = createRef();
-
-    }
-
-    componentDidMount() {
-        const {onGetInstance} = this.props;
-        onGetInstance && onGetInstance(this.wrapper);
     }
 
     render() {
@@ -48,8 +39,7 @@ class TableContentTable extends Component {
         } = this.props;
 
         return (
-            <div ref={this.wrapper}
-                 className={className}
+            <div className={className}
                  style={style}>
 
                 {
@@ -276,7 +266,6 @@ TableContentTable.propTypes = {
     /**
      * callback
      */
-    onGetInstance: PropTypes.func,
     onSortChange: PropTypes.func
 
 };
