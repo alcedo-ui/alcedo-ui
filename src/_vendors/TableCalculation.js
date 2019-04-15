@@ -93,9 +93,9 @@ function getColumnsWidth(tableEl) {
 
     return {
         [TableFragment.HEAD]: [].map.call(tableEl.querySelectorAll('thead th'),
-            el => parseInt(window.getComputedStyle(el).width)),
+            el => el.offsetWidth),
         [TableFragment.BODY]: [].map.call(tableEl.querySelector('tbody tr').querySelectorAll('td'),
-            el => parseInt(window.getComputedStyle(el).width)),
+            el => el.offsetWidth),
         [TableFragment.FOOT]: [].map.call(tableEl.querySelectorAll('tfoot td'),
             el => parseInt(window.getComputedStyle(el).width))
     };
@@ -114,11 +114,11 @@ function getRowsHeight(tableEl) {
 
     return {
         [TableFragment.HEAD]: [].map.call(tableEl.querySelectorAll('thead tr'),
-            el => parseInt(window.getComputedStyle(el).height)),
+            el => el.offsetHeight),
         [TableFragment.BODY]: [].map.call(tableEl.querySelectorAll('tbody tr'),
-            el => parseInt(window.getComputedStyle(el).height)),
+            el => el.offsetHeight),
         [TableFragment.FOOT]: [].map.call(tableEl.querySelectorAll('tfoot tr'),
-            el => parseInt(window.getComputedStyle(el).height))
+            el => el.offsetHeight)
     };
 
 }
@@ -170,16 +170,12 @@ function fixLayout(el) {
 
         scrollerHeight = `calc(100%${fixedHeadHeight ? ` - ${fixedHeadHeight}px` : ''}${fixedFootHeight ? ` - ${fixedFootHeight}px` : ''})`;
 
-    // all scroller
-    el.querySelectorAll('.table-content-scroller')
-      .forEach(el => {
-          if (el) {
-              el.style.height = scrollerHeight;
-          }
-      });
+    console.log(columnsWidth);
 
-    // all body wrapper
-    el.querySelectorAll('.table-content-body-wrapper')
+    /**
+     * all body wrapper
+     */
+    el.querySelectorAll('.table-content-center .table-content-body-wrapper')
       .forEach(el => {
           if (el) {
               el.style.height = `${tableHeight - fixedHeadHeight}px`;
@@ -187,14 +183,60 @@ function fixLayout(el) {
           }
       });
 
-    // body
-    el.querySelector('.table-content-center .table-content-fixed-head').querySelectorAll('th')
+    /**
+     * body scroller
+     */
+    el.querySelectorAll('.table-content-scroller')
+      .forEach(el => {
+          if (el) {
+              el.style.height = scrollerHeight;
+          }
+      });
+
+    /**
+     * body head
+     */
+    el.querySelector('.table-content-center .table-content-fixed-head').querySelectorAll('col')
       .forEach((el, index) => {
           if (el) {
               el.style.width = `${columnsWidth[TableFragment.HEAD][index]}px`;
           }
       });
+
+    /**
+     * body foot
+     */
     el.querySelector('.table-content-center .table-content-fixed-foot').querySelectorAll('td')
+      .forEach((el, index) => {
+          if (el) {
+              el.style.width = `${columnsWidth[TableFragment.FOOT][index]}px`;
+          }
+      });
+
+    /**
+     * left head
+     */
+    el.querySelector('.table-content-fixed-left .table-content-fixed-head').querySelectorAll('col')
+      .forEach((el, index) => {
+          if (el) {
+              el.style.width = `${columnsWidth[TableFragment.HEAD][index]}px`;
+          }
+      });
+
+    /**
+     * left body
+     */
+    el.querySelector('.table-content-fixed-left .table-content-body').querySelectorAll('col')
+      .forEach((el, index) => {
+          if (el) {
+              el.style.width = `${columnsWidth[TableFragment.BODY][index]}px`;
+          }
+      });
+
+    /**
+     * left foot
+     */
+    el.querySelector('.table-content-fixed-left .table-content-fixed-foot').querySelectorAll('td')
       .forEach((el, index) => {
           if (el) {
               el.style.width = `${columnsWidth[TableFragment.FOOT][index]}px`;
