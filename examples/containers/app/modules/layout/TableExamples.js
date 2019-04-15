@@ -265,7 +265,7 @@ class TableExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={doc}/>
+                {/*<PropTypeDescTable data={doc}/>*/}
 
             </div>
         );
