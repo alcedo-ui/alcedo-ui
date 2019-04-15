@@ -3,7 +3,7 @@ const webpack = require('webpack'),
 
     webpackConfig = require('./webpack.config.prod.js');
 
-log.title('info', 'WAIT', `Building Production... `);
+log.title('info', 'WAIT', 'Building Production...');
 
 webpack(webpackConfig, (err, stats) => {
 
@@ -19,6 +19,6 @@ webpack(webpackConfig, (err, stats) => {
         chunkModules: false
     }) + '\n\n');
 
-    log.title('success', 'DONE', `Build Complete `);
+    log.title('success', 'DONE', 'Build Complete');
 
 });

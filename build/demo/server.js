@@ -21,11 +21,11 @@ app.use(compression())
    .listen(config.demo.port, err => {
 
        if (err) {
-           log.title('error', 'ERROR', `${err} `);
+           log.title('error', 'ERROR', `${err}`);
            return;
        }
 
-       log.title('success', 'DONE', `Listening At ${uri} `);
+       log.title('success', 'DONE', `Listening At ${uri}`);
 
        open(uri);
 

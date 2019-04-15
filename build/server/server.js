@@ -21,10 +21,10 @@ app
 .listen(port, err => {
 
     if (err) {
-        log.title('error', 'ERROR', `${err} `);
+        log.title('error', 'ERROR', `${err}`);
         return;
     }
 
-    log.title('success', 'DONE', `Listening At ${port} `);
+    log.title('success', 'DONE', `Listening At ${port}`);
 
 });

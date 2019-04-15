@@ -27,13 +27,13 @@ app.use(devMiddleware)
    .use(config.dev.assetsVirtualRoot, express.static('./static'));
 
 devMiddleware.waitUntilValid(() => {
-    log.title('success', 'DONE', `Listening At ${uri} `);
+    log.title('success', 'DONE', `Listening At ${uri}`);
 });
 
 module.exports = app.listen(config.dev.port, err => {
 
     if (err) {
-        log.title('error', 'ERROR', `${err} `);
+        log.title('error', 'ERROR', `${err}`);
         return;
     }
 
