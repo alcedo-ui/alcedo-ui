@@ -1,5 +1,5 @@
 /**
- * @file TableContent component
+ * @file TableContentTable component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
@@ -17,7 +17,7 @@ import SortingType from '../_statics/SortingType';
 
 import Util from '../_vendors/Util';
 
-class TableContentFixedTable extends Component {
+class TableContentTable extends Component {
 
     static Fragment = TableFragment;
     static Align = HorizontalAlign;
@@ -96,7 +96,7 @@ class TableContentFixedTable extends Component {
     }
 }
 
-TableContentFixedTable.propTypes = {
+TableContentTable.propTypes = {
 
     /**
      * The CSS class name of the root element.
@@ -281,7 +281,7 @@ TableContentFixedTable.propTypes = {
 
 };
 
-TableContentFixedTable.defaultProps = {
+TableContentTable.defaultProps = {
 
     selectMode: SelectMode.SINGLE_SELECT,
     selectAllMode: SelectAllMode.CURRENT_PAGE,
@@ -302,4 +302,4 @@ TableContentFixedTable.defaultProps = {
 
 };
 
-export default TableContentFixedTable;
+export default TableContentTable;
