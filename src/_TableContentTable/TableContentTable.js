@@ -33,7 +33,7 @@ class TableContentTable extends Component {
     render() {
 
         const {
-            className, style, columns, data, isHeadFixed, isFootFixed, isPaginated,
+            className, style, fixed, columns, data, isHeadFixed, isFootFixed, isPaginated,
             ...restProps
         } = this.props;
 
@@ -45,6 +45,7 @@ class TableContentTable extends Component {
                     isHeadFixed ?
                         <BaseTable {...restProps}
                                    className="table-content-fixed-head"
+                                   fixed={fixed}
                                    fragment={TableFragment.HEAD}
                                    columns={columns}
                                    data={data}
@@ -57,6 +58,7 @@ class TableContentTable extends Component {
                     <div className="table-content-body-wrapper">
                         <BaseTable {...restProps}
                                    className="table-content-body"
+                                   fixed={fixed}
                                    columns={columns}
                                    data={data}
                                    isPaginated={isPaginated}/>
@@ -67,6 +69,7 @@ class TableContentTable extends Component {
                     isFootFixed ?
                         <BaseTable {...restProps}
                                    className="table-content-fixed-foot"
+                                   fixed={fixed}
                                    fragment={TableFragment.FOOT}
                                    columns={columns}
                                    data={data}
@@ -92,6 +95,8 @@ TableContentTable.propTypes = {
      * Override the styles of the root element.
      */
     style: PropTypes.object,
+
+    fixed: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(Util.enumerateValue(HorizontalAlign))]),
 
     /**
      * The theme of the table select radio or checkbox.
