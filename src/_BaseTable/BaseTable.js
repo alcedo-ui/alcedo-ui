@@ -36,7 +36,7 @@ class BaseTable extends Component {
     render() {
 
         const {
-            className, style, fragment, columns, data, disabled,
+            className, style, fixed, fragment, columns, data, disabled,
             sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, sortingFunc,
             onSortChange, onHeadClick, onRowClick, onCellClick, onFootClick
         } = this.props;
@@ -57,7 +57,7 @@ class BaseTable extends Component {
                     }
 
                     {
-                        !fragment || fragment === TableFragment.HEAD ?
+                        fragment === TableFragment.HEAD || (!fixed && !fragment) ?
                             <Thead columns={columns}
                                    data={data}
                                    sorting={sorting}
@@ -84,7 +84,8 @@ class BaseTable extends Component {
 
                     {/** render foot if a footRenderer exists in columns */}
                     {
-                        (!fragment || fragment === TableFragment.FOOT) && TableCalculation.hasFooterRenderer(columns) ?
+                        (fragment === TableFragment.FOOT || (!fixed && !fragment))
+                        && TableCalculation.hasFooterRenderer(columns) ?
                             <Tfoot columns={columns}
                                    data={data}
                                    disabled={disabled}
@@ -112,6 +113,8 @@ BaseTable.propTypes = {
      * Override the styles of the root element.
      */
     style: PropTypes.object,
+
+    fixed: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(Util.enumerateValue(HorizontalAlign))]),
 
     fragment: PropTypes.oneOf(Util.enumerateValue(TableFragment)),
 
