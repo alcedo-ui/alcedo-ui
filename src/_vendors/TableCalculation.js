@@ -3,6 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+import classnames from 'classnames';
 import sum from 'lodash/sum';
 
 import TableFragment from '../_statics/TableFragment';
@@ -132,6 +133,76 @@ function getbodyScollerHeight(headHeight, footHeight) {
     return `calc(100%${headHeight ? ` - ${sum(headHeight)}px` : ''}${footHeight ? ` - ${sum(footHeight)}px` : ''})`;
 }
 
+function handleFixedColumns(columns) {
+
+    if (!columns) {
+        return columns;
+    }
+
+    return columns.map(column => ({
+        ...column,
+        headClassName: classnames(column.headClassName, 'table-fixed-column'),
+        bodyClassName: classnames(column.bodyClassName, 'table-fixed-column'),
+        footClassName: classnames(column.footClassName, 'table-fixed-column')
+    }));
+
+}
+
+function fixLayout(el) {
+
+    if (!el) {
+        return;
+    }
+
+    const tableEl = el.querySelector('.table-content-center .table-content-body');
+    // tableWrapperEl = el.querySelector('.table-content-center .table-content-body-wrapper');
+
+    if (!tableEl) {
+        return;
+    }
+
+    const tableHeight = parseInt(window.getComputedStyle(tableEl).height),
+        columnsWidth = getColumnsWidth(tableEl),
+        rowsHeight = getRowsHeight(tableEl),
+
+        fixedHeadHeight = sum(rowsHeight[TableFragment.HEAD]) || 0,
+        fixedFootHeight = sum(rowsHeight[TableFragment.FOOT]) || 0,
+
+        scrollerHeight = `calc(100%${fixedHeadHeight ? ` - ${fixedHeadHeight}px` : ''}${fixedFootHeight ? ` - ${fixedFootHeight}px` : ''})`;
+
+    // all scroller
+    el.querySelectorAll('.table-content-scroller')
+      .forEach(el => {
+          if (el) {
+              el.style.height = scrollerHeight;
+          }
+      });
+
+    // all body wrapper
+    el.querySelectorAll('.table-content-body-wrapper')
+      .forEach(el => {
+          if (el) {
+              el.style.height = `${tableHeight - fixedHeadHeight}px`;
+              el.style.marginTop = `${-fixedHeadHeight}px`;
+          }
+      });
+
+    // body
+    el.querySelector('.table-content-center .table-content-fixed-head').querySelectorAll('th')
+      .forEach((el, index) => {
+          if (el) {
+              el.style.width = `${columnsWidth[TableFragment.HEAD][index]}px`;
+          }
+      });
+    el.querySelector('.table-content-center .table-content-fixed-foot').querySelectorAll('td')
+      .forEach((el, index) => {
+          if (el) {
+              el.style.width = `${columnsWidth[TableFragment.FOOT][index]}px`;
+          }
+      });
+
+}
+
 export default {
     calcSpan,
     getColumnsWithSpan,
@@ -139,5 +210,7 @@ export default {
     hasFooterRenderer,
     getColumnsWidth,
     getRowsHeight,
-    getbodyScollerHeight
+    getbodyScollerHeight,
+    handleFixedColumns,
+    fixLayout
 };
