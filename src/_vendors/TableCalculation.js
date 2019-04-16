@@ -149,7 +149,44 @@ function handleFixedColumns(columns) {
 
 }
 
-function fixWidths(wrapperEl, columnsWidth, fixed) {
+function getFixedClassName(fragment) {
+    switch (fragment) {
+        case TableFragment.HEAD:
+            return 'table-content-fixed-head';
+        case TableFragment.FOOT:
+            return 'table-content-fixed-foot';
+        default:
+            return 'table-content-body';
+    }
+}
+
+function fixFragmentWidths(wrapperEl, columnsWidth, fixed, fragment, selector, props) {
+
+    const el = wrapperEl.querySelector(`${selector} .${getFixedClassName(fragment)}`);
+
+    if (el) {
+        const cols = el.querySelectorAll('col');
+        if (cols) {
+            if (fixed === HorizontalAlign.RIGHT) {
+                cols.forEach((el, index) => {
+                    if (el) {
+                        el.style.width = `${columnsWidth[fragment]
+                            [columnsWidth[fragment].length - (cols.length - index)]}px`;
+                    }
+                });
+            } else {
+                cols.forEach((el, index) => {
+                    if (el) {
+                        el.style.width = `${columnsWidth[fragment][index]}px`;
+                    }
+                });
+            }
+        }
+    }
+
+}
+
+function fixTableWidths(wrapperEl, columnsWidth, fixed, props) {
 
     if (!wrapperEl) {
         return;
@@ -160,80 +197,85 @@ function fixWidths(wrapperEl, columnsWidth, fixed) {
     /**
      * head
      */
-    const head = wrapperEl.querySelector(`${selector} .table-content-fixed-head`);
-    if (head) {
-        const cols = head.querySelectorAll('col');
-        if (cols) {
-            if (fixed === HorizontalAlign.RIGHT) {
-                cols.forEach((el, index) => {
-                    if (el) {
-                        el.style.width = `${columnsWidth[TableFragment.HEAD]
-                            [columnsWidth[TableFragment.HEAD].length - (cols.length - index)]}px`;
-                    }
-                });
-            } else {
-                cols.forEach((el, index) => {
-                    if (el) {
-                        el.style.width = `${columnsWidth[TableFragment.HEAD][index]}px`;
-                    }
-                });
-            }
-        }
-    }
+    fixFragmentWidths(wrapperEl, columnsWidth, fixed, TableFragment.HEAD, selector, props);
+    // const head = wrapperEl.querySelector(`${selector} .table-content-fixed-head`);
+    // if (head) {
+    //     const cols = head.querySelectorAll('col');
+    //     if (cols) {
+    //         if (fixed === HorizontalAlign.RIGHT) {
+    //             cols.forEach((el, index) => {
+    //                 if (el) {
+    //                     el.style.width = `${columnsWidth[TableFragment.HEAD]
+    //                         [columnsWidth[TableFragment.HEAD].length - (cols.length - index)]}px`;
+    //                 }
+    //             });
+    //         } else {
+    //             cols.forEach((el, index) => {
+    //                 if (el) {
+    //                     el.style.width = `${columnsWidth[TableFragment.HEAD][index]}px`;
+    //                 }
+    //             });
+    //         }
+    //     }
+    // }
 
     /**
      * body
      */
     if (fixed) {
-        const body = wrapperEl.querySelector(`${selector} .table-content-body`);
-        if (body) {
-            const cols = body.querySelectorAll('col');
-            if (cols) {
-                if (fixed === HorizontalAlign.RIGHT) {
-                    cols.forEach((el, index) => {
-                        if (el) {
-                            el.style.width = `${columnsWidth[TableFragment.BODY]
-                                [columnsWidth[TableFragment.BODY].length - (cols.length - index)]}px`;
-                        }
-                    });
-                } else {
-                    cols.forEach((el, index) => {
-                        if (el) {
-                            el.style.width = `${columnsWidth[TableFragment.BODY][index]}px`;
-                        }
-                    });
-                }
-            }
-        }
+        fixFragmentWidths(wrapperEl, columnsWidth, fixed, TableFragment.BODY, selector, props);
     }
+    // if (fixed) {
+    //     const body = wrapperEl.querySelector(`${selector} .table-content-body`);
+    //     if (body) {
+    //         const cols = body.querySelectorAll('col');
+    //         if (cols) {
+    //             if (fixed === HorizontalAlign.RIGHT) {
+    //                 cols.forEach((el, index) => {
+    //                     if (el) {
+    //                         el.style.width = `${columnsWidth[TableFragment.BODY]
+    //                             [columnsWidth[TableFragment.BODY].length - (cols.length - index)]}px`;
+    //                     }
+    //                 });
+    //             } else {
+    //                 cols.forEach((el, index) => {
+    //                     if (el) {
+    //                         el.style.width = `${columnsWidth[TableFragment.BODY][index]}px`;
+    //                     }
+    //                 });
+    //             }
+    //         }
+    //     }
+    // }
 
     /**
      * foot
      */
-    const foot = wrapperEl.querySelector(`${selector} .table-content-fixed-foot`);
-    if (foot) {
-        const cols = foot.querySelectorAll('td');
-        if (cols) {
-            if (fixed === HorizontalAlign.RIGHT) {
-                cols.forEach((el, index) => {
-                    if (el) {
-                        el.style.width = `${columnsWidth[TableFragment.FOOT]
-                            [columnsWidth[TableFragment.FOOT].length - (cols.length - index)]}px`;
-                    }
-                });
-            } else {
-                cols.forEach((el, index) => {
-                    if (el) {
-                        el.style.width = `${columnsWidth[TableFragment.FOOT][index]}px`;
-                    }
-                });
-            }
-        }
-    }
+    fixFragmentWidths(wrapperEl, columnsWidth, fixed, TableFragment.FOOT, selector, props);
+    // const foot = wrapperEl.querySelector(`${selector} .table-content-fixed-foot`);
+    // if (foot) {
+    //     const cols = foot.querySelectorAll('td');
+    //     if (cols) {
+    //         if (fixed === HorizontalAlign.RIGHT) {
+    //             cols.forEach((el, index) => {
+    //                 if (el) {
+    //                     el.style.width = `${columnsWidth[TableFragment.FOOT]
+    //                         [columnsWidth[TableFragment.FOOT].length - (cols.length - index)]}px`;
+    //                 }
+    //             });
+    //         } else {
+    //             cols.forEach((el, index) => {
+    //                 if (el) {
+    //                     el.style.width = `${columnsWidth[TableFragment.FOOT][index]}px`;
+    //                 }
+    //             });
+    //         }
+    //     }
+    // }
 
 }
 
-function fixLayout(wrapperEl) {
+function fixLayout(wrapperEl, props) {
 
     if (!wrapperEl) {
         return;
@@ -251,12 +293,20 @@ function fixLayout(wrapperEl) {
         rowsHeight = getRowsHeight(tableEl),
 
         fixedHeadHeight = sum(rowsHeight[TableFragment.HEAD]) || 0,
-        fixedFootHeight = sum(rowsHeight[TableFragment.FOOT]) || 0,
-
-        scrollerHeight = `calc(100%${fixedHeadHeight ? ` - ${fixedHeadHeight}px` : ''}${fixedFootHeight ? ` - ${fixedFootHeight}px` : ''})`;
+        fixedFootHeight = sum(rowsHeight[TableFragment.FOOT]) || 0;
 
     /**
-     * all body wrapper
+     * body scroller
+     */
+    wrapperEl.querySelectorAll('.table-content-scroller')
+             .forEach(el => {
+                 if (el) {
+                     el.style.height = `calc(100%${fixedHeadHeight ? ` - ${fixedHeadHeight}px` : ''}${fixedFootHeight ? ` - ${fixedFootHeight}px` : ''})`;
+                 }
+             });
+
+    /**
+     * body wrapper
      */
     wrapperEl.querySelectorAll('.table-content-center .table-content-body-wrapper')
              .forEach(el => {
@@ -266,19 +316,9 @@ function fixLayout(wrapperEl) {
                  }
              });
 
-    /**
-     * body scroller
-     */
-    wrapperEl.querySelectorAll('.table-content-scroller')
-             .forEach(el => {
-                 if (el) {
-                     el.style.height = scrollerHeight;
-                 }
-             });
-
-    fixWidths(wrapperEl, columnsWidth);
-    fixWidths(wrapperEl, columnsWidth, HorizontalAlign.LEFT);
-    fixWidths(wrapperEl, columnsWidth, HorizontalAlign.RIGHT);
+    fixTableWidths(wrapperEl, columnsWidth, null, props);
+    fixTableWidths(wrapperEl, columnsWidth, HorizontalAlign.LEFT, props);
+    fixTableWidths(wrapperEl, columnsWidth, HorizontalAlign.RIGHT, props);
 
 }
 
