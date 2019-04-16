@@ -160,12 +160,12 @@ function getFixedClassName(fragment) {
     }
 }
 
-function fixFragmentWidths(wrapperEl, columnsWidth, fixed, fragment, selector, props) {
+function fixFragmentWidths(wrapperEl, columnsWidth, fixed, fragment, selector) {
 
     const el = wrapperEl.querySelector(`${selector} .${getFixedClassName(fragment)}`);
 
     if (el) {
-        const cols = el.querySelectorAll('col');
+        const cols = el.querySelectorAll(fragment === TableFragment.FOOT ? 'td' : 'col');
         if (cols) {
             if (fixed === HorizontalAlign.RIGHT) {
                 cols.forEach((el, index) => {
@@ -197,81 +197,23 @@ function fixTableWidths(wrapperEl, columnsWidth, fixed, props) {
     /**
      * head
      */
-    fixFragmentWidths(wrapperEl, columnsWidth, fixed, TableFragment.HEAD, selector, props);
-    // const head = wrapperEl.querySelector(`${selector} .table-content-fixed-head`);
-    // if (head) {
-    //     const cols = head.querySelectorAll('col');
-    //     if (cols) {
-    //         if (fixed === HorizontalAlign.RIGHT) {
-    //             cols.forEach((el, index) => {
-    //                 if (el) {
-    //                     el.style.width = `${columnsWidth[TableFragment.HEAD]
-    //                         [columnsWidth[TableFragment.HEAD].length - (cols.length - index)]}px`;
-    //                 }
-    //             });
-    //         } else {
-    //             cols.forEach((el, index) => {
-    //                 if (el) {
-    //                     el.style.width = `${columnsWidth[TableFragment.HEAD][index]}px`;
-    //                 }
-    //             });
-    //         }
-    //     }
-    // }
+    if (props && props.isHeadFixed) {
+        fixFragmentWidths(wrapperEl, columnsWidth, fixed, TableFragment.HEAD, selector);
+    }
 
     /**
      * body
      */
     if (fixed) {
-        fixFragmentWidths(wrapperEl, columnsWidth, fixed, TableFragment.BODY, selector, props);
+        fixFragmentWidths(wrapperEl, columnsWidth, fixed, TableFragment.BODY, selector);
     }
-    // if (fixed) {
-    //     const body = wrapperEl.querySelector(`${selector} .table-content-body`);
-    //     if (body) {
-    //         const cols = body.querySelectorAll('col');
-    //         if (cols) {
-    //             if (fixed === HorizontalAlign.RIGHT) {
-    //                 cols.forEach((el, index) => {
-    //                     if (el) {
-    //                         el.style.width = `${columnsWidth[TableFragment.BODY]
-    //                             [columnsWidth[TableFragment.BODY].length - (cols.length - index)]}px`;
-    //                     }
-    //                 });
-    //             } else {
-    //                 cols.forEach((el, index) => {
-    //                     if (el) {
-    //                         el.style.width = `${columnsWidth[TableFragment.BODY][index]}px`;
-    //                     }
-    //                 });
-    //             }
-    //         }
-    //     }
-    // }
 
     /**
      * foot
      */
-    fixFragmentWidths(wrapperEl, columnsWidth, fixed, TableFragment.FOOT, selector, props);
-    // const foot = wrapperEl.querySelector(`${selector} .table-content-fixed-foot`);
-    // if (foot) {
-    //     const cols = foot.querySelectorAll('td');
-    //     if (cols) {
-    //         if (fixed === HorizontalAlign.RIGHT) {
-    //             cols.forEach((el, index) => {
-    //                 if (el) {
-    //                     el.style.width = `${columnsWidth[TableFragment.FOOT]
-    //                         [columnsWidth[TableFragment.FOOT].length - (cols.length - index)]}px`;
-    //                 }
-    //             });
-    //         } else {
-    //             cols.forEach((el, index) => {
-    //                 if (el) {
-    //                     el.style.width = `${columnsWidth[TableFragment.FOOT][index]}px`;
-    //                 }
-    //             });
-    //         }
-    //     }
-    // }
+    if (props && props.isHeadFixed) {
+        fixFragmentWidths(wrapperEl, columnsWidth, fixed, TableFragment.FOOT, selector);
+    }
 
 }
 
