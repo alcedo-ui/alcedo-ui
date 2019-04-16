@@ -149,7 +149,15 @@ function handleFixedColumns(columns) {
 
 }
 
-function fixFragmentWidths(wrapperEl, columnsWidth, fixed, fragment, selector) {
+function maskCenterBody(wrapperEl, tableEl, fixedHeadHeight, fixedFootHeight) {
+    const el = wrapperEl.querySelector('.table-content-center .scrollable-table-body');
+    if (el) {
+        el.style.height = `${tableEl.offsetHeight - fixedFootHeight}px`;
+        el.style.marginTop = `${-fixedHeadHeight}px`;
+    }
+}
+
+function fixFragmentWidth(wrapperEl, columnsWidth, fixed, fragment, selector) {
 
     const el = wrapperEl.querySelector(`${selector} .scrollable-table-${fragment}`);
 
@@ -175,7 +183,7 @@ function fixFragmentWidths(wrapperEl, columnsWidth, fixed, fragment, selector) {
 
 }
 
-function fixTableWidths(wrapperEl, columnsWidth, fixed, props) {
+function fixTableWidth(wrapperEl, columnsWidth, fixed, props) {
 
     if (!wrapperEl) {
         return;
@@ -187,31 +195,71 @@ function fixTableWidths(wrapperEl, columnsWidth, fixed, props) {
      * head
      */
     if (props && props.isHeadFixed) {
-        fixFragmentWidths(wrapperEl, columnsWidth, fixed, TableFragment.HEAD, selector);
+        fixFragmentWidth(wrapperEl, columnsWidth, fixed, TableFragment.HEAD, selector);
     }
 
     /**
      * body
      */
     if (fixed) {
-        fixFragmentWidths(wrapperEl, columnsWidth, fixed, TableFragment.BODY, selector);
+        fixFragmentWidth(wrapperEl, columnsWidth, fixed, TableFragment.BODY, selector);
     }
 
     /**
      * foot
      */
     if (props && props.isHeadFixed) {
-        fixFragmentWidths(wrapperEl, columnsWidth, fixed, TableFragment.FOOT, selector);
+        fixFragmentWidth(wrapperEl, columnsWidth, fixed, TableFragment.FOOT, selector);
     }
 
 }
 
-function maskCenterBody(wrapperEl, tableEl, fixedHeadHeight) {
-    const el = wrapperEl.querySelector('.table-content-center .scrollable-table-body');
+function fixFragmentHeight(wrapperEl, rowsHeight, fixed, fragment, selector) {
+
+    const el = wrapperEl.querySelector(`${selector} .scrollable-table-${fragment} t${fragment}`);
+
     if (el) {
-        el.style.height = `${tableEl.offsetHeight - fixedHeadHeight}px`;
-        el.style.marginTop = `${-fixedHeadHeight}px`;
+        const trs = el.querySelectorAll('tr');
+        if (trs) {
+            trs.forEach((el, index) => {
+                if (el) {
+                    el.style.height = `${rowsHeight[fragment][index]}px`;
+                }
+            });
+        }
     }
+
+}
+
+function fixTableHeight(wrapperEl, rowsHeight, fixed, props) {
+
+    if (!wrapperEl) {
+        return;
+    }
+
+    const selector = `.table-content-${fixed || 'center'}`;
+
+    /**
+     * head
+     */
+    if (props && props.isHeadFixed) {
+        fixFragmentHeight(wrapperEl, rowsHeight, fixed, TableFragment.HEAD, selector);
+    }
+
+    /**
+     * body
+     */
+    if (fixed) {
+        fixFragmentHeight(wrapperEl, rowsHeight, fixed, TableFragment.BODY, selector);
+    }
+
+    /**
+     * foot
+     */
+    if (props && props.isHeadFixed) {
+        fixFragmentHeight(wrapperEl, rowsHeight, fixed, TableFragment.FOOT, selector);
+    }
+
 }
 
 function fixLayout(wrapperEl, props) {
@@ -235,18 +283,21 @@ function fixLayout(wrapperEl, props) {
     /**
      * center
      */
-    fixTableWidths(wrapperEl, columnsWidth, null, props);
-    maskCenterBody(wrapperEl, tableEl, fixedHeadHeight);
+    maskCenterBody(wrapperEl, tableEl, fixedHeadHeight, fixedFootHeight);
+    fixTableWidth(wrapperEl, columnsWidth, null, props);
+    fixTableHeight(wrapperEl, rowsHeight, null, props);
 
     /**
      * left
      */
-    fixTableWidths(wrapperEl, columnsWidth, HorizontalAlign.LEFT, props);
+    fixTableWidth(wrapperEl, columnsWidth, HorizontalAlign.LEFT, props);
+    fixTableHeight(wrapperEl, rowsHeight, HorizontalAlign.LEFT, props);
 
     /**
      * right
      */
-    fixTableWidths(wrapperEl, columnsWidth, HorizontalAlign.RIGHT, props);
+    fixTableWidth(wrapperEl, columnsWidth, HorizontalAlign.RIGHT, props);
+    fixTableHeight(wrapperEl, rowsHeight, HorizontalAlign.RIGHT, props);
 
 }
 
