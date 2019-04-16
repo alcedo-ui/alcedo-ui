@@ -151,7 +151,7 @@ class TableContent extends Component {
                 {
                     columns[HorizontalAlign.LEFT] && columns[HorizontalAlign.LEFT].length > 0 ?
                         <ScrollableTable {...restProps}
-                                         className="table-content-fixed-left"
+                                         className="table-content-left"
                                          fixed={HorizontalAlign.LEFT}
                                          columns={columns[HorizontalAlign.LEFT]}
                                          data={tableData}/>
@@ -162,7 +162,7 @@ class TableContent extends Component {
                 {
                     columns[HorizontalAlign.RIGHT] && columns[HorizontalAlign.RIGHT].length > 0 ?
                         <ScrollableTable {...restProps}
-                                         className="table-content-fixed-right"
+                                         className="table-content-right"
                                          fixed={HorizontalAlign.RIGHT}
                                          columns={columns[HorizontalAlign.RIGHT]}
                                          data={tableData}/>
@@ -348,6 +348,11 @@ TableContent.propTypes = {
      */
     isHeadFixed: PropTypes.bool,
     isFootFixed: PropTypes.bool,
+
+    scroll: PropTypes.shape({
+        width: PropTypes.number,
+        height: PropTypes.number
+    }),
 
     /**
      * callback

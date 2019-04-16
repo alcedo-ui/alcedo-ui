@@ -7,65 +7,23 @@
     position: relative;
 
     .table-content-center,
-    .table-content-fixed-left,
-    .table-content-fixed-right {
+    .table-content-left,
+    .table-content-right {
         height: 100%;
     }
 
-    .table-content-fixed-left,
-    .table-content-fixed-right {
+    .table-content-left,
+    .table-content-right {
         position: absolute;
         top: 0;
     }
 
-    .table-content-fixed-left {
+    .table-content-left {
         left: 0;
     }
 
-    .table-content-fixed-right {
+    .table-content-right {
         right: 0;
-    }
-
-    .table-content-fixed-head {
-
-        & > table {
-            & > tbody,
-            & > tfoot {
-                visibility: hidden;
-                opacity: 0;
-            }
-        }
-    }
-
-    .table-content-scroller {
-        overflow: auto;
-
-        .table-content-body-wrapper {
-            overflow: hidden;
-        }
-    }
-
-    .table-content-fixed-foot {
-
-        & > table {
-            position: absolute;
-            left: 0;
-            bottom: 0;
-
-            & > thead,
-            & > tbody {
-                visibility: hidden;
-                opacity: 0;
-            }
-        }
-    }
-
-    .table-content-fixed-head tr {
-        background: transparent;
-    }
-
-    .table-content-fixed-foot tr {
-        background: transparent;
     }
 
     .table-fixed-column {
