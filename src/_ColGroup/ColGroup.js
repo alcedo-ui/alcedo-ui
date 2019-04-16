@@ -49,9 +49,10 @@ class ColGroup extends Component {
         return columns ?
             <colgroup>
                 {
-                    columns.map(({column}, index) => column ?
+                    columns.map(({column, span}, index) => column ?
                         <col key={index}
-                             style={this.getColStyle(column)}/>
+                             style={this.getColStyle(column)}
+                             span={span}/>
                         :
                         null
                     )
