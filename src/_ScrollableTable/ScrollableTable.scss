@@ -2,3 +2,32 @@
  * @file ScrollableTable style
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
+
+.scrollable-table {
+
+    .scrollable-table-head {
+
+        & > table {
+            & > tbody,
+            & > tfoot {
+                visibility: hidden;
+                opacity: 0;
+            }
+        }
+    }
+
+    .scrollable-table-foot {
+
+        & > table {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+
+            & > thead,
+            & > tbody {
+                visibility: hidden;
+                opacity: 0;
+            }
+        }
+    }
+}

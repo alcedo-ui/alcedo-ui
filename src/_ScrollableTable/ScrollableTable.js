@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import BaseTable from '../_BaseTable';
 
@@ -38,13 +39,15 @@ class ScrollableTable extends Component {
         } = this.props;
 
         return (
-            <div className={className}
+            <div className={classNames('scrollable-table', {
+                [className]: className
+            })}
                  style={style}>
 
                 {
                     isHeadFixed ?
                         <BaseTable {...restProps}
-                                   className="table-content-fixed-head"
+                                   className="scrollable-table-head"
                                    fixed={fixed}
                                    fragment={TableFragment.HEAD}
                                    columns={columns}
@@ -54,21 +57,19 @@ class ScrollableTable extends Component {
                         null
                 }
 
-                <div className="table-content-scroller">
-                    <div className="table-content-body-wrapper">
-                        <BaseTable {...restProps}
-                                   className="table-content-body"
-                                   fixed={fixed}
-                                   columns={columns}
-                                   data={data}
-                                   isPaginated={isPaginated}/>
-                    </div>
+                <div className="scrollable-table-scroller">
+                    <BaseTable {...restProps}
+                               className="scrollable-table-body"
+                               fixed={fixed}
+                               columns={columns}
+                               data={data}
+                               isPaginated={isPaginated}/>
                 </div>
 
                 {
                     isFootFixed ?
                         <BaseTable {...restProps}
-                                   className="table-content-fixed-foot"
+                                   className="scrollable-table-foot"
                                    fixed={fixed}
                                    fragment={TableFragment.FOOT}
                                    columns={columns}
@@ -258,6 +259,11 @@ ScrollableTable.propTypes = {
      */
     isHeadFixed: PropTypes.bool,
     isFootFixed: PropTypes.bool,
+
+    scroll: PropTypes.shape({
+        width: PropTypes.number,
+        height: PropTypes.number
+    }),
 
     /**
      * callback
