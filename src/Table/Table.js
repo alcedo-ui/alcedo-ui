@@ -286,6 +286,11 @@ Table.propTypes = {
     isHeadFixed: PropTypes.bool,
     isFootFixed: PropTypes.bool,
 
+    scroll: PropTypes.shape({
+        width: PropTypes.number,
+        height: PropTypes.number
+    }),
+
     onSortChange: PropTypes.func,
     onPaginationChange: PropTypes.func
 
