@@ -5,29 +5,11 @@
 
 .scrollable-table {
 
-    .scrollable-table-head {
-
-        & > table {
-            & > tbody,
-            & > tfoot {
-                visibility: hidden;
-                opacity: 0;
-            }
-        }
+    .scrollable-table-scroller {
+        overflow-y: auto;
     }
 
-    .scrollable-table-foot {
-
-        & > table {
-            position: absolute;
-            left: 0;
-            bottom: 0;
-
-            & > thead,
-            & > tbody {
-                visibility: hidden;
-                opacity: 0;
-            }
-        }
+    .scrollable-table-body {
+        overflow: hidden;
     }
 }

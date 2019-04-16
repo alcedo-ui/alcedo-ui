@@ -34,7 +34,7 @@ class ScrollableTable extends Component {
     render() {
 
         const {
-            className, style, fixed, columns, data, isHeadFixed, isFootFixed, isPaginated,
+            className, style, fixed, columns, data, isHeadFixed, isFootFixed, scroll, isPaginated,
             ...restProps
         } = this.props;
 
@@ -46,35 +46,39 @@ class ScrollableTable extends Component {
 
                 {
                     isHeadFixed ?
-                        <BaseTable {...restProps}
-                                   className="scrollable-table-head"
-                                   fixed={fixed}
-                                   fragment={TableFragment.HEAD}
-                                   columns={columns}
-                                   data={data}
-                                   isPaginated={isPaginated}/>
+                        <div className="scrollable-table-head">
+                            <BaseTable {...restProps}
+                                       fixed={fixed}
+                                       fragment={TableFragment.HEAD}
+                                       columns={columns}
+                                       data={data}
+                                       isPaginated={isPaginated}/>
+                        </div>
                         :
                         null
                 }
 
-                <div className="scrollable-table-scroller">
-                    <BaseTable {...restProps}
-                               className="scrollable-table-body"
-                               fixed={fixed}
-                               columns={columns}
-                               data={data}
-                               isPaginated={isPaginated}/>
+                <div className="scrollable-table-scroller"
+                     style={scroll && scroll.height ? {maxHeight: scroll.height} : null}>
+                    <div className="scrollable-table-body">
+                        <BaseTable {...restProps}
+                                   fixed={fixed}
+                                   columns={columns}
+                                   data={data}
+                                   isPaginated={isPaginated}/>
+                    </div>
                 </div>
 
                 {
                     isFootFixed ?
-                        <BaseTable {...restProps}
-                                   className="scrollable-table-foot"
-                                   fixed={fixed}
-                                   fragment={TableFragment.FOOT}
-                                   columns={columns}
-                                   data={data}
-                                   isPaginated={isPaginated}/>
+                        <div className="scrollable-table-foot">
+                            <BaseTable {...restProps}
+                                       fixed={fixed}
+                                       fragment={TableFragment.FOOT}
+                                       columns={columns}
+                                       data={data}
+                                       isPaginated={isPaginated}/>
+                        </div>
                         :
                         null
                 }
