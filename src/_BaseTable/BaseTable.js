@@ -42,61 +42,60 @@ class BaseTable extends Component {
         } = this.props;
 
         return (
-            <div className={classNames('base-table', {
+            <table className={classNames('base-table', {
                 [className]: className
             })}
-                 style={style}>
-                <table cellPadding={0}
-                       cellSpacing={0}>
+                   style={style}
+                   cellPadding={0}
+                   cellSpacing={0}>
 
-                    {
-                        fragment !== TableFragment.FOOT ?
-                            <ColGroup columns={TableCalculation.getColumnsWithSpan(fragment, columns)}/>
-                            :
-                            null
-                    }
+                {
+                    fragment !== TableFragment.FOOT ?
+                        <ColGroup columns={TableCalculation.getColumnsWithSpan(fragment, columns)}/>
+                        :
+                        null
+                }
 
-                    {
-                        fragment === TableFragment.HEAD || (!fixed && !fragment) ?
-                            <Thead columns={columns}
-                                   data={data}
-                                   sorting={sorting}
-                                   defaultSortingType={defaultSortingType}
-                                   sortingAscIconCls={sortingAscIconCls}
-                                   sortingDescIconCls={sortingDescIconCls}
-                                   sortingFunc={sortingFunc}
-                                   onSortChange={onSortChange}
-                                   onHeadClick={onHeadClick}/>
-                            :
-                            null
-                    }
+                {
+                    fragment === TableFragment.HEAD || (!fixed && !fragment) ?
+                        <Thead columns={columns}
+                               data={data}
+                               sorting={sorting}
+                               defaultSortingType={defaultSortingType}
+                               sortingAscIconCls={sortingAscIconCls}
+                               sortingDescIconCls={sortingDescIconCls}
+                               sortingFunc={sortingFunc}
+                               onSortChange={onSortChange}
+                               onHeadClick={onHeadClick}/>
+                        :
+                        null
+                }
 
-                    {
-                        !fragment ?
-                            <Tbody columns={columns}
-                                   data={data}
-                                   disabled={disabled}
-                                   onRowClick={onRowClick}
-                                   onCellClick={onCellClick}/>
-                            :
-                            null
-                    }
+                {
+                    !fragment ?
+                        <Tbody columns={columns}
+                               data={data}
+                               disabled={disabled}
+                               onRowClick={onRowClick}
+                               onCellClick={onCellClick}/>
+                        :
+                        null
+                }
 
-                    {/** render foot if a footRenderer exists in columns */}
-                    {
-                        (fragment === TableFragment.FOOT || (!fixed && !fragment))
-                        && TableCalculation.hasFooterRenderer(columns) ?
-                            <Tfoot columns={columns}
-                                   data={data}
-                                   disabled={disabled}
-                                   onFootClick={onFootClick}
-                                   onCellClick={onCellClick}/>
-                            :
-                            null
-                    }
+                {/** render foot if a footRenderer exists in columns */}
+                {
+                    (fragment === TableFragment.FOOT || (!fixed && !fragment))
+                    && TableCalculation.hasFooterRenderer(columns) ?
+                        <Tfoot columns={columns}
+                               data={data}
+                               disabled={disabled}
+                               onFootClick={onFootClick}
+                               onCellClick={onCellClick}/>
+                        :
+                        null
+                }
 
-                </table>
-            </div>
+            </table>
         );
 
     }
