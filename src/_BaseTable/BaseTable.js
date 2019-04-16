@@ -49,12 +49,7 @@ class BaseTable extends Component {
                    cellPadding={0}
                    cellSpacing={0}>
 
-                {
-                    fragment !== TableFragment.FOOT ?
-                        <ColGroup columns={TableCalculation.getColumnsWithSpan(fragment, columns)}/>
-                        :
-                        null
-                }
+                <ColGroup columns={TableCalculation.getColumnsWithSpan(fragment, columns)}/>
 
                 {
                     fragment === TableFragment.HEAD || (!fixed && !fragment) ?
