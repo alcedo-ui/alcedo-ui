@@ -70,6 +70,14 @@ class TableExamples extends Component {
             sortable: true,
             sortingProp: 'deposit'
         }, {
+            headRenderer: 'Other Column 1'
+        }, {
+            headRenderer: 'Other Column 2'
+        }, {
+            headRenderer: 'Other Column 3'
+        }, {
+            headRenderer: 'Other Column 4'
+        }, {
             fixed: Table.Fixed.RIGHT,
             headRenderer: 'Status',
             bodyRenderer: rowData =>
