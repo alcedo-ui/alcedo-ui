@@ -6,10 +6,10 @@
 .scrollable-table {
 
     .scrollable-table-scroller {
-        overflow-y: auto;
+        overflow: auto;
     }
 
     .scrollable-table-body {
-        overflow: hidden;
+        overflow-y: hidden;
     }
 }

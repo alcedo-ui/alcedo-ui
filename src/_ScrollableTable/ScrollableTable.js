@@ -34,9 +34,10 @@ class ScrollableTable extends Component {
     render() {
 
         const {
-            className, style, fixed, columns, data, isHeadFixed, isFootFixed, scroll, isPaginated,
-            ...restProps
-        } = this.props;
+                className, style, fixed, columns, data, isHeadFixed, isFootFixed, scroll, isPaginated,
+                ...restProps
+            } = this.props,
+            tableWidth = !fixed && scroll && scroll.width ? {width: scroll.width} : null;
 
         return (
             <div className={classNames('scrollable-table', {
@@ -48,6 +49,7 @@ class ScrollableTable extends Component {
                     isHeadFixed ?
                         <div className="scrollable-table-head">
                             <BaseTable {...restProps}
+                                       style={tableWidth}
                                        fixed={fixed}
                                        fragment={TableFragment.HEAD}
                                        columns={columns}
@@ -60,8 +62,10 @@ class ScrollableTable extends Component {
 
                 <div className="scrollable-table-scroller"
                      style={scroll && scroll.height ? {maxHeight: scroll.height} : null}>
-                    <div className="scrollable-table-body">
+                    <div className="scrollable-table-body"
+                         style={tableWidth}>
                         <BaseTable {...restProps}
+                                   style={tableWidth}
                                    fixed={fixed}
                                    columns={columns}
                                    data={data}
@@ -73,6 +77,7 @@ class ScrollableTable extends Component {
                     isFootFixed ?
                         <div className="scrollable-table-foot">
                             <BaseTable {...restProps}
+                                       style={tableWidth}
                                        fixed={fixed}
                                        fragment={TableFragment.FOOT}
                                        columns={columns}
