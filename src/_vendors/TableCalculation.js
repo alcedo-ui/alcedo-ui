@@ -149,20 +149,9 @@ function handleFixedColumns(columns) {
 
 }
 
-function getFixedClassName(fragment) {
-    switch (fragment) {
-        case TableFragment.HEAD:
-            return 'table-content-fixed-head';
-        case TableFragment.FOOT:
-            return 'table-content-fixed-foot';
-        default:
-            return 'table-content-body';
-    }
-}
-
 function fixFragmentWidths(wrapperEl, columnsWidth, fixed, fragment, selector) {
 
-    const el = wrapperEl.querySelector(`${selector} .${getFixedClassName(fragment)}`);
+    const el = wrapperEl.querySelector(`${selector} .scrollable-table-${fragment}`);
 
     if (el) {
         const cols = el.querySelectorAll(fragment === TableFragment.FOOT ? 'td' : 'col');
@@ -192,7 +181,7 @@ function fixTableWidths(wrapperEl, columnsWidth, fixed, props) {
         return;
     }
 
-    const selector = `.table-content-${fixed ? `fixed-${fixed}` : 'center'}`;
+    const selector = `.table-content-${fixed || 'center'}`;
 
     /**
      * head
@@ -223,8 +212,8 @@ function fixLayout(wrapperEl, props) {
         return;
     }
 
-    const tableEl = wrapperEl.querySelector('.table-content-center .table-content-body');
-    // tableWrapperEl = wrapperEl.querySelector('.table-content-center .table-content-body-wrapper');
+    const tableEl = wrapperEl.querySelector('.table-content-center .scrollable-table-body');
+    // tableWrapperEl = wrapperEl.querySelector('.table-content-center .scrollable-table-body-wrapper');
 
     if (!tableEl) {
         return;
@@ -237,29 +226,40 @@ function fixLayout(wrapperEl, props) {
         fixedHeadHeight = sum(rowsHeight[TableFragment.HEAD]) || 0,
         fixedFootHeight = sum(rowsHeight[TableFragment.FOOT]) || 0;
 
-    /**
-     * body scroller
-     */
-    wrapperEl.querySelectorAll('.table-content-scroller')
-             .forEach(el => {
-                 if (el) {
-                     el.style.height = `calc(100%${fixedHeadHeight ? ` - ${fixedHeadHeight}px` : ''}${fixedFootHeight ? ` - ${fixedFootHeight}px` : ''})`;
-                 }
-             });
+    // /**
+    //  * body scroller
+    //  */
+    // wrapperEl.querySelectorAll('.scrollable-table-scroller')
+    //          .forEach(el => {
+    //              if (el) {
+    //                  el.style.height = `calc(100%${fixedHeadHeight ? ` - ${fixedHeadHeight}px` : ''}${fixedFootHeight ? ` - ${fixedFootHeight}px` : ''})`;
+    //              }
+    //          });
+
+    // /**
+    //  * body wrapper
+    //  */
+    // wrapperEl.querySelectorAll('.table-content-center .scrollable-table-body-wrapper')
+    //          .forEach(el => {
+    //              if (el) {
+    //                  el.style.height = `${tableHeight - fixedHeadHeight}px`;
+    //                  el.style.marginTop = `${-fixedHeadHeight}px`;
+    //              }
+    //          });
 
     /**
-     * body wrapper
+     * center
      */
-    wrapperEl.querySelectorAll('.table-content-center .table-content-body-wrapper')
-             .forEach(el => {
-                 if (el) {
-                     el.style.height = `${tableHeight - fixedHeadHeight}px`;
-                     el.style.marginTop = `${-fixedHeadHeight}px`;
-                 }
-             });
-
     fixTableWidths(wrapperEl, columnsWidth, null, props);
+
+    /**
+     * left
+     */
     fixTableWidths(wrapperEl, columnsWidth, HorizontalAlign.LEFT, props);
+
+    /**
+     * right
+     */
     fixTableWidths(wrapperEl, columnsWidth, HorizontalAlign.RIGHT, props);
 
 }
