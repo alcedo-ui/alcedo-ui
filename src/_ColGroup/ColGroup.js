@@ -52,7 +52,7 @@ class ColGroup extends Component {
                     columns.map(({column, span}, index) => column ?
                         <col key={index}
                              style={this.getColStyle(column)}
-                             span={span}/>
+                             span={span || null}/>
                         :
                         null
                     )
