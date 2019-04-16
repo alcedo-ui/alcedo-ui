@@ -208,6 +208,10 @@ class TableExamples extends Component {
                                    sort={sort}
                                    isHeadFixed={true}
                                    isFootFixed={true}
+                                   scroll={{
+                                       width: 800,
+                                       height: 400
+                                   }}
                                    paggingCountRenderer={count => <span>Self Defined Total Count: {count}</span>}
                                    onSortChange={this.sortHandler}
                                    onPageChange={this.pageChangeHandler}
