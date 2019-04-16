@@ -206,51 +206,37 @@ function fixTableWidths(wrapperEl, columnsWidth, fixed, props) {
 
 }
 
+function maskCenterBody(wrapperEl, tableEl, fixedHeadHeight) {
+    const el = wrapperEl.querySelector('.table-content-center .scrollable-table-body');
+    if (el) {
+        el.style.height = `${tableEl.offsetHeight - fixedHeadHeight}px`;
+        el.style.marginTop = `${-fixedHeadHeight}px`;
+    }
+}
+
 function fixLayout(wrapperEl, props) {
 
     if (!wrapperEl) {
         return;
     }
 
-    const tableEl = wrapperEl.querySelector('.table-content-center .scrollable-table-body');
-    // tableWrapperEl = wrapperEl.querySelector('.table-content-center .scrollable-table-body-wrapper');
+    const tableEl = wrapperEl.querySelector('.table-content-center .scrollable-table-body > table');
 
     if (!tableEl) {
         return;
     }
 
-    const tableHeight = parseInt(window.getComputedStyle(tableEl).height),
-        columnsWidth = getColumnsWidth(tableEl),
+    const columnsWidth = getColumnsWidth(tableEl),
         rowsHeight = getRowsHeight(tableEl),
 
         fixedHeadHeight = sum(rowsHeight[TableFragment.HEAD]) || 0,
         fixedFootHeight = sum(rowsHeight[TableFragment.FOOT]) || 0;
 
-    // /**
-    //  * body scroller
-    //  */
-    // wrapperEl.querySelectorAll('.scrollable-table-scroller')
-    //          .forEach(el => {
-    //              if (el) {
-    //                  el.style.height = `calc(100%${fixedHeadHeight ? ` - ${fixedHeadHeight}px` : ''}${fixedFootHeight ? ` - ${fixedFootHeight}px` : ''})`;
-    //              }
-    //          });
-
-    // /**
-    //  * body wrapper
-    //  */
-    // wrapperEl.querySelectorAll('.table-content-center .scrollable-table-body-wrapper')
-    //          .forEach(el => {
-    //              if (el) {
-    //                  el.style.height = `${tableHeight - fixedHeadHeight}px`;
-    //                  el.style.marginTop = `${-fixedHeadHeight}px`;
-    //              }
-    //          });
-
     /**
      * center
      */
     fixTableWidths(wrapperEl, columnsWidth, null, props);
+    maskCenterBody(wrapperEl, tableEl, fixedHeadHeight);
 
     /**
      * left
