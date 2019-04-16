@@ -1,5 +1,5 @@
 /**
- * @file TableContentTable component
+ * @file ScrollableTable component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
@@ -17,7 +17,7 @@ import SortingType from '../_statics/SortingType';
 
 import Util from '../_vendors/Util';
 
-class TableContentTable extends Component {
+class ScrollableTable extends Component {
 
     static Fragment = TableFragment;
     static Align = HorizontalAlign;
@@ -84,7 +84,7 @@ class TableContentTable extends Component {
     }
 }
 
-TableContentTable.propTypes = {
+ScrollableTable.propTypes = {
 
     /**
      * The CSS class name of the root element.
@@ -266,7 +266,7 @@ TableContentTable.propTypes = {
 
 };
 
-TableContentTable.defaultProps = {
+ScrollableTable.defaultProps = {
 
     selectMode: SelectMode.SINGLE_SELECT,
     selectAllMode: SelectAllMode.CURRENT_PAGE,
@@ -287,4 +287,4 @@ TableContentTable.defaultProps = {
 
 };
 
-export default TableContentTable;
+export default ScrollableTable;
