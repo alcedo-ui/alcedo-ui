@@ -9,7 +9,7 @@ import classNames from 'classnames';
 import eventsOn from 'dom-helpers/events/on';
 import eventsOff from 'dom-helpers/events/off';
 
-import Table from '../_TableContentTable';
+import ScrollableTable from '../_ScrollableTable';
 
 import Theme from '../Theme';
 import TableFragment from '../_statics/TableFragment';
@@ -100,7 +100,7 @@ class TableContent extends Component {
 
     fixLayout = () => {
         if ((this.props.isHeadFixed || this.props.isFootFixed) && this.wrapperEl) {
-            TableCalculation.fixLayout(this.wrapperEl);
+            TableCalculation.fixLayout(this.wrapperEl, this.props);
         }
     };
 
@@ -139,33 +139,33 @@ class TableContent extends Component {
                  })}
                  style={style}>
 
-                <Table {...restProps}
-                       className="table-content-center"
-                       columns={[
-                           ...TableCalculation.handleFixedColumns(columns[HorizontalAlign.LEFT]),
-                           ...columns[HorizontalAlign.CENTER],
-                           ...TableCalculation.handleFixedColumns(columns[HorizontalAlign.RIGHT])
-                       ]}
-                       data={tableData}/>
+                <ScrollableTable {...restProps}
+                                 className="table-content-center"
+                                 columns={[
+                                     ...TableCalculation.handleFixedColumns(columns[HorizontalAlign.LEFT]),
+                                     ...columns[HorizontalAlign.CENTER],
+                                     ...TableCalculation.handleFixedColumns(columns[HorizontalAlign.RIGHT])
+                                 ]}
+                                 data={tableData}/>
 
                 {
                     columns[HorizontalAlign.LEFT] && columns[HorizontalAlign.LEFT].length > 0 ?
-                        <Table {...restProps}
-                               className="table-content-fixed-left"
-                               fixed={HorizontalAlign.LEFT}
-                               columns={columns[HorizontalAlign.LEFT]}
-                               data={tableData}/>
+                        <ScrollableTable {...restProps}
+                                         className="table-content-fixed-left"
+                                         fixed={HorizontalAlign.LEFT}
+                                         columns={columns[HorizontalAlign.LEFT]}
+                                         data={tableData}/>
                         :
                         null
                 }
 
                 {
                     columns[HorizontalAlign.RIGHT] && columns[HorizontalAlign.RIGHT].length > 0 ?
-                        <Table {...restProps}
-                               className="table-content-fixed-right"
-                               fixed={HorizontalAlign.RIGHT}
-                               columns={columns[HorizontalAlign.RIGHT]}
-                               data={tableData}/>
+                        <ScrollableTable {...restProps}
+                                         className="table-content-fixed-right"
+                                         fixed={HorizontalAlign.RIGHT}
+                                         columns={columns[HorizontalAlign.RIGHT]}
+                                         data={tableData}/>
                         :
                         null
                 }
