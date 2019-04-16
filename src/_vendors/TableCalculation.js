@@ -98,7 +98,7 @@ function getColumnsWidth(tableEl) {
         [TableFragment.BODY]: [].map.call(tableEl.querySelector('tbody tr').querySelectorAll('td'),
             el => el.offsetWidth),
         [TableFragment.FOOT]: [].map.call(tableEl.querySelectorAll('tfoot td'),
-            el => parseInt(window.getComputedStyle(el).width))
+            el => el.offsetWidth)
     };
 
 }
@@ -154,7 +154,7 @@ function fixFragmentWidths(wrapperEl, columnsWidth, fixed, fragment, selector) {
     const el = wrapperEl.querySelector(`${selector} .scrollable-table-${fragment}`);
 
     if (el) {
-        const cols = el.querySelectorAll(fragment === TableFragment.FOOT ? 'td' : 'col');
+        const cols = el.querySelectorAll('col');
         if (cols) {
             if (fixed === HorizontalAlign.RIGHT) {
                 cols.forEach((el, index) => {
