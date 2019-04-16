@@ -6,6 +6,7 @@
 .table th {
     padding: 16px;
     text-align: left;
+    overflow: hidden;
 
     .th-column {
         box-sizing: content-box;
@@ -16,6 +17,7 @@
         font-weight: normal;
         color: $theme-field;
         cursor: default;
+        overflow: hidden;
 
         .th-column-title {
             display: table-cell;
