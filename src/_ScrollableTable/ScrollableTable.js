@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -28,16 +28,39 @@ class ScrollableTable extends Component {
     static SortingType = SortingType;
 
     constructor(props, ...restArgs) {
+
         super(props, ...restArgs);
+
+        this.headScroller = createRef();
+        this.bodyScroller = createRef();
+        this.footScroller = createRef();
+
+    }
+
+    componentDidMount() {
+
+        const {
+            isHeadFixed, isFootFixed,
+            onGetBodyScrollerEl, onGetHeadScrollerEl, onGetFootScrollerEl
+        } = this.props;
+
+        this.bodyScroller && onGetBodyScrollerEl && onGetBodyScrollerEl(this.bodyScroller.current);
+
+        isHeadFixed && this.headScroller && onGetHeadScrollerEl
+        && onGetHeadScrollerEl(this.headScroller.current);
+
+        isFootFixed && this.footScroller && onGetFootScrollerEl
+        && onGetFootScrollerEl(this.footScroller.current);
+
     }
 
     render() {
 
         const {
                 className, style, fixed, columns, data, isHeadFixed, isFootFixed, scroll, isPaginated,
-                ...restProps
+                onScroll, ...restProps
             } = this.props,
-            tableWidth = !fixed && scroll && scroll.width ? {width: scroll.width} : null;
+            tableStyle = !fixed && scroll && scroll.width ? {minWidth: scroll.width} : null;
 
         return (
             <div className={classNames('scrollable-table', {
@@ -47,9 +70,11 @@ class ScrollableTable extends Component {
 
                 {
                     isHeadFixed ?
-                        <div className="scrollable-table-head">
+                        <div ref={this.headScroller}
+                             className="scrollable-table-head"
+                             onScroll={onScroll}>
                             <BaseTable {...restProps}
-                                       style={tableWidth}
+                                       style={tableStyle}
                                        fixed={fixed}
                                        fragment={TableFragment.HEAD}
                                        columns={columns}
@@ -60,12 +85,13 @@ class ScrollableTable extends Component {
                         null
                 }
 
-                <div className="scrollable-table-scroller"
-                     style={scroll && scroll.height ? {maxHeight: scroll.height} : null}>
-                    <div className="scrollable-table-body"
-                         style={tableWidth}>
+                <div ref={this.bodyScroller}
+                     className="scrollable-table-scroller"
+                     style={scroll && scroll.height ? {maxHeight: scroll.height} : null}
+                     onScroll={onScroll}>
+                    <div className="scrollable-table-body">
                         <BaseTable {...restProps}
-                                   style={tableWidth}
+                                   style={tableStyle}
                                    fixed={fixed}
                                    columns={columns}
                                    data={data}
@@ -75,9 +101,11 @@ class ScrollableTable extends Component {
 
                 {
                     isFootFixed ?
-                        <div className="scrollable-table-foot">
+                        <div ref={this.footScroller}
+                             className="scrollable-table-foot"
+                             onScroll={onScroll}>
                             <BaseTable {...restProps}
-                                       style={tableWidth}
+                                       style={tableStyle}
                                        fixed={fixed}
                                        fragment={TableFragment.FOOT}
                                        columns={columns}
@@ -277,6 +305,10 @@ ScrollableTable.propTypes = {
     /**
      * callback
      */
+    onGetBodyScrollerEl: PropTypes.func,
+    onGetHeadScrollerEl: PropTypes.func,
+    onGetFootScrollerEl: PropTypes.func,
+    onScroll: PropTypes.func,
     onSortChange: PropTypes.func
 
 };
