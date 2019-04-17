@@ -58,7 +58,7 @@ class ScrollableTable extends Component {
 
         const {
                 className, style, fixed, columns, data, isHeadFixed, isFootFixed, scroll, isPaginated,
-                onScroll, ...restProps
+                onScroll, onWheel, ...restProps
             } = this.props,
             tableStyle = !fixed && scroll && scroll.width ? {minWidth: scroll.width} : null;
 
@@ -92,7 +92,8 @@ class ScrollableTable extends Component {
                     <div ref={this.bodyScroller}
                          className="scrollable-table-body-scroller"
                          style={scroll && scroll.height ? {maxHeight: scroll.height} : null}
-                         onScroll={onScroll}>
+                         onScroll={onScroll}
+                         onWheel={onWheel}>
                         <div className="scrollable-table-body-mask">
                             <BaseTable {...restProps}
                                        style={tableStyle}
@@ -316,6 +317,7 @@ ScrollableTable.propTypes = {
     onGetHeadScrollerEl: PropTypes.func,
     onGetFootScrollerEl: PropTypes.func,
     onScroll: PropTypes.func,
+    onWheel: PropTypes.func,
     onSortChange: PropTypes.func
 
 };
