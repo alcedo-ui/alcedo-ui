@@ -64,53 +64,60 @@ class ScrollableTable extends Component {
 
         return (
             <div className={classNames('scrollable-table', {
+                'scroll-hidden': fixed,
                 [className]: className
             })}
                  style={style}>
 
                 {
                     isHeadFixed ?
-                        <div ref={this.headScroller}
-                             className="scrollable-table-head"
-                             onScroll={onScroll}>
-                            <BaseTable {...restProps}
-                                       style={tableStyle}
-                                       fixed={fixed}
-                                       fragment={TableFragment.HEAD}
-                                       columns={columns}
-                                       data={data}
-                                       isPaginated={isPaginated}/>
+                        <div className="scrollable-table-head">
+                            <div ref={this.headScroller}
+                                 className="scrollable-table-head-scroller"
+                                 onScroll={onScroll}>
+                                <BaseTable {...restProps}
+                                           style={tableStyle}
+                                           fixed={fixed}
+                                           fragment={TableFragment.HEAD}
+                                           columns={columns}
+                                           data={data}
+                                           isPaginated={isPaginated}/>
+                            </div>
                         </div>
                         :
                         null
                 }
 
-                <div ref={this.bodyScroller}
-                     className="scrollable-table-scroller"
-                     style={scroll && scroll.height ? {maxHeight: scroll.height} : null}
-                     onScroll={onScroll}>
-                    <div className="scrollable-table-body">
-                        <BaseTable {...restProps}
-                                   style={tableStyle}
-                                   fixed={fixed}
-                                   columns={columns}
-                                   data={data}
-                                   isPaginated={isPaginated}/>
+                <div className="scrollable-table-body">
+                    <div ref={this.bodyScroller}
+                         className="scrollable-table-body-scroller"
+                         style={scroll && scroll.height ? {maxHeight: scroll.height} : null}
+                         onScroll={onScroll}>
+                        <div className="scrollable-table-body-mask">
+                            <BaseTable {...restProps}
+                                       style={tableStyle}
+                                       fixed={fixed}
+                                       columns={columns}
+                                       data={data}
+                                       isPaginated={isPaginated}/>
+                        </div>
                     </div>
                 </div>
 
                 {
                     isFootFixed ?
-                        <div ref={this.footScroller}
-                             className="scrollable-table-foot"
-                             onScroll={onScroll}>
-                            <BaseTable {...restProps}
-                                       style={tableStyle}
-                                       fixed={fixed}
-                                       fragment={TableFragment.FOOT}
-                                       columns={columns}
-                                       data={data}
-                                       isPaginated={isPaginated}/>
+                        <div className="scrollable-table-foot">
+                            <div ref={this.footScroller}
+                                 className="scrollable-table-foot-scroller"
+                                 onScroll={onScroll}>
+                                <BaseTable {...restProps}
+                                           style={tableStyle}
+                                           fixed={fixed}
+                                           fragment={TableFragment.FOOT}
+                                           columns={columns}
+                                           data={data}
+                                           isPaginated={isPaginated}/>
+                            </div>
                         </div>
                         :
                         null
