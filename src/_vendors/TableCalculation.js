@@ -150,7 +150,7 @@ function handleFixedColumns(columns) {
 }
 
 function maskCenterBody(wrapperEl, tableEl, fixedHeadHeight, fixedFootHeight) {
-    const el = wrapperEl.querySelector('.table-content-center .scrollable-table-body');
+    const el = wrapperEl.querySelector('.table-content-center .scrollable-table-body-mask');
     if (el) {
         el.style.height = `${tableEl.offsetHeight - fixedFootHeight}px`;
         el.style.marginTop = `${-fixedHeadHeight}px`;
@@ -159,7 +159,7 @@ function maskCenterBody(wrapperEl, tableEl, fixedHeadHeight, fixedFootHeight) {
 
 function fixFragmentWidth(wrapperEl, columnsWidth, fixed, fragment, selector) {
 
-    const el = wrapperEl.querySelector(`${selector} .scrollable-table-${fragment}`);
+    const el = wrapperEl.querySelector(`${selector} .scrollable-table-${fragment}-scroller`);
 
     if (el) {
         const cols = el.querySelectorAll('col');
@@ -268,7 +268,7 @@ function fixLayout(wrapperEl, props) {
         return;
     }
 
-    const tableEl = wrapperEl.querySelector('.table-content-center .scrollable-table-body > table');
+    const tableEl = wrapperEl.querySelector('.table-content-center .scrollable-table-body table');
 
     if (!tableEl) {
         return;
