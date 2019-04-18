@@ -39,7 +39,7 @@ function getSize(direction = Direction.VERTICAL) {
         tempSize.horizontal = size;
     }
 
-    document.body.removeChild(scrollDiv);
+    // document.body.removeChild(scrollDiv);
 
     return size;
 
