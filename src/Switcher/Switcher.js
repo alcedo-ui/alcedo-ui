@@ -9,7 +9,10 @@ import classNames from 'classnames';
 
 import IconButton from '../IconButton';
 import CircularLoading from '../CircularLoading';
+import TipProvider from '../TipProvider';
+
 import Theme from '../Theme';
+import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
 import ComponentUtil from '../_vendors/ComponentUtil';
@@ -69,7 +72,11 @@ class Switcher extends Component {
 
     render() {
 
-        const {className, style, theme, disabled, isLoading, size, labelVisible} = this.props,
+        const {
+                className, style, theme, disabled, isLoading, size, labelVisible,
+                tip, triggerEl, parentEl, tipPosition,
+                ...restProps
+            } = this.props,
             {value} = this.state,
 
             switcherClassName = classNames('switcher', {
@@ -80,31 +87,37 @@ class Switcher extends Component {
             });
 
         return (
-            <div className={switcherClassName}
-                 style={style}
-                 disabled={disabled || isLoading}
-                 onClick={this.clickHandler}>
+            <TipProvider tipContent={tip}
+                         triggerEl={triggerEl}
+                         parentEl={parentEl}
+                         position={tipPosition}>
+                <div {...restProps}
+                     className={switcherClassName}
+                     style={style}
+                     disabled={disabled || isLoading}
+                     onClick={this.clickHandler}>
 
-                {
-                    labelVisible ?
-                        <div className="switcher-label"></div>
-                        :
-                        null
-                }
+                    {
+                        labelVisible ?
+                            <div className="switcher-label"></div>
+                            :
+                            null
+                    }
 
-                <IconButton className="switcher-slider-wrapper"
-                            disableTouchRipple={disabled || isLoading}>
-                    <div className="switcher-slider">
-                        {
-                            isLoading ?
-                                <CircularLoading/>
-                                :
-                                null
-                        }
-                    </div>
-                </IconButton>
+                    <IconButton className="switcher-slider-wrapper"
+                                disableTouchRipple={disabled || isLoading}>
+                        <div className="switcher-slider">
+                            {
+                                isLoading ?
+                                    <CircularLoading/>
+                                    :
+                                    null
+                            }
+                        </div>
+                    </IconButton>
 
-            </div>
+                </div>
+            </TipProvider>
         );
 
     }
@@ -149,6 +162,11 @@ Switcher.propTypes = {
      */
     size: PropTypes.oneOf(Util.enumerateValue(Switcher.Size)),
 
+    tip: PropTypes.string,
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
+    triggerEl: PropTypes.object,
+    parentEl: PropTypes.object,
+
     /**
      * Callback function fired when the switcher touch-tapped.
      */
@@ -174,7 +192,9 @@ Switcher.defaultProps = {
     disabled: false,
     isLoading: false,
     labelVisible: false,
-    size: Switcher.Size.DEFAULT
+    size: Switcher.Size.DEFAULT,
+
+    tipPosition: Position.BOTTOM
 
 };
 
