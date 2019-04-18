@@ -138,12 +138,14 @@ class SwitcherExamples extends Component {
 
                                 <p>Set the disabled property to true for disabled props applied.</p>
 
-                                <Switcher disabled={true}/>
+                                <Switcher disabled={true}
+                                          tip="Disabled"/>
 
                                 <br/>
 
                                 <Switcher value={true}
-                                          disabled={true}/>
+                                          disabled={true}
+                                          tip="Disabled"/>
 
                             </div>
 
@@ -159,6 +161,6 @@ class SwitcherExamples extends Component {
             </div>
         );
     }
-};
+}
 
 export default SwitcherExamples;
