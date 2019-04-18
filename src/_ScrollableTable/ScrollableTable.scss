@@ -5,25 +5,23 @@
 
 .scrollable-table {
 
-    .scrollable-table-head {
-        overflow: hidden;
+    //.scrollable-table-head {
+    //    overflow: hidden;
 
-        .scrollable-table-head-scroller {
-            overflow-x: auto;
-            padding-bottom: 20px;
-            margin-bottom: -20px;
-        }
+    .scrollable-table-head-scroller {
+        overflow-x: auto;
     }
 
-    .scrollable-table-foot {
-        overflow: hidden;
+    //}
 
-        .scrollable-table-foot-scroller {
-            overflow-x: auto;
-            padding-bottom: 20px;
-            margin-bottom: -20px;
-        }
+    //.scrollable-table-foot {
+    //    overflow: hidden;
+
+    .scrollable-table-foot-scroller {
+        overflow-x: auto;
     }
+
+    //}
 
     .scrollable-table-body {
         position: relative;

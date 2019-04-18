@@ -15,8 +15,10 @@ import HorizontalAlign from '../_statics/HorizontalAlign';
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
+import Direction from '../_statics/Direction';
 
 import Util from '../_vendors/Util';
+import ScrollBar from '../_vendors/ScrollBar';
 
 class ScrollableTable extends Component {
 
@@ -30,6 +32,9 @@ class ScrollableTable extends Component {
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
+
+        this.horizontalScrollBarSize = ScrollBar.getSize(Direction.HORIZONTAL);
+        this.verticalScrollBarSize = ScrollBar.getSize(Direction.VERTICAL);
 
         this.headScroller = createRef();
         this.bodyScroller = createRef();
@@ -60,6 +65,9 @@ class ScrollableTable extends Component {
                 className, style, fixed, columns, data, isHeadFixed, isFootFixed, scroll, isPaginated,
                 onScroll, onWheel, ...restProps
             } = this.props,
+
+            horizontalScrollerStyle = {marginBottom: -this.horizontalScrollBarSize},
+
             tableStyle = !fixed && scroll && scroll.width ? {minWidth: scroll.width} : null;
 
         return (
@@ -71,18 +79,17 @@ class ScrollableTable extends Component {
 
                 {
                     isHeadFixed ?
-                        <div className="scrollable-table-head">
-                            <div ref={this.headScroller}
-                                 className="scrollable-table-head-scroller"
-                                 onScroll={onScroll}>
-                                <BaseTable {...restProps}
-                                           style={tableStyle}
-                                           fixed={fixed}
-                                           fragment={TableFragment.HEAD}
-                                           columns={columns}
-                                           data={data}
-                                           isPaginated={isPaginated}/>
-                            </div>
+                        <div ref={this.headScroller}
+                             className="scrollable-table-head-scroller"
+                             style={horizontalScrollerStyle}
+                             onScroll={onScroll}>
+                            <BaseTable {...restProps}
+                                       style={tableStyle}
+                                       fixed={fixed}
+                                       fragment={TableFragment.HEAD}
+                                       columns={columns}
+                                       data={data}
+                                       isPaginated={isPaginated}/>
                         </div>
                         :
                         null
@@ -107,18 +114,17 @@ class ScrollableTable extends Component {
 
                 {
                     isFootFixed ?
-                        <div className="scrollable-table-foot">
-                            <div ref={this.footScroller}
-                                 className="scrollable-table-foot-scroller"
-                                 onScroll={onScroll}>
-                                <BaseTable {...restProps}
-                                           style={tableStyle}
-                                           fixed={fixed}
-                                           fragment={TableFragment.FOOT}
-                                           columns={columns}
-                                           data={data}
-                                           isPaginated={isPaginated}/>
-                            </div>
+                        <div ref={this.footScroller}
+                             className="scrollable-table-foot-scroller"
+                             style={horizontalScrollerStyle}
+                             onScroll={onScroll}>
+                            <BaseTable {...restProps}
+                                       style={tableStyle}
+                                       fixed={fixed}
+                                       fragment={TableFragment.FOOT}
+                                       columns={columns}
+                                       data={data}
+                                       isPaginated={isPaginated}/>
                         </div>
                         :
                         null
