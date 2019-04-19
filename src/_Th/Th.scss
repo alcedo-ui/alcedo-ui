@@ -6,6 +6,8 @@
 .table th {
     padding: 16px;
     text-align: left;
+    background: $theme-secondary;
+    border-bottom: 1px solid $theme-border;
     overflow: hidden;
 
     .th-column {
