@@ -34,13 +34,30 @@ class ScrollableTable extends Component {
         super(props, ...restArgs);
 
         this.horizontalScrollBarSize = ScrollBar.getSize(Direction.HORIZONTAL);
-        this.verticalScrollBarSize = ScrollBar.getSize(Direction.VERTICAL);
 
         this.headScroller = createRef();
         this.bodyScroller = createRef();
         this.footScroller = createRef();
 
     }
+
+    getBodyScrollerStyle = horizontalScrollerStyle => {
+
+        const {fixed, scroll} = this.props,
+            result = {};
+
+        if (scroll && scroll.height) {
+            result.maxHeight = scroll.height;
+        }
+
+        if (fixed && horizontalScrollerStyle) {
+            result.marginBottom = horizontalScrollerStyle.marginBottom;
+            result.paddingBottom = horizontalScrollerStyle.paddingBottom;
+        }
+
+        return result;
+
+    };
 
     componentDidMount() {
 
@@ -62,7 +79,7 @@ class ScrollableTable extends Component {
     render() {
 
         const {
-                className, style, fixed, columns, data, isHeadFixed, isFootFixed, scroll, isPaginated,
+                className, style, bodyScrollerStyle, fixed, columns, data, isHeadFixed, isFootFixed, scroll, isPaginated,
                 onScroll, onWheel, ...restProps
             } = this.props,
 
@@ -72,14 +89,13 @@ class ScrollableTable extends Component {
                     paddingBottom: 0
                 } : null,
 
-            bodyScrollStyle = scroll && scroll.height ? {maxHeight: scroll.height} : null,
-
+            maskStyle = fixed && this.horizontalScrollBarSize > 0 ?
+                {paddingBottom: this.horizontalScrollBarSize} : null,
             tableStyle = !fixed && scroll && scroll.width ? {minWidth: scroll.width} : null;
 
         return (
             <div className={classNames('scrollable-table', {
                 static: !fixed,
-                fixed,
                 [className]: className
             })}
                  style={style}>
@@ -107,12 +123,11 @@ class ScrollableTable extends Component {
                 <div className="scrollable-table-body">
                     <div ref={this.bodyScroller}
                          className="scrollable-table-body-scroller"
-                         style={fixed ? {...bodyScrollStyle, ...horizontalScrollerStyle} : bodyScrollStyle}
+                         style={{...this.getBodyScrollerStyle(horizontalScrollerStyle), ...bodyScrollerStyle}}
                          onScroll={onScroll}
                          onWheel={onWheel}>
                         <div className="scrollable-table-body-mask"
-                             style={fixed && this.horizontalScrollBarSize > 0 ?
-                                 {paddingBottom: this.horizontalScrollBarSize} : null}>
+                             style={{...maskStyle, ...tableStyle}}>
                             <BaseTable {...restProps}
                                        style={tableStyle}
                                        fixed={fixed}
@@ -162,6 +177,7 @@ ScrollableTable.propTypes = {
      * Override the styles of the root element.
      */
     style: PropTypes.object,
+    bodyScrollerStyle: PropTypes.object,
 
     fixed: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(Util.enumerateValue(HorizontalAlign))]),
 
