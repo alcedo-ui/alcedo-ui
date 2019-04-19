@@ -36,6 +36,7 @@ class TableContent extends Component {
 
         super(props, ...restArgs);
 
+        this.horizontalScrollBarSize = ScrollBar.getSize(Direction.HORIZONTAL);
         this.verticalScrollBarSize = ScrollBar.getSize(Direction.VERTICAL);
 
         this.leftScroller = null;
@@ -254,7 +255,7 @@ class TableContent extends Component {
     render() {
 
         const {
-                className, style, data,
+                className, style, data, scroll,
                 ...restProps
             } = this.props,
 
@@ -264,7 +265,19 @@ class TableContent extends Component {
             return null;
         }
 
-        const tableData = this.paginateData(this.sortData(data));
+        const tableData = this.paginateData(this.sortData(data)),
+
+            horizontalScrollerStyle = this.horizontalScrollBarSize && this.horizontalScrollBarSize > 0 ? {
+                marginBottom: -this.horizontalScrollBarSize,
+                paddingBottom: 0
+            } : null,
+            bodyScrollerStyle = scroll && scroll.height ? {
+                maxHeight: scroll.height
+            } : null,
+            maskStyle = this.horizontalScrollBarSize > 0 ?
+                {paddingBottom: this.horizontalScrollBarSize} : null,
+            tableStyle = scroll && scroll.width ? {minWidth: scroll.width} : null,
+            footStyle = this.horizontalScrollBarSize > 0 ? {marginTop: this.horizontalScrollBarSize} : null;
 
         return (
             <div ref={this.wrapper}
@@ -275,12 +288,18 @@ class TableContent extends Component {
 
                 <ScrollableTable {...restProps}
                                  className="table-content-center"
+                                 headScrollerStyle={horizontalScrollerStyle}
+                                 bodyScrollerStyle={bodyScrollerStyle}
+                                 footScrollerStyle={horizontalScrollerStyle}
+                                 maskStyle={tableStyle}
+                                 tableStyle={tableStyle}
                                  columns={[
                                      ...TableCalculation.handleFixedColumns(columns[HorizontalAlign.LEFT]),
                                      ...columns[HorizontalAlign.CENTER],
                                      ...TableCalculation.handleFixedColumns(columns[HorizontalAlign.RIGHT])
                                  ]}
                                  data={tableData}
+                                 scroll={scroll}
                                  onScroll={this.handleScroll}
                                  onWheel={this.handleWheel}
                                  onGetBodyScrollerEl={el =>
@@ -295,12 +314,17 @@ class TableContent extends Component {
                         <ScrollableTable {...restProps}
                                          className="table-content-left"
                                          bodyScrollerStyle={{
+                                             ...horizontalScrollerStyle,
+                                             ...bodyScrollerStyle,
                                              marginRight: this.verticalScrollBarSize > 0 ?
                                                  -this.verticalScrollBarSize : -20
                                          }}
+                                         maskStyle={maskStyle}
+                                         footStyle={footStyle}
                                          fixed={HorizontalAlign.LEFT}
                                          columns={columns[HorizontalAlign.LEFT]}
                                          data={tableData}
+                                         scroll={scroll}
                                          onScroll={this.handleScroll}
                                          onWheel={this.handleWheel}
                                          onGetBodyScrollerEl={el =>
@@ -314,12 +338,17 @@ class TableContent extends Component {
                         <ScrollableTable {...restProps}
                                          className="table-content-right"
                                          bodyScrollerStyle={{
+                                             ...horizontalScrollerStyle,
+                                             ...bodyScrollerStyle,
                                              marginRight: this.verticalScrollBarSize > 0 ?
                                                  0 : -20
                                          }}
+                                         maskStyle={maskStyle}
+                                         footStyle={footStyle}
                                          fixed={HorizontalAlign.RIGHT}
                                          columns={columns[HorizontalAlign.RIGHT]}
                                          data={tableData}
+                                         scroll={scroll}
                                          onScroll={this.handleScroll}
                                          onWheel={this.handleWheel}
                                          onGetBodyScrollerEl={el =>
