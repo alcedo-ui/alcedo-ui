@@ -152,8 +152,11 @@ function handleFixedColumns(columns) {
 function maskCenterBody(wrapperEl, tableEl, fixedHeadHeight, fixedFootHeight) {
     const el = wrapperEl.querySelector('.table-content-center .scrollable-table-body-mask');
     if (el) {
-        el.style.height = `${tableEl.offsetHeight - fixedFootHeight}px`;
-        el.style.marginTop = `${-fixedHeadHeight}px`;
+        el.style.height = `${tableEl.offsetHeight - fixedHeadHeight - fixedFootHeight}px`;
+        const table = el.querySelector('table');
+        if (table) {
+            table.style.marginTop = `${-fixedHeadHeight - 1}px`;
+        }
     }
 }
 
