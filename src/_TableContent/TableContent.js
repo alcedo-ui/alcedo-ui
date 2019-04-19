@@ -180,19 +180,35 @@ class TableContent extends Component {
 
         if (scrollTop !== this.lastScrollTop && scroll.height
             && (target != this.headScroller || target != this.footScroller)) {
-
-            if (this.leftScroller && this.leftScroller !== target) {
-                this.leftScroller.scrollTop = scrollTop;
+            switch (target) {
+                case this.bodyScroller: {
+                    if (this.leftScroller) {
+                        this.leftScroller.scrollTop = scrollTop;
+                    }
+                    if (this.rightScroller) {
+                        this.rightScroller.scrollTop = scrollTop;
+                    }
+                    break;
+                }
+                case this.leftScroller: {
+                    if (this.bodyScroller) {
+                        this.bodyScroller.scrollTop = scrollTop;
+                    }
+                    if (this.rightScroller) {
+                        this.rightScroller.scrollTop = scrollTop;
+                    }
+                    break;
+                }
+                case this.rightScroller: {
+                    if (this.leftScroller) {
+                        this.leftScroller.scrollTop = scrollTop;
+                    }
+                    if (this.bodyScroller) {
+                        this.bodyScroller.scrollTop = scrollTop;
+                    }
+                    break;
+                }
             }
-
-            if (this.bodyScroller && this.bodyScroller !== target) {
-                this.bodyScroller.scrollTop = scrollTop;
-            }
-
-            if (this.rightScroller && this.rightScroller !== target) {
-                this.rightScroller.scrollTop = scrollTop;
-            }
-
         }
 
         this.lastScrollTop = scrollTop;
