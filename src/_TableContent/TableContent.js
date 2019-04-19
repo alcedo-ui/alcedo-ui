@@ -355,9 +355,7 @@ class TableContent extends Component {
                                          className="table-content-right"
                                          bodyScrollerStyle={{
                                              ...horizontalScrollerStyle,
-                                             ...bodyScrollerStyle,
-                                             marginRight: this.verticalScrollBarSize > 0 ?
-                                                 0 : -20
+                                             ...bodyScrollerStyle
                                          }}
                                          maskStyle={maskStyle}
                                          footStyle={footStyle}
