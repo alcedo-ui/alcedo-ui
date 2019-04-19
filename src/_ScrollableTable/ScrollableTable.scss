@@ -5,23 +5,10 @@
 
 .scrollable-table {
 
-    //.scrollable-table-head {
-    //    overflow: hidden;
-
-    .scrollable-table-head-scroller {
-        overflow-x: auto;
+    .scrollable-table-head,
+    .scrollable-table-foot {
+        overflow: hidden;
     }
-
-    //}
-
-    //.scrollable-table-foot {
-    //    overflow: hidden;
-
-    .scrollable-table-foot-scroller {
-        overflow-x: auto;
-    }
-
-    //}
 
     .scrollable-table-body {
         position: relative;
@@ -37,7 +24,16 @@
         }
     }
 
-    &.scroll-hidden {
+    &.static {
+        .scrollable-table-head-scroller,
+        .scrollable-table-foot-scroller {
+            padding-bottom: 20px;
+            margin-bottom: -20px;
+            overflow-x: auto;
+        }
+    }
+
+    &.fixed {
         .scrollable-table-body-scroller {
             margin-right: -20px;
         }

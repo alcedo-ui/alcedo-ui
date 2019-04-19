@@ -66,30 +66,37 @@ class ScrollableTable extends Component {
                 onScroll, onWheel, ...restProps
             } = this.props,
 
-            horizontalScrollerStyle = {marginBottom: -this.horizontalScrollBarSize},
+            horizontalScrollerStyle = !fixed && this.horizontalScrollBarSize && this.horizontalScrollBarSize > 0 ?
+                {
+                    marginBottom: -this.horizontalScrollBarSize,
+                    paddingBottom: 0
+                } : null,
 
             tableStyle = !fixed && scroll && scroll.width ? {minWidth: scroll.width} : null;
 
         return (
             <div className={classNames('scrollable-table', {
-                'scroll-hidden': fixed,
+                static: !fixed,
+                fixed,
                 [className]: className
             })}
                  style={style}>
 
                 {
                     isHeadFixed ?
-                        <div ref={this.headScroller}
-                             className="scrollable-table-head-scroller"
-                             style={horizontalScrollerStyle}
-                             onScroll={onScroll}>
-                            <BaseTable {...restProps}
-                                       style={tableStyle}
-                                       fixed={fixed}
-                                       fragment={TableFragment.HEAD}
-                                       columns={columns}
-                                       data={data}
-                                       isPaginated={isPaginated}/>
+                        <div className="scrollable-table-head">
+                            <div ref={this.headScroller}
+                                 className="scrollable-table-head-scroller"
+                                 style={horizontalScrollerStyle}
+                                 onScroll={onScroll}>
+                                <BaseTable {...restProps}
+                                           style={tableStyle}
+                                           fixed={fixed}
+                                           fragment={TableFragment.HEAD}
+                                           columns={columns}
+                                           data={data}
+                                           isPaginated={isPaginated}/>
+                            </div>
                         </div>
                         :
                         null
@@ -114,17 +121,19 @@ class ScrollableTable extends Component {
 
                 {
                     isFootFixed ?
-                        <div ref={this.footScroller}
-                             className="scrollable-table-foot-scroller"
-                             style={horizontalScrollerStyle}
-                             onScroll={onScroll}>
-                            <BaseTable {...restProps}
-                                       style={tableStyle}
-                                       fixed={fixed}
-                                       fragment={TableFragment.FOOT}
-                                       columns={columns}
-                                       data={data}
-                                       isPaginated={isPaginated}/>
+                        <div className="scrollable-table-foot">
+                            <div ref={this.footScroller}
+                                 className="scrollable-table-foot-scroller"
+                                 style={horizontalScrollerStyle}
+                                 onScroll={onScroll}>
+                                <BaseTable {...restProps}
+                                           style={tableStyle}
+                                           fixed={fixed}
+                                           fragment={TableFragment.FOOT}
+                                           columns={columns}
+                                           data={data}
+                                           isPaginated={isPaginated}/>
+                            </div>
                         </div>
                         :
                         null
