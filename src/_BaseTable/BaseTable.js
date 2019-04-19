@@ -45,9 +45,7 @@ class BaseTable extends Component {
             <table className={classNames('base-table', {
                 [className]: className
             })}
-                   style={style}
-                   cellPadding={0}
-                   cellSpacing={0}>
+                   style={style}>
 
                 <ColGroup columns={TableCalculation.getColumnsWithSpan(fragment, columns)}/>
 
