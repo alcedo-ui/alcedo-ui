@@ -132,19 +132,35 @@ class TableContent extends Component {
             scrollLeft = target.scrollLeft;
 
         if (scrollLeft !== this.lastScrollLeft && scroll.width) {
-
-            if (this.bodyScroller && this.bodyScroller !== target) {
-                this.bodyScroller.scrollLeft = scrollLeft;
+            switch (target) {
+                case this.bodyScroller: {
+                    if (isHeadFixed && this.headScroller) {
+                        this.headScroller.scrollLeft = scrollLeft;
+                    }
+                    if (isFootFixed && this.headScroller) {
+                        this.footScroller.scrollLeft = scrollLeft;
+                    }
+                    break;
+                }
+                case this.headScroller: {
+                    if (this.bodyScroller) {
+                        this.bodyScroller.scrollLeft = scrollLeft;
+                    }
+                    if (isFootFixed && this.headScroller) {
+                        this.footScroller.scrollLeft = scrollLeft;
+                    }
+                    break;
+                }
+                case this.footScroller: {
+                    if (isHeadFixed && this.headScroller) {
+                        this.headScroller.scrollLeft = scrollLeft;
+                    }
+                    if (this.bodyScroller) {
+                        this.bodyScroller.scrollLeft = scrollLeft;
+                    }
+                    break;
+                }
             }
-
-            if (isHeadFixed && this.headScroller && this.headScroller !== target) {
-                this.headScroller.scrollLeft = scrollLeft;
-            }
-
-            if (isFootFixed && this.footScroller && this.footScroller !== target) {
-                this.footScroller.scrollLeft = scrollLeft;
-            }
-
         }
 
         this.lastScrollLeft = scrollLeft;
@@ -161,7 +177,8 @@ class TableContent extends Component {
             target = e.target,
             scrollTop = target.scrollTop;
 
-        if (scrollTop !== this.lastScrollTop && scroll.height && target !== this.headScroller) {
+        if (scrollTop !== this.lastScrollTop && scroll.height
+            && (target != this.headScroller || target != this.footScroller)) {
 
             if (this.leftScroller && this.leftScroller !== target) {
                 this.leftScroller.scrollTop = scrollTop;
