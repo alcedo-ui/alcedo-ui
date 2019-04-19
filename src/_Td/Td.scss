@@ -6,6 +6,8 @@
 .table td {
     text-align: left;
     padding: 16px;
+    background: $theme-field-bg;
+    border-bottom: 1px solid $theme-border;
     transition: none;
     cursor: default;
 
