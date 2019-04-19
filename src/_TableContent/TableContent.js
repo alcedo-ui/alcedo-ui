@@ -17,9 +17,11 @@ import HorizontalAlign from '../_statics/HorizontalAlign';
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
+import Direction from '../_statics/Direction';
 
 import Util from '../_vendors/Util';
 import TableCalculation from '../_vendors/TableCalculation';
+import ScrollBar from '../_vendors/ScrollBar';
 
 class TableContent extends Component {
 
@@ -33,6 +35,8 @@ class TableContent extends Component {
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
+
+        this.verticalScrollBarSize = ScrollBar.getSize(Direction.VERTICAL);
 
         this.leftScroller = null;
         this.bodyScroller = null;
@@ -273,6 +277,10 @@ class TableContent extends Component {
                     columns[HorizontalAlign.LEFT] && columns[HorizontalAlign.LEFT].length > 0 ?
                         <ScrollableTable {...restProps}
                                          className="table-content-left"
+                                         bodyScrollerStyle={{
+                                             marginRight: this.verticalScrollBarSize > 0 ?
+                                                 -this.verticalScrollBarSize : -20
+                                         }}
                                          fixed={HorizontalAlign.LEFT}
                                          columns={columns[HorizontalAlign.LEFT]}
                                          data={tableData}
@@ -288,6 +296,10 @@ class TableContent extends Component {
                     columns[HorizontalAlign.RIGHT] && columns[HorizontalAlign.RIGHT].length > 0 ?
                         <ScrollableTable {...restProps}
                                          className="table-content-right"
+                                         bodyScrollerStyle={{
+                                             marginRight: this.verticalScrollBarSize > 0 ?
+                                                 0 : -20
+                                         }}
                                          fixed={HorizontalAlign.RIGHT}
                                          columns={columns[HorizontalAlign.RIGHT]}
                                          data={tableData}
