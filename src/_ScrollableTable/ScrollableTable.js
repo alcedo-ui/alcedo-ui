@@ -15,10 +15,8 @@ import HorizontalAlign from '../_statics/HorizontalAlign';
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
-import Direction from '../_statics/Direction';
 
 import Util from '../_vendors/Util';
-import ScrollBar from '../_vendors/ScrollBar';
 
 class ScrollableTable extends Component {
 
@@ -32,8 +30,6 @@ class ScrollableTable extends Component {
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
-
-        this.horizontalScrollBarSize = ScrollBar.getSize(Direction.HORIZONTAL);
 
         this.headScroller = createRef();
         this.bodyScroller = createRef();
