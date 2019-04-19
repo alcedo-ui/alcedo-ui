@@ -5,8 +5,6 @@
 
 .table tr {
     box-sizing: border-box;
-    background: $theme-field-bg;
-    border-bottom: 1px solid $theme-border;
 
     &.expanded-children-row {
         .expanded-children-column {
