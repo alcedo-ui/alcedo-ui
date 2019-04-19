@@ -95,7 +95,6 @@ class ScrollableTable extends Component {
 
         return (
             <div className={classNames('scrollable-table', {
-                static: !fixed,
                 [className]: className
             })}
                  style={style}>
