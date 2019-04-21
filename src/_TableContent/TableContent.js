@@ -53,6 +53,10 @@ class TableContent extends Component {
 
     }
 
+    /**
+     * split columns by fixed
+     * @returns {{[p: string]: Array}}
+     */
     getColumns = () => {
 
         const {columns} = this.props,
@@ -112,16 +116,28 @@ class TableContent extends Component {
 
     };
 
+    /**
+     * fix table layout when resize
+     */
     fixLayout = () => {
         if ((this.props.isHeadFixed || this.props.isFootFixed) && this.wrapperEl) {
             TableCalculation.fixLayout(this.wrapperEl, this.props);
         }
     };
 
+    /**
+     * handle get scroll el
+     * @param el
+     * @param type
+     */
     handleGetScrollerEl = (el, type) => {
         this[`${type}Scroller`] = el;
     };
 
+    /**
+     * handle table horizontal scroll
+     * @param e
+     */
     handleHorizontalScroll = e => {
 
         if (!e || e.currentTarget !== e.target) {
@@ -168,6 +184,10 @@ class TableContent extends Component {
 
     };
 
+    /**
+     * handle table vertical scroll
+     * @param e
+     */
     handleVerticalScroll = e => {
 
         if (!e || e.currentTarget !== e.target) {
@@ -215,11 +235,19 @@ class TableContent extends Component {
 
     };
 
+    /**
+     * handle table scroll
+     * @param e
+     */
     handleScroll = e => {
         this.handleHorizontalScroll(e);
         this.handleVerticalScroll(e);
     };
 
+    /**
+     * handle table wheel in IE
+     * @param e
+     */
     handleWheel = e => {
 
         const {scroll = {}} = this.props;
