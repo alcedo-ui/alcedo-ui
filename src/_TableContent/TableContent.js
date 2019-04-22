@@ -12,7 +12,6 @@ import eventsOff from 'dom-helpers/events/off';
 import startCase from 'lodash/startCase';
 import addClass from 'dom-helpers/class/addClass';
 import removeClass from 'dom-helpers/class/removeClass';
-import debounce from 'lodash/debounce';
 
 import ScrollableTable from '../_ScrollableTable';
 
@@ -127,13 +126,8 @@ class TableContent extends Component {
         if ((this.props.isHeadFixed || this.props.isFootFixed) && this.wrapperEl) {
             TableCalculation.fixLayout(this.wrapperEl, this.props);
         }
+        this.updateHorizontalScrollClassNames();
     };
-
-    /**
-     * fix table layout when resize
-     * @type {debounced}
-     */
-    debounceFixLayout = debounce(this.fixLayout, 150);
 
     /**
      * handle get scroll el
@@ -333,7 +327,7 @@ class TableContent extends Component {
         this.fixedLeftEl = this.fixedLeft && this.fixedLeft.current && findDOMNode(this.fixedLeft.current);
         this.fixedRightEl = this.fixedRight && this.fixedRight.current && findDOMNode(this.fixedRight.current);
 
-        eventsOn(window, 'resize', this.debounceFixLayout);
+        eventsOn(window, 'resize', this.fixLayout);
 
         this.updateHorizontalScrollClassNames();
         this.fixLayout();
