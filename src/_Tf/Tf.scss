@@ -3,9 +3,11 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-.table .base-table table > thead > tr > td {
-    padding: 16px;
+.table table > tfoot > tr > td {
     text-align: left;
+    padding: 16px;
+    background: $theme-field-bg;
+    cursor: default;
 
     &.align-center {
         text-align: center;
