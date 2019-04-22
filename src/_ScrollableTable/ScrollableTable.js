@@ -57,7 +57,7 @@ class ScrollableTable extends Component {
     render() {
 
         const {
-            className, style, headScrollerStyle, bodyScrollerStyle, maskStyle, tableStyle, footStyle, footScrollerStyle,
+            className, style, bodyScrollerStyle, maskStyle, tableStyle, footStyle,
             columns, data, isHeadFixed, isFootFixed, scroll, isPaginated,
             onScroll, onWheel, ...restProps
         } = this.props;
@@ -73,7 +73,6 @@ class ScrollableTable extends Component {
                         <div className="scrollable-table-head">
                             <div ref={this.headScroller}
                                  className="scrollable-table-head-scroller"
-                                 style={headScrollerStyle}
                                  onScroll={onScroll}>
                                 <BaseTable {...restProps}
                                            style={tableStyle}
@@ -110,7 +109,6 @@ class ScrollableTable extends Component {
                              style={footStyle}>
                             <div ref={this.footScroller}
                                  className="scrollable-table-foot-scroller"
-                                 style={footScrollerStyle}
                                  onScroll={onScroll}>
                                 <BaseTable {...restProps}
                                            style={tableStyle}
@@ -142,12 +140,10 @@ ScrollableTable.propTypes = {
      */
     style: PropTypes.object,
 
-    headScrollerStyle: PropTypes.object,
     bodyScrollerStyle: PropTypes.object,
     maskStyle: PropTypes.object,
     tableStyle: PropTypes.object,
     footStyle: PropTypes.object,
-    footScrollerStyle: PropTypes.object,
 
     fixed: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(Util.enumerateValue(HorizontalAlign))]),
 
