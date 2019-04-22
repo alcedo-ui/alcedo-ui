@@ -8,6 +8,9 @@ import sum from 'lodash/sum';
 
 import TableFragment from '../_statics/TableFragment';
 import HorizontalAlign from '../_statics/HorizontalAlign';
+import Direction from '../_statics/Direction';
+
+import ScrollBar from './ScrollBar';
 
 function calcSpan(type, column, colIndex, rowIndex) {
     const span = column[`${type}Span`];
@@ -152,7 +155,7 @@ function handleFixedColumns(columns) {
 function maskCenterBody(wrapperEl, tableEl, fixedHeadHeight, fixedFootHeight) {
     const el = wrapperEl.querySelector('.table-content-center .scrollable-table-body-mask');
     if (el) {
-        el.style.height = `${tableEl.offsetHeight - fixedHeadHeight - fixedFootHeight - 1}px`;
+        el.style.height = `${tableEl.offsetHeight - fixedHeadHeight - fixedFootHeight}px`;
         const table = el.querySelector('table');
         if (table) {
             table.style.marginTop = `${-fixedHeadHeight - 1}px`;
@@ -265,6 +268,78 @@ function fixTableHeight(wrapperEl, rowsHeight, fixed, props) {
 
 }
 
+function handleHorizontalScrollStyle(el, shouldScroll, size = ScrollBar.getSize(Direction.HORIZONTAL)) {
+
+    if (!el) {
+        return;
+    }
+
+    if (!shouldScroll) {
+        el.style.marginBottom = 0;
+        el.style.paddingBottom = 0;
+    } else if (size && size > 0) {
+        el.style.marginBottom = `${-size}px`;
+        el.style.paddingBottom = 0;
+    }
+
+}
+
+function fixTableHorizontalScroll(wrapperEl, props) {
+
+    if (!wrapperEl) {
+        return;
+    }
+
+    const horizontalScrollBarSize = ScrollBar.getSize(Direction.HORIZONTAL),
+        centerBody = wrapperEl.querySelector('.table-content-center .scrollable-table-body-scroller'),
+        shouldScroll = wrapperEl.offsetWidth < centerBody.scrollWidth;
+
+    if (props && props.isHeadFixed) {
+        const centerHead = wrapperEl.querySelector('.table-content-center .scrollable-table-head-scroller');
+        if (centerHead) {
+            handleHorizontalScrollStyle(centerHead, shouldScroll, horizontalScrollBarSize);
+        }
+    }
+
+    if (props && props.isFootFixed) {
+        const centerFoot = wrapperEl.querySelector('.table-content-center .scrollable-table-foot-scroller');
+        if (centerFoot) {
+            handleHorizontalScrollStyle(centerFoot, shouldScroll, horizontalScrollBarSize);
+        }
+    }
+
+    const leftBody = wrapperEl.querySelector('.table-content-left .scrollable-table-body-scroller');
+    if (leftBody) {
+        handleHorizontalScrollStyle(leftBody, shouldScroll, horizontalScrollBarSize);
+    }
+
+    const leftBodyMask = wrapperEl.querySelector('.table-content-left .scrollable-table-body-mask');
+    if (leftBodyMask) {
+        leftBodyMask.style.paddingBottom = shouldScroll ? `${horizontalScrollBarSize}px` : 0;
+    }
+
+    const leftFoot = wrapperEl.querySelector('.table-content-left .scrollable-table-foot');
+    if (leftFoot) {
+        leftFoot.style.marginTop = shouldScroll ? `${horizontalScrollBarSize}px` : 0;
+    }
+
+    const rightBody = wrapperEl.querySelector('.table-content-right .scrollable-table-body-scroller');
+    if (rightBody) {
+        handleHorizontalScrollStyle(rightBody, shouldScroll, horizontalScrollBarSize);
+    }
+
+    const rightBodyMask = wrapperEl.querySelector('.table-content-right .scrollable-table-body-mask');
+    if (rightBodyMask) {
+        rightBodyMask.style.paddingBottom = shouldScroll ? `${horizontalScrollBarSize}px` : 0;
+    }
+
+    const rightFoot = wrapperEl.querySelector('.table-content-right .scrollable-table-foot');
+    if (rightFoot) {
+        rightFoot.style.marginTop = shouldScroll ? `${horizontalScrollBarSize}px` : 0;
+    }
+
+}
+
 function fixLayout(wrapperEl, props) {
 
     if (!wrapperEl) {
@@ -301,6 +376,11 @@ function fixLayout(wrapperEl, props) {
      */
     fixTableWidth(wrapperEl, columnsWidth, HorizontalAlign.RIGHT, props);
     fixTableHeight(wrapperEl, rowsHeight, HorizontalAlign.RIGHT, props);
+
+    /**
+     * fix horizontal scroll style
+     */
+    fixTableHorizontalScroll(wrapperEl, props);
 
 }
 
