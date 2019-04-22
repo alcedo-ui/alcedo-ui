@@ -17,11 +17,9 @@ import HorizontalAlign from '../_statics/HorizontalAlign';
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
-import Direction from '../_statics/Direction';
 
 import Util from '../_vendors/Util';
 import TableCalculation from '../_vendors/TableCalculation';
-import ScrollBar from '../_vendors/ScrollBar';
 
 class TableContent extends Component {
 
@@ -35,8 +33,6 @@ class TableContent extends Component {
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
-
-        this.verticalScrollBarSize = ScrollBar.getSize(Direction.VERTICAL);
 
         this.leftScroller = null;
         this.bodyScroller = null;
