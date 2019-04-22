@@ -13,19 +13,19 @@
         height: 12px;
         line-height: 12px;
         text-align: center;
-        color: $theme-secondary;
+        color: $theme-field-disabled;
         transition: color $theme-transition-duration ease-in-out;
     }
 
     &.asc {
         .th-sorting-icon.up {
-            color: $theme-field;
+            color: $theme-highlight;
         }
     }
 
     &.desc {
         .th-sorting-icon.down {
-            color: $theme-field;
+            color: $theme-highlight;
         }
     }
 }
