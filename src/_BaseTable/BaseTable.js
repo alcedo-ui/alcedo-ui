@@ -77,8 +77,7 @@ class BaseTable extends Component {
 
                 {/** render foot if a footRenderer exists in columns */}
                 {
-                    (fragment === TableFragment.FOOT || (!fixed && !fragment))
-                    && TableCalculation.hasFooterRenderer(columns) ?
+                    (fragment === TableFragment.FOOT || (!fixed && !fragment)) ?
                         <Tfoot columns={columns}
                                data={data}
                                disabled={disabled}
