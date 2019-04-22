@@ -129,6 +129,10 @@ class TableContent extends Component {
         this[`${type}Scroller`] = el;
     };
 
+    updateHorizontalScrollClassNames = () => {
+
+    };
+
     /**
      * handle table horizontal scroll
      * @param e
@@ -144,6 +148,7 @@ class TableContent extends Component {
             scrollLeft = target.scrollLeft;
 
         if (scrollLeft !== this.lastScrollLeft && scroll.width) {
+
             switch (target) {
                 case this.bodyScroller: {
                     if (isHeadFixed && this.headScroller) {
@@ -173,6 +178,9 @@ class TableContent extends Component {
                     break;
                 }
             }
+
+            this.updateHorizontalScrollClassNames();
+
         }
 
         this.lastScrollLeft = scrollLeft;

@@ -18,6 +18,10 @@
         .scrollable-table-body-mask {
             position: relative;
             top: 1px;
+
+            .base-table {
+                width: 100%;
+            }
         }
     }
 
