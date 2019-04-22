@@ -140,7 +140,7 @@ class TableContent extends Component {
     };
 
     /**
-     * update
+     * update shadow when horizontal scroll
      */
     updateHorizontalScrollClassNames = () => {
 
