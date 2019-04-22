@@ -283,8 +283,12 @@ class TableContent extends Component {
     };
 
     componentDidMount() {
+
         this.wrapperEl = this.wrapper && this.wrapper.current;
         eventsOn(window, 'resize', this.fixLayout);
+
+        this.fixLayout();
+
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -344,11 +348,7 @@ class TableContent extends Component {
                     columns[HorizontalAlign.LEFT] && columns[HorizontalAlign.LEFT].length > 0 ?
                         <ScrollableTable {...restProps}
                                          className="table-content-left"
-                                         bodyScrollerStyle={{
-                                             ...bodyScrollerStyle,
-                                             marginRight: this.verticalScrollBarSize > 0 ?
-                                                 -this.verticalScrollBarSize : -20
-                                         }}
+                                         bodyScrollerStyle={bodyScrollerStyle}
                                          fixed={HorizontalAlign.LEFT}
                                          columns={columns[HorizontalAlign.LEFT]}
                                          data={tableData}
@@ -365,9 +365,7 @@ class TableContent extends Component {
                     columns[HorizontalAlign.RIGHT] && columns[HorizontalAlign.RIGHT].length > 0 ?
                         <ScrollableTable {...restProps}
                                          className="table-content-right"
-                                         bodyScrollerStyle={{
-                                             ...bodyScrollerStyle
-                                         }}
+                                         bodyScrollerStyle={bodyScrollerStyle}
                                          fixed={HorizontalAlign.RIGHT}
                                          columns={columns[HorizontalAlign.RIGHT]}
                                          data={tableData}
