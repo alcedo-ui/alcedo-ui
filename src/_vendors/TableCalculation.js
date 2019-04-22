@@ -346,9 +346,16 @@ function fixTableVerticalScroll(wrapperEl, props) {
         return;
     }
 
-    const verticalScrollBarSize = ScrollBar.getSize(Direction.VERTICAL),
-        leftBody = wrapperEl.querySelector('.table-content-left .scrollable-table-body-scroller');
+    const verticalScrollBarSize = ScrollBar.getSize(Direction.VERTICAL);
 
+    if (props && props.isFootFixed && verticalScrollBarSize && verticalScrollBarSize > 0) {
+        const centerFoot = wrapperEl.querySelector('.table-content-center .scrollable-table-foot-scroller table');
+        if (centerFoot) {
+            centerFoot.style.width = `calc(100% - ${verticalScrollBarSize}px)`;
+        }
+    }
+
+    const leftBody = wrapperEl.querySelector('.table-content-left .scrollable-table-body-scroller');
     if (leftBody) {
         leftBody.style.marginRight = verticalScrollBarSize && verticalScrollBarSize > 0 ?
             `-${verticalScrollBarSize}px` : '-20px';
