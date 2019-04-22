@@ -4,10 +4,15 @@
  */
 
 import React, {Component, createRef} from 'react';
+import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import eventsOn from 'dom-helpers/events/on';
 import eventsOff from 'dom-helpers/events/off';
+import startCase from 'lodash/startCase';
+import addClass from 'dom-helpers/class/addClass';
+import removeClass from 'dom-helpers/class/removeClass';
+import debounce from 'lodash/debounce';
 
 import ScrollableTable from '../_ScrollableTable';
 
@@ -34,17 +39,21 @@ class TableContent extends Component {
 
         super(props, ...restArgs);
 
-        this.leftScroller = null;
-        this.bodyScroller = null;
-        this.headScroller = null;
-        this.footScroller = null;
-        this.rightScroller = null;
+        this.leftBodyScroller = null;
+        this.centerHeadScroller = null;
+        this.centerBodyScroller = null;
+        this.centerFootScroller = null;
+        this.rightBodyScroller = null;
 
         this.lastScrollLeft = 0;
         this.lastScrollTop = 0;
 
         this.wrapper = createRef();
         this.wrapperEl = null;
+        this.fixedLeft = createRef();
+        this.fixedLeftEl = null;
+        this.fixedRight = createRef();
+        this.fixedRightEl = null;
 
     }
 
@@ -112,7 +121,7 @@ class TableContent extends Component {
     };
 
     /**
-     * fix table layout when resize
+     * fix table layout at once
      */
     fixLayout = () => {
         if ((this.props.isHeadFixed || this.props.isFootFixed) && this.wrapperEl) {
@@ -121,15 +130,47 @@ class TableContent extends Component {
     };
 
     /**
+     * fix table layout when resize
+     * @type {debounced}
+     */
+    debounceFixLayout = debounce(this.fixLayout, 150);
+
+    /**
      * handle get scroll el
      * @param el
-     * @param type
+     * @param fixed
+     * @param fragment
      */
-    handleGetScrollerEl = (el, type) => {
-        this[`${type}Scroller`] = el;
+    handleGetScrollerEl = (el, fixed, fragment) => {
+        this[`${fixed}${startCase(fragment)}Scroller`] = el;
     };
 
+    /**
+     * update
+     */
     updateHorizontalScrollClassNames = () => {
+
+        if (!this.wrapperEl || !this.fixedLeftEl || !this.fixedRightEl || !this.centerBodyScroller) {
+            return;
+        }
+
+        const {scrollWidth, offsetWidth, scrollLeft} = this.centerBodyScroller;
+
+        if (this.fixedLeftEl) {
+            if (scrollLeft > 0) {
+                addClass(this.fixedLeftEl, 'scroll-shadow');
+            } else {
+                removeClass(this.fixedLeftEl, 'scroll-shadow');
+            }
+        }
+
+        if (this.fixedRightEl) {
+            if (scrollLeft < scrollWidth - offsetWidth) {
+                addClass(this.fixedRightEl, 'scroll-shadow');
+            } else {
+                removeClass(this.fixedRightEl, 'scroll-shadow');
+            }
+        }
 
     };
 
@@ -150,30 +191,30 @@ class TableContent extends Component {
         if (scrollLeft !== this.lastScrollLeft && scroll.width) {
 
             switch (target) {
-                case this.bodyScroller: {
-                    if (isHeadFixed && this.headScroller) {
-                        this.headScroller.scrollLeft = scrollLeft;
+                case this.centerBodyScroller: {
+                    if (isHeadFixed && this.centerHeadScroller) {
+                        this.centerHeadScroller.scrollLeft = scrollLeft;
                     }
-                    if (isFootFixed && this.headScroller) {
-                        this.footScroller.scrollLeft = scrollLeft;
-                    }
-                    break;
-                }
-                case this.headScroller: {
-                    if (this.bodyScroller) {
-                        this.bodyScroller.scrollLeft = scrollLeft;
-                    }
-                    if (isFootFixed && this.headScroller) {
-                        this.footScroller.scrollLeft = scrollLeft;
+                    if (isFootFixed && this.centerHeadScroller) {
+                        this.centerFootScroller.scrollLeft = scrollLeft;
                     }
                     break;
                 }
-                case this.footScroller: {
-                    if (isHeadFixed && this.headScroller) {
-                        this.headScroller.scrollLeft = scrollLeft;
+                case this.centerHeadScroller: {
+                    if (this.centerBodyScroller) {
+                        this.centerBodyScroller.scrollLeft = scrollLeft;
                     }
-                    if (this.bodyScroller) {
-                        this.bodyScroller.scrollLeft = scrollLeft;
+                    if (isFootFixed && this.centerHeadScroller) {
+                        this.centerFootScroller.scrollLeft = scrollLeft;
+                    }
+                    break;
+                }
+                case this.centerFootScroller: {
+                    if (isHeadFixed && this.centerHeadScroller) {
+                        this.centerHeadScroller.scrollLeft = scrollLeft;
+                    }
+                    if (this.centerBodyScroller) {
+                        this.centerBodyScroller.scrollLeft = scrollLeft;
                     }
                     break;
                 }
@@ -202,32 +243,32 @@ class TableContent extends Component {
             scrollTop = target.scrollTop;
 
         if (scrollTop !== this.lastScrollTop && scroll.height
-            && (target != this.headScroller || target != this.footScroller)) {
+            && (target != this.centerHeadScroller || target != this.centerFootScroller)) {
             switch (target) {
-                case this.bodyScroller: {
-                    if (this.leftScroller) {
-                        this.leftScroller.scrollTop = scrollTop;
+                case this.centerBodyScroller: {
+                    if (this.leftBodyScroller) {
+                        this.leftBodyScroller.scrollTop = scrollTop;
                     }
-                    if (this.rightScroller) {
-                        this.rightScroller.scrollTop = scrollTop;
-                    }
-                    break;
-                }
-                case this.leftScroller: {
-                    if (this.bodyScroller) {
-                        this.bodyScroller.scrollTop = scrollTop;
-                    }
-                    if (this.rightScroller) {
-                        this.rightScroller.scrollTop = scrollTop;
+                    if (this.rightBodyScroller) {
+                        this.rightBodyScroller.scrollTop = scrollTop;
                     }
                     break;
                 }
-                case this.rightScroller: {
-                    if (this.leftScroller) {
-                        this.leftScroller.scrollTop = scrollTop;
+                case this.leftBodyScroller: {
+                    if (this.centerBodyScroller) {
+                        this.centerBodyScroller.scrollTop = scrollTop;
                     }
-                    if (this.bodyScroller) {
-                        this.bodyScroller.scrollTop = scrollTop;
+                    if (this.rightBodyScroller) {
+                        this.rightBodyScroller.scrollTop = scrollTop;
+                    }
+                    break;
+                }
+                case this.rightBodyScroller: {
+                    if (this.leftBodyScroller) {
+                        this.leftBodyScroller.scrollTop = scrollTop;
+                    }
+                    if (this.centerBodyScroller) {
+                        this.centerBodyScroller.scrollTop = scrollTop;
                     }
                     break;
                 }
@@ -272,16 +313,16 @@ class TableContent extends Component {
             scrollTop = wd;
         }
 
-        if (this.leftScroller && this.leftScroller !== target) {
-            this.leftScroller.scrollTop = scrollTop;
+        if (this.leftBodyScroller && this.leftBodyScroller !== target) {
+            this.leftBodyScroller.scrollTop = scrollTop;
         }
 
-        if (this.bodyScroller && this.bodyScroller !== target) {
-            this.bodyScroller.scrollTop = scrollTop;
+        if (this.centerBodyScroller && this.centerBodyScroller !== target) {
+            this.centerBodyScroller.scrollTop = scrollTop;
         }
 
-        if (this.rightScroller && this.rightScroller !== target) {
-            this.rightScroller.scrollTop = scrollTop;
+        if (this.rightBodyScroller && this.rightBodyScroller !== target) {
+            this.rightBodyScroller.scrollTop = scrollTop;
         }
 
     };
@@ -289,8 +330,12 @@ class TableContent extends Component {
     componentDidMount() {
 
         this.wrapperEl = this.wrapper && this.wrapper.current;
-        eventsOn(window, 'resize', this.fixLayout);
+        this.fixedLeftEl = this.fixedLeft && this.fixedLeft.current && findDOMNode(this.fixedLeft.current);
+        this.fixedRightEl = this.fixedRight && this.fixedRight.current && findDOMNode(this.fixedRight.current);
 
+        eventsOn(window, 'resize', this.debounceFixLayout);
+
+        this.updateHorizontalScrollClassNames();
         this.fixLayout();
 
     }
@@ -341,16 +386,17 @@ class TableContent extends Component {
                                  scroll={scroll}
                                  onScroll={this.handleScroll}
                                  onWheel={this.handleWheel}
-                                 onGetBodyScrollerEl={el =>
-                                     this.handleGetScrollerEl(el, TableFragment.BODY)}
                                  onGetHeadScrollerEl={el =>
-                                     this.handleGetScrollerEl(el, TableFragment.HEAD)}
+                                     this.handleGetScrollerEl(el, HorizontalAlign.CENTER, TableFragment.HEAD)}
+                                 onGetBodyScrollerEl={el =>
+                                     this.handleGetScrollerEl(el, HorizontalAlign.CENTER, TableFragment.BODY)}
                                  onGetFootScrollerEl={el =>
-                                     this.handleGetScrollerEl(el, TableFragment.FOOT)}/>
+                                     this.handleGetScrollerEl(el, HorizontalAlign.CENTER, TableFragment.FOOT)}/>
 
                 {
                     columns[HorizontalAlign.LEFT] && columns[HorizontalAlign.LEFT].length > 0 ?
                         <ScrollableTable {...restProps}
+                                         ref={this.fixedLeft}
                                          className="table-content-left"
                                          bodyScrollerStyle={bodyScrollerStyle}
                                          fixed={HorizontalAlign.LEFT}
@@ -359,8 +405,12 @@ class TableContent extends Component {
                                          scroll={scroll}
                                          onScroll={this.handleScroll}
                                          onWheel={this.handleWheel}
+                                         onGetHeadScrollerEl={el =>
+                                             this.handleGetScrollerEl(el, HorizontalAlign.LEFT, TableFragment.HEAD)}
                                          onGetBodyScrollerEl={el =>
-                                             this.handleGetScrollerEl(el, HorizontalAlign.LEFT)}/>
+                                             this.handleGetScrollerEl(el, HorizontalAlign.LEFT, TableFragment.BODY)}
+                                         onGetFootScrollerEl={el =>
+                                             this.handleGetScrollerEl(el, HorizontalAlign.LEFT, TableFragment.FOOT)}/>
                         :
                         null
                 }
@@ -368,6 +418,7 @@ class TableContent extends Component {
                 {
                     columns[HorizontalAlign.RIGHT] && columns[HorizontalAlign.RIGHT].length > 0 ?
                         <ScrollableTable {...restProps}
+                                         ref={this.fixedRight}
                                          className="table-content-right"
                                          bodyScrollerStyle={bodyScrollerStyle}
                                          fixed={HorizontalAlign.RIGHT}
@@ -376,8 +427,12 @@ class TableContent extends Component {
                                          scroll={scroll}
                                          onScroll={this.handleScroll}
                                          onWheel={this.handleWheel}
+                                         onGetHeadScrollerEl={el =>
+                                             this.handleGetScrollerEl(el, HorizontalAlign.RIGHT, TableFragment.HEAD)}
                                          onGetBodyScrollerEl={el =>
-                                             this.handleGetScrollerEl(el, HorizontalAlign.RIGHT)}/>
+                                             this.handleGetScrollerEl(el, HorizontalAlign.RIGHT, TableFragment.BODY)}
+                                         onGetFootScrollerEl={el =>
+                                             this.handleGetScrollerEl(el, HorizontalAlign.RIGHT, TableFragment.FOOT)}/>
                         :
                         null
                 }

@@ -35,10 +35,15 @@
     .table-content-right {
         position: absolute;
         top: 0;
+        transition: box-shadow .3s ease;
     }
 
     .table-content-left {
         left: 0;
+
+        &.scroll-shadow {
+            box-shadow: 6px 0 6px -4px rgba(0, 0, 0, 0.15);
+        }
     }
 
     .table-content-right {
@@ -46,6 +51,10 @@
 
         .scrollable-table-head-scroller {
             background: $theme-secondary;
+        }
+
+        &.scroll-shadow {
+            box-shadow: -6px 0 6px -4px rgba(0, 0, 0, 0.15);
         }
     }
 
