@@ -18,13 +18,17 @@
         text-align: left;
         font-weight: normal;
         color: $theme-field;
-        cursor: default;
+        cursor: inherit;
         overflow: hidden;
 
         .th-column-title {
             display: table-cell;
             vertical-align: middle;
         }
+    }
+
+    &:hover {
+        background: $theme-border;
     }
 
     &:first-child {
@@ -40,8 +44,6 @@
     }
 
     &.sortable {
-        .th-column {
-            cursor: pointer;
-        }
+        cursor: pointer;
     }
 }
