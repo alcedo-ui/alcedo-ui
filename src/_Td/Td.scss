@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-.table td {
+.table table > tbody > tr > td {
     text-align: left;
     padding: 16px;
     background: $theme-field-bg;
