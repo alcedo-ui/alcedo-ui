@@ -96,11 +96,11 @@ function getColumnsWidth(tableEl) {
     }
 
     return {
-        [TableFragment.HEAD]: [].map.call(tableEl.querySelectorAll('thead th'),
+        [TableFragment.HEAD]: [].map.call(tableEl.querySelector('thead tr').querySelectorAll('th'),
             el => el.offsetWidth),
         [TableFragment.BODY]: [].map.call(tableEl.querySelector('tbody tr').querySelectorAll('td'),
             el => el.offsetWidth),
-        [TableFragment.FOOT]: [].map.call(tableEl.querySelectorAll('tfoot td'),
+        [TableFragment.FOOT]: [].map.call(tableEl.querySelector('tfoot tr').querySelectorAll('td'),
             el => el.offsetWidth)
     };
 
