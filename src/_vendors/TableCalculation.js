@@ -331,7 +331,6 @@ function fixTableHorizontalScroll(wrapperEl, props) {
     const rightBodyMask = wrapperEl.querySelector('.table-content-right .scrollable-table-body-mask');
     if (rightBodyMask) {
         rightBodyMask.style.paddingBottom = shouldScroll ? `${horizontalScrollBarSize}px` : 0;
-        console.log('rightBodyMask.style.paddingBottom', rightBodyMask.style.paddingBottom);
     }
 
     const rightFoot = wrapperEl.querySelector('.table-content-right .scrollable-table-foot');
