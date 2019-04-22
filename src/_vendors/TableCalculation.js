@@ -280,6 +280,9 @@ function handleHorizontalScrollStyle(el, shouldScroll, size = ScrollBar.getSize(
     } else if (size && size > 0) {
         el.style.marginBottom = `${-size}px`;
         el.style.paddingBottom = 0;
+    } else {
+        el.style.marginBottom = '-20px';
+        el.style.paddingBottom = '20px';
     }
 
 }
@@ -292,7 +295,7 @@ function fixTableHorizontalScroll(wrapperEl, props) {
 
     const horizontalScrollBarSize = ScrollBar.getSize(Direction.HORIZONTAL),
         centerBody = wrapperEl.querySelector('.table-content-center .scrollable-table-body-scroller'),
-        shouldScroll = wrapperEl.offsetWidth < centerBody.scrollWidth;
+        shouldScroll = centerBody.offsetWidth < centerBody.scrollWidth;
 
     if (props && props.isHeadFixed) {
         const centerHead = wrapperEl.querySelector('.table-content-center .scrollable-table-head-scroller');
