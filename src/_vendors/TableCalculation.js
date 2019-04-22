@@ -331,11 +331,30 @@ function fixTableHorizontalScroll(wrapperEl, props) {
     const rightBodyMask = wrapperEl.querySelector('.table-content-right .scrollable-table-body-mask');
     if (rightBodyMask) {
         rightBodyMask.style.paddingBottom = shouldScroll ? `${horizontalScrollBarSize}px` : 0;
+        console.log('rightBodyMask.style.paddingBottom', rightBodyMask.style.paddingBottom);
     }
 
     const rightFoot = wrapperEl.querySelector('.table-content-right .scrollable-table-foot');
     if (rightFoot) {
         rightFoot.style.marginTop = shouldScroll ? `${horizontalScrollBarSize}px` : 0;
+    }
+
+}
+
+function fixTableVerticalScroll(wrapperEl, props) {
+
+    if (!wrapperEl) {
+        return;
+    }
+
+    const verticalScrollBarSize = ScrollBar.getSize(Direction.VERTICAL),
+        leftBody = wrapperEl.querySelector('.table-content-left .scrollable-table-body-scroller');
+
+    if (leftBody) {
+        leftBody.style.marginRight = verticalScrollBarSize && verticalScrollBarSize > 0 ?
+            `-${verticalScrollBarSize}px` : '-20px';
+        leftBody.style.paddingRight = verticalScrollBarSize && verticalScrollBarSize > 0 ?
+            `${verticalScrollBarSize}px` : '20px';
     }
 
 }
@@ -378,9 +397,10 @@ function fixLayout(wrapperEl, props) {
     fixTableHeight(wrapperEl, rowsHeight, HorizontalAlign.RIGHT, props);
 
     /**
-     * fix horizontal scroll style
+     * fix scroll style
      */
     fixTableHorizontalScroll(wrapperEl, props);
+    fixTableVerticalScroll(wrapperEl, props);
 
 }
 
