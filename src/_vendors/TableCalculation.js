@@ -377,6 +377,12 @@ function fixLayout(wrapperEl, props) {
         return;
     }
 
+    /**
+     * fix scroll style
+     */
+    fixTableHorizontalScroll(wrapperEl, props);
+    fixTableVerticalScroll(wrapperEl, props);
+
     const columnsWidth = getColumnsWidth(tableEl),
         rowsHeight = getRowsHeight(tableEl),
 
@@ -401,12 +407,6 @@ function fixLayout(wrapperEl, props) {
      */
     fixTableWidth(wrapperEl, columnsWidth, HorizontalAlign.RIGHT, props);
     fixTableHeight(wrapperEl, rowsHeight, HorizontalAlign.RIGHT, props);
-
-    /**
-     * fix scroll style
-     */
-    fixTableHorizontalScroll(wrapperEl, props);
-    fixTableVerticalScroll(wrapperEl, props);
 
 }
 
