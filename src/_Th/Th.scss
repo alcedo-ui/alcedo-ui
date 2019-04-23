@@ -6,7 +6,7 @@
 .table th {
     padding: 16px;
     text-align: left;
-    background: $theme-secondary;
+    background: $theme-field-bg-disabled;
     border-bottom: 1px solid $theme-border;
     overflow: hidden;
 
@@ -18,6 +18,7 @@
         text-align: left;
         font-weight: normal;
         color: $theme-field;
+        font-weight: 700;
         cursor: inherit;
         overflow: hidden;
 
@@ -28,7 +29,7 @@
     }
 
     &:hover {
-        background: $theme-border;
+        background: $theme-secondary;
     }
 
     &:first-child {
