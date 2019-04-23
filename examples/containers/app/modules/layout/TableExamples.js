@@ -57,6 +57,22 @@ class TableExamples extends Component {
             sortable: true,
             sortingProp: 'age'
         }, {
+            width: 300,
+            headRenderer: 'Other Column 1',
+            bodyRenderer: '${other} 1'
+        }, {
+            width: 300,
+            headRenderer: 'Other Column 2',
+            bodyRenderer: '${other} 2'
+        }, {
+            width: 300,
+            headRenderer: 'Other Column 3',
+            bodyRenderer: '${other} 3'
+        }, {
+            width: 300,
+            headRenderer: 'Other Column 4',
+            bodyRenderer: '${other} 4'
+        }, {
             headRenderer: 'Deposit',
             headAlign: Table.Align.RIGHT,
             bodyRenderer: '$${deposit}',
@@ -69,14 +85,6 @@ class TableExamples extends Component {
             footAlign: Table.Align.RIGHT,
             sortable: true,
             sortingProp: 'deposit'
-        }, {
-            headRenderer: 'Other Column 1'
-        }, {
-            headRenderer: 'Other Column 2'
-        }, {
-            headRenderer: 'Other Column 3'
-        }, {
-            headRenderer: 'Other Column 4'
         }, {
             fixed: Table.Fixed.RIGHT,
             headRenderer: 'Status',
@@ -115,7 +123,7 @@ class TableExamples extends Component {
                 lastName: `lastName${i}`,
                 age: Math.floor(Math.random() * 100),
                 deposit: round(Math.random() * 1000000, 2),
-                childrenNum: i === 0 ? 9 : 0
+                other: 'Other Content'
             });
         }
 
@@ -217,7 +225,7 @@ class TableExamples extends Component {
                                    isHeadFixed={true}
                                    isFootFixed={true}
                                    scroll={{
-                                       width: 800,
+                                       width: 1200,
                                        height: 400
                                    }}
                                    paggingCountRenderer={count => <span>Self Defined Total Count: {count}</span>}
@@ -277,7 +285,7 @@ class TableExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                {/*<PropTypeDescTable data={doc}/>*/}
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );
