@@ -19,6 +19,7 @@
             padding-bottom: 20px;
             margin-bottom: -20px;
             overflow-x: auto;
+            overflow-y: hidden;
         }
 
         .scrollable-table-body-scroller {
@@ -34,10 +35,16 @@
         top: 0;
         transition: box-shadow .3s ease;
 
-        .scrollable-table-body-mask {
-            margin-top: -1px;
-            margin-bottom: -1px;
+        .scrollable-table-body-scroller {
+            overflow-x: hidden;
+            overflow-y: auto;
+
+            .scrollable-table-body-mask {
+                margin-top: -1px;
+                margin-bottom: -1px;
+            }
         }
+
     }
 
     .table-content-left {
