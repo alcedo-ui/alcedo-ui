@@ -100,9 +100,9 @@ class TableContent extends Component {
      */
     paginateData = (data = this.props.data) => {
 
-        const {pagination} = this.props;
+        const {isPaginated, pagination} = this.props;
 
-        if (!pagination) {
+        if (!isPaginated || !pagination) {
             return data;
         }
 
