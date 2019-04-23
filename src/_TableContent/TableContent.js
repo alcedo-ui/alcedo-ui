@@ -345,7 +345,7 @@ class TableContent extends Component {
     render() {
 
         const {
-                className, style, data, scroll,
+                className, style, columns: originColumns, data, scroll,
                 ...restProps
             } = this.props,
 
@@ -356,6 +356,10 @@ class TableContent extends Component {
         }
 
         const tableData = this.paginateData(this.sortData(data)),
+
+            isHeadHidden = !TableCalculation.hasAnyRenderer(originColumns, TableFragment.HEAD),
+            isFootHidden = !TableCalculation.hasAnyRenderer(originColumns, TableFragment.FOOT),
+
             bodyScrollerStyle = scroll && scroll.height ? {maxHeight: scroll.height} : null,
             tableStyle = scroll && scroll.width ? {minWidth: scroll.width} : null;
 
@@ -378,6 +382,8 @@ class TableContent extends Component {
                                  ]}
                                  data={tableData}
                                  scroll={scroll}
+                                 isHeadHidden={isHeadHidden}
+                                 isFootHidden={isFootHidden}
                                  onScroll={this.handleScroll}
                                  onWheel={this.handleWheel}
                                  onGetHeadScrollerEl={el =>
@@ -397,6 +403,8 @@ class TableContent extends Component {
                                          columns={columns[HorizontalAlign.LEFT]}
                                          data={tableData}
                                          scroll={scroll}
+                                         isHeadHidden={isHeadHidden}
+                                         isFootHidden={isFootHidden}
                                          onScroll={this.handleScroll}
                                          onWheel={this.handleWheel}
                                          onGetHeadScrollerEl={el =>
@@ -419,6 +427,8 @@ class TableContent extends Component {
                                          columns={columns[HorizontalAlign.RIGHT]}
                                          data={tableData}
                                          scroll={scroll}
+                                         isHeadHidden={isHeadHidden}
+                                         isFootHidden={isFootHidden}
                                          onScroll={this.handleScroll}
                                          onWheel={this.handleWheel}
                                          onGetHeadScrollerEl={el =>
