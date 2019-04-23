@@ -14,6 +14,7 @@ import addClass from 'dom-helpers/class/addClass';
 import removeClass from 'dom-helpers/class/removeClass';
 
 import ScrollableTable from '../_ScrollableTable';
+import Checkbox from '../Checkbox';
 
 import Theme from '../Theme';
 import TableFragment from '../_statics/TableFragment';
@@ -56,13 +57,36 @@ class TableContent extends Component {
 
     }
 
+    isHeadChecked = () => {
+
+    };
+
+    isHeadIndeterminate = () => {
+
+    };
+
+    headCheckBoxChangeHandler = () => {
+
+    };
+
+    multiSelectHandler = () => {
+
+    };
+
+    isItemChecked = () => {
+
+    };
+
     /**
      * split columns by fixed
      * @returns {{[p: string]: Array}}
      */
     getColumns = () => {
 
-        const {columns, selectMode} = this.props,
+        const {
+                selectTheme, columns, selectMode, disabled, value,
+                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls
+            } = this.props,
             result = {
                 [HorizontalAlign.LEFT]: [],
                 [HorizontalAlign.CENTER]: [],
@@ -79,13 +103,42 @@ class TableContent extends Component {
             }
         });
 
-        // if (selectMode === SelectMode.MULTI_SELECT) {
-        //     if (result[HorizontalAlign.LEFT].length > 0) {
-        //         result[HorizontalAlign.LEFT].unshift();
-        //     } else {
-        //
-        //     }
-        // }
+        /**
+         * multi select
+         */
+        if (selectMode === SelectMode.MULTI_SELECT) {
+
+            const column = {
+                headClassName: 'table-select-th',
+                headRenderer: () =>
+                    <Checkbox className="table-select"
+                              theme={selectTheme}
+                              checked={this.isHeadChecked()}
+                              disabled={disabled}
+                              indeterminate={this.isHeadIndeterminate()}
+                              uncheckedIconCls={checkboxUncheckedIconCls}
+                              checkedIconCls={checkboxCheckedIconCls}
+                              indeterminateIconCls={checkboxIndeterminateIconCls}
+                              onChange={this.headCheckBoxChangeHandler}/>,
+                bodyClassName: 'table-select-td',
+                bodyRenderer: (rowData, rowIndex) =>
+                    <Checkbox className="table-select"
+                              theme={selectTheme}
+                              checked={this.isItemChecked(rowData, value)}
+                              disabled={disabled || rowData.disabled}
+                              uncheckedIconCls={checkboxUncheckedIconCls}
+                              checkedIconCls={checkboxCheckedIconCls}
+                              indeterminateIconCls={checkboxIndeterminateIconCls}
+                              onChange={() => this.multiSelectHandler(rowData, rowIndex)}/>
+            };
+
+            if (result[HorizontalAlign.LEFT].length > 0) {
+                result[HorizontalAlign.LEFT].unshift(column);
+            } else {
+                result[HorizontalAlign.CENTER].unshift(column);
+            }
+
+        }
 
         return result;
 
@@ -599,6 +652,13 @@ TableContent.propTypes = {
     })).isRequired,
 
     data: PropTypes.array,
+    value: PropTypes.array,
+
+    disabled: PropTypes.bool,
+
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
 
     /**
      * sorting
@@ -644,6 +704,12 @@ TableContent.defaultProps = {
 
     selectMode: SelectMode.SINGLE_SELECT,
     selectAllMode: SelectAllMode.CURRENT_PAGE,
+
+    disabled: false,
+
+    uncheckedIconCls: 'far fa-square',
+    checkedIconCls: 'fas fa-check-square',
+    indeterminateIconCls: 'fas fa-minus-square',
 
     defaultSortingType: SortingType.ASC,
     sortingAscIconCls: 'fas fa-angle-up',
