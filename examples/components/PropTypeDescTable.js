@@ -48,7 +48,7 @@ class PropTypeDescTable extends Component {
                            bodyRenderer: 'desc'
                        }]}
                        data={this.generateData()}
-                       isPagging={false}/>
+                       isPaginated={false}/>
             </div>
         );
     }
