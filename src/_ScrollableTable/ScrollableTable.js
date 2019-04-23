@@ -58,7 +58,7 @@ class ScrollableTable extends Component {
 
         const {
             className, style, bodyScrollerStyle, maskStyle, tableStyle, footStyle,
-            columns, data, isHeadFixed, isFootFixed, scroll, isPaginated,
+            isHeadFixed, isFootFixed, scroll,
             onScroll, onWheel, ...restProps
         } = this.props;
 
@@ -76,10 +76,7 @@ class ScrollableTable extends Component {
                                  onScroll={onScroll}>
                                 <BaseTable {...restProps}
                                            style={tableStyle}
-                                           fragment={TableFragment.HEAD}
-                                           columns={columns}
-                                           data={data}
-                                           isPaginated={isPaginated}/>
+                                           fragment={TableFragment.HEAD}/>
                             </div>
                         </div>
                         :
@@ -95,10 +92,7 @@ class ScrollableTable extends Component {
                         <div className="scrollable-table-body-mask"
                              style={maskStyle}>
                             <BaseTable {...restProps}
-                                       style={tableStyle}
-                                       columns={columns}
-                                       data={data}
-                                       isPaginated={isPaginated}/>
+                                       style={tableStyle}/>
                         </div>
                     </div>
                 </div>
@@ -112,10 +106,7 @@ class ScrollableTable extends Component {
                                  onScroll={onScroll}>
                                 <BaseTable {...restProps}
                                            style={tableStyle}
-                                           fragment={TableFragment.FOOT}
-                                           columns={columns}
-                                           data={data}
-                                           isPaginated={isPaginated}/>
+                                           fragment={TableFragment.FOOT}/>
                             </div>
                         </div>
                         :
@@ -308,6 +299,12 @@ ScrollableTable.propTypes = {
     isHeadFixed: PropTypes.bool,
     isFootFixed: PropTypes.bool,
 
+    /**
+     * hidden
+     */
+    isHeadHidden: PropTypes.bool,
+    isFootHidden: PropTypes.bool,
+
     scroll: PropTypes.shape({
         width: PropTypes.number,
         height: PropTypes.number
@@ -342,7 +339,10 @@ ScrollableTable.defaultProps = {
     pageSizes: [5, 10, 15, 20],
 
     isHeadFixed: false,
-    isFootFixed: false
+    isFootFixed: false,
+
+    isHeadHidden: false,
+    isFootHidden: false
 
 };
 
