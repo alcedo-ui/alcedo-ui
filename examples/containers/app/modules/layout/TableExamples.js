@@ -222,6 +222,7 @@ class TableExamples extends Component {
                                                        onClick={() => this.deleteRow(rowData.id)}/>
                                    }]}
                                    sort={sort}
+                                   selectMode={Table.SelectMode.MULTI_SELECT}
                                    isHeadFixed={true}
                                    isFootFixed={true}
                                    scroll={{
