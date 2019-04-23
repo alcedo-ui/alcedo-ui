@@ -8,28 +8,10 @@ import 'scss/components/PropTypeDescTable.scss';
 class PropTypeDescTable extends Component {
 
     constructor(props) {
-
         super(props);
-
-        this.columns = [{
-            header: 'Name',
-            renderer: 'name'
-        }, {
-            header: 'Type',
-            renderer: 'type'
-        }, {
-            header: 'Default',
-            renderer: 'default'
-        }, {
-            header: 'Description',
-            renderer: 'desc'
-        }];
-
-        this.generateData = this::this.generateData;
-
     }
 
-    generateData() {
+    generateData = () => {
 
         let result = [];
 
@@ -46,13 +28,25 @@ class PropTypeDescTable extends Component {
 
         return result;
 
-    }
+    };
 
     render() {
         return (
             <div className="prop-type-desc-table-wrapper">
                 <Table className="prop-type-desc-table"
-                       columns={this.columns}
+                       columns={[{
+                           headRenderer: 'Name',
+                           bodyRenderer: 'name'
+                       }, {
+                           headRenderer: 'Type',
+                           bodyRenderer: 'type'
+                       }, {
+                           headRenderer: 'Default',
+                           bodyRenderer: 'default'
+                       }, {
+                           headRenderer: 'Description',
+                           bodyRenderer: 'desc'
+                       }]}
                        data={this.generateData()}
                        isPagging={false}/>
             </div>
@@ -62,10 +56,6 @@ class PropTypeDescTable extends Component {
 
 PropTypeDescTable.propTypes = {
     data: PropTypes.object
-};
-
-PropTypeDescTable.defaultProps = {
-    data: null
 };
 
 export default PropTypeDescTable;
