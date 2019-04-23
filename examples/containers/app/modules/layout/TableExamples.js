@@ -193,8 +193,8 @@ class TableExamples extends Component {
                 <h2 className="example-title">Table</h2>
 
                 <p>
-                    <span>Tables</span>
-                    are used to display data and to organize it.
+                    <span>Table</span>
+                    &nbsp;are used to display data and to organize it.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
