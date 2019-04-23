@@ -36,7 +36,7 @@ class BaseTable extends Component {
     render() {
 
         const {
-            className, style, fixed, fragment, columns, data, disabled,
+            className, style, fixed, fragment, columns, data, disabled, isHeadHidden, isFootHidden,
             sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, sortingFunc,
             onSortChange, onHeadClick, onRowClick, onCellClick, onFootClick
         } = this.props;
@@ -50,7 +50,7 @@ class BaseTable extends Component {
                 <ColGroup columns={TableCalculation.getColumnsWithSpan(fragment, columns)}/>
 
                 {
-                    fragment === TableFragment.HEAD || (!fixed && !fragment) ?
+                    !isHeadHidden && (fragment === TableFragment.HEAD || (!fixed && !fragment)) ?
                         <Thead columns={columns}
                                data={data}
                                sorting={sorting}
@@ -77,7 +77,7 @@ class BaseTable extends Component {
 
                 {/** render foot if a footRenderer exists in columns */}
                 {
-                    (fragment === TableFragment.FOOT || (!fixed && !fragment)) ?
+                    !isFootHidden && (fragment === TableFragment.FOOT || (!fixed && !fragment)) ?
                         <Tfoot columns={columns}
                                data={data}
                                disabled={disabled}
@@ -225,6 +225,12 @@ BaseTable.propTypes = {
     disabled: PropTypes.bool,
 
     /**
+     * hidden
+     */
+    isHeadHidden: PropTypes.bool,
+    isFootHidden: PropTypes.bool,
+
+    /**
      * sorting
      */
     sorting: PropTypes.shape({
@@ -247,6 +253,9 @@ BaseTable.propTypes = {
 BaseTable.defaultProps = {
 
     disabled: false,
+
+    isHeadHidden: false,
+    isFootHidden: false,
 
     defaultSortingType: SortingType.ASC,
     sortingAscIconCls: 'fas fa-angle-up',
