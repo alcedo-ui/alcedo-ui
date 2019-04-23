@@ -81,8 +81,8 @@ function sortTableData(data, sorting, sortFunc) {
 
 }
 
-function hasFooterRenderer(columns) {
-    return columns.some(item => item.footRenderer);
+function hasAnyRenderer(columns, fragment) {
+    return columns && fragment ? columns.some(item => item[`${fragment}Renderer`]) : false;
 }
 
 /**
@@ -352,7 +352,7 @@ function fixTableVerticalScroll(wrapperEl, props) {
     const verticalScrollBarSize = ScrollBar.getSize(Direction.VERTICAL);
 
     if (props && props.isFootFixed && verticalScrollBarSize && verticalScrollBarSize > 0) {
-        const centerFoot = wrapperEl.querySelector('.table-content-center .scrollable-table-foot-scroller table');
+        const centerFoot = wrapperEl.querySelector('.table-content-center .scrollable-table-foot-scroller');
         if (centerFoot) {
             centerFoot.style.width = `calc(100% - ${verticalScrollBarSize}px)`;
         }
@@ -417,7 +417,7 @@ export default {
     calcSpan,
     getColumnsWithSpan,
     sortTableData,
-    hasFooterRenderer,
+    hasAnyRenderer,
     getColumnsWidth,
     getRowsHeight,
     getbodyScollerHeight,
