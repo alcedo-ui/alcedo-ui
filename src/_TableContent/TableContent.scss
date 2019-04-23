@@ -7,6 +7,12 @@
     position: relative;
     overflow: hidden;
 
+    .table-content-center,
+    .table-content-left,
+    .table-content-right {
+        height: 100%;
+    }
+
     .table-content-center {
         .scrollable-table-head-scroller,
         .scrollable-table-foot-scroller {
@@ -15,19 +21,11 @@
             overflow-x: auto;
         }
 
-        .scrollable-table-body-mask {
-            margin-top: 1px;
-
+        .scrollable-table-body-scroller {
             .base-table {
                 width: 100%;
             }
         }
-    }
-
-    .table-content-center,
-    .table-content-left,
-    .table-content-right {
-        height: 100%;
     }
 
     .table-content-left,
@@ -35,6 +33,11 @@
         position: absolute;
         top: 0;
         transition: box-shadow .3s ease;
+
+        .scrollable-table-body-mask {
+            margin-top: -1px;
+            margin-bottom: -1px;
+        }
     }
 
     .table-content-left {

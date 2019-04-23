@@ -62,7 +62,7 @@ class TableContent extends Component {
      */
     getColumns = () => {
 
-        const {columns} = this.props,
+        const {columns, selectMode} = this.props,
             result = {
                 [HorizontalAlign.LEFT]: [],
                 [HorizontalAlign.CENTER]: [],
@@ -78,6 +78,14 @@ class TableContent extends Component {
                 result[HorizontalAlign.CENTER].push(column);
             }
         });
+
+        // if (selectMode === SelectMode.MULTI_SELECT) {
+        //     if (result[HorizontalAlign.LEFT].length > 0) {
+        //         result[HorizontalAlign.LEFT].unshift();
+        //     } else {
+        //
+        //     }
+        // }
 
         return result;
 
