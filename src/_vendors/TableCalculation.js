@@ -293,10 +293,18 @@ function fixTableHorizontalScroll(wrapperEl, props) {
         return;
     }
 
-    const horizontalScrollBarSize = ScrollBar.getSize(Direction.HORIZONTAL),
-        centerBody = wrapperEl.querySelector('.table-content-center .scrollable-table-body-scroller'),
+    // no need to fix the scroll problem in mac
+    const horizontalScrollBarSize = ScrollBar.getSize(Direction.HORIZONTAL);
+    if (!horizontalScrollBarSize || horizontalScrollBarSize <= 0) {
+        return;
+    }
+
+    const centerBody = wrapperEl.querySelector('.table-content-center .scrollable-table-body-scroller'),
         shouldScroll = centerBody.offsetWidth < centerBody.scrollWidth;
 
+    /**
+     * center head scroller
+     */
     if (props && props.isHeadFixed) {
         const centerHead = wrapperEl.querySelector('.table-content-center .scrollable-table-head-scroller');
         if (centerHead) {
@@ -304,6 +312,9 @@ function fixTableHorizontalScroll(wrapperEl, props) {
         }
     }
 
+    /**
+     * center foot scroller
+     */
     if (props && props.isFootFixed) {
         const centerFoot = wrapperEl.querySelector('.table-content-center .scrollable-table-foot-scroller');
         if (centerFoot) {
@@ -311,31 +322,49 @@ function fixTableHorizontalScroll(wrapperEl, props) {
         }
     }
 
+    /**
+     * left body scroller
+     */
     const leftBody = wrapperEl.querySelector('.table-content-left .scrollable-table-body-scroller');
     if (leftBody) {
         handleHorizontalScrollStyle(leftBody, shouldScroll, horizontalScrollBarSize);
     }
 
+    /**
+     * left body mask
+     */
     const leftBodyMask = wrapperEl.querySelector('.table-content-left .scrollable-table-body-mask');
     if (leftBodyMask) {
         leftBodyMask.style.paddingBottom = shouldScroll ? `${horizontalScrollBarSize}px` : 0;
     }
 
+    /**
+     * left foot
+     */
     const leftFoot = wrapperEl.querySelector('.table-content-left .scrollable-table-foot');
     if (leftFoot) {
         leftFoot.style.marginTop = shouldScroll ? `${horizontalScrollBarSize}px` : 0;
     }
 
+    /**
+     * right body scroller
+     */
     const rightBody = wrapperEl.querySelector('.table-content-right .scrollable-table-body-scroller');
     if (rightBody) {
         handleHorizontalScrollStyle(rightBody, shouldScroll, horizontalScrollBarSize);
     }
 
+    /**
+     * right body mask
+     */
     const rightBodyMask = wrapperEl.querySelector('.table-content-right .scrollable-table-body-mask');
     if (rightBodyMask) {
         rightBodyMask.style.paddingBottom = shouldScroll ? `${horizontalScrollBarSize}px` : 0;
     }
 
+    /**
+     * right foot
+     */
     const rightFoot = wrapperEl.querySelector('.table-content-right .scrollable-table-foot');
     if (rightFoot) {
         rightFoot.style.marginTop = shouldScroll ? `${horizontalScrollBarSize}px` : 0;
