@@ -52,7 +52,7 @@ class PropTypeDescTable extends Component {
             </div>
         );
     }
-};
+}
 
 PropTypeDescTable.propTypes = {
     data: PropTypes.object
