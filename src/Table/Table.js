@@ -260,6 +260,12 @@ Table.propTypes = {
 
     data: PropTypes.array,
 
+    disabled: PropTypes.bool,
+
+    checkboxUncheckedIconCls: PropTypes.string,
+    checkboxCheckedIconCls: PropTypes.string,
+    checkboxIndeterminateIconCls: PropTypes.string,
+
     /**
      * sorting
      */
@@ -300,6 +306,12 @@ Table.defaultProps = {
 
     selectMode: SelectMode.SINGLE_SELECT,
     selectAllMode: SelectAllMode.CURRENT_PAGE,
+
+    disabled: false,
+
+    uncheckedIconCls: 'far fa-square',
+    checkedIconCls: 'fas fa-check-square',
+    indeterminateIconCls: 'fas fa-minus-square',
 
     defaultSortingType: SortingType.ASC,
     sortingAscIconCls: 'fas fa-angle-up',
