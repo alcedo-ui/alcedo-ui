@@ -363,7 +363,7 @@ function fixTableVerticalScroll(wrapperEl, props) {
         leftBody.style.marginRight = verticalScrollBarSize && verticalScrollBarSize > 0 ?
             `-${verticalScrollBarSize}px` : '-20px';
         leftBody.style.paddingRight = verticalScrollBarSize && verticalScrollBarSize > 0 ?
-            `${verticalScrollBarSize}px` : '20px';
+            0 : '20px';
     }
 
 }
