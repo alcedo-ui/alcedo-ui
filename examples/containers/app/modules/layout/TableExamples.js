@@ -142,18 +142,18 @@ class TableExamples extends Component {
 
     };
 
-    sortHandler = sort => {
+    handleSortChange = sort => {
         this.setState({
             sort
         });
         console.log('Sort Change Value: ', sort);
     };
 
-    pageChangeHandler = (page, pageSize) => {
+    handlePageChange = (page, pageSize) => {
         console.log(`page: ${page}, pageSize: ${pageSize}`);
     };
 
-    dataUpdateHandler = currentPageData => {
+    handleDataUpdate = currentPageData => {
         console.log('Data Update Value: ', currentPageData);
     };
 
@@ -173,7 +173,7 @@ class TableExamples extends Component {
         console.log('Deselect All Value: ', value);
     };
 
-    changeHandler = value => {
+    handleChange = value => {
         console.log('Changed Value: ', value);
     };
 
@@ -230,9 +230,10 @@ class TableExamples extends Component {
                                        height: 400
                                    }}
                                    paggingCountRenderer={count => <span>Self Defined Total Count: {count}</span>}
-                                   onSortChange={this.sortHandler}
-                                   onPageChange={this.pageChangeHandler}
-                                   onDataUpdate={this.dataUpdateHandler}/>
+                                   onSortChange={this.handleSortChange}
+                                   onPageChange={this.handlePageChange}
+                                   onDataUpdate={this.handleDataUpdate}
+                                   onChange={this.handleChange}/>
 
                         </div>
                     </div>
@@ -259,7 +260,7 @@ class TableExamples extends Component {
                 {/*useFullPagging={true}*/}
                 {/*sortingAscIconCls="fas fa-caret-up"*/}
                 {/*sortingDescIconCls="fas fa-caret-down"*/}
-                {/*onPageChange={this.pageChangeHandler}*/}
+                {/*onPageChange={this.handlePageChange}*/}
                 {/*onSelect={this.selectHandler}*/}
                 {/*onDeselect={this.deselectHandler}*/}
                 {/*onSelectAll={this.selectAllHandler}*/}
