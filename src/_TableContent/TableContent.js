@@ -60,56 +60,10 @@ class TableContent extends Component {
 
     }
 
-    handleSelectAllChange = checked => {
-
-        const {selectAllMode, data, value, onChange, onSelectAll, onDeselectAll} = this.props;
-        let result;
-
-        if (selectAllMode === SelectAllMode.ALL) {
-            result = checked ? data.filter(item => !item.disabled) : [];
-        } else {
-
-            const {idProp} = this.props,
-                currentPageData = this.tableData.filter(item => item && !item.disabled);
-            result = value.slice();
-
-            if (checked) {
-                if (!result || result.length < 1) {
-                    result = currentPageData;
-                } else {
-                    currentPageData.forEach(item => {
-                        if (!TableCalculation.isItemChecked(item, result, idProp)) {
-                            result.push(item);
-                        }
-                    });
-                }
-            } else {
-                currentPageData.forEach(item => {
-                    const index = TableCalculation.indexOfItemInValue(item, result, idProp);
-                    if (index > -1) {
-                        result.splice(index, 1);
-                    }
-                });
-            }
-
-        }
-
-        onChange && onChange(result);
-
-        if (checked) {
-            onSelectAll && onSelectAll(result);
-        } else {
-            onDeselectAll && onDeselectAll(value);
-        }
-
-    };
-
     handleSelect = (rowData, rowIndex) => {
 
-        const {value, idProp} = this.props,
+        const {value, idProp, onChange, onSelect, onDeselect} = this.props,
             {value: result, checked} = TableCalculation.handleSelect(rowData, rowIndex, value, idProp);
-
-        const {onChange, onSelect, onDeselect} = this.props;
 
         if (checked) {
             onSelect && onSelect(rowData, rowIndex, result);
@@ -118,6 +72,25 @@ class TableContent extends Component {
         }
 
         onChange && onChange(result, rowIndex);
+
+    };
+
+    handleSelectAllChange = checked => {
+
+        const {
+                selectAllMode, data, value, idProp,
+                onChange, onSelectAll, onDeselectAll
+            } = this.props,
+            result = TableCalculation.handleSelectAllChange(
+                checked, selectAllMode, data, this.tableData, value, idProp);
+
+        onChange && onChange(result);
+
+        if (checked) {
+            onSelectAll && onSelectAll(result);
+        } else {
+            onDeselectAll && onDeselectAll(value);
+        }
 
     };
 
