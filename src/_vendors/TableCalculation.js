@@ -380,6 +380,9 @@ function fixTableVerticalScroll(wrapperEl, props) {
 
     const verticalScrollBarSize = ScrollBar.getSize(Direction.VERTICAL);
 
+    /**
+     * fix center foot width
+     */
     if (props && props.isFootFixed && verticalScrollBarSize && verticalScrollBarSize > 0) {
         const centerFoot = wrapperEl.querySelector('.table-content-center .scrollable-table-foot-scroller');
         if (centerFoot) {
@@ -387,12 +390,22 @@ function fixTableVerticalScroll(wrapperEl, props) {
         }
     }
 
+    /**
+     * fix left body horizontal scroll bar
+     */
     const leftBody = wrapperEl.querySelector('.table-content-left .scrollable-table-body-scroller');
     if (leftBody) {
-        leftBody.style.marginRight = verticalScrollBarSize && verticalScrollBarSize > 0 ?
-            `-${verticalScrollBarSize}px` : '-20px';
-        leftBody.style.paddingRight = verticalScrollBarSize && verticalScrollBarSize > 0 ?
-            0 : '20px';
+        if (verticalScrollBarSize && verticalScrollBarSize > 0) {
+            leftBody.style.marginRight = `-${verticalScrollBarSize}px`;
+            leftBody.style.paddingRight = 0;
+        } else {
+            const leftBodyTable = leftBody.querySelector('table');
+            if (leftBodyTable) {
+                const restWidth = wrapperEl.offsetWidth - leftBodyTable.offsetWidth;
+                leftBody.style.marginRight = `-${restWidth}px`;
+                leftBody.style.paddingRight = `${restWidth}px`;
+            }
+        }
     }
 
 }
