@@ -11,6 +11,7 @@ import HorizontalAlign from '../_statics/HorizontalAlign';
 import Direction from '../_statics/Direction';
 
 import ScrollBar from './ScrollBar';
+import SelectAllMode from '../_statics/SelectAllMode';
 
 function calcSpan(type, column, colIndex, rowIndex) {
     const span = column[`${type}Span`];
@@ -459,20 +460,6 @@ function fixLayout(wrapperEl, props) {
 
 }
 
-function includes(data, item, idProp) {
-
-    if (!data || !item) {
-        return false;
-    }
-
-    if (idProp && idProp in item) {
-        return data.findIndex(dataItem => dataItem[idProp] === item[idProp]) !== -1;
-    } else {
-        return data.includes(item);
-    }
-
-}
-
 function getDataByPagination(data, isPaginated, pagination) {
 
     if (!data || data.length < 1) {
@@ -507,6 +494,56 @@ function isItemChecked(rowData, value, idProp) {
     return indexOfItemInValue(rowData, value, idProp) >= 0;
 }
 
+function isSelectAllChecked(selectAllMode, data, tableData, value, idProp) {
+
+    if (!value || value.length < 1) {
+        return false;
+    }
+
+    if (selectAllMode === SelectAllMode.ALL) {
+        const dataLen = data.filter(item => item && !item.disabled).length;
+        return dataLen > 0 && value.length === dataLen;
+    } else if (selectAllMode === SelectAllMode.CURRENT_PAGE) {
+        return tableData.filter(item => item && !item.disabled)
+                        .every(item => isItemChecked(item, value, idProp));
+    }
+
+}
+
+function isSelectAllIndeterminate(selectAllMode, data, tableData, value, idProp, pagination) {
+
+    if (!value || value.length < 1) {
+        return false;
+    }
+
+    if (selectAllMode === SelectAllMode.ALL) {
+        const dataLen = data.filter(item => item && !item.disabled).length;
+        return dataLen > 0 && value.length < dataLen;
+    } else if (selectAllMode === SelectAllMode.CURRENT_PAGE) {
+        const currentPageData = tableData.filter(item => item && !item.disabled),
+            len = currentPageData.filter(item => isItemChecked(item, value, idProp)).length;
+        return len > 0 && len < Math.min(currentPageData.length, pagination.pageSize);
+    }
+
+}
+
+function handleSelect(rowData, rowIndex, value, idProp) {
+
+    if (!rowData) {
+        return;
+    }
+
+    const index = indexOfItemInValue(rowData, value, idProp);
+    if (index >= 0) {
+        value.splice(index, 1);
+    } else {
+        value.push(rowData);
+    }
+
+    return {value, checked: index === -1};
+
+}
+
 export default {
     calcSpan,
     getColumnsWithSpan,
@@ -517,8 +554,10 @@ export default {
     getbodyScollerHeight,
     handleFixedColumns,
     fixLayout,
-    includes,
     getDataByPagination,
     indexOfItemInValue,
-    isItemChecked
+    isItemChecked,
+    isSelectAllChecked,
+    isSelectAllIndeterminate,
+    handleSelect
 };
