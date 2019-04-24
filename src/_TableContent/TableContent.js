@@ -55,25 +55,69 @@ class TableContent extends Component {
         this.fixedRight = createRef();
         this.fixedRightEl = null;
 
+        // sorted current page cache data
+        this.tableData = [];
+
     }
 
-    isHeadChecked = () => {
+    handleSelectAllChange = checked => {
+
+        const {selectAllMode, data, value, onChange, onSelectAll, onDeselectAll} = this.props;
+        let result;
+
+        if (selectAllMode === SelectAllMode.ALL) {
+            result = checked ? data.filter(item => !item.disabled) : [];
+        } else {
+
+            const {idProp} = this.props,
+                currentPageData = this.tableData.filter(item => item && !item.disabled);
+            result = value.slice();
+
+            if (checked) {
+                if (!result || result.length < 1) {
+                    result = currentPageData;
+                } else {
+                    currentPageData.forEach(item => {
+                        if (!TableCalculation.isItemChecked(item, result, idProp)) {
+                            result.push(item);
+                        }
+                    });
+                }
+            } else {
+                currentPageData.forEach(item => {
+                    const index = TableCalculation.indexOfItemInValue(item, result, idProp);
+                    if (index > -1) {
+                        result.splice(index, 1);
+                    }
+                });
+            }
+
+        }
+
+        onChange && onChange(result);
+
+        if (checked) {
+            onSelectAll && onSelectAll(result);
+        } else {
+            onDeselectAll && onDeselectAll(value);
+        }
 
     };
 
-    isHeadIndeterminate = () => {
+    handleSelect = (rowData, rowIndex) => {
 
-    };
+        const {value, idProp} = this.props,
+            {value: result, checked} = TableCalculation.handleSelect(rowData, rowIndex, value, idProp);
 
-    headCheckBoxChangeHandler = () => {
+        const {onChange, onSelect, onDeselect} = this.props;
 
-    };
+        if (checked) {
+            onSelect && onSelect(rowData, rowIndex, result);
+        } else {
+            onDeselect && onDeselect(rowData, rowIndex, result);
+        }
 
-    multiSelectHandler = () => {
-
-    };
-
-    isItemChecked = () => {
+        onChange && onChange(result, rowIndex);
 
     };
 
@@ -84,7 +128,7 @@ class TableContent extends Component {
     getColumns = () => {
 
         const {
-                selectTheme, columns, selectMode, disabled, value,
+                selectTheme, selectMode, selectAllMode, columns, data, disabled, value, idProp, pagination,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls
             } = this.props,
             result = {
@@ -113,23 +157,25 @@ class TableContent extends Component {
                 headRenderer: () =>
                     <Checkbox className="table-select"
                               theme={selectTheme}
-                              checked={this.isHeadChecked()}
+                              checked={TableCalculation.isSelectAllChecked(
+                                  selectAllMode, data, this.tableData, value, idProp)}
                               disabled={disabled}
-                              indeterminate={this.isHeadIndeterminate()}
+                              indeterminate={TableCalculation.isSelectAllIndeterminate(
+                                  selectAllMode, data, this.tableData, value, idProp, pagination)}
                               uncheckedIconCls={checkboxUncheckedIconCls}
                               checkedIconCls={checkboxCheckedIconCls}
                               indeterminateIconCls={checkboxIndeterminateIconCls}
-                              onChange={this.headCheckBoxChangeHandler}/>,
+                              onChange={this.handleSelectAllChange}/>,
                 bodyClassName: 'table-select-td',
                 bodyRenderer: (rowData, rowIndex) =>
                     <Checkbox className="table-select"
                               theme={selectTheme}
-                              checked={this.isItemChecked(rowData, value)}
+                              checked={TableCalculation.isItemChecked(rowData, value, idProp)}
                               disabled={disabled || rowData.disabled}
                               uncheckedIconCls={checkboxUncheckedIconCls}
                               checkedIconCls={checkboxCheckedIconCls}
                               indeterminateIconCls={checkboxIndeterminateIconCls}
-                              onChange={() => this.multiSelectHandler(rowData, rowIndex)}/>
+                              onChange={() => this.handleSelect(rowData, rowIndex)}/>
             };
 
             if (result[HorizontalAlign.LEFT].length > 0) {
@@ -160,6 +206,10 @@ class TableContent extends Component {
      * @returns {*[]}
      */
     paginateData = (data = this.props.data) => {
+
+        if (!data) {
+            return [];
+        }
 
         const {isPaginated, pagination} = this.props;
 
@@ -416,9 +466,9 @@ class TableContent extends Component {
             return null;
         }
 
-        const tableData = this.paginateData(this.sortData(data)),
+        this.tableData = this.paginateData(this.sortData(data));
 
-            isHeadHidden = !TableCalculation.hasAnyRenderer(originColumns, TableFragment.HEAD),
+        const isHeadHidden = !TableCalculation.hasAnyRenderer(originColumns, TableFragment.HEAD),
             isFootHidden = !TableCalculation.hasAnyRenderer(originColumns, TableFragment.FOOT),
 
             bodyScrollerStyle = scroll && scroll.height ? {maxHeight: scroll.height} : null,
@@ -441,7 +491,7 @@ class TableContent extends Component {
                                      ...columns[HorizontalAlign.CENTER],
                                      ...TableCalculation.handleFixedColumns(columns[HorizontalAlign.RIGHT])
                                  ]}
-                                 data={tableData}
+                                 data={this.tableData}
                                  scroll={scroll}
                                  isHeadHidden={isHeadHidden}
                                  isFootHidden={isFootHidden}
@@ -462,7 +512,7 @@ class TableContent extends Component {
                                          bodyScrollerStyle={bodyScrollerStyle}
                                          fixed={HorizontalAlign.LEFT}
                                          columns={columns[HorizontalAlign.LEFT]}
-                                         data={tableData}
+                                         data={this.tableData}
                                          scroll={scroll}
                                          isHeadHidden={isHeadHidden}
                                          isFootHidden={isFootHidden}
@@ -486,7 +536,7 @@ class TableContent extends Component {
                                          bodyScrollerStyle={bodyScrollerStyle}
                                          fixed={HorizontalAlign.RIGHT}
                                          columns={columns[HorizontalAlign.RIGHT]}
-                                         data={tableData}
+                                         data={this.tableData}
                                          scroll={scroll}
                                          isHeadHidden={isHeadHidden}
                                          isFootHidden={isFootHidden}
@@ -653,7 +703,7 @@ TableContent.propTypes = {
 
     data: PropTypes.array,
     value: PropTypes.array,
-
+    idProp: PropTypes.string,
     disabled: PropTypes.bool,
 
     checkboxUncheckedIconCls: PropTypes.string,
@@ -694,8 +744,13 @@ TableContent.propTypes = {
     }),
 
     /**
-     * callback
+     * callbacks
      */
+    onChange: PropTypes.func,
+    onSelect: PropTypes.func,
+    onDeselect: PropTypes.func,
+    onSelectAll: PropTypes.func,
+    onDeselectAll: PropTypes.func,
     onSortChange: PropTypes.func
 
 };
