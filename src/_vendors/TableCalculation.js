@@ -59,6 +59,10 @@ function getColumnsWithSpan(type, columns, rowIndex) {
 
 function sortTableData(data, sorting, sortFunc) {
 
+    if (!data) {
+        return [];
+    }
+
     if (!sorting) {
         return data;
     }
@@ -455,6 +459,54 @@ function fixLayout(wrapperEl, props) {
 
 }
 
+function includes(data, item, idProp) {
+
+    if (!data || !item) {
+        return false;
+    }
+
+    if (idProp && idProp in item) {
+        return data.findIndex(dataItem => dataItem[idProp] === item[idProp]) !== -1;
+    } else {
+        return data.includes(item);
+    }
+
+}
+
+function getDataByPagination(data, isPaginated, pagination) {
+
+    if (!data || data.length < 1) {
+        return [];
+    }
+
+    if (!isPaginated || !pagination) {
+        return data;
+    }
+
+    return data.slice(pagination.page * pagination.pageSize, (pagination.page + 1) * pagination.pageSize)
+               .filter(item => item && !item.disabled);
+
+}
+
+function indexOfItemInValue(rowData, value, idProp) {
+
+    if (!rowData || !value) {
+        return -1;
+    }
+
+    let index = value.findIndex(item => (idProp in item) && (idProp in rowData) && item[idProp] === rowData[idProp]);
+    if (index < 0) {
+        index = value.indexOf(rowData);
+    }
+
+    return index;
+
+}
+
+function isItemChecked(rowData, value, idProp) {
+    return indexOfItemInValue(rowData, value, idProp) >= 0;
+}
+
 export default {
     calcSpan,
     getColumnsWithSpan,
@@ -464,5 +516,9 @@ export default {
     getRowsHeight,
     getbodyScollerHeight,
     handleFixedColumns,
-    fixLayout
+    fixLayout,
+    includes,
+    getDataByPagination,
+    indexOfItemInValue,
+    isItemChecked
 };
