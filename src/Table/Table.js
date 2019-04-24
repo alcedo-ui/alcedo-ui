@@ -43,6 +43,18 @@ class Table extends Component {
     }
 
     /**
+     * handle selection change
+     */
+    handleChange = (value, rowIndex) => {
+        this.setState({
+            value
+        }, () => {
+            const {onChange} = this.props;
+            onChange && onChange(value, rowIndex);
+        });
+    };
+
+    /**
      * handle sort change
      */
     handleSortChange = sorting => {
@@ -71,6 +83,7 @@ class Table extends Component {
         const {
                 className, style,
                 isPaginated, pageSizes,
+                onSelect, onDeselect,
                 ...restProps
             } = this.props,
             {sorting, pagination, value} = this.state,
@@ -92,6 +105,9 @@ class Table extends Component {
                          pagination={pagination}
                          value={value}
                          isPaginated={isPaginated}
+                         onSelect={onSelect}
+                         onDeselect={onDeselect}
+                         onChange={this.handleChange}
                          onSortChange={this.handleSortChange}/>
 
                 {/* table footer */}
@@ -259,7 +275,7 @@ Table.propTypes = {
     })).isRequired,
 
     data: PropTypes.array,
-
+    idProp: PropTypes.string,
     disabled: PropTypes.bool,
 
     checkboxUncheckedIconCls: PropTypes.string,
@@ -297,6 +313,12 @@ Table.propTypes = {
         height: PropTypes.number
     }),
 
+    /**
+     * callbacks
+     */
+    onChange: PropTypes.func,
+    onSelect: PropTypes.func,
+    onDeselect: PropTypes.func,
     onSortChange: PropTypes.func,
     onPaginationChange: PropTypes.func
 
