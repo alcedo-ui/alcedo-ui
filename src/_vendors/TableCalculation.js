@@ -544,6 +544,47 @@ function handleSelect(rowData, rowIndex, value, idProp) {
 
 }
 
+function handleSelectAllChange(checked, selectAllMode, data, tableData, value, idProp) {
+
+    if (selectAllMode === SelectAllMode.ALL) {
+        return checked ? data.filter(item => !item.disabled) : [];
+    }
+
+    const currentPageData = tableData.filter(item => item && !item.disabled);
+
+    if (checked) {
+
+        if (!value || value.length < 1) {
+            return currentPageData;
+        }
+
+        const result = value.slice();
+        currentPageData.forEach(item => {
+            if (!isItemChecked(item, result, idProp)) {
+                result.push(item);
+            }
+        });
+        return result;
+
+    } else {
+
+        if (!value || value.length < 1) {
+            return [];
+        }
+
+        const result = value.slice();
+        currentPageData.forEach(item => {
+            const index = indexOfItemInValue(item, result, idProp);
+            if (index > -1) {
+                result.splice(index, 1);
+            }
+        });
+        return result;
+
+    }
+
+}
+
 export default {
     calcSpan,
     getColumnsWithSpan,
@@ -559,5 +600,6 @@ export default {
     isItemChecked,
     isSelectAllChecked,
     isSelectAllIndeterminate,
-    handleSelect
+    handleSelect,
+    handleSelectAllChange
 };
