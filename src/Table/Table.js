@@ -83,7 +83,7 @@ class Table extends Component {
         const {
                 className, style,
                 isPaginated, pageSizes,
-                onSelect, onDeselect,
+                onSelect, onDeselect, onSelectAll, onDeselectAll,
                 ...restProps
             } = this.props,
             {sorting, pagination, value} = this.state,
@@ -105,9 +105,11 @@ class Table extends Component {
                          pagination={pagination}
                          value={value}
                          isPaginated={isPaginated}
+                         onChange={this.handleChange}
                          onSelect={onSelect}
                          onDeselect={onDeselect}
-                         onChange={this.handleChange}
+                         onSelectAll={onSelectAll}
+                         onDeselectAll={onDeselectAll}
                          onSortChange={this.handleSortChange}/>
 
                 {/* table footer */}
@@ -319,6 +321,8 @@ Table.propTypes = {
     onChange: PropTypes.func,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
+    onSelectAll: PropTypes.func,
+    onDeselectAll: PropTypes.func,
     onSortChange: PropTypes.func,
     onPaginationChange: PropTypes.func
 
