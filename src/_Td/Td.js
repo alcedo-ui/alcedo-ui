@@ -10,6 +10,7 @@ import classNames from 'classnames';
 import HorizontalAlign from '../_statics/HorizontalAlign';
 
 import Util from '../_vendors/Util';
+import SortingType from '../_statics/SortingType';
 
 class Td extends Component {
 
@@ -59,11 +60,12 @@ class Td extends Component {
 
     render() {
 
-        const {className, style, align, span} = this.props;
+        const {className, style, align, span, sortable, sortingProp, sorting} = this.props;
 
         return (
             <td className={classNames({
                 [`align-${align}`]: align && align !== HorizontalAlign.LEFT,
+                sorting: sortable && sortingProp && sorting && sorting.prop && sorting.prop === sortingProp,
                 [className]: className
             })}
                 style={style}
@@ -91,6 +93,16 @@ Td.propTypes = {
 
     isChecked: PropTypes.bool,
     disabled: PropTypes.bool,
+
+    /**
+     * sorting
+     */
+    sortable: PropTypes.bool,
+    sortingProp: PropTypes.string,
+    sorting: PropTypes.shape({
+        prop: PropTypes.string,
+        type: PropTypes.oneOf(Util.enumerateValue(SortingType))
+    }),
 
     onRowClick: PropTypes.func,
     onCellClick: PropTypes.func

@@ -3,43 +3,39 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-.table table > tbody {
-    & > tr {
-        & > td {
-            text-align: left;
-            padding: 16px;
-            background: $theme-field-bg;
-            border-bottom: 1px solid $theme-border;
-            transition: none;
-            cursor: default;
+.table table > tbody > tr > td {
+    text-align: left;
+    padding: 16px;
+    background: $theme-field-bg;
+    border-bottom: 1px solid $theme-border;
+    transition: none;
+    cursor: default;
 
-            .collapsed-icon {
-                cursor: pointer;
-                position: absolute;
-                margin-left: -14px;
-                transition: transform 0.5s;
+    .collapsed-icon {
+        cursor: pointer;
+        position: absolute;
+        margin-left: -14px;
+        transition: transform 0.5s;
 
-                &.expanded-icon {
-                    transform: rotate(90deg);
-                }
-            }
-
-            &.empty {
-                text-align: center;
-                color: $theme-description;
-            }
-
-            &.align-center {
-                text-align: center;
-            }
-
-            &.align-right {
-                text-align: right;
-            }
+        &.expanded-icon {
+            transform: rotate(90deg);
         }
+    }
 
-        //&:last-child > td {
-        //    border-bottom: none;
-        //}
+    &.empty {
+        text-align: center;
+        color: $theme-description;
+    }
+
+    &.align-center {
+        text-align: center;
+    }
+
+    &.align-right {
+        text-align: right;
+    }
+
+    &.sorting {
+        background: darken($theme-field-bg, 2%);
     }
 }
