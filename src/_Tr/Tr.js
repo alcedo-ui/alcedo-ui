@@ -17,6 +17,7 @@ import SortingType from '../_statics/SortingType';
 
 import Util from '../_vendors/Util';
 import TableCalculation from '../_vendors/TableCalculation';
+import Th from '../_Th';
 
 class Tr extends Component {
 
@@ -37,7 +38,7 @@ class Tr extends Component {
     render() {
 
         const {
-                className, columns, rowIndex, data, isChecked, disabled,
+                className, columns, rowIndex, data, isChecked, disabled, sorting,
                 onCellClick
             } = this.props,
 
@@ -45,9 +46,9 @@ class Tr extends Component {
 
         return (
             <tr className={classNames({
-                [className]: className,
                 activated: isChecked,
-                [data.rowClassName]: data.rowClassName
+                [data.rowClassName]: data.rowClassName,
+                [className]: className
             })}
                 style={data.rowStyle}
                 disabled={disabled}
@@ -64,6 +65,9 @@ class Tr extends Component {
                             align={column.bodyAlign}
                             span={span}
                             disabled={disabled}
+                            sortable={column.sortable}
+                            sortingProp={column.sortingProp}
+                            sorting={sorting}
                             onCellClick={onCellClick}/>
                         :
                         null
@@ -76,6 +80,8 @@ class Tr extends Component {
 }
 
 Tr.propTypes = {
+
+    className: PropTypes.string,
 
     rowIndex: PropTypes.number,
 
@@ -193,7 +199,14 @@ Tr.propTypes = {
     data: PropTypes.object,
     isChecked: PropTypes.bool,
     disabled: PropTypes.bool,
-    className: PropTypes.string,
+
+    /**
+     * sorting
+     */
+    sorting: PropTypes.shape({
+        prop: PropTypes.string,
+        type: PropTypes.oneOf(Util.enumerateValue(SortingType))
+    }),
 
     onRowClick: PropTypes.func,
     onCellClick: PropTypes.func
