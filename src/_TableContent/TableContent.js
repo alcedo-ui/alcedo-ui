@@ -24,6 +24,7 @@ import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
 
 import Util from '../_vendors/Util';
+import TableLayout from '../_vendors/TableLayout';
 import TableCalculation from '../_vendors/TableCalculation';
 
 class TableContent extends Component {
@@ -208,7 +209,7 @@ class TableContent extends Component {
      */
     fixLayout = () => {
         if ((this.props.isHeadFixed || this.props.isFootFixed) && this.wrapperEl) {
-            TableCalculation.fixLayout(this.wrapperEl, this.props);
+            TableLayout.fixLayout(this.wrapperEl, this.props);
         }
         this.updateHorizontalScrollClassNames();
     };
