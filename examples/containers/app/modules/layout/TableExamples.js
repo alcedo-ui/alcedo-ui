@@ -119,7 +119,7 @@ class TableExamples extends Component {
         let data = [];
         for (let i = 0; i < size; i++) {
             data.push({
-                id: i,
+                id: '' + i,
                 firstName: `firstName${i}`,
                 lastName: `lastName${i}`,
                 age: Math.floor(Math.random() * 100),
@@ -127,6 +127,21 @@ class TableExamples extends Component {
                 other: 'Other Content'
             });
         }
+
+        data[0].hasChildren = true;
+        data[0].children = [];
+        for (let i = 0; i < 10; i++) {
+            data[0].children.push({
+                id: '0-' + i,
+                firstName: `firstName${i}`,
+                lastName: `lastName${i}`,
+                age: Math.floor(Math.random() * 100),
+                deposit: round(Math.random() * 1000000, 2),
+                other: 'Other Content'
+            });
+        }
+
+        data[1].hasChildren = true;
 
         return data;
 
