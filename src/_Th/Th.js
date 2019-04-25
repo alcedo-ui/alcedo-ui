@@ -77,6 +77,7 @@ class Th extends Component {
             <th className={classNames({
                 [`align-${align}`]: align && align !== HorizontalAlign.LEFT,
                 sortable: sortable,
+                sorting: sortable && sortingProp && sorting && sorting.prop && sorting.prop === sortingProp,
                 [className]: className
             })}
                 style={style}
