@@ -47,7 +47,7 @@ class Tbody extends Component {
     render() {
 
         const {
-            columns, data, startIndex, idProp, disabled,
+            columns, data, startIndex, idProp, disabled, sorting,
             onRowClick, onCellClick
         } = this.props;
 
@@ -61,6 +61,7 @@ class Tbody extends Component {
                             data={row}
                             isChecked={this.isItemChecked(row)}
                             disabled={disabled || row.disabled}
+                            sorting={sorting}
                             onRowClick={onRowClick}
                             onCellClick={onCellClick}/>
                         :
@@ -192,6 +193,14 @@ Tbody.propTypes = {
     idProp: PropTypes.string,
     selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
     disabled: PropTypes.bool,
+
+    /**
+     * sorting
+     */
+    sorting: PropTypes.shape({
+        prop: PropTypes.string,
+        type: PropTypes.oneOf(Util.enumerateValue(SortingType))
+    }),
 
     onRowClick: PropTypes.func,
     onCellClick: PropTypes.func
