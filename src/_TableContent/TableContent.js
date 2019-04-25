@@ -420,6 +420,9 @@ class TableContent extends Component {
         this.updateHorizontalScrollClassNames();
         this.fixLayout();
 
+        const {onInit} = this.props;
+        onInit && setTimeout(() => onInit(), 250);
+
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -723,6 +726,7 @@ TableContent.propTypes = {
     /**
      * callbacks
      */
+    onInit: PropTypes.func,
     onChange: PropTypes.func,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
