@@ -4,5 +4,30 @@
  */
 
 .table {
+    position: relative;
 
+    .table-init-loading-wrapper {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: $theme-field-bg;
+        transition: opacity $theme-transition-duration ease-in-out,
+        left 0s $theme-transition-duration;
+
+        .table-init-loading {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+        }
+
+        &.fade-out {
+            opacity: 0;
+            left: -999999px;
+        }
+    }
 }

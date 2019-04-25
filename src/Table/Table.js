@@ -11,6 +11,7 @@ import Header from '../_TableHeader';
 import Content from '../_TableContent';
 import Footer from '../_TableFooter';
 import Pagination from '../_TablePagination';
+import CircularLoading from '../CircularLoading';
 
 import Theme from '../Theme';
 import HorizontalAlign from '../_statics/HorizontalAlign';
@@ -35,12 +36,22 @@ class Table extends Component {
         super(props, ...restArgs);
 
         this.state = {
+            init: props.hasInitFadeOut,
             sorting: props.sorting,
             pagination: props.pagination,
             value: Calculation.getInitValue(props)
         };
 
     }
+
+    /**
+     * keep table loading after do first render
+     */
+    handleInit = () => {
+        this.state.init && this.setState({
+            init: false
+        });
+    };
 
     /**
      * handle selection change
@@ -86,14 +97,12 @@ class Table extends Component {
                 onSelect, onDeselect, onSelectAll, onDeselectAll,
                 ...restProps
             } = this.props,
-            {sorting, pagination, value} = this.state,
-
-            tableClassName = classNames('table', {
-                [className]: className
-            });
+            {init, sorting, pagination, value} = this.state;
 
         return (
-            <div className={tableClassName}
+            <div className={classNames('table', {
+                [className]: className
+            })}
                  style={style}>
 
                 {/* table header, display when select */}
@@ -105,6 +114,7 @@ class Table extends Component {
                          pagination={pagination}
                          value={value}
                          isPaginated={isPaginated}
+                         onInit={this.handleInit}
                          onChange={this.handleChange}
                          onSelect={onSelect}
                          onDeselect={onDeselect}
@@ -126,6 +136,17 @@ class Table extends Component {
                         :
                         null
                 }
+
+                <div className={classNames('table-init-loading-wrapper', {
+                    'fade-out': !init
+                })}>
+                    {
+                        init ?
+                            <CircularLoading className="table-init-loading"/>
+                            :
+                            null
+                    }
+                </div>
 
             </div>
         );
@@ -279,7 +300,11 @@ Table.propTypes = {
     data: PropTypes.array,
     idProp: PropTypes.string,
     disabled: PropTypes.bool,
+    hasInitFadeOut: PropTypes.bool,
 
+    /**
+     * multi select checkbox icon
+     */
     checkboxUncheckedIconCls: PropTypes.string,
     checkboxCheckedIconCls: PropTypes.string,
     checkboxIndeterminateIconCls: PropTypes.string,
@@ -296,6 +321,9 @@ Table.propTypes = {
     sortingDescIconCls: PropTypes.string,
     sortingFunc: PropTypes.func,
 
+    /**
+     * pagination
+     */
     isPaginated: PropTypes.bool,
     pagination: PropTypes.shape({
         pageSize: PropTypes.number,
@@ -310,6 +338,9 @@ Table.propTypes = {
     isHeadFixed: PropTypes.bool,
     isFootFixed: PropTypes.bool,
 
+    /**
+     * scroll
+     */
     scroll: PropTypes.shape({
         width: PropTypes.number,
         height: PropTypes.number
@@ -334,6 +365,7 @@ Table.defaultProps = {
     selectAllMode: SelectAllMode.CURRENT_PAGE,
 
     disabled: false,
+    hasInitFadeOut: true,
 
     uncheckedIconCls: 'far fa-square',
     checkedIconCls: 'fas fa-check-square',
