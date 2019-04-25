@@ -36,6 +36,7 @@ class TableExamples extends Component {
             fixed: Table.Fixed.LEFT,
             width: 300,
             headRenderer: 'Name',
+            bodyClassName: 'nowrap',
             bodyRenderer: '${firstName} ${lastName}',
             sortable: true,
             sortingProp: 'firstName'

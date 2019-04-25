@@ -1,6 +1,11 @@
 @import '../../../../my-theme.scss';
 
 .table-examples {
+
+    td.nowrap {
+        white-space: nowrap;
+    }
+
     .table-action {
         width: auto;
         margin: 16px 16px 0 0;
