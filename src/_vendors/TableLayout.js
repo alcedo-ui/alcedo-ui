@@ -211,7 +211,7 @@ function fixTableHorizontalScroll(wrapperEl, props) {
     }
 
     const centerBody = wrapperEl.querySelector('.table-content-center .scrollable-table-body-scroller'),
-        shouldScroll = centerBody.offsetWidth < centerBody.scrollWidth;
+        shouldScroll = centerBody.offsetWidth - horizontalScrollBarSize < centerBody.scrollWidth;
 
     /**
      * center head scroller
