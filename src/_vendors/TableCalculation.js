@@ -386,6 +386,16 @@ function fixTableVerticalScroll(wrapperEl, props) {
     const verticalScrollBarSize = ScrollBar.getSize(Direction.VERTICAL);
 
     /**
+     * fix center head width
+     */
+    if (props && props.isHeadFixed && verticalScrollBarSize && verticalScrollBarSize > 0) {
+        const centerHead = wrapperEl.querySelector('.table-content-center .scrollable-table-head-scroller');
+        if (centerHead) {
+            centerHead.style.width = `calc(100% - ${verticalScrollBarSize}px)`;
+        }
+    }
+
+    /**
      * fix center foot width
      */
     if (props && props.isFootFixed && verticalScrollBarSize && verticalScrollBarSize > 0) {
