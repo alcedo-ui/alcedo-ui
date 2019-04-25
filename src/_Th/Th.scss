@@ -42,13 +42,13 @@
 
     &.sortable {
         cursor: pointer;
-    }
 
-    &.sorting {
-        background: darken($theme-field-bg-disabled, 2%);
-    }
+        &.sorting {
+            background: darken($theme-field-bg-disabled, 2%);
+        }
 
-    &:hover {
-        background: $theme-secondary;
+        &:hover {
+            background: $theme-secondary;
+        }
     }
 }
