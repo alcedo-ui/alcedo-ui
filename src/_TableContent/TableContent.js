@@ -22,10 +22,12 @@ import HorizontalAlign from '../_statics/HorizontalAlign';
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
+import Direction from '../_statics/Direction';
 
 import Util from '../_vendors/Util';
 import TableLayout from '../_vendors/TableLayout';
 import TableCalculation from '../_vendors/TableCalculation';
+import ScrollBar from '../_vendors/ScrollBar';
 
 class TableContent extends Component {
 
@@ -233,7 +235,8 @@ class TableContent extends Component {
             return;
         }
 
-        const {scrollWidth, offsetWidth, scrollLeft} = this.centerBodyScroller;
+        const {scrollWidth, offsetWidth, scrollLeft} = this.centerBodyScroller,
+            verticalScrollBarSize = ScrollBar.getSize(Direction.VERTICAL);
 
         if (this.fixedLeftEl) {
             if (scrollLeft > 0) {
@@ -244,7 +247,7 @@ class TableContent extends Component {
         }
 
         if (this.fixedRightEl) {
-            if (scrollLeft < scrollWidth - offsetWidth) {
+            if (scrollLeft < scrollWidth - offsetWidth + verticalScrollBarSize) {
                 addClass(this.fixedRightEl, 'scroll-shadow');
             } else {
                 removeClass(this.fixedRightEl, 'scroll-shadow');
