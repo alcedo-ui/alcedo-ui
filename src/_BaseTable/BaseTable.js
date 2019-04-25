@@ -68,6 +68,7 @@ class BaseTable extends Component {
                     !fragment ?
                         <Tbody columns={columns}
                                data={data}
+                               sorting={sorting}
                                disabled={disabled}
                                onRowClick={onRowClick}
                                onCellClick={onCellClick}/>
