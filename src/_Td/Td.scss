@@ -11,15 +11,17 @@
     transition: none;
     cursor: default;
 
-    .collapsed-icon {
+    .toggle-button {
+        display: inline-block;
         cursor: pointer;
-        position: absolute;
-        margin-left: -14px;
-        transition: transform 0.5s;
 
         &.expanded-icon {
             transform: rotate(90deg);
         }
+    }
+
+    &.has-children {
+        white-space: nowrap;
     }
 
     &.empty {

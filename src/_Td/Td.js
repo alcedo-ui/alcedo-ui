@@ -7,10 +7,12 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import IconButton from '../IconButton';
+
 import HorizontalAlign from '../_statics/HorizontalAlign';
+import SortingType from '../_statics/SortingType';
 
 import Util from '../_vendors/Util';
-import SortingType from '../_statics/SortingType';
 
 class Td extends Component {
 
@@ -60,18 +62,30 @@ class Td extends Component {
 
     render() {
 
-        const {className, style, align, span, sortable, sortingProp, sorting} = this.props;
+        const {className, style, colIndex, align, span, hasChildren, sortable, sortingProp, sorting} = this.props;
 
         return (
             <td className={classNames({
+                'has-children': hasChildren,
                 [`align-${align}`]: align && align !== HorizontalAlign.LEFT,
                 sorting: sortable && sortingProp && sorting && sorting.prop && sorting.prop === sortingProp,
                 [className]: className
             })}
                 style={style}
                 colSpan={span || null}
+                dataIndex={colIndex}
                 onClick={this.handleClick}>
+
+                {
+                    hasChildren ?
+                        <IconButton className="toggle-button"
+                                    iconCls="fas fa-chevron-right"/>
+                        :
+                        null
+                }
+
                 {this.handleRenderer()}
+
             </td>
         );
 
@@ -86,13 +100,14 @@ Td.propTypes = {
     rowIndex: PropTypes.number,
     colIndex: PropTypes.number,
 
-    data: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+    data: PropTypes.object,
     renderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     align: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
     span: PropTypes.number,
 
     isChecked: PropTypes.bool,
     disabled: PropTypes.bool,
+    hasChildren: PropTypes.bool,
 
     /**
      * sorting
@@ -104,6 +119,9 @@ Td.propTypes = {
         type: PropTypes.oneOf(Util.enumerateValue(SortingType))
     }),
 
+    /**
+     * callback
+     */
     onRowClick: PropTypes.func,
     onCellClick: PropTypes.func
 
