@@ -21,9 +21,13 @@
             font-size: 16px;
             transition: transform $theme-transition-duration ease-in-out;
         }
+
+        &.hidden {
+            visibility: hidden;
+        }
     }
 
-    &.has-children {
+    &.table-expand-column {
         line-height: 16px;
         white-space: nowrap;
     }

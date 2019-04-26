@@ -41,8 +41,8 @@ class Td extends Component {
     };
 
     handleCollapseButtonClick = () => {
-        const {data, onCollapsedChange} = this.props;
-        onCollapsedChange && onCollapsedChange(data);
+        const {data, collapsed, onExpandChange} = this.props;
+        onExpandChange && onExpandChange(!collapsed, data);
     };
 
     handleRenderer = () => {
@@ -68,14 +68,14 @@ class Td extends Component {
     render() {
 
         const {
-            className, style, align, span, hasChildren,
+            className, style, align, span, hasChildren, isExpandColumn, depth,
             sortable, sortingProp, sorting
         } = this.props;
 
         return (
             <td className={classNames({
-                'has-children': hasChildren,
                 [`align-${align}`]: align && align !== HorizontalAlign.LEFT,
+                'table-expand-column': isExpandColumn,
                 sorting: sortable && sortingProp && sorting && sorting.prop && sorting.prop === sortingProp,
                 [className]: className
             })}
@@ -84,8 +84,18 @@ class Td extends Component {
                 onClick={this.handleClick}>
 
                 {
-                    hasChildren ?
-                        <IconButton className="collapse-button"
+                    isExpandColumn ?
+                        <span className={classNames('table-indent', `indent-level-${depth}`)}
+                              style={{paddingLeft: depth * 20}}></span>
+                        :
+                        null
+                }
+
+                {
+                    isExpandColumn ?
+                        <IconButton className={classNames('collapse-button', {
+                            hidden: !hasChildren
+                        })}
                                     iconCls="fas fa-chevron-down"
                                     onClick={this.handleCollapseButtonClick}/>
                         :
@@ -117,6 +127,8 @@ Td.propTypes = {
     disabled: PropTypes.bool,
     hasChildren: PropTypes.bool,
     collapsed: PropTypes.bool,
+    isExpandColumn: PropTypes.bool,
+    depth: PropTypes.number,
 
     /**
      * sorting
@@ -133,7 +145,7 @@ Td.propTypes = {
      */
     onRowClick: PropTypes.func,
     onCellClick: PropTypes.func,
-    onCollapsedChange: PropTypes.func
+    onExpandChange: PropTypes.func
 
 };
 
@@ -145,7 +157,9 @@ Td.defaultProps = {
     isChecked: false,
     disabled: false,
     hasChildren: false,
-    collapsed: true
+    collapsed: true,
+    isExpandColumn: false,
+    depth: 0
 
 };
 
