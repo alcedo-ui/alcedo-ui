@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -26,82 +26,90 @@ class Tr extends Component {
     static SortingType = SortingType;
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.state = {
-            collapsed: true
-        };
-
     }
+
+    isCollapsed = () => {
+
+        const {idProp, data, expandRows} = this.props;
+
+        if (!expandRows || expandRows.length < 1) {
+            return true;
+        }
+
+        return TableCalculation.indexOfItemInValue(data, expandRows, idProp) === -1;
+
+    };
 
     handleClick = e => {
         const {data, rowIndex, disabled, onRowClick} = this.props;
         !disabled && onRowClick && onRowClick(data, rowIndex, e);
     };
 
-    handleCollapsedChange = rowData => {
-        this.setState({
-            collapsed: !this.state.collapsed
-        }, () => {
-
-            const {onExpand, onCollapse} = this.props;
-
-            if (this.state.collapsed) {
-                onCollapse && onCollapse(rowData);
-            } else {
-                onExpand && onExpand(rowData);
-            }
-
-        });
-    };
-
     render() {
 
         const {
-                className, selectMode, columns, rowIndex, data, isChecked, disabled, baseColIndex, hasChildren,
+                className, selectMode, columns, rowIndex, data, isChecked, disabled, baseColIndex, hasChildren, depth,
+                onExpandChange,
                 ...respProps
             } = this.props,
-            {collapsed} = this.state,
 
+            collapsed = this.isCollapsed(),
             rowHasChildren = hasChildren ? hasChildren(data) : false,
             columnsWithSpan = TableCalculation.getColumnsWithSpan(TableFragment.BODY, columns, rowIndex);
 
         return (
-            <tr className={classNames({
-                activated: isChecked,
-                'has-children': rowHasChildren,
-                collapsed,
-                [data.rowClassName]: data.rowClassName,
-                [className]: className
-            })}
-                style={data.rowStyle}
-                disabled={disabled}
-                onClick={this.handleClick}>
+            <Fragment>
+
+                <tr className={classNames({
+                    activated: isChecked,
+                    'has-children': rowHasChildren,
+                    collapsed,
+                    [data.rowClassName]: data.rowClassName,
+                    [className]: className
+                })}
+                    style={data.rowStyle}
+                    disabled={disabled}
+                    onClick={this.handleClick}>
+                    {
+                        columnsWithSpan && columnsWithSpan.map(({column, span}, colIndex) => column ?
+                            <Td {...respProps}
+                                key={colIndex}
+                                className={column.bodyClassName}
+                                style={column.bodyStyle}
+                                rowIndex={rowIndex}
+                                colIndex={baseColIndex + colIndex}
+                                data={data}
+                                hasChildren={rowHasChildren}
+                                isExpandColumn={(baseColIndex + colIndex) === (selectMode === SelectMode.MULTI_SELECT ? 1 : 0)}
+                                collapsed={collapsed}
+                                renderer={column.bodyRenderer}
+                                align={column.bodyAlign}
+                                span={span}
+                                disabled={disabled}
+                                depth={depth}
+                                sortable={column.sortable}
+                                sortingProp={column.sortingProp}
+                                onExpandChange={onExpandChange}/>
+                            :
+                            null
+                        )
+                    }
+                </tr>
+
                 {
-                    columnsWithSpan && columnsWithSpan.map(({column, span}, colIndex) => column ?
-                        <Td {...respProps}
-                            key={colIndex}
-                            className={column.bodyClassName}
-                            style={column.bodyStyle}
-                            rowIndex={rowIndex}
-                            colIndex={baseColIndex + colIndex}
-                            data={data}
-                            hasChildren={rowHasChildren
-                            && (baseColIndex + colIndex) === (selectMode === SelectMode.MULTI_SELECT ? 1 : 0)}
-                            collapsed={collapsed}
-                            renderer={column.bodyRenderer}
-                            align={column.bodyAlign}
-                            span={span}
-                            disabled={disabled}
-                            sortable={column.sortable}
-                            sortingProp={column.sortingProp}
-                            onCollapsedChange={this.handleCollapsedChange}/>
+                    rowHasChildren && !collapsed && data && data.children && data.children.length > 0 ?
+                        data.children.map((item, index) =>
+                            <Tr {...this.props}
+                                key={index}
+                                data={item}
+                                depth={depth + 1}/>
+                        )
                         :
                         null
-                    )
                 }
-            </tr>
+
+            </Fragment>
         );
 
     }
@@ -237,7 +245,10 @@ Tr.propTypes = {
     data: PropTypes.object,
     isChecked: PropTypes.bool,
     disabled: PropTypes.bool,
+    expandRows: PropTypes.array,
     baseColIndex: PropTypes.number,
+    depth: PropTypes.number,
+    idProp: PropTypes.string,
 
     /**
      * sorting
@@ -253,8 +264,7 @@ Tr.propTypes = {
     hasChildren: PropTypes.func,
     onRowClick: PropTypes.func,
     onCellClick: PropTypes.func,
-    onExpand: PropTypes.func,
-    onCollapse: PropTypes.func
+    onExpandChange: PropTypes.func
 
 };
 
@@ -262,7 +272,10 @@ Tr.defaultProps = {
     rowIndex: 0,
     isChecked: false,
     disabled: false,
-    baseColIndex: 0
+    expandRows: [],
+    baseColIndex: 0,
+    depth: 0,
+    idProp: 'id'
 };
 
 export default Tr;
