@@ -266,7 +266,7 @@ class TableExamples extends Component {
                                        width: 1200,
                                        height: 400
                                    }}
-                                   hasChildren={() => true}
+                                   hasChildren={rowData => rowData && rowData.id && +rowData.id < 5}
                                    paggingCountRenderer={count => <span>Self Defined Total Count: {count}</span>}
                                    onSortChange={this.handleSortChange}
                                    onPageChange={this.handlePageChange}
