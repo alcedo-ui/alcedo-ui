@@ -409,6 +409,34 @@ class TableContent extends Component {
 
     };
 
+    handleExpandChange = (collapsed, rowData) => {
+
+        const {idProp, expandRows, onExpand, onCollapse, onExpandChange} = this.props;
+
+        if (collapsed) {
+
+            onCollapse && onCollapse(rowData);
+
+            const index = TableCalculation.indexOfItemInValue(rowData, expandRows, idProp);
+            if (index !== -1) {
+                expandRows.splice(index, 1);
+                onExpandChange && onExpandChange(expandRows);
+            }
+
+        } else {
+
+            onExpand && onExpand(rowData);
+
+            const index = TableCalculation.indexOfItemInValue(rowData, expandRows, idProp);
+            if (index === -1) {
+                expandRows.push(rowData);
+                onExpandChange && onExpandChange(expandRows);
+            }
+
+        }
+
+    };
+
     componentDidMount() {
 
         this.wrapperEl = this.wrapper && this.wrapper.current;
@@ -496,14 +524,15 @@ class TableContent extends Component {
                                          scroll={scroll}
                                          isHeadHidden={isHeadHidden}
                                          isFootHidden={isFootHidden}
-                                         onScroll={this.handleScroll}
-                                         onWheel={this.handleWheel}
                                          onGetHeadScrollerEl={el =>
                                              this.handleGetScrollerEl(el, HorizontalAlign.LEFT, TableFragment.HEAD)}
                                          onGetBodyScrollerEl={el =>
                                              this.handleGetScrollerEl(el, HorizontalAlign.LEFT, TableFragment.BODY)}
                                          onGetFootScrollerEl={el =>
-                                             this.handleGetScrollerEl(el, HorizontalAlign.LEFT, TableFragment.FOOT)}/>
+                                             this.handleGetScrollerEl(el, HorizontalAlign.LEFT, TableFragment.FOOT)}
+                                         onScroll={this.handleScroll}
+                                         onWheel={this.handleWheel}
+                                         onExpandChange={this.handleExpandChange}/>
                         :
                         null
                 }
@@ -687,6 +716,7 @@ TableContent.propTypes = {
     value: PropTypes.array,
     idProp: PropTypes.string,
     disabled: PropTypes.bool,
+    expandRows: PropTypes.array,
 
     checkboxUncheckedIconCls: PropTypes.string,
     checkboxCheckedIconCls: PropTypes.string,
@@ -737,6 +767,7 @@ TableContent.propTypes = {
     onDeselectAll: PropTypes.func,
     onExpand: PropTypes.func,
     onCollapse: PropTypes.func,
+    onExpandChange: PropTypes.func,
     onSortChange: PropTypes.func
 
 };
@@ -747,6 +778,8 @@ TableContent.defaultProps = {
     selectAllMode: SelectAllMode.CURRENT_PAGE,
 
     disabled: false,
+    idProp: 'id',
+    expandRows: [],
 
     uncheckedIconCls: 'far fa-square',
     checkedIconCls: 'fas fa-check-square',
