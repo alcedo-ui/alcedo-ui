@@ -128,20 +128,20 @@ class TableExamples extends Component {
             });
         }
 
-        data[0].hasChildren = true;
-        data[0].children = [];
-        for (let i = 0; i < 10; i++) {
-            data[0].children.push({
-                id: '0-' + i,
-                firstName: `firstName${i}`,
-                lastName: `lastName${i}`,
-                age: Math.floor(Math.random() * 100),
-                deposit: round(Math.random() * 1000000, 2),
-                other: 'Other Content'
-            });
-        }
-
-        data[1].hasChildren = true;
+        // data[0].hasChildren = true;
+        // data[0].children = [];
+        // for (let i = 0; i < 10; i++) {
+        //     data[0].children.push({
+        //         id: '0-' + i,
+        //         firstName: `firstName${i}`,
+        //         lastName: `lastName${i}`,
+        //         age: Math.floor(Math.random() * 100),
+        //         deposit: round(Math.random() * 1000000, 2),
+        //         other: 'Other Content'
+        //     });
+        // }
+        //
+        // data[1].hasChildren = true;
 
         return data;
 
@@ -245,6 +245,7 @@ class TableExamples extends Component {
                                        width: 1200,
                                        height: 400
                                    }}
+                                   hasChildren={() => true}
                                    paggingCountRenderer={count => <span>Self Defined Total Count: {count}</span>}
                                    onSortChange={this.handleSortChange}
                                    onPageChange={this.handlePageChange}
@@ -303,7 +304,7 @@ class TableExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={doc}/>
+                {/*<PropTypeDescTable data={doc}/>*/}
 
             </div>
         );
