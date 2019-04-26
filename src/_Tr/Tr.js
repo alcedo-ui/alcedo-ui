@@ -40,12 +40,19 @@ class Tr extends Component {
         !disabled && onRowClick && onRowClick(data, rowIndex, e);
     };
 
+    handleCollapsedChange = () => {
+        this.setState({
+            collapsed: !this.state.collapsed
+        });
+    };
+
     render() {
 
         const {
                 className, selectMode, columns, rowIndex, data, isChecked, disabled, baseColIndex, hasChildren,
                 ...respProps
             } = this.props,
+            {collapsed} = this.state,
 
             rowHasChildren = hasChildren ? hasChildren(data) : false,
             columnsWithSpan = TableCalculation.getColumnsWithSpan(TableFragment.BODY, columns, rowIndex);
@@ -54,6 +61,7 @@ class Tr extends Component {
             <tr className={classNames({
                 activated: isChecked,
                 'has-children': rowHasChildren,
+                collapsed,
                 [data.rowClassName]: data.rowClassName,
                 [className]: className
             })}
@@ -71,12 +79,14 @@ class Tr extends Component {
                             data={data}
                             hasChildren={rowHasChildren
                             && (baseColIndex + colIndex) === (selectMode === SelectMode.MULTI_SELECT ? 1 : 0)}
+                            collapsed={collapsed}
                             renderer={column.bodyRenderer}
                             align={column.bodyAlign}
                             span={span}
                             disabled={disabled}
                             sortable={column.sortable}
-                            sortingProp={column.sortingProp}/>
+                            sortingProp={column.sortingProp}
+                            onCollapsedChange={this.handleCollapsedChange}/>
                         :
                         null
                     )

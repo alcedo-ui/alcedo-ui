@@ -12,6 +12,10 @@
         }
     }
 
+    &.collapsed .collapse-button .button-icon {
+        transform: rotate(-90deg);
+    }
+
     &:hover {
         background: theme-color-hover($theme-secondary);
 
