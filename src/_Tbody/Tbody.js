@@ -214,7 +214,9 @@ Tbody.propTypes = {
      */
     hasChildren: PropTypes.func,
     onRowClick: PropTypes.func,
-    onCellClick: PropTypes.func
+    onCellClick: PropTypes.func,
+    onExpand: PropTypes.func,
+    onCollapse: PropTypes.func
 
 };
 
