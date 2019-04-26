@@ -63,8 +63,8 @@ function value2Moment(value, format) {
 
 function MonthDays(year) {
     // debugger
-    let _date_array = [];
-    for (var i = 0; i < 12; i++) {
+    let dateArray = [];
+    for (let i = 0; i < 12; i++) {
         switch (i + 1) {
             case 1:
             case 3:
@@ -73,26 +73,26 @@ function MonthDays(year) {
             case 8:
             case 10:
             case 12:
-                _date_array.push(31);
+                dateArray.push(31);
                 break;
             case 4:
             case 6:
             case 9:
             case 11:
-                _date_array.push(30);
+                dateArray.push(30);
                 break;
             case 2:
                 if (moment(year + '-02-29', 'YYYY-MM-DD', true).isValid()) {
-                    _date_array.push(29);
+                    dateArray.push(29);
                 } else {
-                    _date_array.push(28);
+                    dateArray.push(28);
                 }
                 break;
             default:
                 break;
         }
     }
-    return _date_array;
+    return dateArray;
 }
 
 function enumerateValue(enumerate) {
@@ -109,7 +109,7 @@ function tree(data, callback) {
     let loop = function loop(children, level) {
 
         children.forEach((item, index) => {
-            var pos = level + '-' + (1 + index);
+            const pos = level + '-' + (1 + index);
             if (item.children) {
                 loop(item.children, pos);
             }
@@ -181,17 +181,19 @@ function reorder(data, startIndex, endIndex) {
     const [removed] = data.splice(startIndex, 1);
     data.splice(endIndex, 0, removed);
 
-};
+}
 
 function preOrderTraverse(node, callback, deep = 0, parent = null) {
 
     if (callback(node, deep, parent) === false) {
-        return;
+        return false;
     }
 
     if (node.children && node.children.length > 0) {
         for (let i = 0, len = node.children.length; i < len; i++) {
-            preOrderTraverse(node.children[i], callback, deep + 1, node);
+            if (preOrderTraverse(node.children[i], callback, deep + 1, node) === false) {
+                break;
+            }
         }
     }
 
@@ -201,12 +203,14 @@ function postOrderTraverse(node, callback, deep = 0, parent = null) {
 
     if (node.children && node.children.length > 0) {
         for (let i = 0, len = node.children.length; i < len; i++) {
-            postOrderTraverse(node.children[i], callback, deep + 1, node);
+            if (postOrderTraverse(node.children[i], callback, deep + 1, node) === false) {
+                break;
+            }
         }
     }
 
     if (callback(node, deep, parent) === false) {
-        return;
+        return false;
     }
 
 }
