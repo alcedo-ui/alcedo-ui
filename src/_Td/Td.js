@@ -40,6 +40,11 @@ class Td extends Component {
 
     };
 
+    handleCollapseButtonClick = () => {
+        const {data, onCollapsedChange} = this.props;
+        onCollapsedChange && onCollapsedChange(data);
+    };
+
     handleRenderer = () => {
 
         const {renderer, rowIndex, colIndex, data} = this.props;
@@ -63,8 +68,8 @@ class Td extends Component {
     render() {
 
         const {
-            className, style, colIndex, align, span, hasChildren, collapsed,
-            sortable, sortingProp, sorting, onCollapsedChange
+            className, style, align, span, hasChildren,
+            sortable, sortingProp, sorting
         } = this.props;
 
         return (
@@ -76,14 +81,13 @@ class Td extends Component {
             })}
                 style={style}
                 colSpan={span || null}
-                dataIndex={colIndex}
                 onClick={this.handleClick}>
 
                 {
                     hasChildren ?
                         <IconButton className="collapse-button"
                                     iconCls="fas fa-chevron-down"
-                                    onClick={onCollapsedChange}/>
+                                    onClick={this.handleCollapseButtonClick}/>
                         :
                         null
                 }
