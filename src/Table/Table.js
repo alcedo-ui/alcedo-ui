@@ -355,6 +355,8 @@ Table.propTypes = {
     onDeselect: PropTypes.func,
     onSelectAll: PropTypes.func,
     onDeselectAll: PropTypes.func,
+    onExpand: PropTypes.func,
+    onCollapse: PropTypes.func,
     onSortChange: PropTypes.func,
     onPaginationChange: PropTypes.func
 
