@@ -32,9 +32,10 @@ class Thead extends Component {
     render() {
 
         const {
-                className, style, columns, data,
+                className, style, columns, baseColIndex,
                 sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls,
-                onSortChange
+                onSortChange,
+                ...restProps
             } = this.props,
 
             columnsWithSpan = TableCalculation.getColumnsWithSpan(TableFragment.HEAD, columns);
@@ -47,14 +48,14 @@ class Thead extends Component {
                 <tr>
                     {
                         columnsWithSpan ?
-                            columnsWithSpan.map(({column, span}, index) => column ?
-                                <Th key={index}
+                            columnsWithSpan.map(({column, span}, colIndex) => column ?
+                                <Th {...restProps}
+                                    key={colIndex}
                                     className={column.headClassName}
                                     style={column.headStyle}
                                     renderer={column.headRenderer}
                                     align={column.headAlign}
-                                    colIndex={index}
-                                    data={data}
+                                    colIndex={baseColIndex + colIndex}
                                     span={span}
                                     sorting={sorting}
                                     defaultSortingType={column.defaultSortingType || defaultSortingType}
@@ -193,6 +194,7 @@ Thead.propTypes = {
     })).isRequired,
 
     data: PropTypes.array,
+    baseColIndex: PropTypes.number,
 
     /**
      * sorting
@@ -210,9 +212,13 @@ Thead.propTypes = {
 };
 
 Thead.defaultProps = {
+
+    baseColIndex: 0,
+
     defaultSortingType: SortingType.ASC,
     sortingAscIconCls: 'fas fa-angle-up',
     sortingDescIconCls: 'fas fa-angle-down'
+
 };
 
 export default Thead;
