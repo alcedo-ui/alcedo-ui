@@ -17,7 +17,6 @@ import SortingType from '../_statics/SortingType';
 
 import Util from '../_vendors/Util';
 import TableCalculation from '../_vendors/TableCalculation';
-import Th from '../_Th';
 
 class Tr extends Component {
 
@@ -27,7 +26,13 @@ class Tr extends Component {
     static SortingType = SortingType;
 
     constructor(props, ...restArgs) {
+
         super(props, ...restArgs);
+
+        this.state = {
+            collapsed: true
+        };
+
     }
 
     handleClick = e => {
@@ -38,15 +43,17 @@ class Tr extends Component {
     render() {
 
         const {
-                className, columns, rowIndex, data, isChecked, disabled, sorting,
-                onCellClick
+                className, selectMode, columns, rowIndex, data, isChecked, disabled, baseColIndex, hasChildren,
+                ...respProps
             } = this.props,
 
+            rowHasChildren = hasChildren ? hasChildren(data) : false,
             columnsWithSpan = TableCalculation.getColumnsWithSpan(TableFragment.BODY, columns, rowIndex);
 
         return (
             <tr className={classNames({
                 activated: isChecked,
+                'has-children': rowHasChildren,
                 [data.rowClassName]: data.rowClassName,
                 [className]: className
             })}
@@ -55,20 +62,21 @@ class Tr extends Component {
                 onClick={this.handleClick}>
                 {
                     columnsWithSpan && columnsWithSpan.map(({column, span}, colIndex) => column ?
-                        <Td key={colIndex}
-                            rowIndex={rowIndex}
-                            colIndex={colIndex}
-                            data={data}
+                        <Td {...respProps}
+                            key={colIndex}
                             className={column.bodyClassName}
                             style={column.bodyStyle}
+                            rowIndex={rowIndex}
+                            colIndex={baseColIndex + colIndex}
+                            data={data}
+                            hasChildren={rowHasChildren
+                            && (baseColIndex + colIndex) === (selectMode === SelectMode.MULTI_SELECT ? 1 : 0)}
                             renderer={column.bodyRenderer}
                             align={column.bodyAlign}
                             span={span}
                             disabled={disabled}
                             sortable={column.sortable}
-                            sortingProp={column.sortingProp}
-                            sorting={sorting}
-                            onCellClick={onCellClick}/>
+                            sortingProp={column.sortingProp}/>
                         :
                         null
                     )
@@ -82,6 +90,16 @@ class Tr extends Component {
 Tr.propTypes = {
 
     className: PropTypes.string,
+
+    /**
+     * The select mode of table.
+     */
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+
+    /**
+     * The select all mode of table, all or current page.
+     */
+    selectAllMode: PropTypes.oneOf(Util.enumerateValue(SelectAllMode)),
 
     rowIndex: PropTypes.number,
 
@@ -199,6 +217,7 @@ Tr.propTypes = {
     data: PropTypes.object,
     isChecked: PropTypes.bool,
     disabled: PropTypes.bool,
+    baseColIndex: PropTypes.number,
 
     /**
      * sorting
@@ -208,6 +227,10 @@ Tr.propTypes = {
         type: PropTypes.oneOf(Util.enumerateValue(SortingType))
     }),
 
+    /**
+     * callback
+     */
+    hasChildren: PropTypes.func,
     onRowClick: PropTypes.func,
     onCellClick: PropTypes.func
 
@@ -216,7 +239,8 @@ Tr.propTypes = {
 Tr.defaultProps = {
     rowIndex: 0,
     isChecked: false,
-    disabled: false
+    disabled: false,
+    baseColIndex: 0
 };
 
 export default Tr;
