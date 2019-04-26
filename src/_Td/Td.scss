@@ -11,16 +11,20 @@
     transition: none;
     cursor: default;
 
-    .toggle-button {
-        display: inline-block;
-        cursor: pointer;
+    .collapse-button {
+        width: 16px;
+        height: 16px;
+        margin-right: 8px;
+        vertical-align: top;
 
-        &.expanded-icon {
-            transform: rotate(90deg);
+        .button-icon {
+            font-size: 16px;
+            transition: transform $theme-transition-duration ease-in-out;
         }
     }
 
     &.has-children {
+        line-height: 16px;
         white-space: nowrap;
     }
 

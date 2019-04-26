@@ -62,7 +62,10 @@ class Td extends Component {
 
     render() {
 
-        const {className, style, colIndex, align, span, hasChildren, sortable, sortingProp, sorting} = this.props;
+        const {
+            className, style, colIndex, align, span, hasChildren, collapsed,
+            sortable, sortingProp, sorting, onCollapsedChange
+        } = this.props;
 
         return (
             <td className={classNames({
@@ -78,8 +81,9 @@ class Td extends Component {
 
                 {
                     hasChildren ?
-                        <IconButton className="toggle-button"
-                                    iconCls="fas fa-chevron-right"/>
+                        <IconButton className="collapse-button"
+                                    iconCls="fas fa-chevron-down"
+                                    onClick={onCollapsedChange}/>
                         :
                         null
                 }
@@ -108,6 +112,7 @@ Td.propTypes = {
     isChecked: PropTypes.bool,
     disabled: PropTypes.bool,
     hasChildren: PropTypes.bool,
+    collapsed: PropTypes.bool,
 
     /**
      * sorting
@@ -123,7 +128,8 @@ Td.propTypes = {
      * callback
      */
     onRowClick: PropTypes.func,
-    onCellClick: PropTypes.func
+    onCellClick: PropTypes.func,
+    onCollapsedChange: PropTypes.func
 
 };
 
@@ -133,7 +139,9 @@ Td.defaultProps = {
     colIndex: 0,
 
     isChecked: false,
-    disabled: false
+    disabled: false,
+    hasChildren: false,
+    collapsed: true
 
 };
 
