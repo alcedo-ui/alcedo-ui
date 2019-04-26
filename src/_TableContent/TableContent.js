@@ -520,6 +520,8 @@ class TableContent extends Component {
                                          scroll={scroll}
                                          isHeadHidden={isHeadHidden}
                                          isFootHidden={isFootHidden}
+                                         baseColIndex={columns[HorizontalAlign.LEFT].length
+                                         + columns[HorizontalAlign.CENTER].length}
                                          onScroll={this.handleScroll}
                                          onWheel={this.handleWheel}
                                          onGetHeadScrollerEl={el =>
@@ -724,9 +726,10 @@ TableContent.propTypes = {
     }),
 
     /**
-     * callbacks
+     * callback
      */
     onInit: PropTypes.func,
+    hasChildren: PropTypes.func,
     onChange: PropTypes.func,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
