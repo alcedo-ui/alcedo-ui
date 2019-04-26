@@ -36,9 +36,8 @@ class BaseTable extends Component {
     render() {
 
         const {
-            className, style, fixed, fragment, columns, data, disabled, isHeadHidden, isFootHidden,
-            sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, sortingFunc,
-            onSortChange, onHeadClick, onRowClick, onCellClick, onFootClick
+            className, style, fixed, fragment, columns, isHeadHidden, isFootHidden,
+            ...restProps
         } = this.props;
 
         return (
@@ -51,27 +50,16 @@ class BaseTable extends Component {
 
                 {
                     !isHeadHidden && (fragment === TableFragment.HEAD || (!fixed && !fragment)) ?
-                        <Thead columns={columns}
-                               data={data}
-                               sorting={sorting}
-                               defaultSortingType={defaultSortingType}
-                               sortingAscIconCls={sortingAscIconCls}
-                               sortingDescIconCls={sortingDescIconCls}
-                               sortingFunc={sortingFunc}
-                               onSortChange={onSortChange}
-                               onHeadClick={onHeadClick}/>
+                        <Thead {...restProps}
+                               columns={columns}/>
                         :
                         null
                 }
 
                 {
                     !fragment ?
-                        <Tbody columns={columns}
-                               data={data}
-                               sorting={sorting}
-                               disabled={disabled}
-                               onRowClick={onRowClick}
-                               onCellClick={onCellClick}/>
+                        <Tbody {...restProps}
+                               columns={columns}/>
                         :
                         null
                 }
@@ -79,11 +67,8 @@ class BaseTable extends Component {
                 {/** render foot if a footRenderer exists in columns */}
                 {
                     !isFootHidden && (fragment === TableFragment.FOOT || (!fixed && !fragment)) ?
-                        <Tfoot columns={columns}
-                               data={data}
-                               disabled={disabled}
-                               onFootClick={onFootClick}
-                               onCellClick={onCellClick}/>
+                        <Tfoot {...restProps}
+                               columns={columns}/>
                         :
                         null
                 }
@@ -105,6 +90,16 @@ BaseTable.propTypes = {
      * Override the styles of the root element.
      */
     style: PropTypes.object,
+
+    /**
+     * The select mode of table.
+     */
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+
+    /**
+     * The select all mode of table, all or current page.
+     */
+    selectAllMode: PropTypes.oneOf(Util.enumerateValue(SelectAllMode)),
 
     fixed: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(Util.enumerateValue(HorizontalAlign))]),
 
@@ -222,7 +217,7 @@ BaseTable.propTypes = {
     })).isRequired,
 
     data: PropTypes.array,
-
+    baseColIndex: PropTypes.number,
     disabled: PropTypes.bool,
 
     /**
@@ -243,6 +238,10 @@ BaseTable.propTypes = {
     sortingDescIconCls: PropTypes.string,
     sortingFunc: PropTypes.func,
 
+    /**
+     * callback
+     */
+    hasChildren: PropTypes.func,
     onSortChange: PropTypes.func,
     onHeadClick: PropTypes.func,
     onRowClick: PropTypes.func,
@@ -253,6 +252,7 @@ BaseTable.propTypes = {
 
 BaseTable.defaultProps = {
 
+    baseColIndex: 0,
     disabled: false,
 
     isHeadHidden: false,
