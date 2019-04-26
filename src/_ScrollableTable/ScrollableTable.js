@@ -270,6 +270,7 @@ ScrollableTable.propTypes = {
     })).isRequired,
 
     data: PropTypes.array,
+    baseColIndex: PropTypes.number,
 
     /**
      * sorting
@@ -316,6 +317,7 @@ ScrollableTable.propTypes = {
     onGetBodyScrollerEl: PropTypes.func,
     onGetHeadScrollerEl: PropTypes.func,
     onGetFootScrollerEl: PropTypes.func,
+    hasChildren: PropTypes.func,
     onScroll: PropTypes.func,
     onWheel: PropTypes.func,
     onSortChange: PropTypes.func
@@ -326,6 +328,8 @@ ScrollableTable.defaultProps = {
 
     selectMode: SelectMode.SINGLE_SELECT,
     selectAllMode: SelectAllMode.CURRENT_PAGE,
+
+    baseColIndex: 0,
 
     defaultSortingType: SortingType.ASC,
     sortingAscIconCls: 'fas fa-angle-up',
