@@ -200,6 +200,7 @@ Tbody.propTypes = {
     idProp: PropTypes.string,
     disabled: PropTypes.bool,
     baseColIndex: PropTypes.number,
+    expandRows: PropTypes.array,
 
     /**
      * sorting
@@ -225,7 +226,8 @@ Tbody.defaultProps = {
     startIndex: 0,
     idProp: 'id',
     disabled: false,
-    baseColIndex: 0
+    baseColIndex: 0,
+    expandRows: []
 };
 
 export default Tbody;
