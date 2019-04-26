@@ -40,9 +40,19 @@ class Tr extends Component {
         !disabled && onRowClick && onRowClick(data, rowIndex, e);
     };
 
-    handleCollapsedChange = () => {
+    handleCollapsedChange = rowData => {
         this.setState({
             collapsed: !this.state.collapsed
+        }, () => {
+
+            const {onExpand, onCollapse} = this.props;
+
+            if (this.state.collapsed) {
+                onCollapse && onCollapse(rowData);
+            } else {
+                onExpand && onExpand(rowData);
+            }
+
         });
     };
 
@@ -242,7 +252,9 @@ Tr.propTypes = {
      */
     hasChildren: PropTypes.func,
     onRowClick: PropTypes.func,
-    onCellClick: PropTypes.func
+    onCellClick: PropTypes.func,
+    onExpand: PropTypes.func,
+    onCollapse: PropTypes.func
 
 };
 
