@@ -14,7 +14,6 @@ import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
 
 import Util from '../_vendors/Util';
-import TableFragment from '../_statics/TableFragment';
 
 class Tbody extends Component {
 
@@ -47,23 +46,21 @@ class Tbody extends Component {
     render() {
 
         const {
-            columns, data, startIndex, idProp, disabled, sorting,
-            onRowClick, onCellClick
+            columns, data, startIndex, idProp, disabled,
+            ...restProps
         } = this.props;
 
         return (
             <tbody>
                 {
                     data && data.map((row, rowIndex) => row ?
-                        <Tr key={idProp && idProp in row ? row[idProp] : rowIndex}
+                        <Tr {...restProps}
+                            key={idProp && idProp in row ? row[idProp] : rowIndex}
                             rowIndex={startIndex + rowIndex}
                             columns={columns}
                             data={row}
                             isChecked={this.isItemChecked(row)}
-                            disabled={disabled || row.disabled}
-                            sorting={sorting}
-                            onRowClick={onRowClick}
-                            onCellClick={onCellClick}/>
+                            disabled={disabled || row.disabled}/>
                         :
                         null
                     )
@@ -75,6 +72,16 @@ class Tbody extends Component {
 }
 
 Tbody.propTypes = {
+
+    /**
+     * The select mode of table.
+     */
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+
+    /**
+     * The select all mode of table, all or current page.
+     */
+    selectAllMode: PropTypes.oneOf(Util.enumerateValue(SelectAllMode)),
 
     /**
      * Children passed into table header.
@@ -191,8 +198,8 @@ Tbody.propTypes = {
     value: PropTypes.any,
     startIndex: PropTypes.number,
     idProp: PropTypes.string,
-    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
     disabled: PropTypes.bool,
+    baseColIndex: PropTypes.number,
 
     /**
      * sorting
@@ -202,6 +209,10 @@ Tbody.propTypes = {
         type: PropTypes.oneOf(Util.enumerateValue(SortingType))
     }),
 
+    /**
+     * callback
+     */
+    hasChildren: PropTypes.func,
     onRowClick: PropTypes.func,
     onCellClick: PropTypes.func
 
@@ -211,7 +222,8 @@ Tbody.defaultProps = {
     selectMode: SelectMode.SINGLE_SELECT,
     startIndex: 0,
     idProp: 'id',
-    disabled: false
+    disabled: false,
+    baseColIndex: 0
 };
 
 export default Tbody;
