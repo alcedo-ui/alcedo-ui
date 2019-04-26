@@ -219,6 +219,7 @@ BaseTable.propTypes = {
     data: PropTypes.array,
     baseColIndex: PropTypes.number,
     disabled: PropTypes.bool,
+    expandRows: PropTypes.array,
 
     /**
      * hidden
@@ -247,8 +248,7 @@ BaseTable.propTypes = {
     onRowClick: PropTypes.func,
     onCellClick: PropTypes.func,
     onFootClick: PropTypes.func,
-    onExpand: PropTypes.func,
-    onCollapse: PropTypes.func
+    onExpandChange: PropTypes.func
 
 };
 
@@ -256,6 +256,7 @@ BaseTable.defaultProps = {
 
     baseColIndex: 0,
     disabled: false,
+    expandRows: [],
 
     isHeadHidden: false,
     isFootHidden: false,
