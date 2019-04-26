@@ -37,7 +37,7 @@ class Tfoot extends Component {
     render() {
 
         const {
-                className, columns, data, disabled,
+                className, columns, data, disabled, baseColIndex,
                 onCellClick
             } = this.props,
 
@@ -53,11 +53,11 @@ class Tfoot extends Component {
                    onClick={this.handleClick}>
                 <tr>
                     {
-                        columnsWithSpan && columnsWithSpan.map(({column, span}, index) =>
-                            <Tf key={index}
+                        columnsWithSpan && columnsWithSpan.map(({column, span}, colIndex) =>
+                            <Tf key={colIndex}
                                 className={column.footClassName}
                                 style={column.footStyle}
-                                colIndex={index}
+                                colIndex={baseColIndex + colIndex}
                                 data={data}
                                 renderer={column.footRenderer}
                                 align={column.footAlign}
@@ -190,6 +190,7 @@ Tfoot.propTypes = {
 
     data: PropTypes.array,
     disabled: PropTypes.bool,
+    baseColIndex: PropTypes.number,
 
     onFootClick: PropTypes.func,
     onCellClick: PropTypes.func
@@ -197,7 +198,8 @@ Tfoot.propTypes = {
 };
 
 Tfoot.defaultProps = {
-    disabled: false
+    disabled: false,
+    baseColIndex: 0
 };
 
 export default Tfoot;
