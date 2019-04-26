@@ -21,6 +21,7 @@ import SortingType from '../_statics/SortingType';
 
 import Util from '../_vendors/Util';
 import Calculation from '../_vendors/Calculation';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class Table extends Component {
 
@@ -39,6 +40,7 @@ class Table extends Component {
             init: props.hasInitFadeOut,
             sorting: props.sorting,
             pagination: props.pagination,
+            expandRows: props.expandRows,
             value: Calculation.getInitValue(props)
         };
 
@@ -89,15 +91,38 @@ class Table extends Component {
         });
     };
 
+    /**
+     * handle expand change
+     */
+    handleExpandChange = expandRows => {
+        this.setState({
+            expandRows
+        }, () => {
+            const {onExpandChange} = this.props;
+            onExpandChange && onExpandChange(expandRows);
+        });
+    };
+
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            sorting: ComponentUtil.getDerivedState(props, state, 'sorting'),
+            pagination: ComponentUtil.getDerivedState(props, state, 'pagination'),
+            expandRows: ComponentUtil.getDerivedState(props, state, 'expandRows'),
+            value: Calculation.getInitValue({
+                value: ComponentUtil.getDerivedState(props, state, 'value'),
+                selectMode: props.selectMode
+            })
+        };
+    }
+
     render() {
 
         const {
-                className, style,
-                isPaginated, pageSizes,
-                onSelect, onDeselect, onSelectAll, onDeselectAll,
+                className, style, isPaginated, pageSizes,
                 ...restProps
             } = this.props,
-            {init, sorting, pagination, value} = this.state;
+            {init, sorting, pagination, expandRows, value} = this.state;
 
         return (
             <div className={classNames('table', {
@@ -112,15 +137,13 @@ class Table extends Component {
                 <Content {...restProps}
                          sorting={sorting}
                          pagination={pagination}
+                         expandRows={expandRows}
                          value={value}
                          isPaginated={isPaginated}
                          onInit={this.handleInit}
                          onChange={this.handleChange}
-                         onSelect={onSelect}
-                         onDeselect={onDeselect}
-                         onSelectAll={onSelectAll}
-                         onDeselectAll={onDeselectAll}
-                         onSortChange={this.handleSortChange}/>
+                         onSortChange={this.handleSortChange}
+                         onExpandChange={this.handleExpandChange}/>
 
                 {/* table footer */}
                 <Footer/>
@@ -301,6 +324,7 @@ Table.propTypes = {
     idProp: PropTypes.string,
     disabled: PropTypes.bool,
     hasInitFadeOut: PropTypes.bool,
+    expandRows: PropTypes.array,
 
     /**
      * multi select checkbox icon
@@ -357,6 +381,7 @@ Table.propTypes = {
     onDeselectAll: PropTypes.func,
     onExpand: PropTypes.func,
     onCollapse: PropTypes.func,
+    onExpandChange: PropTypes.func,
     onSortChange: PropTypes.func,
     onPaginationChange: PropTypes.func
 
@@ -369,6 +394,7 @@ Table.defaultProps = {
 
     disabled: false,
     hasInitFadeOut: true,
+    expandRows: [],
 
     uncheckedIconCls: 'far fa-square',
     checkedIconCls: 'fas fa-check-square',
