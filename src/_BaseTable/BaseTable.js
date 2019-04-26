@@ -246,7 +246,9 @@ BaseTable.propTypes = {
     onHeadClick: PropTypes.func,
     onRowClick: PropTypes.func,
     onCellClick: PropTypes.func,
-    onFootClick: PropTypes.func
+    onFootClick: PropTypes.func,
+    onExpand: PropTypes.func,
+    onCollapse: PropTypes.func
 
 };
 
