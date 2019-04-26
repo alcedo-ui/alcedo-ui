@@ -1,5 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import round from 'lodash/round';
+import cloneDeep from 'lodash/cloneDeep';
 
 import Table from 'src/Table';
 import Switcher from 'src/Switcher';
@@ -10,6 +11,8 @@ import RaisedButton from 'src/RaisedButton';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Table.json';
+
+import Util from 'vendors/Util';
 
 import 'scss/containers/app/modules/layout/TableExamples.scss';
 
@@ -114,34 +117,23 @@ class TableExamples extends Component {
 
     }
 
-    generateData = (size = 100) => {
+    generateData = (size = 100, base = '') => {
 
         let data = [];
         for (let i = 0; i < size; i++) {
+
+            const id = `${base ? `${base}-` : ''}${i}`;
+
             data.push({
-                id: '' + i,
-                firstName: `firstName${i}`,
-                lastName: `lastName${i}`,
+                id,
+                firstName: `firstName${id}`,
+                lastName: `lastName${id}`,
                 age: Math.floor(Math.random() * 100),
                 deposit: round(Math.random() * 1000000, 2),
                 other: 'Other Content'
             });
-        }
 
-        // data[0].hasChildren = true;
-        // data[0].children = [];
-        // for (let i = 0; i < 10; i++) {
-        //     data[0].children.push({
-        //         id: '0-' + i,
-        //         firstName: `firstName${i}`,
-        //         lastName: `lastName${i}`,
-        //         age: Math.floor(Math.random() * 100),
-        //         deposit: round(Math.random() * 1000000, 2),
-        //         other: 'Other Content'
-        //     });
-        // }
-        //
-        // data[1].hasChildren = true;
+        }
 
         return data;
 
@@ -191,6 +183,35 @@ class TableExamples extends Component {
 
     handleChange = value => {
         console.log('Changed Value: ', value);
+    };
+
+    handleExpand = rowData => {
+
+        console.log('Expand: ', rowData);
+
+        const data = cloneDeep(this.state.data);
+
+        if (!rowData || !data) {
+            return;
+        }
+
+        Util.preOrderTraverse({
+            children: data
+        }, node => {
+            if (node && node.id === rowData.id) {
+                node.children = this.generateData(10, node.id);
+                return false;
+            }
+        });
+
+        this.setState({
+            data
+        });
+
+    };
+
+    handleCollapse = rowData => {
+        console.log('Collapse: ', rowData);
     };
 
     clearSort = () => {
@@ -249,6 +270,8 @@ class TableExamples extends Component {
                                    paggingCountRenderer={count => <span>Self Defined Total Count: {count}</span>}
                                    onSortChange={this.handleSortChange}
                                    onPageChange={this.handlePageChange}
+                                   onExpand={this.handleExpand}
+                                   onCollapse={this.handleCollapse}
                                    onDataUpdate={this.handleDataUpdate}
                                    onChange={this.handleChange}/>
 
@@ -257,54 +280,9 @@ class TableExamples extends Component {
 
                 </Widget>
 
-                {/*<Widget>*/}
-
-                {/*<WidgetHeader className="example-header" title="With hasLineNumber and isMultiSelect"/>*/}
-
-                {/*<div className="widget-content">*/}
-                {/*<div className="example-content">*/}
-
-                {/*<p>A more complex example.Set the <code>hasLineNumber</code> and <code>isMultiSelect</code>*/}
-                {/*to true for showLineNumber and checkbox.</p>*/}
-
-                {/*<Table data={data}*/}
-                {/*columns={this.columns}*/}
-                {/*selectMode={Table.SelectMode.MULTI_SELECT}*/}
-                {/*selectAllMode={Table.SelectAllMode.CURRENT_PAGE}*/}
-                {/*paggingSelectedCountVisible={true}*/}
-                {/*defaultPageSize={20}*/}
-                {/*pageSizes={this.pageSizes}*/}
-                {/*useFullPagging={true}*/}
-                {/*sortingAscIconCls="fas fa-caret-up"*/}
-                {/*sortingDescIconCls="fas fa-caret-down"*/}
-                {/*onPageChange={this.handlePageChange}*/}
-                {/*onSelect={this.selectHandler}*/}
-                {/*onDeselect={this.deselectHandler}*/}
-                {/*onSelectAll={this.selectAllHandler}*/}
-                {/*onDeselectAll={this.deselectAllHandler}*/}
-                {/*onChange={this.changeHandler}/>*/}
-
-                {/*</div>*/}
-                {/*</div>*/}
-
-                {/*</Widget>*/}
-
-                {/*<Widget>*/}
-
-                {/*<WidgetHeader className="example-header" title="Empty"/>*/}
-
-                {/*<div className="widget-content">*/}
-                {/*<div className="example-content">*/}
-                {/*<Table columns={this.columns}*/}
-                {/*data={[]}/>*/}
-                {/*</div>*/}
-                {/*</div>*/}
-
-                {/*</Widget>*/}
-
                 <h2 className="example-title">Properties</h2>
 
-                {/*<PropTypeDescTable data={doc}/>*/}
+                <PropTypeDescTable data={doc}/>
 
             </div>
         );
