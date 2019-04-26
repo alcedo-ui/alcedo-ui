@@ -97,6 +97,7 @@ class Td extends Component {
                             hidden: !hasChildren
                         })}
                                     iconCls="fas fa-chevron-down"
+                                    disableTouchRipple={true}
                                     onClick={this.handleCollapseButtonClick}/>
                         :
                         null
