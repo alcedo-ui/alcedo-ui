@@ -190,7 +190,7 @@ class TableExamples extends Component {
 
         const {data} = this.state;
 
-        if (!rowData || !data) {
+        if (!rowData || !data || (rowData.children && rowData.children.length > 0)) {
             return;
         }
 
