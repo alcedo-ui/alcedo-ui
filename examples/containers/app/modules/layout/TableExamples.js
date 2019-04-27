@@ -1,6 +1,5 @@
 import React, {Component, Fragment} from 'react';
 import round from 'lodash/round';
-import cloneDeep from 'lodash/cloneDeep';
 
 import Table from 'src/Table';
 import Switcher from 'src/Switcher';
@@ -189,7 +188,7 @@ class TableExamples extends Component {
 
         console.log('Expand: ', rowData);
 
-        const data = cloneDeep(this.state.data);
+        const {data} = this.state;
 
         if (!rowData || !data) {
             return;
