@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component, createRef} from 'react';
+import React, {Component, Fragment, createRef} from 'react';
 import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -15,6 +15,7 @@ import removeClass from 'dom-helpers/class/removeClass';
 
 import ScrollableTable from '../_ScrollableTable';
 import Checkbox from '../Checkbox';
+import IconButton from '../IconButton';
 
 import Theme from '../Theme';
 import TableFragment from '../_statics/TableFragment';
@@ -110,7 +111,7 @@ class TableContent extends Component {
 
         const {
                 selectTheme, selectMode, selectAllMode, columns, data, disabled, value, idProp, pagination,
-                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls
+                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls, hasChildren
             } = this.props,
             result = {
                 [HorizontalAlign.LEFT]: [],
@@ -128,12 +129,47 @@ class TableContent extends Component {
             }
         });
 
+        const firstColumnPosition = TableCalculation.getFirstColumnPosition(result);
+
         /**
-         * multi select
+         * handle expand
+         */
+        if (firstColumnPosition) {
+            const firstColumn = result[firstColumnPosition][0];
+            result[firstColumnPosition][0] = {
+                ...result[firstColumnPosition][0],
+                bodyClassName: classNames('table-expand-column', {
+                    [firstColumn.bodyClassName]: firstColumn.bodyClassName
+                }),
+                bodyRenderer: (rowData, rowIndex, colIndex, collapsed, depth) =>
+                    <Fragment>
+
+                        <span className={classNames('table-indent', `indent-level-${depth}`)}
+                              style={{paddingLeft: depth * 20}}></span>
+
+                        <IconButton className={classNames('collapse-button', {
+                            hidden: hasChildren ? !hasChildren(rowData, rowIndex, colIndex) : true
+                        })}
+                                    iconCls="fas fa-chevron-right"
+                                    disableTouchRipple={true}
+                                    onClick={() => this.handleExpandChange(!collapsed, rowData)}/>
+
+                        {
+                            typeof firstColumn.bodyRenderer === 'function' ?
+                                firstColumn.bodyRenderer(rowData, rowIndex, colIndex, collapsed, depth)
+                                :
+                                firstColumn.bodyRenderer
+                        }
+
+                    </Fragment>
+            };
+        }
+
+        /**
+         * handle multi select
          */
         if (selectMode === SelectMode.MULTI_SELECT) {
-
-            const column = {
+            result[firstColumnPosition || HorizontalAlign.CENTER].unshift({
                 headClassName: 'table-select-th',
                 headRenderer: () =>
                     <Checkbox className="table-select"
@@ -157,14 +193,7 @@ class TableContent extends Component {
                               checkedIconCls={checkboxCheckedIconCls}
                               indeterminateIconCls={checkboxIndeterminateIconCls}
                               onChange={() => this.handleSelect(rowData, rowIndex)}/>
-            };
-
-            if (result[HorizontalAlign.LEFT].length > 0) {
-                result[HorizontalAlign.LEFT].unshift(column);
-            } else {
-                result[HorizontalAlign.CENTER].unshift(column);
-            }
-
+            });
         }
 
         return result;
