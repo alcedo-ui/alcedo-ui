@@ -7,8 +7,6 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import IconButton from '../IconButton';
-
 import HorizontalAlign from '../_statics/HorizontalAlign';
 import SortingType from '../_statics/SortingType';
 
@@ -22,18 +20,13 @@ class Td extends Component {
         super(props, ...restArgs);
     }
 
-    handleCollapseButtonClick = () => {
-        const {data, collapsed, onExpandChange} = this.props;
-        onExpandChange && onExpandChange(!collapsed, data);
-    };
-
     handleRenderer = () => {
 
-        const {renderer, rowIndex, colIndex, data} = this.props;
+        const {collapsed, renderer, rowIndex, colIndex, data, depth} = this.props;
 
         switch (typeof renderer) {
             case 'function':
-                return renderer(data, rowIndex, colIndex);
+                return renderer(data, rowIndex, colIndex, collapsed, depth);
             default:
                 return renderer;
         }
@@ -48,43 +41,20 @@ class Td extends Component {
     render() {
 
         const {
-            className, style, align, span, hasChildren, isExpandColumn, depth,
+            className, style, align, span,
             sortable, sortingProp, sorting
         } = this.props;
 
         return (
             <td className={classNames({
                 [`align-${align}`]: align && align !== HorizontalAlign.LEFT,
-                'table-expand-column': isExpandColumn,
                 sorting: sortable && sortingProp && sorting && sorting.prop && sorting.prop === sortingProp,
                 [className]: className
             })}
                 style={style}
                 colSpan={span || null}
                 onClick={this.handleClick}>
-
-                {
-                    isExpandColumn ?
-                        <span className={classNames('table-indent', `indent-level-${depth}`)}
-                              style={{paddingLeft: depth * 20}}></span>
-                        :
-                        null
-                }
-
-                {
-                    isExpandColumn ?
-                        <IconButton className={classNames('collapse-button', {
-                            hidden: !hasChildren
-                        })}
-                                    iconCls="fas fa-chevron-down"
-                                    disableTouchRipple={true}
-                                    onClick={this.handleCollapseButtonClick}/>
-                        :
-                        null
-                }
-
                 {this.handleRenderer()}
-
             </td>
         );
 
@@ -103,12 +73,8 @@ Td.propTypes = {
     renderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     align: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
     span: PropTypes.number,
-
-    isChecked: PropTypes.bool,
     disabled: PropTypes.bool,
-    hasChildren: PropTypes.bool,
     collapsed: PropTypes.bool,
-    isExpandColumn: PropTypes.bool,
     depth: PropTypes.number,
 
     /**
@@ -135,11 +101,8 @@ Td.defaultProps = {
     rowIndex: 0,
     colIndex: 0,
 
-    isChecked: false,
     disabled: false,
-    hasChildren: false,
     collapsed: true,
-    isExpandColumn: false,
     depth: 0
 
 };
