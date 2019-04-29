@@ -10,8 +10,6 @@ import classNames from 'classnames';
 import eventsOn from 'dom-helpers/events/on';
 import eventsOff from 'dom-helpers/events/off';
 import startCase from 'lodash/startCase';
-import addClass from 'dom-helpers/class/addClass';
-import removeClass from 'dom-helpers/class/removeClass';
 
 import ScrollableTable from '../_ScrollableTable';
 import Checkbox from '../Checkbox';
@@ -23,12 +21,10 @@ import HorizontalAlign from '../_statics/HorizontalAlign';
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
-import Direction from '../_statics/Direction';
 
 import Util from '../_vendors/Util';
 import TableLayout from '../_vendors/TableLayout';
 import TableCalculation from '../_vendors/TableCalculation';
-import ScrollBar from '../_vendors/ScrollBar';
 
 class TableContent extends Component {
 
@@ -247,7 +243,7 @@ class TableContent extends Component {
         if (this.wrapperEl && TableLayout.hasFixed(this.props, this.columns)) {
             TableLayout.fixLayout(this.wrapperEl, this.props);
         }
-        this.updateHorizontalScrollClassNames();
+        TableLayout.updateHorizontalScrollClassNames(this.wrapperEl, this.centerBodyScroller);
     };
 
     /**
@@ -258,36 +254,6 @@ class TableContent extends Component {
      */
     handleGetScrollerEl = (el, fixed, fragment) => {
         this[`${fixed}${startCase(fragment)}Scroller`] = el;
-    };
-
-    /**
-     * update shadow when horizontal scroll
-     */
-    updateHorizontalScrollClassNames = () => {
-
-        if (!this.wrapperEl || !this.fixedLeftEl || !this.fixedRightEl || !this.centerBodyScroller) {
-            return;
-        }
-
-        const {scrollWidth, offsetWidth, scrollLeft} = this.centerBodyScroller,
-            verticalScrollBarSize = ScrollBar.getSize(Direction.VERTICAL);
-
-        if (this.fixedLeftEl) {
-            if (scrollLeft > 0) {
-                addClass(this.fixedLeftEl, 'scroll-shadow');
-            } else {
-                removeClass(this.fixedLeftEl, 'scroll-shadow');
-            }
-        }
-
-        if (this.fixedRightEl) {
-            if (scrollLeft < scrollWidth - offsetWidth + verticalScrollBarSize) {
-                addClass(this.fixedRightEl, 'scroll-shadow');
-            } else {
-                removeClass(this.fixedRightEl, 'scroll-shadow');
-            }
-        }
-
     };
 
     /**
@@ -336,7 +302,7 @@ class TableContent extends Component {
                 }
             }
 
-            this.updateHorizontalScrollClassNames();
+            TableLayout.updateHorizontalScrollClassNames(this.wrapperEl, this.centerBodyScroller);
 
         }
 
@@ -479,7 +445,7 @@ class TableContent extends Component {
 
         eventsOn(window, 'resize', this.fixLayout);
 
-        this.updateHorizontalScrollClassNames();
+        TableLayout.updateHorizontalScrollClassNames(this.wrapperEl, this.centerBodyScroller);
         this.fixLayout();
 
         const {onInit} = this.props;
