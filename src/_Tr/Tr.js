@@ -26,19 +26,22 @@ class Tr extends Component {
     static SortingType = SortingType;
 
     constructor(props, ...restArgs) {
+
         super(props, ...restArgs);
+
+        this.state = {
+            collapsed: true
+        };
+
     }
 
-    isCollapsed = () => {
-
-        const {idProp, data, expandRows} = this.props;
-
-        if (!expandRows || expandRows.length < 1) {
-            return true;
-        }
-
-        return TableCalculation.indexOfItemInValue(data, expandRows, idProp) === -1;
-
+    handleExpandChange = (collapsed, rowData) => {
+        this.setState({
+            collapsed
+        }, () => {
+            const {onExpandChange} = this.props;
+            onExpandChange && onExpandChange(collapsed, rowData);
+        });
     };
 
     handleClick = e => {
@@ -53,8 +56,8 @@ class Tr extends Component {
                 onExpandChange,
                 ...respProps
             } = this.props,
+            {collapsed} = this.state,
 
-            collapsed = this.isCollapsed(),
             rowHasChildren = hasChildren ? hasChildren(data) : false,
             columnsWithSpan = TableCalculation.getColumnsWithSpan(TableFragment.BODY, columns, rowIndex);
 
@@ -90,7 +93,7 @@ class Tr extends Component {
                                 depth={depth}
                                 sortable={column.sortable}
                                 sortingProp={column.sortingProp}
-                                onExpandChange={onExpandChange}/>
+                                onExpandChange={this.handleExpandChange}/>
                             :
                             null
                         )
