@@ -49,21 +49,19 @@ class Tr extends Component {
     render() {
 
         const {
-                className, selectMode, columns, rowIndex, data, isChecked, disabled, baseColIndex, hasChildren, depth,
+                className, columns, rowIndex, data, isChecked, disabled, baseColIndex, depth,
                 ...respProps
             } = this.props,
             collapsed = this.isCollapsed(),
 
-            rowHasChildren = hasChildren ? hasChildren(data) : false,
             columnsWithSpan = TableCalculation.getColumnsWithSpan(TableFragment.BODY, columns, rowIndex);
 
         return (
             <Fragment>
 
                 <tr className={classNames({
-                    activated: isChecked,
-                    'has-children': rowHasChildren,
-                    collapsed,
+                    checked: isChecked,
+                    expanded: !collapsed,
                     [data.rowClassName]: data.rowClassName,
                     [className]: className
                 })}
@@ -79,8 +77,6 @@ class Tr extends Component {
                                 rowIndex={rowIndex}
                                 colIndex={baseColIndex + colIndex}
                                 data={data}
-                                hasChildren={rowHasChildren}
-                                isExpandColumn={(baseColIndex + colIndex) === (selectMode === SelectMode.MULTI_SELECT ? 1 : 0)}
                                 collapsed={collapsed}
                                 renderer={column.bodyRenderer}
                                 align={column.bodyAlign}
@@ -96,15 +92,15 @@ class Tr extends Component {
                 </tr>
 
                 {
-                    rowHasChildren && !collapsed && data && data.children && data.children.length > 0 ?
-                        data.children.map((item, index) =>
-                            <Tr {...this.props}
-                                key={index}
-                                data={item}
-                                depth={depth + 1}/>
-                        )
-                        :
-                        null
+                    /*rowHasChildren && */!collapsed && data && data.children && data.children.length > 0 ?
+                    data.children.map((item, index) =>
+                        <Tr {...this.props}
+                            key={index}
+                            data={item}
+                            depth={depth + 1}/>
+                    )
+                    :
+                    null
                 }
 
             </Fragment>
@@ -116,16 +112,6 @@ class Tr extends Component {
 Tr.propTypes = {
 
     className: PropTypes.string,
-
-    /**
-     * The select mode of table.
-     */
-    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
-
-    /**
-     * The select all mode of table, all or current page.
-     */
-    selectAllMode: PropTypes.oneOf(Util.enumerateValue(SelectAllMode)),
 
     rowIndex: PropTypes.number,
 
@@ -259,7 +245,6 @@ Tr.propTypes = {
     /**
      * callback
      */
-    hasChildren: PropTypes.func,
     onRowClick: PropTypes.func,
     onCellClick: PropTypes.func,
     onExpandChange: PropTypes.func

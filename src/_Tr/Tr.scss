@@ -12,8 +12,8 @@
         }
     }
 
-    &.collapsed .collapse-button .button-icon {
-        transform: rotate(-90deg);
+    &.expanded .collapse-button .button-icon {
+        transform: rotate(90deg);
     }
 
     &:hover {
