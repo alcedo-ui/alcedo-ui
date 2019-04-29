@@ -4,11 +4,12 @@
  */
 
 import sum from 'lodash/sum';
+import addClass from 'dom-helpers/class/addClass';
+import removeClass from 'dom-helpers/class/removeClass';
 
 import TableFragment from '../_statics/TableFragment';
 import HorizontalAlign from '../_statics/HorizontalAlign';
 import Direction from '../_statics/Direction';
-
 import ScrollBar from './ScrollBar';
 
 /**
@@ -405,10 +406,34 @@ function fixLayout(wrapperEl, props) {
 
 }
 
+function updateHorizontalScrollClassNames(wrapperEl, scrollerEl) {
+
+    if (!wrapperEl || !scrollerEl) {
+        return;
+    }
+
+    removeClass(wrapperEl, 'scroll-left');
+    removeClass(wrapperEl, 'scroll-center');
+    removeClass(wrapperEl, 'scroll-right');
+
+    const {scrollWidth, offsetWidth, scrollLeft} = scrollerEl,
+        verticalScrollBarSize = ScrollBar.getSize(Direction.VERTICAL);
+
+    if (scrollLeft === 0) {
+        addClass(wrapperEl, 'scroll-left');
+    } else if (scrollLeft === scrollWidth - offsetWidth + verticalScrollBarSize) {
+        addClass(wrapperEl, 'scroll-right');
+    } else {
+        addClass(wrapperEl, 'scroll-center');
+    }
+
+}
+
 export default {
     hasFixed,
     getColumnsWidth,
     getRowsHeight,
     getbodyScollerHeight,
-    fixLayout
+    fixLayout,
+    updateHorizontalScrollClassNames
 };
