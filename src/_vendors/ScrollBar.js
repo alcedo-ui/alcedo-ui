@@ -8,8 +8,8 @@ import Direction from '../_statics/Direction';
 import './ScrollBar.scss';
 
 const tempSize = {
-    vertical: 0,
-    horizontal: 0
+    vertical: null,
+    horizontal: null
 };
 
 function getSize(direction = Direction.VERTICAL) {
@@ -20,9 +20,9 @@ function getSize(direction = Direction.VERTICAL) {
 
     const isVertical = direction === Direction.VERTICAL;
 
-    if (isVertical && tempSize.vertical) {
+    if (isVertical && tempSize.vertical !== null) {
         return tempSize.vertical;
-    } else if (!isVertical && tempSize.horizontal) {
+    } else if (!isVertical && tempSize.horizontal != null) {
         return tempSize.horizontal;
     }
 
