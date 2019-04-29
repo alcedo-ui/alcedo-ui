@@ -60,6 +60,11 @@ class TableContent extends Component {
 
         // sorted current page cache data
         this.tableData = [];
+        this.columns = {
+            [HorizontalAlign.LEFT]: [],
+            [HorizontalAlign.CENTER]: [],
+            [HorizontalAlign.RIGHT]: []
+        };
 
     }
 
@@ -210,7 +215,7 @@ class TableContent extends Component {
      * fix table layout at once
      */
     fixLayout = () => {
-        if ((this.props.isHeadFixed || this.props.isFootFixed) && this.wrapperEl) {
+        if (this.wrapperEl && TableLayout.hasFixed(this.props, this.columns)) {
             TableLayout.fixLayout(this.wrapperEl, this.props);
         }
         this.updateHorizontalScrollClassNames();
@@ -435,8 +440,6 @@ class TableContent extends Component {
 
         }
 
-        this.fixLayout();
-
     };
 
     componentDidMount() {
@@ -466,13 +469,13 @@ class TableContent extends Component {
     render() {
 
         const {
-                className, style, columns: originColumns, data, scroll,
-                ...restProps
-            } = this.props,
+            className, style, columns: originColumns, data, scroll,
+            ...restProps
+        } = this.props;
 
-            columns = this.getColumns();
+        this.columns = this.getColumns();
 
-        if (!columns) {
+        if (!this.columns) {
             return null;
         }
 
@@ -497,9 +500,9 @@ class TableContent extends Component {
                                  maskStyle={tableStyle}
                                  tableStyle={tableStyle}
                                  columns={[
-                                     ...TableCalculation.handleFixedColumns(columns[HorizontalAlign.LEFT]),
-                                     ...columns[HorizontalAlign.CENTER],
-                                     ...TableCalculation.handleFixedColumns(columns[HorizontalAlign.RIGHT])
+                                     ...TableCalculation.handleFixedColumns(this.columns[HorizontalAlign.LEFT]),
+                                     ...this.columns[HorizontalAlign.CENTER],
+                                     ...TableCalculation.handleFixedColumns(this.columns[HorizontalAlign.RIGHT])
                                  ]}
                                  data={this.tableData}
                                  scroll={scroll}
@@ -515,13 +518,13 @@ class TableContent extends Component {
                                      this.handleGetScrollerEl(el, HorizontalAlign.CENTER, TableFragment.FOOT)}/>
 
                 {
-                    columns[HorizontalAlign.LEFT] && columns[HorizontalAlign.LEFT].length > 0 ?
+                    this.columns[HorizontalAlign.LEFT] && this.columns[HorizontalAlign.LEFT].length > 0 ?
                         <ScrollableTable {...restProps}
                                          ref={this.fixedLeft}
                                          className="table-content-left"
                                          bodyScrollerStyle={bodyScrollerStyle}
                                          fixed={HorizontalAlign.LEFT}
-                                         columns={columns[HorizontalAlign.LEFT]}
+                                         columns={this.columns[HorizontalAlign.LEFT]}
                                          data={this.tableData}
                                          scroll={scroll}
                                          isHeadHidden={isHeadHidden}
@@ -540,19 +543,19 @@ class TableContent extends Component {
                 }
 
                 {
-                    columns[HorizontalAlign.RIGHT] && columns[HorizontalAlign.RIGHT].length > 0 ?
+                    this.columns[HorizontalAlign.RIGHT] && this.columns[HorizontalAlign.RIGHT].length > 0 ?
                         <ScrollableTable {...restProps}
                                          ref={this.fixedRight}
                                          className="table-content-right"
                                          bodyScrollerStyle={bodyScrollerStyle}
                                          fixed={HorizontalAlign.RIGHT}
-                                         columns={columns[HorizontalAlign.RIGHT]}
+                                         columns={this.columns[HorizontalAlign.RIGHT]}
                                          data={this.tableData}
                                          scroll={scroll}
                                          isHeadHidden={isHeadHidden}
                                          isFootHidden={isFootHidden}
-                                         baseColIndex={columns[HorizontalAlign.LEFT].length
-                                         + columns[HorizontalAlign.CENTER].length}
+                                         baseColIndex={this.columns[HorizontalAlign.LEFT].length
+                                         + this.columns[HorizontalAlign.CENTER].length}
                                          onScroll={this.handleScroll}
                                          onWheel={this.handleWheel}
                                          onGetHeadScrollerEl={el =>
