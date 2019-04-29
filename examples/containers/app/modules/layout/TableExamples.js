@@ -29,7 +29,7 @@ class TableExamples extends Component {
         this.columns = [{
             fixed: Table.Fixed.LEFT,
             headRenderer: 'ID',
-            bodyRenderer: 'id',
+            bodyRenderer: rowDate => rowDate.id,
             footRenderer: 'Total',
             footSpan: 2,
             sortable: true,
@@ -39,13 +39,13 @@ class TableExamples extends Component {
             width: 300,
             headRenderer: 'Name',
             bodyClassName: 'nowrap',
-            bodyRenderer: '${firstName} ${lastName}',
+            bodyRenderer: rowDate => `${rowDate.firstName} ${rowDate.lastName}`,
             sortable: true,
             sortingProp: 'firstName'
         }, {
             headRenderer: 'Age',
             headAlign: Table.Align.RIGHT,
-            bodyRenderer: 'age',
+            bodyRenderer: rowDate => rowDate.age,
             bodyAlign: Table.Align.RIGHT,
             footRenderer: () => {
                 const {data} = this.state;
@@ -62,23 +62,23 @@ class TableExamples extends Component {
         }, {
             width: 300,
             headRenderer: 'Other Column 1',
-            bodyRenderer: '${other} 1'
+            bodyRenderer: rowDate => `${rowDate.other} 1`
         }, {
             width: 300,
             headRenderer: 'Other Column 2',
-            bodyRenderer: '${other} 2'
+            bodyRenderer: rowDate => `${rowDate.other} 2`
         }, {
             width: 300,
             headRenderer: 'Other Column 3',
-            bodyRenderer: '${other} 3'
+            bodyRenderer: rowDate => `${rowDate.other} 3`
         }, {
             width: 300,
             headRenderer: 'Other Column 4',
-            bodyRenderer: '${other} 4'
+            bodyRenderer: rowDate => `${rowDate.other} 4`
         }, {
             headRenderer: 'Deposit',
             headAlign: Table.Align.RIGHT,
-            bodyRenderer: '$${deposit}',
+            bodyRenderer: rowDate => `$${rowDate.deposit}`,
             bodyAlign: Table.Align.RIGHT,
             footRenderer: () =>
                 <Fragment>
