@@ -435,6 +435,8 @@ class TableContent extends Component {
 
         }
 
+        this.fixLayout();
+
     };
 
     componentDidMount() {
