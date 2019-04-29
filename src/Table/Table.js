@@ -40,7 +40,6 @@ class Table extends Component {
             init: props.hasInitFadeOut,
             sorting: props.sorting,
             pagination: props.pagination,
-            expandRows: props.expandRows,
             value: Calculation.getInitValue(props)
         };
 
@@ -91,18 +90,6 @@ class Table extends Component {
         });
     };
 
-    /**
-     * handle expand change
-     */
-    handleExpandChange = expandRows => {
-        this.setState({
-            expandRows
-        }, () => {
-            const {onExpandChange} = this.props;
-            onExpandChange && onExpandChange(expandRows);
-        });
-    };
-
     static getDerivedStateFromProps(props, state) {
         return {
             prevProps: props,
@@ -142,8 +129,7 @@ class Table extends Component {
                          isPaginated={isPaginated}
                          onInit={this.handleInit}
                          onChange={this.handleChange}
-                         onSortChange={this.handleSortChange}
-                         onExpandChange={this.handleExpandChange}/>
+                         onSortChange={this.handleSortChange}/>
 
                 {/* table footer */}
                 <Footer/>
