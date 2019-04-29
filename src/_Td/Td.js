@@ -22,24 +22,6 @@ class Td extends Component {
         super(props, ...restArgs);
     }
 
-    stringContentRenderer = (data, template) => {
-
-        if (!data) {
-            return template;
-        }
-
-        if (/\$\{.+\}/.test(template)) { // handle replacement in template
-            let result = template;
-            for (let key in data) {
-                result = result.replace(new RegExp('\\$\\{' + key + '\\}', 'g'), data[key]);
-            }
-            return result;
-        } else { // show prop value directly
-            return data[template];
-        }
-
-    };
-
     handleCollapseButtonClick = () => {
         const {data, collapsed, onExpandChange} = this.props;
         onExpandChange && onExpandChange(!collapsed, data);
@@ -50,8 +32,6 @@ class Td extends Component {
         const {renderer, rowIndex, colIndex, data} = this.props;
 
         switch (typeof renderer) {
-            case 'string':
-                return this.stringContentRenderer(data, renderer);
             case 'function':
                 return renderer(data, rowIndex, colIndex);
             default:
