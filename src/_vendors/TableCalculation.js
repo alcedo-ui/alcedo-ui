@@ -6,6 +6,7 @@
 import classnames from 'classnames';
 
 import SelectAllMode from '../_statics/SelectAllMode';
+import HorizontalAlign from '../_statics/HorizontalAlign';
 
 function calcSpan(type, column, colIndex, rowIndex) {
     const span = column[`${type}Span`];
@@ -224,6 +225,17 @@ function handleSelectAllChange(checked, selectAllMode, data, tableData, value, i
 
 }
 
+function getFirstColumnPosition(columns) {
+    if (columns[HorizontalAlign.LEFT].length > 0) {
+        return HorizontalAlign.LEFT;
+    } else if (columns[HorizontalAlign.CENTER].length > 0) {
+        return HorizontalAlign.CENTER;
+    } else if (columns[HorizontalAlign.RIGHT].length > 0) {
+        return HorizontalAlign.RIGHT;
+    }
+    return null;
+}
+
 export default {
     calcSpan,
     getColumnsWithSpan,
@@ -236,5 +248,6 @@ export default {
     isSelectAllChecked,
     isSelectAllIndeterminate,
     handleSelect,
-    handleSelectAllChange
+    handleSelectAllChange,
+    getFirstColumnPosition
 };
