@@ -49,10 +49,6 @@
 
     .table-content-left {
         left: 0;
-
-        &.scroll-shadow {
-            box-shadow: 6px 0 6px -4px rgba(0, 0, 0, 0.15);
-        }
     }
 
     .table-content-right {
@@ -61,13 +57,27 @@
         .scrollable-table-head-scroller {
             background: $theme-field-bg-disabled;
         }
-
-        &.scroll-shadow {
-            box-shadow: -6px 0 6px -4px rgba(0, 0, 0, 0.15);
-        }
     }
 
     .table-fixed-column {
         visibility: hidden;
+    }
+
+    &.scroll-left .table-content-right {
+        box-shadow: -6px 0 6px -4px rgba(0, 0, 0, 0.15);
+    }
+
+    &.scroll-center {
+        .table-content-left {
+            box-shadow: 6px 0 6px -4px rgba(0, 0, 0, 0.15);
+        }
+
+        .table-content-right {
+            box-shadow: -6px 0 6px -4px rgba(0, 0, 0, 0.15);
+        }
+    }
+
+    &.scroll-right .table-content-left {
+        box-shadow: 6px 0 6px -4px rgba(0, 0, 0, 0.15);
     }
 }
