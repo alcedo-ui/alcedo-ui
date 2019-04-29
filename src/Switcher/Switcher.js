@@ -73,9 +73,15 @@ class Switcher extends Component {
     render() {
 
         const {
+
                 className, style, theme, disabled, isLoading, size, labelVisible,
                 tip, triggerEl, parentEl, tipPosition,
+
+                // not passing down these props
+                beforeChange,
+
                 ...restProps
+
             } = this.props,
             {value} = this.state,
 
