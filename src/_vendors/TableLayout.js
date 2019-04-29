@@ -12,6 +12,31 @@ import Direction from '../_statics/Direction';
 import ScrollBar from './ScrollBar';
 
 /**
+ * whether a table has a fixed head or a fixed foot or fixed left columns or fixed right columns
+ * @param props
+ * @param columns
+ * @returns {boolean}
+ */
+function hasFixed(props, columns) {
+
+    if (props && (props.isHeadFixed || props.isFootFixed)) {
+        return true;
+    }
+
+    if (!columns) {
+        return false;
+    }
+
+    if ((columns[HorizontalAlign.LEFT] && columns[HorizontalAlign.LEFT].length > 0)
+        || (columns[HorizontalAlign.RIGHT] && columns[HorizontalAlign.RIGHT].length > 0)) {
+        return true;
+    }
+
+    return false;
+
+}
+
+/**
  * calculate each head, body and foot column width
  * @returns {null|{[p: string]: *|*}}
  */
@@ -381,6 +406,7 @@ function fixLayout(wrapperEl, props) {
 }
 
 export default {
+    hasFixed,
     getColumnsWidth,
     getRowsHeight,
     getbodyScollerHeight,
