@@ -22,11 +22,11 @@ class Td extends Component {
 
     handleRenderer = () => {
 
-        const {collapsed, renderer, rowIndex, colIndex, data, depth} = this.props;
+        const {collapsed, renderer, rowIndex, colIndex, data, depth, path} = this.props;
 
         switch (typeof renderer) {
             case 'function':
-                return renderer(data, rowIndex, colIndex, collapsed, depth);
+                return renderer(data, rowIndex, colIndex, collapsed, depth, path);
             default:
                 return renderer;
         }
@@ -76,6 +76,7 @@ Td.propTypes = {
     disabled: PropTypes.bool,
     collapsed: PropTypes.bool,
     depth: PropTypes.number,
+    path: PropTypes.array,
 
     /**
      * sorting
