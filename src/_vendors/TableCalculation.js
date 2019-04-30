@@ -251,6 +251,22 @@ function getFirstColumnPosition(columns) {
     return null;
 }
 
+function recursiveSelectChildren(node, value = [], idProp) {
+
+    if (!node) {
+        return value;
+    }
+
+    Util.preOrderTraverse(node, child => {
+        if (!isNodeChecked(child, value, idProp)) {
+            value.push(child);
+        }
+    });
+
+    return value;
+
+}
+
 export default {
     calcSpan,
     getColumnsWithSpan,
@@ -264,5 +280,6 @@ export default {
     isRootNodeChecked,
     handleSelect,
     handleSelectAllChange,
-    getFirstColumnPosition
+    getFirstColumnPosition,
+    recursiveSelectChildren
 };
