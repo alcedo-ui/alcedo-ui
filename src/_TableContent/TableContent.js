@@ -10,6 +10,7 @@ import classNames from 'classnames';
 import eventsOn from 'dom-helpers/events/on';
 import eventsOff from 'dom-helpers/events/off';
 import startCase from 'lodash/startCase';
+import isArray from 'lodash/isArray';
 
 import ScrollableTable from '../_ScrollableTable';
 import Checkbox from '../Checkbox';
@@ -21,6 +22,7 @@ import HorizontalAlign from '../_statics/HorizontalAlign';
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
+import VirtualRoot from '../_statics/VirtualRoot';
 
 import Util from '../_vendors/Util';
 import TableLayout from '../_vendors/TableLayout';
@@ -65,18 +67,118 @@ class TableContent extends Component {
 
     }
 
-    handleSelect = (rowData, rowIndex) => {
+    addRecursiveValue = (node, value, idProp, isSelectRecursive) => {
 
-        const {value, idProp, onChange, onSelect, onDeselect} = this.props,
-            {value: result, checked} = TableCalculation.handleSelect(rowData, rowIndex, value, idProp);
-
-        if (checked) {
-            onSelect && onSelect(rowData, rowIndex, result);
-        } else {
-            onDeselect && onDeselect(rowData, rowIndex, result);
+        if (!node || !value) {
+            return;
         }
 
-        onChange && onChange(result, rowIndex);
+        if (!TableCalculation.isNodeChecked(node, value, idProp)) {
+            value.push(node);
+        }
+
+        if (!isSelectRecursive || !node.children || node.children.length < 1) {
+            return;
+        }
+
+        for (let item of node.children) {
+            this.addRecursiveValue(item, value, idProp);
+        }
+
+    };
+
+    removeRecursiveValue = (node, value, idProp, isSelectRecursive) => {
+
+        if (!node || !value) {
+            return;
+        }
+
+        const index = TableCalculation.indexOfNodeInValue(node, value, idProp);
+        if (index > -1) {
+            value.splice(index, 1);
+        }
+
+        if (!isSelectRecursive || !node.children || node.children.length < 1) {
+            return;
+        }
+
+        for (let item of node.children) {
+            this.removeRecursiveValue(item, value, idProp);
+        }
+
+    };
+
+    /**
+     * traverse tree data to update value when multi recursive select
+     * @param value
+     * @returns {Array}
+     */
+    updateValue = value => {
+
+        const {data, idProp} = this.props;
+        let result = [];
+
+        Util.postOrderTraverse({[VirtualRoot]: true, children: data}, node => {
+            if (!(VirtualRoot in node)) {
+                if (!node.children || node.children.length < 1) {
+                    if (TableCalculation.isNodeChecked(node, value, idProp)) {
+                        result.push(node);
+                    }
+                } else {
+                    if (node.children.every(child => TableCalculation.isNodeChecked(child, value, idProp))) {
+                        result.push(node);
+                    }
+                }
+            }
+        });
+
+        return result;
+
+    };
+
+    handleSelect = (node, rowIndex, colIndex, collapsed, depth, path) => {
+
+        if (!node || this.props.selectMode !== SelectMode.MULTI_SELECT) {
+            return;
+        }
+
+        const {value, isSelectRecursive, idProp, onSelect, onChange} = this.props;
+
+        let result = value ? value.slice() : value;
+        if (!result || !isArray(result)) {
+            result = [];
+        }
+
+        this.addRecursiveValue(node, result, idProp, isSelectRecursive);
+        if (isSelectRecursive) {
+            result = this.updateValue(result);
+        }
+
+        onSelect && onSelect(node, rowIndex, colIndex, collapsed, depth, path);
+        onChange && onChange(result);
+
+    };
+
+    handleDeselect = (node, rowIndex, colIndex, collapsed, depth, path) => {
+
+        if (!node || this.props.selectMode !== SelectMode.MULTI_SELECT) {
+            return;
+        }
+
+        const {isSelectRecursive, value, idProp, onDeselect, onChange} = this.props;
+
+        let result = value ? value.slice() : value;
+        if (!result || !isArray(result)) {
+            result = [];
+        } else {
+            this.removeRecursiveValue(node, result, idProp, isSelectRecursive);
+            if (isSelectRecursive) {
+                result = this.updateValue(result);
+            }
+        }
+
+        onDeselect && onDeselect(node, rowIndex, colIndex, collapsed, depth, path);
+        onChange && onChange(result);
 
     };
 
@@ -137,7 +239,7 @@ class TableContent extends Component {
                 bodyClassName: classNames('table-expand-column', {
                     [firstColumn.bodyClassName]: firstColumn.bodyClassName
                 }),
-                bodyRenderer: (rowData, rowIndex, colIndex, collapsed, depth) =>
+                bodyRenderer: (rowData, rowIndex, colIndex, collapsed, depth, path) =>
                     <Fragment>
 
                         <span className={classNames('table-indent', `indent-level-${depth}`)}
@@ -180,15 +282,17 @@ class TableContent extends Component {
                               indeterminateIconCls={checkboxIndeterminateIconCls}
                               onChange={this.handleSelectAllChange}/>,
                 bodyClassName: 'table-select-td',
-                bodyRenderer: (rowData, rowIndex) =>
+                bodyRenderer: (rowData, rowIndex, colIndex, collapsed, depth, path) =>
                     <Checkbox className="table-select"
                               theme={selectTheme}
-                              checked={TableCalculation.isItemChecked(rowData, value, idProp)}
+                              checked={TableCalculation.isNodeChecked(rowData, value, idProp)}
                               disabled={disabled || rowData.disabled}
+                              indeterminate={TableCalculation.isNodeIndeterminate(rowData, value, idProp)}
                               uncheckedIconCls={checkboxUncheckedIconCls}
                               checkedIconCls={checkboxCheckedIconCls}
                               indeterminateIconCls={checkboxIndeterminateIconCls}
-                              onChange={() => this.handleSelect(rowData, rowIndex)}/>
+                              onCheck={() => this.handleSelect(rowData, rowIndex, colIndex, collapsed, depth, path)}
+                              onUncheck={() => this.handleDeselect(rowData, rowIndex, colIndex, collapsed, depth, path)}/>
             });
         }
 
@@ -417,7 +521,7 @@ class TableContent extends Component {
 
             onCollapse && onCollapse(rowData);
 
-            const index = TableCalculation.indexOfItemInValue(rowData, expandRows, idProp);
+            const index = TableCalculation.indexOfNodeInValue(rowData, expandRows, idProp);
             if (index !== -1) {
                 expandRows.splice(index, 1);
                 onExpandChange && onExpandChange(expandRows);
@@ -427,7 +531,7 @@ class TableContent extends Component {
 
             onExpand && onExpand(rowData);
 
-            const index = TableCalculation.indexOfItemInValue(rowData, expandRows, idProp);
+            const index = TableCalculation.indexOfNodeInValue(rowData, expandRows, idProp);
             if (index === -1) {
                 expandRows.push(rowData);
                 onExpandChange && onExpandChange(expandRows);
@@ -717,6 +821,7 @@ TableContent.propTypes = {
     idProp: PropTypes.string,
     disabled: PropTypes.bool,
     expandRows: PropTypes.array,
+    isSelectRecursive: PropTypes.bool,
 
     checkboxUncheckedIconCls: PropTypes.string,
     checkboxCheckedIconCls: PropTypes.string,
@@ -780,6 +885,7 @@ TableContent.defaultProps = {
     disabled: false,
     idProp: 'id',
     expandRows: [],
+    isSelectRecursive: true,
 
     uncheckedIconCls: 'far fa-square',
     checkedIconCls: 'fas fa-check-square',
