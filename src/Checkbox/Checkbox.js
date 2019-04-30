@@ -100,20 +100,18 @@ class Checkbox extends Component {
                 className, style, theme, name, label, value, disabled, disableTouchRipple,
                 indeterminate, uncheckedIconCls, checkedIconCls, indeterminateIconCls, tip, tipPosition
             } = this.props,
-            {checked} = this.state,
-
-            checkboxClassName = classNames('checkbox', {
-                activated: checked,
-                indeterminated: indeterminate,
-                [`theme-${theme}`]: theme,
-                [className]: className
-            });
+            {checked} = this.state;
 
         return (
             <TipProvider tipContent={tip}
                          position={tipPosition}>
 
-                <div className={checkboxClassName}
+                <div className={classNames('checkbox', {
+                    activated: checked,
+                    indeterminated: !checked && indeterminate,
+                    [`theme-${theme}`]: theme,
+                    [className]: className
+                })}
                      style={style}
                      disabled={disabled}>
 
