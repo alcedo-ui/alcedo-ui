@@ -94,12 +94,13 @@ class Table extends Component {
     /**
      * handle expand change
      */
-    handleExpandChange = expandRows => {
+    handleExpandChange = (expandRows, callback) => {
         this.setState({
             expandRows
         }, () => {
             const {onExpandChange} = this.props;
             onExpandChange && onExpandChange(expandRows);
+            callback && callback();
         });
     };
 
