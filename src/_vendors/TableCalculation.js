@@ -9,6 +9,7 @@ import SelectAllMode from '../_statics/SelectAllMode';
 import HorizontalAlign from '../_statics/HorizontalAlign';
 
 import Util from '../_vendors/Util';
+import VirtualRoot from '../_statics/VirtualRoot';
 
 function calcSpan(type, column, colIndex, rowIndex) {
     const span = column[`${type}Span`];
@@ -157,36 +158,27 @@ function isNodeIndeterminate(node, value, idProp) {
 
 }
 
-function isSelectAllChecked(selectAllMode, data, tableData, value, idProp) {
+function isRootNodeChecked(data, value, idProp) {
 
-    if (!value || value.length < 1) {
-        return false;
-    }
+    let total = 0,
+        count = 0;
 
-    if (selectAllMode === SelectAllMode.ALL) {
-        const dataLen = data.filter(item => item && !item.disabled).length;
-        return dataLen > 0 && value.length === dataLen;
-    } else if (selectAllMode === SelectAllMode.CURRENT_PAGE) {
-        return tableData.filter(item => item && !item.disabled)
-                        .every(item => isNodeChecked(item, value, idProp));
-    }
+    Util.preOrderTraverse({
+        [VirtualRoot]: true,
+        children: data
+    }, node => {
+        if (!(VirtualRoot in node)) {
+            total++;
+            if (isNodeChecked(node, value, idProp)) {
+                count++;
+            }
+        }
+    });
 
-}
-
-function isSelectAllIndeterminate(selectAllMode, data, tableData, value, idProp, pagination) {
-
-    if (!value || value.length < 1) {
-        return false;
-    }
-
-    if (selectAllMode === SelectAllMode.ALL) {
-        const dataLen = data.filter(item => item && !item.disabled).length;
-        return dataLen > 0 && value.length < dataLen;
-    } else if (selectAllMode === SelectAllMode.CURRENT_PAGE) {
-        const currentPageData = tableData.filter(item => item && !item.disabled),
-            len = currentPageData.filter(item => isNodeChecked(item, value, idProp)).length;
-        return len > 0 && len < Math.min(currentPageData.length, pagination.pageSize);
-    }
+    return {
+        checked: total > 0 && count === total,
+        indeterminate: count > 0 && total !== count
+    };
 
 }
 
@@ -269,8 +261,7 @@ export default {
     indexOfNodeInValue,
     isNodeChecked,
     isNodeIndeterminate,
-    isSelectAllChecked,
-    isSelectAllIndeterminate,
+    isRootNodeChecked,
     handleSelect,
     handleSelectAllChange,
     getFirstColumnPosition
