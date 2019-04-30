@@ -8,6 +8,8 @@ import classnames from 'classnames';
 import SelectAllMode from '../_statics/SelectAllMode';
 import HorizontalAlign from '../_statics/HorizontalAlign';
 
+import Util from '../_vendors/Util';
+
 function calcSpan(type, column, colIndex, rowIndex) {
     const span = column[`${type}Span`];
     return span && typeof span === 'function' ?
@@ -115,23 +117,44 @@ function getDataByPagination(data, isPaginated, pagination) {
 
 }
 
-function indexOfItemInValue(rowData, value, idProp) {
+function indexOfNodeInValue(node, value, idProp) {
 
-    if (!rowData || !value) {
+    if (!node || !value) {
         return -1;
     }
 
-    let index = value.findIndex(item => (idProp in item) && (idProp in rowData) && item[idProp] === rowData[idProp]);
+    let index = value.findIndex(item => (idProp in item) && (idProp in node) && item[idProp] === node[idProp]);
     if (index < 0) {
-        index = value.indexOf(rowData);
+        index = value.indexOf(node);
     }
 
     return index;
 
 }
 
-function isItemChecked(rowData, value, idProp) {
-    return indexOfItemInValue(rowData, value, idProp) >= 0;
+function isNodeChecked(node, value, idProp) {
+    return indexOfNodeInValue(node, value, idProp) >= 0;
+}
+
+function isNodeIndeterminate(node, value, idProp) {
+
+    if (!node || !node.children || node.children.length < 1
+        || !value || !value.length || value.length < 1) {
+        return false;
+    }
+
+    let total = 0,
+        count = 0;
+
+    Util.preOrderTraverse(node, nodeItem => {
+        total++;
+        if (isNodeChecked(nodeItem, value, idProp)) {
+            count++;
+        }
+    });
+
+    return count > 0 && total !== count;
+
 }
 
 function isSelectAllChecked(selectAllMode, data, tableData, value, idProp) {
@@ -145,7 +168,7 @@ function isSelectAllChecked(selectAllMode, data, tableData, value, idProp) {
         return dataLen > 0 && value.length === dataLen;
     } else if (selectAllMode === SelectAllMode.CURRENT_PAGE) {
         return tableData.filter(item => item && !item.disabled)
-                        .every(item => isItemChecked(item, value, idProp));
+                        .every(item => isNodeChecked(item, value, idProp));
     }
 
 }
@@ -161,7 +184,7 @@ function isSelectAllIndeterminate(selectAllMode, data, tableData, value, idProp,
         return dataLen > 0 && value.length < dataLen;
     } else if (selectAllMode === SelectAllMode.CURRENT_PAGE) {
         const currentPageData = tableData.filter(item => item && !item.disabled),
-            len = currentPageData.filter(item => isItemChecked(item, value, idProp)).length;
+            len = currentPageData.filter(item => isNodeChecked(item, value, idProp)).length;
         return len > 0 && len < Math.min(currentPageData.length, pagination.pageSize);
     }
 
@@ -173,7 +196,7 @@ function handleSelect(rowData, rowIndex, value, idProp) {
         return;
     }
 
-    const index = indexOfItemInValue(rowData, value, idProp);
+    const index = indexOfNodeInValue(rowData, value, idProp);
     if (index >= 0) {
         value.splice(index, 1);
     } else {
@@ -200,7 +223,7 @@ function handleSelectAllChange(checked, selectAllMode, data, tableData, value, i
 
         const result = value.slice();
         currentPageData.forEach(item => {
-            if (!isItemChecked(item, result, idProp)) {
+            if (!isNodeChecked(item, result, idProp)) {
                 result.push(item);
             }
         });
@@ -214,7 +237,7 @@ function handleSelectAllChange(checked, selectAllMode, data, tableData, value, i
 
         const result = value.slice();
         currentPageData.forEach(item => {
-            const index = indexOfItemInValue(item, result, idProp);
+            const index = indexOfNodeInValue(item, result, idProp);
             if (index > -1) {
                 result.splice(index, 1);
             }
@@ -243,8 +266,9 @@ export default {
     hasAnyRenderer,
     handleFixedColumns,
     getDataByPagination,
-    indexOfItemInValue,
-    isItemChecked,
+    indexOfNodeInValue,
+    isNodeChecked,
+    isNodeIndeterminate,
     isSelectAllChecked,
     isSelectAllIndeterminate,
     handleSelect,
