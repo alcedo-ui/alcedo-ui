@@ -37,7 +37,7 @@ class Tr extends Component {
             return true;
         }
 
-        return TableCalculation.indexOfItemInValue(data, expandRows, idProp) === -1;
+        return TableCalculation.indexOfNodeInValue(data, expandRows, idProp) === -1;
 
     };
 
@@ -49,7 +49,7 @@ class Tr extends Component {
     render() {
 
         const {
-                className, columns, rowIndex, data, isChecked, disabled, baseColIndex, depth,
+                className, columns, rowIndex, data, isChecked, disabled, baseColIndex, depth, path,
                 ...respProps
             } = this.props,
             collapsed = this.isCollapsed(),
@@ -83,6 +83,7 @@ class Tr extends Component {
                                 span={span}
                                 disabled={disabled}
                                 depth={depth}
+                                path={path}
                                 sortable={column.sortable}
                                 sortingProp={column.sortingProp}/>
                             :
@@ -97,7 +98,13 @@ class Tr extends Component {
                         <Tr {...this.props}
                             key={index}
                             data={item}
-                            depth={depth + 1}/>
+                            depth={depth + 1}
+                            path={
+                                path ?
+                                    [...path, {index, node: item}]
+                                    :
+                                    [{index, node: item}]
+                            }/>
                     )
                     :
                     null
@@ -232,6 +239,7 @@ Tr.propTypes = {
     expandRows: PropTypes.array,
     baseColIndex: PropTypes.number,
     depth: PropTypes.number,
+    path: PropTypes.array,
     idProp: PropTypes.string,
 
     /**
