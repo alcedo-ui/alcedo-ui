@@ -540,7 +540,12 @@ class TableContent extends Component {
             const index = TableCalculation.indexOfNodeInValue(rowData, expandRows, idProp);
             if (index === -1) {
                 expandRows.push(rowData);
-                onExpandChange && onExpandChange(expandRows);
+                onExpandChange && onExpandChange(expandRows, () => {
+                    const {value, selectMode, isSelectRecursive, onChange} = this.props;
+                    if (selectMode === SelectMode.MULTI_SELECT && isSelectRecursive) {
+                        onChange && onChange(TableCalculation.recursiveSelectChildren(rowData, value));
+                    }
+                });
             }
 
         }
