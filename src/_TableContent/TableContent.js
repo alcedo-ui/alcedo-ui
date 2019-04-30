@@ -208,7 +208,7 @@ class TableContent extends Component {
     getColumns = () => {
 
         const {
-                selectTheme, selectMode, selectAllMode, columns, data, disabled, value, idProp, pagination,
+                selectTheme, selectMode, selectAllMode, columns, data, disabled, value, idProp,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls, hasChildren
             } = this.props,
             result = {
@@ -269,18 +269,24 @@ class TableContent extends Component {
         if (selectMode === SelectMode.MULTI_SELECT) {
             result[firstColumnPosition || HorizontalAlign.CENTER].unshift({
                 headClassName: 'table-select-th',
-                headRenderer: () =>
-                    <Checkbox className="table-select"
-                              theme={selectTheme}
-                              checked={TableCalculation.isSelectAllChecked(
-                                  selectAllMode, data, this.tableData, value, idProp)}
-                              disabled={disabled}
-                              indeterminate={TableCalculation.isSelectAllIndeterminate(
-                                  selectAllMode, data, this.tableData, value, idProp, pagination)}
-                              uncheckedIconCls={checkboxUncheckedIconCls}
-                              checkedIconCls={checkboxCheckedIconCls}
-                              indeterminateIconCls={checkboxIndeterminateIconCls}
-                              onChange={this.handleSelectAllChange}/>,
+                headRenderer: () => {
+
+                    const {checked, indeterminate} = TableCalculation.isRootNodeChecked(
+                        selectAllMode === SelectAllMode.ALL ? data : this.tableData, value, idProp);
+
+                    return (
+                        <Checkbox className="table-select"
+                                  theme={selectTheme}
+                                  checked={checked}
+                                  disabled={disabled}
+                                  indeterminate={indeterminate}
+                                  uncheckedIconCls={checkboxUncheckedIconCls}
+                                  checkedIconCls={checkboxCheckedIconCls}
+                                  indeterminateIconCls={checkboxIndeterminateIconCls}
+                                  onChange={this.handleSelectAllChange}/>
+
+                    );
+                },
                 bodyClassName: 'table-select-td',
                 bodyRenderer: (rowData, rowIndex, colIndex, collapsed, depth, path) =>
                     <Checkbox className="table-select"
