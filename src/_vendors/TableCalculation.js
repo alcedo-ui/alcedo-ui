@@ -7,9 +7,9 @@ import classnames from 'classnames';
 
 import SelectAllMode from '../_statics/SelectAllMode';
 import HorizontalAlign from '../_statics/HorizontalAlign';
+import VirtualRoot from '../_statics/VirtualRoot';
 
 import Util from '../_vendors/Util';
-import VirtualRoot from '../_statics/VirtualRoot';
 
 function calcSpan(type, column, colIndex, rowIndex) {
     const span = column[`${type}Span`];
@@ -271,6 +271,69 @@ function needCollapseButtonSpacing(tableData) {
     return tableData && tableData.some(rowData => rowData && rowData.children && rowData.children.length > 0);
 }
 
+function addValue(node, value, idProp, isSelectRecursive) {
+
+    if (!node || !value) {
+        return;
+    }
+
+    if (!isNodeChecked(node, value, idProp)) {
+        value.push(node);
+    }
+
+    if (!isSelectRecursive || !node.children || node.children.length < 1) {
+        return;
+    }
+
+    for (let item of node.children) {
+        addValue(item, value, idProp);
+    }
+
+}
+
+function removeValue(node, value, idProp, isSelectRecursive) {
+
+    if (!node || !value) {
+        return;
+    }
+
+    const index = indexOfNodeInValue(node, value, idProp);
+    if (index > -1) {
+        value.splice(index, 1);
+    }
+
+    if (!isSelectRecursive || !node.children || node.children.length < 1) {
+        return;
+    }
+
+    for (let item of node.children) {
+        removeValue(item, value, idProp);
+    }
+
+}
+
+function addValueIfChildrenAllSelected(value, data, idProp) {
+
+    let result = [];
+
+    Util.postOrderTraverse({[VirtualRoot]: true, children: data}, node => {
+        if (!(VirtualRoot in node)) {
+            if (!node.children || node.children.length < 1) {
+                if (isNodeChecked(node, value, idProp)) {
+                    result.push(node);
+                }
+            } else {
+                if (node.children.every(child => isNodeChecked(child, value, idProp))) {
+                    result.push(node);
+                }
+            }
+        }
+    });
+
+    return result;
+
+}
+
 export default {
     calcSpan,
     getColumnsWithSpan,
@@ -286,5 +349,8 @@ export default {
     handleSelectAllChange,
     getFirstColumnPosition,
     recursiveSelectChildren,
-    needCollapseButtonSpacing
+    needCollapseButtonSpacing,
+    addValue,
+    removeValue,
+    addValueIfChildrenAllSelected
 };
