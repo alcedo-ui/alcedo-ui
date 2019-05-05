@@ -22,7 +22,6 @@ import HorizontalAlign from '../_statics/HorizontalAlign';
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
-import VirtualRoot from '../_statics/VirtualRoot';
 
 import Util from '../_vendors/Util';
 import TableLayout from '../_vendors/TableLayout';
@@ -67,91 +66,22 @@ class TableContent extends Component {
 
     }
 
-    addRecursiveValue = (node, value, idProp, isSelectRecursive) => {
-
-        if (!node || !value) {
-            return;
-        }
-
-        if (!TableCalculation.isNodeChecked(node, value, idProp)) {
-            value.push(node);
-        }
-
-        if (!isSelectRecursive || !node.children || node.children.length < 1) {
-            return;
-        }
-
-        for (let item of node.children) {
-            this.addRecursiveValue(item, value, idProp);
-        }
-
-    };
-
-    removeRecursiveValue = (node, value, idProp, isSelectRecursive) => {
-
-        if (!node || !value) {
-            return;
-        }
-
-        const index = TableCalculation.indexOfNodeInValue(node, value, idProp);
-        if (index > -1) {
-            value.splice(index, 1);
-        }
-
-        if (!isSelectRecursive || !node.children || node.children.length < 1) {
-            return;
-        }
-
-        for (let item of node.children) {
-            this.removeRecursiveValue(item, value, idProp);
-        }
-
-    };
-
-    /**
-     * traverse tree data to update value when multi recursive select
-     * @param value
-     * @returns {Array}
-     */
-    updateValue = value => {
-
-        const {data, idProp} = this.props;
-        let result = [];
-
-        Util.postOrderTraverse({[VirtualRoot]: true, children: data}, node => {
-            if (!(VirtualRoot in node)) {
-                if (!node.children || node.children.length < 1) {
-                    if (TableCalculation.isNodeChecked(node, value, idProp)) {
-                        result.push(node);
-                    }
-                } else {
-                    if (node.children.every(child => TableCalculation.isNodeChecked(child, value, idProp))) {
-                        result.push(node);
-                    }
-                }
-            }
-        });
-
-        return result;
-
-    };
-
     handleSelect = (node, rowIndex, colIndex, collapsed, depth, path) => {
 
         if (!node || this.props.selectMode !== SelectMode.MULTI_SELECT) {
             return;
         }
 
-        const {value, isSelectRecursive, idProp, onSelect, onChange} = this.props;
+        const {data, value, isSelectRecursive, idProp, onSelect, onChange} = this.props;
 
         let result = value ? value.slice() : value;
         if (!result || !isArray(result)) {
             result = [];
         }
 
-        this.addRecursiveValue(node, result, idProp, isSelectRecursive);
+        TableCalculation.addValue(node, result, idProp, isSelectRecursive);
         if (isSelectRecursive) {
-            result = this.updateValue(result);
+            result = TableCalculation.addValueIfChildrenAllSelected(result, data, idProp);
         }
 
         onSelect && onSelect(node, rowIndex, colIndex, collapsed, depth, path);
@@ -171,9 +101,9 @@ class TableContent extends Component {
         if (!result || !isArray(result)) {
             result = [];
         } else {
-            this.removeRecursiveValue(node, result, idProp, isSelectRecursive);
+            TableCalculation.removeValue(node, result, idProp, isSelectRecursive);
             if (isSelectRecursive) {
-                result = this.updateValue(result);
+                result = TableCalculation.addValueIfChildrenAllSelected(result, data, idProp);
             }
         }
 
