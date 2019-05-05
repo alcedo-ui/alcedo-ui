@@ -31,7 +31,7 @@ class LazyImage extends Component {
 
     }
 
-    scrollHandler = debounce(() => {
+    handleScroll = debounce(() => {
 
         if (this.state.status > LazyLoadStatus.PENDING || !this.wrapperEl
             || this.wrapperEl.getBoundingClientRect().top > window.innerHeight) {
@@ -72,12 +72,12 @@ class LazyImage extends Component {
 
     componentDidMount() {
         this.wrapperEl = this.wrapper && this.wrapper.current;
-        eventOn(this.props.scrollEl, 'scroll', this.scrollHandler);
-        this.scrollHandler();
+        eventOn(this.props.scrollEl, 'scroll', this.handleScroll);
+        this.handleScroll();
     }
 
     componentWillUnmount() {
-        eventOff(this.props.scrollEl, 'scroll', this.scrollHandler);
+        eventOff(this.props.scrollEl, 'scroll', this.handleScroll);
     }
 
     render() {
