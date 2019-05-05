@@ -7,6 +7,7 @@ import IconButton from 'src/IconButton';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import RaisedButton from 'src/RaisedButton';
+import CircularLoading from 'src/CircularLoading';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Table.json';
@@ -14,6 +15,8 @@ import doc from 'assets/propTypes/Table.json';
 import Util from 'vendors/Util';
 
 import 'scss/containers/app/modules/layout/TableExamples.scss';
+
+const LOADING_SYMBOL = Symbol('LOADING_SYMBOL');
 
 class TableExamples extends Component {
 
@@ -29,7 +32,17 @@ class TableExamples extends Component {
         this.columns = [{
             fixed: Table.Fixed.LEFT,
             headRenderer: 'ID',
-            bodyRenderer: rowDate => rowDate.id,
+            bodyRenderer: rowDate => {
+
+                if (rowDate[LOADING_SYMBOL]) {
+                    return (
+                        <CircularLoading/>
+                    );
+                }
+
+                return rowDate.id;
+
+            },
             footRenderer: 'Total',
             footSpan: 2,
             sortable: true,
@@ -39,7 +52,7 @@ class TableExamples extends Component {
             width: 300,
             headRenderer: 'Name',
             bodyClassName: 'nowrap',
-            bodyRenderer: rowDate => `${rowDate.firstName} ${rowDate.lastName}`,
+            bodyRenderer: rowDate => rowDate.firstName && rowDate.lastName ? `${rowDate.firstName} ${rowDate.lastName}` : '',
             sortable: true,
             sortingProp: 'firstName'
         }, {
@@ -62,23 +75,23 @@ class TableExamples extends Component {
         }, {
             width: 300,
             headRenderer: 'Other Column 1',
-            bodyRenderer: rowDate => `${rowDate.other} 1`
+            bodyRenderer: rowDate => rowDate.other ? `${rowDate.other} 1` : ''
         }, {
             width: 300,
             headRenderer: 'Other Column 2',
-            bodyRenderer: rowDate => `${rowDate.other} 2`
+            bodyRenderer: rowDate => rowDate.other ? `${rowDate.other} 2` : ''
         }, {
             width: 300,
             headRenderer: 'Other Column 3',
-            bodyRenderer: rowDate => `${rowDate.other} 3`
+            bodyRenderer: rowDate => rowDate.other ? `${rowDate.other} 3` : ''
         }, {
             width: 300,
             headRenderer: 'Other Column 4',
-            bodyRenderer: rowDate => `${rowDate.other} 4`
+            bodyRenderer: rowDate => rowDate.other ? `${rowDate.other} 4` : ''
         }, {
             headRenderer: 'Deposit',
             headAlign: Table.Align.RIGHT,
-            bodyRenderer: rowDate => `$${rowDate.deposit}`,
+            bodyRenderer: rowDate => rowDate.deposit ? `$${rowDate.deposit}` : '',
             bodyAlign: Table.Align.RIGHT,
             footRenderer: () =>
                 <Fragment>
@@ -91,7 +104,9 @@ class TableExamples extends Component {
         }, {
             fixed: Table.Fixed.RIGHT,
             headRenderer: 'Status',
-            bodyRenderer: rowData =>
+            bodyRenderer: rowData => rowData[LOADING_SYMBOL] ?
+                null
+                :
                 <Switcher value={!rowData.disabled}
                           size="small"
                           onClick={e => e.stopPropagation()}/>
@@ -116,21 +131,28 @@ class TableExamples extends Component {
 
     }
 
-    generateData = (size = 100, base = '') => {
+    generateData = (size = 100, base = '', expanded = true) => {
 
         let data = [];
         for (let i = 0; i < size; i++) {
 
-            const id = `${base ? `${base}-` : ''}${i}`;
+            const id = `${base ? `${base}-` : ''}${i}`,
+                item = {
+                    id,
+                    firstName: `firstName${id}`,
+                    lastName: `lastName${id}`,
+                    age: Math.floor(Math.random() * 100),
+                    deposit: round(Math.random() * 1000000, 2),
+                    other: 'Other Content'
+                };
 
-            data.push({
-                id,
-                firstName: `firstName${id}`,
-                lastName: `lastName${id}`,
-                age: Math.floor(Math.random() * 100),
-                deposit: round(Math.random() * 1000000, 2),
-                other: 'Other Content'
-            });
+            if (expanded && id.endsWith('0')) {
+                item.children = [{
+                    [LOADING_SYMBOL]: true
+                }];
+            }
+
+            data.push(item);
 
         }
 
@@ -190,22 +212,26 @@ class TableExamples extends Component {
 
         const {data} = this.state;
 
-        if (!rowData || !data || (rowData.children && rowData.children.length > 0)) {
+        if (!rowData || !data) {
             return;
         }
 
-        Util.preOrderTraverse({
-            children: data
-        }, node => {
-            if (node && node.id === rowData.id) {
-                node.children = this.generateData(10, node.id);
-                return false;
-            }
-        });
+        setTimeout(() => {
 
-        this.setState({
-            data
-        });
+            Util.postOrderTraverse({
+                children: data
+            }, node => {
+                if (node && node.id === rowData.id) {
+                    node.children = this.generateData(10, node.id);
+                    return false;
+                }
+            });
+
+            this.setState({
+                data
+            });
+
+        }, 2000);
 
     };
 
@@ -253,7 +279,9 @@ class TableExamples extends Component {
                                    columns={[...this.columns, {
                                        fixed: Table.Fixed.RIGHT,
                                        headRenderer: 'Action',
-                                       bodyRenderer: rowData =>
+                                       bodyRenderer: rowData => rowData[LOADING_SYMBOL] ?
+                                           null
+                                           :
                                            <IconButton iconCls="fas fa-trash-alt"
                                                        onClick={() => this.deleteRow(rowData.id)}/>
                                    }]}
@@ -265,7 +293,6 @@ class TableExamples extends Component {
                                        width: 1200,
                                        height: 400
                                    }}
-                                   hasChildren={rowData => rowData && rowData.id && rowData.id.endsWith('0')}
                                    paggingCountRenderer={count => <span>Self Defined Total Count: {count}</span>}
                                    onSortChange={this.handleSortChange}
                                    onPageChange={this.handlePageChange}
