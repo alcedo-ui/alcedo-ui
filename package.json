@@ -1,7 +1,7 @@
 {
     "name": "alcedo-ui",
     "author": "Alcedo-UI Team",
-    "version": "2.42.17",
+    "version": "2.42.18",
     "description": "A set of React components.",
     "main": "./src/index.js",
     "scripts": {
@@ -97,7 +97,7 @@
         "crypto": "1.0.1",
         "css-loader": "2.1.1",
         "eslint": "^5.16.0",
-        "eslint-plugin-react": "^7.12.4",
+        "eslint-plugin-react": "^7.13.0",
         "eventsource-polyfill": "0.9.6",
         "express": "4.16.4",
         "fast-sass-loader": "1.4.7",
