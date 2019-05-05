@@ -233,34 +233,42 @@ class TableContent extends Component {
          * handle expand
          */
         if (firstColumnPosition) {
+
             const firstColumn = result[firstColumnPosition][0];
+
             result[firstColumnPosition][0] = {
                 ...result[firstColumnPosition][0],
                 bodyClassName: classNames('table-expand-column', {
                     [firstColumn.bodyClassName]: firstColumn.bodyClassName
                 }),
-                bodyRenderer: (rowData, rowIndex, colIndex, collapsed, depth, path) =>
+                bodyRenderer: (rowData, rowIndex, colIndex, tableData, collapsed, depth, path) =>
                     <Fragment>
 
                         <span className={classNames('table-indent', `indent-level-${depth}`)}
                               style={{paddingLeft: depth * 20}}></span>
 
-                        <IconButton className={classNames('collapse-button', {
-                            hidden: !rowData || !rowData.children || rowData.children.length < 1
-                        })}
-                                    iconCls="fas fa-chevron-right"
-                                    disableTouchRipple={true}
-                                    onClick={() => this.handleExpandChange(!collapsed, rowData)}/>
+                        {
+                            TableCalculation.needCollapseButtonSpacing(tableData) ?
+                                <IconButton className={classNames('collapse-button', {
+                                    hidden: !rowData || !rowData.children || rowData.children.length < 1
+                                })}
+                                            iconCls="fas fa-chevron-right"
+                                            disableTouchRipple={true}
+                                            onClick={() => this.handleExpandChange(!collapsed, rowData)}/>
+                                :
+                                null
+                        }
 
                         {
                             typeof firstColumn.bodyRenderer === 'function' ?
-                                firstColumn.bodyRenderer(rowData, rowIndex, colIndex, collapsed, depth, path)
+                                firstColumn.bodyRenderer(rowData, rowIndex, colIndex, tableData, collapsed, depth, path)
                                 :
                                 firstColumn.bodyRenderer
                         }
 
                     </Fragment>
             };
+
         }
 
         /**
@@ -288,7 +296,7 @@ class TableContent extends Component {
 
                 },
                 bodyClassName: 'table-select-td',
-                bodyRenderer: (rowData, rowIndex, colIndex, collapsed, depth, path) =>
+                bodyRenderer: (rowData, rowIndex, colIndex, tableData, collapsed, depth, path) =>
                     <Checkbox className="table-select"
                               theme={selectTheme}
                               checked={TableCalculation.isNodeChecked(rowData, value, idProp)}
@@ -297,8 +305,8 @@ class TableContent extends Component {
                               uncheckedIconCls={checkboxUncheckedIconCls}
                               checkedIconCls={checkboxCheckedIconCls}
                               indeterminateIconCls={checkboxIndeterminateIconCls}
-                              onCheck={() => this.handleSelect(rowData, rowIndex, colIndex, collapsed, depth, path)}
-                              onUncheck={() => this.handleDeselect(rowData, rowIndex, colIndex, collapsed, depth, path)}/>
+                              onCheck={() => this.handleSelect(rowData, rowIndex, colIndex, tableData, collapsed, depth, path)}
+                              onUncheck={() => this.handleDeselect(rowData, rowIndex, colIndex, tableData, collapsed, depth, path)}/>
             });
         }
 
