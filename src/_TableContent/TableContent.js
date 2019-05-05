@@ -209,7 +209,7 @@ class TableContent extends Component {
 
         const {
                 selectTheme, selectMode, selectAllMode, columns, data, disabled, value, idProp,
-                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls, hasChildren
+                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls
             } = this.props,
             result = {
                 [HorizontalAlign.LEFT]: [],
@@ -246,7 +246,7 @@ class TableContent extends Component {
                               style={{paddingLeft: depth * 20}}></span>
 
                         <IconButton className={classNames('collapse-button', {
-                            hidden: hasChildren ? !hasChildren(rowData, rowIndex, colIndex) : true
+                            hidden: !rowData || !rowData.children || rowData.children.length < 1
                         })}
                                     iconCls="fas fa-chevron-right"
                                     disableTouchRipple={true}
@@ -254,7 +254,7 @@ class TableContent extends Component {
 
                         {
                             typeof firstColumn.bodyRenderer === 'function' ?
-                                firstColumn.bodyRenderer(rowData, rowIndex, colIndex, collapsed, depth)
+                                firstColumn.bodyRenderer(rowData, rowIndex, colIndex, collapsed, depth, path)
                                 :
                                 firstColumn.bodyRenderer
                         }
@@ -875,7 +875,6 @@ TableContent.propTypes = {
      * callback
      */
     onInit: PropTypes.func,
-    hasChildren: PropTypes.func,
     onChange: PropTypes.func,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
