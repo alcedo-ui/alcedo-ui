@@ -3,10 +3,12 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import classNames from 'classnames';
+import eventOn from 'dom-helpers/events/on';
+import eventOff from 'dom-helpers/events/off';
 
 import CircularLoading from '../CircularLoading';
 
@@ -18,6 +20,8 @@ class LazyImage extends Component {
 
         super(props, ...restArgs);
 
+        this.wrapper = createRef();
+
         this.state = {
             imageState: 0
         };
@@ -26,53 +30,51 @@ class LazyImage extends Component {
 
     scrollHandler = debounce(() => {
 
-        if (this.state.imageState > 0 || !this.wrapperEl) {
+        if (this.state.imageState > 0 || !this.wrapperEl
+            || this.wrapperEl.getBoundingClientRect().top > window.innerHeight) {
             return;
         }
 
-        if (this.wrapperEl.getBoundingClientRect().top < window.innerHeight) {
+        const {onImageLoadStart} = this.props;
+        let result;
 
-            const {onImageLoadStart} = this.props;
-            let result;
+        if (onImageLoadStart) {
+            result = onImageLoadStart();
+        }
 
-            if (onImageLoadStart) {
-                result = onImageLoadStart();
-            }
+        if (result === false) {
+            return;
+        }
 
-            if (result === false) {
-                return;
-            }
+        this.setState({
+            imageState: 1
+        }, () => {
 
-            this.setState({
-                imageState: 1
-            }, () => {
+            const image = new Image();
 
-                const image = new Image();
-
-                Event.addEvent(image, 'load', e => {
-                    this.setState({
-                        imageState: 2
-                    }, () => {
-                        const {onImageLoaded} = this.props;
-                        onImageLoaded && onImageLoaded(e);
-                    });
+            Event.addEvent(image, 'load', e => {
+                this.setState({
+                    imageState: 2
+                }, () => {
+                    const {onImageLoaded} = this.props;
+                    onImageLoaded && onImageLoaded(e);
                 });
-
-                image.src = this.props.src;
-
             });
 
-        }
+            image.src = this.props.src;
+
+        });
 
     }, 250);
 
     componentDidMount() {
-        this.wrapperEl = this.refs.wrapper;
-        Event.addEvent(document, 'scroll', this.scrollHandler);
+        this.wrapperEl = this.wrapper && this.wrapper.current;
+        eventOn(this.props.scrollEl, 'scroll', this.scrollHandler);
+        this.scrollHandler();
     }
 
     componentWillUnmount() {
-        Event.removeEvent(document, 'scroll', this.scrollHandler);
+        eventOff(this.props.scrollEl, 'scroll', this.scrollHandler);
     }
 
     render() {
@@ -94,7 +96,7 @@ class LazyImage extends Component {
             });
 
         return (
-            <div ref="wrapper"
+            <div ref={this.wrapper}
                  className={lazyImageClassName}
                  style={lazyImageStyle}>
 
@@ -166,6 +168,8 @@ LazyImage.propTypes = {
      */
     placeholder: PropTypes.any,
 
+    scrollEl: PropTypes.object,
+
     /**
      * Image load start callback.
      */
@@ -182,10 +186,11 @@ LazyImage.defaultProps = {
 
     alt: '',
 
-    loadingWidth: 100,
-    loadingHeight: 100,
+    placeholder: '',
+    scrollEl: document,
 
-    placeholder: ''
+    loadingWidth: 100,
+    loadingHeight: 100
 
 };
 
