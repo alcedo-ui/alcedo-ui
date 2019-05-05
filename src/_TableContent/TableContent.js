@@ -560,7 +560,6 @@ class TableContent extends Component {
 
         eventsOn(window, 'resize', this.fixLayout);
 
-        TableLayout.updateHorizontalScrollClassNames(this.wrapperEl, this.centerBodyScroller);
         this.fixLayout();
 
         const {onInit} = this.props;
