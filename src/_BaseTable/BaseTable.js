@@ -242,7 +242,6 @@ BaseTable.propTypes = {
     /**
      * callback
      */
-    hasChildren: PropTypes.func,
     onSortChange: PropTypes.func,
     onHeadClick: PropTypes.func,
     onRowClick: PropTypes.func,
