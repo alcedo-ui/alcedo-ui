@@ -340,6 +340,7 @@ Table.propTypes = {
     disabled: PropTypes.bool,
     hasInitFadeOut: PropTypes.bool,
     expandRows: PropTypes.array,
+    isSelectRecursive: PropTypes.bool,
 
     /**
      * multi select checkbox icon
@@ -410,6 +411,7 @@ Table.defaultProps = {
     disabled: false,
     hasInitFadeOut: true,
     expandRows: [],
+    isSelectRecursive: false,
 
     uncheckedIconCls: 'far fa-square',
     checkedIconCls: 'fas fa-check-square',
