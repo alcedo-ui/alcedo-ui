@@ -267,6 +267,10 @@ function recursiveSelectChildren(node, value = [], idProp) {
 
 }
 
+function needCollapseButtonSpacing(tableData) {
+    return tableData && tableData.some(rowData => rowData && rowData.children && rowData.children.length > 0);
+}
+
 export default {
     calcSpan,
     getColumnsWithSpan,
@@ -281,5 +285,6 @@ export default {
     handleSelect,
     handleSelectAllChange,
     getFirstColumnPosition,
-    recursiveSelectChildren
+    recursiveSelectChildren,
+    needCollapseButtonSpacing
 };
