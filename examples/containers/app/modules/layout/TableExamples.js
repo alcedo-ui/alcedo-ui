@@ -231,7 +231,7 @@ class TableExamples extends Component {
                 data
             });
 
-        }, 2000);
+        }, 1000);
 
     };
 
