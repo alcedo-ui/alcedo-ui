@@ -36,16 +36,16 @@ class PropTypeDescTable extends Component {
                 <Table className="prop-type-desc-table"
                        columns={[{
                            headRenderer: 'Name',
-                           bodyRenderer: 'name'
+                           bodyRenderer: rowData => rowData.name
                        }, {
                            headRenderer: 'Type',
-                           bodyRenderer: 'type'
+                           bodyRenderer: rowData => rowData.type
                        }, {
                            headRenderer: 'Default',
-                           bodyRenderer: 'default'
+                           bodyRenderer: rowData => rowData.default
                        }, {
                            headRenderer: 'Description',
-                           bodyRenderer: 'desc'
+                           bodyRenderer: rowData => rowData.desc
                        }]}
                        data={this.generateData()}
                        isPaginated={false}/>
