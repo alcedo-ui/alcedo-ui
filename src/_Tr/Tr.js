@@ -234,6 +234,7 @@ Tr.propTypes = {
     })).isRequired,
 
     data: PropTypes.object,
+    tableData: PropTypes.array,
     isChecked: PropTypes.bool,
     disabled: PropTypes.bool,
     expandRows: PropTypes.array,
