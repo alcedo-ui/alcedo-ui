@@ -12,9 +12,12 @@ import eventOff from 'dom-helpers/events/off';
 
 import CircularLoading from '../CircularLoading';
 
+import LazyLoadStatus from '../_statics/LazyLoadStatus';
 import Event from '../_vendors/Event';
 
 class LazyImage extends Component {
+
+    static Status = LazyLoadStatus;
 
     constructor(props, ...restArgs) {
 
@@ -23,14 +26,14 @@ class LazyImage extends Component {
         this.wrapper = createRef();
 
         this.state = {
-            imageState: 0
+            status: LazyLoadStatus.PENDING
         };
 
     }
 
     scrollHandler = debounce(() => {
 
-        if (this.state.imageState > 0 || !this.wrapperEl
+        if (this.state.status > LazyLoadStatus.PENDING || !this.wrapperEl
             || this.wrapperEl.getBoundingClientRect().top > window.innerHeight) {
             return;
         }
@@ -47,14 +50,14 @@ class LazyImage extends Component {
         }
 
         this.setState({
-            imageState: 1
+            status: LazyLoadStatus.LOADING
         }, () => {
 
             const image = new Image();
 
             Event.addEvent(image, 'load', e => {
                 this.setState({
-                    imageState: 2
+                    status: LazyLoadStatus.FINISH
                 }, () => {
                     const {onImageLoaded} = this.props;
                     onImageLoaded && onImageLoaded(e);
@@ -80,36 +83,33 @@ class LazyImage extends Component {
     render() {
 
         const {className, style, src, alt, loadingWidth, loadingHeight, width, height, placeholder} = this.props,
-            {imageState} = this.state,
+            {status} = this.state,
 
-            lazyImageClassName = classNames('lazy-image', {
-                [className]: className
-            }),
-            lazyImageStyle = {
-                ...style,
-                width: imageState === 2 ? width : loadingWidth,
-                height: imageState === 2 ? height : loadingHeight
-            },
-
-            placeholderClassName = classNames('lazy-image-placeholder', {
-                hidden: imageState === 2
-            });
+            isFinish = status === LazyLoadStatus.FINISH;
 
         return (
             <div ref={this.wrapper}
-                 className={lazyImageClassName}
-                 style={lazyImageStyle}>
+                 className={classNames('lazy-image', {
+                     [className]: className
+                 })}
+                 style={{
+                     ...style,
+                     width: isFinish ? width : loadingWidth,
+                     height: isFinish ? height : loadingHeight
+                 }}>
 
                 <img className="lazy-image-img"
-                     src={imageState === 2 ? src : ''}
+                     src={isFinish ? src : ''}
                      alt={alt}
                      width={width}
                      height={height}/>
 
-                <div className={placeholderClassName}>
+                <div className={classNames('lazy-image-placeholder', {
+                    hidden: isFinish
+                })}>
                     {
                         placeholder ?
-                            {placeholder}
+                            placeholder
                             :
                             <CircularLoading className="lazy-image-loading"/>
                     }
