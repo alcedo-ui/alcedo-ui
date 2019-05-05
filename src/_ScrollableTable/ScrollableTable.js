@@ -318,7 +318,6 @@ ScrollableTable.propTypes = {
     onGetBodyScrollerEl: PropTypes.func,
     onGetHeadScrollerEl: PropTypes.func,
     onGetFootScrollerEl: PropTypes.func,
-    hasChildren: PropTypes.func,
     onExpandChange: PropTypes.func,
     onScroll: PropTypes.func,
     onWheel: PropTypes.func,
