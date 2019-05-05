@@ -284,8 +284,8 @@ class TableContent extends Component {
                                   checkedIconCls={checkboxCheckedIconCls}
                                   indeterminateIconCls={checkboxIndeterminateIconCls}
                                   onChange={this.handleSelectAllChange}/>
-
                     );
+
                 },
                 bodyClassName: 'table-select-td',
                 bodyRenderer: (rowData, rowIndex, colIndex, collapsed, depth, path) =>
@@ -896,7 +896,7 @@ TableContent.defaultProps = {
     disabled: false,
     idProp: 'id',
     expandRows: [],
-    isSelectRecursive: true,
+    isSelectRecursive: false,
 
     uncheckedIconCls: 'far fa-square',
     checkedIconCls: 'fas fa-check-square',
