@@ -59,6 +59,7 @@ class Tbody extends Component {
                             rowIndex={startIndex + rowIndex}
                             columns={columns}
                             data={row}
+                            tableData={data}
                             isChecked={this.isItemChecked(row)}
                             disabled={disabled || row.disabled}/>
                         :
