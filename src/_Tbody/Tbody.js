@@ -213,7 +213,6 @@ Tbody.propTypes = {
     /**
      * callback
      */
-    hasChildren: PropTypes.func,
     onRowClick: PropTypes.func,
     onCellClick: PropTypes.func,
     onExpand: PropTypes.func,
