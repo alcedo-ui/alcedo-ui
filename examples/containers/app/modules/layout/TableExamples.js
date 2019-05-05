@@ -212,7 +212,7 @@ class TableExamples extends Component {
 
         const {data} = this.state;
 
-        if (!rowData || !data) {
+        if (!rowData || !data || !rowData.children[0][LOADING_SYMBOL]) {
             return;
         }
 
