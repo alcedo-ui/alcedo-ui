@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -22,6 +22,8 @@ class Checkbox extends Component {
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
+
+        this.checkboxIcon = createRef();
 
         this.state = {
             checked: !!props.checked
@@ -65,7 +67,7 @@ class Checkbox extends Component {
             return;
         }
 
-        this.refs.checkboxIcon.startRipple(e);
+        this.checkboxIconInstance && this.checkboxIconInstance.startRipple(e);
         this.clickHandler();
 
     };
@@ -76,9 +78,13 @@ class Checkbox extends Component {
             return;
         }
 
-        this.refs.checkboxIcon.endRipple();
+        this.checkboxIconInstance && this.checkboxIconInstance.endRipple();
 
     };
+
+    componentDidMount() {
+        this.checkboxIconInstance = this.checkboxIcon && this.checkboxIcon.current;
+    }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.checked !== this.state.checked) {
@@ -94,20 +100,18 @@ class Checkbox extends Component {
                 className, style, theme, name, label, value, disabled, disableTouchRipple,
                 indeterminate, uncheckedIconCls, checkedIconCls, indeterminateIconCls, tip, tipPosition
             } = this.props,
-            {checked} = this.state,
-
-            checkboxClassName = classNames('checkbox', {
-                activated: checked,
-                indeterminated: indeterminate,
-                [`theme-${theme}`]: theme,
-                [className]: className
-            });
+            {checked} = this.state;
 
         return (
             <TipProvider tipContent={tip}
                          position={tipPosition}>
 
-                <div className={checkboxClassName}
+                <div className={classNames('checkbox', {
+                    activated: checked,
+                    indeterminated: !checked && indeterminate,
+                    [`theme-${theme}`]: theme,
+                    [className]: className
+                })}
                      style={style}
                      disabled={disabled}>
 
@@ -126,7 +130,7 @@ class Checkbox extends Component {
 
                     <div className="checkbox-icon-wrapper"
                          onClick={this.clickHandler}>
-                        <IconButton ref="checkboxIcon"
+                        <IconButton ref={this.checkboxIcon}
                                     className="checkbox-bg-icon"
                                     iconCls={uncheckedIconCls}
                                     disabled={disabled}
