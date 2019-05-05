@@ -419,6 +419,11 @@ function updateHorizontalScrollClassNames(wrapperEl, scrollerEl) {
     const {scrollWidth, offsetWidth, scrollLeft} = scrollerEl,
         verticalScrollBarSize = ScrollBar.getSize(Direction.VERTICAL);
 
+    // no scroll
+    if (scrollWidth === offsetWidth - verticalScrollBarSize) {
+        return;
+    }
+
     if (scrollLeft === 0) {
         addClass(wrapperEl, 'scroll-left');
     } else if (scrollLeft === scrollWidth - offsetWidth + verticalScrollBarSize) {
