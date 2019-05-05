@@ -389,7 +389,6 @@ Table.propTypes = {
     /**
      * callback
      */
-    hasChildren: PropTypes.func,
     onChange: PropTypes.func,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
