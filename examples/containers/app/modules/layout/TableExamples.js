@@ -146,7 +146,7 @@ class TableExamples extends Component {
                     other: 'Other Content'
                 };
 
-            if (expanded && id.endsWith('0')) {
+            if (expanded && id.split('-').pop() === '0') {
                 item.children = [{
                     [LOADING_SYMBOL]: true
                 }];
@@ -186,19 +186,19 @@ class TableExamples extends Component {
         console.log('Data Update Value: ', currentPageData);
     };
 
-    selectHandler = (rowData, rowIndex, value) => {
+    handleSelect = (rowData, rowIndex, value) => {
         console.log('Select Value: ', rowData);
     };
 
-    deselectHandler = (rowData, rowIndex, value) => {
+    handleDeselect = (rowData, rowIndex, value) => {
         console.log('Deselect Value: ', rowData);
     };
 
-    selectAllHandler = value => {
+    handleSelectAll = value => {
         console.log('Select All Value: ', value);
     };
 
-    deselectAllHandler = value => {
+    handleSeselectAll = value => {
         console.log('Deselect All Value: ', value);
     };
 
@@ -299,7 +299,11 @@ class TableExamples extends Component {
                                    onExpand={this.handleExpand}
                                    onCollapse={this.handleCollapse}
                                    onDataUpdate={this.handleDataUpdate}
-                                   onChange={this.handleChange}/>
+                                   onChange={this.handleChange}
+                                   onSelect={this.handleSelect}
+                                   onSelectAll={this.handleSelectAll}
+                                   onDeselect={this.handleDeselect}
+                                   onDeselectAll={this.handleSeselectAll}/>
 
                         </div>
                     </div>
