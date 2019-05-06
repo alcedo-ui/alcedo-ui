@@ -48,28 +48,26 @@ class PositionPop extends Component {
 
         const {
 
-                children,
+            children,
 
-                container, className, theme, position, isAnimated,
+            container, className, theme, position, isAnimated,
 
-                // not passing down these props
-                isEscClose, isBlurClose,
+            // not passing down these props
+            isEscClose, isBlurClose,
 
-                ...restProps
+            ...restProps
 
-            } = this.props,
-
-            popClassName = classNames('position-pop', {
-                [`theme-${theme}`]: theme,
-                [`position-pop-${position}`]: position,
-                'position-pop-animated': isAnimated,
-                [className]: className
-            });
+        } = this.props;
 
         return (
             <Pop {...restProps}
                  ref={this.pop}
-                 className={popClassName}
+                 className={classNames('position-pop', {
+                     [`theme-${theme}`]: theme,
+                     [`position-pop-${position}`]: position,
+                     'position-pop-animated': isAnimated,
+                     [className]: className
+                 })}
                  container={container}
                  isAnimated={isAnimated}
                  resetPosition={this.resetPosition}>
