@@ -532,7 +532,6 @@ TreeSelect.propTypes = {
     useFilter: PropTypes.bool,
     filterIconCls: PropTypes.string,
     noMatchedMsg: PropTypes.string,
-    shouldPreventContainerScroll: PropTypes.bool,
     isSelectRecursive: PropTypes.bool,
     allowCollapse: PropTypes.bool,
     collapsed: PropTypes.bool,
@@ -594,7 +593,6 @@ TreeSelect.defaultProps = {
     useFilter: false,
     filterIconCls: 'fas fa-search',
 
-    shouldPreventContainerScroll: true,
     isSelectRecursive: false,
     allowCollapse: true,
     collapsed: false,
