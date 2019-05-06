@@ -155,7 +155,6 @@ PopoverProvider.propTypes = {
     depth: PropTypes.number,
 
     isBlurClose: PropTypes.bool,
-    shouldPreventContainerScroll: PropTypes.bool,
 
     shouldFollowScroll: PropTypes.bool,
     scrollEl: PropTypes.object,
@@ -208,7 +207,6 @@ PopoverProvider.defaultProps = {
     isAnimated: true,
 
     isBlurClose: true,
-    shouldPreventContainerScroll: true,
     shouldFollowScroll: false,
     resetPositionWait: 250,
     showModal: false
