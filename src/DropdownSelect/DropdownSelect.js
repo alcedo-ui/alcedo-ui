@@ -715,8 +715,6 @@ DropdownSelect.propTypes = {
      */
     noMatchedMsg: PropTypes.string,
 
-    shouldPreventContainerScroll: PropTypes.bool,
-
     popupChildren: PropTypes.any,
 
     useDynamicRenderList: PropTypes.bool,
@@ -786,7 +784,6 @@ DropdownSelect.defaultProps = {
     filterIconCls: 'fas fa-search',
     useSelectAll: false,
     selectAllText: 'Select All',
-    shouldPreventContainerScroll: true,
     useDynamicRenderList: false,
     isHiddenInputFilter: false,
     clearHiddenInputFilterInterval: 1000,
