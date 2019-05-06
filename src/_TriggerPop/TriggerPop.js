@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component, Fragment} from 'react';
+import React, {Component, Fragment, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import eventsOn from 'dom-helpers/events/on';
@@ -15,7 +15,6 @@ import Theme from '../Theme';
 
 import Position from '../_statics/Position';
 
-import Event from '../_vendors/Event';
 import Util from '../_vendors/Util';
 import TriggerPopCalculation from '../_vendors/TriggerPopCalculation';
 import Dom from '../_vendors/Dom';
@@ -32,20 +31,22 @@ class TriggerPop extends Component {
         // closest scrollable element of trigger
         this.scrollEl = null;
 
+        this.pop = createRef();
+
     }
 
     /**
      * public
      */
     getEl = () => {
-        return this.refs.pop && this.refs.pop.getEl();
+        return this.pop && this.pop.current && this.pop.current.getEl();
     };
 
     /**
      * reset pop position
      * @param transitionEl
      */
-    resetPosition = (transitionEl = this.refs.pop.getEl()) => {
+    resetPosition = (transitionEl = this.getEl()) => {
 
         const {parentEl, triggerEl, position} = this.props;
 
@@ -122,8 +123,7 @@ class TriggerPop extends Component {
                 hasTriangle, triangle, position, isAnimated,
 
                 // not passing down these props
-                isEscClose, isBlurClose, shouldPreventContainerScroll,
-                shouldFollowScroll,
+                isEscClose, isBlurClose, shouldFollowScroll,
 
                 ...restProps
 
@@ -143,11 +143,10 @@ class TriggerPop extends Component {
 
         return (
             <Pop {...restProps}
-                 ref="pop"
+                 ref={this.pop}
                  className={popClassName}
                  container={<Paper></Paper>}
                  isAnimated={isAnimated}
-                 onWheel={e => Event.wheelHandler(e, this.props)}
                  resetPosition={this.resetPosition}>
                 {
                     popEl => (
@@ -162,8 +161,7 @@ class TriggerPop extends Component {
                                     null
                             }
 
-                            <div className={popContentClassName}
-                                 onWheel={e => Event.wheelHandler(e, this.props)}>
+                            <div className={popContentClassName}>
                                 {typeof children === 'function' ? children(popEl) : children}
                             </div>
 
@@ -178,6 +176,8 @@ class TriggerPop extends Component {
 }
 
 TriggerPop.propTypes = {
+
+    children: PropTypes.any,
 
     /**
      * The CSS class name of the root element.
@@ -239,7 +239,6 @@ TriggerPop.propTypes = {
 
     isBlurClose: PropTypes.bool,
     isEscClose: PropTypes.bool,
-    shouldPreventContainerScroll: PropTypes.bool,
 
     shouldFollowScroll: PropTypes.bool,
     scrollEl: PropTypes.object,
@@ -288,7 +287,6 @@ TriggerPop.defaultProps = {
 
     isBlurClose: true,
     isEscClose: true,
-    shouldPreventContainerScroll: true,
     shouldFollowScroll: false,
     resetPositionWait: 250
 
