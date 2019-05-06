@@ -357,8 +357,6 @@ Grid.propTypes = {
      */
     isLoading: PropTypes.bool,
 
-    shouldPreventContainerScroll: PropTypes.bool,
-
     radioUncheckedIconCls: PropTypes.string,
     radioCheckedIconCls: PropTypes.string,
     checkboxUncheckedIconCls: PropTypes.string,
@@ -411,7 +409,6 @@ Grid.defaultProps = {
     displayField: 'text',
     descriptionField: 'desc',
     disabled: false,
-    shouldPreventContainerScroll: true,
 
     checkboxUncheckedIconCls: 'far fa-square',
     checkboxCheckedIconCls: 'fas fa-check-square',
