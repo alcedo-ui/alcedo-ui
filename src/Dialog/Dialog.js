@@ -110,32 +110,30 @@ class Dialog extends Component {
 
         const {
 
-                children,
+            children,
 
-                className, modalClassName, position, disabled, showModal,
-                title, buttons, isLoading, visible,
+            className, modalClassName, position, disabled, showModal,
+            title, buttons, isLoading, visible,
 
-                okButtonVisible, okButtonText, okButtonIconCls, okButtonTheme, okButtonDisabled, okButtonIsLoading,
-                cancelButtonVisible, cancelButtonText, cancelButtonIconCls, cancelButtonDisabled, cancelButtonIsLoading,
-                cancelButtonTheme, closeButtonVisible, closeIconCls,
+            okButtonVisible, okButtonText, okButtonIconCls, okButtonTheme, okButtonDisabled, okButtonIsLoading,
+            cancelButtonVisible, cancelButtonText, cancelButtonIconCls, cancelButtonDisabled, cancelButtonIsLoading,
+            cancelButtonTheme, closeButtonVisible, closeIconCls,
 
 
-                // not passing down these props
-                isBlurClose, isEscClose,
-                onRequestClose, onOKButtonClick, onCloseButtonClick, onCancelButtonClick,
+            // not passing down these props
+            isBlurClose, isEscClose,
+            onRequestClose, onOKButtonClick, onCloseButtonClick, onCancelButtonClick,
 
-                ...restProps
+            ...restProps
 
-            } = this.props,
-
-            dialogClassName = classNames('dialog', {
-                [className]: className
-            });
+        } = this.props;
 
         return (
             <PositionPop {...restProps}
                          ref={this.pop}
-                         className={dialogClassName}
+                         className={classNames('dialog', {
+                             [className]: className
+                         })}
                          position={position}
                          visible={visible}
                          container={<Paper depth={6}></Paper>}
