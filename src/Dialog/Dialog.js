@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Children, cloneElement, Component, Fragment} from 'react';
+import React, {Children, cloneElement, Component, Fragment, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -25,14 +25,18 @@ class Dialog extends Component {
     static Position = Position;
 
     constructor(props, ...restArgs) {
+
         super(props, ...restArgs);
+
+        this.pop = createRef();
+
     }
 
     /**
      * public
      */
     getEl = () => {
-        return this.refs.pop && this.refs.pop.getEl();
+        return this.pop && this.pop.current && this.pop.current.getEl();
     };
 
     okButtonClickHandler = () => {
@@ -130,7 +134,7 @@ class Dialog extends Component {
 
         return (
             <PositionPop {...restProps}
-                         ref="pop"
+                         ref={this.pop}
                          className={dialogClassName}
                          position={position}
                          visible={visible}
@@ -223,6 +227,8 @@ class Dialog extends Component {
 }
 
 Dialog.propTypes = {
+
+    children: PropTypes.any,
 
     /**
      * The css class name of the root element.
@@ -370,7 +376,9 @@ Dialog.propTypes = {
     /**
      * Callback function fired when click the close button.
      */
-    onCloseButtonClick: PropTypes.func
+    onCloseButtonClick: PropTypes.func,
+
+    onDestroy: PropTypes.func
 
 };
 
