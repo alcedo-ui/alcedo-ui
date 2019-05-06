@@ -225,8 +225,6 @@ GroupGrid.propTypes = {
      */
     selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
-    shouldPreventContainerScroll: PropTypes.bool,
-
     radioUncheckedIconCls: PropTypes.string,
     radioCheckedIconCls: PropTypes.string,
     checkboxUncheckedIconCls: PropTypes.string,
@@ -268,7 +266,6 @@ GroupGrid.defaultProps = {
     descriptionField: 'desc',
     disabled: false,
     selectMode: SelectMode.SINGLE_SELECT,
-    shouldPreventContainerScroll: true,
 
     radioUncheckedIconCls: 'fas fa-check',
     radioCheckedIconCls: 'fas fa-check',
