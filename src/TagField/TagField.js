@@ -411,7 +411,6 @@ TagField.propTypes = {
 
     disabled: PropTypes.bool,
     placeholder: PropTypes.string,
-    shouldPreventContainerScroll: PropTypes.bool,
     isTagAutoWidth: PropTypes.bool,
     tagRemoveIconCls: PropTypes.string,
 
@@ -437,7 +436,6 @@ TagField.defaultProps = {
     disabled: false,
 
     placeholder: '',
-    shouldPreventContainerScroll: true,
     isTagAutoWidth: true,
     tagRemoveIconCls: 'fas fa-times'
 
