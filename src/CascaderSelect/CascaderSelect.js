@@ -482,7 +482,6 @@ CascaderSelect.propTypes = {
      */
     autoClose: PropTypes.bool,
 
-    shouldPreventContainerScroll: PropTypes.bool,
     isSelectRecursive: PropTypes.bool,
     allowCollapse: PropTypes.bool,
     collapsedIconCls: PropTypes.string,
@@ -556,7 +555,6 @@ CascaderSelect.defaultProps = {
 
     autoClose: false,
 
-    shouldPreventContainerScroll: true,
     isSelectRecursive: true,
     allowCollapse: true,
 
