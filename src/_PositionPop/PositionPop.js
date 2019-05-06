@@ -151,7 +151,14 @@ PositionPop.propTypes = {
     /**
      * Callback function fired when wrapper wheeled.
      */
-    onWheel: PropTypes.func
+    onWheel: PropTypes.func,
+
+    onModalMouseDown: PropTypes.func,
+    onModalMouseMove: PropTypes.func,
+    onModalMouseUp: PropTypes.func,
+    onModalMouseEnter: PropTypes.func,
+    onModalMouseLeave: PropTypes.func,
+    onModalClick: PropTypes.func
 
 };
 
