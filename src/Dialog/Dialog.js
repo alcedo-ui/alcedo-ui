@@ -376,7 +376,14 @@ Dialog.propTypes = {
      */
     onCloseButtonClick: PropTypes.func,
 
-    onDestroy: PropTypes.func
+    onDestroy: PropTypes.func,
+
+    onModalMouseDown: PropTypes.func,
+    onModalMouseMove: PropTypes.func,
+    onModalMouseUp: PropTypes.func,
+    onModalMouseEnter: PropTypes.func,
+    onModalMouseLeave: PropTypes.func,
+    onModalClick: PropTypes.func
 
 };
 
