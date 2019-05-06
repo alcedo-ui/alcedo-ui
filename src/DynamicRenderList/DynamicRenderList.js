@@ -315,8 +315,6 @@ DynamicRenderList.propTypes = {
      */
     selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
-    shouldPreventContainerScroll: PropTypes.bool,
-
     radioUncheckedIconCls: PropTypes.string,
     radioCheckedIconCls: PropTypes.string,
     checkboxUncheckedIconCls: PropTypes.string,
@@ -375,7 +373,6 @@ DynamicRenderList.defaultProps = {
     disabled: false,
     itemDisabled: false,
     selectMode: SelectMode.SINGLE_SELECT,
-    shouldPreventContainerScroll: true,
 
     checkboxUncheckedIconCls: 'far fa-square',
     checkboxCheckedIconCls: 'fas fa-check-square',
