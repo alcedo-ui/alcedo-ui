@@ -452,7 +452,6 @@ DynamicRenderTagField.propTypes = {
 
     disabled: PropTypes.bool,
     placeholder: PropTypes.string,
-    shouldPreventContainerScroll: PropTypes.bool,
     isTagAutoWidth: PropTypes.bool,
     tagRemoveIconCls: PropTypes.string,
 
@@ -478,7 +477,6 @@ DynamicRenderTagField.defaultProps = {
     disabled: false,
 
     placeholder: '',
-    shouldPreventContainerScroll: true,
     isTagAutoWidth: true,
     tagRemoveIconCls: 'fas fa-times',
     listHeight: 200,
