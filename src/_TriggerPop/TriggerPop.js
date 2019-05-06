@@ -117,34 +117,28 @@ class TriggerPop extends Component {
 
         const {
 
-                children,
+            children,
 
-                className, contentClassName, theme,
-                hasTriangle, triangle, position, isAnimated,
+            className, contentClassName, theme,
+            hasTriangle, triangle, position, isAnimated,
 
-                // not passing down these props
-                isEscClose, isBlurClose, shouldFollowScroll,
+            // not passing down these props
+            isEscClose, isBlurClose, shouldFollowScroll,
 
-                ...restProps
+            ...restProps
 
-            } = this.props,
-
-            popClassName = classNames('trigger-pop', {
-                'trigger-pop-has-triangle': hasTriangle,
-                [`theme-${theme}`]: theme,
-                [`trigger-pop-${position}`]: position,
-                'trigger-pop-animated': isAnimated,
-                [className]: className
-            }),
-
-            popContentClassName = classNames('trigger-pop-content', {
-                [contentClassName]: contentClassName
-            });
+        } = this.props;
 
         return (
             <Pop {...restProps}
                  ref={this.pop}
-                 className={popClassName}
+                 className={classNames('trigger-pop', {
+                     'trigger-pop-has-triangle': hasTriangle,
+                     [`theme-${theme}`]: theme,
+                     [`trigger-pop-${position}`]: position,
+                     'trigger-pop-animated': isAnimated,
+                     [className]: className
+                 })}
                  container={<Paper></Paper>}
                  isAnimated={isAnimated}
                  resetPosition={this.resetPosition}>
@@ -161,7 +155,9 @@ class TriggerPop extends Component {
                                     null
                             }
 
-                            <div className={popContentClassName}>
+                            <div className={classNames('trigger-pop-content', {
+                                [contentClassName]: contentClassName
+                            })}>
                                 {typeof children === 'function' ? children(popEl) : children}
                             </div>
 
