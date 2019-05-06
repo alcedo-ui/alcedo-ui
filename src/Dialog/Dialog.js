@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Children, cloneElement, Component, Fragment} from 'react';
+import React, {Children, cloneElement, Component, Fragment, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -25,14 +25,18 @@ class Dialog extends Component {
     static Position = Position;
 
     constructor(props, ...restArgs) {
+
         super(props, ...restArgs);
+
+        this.pop = createRef();
+
     }
 
     /**
      * public
      */
     getEl = () => {
-        return this.refs.pop && this.refs.pop.getEl();
+        return this.pop && this.pop.current && this.pop.current.getEl();
     };
 
     okButtonClickHandler = () => {
@@ -106,32 +110,30 @@ class Dialog extends Component {
 
         const {
 
-                children,
+            children,
 
-                className, modalClassName, position, disabled, showModal,
-                title, buttons, isLoading, visible,
+            className, modalClassName, position, disabled, showModal,
+            title, buttons, isLoading, visible,
 
-                okButtonVisible, okButtonText, okButtonIconCls, okButtonTheme, okButtonDisabled, okButtonIsLoading,
-                cancelButtonVisible, cancelButtonText, cancelButtonIconCls, cancelButtonDisabled, cancelButtonIsLoading,
-                cancelButtonTheme, closeButtonVisible, closeIconCls,
+            okButtonVisible, okButtonText, okButtonIconCls, okButtonTheme, okButtonDisabled, okButtonIsLoading,
+            cancelButtonVisible, cancelButtonText, cancelButtonIconCls, cancelButtonDisabled, cancelButtonIsLoading,
+            cancelButtonTheme, closeButtonVisible, closeIconCls,
 
 
-                // not passing down these props
-                isBlurClose, isEscClose,
-                onRequestClose, onOKButtonClick, onCloseButtonClick, onCancelButtonClick,
+            // not passing down these props
+            isBlurClose, isEscClose,
+            onRequestClose, onOKButtonClick, onCloseButtonClick, onCancelButtonClick,
 
-                ...restProps
+            ...restProps
 
-            } = this.props,
-
-            dialogClassName = classNames('dialog', {
-                [className]: className
-            });
+        } = this.props;
 
         return (
             <PositionPop {...restProps}
-                         ref="pop"
-                         className={dialogClassName}
+                         ref={this.pop}
+                         className={classNames('dialog', {
+                             [className]: className
+                         })}
                          position={position}
                          visible={visible}
                          container={<Paper depth={6}></Paper>}
@@ -223,6 +225,8 @@ class Dialog extends Component {
 }
 
 Dialog.propTypes = {
+
+    children: PropTypes.any,
 
     /**
      * The css class name of the root element.
@@ -370,7 +374,16 @@ Dialog.propTypes = {
     /**
      * Callback function fired when click the close button.
      */
-    onCloseButtonClick: PropTypes.func
+    onCloseButtonClick: PropTypes.func,
+
+    onDestroy: PropTypes.func,
+
+    onModalMouseDown: PropTypes.func,
+    onModalMouseMove: PropTypes.func,
+    onModalMouseUp: PropTypes.func,
+    onModalMouseEnter: PropTypes.func,
+    onModalMouseLeave: PropTypes.func,
+    onModalClick: PropTypes.func
 
 };
 

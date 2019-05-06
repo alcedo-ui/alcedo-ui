@@ -7,8 +7,6 @@ import * as actions from 'reduxes/actions';
 
 import NavMenuItem from './NavMenuItem';
 
-import Event from 'vendors/Event';
-
 class NavMenuList extends Component {
 
     constructor(props) {
@@ -20,8 +18,7 @@ class NavMenuList extends Component {
         const {navMenu, expandMenuName, activatedMenu, expandMenu, updateActivatedMenu} = this.props;
 
         return (
-            <div className="nav-menu-list"
-                 onWheel={Event.preventContainerScroll}>
+            <div className="nav-menu-list">
                 <div className="nav-menu-scroller">
                     {
                         navMenu && navMenu.map((menu, index) =>

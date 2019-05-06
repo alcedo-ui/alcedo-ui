@@ -1,5 +1,5 @@
 /**
- * @file TriggerPop component
+ * @file Pop component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
@@ -17,8 +17,6 @@ import Theme from '../Theme';
 import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
-
-// import Dom from '../_vendors/Dom';
 
 class Pop extends Component {
 
@@ -154,6 +152,7 @@ class Pop extends Component {
 
                 children, container,
                 modalClassName, className, parentEl, isAnimated, visible, showModal,
+                onModalMouseDown, onModalMouseMove, onModalMouseUp, onModalMouseEnter, onModalMouseLeave, onModalClick,
 
                 // not passing down these props
                 contentClassName, position, triggerEl, resetPositionWait,
@@ -162,18 +161,7 @@ class Pop extends Component {
                 ...restProps
 
             } = this.props,
-            {enter, exited, transitionEl} = this.state,
-
-            popModalClassName = classNames('pop-modal', {
-                hidden: !enter,
-                'pop-modal-animated': isAnimated,
-                [modalClassName]: modalClassName
-            }),
-
-            popClassName = classNames({
-                hidden: !enter,
-                [className]: className
-            });
+            {enter, exited, transitionEl} = this.state;
 
         return (
             <Portal visible={!exited}
@@ -184,7 +172,17 @@ class Pop extends Component {
                         <Transition appear
                                     in={visible}
                                     timeout={250}>
-                            <div className={popModalClassName}></div>
+                            <div className={classNames('pop-modal', {
+                                hidden: !enter,
+                                'pop-modal-animated': isAnimated,
+                                [modalClassName]: modalClassName
+                            })}
+                                 onMouseDown={onModalMouseDown}
+                                 onMouseMove={onModalMouseMove}
+                                 onMouseUp={onModalMouseUp}
+                                 onMouseEnter={onModalMouseEnter}
+                                 onMouseLeave={onModalMouseLeave}
+                                 onClick={onModalClick}></div>
                         </Transition>
                         :
                         null
@@ -200,7 +198,10 @@ class Pop extends Component {
                     {
                         cloneElement(container, {
                             ...restProps,
-                            className: popClassName,
+                            className: classNames({
+                                hidden: !enter,
+                                [className]: className
+                            }),
                             children: typeof children === 'function' ? children(transitionEl) : children
                         })
                     }
@@ -214,6 +215,9 @@ class Pop extends Component {
 }
 
 Pop.propTypes = {
+
+    children: PropTypes.any,
+    container: PropTypes.any,
 
     /**
      * The CSS class name of the root element.
@@ -288,7 +292,14 @@ Pop.propTypes = {
      */
     onDestroyed: PropTypes.func,
 
-    resetPosition: PropTypes.func
+    resetPosition: PropTypes.func,
+
+    onModalMouseDown: PropTypes.func,
+    onModalMouseMove: PropTypes.func,
+    onModalMouseUp: PropTypes.func,
+    onModalMouseEnter: PropTypes.func,
+    onModalMouseLeave: PropTypes.func,
+    onModalClick: PropTypes.func
 
 };
 
