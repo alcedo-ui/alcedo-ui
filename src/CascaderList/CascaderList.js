@@ -416,7 +416,6 @@ CascaderList.propTypes = {
 
     readOnly: PropTypes.bool,
 
-    shouldPreventContainerScroll: PropTypes.bool,
     isSelectRecursive: PropTypes.bool,
     expandedIconCls: PropTypes.string,
     radioUncheckedIconCls: PropTypes.string,
@@ -475,7 +474,6 @@ CascaderList.defaultProps = {
     disabled: false,
     isLoading: false,
     readOnly: false,
-    shouldPreventContainerScroll: true,
     isSelectRecursive: true
 
 };
