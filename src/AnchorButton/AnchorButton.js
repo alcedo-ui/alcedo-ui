@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -21,44 +21,44 @@ class AnchorButton extends Component {
     static TipPosition = Position;
 
     constructor(props, ...restArgs) {
+
         super(props, ...restArgs);
+
+        this.button = createRef();
+
     }
 
     /**
      * public
      */
     startRipple = (e, props) => {
-        this.refs.baseButton && this.refs.baseButton.startRipple(e, props);
+        this.button && this.button.current && this.button.current.startRipple(e, props);
     };
 
     /**
      * public
      */
     endRipple = () => {
-        this.refs.baseButton && this.refs.baseButton.endRipple();
+        this.button && this.button.current && this.button.current.endRipple();
     };
 
     /**
      * public
      */
     triggerRipple = (e, props) => {
-        this.refs.baseButton && this.refs.baseButton.triggerRipple(e, props);
+        this.button && this.button.current && this.button.current.triggerRipple(e, props);
     };
 
     render() {
 
-        const {children, className, ...restProps} = this.props,
-
-            buttonClassName = classNames('anchor-button', {
-                [className]: className
-            });
+        const {className, ...restProps} = this.props;
 
         return (
             <BaseButton {...restProps}
-                        ref="baseButton"
-                        className={buttonClassName}>
-                {children}
-            </BaseButton>
+                        ref={this.button}
+                        className={classNames('anchor-button', {
+                            [className]: className
+                        })}/>
         );
 
     }
