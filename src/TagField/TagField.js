@@ -350,7 +350,7 @@ class TagField extends Component {
                                 <textarea ref="input"
                                           className="tag-field-input"
                                           style={{width: wrapperWidth}}
-                                          autoFocus="true"
+                                          autoFocus={true}
                                           value={inputValue}
                                           placeholder={data.length < 1 && placeholder ? placeholder : ''}
                                           onChange={this.inputChangeHandler}
