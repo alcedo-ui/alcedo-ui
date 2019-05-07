@@ -222,7 +222,8 @@ class DateRangePicker extends Component {
                 state.left.year = moment(state.historyStartTime).format('YYYY');
                 state.left.month = moment(state.historyStartTime).format('MM');
                 state.left.day = moment(state.historyStartTime).format('DD');
-                if (moment(state.historyStartTime).format('YYYY') == moment(state.historyEndTime).format('YYYY') && moment(state.historyStartTime).format('MM') == moment(state.historyEndTime).format('MM')) {
+                if (moment(state.historyStartTime).format('YYYY') == moment(state.historyEndTime).format('YYYY')
+                    && moment(state.historyStartTime).format('MM') == moment(state.historyEndTime).format('MM')) {
                     if (moment(state.historyEndTime).format('MM') == 12) {
                         state.right.year = +moment(state.historyEndTime).format('YYYY') + 1;
                         state.right.month = 1;
