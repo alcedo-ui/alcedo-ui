@@ -68,27 +68,21 @@ class GridItem extends Component {
 
     };
 
+    /* eslint-disable complexity */
     render() {
 
         const {
 
                 index, className, style, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
                 disabled, isLoading, disableTouchRipple, rippleDisplayCenter, renderer, itemRenderer, readOnly,
-                col,
+                col, parentEl,
 
                 checked, selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
-                onMouseEnter, onMouseLeave,
-                parentEl
+                onMouseEnter, onMouseLeave
 
             } = this.props,
-
-            listItemClassName = classNames('grid-item', {
-                [`theme-${theme}`]: theme,
-                activated: checked,
-                [className]: className
-            }),
 
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
@@ -99,7 +93,11 @@ class GridItem extends Component {
                 <TipProvider tipContent={tip}
                              parentEl={parentEl}
                              position={tipPosition}>
-                    <div className={listItemClassName}
+                    <div className={classNames('grid-item', {
+                        [`theme-${theme}`]: theme,
+                        activated: checked,
+                        [className]: className
+                    })}
                          style={style}
                          disabled={disabled || isLoading}
                          readOnly={readOnly}
@@ -194,8 +192,7 @@ class GridItem extends Component {
                             disableTouchRipple || readOnly ?
                                 null
                                 :
-                                <TouchRipple ref="touchRipple"
-                                             className={disabled || isLoading ? 'hidden' : ''}
+                                <TouchRipple className={disabled || isLoading ? 'hidden' : ''}
                                              displayCenter={rippleDisplayCenter}/>
                         }
 
@@ -230,6 +227,7 @@ GridItem.propTypes = {
     rippleDisplayCenter: PropTypes.bool,
     checked: PropTypes.bool,
     readOnly: PropTypes.bool,
+    parentEl: PropTypes.object,
 
     iconCls: PropTypes.string,
     rightIconCls: PropTypes.string,
