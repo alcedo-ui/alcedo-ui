@@ -192,7 +192,7 @@ ColorPicker.propTypes = {
      */
     value: PropTypes.string,
 
-    onChange: PropTypes, func
+    onChange: PropTypes.func
 
 };
 
