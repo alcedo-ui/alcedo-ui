@@ -389,18 +389,18 @@ class DynamicRenderTagField extends Component {
                                       className={classNames('tag-field-item-wrapper', {
                                           [filteredData[index].className]: filteredData[index].className
                                       })}>
-                                <EditableField className="tag-field-item-field"
-                                               value={Util.getTextByDisplayField(filteredData[index], displayField, valueField)}
-                                               autoWidth={isTagAutoWidth}
-                                               onChange={value => this.itemChangeHandler(value, index + displayIndex.startWithBuffer)}
-                                               onEditStart={() => this.itemEditStartHandler(index + displayIndex.startWithBuffer)}
-                                               onEditEnd={this.itemEditEndHandler}>
+                                    <EditableField className="tag-field-item-field"
+                                                   value={Util.getTextByDisplayField(filteredData[index], displayField, valueField)}
+                                                   autoWidth={isTagAutoWidth}
+                                                   onChange={value => this.itemChangeHandler(value, index + displayIndex.startWithBuffer)}
+                                                   onEditStart={() => this.itemEditStartHandler(index + displayIndex.startWithBuffer)}
+                                                   onEditEnd={this.itemEditEndHandler}>
 
-                                <IconButton className="tag-field-item-field-delete-button"
-                                            iconCls={tagRemoveIconCls}
-                                            onClick={() => this.removeItem(index + displayIndex.startWithBuffer)}/>
-                                </EditableField>
-                            </span>
+                                        <IconButton className="tag-field-item-field-delete-button"
+                                                    iconCls={tagRemoveIconCls}
+                                                    onClick={() => this.removeItem(index + displayIndex.startWithBuffer)}/>
+                                    </EditableField>
+                                </span>
                             )
                         }
                     </div>
@@ -410,18 +410,19 @@ class DynamicRenderTagField extends Component {
                 <div key="input"
                      ref="inputWrapper"
                      className="tag-field-input-wrapper">
-                                <textarea ref="input"
-                                          className="tag-field-input"
-                                          style={{width: wrapperWidth}}
-                                          autoFocus="true"
-                                          value={inputValue}
-                                          placeholder={filteredData.length < 1 && placeholder ? placeholder : ''}
-                                          onChange={this.inputChangeHandler}
-                                          onKeyDown={this.inputKeyDownHandler}/>
+                    <textarea ref="input"
+                              className="tag-field-input"
+                              style={{width: wrapperWidth}}
+                              autoFocus={true}
+                              value={inputValue}
+                              placeholder={filteredData.length < 1 && placeholder ? placeholder : ''}
+                              onChange={this.inputChangeHandler}
+                              onKeyDown={this.inputKeyDownHandler}/>
                 </div>
 
                 <div ref="test"
                      className="tag-field-test-container"></div>
+
             </div>
         );
 
