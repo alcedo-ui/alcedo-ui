@@ -43,7 +43,7 @@ class DatePickerTextField extends Component {
         this.textField && this.textField.current && this.textField.current.blur();
     };
 
-    triggerChangeHandler = value => {
+    handleTriggerChange = value => {
         this.setState({
             value
         }, () => {
@@ -91,7 +91,7 @@ class DatePickerTextField extends Component {
                        value={value}
                        disabled={disabled}
                        required={required}
-                       onChange={this.triggerChangeHandler}/>
+                       onChange={this.handleTriggerChange}/>
         );
 
     }
