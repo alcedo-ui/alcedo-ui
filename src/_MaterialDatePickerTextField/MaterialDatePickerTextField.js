@@ -3,7 +3,7 @@
  * @author sunday(sunday.wei@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -12,6 +12,7 @@ import MaterialProvider from '../MaterialProvider';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class MaterialDatePickerTextField extends Component {
 
@@ -21,6 +22,8 @@ class MaterialDatePickerTextField extends Component {
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
+
+        this.textField = createRef();
 
         this.state = {
             value: ''
@@ -32,17 +35,17 @@ class MaterialDatePickerTextField extends Component {
      * public
      */
     focus = () => {
-        this.refs.textField.focus();
+        this.textField && this.textField.current && this.textField.current.focus();
     };
 
     /**
      * public
      */
     blur = () => {
-        this.refs.textField.blur();
+        this.textField && this.textField.current && this.textField.current.blur();
     };
 
-    triggerChangeHandler = value => {
+    handleTriggerChange = value => {
         this.setState({
             value
         }, () => {
@@ -57,13 +60,12 @@ class MaterialDatePickerTextField extends Component {
         });
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value || nextProps.popupVisible !== this.props.popupVisible) {
-            this.setState({
-                value: nextProps.value,
-                isFocus: nextProps.popupVisible
-            });
-        }
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value'),
+            isFocus: ComponentUtil.getDerivedState(props, state, 'popupVisible')
+        };
     }
 
     render() {
@@ -72,15 +74,13 @@ class MaterialDatePickerTextField extends Component {
                 className, style, theme, label, isLabelAnimate, disabled, required, popupVisible,
                 ...restProps
             } = this.props,
-            {value} = this.state,
-
-            fieldClassName = classNames('material-date-picker-text-field', {
-                activated: popupVisible,
-                [className]: className
-            });
+            {value} = this.state;
 
         return (
-            <MaterialProvider className={fieldClassName}
+            <MaterialProvider className={classNames('material-date-picker-text-field', {
+                activated: popupVisible,
+                [className]: className
+            })}
                               style={style}
                               theme={theme}
                               label={label}
@@ -89,12 +89,12 @@ class MaterialDatePickerTextField extends Component {
                               disabled={disabled}
                               required={required}>
                 <TextField {...restProps}
-                           ref="textField"
+                           ref={this.textField}
                            theme={theme}
                            value={value}
                            disabled={disabled}
                            required={required}
-                           onChange={this.triggerChangeHandler}/>
+                           onChange={this.handleTriggerChange}/>
             </MaterialProvider>
         );
 
