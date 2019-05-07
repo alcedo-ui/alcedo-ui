@@ -304,7 +304,7 @@ class LocalAutoComplete extends Component {
                 onFilterClear, parentEl,
 
                 // not passing down these props
-                data, filter: propsFilter, minFilterLength, autoClose, filterCallback,
+                data, filter: propsFilter, filterInitValue, minFilterLength, autoClose, filterCallback,
                 onFilterPressEnter, onFilterChange, onNoMatch,
 
                 ...restProps

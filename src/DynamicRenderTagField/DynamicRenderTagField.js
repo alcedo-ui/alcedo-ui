@@ -412,7 +412,7 @@ class DynamicRenderTagField extends Component {
                     <textarea ref="input"
                               className="tag-field-input"
                               style={{width: wrapperWidth}}
-                              autoFocus="true"
+                              autoFocus={true}
                               value={inputValue}
                               placeholder={filteredData.length < 1 && placeholder ? placeholder : ''}
                               onChange={this.inputChangeHandler}
@@ -421,6 +421,7 @@ class DynamicRenderTagField extends Component {
 
                 <div ref="test"
                      className="tag-field-test-container"></div>
+
             </div>
         );
 
