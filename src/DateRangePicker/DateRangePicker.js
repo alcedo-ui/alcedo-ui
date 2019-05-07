@@ -3,8 +3,9 @@
  * @author sunday(sunday.wei@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
+import {findDOMNode} from 'react-dom';
 import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
@@ -15,11 +16,10 @@ import MonthPicker from '../_MonthPicker';
 import YearPicker from '../_YearPicker';
 import Popup from '../Popup';
 
+import Theme from '../Theme';
 import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
-import Theme from '../Theme';
-import {findDOMNode} from 'react-dom';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
 
 class DateRangePicker extends Component {
@@ -33,6 +33,8 @@ class DateRangePicker extends Component {
 
         const initValue = moment();
         this.validValue = true;
+        this.trigger = createRef();
+        this.triggerEl = null;
 
         let startTime = '',
             endTime = '';
@@ -75,23 +77,23 @@ class DateRangePicker extends Component {
             const flag = moment(text, this.props.dateFormat, true).isValid();
             if (flag) {
                 const initValue = moment(text).format('YYYY-MM-DD');
-                const select_year = initValue.split('-')[0],
-                    select_month = initValue.split('-')[1],
-                    select_day = initValue.split('-')[2];
+                const selectYear = initValue.split('-')[0],
+                    selectMonth = initValue.split('-')[1],
+                    selectDay = initValue.split('-')[2];
                 let state = cloneDeep(this.state);
                 if (select == 'left') {
                     if (moment(text).isBefore(state.right.text)) {
                         state.startTime = text;
                         state.left.text = text;
-                        state.left.year = select_year;
-                        state.left.month = select_month;
-                        state.left.day = select_day;
-                        if (select_year == state.right.year && select_month == state.right.month) {
-                            if (select_month == 12) {
+                        state.left.year = selectYear;
+                        state.left.month = selectMonth;
+                        state.left.day = selectDay;
+                        if (selectYear == state.right.year && selectMonth == state.right.month) {
+                            if (selectMonth == 12) {
                                 state.right.month = 1;
-                                state.right.year = +select_year + 1;
+                                state.right.year = +selectYear + 1;
                             } else {
-                                state.right.month = +select_month + 1;
+                                state.right.month = +selectMonth + 1;
                             }
                         }
                     }
@@ -100,12 +102,12 @@ class DateRangePicker extends Component {
                     if (moment(state.startTime).isBefore(text)) {
                         state.endTime = text;
                         state.right.text = text;
-                        if (select_year == state.left.year && select_month == state.left.month) {
-                            state.right.month = +select_month + 1;
+                        if (selectYear == state.left.year && selectMonth == state.left.month) {
+                            state.right.month = +selectMonth + 1;
                         } else {
-                            state.right.year = select_year;
-                            state.right.month = select_month;
-                            state.right.day = select_day;
+                            state.right.year = selectYear;
+                            state.right.month = selectMonth;
+                            state.right.day = selectDay;
                         }
                     }
                     this.setState(state);
@@ -244,13 +246,13 @@ class DateRangePicker extends Component {
         });
     };
 
-    popupRenderHandler = popupEl => {
+    popupRenderHandler = pop => {
 
         if (this.props.position) {
             return;
         }
 
-        const isAbove = DropdownCalculation.isAbove(this.dropdownEl, this.triggerEl, findDOMNode(popupEl));
+        const isAbove = DropdownCalculation.isAbove(this.dropdownEl, this.triggerEl, findDOMNode(pop));
         if (isAbove !== this.state.isAbove) {
             this.setState({
                 isAbove
@@ -328,8 +330,7 @@ class DateRangePicker extends Component {
     componentDidMount() {
         const {value, dateFormat} = this.props;
         this.setValue(value, dateFormat);
-        this.datePicker = this.refs.datePicker;
-        this.triggerEl = findDOMNode(this.refs.trigger);
+        this.triggerEl = this.trigger && this.trigger.current && findDOMNode(this.trigger.current);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -345,11 +346,7 @@ class DateRangePicker extends Component {
                 popupClassName, rightIconCls, previousYearIconCls, previousMonthIconCls, nextYearIconCls,
                 nextMonthIconCls, readOnly, disabled, parentEl
             } = this.props,
-            {popupVisible, left, right, startTime, endTime, hoverTime, isAbove} = this.state,
-
-            pickerClassName = classNames('date-range-picker', {
-                [className]: className
-            });
+            {popupVisible, left, right, startTime, endTime, hoverTime, isAbove} = this.state;
 
         let textFieldValue = left.text && right.text ? left.text + '~ ' + right.text : '';
 
@@ -368,11 +365,12 @@ class DateRangePicker extends Component {
         let rightMinValue = moment([minYear, minMonth - 1, 1]).format('YYYY-MM-DD');
 
         return (
-            <div ref="datePicker"
-                 className={pickerClassName}
+            <div className={classNames('date-range-picker', {
+                [className]: className
+            })}
                  style={style}>
 
-                <TextField ref="trigger"
+                <TextField ref={this.trigger}
                            className="date-range-picker-field"
                            name={name}
                            placeholder={placeholder}
@@ -623,6 +621,14 @@ DateRangePicker.propTypes = {
      * If true,the date selection box will displayed.
      */
     popupVisible: PropTypes.bool,
+
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
+    rightIconCls: PropTypes.string,
+    previousYearIconCls: PropTypes.string,
+    previousMonthIconCls: PropTypes.string,
+    nextYearIconCls: PropTypes.string,
+    nextMonthIconCls: PropTypes.string,
+    parentEl: PropTypes.object,
 
     /**
      * Callback function that is fired when the date value changes.
