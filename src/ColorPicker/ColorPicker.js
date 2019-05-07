@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import sum from 'lodash/sum';
 import classNames from 'classnames';
@@ -20,6 +20,10 @@ class ColorPicker extends Component {
 
         super(props, ...restArgs);
 
+        this.activated = false;
+        this.colorPickerArea = createRef();
+        this.colorPickerAreaEl = null;
+
         const hsb = Color.rgb2hsb(Color.hex2rgb(props.value));
         this.state = {
             value: props.value,
@@ -29,22 +33,20 @@ class ColorPicker extends Component {
             y: hsb ? `${(1 - hsb[2]) * 100}%` : 0
         };
 
-        this.activated = false;
-
     }
 
-    mouseDownHandler = e => {
+    handleMouseDown = e => {
         this.activated = true;
         this.handleChange(e.pageX, e.pageY);
     };
 
-    mouseMoveHandler = e => {
+    handleMouseMove = e => {
         if (this.activated) {
             this.handleChange(e.pageX, e.pageY);
         }
     };
 
-    mouseUpHandler = () => {
+    handleMouseUp = () => {
         this.activated = false;
     };
 
@@ -83,16 +85,16 @@ class ColorPicker extends Component {
 
     componentDidMount() {
 
-        this.colorPickerAreaEl = this.refs.colorPickerArea;
+        this.colorPickerAreaEl = this.colorPickerArea && this.colorPickerArea.current;
 
-        Event.addEvent(document, 'mousemove', this.mouseMoveHandler);
-        Event.addEvent(document, 'mouseup', this.mouseUpHandler);
+        Event.addEvent(document, 'mousemove', this.handleMouseMove);
+        Event.addEvent(document, 'mouseup', this.handleMouseUp);
 
     }
 
     componentWillUnmount() {
-        Event.removeEvent(document, 'mousemove', this.mouseMoveHandler);
-        Event.removeEvent(document, 'mouseup', this.mouseUpHandler);
+        Event.removeEvent(document, 'mousemove', this.handleMouseMove);
+        Event.removeEvent(document, 'mouseup', this.handleMouseUp);
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -136,37 +138,30 @@ class ColorPicker extends Component {
 
         const {className, style, hue} = this.props,
             {value, x, y} = this.state,
-
-            pickerClassName = classNames('color-picker', {
-                [className]: className
-            }),
-
-            areaColor = Color.hue2rgb(hue),
-            areaStyle = {
-                background: areaColor ? `rgb(${areaColor.join(', ')})` : null
-            },
-
-            cursorClassName = classNames('color-picker-cursor', {
-                light: sum(Color.hex2rgb(value)) / 3 < 128
-            }),
-            cursorStyle = {
-                left: x,
-                top: y
-            };
+            areaColor = Color.hue2rgb(hue);
 
         return (
-            <div className={pickerClassName}
+            <div className={classNames('color-picker', {
+                [className]: className
+            })}
                  style={style}>
-                <div ref="colorPickerArea"
+                <div ref={this.colorPickerArea}
                      className="color-picker-area"
-                     style={areaStyle}
-                     onMouseDown={this.mouseDownHandler}>
+                     style={{
+                         background: areaColor ? `rgb(${areaColor.join(', ')})` : null
+                     }}
+                     onMouseDown={this.handleMouseDown}>
 
                     <div className="color-picker-area-white-overlay"></div>
                     <div className="color-picker-area-black-overlay"></div>
 
-                    <div className={cursorClassName}
-                         style={cursorStyle}></div>
+                    <div className={classNames('color-picker-cursor', {
+                        light: sum(Color.hex2rgb(value)) / 3 < 128
+                    })}
+                         style={{
+                             left: x,
+                             top: y
+                         }}></div>
 
                 </div>
             </div>
@@ -195,7 +190,9 @@ ColorPicker.propTypes = {
     /**
      * rgb hex value
      */
-    value: PropTypes.string
+    value: PropTypes.string,
+
+    onChange: PropTypes, func
 
 };
 
