@@ -71,13 +71,6 @@ class BaseButton extends Component {
 
             } = this.props,
 
-            buttonClassName = classNames('base-button', {
-                [`theme-${theme}`]: theme,
-                'button-circular': isCircular,
-                'button-rounded': isRounded,
-                [className]: className
-            }),
-
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
@@ -87,7 +80,12 @@ class BaseButton extends Component {
                          position={tipPosition}>
 
                 <button {...restProps}
-                        className={buttonClassName}
+                        className={classNames('base-button', {
+                            [`theme-${theme}`]: theme,
+                            'button-circular': isCircular,
+                            'button-rounded': isRounded,
+                            [className]: className
+                        })}
                         style={style}
                         type={type}
                         disabled={disabled || isLoading}
