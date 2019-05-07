@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -21,21 +21,27 @@ class BaseButton extends Component {
     static TipPosition = Position;
 
     constructor(props, ...restArgs) {
+
         super(props, ...restArgs);
+
+        this.touchRipple = createRef();
+
     }
 
     /**
      * public
      */
     startRipple = (e, props) => {
-        !this.props.disableTouchRipple && this.refs.touchRipple && this.refs.touchRipple.addRipple(e, props);
+        !this.props.disableTouchRipple && this.touchRipple && this.touchRipple.current
+        && this.touchRipple.current.addRipple(e, props);
     };
 
     /**
      * public
      */
     endRipple = () => {
-        !this.props.disableTouchRipple && this.refs.touchRipple && this.refs.touchRipple.removeRipple();
+        !this.props.disableTouchRipple && this.touchRipple && this.touchRipple.current
+        && this.touchRipple.current.removeRipple();
     };
 
     /**
@@ -59,7 +65,7 @@ class BaseButton extends Component {
 
                 children, className, style, theme, isRounded, isCircular, disableTouchRipple,
                 iconCls, rightIconCls, type, value, disabled, readOnly, isLoading, rippleDisplayCenter,
-                tip, tipPosition, renderer,parentEl, triggerEl,
+                tip, tipPosition, renderer, parentEl, triggerEl,
 
                 ...restProps
 
@@ -134,7 +140,7 @@ class BaseButton extends Component {
                         disableTouchRipple ?
                             null
                             :
-                            <TouchRipple ref="touchRipple"
+                            <TouchRipple ref={this.touchRipple}
                                          className={disabled || isLoading ? 'hidden' : ''}
                                          displayCenter={rippleDisplayCenter}/>
                     }
@@ -148,6 +154,8 @@ class BaseButton extends Component {
 }
 
 BaseButton.propTypes = {
+
+    children: PropTypes.any,
 
     className: PropTypes.string,
     style: PropTypes.object,
@@ -171,6 +179,9 @@ BaseButton.propTypes = {
     tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     rippleDisplayCenter: PropTypes.bool,
+
+    parentEl: PropTypes.object,
+    triggerEl: PropTypes.object,
 
     renderer: PropTypes.func,
     onClick: PropTypes.func
