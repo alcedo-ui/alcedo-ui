@@ -3,7 +3,7 @@
  * @author sunday(sunday.wei@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 import moment from 'moment';
@@ -19,7 +19,9 @@ import FlatButton from '../FlatButton';
 
 import Theme from '../Theme';
 import Position from '../_statics/Position';
+
 import DropdownCalculation from '../_vendors/DropdownCalculation';
+import Util from '../_vendors/Util';
 
 class DatePicker extends Component {
 
@@ -31,9 +33,10 @@ class DatePicker extends Component {
         super(props, ...restArgs);
 
         this.validValue = true;
+        this.trigger = createRef();
+        this.triggerEl = null;
 
         const defaultValue = props.value ? props.value : moment().format('YYYY-MM-DD');
-
         this.state = {
             value: props.value,
             popupVisible: false,
@@ -46,13 +49,13 @@ class DatePicker extends Component {
 
     }
 
-    datePickerChangeHandle = selectLevel => {
+    handleDatePickerChange = selectLevel => {
         this.setState({
             datePickerLevel: selectLevel
         });
     };
 
-    textFieldChangeHandle = text => {
+    handleTextFieldChange = text => {
         const {minValue, maxValue, dateFormat} = this.props;
         if (text && text.length) {
             const flag = moment(text, this.props.dateFormat, true).isValid();
@@ -80,7 +83,7 @@ class DatePicker extends Component {
         }
     };
 
-    dayPickerChangeHandle = date => {
+    handleDayPickerChange = date => {
         const {autoClose, dateFormat} = this.props;
         let state = cloneDeep(this.state);
         state.value = moment(date.time, dateFormat);
@@ -94,7 +97,7 @@ class DatePicker extends Component {
 
     };
 
-    monthPickerChangeHandle = date => {
+    handleMonthPickerChange = date => {
         this.setState({
             datePickerLevel: 'day',
             year: date.year,
@@ -102,14 +105,14 @@ class DatePicker extends Component {
         });
     };
 
-    yearPickerChangeHandle = year => {
+    handleYearPickerChange = year => {
         this.setState({
             datePickerLevel: 'month',
             year: year
         });
     };
 
-    todayHandle = () => {
+    handleToday = () => {
         const {dateFormat} = this.props;
         const year = moment().format('YYYY'),
             month = moment().format('MM'),
@@ -140,7 +143,7 @@ class DatePicker extends Component {
         });
     };
 
-    popupRenderHandler = popupEl => {
+    handlePopupRender = popupEl => {
 
         if (this.props.position) {
             return;
@@ -182,13 +185,12 @@ class DatePicker extends Component {
     };
 
     componentDidMount() {
-        // debugger
-        const {value, dateFormat} = this.props;
 
+        this.triggerEl = this.trigger && this.trigger.current && findDOMNode(this.trigger.current);
+
+        const {value, dateFormat} = this.props;
         this.validValueFormat(value, dateFormat);
 
-        this.datePicker = this.refs.datePicker;
-        this.triggerEl = findDOMNode(this.refs.trigger);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -205,20 +207,16 @@ class DatePicker extends Component {
                 nextMonthIconCls, readOnly, disabled, parentEl
             } = this.props,
             {value, popupVisible, datePickerLevel, year, month, day, isAbove} = this.state,
-
-            pickerClassName = classNames('date-picker', {
-                activated: popupVisible,
-                [className]: className
-            }),
-
             textValue = value && moment(value).format(dateFormat);
 
         return (
-            <div ref="datePicker"
-                 className={pickerClassName}>
+            <div className={classNames('date-picker', {
+                activated: popupVisible,
+                [className]: className
+            })}>
 
                 <TextField className="date-picker-field"
-                           ref="trigger"
+                           ref={this.trigger}
                            name={name}
                            placeholder={placeholder}
                            value={textValue}
@@ -229,7 +227,7 @@ class DatePicker extends Component {
                            clearButtonVisible={false}
                            isFocusedSelectAll={popupVisible}
                            onClick={e => this.togglePopup(e)}
-                           onChange={this.textFieldChangeHandle}/>
+                           onChange={this.handleTextFieldChange}/>
 
                 <Popup className={`date-picker-popup ${popupClassName}`}
                        visible={popupVisible}
@@ -237,7 +235,7 @@ class DatePicker extends Component {
                        parentEl={parentEl}
                        hasTriangle={false}
                        position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
-                       onRender={this.popupRenderHandler}
+                       onRender={this.handlePopupRender}
                        onRequestClose={this.closePopup}>
 
                     {
@@ -255,37 +253,36 @@ class DatePicker extends Component {
                                 previousMonthIconCls={previousMonthIconCls}
                                 nextYearIconCls={nextYearIconCls}
                                 nextMonthIconCls={nextMonthIconCls}
-                                onChange={this.dayPickerChangeHandle}
-                                previousClick={this.datePickerChangeHandle}/>
-                            : (
-                                datePickerLevel == 'month' ?
-                                    <MonthPicker
-                                        value={value}
-                                        year={year}
-                                        month={month}
-                                        day={day}
-                                        maxValue={maxValue}
-                                        minValue={minValue}
-                                        previousYearIconCls={previousYearIconCls}
-                                        previousMonthIconCls={previousMonthIconCls}
-                                        nextYearIconCls={nextYearIconCls}
-                                        nextMonthIconCls={nextMonthIconCls}
-                                        onChange={this.monthPickerChangeHandle}
-                                        previousClick={this.datePickerChangeHandle}/>
-                                    :
-                                    <YearPicker
-                                        value={value}
-                                        year={year}
-                                        month={month}
-                                        day={day}
-                                        maxValue={maxValue}
-                                        minValue={minValue}
-                                        previousYearIconCls={previousYearIconCls}
-                                        previousMonthIconCls={previousMonthIconCls}
-                                        nextYearIconCls={nextYearIconCls}
-                                        nextMonthIconCls={nextMonthIconCls}
-                                        onChange={this.yearPickerChangeHandle}/>
-                            )
+                                onChange={this.handleDayPickerChange}
+                                previousClick={this.handleDatePickerChange}/>
+                            :
+                            datePickerLevel == 'month' ?
+                                <MonthPicker
+                                    value={value}
+                                    year={year}
+                                    month={month}
+                                    day={day}
+                                    maxValue={maxValue}
+                                    minValue={minValue}
+                                    previousYearIconCls={previousYearIconCls}
+                                    previousMonthIconCls={previousMonthIconCls}
+                                    nextYearIconCls={nextYearIconCls}
+                                    nextMonthIconCls={nextMonthIconCls}
+                                    onChange={this.handleMonthPickerChange}
+                                    previousClick={this.handleDatePickerChange}/>
+                                :
+                                <YearPicker
+                                    value={value}
+                                    year={year}
+                                    month={month}
+                                    day={day}
+                                    maxValue={maxValue}
+                                    minValue={minValue}
+                                    previousYearIconCls={previousYearIconCls}
+                                    previousMonthIconCls={previousMonthIconCls}
+                                    nextYearIconCls={nextYearIconCls}
+                                    nextMonthIconCls={nextMonthIconCls}
+                                    onChange={this.handleYearPickerChange}/>
                     }
 
                     {
@@ -300,7 +297,7 @@ class DatePicker extends Component {
                                         :
                                         <FlatButton className='today-button'
                                                     value={'Today'}
-                                                    onClick={this.todayHandle}/>
+                                                    onClick={this.handleToday}/>
                                 }
                             </div>
                             :
@@ -374,6 +371,15 @@ DatePicker.propTypes = {
      * If true,datePicker textField is disabled.
      */
     disabled: PropTypes.bool,
+
+    isFooter: PropTypes.bool,
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
+    rightIconCls: PropTypes.string,
+    previousYearIconCls: PropTypes.string,
+    previousMonthIconCls: PropTypes.string,
+    nextYearIconCls: PropTypes.string,
+    nextMonthIconCls: PropTypes.string,
+    parentEl: PropTypes.object,
 
     /**
      * Callback function that is fired when the date value changes.
