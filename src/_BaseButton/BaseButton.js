@@ -54,7 +54,7 @@ class BaseButton extends Component {
         }, 250);
     };
 
-    clickHandler = e => {
+    handleClick = e => {
         const {disabled, isLoading, onClick} = this.props;
         !disabled && !isLoading && onClick && onClick(e);
     };
@@ -90,7 +90,7 @@ class BaseButton extends Component {
                         type={type}
                         disabled={disabled || isLoading}
                         readOnly={readOnly}
-                        onClick={this.clickHandler}>
+                        onClick={this.handleClick}>
 
                     {
                         isLoading && loadingIconPosition === 'left' ?
