@@ -66,13 +66,13 @@ class DateRangePicker extends Component {
 
     }
 
-    datePickerChangeHandle = (select, selectLevel) => {
+    handleDatePickerChange = (select, selectLevel) => {
         let state = cloneDeep(this.state);
         state[select].datePickerLevel = selectLevel;
         this.setState(state);
     };
 
-    textFieldChangeHandle = (select, text) => {
+    handleTextFieldChange = (select, text) => {
         if (text && text.length) {
             const flag = moment(text, this.props.dateFormat, true).isValid();
             if (flag) {
@@ -116,7 +116,7 @@ class DateRangePicker extends Component {
         }
     };
 
-    dayPickerChangeHandle = (select, date) => {
+    handleDayPickerChange = (select, date) => {
         let state = cloneDeep(this.state);
         if (state.endTime) {
             state[select].text = date.time;
@@ -157,7 +157,7 @@ class DateRangePicker extends Component {
 
     };
 
-    dayPickerHoverHandle = (select, date) => {
+    handleDayPickerHover = (select, date) => {
         let state = cloneDeep(this.state);
         let startTime = state.startTime;
         let endTime = state.endTime;
@@ -174,7 +174,7 @@ class DateRangePicker extends Component {
         }
     };
 
-    monthAndYearChangeHandle = (select, date) => {
+    handleMonthAndYearChange = (select, date) => {
         let state = cloneDeep(this.state);
         state[select].year = date.year;
         state[select].month = date.month;
@@ -182,7 +182,7 @@ class DateRangePicker extends Component {
     };
 
 
-    monthPickerChangeHandle = (select, date) => {
+    handleMonthPickerChange = (select, date) => {
         let state = cloneDeep(this.state);
         state[select].datePickerLevel = 'day';
         state[select].year = date.year;
@@ -190,7 +190,7 @@ class DateRangePicker extends Component {
         this.setState(state);
     };
 
-    yearPickerChangeHandle = (select, year) => {
+    handleYearPickerChange = (select, year) => {
         let state = cloneDeep(this.state);
         state[select].datePickerLevel = 'month';
         state[select].year = year;
@@ -246,7 +246,7 @@ class DateRangePicker extends Component {
         });
     };
 
-    popupRenderHandler = pop => {
+    handlePopupRender = pop => {
 
         if (this.props.position) {
             return;
@@ -390,7 +390,7 @@ class DateRangePicker extends Component {
                        triggerEl={this.triggerEl}
                        position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        hasTriangle={false}
-                       onRender={this.popupRenderHandler}
+                       onRender={this.handlePopupRender}
                        onRequestClose={this.closePopup}>
 
                     <div className="calendar-date-input-wrap">
@@ -401,7 +401,7 @@ class DateRangePicker extends Component {
                                        clearButtonVisible={false}
                                        readOnly={readOnly}
                                        onChange={(text) => {
-                                           this.textFieldChangeHandle('left', text);
+                                           this.handleTextFieldChange('left', text);
                                        }}/>
                             <TextField className='fl calendar-input'
                                        placeholder={placeholder}
@@ -409,7 +409,7 @@ class DateRangePicker extends Component {
                                        clearButtonVisible={false}
                                        readOnly={readOnly}
                                        onChange={(text) => {
-                                           this.textFieldChangeHandle('right', text);
+                                           this.handleTextFieldChange('right', text);
                                        }}/>
                         </div>
                     </div>
@@ -434,16 +434,16 @@ class DateRangePicker extends Component {
                                 nextYearIconCls={nextYearIconCls}
                                 nextMonthIconCls={nextMonthIconCls}
                                 monthAndYearChange={(obj) => {
-                                    this.monthAndYearChangeHandle('left', obj);
+                                    this.handleMonthAndYearChange('left', obj);
                                 }}
                                 onChange={(obj) => {
-                                    this.dayPickerChangeHandle('left', obj);
+                                    this.handleDayPickerChange('left', obj);
                                 }}
                                 previousClick={(level) => {
-                                    this.datePickerChangeHandle('left', level);
+                                    this.handleDatePickerChange('left', level);
                                 }}
                                 hoverHandle={(obj) => {
-                                    this.dayPickerHoverHandle('left', obj);
+                                    this.handleDayPickerHover('left', obj);
                                 }}/>
                             :
                             (
@@ -460,10 +460,10 @@ class DateRangePicker extends Component {
                                         nextYearIconCls={nextYearIconCls}
                                         nextMonthIconCls={nextMonthIconCls}
                                         onChange={(obj) => {
-                                            this.monthPickerChangeHandle('left', obj);
+                                            this.handleMonthPickerChange('left', obj);
                                         }}
                                         previousClick={(level) => {
-                                            this.datePickerChangeHandle('left', level);
+                                            this.handleDatePickerChange('left', level);
                                         }}/>
                                     :
                                     <YearPicker
@@ -478,7 +478,7 @@ class DateRangePicker extends Component {
                                         nextYearIconCls={nextYearIconCls}
                                         nextMonthIconCls={nextMonthIconCls}
                                         onChange={(obj) => {
-                                            this.yearPickerChangeHandle('left', obj);
+                                            this.handleYearPickerChange('left', obj);
                                         }}/>
                             )
 
@@ -504,16 +504,16 @@ class DateRangePicker extends Component {
                                 nextYearIconCls={nextYearIconCls}
                                 nextMonthIconCls={nextMonthIconCls}
                                 monthAndYearChange={(obj) => {
-                                    this.monthAndYearChangeHandle('right', obj);
+                                    this.handleMonthAndYearChange('right', obj);
                                 }}
                                 onChange={(obj) => {
-                                    this.dayPickerChangeHandle('right', obj);
+                                    this.handleDayPickerChange('right', obj);
                                 }}
                                 previousClick={(level) => {
-                                    this.datePickerChangeHandle('right', level);
+                                    this.handleDatePickerChange('right', level);
                                 }}
                                 hoverHandle={(obj) => {
-                                    this.dayPickerHoverHandle('left', obj);
+                                    this.handleDayPickerHover('left', obj);
                                 }}/>
                             :
                             (
@@ -530,10 +530,10 @@ class DateRangePicker extends Component {
                                         nextYearIconCls={nextYearIconCls}
                                         nextMonthIconCls={nextMonthIconCls}
                                         onChange={(obj) => {
-                                            this.monthPickerChangeHandle('right', obj);
+                                            this.handleMonthPickerChange('right', obj);
                                         }}
                                         previousClick={(level) => {
-                                            this.datePickerChangeHandle('right', level);
+                                            this.handleDatePickerChange('right', level);
                                         }}/>
                                     :
                                     <YearPicker
@@ -548,7 +548,7 @@ class DateRangePicker extends Component {
                                         nextYearIconCls={nextYearIconCls}
                                         nextMonthIconCls={nextMonthIconCls}
                                         onChange={(obj) => {
-                                            this.yearPickerChangeHandle('right', obj);
+                                            this.handleYearPickerChange('right', obj);
                                         }}/>
                             )
 
