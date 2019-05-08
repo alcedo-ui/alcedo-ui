@@ -71,13 +71,23 @@ class LazyImage extends Component {
     }, 250);
 
     componentDidMount() {
+
         this.wrapperEl = this.wrapper && this.wrapper.current;
+
         eventOn(this.props.scrollEl, 'scroll', this.handleScroll);
+
         this.handleScroll();
+
     }
 
     componentWillUnmount() {
+
         eventOff(this.props.scrollEl, 'scroll', this.handleScroll);
+
+        if (this.handleScroll) {
+            this.handleScroll.cancel();
+        }
+
     }
 
     render() {
