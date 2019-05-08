@@ -39,7 +39,7 @@ class Dialog extends Component {
         return this.pop && this.pop.current && this.pop.current.getEl();
     };
 
-    okButtonClickHandler = () => {
+    handleOkButtonClick = () => {
 
         const {visible, onOKButtonClick} = this.props;
 
@@ -54,7 +54,7 @@ class Dialog extends Component {
 
     };
 
-    cancelButtonClickHandler = () => {
+    handleCancelButtonClick = () => {
 
         const {onCancelButtonClick, onRequestClose} = this.props;
 
@@ -68,7 +68,7 @@ class Dialog extends Component {
 
     };
 
-    closeButtonClickHandler = () => {
+    handleCloseButtonClick = () => {
 
         const {onCloseButtonClick, onRequestClose} = this.props;
 
@@ -82,7 +82,7 @@ class Dialog extends Component {
 
     };
 
-    renderHandler = (...args) => {
+    handleRender = (...args) => {
 
         PopManagement.push(this, {
             shouldLockBody: this.props.showModal
@@ -93,7 +93,7 @@ class Dialog extends Component {
 
     };
 
-    destroyHandler = (...args) => {
+    handleDestroy = (...args) => {
 
         PopManagement.pop(this);
 
@@ -139,8 +139,8 @@ class Dialog extends Component {
                          container={<Paper depth={6}></Paper>}
                          showModal={showModal}
                          modalClassName={modalClassName}
-                         onRender={this.renderHandler}
-                         onDestroy={this.destroyHandler}>
+                         onRender={this.handleRender}
+                         onDestroy={this.handleDestroy}>
 
                 {
                     popEl => (
@@ -155,7 +155,7 @@ class Dialog extends Component {
                                         <IconButton className="dialog-title-close-button"
                                                     iconCls={closeIconCls}
                                                     disabled={disabled}
-                                                    onClick={this.closeButtonClickHandler}/>
+                                                    onClick={this.handleCloseButtonClick}/>
                                         :
                                         null
                                 }
@@ -192,7 +192,7 @@ class Dialog extends Component {
                                                       disabled={okButtonDisabled}
                                                       isLoading={isLoading || okButtonIsLoading}
                                                       disableTouchRipple={true}
-                                                      onClick={this.okButtonClickHandler}/>
+                                                      onClick={this.handleOkButtonClick}/>
                                         :
                                         null
                                 }
@@ -206,7 +206,7 @@ class Dialog extends Component {
                                                     disabled={cancelButtonDisabled}
                                                     isLoading={isLoading || cancelButtonIsLoading}
                                                     disableTouchRipple={true}
-                                                    onClick={this.cancelButtonClickHandler}/>
+                                                    onClick={this.handleCancelButtonClick}/>
                                         :
                                         null
                                 }
