@@ -19,6 +19,7 @@ import SelectMode from '../_statics/SelectMode';
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import Calculation from '../_vendors/Calculation';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class DraggableList extends Component {
 
@@ -63,7 +64,7 @@ class DraggableList extends Component {
             && (typeof itemDragDisabled === 'function' ? itemDragDisabled(item, value, data) : itemDragDisabled);
     };
 
-    listItemSelectHandler = (item, index) => {
+    handleListItemSelect = (item, index) => {
 
         const {selectMode} = this.props;
 
@@ -91,7 +92,7 @@ class DraggableList extends Component {
 
     };
 
-    listItemDeselectHandler = (item, index) => {
+    handleListItemDeselect = (item, index) => {
 
         const {selectMode} = this.props;
 
@@ -121,7 +122,7 @@ class DraggableList extends Component {
 
     };
 
-    onItemDragEnd = result => {
+    handleItemDragEnd = result => {
 
         /**
          *  result: {
@@ -151,30 +152,22 @@ class DraggableList extends Component {
         this.setState({
             data
         }, () => {
-            const {onItemDragEnd, onSequenceChange} = this.props;
-            onItemDragEnd && onItemDragEnd(result);
+            const {handleItemDragEnd, onSequenceChange} = this.props;
+            handleItemDragEnd && handleItemDragEnd(result);
             onSequenceChange && onSequenceChange(data);
         });
 
     };
 
-    componentWillReceiveProps(nextProps) {
-
-        let state;
-
-        if (nextProps.data !== this.state.data) {
-            state = state ? state : {};
-            state.data = nextProps.data;
-        }
-        if (nextProps.value !== this.state.value) {
-            state = state ? state : {};
-            state.value = Calculation.getInitValue(nextProps);
-        }
-
-        if (state) {
-            this.setState(state);
-        }
-
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            data: ComponentUtil.getDerivedState(props, state, 'data'),
+            value: Calculation.getInitValue({
+                value: ComponentUtil.getDerivedState(props, state, 'value'),
+                selectMode: props.selectMode
+            })
+        };
     }
 
     renderListItem = (item, index) => {
@@ -212,10 +205,10 @@ class DraggableList extends Component {
                 selectMode,
                 renderer,
                 onSelect() {
-                    self.listItemSelectHandler(item, index);
+                    self.handleListItemSelect(item, index);
                 },
                 onDeselect() {
-                    self.listItemDeselectHandler(item, index);
+                    self.handleListItemDeselect(item, index);
                 }
             };
 
@@ -252,17 +245,15 @@ class DraggableList extends Component {
     render() {
 
         const {children, className, style, disabled, onNodeDragStart} = this.props,
-            {data} = this.state,
-
-            listClassName = classNames('draggable-list', {
-                [className]: className
-            });
+            {data} = this.state;
 
         return (
             <DragDropContext onDragStart={onNodeDragStart}
-                             onDragEnd={this.onItemDragEnd}>
+                             onDragEnd={this.handleItemDragEnd}>
 
-                <div className={listClassName}
+                <div className={classNames('draggable-list', {
+                    [className]: className
+                })}
                      disabled={disabled}
                      style={style}
                      onWheel={e => Event.wheelHandler(e, this.props)}>
@@ -295,10 +286,13 @@ class DraggableList extends Component {
 
             </DragDropContext>
         );
+
     }
 }
 
 DraggableList.propTypes = {
+
+    children: PropTypes.any,
 
     /**
      * The CSS class name of the root element.
@@ -465,6 +459,7 @@ DraggableList.propTypes = {
     checkboxCheckedIconCls: PropTypes.string,
     checkboxIndeterminateIconCls: PropTypes.string,
     anchorIconCls: PropTypes.string,
+    itemHeight: PropTypes.number,
 
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
@@ -497,7 +492,7 @@ DraggableList.propTypes = {
     onWheel: PropTypes.func,
 
     onNodeDragStart: PropTypes.func,
-    onItemDragEnd: PropTypes.func,
+    handleItemDragEnd: PropTypes.func,
 
     onSequenceChange: PropTypes.func
 
