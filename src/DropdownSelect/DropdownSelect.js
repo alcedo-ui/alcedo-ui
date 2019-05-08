@@ -33,11 +33,9 @@ class DropdownSelect extends Component {
         super(props, ...restArgs);
 
         this.hiddenFilter = createRef();
-        this.hiddenFilterEl = null;
         this.dropdown = createRef();
         this.dropdownInstance = null;
         this.filter = createRef();
-        this.filterInstance = null;
         this.dropdownSelectListScroller = createRef();
         this.dropdownSelectListScrollerEl = null;
 
@@ -187,7 +185,7 @@ class DropdownSelect extends Component {
         });
 
         setTimeout(() => {
-            this.hiddenFilterEl && this.hiddenFilterEl.focus();
+            this.hiddenFilter && this.hiddenFilter.current && this.hiddenFilter.current.focus();
         }, 1000);
 
     };
@@ -197,9 +195,9 @@ class DropdownSelect extends Component {
         const {isHiddenInputFilter, useFilter} = this.props;
 
         if (isHiddenInputFilter) {
-            this.hiddenFilterEl && this.hiddenFilterEl.focus();
+            this.hiddenFilter && this.hiddenFilter.current && this.hiddenFilter.current.focus();
         } else if (useFilter) {
-            this.filterInstance && this.filterInstance.focus();
+            this.filter && this.filter.current && this.filter.current.focus();
         }
 
         this.setState({
@@ -213,7 +211,7 @@ class DropdownSelect extends Component {
 
     handlePopupClose = e => {
 
-        this.hiddenFilterEl && this.hiddenFilterEl.blur();
+        this.hiddenFilter && this.hiddenFilter.current && this.hiddenFilter.current.blur();
 
         this.setState({
             popupVisible: false
@@ -301,9 +299,7 @@ class DropdownSelect extends Component {
     };
 
     componentDidMount() {
-        this.hiddenFilterEl = this.hiddenFilter && this.hiddenFilter.current;
         this.dropdownInstance = this.dropdown && this.dropdown.current;
-        this.filterInstance = this.filter && this.filter.current;
         this.dropdownSelectListScrollerEl = this.dropdownSelectListScroller && this.dropdownSelectListScroller.current;
     }
 
@@ -367,7 +363,6 @@ class DropdownSelect extends Component {
                           popupClassName={'dropdown-select-popup' + (popupClassName ? ' ' + popupClassName : '')}
                           popupTheme={popupTheme}
                           triggerValue={this.getTriggerValue()}
-
                           onOpenPopup={this.handlePopupOpen}
                           onClosePopup={this.handlePopupClose}>
 
