@@ -16,7 +16,6 @@ import Theme from '../Theme';
 import SelectMode from '../_statics/SelectMode';
 
 import Util from '../_vendors/Util';
-import Event from '../_vendors/Event';
 import Calculation from '../_vendors/Calculation';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
@@ -232,8 +231,7 @@ class DraggableGrid extends Component {
                                      [className]: className
                                  })}
                                  disabled={disabled}
-                                 style={style}
-                                 onWheel={e => Event.wheelHandler(e, this.props)}>
+                                 style={style}>
 
                                 {data && data.map((item, index) => this.renderGridItem(item, index))}
 
@@ -433,14 +431,8 @@ DraggableGrid.propTypes = {
      */
     onChange: PropTypes.func,
 
-    /**
-     * Callback function fired when wrapper wheeled.
-     */
-    onWheel: PropTypes.func,
-
     onNodeDragStart: PropTypes.func,
     handleNodeDragEnd: PropTypes.func,
-
     onSequenceChange: PropTypes.func
 
 };
