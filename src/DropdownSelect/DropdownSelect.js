@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -19,7 +19,6 @@ import SelectMode from '../_statics/SelectMode';
 import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
-import Event from '../_vendors/Event';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
 class DropdownSelect extends Component {
@@ -33,6 +32,15 @@ class DropdownSelect extends Component {
 
         super(props, ...restArgs);
 
+        this.hiddenFilter = createRef();
+        this.hiddenFilterEl = null;
+        this.dropdown = createRef();
+        this.dropdownInstance = null;
+        this.filter = createRef();
+        this.filterInstance = null;
+        this.dropdownSelectListScroller = createRef();
+        this.dropdownSelectListScrollerEl = null;
+
         this.state = {
             value: props.value,
             filter: '',
@@ -45,49 +53,49 @@ class DropdownSelect extends Component {
      * public
      */
     startRipple = (e, props) => {
-        this.refs.dropdown && this.refs.dropdown.startRipple(e, props);
+        this.dropdownInstance && this.dropdownInstance.startRipple(e, props);
     };
 
     /**
      * public
      */
     endRipple = () => {
-        this.refs.dropdown && this.refs.dropdown.endRipple();
+        this.dropdownInstance && this.dropdownInstance.endRipple();
     };
 
     /**
      * public
      */
     triggerRipple = (e, props) => {
-        this.refs.dropdown && this.refs.dropdown.triggerRipple(e, props);
+        this.dropdownInstance && this.dropdownInstance.triggerRipple(e, props);
     };
 
     /**
      * public
      */
     resetPopupPosition = () => {
-        this.refs.dropdown && this.refs.dropdown.resetPosition();
+        this.dropdownInstance && this.dropdownInstance.resetPosition();
     };
 
     /**
      * public
      */
     openPopup = () => {
-        this.refs.dropdown && this.refs.dropdown.openPopup();
+        this.dropdownInstance && this.dropdownInstance.openPopup();
     };
 
     /**
      * public
      */
     closePopup = () => {
-        this.refs.dropdown && this.refs.dropdown.closePopup();
+        this.dropdownInstance && this.dropdownInstance.closePopup();
     };
 
     filterChangeHandler = filter => {
         this.setState({
             filter
         }, () => {
-            const el = this.refs.dropdown;
+            const el = this.dropdown && this.dropdown.current;
             el && el.resetPopupPosition();
         });
     };
@@ -179,8 +187,9 @@ class DropdownSelect extends Component {
         });
 
         setTimeout(() => {
-            this.refs.hiddenFilter && this.refs.hiddenFilter.focus();
+            this.hiddenFilterEl && this.hiddenFilterEl.focus();
         }, 1000);
+
     };
 
     popupOpenHandler = e => {
@@ -188,9 +197,9 @@ class DropdownSelect extends Component {
         const {isHiddenInputFilter, useFilter} = this.props;
 
         if (isHiddenInputFilter) {
-            this.refs.hiddenFilter && this.refs.hiddenFilter.focus();
+            this.hiddenFilterEl && this.hiddenFilterEl.focus();
         } else if (useFilter) {
-            this.refs.filter && this.refs.filter.focus();
+            this.filterInstance && this.filterInstance.focus();
         }
 
         this.setState({
@@ -204,7 +213,7 @@ class DropdownSelect extends Component {
 
     popupCloseHandler = e => {
 
-        this.refs.hiddenFilter && this.refs.hiddenFilter.blur();
+        this.hiddenFilterEl && this.hiddenFilterEl.blur();
 
         this.setState({
             popupVisible: false
@@ -212,6 +221,7 @@ class DropdownSelect extends Component {
             const {onClosePopup} = this.props;
             onClosePopup && onClosePopup(e);
         });
+
     };
 
     hiddenFilterChangeHandle = e => {
@@ -235,7 +245,8 @@ class DropdownSelect extends Component {
                 item.toUpperCase().startsWith(target.value.toUpperCase())
         );
 
-        this.scrollTo(this.refs.dropdownSelectListScroller, (index) * 40, 200);
+        this.dropdownSelectListScrollerEl
+        && this.scrollTo(this.dropdownSelectListScrollerEl, (index) * 40, 200);
 
     };
 
@@ -277,21 +288,24 @@ class DropdownSelect extends Component {
         }
 
         return isMultiSelect ?
-            (
-                value.length > 0 ?
-                    value.length + ' selected'
-                    :
-                    placeholder
-            )
+            value.length > 0 ?
+                value.length + ' selected'
+                :
+                placeholder
             :
-            (
-                renderer ?
-                    renderer(value)
-                    :
-                    Util.getTextByDisplayField(value, displayField, valueField)
-            );
+            renderer ?
+                renderer(value)
+                :
+                Util.getTextByDisplayField(value, displayField, valueField);
 
     };
+
+    componentDidMount() {
+        this.hiddenFilterEl = this.hiddenFilter && this.hiddenFilter.current;
+        this.dropdownInstance = this.dropdown && this.dropdown.current;
+        this.filterInstance = this.filter && this.filter.current;
+        this.dropdownSelectListScrollerEl = this.dropdownSelectListScroller && this.dropdownSelectListScroller.current;
+    }
 
     static getDerivedStateFromProps(props, state) {
         return {
@@ -316,21 +330,13 @@ class DropdownSelect extends Component {
             {value, filter, popupVisible} = this.state,
 
             isMultiSelect = selectMode === SelectMode.MULTI_SELECT,
-
-            selectClassName = classNames('dropdown-select', {
-                activated: popupVisible,
-                [className]: className
-            }),
-            dropdownTriggerClassName = classNames({
-                empty: !triggerRenderer && !value,
-                [triggerClassName]: triggerClassName
-            }),
-
             listData = this.filterData();
 
         return (
-            <div ref="dropdownSelect"
-                 className={selectClassName}
+            <div className={classNames('dropdown-select', {
+                activated: popupVisible,
+                [className]: className
+            })}
                  style={style}>
 
                 {
@@ -344,7 +350,7 @@ class DropdownSelect extends Component {
 
                 {
                     isHiddenInputFilter ?
-                        <input ref="hiddenFilter"
+                        <input ref={this.hiddenFilter}
                                className="hiddenFilter"
                                type="text"
                                onChange={this.hiddenFilterChangeHandle}/>
@@ -353,8 +359,11 @@ class DropdownSelect extends Component {
                 }
 
                 <Dropdown {...restProps}
-                          ref="dropdown"
-                          triggerClassName={dropdownTriggerClassName}
+                          ref={this.dropdown}
+                          triggerClassName={classNames({
+                              empty: !triggerRenderer && !value,
+                              [triggerClassName]: triggerClassName
+                          })}
                           popupClassName={'dropdown-select-popup' + (popupClassName ? ' ' + popupClassName : '')}
                           popupTheme={popupTheme}
                           triggerValue={this.getTriggerValue()}
@@ -366,7 +375,7 @@ class DropdownSelect extends Component {
 
                         {
                             useFilter ?
-                                <TextField ref="filter"
+                                <TextField ref={this.filter}
                                            className="dropdown-select-filter"
                                            value={filter}
                                            rightIconCls={filterIconCls}
@@ -394,8 +403,7 @@ class DropdownSelect extends Component {
                     </div>
 
                     <div className="dropdown-select-list-scroller"
-                         ref="dropdownSelectListScroller"
-                         onWheel={e => Event.wheelHandler(e, this.props)}>
+                         ref={this.dropdownSelectListScroller}>
 
                         {
                             useFilter ?
@@ -753,7 +761,6 @@ DropdownSelect.propTypes = {
      */
     onChange: PropTypes.func,
 
-    onWheel: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
     onMouseOver: PropTypes.func,
