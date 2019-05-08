@@ -17,7 +17,6 @@ import HorizontalDirection from '../_statics/HorizontalDirection';
 import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
-import Event from '../_vendors/Event';
 import CascaderCalculation from '../_vendors/CascaderCalculation';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
@@ -240,9 +239,7 @@ class CascaderSelect extends Component {
                           triggerValue={this.getTriggerValue()}
                           onClosePopup={this.handlePopupClosed}>
 
-                    <div className="cascader-select-list-scroller"
-                         onWheel={e => Event.wheelHandler(e, this.props)}>
-
+                    <div className="cascader-select-list-scroller">
                         <CascaderList className="cascader-select-list"
                                       theme={popupTheme}
                                       selectTheme={selectTheme}
@@ -269,7 +266,6 @@ class CascaderSelect extends Component {
                                       onNodeDeselect={onNodeDeselect}
                                       onChange={this.handleChange}
                                       onPathChange={this.handlePathChange}/>
-
                     </div>
 
                     {popupChildren}
@@ -526,7 +522,6 @@ CascaderSelect.propTypes = {
      */
     onChange: PropTypes.func,
 
-    onWheel: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
     onMouseOver: PropTypes.func,
