@@ -16,7 +16,6 @@ import SelectMode from '../_statics/SelectMode';
 import LIST_SEPARATOR from '../_statics/ListSeparator';
 
 import Util from '../_vendors/Util';
-import Event from '../_vendors/Event';
 import Calculation from '../_vendors/Calculation';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
@@ -239,18 +238,15 @@ class List extends Component {
 
     render() {
 
-        const {children, className, style, data, disabled} = this.props,
-
-            listClassName = classNames('list', {
-                [className]: className
-            });
+        const {children, className, style, data, disabled} = this.props;
 
         return (
             <div ref="list"
-                 className={listClassName}
+                 className={classNames('list', {
+                     [className]: className
+                 })}
                  disabled={this.isListDisabled(disabled)}
-                 style={style}
-                 onWheel={e => Event.wheelHandler(e, this.props)}>
+                 style={style}>
 
                 {
                     data && data.map((item, index) => item === LIST_SEPARATOR ?
@@ -269,6 +265,8 @@ class List extends Component {
 }
 
 List.propTypes = {
+
+    children: PropTypes.any,
 
     /**
      * The CSS class name of the root element.
@@ -476,11 +474,6 @@ List.propTypes = {
      * Callback function fired when the list changed.
      */
     onChange: PropTypes.func,
-
-    /**
-     * Callback function fired when wrapper wheeled.
-     */
-    onWheel: PropTypes.func
 
 };
 
