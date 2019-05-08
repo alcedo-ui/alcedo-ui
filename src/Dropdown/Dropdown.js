@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 import classNames from 'classnames';
@@ -27,6 +27,12 @@ class Dropdown extends Component {
 
         super(props, ...restArgs);
 
+        this.dropdown = createRef();
+        this.dropdownEl = null;
+        this.trigger = createRef();
+        this.triggerEl = null;
+        this.pop = createRef();
+
         this.state = {
             popupVisible: false,
             isAbove: false
@@ -38,28 +44,28 @@ class Dropdown extends Component {
      * public
      */
     startRipple = (e, props) => {
-        this.refs.trigger && this.refs.trigger.startRipple(e, props);
+        this.trigger && this.trigger.current && this.trigger.current.startRipple(e, props);
     };
 
     /**
      * public
      */
     endRipple = () => {
-        this.refs.trigger && this.refs.trigger.endRipple();
+        this.trigger && this.trigger.current && this.trigger.current.endRipple();
     };
 
     /**
      * public
      */
     triggerRipple = (e, props) => {
-        this.refs.trigger && this.refs.trigger.triggerRipple(e, props);
+        this.trigger && this.trigger.current && this.trigger.current.triggerRipple(e, props);
     };
 
     /**
      * public
      */
     resetPopupPosition = () => {
-        this.refs.popup && this.refs.popup.resetPosition();
+        this.pop && this.pop.current && this.pop.current.resetPosition();
     };
 
     /**
@@ -103,7 +109,7 @@ class Dropdown extends Component {
 
     };
 
-    popupRenderHandler = popupEl => {
+    handlePopupRender = popupEl => {
 
         if (this.props.position) {
             return;
@@ -119,8 +125,8 @@ class Dropdown extends Component {
     };
 
     componentDidMount() {
-        this.dropdownEl = this.refs.dropdown;
-        this.triggerEl = findDOMNode(this.refs.trigger);
+        this.dropdownEl = this.dropdown && this.dropdown.current;
+        this.triggerEl = this.trigger && this.trigger.current && findDOMNode(this.trigger.current);
     }
 
     render() {
@@ -141,30 +147,21 @@ class Dropdown extends Component {
             {popupVisible, isAbove} = this.state,
 
             isAboveFinally = position === Position.TOP || position === Position.TOP_LEFT
-                || position === Position.TOP_RIGHT || (!position && isAbove),
-
-            dropdownClassName = classNames('dropdown', {
-                activated: popupVisible,
-                [className]: className
-            }),
-            buttonClassName = classNames('dropdown-trigger', isAboveFinally ? 'above' : 'blow', {
-                activated: popupVisible,
-                [triggerClassName]: triggerClassName
-            }),
-            dropdownPopupClassName = classNames('dropdown-popup', isAboveFinally ? 'above' : 'blow', {
-                [popupClassName]: popupClassName
-            }),
-            dropdownPopupStyle = Object.assign({
-                width: this.triggerEl && this.triggerEl.offsetWidth
-            }, popupStyle);
+                || position === Position.TOP_RIGHT || (!position && isAbove);
 
         return (
-            <div ref="dropdown"
-                 className={dropdownClassName}
+            <div ref={this.dropdown}
+                 className={classNames('dropdown', {
+                     activated: popupVisible,
+                     [className]: className
+                 })}
                  style={style}>
 
-                <RaisedButton ref="trigger"
-                              className={buttonClassName}
+                <RaisedButton ref={this.trigger}
+                              className={classNames('dropdown-trigger', isAboveFinally ? 'above' : 'blow', {
+                                  activated: popupVisible,
+                                  [triggerClassName]: triggerClassName
+                              })}
                               style={triggerStyle}
                               theme={popupVisible ? activatedTheme : theme}
                               value={triggerValue}
@@ -182,9 +179,16 @@ class Dropdown extends Component {
                               onMouseOut={onMouseOut}
                               onClick={this.togglePopup}/>
 
-                <Popup ref="popup"
-                       className={dropdownPopupClassName}
-                       style={autoPopupWidth ? dropdownPopupStyle : popupStyle}
+                <Popup ref={this.pop}
+                       className={classNames('dropdown-popup', isAboveFinally ? 'above' : 'blow', {
+                           [popupClassName]: popupClassName
+                       })}
+                       style={autoPopupWidth ?
+                           Object.assign({
+                               width: this.triggerEl && this.triggerEl.offsetWidth
+                           }, popupStyle)
+                           :
+                           popupStyle}
                        theme={popupTheme}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
@@ -192,11 +196,9 @@ class Dropdown extends Component {
                        hasTriangle={false}
                        position={position ? position : (isAboveFinally ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        resetPositionWait={resetPopPositionWait}
-                       onRender={this.popupRenderHandler}
+                       onRender={this.handlePopupRender}
                        onRequestClose={this.closePopup}>
-
                     {children}
-
                 </Popup>
 
             </div>
@@ -206,6 +208,8 @@ class Dropdown extends Component {
 }
 
 Dropdown.propTypes = {
+
+    children: PropTypes.any,
 
     /**
      * The CSS class name of the root element.
@@ -255,6 +259,7 @@ Dropdown.propTypes = {
     position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     parentEl: PropTypes.object,
+    triggerEl: PropTypes.object,
 
     /**
      * The value of the dropDown trigger.
