@@ -18,7 +18,6 @@ import VirtualRoot from '../_statics/VirtualRoot';
 import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
-import Event from '../_vendors/Event';
 import TreeCalculation from '../_vendors/TreeCalculation';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
@@ -289,8 +288,7 @@ class TreeSelect extends Component {
                         }
                     </div>
 
-                    <div className="tree-select-list-scroller"
-                         onWheel={e => Event.wheelHandler(e, this.props)}>
+                    <div className="tree-select-list-scroller">
 
                         {
                             useFilter ?
@@ -566,7 +564,6 @@ TreeSelect.propTypes = {
      */
     onChange: PropTypes.func,
 
-    onWheel: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
     onMouseOver: PropTypes.func,
