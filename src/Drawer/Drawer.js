@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -30,6 +30,7 @@ class Drawer extends Component {
         super(props, ...restArgs);
 
         this.closeTimeout = null;
+        this.drawerContent = createRef();
 
     }
 
@@ -40,7 +41,7 @@ class Drawer extends Component {
         }
     };
 
-    triggerHandler = (el, triggerEl, drawerEl, currentVisible, isBlurClose) => {
+    handleTrigger = (el, triggerEl, drawerEl, currentVisible, isBlurClose) => {
 
         // el is missing
         if (el && !query.contains(document, el)) {
@@ -56,10 +57,10 @@ class Drawer extends Component {
 
     };
 
-    closeHandler = e => {
+    handleClose = e => {
 
-        const {visible, isBlurClose, triggerEl, triggerHandler, onRequestClose} = this.props,
-            drawerEl = findDOMNode(this.refs.drawerContent);
+        const {visible, isBlurClose, triggerEl, handleTrigger, onRequestClose} = this.props,
+            drawerEl = this.drawerContent && this.drawerContent.current && findDOMNode(this.drawerContent.current);
 
         if (!visible || !triggerEl) {
             return;
@@ -67,10 +68,10 @@ class Drawer extends Component {
 
         let currVisible;
 
-        if (triggerHandler) {
-            currVisible = triggerHandler(e.target, triggerEl, drawerEl, visible, isBlurClose);
+        if (handleTrigger) {
+            currVisible = handleTrigger(e.target, triggerEl, drawerEl, visible, isBlurClose);
         } else if (!Dom.isParent(e.target)) {
-            currVisible = this.triggerHandler(e.target, triggerEl, drawerEl, visible, isBlurClose);
+            currVisible = this.handleTrigger(e.target, triggerEl, drawerEl, visible, isBlurClose);
         }
 
         if (currVisible === false) {
@@ -82,7 +83,7 @@ class Drawer extends Component {
 
     };
 
-    renderHandler = (...args) => {
+    handleRender = (...args) => {
 
         PopManagement.push(this, {
             shouldLockBody: this.props.showModal
@@ -93,7 +94,7 @@ class Drawer extends Component {
 
     };
 
-    destroyHandler = (...args) => {
+    handleDestroy = (...args) => {
 
         PopManagement.pop(this);
 
@@ -103,13 +104,13 @@ class Drawer extends Component {
     };
 
     componentDidMount() {
-        Event.addEvent(document, 'click', this.closeHandler);
+        Event.addEvent(document, 'click', this.handleClose);
     }
 
     componentWillUnmount() {
 
         this.clearCloseTimeout();
-        Event.removeEvent(document, 'click', this.closeHandler);
+        Event.removeEvent(document, 'click', this.handleClose);
 
         PopManagement.pop(this);
 
@@ -119,28 +120,26 @@ class Drawer extends Component {
 
         const {
 
-                className,
+            className,
 
-                // not passing down these props
-                triggerEl, isBlurClose, isEscClose, onRender, onRequestClose,
+            // not passing down these props
+            triggerEl, isBlurClose, isEscClose, onRender, onRequestClose,
 
-                ...restProps
+            ...restProps
 
-            } = this.props,
-
-            drawerClassName = classNames('drawer', {
-                [className]: className
-            });
+        } = this.props;
 
         return (
             <PositionPop {...restProps}
-                         className={drawerClassName}
+                         className={classNames('drawer', {
+                             [className]: className
+                         })}
                          container={
-                             <Paper ref="drawerContent"
+                             <Paper ref={this.drawerContent}
                                     depth={6}></Paper>
                          }
-                         onRender={this.renderHandler}
-                         onDestroy={this.destroyHandler}/>
+                         onRender={this.handleRender}
+                         onDestroy={this.handleDestroy}/>
         );
 
     }
@@ -200,7 +199,8 @@ Drawer.propTypes = {
      */
     onRender: PropTypes.func,
 
-    triggerHandler: PropTypes.func,
+    onDestroy: PropTypes.func,
+    handleTrigger: PropTypes.func,
 
     /**
      * The function that trigger when click submit.
