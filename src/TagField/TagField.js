@@ -338,8 +338,7 @@ class TagField extends Component {
             <div ref="wrapper"
                  className={fieldClassName}
                  style={style}
-                 disabled={disabled}
-                 onWheel={e => Event.wheelHandler(e, this.props)}>
+                 disabled={disabled}>
 
                 {
                     indexData && indexData.map(index => index === this.inputSymbol ?
@@ -416,11 +415,6 @@ TagField.propTypes = {
 
     onChange: PropTypes.func,
     onInputChange: PropTypes.func,
-
-    /**
-     * Callback function fired when wrapper wheeled.
-     */
-    onWheel: PropTypes.func
 
 };
 
