@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {DragDropContext, Droppable} from 'react-beautiful-dnd';
 import isArray from 'lodash/isArray';
+import classNames from 'classnames';
 
 import DraggableGridItem from '../_DraggableGridItem';
 import Tip from '../Tip';
@@ -217,27 +218,19 @@ class DraggableGrid extends Component {
 
     render() {
 
-        const {
-
-                children, className, style, data, disabled,
-
-                onNodeDragStart
-
-            } = this.props,
-
-            listClassName = (className ? ' ' + className : '');
+        const {children, className, style, data, disabled, onNodeDragStart} = this.props;
 
         return (
             <DragDropContext onDragStart={onNodeDragStart}
                              onDragEnd={this.handleNodeDragEnd}>
-
                 <Droppable droppableId="droppable"
                            direction="horizontal">
-
                     {
                         dropProvided => (
                             <div ref={dropProvided.innerRef}
-                                 className={'draggable-grid' + listClassName}
+                                 className={classNames('draggable-grid', {
+                                     [className]: className
+                                 })}
                                  disabled={disabled}
                                  style={style}
                                  onWheel={e => Event.wheelHandler(e, this.props)}>
@@ -251,11 +244,10 @@ class DraggableGrid extends Component {
                             </div>
                         )
                     }
-
                 </Droppable>
-
             </DragDropContext>
         );
+
     }
 }
 
