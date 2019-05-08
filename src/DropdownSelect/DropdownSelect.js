@@ -91,7 +91,7 @@ class DropdownSelect extends Component {
         this.dropdownInstance && this.dropdownInstance.closePopup();
     };
 
-    filterChangeHandler = filter => {
+    handleFilterChange = filter => {
         this.setState({
             filter
         }, () => {
@@ -140,7 +140,7 @@ class DropdownSelect extends Component {
 
     };
 
-    selectAllClickHandler = () => {
+    handleSelectAllClick = () => {
 
         const {data} = this.props,
             {value} = this.state;
@@ -155,12 +155,12 @@ class DropdownSelect extends Component {
         this.setState({
             value: newValue
         }, () => {
-            this.changeHandler(newValue);
+            this.handleChange(newValue);
         });
 
     };
 
-    itemClickHandler = (...args) => {
+    handleItemClick = (...args) => {
 
         const {autoClose, onItemClick} = this.props;
 
@@ -172,7 +172,7 @@ class DropdownSelect extends Component {
 
     };
 
-    changeHandler = value => {
+    handleChange = value => {
 
         const {autoClose} = this.props;
         if (autoClose) {
@@ -192,7 +192,7 @@ class DropdownSelect extends Component {
 
     };
 
-    popupOpenHandler = e => {
+    handlePopupOpen = e => {
 
         const {isHiddenInputFilter, useFilter} = this.props;
 
@@ -211,7 +211,7 @@ class DropdownSelect extends Component {
 
     };
 
-    popupCloseHandler = e => {
+    handlePopupClose = e => {
 
         this.hiddenFilterEl && this.hiddenFilterEl.blur();
 
@@ -224,7 +224,7 @@ class DropdownSelect extends Component {
 
     };
 
-    hiddenFilterChangeHandle = e => {
+    handleHiddenFilterChange = e => {
 
         const {data, displayField, clearHiddenInputFilterInterval} = this.props;
 
@@ -353,7 +353,7 @@ class DropdownSelect extends Component {
                         <input ref={this.hiddenFilter}
                                className="hiddenFilter"
                                type="text"
-                               onChange={this.hiddenFilterChangeHandle}/>
+                               onChange={this.handleHiddenFilterChange}/>
                         :
                         null
                 }
@@ -368,8 +368,8 @@ class DropdownSelect extends Component {
                           popupTheme={popupTheme}
                           triggerValue={this.getTriggerValue()}
 
-                          onOpenPopup={this.popupOpenHandler}
-                          onClosePopup={this.popupCloseHandler}>
+                          onOpenPopup={this.handlePopupOpen}
+                          onClosePopup={this.handlePopupClose}>
 
                     <div className="dropdown-select-popup-fixed">
 
@@ -379,7 +379,7 @@ class DropdownSelect extends Component {
                                            className="dropdown-select-filter"
                                            value={filter}
                                            rightIconCls={filterIconCls}
-                                           onChange={this.filterChangeHandler}/>
+                                           onChange={this.handleFilterChange}/>
                                 :
                                 null
                         }
@@ -387,7 +387,7 @@ class DropdownSelect extends Component {
                         {
                             isMultiSelect && useSelectAll ?
                                 <div className="list-item dropdown-select-all-wrapper"
-                                     onClick={this.selectAllClickHandler}>
+                                     onClick={this.handleSelectAllClick}>
                                     <Checkbox className="list-item-select"
                                               checked={data && value && value.length === data.length}
                                               indeterminate={data && value && value.length > 0 && value.length < data.length}
@@ -451,8 +451,8 @@ class DropdownSelect extends Component {
                                                checkboxUncheckedIconCls={checkboxUncheckedIconCls}
                                                checkboxCheckedIconCls={checkboxCheckedIconCls}
                                                checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
-                                               onItemClick={this.itemClickHandler}
-                                               onChange={this.changeHandler}/>
+                                               onItemClick={this.handleItemClick}
+                                               onChange={this.handleChange}/>
                                     :
                                     useDynamicRenderList ?
                                         <DynamicRenderList className="dropdown-select-list"
@@ -473,8 +473,8 @@ class DropdownSelect extends Component {
                                                            checkboxUncheckedIconCls={checkboxUncheckedIconCls}
                                                            checkboxCheckedIconCls={checkboxCheckedIconCls}
                                                            checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
-                                                           onItemClick={this.itemClickHandler}
-                                                           onChange={this.changeHandler}/>
+                                                           onItemClick={this.handleItemClick}
+                                                           onChange={this.handleChange}/>
                                         :
                                         <List className="dropdown-select-list"
                                               theme={popupTheme}
@@ -491,8 +491,8 @@ class DropdownSelect extends Component {
                                               checkboxUncheckedIconCls={checkboxUncheckedIconCls}
                                               checkboxCheckedIconCls={checkboxCheckedIconCls}
                                               checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
-                                              onItemClick={this.itemClickHandler}
-                                              onChange={this.changeHandler}/>
+                                              onItemClick={this.handleItemClick}
+                                              onChange={this.handleChange}/>
                         }
 
                     </div>
