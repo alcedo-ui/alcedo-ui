@@ -10,13 +10,14 @@ import isArray from 'lodash/isArray';
 
 import DraggableGridItem from '../_DraggableGridItem';
 import Tip from '../Tip';
-import Theme from '../Theme';
 
+import Theme from '../Theme';
 import SelectMode from '../_statics/SelectMode';
 
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 import Calculation from '../_vendors/Calculation';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class DraggableGrid extends Component {
 
@@ -34,7 +35,7 @@ class DraggableGrid extends Component {
 
     }
 
-    listItemSelectHandler = (item, index) => {
+    handleListItemSelect = (item, index) => {
 
         const {selectMode} = this.props;
 
@@ -62,7 +63,7 @@ class DraggableGrid extends Component {
 
     };
 
-    listItemDeselectHandler = (item, index) => {
+    handleListItemDeselect = (item, index) => {
 
         const {selectMode} = this.props;
 
@@ -92,7 +93,7 @@ class DraggableGrid extends Component {
 
     };
 
-    onNodeDragEnd = result => {
+    handleNodeDragEnd = result => {
 
         /**
          *  result: {
@@ -122,33 +123,26 @@ class DraggableGrid extends Component {
         this.setState({
             data
         }, () => {
-            const {onNodeDragEnd, onSequenceChange} = this.props;
-            onNodeDragEnd && onNodeDragEnd(result);
+            const {handleNodeDragEnd, onSequenceChange} = this.props;
+            handleNodeDragEnd && handleNodeDragEnd(result);
             onSequenceChange && onSequenceChange(data);
         });
 
 
     };
 
-    componentWillReceiveProps(nextProps) {
-
-        let state;
-
-        if (nextProps.data !== this.state.data) {
-            state = state ? state : {};
-            state.data = nextProps.data;
-        }
-        if (nextProps.value !== this.state.value) {
-            state = state ? state : {};
-            state.value = Calculation.getInitValue(nextProps);
-        }
-
-        if (state) {
-            this.setState(state);
-        }
-
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            data: ComponentUtil.getDerivedState(props, state, 'data'),
+            value: Calculation.getInitValue({
+                value: ComponentUtil.getDerivedState(props, state, 'value'),
+                selectMode: props.selectMode
+            })
+        };
     }
 
+    /* eslint-disable complexity */
     renderGridItem = (item, index) => {
 
         if (!item) {
@@ -193,8 +187,8 @@ class DraggableGrid extends Component {
                                    onItemClick && onItemClick(item, index, e);
                                    item.onClick && item.onClick(e);
                                }}
-                               onSelect={() => this.listItemSelectHandler(item, index)}
-                               onDeselect={() => this.listItemDeselectHandler(item, index)}/>
+                               onSelect={() => this.handleListItemSelect(item, index)}
+                               onDeselect={() => this.handleListItemDeselect(item, index)}/>
             :
             <DraggableGridItem key={index}
                                index={index}
@@ -216,8 +210,8 @@ class DraggableGrid extends Component {
                                selectMode={selectMode}
                                renderer={renderer}
                                onClick={e => onItemClick && onItemClick(item, index, e)}
-                               onSelect={() => this.listItemSelectHandler(item, index)}
-                               onDeselect={() => this.listItemDeselectHandler(item, index)}/>;
+                               onSelect={() => this.handleListItemSelect(item, index)}
+                               onDeselect={() => this.handleListItemDeselect(item, index)}/>;
 
     };
 
@@ -235,7 +229,7 @@ class DraggableGrid extends Component {
 
         return (
             <DragDropContext onDragStart={onNodeDragStart}
-                             onDragEnd={this.onNodeDragEnd}>
+                             onDragEnd={this.handleNodeDragEnd}>
 
                 <Droppable droppableId="droppable"
                            direction="horizontal">
@@ -266,6 +260,8 @@ class DraggableGrid extends Component {
 }
 
 DraggableGrid.propTypes = {
+
+    children: PropTypes.any,
 
     /**
      * The CSS class name of the root element.
@@ -418,6 +414,7 @@ DraggableGrid.propTypes = {
     checkboxIndeterminateIconCls: PropTypes.string,
 
     col: PropTypes.number,
+    itemHeight: PropTypes.number,
 
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
@@ -450,7 +447,7 @@ DraggableGrid.propTypes = {
     onWheel: PropTypes.func,
 
     onNodeDragStart: PropTypes.func,
-    onNodeDragEnd: PropTypes.func,
+    handleNodeDragEnd: PropTypes.func,
 
     onSequenceChange: PropTypes.func
 
