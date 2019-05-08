@@ -16,7 +16,6 @@ import SelectMode from '../_statics/SelectMode';
 import HorizontalDirection from '../_statics/HorizontalDirection';
 
 import Util from '../_vendors/Util';
-import Event from '../_vendors/Event';
 import Calculation from '../_vendors/Calculation';
 import CascaderCalculation from '../_vendors/CascaderCalculation';
 import ComponentUtil from '../_vendors/ComponentUtil';
@@ -230,8 +229,7 @@ class CascaderList extends Component {
         return (
             <div className={wrapperClassName}
                  style={wrapperStyle}
-                 disabled={disabled}
-                 onWheel={e => Event.wheelHandler(e, this.props)}>
+                 disabled={disabled}>
 
                 <CascaderListItem expandDirection={expandDirection}
                                   activatedPath={activatedPath}
@@ -449,12 +447,7 @@ CascaderList.propTypes = {
     /**
      * Callback function fired when the tree changed.
      */
-    onChange: PropTypes.func,
-
-    /**
-     * Callback function fired when wrapper wheeled.
-     */
-    onWheel: PropTypes.func
+    onChange: PropTypes.func
 
 };
 
