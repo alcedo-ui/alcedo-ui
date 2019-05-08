@@ -15,7 +15,6 @@ import SelectMode from '../_statics/SelectMode';
 import LIST_SEPARATOR from '../_statics/ListSeparator';
 
 import Util from '../_vendors/Util';
-import Event from '../_vendors/Event';
 import Calculation from '../_vendors/Calculation';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
@@ -145,8 +144,7 @@ class DynamicRenderList extends Component {
             <div ref="dynamicRenderList"
                  className={listClassName}
                  style={{...style, height: listHeight}}
-                 onScroll={this.scrollHandler}
-                 onWheel={e => Event.wheelHandler(e, this.props)}>
+                 onScroll={this.scrollHandler}>
 
                 <div className="dynamic-render-list-scroller"
                      style={scrollerStyle}>
@@ -345,11 +343,6 @@ DynamicRenderList.propTypes = {
      * Callback function fired when the list changed.
      */
     onChange: PropTypes.func,
-
-    /**
-     * Callback function fired when wrapper wheeled.
-     */
-    onWheel: PropTypes.func,
 
     onRenderItemChange: PropTypes.func,
 
