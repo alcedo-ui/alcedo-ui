@@ -56,16 +56,14 @@ class FlatButton extends Component {
 
     render() {
 
-        const {className, ...restProps} = this.props,
-
-            buttonClassName = classNames('flat-button', {
-                [className]: className
-            });
+        const {className, ...restProps} = this.props;
 
         return (
             <BaseButton {...restProps}
                         ref={this.button}
-                        className={buttonClassName}/>
+                        className={classNames('flat-button', {
+                            [className]: className
+                        })}/>
         );
 
     }
