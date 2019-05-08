@@ -3,7 +3,7 @@
  * @author sunday(sunday.wei@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 import classNames from 'classnames';
@@ -13,12 +13,13 @@ import Popup from '../Popup';
 import List from '../List';
 import DynamicRenderList from '../DynamicRenderList';
 import GroupList from '../GroupList';
-import Theme from '../Theme';
 
+import Theme from '../Theme';
 import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class EditableSelect extends Component {
 
@@ -28,6 +29,11 @@ class EditableSelect extends Component {
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
+
+        this.wrapper = createRef();
+        this.wrapperEl = null;
+        this.trigger = createRef();
+        this.triggerEl = null;
 
         this.state = {
             value: props.value,
@@ -39,7 +45,7 @@ class EditableSelect extends Component {
 
     }
 
-    onChangeValue = value => {
+    handleChangeValue = value => {
         const {useFilter} = this.props;
         if (useFilter) {
             this.setState({
@@ -59,7 +65,6 @@ class EditableSelect extends Component {
                 onChange && onChange(value);
             });
         }
-
     };
 
     showPopup = () => {
@@ -106,7 +111,7 @@ class EditableSelect extends Component {
         }
 
         const {displayField, isGrouped} = this.props,
-            filterFunc = (originData) => {
+            filterFunc = originData => {
                 return originData.filter(item => typeof item === 'object' && !!item[displayField] ?
                     item[displayField].toString().toUpperCase().includes(filter.toUpperCase())
                     :
@@ -132,19 +137,17 @@ class EditableSelect extends Component {
 
     };
 
-    popupRenderHandle = popupEl => {
-
-        const isAbove = DropdownCalculation.isAbove(this.editabledSelectEl, this.triggerEl, findDOMNode(popupEl));
-
+    handlePopupRender = popupEl => {
+        const isAbove = DropdownCalculation.isAbove(this.wrapperEl, this.triggerEl, findDOMNode(popupEl));
         if (isAbove !== this.state.isAbove) {
             this.setState({
                 isAbove
             });
         }
-
     };
 
-    changeHandle = value => {
+    handleChange = value => {
+
         const {valueField, renderer} = this.props;
         let itemValue = renderer ? renderer(value) : (typeof value == 'object' ? value[valueField] : value);
         const {autoClose} = this.props,
@@ -165,16 +168,15 @@ class EditableSelect extends Component {
     };
 
     componentDidMount() {
-        this.editabledSelectEl = this.refs.editabledSelect;
-        this.triggerEl = findDOMNode(this.refs.trigger);
+        this.wrapperEl = this.wrapper && this.wrapper.current;
+        this.triggerEl = this.trigger && this.trigger.current && findDOMNode(this.trigger.current);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.props.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
     }
 
     render() {
@@ -189,25 +191,13 @@ class EditableSelect extends Component {
 
             isAboveFinally = position === Position.TOP || position === Position.TOP_LEFT
                 || position === Position.TOP_RIGHT || (!position && isAbove),
-
-            triggerClassName = classNames('editable-select-trigger', isAboveFinally ? 'above' : 'blow', {
-                activated: popupVisible,
-                empty: !value
-            }),
-
-            editableSelectPopupClassName = classNames('editable-select-popup', isAboveFinally ? 'above' : 'blow', {
-                [popupClassName]: popupClassName
-            }),
-
-            editablePopupStyle = Object.assign({
-                width: this.triggerEl && getComputedStyle(this.triggerEl).width
-            }, popupStyle),
-
             listData = this.filterData();
 
         return (
-            <div ref="editabledSelect"
-                 className={'editable-select' + (className ? ' ' + className : '')}
+            <div ref={this.wrapper}
+                 className={classNames('editable-select', {
+                     [className]: className
+                 })}
                  style={style}>
 
                 {
@@ -219,8 +209,11 @@ class EditableSelect extends Component {
                         null
                 }
 
-                <TextField ref="trigger"
-                           className={triggerClassName}
+                <TextField ref={this.trigger}
+                           className={classNames('editable-select-trigger', isAboveFinally ? 'above' : 'blow', {
+                               activated: popupVisible,
+                               empty: !value
+                           })}
                            value={value}
                            rightIconCls={`${rightIconCls} editable-select-trigger-icon`}
                            placeholder={placeholder}
@@ -228,12 +221,15 @@ class EditableSelect extends Component {
                            theme={triggerTheme}
                            onMouseOver={onMouseOver}
                            onMouseOut={onMouseOut}
-                           onChange={this.onChangeValue}
+                           onChange={this.handleChangeValue}
                            onFocus={this.showPopup}/>
 
-                <Popup ref="popup"
-                       className={editableSelectPopupClassName}
-                       style={editablePopupStyle}
+                <Popup className={classNames('editable-select-popup', isAboveFinally ? 'above' : 'blow', {
+                    [popupClassName]: popupClassName
+                })}
+                       style={Object.assign({
+                           width: this.triggerEl && getComputedStyle(this.triggerEl).width
+                       }, popupStyle)}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
                        triggerHandler={this.triggerHandler}
@@ -241,12 +237,11 @@ class EditableSelect extends Component {
                        hasTriangle={false}
                        position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        resetPositionWait={resetPopPositionWait}
-                       onRender={this.popupRenderHandle}
+                       onRender={this.handlePopupRender}
                        onRequestClose={this.closePopup}>
 
                     {
                         listData.length < 1 ?
-
                             <div className="no-matched">
                                 {
                                     noMatchedMsg ?
@@ -259,7 +254,6 @@ class EditableSelect extends Component {
                                 }
                             </div>
                             :
-
                             isGrouped ?
                                 <GroupList className="editable-select-list"
                                            data={listData}
@@ -271,30 +265,26 @@ class EditableSelect extends Component {
                                            onItemClick={this.onItemClick}
                                            onChange={this.changeHandler}/>
                                 :
-
-                                (
-                                    useDynamicRenderList ?
-                                        <DynamicRenderList className="editable-select-list"
-                                                           data={listData}
-                                                           value={listValue}
-                                                           valueField={valueField}
-                                                           displayField={valueField}
-                                                           descriptionField={descriptionField}
-                                                           renderer={renderer}
-                                                           onItemClick={onItemClick}
-                                                           onChange={this.changeHandle}/>
-                                        :
-                                        <List className="editable-select-list"
-                                              data={listData}
-                                              valueField={valueField}
-                                              value={listValue}
-                                              displayField={valueField}
-                                              descriptionField={descriptionField}
-                                              renderer={renderer}
-                                              onItemClick={onItemClick}
-                                              onChange={this.changeHandle}/>
-                                )
-
+                                useDynamicRenderList ?
+                                    <DynamicRenderList className="editable-select-list"
+                                                       data={listData}
+                                                       value={listValue}
+                                                       valueField={valueField}
+                                                       displayField={valueField}
+                                                       descriptionField={descriptionField}
+                                                       renderer={renderer}
+                                                       onItemClick={onItemClick}
+                                                       onChange={this.handleChange}/>
+                                    :
+                                    <List className="editable-select-list"
+                                          data={listData}
+                                          valueField={valueField}
+                                          value={listValue}
+                                          displayField={valueField}
+                                          descriptionField={descriptionField}
+                                          renderer={renderer}
+                                          onItemClick={onItemClick}
+                                          onChange={this.handleChange}/>
                     }
 
                 </Popup>
@@ -441,6 +431,8 @@ EditableSelect.propTypes = {
      */
     valueField: PropTypes.string,
 
+    displayField: PropTypes.string,
+
     /**
      * The description field name in data. (default: "desc")
      */
@@ -477,6 +469,9 @@ EditableSelect.propTypes = {
     isGrouped: PropTypes.bool,
 
     resetPopPositionWait: PropTypes.number,
+    noMatchedMsg: PropTypes.string,
+    useDynamicRenderList: PropTypes.bool,
+    parentEl: PropTypes.object,
 
     /**
      * Callback function fired when the button is touch-tapped.
@@ -489,7 +484,10 @@ EditableSelect.propTypes = {
     onChange: PropTypes.func,
 
     onMouseOver: PropTypes.func,
-    onMouseOut: PropTypes.func
+    onMouseOut: PropTypes.func,
+    onTriggerClick: PropTypes.func,
+    onFocus: PropTypes.func,
+    onPopupClosed: PropTypes.func
 
 };
 
