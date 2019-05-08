@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import isArray from 'lodash/isArray';
 import classNames from 'classnames';
@@ -28,6 +28,9 @@ class List extends Component {
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
+
+        this.list = createRef();
+        this.listEl = null;
 
         this.state = {
             value: Calculation.getInitValue(props)
@@ -62,7 +65,7 @@ class List extends Component {
 
     };
 
-    listItemSelectHandler = (item, index) => {
+    handleListItemSelect = (item, index) => {
 
         const {selectMode} = this.props,
             {value} = this.state,
@@ -91,7 +94,7 @@ class List extends Component {
 
     };
 
-    listItemDeselectHandler = (item, index) => {
+    handleListItemDeselect = (item, index) => {
 
         const {selectMode} = this.props;
 
@@ -142,7 +145,7 @@ class List extends Component {
     };
 
     componentDidMount() {
-        this.listEl = this.refs.list;
+        this.listEl = this.list && this.list.current;
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -164,12 +167,12 @@ class List extends Component {
         const {
 
                 theme, activatedTheme, itemHeight, idField, valueField, displayField, descriptionField, disabled,
-                itemDisabled, isLoading, renderer, autoSelect, disableTouchRipple, selectTheme, selectMode,
+                itemDisabled, isLoading, renderer, autoSelect, disableTouchRipple, selectTheme, selectMode, parentEl,
                 indeterminateCallback, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
-                onItemClick,
-                parentEl
+                onItemClick
+
 
             } = this.props,
             {value} = this.state;
@@ -204,8 +207,8 @@ class List extends Component {
                           onItemClick && onItemClick(item, index, e);
                           item.onClick && item.onClick(e);
                       }}
-                      onSelect={() => this.listItemSelectHandler(item, index)}
-                      onDeselect={() => this.listItemDeselectHandler(item, index)}/>
+                      onSelect={() => this.handleListItemSelect(item, index)}
+                      onDeselect={() => this.handleListItemDeselect(item, index)}/>
             :
             <ListItem key={index}
                       index={index}
@@ -231,8 +234,8 @@ class List extends Component {
                       disableTouchRipple={disableTouchRipple}
                       indeterminateCallback={indeterminateCallback}
                       onClick={e => onItemClick && onItemClick(item, index, e)}
-                      onSelect={() => this.listItemSelectHandler(item, index)}
-                      onDeselect={() => this.listItemDeselectHandler(item, index)}/>;
+                      onSelect={() => this.handleListItemSelect(item, index)}
+                      onDeselect={() => this.handleListItemDeselect(item, index)}/>;
 
     };
 
@@ -241,7 +244,7 @@ class List extends Component {
         const {children, className, style, data, disabled} = this.props;
 
         return (
-            <div ref="list"
+            <div ref={this.list}
                  className={classNames('list', {
                      [className]: className
                  })}
@@ -261,6 +264,7 @@ class List extends Component {
 
             </div>
         );
+
     }
 }
 
@@ -441,9 +445,8 @@ List.propTypes = {
      * Whether select when item clicked.
      */
     autoSelect: PropTypes.bool,
-
-    indeterminateCallback: PropTypes.func,
-
+    itemHeight: PropTypes.number,
+    parentEl: PropTypes.object,
     radioUncheckedIconCls: PropTypes.string,
     radioCheckedIconCls: PropTypes.string,
     checkboxUncheckedIconCls: PropTypes.string,
@@ -474,6 +477,8 @@ List.propTypes = {
      * Callback function fired when the list changed.
      */
     onChange: PropTypes.func,
+
+    indeterminateCallback: PropTypes.func
 
 };
 
