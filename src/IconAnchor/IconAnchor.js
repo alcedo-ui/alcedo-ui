@@ -3,15 +3,15 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import CircularLoading from '../CircularLoading/CircularLoading';
 import TouchRipple from '../TouchRipple/TouchRipple';
-import Theme from '../Theme';
 import TipProvider from '../TipProvider';
 
+import Theme from '../Theme';
 import Util from '../_vendors/Util';
 
 class IconAnchor extends Component {
@@ -19,21 +19,27 @@ class IconAnchor extends Component {
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
+
         super(props, ...restArgs);
+
+        this.touchRipple = createRef();
+
     }
 
     /**
      * public
      */
     startRipple = (e, props) => {
-        !this.props.disableTouchRipple && this.refs.touchRipple && this.refs.touchRipple.addRipple(e, props);
+        !this.props.disableTouchRipple && this.touchRipple && this.touchRipple.current
+        && this.touchRipple.current.addRipple(e, props);
     };
 
     /**
      * public
      */
     endRipple = () => {
-        !this.props.disableTouchRipple && this.refs.touchRipple && this.refs.touchRipple.removeRipple();
+        !this.props.disableTouchRipple && this.touchRipple && this.touchRipple.current
+        && this.touchRipple.current.removeRipple();
     };
 
     /**
@@ -46,7 +52,7 @@ class IconAnchor extends Component {
         }, 250);
     };
 
-    clickHandler = e => {
+    handleClick = e => {
         const {disabled, isLoading, onClick} = this.props;
         !disabled && !isLoading && onClick && onClick(e);
     };
@@ -54,54 +60,43 @@ class IconAnchor extends Component {
     render() {
 
         const {
-
-                className, theme, iconCls, disabled, isLoading,
-                tip, tipPosition, disableTouchRipple,
-                parentEl,
-
-                ...restProps
-
-            } = this.props,
-
-            iconAnchorClassName = classNames('icon-anchor', {
-                [`theme-${theme}`]: theme,
-                [className]: className
-            });
+            className, theme, iconCls, disabled, isLoading, tip, tipPosition, disableTouchRipple, parentEl,
+            ...restProps
+        } = this.props;
 
         return (
             <TipProvider tipContent={tip}
                          parentEl={parentEl}
                          position={tipPosition}>
-
                 <a {...restProps}
-                   className={iconAnchorClassName}
+                   className={classNames('icon-anchor', {
+                       [`theme-${theme}`]: theme,
+                       [className]: className
+                   })}
                    disabled={disabled || isLoading}
-                   onClick={this.clickHandler}>
+                   onClick={this.handleClick}>
 
                     {
                         isLoading ?
                             <CircularLoading size="small"/>
                             :
-                            (
-                                iconCls ?
-                                    <i className={`icon-anchor-icon ${iconCls}`}
-                                       aria-hidden="true"></i>
-                                    :
-                                    null
-                            )
+                            iconCls ?
+                                <i className={`icon-anchor-icon ${iconCls}`}
+                                   aria-hidden="true"></i>
+                                :
+                                null
                     }
 
                     {
                         disableTouchRipple ?
                             null
                             :
-                            <TouchRipple ref="touchRipple"
+                            <TouchRipple ref={this.touchRipple}
                                          className={disabled || isLoading ? 'hidden' : ''}
                                          displayCenter={true}/>
                     }
 
                 </a>
-
             </TipProvider>
         );
 
@@ -152,6 +147,7 @@ IconAnchor.propTypes = {
 
     alt: PropTypes.string,
     disableTouchRipple: PropTypes.bool,
+    parentEl: PropTypes.object,
 
     tip: PropTypes.string,
     tipPosition: PropTypes.oneOf(Util.enumerateValue(TipProvider.Position)),
