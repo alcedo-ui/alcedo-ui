@@ -1,5 +1,5 @@
 /**
- * @file TagField component
+ * @file DynamicRenderTagField component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
@@ -367,8 +367,7 @@ class DynamicRenderTagField extends Component {
                  className={fieldClassName}
                  style={style}
                  disabled={disabled}
-                 onScroll={this.scrollHandler}
-                 onWheel={e => Event.wheelHandler(e, this.props)}>
+                 onScroll={this.scrollHandler}>
 
                 <div className="dynamic-render-list-scroller"
                      style={scrollerStyle}>
@@ -457,12 +456,7 @@ DynamicRenderTagField.propTypes = {
     tagRemoveIconCls: PropTypes.string,
 
     onChange: PropTypes.func,
-    onInputChange: PropTypes.func,
-
-    /**
-     * Callback function fired when wrapper wheeled.
-     */
-    onWheel: PropTypes.func
+    onInputChange: PropTypes.func
 
 };
 
