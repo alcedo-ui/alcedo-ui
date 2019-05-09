@@ -76,18 +76,12 @@ class MaterialDropdownFilter extends Component {
                 className, style, theme, label, isLabelAnimate, popupClassName, required,
                 ...restProps
             } = this.props,
-            {value, filter} = this.state,
-
-            wrapperClassName = classNames('material-dropdown-filter', {
-                [className]: className
-            }),
-
-            filterClassName = classNames('material-dropdown-filter-popup', {
-                [popupClassName]: popupClassName
-            });
+            {value, filter} = this.state;
 
         return (
-            <MaterialProvider className={wrapperClassName}
+            <MaterialProvider className={classNames('material-dropdown-filter', {
+                [className]: className
+            })}
                               style={style}
                               theme={theme}
                               label={label}
@@ -96,7 +90,9 @@ class MaterialDropdownFilter extends Component {
                               required={required}>
                 <DropdownFilter {...restProps}
                                 ref={this.dropdownFilter}
-                                popupClassName={filterClassName}
+                                popupClassName={classNames('material-dropdown-filter-popup', {
+                                    [popupClassName]: popupClassName
+                                })}
                                 theme={theme}
                                 value={value}
                                 onFilterChange={this.handleTriggerFilterChange}
