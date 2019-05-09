@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -15,6 +15,7 @@ import SelectMode from '../_statics/SelectMode';
 import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class MaterialDropdownFilter extends Component {
 
@@ -26,6 +27,9 @@ class MaterialDropdownFilter extends Component {
 
         super(props, ...restArgs);
 
+        this.dropdownFilter = createRef();
+        this.dropdownFilterInstance = null;
+
         this.state = {
             value: props.value,
             filter: ''
@@ -33,7 +37,7 @@ class MaterialDropdownFilter extends Component {
 
     }
 
-    triggerFilterChangeHandler = filter => {
+    handleTriggerFilterChange = filter => {
         this.setState({
             filter
         }, () => {
@@ -42,7 +46,7 @@ class MaterialDropdownFilter extends Component {
         });
     };
 
-    triggerChangeHandler = value => {
+    handleTriggerChange = value => {
         this.setState({
             value
         }, () => {
@@ -52,15 +56,18 @@ class MaterialDropdownFilter extends Component {
     };
 
     closePopup = () => {
-        this.refs.dropdownFilter && this.refs.dropdownFilter.closePopup();
+        this.dropdownFilterInstance && this.dropdownFilterInstance.closePopup();
     };
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
+    componentDidMount() {
+        this.dropdownFilterInstance = this.dropdownFilter && this.dropdownFilter.current;
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
     }
 
     render() {
@@ -87,15 +94,13 @@ class MaterialDropdownFilter extends Component {
                               isLabelAnimate={isLabelAnimate}
                               hasValue={!!filter}
                               required={required}>
-
                 <DropdownFilter {...restProps}
-                                ref="dropdownFilter"
+                                ref={this.dropdownFilter}
                                 popupClassName={filterClassName}
                                 theme={theme}
                                 value={value}
-                                onFilterChange={this.triggerFilterChangeHandler}
-                                onChange={this.triggerChangeHandler}/>
-
+                                onFilterChange={this.handleTriggerFilterChange}
+                                onChange={this.handleTriggerChange}/>
             </MaterialProvider>
         );
 
@@ -218,6 +223,8 @@ MaterialDropdownFilter.propTypes = {
 
     ]).isRequired,
 
+    value: PropTypes.any,
+
     /**
      * If true, the auto complete will be disabled.
      */
@@ -279,9 +286,8 @@ MaterialDropdownFilter.propTypes = {
     isGrouped: PropTypes.bool,
 
     isLabelAnimate: PropTypes.bool,
-
+    required: PropTypes.bool,
     popupChildren: PropTypes.any,
-
     radioUncheckedIconCls: PropTypes.string,
     radioCheckedIconCls: PropTypes.string,
     checkboxUncheckedIconCls: PropTypes.string,
