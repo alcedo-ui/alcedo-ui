@@ -118,22 +118,16 @@ class MaterialEditableSelect extends Component {
                 className, style, theme, label, isLabelAnimated, popupClassName,
                 ...restProps
             } = this.props,
-            {isFocus, isHover, value} = this.state,
+            {isFocus, isHover, value} = this.state;
 
-            wrapperClassName = classNames('material-editable-select', {
+        return (
+            <div className={classNames('material-editable-select', {
                 animated: isLabelAnimated,
                 'has-label': label,
                 'has-value': value,
                 focused: isFocus,
                 [className]: className
-            }),
-
-            selectClassName = classNames('material-editable-select-popup', {
-                [popupClassName]: popupClassName
-            });
-
-        return (
-            <div className={wrapperClassName}
+            })}
                  style={style}>
 
                 {
@@ -147,7 +141,9 @@ class MaterialEditableSelect extends Component {
 
                 <EditableSelect {...restProps}
                                 ref="editableSelect"
-                                popupClassName={selectClassName}
+                                popupClassName={classNames('material-editable-select-popup', {
+                                    [popupClassName]: popupClassName
+                                })}
                                 theme={theme}
                                 value={value}
                                 onFocus={this.triggerFocusHandler}
@@ -353,6 +349,8 @@ MaterialEditableSelect.propTypes = {
      * If true,the drop-down box will be have group selection.
      */
     isGrouped: PropTypes.bool,
+
+    filterInitValue: PropTypes.string,
 
     /**
      * Callback function fired when the button is touch-tapped.
