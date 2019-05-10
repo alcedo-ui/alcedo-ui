@@ -58,7 +58,7 @@ class MaterialLocalAutoComplete extends Component {
     };
 
     componentDidMount() {
-        this.autoCompleteInstance = this.autoCompletethis.autoComplete && this.autoComplete.current;
+        this.autoCompleteInstance = this.autoComplete && this.autoComplete.current;
     }
 
     static getDerivedStateFromProps(props, state) {
