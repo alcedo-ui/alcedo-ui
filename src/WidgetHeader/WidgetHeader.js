@@ -15,14 +15,12 @@ class WidgetHeader extends Component {
 
     render() {
 
-        const {children, className, style, title} = this.props,
-
-            headerClassName = classNames('widget-header', {
-                [className]: className
-            });
+        const {children, className, style, title} = this.props;
 
         return (
-            <div className={headerClassName}
+            <div className={classNames('widget-header', {
+                [className]: className
+            })}
                  style={style}>
 
                 {title}
@@ -38,6 +36,8 @@ class WidgetHeader extends Component {
 }
 
 WidgetHeader.propTypes = {
+
+    children: PropTypes.any,
 
     className: PropTypes.string,
     style: PropTypes.object,
