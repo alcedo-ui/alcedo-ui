@@ -9,8 +9,8 @@ import classNames from 'classnames';
 
 import EditableSelect from '../EditableSelect';
 import MaterialFieldSeparator from '../_MaterialFieldSeparator';
-import Theme from '../Theme';
 
+import Theme from '../Theme';
 import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
