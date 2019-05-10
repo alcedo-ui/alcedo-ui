@@ -3,16 +3,17 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import BaseButton from '../_BaseButton';
 import TipProvider from '../TipProvider';
+
 import Theme from '../Theme';
+import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
-import Position from '../_statics/Position';
 
 class RaisedButton extends Component {
 
@@ -20,44 +21,49 @@ class RaisedButton extends Component {
     static TipPosition = Position;
 
     constructor(props, ...restArgs) {
+
         super(props, ...restArgs);
+
+        this.button = createRef();
+        this.buttonInstance = null;
+
     }
 
     /**
      * public
      */
     startRipple = (e, props) => {
-        this.refs.baseButton && this.refs.baseButton.startRipple(e, props);
+        this.buttonInstance && this.buttonInstance.startRipple(e, props);
     };
 
     /**
      * public
      */
     endRipple = () => {
-        this.refs.baseButton && this.refs.baseButton.endRipple();
+        this.buttonInstance && this.buttonInstance.endRipple();
     };
 
     /**
      * public
      */
     triggerRipple = (e, props) => {
-        this.refs.baseButton && this.refs.baseButton.triggerRipple(e, props);
+        this.buttonInstance && this.buttonInstance.triggerRipple(e, props);
     };
+
+    componentDidMount() {
+        this.buttonInstance = this.button && this.button.current;
+    }
 
     render() {
 
-        const {children, className, ...restProps} = this.props,
-
-            buttonClassName = classNames('raised-button', {
-                [className]: className
-            });
+        const {className, ...restProps} = this.props;
 
         return (
             <BaseButton {...restProps}
-                        ref="baseButton"
-                        className={buttonClassName}>
-                {children}
-            </BaseButton>
+                        ref={this.button}
+                        className={classNames('raised-button', {
+                            [className]: className
+                        })}/>
         );
 
     }
@@ -80,7 +86,7 @@ RaisedButton.propTypes = {
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
-    parentEl:PropTypes.object,
+    parentEl: PropTypes.object,
 
     /**
      * If true,the button will have rounded corners.
