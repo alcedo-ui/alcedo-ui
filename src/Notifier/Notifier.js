@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
@@ -26,6 +26,8 @@ class Notifier extends Component {
         super(props, ...restArgs);
 
         this.nextKey = 0;
+        this.pop = createRef();
+        this.popInstance = null;
 
         this.state = {
             visible: false,
@@ -38,6 +40,10 @@ class Notifier extends Component {
         return position !== Position.BOTTOM_LEFT && position !== Position.BOTTOM && position !== Position.BOTTOM_RIGHT;
     };
 
+    /**
+     * public
+     * @param notification
+     */
     addNotification = notification => {
 
         let notifications = this.state.notifications;
@@ -52,7 +58,7 @@ class Notifier extends Component {
             notifications,
             visible: true
         }, () => {
-            this.refs.notifier.resetPosition();
+            this.popInstance && this.popInstance.resetPosition();
         });
 
     };
@@ -74,12 +80,16 @@ class Notifier extends Component {
                 this.setState({
                     visible: false
                 }, () => {
-                    this.refs.notifier.resetPosition();
+                    this.popInstance && this.popInstance.resetPosition();
                 });
             }
         });
 
     };
+
+    componentDidMount() {
+        this.popInstance = this.pop && this.pop.current;
+    }
 
     componentWillReceiveProps(nextProps) {
 
@@ -106,7 +116,7 @@ class Notifier extends Component {
                 visible: true
             }, () => {
 
-                this.refs.notifier.resetPosition();
+                this.popInstance && this.popInstance.resetPosition();
 
                 const {onNotificationPop} = this.props;
                 onNotificationPop && onNotificationPop();
@@ -121,7 +131,7 @@ class Notifier extends Component {
 
         const {
 
-                className, position, duration,parentEl,
+                className, position, duration, parentEl,
 
                 // not passing down these props
                 onNotificationPop,
@@ -129,17 +139,15 @@ class Notifier extends Component {
                 ...restProps
 
             } = this.props,
-            {notifications, visible} = this.state,
-
-            notifierClassName = classNames('notifier', {
-                [`notifier-${position}`]: position,
-                [className]: className
-            });
+            {notifications, visible} = this.state;
 
         return (
             <PositionPop {...restProps}
-                         ref="notifier"
-                         className={notifierClassName}
+                         ref={this.pop}
+                         className={classNames('notifier', {
+                             [`notifier-${position}`]: position,
+                             [className]: className
+                         })}
                          visible={visible}
                          position={position}
                          parentEl={parentEl}>
