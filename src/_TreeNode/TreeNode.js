@@ -8,11 +8,11 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import CircularLoading from '../CircularLoading';
-import Theme from '../Theme';
 import IconButton from '../IconButton';
 import Radio from '../Radio';
 import Checkbox from '../Checkbox';
 
+import Theme from '../Theme';
 import SelectMode from '../_statics/SelectMode';
 import VirtualRoot from '../_statics/VirtualRoot';
 
@@ -50,7 +50,7 @@ class TreeNode extends Component {
 
     };
 
-    checkboxChangeHandler = e => {
+    handleCheckboxChange = e => {
 
         const {data, path, value, onSelect, onDeselect} = this.props;
 
@@ -62,12 +62,12 @@ class TreeNode extends Component {
 
     };
 
-    radioChangeHandler = e => {
+    handleRadioChange = e => {
         const {data, path, onSelect} = this.props;
         onSelect && onSelect(data, path, e);
     };
 
-    clickHandler = e => {
+    handleClick = e => {
 
         const {data, path, disabled, isLoading, readOnly} = this.props;
 
@@ -82,10 +82,10 @@ class TreeNode extends Component {
 
         switch (selectMode) {
             case SelectMode.MULTI_SELECT:
-                this.checkboxChangeHandler(e);
+                this.handleCheckboxChange(e);
                 return;
             case SelectMode.SINGLE_SELECT:
-                this.radioChangeHandler(e);
+                this.handleRadioChange(e);
                 return;
         }
 
@@ -95,14 +95,12 @@ class TreeNode extends Component {
 
         const {depth, path, data} = this.props,
             {collapsed} = this.state,
-            isVirtual = VirtualRoot in data,
-
-            childrenClassName = classNames('tree-node-children', {
-                collapsed
-            });
+            isVirtual = VirtualRoot in data;
 
         return data.children && data.children.length > 0 ?
-            <div className={childrenClassName}>
+            <div className={classNames('tree-node-children', {
+                collapsed
+            })}>
                 {
                     data.children.map((item, index) =>
                         <TreeNode {...this.props}
@@ -124,6 +122,7 @@ class TreeNode extends Component {
 
     };
 
+    /* eslint-disable complexity */
     render() {
 
         const {data} = this.props;
@@ -155,15 +154,6 @@ class TreeNode extends Component {
             isNodeMatched = !filter || (data && displayField in data
                 && data[displayField].toString().toUpperCase().includes(filter.toUpperCase())),
 
-            nodeClassName = classNames('tree-node', {
-                [`theme-${theme}`]: theme,
-                [data.className]: data.className
-            }),
-            nodeStyle = {
-                ...data.style,
-                paddingLeft: (depth + 1) * 20
-            },
-
             loadingIconPosition = (data.rightIconCls && !data.iconCls) ? 'right' : 'left';
 
         return (
@@ -171,12 +161,18 @@ class TreeNode extends Component {
 
                 {
                     isNodeMatched ?
-                        <div className={nodeClassName}
-                             style={nodeStyle}
+                        <div className={classNames('tree-node', {
+                            [`theme-${theme}`]: theme,
+                            [data.className]: data.className
+                        })}
+                             style={{
+                                 ...data.style,
+                                 paddingLeft: (depth + 1) * 20
+                             }}
                              title={data.title}
                              disabled={isNodeDisabled}
                              readOnly={readOnly}
-                             onClick={this.clickHandler}
+                             onClick={this.handleClick}
                              onMouseEnter={onMouseEnter}
                              onMouseLeave={onMouseLeave}>
 
