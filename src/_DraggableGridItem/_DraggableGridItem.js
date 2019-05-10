@@ -88,12 +88,6 @@ class DraggableGridItem extends Component {
 
             } = this.props,
 
-            listItemClassName = classNames('draggable-grid-item', {
-                [`theme-${theme}`]: theme,
-                activated: checked,
-                [className]: className
-            }),
-
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
@@ -113,7 +107,11 @@ class DraggableGridItem extends Component {
 
                                     <TipProvider tipContent={tip}
                                                  position={tipPosition}>
-                                        <div className={listItemClassName}
+                                        <div className={classNames('draggable-grid-item', {
+                                            [`theme-${theme}`]: theme,
+                                            activated: checked,
+                                            [className]: className
+                                        })}
                                              style={style}
                                              disabled={disabled || isLoading}
                                              readOnly={readOnly}
