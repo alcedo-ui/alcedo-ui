@@ -77,7 +77,7 @@ class TimeItems extends Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.value !== this.props.value) {
-            this.scrollTo(this.wrapperEl, +(nextProps.value) * 30, 200);
+            this.scrollTo(this.wrapperEl, +(this.props.value) * 30, 200);
         }
     }
 
@@ -90,7 +90,6 @@ class TimeItems extends Component {
 
         const {className, style, data, value} = this.props,
             {width} = style,
-
             liStyle = {};
 
         if (width == '100%') {
