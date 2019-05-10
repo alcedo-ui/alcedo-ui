@@ -12,11 +12,12 @@ import Radio from '../Radio';
 import CircularLoading from '../CircularLoading';
 import TipProvider from '../TipProvider';
 import TouchRipple from '../TouchRipple';
-import Theme from '../Theme';
 
-import Util from '../_vendors/Util';
+import Theme from '../Theme';
 import Position from '../_statics/Position';
 import SelectMode from '../_statics/SelectMode';
+
+import Util from '../_vendors/Util';
 
 class ListItem extends Component {
 
@@ -102,15 +103,6 @@ class ListItem extends Component {
             } = this.props,
 
             indeterminated = indeterminateCallback && indeterminateCallback(data) || false,
-
-            listItemClassName = classNames('list-item', {
-                [`theme-${theme}`]: !checked && theme,
-                [`theme-${activatedTheme}`]: checked && activatedTheme,
-                activated: checked,
-                indeterminated,
-                [className]: className
-            }),
-
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
@@ -118,7 +110,13 @@ class ListItem extends Component {
                          parentEl={parentEl}
                          position={tipPosition}>
 
-                <div className={listItemClassName}
+                <div className={classNames('list-item', {
+                    [`theme-${theme}`]: !checked && theme,
+                    [`theme-${activatedTheme}`]: checked && activatedTheme,
+                    activated: checked,
+                    indeterminated,
+                    [className]: className
+                })}
                      style={style}
                      disabled={disabled || isLoading}
                      readOnly={readOnly}
