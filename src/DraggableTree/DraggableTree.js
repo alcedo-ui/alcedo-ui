@@ -111,7 +111,7 @@ class DraggableTree extends Component {
 
     };
 
-    treeNodeSelectHandler = (node, path, e) => {
+    handleTreeNodeSelect = (node, path, e) => {
 
         if (!node) {
             return;
@@ -147,7 +147,7 @@ class DraggableTree extends Component {
 
     };
 
-    treeNodeDeselectHandler = (nodeData, path, e) => {
+    handleTreeNodeDeselect = (nodeData, path, e) => {
 
         const {selectMode} = this.props;
 
@@ -182,7 +182,7 @@ class DraggableTree extends Component {
 
     };
 
-    nodeToggleStartHandler = () => {
+    handleNodeToggleStart = () => {
 
         const {beforeNodeToggle} = this.props;
 
@@ -196,7 +196,7 @@ class DraggableTree extends Component {
 
     };
 
-    nodeToggleEndHandler = () => {
+    handleNodeToggleEnd = () => {
         this.setState({
             isNodeToggling: false
         });
@@ -277,17 +277,15 @@ class DraggableTree extends Component {
                 idField, valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
                 renderer, onNodeClick
             } = this.props,
-            {data, value, isNodeToggling} = this.state,
-
-            treeClassName = classNames('draggable-tree', {
-                [className]: className
-            });
+            {data, value, isNodeToggling} = this.state;
 
         return (
             <DragDropContext onDragStart={this.onNodeDragStart}
                              onDragEnd={this.onNodeDragEnd}>
 
-                <div className={treeClassName}
+                <div className={classNames('draggable-tree', {
+                    [className]: className
+                })}
                      disabled={disabled}
                      style={style}>
 
@@ -314,10 +312,10 @@ class DraggableTree extends Component {
                                        checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
                                        isNodeToggling={isNodeToggling}
                                        onClick={(...args) => onNodeClick && onNodeClick(...args)}
-                                       onNodeToggleStart={this.nodeToggleStartHandler}
-                                       onNodeToggleEnd={this.nodeToggleEndHandler}
-                                       onSelect={this.treeNodeSelectHandler}
-                                       onDeselect={this.treeNodeDeselectHandler}/>
+                                       onNodeToggleStart={this.handleNodeToggleStart}
+                                       onNodeToggleEnd={this.handleNodeToggleEnd}
+                                       onSelect={this.handleTreeNodeSelect}
+                                       onDeselect={this.handleTreeNodeDeselect}/>
 
                     {children}
 
