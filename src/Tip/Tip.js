@@ -25,25 +25,22 @@ class Tip extends Component {
     render() {
 
         const {
-                className, contentClassName,
-                parentEl,
-                ...restProps
-            } = this.props,
-
-            tipClassName = classNames('tip', {
-                [className]: className
-            }),
-
-            tipContentClassName = classNames('tip-content', {
-                [contentClassName]: contentClassName
-            });
+            className, contentClassName,
+            parentEl,
+            ...restProps
+        } = this.props;
 
         return (
             <TriggerPop {...restProps}
                         parentEl={parentEl}
-                        className={tipClassName}
-                        contentClassName={tipContentClassName}/>
+                        className={classNames('tip', {
+                            [className]: className
+                        })}
+                        contentClassName={classNames('tip-content', {
+                            [contentClassName]: contentClassName
+                        })}/>
         );
+
     }
 
 }
