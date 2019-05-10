@@ -15,7 +15,6 @@ class PageLoading extends Component {
         super(props, ...restArgs);
 
         this.progressTimeout = null;
-
         this.defaultHighlightStyle = {
             width: 0,
             transition: 'width 0s'
@@ -84,7 +83,6 @@ class PageLoading extends Component {
                            classNames="page-loading"
                            onEnter={this.handleEnter}
                            onExit={this.handleExit}>
-
                 <div className={classNames('page-loading', {
                     striped: showStripes,
                     [className]: className
@@ -93,7 +91,6 @@ class PageLoading extends Component {
                     <div className="page-loading-bar"
                          style={highlightStyle}></div>
                 </div>
-
             </CSSTransition>
         );
 
