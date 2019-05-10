@@ -15,13 +15,11 @@ class TableHeaderSortIcon extends Component {
 
     render() {
 
-        const {sort, sortProp, sortAscIconCls, sortDescIconCls} = this.props,
-
-            className = classNames('table-header-sort-icon-wrapper',
-                sort && sort.prop === sortProp ? (sort.type > 0 ? ' asc' : ' desc') : '');
+        const {sort, sortProp, sortAscIconCls, sortDescIconCls} = this.props;
 
         return (
-            <div className={className}>
+            <div className={classNames('table-header-sort-icon-wrapper',
+                sort && sort.prop === sortProp ? (sort.type > 0 ? ' asc' : ' desc') : '')}>
                 <i className={`table-header-sort-icon ${sortAscIconCls} up`}
                    aria-hidden="true"></i>
                 <i className={`table-header-sort-icon ${sortDescIconCls} down`}
