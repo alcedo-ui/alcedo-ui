@@ -25,9 +25,6 @@ class Percent extends Component {
 
     }
 
-    /**
-     * 百分比数字递增
-     */
     numberChange = () => {
         if (this.state.percent < 100) {
             if (this.state.percent < this.props.endNum) {
@@ -53,25 +50,18 @@ class Percent extends Component {
     render() {
 
         const {className, style, move, endNum, status, showIcon, successIcon, failureIcon} = this.props,
-            {percent} = this.state,
-
-            wrapperClassName = classNames('circular-progress-percent', {
-                [className]: className,
-                [status]: status
-            }),
-
-            wrapperStyle = move === true ?
-                {
-                    width: endNum + '%',
-                    textAlign: 'right',
-                    ...style
-                }
-                :
-                {...style};
+            {percent} = this.state;
 
         return (
-            <div className={wrapperClassName}
-                 style={wrapperStyle}>
+            <div className={classNames('circular-progress-percent', {
+                [className]: className,
+                [status]: status
+            })}
+                 style={move === true ? {
+                     width: endNum + '%',
+                     textAlign: 'right',
+                     ...style
+                 } : style}>
 
                 {React.Children.map(this.props.children, child => <span>{child}</span>)}
 
@@ -104,6 +94,8 @@ class Percent extends Component {
 
 Percent.propTypes = {
 
+    children: PropTypes.any,
+
     className: PropTypes.string,
     style: PropTypes.object,
 
@@ -113,7 +105,11 @@ Percent.propTypes = {
     status: PropTypes.oneOf(Object.keys(Percent.Status).map(key => Percent.Status[key])),
 
     endNum: PropTypes.number,
-    move: PropTypes.bool
+    move: PropTypes.bool,
+
+    showIcon: PropTypes.string,
+    successIcon: PropTypes.string,
+    failureIcon: PropTypes.string
 
 };
 
