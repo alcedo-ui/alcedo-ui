@@ -9,6 +9,7 @@ import classNames from 'classnames';
 
 import PaggingSize from '../_PaggingSize';
 import PaggingPage from '../_PaggingPage';
+
 import Valid from '../_vendors/Valid';
 
 class Pagging extends Component {
@@ -17,7 +18,7 @@ class Pagging extends Component {
         super(props, ...restArgs);
     }
 
-    pageChangedHandle = page => {
+    handlePageChanged = page => {
 
         const {pageSize, onChange} = this.props;
 
@@ -28,7 +29,7 @@ class Pagging extends Component {
 
     };
 
-    pageSizeChangedHandle = pageSize => {
+    handlePageSizeChanged = pageSize => {
 
         const {total, pageSizeValueField, onChange} = this.props,
             originPageSizeValue = typeof this.props.pageSize === 'object' ?
@@ -58,15 +59,12 @@ class Pagging extends Component {
                 paggingPrevIconCls, paggingNextIconCls, paggingFirstIconCls, paggingLastIconCls,
                 paggingCountRenderer, parentEl
             } = this.props,
-
-            totalPage = Math.ceil(total / pageSize),
-
-            paggingClassNames = classNames('pagging', {
-                [className]: className
-            });
+            totalPage = Math.ceil(total / pageSize);
 
         return (
-            <div className={paggingClassNames}
+            <div className={classNames('pagging', {
+                [className]: className
+            })}
                  style={style}>
 
                 <div className="pagging-left">
@@ -101,7 +99,7 @@ class Pagging extends Component {
                                          displayField={pageSizeDisplayField}
                                          parentEl={parentEl}
                                          rightIconCls={pageSizeRightIconCls}
-                                         onPageSizeChange={this.pageSizeChangedHandle}/>
+                                         onPageSizeChange={this.handlePageSizeChanged}/>
                             :
                             null
                     }
@@ -112,7 +110,7 @@ class Pagging extends Component {
                                  paggingNextIconCls={paggingNextIconCls}
                                  paggingFirstIconCls={paggingFirstIconCls}
                                  paggingLastIconCls={paggingLastIconCls}
-                                 onPageChange={this.pageChangedHandle}/>
+                                 onPageChange={this.handlePageChanged}/>
 
                 </div>
 
@@ -205,6 +203,7 @@ Pagging.propTypes = {
     paggingLastIconCls: PropTypes.string,
 
     paggingCountRenderer: PropTypes.func,
+    parentEl: PropTypes.object,
 
     /**
      * Callback function fired when Pagging component change.
