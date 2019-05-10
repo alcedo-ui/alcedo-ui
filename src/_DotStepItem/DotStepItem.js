@@ -13,24 +13,22 @@ class DotStepItem extends Component {
         super(props, ...restArgs);
     }
 
-    clickHandler = () => {
+    handleClick = () => {
         const {activatedStep, finishedStep, index, onClick} = this.props;
         activatedStep !== index && finishedStep >= index && onClick(index);
     };
 
     render() {
 
-        const {className, style, activatedStep, finishedStep, index} = this.props,
-
-            itemClassName = classNames('dot-step-item',
-                activatedStep === index ? 'activated' : (finishedStep >= index ? 'finished' : ''), {
-                    [className]: className
-                });
+        const {className, style, activatedStep, finishedStep, index} = this.props;
 
         return (
-            <div className={itemClassName}
+            <div className={classNames('dot-step-item',
+                activatedStep === index ? 'activated' : (finishedStep >= index ? 'finished' : ''), {
+                    [className]: className
+                })}
                  style={style}
-                 onClick={this.clickHandler}></div>
+                 onClick={this.handleClick}></div>
         );
 
     }
