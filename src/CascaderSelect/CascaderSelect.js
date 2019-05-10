@@ -9,9 +9,9 @@ import classNames from 'classnames';
 
 import Dropdown from '../Dropdown';
 import CascaderList from '../CascaderList';
-import Theme from '../Theme';
 import Tip from '../Tip';
 
+import Theme from '../Theme';
 import SelectMode from '../_statics/SelectMode';
 import HorizontalDirection from '../_statics/HorizontalDirection';
 import Position from '../_statics/Position';
