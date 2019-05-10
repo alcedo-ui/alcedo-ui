@@ -3,20 +3,20 @@
  * @author sunday(sunday.wei@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
+import {findDOMNode} from 'react-dom';
 import moment from 'moment';
 import classNames from 'classnames';
 
 import MaterialDatePickerTextField from '../_MaterialDatePickerTextField';
 import TimeList from '../_TimeList';
 import Popup from '../Popup';
-import Theme from '../Theme';
 
+import Theme from '../Theme';
 import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
-import {findDOMNode} from 'react-dom';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
 
 class MaterialTimePicker extends Component {
@@ -29,6 +29,8 @@ class MaterialTimePicker extends Component {
         super(props, ...restArgs);
 
         this.validValue = true;
+        this.trigger = createRef();
+        this.triggerEl = null;
 
         this.state = {
             textFieldValue: props.value,
@@ -41,18 +43,18 @@ class MaterialTimePicker extends Component {
 
     }
 
-    rangeData = range => {
-        let arr = [];
-        for (let i = 0; i < range; i++) {
-            if (i < 10) {
-                i = '0' + i;
-            }
-            arr.push({text: i, value: true});
-        }
-        return arr;
-    };
+    // rangeData = range => {
+    //     let arr = [];
+    //     for (let i = 0; i < range; i++) {
+    //         if (i < 10) {
+    //             i = '0' + i;
+    //         }
+    //         arr.push({text: i, value: true});
+    //     }
+    //     return arr;
+    // };
 
-    textFieldChangeHandle = text => {
+    handleTextFieldChange = text => {
         if (text && text.length) {
             let validDate = '1970-01-01 ' + text;
             let validFormat = 'YYYY-MM-DD ' + this.props.dateFormat;
@@ -67,7 +69,8 @@ class MaterialTimePicker extends Component {
                     minute: minute,
                     second: second
                 }, () => {
-                    this.props.onChange && this.props.onChange(text);
+                    const {onChange} = this.props;
+                    onChange && onChange(text);
                 });
             }
         } else {
@@ -77,7 +80,7 @@ class MaterialTimePicker extends Component {
         }
     };
 
-    timePickerChangeHandle = obj => {
+    handleTimePickerChange = obj => {
         let timer = obj.hour + ':' + obj.minute + ':' + obj.second;
         let validDate = '1970-01-01 ' + timer;
         timer = moment(validDate).format(this.props.dateFormat);
@@ -105,7 +108,7 @@ class MaterialTimePicker extends Component {
         });
     };
 
-    popupRenderHandler = popupEl => {
+    handlePopupRender = popupEl => {
 
         if (this.props.position) {
             return;
@@ -121,6 +124,9 @@ class MaterialTimePicker extends Component {
     };
 
     componentDidMount() {
+
+        this.triggerEl = this.trigger && this.trigger.current && findDOMNode(this.trigger.current);
+
         const {value} = this.props;
         let dateFormatValue = '2000-02-01 ' + value;
         if (value) {
@@ -137,7 +143,6 @@ class MaterialTimePicker extends Component {
             }
         }
 
-        this.triggerEl = findDOMNode(this.refs.trigger);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -156,17 +161,15 @@ class MaterialTimePicker extends Component {
                 className, style, name, placeholder, maxValue, minValue, dateFormat, label, isLabelAnimate, position,
                 theme, popupClassName, rightIconCls, readOnly, disabled, parentEl
             } = this.props,
-            {popupVisible, textFieldValue, hour, minute, second, isAbove} = this.state,
-
-            pickerClassName = classNames('material-time-picker', {
-                [className]: className
-            });
+            {popupVisible, textFieldValue, hour, minute, second, isAbove} = this.state;
 
         return (
-            <div className={pickerClassName}
+            <div className={classNames('material-time-picker', {
+                [className]: className
+            })}
                  style={style}>
 
-                <MaterialDatePickerTextField ref="trigger"
+                <MaterialDatePickerTextField ref={this.trigger}
                                              className="time-picker-field"
                                              name={name}
                                              label={label}
@@ -180,10 +183,8 @@ class MaterialTimePicker extends Component {
                                              disabled={disabled}
                                              popupVisible={popupVisible}
                                              rightIconCls={rightIconCls}
-                                             onChange={this.textFieldChangeHandle}
-                                             onClick={e => {
-                                                 this.togglePopup(e);
-                                             }}/>
+                                             onChange={this.handleTextFieldChange}
+                                             onClick={e => this.togglePopup(e)}/>
 
                 <Popup className={`material-time-picker-popup ${popupClassName}`}
                        visible={popupVisible}
@@ -191,7 +192,7 @@ class MaterialTimePicker extends Component {
                        parentEl={parentEl}
                        position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        hasTriangle={false}
-                       onRender={this.popupRenderHandler}
+                       onRender={this.handlePopupRender}
                        onRequestClose={this.closePopup}>
                     <TimeList hour={hour}
                               minute={minute}
@@ -201,7 +202,7 @@ class MaterialTimePicker extends Component {
                               isRequired={true}
                               dateFormat={dateFormat}
                               popupVisible={popupVisible}
-                              onChange={this.timePickerChangeHandle}/>
+                              onChange={this.handleTimePickerChange}/>
                 </Popup>
             </div>
         );
@@ -224,6 +225,8 @@ MaterialTimePicker.propTypes = {
      * Override the styles of the root element.
      */
     style: PropTypes.object,
+
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
      * MaterialTimePicker input name.
@@ -272,7 +275,13 @@ MaterialTimePicker.propTypes = {
     /**
      * Time format.
      */
-    dateFormat: PropTypes.string
+    dateFormat: PropTypes.string,
+
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
+    rightIconCls: PropTypes.string,
+    parentEl: PropTypes.object,
+
+    onChange: PropTypes.func
 
 };
 
