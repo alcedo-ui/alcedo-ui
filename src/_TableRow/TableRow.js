@@ -85,18 +85,19 @@ class TableRow extends Component {
 
     };
 
-    rowClickHandler = e => {
+    handleRowClick = e => {
         const {data, rowIndex, disabled, onRowClick} = this.props;
         !disabled && onRowClick && onRowClick(data, rowIndex, e);
     };
 
-    cellClickHandler = (e, colIndex) => {
+    handleCellClick = (e, colIndex) => {
         const {data, rowIndex, disabled, onCellClick} = this.props;
         !disabled && onCellClick && onCellClick(data, rowIndex, colIndex, e);
 
     };
 
-    toggleExpandHandler = (colIndex, col, e) => {
+    handleToggleExpand = (colIndex, col, e) => {
+
         const {data, isExpanded, onExpand, onCollapse} = this.props;
 
         e.stopPropagation();
@@ -110,25 +111,23 @@ class TableRow extends Component {
         } else {
             onExpand && onExpand(colIndex);
         }
+
     };
 
     render() {
 
         const {data, className, isChecked, disabled, isExpanded, expandedIconCls, isLoadingRow} = this.props,
+            columns = this.calColumns();
 
-            columns = this.calColumns(),
-
-            trClassName = classNames('table-row', {
+        return (
+            <tr className={classNames('table-row', {
                 [className]: className,
                 activated: isChecked,
                 [data.rowClassName]: data.rowClassName
-            });
-
-        return (
-            <tr className={trClassName}
+            })}
                 style={data.rowStyle}
                 disabled={disabled}
-                onClick={this.rowClickHandler}>
+                onClick={this.handleRowClick}>
                 {
                     isLoadingRow ?
                         columns && columns.map(({col, span}, colIndex) =>
@@ -146,12 +145,12 @@ class TableRow extends Component {
                                 })}
                                 style={col.cellStyle}
                                 colSpan={span}
-                                onClick={e => this.cellClickHandler(e, colIndex, col)}>
+                                onClick={e => this.handleCellClick(e, colIndex, col)}>
                                 {col.collapseAble && data[col.childrenNumKey] > 0 &&
                                 <i className={classNames('collapsed-icon', {
                                     [expandedIconCls]: expandedIconCls,
                                     ['expanded-icon']: isExpanded
-                                })} onClick={(e) => this.toggleExpandHandler(colIndex, col, e)}/>}
+                                })} onClick={(e) => this.handleToggleExpand(colIndex, col, e)}/>}
                                 {this.contentRenderer(col.renderer, colIndex)}
                             </td>
                         )
@@ -172,9 +171,12 @@ TableRow.propTypes = {
     isLoadingRow: PropTypes.bool,
     expandedIconCls: PropTypes.string,
     className: PropTypes.string,
+    isExpanded: PropTypes.bool,
 
     onRowClick: PropTypes.func,
-    onCellClick: PropTypes.func
+    onCellClick: PropTypes.func,
+    onExpand: PropTypes.func,
+    onCollapse: PropTypes.func
 
 };
 
