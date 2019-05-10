@@ -22,7 +22,7 @@ class ListStep extends Component {
 
     }
 
-    clickHandler = activatedStep => {
+    handleClick = activatedStep => {
 
         const {onChange} = this.props;
 
@@ -50,14 +50,12 @@ class ListStep extends Component {
     render() {
 
         const {className, style, steps} = this.props,
-            {activatedStep, finishedStep} = this.state,
-
-            stepClassName = classNames('list-step', {
-                [className]: className
-            });
+            {activatedStep, finishedStep} = this.state;
 
         return (
-            <div className={stepClassName}
+            <div className={classNames('list-step', {
+                [className]: className
+            })}
                  style={style}>
                 {
                     steps && steps.map((item, index) =>
@@ -71,7 +69,7 @@ class ListStep extends Component {
                                       activatedStep={activatedStep}
                                       finishedStep={finishedStep}
                                       data={item}
-                                      onClick={this.clickHandler}/>
+                                      onClick={this.handleClick}/>
                     )
                 }
             </div>

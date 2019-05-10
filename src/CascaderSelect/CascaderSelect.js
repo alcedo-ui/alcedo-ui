@@ -9,9 +9,9 @@ import classNames from 'classnames';
 
 import Dropdown from '../Dropdown';
 import CascaderList from '../CascaderList';
-import Theme from '../Theme';
 import Tip from '../Tip';
 
+import Theme from '../Theme';
 import SelectMode from '../_statics/SelectMode';
 import HorizontalDirection from '../_statics/HorizontalDirection';
 import Position from '../_statics/Position';
@@ -202,23 +202,12 @@ class CascaderSelect extends Component {
                 ...restProps
 
             } = this.props,
-            {value, popupVisible} = this.state,
-
-            wrapperClassName = classNames('cascader-select', {
-                [className]: className
-            }),
-
-            selectTriggerClassName = classNames({
-                activated: popupVisible,
-                empty: !triggerRenderer && !value,
-                [triggerClassName]: triggerClassName
-            }),
-            selectPopupClassName = classNames('cascader-select-popup', {
-                [popupClassName]: popupClassName
-            });
+            {value, popupVisible} = this.state;
 
         return (
-            <div className={wrapperClassName}
+            <div className={classNames('cascader-select', {
+                [className]: className
+            })}
                  style={style}>
 
                 {
@@ -232,8 +221,14 @@ class CascaderSelect extends Component {
 
                 <Dropdown {...restProps}
                           ref={this.dropdown}
-                          triggerClassName={selectTriggerClassName}
-                          popupClassName={selectPopupClassName}
+                          triggerClassName={classNames({
+                              activated: popupVisible,
+                              empty: !triggerRenderer && !value,
+                              [triggerClassName]: triggerClassName
+                          })}
+                          popupClassName={classNames('cascader-select-popup', {
+                              [popupClassName]: popupClassName
+                          })}
                           popupTheme={popupTheme}
                           autoPopupWidth={false}
                           triggerValue={this.getTriggerValue()}

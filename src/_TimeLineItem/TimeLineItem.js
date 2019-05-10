@@ -20,42 +20,38 @@ class TimeLineItem extends Component {
 
     render() {
 
-        const {className, date, theme, type, headerText, contentText, hasBorder, style} = this.props,
-
-            itemClassName = classNames('time-line-item', {
-                [className]: className
-            });
+        const {className, date, theme, type, headerText, contentText, hasBorder, style} = this.props;
 
         return (
 
-            <li className={itemClassName}
+            <li className={classNames('time-line-item', {
+                [className]: className
+            })}
                 style={style}>
-
                 {
                     type && type == 'header' ?
-                        <div className={`time-line-item-header`}>{headerText}</div>
+                        <div className="time-line-item-header">
+                            {headerText}
+                        </div>
                         :
-                        (
-                            type && type == 'title' ?
-                                <div className={`time-line-item-title time-line-item-title-${theme}`}>
-                                    <span className="tl-date">{date}</span>
-                                    {
-                                        hasBorder
-                                            ?
-                                            <div className={`tl-content panel panel-${theme}`}>
-                                                <span className={`triangle triangle-${theme}`}> </span>
-                                                <span className={`tag tag-${theme}`}> </span>
-                                                <div>{contentText}</div>
-                                            </div>
-                                            :
-                                            <div className="tl-content">{contentText}</div>
-                                    }
-                                </div>
-                                :
-                                null
-                        )
+                        type && type == 'title' ?
+                            <div className={`time-line-item-title time-line-item-title-${theme}`}>
+                                <span className="tl-date">{date}</span>
+                                {
+                                    hasBorder
+                                        ?
+                                        <div className={`tl-content panel panel-${theme}`}>
+                                            <span className={`triangle triangle-${theme}`}></span>
+                                            <span className={`tag tag-${theme}`}></span>
+                                            <div>{contentText}</div>
+                                        </div>
+                                        :
+                                        <div className="tl-content">{contentText}</div>
+                                }
+                            </div>
+                            :
+                            null
                 }
-
             </li>
 
         );

@@ -32,20 +32,17 @@ class Paper extends Component {
 
     render() {
 
-        const {children, className, style, theme, depth, nonRounded, isCircular, ...restProps} = this.props,
-
-            paperClassName = classNames('paper',
-                nonRounded ? 'nonRounded' : (isCircular ? 'circular' : ''), {
-                    [`depth-${this.formatDepth(depth)}`]: depth,
-                    [`theme-${theme}`]: theme,
-                    [className]: className
-                });
+        const {className, style, theme, depth, nonRounded, isCircular, ...restProps} = this.props;
 
         return (
             <div {...restProps}
-                 className={paperClassName}
+                 className={classNames('paper',
+                     nonRounded ? 'nonRounded' : (isCircular ? 'circular' : ''), {
+                         [`depth-${this.formatDepth(depth)}`]: depth,
+                         [`theme-${theme}`]: theme,
+                         [className]: className
+                     })}
                  style={style}>
-                {children}
             </div>
         );
 

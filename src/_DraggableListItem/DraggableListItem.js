@@ -84,12 +84,6 @@ class DraggableListItem extends Component {
 
             } = this.props,
 
-            listItemClassName = classNames('draggable-list-item', {
-                [`theme-${theme}`]: theme,
-                activated: checked,
-                [className]: className
-            }),
-
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
@@ -109,7 +103,11 @@ class DraggableListItem extends Component {
                                              tipContent={tip}
                                              position={tipPosition}>
 
-                                    <div className={listItemClassName}
+                                    <div className={classNames('draggable-list-item', {
+                                        [`theme-${theme}`]: theme,
+                                        activated: checked,
+                                        [className]: className
+                                    })}
                                          style={style}
                                          disabled={disabled || isLoading}
                                          readOnly={readOnly}

@@ -23,7 +23,7 @@ class Tab extends Component {
 
     }
 
-    tabClickHandle = (item, activatedIndex) => {
+    handleTabClick = (item, activatedIndex) => {
         this.setState({
             activatedIndex
         }, () => {
@@ -47,61 +47,40 @@ class Tab extends Component {
 
         const {className, style, isTabFullWidth, tabs} = this.props,
             {activatedIndex} = this.state,
-
-            wrapperClassName = classNames('tab', {
-                [className]: className
-            }),
-
-            tabsClassName = classNames('tabs', {
-                'auto-width': !isTabFullWidth
-            }),
-
-            tabWidthPerCent = 100 / tabs.length,
-            tabButtonStyle = {
-                width: isTabFullWidth ? `${tabWidthPerCent}%` : 'auto'
-            },
-            inkBarStyle = {
-                width: `${tabWidthPerCent}%`,
-                transform: `translate(${activatedIndex * 100}%, 0)`
-            },
-            tabContentScrollerStyle = {
-                width: `${tabs.length * 100}%`,
-                transform: `translate(${-activatedIndex * tabWidthPerCent}%, 0)`
-            },
-            tabContentStyle = {
-                width: `${tabWidthPerCent}%`
-            };
+            tabWidthPerCent = 100 / tabs.length;
 
         return (
-            <div className={wrapperClassName}
+            <div className={classNames('tab', {
+                [className]: className
+            })}
                  style={style}>
 
-                <div className={tabsClassName}>
+                <div className={classNames('tabs', {
+                    'auto-width': !isTabFullWidth
+                })}>
 
                     {
                         tabs && tabs.map((item, index) => {
 
                             const {
 
-                                    // not passing down these props
-                                    renderer, onActive,
+                                // not passing down these props
+                                renderer, onActive,
 
-                                    ...restProps
+                                ...restProps
 
-                                } = item,
-
-                                className = classNames('tab-button', {
-                                    activated: activatedIndex === index
-                                });
+                            } = item;
 
                             return (
                                 <FlatButton {...restProps}
                                             key={index}
-                                            className={className}
-                                            style={tabButtonStyle}
-                                            onClick={() => {
-                                                this.tabClickHandle(item, index);
-                                            }}/>
+                                            className={classNames('tab-button', {
+                                                activated: activatedIndex === index
+                                            })}
+                                            style={{
+                                                width: isTabFullWidth ? `${tabWidthPerCent}%` : 'auto'
+                                            }}
+                                            onClick={() => this.handleTabClick(item, index)}/>
                             );
 
                         })
@@ -110,7 +89,10 @@ class Tab extends Component {
                     {
                         isTabFullWidth ?
                             <div className="ink-bar"
-                                 style={inkBarStyle}></div>
+                                 style={{
+                                     width: `${tabWidthPerCent}%`,
+                                     transform: `translate(${activatedIndex * 100}%, 0)`
+                                 }}></div>
                             :
                             null
                     }
@@ -119,12 +101,17 @@ class Tab extends Component {
 
                 <div className="tab-content-wrapper">
                     <div className="tab-content-scroller"
-                         style={tabContentScrollerStyle}>
+                         style={{
+                             width: `${tabs.length * 100}%`,
+                             transform: `translate(${-activatedIndex * tabWidthPerCent}%, 0)`
+                         }}>
                         {
                             tabs && tabs.map((item, index) =>
                                 <div key={index}
                                      className="tab-content"
-                                     style={tabContentStyle}>
+                                     style={{
+                                         width: `${tabWidthPerCent}%`
+                                     }}>
                                     {item.renderer}
                                 </div>
                             )

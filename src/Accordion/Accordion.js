@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import RaisedButton from '../RaisedButton';
+
 import Theme from '../Theme';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
@@ -81,7 +82,7 @@ class Accordion extends Component {
         });
     };
 
-    clickHandler = () => {
+    handleClick = () => {
         this.state.collapsed ?
             this.expand()
             :
@@ -120,22 +121,20 @@ class Accordion extends Component {
     render() {
 
         const {children, className, style, title, collapseIcon} = this.props,
-            {collapsed, contentHeight} = this.state,
-
-            wrapperClassName = classNames('accordion', {
-                collapsed: collapsed,
-                [className]: className
-            });
+            {collapsed, contentHeight} = this.state;
 
         return (
-            <div className={wrapperClassName}
+            <div className={classNames('accordion', {
+                collapsed: collapsed,
+                [className]: className
+            })}
                  style={style}>
 
                 <RaisedButton className="accordion-title"
                               theme={Theme.SECONDARY}
                               value={title}
                               rightIconCls={collapseIcon}
-                              onClick={this.clickHandler}/>
+                              onClick={this.handleClick}/>
 
                 <div ref={this.accordionContent}
                      className="accordion-content"

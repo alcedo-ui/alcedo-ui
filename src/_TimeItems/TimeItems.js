@@ -110,24 +110,17 @@ class TimeItems extends Component {
                 <ul className="time-list">
                     {
                         data && data.length ?
-                            data.map((item, key) => {
-
-                                const className = classNames('time-item', {
+                            data.map((item, key) =>
+                                <li className={classNames('time-item', {
                                     disabled: !item.value,
                                     active: item.text == value
-                                });
-
-                                return (
-                                    <li className={className}
-                                        key={key}
-                                        style={liStyle}
-                                        onClick={() => {
-                                            this.handleClick(item.text);
-                                        }}>
-                                        {item.text}
-                                    </li>
-                                );
-                            })
+                                })}
+                                    key={key}
+                                    style={liStyle}
+                                    onClick={() => this.handleClick(item.text)}>
+                                    {item.text}
+                                </li>
+                            )
                             :
                             null
                     }

@@ -9,8 +9,8 @@ import classNames from 'classnames';
 
 import Crumb from '../_Crumb';
 import Tip from '../Tip';
-import Theme from '../Theme';
 
+import Theme from '../Theme';
 import Util from '../_vendors/Util';
 
 class Crumbs extends Component {
@@ -42,14 +42,12 @@ class Crumbs extends Component {
 
     render() {
 
-        const {className, style, data, separator, showLastSeparator} = this.props,
-
-            crumbsClassName = classNames('crumbs', {
-                [className]: className
-            });
+        const {className, style, data, separator, showLastSeparator} = this.props;
 
         return (
-            <div className={crumbsClassName}
+            <div className={classNames('crumbs', {
+                [className]: className
+            })}
                  style={style}>
 
                 {

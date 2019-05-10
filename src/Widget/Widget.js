@@ -17,14 +17,12 @@ class Widget extends Component {
 
     render() {
 
-        const {children, className, style, depth} = this.props,
-
-            widgetClassName = classNames('widget', {
-                [className]: className
-            });
+        const {children, className, style, depth} = this.props;
 
         return (
-            <Paper className={widgetClassName}
+            <Paper className={classNames('widget', {
+                [className]: className
+            })}
                    style={style}
                    depth={depth}>
                 {children}
@@ -35,6 +33,8 @@ class Widget extends Component {
 }
 
 Widget.propTypes = {
+
+    children: PropTypes.any,
 
     /**
      * The CSS class name of the root element.

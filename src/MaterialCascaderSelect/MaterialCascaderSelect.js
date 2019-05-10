@@ -108,14 +108,12 @@ class MaterialCascaderSelect extends Component {
                 className, style, theme, label, isLabelAnimate, disabled, required,
                 ...restProps
             } = this.props,
-            {value} = this.state,
-
-            wrapperClassName = classNames('material-cascader-select', {
-                [className]: className
-            });
+            {value} = this.state;
 
         return (
-            <MaterialProvider className={wrapperClassName}
+            <MaterialProvider className={classNames('material-cascader-select', {
+                [className]: className
+            })}
                               style={style}
                               theme={theme}
                               label={label}

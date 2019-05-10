@@ -44,14 +44,12 @@ class GroupList extends Component {
     render() {
 
         const {children, className, style, data, disabled, ...restProps} = this.props,
-            {value} = this.state,
-
-            listClassName = classNames('group-list', {
-                [className]: className
-            });
+            {value} = this.state;
 
         return (
-            <div className={listClassName}
+            <div className={classNames('group-list', {
+                [className]: className
+            })}
                  style={style}
                  disabled={disabled}>
 

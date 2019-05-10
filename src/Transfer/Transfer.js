@@ -25,19 +25,19 @@ class Transfer extends Component {
 
     }
 
-    leftSelectHandle = data => {
+    handleLeftSelect = data => {
         this.setState({
             leftSelected: data
         });
     };
 
-    rightSelectHandle = data => {
+    handleRightSelect = data => {
         this.setState({
             rightSelected: data
         });
     };
 
-    moveToRightHandle = () => {
+    handleMoveToRight = () => {
         let {leftSelected, leftData, rightData} = this.state;
         let newLeftData = [];
         for (let i = 0; i < leftSelected.length; i++) {
@@ -65,7 +65,7 @@ class Transfer extends Component {
 
     };
 
-    moveToLeftHandle = () => {
+    handleMoveToLeft = () => {
         let {rightSelected, leftData, rightData} = this.state;
         let newRightData = [];
         for (let i = 0; i < rightSelected.length; i++) {
@@ -106,40 +106,38 @@ class Transfer extends Component {
     render() {
 
         const {className, style} = this.props,
-            {leftData, rightData, leftSelected, rightSelected} = this.state,
-
-            transferClassName = classNames('transfer', {
-                [className]: className
-            });
+            {leftData, rightData, leftSelected, rightSelected} = this.state;
 
         return (
-            <div className={transferClassName}
+            <div className={classNames('transfer', {
+                [className]: className
+            })}
                  style={style}>
 
                 <TransferList className="fl"
                               data={leftData}
                               value={leftSelected}
-                              onChange={this.leftSelectHandle}/>
+                              onChange={this.handleLeftSelect}/>
 
                 <div className="transfer-operation fl">
                     <div>
                         <RaisedButton className='action-button'
                                       iconCls="fas fa-angle-right"
                                       disabled={leftSelected && leftSelected.length < 1}
-                                      onClick={this.moveToRightHandle}/>
+                                      onClick={this.handleMoveToRight}/>
                     </div>
                     <div>
                         <RaisedButton className='action-button'
                                       iconCls="fas fa-angle-left"
                                       disabled={rightSelected && rightSelected.length < 1}
-                                      onClick={this.moveToLeftHandle}/>
+                                      onClick={this.handleMoveToLeft}/>
                     </div>
                 </div>
 
                 <TransferList className="fl"
                               data={rightData}
                               value={rightSelected}
-                              onChange={this.rightSelectHandle}/>
+                              onChange={this.handleRightSelect}/>
 
             </div>
         );

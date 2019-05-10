@@ -21,21 +21,20 @@ class MaterialFieldSeparator extends Component {
 
     render() {
 
-        const {theme, isHover, isFocus, disabled} = this.props,
+        const {theme, isHover, isFocus, disabled} = this.props;
 
-            className = classNames('material-field-separator', {
+        return (
+            <div className={classNames('material-field-separator', {
                 hover: isHover,
                 focused: isFocus,
                 [`theme-${theme}`]: theme
-            });
-
-        return (
-            <div className={className}
+            })}
                  disabled={disabled}>
                 <div className="material-field-separator-hover"></div>
                 <div className="material-field-separator-focus"></div>
             </div>
         );
+
     }
 }
 

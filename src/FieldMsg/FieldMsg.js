@@ -25,17 +25,12 @@ class FieldMsg extends Component {
 
     render() {
 
-        const {
-                children, className, style, type, visible,
-                triggerEl, position, msg, parentEl
-            } = this.props,
-
-            wrapperClassName = classNames('field-msg', {
-                [className]: className
-            });
+        const {children, className, style, type, visible, triggerEl, position, msg, parentEl} = this.props;
 
         return (
-            <Tip className={wrapperClassName}
+            <Tip className={classNames('field-msg', {
+                [className]: className
+            })}
                  contentClassName="field-msg-content"
                  style={style}
                  theme={type}
@@ -57,6 +52,8 @@ class FieldMsg extends Component {
 
 FieldMsg.propTypes = {
 
+    children: PropTypes.any,
+
     className: PropTypes.string,
     style: PropTypes.object,
     type: PropTypes.oneOf(Util.enumerateValue(MsgType)),
@@ -64,7 +61,8 @@ FieldMsg.propTypes = {
     visible: PropTypes.bool,
     triggerEl: PropTypes.object,
     position: PropTypes.oneOf(Util.enumerateValue(Position)),
-    msg: PropTypes.any
+    msg: PropTypes.any,
+    parentEl: PropTypes.object
 
 };
 

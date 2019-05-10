@@ -60,14 +60,12 @@ class Pagination extends Component {
                 paginationCountRenderer, parentEl
             } = this.props,
 
-            totalPage = Math.ceil(total / pageSize),
-
-            paginationClassNames = classNames('pagination', {
-                [className]: className
-            });
+            totalPage = Math.ceil(total / pageSize);
 
         return (
-            <div className={paginationClassNames}
+            <div className={classNames('pagination', {
+                [className]: className
+            })}
                  style={style}>
 
                 <div className="pagination-left">
