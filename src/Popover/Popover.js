@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -25,6 +25,8 @@ class Popover extends Component {
         super(props, ...restArgs);
 
         this.closeTimeout = null;
+        this.pop = createRef();
+        this.popInstance = null;
 
     }
 
@@ -32,7 +34,7 @@ class Popover extends Component {
      * public
      */
     resetPosition = () => {
-        this.refs.popover.resetPosition();
+        this.popInstance && this.popInstance.resetPosition();
     };
 
     clearCloseTimeout = () => {
@@ -42,11 +44,11 @@ class Popover extends Component {
         }
     };
 
-    mouseOverHandler = () => {
+    handleMouseOver = () => {
         this.clearCloseTimeout();
     };
 
-    mouseOutHandler = e => {
+    handleMouseOut = e => {
         const {onRequestClose} = this.props;
         this.clearCloseTimeout();
         this.closeTimeout = setTimeout(() => {
@@ -54,21 +56,25 @@ class Popover extends Component {
         }, 1000 / 6);
     };
 
-    renderHandler = el => {
+    handleRender = el => {
         const {triggerEl} = this.props;
-        Event.addEvent(triggerEl, 'mouseover', this.mouseOverHandler);
-        Event.addEvent(triggerEl, 'mouseout', this.mouseOutHandler);
-        Event.addEvent(el, 'mouseover', this.mouseOverHandler);
-        Event.addEvent(el, 'mouseout', this.mouseOutHandler);
+        Event.addEvent(triggerEl, 'mouseover', this.handleMouseOver);
+        Event.addEvent(triggerEl, 'mouseout', this.handleMouseOut);
+        Event.addEvent(el, 'mouseover', this.handleMouseOver);
+        Event.addEvent(el, 'mouseout', this.handleMouseOut);
     };
 
-    destroyHandler = el => {
+    handleDestroy = el => {
         const {triggerEl} = this.props;
-        Event.removeEvent(triggerEl, 'mouseover', this.mouseOverHandler);
-        Event.removeEvent(triggerEl, 'mouseout', this.mouseOutHandler);
-        Event.removeEvent(el, 'mouseover', this.mouseOverHandler);
-        Event.removeEvent(el, 'mousemove', this.mouseOutHandler);
+        Event.removeEvent(triggerEl, 'mouseover', this.handleMouseOver);
+        Event.removeEvent(triggerEl, 'mouseout', this.handleMouseOut);
+        Event.removeEvent(el, 'mouseover', this.handleMouseOver);
+        Event.removeEvent(el, 'mousemove', this.handleMouseOut);
     };
+
+    componentDidMount() {
+        this.popInstance = this.pop && this.pop.current;
+    }
 
     componentWillUnmount() {
         this.clearCloseTimeout();
@@ -78,30 +84,26 @@ class Popover extends Component {
 
         const {
 
-                className, contentClassName,
+            className, contentClassName,
 
-                // not passing down these props
-                onRequestClose,
+            // not passing down these props
+            onRequestClose,
 
-                ...restProps
+            ...restProps
 
-            } = this.props,
-
-            popoverClassName = classNames('popover', {
-                [className]: className
-            }),
-
-            popoverContentClassName = classNames('popover-content', {
-                [contentClassName]: contentClassName
-            });
+        } = this.props;
 
         return (
             <TriggerPop {...restProps}
-                        ref="popover"
-                        className={popoverClassName}
-                        contentClassName={popoverContentClassName}
-                        onRender={this.renderHandler}
-                        onDestroy={this.destroyHandler}/>
+                        ref={this.pop}
+                        className={classNames('popover', {
+                            [className]: className
+                        })}
+                        contentClassName={classNames('popover-content', {
+                            [contentClassName]: contentClassName
+                        })}
+                        onRender={this.handleRender}
+                        onDestroy={this.handleDestroy}/>
         );
     }
 
