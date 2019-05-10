@@ -569,12 +569,6 @@ class Table extends Component {
             } = this.props,
             {value, sort, pagging, sortedData} = this.state,
 
-            tableClassName = classNames('table', {
-                selectable: selectMode === SelectMode.MULTI_SELECT || selectMode === SelectMode.SINGLE_SELECT,
-                'pagging-table': isPagging,
-                [className]: className
-            }),
-
             finalColumns = this.handleColumns();
 
         // handle data
@@ -582,7 +576,11 @@ class Table extends Component {
             finalDataCount = finalData.length;
 
         return (
-            <div className={tableClassName}
+            <div className={classNames('table', {
+                selectable: selectMode === SelectMode.MULTI_SELECT || selectMode === SelectMode.SINGLE_SELECT,
+                'pagging-table': isPagging,
+                [className]: className
+            })}
                  style={style}>
 
                 <div className="inner-table-wrapper">
