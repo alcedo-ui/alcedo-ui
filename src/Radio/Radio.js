@@ -121,7 +121,9 @@ class Radio extends Component {
                                    type="radio"
                                    name={name}
                                    value={value}
-                                   checked={checked}/>
+                                   checked={checked}
+                                   onChange={() => {
+                                   }}/>
                             :
                             null
                     }
