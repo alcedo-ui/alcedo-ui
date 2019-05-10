@@ -186,22 +186,22 @@ class MultipleSelect extends Component {
 
     };
 
-    // triggerHandler = (el, triggerEl, popupEl, currentVisible) => {
-    //
-    //     if (!triggerEl) {
-    //         return true;
-    //     }
-    //
-    //     while (el) {
-    //         if (el == this.refs.multipleSelect || el == popupEl || el == triggerEl) {
-    //             return currentVisible;
-    //         }
-    //         el = el.parentNode;
-    //     }
-    //
-    //     return false;
-    //
-    // };
+    triggerHandler = (el, triggerEl, popupEl, currentVisible) => {
+
+        if (!triggerEl) {
+            return true;
+        }
+
+        while (el) {
+            if (el == this.refs.multipleSelect || el == popupEl || el == triggerEl) {
+                return currentVisible;
+            }
+            el = el.parentNode;
+        }
+
+        return false;
+
+    };
 
     componentDidMount() {
         this.wrapperEl = this.wrapper && this.wrapper.current;
