@@ -10,8 +10,8 @@ import isArray from 'lodash/isArray';
 import classNames from 'classnames';
 
 import Checkbox from '../Checkbox';
-import Theme from '../Theme';
 
+import Theme from '../Theme';
 import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
@@ -30,7 +30,7 @@ class CheckboxGroup extends Component {
 
     }
 
-    changeHandler = item => {
+    handleChange = item => {
 
         let value = cloneDeep(this.state.value);
 
@@ -77,14 +77,12 @@ class CheckboxGroup extends Component {
                 className, style, theme, name, disabled, idProp, uncheckedIconCls, checkedIconCls, indeterminateIconCls,
                 onCheck, onUncheck
             } = this.props,
-            {value} = this.state,
-
-            groupClassName = classNames('checkbox-group', {
-                [className]: className
-            });
+            {value} = this.state;
 
         return (
-            <div className={groupClassName}
+            <div className={classNames('checkbox-group', {
+                [className]: className
+            })}
                  style={style}
                  disabled={disabled}>
                 {
@@ -103,7 +101,7 @@ class CheckboxGroup extends Component {
                                   checked={value && value.findIndex(v => v.value === item.value) > -1}
                                   tip={item.tip}
                                   tipPosition={item.tipPosition}
-                                  onChange={() => this.changeHandler(item)}
+                                  onChange={() => this.handleChange(item)}
                                   onCheck={e => onCheck && onCheck(item, e)}
                                   onUncheck={e => onUncheck && onUncheck(item, e)}/>
                     )
