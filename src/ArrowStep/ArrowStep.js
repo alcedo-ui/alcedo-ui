@@ -22,7 +22,7 @@ class ArrowStep extends Component {
 
     }
 
-    clickHandler = activatedStep => {
+    handleClick = activatedStep => {
 
         const {onChange} = this.props;
 
@@ -50,14 +50,12 @@ class ArrowStep extends Component {
     render() {
 
         const {className, style, steps} = this.props,
-            {activatedStep, finishedStep} = this.state,
-
-            stepClassName = classNames('arrow-step', {
-                [className]: className
-            });
+            {activatedStep, finishedStep} = this.state;
 
         return (
-            <div className={stepClassName}
+            <div className={classNames('arrow-step', {
+                [className]: className
+            })}
                  style={style}>
                 {
                     steps && steps.map((item, index) =>
@@ -74,7 +72,7 @@ class ArrowStep extends Component {
                                        value={item}
                                        isFirst={index === 0}
                                        isLast={index === steps.length - 1}
-                                       onClick={this.clickHandler}/>
+                                       onClick={this.handleClick}/>
                     )
                 }
             </div>
