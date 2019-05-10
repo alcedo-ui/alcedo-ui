@@ -161,22 +161,20 @@ class Waterfall extends Component {
 
     render() {
 
-        const {className, style, children} = this.props,
-            {dom} = this.state,
-
-            wrapperClassName = classNames('waterfall', {
-                [className]: className
-            });
+        const {children, className, style} = this.props,
+            {dom} = this.state;
 
         return (
-            <div className={wrapperClassName}
+            <div className={classNames('waterfall', {
+                [className]: className
+            })}
                  style={style}>
 
                 {dom}
 
                 <div className="waterfall-hidden">
                     {
-                        children.map((child, index) => cloneElement(child, {
+                        children && children.map((child, index) => cloneElement(child, {
                             key: index,
                             ref: `waterfallTempChild${index}`
                         }))
@@ -190,6 +188,8 @@ class Waterfall extends Component {
 }
 
 Waterfall.propTypes = {
+
+    children: PropTypes.any,
 
     /**
      * The CSS class name of the root element.
