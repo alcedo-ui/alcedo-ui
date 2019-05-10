@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import isArray from 'lodash/isArray';
 import classNames from 'classnames';
@@ -31,6 +31,9 @@ class TreeSelect extends Component {
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
+
+        this.dropdown = createRef();
+        this.dropdownInstance = null;
 
         this.state = {
             filter: '',
@@ -237,24 +240,12 @@ class TreeSelect extends Component {
                 ...restProps
 
             } = this.props,
-            {value, filter, popupVisible} = this.state,
-
-            wrapperClassName = classNames('tree-select', {
-                [className]: className
-            }),
-
-            selectTriggerClassName = classNames({
-                activated: popupVisible,
-                empty: !triggerRenderer && !value,
-                [triggerClassName]: triggerClassName
-            }),
-            selectPopupClassName = classNames('tree-select-popup', {
-                [popupClassName]: popupClassName
-            });
+            {value, filter, popupVisible} = this.state;
 
         return (
-            <div ref="dropdownSelect"
-                 className={wrapperClassName}
+            <div className={classNames('tree-select', {
+                [className]: className
+            })}
                  style={style}>
 
                 {
@@ -268,8 +259,14 @@ class TreeSelect extends Component {
 
                 <Dropdown {...restProps}
                           ref="dropdown"
-                          triggerClassName={selectTriggerClassName}
-                          popupClassName={selectPopupClassName}
+                          triggerClassName={classNames({
+                              activated: popupVisible,
+                              empty: !triggerRenderer && !value,
+                              [triggerClassName]: triggerClassName
+                          })}
+                          popupClassName={classNames('tree-select-popup', {
+                              [popupClassName]: popupClassName
+                          })}
                           popupTheme={popupTheme}
                           triggerValue={this.getTriggerValue()}
                           onOpenPopup={this.popupOpenHandler}
