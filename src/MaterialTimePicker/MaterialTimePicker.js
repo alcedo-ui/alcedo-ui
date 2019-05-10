@@ -43,16 +43,16 @@ class MaterialTimePicker extends Component {
 
     }
 
-    // rangeData = range => {
-    //     let arr = [];
-    //     for (let i = 0; i < range; i++) {
-    //         if (i < 10) {
-    //             i = '0' + i;
-    //         }
-    //         arr.push({text: i, value: true});
-    //     }
-    //     return arr;
-    // };
+    rangeData = range => {
+        let arr = [];
+        for (let i = 0; i < range; i++) {
+            if (i < 10) {
+                i = '0' + i;
+            }
+            arr.push({text: i, value: true});
+        }
+        return arr;
+    };
 
     handleTextFieldChange = text => {
         if (text && text.length) {
