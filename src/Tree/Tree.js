@@ -15,7 +15,6 @@ import SelectMode from '../_statics/SelectMode';
 import VirtualRoot from '../_statics/VirtualRoot';
 
 import Util from '../_vendors/Util';
-import Event from '../_vendors/Event';
 import Calculation from '../_vendors/Calculation';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
@@ -433,11 +432,6 @@ Tree.propTypes = {
      * Callback function fired when the tree changed.
      */
     onChange: PropTypes.func,
-
-    /**
-     * Callback function fired when wrapper wheeled.
-     */
-    onWheel: PropTypes.func,
 
     beforeNodeToggle: PropTypes.func
 

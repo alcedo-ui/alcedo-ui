@@ -27,7 +27,7 @@ class GridItem extends Component {
         super(props, ...restArgs);
     }
 
-    checkboxChangeHandler = checked => {
+    handleCheckboxChange = checked => {
 
         const {onSelect, onDeselect} = this.props;
 
@@ -39,14 +39,14 @@ class GridItem extends Component {
 
     };
 
-    radioChangeHandler = () => {
+    handleRadioChange = () => {
         if (!this.props.checked) {
             const {onSelect} = this.props;
             onSelect && onSelect();
         }
     };
 
-    clickHandler = e => {
+    handleClick = e => {
 
         const {disabled, isLoading, readOnly} = this.props;
 
@@ -59,36 +59,30 @@ class GridItem extends Component {
 
         switch (this.props.selectMode) {
             case SelectMode.MULTI_SELECT:
-                this.checkboxChangeHandler(!this.props.checked);
+                this.handleCheckboxChange(!this.props.checked);
                 return;
             case SelectMode.SINGLE_SELECT:
-                this.radioChangeHandler();
+                this.handleRadioChange();
                 return;
         }
 
     };
 
+    /* eslint-disable complexity */
     render() {
 
         const {
 
                 index, className, style, theme, data, text, desc, iconCls, rightIconCls, tip, tipPosition,
                 disabled, isLoading, disableTouchRipple, rippleDisplayCenter, renderer, itemRenderer, readOnly,
-                col,
+                col, parentEl,
 
                 checked, selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
-                onMouseEnter, onMouseLeave,
-                parentEl
+                onMouseEnter, onMouseLeave
 
             } = this.props,
-
-            listItemClassName = classNames('grid-item', {
-                [`theme-${theme}`]: theme,
-                activated: checked,
-                [className]: className
-            }),
 
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
@@ -99,11 +93,15 @@ class GridItem extends Component {
                 <TipProvider tipContent={tip}
                              parentEl={parentEl}
                              position={tipPosition}>
-                    <div className={listItemClassName}
+                    <div className={classNames('grid-item', {
+                        [`theme-${theme}`]: theme,
+                        activated: checked,
+                        [className]: className
+                    })}
                          style={style}
                          disabled={disabled || isLoading}
                          readOnly={readOnly}
-                         onClick={this.clickHandler}
+                         onClick={this.handleClick}
                          onMouseEnter={onMouseEnter}
                          onMouseLeave={onMouseLeave}>
 
@@ -194,8 +192,7 @@ class GridItem extends Component {
                             disableTouchRipple || readOnly ?
                                 null
                                 :
-                                <TouchRipple ref="touchRipple"
-                                             className={disabled || isLoading ? 'hidden' : ''}
+                                <TouchRipple className={disabled || isLoading ? 'hidden' : ''}
                                              displayCenter={rippleDisplayCenter}/>
                         }
 
@@ -230,6 +227,7 @@ GridItem.propTypes = {
     rippleDisplayCenter: PropTypes.bool,
     checked: PropTypes.bool,
     readOnly: PropTypes.bool,
+    parentEl: PropTypes.object,
 
     iconCls: PropTypes.string,
     rightIconCls: PropTypes.string,

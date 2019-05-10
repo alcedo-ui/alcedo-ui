@@ -60,7 +60,7 @@ class TransferList extends Component {
 
     };
 
-    selectAllHandle = () => {
+    handleSelectAll = () => {
         const {selectAll, filter} = this.state;
         const {data} = this.props;
         const filterList = this.getFilterList(data, filter);
@@ -78,7 +78,7 @@ class TransferList extends Component {
         });
     };
 
-    filterChangeHandle = value => {
+    handleFilterChange = value => {
         this.setState({
             filter: value,
             selectAll: false
@@ -111,64 +111,61 @@ class TransferList extends Component {
         });
     };
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.data.length !== this.props.data.length) {
-            this.setState({
+    static getDerivedStateFromProps(props, state) {
+
+        if (props && state && state.prevProps
+            && (!props.data || !state.prevProps.data || props.data.length !== state.prevProps.data.length)) {
+            return {
+                prevProps: props,
                 selectAll: false
-            });
+            };
         }
+
+        return {
+            prevProps: props
+        };
+
     }
 
     render() {
 
         const {className, listStyle, data, value} = this.props,
-            {filter, selectAll} = this.state,
-            {filterChangeHandle, getItemValue, getFilterList, select, selectAllHandle} = this,
+            {filter, selectAll} = this.state;
 
-            listClassName = classNames('transfer-list', {
-                [className]: className
-            }),
-
-            filterList = getFilterList(data, filter),
-
-            headerLabel = value && value.length > 0 ?
-                value.length + '/' + filterList.length + ' items'
-                :
-                filterList.length + ' items';
-
-        this.filterList = filterList;
+        this.filterList = this.getFilterList(data, filter);
 
         return (
-            <div className={listClassName}
+            <div className={classNames('transfer-list', {
+                [className]: className
+            })}
                  style={listStyle}>
 
                 <div className="transfer-header">
-                    <Checkbox label={headerLabel}
+                    <Checkbox label={value && value.length > 0 ?
+                        value.length + '/' + this.filterList.length + ' items'
+                        :
+                        this.filterList.length + ' items'}
                               checked={selectAll}
-                              onChange={selectAllHandle}/>
+                              onChange={this.handleSelectAll}/>
                 </div>
 
                 <TextField className="search"
                            rightIconCls={'fas fa-search'}
-                           onChange={filterChangeHandle}
+                           onChange={this.handleFilterChange}
                            placeholder={'Search here'}
                            value={filter}/>
 
-                <div ref="options"
-                     className="options">
+                <div className="options">
                     {
-
-                        this.filterList && this.filterList.map(item => (
+                        this.filterList && this.filterList.map(item =>
                             <div key={item.text}
                                  className={`option ${item.disabled ? 'disabled' : ''}`}>
                                 <Checkbox label={item.text}
-                                          checked={getItemValue(item.id)}
+                                          checked={this.getItemValue(item.id)}
                                           disabled={item.disabled ? item.disabled : false}
-                                          onChange={() => {
-                                              select(item);
-                                          }}/>
+                                          onChange={() => this.select(item)}/>
                             </div>
-                        ))
+                        )
                     }
                 </div>
 
@@ -190,15 +187,10 @@ TransferList.propTypes = {
      */
     listStyle: PropTypes.object,
 
-    /**
-     *
-     */
     data: PropTypes.array,
+    value: PropTypes.array,
 
-    /**
-     *
-     */
-    value: PropTypes.array
+    onChange: PropTypes.func
 
 };
 

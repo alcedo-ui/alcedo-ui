@@ -14,7 +14,6 @@ import Tip from '../Tip';
 import SelectMode from '../_statics/SelectMode';
 
 import Util from '../_vendors/Util';
-import Event from '../_vendors/Event';
 import Calculation from '../_vendors/Calculation';
 
 class GroupGrid extends Component {
@@ -43,14 +42,12 @@ class GroupGrid extends Component {
     render() {
 
         const {children, className, style, data, disabled, ...restProps} = this.props,
-            {value} = this.state,
-
-            gridClassName = classNames('group-grid', {
-                [className]: className
-            });
+            {value} = this.state;
 
         return (
-            <div className={gridClassName}
+            <div className={classNames('group-grid', {
+                [className]: className
+            })}
                  style={style}
                  disabled={disabled}>
 
@@ -74,6 +71,8 @@ class GroupGrid extends Component {
 }
 
 GroupGrid.propTypes = {
+
+    children: PropTypes.any,
 
     /**
      * The CSS class name of the root element.
@@ -243,12 +242,7 @@ GroupGrid.propTypes = {
     /**
      * Callback function fired when the list changed.
      */
-    onChange: PropTypes.func,
-
-    /**
-     * Callback function fired when wrapper wheeled.
-     */
-    onWheel: PropTypes.func
+    onChange: PropTypes.func
 
 };
 

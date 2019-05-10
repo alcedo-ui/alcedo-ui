@@ -3,14 +3,14 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import LocalAutoComplete from '../LocalAutoComplete';
 import MaterialProvider from '../MaterialProvider';
-import Theme from '../Theme';
 
+import Theme from '../Theme';
 import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
@@ -25,6 +25,9 @@ class MaterialLocalAutoComplete extends Component {
 
         super(props, ...restArgs);
 
+        this.autoComplete = createRef();
+        this.autoCompleteInstance = null;
+
         this.state = {
             value: props.value,
             filter: props.filter
@@ -32,7 +35,7 @@ class MaterialLocalAutoComplete extends Component {
 
     }
 
-    triggerFilterChangeHandler = filter => {
+    handleTriggerFilterChange = filter => {
         this.setState({
             filter
         }, () => {
@@ -41,7 +44,7 @@ class MaterialLocalAutoComplete extends Component {
         });
     };
 
-    triggerChangeHandler = value => {
+    handleTriggerChange = value => {
         this.setState({
             value
         }, () => {
@@ -51,8 +54,12 @@ class MaterialLocalAutoComplete extends Component {
     };
 
     closePopup = () => {
-        this.refs.localAutoComplete && this.refs.localAutoComplete.closePopup();
+        this.autoCompleteInstance && this.autoCompleteInstance.closePopup();
     };
+
+    componentDidMount() {
+        this.autoCompleteInstance = this.autoComplete && this.autoComplete.current;
+    }
 
     static getDerivedStateFromProps(props, state) {
         return {
@@ -67,17 +74,12 @@ class MaterialLocalAutoComplete extends Component {
                 className, style, theme, label, isLabelAnimate, popupClassName, disabled, required,
                 ...restProps
             } = this.props,
-            {value, filter} = this.state,
-
-            wrapperClassName = classNames('material-local-auto-complete', {
-                [className]: className
-            }),
-            autoCompleteClassName = classNames('material-local-auto-complete-popup', {
-                [popupClassName]: popupClassName
-            });
+            {value, filter} = this.state;
 
         return (
-            <MaterialProvider className={wrapperClassName}
+            <MaterialProvider className={classNames('material-local-auto-complete', {
+                [className]: className
+            })}
                               style={style}
                               theme={theme}
                               label={label}
@@ -86,18 +88,20 @@ class MaterialLocalAutoComplete extends Component {
                               disabled={disabled}
                               required={required}>
                 <LocalAutoComplete {...restProps}
-                                   ref="localAutoComplete"
-                                   popupClassName={autoCompleteClassName}
+                                   ref={this.autoComplete}
+                                   popupClassName={classNames('material-local-auto-complete-popup', {
+                                       [popupClassName]: popupClassName
+                                   })}
                                    theme={theme}
                                    value={value}
                                    disabled={disabled}
-                                   onFilterChange={this.triggerFilterChangeHandler}
-                                   onChange={this.triggerChangeHandler}/>
+                                   onFilterChange={this.handleTriggerFilterChange}
+                                   onChange={this.handleTriggerChange}/>
             </MaterialProvider>
         );
 
     }
-};
+}
 
 MaterialLocalAutoComplete.propTypes = {
 
@@ -214,6 +218,8 @@ MaterialLocalAutoComplete.propTypes = {
         PropTypes.array
 
     ]).isRequired,
+
+    value: PropTypes.any,
 
     /**
      * If true, the auto complete will be disabled.

@@ -15,7 +15,6 @@ import Theme from '../Theme';
 import SelectMode from '../_statics/SelectMode';
 
 import Util from '../_vendors/Util';
-import Event from '../_vendors/Event';
 import Calculation from '../_vendors/Calculation';
 
 class Grid extends Component {
@@ -190,14 +189,12 @@ class Grid extends Component {
 
     render() {
 
-        const {children, className, style, data, disabled} = this.props,
-
-            gridClassName = classNames('grid', {
-                [className]: className
-            });
+        const {children, className, style, data, disabled} = this.props;
 
         return (
-            <div className={gridClassName}
+            <div className={classNames('grid', {
+                [className]: className
+            })}
                  disabled={disabled}
                  style={style}>
 
@@ -207,10 +204,13 @@ class Grid extends Component {
 
             </div>
         );
+
     }
 }
 
 Grid.propTypes = {
+
+    children: PropTypes.any,
 
     /**
      * The CSS class name of the root element.
@@ -387,12 +387,7 @@ Grid.propTypes = {
     /**
      * Callback function fired when the grid changed.
      */
-    onChange: PropTypes.func,
-
-    /**
-     * Callback function fired when wrapper wheeled.
-     */
-    onWheel: PropTypes.func
+    onChange: PropTypes.func
 
 };
 

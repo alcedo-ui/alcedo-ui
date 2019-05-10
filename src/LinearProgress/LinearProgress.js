@@ -3,7 +3,7 @@
  * @author chao(chao.zhang@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -23,40 +23,41 @@ class LinearProgress extends Component {
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
+
         super(props, ...restArgs);
+
+        this.wrapper = createRef();
+        this.wrapperEl = null;
+
     }
 
     getProgressWidth = () => {
-        if (this.refs.progress) {
-            return parseInt(this.refs.progress.offsetWidth) / 2;
-        }
+        return this.wrapperEl ?
+            parseInt(this.wrapperEl.offsetWidth) / 2
+            :
+            0;
     };
+
+    componentDidMount() {
+        this.wrapperEl = this.wrapper && this.wrapper.current;
+    }
 
     render() {
 
-        const {className, highlightWidth, style, word, wordStyle, theme, animation, status, showIcon, successIcon, failureIcon} = this.props,
-
-            progressClassName = classNames('linear-progress', {
-                [wordStyle]: wordStyle,
-                [`theme-${theme}`]: theme,
-                [className]: className,
-                [status]: status
-            }),
-
-            highlightClassName = classNames('linear-progress-highlight', {
-                'linear-progress-animate': animation
-            }),
-            highlightStyle = {
-                width: highlightWidth
-            },
-            percentStyle = {
-                marginLeft: this.getProgressWidth()
-            };
+        const {
+            className, highlightWidth, style, word, wordStyle, theme,
+            animation, status, showIcon, successIcon, failureIcon
+        } = this.props;
 
         return (
-            <div className={progressClassName}
-                 style={style}
-                 ref="progress">
+            <div ref={this.wrapper}
+                 className={classNames('linear-progress', {
+                     [wordStyle]: wordStyle,
+                     [`theme-${theme}`]: theme,
+                     [className]: className,
+                     [status]: status
+                 })}
+                 style={style}>
 
                 {
                     word && wordStyle === LinearProgress.WordStyle.FOLLOW ?
@@ -82,12 +83,18 @@ class LinearProgress extends Component {
                 }
 
                 <div className="linear-progress-background">
-                    <div className={highlightClassName}
-                         style={highlightStyle}>
+                    <div className={classNames('linear-progress-highlight', {
+                        'linear-progress-animate': animation
+                    })}
+                         style={{
+                             width: highlightWidth
+                         }}>
                         {
                             wordStyle === LinearProgress.WordStyle.MIDDLE ?
                                 <Percent className="linear-progress-word"
-                                         style={percentStyle}
+                                         style={{
+                                             marginLeft: this.getProgressWidth()
+                                         }}
                                          status={status}
                                          showIcon={showIcon}
                                          successIcon={successIcon}

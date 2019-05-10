@@ -53,7 +53,7 @@ class DraggableTreeNode extends Component {
 
     };
 
-    checkboxChangeHandler = e => {
+    handleCheckboxChange = e => {
 
         const {data, path, value, onSelect, onDeselect} = this.props;
 
@@ -65,12 +65,12 @@ class DraggableTreeNode extends Component {
 
     };
 
-    radioChangeHandler = e => {
+    handleRadioChange = e => {
         const {data, path, onSelect} = this.props;
         onSelect && onSelect(data, path, e);
     };
 
-    clickHandler = e => {
+    handleClick = e => {
 
         e.preventDefault();
 
@@ -87,10 +87,10 @@ class DraggableTreeNode extends Component {
 
         switch (selectMode) {
             case SelectMode.MULTI_SELECT:
-                this.checkboxChangeHandler(e);
+                this.handleCheckboxChange(e);
                 return;
             case SelectMode.SINGLE_SELECT:
-                this.radioChangeHandler(e);
+                this.handleRadioChange(e);
                 return;
         }
 
@@ -154,7 +154,7 @@ class DraggableTreeNode extends Component {
                                              style={nodeStyle}
                                              disabled={isNodeDisabled}
                                              readOnly={readOnly}
-                                             onClick={this.clickHandler}
+                                             onClick={this.handleClick}
                                              onMouseEnter={onMouseEnter}
                                              onMouseLeave={onMouseLeave}>
 

@@ -1,10 +1,11 @@
 /**
- * @file DatePicker component
+ * @file MonthPicker component
  * @author sunday(sunday.wei@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
+import {findDOMNode} from 'react-dom';
 import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
@@ -14,10 +15,11 @@ import Month from '../_MonthPicker';
 import Year from '../_YearPicker';
 import Popup from '../Popup';
 
-import Position from '../_statics/Position';
-import {findDOMNode} from 'react-dom';
-import DropdownCalculation from '../_vendors/DropdownCalculation';
 import Theme from '../Theme';
+import Position from '../_statics/Position';
+
+import DropdownCalculation from '../_vendors/DropdownCalculation';
+import Util from '../_vendors/Util';
 
 class MonthPicker extends Component {
 
@@ -29,6 +31,8 @@ class MonthPicker extends Component {
         super(props, ...restArgs);
 
         this.validValue = true;
+        this.trigger = createRef();
+        this.triggerEl = null;
 
         this.state = {
             value: props.value,
@@ -41,13 +45,13 @@ class MonthPicker extends Component {
 
     }
 
-    datePickerChangeHandle = selectLevel => {
+    handleDatePickerChange = selectLevel => {
         this.setState({
             datePickerLevel: selectLevel
         });
     };
 
-    textFieldChangeHandle = text => {
+    handleTextFieldChange = text => {
         const {minValue, maxValue, dateFormat} = this.props;
         if (text && text.length) {
             const flag = moment(text, this.props.dateFormat, true).isValid();
@@ -75,7 +79,7 @@ class MonthPicker extends Component {
         }
     };
 
-    monthPickerChangeHandle = date => {
+    handleMonthPickerChange = date => {
         const {dateFormat, autoClose, onChange} = this.props;
         let state = cloneDeep(this.state);
         state.popupVisible = !autoClose;
@@ -87,7 +91,7 @@ class MonthPicker extends Component {
         });
     };
 
-    yearPickerChangeHandle = year => {
+    handleYearPickerChange = year => {
         this.setState({
             datePickerLevel: 'month',
             year: year
@@ -108,7 +112,7 @@ class MonthPicker extends Component {
         });
     };
 
-    popupRenderHandler = popupEl => {
+    handlePopupRender = popupEl => {
 
         if (this.props.position) {
             return;
@@ -124,6 +128,9 @@ class MonthPicker extends Component {
     };
 
     componentDidMount() {
+
+        this.triggerEl = this.trigger && this.trigger.current && findDOMNode(this.trigger.current);
+
         // debugger
         const {value, dateFormat} = this.props;
         let state = cloneDeep(this.state);
@@ -141,8 +148,6 @@ class MonthPicker extends Component {
             }
         }
 
-        this.datePicker = this.refs.datePicker;
-        this.triggerEl = findDOMNode(this.refs.trigger);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -164,19 +169,15 @@ class MonthPicker extends Component {
                 nextMonthIconCls, readOnly, disabled, parentEl
             } = this.props,
             {value, popupVisible, datePickerLevel, year, month, isAbove} = this.state,
-
-            pickerClassName = classNames('month-picker', {
-                [className]: className
-            }),
-
             textValue = value && moment(value).format(dateFormat);
 
         return (
-            <div ref="datePicker"
-                 className={pickerClassName}>
+            <div className={classNames('month-picker', {
+                [className]: className
+            })}>
 
                 <TextField className="month-picker-field"
-                           ref="trigger"
+                           ref={this.trigger}
                            name={name}
                            placeholder={placeholder}
                            value={textValue}
@@ -186,10 +187,8 @@ class MonthPicker extends Component {
                            disabled={disabled}
                            isFocusedSelectAll={popupVisible}
                            rightIconCls={rightIconCls}
-                           onClick={e => {
-                               this.togglePopup(e);
-                           }}
-                           onChange={this.textFieldChangeHandle}/>
+                           onClick={e => this.togglePopup(e)}
+                           onChange={this.handleTextFieldChange}/>
 
                 <Popup className={`month-picker-popup ${popupClassName}`}
                        visible={popupVisible}
@@ -197,7 +196,7 @@ class MonthPicker extends Component {
                        parentEl={parentEl}
                        position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        hasTriangle={false}
-                       onRender={this.popupRenderHandler}
+                       onRender={this.handlePopupRender}
                        onRequestClose={this.closePopup}>
 
                     {
@@ -211,8 +210,8 @@ class MonthPicker extends Component {
                                    previousMonthIconCls={previousMonthIconCls}
                                    nextYearIconCls={nextYearIconCls}
                                    nextMonthIconCls={nextMonthIconCls}
-                                   onChange={this.monthPickerChangeHandle}
-                                   previousClick={this.datePickerChangeHandle}/>
+                                   onChange={this.handleMonthPickerChange}
+                                   previousClick={this.handleDatePickerChange}/>
                             :
                             <Year value={value}
                                   year={year}
@@ -223,7 +222,7 @@ class MonthPicker extends Component {
                                   previousMonthIconCls={previousMonthIconCls}
                                   nextYearIconCls={nextYearIconCls}
                                   nextMonthIconCls={nextMonthIconCls}
-                                  onChange={this.yearPickerChangeHandle}/>
+                                  onChange={this.handleYearPickerChange}/>
                     }
 
                 </Popup>
@@ -292,6 +291,14 @@ MonthPicker.propTypes = {
      * If true,monthPicker textField is disabled.
      */
     disabled: PropTypes.bool,
+
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
+    rightIconCls: PropTypes.string,
+    previousYearIconCls: PropTypes.string,
+    previousMonthIconCls: PropTypes.string,
+    nextYearIconCls: PropTypes.string,
+    nextMonthIconCls: PropTypes.string,
+    parentEl: PropTypes.object,
 
     /**
      * Callback function that is fired when the date value changes.

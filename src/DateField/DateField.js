@@ -12,7 +12,6 @@ import classNames from 'classnames';
 import DayPicker from '../_DayPicker';
 import MonthPicker from '../_MonthPicker';
 import YearPicker from '../_YearPicker';
-
 import FlatButton from '../FlatButton';
 
 import Theme from '../Theme';
@@ -37,13 +36,14 @@ class DateField extends Component {
 
     }
 
-    datePickerChangeHandle = selectLevel => {
+    handleDatePickerChange = selectLevel => {
         this.setState({
             datePickerLevel: selectLevel
         });
     };
 
-    dayPickerChangeHandle = date => {
+    handleDayPickerChange = date => {
+
         const {dateFormat, onChange} = this.props;
         let state = cloneDeep(this.state);
         state.value = moment(date.time, dateFormat);
@@ -57,7 +57,7 @@ class DateField extends Component {
 
     };
 
-    monthPickerChangeHandle = date => {
+    handleMonthPickerChange = date => {
         this.setState({
             datePickerLevel: 'day',
             year: date.year,
@@ -65,14 +65,14 @@ class DateField extends Component {
         });
     };
 
-    yearPickerChangeHandle = year => {
+    handleYearPickerChange = year => {
         this.setState({
             datePickerLevel: 'month',
             year: year
         });
     };
 
-    todayHandle = () => {
+    handleToday = () => {
         const {dateFormat, onChange} = this.props;
         const year = moment().format('YYYY'),
             month = moment().format('MM'),
@@ -114,9 +114,7 @@ class DateField extends Component {
         }
     };
 
-
     componentDidMount() {
-        // debugger
         const {value, dateFormat} = this.props;
         this.validValueFormat(value, dateFormat);
     }
@@ -130,18 +128,15 @@ class DateField extends Component {
     render() {
 
         const {
-                className, dateFormat, maxValue, minValue, isFooter, previousYearIconCls, previousMonthIconCls,
-                nextYearIconCls, nextMonthIconCls
+                className, dateFormat, maxValue, minValue, isFooter,
+                previousYearIconCls, previousMonthIconCls, nextYearIconCls, nextMonthIconCls
             } = this.props,
-            {value, datePickerLevel, year, month, day} = this.state,
-
-            pickerClassName = classNames('date-field', {
-                [className]: className
-            });
+            {value, datePickerLevel, year, month, day} = this.state;
 
         return (
-            <div ref="datePicker"
-                 className={pickerClassName}>
+            <div className={classNames('date-field', {
+                [className]: className
+            })}>
                 {
                     datePickerLevel == 'day' ?
                         <DayPicker
@@ -157,8 +152,8 @@ class DateField extends Component {
                             previousMonthIconCls={previousMonthIconCls}
                             nextYearIconCls={nextYearIconCls}
                             nextMonthIconCls={nextMonthIconCls}
-                            onChange={this.dayPickerChangeHandle}
-                            previousClick={this.datePickerChangeHandle}/>
+                            onChange={this.handleDayPickerChange}
+                            previousClick={this.handleDatePickerChange}/>
                         :
                         datePickerLevel == 'month' ?
                             <MonthPicker
@@ -172,8 +167,8 @@ class DateField extends Component {
                                 previousMonthIconCls={previousMonthIconCls}
                                 nextYearIconCls={nextYearIconCls}
                                 nextMonthIconCls={nextMonthIconCls}
-                                onChange={this.monthPickerChangeHandle}
-                                previousClick={this.datePickerChangeHandle}/>
+                                onChange={this.handleMonthPickerChange}
+                                previousClick={this.handleDatePickerChange}/>
                             :
                             <YearPicker
                                 value={value}
@@ -186,7 +181,7 @@ class DateField extends Component {
                                 previousMonthIconCls={previousMonthIconCls}
                                 nextYearIconCls={nextYearIconCls}
                                 nextMonthIconCls={nextMonthIconCls}
-                                onChange={this.yearPickerChangeHandle}/>
+                                onChange={this.handleYearPickerChange}/>
 
                 }
 
@@ -202,7 +197,7 @@ class DateField extends Component {
                                     :
                                     <FlatButton className='today-button'
                                                 value={'Today'}
-                                                onClick={this.todayHandle}/>
+                                                onClick={this.handleToday}/>
                             }
                         </div>
                         :
@@ -244,6 +239,13 @@ DateField.propTypes = {
      * Date format.
      */
     dateFormat: PropTypes.string,
+
+    disabled: PropTypes.bool,
+    isFooter: PropTypes.bool,
+    previousYearIconCls: PropTypes.string,
+    previousMonthIconCls: PropTypes.string,
+    nextYearIconCls: PropTypes.string,
+    nextMonthIconCls: PropTypes.string,
 
     /**
      * Callback function that is fired when the date value changes.

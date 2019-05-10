@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -18,6 +18,9 @@ class FlashNumber extends Component {
         this.initValue = props.initValue; // value when animate start
         this.animationFrameId; // animationFrame id
         this.currentValue = 0; // current display value
+
+        this.wrapper = createRef();
+        this.wrapperEl = null;
 
     }
 
@@ -35,21 +38,20 @@ class FlashNumber extends Component {
         // first request
         if (!this.startTime) {
             this.startTime = timeStamp;
-        }
+        } else { // non first
+            if (this.wrapperEl) {
 
-        // non first
-        else {
+                // calculate value
+                let v = this.initValue + Math.round((this.props.value - this.initValue) * (timeStamp - this.startTime) / this.flashDuration);
 
-            // calculate value
-            let v = this.initValue + Math.round((this.props.value - this.initValue) * (timeStamp - this.startTime) / this.flashDuration);
+                // valid value
+                if (this.props.value < this.initValue) { // target value < init value
+                    this.wrapperEl.innerHTML = this.currentValue = v > this.props.value ? v : this.props.value;
+                } else if (this.props.value > this.initValue) { // target value > init value
+                    this.wrapperEl.innerHTML = this.currentValue = v < this.props.value ? v : this.props.value;
+                }
 
-            // valid value
-            if (this.props.value < this.initValue) { // target value < init value
-                this.refs.el.innerHTML = this.currentValue = v > this.props.value ? v : this.props.value;
-            } else if (this.props.value > this.initValue) { // target value > init value
-                this.refs.el.innerHTML = this.currentValue = v < this.props.value ? v : this.props.value;
             }
-
         }
 
         // request next animationFrame if not finish
@@ -63,6 +65,8 @@ class FlashNumber extends Component {
 
     componentDidMount() {
 
+        this.wrapperEl = this.wrapper && this.wrapper.current;
+
         // start flash animate when value is not equal init value
         if (this.props.value != this.initValue) {
             this.animationFrameId = requestAnimationFrame(this.step);
@@ -70,34 +74,31 @@ class FlashNumber extends Component {
 
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentDidUpdate(prevProps, prevState, snapshot) {
 
-        // start flash animate when value change
-        if (nextProps.value !== this.props.value) {
+        if (prevProps.value !== this.props.value) {
             this.init();
             this.animationFrameId = requestAnimationFrame(this.step);
         }
 
-        if (nextProps.flashDuration !== this.flashDuration) {
-            this.flashDuration = nextProps.flashDuration;
+        if (prevProps.flashDuration !== this.flashDuration) {
+            this.flashDuration = this.props.flashDuration;
         }
 
     }
 
     render() {
 
-        const {className, style} = this.props,
-
-            numberClassName = classNames('flash-number', {
-                [className]: className
-            });
+        const {className, style} = this.props;
 
         return (
-            <span ref="el"
-                  className={numberClassName}
+            <span ref={this.wrapper}
+                  className={classNames('flash-number', {
+                      [className]: className
+                  })}
                   style={style}>
-				{this.currentValue}
-			</span>
+                {this.currentValue}
+            </span>
         );
 
     }

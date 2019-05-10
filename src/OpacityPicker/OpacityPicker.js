@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -19,6 +19,10 @@ class OpacityPicker extends Component {
         super(props, ...restArgs);
 
         this.activated = false;
+        this.huePickerBar = createRef();
+        this.huePickerBarEl = null;
+        this.huePickerSlider = createRef();
+        this.huePickerSliderEl = null;
 
         this.state = {
             value: props.value
@@ -48,18 +52,18 @@ class OpacityPicker extends Component {
 
     };
 
-    mouseDownHandler = e => {
+    handleMouseDown = e => {
         this.activated = true;
         this.handleChange(e.pageX);
     };
 
-    mouseMoveHandler = e => {
+    handleMouseMove = e => {
         if (this.activated) {
             this.handleChange(e.pageX);
         }
     };
 
-    mouseUpHandler = () => {
+    handleMouseUp = () => {
         this.activated = false;
     };
 
@@ -91,17 +95,17 @@ class OpacityPicker extends Component {
 
     componentDidMount() {
 
-        this.huePickerBarEl = this.refs.huePickerBar;
-        this.huePickerSliderEl = this.refs.huePickerSlider;
+        this.huePickerBarEl = this.huePickerBar && this.huePickerBar.current;
+        this.huePickerSliderEl = this.huePickerSlider && this.huePickerSlider.current;
 
-        Event.addEvent(document, 'mousemove', this.mouseMoveHandler);
-        Event.addEvent(document, 'mouseup', this.mouseUpHandler);
+        Event.addEvent(document, 'mousemove', this.handleMouseMove);
+        Event.addEvent(document, 'mouseup', this.handleMouseUp);
 
     }
 
     componentWillUnmount() {
-        Event.removeEvent(document, 'mousemove', this.mouseMoveHandler);
-        Event.removeEvent(document, 'mouseup', this.mouseUpHandler);
+        Event.removeEvent(document, 'mousemove', this.handleMouseMove);
+        Event.removeEvent(document, 'mouseup', this.handleMouseUp);
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -113,24 +117,23 @@ class OpacityPicker extends Component {
 
     render() {
 
-        const {className, style, color} = this.props,
-            pickerClassName = classNames('opacity-picker', {
-                [className]: className
-            });
+        const {className, style, color} = this.props;
 
         return (
-            <div className={pickerClassName}
+            <div className={classNames('opacity-picker', {
+                [className]: className
+            })}
                  style={style}>
-                <div ref="huePickerBar"
+                <div ref={this.huePickerBar}
                      className="opacity-picker-bar"
-                     onMouseDown={this.mouseDownHandler}>
+                     onMouseDown={this.handleMouseDown}>
 
                     <div className="opacity-picker-color-overlay"
                          style={{
                              background: `linear-gradient(90deg, transparent, #${color})`
                          }}></div>
 
-                    <div ref="huePickerSlider"
+                    <div ref={this.huePickerSlider}
                          className="opacity-picker-slider"
                          style={{left: this.calcSliderLeft()}}></div>
 

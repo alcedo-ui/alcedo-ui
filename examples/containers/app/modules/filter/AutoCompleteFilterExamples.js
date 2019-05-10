@@ -63,15 +63,15 @@ class AutoCompleteFilterExamples extends Component {
 
     };
 
-    changeHandler = item => {
+    handleChange = item => {
         console.log('select item: ', item);
     };
 
-    filterPressEnterHandler = value => {
+    handleFilterPressEnter = value => {
         console.log('filter value: ', value);
     };
 
-    filterClearHandler = () => {
+    handleFilterClear = () => {
         console.log('filter cleared');
     };
 
@@ -104,9 +104,9 @@ class AutoCompleteFilterExamples extends Component {
                                 <AutoCompleteFilter data={this.data}
                                                     placeholder="Please select ..."
                                                     filterInitValue="test"
-                                                    changeHandler={this.changeHandler}
-                                                    onFilterPressEnter={this.filterPressEnterHandler}
-                                                    onFilterClear={this.filterClearHandler}/>
+                                                    onChange={this.handleChange}
+                                                    onFilterPressEnter={this.handleFilterPressEnter}
+                                                    onFilterClear={this.handleFilterClear}/>
 
                             </div>
 
@@ -133,8 +133,8 @@ class AutoCompleteFilterExamples extends Component {
                                                     data={this.data}
                                                     placeholder="Please select ..."
                                                     minFilterLength={2}
-                                                    onFilterPressEnter={this.filterPressEnterHandler}
-                                                    changeHandler={this.changeHandler}/>
+                                                    onFilterPressEnter={this.handleFilterPressEnter}
+                                                    onChange={this.handleChange}/>
 
                             </div>
 
@@ -159,7 +159,7 @@ class AutoCompleteFilterExamples extends Component {
                                                     disabled={true}
                                                     data={this.data}
                                                     placeholder="Please select ..."
-                                                    changeHandler={this.changeHandler}/>
+                                                    handleChange={this.handleChange}/>
 
                             </div>
 
@@ -189,7 +189,7 @@ class AutoCompleteFilterExamples extends Component {
                                                             `${data} (${data})`;
                                                     }}
                                                     placeholder="Please select ..."
-                                                    changeHandler={this.changeHandler}/>
+                                                    handleChange={this.handleChange}/>
 
                             </div>
 
@@ -229,7 +229,7 @@ class AutoCompleteFilterExamples extends Component {
                                                                     }}
                                                                     placeholder="Please select ..."
                                                                     parentEl={dialogContentEl}
-                                                                    changeHandler={this.changeHandler}/>
+                                                                    handleChange={this.handleChange}/>
                                             </div>
                                     }
                                 </Dialog>

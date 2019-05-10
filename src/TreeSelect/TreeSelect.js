@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import isArray from 'lodash/isArray';
 import classNames from 'classnames';
@@ -18,7 +18,6 @@ import VirtualRoot from '../_statics/VirtualRoot';
 import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
-import Event from '../_vendors/Event';
 import TreeCalculation from '../_vendors/TreeCalculation';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
@@ -32,6 +31,10 @@ class TreeSelect extends Component {
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
+
+        this.dropdown = createRef();
+        this.dropdownInstance = null;
+        this.filter = createRef();
 
         this.state = {
             filter: '',
@@ -47,42 +50,42 @@ class TreeSelect extends Component {
      * public
      */
     startRipple = (e, props) => {
-        this.refs.dropdown && this.refs.dropdown.startRipple(e, props);
+        this.dropdownInstance && this.dropdownInstance.startRipple(e, props);
     };
 
     /**
      * public
      */
     endRipple = () => {
-        this.refs.dropdown && this.refs.dropdown.endRipple();
+        this.dropdownInstance && this.dropdownInstance.endRipple();
     };
 
     /**
      * public
      */
     triggerRipple = (e, props) => {
-        this.refs.dropdown && this.refs.dropdown.triggerRipple(e, props);
+        this.dropdownInstance && this.dropdownInstance.triggerRipple(e, props);
     };
 
     /**
      * public
      */
     resetPopupPosition = () => {
-        this.refs.dropdown && this.refs.dropdown.resetPosition();
+        this.dropdownInstance && this.dropdownInstance.resetPosition();
     };
 
     /**
      * public
      */
     openPopup = () => {
-        this.refs.dropdown && this.refs.dropdown.openPopup();
+        this.dropdownInstance && this.dropdownInstance.openPopup();
     };
 
     /**
      * public
      */
     closePopup = () => {
-        this.refs.dropdown && this.refs.dropdown.closePopup();
+        this.dropdownInstance && this.dropdownInstance.closePopup();
     };
 
     getTriggerValue = (props = this.props) => {
@@ -139,7 +142,7 @@ class TreeSelect extends Component {
 
     };
 
-    nodeSelectHandler = (value, path) => {
+    handleNodeSelect = (value, path) => {
 
         if (this.props.selectMode !== SelectMode.SINGLE_SELECT) {
             return;
@@ -151,7 +154,7 @@ class TreeSelect extends Component {
 
     };
 
-    changeHandler = value => {
+    handleChange = value => {
 
         const {autoClose} = this.props;
         if (autoClose) {
@@ -167,19 +170,19 @@ class TreeSelect extends Component {
 
     };
 
-    popupOpenHandler = e => {
+    handlePopupOpen = e => {
 
         const {useFilter, onOpenPopup} = this.props;
 
         if (useFilter) {
-            this.refs.filter && this.refs.filter.focus();
+            this.filter && this.filter.current && this.filter.current.focus();
         }
 
         onOpenPopup && onOpenPopup(e);
 
     };
 
-    popupClosedHandler = e => {
+    handlePopupClosed = e => {
         this.setState({
             popupVisible: false
         }, () => {
@@ -188,12 +191,11 @@ class TreeSelect extends Component {
         });
     };
 
-    filterChangeHandler = filter => {
+    handleFilterChange = filter => {
         this.setState({
             filter
         }, () => {
-            const el = this.refs.dropdown;
-            el && el.resetPopupPosition();
+            this.dropdownInstance && this.dropdownInstance.resetPopupPosition();
         });
     };
 
@@ -217,6 +219,10 @@ class TreeSelect extends Component {
 
     };
 
+    componentDidMount() {
+        this.dropdownInstance = this.dropdown && this.dropdown.current;
+    }
+
     static getDerivedStateFromProps(props, state) {
         return {
             prevProps: props,
@@ -238,24 +244,12 @@ class TreeSelect extends Component {
                 ...restProps
 
             } = this.props,
-            {value, filter, popupVisible} = this.state,
-
-            wrapperClassName = classNames('tree-select', {
-                [className]: className
-            }),
-
-            selectTriggerClassName = classNames({
-                activated: popupVisible,
-                empty: !triggerRenderer && !value,
-                [triggerClassName]: triggerClassName
-            }),
-            selectPopupClassName = classNames('tree-select-popup', {
-                [popupClassName]: popupClassName
-            });
+            {value, filter, popupVisible} = this.state;
 
         return (
-            <div ref="dropdownSelect"
-                 className={wrapperClassName}
+            <div className={classNames('tree-select', {
+                [className]: className
+            })}
                  style={style}>
 
                 {
@@ -268,22 +262,28 @@ class TreeSelect extends Component {
                 }
 
                 <Dropdown {...restProps}
-                          ref="dropdown"
-                          triggerClassName={selectTriggerClassName}
-                          popupClassName={selectPopupClassName}
+                          ref={this.dropdown}
+                          triggerClassName={classNames({
+                              activated: popupVisible,
+                              empty: !triggerRenderer && !value,
+                              [triggerClassName]: triggerClassName
+                          })}
+                          popupClassName={classNames('tree-select-popup', {
+                              [popupClassName]: popupClassName
+                          })}
                           popupTheme={popupTheme}
                           triggerValue={this.getTriggerValue()}
-                          onOpenPopup={this.popupOpenHandler}
-                          onClosePopup={this.popupClosedHandler}>
+                          onOpenPopup={this.handlePopupOpen}
+                          onClosePopup={this.handlePopupClosed}>
 
                     <div className="tree-select-popup-fixed">
                         {
                             useFilter ?
-                                <TextField ref="filter"
+                                <TextField ref={this.filter}
                                            className="tree-select-filter"
                                            value={filter}
                                            rightIconCls={filterIconCls}
-                                           onChange={this.filterChangeHandler}/>
+                                           onChange={this.handleFilterChange}/>
                                 :
                                 null
                         }
@@ -333,8 +333,8 @@ class TreeSelect extends Component {
                                       checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
                                       renderer={renderer}
                                       onNodeClick={onNodeClick}
-                                      onNodeSelect={this.nodeSelectHandler}
-                                      onChange={this.changeHandler}/>
+                                      onNodeSelect={this.handleNodeSelect}
+                                      onChange={this.handleChange}/>
                         }
 
                     </div>
@@ -565,11 +565,11 @@ TreeSelect.propTypes = {
      */
     onChange: PropTypes.func,
 
-    onWheel: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
     onMouseOver: PropTypes.func,
-    onMouseOut: PropTypes.func
+    onMouseOut: PropTypes.func,
+    onOpenPopup: PropTypes.func
 
 };
 

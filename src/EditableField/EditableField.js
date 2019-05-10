@@ -3,7 +3,7 @@
  * @author chao(chao.zhang@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import trim from 'lodash/trim';
@@ -18,6 +18,12 @@ class EditableField extends Component {
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
+
+        this.editableField = createRef();
+        this.editableFieldEl = null;
+        this.editableFieldText = createRef();
+        this.editableFieldTextEl = null;
+        this.textField = createRef();
 
         this.state = {
             hide: true,
@@ -38,7 +44,7 @@ class EditableField extends Component {
         return false;
     };
 
-    onInputChange = text => {
+    handleInputChange = text => {
         this.setState({
             changeText: text
         });
@@ -51,7 +57,7 @@ class EditableField extends Component {
         this.setState({
             hide: false
         }, () => {
-            this.refs.textField.refs.input.focus();
+            this.textField && this.textField.current && this.textField.current.focus();
             this.props.onEditStart && this.props.onEditStart(e);
         });
     };
@@ -59,9 +65,9 @@ class EditableField extends Component {
     /**
      * 通过坐标判断是否在input区域内点击，防止点击‘清空’时，input消失
      */
-    downHandle = ev => {
+    handleDown = ev => {
         let oEvent = ev || event;
-        if (this.state.hide === false && (!this.triggerElement(oEvent.target, this.refs.editableField))) {
+        if (this.state.hide === false && (!this.triggerElement(oEvent.target, this.editableFieldEl))) {
             this.finishEdit(ev);
         }
     };
@@ -84,7 +90,7 @@ class EditableField extends Component {
         });
     };
 
-    keyDownHandle = ev => {
+    handleKeyDown = ev => {
         const {regExp} = this.props;
 
         if (regExp && !regExp.test(ev.key)) {
@@ -98,8 +104,13 @@ class EditableField extends Component {
     };
 
     componentDidMount() {
-        Event.addEvent(document, 'mousedown', this.downHandle);
-        Event.addEvent(document, 'keydown', this.keyDownHandle);
+
+        this.editableFieldEl = this.editableField && this.editableField.current;
+        this.editableFieldTextEl = this.editableFieldText && this.editableFieldText.current;
+
+        Event.addEvent(document, 'mousedown', this.handleDown);
+        Event.addEvent(document, 'keydown', this.handleKeyDown);
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -120,53 +131,53 @@ class EditableField extends Component {
     }
 
     componentDidUpdate() {
+
         const {inputAutoWidth} = this.state;
 
-        let newAutoWidth = this.refs.editableFieldText && this.refs.editableFieldText.offsetWidth;
+        let newAutoWidth = this.editableFieldTextEl && this.editableFieldTextEl.offsetWidth;
 
         if (inputAutoWidth !== newAutoWidth) {
             this.setState({
                 inputAutoWidth: newAutoWidth
             });
         }
+
     }
 
     componentWillUnmount() {
-        Event.removeEvent(document, 'mousedown', this.downHandle);
-        Event.removeEvent(document, 'keydown', this.keyDownHandle);
+        Event.removeEvent(document, 'mousedown', this.handleDown);
+        Event.removeEvent(document, 'keydown', this.handleKeyDown);
     }
 
     render() {
 
         const {
                 children, className, style, name, disabled, tip, tipPosition, title,
-                onMouseDown, onClick, showModal, maxLength, autoWidth,
-                parentEl
+                onMouseDown, onClick, showModal, maxLength, autoWidth, parentEl
             } = this.props,
-            {changeText, text, hide, inputAutoWidth} = this.state,
-            fieldClassName = classNames('editable-field', {
-                [className]: className
-            });
+            {changeText, text, hide, inputAutoWidth} = this.state;
         let inputStyle = autoWidth && typeof inputAutoWidth === 'number' ? {width: parseInt(inputAutoWidth) + 42} : {};
 
         return (
             <TipProvider tipContent={tip}
                          parentEl={parentEl}
                          position={tipPosition}>
-                <div ref="editableField"
-                     className={fieldClassName}
+                <div ref={this.editableField}
+                     className={classNames('editable-field', {
+                         [className]: className
+                     })}
                      style={style}
                      title={`${disabled ? '' : title}`}
                      onMouseDown={onMouseDown}
                      onClick={onClick}>
 
-                    <span className={`editable-field-hidden-text`}
-                          ref="editableFieldText"
+                    <span className="editable-field-hidden-text"
+                          ref={this.editableFieldText}
                           disabled={disabled}>
                         {changeText}
                     </span>
 
-                    <span className={`editable-field-text`}
+                    <span className="editable-field-text"
                           disabled={disabled}>
                         {text}
                     </span>
@@ -179,12 +190,12 @@ class EditableField extends Component {
                                    aria-hidden="true"></i>
                             </span>
                             :
-                            <TextField ref="textField"
+                            <TextField ref={this.textField}
                                        style={inputStyle}
                                        className={'editable-field-input'}
                                        maxLength={maxLength}
                                        value={changeText}
-                                       onChange={this.onInputChange}/>
+                                       onChange={this.handleInputChange}/>
                     }
 
                     <input type="hidden"
@@ -195,7 +206,6 @@ class EditableField extends Component {
                     {
                         showModal && !hide ?
                             <div className="editable-modal"
-                                 ref="editableModal"
                                  onClick={this.finishEdit}></div>
                             :
                             null
@@ -210,6 +220,8 @@ class EditableField extends Component {
 }
 
 EditableField.propTypes = {
+
+    children: PropTypes.any,
 
     /**
      * The CSS class name of the root element.
@@ -270,6 +282,8 @@ EditableField.propTypes = {
      * If true, the input will be auto width.
      */
     autoWidth: PropTypes.bool,
+
+    parentEl: PropTypes.object,
 
     onMouseDown: PropTypes.func,
 

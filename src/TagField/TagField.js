@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import trim from 'lodash/trim';
@@ -26,6 +26,12 @@ class TagField extends Component {
         super(props, ...restArgs);
 
         this.inputSymbol = Symbol('input');
+        this.wrapper = createRef();
+        this.wrapperEl = null;
+        this.inputWrapper = createRef();
+        this.input = createRef();
+        this.test = createRef();
+        this.testEl = null;
 
         this.state = {
             wrapperWidth: 'auto',
@@ -74,10 +80,13 @@ class TagField extends Component {
 
     calInputIndex = e => {
 
-        const wrapperEl = this.refs.wrapper,
-            offset = Dom.getOffset(wrapperEl),
+        if (!this.wrapperEl) {
+            return -1;
+        }
+
+        const offset = Dom.getOffset(this.wrapperEl),
             {left: minX} = offset,
-            wrapperWidth = wrapperEl.getBoundingClientRect().width,
+            wrapperWidth = this.wrapperEl.getBoundingClientRect().width,
             maxX = minX + wrapperWidth;
 
         let x = e.clientX,
@@ -87,10 +96,10 @@ class TagField extends Component {
         while (x >= minX) {
 
             const item = document.elementFromPoint(x, y),
-                wrapperEl = Dom.findParentByClassName(item, 'tag-field-item-wrapper');
+                el = Dom.findParentByClassName(item, 'tag-field-item-wrapper');
 
-            if (wrapperEl) {
-                inputIndex = +wrapperEl.dataset.index + 1;
+            if (el) {
+                inputIndex = +el.dataset.index + 1;
                 break;
             }
 
@@ -102,10 +111,10 @@ class TagField extends Component {
             while (x <= maxX) {
 
                 const item = document.elementFromPoint(x, y),
-                    wrapperEl = Dom.findParentByClassName(item, 'tag-field-item-wrapper');
+                    el = Dom.findParentByClassName(item, 'tag-field-item-wrapper');
 
-                if (wrapperEl) {
-                    inputIndex = +wrapperEl.dataset.index;
+                if (el) {
+                    inputIndex = +el.dataset.index;
                     break;
                 }
 
@@ -118,7 +127,7 @@ class TagField extends Component {
 
     };
 
-    mouseDownHandler = e => {
+    handleMouseDown = e => {
 
         if (this.props.disabled || Dom.findParentByClassName(e.target, 'tag-field-item-wrapper')
             || Dom.hasClass(e.target, 'tag-field-input')) {
@@ -129,7 +138,9 @@ class TagField extends Component {
 
             return () => {
 
-                if (Dom.findParentByClassName(e.target, 'tag-field') != this.refs.wrapper || this.state.itemEditing) {
+                if (this.state.itemEditing
+                    || (this.wrapperEl
+                        && Dom.findParentByClassName(e.target, 'tag-field') != this.wrapperEl)) {
                     this.setState({
                         inputIndex: this.state.data.length
                     });
@@ -139,12 +150,11 @@ class TagField extends Component {
                 let x = e.clientX,
                     y = e.clientY;
 
-                if (!x || !y) {
+                if (!x || !y || !this.wrapperEl) {
                     return;
                 }
 
-                const wrapperEl = this.refs.wrapper,
-                    offset = Dom.getOffset(wrapperEl);
+                const offset = Dom.getOffset(this.wrapperEl);
 
                 if (!offset) {
                     return;
@@ -156,7 +166,7 @@ class TagField extends Component {
                     inputIndex
                 }, () => {
                     setTimeout(() => {
-                        this.refs.input.focus();
+                        this.input && this.input.current && this.input.current.focus();
                         // wrapperEl.scrollLeft = 0;
                         // wrapperEl.scrollTop = 0;
                     }, 0);
@@ -174,7 +184,7 @@ class TagField extends Component {
 
     };
 
-    inputChangeHandler = e => {
+    handleInputChange = e => {
 
         if (this.props.disabled) {
             return;
@@ -188,9 +198,9 @@ class TagField extends Component {
         }, () => {
 
             const {onInputChange} = this.props,
-                width = CharSize.calculateStringWidth(inputValue, this.refs.test),
-                inputWrapperEl = this.refs.inputWrapper,
-                inputEl = this.refs.input;
+                width = CharSize.calculateStringWidth(inputValue, this.testEl),
+                inputWrapperEl = this.inputWrapper && this.inputWrapper.current,
+                inputEl = this.input && this.input.current;
 
             inputWrapperEl && (inputWrapperEl.style.width = `${width + 9}px`);
             inputEl && (inputEl.style.height = Math.max(inputEl.scrollHeight, 24) + 'px');
@@ -200,7 +210,7 @@ class TagField extends Component {
 
     };
 
-    inputKeyDownHandler = e => {
+    handleInputKeyDown = e => {
 
         if (this.props.disabled) {
             return;
@@ -234,7 +244,7 @@ class TagField extends Component {
             inputIndex: inputIndex + splitedValue.length
         }, () => {
 
-            this.refs.inputWrapper.style.width = '9px';
+            this.inputWrapper && this.inputWrapper.current && (this.inputWrapper.current.style.width = '9px');
 
             const {onChange} = this.props;
             onChange && onChange(data);
@@ -245,7 +255,7 @@ class TagField extends Component {
 
     };
 
-    itemChangeHandler = (value, index) => {
+    handleItemChange = (value, index) => {
 
         if (this.props.disabled) {
             return;
@@ -269,7 +279,7 @@ class TagField extends Component {
 
     };
 
-    itemEditStartHandler = editingItemIndex => {
+    handleItemEditStart = editingItemIndex => {
 
         if (this.props.disabled) {
             return;
@@ -282,7 +292,7 @@ class TagField extends Component {
 
     };
 
-    itemEditEndHandler = () => {
+    handleItemEditEnd = () => {
 
         if (this.props.disabled) {
             return;
@@ -296,9 +306,10 @@ class TagField extends Component {
 
     componentDidMount() {
 
-        Event.addEvent(document, 'mousedown', this.mouseDownHandler);
+        this.wrapperEl = this.wrapper && this.wrapper.current;
+        this.testEl = this.test && this.test.current;
 
-        this.wrapperEl = this.refs.wrapper;
+        Event.addEvent(document, 'mousedown', this.handleMouseDown);
 
         this.setState({
             wrapperWidth: this.wrapperEl ? this.wrapperEl.clientWidth : 'auto'
@@ -307,7 +318,7 @@ class TagField extends Component {
     }
 
     componentWillUnmount() {
-        Event.removeEvent(document, 'mousedown', this.mouseDownHandler);
+        Event.removeEvent(document, 'mousedown', this.handleMouseDown);
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -325,18 +336,15 @@ class TagField extends Component {
                 placeholder, isTagAutoWidth, tagRemoveIconCls
             } = this.props,
             {wrapperWidth, data, inputValue, inputIndex, itemEditing, editingItemIndex} = this.state,
-
-            fieldClassName = classNames('tag-field', {
-                [className]: className
-            }),
-
             indexData = Util.genIndexArray(data.length);
 
         indexData.splice(inputIndex, 0, this.inputSymbol);
 
         return (
-            <div ref="wrapper"
-                 className={fieldClassName}
+            <div ref={this.wrapper}
+                 className={classNames('tag-field', {
+                     [className]: className
+                 })}
                  style={style}
                  disabled={disabled}>
 
@@ -344,16 +352,16 @@ class TagField extends Component {
                     indexData && indexData.map(index => index === this.inputSymbol ?
                         !disabled ?
                             <div key="input"
-                                 ref="inputWrapper"
+                                 ref={this.inputWrapper}
                                  className="tag-field-input-wrapper">
-                                <textarea ref="input"
+                                <textarea ref={this.input}
                                           className="tag-field-input"
                                           style={{width: wrapperWidth}}
                                           autoFocus={true}
                                           value={inputValue}
                                           placeholder={data.length < 1 && placeholder ? placeholder : ''}
-                                          onChange={this.inputChangeHandler}
-                                          onKeyDown={this.inputKeyDownHandler}/>
+                                          onChange={this.handleInputChange}
+                                          onKeyDown={this.handleInputKeyDown}/>
                             </div>
                             :
                             null
@@ -367,9 +375,9 @@ class TagField extends Component {
                                            value={Util.getTextByDisplayField(data[index], displayField, valueField)}
                                            disabled={disabled || (itemEditing && index !== editingItemIndex)}
                                            autoWidth={isTagAutoWidth}
-                                           onChange={value => this.itemChangeHandler(value, index)}
-                                           onEditStart={() => this.itemEditStartHandler(index)}
-                                           onEditEnd={this.itemEditEndHandler}>
+                                           onChange={value => this.handleItemChange(value, index)}
+                                           onEditStart={() => this.handleItemEditStart(index)}
+                                           onEditEnd={this.handleItemEditEnd}>
 
                                 <IconButton className="tag-field-item-field-delete-button"
                                             iconCls={tagRemoveIconCls}
@@ -381,7 +389,7 @@ class TagField extends Component {
                     )
                 }
 
-                <div ref="test"
+                <div ref={this.test}
                      className="tag-field-test-container"></div>
 
             </div>
@@ -414,12 +422,7 @@ TagField.propTypes = {
     tagRemoveIconCls: PropTypes.string,
 
     onChange: PropTypes.func,
-    onInputChange: PropTypes.func,
-
-    /**
-     * Callback function fired when wrapper wheeled.
-     */
-    onWheel: PropTypes.func
+    onInputChange: PropTypes.func
 
 };
 

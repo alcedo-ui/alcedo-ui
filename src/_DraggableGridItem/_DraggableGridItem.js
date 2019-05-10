@@ -27,7 +27,7 @@ class DraggableGridItem extends Component {
         super(props, ...restArgs);
     }
 
-    checkboxChangeHandler = checked => {
+    handleCheckboxChange = checked => {
 
         const {onSelect, onDeselect} = this.props;
 
@@ -39,7 +39,7 @@ class DraggableGridItem extends Component {
 
     };
 
-    radioChangeHandler = () => {
+    handleRadioChange = () => {
 
         const {checked} = this.props;
 
@@ -50,7 +50,7 @@ class DraggableGridItem extends Component {
 
     };
 
-    clickHandler = e => {
+    handleClick = e => {
 
         e.preventDefault();
 
@@ -65,10 +65,10 @@ class DraggableGridItem extends Component {
 
         switch (this.props.selectMode) {
             case SelectMode.MULTI_SELECT:
-                this.checkboxChangeHandler(!this.props.checked);
+                this.handleCheckboxChange(!this.props.checked);
                 return;
             case SelectMode.SINGLE_SELECT:
-                this.radioChangeHandler();
+                this.handleRadioChange();
                 return;
         }
 
@@ -117,7 +117,7 @@ class DraggableGridItem extends Component {
                                              style={style}
                                              disabled={disabled || isLoading}
                                              readOnly={readOnly}
-                                             onClick={this.clickHandler}
+                                             onClick={this.handleClick}
                                              onMouseEnter={onMouseEnter}
                                              onMouseLeave={onMouseLeave}>
 

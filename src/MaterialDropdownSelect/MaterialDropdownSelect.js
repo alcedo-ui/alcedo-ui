@@ -3,14 +3,14 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import DropdownSelect from '../DropdownSelect';
 import MaterialProvider from '../MaterialProvider';
-import Theme from '../Theme';
 
+import Theme from '../Theme';
 import SelectMode from '../_statics/SelectMode';
 import Position from '../_statics/Position';
 
@@ -28,6 +28,9 @@ class MaterialDropdownSelect extends Component {
 
         super(props, ...restArgs);
 
+        this.dropdownSelect = createRef();
+        this.dropdownSelectInstance = null;
+
         this.state = {
             value: props.value,
             isFocus: false
@@ -39,45 +42,45 @@ class MaterialDropdownSelect extends Component {
      * public
      */
     startRipple = (e, props) => {
-        this.refs.dropdownSelect && this.refs.dropdownSelect.startRipple(e, props);
+        this.dropdownSelectInstance && this.dropdownSelectInstance.startRipple(e, props);
     };
 
     /**
      * public
      */
     endRipple = () => {
-        this.refs.dropdownSelect && this.refs.dropdownSelect.endRipple();
+        this.dropdownSelectInstance && this.dropdownSelectInstance.endRipple();
     };
 
     /**
      * public
      */
     triggerRipple = (e, props) => {
-        this.refs.dropdownSelect && this.refs.dropdownSelect.triggerRipple(e, props);
+        this.dropdownSelectInstance && this.dropdownSelectInstance.triggerRipple(e, props);
     };
 
     /**
      * public
      */
     resetPopupPosition = () => {
-        this.refs.dropdownSelect && this.refs.dropdownSelect.resetPosition();
+        this.dropdownSelectInstance && this.dropdownSelectInstance.resetPosition();
     };
 
     /**
      * public
      */
     openPopup = () => {
-        this.refs.dropdownSelect && this.refs.dropdownSelect.openPopup();
+        this.dropdownSelectInstance && this.dropdownSelectInstance.openPopup();
     };
 
     /**
      * public
      */
     closePopup = () => {
-        this.refs.dropdownSelect && this.refs.dropdownSelect.closePopup();
+        this.dropdownSelectInstance && this.dropdownSelectInstance.closePopup();
     };
 
-    triggerChangeHandler = value => {
+    handleTriggerChange = value => {
         this.setState({
             value
         }, () => {
@@ -85,6 +88,10 @@ class MaterialDropdownSelect extends Component {
             onChange && onChange(value);
         });
     };
+
+    componentDidMount() {
+        this.dropdownSelectInstance = this.dropdownSelect && this.dropdownSelect.current;
+    }
 
     static getDerivedStateFromProps(props, state) {
         return {
@@ -99,14 +106,12 @@ class MaterialDropdownSelect extends Component {
                 className, style, theme, label, isLabelAnimate, disabled, required, selectMode,
                 ...restProps
             } = this.props,
-            {value} = this.state,
-
-            wrapperClassName = classNames('material-dropdown-select', {
-                [className]: className
-            });
+            {value} = this.state;
 
         return (
-            <MaterialProvider className={wrapperClassName}
+            <MaterialProvider className={classNames('material-dropdown-select', {
+                [className]: className
+            })}
                               style={style}
                               theme={theme}
                               label={label}
@@ -115,11 +120,11 @@ class MaterialDropdownSelect extends Component {
                               disabled={disabled}
                               required={required}>
                 <DropdownSelect {...restProps}
-                                ref="dropdownSelect"
+                                ref={this.dropdownSelect}
                                 value={value}
                                 selectMode={selectMode}
                                 disabled={disabled}
-                                onChange={this.triggerChangeHandler}/>
+                                onChange={this.handleTriggerChange}/>
             </MaterialProvider>
         );
 

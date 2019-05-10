@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -21,44 +21,49 @@ class FlatButton extends Component {
     static TipPosition = Position;
 
     constructor(props, ...restArgs) {
+
         super(props, ...restArgs);
+
+        this.button = createRef();
+        this.buttonInstance = null;
+
     }
 
     /**
      * public
      */
     startRipple = (e, props) => {
-        this.refs.baseButton && this.refs.baseButton.startRipple(e, props);
+        this.buttonInstance && this.buttonInstance.startRipple(e, props);
     };
 
     /**
      * public
      */
     endRipple = () => {
-        this.refs.baseButton && this.refs.baseButton.endRipple();
+        this.buttonInstance && this.buttonInstance.endRipple();
     };
 
     /**
      * public
      */
     triggerRipple = (e, props) => {
-        this.refs.baseButton && this.refs.baseButton.triggerRipple(e, props);
+        this.buttonInstance && this.buttonInstance.triggerRipple(e, props);
     };
+
+    componentDidMount() {
+        this.buttonInstance = this.button && this.button.current;
+    }
 
     render() {
 
-        const {children, className, ...restProps} = this.props,
-
-            buttonClassName = classNames('flat-button', {
-                [className]: className
-            });
+        const {className, ...restProps} = this.props;
 
         return (
             <BaseButton {...restProps}
-                        ref="baseButton"
-                        className={buttonClassName}>
-                {children}
-            </BaseButton>
+                        ref={this.button}
+                        className={classNames('flat-button', {
+                            [className]: className
+                        })}/>
         );
 
     }

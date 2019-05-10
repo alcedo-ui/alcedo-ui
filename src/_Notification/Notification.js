@@ -3,15 +3,15 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import IconButton from '../IconButton';
 import AnchorButton from '../AnchorButton';
 
-import Util from '../_vendors/Util';
 import MsgType from '../_statics/MsgType';
+import Util from '../_vendors/Util';
 
 class Notification extends Component {
 
@@ -21,6 +21,7 @@ class Notification extends Component {
 
         super(props, ...restArgs);
 
+        this.notification = createRef();
         this.unrenderTimeout = null;
 
         this.state = {
@@ -43,7 +44,7 @@ class Notification extends Component {
         }
     };
 
-    clickHandler = e => {
+    handleClick = e => {
 
         const {notificationId, onRequestClose} = this.props;
 
@@ -62,7 +63,7 @@ class Notification extends Component {
 
         const {notificationId, duration, onRequestClose} = this.props;
 
-        const notificationEl = this.refs.notification;
+        const notificationEl = this.notification && this.notification.current;
         notificationEl.style.height = notificationEl.clientHeight + 'px';
         notificationEl.style.width = notificationEl.clientWidth + 'px';
 
@@ -97,20 +98,18 @@ class Notification extends Component {
                 className, style, type, title, message, iconCls,
                 closeIconVisible, closeButtonVisible, closeButtonValue
             } = this.props,
-            {hidden, leave} = this.state,
-
-            wrapperClassName = classNames('notification', {
-                'theme-default': type === MsgType.DEFAULT,
-                [`theme-${type}`]: type !== MsgType.DEFAULT,
-                hidden: hidden,
-                leave: leave,
-                'has-close-button': closeButtonVisible,
-                [className]: className
-            });
+            {hidden, leave} = this.state;
 
         return (
-            <div ref="notification"
-                 className={wrapperClassName}
+            <div ref={this.notification}
+                 className={classNames('notification', {
+                     'theme-default': type === MsgType.DEFAULT,
+                     [`theme-${type}`]: type !== MsgType.DEFAULT,
+                     hidden: hidden,
+                     leave: leave,
+                     'has-close-button': closeButtonVisible,
+                     [className]: className
+                 })}
                  style={style}>
 
                 {
@@ -130,7 +129,7 @@ class Notification extends Component {
                     closeIconVisible ?
                         <IconButton className="notification-close-icon"
                                     iconCls="fas fa-times"
-                                    onClick={this.clickHandler}/>
+                                    onClick={this.handleClick}/>
                         :
                         null
                 }
@@ -139,7 +138,7 @@ class Notification extends Component {
                     closeButtonVisible ?
                         <AnchorButton className="notification-close-Button"
                                       value={closeButtonValue}
-                                      onClick={this.clickHandler}/>
+                                      onClick={this.handleClick}/>
                         :
                         null
                 }

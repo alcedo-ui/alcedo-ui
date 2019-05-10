@@ -3,8 +3,9 @@
  * @author sunday(sunday.wei@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
+import {findDOMNode} from 'react-dom';
 import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
@@ -15,12 +16,11 @@ import DayPicker from '../_DayPicker';
 import MonthPicker from '../_MonthPicker';
 import YearPicker from '../_YearPicker';
 import Popup from '../Popup';
-import Theme from '../Theme';
 
+import Theme from '../Theme';
 import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
-import {findDOMNode} from 'react-dom';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
 
 class MaterialDateRangePicker extends Component {
@@ -34,6 +34,8 @@ class MaterialDateRangePicker extends Component {
 
         const initValue = moment();
         this.validValue = true;
+        this.trigger = createRef();
+        this.triggerEl = null;
 
         let startTime = '',
             endTime = '';
@@ -65,34 +67,34 @@ class MaterialDateRangePicker extends Component {
 
     }
 
-    datePickerChangeHandle = (select, selectLevel) => {
+    handleDatePickerChange = (select, selectLevel) => {
         let state = cloneDeep(this.state);
         state[select].datePickerLevel = selectLevel;
         this.setState(state);
     };
 
-    textFieldChangeHandle = (select, text) => {
+    handleTextFieldChange = (select, text) => {
         if (text && text.length) {
             const flag = moment(text, this.props.dateFormat, true).isValid();
             if (flag) {
                 const initValue = moment(text).format('YYYY-MM-DD');
-                const select_year = initValue.split('-')[0],
-                    select_month = initValue.split('-')[1],
-                    select_day = initValue.split('-')[2];
+                const selectYear = initValue.split('-')[0],
+                    selectMonth = initValue.split('-')[1],
+                    selectDay = initValue.split('-')[2];
                 let state = cloneDeep(this.state);
                 if (select == 'left') {
                     if (moment(text).isBefore(state.right.text)) {
                         state.startTime = text;
                         state.left.text = text;
-                        state.left.year = select_year;
-                        state.left.month = select_month;
-                        state.left.day = select_day;
-                        if (select_year == state.right.year && select_month == state.right.month) {
-                            if (select_month == 12) {
+                        state.left.year = selectYear;
+                        state.left.month = selectMonth;
+                        state.left.day = selectDay;
+                        if (selectYear == state.right.year && selectMonth == state.right.month) {
+                            if (selectMonth == 12) {
                                 state.right.month = 1;
-                                state.right.year = +select_year + 1;
+                                state.right.year = +selectYear + 1;
                             } else {
-                                state.right.month = +select_month + 1;
+                                state.right.month = +selectMonth + 1;
                             }
                         }
                     }
@@ -101,12 +103,12 @@ class MaterialDateRangePicker extends Component {
                     if (moment(state.startTime).isBefore(text)) {
                         state.endTime = text;
                         state.right.text = text;
-                        if (select_year == state.left.year && select_month == state.left.month) {
-                            state.right.month = +select_month + 1;
+                        if (selectYear == state.left.year && selectMonth == state.left.month) {
+                            state.right.month = +selectMonth + 1;
                         } else {
-                            state.right.year = select_year;
-                            state.right.month = select_month;
-                            state.right.day = select_day;
+                            state.right.year = selectYear;
+                            state.right.month = selectMonth;
+                            state.right.day = selectDay;
                         }
                     }
                     this.setState(state);
@@ -115,7 +117,7 @@ class MaterialDateRangePicker extends Component {
         }
     };
 
-    dayPickerChangeHandle = (select, date) => {
+    handleDayPickerChange = (select, date) => {
         let state = cloneDeep(this.state);
         if (state.endTime) {
             state[select].text = date.time;
@@ -156,7 +158,7 @@ class MaterialDateRangePicker extends Component {
 
     };
 
-    dayPickerHoverHandle = (select, date) => {
+    handleDayPickerHover = (select, date) => {
         let state = cloneDeep(this.state);
         let startTime = state.startTime;
         let endTime = state.endTime;
@@ -173,7 +175,7 @@ class MaterialDateRangePicker extends Component {
         }
     };
 
-    monthAndYearChangeHandle = (select, date) => {
+    handleMonthAndYearChange = (select, date) => {
         let state = cloneDeep(this.state);
         state[select].year = date.year;
         state[select].month = date.month;
@@ -181,7 +183,7 @@ class MaterialDateRangePicker extends Component {
     };
 
 
-    monthPickerChangeHandle = (select, date) => {
+    handleMonthPickerChange = (select, date) => {
         let state = cloneDeep(this.state);
         state[select].datePickerLevel = 'day';
         state[select].year = date.year;
@@ -189,7 +191,7 @@ class MaterialDateRangePicker extends Component {
         this.setState(state);
     };
 
-    yearPickerChangeHandle = (select, year) => {
+    handleYearPickerChange = (select, year) => {
         let state = cloneDeep(this.state);
         state[select].datePickerLevel = 'month';
         state[select].year = year;
@@ -244,7 +246,7 @@ class MaterialDateRangePicker extends Component {
         });
     };
 
-    popupRenderHandler = popupEl => {
+    handlePopupRender = popupEl => {
 
         if (this.props.position) {
             return;
@@ -326,15 +328,18 @@ class MaterialDateRangePicker extends Component {
     };
 
     componentDidMount() {
+
+        this.triggerEl = this.trigger && this.trigger.current && findDOMNode(this.trigger.current);
+
         const {value, dateFormat} = this.props;
         this.setValue(value, dateFormat);
-        this.datePicker = this.refs.datePicker;
-        this.triggerEl = findDOMNode(this.refs.trigger);
+
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (JSON.stringify(nextProps.value) !== JSON.stringify(this.props.value) || nextProps.dateFormat !== this.props.dateFormat) {
-            this.setValue(nextProps.value, nextProps.dateFormat);
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (JSON.stringify(prevProps.value) !== JSON.stringify(this.props.value)
+            || prevProps.dateFormat !== this.props.dateFormat) {
+            this.setValue(this.props.value, this.props.dateFormat);
         }
     }
 
@@ -345,11 +350,7 @@ class MaterialDateRangePicker extends Component {
                 theme, popupClassName, rightIconCls, previousYearIconCls, previousMonthIconCls,
                 nextYearIconCls, nextMonthIconCls, readOnly, disabled, parentEl
             } = this.props,
-            {popupVisible, left, right, startTime, endTime, hoverTime, isAbove} = this.state,
-
-            pickerClassName = classNames('material-date-range-picker', {
-                [className]: className
-            });
+            {popupVisible, left, right, startTime, endTime, hoverTime, isAbove} = this.state;
 
         let textFieldValue = left.text && right.text ? left.text + '~ ' + right.text : '';
 
@@ -368,11 +369,12 @@ class MaterialDateRangePicker extends Component {
         let rightMinValue = moment([minYear, minMonth - 1, 1]).format('YYYY-MM-DD');
 
         return (
-            <div ref="datePicker"
-                 className={pickerClassName}
+            <div className={classNames('material-date-range-picker', {
+                [className]: className
+            })}
                  style={style}>
 
-                <DatePickerTextField ref="trigger"
+                <DatePickerTextField ref={this.trigger}
                                      className="material-date-range-picker-field"
                                      theme={theme}
                                      name={name}
@@ -396,7 +398,7 @@ class MaterialDateRangePicker extends Component {
                        parentEl={parentEl}
                        position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        hasTriangle={false}
-                       onRender={this.popupRenderHandler}
+                       onRender={this.handlePopupRender}
                        onRequestClose={this.closePopup}>
 
                     <div className="calendar-date-input-wrap">
@@ -407,7 +409,7 @@ class MaterialDateRangePicker extends Component {
                                        clearButtonVisible={false}
                                        readOnly={readOnly}
                                        onChange={(text) => {
-                                           this.textFieldChangeHandle('left', text);
+                                           this.handleTextFieldChange('left', text);
                                        }}/>
                             <TextField className='fl calendar-input'
                                        placeholder={placeholder}
@@ -415,7 +417,7 @@ class MaterialDateRangePicker extends Component {
                                        clearButtonVisible={false}
                                        readOnly={readOnly}
                                        onChange={(text) => {
-                                           this.textFieldChangeHandle('right', text);
+                                           this.handleTextFieldChange('right', text);
                                        }}/>
                         </div>
                     </div>
@@ -439,16 +441,16 @@ class MaterialDateRangePicker extends Component {
                                        nextYearIconCls={nextYearIconCls}
                                        nextMonthIconCls={nextMonthIconCls}
                                        monthAndYearChange={(obj) => {
-                                           this.monthAndYearChangeHandle('left', obj);
+                                           this.handleMonthAndYearChange('left', obj);
                                        }}
                                        onChange={(obj) => {
-                                           this.dayPickerChangeHandle('left', obj);
+                                           this.handleDayPickerChange('left', obj);
                                        }}
                                        previousClick={(level) => {
-                                           this.datePickerChangeHandle('left', level);
+                                           this.handleDatePickerChange('left', level);
                                        }}
                                        hoverHandle={(obj) => {
-                                           this.dayPickerHoverHandle('left', obj);
+                                           this.handleDayPickerHover('left', obj);
                                        }}/>
                             : (
                                 left.datePickerLevel == 'month' ?
@@ -463,10 +465,10 @@ class MaterialDateRangePicker extends Component {
                                                  nextYearIconCls={nextYearIconCls}
                                                  nextMonthIconCls={nextMonthIconCls}
                                                  onChange={(obj) => {
-                                                     this.monthPickerChangeHandle('left', obj);
+                                                     this.handleMonthPickerChange('left', obj);
                                                  }}
                                                  previousClick={(level) => {
-                                                     this.datePickerChangeHandle('left', level);
+                                                     this.handleDatePickerChange('left', level);
                                                  }}/>
                                     :
                                     <YearPicker value={left.text}
@@ -480,7 +482,7 @@ class MaterialDateRangePicker extends Component {
                                                 nextYearIconCls={nextYearIconCls}
                                                 nextMonthIconCls={nextMonthIconCls}
                                                 onChange={(obj) => {
-                                                    this.yearPickerChangeHandle('left', obj);
+                                                    this.handleYearPickerChange('left', obj);
                                                 }}/>
                             )
 
@@ -505,16 +507,16 @@ class MaterialDateRangePicker extends Component {
                                        nextYearIconCls={nextYearIconCls}
                                        nextMonthIconCls={nextMonthIconCls}
                                        monthAndYearChange={(obj) => {
-                                           this.monthAndYearChangeHandle('right', obj);
+                                           this.handleMonthAndYearChange('right', obj);
                                        }}
                                        onChange={(obj) => {
-                                           this.dayPickerChangeHandle('right', obj);
+                                           this.handleDayPickerChange('right', obj);
                                        }}
                                        previousClick={(level) => {
-                                           this.datePickerChangeHandle('right', level);
+                                           this.handleDatePickerChange('right', level);
                                        }}
                                        hoverHandle={(obj) => {
-                                           this.dayPickerHoverHandle('left', obj);
+                                           this.handleDayPickerHover('left', obj);
                                        }}/>
                             : (
                                 right.datePickerLevel == 'month' ?
@@ -529,10 +531,10 @@ class MaterialDateRangePicker extends Component {
                                                  nextYearIconCls={nextYearIconCls}
                                                  nextMonthIconCls={nextMonthIconCls}
                                                  onChange={(obj) => {
-                                                     this.monthPickerChangeHandle('right', obj);
+                                                     this.handleMonthPickerChange('right', obj);
                                                  }}
                                                  previousClick={(level) => {
-                                                     this.datePickerChangeHandle('right', level);
+                                                     this.handleDatePickerChange('right', level);
                                                  }}/>
                                     :
                                     <YearPicker value={right.text}
@@ -546,7 +548,7 @@ class MaterialDateRangePicker extends Component {
                                                 nextYearIconCls={nextYearIconCls}
                                                 nextMonthIconCls={nextMonthIconCls}
                                                 onChange={(obj) => {
-                                                    this.yearPickerChangeHandle('right', obj);
+                                                    this.handleYearPickerChange('right', obj);
                                                 }}/>
                             )
 
@@ -574,6 +576,8 @@ MaterialDateRangePicker.propTypes = {
      * Override the styles of the root element.
      */
     style: PropTypes.object,
+
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
      * DateRangePicker input name.
@@ -629,6 +633,14 @@ MaterialDateRangePicker.propTypes = {
      * If true,dateRangePicker textField is disabled.
      */
     disabled: PropTypes.bool,
+
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
+    rightIconCls: PropTypes.string,
+    previousYearIconCls: PropTypes.string,
+    previousMonthIconCls: PropTypes.string,
+    nextYearIconCls: PropTypes.string,
+    nextMonthIconCls: PropTypes.string,
+    parentEl: PropTypes.object,
 
     /**
      * Callback function that is fired when the date value changes.

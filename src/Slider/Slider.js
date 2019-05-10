@@ -3,7 +3,7 @@
  * @author chao(chao.zhang@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -14,6 +14,11 @@ class Slider extends Component {
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
+
+        this.sliderBox = createRef();
+        this.sliderBoxEl = null;
+        this.circleLeft = createRef();
+        this.circleRight = createRef();
 
         this.state = {
             left: 0,
@@ -37,19 +42,26 @@ class Slider extends Component {
      * 获取当前元素的左偏移量
      */
     getElementLeft = element => {
+
+        if (!element) {
+            return 0;
+        }
+
         let offsetLeft = element.offsetLeft;
         let current = element.offsetParent;
         while (current !== null) {
             offsetLeft += current.offsetLeft;
             current = current.offsetParent;
         }
+
         return offsetLeft;
+
     };
 
     /**
      * 判断当前点击对象是否是小圆点，修改shadow
      */
-    downHandle = ev => {
+    handleDown = ev => {
         let element = ev.srcElement ? ev.srcElement : ev.target;
         if (element.getAttribute('class').indexOf('left') > -1) {
             this.setState({
@@ -66,10 +78,10 @@ class Slider extends Component {
     /**
      * 当点击对象为小圆点时，移动指针则改变slider的值
      */
-    moveHandle = ev => {
+    handleMove = ev => {
         if (this.state.shadow) {
             let oEvent = ev || event;
-            let offsetLeft = this.getElementLeft(this.refs.sliderBox);
+            let offsetLeft = this.getElementLeft(this.sliderBoxEl);
             let leftPosition = (this.props.width > (this.getPosition(oEvent).x - offsetLeft)) ? (this.getPosition(oEvent).x - offsetLeft) : this.props.width;
             leftPosition = (leftPosition > 0) ? leftPosition : 0;
             if (this.props.ruler) {
@@ -79,13 +91,13 @@ class Slider extends Component {
                 this.setState({
                     left: leftPosition
                 }, () => {
-                    this.changeHandle();
+                    this.handleChange();
                 });
             } else {
                 this.setState({
                     right: leftPosition
                 }, () => {
-                    this.changeHandle();
+                    this.handleChange();
                 });
             }
         }
@@ -94,7 +106,7 @@ class Slider extends Component {
     /**
      * 修改tip位置
      */
-    changeHandle = () => {
+    handleChange = () => {
         const {scale, decimalPlaces, width} = this.props;
         const {left, right} = this.state;
 
@@ -103,7 +115,7 @@ class Slider extends Component {
         this.props.onChange && this.props.onChange(leftTip, rightTip);
     };
 
-    upHandle = () => {
+    handleUp = () => {
         this.setState({
             shadow: ''
         });
@@ -112,7 +124,7 @@ class Slider extends Component {
     /**
      * 当mouseOver至小圆点，则显示tip
      */
-    overHandle = ev => {
+    handleOver = ev => {
         let element = ev.srcElement ? ev.srcElement : ev.target;
         if (element.getAttribute('class').indexOf('left') > -1) {
             this.setState({
@@ -125,7 +137,7 @@ class Slider extends Component {
         }
     };
 
-    outHandle = () => {
+    handleOut = () => {
         this.setState({
             tip: ''
         });
@@ -134,9 +146,9 @@ class Slider extends Component {
     /**
      * 点击slider时，改变slider的值
      */
-    clickHandle = ev => {
+    handleClick = ev => {
         let oEvent = ev || event;
-        let offsetLeft = this.getElementLeft(this.refs.sliderBox);
+        let offsetLeft = this.getElementLeft(this.sliderBoxEl);
         let clickLeft = this.getPosition(oEvent).x - offsetLeft;
         if (this.props.ruler) {
             clickLeft = this.getNearest(clickLeft);
@@ -145,13 +157,13 @@ class Slider extends Component {
             this.setState({
                 right: clickLeft
             }, () => {
-                this.changeHandle();
+                this.handleChange();
             });
         } else {
             this.setState({
                 left: clickLeft
             }, () => {
-                this.changeHandle();
+                this.handleChange();
             });
         }
     };
@@ -174,90 +186,95 @@ class Slider extends Component {
     };
 
     componentDidMount() {
+
+        this.sliderBoxEl = this.sliderBox && this.sliderBox.current;
+
         this.setState({
             right: this.props.width / 2
         });
-        Event.addEvent(document, 'mousemove', this.moveHandle);
-        Event.addEvent(document, 'mouseup', this.upHandle);
-        Event.addEvent(this.refs.circleRight, 'mouseover', this.overHandle);
-        Event.addEvent(this.refs.circleRight, 'mouseout', this.outHandle);
-        if (this.refs.circleLeft) {
-            Event.addEvent(this.refs.circleLeft, 'mouseover', this.overHandle);
-            Event.addEvent(this.refs.circleLeft, 'mouseout', this.outHandle);
+
+        Event.addEvent(document, 'mousemove', this.handleMove);
+        Event.addEvent(document, 'mouseup', this.handleUp);
+
+        if (this.circleRight && this.circleRight.current) {
+            Event.addEvent(this.circleRight.current, 'mouseover', this.handleOver);
+            Event.addEvent(this.circleRight.current, 'mouseout', this.handleOut);
         }
+
+        if (this.circleLeft && this.circleLeft.current) {
+            Event.addEvent(this.circleLeft.current, 'mouseover', this.handleOver);
+            Event.addEvent(this.circleLeft.current, 'mouseout', this.handleOut);
+        }
+
     }
 
     componentWillUnmount() {
-        Event.removeEvent(document, 'mousemove', this.moveHandle);
-        Event.removeEvent(document, 'mouseup', this.upHandle);
-        Event.removeEvent(this.refs.circleRight, 'mouseover', this.overHandle);
-        Event.removeEvent(this.refs.circleRight, 'mouseout', this.outHandle);
-        if (this.refs.circleLeft) {
-            Event.removeEvent(this.refs.circleLeft, 'mouseover', this.overHandle);
-            Event.removeEvent(this.refs.circleLeft, 'mouseout', this.outHandle);
+
+        Event.removeEvent(document, 'mousemove', this.handleMove);
+        Event.removeEvent(document, 'mouseup', this.handleUp);
+
+        if (this.circleRight && this.circleRight.current) {
+            Event.removeEvent(this.circleRight.current, 'mouseover', this.handleOver);
+            Event.removeEvent(this.circleRight.current, 'mouseout', this.handleOut);
         }
+
+        if (this.circleLeft && this.circleLeft.current) {
+            Event.removeEvent(this.circleLeft.current, 'mouseover', this.handleOver);
+            Event.removeEvent(this.circleLeft.current, 'mouseout', this.handleOut);
+        }
+
     }
 
     render() {
 
         const {leftPoint, scale, width, showScale, decimalPlaces, className, style} = this.props,
             {left, right, shadow, tip} = this.state,
-
-            sliderClassName = classNames('slider', {
-                [className]: className
-            }),
-            sliderStyle = {
-                ...style,
-                width
-            },
-
-            highStyle = {width: Math.abs(left - right), left: Math.min(left, right)},
-            leftStyle = {left: left},
-            rightStyle = {left: right},
-
-            display = (tip || shadow) ? '' : 'hide',
-            leftShadow = shadow === 'left' ? 'slider-shadow' : '',
-            rightShadow = shadow === 'right' ? 'slider-shadow' : '',
-
-            leftTip = parseFloat((left / width) * (scale[scale.length - 1] - scale[0]) + scale[0]).toFixed(decimalPlaces),
-            rightTip = parseFloat((right / width) * (scale[scale.length - 1] - scale[0]) + scale[0]).toFixed(decimalPlaces);
+            display = (tip || shadow) ? '' : 'hide';
 
         return (
-            <div className={sliderClassName}
-                 style={sliderStyle}>
+            <div className={classNames('slider', {
+                [className]: className
+            })}
+                 style={{
+                     ...style,
+                     width
+                 }}>
 
-                <div ref="sliderBox"
+                <div ref={this.sliderBox}
                      className="slider-box"
-                     onMouseDown={this.clickHandle}>
+                     onMouseDown={this.handleClick}>
 
                     {
                         leftPoint ?
-                            <div ref="circleLeft"
-                                 className={`slider-circle slider-circle-left ${leftShadow}`}
-                                 style={leftStyle}
-                                 onMouseDown={this.downHandle}></div>
+                            <div ref={this.circleLeft}
+                                 className={`slider-circle slider-circle-left ${shadow === 'left' ? 'slider-shadow' : ''}`}
+                                 style={{left}}
+                                 onMouseDown={this.handleDown}></div>
                             :
                             null
                     }
 
-                    <div ref="circleRight"
-                         className={`slider-circle slider-circle-right ${rightShadow}`}
-                         style={rightStyle}
-                         onMouseDown={this.downHandle}></div>
+                    <div ref={this.circleRight}
+                         className={`slider-circle slider-circle-right ${shadow === 'right' ? 'slider-shadow' : ''}`}
+                         style={{left: right}}
+                         onMouseDown={this.handleDown}></div>
                     <div className="slider-highlight"
-                         style={highStyle}></div>
+                         style={{
+                             width: Math.abs(left - right),
+                             left: Math.min(left, right)
+                         }}></div>
 
                     {
 
                         shadow === 'left' || tip === 'left' ?
                             <div className={`slider-tip ${display}`}
-                                 style={leftStyle}>
-                                {leftTip}
+                                 style={{left}}>
+                                {parseFloat((left / width) * (scale[scale.length - 1] - scale[0]) + scale[0]).toFixed(decimalPlaces)}
                             </div>
                             :
                             <div className={`slider-tip ${display}`}
-                                 style={rightStyle}>
-                                {rightTip}
+                                 style={{left: right}}>
+                                {parseFloat((right / width) * (scale[scale.length - 1] - scale[0]) + scale[0]).toFixed(decimalPlaces)}
                             </div>
 
                     }
@@ -269,21 +286,14 @@ class Slider extends Component {
                         showScale ?
                             <ul>
                                 {
-                                    scale && scale.map((number, index) => {
-
-                                        const left = (number - scale[0]) / (scale[scale.length - 1] - scale[0]) * 100,
-                                            style = {
-                                                left: left + '%'
-                                            };
-
-                                        return (
-                                            <li style={style}
-                                                key={index}>
-                                                {number}
-                                            </li>
-                                        );
-
-                                    })
+                                    scale && scale.map((number, index) =>
+                                        <li key={index}
+                                            style={{
+                                                left: (number - scale[0]) / (scale[scale.length - 1] - scale[0]) * 100 + '%'
+                                            }}>
+                                            {number}
+                                        </li>
+                                    )
                                 }
                             </ul>
                             :

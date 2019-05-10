@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 import classNames from 'classnames';
@@ -11,7 +11,6 @@ import classNames from 'classnames';
 import RaisedButton from '../RaisedButton';
 
 import MsgType from '../_statics/MsgType';
-
 import Util from '../_vendors/Util';
 
 class Toast extends Component {
@@ -23,6 +22,7 @@ class Toast extends Component {
         super(props, ...restArgs);
 
         this.unrenderTimeout = null;
+        this.toast = createRef();
 
         this.state = {
             hidden: true,
@@ -44,7 +44,7 @@ class Toast extends Component {
         }
     };
 
-    clickHandler = e => {
+    handleClick = e => {
         const {onRequestClose, toastsId} = this.props;
         onRequestClose && onRequestClose(toastsId);
     };
@@ -53,9 +53,11 @@ class Toast extends Component {
 
         const {toastsId, duration, onRequestClose} = this.props;
 
-        const toastEl = findDOMNode(this.refs.toast);
-        toastEl.style.width = toastEl.clientWidth + 'px';
-        toastEl.style.height = toastEl.clientHeight + 'px';
+        if (this.toast && this.toast.current) {
+            const toastEl = findDOMNode(this.toast.current);
+            toastEl.style.width = toastEl.clientWidth + 'px';
+            toastEl.style.height = toastEl.clientHeight + 'px';
+        }
 
         if (duration > 0) {
             this.unrenderTimeout = setTimeout(() => {
@@ -85,22 +87,20 @@ class Toast extends Component {
     render() {
 
         const {className, style, type, message, iconCls} = this.props,
-            {hidden, leave} = this.state,
-
-            toastClassName = classNames('toast', {
-                hidden,
-                leave,
-                [className]: className
-            });
+            {hidden, leave} = this.state;
 
         return (
-            <RaisedButton ref="toast"
-                          className={toastClassName}
+            <RaisedButton ref={this.toast}
+                          className={classNames('toast', {
+                              hidden,
+                              leave,
+                              [className]: className
+                          })}
                           style={style}
                           theme={type}
                           iconCls={`${iconCls ? iconCls : this.getIconCls()} toast-icon`}
                           value={message}
-                          onClick={this.clickHandler}/>
+                          onClick={this.handleClick}/>
         );
 
     }

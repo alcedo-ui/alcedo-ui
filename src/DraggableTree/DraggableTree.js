@@ -17,7 +17,6 @@ import SelectMode from '../_statics/SelectMode';
 import VirtualRoot from '../_statics/VirtualRoot';
 
 import Util from '../_vendors/Util';
-import Event from '../_vendors/Event';
 import Calculation from '../_vendors/Calculation';
 import TreeCalculation from '../_vendors/TreeCalculation';
 import ComponentUtil from '../_vendors/ComponentUtil';
@@ -330,6 +329,8 @@ class DraggableTree extends Component {
 }
 
 DraggableTree.propTypes = {
+
+    children: PropTypes.any,
 
     /**
      * The CSS class name of the root element.

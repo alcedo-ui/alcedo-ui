@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -20,6 +20,11 @@ class HuePicker extends Component {
 
         this.activated = false;
 
+        this.huePickerBar = createRef();
+        this.huePickerBarEl = null;
+        this.huePickerSlider = createRef();
+        this.huePickerSliderEl = null;
+
         this.state = {
             value: props.value
         };
@@ -33,33 +38,30 @@ class HuePicker extends Component {
      */
     calcSliderLeft = (value = this.state.value) => {
 
-        const barEl = this.huePickerBarEl,
-            sliderEl = this.huePickerSliderEl;
-
-        if (!value || !barEl || !sliderEl) {
+        if (!value || !this.huePickerBarEl || !this.huePickerSliderEl) {
             return 0;
         }
 
-        const barWidth = barEl.offsetWidth,
-            sliderWidth = sliderEl.offsetWidth,
+        const barWidth = this.huePickerBarEl.offsetWidth,
+            sliderWidth = this.huePickerSliderEl.offsetWidth,
             width = barWidth - sliderWidth;
 
         return value / 360 * width;
 
     };
 
-    mouseDownHandler = e => {
+    handleMouseDown = e => {
         this.activated = true;
         this.handleChange(e.pageX);
     };
 
-    mouseMoveHandler = e => {
+    handleMouseMove = e => {
         if (this.activated) {
             this.handleChange(e.pageX);
         }
     };
 
-    mouseUpHandler = () => {
+    handleMouseUp = () => {
         this.activated = false;
     };
 
@@ -92,17 +94,17 @@ class HuePicker extends Component {
 
     componentDidMount() {
 
-        this.huePickerBarEl = this.refs.huePickerBar;
-        this.huePickerSliderEl = this.refs.huePickerSlider;
+        this.huePickerBarEl = this.huePickerBar && this.huePickerBar.current;
+        this.huePickerSliderEl = this.huePickerSlider && this.huePickerSlider.current;
 
-        Event.addEvent(document, 'mousemove', this.mouseMoveHandler);
-        Event.addEvent(document, 'mouseup', this.mouseUpHandler);
+        Event.addEvent(document, 'mousemove', this.handleMouseMove);
+        Event.addEvent(document, 'mouseup', this.handleMouseUp);
 
     }
 
     componentWillUnmount() {
-        Event.removeEvent(document, 'mousemove', this.mouseMoveHandler);
-        Event.removeEvent(document, 'mouseup', this.mouseUpHandler);
+        Event.removeEvent(document, 'mousemove', this.handleMouseMove);
+        Event.removeEvent(document, 'mouseup', this.handleMouseUp);
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -114,18 +116,17 @@ class HuePicker extends Component {
 
     render() {
 
-        const {className, style} = this.props,
-            pickerClassName = classNames('hue-picker', {
-                [className]: className
-            });
+        const {className, style} = this.props;
 
         return (
-            <div className={pickerClassName}
+            <div className={classNames('hue-picker', {
+                [className]: className
+            })}
                  style={style}>
-                <div ref="huePickerBar"
+                <div ref={this.huePickerBar}
                      className="hue-picker-bar"
-                     onMouseDown={this.mouseDownHandler}>
-                    <div ref="huePickerSlider"
+                     onMouseDown={this.handleMouseDown}>
+                    <div ref={this.huePickerSlider}
                          className="hue-picker-slider"
                          style={{left: this.calcSliderLeft()}}></div>
                 </div>

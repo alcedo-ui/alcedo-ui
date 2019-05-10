@@ -3,8 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
-import {findDOMNode} from 'react-dom';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -25,6 +24,8 @@ class ButtonRadioSelect extends Component {
 
         super(props, ...restArgs);
 
+        this.dropdown = createRef();
+
         this.state = {
             value: props.value
         };
@@ -35,38 +36,38 @@ class ButtonRadioSelect extends Component {
      * public
      */
     startRipple = (e, props) => {
-        this.refs.dropdown && this.refs.dropdown.startRipple(e, props);
+        this.dropdown && this.dropdown.current && this.dropdown.current.startRipple(e, props);
     };
 
     /**
      * public
      */
     endRipple = () => {
-        this.refs.dropdown && this.refs.dropdown.endRipple();
+        this.dropdown && this.dropdown.current && this.dropdown.current.endRipple();
     };
 
     /**
      * public
      */
     triggerRipple = (e, props) => {
-        this.refs.dropdown && this.refs.dropdown.triggerRipple(e, props);
+        this.dropdown && this.dropdown.current && this.dropdown.current.triggerRipple(e, props);
     };
 
     /**
      * public
      */
     openPopup = () => {
-        this.refs.dropdown && this.refs.dropdown.openPopup();
+        this.dropdown && this.dropdown.current && this.dropdown.current.openPopup();
     };
 
     /**
      * public
      */
     closePopup = () => {
-        this.refs.dropdown && this.refs.dropdown.closePopup();
+        this.dropdown && this.dropdown.current && this.dropdown.current.closePopup();
     };
 
-    changeHandler = value => {
+    handleChange = value => {
 
         const {autoClose} = this.props;
         if (autoClose) {
@@ -117,10 +118,6 @@ class ButtonRadioSelect extends Component {
 
     };
 
-    componentDidMount() {
-        this.triggerEl = findDOMNode(this.refs.trigger);
-    }
-
     static getDerivedStateFromProps(props, state) {
         return {
             prevProps: props,
@@ -131,30 +128,30 @@ class ButtonRadioSelect extends Component {
     render() {
 
         const {
+
                 className, style, triggerClassName, triggerStyle, popupClassName, popupStyle,
                 theme, popupTheme, activatedTheme, idField, valueField, displayField, descriptionField,
-                data, renderer, onItemClick, ...restProps
-            } = this.props,
-            {value} = this.state,
+                data, renderer, onItemClick,
 
-            selectClassName = classNames('button-radio-select', {
-                [className]: className
-            }),
-            btnClassName = classNames('button-radio-select-trigger', {
-                [triggerClassName]: triggerClassName
-            }),
-            popClassName = classNames('button-radio-select-popup', {
-                [popupClassName]: popupClassName
-            });
+                ...restProps
+
+            } = this.props,
+            {value} = this.state;
 
         return (
             <Dropdown {...restProps}
-                      ref="dropdown"
-                      className={selectClassName}
+                      ref={this.dropdown}
+                      className={classNames('button-radio-select', {
+                          [className]: className
+                      })}
                       style={style}
-                      triggerClassName={btnClassName}
+                      triggerClassName={classNames('button-radio-select-trigger', {
+                          [triggerClassName]: triggerClassName
+                      })}
                       triggerStyle={triggerStyle}
-                      popupClassName={popClassName}
+                      popupClassName={classNames('button-radio-select-popup', {
+                          [popupClassName]: popupClassName
+                      })}
                       popupStyle={popupStyle}
                       theme={theme}
                       activatedTheme={activatedTheme}
@@ -172,7 +169,7 @@ class ButtonRadioSelect extends Component {
                                   descriptionField={descriptionField}
                                   renderer={renderer}
                                   onItemClick={onItemClick}
-                                  onChange={this.changeHandler}/>
+                                  onChange={this.handleChange}/>
             </Dropdown>
         );
 

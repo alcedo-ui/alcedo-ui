@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -17,7 +17,6 @@ import HorizontalDirection from '../_statics/HorizontalDirection';
 import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
-import Event from '../_vendors/Event';
 import CascaderCalculation from '../_vendors/CascaderCalculation';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
@@ -33,6 +32,8 @@ class CascaderSelect extends Component {
 
         super(props, ...restArgs);
 
+        this.dropdown = createRef();
+
         this.state = {
             value: props.value,
             popupVisible: false,
@@ -46,42 +47,42 @@ class CascaderSelect extends Component {
      * public
      */
     startRipple = (e, props) => {
-        this.refs.dropdown && this.refs.dropdown.startRipple(e, props);
+        this.dropdown && this.dropdown.current && this.dropdown.current.startRipple(e, props);
     };
 
     /**
      * public
      */
     endRipple = () => {
-        this.refs.dropdown && this.refs.dropdown.endRipple();
+        this.dropdown && this.dropdown.current && this.dropdown.current.endRipple();
     };
 
     /**
      * public
      */
     triggerRipple = (e, props) => {
-        this.refs.dropdown && this.refs.dropdown.triggerRipple(e, props);
+        this.dropdown && this.dropdown.current && this.dropdown.current.triggerRipple(e, props);
     };
 
     /**
      * public
      */
     resetPopupPosition = () => {
-        this.refs.dropdown && this.refs.dropdown.resetPosition();
+        this.dropdown && this.dropdown.current && this.dropdown.current.resetPosition();
     };
 
     /**
      * public
      */
     openPopup = () => {
-        this.refs.dropdown && this.refs.dropdown.openPopup();
+        this.dropdown && this.dropdown.current && this.dropdown.current.openPopup();
     };
 
     /**
      * public
      */
     closePopup = () => {
-        this.refs.dropdown && this.refs.dropdown.closePopup();
+        this.dropdown && this.dropdown.current && this.dropdown.current.closePopup();
     };
 
     getTriggerValue = (props = this.props) => {
@@ -138,7 +139,7 @@ class CascaderSelect extends Component {
     };
 
     handlePathChange = () => {
-        this.refs.dropdown.resetPopupPosition();
+        this.dropdown && this.dropdown.current && this.dropdown.current.resetPopupPosition();
     };
 
     handleNodeSelect = (node, path) => {
@@ -217,8 +218,7 @@ class CascaderSelect extends Component {
             });
 
         return (
-            <div ref="dropdownSelect"
-                 className={wrapperClassName}
+            <div className={wrapperClassName}
                  style={style}>
 
                 {
@@ -231,7 +231,7 @@ class CascaderSelect extends Component {
                 }
 
                 <Dropdown {...restProps}
-                          ref="dropdown"
+                          ref={this.dropdown}
                           triggerClassName={selectTriggerClassName}
                           popupClassName={selectPopupClassName}
                           popupTheme={popupTheme}
@@ -240,7 +240,6 @@ class CascaderSelect extends Component {
                           onClosePopup={this.handlePopupClosed}>
 
                     <div className="cascader-select-list-scroller">
-
                         <CascaderList className="cascader-select-list"
                                       theme={popupTheme}
                                       selectTheme={selectTheme}
@@ -267,7 +266,6 @@ class CascaderSelect extends Component {
                                       onNodeDeselect={onNodeDeselect}
                                       onChange={this.handleChange}
                                       onPathChange={this.handlePathChange}/>
-
                     </div>
 
                     {popupChildren}
@@ -524,7 +522,6 @@ CascaderSelect.propTypes = {
      */
     onChange: PropTypes.func,
 
-    onWheel: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
     onMouseOver: PropTypes.func,
