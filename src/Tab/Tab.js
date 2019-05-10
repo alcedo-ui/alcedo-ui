@@ -64,21 +64,19 @@ class Tab extends Component {
 
                             const {
 
-                                    // not passing down these props
-                                    renderer, onActive,
+                                // not passing down these props
+                                renderer, onActive,
 
-                                    ...restProps
+                                ...restProps
 
-                                } = item,
-
-                                className = classNames('tab-button', {
-                                    activated: activatedIndex === index
-                                });
+                            } = item;
 
                             return (
                                 <FlatButton {...restProps}
                                             key={index}
-                                            className={className}
+                                            className={classNames('tab-button', {
+                                                activated: activatedIndex === index
+                                            })}
                                             style={{
                                                 width: isTabFullWidth ? `${tabWidthPerCent}%` : 'auto'
                                             }}
