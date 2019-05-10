@@ -18,7 +18,7 @@ class ListStepItem extends Component {
         super(props, ...restArgs);
     }
 
-    clickHandler = () => {
+    handleClick = () => {
         const {activatedStep, finishedStep, index, onClick} = this.props;
         activatedStep !== index && finishedStep >= index && onClick(index);
     };
@@ -26,20 +26,18 @@ class ListStepItem extends Component {
     render() {
 
         const {className, style, activatedStep, finishedStep, index, data} = this.props,
-
-            state = activatedStep === index ? 'activated' : (finishedStep >= index ? 'finished' : ''),
-            itemClassName = classNames('list-step-item', {
-                [state]: state,
-                [className]: className
-            });
+            state = activatedStep === index ? 'activated' : (finishedStep >= index ? 'finished' : '');
 
         return (
             <RaisedButton {...data}
-                          className={itemClassName}
+                          className={classNames('list-step-item', {
+                              [state]: state,
+                              [className]: className
+                          })}
                           style={style}
                           theme={state === 'activated' ? Theme.HIGHLIGHT : (state === 'finished' ? Theme.PRIMARY : '')}
                           value={data.value}
-                          onClick={this.clickHandler}/>
+                          onClick={this.handleClick}/>
         );
 
     }
