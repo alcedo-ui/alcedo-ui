@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
@@ -26,6 +26,8 @@ class Toaster extends Component {
         super(props, ...restArgs);
 
         this.nextKey = 0;
+        this.pop = createRef();
+        this.popInstance = null;
 
         this.state = {
             visible: false,
@@ -38,6 +40,10 @@ class Toaster extends Component {
         return position !== Position.BOTTOM_LEFT && position !== Position.BOTTOM && position !== Position.BOTTOM_RIGHT;
     };
 
+    /**
+     * public
+     * @param toast
+     */
     addToast = toast => {
 
         let toasts = this.state.toasts;
@@ -52,7 +58,7 @@ class Toaster extends Component {
             toasts,
             visible: true
         }, () => {
-            this.refs.toaster.resetPosition();
+            this.popInstance && this.popInstance.resetPosition();
         });
 
     };
@@ -74,12 +80,16 @@ class Toaster extends Component {
                 this.setState({
                     visible: false
                 }, () => {
-                    this.refs.toaster.resetPosition();
+                    this.popInstance && this.popInstance.resetPosition();
                 });
             }
         });
 
     };
+
+    componentDidMount() {
+        this.popInstance = this.pop && this.pop.current;
+    }
 
     componentWillReceiveProps(nextProps) {
 
@@ -106,7 +116,7 @@ class Toaster extends Component {
                 visible: true
             }, () => {
 
-                this.refs.toaster.resetPosition();
+                this.popInstance && this.popInstance.resetPosition();
 
                 const {onToastPop} = this.props;
                 onToastPop && onToastPop();
@@ -129,17 +139,15 @@ class Toaster extends Component {
                 ...restProps
 
             } = this.props,
-            {toasts, visible} = this.state,
-
-            toasterClassName = classNames('toaster', {
-                [`toaster-${position}`]: position,
-                [className]: className
-            });
+            {toasts, visible} = this.state;
 
         return (
             <PositionPop {...restProps}
-                         ref="toaster"
-                         className={toasterClassName}
+                         ref={this.pop}
+                         className={classNames('toaster', {
+                             [`toaster-${position}`]: position,
+                             [className]: className
+                         })}
                          visible={visible}
                          position={position}>
                 {
