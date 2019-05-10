@@ -35,7 +35,7 @@ class Switcher extends Component {
 
     }
 
-    clickHandler = e => {
+    handleClick = e => {
 
         const {disabled, isLoading, beforeChange, onClick} = this.props;
 
@@ -83,14 +83,7 @@ class Switcher extends Component {
                 ...restProps
 
             } = this.props,
-            {value} = this.state,
-
-            switcherClassName = classNames('switcher', {
-                activated: value,
-                small: size === Switcher.Size.SMALL,
-                [`theme-${theme}`]: theme,
-                [className]: className
-            });
+            {value} = this.state;
 
         return (
             <TipProvider tipContent={tip}
@@ -98,10 +91,15 @@ class Switcher extends Component {
                          parentEl={parentEl}
                          position={tipPosition}>
                 <div {...restProps}
-                     className={switcherClassName}
+                     className={classNames('switcher', {
+                         activated: value,
+                         small: size === Switcher.Size.SMALL,
+                         [`theme-${theme}`]: theme,
+                         [className]: className
+                     })}
                      style={style}
                      disabled={disabled || isLoading}
-                     onClick={this.clickHandler}>
+                     onClick={this.handleClick}>
 
                     {
                         labelVisible ?
