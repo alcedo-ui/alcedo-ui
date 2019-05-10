@@ -10,8 +10,8 @@ import classNames from 'classnames';
 
 import CascaderListItem from '../_CascaderListItem';
 import Tip from '../Tip';
-import Theme from '../Theme';
 
+import Theme from '../Theme';
 import SelectMode from '../_statics/SelectMode';
 import HorizontalDirection from '../_statics/HorizontalDirection';
 
@@ -109,7 +109,7 @@ class CascaderList extends Component {
 
     };
 
-    nodeClickHandler = (node, index, path, e) => {
+    handleNodeClick = (node, index, path, e) => {
 
         const {onNodeClick} = this.props;
         onNodeClick && onNodeClick(node, index, path, e);
@@ -123,7 +123,7 @@ class CascaderList extends Component {
 
     };
 
-    nodeSelectHandler = (node, path) => {
+    handleNodeSelect = (node, path) => {
 
         if (!node) {
             return;
@@ -161,7 +161,7 @@ class CascaderList extends Component {
 
     };
 
-    nodeDeselectHandler = (node, path) => {
+    handleNodeDeselect = (node, path) => {
 
         const {selectMode} = this.props;
 
@@ -216,19 +216,16 @@ class CascaderList extends Component {
                 idField, valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
                 isSelectRecursive, renderer
             } = this.props,
-            {value, activatedPath} = this.state,
-
-            wrapperClassName = classNames('cascader-list', {
-                [className]: className
-            }),
-            wrapperStyle = {
-                ...style,
-                width: CascaderCalculation.getMaxDepth(activatedPath) * listWidth
-            };
+            {value, activatedPath} = this.state;
 
         return (
-            <div className={wrapperClassName}
-                 style={wrapperStyle}
+            <div className={classNames('cascader-list', {
+                [className]: className
+            })}
+                 style={{
+                     ...style,
+                     width: CascaderCalculation.getMaxDepth(activatedPath) * listWidth
+                 }}
                  disabled={disabled}>
 
                 <CascaderListItem expandDirection={expandDirection}
@@ -253,9 +250,9 @@ class CascaderList extends Component {
                                   checkboxCheckedIconCls={checkboxCheckedIconCls}
                                   checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
                                   isSelectRecursive={isSelectRecursive}
-                                  onNodeClick={this.nodeClickHandler}
-                                  onNodeSelect={this.nodeSelectHandler}
-                                  onNodeDeselect={this.nodeDeselectHandler}/>
+                                  onNodeClick={this.handleNodeClick}
+                                  onNodeSelect={this.handleNodeSelect}
+                                  onNodeDeselect={this.handleNodeDeselect}/>
 
                 {children}
 
@@ -265,6 +262,8 @@ class CascaderList extends Component {
 }
 
 CascaderList.propTypes = {
+
+    children: PropTypes.any,
 
     /**
      * The CSS class name of the root element.
