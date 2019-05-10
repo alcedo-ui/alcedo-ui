@@ -72,14 +72,12 @@ class MaterialTextField extends Component {
                 className, style, theme, label, isLabelAnimate, disabled, required,
                 ...restProps
             } = this.props,
-            {value} = this.state,
-
-            fieldClassName = classNames('material-text-field', {
-                [className]: className
-            });
+            {value} = this.state;
 
         return (
-            <MaterialProvider className={fieldClassName}
+            <MaterialProvider className={classNames('material-text-field', {
+                [className]: className
+            })}
                               style={style}
                               theme={theme}
                               label={label}
