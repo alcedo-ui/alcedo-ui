@@ -3,14 +3,14 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import TreeSelect from '../TreeSelect';
 import MaterialProvider from '../MaterialProvider';
-import Theme from '../Theme';
 
+import Theme from '../Theme';
 import SelectMode from '../_statics/SelectMode';
 import Position from '../_statics/Position';
 
@@ -28,6 +28,9 @@ class MaterialTreeSelect extends Component {
 
         super(props, ...restArgs);
 
+        this.treeSelect = createRef();
+        this.treeSelectInstance = null;
+
         this.state = {
             value: props.value
         };
@@ -38,45 +41,45 @@ class MaterialTreeSelect extends Component {
      * public
      */
     startRipple = (e, props) => {
-        this.refs.treeSelect && this.refs.treeSelect.startRipple(e, props);
+        this.treeSelectInstance && this.treeSelectInstance.startRipple(e, props);
     };
 
     /**
      * public
      */
     endRipple = () => {
-        this.refs.treeSelect && this.refs.treeSelect.endRipple();
+        this.treeSelectInstance && this.treeSelectInstance.endRipple();
     };
 
     /**
      * public
      */
     triggerRipple = (e, props) => {
-        this.refs.treeSelect && this.refs.treeSelect.triggerRipple(e, props);
+        this.treeSelectInstance && this.treeSelectInstance.triggerRipple(e, props);
     };
 
     /**
      * public
      */
     resetPopupPosition = () => {
-        this.refs.treeSelect && this.refs.treeSelect.resetPosition();
+        this.treeSelectInstance && this.treeSelectInstance.resetPosition();
     };
 
     /**
      * public
      */
     openPopup = () => {
-        this.refs.treeSelect && this.refs.treeSelect.openPopup();
+        this.treeSelectInstance && this.treeSelectInstance.openPopup();
     };
 
     /**
      * public
      */
     closePopup = () => {
-        this.refs.treeSelect && this.refs.treeSelect.closePopup();
+        this.treeSelectInstance && this.treeSelectInstance.closePopup();
     };
 
-    triggerChangeHandler = value => {
+    handleTriggerChange = value => {
         this.setState({
             value
         }, () => {
@@ -84,6 +87,10 @@ class MaterialTreeSelect extends Component {
             onChange && onChange(value);
         });
     };
+
+    componentDidMount() {
+        this.treeSelectInstance = this.treeSelect && this.treeSelect.current;
+    }
 
     static getDerivedStateFromProps(props, state) {
         return {
@@ -98,14 +105,12 @@ class MaterialTreeSelect extends Component {
                 className, style, theme, label, isLabelAnimate, disabled, required,
                 ...restProps
             } = this.props,
-            {value} = this.state,
-
-            wrapperClassName = classNames('material-tree-select', {
-                [className]: className
-            });
+            {value} = this.state;
 
         return (
-            <MaterialProvider className={wrapperClassName}
+            <MaterialProvider className={classNames('material-tree-select', {
+                [className]: className
+            })}
                               style={style}
                               theme={theme}
                               label={label}
@@ -114,10 +119,10 @@ class MaterialTreeSelect extends Component {
                               disabled={disabled}
                               required={required}>
                 <TreeSelect {...restProps}
-                            ref="treeSelect"
+                            ref={this.treeSelect}
                             value={value}
                             disabled={disabled}
-                            onChange={this.triggerChangeHandler}/>
+                            onChange={this.handleTriggerChange}/>
             </MaterialProvider>
         );
 
