@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -22,6 +22,9 @@ class MaterialTextArea extends Component {
 
         super(props, ...restArgs);
 
+        this.input = createRef();
+        this.inputInstance = null;
+
         this.state = {
             value: props.value
         };
@@ -32,17 +35,17 @@ class MaterialTextArea extends Component {
      * public
      */
     focus = () => {
-        this.refs.input.focus();
+        this.inputInstance && this.inputInstance.focus();
     };
 
     /**
      * public
      */
     blur = () => {
-        this.refs.input.blur();
+        this.inputInstance && this.inputInstance.blur();
     };
 
-    triggerChangeHandler = value => {
+    handleTriggerChange = value => {
         this.setState({
             value
         }, () => {
@@ -50,6 +53,10 @@ class MaterialTextArea extends Component {
             onChange && onChange(value);
         });
     };
+
+    componentDidMount() {
+        this.inputInstance = this.input && this.input.current;
+    }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value) {
@@ -65,15 +72,13 @@ class MaterialTextArea extends Component {
                 className, style, theme, label, isLabelAnimate, wordCountVisible, disabled, required,
                 ...restProps
             } = this.props,
-            {value} = this.state,
-
-            wrapperClassName = classNames('material-text-area', {
-                'has-word-count': wordCountVisible,
-                [className]: className
-            });
+            {value} = this.state;
 
         return (
-            <MaterialProvider className={wrapperClassName}
+            <MaterialProvider className={classNames('material-text-area', {
+                'has-word-count': wordCountVisible,
+                [className]: className
+            })}
                               style={style}
                               theme={theme}
                               label={label}
@@ -82,12 +87,13 @@ class MaterialTextArea extends Component {
                               disabled={disabled}
                               required={required}>
                 <TextArea {...restProps}
+                          ref={this.input}
                           theme={theme}
                           value={value}
                           disabled={disabled}
                           required={required}
                           wordCountVisible={wordCountVisible}
-                          onChange={this.triggerChangeHandler}/>
+                          onChange={this.handleTriggerChange}/>
             </MaterialProvider>
         );
 
