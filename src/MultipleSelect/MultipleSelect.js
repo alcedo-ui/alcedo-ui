@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 import classNames from 'classnames';
@@ -14,13 +14,14 @@ import Popup from '../Popup';
 import List from '../List';
 import GroupList from '../GroupList';
 import DynamicRenderList from '../DynamicRenderList';
-import Theme from '../Theme';
 
+import Theme from '../Theme';
 import SelectMode from '../_statics/SelectMode';
 import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class MultipleSelect extends Component {
 
@@ -31,7 +32,12 @@ class MultipleSelect extends Component {
 
         super(props, ...restArgs);
 
+        this.wrapper = createRef();
+        this.wrapperEl = null;
+        this.trigger = createRef();
         this.triggerEl = null;
+        this.pop = createRef();
+        this.popInstance = null;
 
         this.state = {
             selectedCollapsed: true,
@@ -134,7 +140,7 @@ class MultipleSelect extends Component {
         this.setState({
             filter
         }, () => {
-            this.popupRef && this.popupRef.resetPosition();
+            this.popInstance && this.popInstance.resetPosition();
         });
     };
 
@@ -146,7 +152,7 @@ class MultipleSelect extends Component {
 
     popupRenderHandler = popupEl => {
 
-        const isAbove = DropdownCalculation.isAbove(this.multipleSelectEl, this.triggerEl, findDOMNode(popupEl));
+        const isAbove = DropdownCalculation.isAbove(this.wrapperEl, this.triggerEl, findDOMNode(popupEl));
 
         if (isAbove !== this.state.isAbove) {
             this.setState({
@@ -169,56 +175,54 @@ class MultipleSelect extends Component {
 
         this.setState(state, () => {
 
-            const {onChange} = this.props,
-                self = this;
+            const {onChange} = this.props;
             onChange && onChange(value);
 
             setTimeout(() => {
-                self.popupRef.resetPosition();
+                this.popInstance && this.popInstance.resetPosition();
             }, 0);
 
         });
 
     };
 
-    triggerHandler = (el, triggerEl, popupEl, currentVisible) => {
-
-        if (!triggerEl) {
-            return true;
-        }
-
-        while (el) {
-            if (el == this.refs.multipleSelect || el == popupEl || el == triggerEl) {
-                return currentVisible;
-            }
-            el = el.parentNode;
-        }
-
-        return false;
-
-    };
+    // triggerHandler = (el, triggerEl, popupEl, currentVisible) => {
+    //
+    //     if (!triggerEl) {
+    //         return true;
+    //     }
+    //
+    //     while (el) {
+    //         if (el == this.refs.multipleSelect || el == popupEl || el == triggerEl) {
+    //             return currentVisible;
+    //         }
+    //         el = el.parentNode;
+    //     }
+    //
+    //     return false;
+    //
+    // };
 
     componentDidMount() {
-        this.multipleSelectEl = this.refs.multipleSelect;
-        this.triggerEl = findDOMNode(this.refs.trigger);
-        this.popupRef = this.refs.popup;
+        this.wrapperEl = this.wrapper && this.wrapper.current;
+        this.triggerEl = this.trigger && this.trigger.current && findDOMNode(this.trigger.current);
+        this.popInstance = this.pop && this.pop.current;
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
     }
 
+    /* eslint-disable complexity */
     render() {
 
         const {
                 className, popupClassName, style, popupStyle, theme, name, placeholder, isGrouped,
                 useDynamicRenderList, listHeight, itemHeight, scrollBuffer, position, resetPopPositionWait,
-                disabled, iconCls, rightIconCls, valueField, displayField, descriptionField, noMatchedMsg,
-                parentEl
+                disabled, iconCls, rightIconCls, valueField, displayField, descriptionField, noMatchedMsg, parentEl
             } = this.props,
             {selectedCollapsed, isAbove, value, filter, popupVisible} = this.state,
 
@@ -241,30 +245,17 @@ class MultipleSelect extends Component {
                 || position === Position.TOP_RIGHT || (!position && isAbove),
             valueLen = (value ? value.length : 0),
 
-            multipleSelectClassName = classNames('multiple-select', isAboveFinally ? 'above' : 'blow', {
-                [`theme-${theme}`]: theme,
-                'not-empty': valueLen > 0,
-                activated: popupVisible,
-                [className]: className
-            }),
-
-            selectedClassName = classNames('multiple-select-selected-wrapper', isAboveFinally ? 'above' : 'blow', {
-                collapsed: selectedCollapsed
-            }),
-
-            selectPopupClassName = classNames('multiple-select-popup', isAboveFinally ? 'above' : 'blow', {
-                [popupClassName]: popupClassName
-            }),
-            selectPopupStyle = Object.assign({
-                width: this.triggerEl && getComputedStyle(this.triggerEl).width
-            }, popupStyle),
-
             listData = this.filterData(),
             isEmpty = listData.length < 1;
 
         return (
-            <div ref="multipleSelect"
-                 className={multipleSelectClassName}
+            <div ref={this.wrapper}
+                 className={classNames('multiple-select', isAboveFinally ? 'above' : 'blow', {
+                     [`theme-${theme}`]: theme,
+                     'not-empty': valueLen > 0,
+                     activated: popupVisible,
+                     [className]: className
+                 })}
                  style={style}>
 
                 {
@@ -279,7 +270,10 @@ class MultipleSelect extends Component {
                 {
                     value && valueLen > 0 ?
                         (
-                            <div className={selectedClassName}>
+                            <div
+                                className={classNames('multiple-select-selected-wrapper', isAboveFinally ? 'above' : 'blow', {
+                                    collapsed: selectedCollapsed
+                                })}>
 
                                 <div className="multiple-select-selected-count">
                                     {`${valueLen} selected`}
@@ -317,7 +311,7 @@ class MultipleSelect extends Component {
                         null
                 }
 
-                <TextField ref="trigger"
+                <TextField ref={this.trigger}
                            className="multiple-select-trigger"
                            theme={theme}
                            value={filter}
@@ -329,9 +323,13 @@ class MultipleSelect extends Component {
                            onBlur={this.blurHandler}
                            onChange={this.filterChangeHandler}/>
 
-                <Popup ref="popup"
-                       className={selectPopupClassName}
-                       style={selectPopupStyle}
+                <Popup ref={this.pop}
+                       className={classNames('multiple-select-popup', isAboveFinally ? 'above' : 'blow', {
+                           [popupClassName]: popupClassName
+                       })}
+                       style={Object.assign({
+                           width: this.triggerEl && getComputedStyle(this.triggerEl).width
+                       }, popupStyle)}
                        theme={theme}
                        visible={popupVisible}
                        triggerEl={this.triggerEl}
@@ -501,6 +499,8 @@ MultipleSelect.propTypes = {
 
     ]).isRequired,
 
+    value: PropTypes.any,
+
     /**
      * If true, the auto complete will be disabled.
      */
@@ -556,6 +556,7 @@ MultipleSelect.propTypes = {
     listHeight: PropTypes.number,
     itemHeight: PropTypes.number,
     scrollBuffer: PropTypes.number,
+    parentEl: PropTypes.object,
 
     /**
      * Callback function fired when MultipleSelect changed.
