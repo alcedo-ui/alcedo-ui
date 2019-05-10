@@ -30,17 +30,12 @@ class CircularProgress extends Component {
                 ...style,
                 width: (r + width) * 2,
                 height: (r + width) * 2
-            },
-
-            circleClassName = classNames('circular-progress', {
-                [className]: className
-            }),
-            circleStyle = {
-                strokeDasharray: percent / 100 * l + ',' + l
             };
 
         return (
-            <div className={circleClassName}
+            <div className={classNames('circular-progress', {
+                [className]: className
+            })}
                  style={svgStyle}>
 
                 <svg className="circular-progress-svg">
@@ -50,7 +45,9 @@ class CircularProgress extends Component {
                             r={r}
                             strokeWidth={width}
                             fill="none"
-                            style={circleStyle}>
+                            style={{
+                                strokeDasharray: percent / 100 * l + ',' + l
+                            }}>
                     </circle>
                 </svg>
 
@@ -71,6 +68,8 @@ class CircularProgress extends Component {
 }
 
 CircularProgress.propTypes = {
+
+    children: PropTypes.any,
 
     /**
      * The CSS class name of the root element.
