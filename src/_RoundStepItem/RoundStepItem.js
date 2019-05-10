@@ -29,7 +29,7 @@ class RoundStepItem extends Component {
 
     };
 
-    clickHandler = e => {
+    handleClick = e => {
         const {activatedStep, finishedStep, index, disabled, onClick} = this.props;
         !disabled && activatedStep !== index && finishedStep >= index && onClick && onClick(index, e);
     };
@@ -37,20 +37,18 @@ class RoundStepItem extends Component {
     render() {
 
         const {
-                className, style, activatedStep, finishedStep, index, value, isFirst, isLast,
-                showFinishedStepIcon, finishedStepIconCls, disabled
-            } = this.props,
+            className, style, activatedStep, finishedStep, index, value, isFirst, isLast,
+            showFinishedStepIcon, finishedStepIconCls, disabled
+        } = this.props;
 
-            itemClassName = classNames('round-step-item',
+        return (
+            <div className={classNames('round-step-item',
                 activatedStep == index ? ' activated' : (finishedStep >= index ? ' finished' : ''), {
                     first: isFirst,
                     last: isLast,
                     disabled: disabled,
                     [className]: className
-                });
-
-        return (
-            <div className={itemClassName}
+                })}
                  style={style}>
 
                 <div className="bg-bar"></div>
@@ -71,7 +69,7 @@ class RoundStepItem extends Component {
                 }
 
                 <div className="round"
-                     onClick={this.clickHandler}>
+                     onClick={this.handleClick}>
                     {
                         showFinishedStepIcon && finishedStep > index ?
                             <i className={finishedStepIconCls}
