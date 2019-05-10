@@ -3,15 +3,16 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import TextField from '../TextField';
 import MaterialProvider from '../MaterialProvider';
-import Theme from '../Theme';
 
+import Theme from '../Theme';
 import Util from '../_vendors/Util';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class MaterialTextField extends Component {
 
@@ -21,6 +22,9 @@ class MaterialTextField extends Component {
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
+
+        this.textField = createRef();
+        this.textFieldInstance = null;
 
         this.state = {
             value: props.value
@@ -32,17 +36,17 @@ class MaterialTextField extends Component {
      * public
      */
     focus = () => {
-        this.refs.textField.focus();
+        this.textFieldInstance && this.textFieldInstance.focus();
     };
 
     /**
      * public
      */
     blur = () => {
-        this.refs.textField.blur();
+        this.textFieldInstance && this.textFieldInstance.blur();
     };
 
-    triggerChangeHandler = value => {
+    handleTriggerChange = value => {
         this.setState({
             value
         }, () => {
@@ -51,12 +55,15 @@ class MaterialTextField extends Component {
         });
     };
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
+    componentDidMount() {
+        this.textFieldInstance = this.textField && this.textField.current;
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
     }
 
     render() {
@@ -81,12 +88,12 @@ class MaterialTextField extends Component {
                               disabled={disabled}
                               required={required}>
                 <TextField {...restProps}
-                           ref="textField"
+                           ref={this.textField}
                            theme={theme}
                            value={value}
                            disabled={disabled}
                            required={required}
-                           onChange={this.triggerChangeHandler}/>
+                           onChange={this.handleTriggerChange}/>
             </MaterialProvider>
         );
 
