@@ -397,8 +397,8 @@ class DropdownSelect extends Component {
 
                     </div>
 
-                    <div className="dropdown-select-list-scroller"
-                         ref={this.dropdownSelectListScroller}>
+                    <div ref={this.dropdownSelectListScroller}
+                         className="dropdown-select-list-scroller">
 
                         {
                             useFilter ?
