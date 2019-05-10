@@ -22,7 +22,7 @@ class VerticalPointStep extends Component {
 
     }
 
-    clickHandler = activatedStep => {
+    handleClick = activatedStep => {
 
         const {onChange} = this.props;
 
@@ -50,16 +50,13 @@ class VerticalPointStep extends Component {
     render() {
 
         const {className, style, steps, disabled} = this.props,
-            {activatedStep, finishedStep} = this.state,
-
-            stepClassName = classNames('vertical-point-step', {
-                [className]: className
-            });
+            {activatedStep, finishedStep} = this.state;
 
         return (
-            <div className={stepClassName}
+            <div className={classNames('vertical-point-step', {
+                [className]: className
+            })}
                  style={style}>
-
                 {
                     steps && steps.map((item, index) =>
                         <VerticalPointStepItem key={index}
@@ -72,10 +69,9 @@ class VerticalPointStep extends Component {
                                                isFirst={index === 0}
                                                isLast={index === steps.length - 1}
                                                disabled={disabled}
-                                               onClick={this.clickHandler}/>
+                                               onClick={this.handleClick}/>
                     )
                 }
-
             </div>
         );
 
