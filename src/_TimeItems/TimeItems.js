@@ -145,7 +145,7 @@ TimeItems.propTypes = {
     style: PropTypes.object,
 
     data: PropTypes.array,
-    value: PropTypes.number,
+    value: PropTypes.any,
 
     onChange: PropTypes.func
 
