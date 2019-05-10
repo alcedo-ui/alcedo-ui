@@ -3,7 +3,7 @@
  * @author sunday(sunday.wei@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import classNames from 'classnames';
@@ -29,6 +29,8 @@ class TimePicker extends Component {
         super(props, ...restArgs);
 
         this.validValue = true;
+        this.trigger = createRef();
+        this.triggerEl = null;
 
         this.state = {
             textFieldValue: props.value,
@@ -52,7 +54,7 @@ class TimePicker extends Component {
         return arr;
     };
 
-    textFieldChangeHandle = text => {
+    handleTextFieldChange = text => {
         if (text && text.length) {
             let validDate = '1970-01-01 ' + text;
             let validFormat = 'YYYY-MM-DD ' + this.props.dateFormat;
@@ -77,7 +79,7 @@ class TimePicker extends Component {
         }
     };
 
-    timePickerChangeHandle = obj => {
+    handleTimePickerChange = obj => {
         let timer = obj.hour + ':' + obj.minute + ':' + obj.second;
         let validDate = '1970-01-01 ' + timer;
         timer = moment(validDate).format(this.props.dateFormat);
@@ -87,7 +89,8 @@ class TimePicker extends Component {
             second: obj.second,
             textFieldValue: timer
         }, () => {
-            this.props.onChange && this.props.onChange(timer);
+            const {onChange} = this.props;
+            onChange && onChange(timer);
         });
     };
 
@@ -106,7 +109,7 @@ class TimePicker extends Component {
     };
 
 
-    popupRenderHandler = popupEl => {
+    handlePopupRender = popupEl => {
 
         if (this.props.position) {
             return;
@@ -122,6 +125,9 @@ class TimePicker extends Component {
     };
 
     componentDidMount() {
+
+        this.triggerEl = this.trigger && this.trigger.current && findDOMNode(this.trigger.current);
+
         const {value} = this.props;
         let dateFormatValue = '2000-02-01 ' + value;
         if (value) {
@@ -138,8 +144,6 @@ class TimePicker extends Component {
             }
         }
 
-        this.datePicker = this.refs.datePicker;
-        this.triggerEl = findDOMNode(this.refs.trigger);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -158,36 +162,33 @@ class TimePicker extends Component {
                 className, style, name, placeholder, maxValue, minValue, dateFormat, position,
                 popupClassName, rightIconCls, readOnly, disabled, parentEl
             } = this.props,
-            {popupVisible, textFieldValue, hour, minute, second, isAbove} = this.state,
-
-            pickerClassName = classNames('time-picker', {
-                [className]: className
-            }),
-
-            popupTextField = moment(moment().format('YYYY-MM-DD') + ' ' + hour + ':' + minute + ':' + second)
-            .format(dateFormat);
+            {popupVisible, textFieldValue, hour, minute, second, isAbove} = this.state;
 
         return (
-            <div className={pickerClassName}
+            <div className={classNames('time-picker', {
+                [className]: className
+            })}
                  style={style}>
 
                 <div className="wrapper">
 
-                    <TextField ref="trigger"
+                    <TextField ref={this.trigger}
                                className="time-picker-field"
                                name={name}
                                placeholder={placeholder}
-                               value={textFieldValue ? popupTextField : textFieldValue}
+                               value={textFieldValue ?
+                                   moment(moment().format('YYYY-MM-DD') + ' ' + hour + ':' + minute + ':' + second)
+                                       .format(dateFormat)
+                                   :
+                                   textFieldValue}
                                readOnly={readOnly ? readOnly : !popupVisible}
                                clearButtonVisible={false}
                                disabled={disabled}
                                isFocusedSelectAll={popupVisible}
                                popupVisible={popupVisible}
                                rightIconCls={rightIconCls}
-                               onClick={e => {
-                                   this.togglePopup(e);
-                               }}
-                               onChange={this.textFieldChangeHandle}/>
+                               onClick={e => this.togglePopup(e)}
+                               onChange={this.handleTextFieldChange}/>
 
                     <Popup className={`time-picker-popup ${popupClassName}`}
                            visible={popupVisible}
@@ -195,7 +196,7 @@ class TimePicker extends Component {
                            parentEl={parentEl}
                            position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                            hasTriangle={false}
-                           onRender={this.popupRenderHandler}
+                           onRender={this.handlePopupRender}
                            onRequestClose={this.closePopup}>
                         <TimeList hour={hour}
                                   minute={minute}
@@ -205,7 +206,7 @@ class TimePicker extends Component {
                                   isRequired={true}
                                   dateFormat={dateFormat}
                                   popupVisible={popupVisible}
-                                  onChange={this.timePickerChangeHandle}/>
+                                  onChange={this.handleTimePickerChange}/>
                     </Popup>
                 </div>
             </div>
@@ -267,7 +268,13 @@ TimePicker.propTypes = {
     /**
      * Time format.
      */
-    dateFormat: PropTypes.string
+    dateFormat: PropTypes.string,
+
+    position: PropTypes.oneOf(Util.enumerateValue(Position)),
+    rightIconCls: PropTypes.string,
+    parentEl: PropTypes.object,
+
+    onChange: PropTypes.func
 
 };
 
