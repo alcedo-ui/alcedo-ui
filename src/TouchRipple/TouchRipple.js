@@ -102,28 +102,27 @@ class TouchRipple extends Component {
         });
     };
 
-    mouseDownHandler = e => {
+    handleMouseDown = e => {
         this.addRipple(e);
     };
 
     render() {
 
         const {className, style, duration} = this.props,
-            {ripples} = this.state,
-
-            wrapperClassName = classNames('touch-ripple', {
-                [className]: className
-            });
+            {ripples} = this.state;
 
         return (
-            <TransitionGroup className={wrapperClassName}
+            <TransitionGroup className={classNames('touch-ripple', {
+                [className]: className
+            })}
                              style={style}
-                             onMouseDown={this.mouseDownHandler}
+                             onMouseDown={this.handleMouseDown}
                              onMouseUp={this.removeRipple}
                              onMouseLeave={this.removeRipple}>
                 {
-                    ripples && ripples.map(item =>
+                    ripples && ripples.map((item, index) =>
                         <Ripple {...item}
+                                key={index}
                                 duration={duration}/>
                     )
                 }
