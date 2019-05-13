@@ -371,6 +371,7 @@ Table.propTypes = {
     }),
     pageSizes: PropTypes.array,
     useFullPagination: PropTypes.bool,
+    paginationCountRenderer: PropTypes.func,
 
     /**
      * fixed
