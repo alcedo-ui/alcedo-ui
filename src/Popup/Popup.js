@@ -9,8 +9,8 @@ import classNames from 'classnames';
 import query from 'dom-helpers/query';
 
 import TriggerPop from '../_TriggerPop';
-import Theme from '../Theme';
 
+import Theme from '../Theme';
 import Position from '../_statics/Position';
 
 import Event from '../_vendors/Event';
@@ -54,7 +54,7 @@ class Popup extends Component {
         }
     };
 
-    handleTrigger = (el, triggerEl, popupEl, currentVisible, isBlurClose) => {
+    triggerHandler = (el, triggerEl, popupEl, currentVisible, isBlurClose) => {
 
         // el is missing
         if (el && !query.contains(document, el)) {
@@ -72,7 +72,7 @@ class Popup extends Component {
 
     handleClose = e => {
 
-        const {visible, triggerEl, isBlurClose, handleTrigger, onRequestClose} = this.props,
+        const {visible, triggerEl, isBlurClose, triggerHandler, onRequestClose} = this.props,
             popupEl = this.popInstance.getEl();
 
         if (!visible || !triggerEl) {
@@ -81,10 +81,10 @@ class Popup extends Component {
 
         let currVisible;
 
-        if (handleTrigger) {
-            currVisible = handleTrigger(e.target, triggerEl, popupEl, visible, isBlurClose);
+        if (triggerHandler) {
+            currVisible = triggerHandler(e.target, triggerEl, popupEl, visible, isBlurClose);
         } else if (!Dom.isParent(e.target, triggerEl)) {
-            currVisible = this.handleTrigger(e.target, triggerEl, popupEl, visible, isBlurClose);
+            currVisible = this.triggerHandler(e.target, triggerEl, popupEl, visible, isBlurClose);
         }
 
         if (currVisible === false) {
@@ -138,7 +138,7 @@ class Popup extends Component {
             className, contentClassName,
 
             // not passing down these props
-            handleTrigger, onRequestClose,
+            triggerHandler, onRequestClose,
 
             ...restProps
 
@@ -230,7 +230,7 @@ Popup.propTypes = {
     /**
      * The function of popup event handler.
      */
-    handleTrigger: PropTypes.func,
+    triggerHandler: PropTypes.func,
 
     /**
      * The function of popup render.
