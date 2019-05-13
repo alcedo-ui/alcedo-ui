@@ -11,8 +11,8 @@ import query from 'dom-helpers/query';
 
 import PositionPop from '../_PositionPop';
 import Paper from '../Paper';
-import Theme from '../Theme';
 
+import Theme from '../Theme';
 import Position from '../_statics/Position';
 
 import Dom from '../_vendors/Dom';
@@ -41,7 +41,7 @@ class Drawer extends Component {
         }
     };
 
-    handleTrigger = (el, triggerEl, drawerEl, currentVisible, isBlurClose) => {
+    triggerHandler = (el, triggerEl, drawerEl, currentVisible, isBlurClose) => {
 
         // el is missing
         if (el && !query.contains(document, el)) {
@@ -59,7 +59,7 @@ class Drawer extends Component {
 
     handleClose = e => {
 
-        const {visible, isBlurClose, triggerEl, handleTrigger, onRequestClose} = this.props,
+        const {visible, isBlurClose, triggerEl, triggerHandler, onRequestClose} = this.props,
             drawerEl = this.drawerContent && this.drawerContent.current && findDOMNode(this.drawerContent.current);
 
         if (!visible || !triggerEl) {
@@ -68,10 +68,10 @@ class Drawer extends Component {
 
         let currVisible;
 
-        if (handleTrigger) {
-            currVisible = handleTrigger(e.target, triggerEl, drawerEl, visible, isBlurClose);
+        if (triggerHandler) {
+            currVisible = triggerHandler(e.target, triggerEl, drawerEl, visible, isBlurClose);
         } else if (!Dom.isParent(e.target)) {
-            currVisible = this.handleTrigger(e.target, triggerEl, drawerEl, visible, isBlurClose);
+            currVisible = this.triggerHandler(e.target, triggerEl, drawerEl, visible, isBlurClose);
         }
 
         if (currVisible === false) {
@@ -200,7 +200,7 @@ Drawer.propTypes = {
     onRender: PropTypes.func,
 
     onDestroy: PropTypes.func,
-    handleTrigger: PropTypes.func,
+    triggerHandler: PropTypes.func,
 
     /**
      * The function that trigger when click submit.
