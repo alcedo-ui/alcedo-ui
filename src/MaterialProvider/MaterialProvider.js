@@ -40,12 +40,10 @@ class MaterialProvider extends Component {
     render() {
 
         const {
-
-            children, className, theme, label, isLabelAnimate, hasValue, disabled, required, useSeparator,
-
-            ...restProps
-
-        } = this.props;
+                children, className, theme, label, isLabelAnimate, hasValue, disabled, required, useSeparator,
+                ...restProps
+            } = this.props,
+            {isHover, isFocus} = this.state;
 
         return (
             <div {...restProps}
