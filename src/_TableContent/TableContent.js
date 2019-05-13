@@ -11,6 +11,7 @@ import eventsOn from 'dom-helpers/events/on';
 import eventsOff from 'dom-helpers/events/off';
 import startCase from 'lodash/startCase';
 import isArray from 'lodash/isArray';
+import debounce from 'lodash/debounce';
 
 import ScrollableTable from '../_ScrollableTable';
 import Checkbox from '../Checkbox';
@@ -289,12 +290,12 @@ class TableContent extends Component {
     /**
      * fix table layout at once
      */
-    fixLayout = () => {
+    fixLayout = debounce(() => {
         if (this.wrapperEl && TableLayout.hasFixed(this.props, this.columns)) {
             TableLayout.fixLayout(this.wrapperEl, this.props);
         }
         TableLayout.updateHorizontalScrollClassNames(this.wrapperEl, this.centerBodyScroller);
-    };
+    }, 250);
 
     /**
      * handle get scroll el
@@ -516,6 +517,7 @@ class TableContent extends Component {
     componentWillUnmount() {
         eventsOff(window, 'resize', this.fixLayout);
         this.initTimeout && clearTimeout(this.initTimeout);
+        this.fixLayout && this.fixLayout.cancel();
     }
 
     render() {
