@@ -125,11 +125,11 @@ TablePagination.propTypes = {
 
     paginationSelectedCountVisible: PropTypes.bool,
     paginationPageSizeVisible: PropTypes.bool,
-    pageSizeRightIconCls: PropTypes.bool,
-    paginationPrevIconCls: PropTypes.bool,
-    paginationNextIconCls: PropTypes.bool,
-    paginationFirstIconCls: PropTypes.bool,
-    paginationLastIconCls: PropTypes.bool,
+    pageSizeRightIconCls: PropTypes.string,
+    paginationPrevIconCls: PropTypes.string,
+    paginationNextIconCls: PropTypes.string,
+    paginationFirstIconCls: PropTypes.string,
+    paginationLastIconCls: PropTypes.string,
 
     paginationCountRenderer: PropTypes.func,
     onChange: PropTypes.func
