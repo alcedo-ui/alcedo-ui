@@ -26,7 +26,7 @@ class TableExamples extends Component {
 
         this.state = {
             data: this.generateData(),
-            sort: null
+            sorting: null
         };
 
         this.columns = [{
@@ -171,11 +171,11 @@ class TableExamples extends Component {
 
     };
 
-    handleSortChange = sort => {
+    handleSortChange = sorting => {
         this.setState({
-            sort
+            sorting
         });
-        console.log('Sort Change Value: ', sort);
+        console.log('Sort Change Value: ', sorting);
     };
 
     handlePageChange = (page, pageSize) => {
@@ -241,13 +241,13 @@ class TableExamples extends Component {
 
     clearSort = () => {
         this.setState({
-            sort: null
+            sorting: null
         });
     };
 
     render() {
 
-        const {data, sort} = this.state;
+        const {data, sorting} = this.state;
 
         return (
             <div className="example table-examples">
@@ -285,7 +285,7 @@ class TableExamples extends Component {
                                            <IconButton iconCls="fas fa-trash-alt"
                                                        onClick={() => this.deleteRow(rowData.id)}/>
                                    }]}
-                                   sort={sort}
+                                   sorting={sorting}
                                    selectMode={Table.SelectMode.MULTI_SELECT}
                                    isHeadFixed={true}
                                    isFootFixed={true}
