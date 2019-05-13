@@ -56,6 +56,8 @@ class TableContent extends Component {
         this.fixedRight = createRef();
         this.fixedRightEl = null;
 
+        this.initTimeout = null;
+
         // sorted current page cache data
         this.tableData = [];
         this.columns = {
@@ -501,7 +503,9 @@ class TableContent extends Component {
         this.fixLayout();
 
         const {onInit} = this.props;
-        onInit && setTimeout(() => onInit(), 250);
+        if (onInit) {
+            this.initTimeout = setTimeout(() => onInit(), 250);
+        }
 
     }
 
@@ -511,6 +515,7 @@ class TableContent extends Component {
 
     componentWillUnmount() {
         eventsOff(window, 'resize', this.fixLayout);
+        this.initTimeout && clearTimeout(this.initTimeout);
     }
 
     render() {
