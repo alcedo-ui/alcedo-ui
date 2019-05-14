@@ -291,7 +291,7 @@ class TableExamples extends Component {
                                    isFootFixed={true}
                                    scroll={{
                                        width: 1200,
-                                       height: 400
+                                       height: 320
                                    }}
                                    paggingCountRenderer={count => <span>Self Defined Total Count: {count}</span>}
                                    onSortChange={this.handleSortChange}
