@@ -5,7 +5,6 @@
 
 import classnames from 'classnames';
 
-import SelectAllMode from '../_statics/SelectAllMode';
 import HorizontalAlign from '../_statics/HorizontalAlign';
 import VirtualRoot from '../_statics/VirtualRoot';
 
@@ -182,61 +181,132 @@ function isRootNodeChecked(data, value, idProp) {
 
 }
 
-function handleSelect(rowData, rowIndex, value, idProp) {
+function handleSelect(node, value, idProp, isSelectRecursive) {
 
-    if (!rowData) {
-        return;
+    if (!node || node.disabled || !value) {
+        return value;
     }
 
-    const index = indexOfNodeInValue(rowData, value, idProp);
-    if (index >= 0) {
-        value.splice(index, 1);
-    } else {
-        value.push(rowData);
+    if (!isNodeChecked(node, value, idProp)) {
+        value.push(node);
     }
 
-    return {value, checked: index === -1};
+    if (!isSelectRecursive || !node.children || node.children.length < 1) {
+        return value;
+    }
+
+    for (let item of node.children) {
+        handleSelect(item, value, idProp);
+    }
+
+    return value;
 
 }
 
-function handleSelectAllChange(checked, selectAllMode, data, tableData, value, idProp) {
+function handleDeselect(node, value, idProp, isSelectRecursive) {
 
-    if (selectAllMode === SelectAllMode.ALL) {
-        return checked ? data.filter(item => !item.disabled) : [];
+    if (!node || node.disabled || !value) {
+        return value;
     }
 
-    const currentPageData = tableData.filter(item => item && !item.disabled);
-
-    if (checked) {
-
-        if (!value || value.length < 1) {
-            return currentPageData;
-        }
-
-        const result = value.slice();
-        currentPageData.forEach(item => {
-            if (!isNodeChecked(item, result, idProp)) {
-                result.push(item);
-            }
-        });
-        return result;
-
-    } else {
-
-        if (!value || value.length < 1) {
-            return [];
-        }
-
-        const result = value.slice();
-        currentPageData.forEach(item => {
-            const index = indexOfNodeInValue(item, result, idProp);
-            if (index > -1) {
-                result.splice(index, 1);
-            }
-        });
-        return result;
-
+    const index = indexOfNodeInValue(node, value, idProp);
+    if (index > -1) {
+        value.splice(index, 1);
     }
+
+    if (!isSelectRecursive || !node.children || node.children.length < 1) {
+        return value;
+    }
+
+    for (let item of node.children) {
+        handleDeselect(item, value, idProp);
+    }
+
+    return value;
+
+}
+
+function formatValue(value, data, idProp) {
+
+    let result = [];
+
+    Util.postOrderTraverse({[VirtualRoot]: true, children: data}, node => {
+        if (!(VirtualRoot in node)) {
+            if (!node.children || node.children.length < 1) {
+                if (isNodeChecked(node, value, idProp)) {
+                    result.push(node);
+                }
+            } else {
+                if (node.children.every(child => isNodeChecked(child, value, idProp))) {
+                    result.push(node);
+                }
+            }
+        }
+    });
+
+    return result;
+
+}
+
+function handleSelectAll(data, value, idProp) {
+
+    if (!data || data.length < 1) {
+        return value;
+    }
+
+    data.forEach(node => handleSelect(node, value, idProp, true));
+
+    return value;
+
+}
+
+/**
+ * handle value when select all checkbox clicked
+ * @param checked
+ * @param selectAllMode
+ * @param data
+ * @param tableData
+ * @param value
+ * @param idProp
+ * @returns {Array|*}
+ */
+function handleSelectAllChange(checked, data, value, idProp) {
+
+    // const currentPageData = selectAllMode === SelectAllMode.ALL ?
+    //     data.filter(item => item && !item.disabled)
+    //     :
+    //     tableData.filter(item => item && !item.disabled);
+    //
+    // if (checked) {
+    //
+    //     if (!value || value.length < 1) {
+    //         return currentPageData;
+    //     }
+    //
+    //     const result = value.slice();
+    //     currentPageData.forEach(item => {
+    //         if (!isNodeChecked(item, result, idProp)) {
+    //             result.push(item);
+    //         }
+    //     });
+    //     return result;
+    //
+    // } else {
+    //
+    //     if (!value || value.length < 1) {
+    //         return [];
+    //     }
+    //
+    //     const result = value.slice();
+    //     currentPageData.forEach(item => {
+    //         const index = indexOfNodeInValue(item, result, idProp);
+    //         if (index > -1) {
+    //             result.splice(index, 1);
+    //         }
+    //     });
+    //     return result;
+    //
+    // }
 
 }
 
@@ -271,69 +341,6 @@ function needCollapseButtonSpacing(tableData) {
     return tableData && tableData.some(rowData => rowData && rowData.children && rowData.children.length > 0);
 }
 
-function addValue(node, value, idProp, isSelectRecursive) {
-
-    if (!node || !value) {
-        return;
-    }
-
-    if (!isNodeChecked(node, value, idProp)) {
-        value.push(node);
-    }
-
-    if (!isSelectRecursive || !node.children || node.children.length < 1) {
-        return;
-    }
-
-    for (let item of node.children) {
-        addValue(item, value, idProp);
-    }
-
-}
-
-function removeValue(node, value, idProp, isSelectRecursive) {
-
-    if (!node || !value) {
-        return;
-    }
-
-    const index = indexOfNodeInValue(node, value, idProp);
-    if (index > -1) {
-        value.splice(index, 1);
-    }
-
-    if (!isSelectRecursive || !node.children || node.children.length < 1) {
-        return;
-    }
-
-    for (let item of node.children) {
-        removeValue(item, value, idProp);
-    }
-
-}
-
-function addValueIfChildrenAllSelected(value, data, idProp) {
-
-    let result = [];
-
-    Util.postOrderTraverse({[VirtualRoot]: true, children: data}, node => {
-        if (!(VirtualRoot in node)) {
-            if (!node.children || node.children.length < 1) {
-                if (isNodeChecked(node, value, idProp)) {
-                    result.push(node);
-                }
-            } else {
-                if (node.children.every(child => isNodeChecked(child, value, idProp))) {
-                    result.push(node);
-                }
-            }
-        }
-    });
-
-    return result;
-
-}
-
 export default {
     calcSpan,
     getColumnsWithSpan,
@@ -346,11 +353,11 @@ export default {
     isNodeIndeterminate,
     isRootNodeChecked,
     handleSelect,
+    handleDeselect,
+    formatValue,
+    handleSelectAll,
     handleSelectAllChange,
     getFirstColumnPosition,
     recursiveSelectChildren,
-    needCollapseButtonSpacing,
-    addValue,
-    removeValue,
-    addValueIfChildrenAllSelected
+    needCollapseButtonSpacing
 };
