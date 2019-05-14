@@ -9,11 +9,12 @@
 
     .th-sorting-icon {
         display: block;
-        width: 24px;
-        height: 12px;
-        line-height: 12px;
+        width: 8px;
+        height: 2px;
+        line-height: 2px;
         text-align: center;
         color: $theme-field-disabled;
+        margin-left: 8px;
         transition: color $theme-transition-duration ease-in-out;
     }
 
