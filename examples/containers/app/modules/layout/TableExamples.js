@@ -148,7 +148,8 @@ class TableExamples extends Component {
 
             if (expanded && id.split('-').pop() === '0') {
                 item.children = [{
-                    [LOADING_SYMBOL]: true
+                    [LOADING_SYMBOL]: true,
+                    disabled: true
                 }];
             }
 
