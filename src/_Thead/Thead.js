@@ -216,8 +216,8 @@ Thead.defaultProps = {
     baseColIndex: 0,
 
     defaultSortingType: SortingType.ASC,
-    sortingAscIconCls: 'fas fa-angle-up',
-    sortingDescIconCls: 'fas fa-angle-down'
+    sortingAscIconCls: 'fas fa-sort-up',
+    sortingDescIconCls: 'fas fa-sort-down'
 
 };
 

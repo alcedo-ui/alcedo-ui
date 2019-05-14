@@ -38,8 +38,8 @@ ThSortingIcon.propTypes = {
 };
 
 ThSortingIcon.defaultProps = {
-    sortingAscIconCls: 'fas fa-angle-up',
-    sortingDescIconCls: 'fas fa-angle-down'
+    sortingAscIconCls: 'fas fa-sort-up',
+    sortingDescIconCls: 'fas fa-sort-down'
 };
 
 export default ThSortingIcon;
