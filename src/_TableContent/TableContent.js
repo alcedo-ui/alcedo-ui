@@ -77,14 +77,10 @@ class TableContent extends Component {
 
         const {data, value, isSelectRecursive, idProp, onSelect, onChange} = this.props;
 
-        let result = value ? value.slice() : value;
-        if (!result || !isArray(result)) {
-            result = [];
-        }
-
-        TableCalculation.addValue(node, result, idProp, isSelectRecursive);
+        let result = value && isArray(value) ? value.slice() : [];
+        TableCalculation.handleSelect(node, result, idProp, isSelectRecursive);
         if (isSelectRecursive) {
-            result = TableCalculation.addValueIfChildrenAllSelected(result, data, idProp);
+            result = TableCalculation.formatValue(result, data, idProp);
         }
 
         onSelect && onSelect(node, rowIndex, colIndex, collapsed, depth, path);
@@ -100,13 +96,11 @@ class TableContent extends Component {
 
         const {isSelectRecursive, value, idProp, onDeselect, onChange} = this.props;
 
-        let result = value ? value.slice() : value;
-        if (!result || !isArray(result)) {
-            result = [];
-        } else {
-            TableCalculation.removeValue(node, result, idProp, isSelectRecursive);
+        let result = value && isArray(value) ? value.slice() : [];
+        if (result.length > 0) {
+            TableCalculation.handleDeselect(node, result, idProp, isSelectRecursive);
             if (isSelectRecursive) {
-                result = TableCalculation.addValueIfChildrenAllSelected(result, data, idProp);
+                result = TableCalculation.formatValue(result, data, idProp);
             }
         }
 
@@ -115,24 +109,57 @@ class TableContent extends Component {
 
     };
 
-    handleSelectAllChange = checked => {
+    handleSelectAll = () => {
 
         const {
-                selectAllMode, data, value, idProp,
-                onChange, onSelectAll, onDeselectAll
-            } = this.props,
-            result = TableCalculation.handleSelectAllChange(
-                checked, selectAllMode, data, this.tableData, value, idProp);
+            selectMode, selectAllMode, data, value, disabled, idProp,
+            onChange, onSelectAll
+        } = this.props;
 
-        onChange && onChange(result);
-
-        if (checked) {
-            onSelectAll && onSelectAll(result);
-        } else {
-            onDeselectAll && onDeselectAll(value);
+        if (disabled || selectMode !== SelectMode.MULTI_SELECT) {
+            return;
         }
 
+        TableCalculation.handleSelectAll(selectAllMode === SelectAllMode.ALL ? data : this.tableData, value, idProp);
+
+        onSelectAll && onSelectAll(value);
+        onChange && onChange(value);
+
     };
+
+    handleDeselectAll = () => {
+
+        const {
+            selectMode, disabled, onChange, onDeselectAll
+        } = this.props;
+
+        if (disabled || selectMode !== SelectMode.MULTI_SELECT) {
+            return;
+        }
+
+        onDeselectAll && onDeselectAll([]);
+        onChange && onChange([]);
+
+    };
+
+    // handleSelectAllChange = checked => {
+    //
+    //     const {
+    //             selectAllMode, data, value, idProp,
+    //             onChange, onSelectAll, onDeselectAll
+    //         } = this.props,
+    //         result = TableCalculation.handleSelectAllChange(
+    //             checked, selectAllMode === SelectAllMode.ALL ? data : this.tableData, value, idProp);
+    //
+    //     onChange && onChange(result);
+    //
+    //     if (checked) {
+    //         onSelectAll && onSelectAll(result);
+    //     } else {
+    //         onDeselectAll && onDeselectAll(value);
+    //     }
+    //
+    // };
 
     /**
      * split columns by fixed
@@ -224,7 +251,8 @@ class TableContent extends Component {
                                   uncheckedIconCls={checkboxUncheckedIconCls}
                                   checkedIconCls={checkboxCheckedIconCls}
                                   indeterminateIconCls={checkboxIndeterminateIconCls}
-                                  onChange={this.handleSelectAllChange}/>
+                                  onCheck={this.handleSelectAll}
+                                  onUncheck={this.handleDeselectAll}/>
                     );
 
                 },
