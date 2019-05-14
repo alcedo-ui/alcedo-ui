@@ -84,7 +84,7 @@ class Th extends Component {
                 title={typeof renderer === 'string' ? renderer : null}
                 onClick={this.handleClick}>
 
-                <div className="th-column">
+                <span className="th-column">
 
                     <span className="th-column-title">
                         {this.handleRender()}
@@ -100,7 +100,7 @@ class Th extends Component {
                             null
                     }
 
-                </div>
+                </span>
 
             </th>
         );
