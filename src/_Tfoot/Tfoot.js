@@ -40,7 +40,6 @@ class Tfoot extends Component {
                 className, columns, data, disabled, baseColIndex,
                 onCellClick
             } = this.props,
-
             columnsWithSpan = TableCalculation.getColumnsWithSpan(TableFragment.FOOT, columns);
 
         return (
