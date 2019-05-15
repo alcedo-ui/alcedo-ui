@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-.table tr {
+.base-table > tbody > tr {
     box-sizing: border-box;
 
     &.expanded-children-row {
