@@ -36,10 +36,8 @@ class PaginationExamples extends Component {
         }];
 
         this.state = {
-            pagging: {
-                pageSize: 30,
-                page: 0
-            },
+            page: 0,
+            pageSize: 30,
             PaginationVisible: {}
         };
 
@@ -80,25 +78,33 @@ class PaginationExamples extends Component {
         return data.length;
     };
 
-    pageChangedHandler = pagging => {
+    handlePageChange = page => {
 
-        console.log('Page Changed::', pagging);
-
-        if (typeof pagging.pageSize === 'object') {
-            pagging.pageSize = pagging.pageSize.value;
-        }
+        console.log('Page Changed::', page);
 
         this.setState({
-            pagging
+            page
         }, () => {
-            this.resetPage(this.generateData(100), pagging);
+            this.resetPage(this.generateData(100), page, this.state.pageSize.value);
         });
 
     };
 
-    resetPage = (data = this.generateData(100), pagging = this.state.pagging) => {
-        let {page, pageSize} = pagging,
-            total = Math.ceil(data / pageSize);
+    handlePageSizeChange = pageSize => {
+
+        console.log('Page Size Changed::', pageSize);
+
+        this.setState({
+            pageSize
+        }, () => {
+            this.resetPage(this.generateData(100), this.state.page, pageSize.value);
+        });
+
+    };
+
+    resetPage = (data = this.generateData(100), page = this.state.page, pageSize = this.state.pageSize) => {
+
+        const total = Math.ceil(data / pageSize);
 
         if (page + 1 > total) {
             this.setState({
@@ -109,11 +115,12 @@ class PaginationExamples extends Component {
             });
             return;
         }
+
     };
 
     render() {
 
-        const {pagging, PaginationVisible} = this.state;
+        const {page, pageSize, PaginationVisible} = this.state;
 
         return (
             <div className="example pagging-examples">
@@ -128,17 +135,19 @@ class PaginationExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="With "/>
+                    <WidgetHeader className="example-header"
+                                  title="With "/>
 
                     <div className="widget-content">
                         <div className="example-content">
                             <p>A simple <code>Pagination</code> example.</p>
-                            <Pagination selectedCountVisible={true}
-                                        page={pagging.page}
+                            <Pagination countVisible={true}
+                                        page={page}
                                         total={this.generateData()}
-                                        pageSize={pagging.pageSize}
+                                        pageSize={pageSize.value}
                                         pageSizes={this.pageSizes}
-                                        onChange={this.pageChangedHandler}/>
+                                        onPageChange={this.handlePageChange}
+                                        onPageSizeChange={this.handlePageSizeChange}/>
                         </div>
                     </div>
 
@@ -146,7 +155,8 @@ class PaginationExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="In Dialog"/>
+                    <WidgetHeader className="example-header"
+                                  title="In Dialog"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -161,13 +171,13 @@ class PaginationExamples extends Component {
                                 {
                                     dialogContentEl =>
                                         <div className="popover-dialog-content-scroller">
-                                            <Pagination selectedCountVisible={true}
+                                            <Pagination countVisible={true}
                                                         parentEl={dialogContentEl}
-                                                        page={pagging.page}
+                                                        page={page}
                                                         total={this.generateData()}
-                                                        pageSize={pagging.pageSize}
+                                                        pageSize={pageSize.value}
                                                         pageSizes={this.pageSizes}
-                                                        onChange={this.pageChangedHandler}/>
+                                                        onChange={this.handlePageChange}/>
                                         </div>
                                 }
                             </Dialog>
@@ -184,6 +194,6 @@ class PaginationExamples extends Component {
             </div>
         );
     }
-};
+}
 
 export default PaginationExamples;
