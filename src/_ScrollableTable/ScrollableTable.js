@@ -286,16 +286,6 @@ ScrollableTable.propTypes = {
     sortingFunc: PropTypes.func,
 
     /**
-     * pagination
-     */
-    isPaginated: PropTypes.bool,
-    pagination: PropTypes.shape({
-        pageSize: PropTypes.number,
-        page: PropTypes.number
-    }),
-    pageSizes: PropTypes.array,
-
-    /**
      * fixed
      */
     isHeadFixed: PropTypes.bool,
@@ -333,20 +323,22 @@ ScrollableTable.defaultProps = {
     baseColIndex: 0,
     expandRows: [],
 
+    /**
+     * sorting
+     */
     defaultSortingType: SortingType.ASC,
     sortingAscIconCls: 'fas fa-sort-up',
     sortingDescIconCls: 'fas fa-sort-down',
 
-    isPaginated: true,
-    pagination: {
-        pageSize: 10,
-        page: 0
-    },
-    pageSizes: [5, 10, 15, 20],
-
+    /**
+     * fixed
+     */
     isHeadFixed: false,
     isFootFixed: false,
 
+    /**
+     * hidden
+     */
     isHeadHidden: false,
     isFootHidden: false
 
