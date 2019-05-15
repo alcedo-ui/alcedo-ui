@@ -10,52 +10,67 @@ import PaginationSize from '../_PaginationSize';
 import IconButton from '../IconButton';
 
 import Valid from '../_vendors/Valid';
+import TableCalculation from '../_vendors/TableCalculation';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class BriefPagination extends Component {
 
     constructor(props, ...restArgs) {
+
         super(props, ...restArgs);
+
+        this.state = {
+            page: props.page,
+            pageSize: props.pageSize
+        };
+
     }
 
-    pageChangedHandle = page => {
-
-        const {pageSize, onChange} = this.props;
-
-        this.props.page != page && onChange && onChange({
-            page,
-            pageSize
+    handlePageChange = page => {
+        this.setState({
+            page
+        }, () => {
+            const {onPageChange} = this.props;
+            onPageChange && onPageChange(page);
         });
-
     };
 
-    pageSizeChangedHandle = pageSize => {
+    handlePageSizeChange = pageSize => {
 
-        const {total, pageSizeValueField, onChange} = this.props,
-            originPageSizeValue = typeof this.props.pageSize === 'object' ?
-                this.props.pageSize[pageSizeValueField]
-                :
-                this.props.pageSize,
-            pageSizeValue = typeof pageSize === 'object' ?
-                pageSize[pageSizeValueField]
-                :
-                pageSize;
+        const {pageSizeValueField} = this.props,
+            originPageSizeValue = TableCalculation.getPageSizeValue(this.state.pageSize, pageSizeValueField),
+            pageSizeValue = TableCalculation.getPageSizeValue(pageSize, pageSizeValueField);
 
-        if (originPageSizeValue !== pageSizeValue) {
-            const totalPage = Math.ceil(total / pageSizeValue);
-            onChange && onChange({
-                page: Valid.range(this.props.page, 0, totalPage - 1),
-                pageSize
-            });
+        if (pageSizeValue && originPageSizeValue !== pageSizeValue) {
+
+            const {onPageSizeChange} = this.props;
+            onPageSizeChange && onPageSizeChange(pageSize);
+
+            const totalPage = Math.ceil(this.props.total / pageSizeValue),
+                page = Valid.range(this.state.page, 0, totalPage - 1);
+            if (page !== this.state.page) {
+                const {onPageChange} = this.props;
+                onPageChange && onPageChange(page);
+            }
+
         }
 
     };
+
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            page: ComponentUtil.getDerivedState(props, state, 'page'),
+            pageSize: ComponentUtil.getDerivedState(props, state, 'pageSize')
+        };
+    }
 
     render() {
 
         const {
                 total, page, pageSize, pageSizes, pageSizeRightIconCls, pageSizeValueField, pageSizeDisplayField,
-                selectedCount, selectedCountVisible, pageSizeVisible, paginationPrevIconCls, paginationNextIconCls,
-                paginationCountRenderer, parentEl
+                selectedCount, countVisible, pageSizeVisible, prevIconCls, nextIconCls,
+                countRenderer, parentEl
             } = this.props,
 
             totalPage = Math.ceil(total / pageSize),
@@ -69,7 +84,7 @@ class BriefPagination extends Component {
                 <div className="brief-pagination-left">
 
                     {
-                        selectedCountVisible ?
+                        countVisible ?
                             <div className="brief-pagination-selected">
                                 {`Selected: ${selectedCount}`}
                             </div>
@@ -79,8 +94,8 @@ class BriefPagination extends Component {
 
                     <div className="brief-pagination-total">
                         {
-                            paginationCountRenderer ?
-                                paginationCountRenderer(total, page, totalPage, pageSize, pageSizes)
+                            countRenderer ?
+                                countRenderer(total, page, totalPage, pageSize, pageSizes)
                                 :
                                 `Total: ${total}`
                         }
@@ -98,7 +113,7 @@ class BriefPagination extends Component {
                                             displayField={pageSizeDisplayField}
                                             parentEl={parentEl}
                                             rightIconCls={pageSizeRightIconCls}
-                                            onPageSizeChange={this.pageSizeChangedHandle}/>
+                                            onPageSizeChange={this.handlePageSizeChange}/>
                             :
                             null
                     }
@@ -107,13 +122,13 @@ class BriefPagination extends Component {
                         {`${startNumber}-${stopNumber} of ${total}`}
                     </div>
 
-                    <IconButton iconCls={paginationPrevIconCls}
+                    <IconButton iconCls={prevIconCls}
                                 disabled={page <= 0}
-                                onClick={() => this.pageChangedHandle(page - 1)}/>
+                                onClick={() => this.handlePageChange(page - 1)}/>
 
-                    <IconButton iconCls={paginationNextIconCls}
+                    <IconButton iconCls={nextIconCls}
                                 disabled={page >= totalPage - 1}
-                                onClick={() => this.pageChangedHandle(page + 1)}/>
+                                onClick={() => this.handlePageChange(page + 1)}/>
 
                 </div>
 
@@ -173,7 +188,7 @@ BriefPagination.propTypes = {
     /**
      * If true,the selectedCount will show.
      */
-    selectedCountVisible: PropTypes.bool,
+    countVisible: PropTypes.bool,
 
     /**
      * If false, the pageSize choice box will not show.
@@ -188,21 +203,19 @@ BriefPagination.propTypes = {
     /**
      * Use this property to set prev button icon.
      */
-    paginationPrevIconCls: PropTypes.string,
+    prevIconCls: PropTypes.string,
 
     /**
      * Use this property to set next button icon.
      */
-    paginationNextIconCls: PropTypes.string,
+    nextIconCls: PropTypes.string,
 
-    paginationCountRenderer: PropTypes.func,
+    countRenderer: PropTypes.func,
 
     parentEl: PropTypes.object,
 
-    /**
-     * Callback function fired when Pagging component change.
-     */
-    onChange: PropTypes.func
+    onPageChange: PropTypes.func,
+    onPageSizeChange: PropTypes.func
 
 };
 
@@ -216,12 +229,12 @@ BriefPagination.defaultProps = {
     pageSizeDisplayField: 'text',
     selectedCount: 0,
 
-    selectedCountVisible: false,
+    countVisible: false,
     pageSizeVisible: true,
 
     pageSizeRightIconCls: 'fas fa-angle-down',
-    paginationPrevIconCls: 'fas fa-angle-left',
-    paginationNextIconCls: 'fas fa-angle-right'
+    prevIconCls: 'fas fa-angle-left',
+    nextIconCls: 'fas fa-angle-right'
 
 };
 
