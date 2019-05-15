@@ -140,7 +140,9 @@ class PaginationExamples extends Component {
 
                     <div className="widget-content">
                         <div className="example-content">
+
                             <p>A simple <code>Pagination</code> example.</p>
+
                             <Pagination countVisible={true}
                                         page={page}
                                         total={this.generateData()}
@@ -148,6 +150,7 @@ class PaginationExamples extends Component {
                                         pageSizes={this.pageSizes}
                                         onPageChange={this.handlePageChange}
                                         onPageSizeChange={this.handlePageSizeChange}/>
+
                         </div>
                     </div>
 
