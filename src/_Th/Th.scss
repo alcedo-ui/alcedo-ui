@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-.table th {
+.base-table > thead > tr > th {
     padding: 8px;
     text-align: left;
     background: $theme-field-bg-disabled;
