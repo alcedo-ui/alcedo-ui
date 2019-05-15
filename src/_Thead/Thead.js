@@ -5,7 +5,6 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
 import Th from '../_Th';
 
@@ -33,17 +32,13 @@ class Thead extends Component {
 
         const {
                 className, style, columns, baseColIndex,
-                sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls,
-                onSortChange,
+                sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, onSortChange,
                 ...restProps
             } = this.props,
-
             columnsWithSpan = TableCalculation.getColumnsWithSpan(TableFragment.HEAD, columns);
 
         return (
-            <thead className={classNames({
-                [className]: className
-            })}
+            <thead className={className}
                    style={style}>
                 <tr>
                     {
