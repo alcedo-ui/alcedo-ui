@@ -36,10 +36,8 @@ class BriefPaginationExamples extends Component {
         }];
 
         this.state = {
-            pagging: {
-                pageSize: 10,
-                page: 0
-            },
+            page: 0,
+            pageSize: 10,
             BriefPaginationVisible: {}
         };
 
@@ -83,26 +81,33 @@ class BriefPaginationExamples extends Component {
 
     };
 
-    pageChangedHandler = pagging => {
+    handlePageChange = page => {
 
-        console.log('Page Changed::', pagging);
-
-        if (typeof pagging.pageSize === 'object') {
-            pagging.pageSize = pagging.pageSize.value;
-        }
+        console.log('Page Changed::', page);
 
         this.setState({
-            pagging
+            page
         }, () => {
-            this.resetPage(this.generateData(100), pagging);
+            this.resetPage(this.generateData(100), page, this.state.pageSize.value);
         });
 
     };
 
-    resetPage = (data = this.generateData(100), pagging = this.state.pagging) => {
+    handlePageSizeChange = pageSize => {
 
-        let {page, pageSize} = pagging,
-            total = Math.ceil(data / pageSize);
+        console.log('Page Size Changed::', pageSize);
+
+        this.setState({
+            pageSize
+        }, () => {
+            this.resetPage(this.generateData(100), this.state.page, pageSize.value);
+        });
+
+    };
+
+    resetPage = (data = this.generateData(100), page = this.state.page, pageSize = this.state.pageSize) => {
+
+        const total = Math.ceil(data / pageSize);
 
         if (page + 1 > total) {
             this.setState({
@@ -118,7 +123,7 @@ class BriefPaginationExamples extends Component {
 
     render() {
 
-        const {pagging, BriefPaginationVisible} = this.state;
+        const {page, pageSize, BriefPaginationVisible} = this.state;
 
         return (
             <div className="example brief-pagging-examples">
@@ -133,7 +138,7 @@ class BriefPaginationExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="With selectedCountVisible"/>
+                    <WidgetHeader className="example-header" title="With countVisible"/>
 
                     <div className="widget-content">
 
@@ -143,12 +148,13 @@ class BriefPaginationExamples extends Component {
 
                                 <p>A simple <code>BriefPagination</code> example.</p>
 
-                                <BriefPagination selectedCountVisible={true}
-                                                 page={pagging.page}
+                                <BriefPagination countVisible={true}
+                                                 page={page}
                                                  total={this.generateData()}
-                                                 pageSize={pagging.pageSize}
+                                                 pageSize={pageSize.value}
                                                  pageSizes={this.pageSizes}
-                                                 onChange={this.pageChangedHandler}/>
+                                                 onPageChange={this.handlePageChange}
+                                                 onPageSizeChange={this.handlePageSizeChange}/>
 
                             </div>
 
@@ -175,20 +181,19 @@ class BriefPaginationExamples extends Component {
 
                                 <Dialog visible={BriefPaginationVisible[1]}
                                         onRequestClose={() => this.hide(1)}>
-
                                     {
                                         dialogContentEl =>
                                             <div className="popover-dialog-content-scroller">
-                                                <BriefPagination selectedCountVisible={true}
+                                                <BriefPagination countVisible={true}
                                                                  parentEl={dialogContentEl}
-                                                                 page={pagging.page}
+                                                                 page={page}
                                                                  total={this.generateData()}
-                                                                 pageSize={pagging.pageSize}
+                                                                 pageSize={pageSize.value}
                                                                  pageSizes={this.pageSizes}
-                                                                 onChange={this.pageChangedHandler}/>
+                                                                 onPageChange={this.handlePageChange}
+                                                                 onPageSizeChange={this.handlePageSizeChange}/>
                                             </div>
                                     }
-
                                 </Dialog>
 
                             </div>
@@ -205,6 +210,6 @@ class BriefPaginationExamples extends Component {
             </div>
         );
     }
-};
+}
 
 export default BriefPaginationExamples;
