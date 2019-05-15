@@ -341,6 +341,13 @@ function needCollapseButtonSpacing(tableData) {
     return tableData && tableData.some(rowData => rowData && rowData.children && rowData.children.length > 0);
 }
 
+function getPageSizeValue(pageSize, pageSizeValueField) {
+    return typeof pageSize === 'object' ?
+        pageSize[pageSizeValueField]
+        :
+        pageSize;
+}
+
 export default {
     calcSpan,
     getColumnsWithSpan,
@@ -359,5 +366,6 @@ export default {
     handleSelectAllChange,
     getFirstColumnPosition,
     recursiveSelectChildren,
-    needCollapseButtonSpacing
+    needCollapseButtonSpacing,
+    getPageSizeValue
 };
