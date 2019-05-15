@@ -11,55 +11,70 @@ import PaginationSize from '../_PaginationSize';
 import PaginationPage from '../_PaginationPage';
 
 import Valid from '../_vendors/Valid';
+import TableCalculation from '../_vendors/TableCalculation';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class Pagination extends Component {
 
     constructor(props, ...restArgs) {
+
         super(props, ...restArgs);
+
+        this.state = {
+            page: props.page,
+            pageSize: props.pageSize
+        };
+
     }
 
     handlePageChange = page => {
-
-        const {pageSize, onChange} = this.props;
-
-        this.props.page != page && onChange && onChange({
-            page,
-            pageSize
+        this.setState({
+            page
+        }, () => {
+            const {onPageChange} = this.props;
+            onPageChange && onPageChange(page);
         });
-
     };
 
     handlePageSizeChange = pageSize => {
 
-        const {total, pageSizeValueField, onChange} = this.props,
-            originPageSizeValue = typeof this.props.pageSize === 'object' ?
-                this.props.pageSize[pageSizeValueField]
-                :
-                this.props.pageSize,
-            pageSizeValue = typeof pageSize === 'object' ?
-                pageSize[pageSizeValueField]
-                :
-                pageSize;
+        const {pageSizeValueField} = this.props,
+            originPageSizeValue = TableCalculation.getPageSizeValue(this.state.pageSize, pageSizeValueField),
+            pageSizeValue = TableCalculation.getPageSizeValue(pageSize, pageSizeValueField);
 
-        if (originPageSizeValue !== pageSizeValue) {
-            const totalPage = Math.ceil(total / pageSizeValue);
-            onChange && onChange({
-                page: Valid.range(this.props.page, 0, totalPage - 1),
-                pageSize
-            });
+        if (pageSizeValue && originPageSizeValue !== pageSizeValue) {
+
+            const {onPageSizeChange} = this.props;
+            onPageSizeChange && onPageSizeChange(pageSize);
+
+            const totalPage = Math.ceil(this.props.total / pageSizeValue),
+                page = Valid.range(this.state.page, 0, totalPage - 1);
+            if (page !== this.state.page) {
+                const {onPageChange} = this.props;
+                onPageChange && onPageChange(page);
+            }
+
         }
 
     };
 
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            page: ComponentUtil.getDerivedState(props, state, 'page'),
+            pageSize: ComponentUtil.getDerivedState(props, state, 'pageSize')
+        };
+    }
+
     render() {
 
         const {
-                className, style, total, page, pageSize, pageSizes, pageSizeValueField, pageSizeDisplayField,
-                selectedCount, selectedCountVisible, pageSizeVisible, pageSizeRightIconCls,
-                paginationPrevIconCls, paginationNextIconCls, paginationFirstIconCls, paginationLastIconCls,
-                paginationCountRenderer, parentEl
+                className, style, total, pageSizes, pageSizeValueField, pageSizeDisplayField,
+                selectedCount, countVisible, pageSizeVisible, pageSizeRightIconCls,
+                prevIconCls, nextIconCls, firstIconCls, lastIconCls,
+                countRenderer, parentEl
             } = this.props,
-
+            {page, pageSize} = this.state,
             totalPage = Math.ceil(total / pageSize);
 
         return (
@@ -71,7 +86,7 @@ class Pagination extends Component {
                 <div className="pagination-left">
 
                     {
-                        selectedCountVisible ?
+                        countVisible ?
                             <div className="pagination-selected">
                                 {`Selected: ${selectedCount}`}
                             </div>
@@ -81,8 +96,8 @@ class Pagination extends Component {
 
                     <div className="pagination-total">
                         {
-                            paginationCountRenderer ?
-                                paginationCountRenderer(total, page, totalPage, pageSize, pageSizes)
+                            countRenderer ?
+                                countRenderer(total, page, totalPage, pageSize, pageSizes)
                                 :
                                 `Total: ${total}`
                         }
@@ -107,10 +122,10 @@ class Pagination extends Component {
 
                     <PaginationPage page={page}
                                     totalPage={totalPage}
-                                    paginationPrevIconCls={paginationPrevIconCls}
-                                    paginationNextIconCls={paginationNextIconCls}
-                                    paginationFirstIconCls={paginationFirstIconCls}
-                                    paginationLastIconCls={paginationLastIconCls}
+                                    prevIconCls={prevIconCls}
+                                    nextIconCls={nextIconCls}
+                                    firstIconCls={firstIconCls}
+                                    lastIconCls={lastIconCls}
                                     onPageChange={this.handlePageChange}/>
 
                 </div>
@@ -171,7 +186,7 @@ Pagination.propTypes = {
     /**
      * If true,the selectedCount will show.
      */
-    selectedCountVisible: PropTypes.bool,
+    countVisible: PropTypes.bool,
 
     /**
      * If false, the pageSize choice box will not show.
@@ -186,31 +201,29 @@ Pagination.propTypes = {
     /**
      * Use this property to set prev button icon.
      */
-    paginationPrevIconCls: PropTypes.string,
+    prevIconCls: PropTypes.string,
 
     /**
      * Use this property to set next button icon.
      */
-    paginationNextIconCls: PropTypes.string,
+    nextIconCls: PropTypes.string,
 
     /**
      * Use this property to set first button icon.
      */
-    paginationFirstIconCls: PropTypes.string,
+    firstIconCls: PropTypes.string,
 
     /**
      * Use this property to set last button icon.
      */
-    paginationLastIconCls: PropTypes.string,
+    lastIconCls: PropTypes.string,
 
-    paginationCountRenderer: PropTypes.func,
+    countRenderer: PropTypes.func,
 
     parentEl: PropTypes.object,
 
-    /**
-     * Callback function fired when Pagging component change.
-     */
-    onChange: PropTypes.func
+    onPageChange: PropTypes.func,
+    onPageSizeChange: PropTypes.func
 
 };
 
@@ -224,14 +237,14 @@ Pagination.defaultProps = {
     pageSizeDisplayField: 'text',
     selectedCount: 0,
 
-    selectedCountVisible: false,
+    countVisible: false,
     pageSizeVisible: true,
 
     pageSizeRightIconCls: 'fas fa-angle-down',
-    paginationPrevIconCls: 'fas fa-angle-left',
-    paginationNextIconCls: 'fas fa-angle-right',
-    paginationFirstIconCls: 'fas fa-angle-double-left',
-    paginationLastIconCls: 'fas fa-angle-double-right'
+    prevIconCls: 'fas fa-angle-left',
+    nextIconCls: 'fas fa-angle-right',
+    firstIconCls: 'fas fa-angle-double-left',
+    lastIconCls: 'fas fa-angle-double-right'
 
 };
 
