@@ -277,15 +277,12 @@ class TableContent extends Component {
             return [];
         }
 
-        const {isPaginated, pagination} = this.props;
-
-        if (!isPaginated || !pagination) {
+        if (!this.props.isPaginated) {
             return data;
         }
 
-        const {pageSize, page} = pagination,
+        const {page, pageSize} = this.props,
             len = data.length;
-
         let start = page * pageSize,
             stop = start + pageSize;
 
@@ -807,10 +804,8 @@ TableContent.propTypes = {
      * pagination
      */
     isPaginated: PropTypes.bool,
-    pagination: PropTypes.shape({
-        pageSize: PropTypes.number,
-        page: PropTypes.number
-    }),
+    page: PropTypes.number,
+    pageSize: PropTypes.number,
     pageSizes: PropTypes.array,
 
     /**
@@ -859,10 +854,8 @@ TableContent.defaultProps = {
     sortingDescIconCls: 'fas fa-sort-down',
 
     isPaginated: true,
-    pagination: {
-        pageSize: 10,
-        page: 0
-    },
+    page: 0,
+    pageSize: 10,
     pageSizes: [5, 10, 15, 20],
 
     isHeadFixed: false,
