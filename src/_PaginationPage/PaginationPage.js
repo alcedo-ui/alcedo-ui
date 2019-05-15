@@ -31,7 +31,7 @@ class PaginationPage extends Component {
 
         const {
             page, totalPage,
-            paginationPrevIconCls, paginationNextIconCls, paginationFirstIconCls, paginationLastIconCls
+            prevIconCls, nextIconCls, firstIconCls, lastIconCls
         } = this.props;
 
         let pages = null;
@@ -151,24 +151,24 @@ class PaginationPage extends Component {
             <div className="pagination-page">
 
                 <IconButton className="ctrl"
-                            iconCls={paginationFirstIconCls}
+                            iconCls={firstIconCls}
                             disabled={page == 0}
                             onClick={() => this.jump(0)}/>
 
                 <IconButton className="ctrl"
-                            iconCls={paginationPrevIconCls}
+                            iconCls={prevIconCls}
                             disabled={page == 0}
                             onClick={() => this.jump(page - 1 >= 0 ? page - 1 : 0)}/>
 
                 {pages}
 
                 <IconButton className="ctrl"
-                            iconCls={paginationNextIconCls}
+                            iconCls={nextIconCls}
                             disabled={page == totalPage - 1 || totalPage == 0}
                             onClick={() => this.jump(page + 1 <= totalPage - 1 ? page + 1 : totalPage - 1)}/>
 
                 <IconButton className="ctrl"
-                            iconCls={paginationLastIconCls}
+                            iconCls={lastIconCls}
                             disabled={page == totalPage - 1 || totalPage == 0}
                             onClick={() => this.jump(totalPage - 1)}/>
 
@@ -186,10 +186,10 @@ PaginationPage.propTypes = {
     page: PropTypes.number.isRequired,
     totalPage: PropTypes.number.isRequired,
 
-    paginationPrevIconCls: PropTypes.string,
-    paginationNextIconCls: PropTypes.string,
-    paginationFirstIconCls: PropTypes.string,
-    paginationLastIconCls: PropTypes.string,
+    prevIconCls: PropTypes.string,
+    nextIconCls: PropTypes.string,
+    firstIconCls: PropTypes.string,
+    lastIconCls: PropTypes.string,
 
     onPageChange: PropTypes.func
 
@@ -200,10 +200,10 @@ PaginationPage.defaultProps = {
     page: 0,
     totalPage: 0,
 
-    paginationPrevIconCls: 'fas fa-angle-left',
-    paginationNextIconCls: 'fas fa-angle-right',
-    paginationFirstIconCls: 'fas fa-angle-double-left',
-    paginationLastIconCls: 'fas fa-angle-double-right'
+    prevIconCls: 'fas fa-angle-left',
+    nextIconCls: 'fas fa-angle-right',
+    firstIconCls: 'fas fa-angle-double-left',
+    lastIconCls: 'fas fa-angle-double-right'
 
 };
 
