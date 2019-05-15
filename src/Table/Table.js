@@ -39,7 +39,8 @@ class Table extends Component {
         this.state = {
             init: props.hasInitFadeOut,
             sorting: props.sorting,
-            pagination: props.pagination,
+            page: props.page,
+            pageSize: props.pageSize,
             expandRows: props.expandRows,
             value: Calculation.getInitValue(props)
         };
@@ -80,14 +81,26 @@ class Table extends Component {
     };
 
     /**
-     * handle pagination change
+     * handle pagination page change
      */
-    handlePaginationChange = pagination => {
+    handlePageChange = page => {
         this.setState({
-            pagination
+            page
         }, () => {
-            const {onPaginationChange} = this.props;
-            onPaginationChange && onPaginationChange(pagination);
+            const {onPageChange} = this.props;
+            onPageChange && onPageChange(page);
+        });
+    };
+
+    /**
+     * handle pagination page size change
+     */
+    handlePageSizeChange = pageSize => {
+        this.setState({
+            pageSize
+        }, () => {
+            const {onPageSizeChange} = this.props;
+            onPageSizeChange && onPageSizeChange(pageSize);
         });
     };
 
@@ -108,7 +121,8 @@ class Table extends Component {
         return {
             prevProps: props,
             sorting: ComponentUtil.getDerivedState(props, state, 'sorting'),
-            pagination: ComponentUtil.getDerivedState(props, state, 'pagination'),
+            page: ComponentUtil.getDerivedState(props, state, 'page'),
+            pageSize: ComponentUtil.getDerivedState(props, state, 'pageSize'),
             expandRows: ComponentUtil.getDerivedState(props, state, 'expandRows'),
             value: Calculation.getInitValue({
                 value: ComponentUtil.getDerivedState(props, state, 'value'),
@@ -123,7 +137,7 @@ class Table extends Component {
                 className, style, isPaginated, pageSizes,
                 ...restProps
             } = this.props,
-            {init, sorting, pagination, expandRows, value} = this.state;
+            {init, sorting, page, pageSize, expandRows, value} = this.state;
 
         return (
             <div className={classNames('table', {
@@ -137,7 +151,8 @@ class Table extends Component {
                 {/* table area */}
                 <Content {...restProps}
                          sorting={sorting}
-                         pagination={pagination}
+                         page={page}
+                         pageSize={pageSize}
                          expandRows={expandRows}
                          value={value}
                          isPaginated={isPaginated}
@@ -153,10 +168,12 @@ class Table extends Component {
                 {
                     isPaginated ?
                         <Pagination {...restProps}
-                                    pagination={pagination}
+                                    page={page}
+                                    pageSize={pageSize}
                                     pageSizes={pageSizes}
                                     value={value}
-                                    onChange={this.handlePaginationChange}/>
+                                    onPageChange={this.handlePageChange}
+                                    onPageSizeChange={this.handlePageSizeChange}/>
                         :
                         null
                 }
@@ -365,12 +382,17 @@ Table.propTypes = {
      * pagination
      */
     isPaginated: PropTypes.bool,
-    pagination: PropTypes.shape({
-        pageSize: PropTypes.number,
-        page: PropTypes.number
-    }),
+    page: PropTypes.number,
+    pageSize: PropTypes.number,
     pageSizes: PropTypes.array,
     useFullPagination: PropTypes.bool,
+    paginationCountVisible: PropTypes.bool,
+    paginationPageSizeVisible: PropTypes.bool,
+    paginationPageSizeRightIconCls: PropTypes.string,
+    paginationPrevIconCls: PropTypes.string,
+    paginationNextIconCls: PropTypes.string,
+    paginationFirstIconCls: PropTypes.string,
+    paginationLastIconCls: PropTypes.string,
     paginationCountRenderer: PropTypes.func,
 
     /**
@@ -399,7 +421,8 @@ Table.propTypes = {
     onCollapse: PropTypes.func,
     onExpandChange: PropTypes.func,
     onSortChange: PropTypes.func,
-    onPaginationChange: PropTypes.func
+    onPageChange: PropTypes.func,
+    onPageSizeChange: PropTypes.func
 
 };
 
@@ -422,12 +445,17 @@ Table.defaultProps = {
     sortingDescIconCls: 'fas fa-sort-down',
 
     isPaginated: true,
-    pagination: {
-        pageSize: 10,
-        page: 0
-    },
+    page: 0,
+    pageSize: 10,
     pageSizes: [5, 10, 15, 20],
     useFullPagination: false,
+    paginationCountVisible: true,
+    paginationPageSizeVisible: true,
+    paginationPageSizeRightIconCls: 'fas fa-angle-down',
+    paginationPrevIconCls: 'fas fa-angle-left',
+    paginationNextIconCls: 'fas fa-angle-right',
+    paginationFirstIconCls: 'fas fa-angle-double-left',
+    paginationLastIconCls: 'fas fa-angle-double-right',
 
     isHeadFixed: false,
     isFootFixed: false
