@@ -53,7 +53,6 @@ class Tr extends Component {
                 ...respProps
             } = this.props,
             collapsed = this.isCollapsed(),
-
             columnsWithSpan = TableCalculation.getColumnsWithSpan(TableFragment.BODY, columns, rowIndex);
 
         return (
