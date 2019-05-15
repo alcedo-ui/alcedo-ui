@@ -142,25 +142,6 @@ class TableContent extends Component {
 
     };
 
-    // handleSelectAllChange = checked => {
-    //
-    //     const {
-    //             selectAllMode, data, value, idProp,
-    //             onChange, onSelectAll, onDeselectAll
-    //         } = this.props,
-    //         result = TableCalculation.handleSelectAllChange(
-    //             checked, selectAllMode === SelectAllMode.ALL ? data : this.tableData, value, idProp);
-    //
-    //     onChange && onChange(result);
-    //
-    //     if (checked) {
-    //         onSelectAll && onSelectAll(result);
-    //     } else {
-    //         onDeselectAll && onDeselectAll(value);
-    //     }
-    //
-    // };
-
     /**
      * split columns by fixed
      * @returns {{[p: string]: Array}}
@@ -239,7 +220,7 @@ class TableContent extends Component {
                 headClassName: 'table-select-th',
                 headRenderer: () => {
 
-                    const {checked, indeterminate} = TableCalculation.isRootNodeChecked(
+                    const {checked, indeterminate} = TableCalculation.isSelectAllChecked(
                         selectAllMode === SelectAllMode.ALL ? data : this.tableData, value, idProp);
 
                     return (
