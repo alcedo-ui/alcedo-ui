@@ -157,7 +157,7 @@ function isNodeIndeterminate(node, value, idProp) {
 
 }
 
-function isRootNodeChecked(data, value, idProp) {
+function isSelectAllChecked(data, value, idProp) {
 
     let total = 0,
         count = 0;
@@ -166,7 +166,7 @@ function isRootNodeChecked(data, value, idProp) {
         [VirtualRoot]: true,
         children: data
     }, node => {
-        if (!(VirtualRoot in node)) {
+        if (node && !node.disabled && !(VirtualRoot in node)) {
             total++;
             if (isNodeChecked(node, value, idProp)) {
                 count++;
@@ -351,7 +351,7 @@ export default {
     indexOfNodeInValue,
     isNodeChecked,
     isNodeIndeterminate,
-    isRootNodeChecked,
+    isSelectAllChecked,
     handleSelect,
     handleDeselect,
     formatValue,
