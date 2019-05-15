@@ -46,12 +46,13 @@ class Tbody extends Component {
     render() {
 
         const {
-            columns, data, startIndex, idProp, disabled,
+            className, style, columns, data, startIndex, idProp, disabled,
             ...restProps
         } = this.props;
 
         return (
-            <tbody>
+            <tbody className={className}
+                   style={style}>
                 {
                     data && data.map((row, rowIndex) => row ?
                         <Tr {...restProps}
@@ -73,6 +74,9 @@ class Tbody extends Component {
 }
 
 Tbody.propTypes = {
+
+    className: PropTypes.string,
+    style: PropTypes.object,
 
     /**
      * The select mode of table.
