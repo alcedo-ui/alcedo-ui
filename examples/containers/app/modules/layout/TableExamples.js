@@ -61,21 +61,24 @@ class TableExamples extends Component {
             sortable: true,
             sortingProp: 'age'
         }, {
-            width: 300,
-            headRenderer: 'Other Column 1',
-            bodyRenderer: rowDate => rowDate.other ? `${rowDate.other} 1` : ''
-        }, {
-            width: 300,
-            headRenderer: 'Other Column 2',
-            bodyRenderer: rowDate => rowDate.other ? `${rowDate.other} 2` : ''
-        }, {
-            width: 300,
-            headRenderer: 'Other Column 3',
-            bodyRenderer: rowDate => rowDate.other ? `${rowDate.other} 3` : ''
-        }, {
-            width: 300,
-            headRenderer: 'Other Column 4',
-            bodyRenderer: rowDate => rowDate.other ? `${rowDate.other} 4` : ''
+            headRenderer: 'Other Column',
+            children: [{
+                width: 300,
+                headRenderer: 'Other Column 1',
+                bodyRenderer: rowDate => rowDate.other ? `${rowDate.other} 1` : ''
+            }, {
+                width: 300,
+                headRenderer: 'Other Column 2',
+                bodyRenderer: rowDate => rowDate.other ? `${rowDate.other} 2` : ''
+            }, {
+                width: 300,
+                headRenderer: 'Other Column 3',
+                bodyRenderer: rowDate => rowDate.other ? `${rowDate.other} 3` : ''
+            }, {
+                width: 300,
+                headRenderer: 'Other Column 4',
+                bodyRenderer: rowDate => rowDate.other ? `${rowDate.other} 4` : ''
+            }]
         }, {
             headRenderer: 'Deposit',
             headAlign: Table.Align.RIGHT,
