@@ -773,7 +773,9 @@ TableContent.propTypes = {
          */
         sortingProp: PropTypes.string,
 
-        defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType))
+        defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType)),
+
+        children: PropTypes.array
 
     })).isRequired,
 
