@@ -32,17 +32,8 @@ class TableExamples extends Component {
         this.columns = [{
             fixed: Table.Fixed.LEFT,
             headRenderer: 'ID',
-            bodyRenderer: rowDate => {
-
-                if (rowDate[LOADING_SYMBOL]) {
-                    return (
-                        <CircularLoading/>
-                    );
-                }
-
-                return rowDate.id;
-
-            },
+            bodyRenderer: rowDate => rowDate[LOADING_SYMBOL] ?
+                <CircularLoading/> : rowDate.id,
             footRenderer: 'Total',
             footSpan: 2,
             sortable: true,
@@ -52,7 +43,8 @@ class TableExamples extends Component {
             width: 300,
             headRenderer: 'Name',
             bodyClassName: 'nowrap',
-            bodyRenderer: rowDate => rowDate.firstName && rowDate.lastName ? `${rowDate.firstName} ${rowDate.lastName}` : '',
+            bodyRenderer: rowDate => rowDate.firstName && rowDate.lastName ?
+                `${rowDate.firstName} ${rowDate.lastName}` : '',
             sortable: true,
             sortingProp: 'firstName'
         }, {
@@ -60,15 +52,11 @@ class TableExamples extends Component {
             headAlign: Table.Align.RIGHT,
             bodyRenderer: rowDate => rowDate.age,
             bodyAlign: Table.Align.RIGHT,
-            footRenderer: () => {
-                const {data} = this.state;
-                return (
-                    <Fragment>
-                        <div>Average</div>
-                        <div>{data.reduce((a, b) => a + b.age, 0) / data.length}</div>
-                    </Fragment>
-                );
-            },
+            footRenderer: () =>
+                <Fragment>
+                    <div>Average</div>
+                    <div>{this.state.data.reduce((a, b) => a + b.age, 0) / this.state.data.length}</div>
+                </Fragment>,
             footAlign: Table.Align.RIGHT,
             sortable: true,
             sortingProp: 'age'
