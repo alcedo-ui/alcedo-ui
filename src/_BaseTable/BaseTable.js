@@ -36,7 +36,7 @@ class BaseTable extends Component {
     render() {
 
         const {
-            className, style, fixed, fragment, columns, isHeadHidden, isFootHidden,
+            className, style, fixed, fragment, columns, headColumns, bodyColumns, isHeadHidden, isFootHidden,
             ...restProps
         } = this.props;
 
@@ -46,12 +46,12 @@ class BaseTable extends Component {
             })}
                    style={style}>
 
-                <ColGroup columns={TableCalculation.getColumnsWithSpan(fragment, columns)}/>
+                <ColGroup columns={TableCalculation.getColumnsWithSpan(fragment, bodyColumns || columns)}/>
 
                 {
                     !isHeadHidden && (fragment === TableFragment.HEAD || (!fixed && !fragment)) ?
                         <Thead {...restProps}
-                               columns={columns}/>
+                               columns={headColumns || [columns]}/>
                         :
                         null
                 }
@@ -59,7 +59,7 @@ class BaseTable extends Component {
                 {
                     !fragment ?
                         <Tbody {...restProps}
-                               columns={columns}/>
+                               columns={bodyColumns || columns}/>
                         :
                         null
                 }
@@ -68,7 +68,7 @@ class BaseTable extends Component {
                 {
                     !isFootHidden && (fragment === TableFragment.FOOT || (!fixed && !fragment)) ?
                         <Tfoot {...restProps}
-                               columns={columns}/>
+                               columns={bodyColumns || columns}/>
                         :
                         null
                 }
@@ -215,6 +215,8 @@ BaseTable.propTypes = {
         defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType))
 
     })).isRequired,
+    headColumns: PropTypes.array,
+    bodyColumns: PropTypes.array,
 
     data: PropTypes.array,
     baseColIndex: PropTypes.number,
