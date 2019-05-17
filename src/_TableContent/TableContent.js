@@ -278,12 +278,14 @@ class TableContent extends Component {
     /**
      * fix table layout at once
      */
-    fixLayout = debounce(() => {
+    fixLayout = () => {
         if (this.wrapperEl && TableLayout.hasFixed(this.props, this.columns)) {
             TableLayout.fixLayout(this.wrapperEl, this.props);
         }
         TableLayout.updateHorizontalScrollClassNames(this.wrapperEl, this.centerBodyScroller);
-    }, 250);
+    };
+
+    debounceFixLayout = debounce(this.fixLayout, 250);
 
     /**
      * handle get scroll el
@@ -487,7 +489,7 @@ class TableContent extends Component {
         this.fixedLeftEl = this.fixedLeft && this.fixedLeft.current && findDOMNode(this.fixedLeft.current);
         this.fixedRightEl = this.fixedRight && this.fixedRight.current && findDOMNode(this.fixedRight.current);
 
-        eventsOn(window, 'resize', this.fixLayout);
+        eventsOn(window, 'resize', this.debounceFixLayout);
 
         this.fixLayout();
 
@@ -503,7 +505,7 @@ class TableContent extends Component {
     }
 
     componentWillUnmount() {
-        eventsOff(window, 'resize', this.fixLayout);
+        eventsOff(window, 'resize', this.debounceFixLayout);
         this.initTimeout && clearTimeout(this.initTimeout);
         this.fixLayout && this.fixLayout.cancel();
     }
