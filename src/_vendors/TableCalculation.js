@@ -83,11 +83,15 @@ function sortTableData(data, sorting, sortFunc) {
 
 }
 
-function hasAnyRenderer(columns, fragment) {
-    return columns && fragment ? columns.some(item => item[`${fragment}Renderer`]) : false;
+function hasRenderer(columns, fragment) {
+    return columns && fragment ? columns.some(column => column && column[`${fragment}Renderer`]) : false;
 }
 
-function handleFixedColumns(columns) {
+function hasFixedColumn(columns, fixed) {
+    return columns && fixed ? columns.some(column => column && column.fixed === fixed) : false;
+}
+
+function handleFixedColumnsClassName(columns) {
 
     if (!columns) {
         return columns;
@@ -260,65 +264,51 @@ function handleSelectAll(data, value, idProp) {
 
 }
 
-/**
- * handle value when select all checkbox clicked
- * @param checked
- * @param selectAllMode
- * @param data
- * @param tableData
- * @param value
- * @param idProp
- * @returns {Array|*}
- */
-function handleSelectAllChange(checked, data, value, idProp) {
+function sortColumns(columns) {
 
-    // const currentPageData = selectAllMode === SelectAllMode.ALL ?
-    //     data.filter(item => item && !item.disabled)
-    //     :
-    //     tableData.filter(item => item && !item.disabled);
-    //
-    // if (checked) {
-    //
-    //     if (!value || value.length < 1) {
-    //         return currentPageData;
-    //     }
-    //
-    //     const result = value.slice();
-    //     currentPageData.forEach(item => {
-    //         if (!isNodeChecked(item, result, idProp)) {
-    //             result.push(item);
-    //         }
-    //     });
-    //     return result;
-    //
-    // } else {
-    //
-    //     if (!value || value.length < 1) {
-    //         return [];
-    //     }
-    //
-    //     const result = value.slice();
-    //     currentPageData.forEach(item => {
-    //         const index = indexOfNodeInValue(item, result, idProp);
-    //         if (index > -1) {
-    //             result.splice(index, 1);
-    //         }
-    //     });
-    //     return result;
-    //
-    // }
+    if (!columns || columns.length < 1) {
+        return columns;
+    }
+
+    const result = {
+        [HorizontalAlign.LEFT]: [],
+        [HorizontalAlign.CENTER]: [],
+        [HorizontalAlign.RIGHT]: []
+    };
+
+    columns.forEach(column => {
+        if (column) {
+            const fixed = column.fixed || HorizontalAlign.CENTER;
+            result[fixed].push(fixed === HorizontalAlign.CENTER ?
+                column
+                :
+                {
+                    ...column,
+                    headClassName: classnames(column.headClassName, 'table-fixed-column'),
+                    bodyClassName: classnames(column.bodyClassName, 'table-fixed-column'),
+                    footClassName: classnames(column.footClassName, 'table-fixed-column')
+                }
+            );
+        }
+    });
+
+    return [...result[HorizontalAlign.LEFT], ...result[HorizontalAlign.CENTER], ...result[HorizontalAlign.RIGHT]];
 
 }
 
-function getFirstColumnPosition(columns) {
-    if (columns[HorizontalAlign.LEFT].length > 0) {
-        return HorizontalAlign.LEFT;
-    } else if (columns[HorizontalAlign.CENTER].length > 0) {
-        return HorizontalAlign.CENTER;
-    } else if (columns[HorizontalAlign.RIGHT].length > 0) {
-        return HorizontalAlign.RIGHT;
+
+function getFirstColumn(columns) {
+
+    if (!columns || columns.length < 1) {
+        return null;
     }
-    return null;
+
+    const result = columns.find(column => column && column.fixed === HorizontalAlign.LEFT);
+    return result ?
+        result
+        :
+        columns.find(column => column && column.fixed !== HorizontalAlign.RIGHT);
+
 }
 
 function recursiveSelectChildren(node, value = [], idProp) {
@@ -352,8 +342,9 @@ export default {
     calcSpan,
     getColumnsWithSpan,
     sortTableData,
-    hasAnyRenderer,
-    handleFixedColumns,
+    hasRenderer,
+    hasFixedColumn,
+    handleFixedColumnsClassName,
     getDataByPagination,
     indexOfNodeInValue,
     isNodeChecked,
@@ -363,8 +354,8 @@ export default {
     handleDeselect,
     formatValue,
     handleSelectAll,
-    handleSelectAllChange,
-    getFirstColumnPosition,
+    sortColumns,
+    getFirstColumn,
     recursiveSelectChildren,
     needCollapseButtonSpacing,
     getPageSizeValue
