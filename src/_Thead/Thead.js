@@ -80,7 +80,7 @@ Thead.propTypes = {
     /**
      * Children passed into table header.
      */
-    columns: PropTypes.arrayOf(PropTypes.shape({
+    columns: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.shape({
 
         /**
          * width of column
@@ -186,7 +186,7 @@ Thead.propTypes = {
 
         defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType))
 
-    })).isRequired,
+    }))).isRequired,
 
     data: PropTypes.array,
     baseColIndex: PropTypes.number,
