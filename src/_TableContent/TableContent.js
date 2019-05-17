@@ -61,11 +61,6 @@ class TableContent extends Component {
 
         // sorted current page cache data
         this.tableData = [];
-        this.columns = {
-            [HorizontalAlign.LEFT]: [],
-            [HorizontalAlign.CENTER]: [],
-            [HorizontalAlign.RIGHT]: []
-        };
 
     }
 
@@ -537,6 +532,9 @@ class TableContent extends Component {
             return null;
         }
 
+        this.centerColumns = TableCalculation.handleFixedColumnsClassName(this.formatedColumns);
+        console.log('centerColumns::', this.centerColumns);
+
         this.fixedLeftColumns = this.formatedColumns.filter(column =>
             column && column.fixed === HorizontalAlign.LEFT);
         console.log('fixedLeftColumns::', this.fixedLeftColumns);
@@ -565,7 +563,7 @@ class TableContent extends Component {
                                  bodyScrollerStyle={bodyScrollerStyle}
                                  maskStyle={tableStyle}
                                  tableStyle={tableStyle}
-                                 columns={this.formatedColumns}
+                                 columns={this.centerColumns}
                                  data={this.tableData}
                                  scroll={scroll}
                                  isHeadHidden={isHeadHidden}
