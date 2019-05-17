@@ -146,78 +146,67 @@ class TableContent extends Component {
      * split columns by fixed
      * @returns {{[p: string]: Array}}
      */
-    getColumns = () => {
+    formatColumns = (sortedColumns = this.props.columns) => {
+
+        if (!sortedColumns || sortedColumns.length < 1) {
+            return sortedColumns;
+        }
 
         const {
-                selectTheme, selectMode, selectAllMode, columns, data, disabled, value, idProp,
+                selectTheme, selectMode, selectAllMode, data, disabled, value, idProp,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls
             } = this.props,
-            result = {
-                [HorizontalAlign.LEFT]: [],
-                [HorizontalAlign.CENTER]: [],
-                [HorizontalAlign.RIGHT]: []
-            };
-
-        columns.forEach(column => {
-            if (column.fixed === true || column.fixed === HorizontalAlign.LEFT) {
-                result[HorizontalAlign.LEFT].push(column);
-            } else if (column.fixed === HorizontalAlign.RIGHT) {
-                result[HorizontalAlign.RIGHT].push(column);
-            } else {
-                result[HorizontalAlign.CENTER].push(column);
-            }
-        });
-
-        const firstColumnPosition = TableCalculation.getFirstColumnPosition(result);
+            result = sortedColumns.slice();
 
         /**
          * handle expand
          */
-        if (firstColumnPosition) {
+        result[0] = {
+            ...sortedColumns[0],
+            bodyClassName: classNames('table-expand-column', {
+                [sortedColumns[0].bodyClassName]: sortedColumns[0].bodyClassName
+            }),
+            bodyRenderer: (rowData, rowIndex, colIndex, tableData, collapsed, depth, path) =>
+                <Fragment>
 
-            const firstColumn = result[firstColumnPosition][0];
+                    <span className={classNames('table-indent', `indent-level-${depth}`)}
+                          style={{paddingLeft: depth * 20}}></span>
 
-            result[firstColumnPosition][0] = {
-                ...result[firstColumnPosition][0],
-                bodyClassName: classNames('table-expand-column', {
-                    [firstColumn.bodyClassName]: firstColumn.bodyClassName
-                }),
-                bodyRenderer: (rowData, rowIndex, colIndex, tableData, collapsed, depth, path) =>
-                    <Fragment>
+                    {
+                        TableCalculation.needCollapseButtonSpacing(tableData) ?
+                            <IconButton className={classNames('collapse-button', {
+                                hidden: !rowData || !rowData.children || rowData.children.length < 1
+                            })}
+                                        iconCls="fas fa-chevron-right"
+                                        disableTouchRipple={true}
+                                        onClick={() => this.handleExpandChange(!collapsed, rowData)}/>
+                            :
+                            null
+                    }
 
-                        <span className={classNames('table-indent', `indent-level-${depth}`)}
-                              style={{paddingLeft: depth * 20}}></span>
+                    {
+                        typeof sortedColumns[0].bodyRenderer === 'function' ?
+                            sortedColumns[0].bodyRenderer(rowData, rowIndex, colIndex, tableData, collapsed, depth, path)
+                            :
+                            sortedColumns[0].bodyRenderer
+                    }
 
-                        {
-                            TableCalculation.needCollapseButtonSpacing(tableData) ?
-                                <IconButton className={classNames('collapse-button', {
-                                    hidden: !rowData || !rowData.children || rowData.children.length < 1
-                                })}
-                                            iconCls="fas fa-chevron-right"
-                                            disableTouchRipple={true}
-                                            onClick={() => this.handleExpandChange(!collapsed, rowData)}/>
-                                :
-                                null
-                        }
-
-                        {
-                            typeof firstColumn.bodyRenderer === 'function' ?
-                                firstColumn.bodyRenderer(rowData, rowIndex, colIndex, tableData, collapsed, depth, path)
-                                :
-                                firstColumn.bodyRenderer
-                        }
-
-                    </Fragment>
-            };
-
-        }
+                </Fragment>
+        };
 
         /**
          * handle multi select
          */
         if (selectMode === SelectMode.MULTI_SELECT) {
-            result[firstColumnPosition || HorizontalAlign.CENTER].unshift({
-                headClassName: 'table-select-th',
+
+            const fixed = sortedColumns[0].fixed,
+                isFixed = fixed && fixed !== HorizontalAlign.CENTER;
+
+            result.unshift({
+                fixed,
+                headClassName: classNames('table-select-th', {
+                    'table-fixed-column': isFixed
+                }),
                 headRenderer: () => {
 
                     const {checked, indeterminate} = TableCalculation.isSelectAllChecked(
@@ -237,7 +226,9 @@ class TableContent extends Component {
                     );
 
                 },
-                bodyClassName: 'table-select-td',
+                bodyClassName: classNames('table-select-td', {
+                    'table-fixed-column': isFixed
+                }),
                 bodyRenderer: (rowData, rowIndex, colIndex, tableData, collapsed, depth, path) =>
                     <Checkbox className="table-select"
                               theme={selectTheme}
@@ -248,7 +239,10 @@ class TableContent extends Component {
                               checkedIconCls={checkboxCheckedIconCls}
                               indeterminateIconCls={checkboxIndeterminateIconCls}
                               onCheck={() => this.handleSelect(rowData, rowIndex, colIndex, tableData, collapsed, depth, path)}
-                              onUncheck={() => this.handleDeselect(rowData, rowIndex, colIndex, tableData, collapsed, depth, path)}/>
+                              onUncheck={() => this.handleDeselect(rowData, rowIndex, colIndex, tableData, collapsed, depth, path)}/>,
+                footClassName: classNames({
+                    'table-fixed-column': isFixed
+                })
             });
         }
 
@@ -529,20 +523,32 @@ class TableContent extends Component {
     render() {
 
         const {
-            className, style, columns: originColumns, data, scroll,
+            className, style, columns, data, scroll,
             ...restProps
         } = this.props;
 
-        this.columns = this.getColumns();
+        this.sortedColumns = TableCalculation.sortColumns(columns);
+        console.log('sortedColumns::', this.sortedColumns);
 
-        if (!this.columns) {
+        this.formatedColumns = this.formatColumns(this.sortedColumns);
+        console.log('formatedColumns::', this.formatedColumns);
+
+        if (!this.formatedColumns) {
             return null;
         }
 
+        this.fixedLeftColumns = this.formatedColumns.filter(column =>
+            column && column.fixed === HorizontalAlign.LEFT);
+        console.log('fixedLeftColumns::', this.fixedLeftColumns);
+
+        this.fixedRightColumns = this.formatedColumns.filter(column =>
+            column && column.fixed === HorizontalAlign.RIGHT);
+        console.log('fixedRightColumns::', this.fixedRightColumns);
+
         this.tableData = this.paginateData(this.sortData(data));
 
-        const isHeadHidden = !TableCalculation.hasAnyRenderer(originColumns, TableFragment.HEAD),
-            isFootHidden = !TableCalculation.hasAnyRenderer(originColumns, TableFragment.FOOT),
+        const isHeadHidden = !TableCalculation.hasRenderer(columns, TableFragment.HEAD),
+            isFootHidden = !TableCalculation.hasRenderer(columns, TableFragment.FOOT),
 
             bodyScrollerStyle = scroll && scroll.height ? {maxHeight: scroll.height} : null,
             tableStyle = scroll && scroll.width ? {minWidth: scroll.width} : null;
@@ -559,11 +565,7 @@ class TableContent extends Component {
                                  bodyScrollerStyle={bodyScrollerStyle}
                                  maskStyle={tableStyle}
                                  tableStyle={tableStyle}
-                                 columns={[
-                                     ...TableCalculation.handleFixedColumns(this.columns[HorizontalAlign.LEFT]),
-                                     ...this.columns[HorizontalAlign.CENTER],
-                                     ...TableCalculation.handleFixedColumns(this.columns[HorizontalAlign.RIGHT])
-                                 ]}
+                                 columns={this.formatedColumns}
                                  data={this.tableData}
                                  scroll={scroll}
                                  isHeadHidden={isHeadHidden}
@@ -578,13 +580,13 @@ class TableContent extends Component {
                                      this.handleGetScrollerEl(el, HorizontalAlign.CENTER, TableFragment.FOOT)}/>
 
                 {
-                    this.columns[HorizontalAlign.LEFT] && this.columns[HorizontalAlign.LEFT].length > 0 ?
+                    this.fixedLeftColumns && this.fixedLeftColumns.length > 0 ?
                         <ScrollableTable {...restProps}
                                          ref={this.fixedLeft}
                                          className="table-content-left"
                                          bodyScrollerStyle={bodyScrollerStyle}
                                          fixed={HorizontalAlign.LEFT}
-                                         columns={this.columns[HorizontalAlign.LEFT]}
+                                         columns={this.fixedLeftColumns}
                                          data={this.tableData}
                                          scroll={scroll}
                                          isHeadHidden={isHeadHidden}
@@ -603,19 +605,18 @@ class TableContent extends Component {
                 }
 
                 {
-                    this.columns[HorizontalAlign.RIGHT] && this.columns[HorizontalAlign.RIGHT].length > 0 ?
+                    this.fixedRightColumns && this.fixedRightColumns.length > 0 ?
                         <ScrollableTable {...restProps}
                                          ref={this.fixedRight}
                                          className="table-content-right"
                                          bodyScrollerStyle={bodyScrollerStyle}
                                          fixed={HorizontalAlign.RIGHT}
-                                         columns={this.columns[HorizontalAlign.RIGHT]}
+                                         columns={this.fixedRightColumns}
                                          data={this.tableData}
                                          scroll={scroll}
                                          isHeadHidden={isHeadHidden}
                                          isFootHidden={isFootHidden}
-                                         baseColIndex={this.columns[HorizontalAlign.LEFT].length
-                                         + this.columns[HorizontalAlign.CENTER].length}
+                                         baseColIndex={this.formatedColumns.length - this.fixedRightColumns.length}
                                          onScroll={this.handleScroll}
                                          onWheel={this.handleWheel}
                                          onGetHeadScrollerEl={el =>
@@ -667,9 +668,9 @@ TableContent.propTypes = {
     columns: PropTypes.arrayOf(PropTypes.shape({
 
         /**
-         * fixed position of column ( true / 'left' / 'right' )
+         * fixed position of column ( 'left' / 'right' )
          */
-        fixed: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(Util.enumerateValue(HorizontalAlign))]),
+        fixed: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
 
         /**
          * width of column
