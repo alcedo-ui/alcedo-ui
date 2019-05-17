@@ -298,6 +298,100 @@ function getFirstColumn(columns) {
 
 }
 
+function formatColumnsSpan(node, maxDepth, depth = -1) {
+
+    if (!node) {
+        return 0;
+    }
+
+    const hasChildren = node.children && node.children.length > 0;
+
+    let colSpan = 0;
+    if (hasChildren) {
+
+        node.children.forEach(childNode =>
+            childNode && (colSpan += formatColumnsSpan(childNode, maxDepth, depth + 1))
+        );
+
+        // col span
+        if (colSpan > 1) {
+            node.colSpan = colSpan;
+        }
+
+    } else {
+        // row span
+        const rowSpan = maxDepth - depth;
+        if (rowSpan > 1) {
+            node.rowSpan = rowSpan;
+        }
+    }
+
+    if (node[VirtualRoot]) {
+        return node.children;
+    }
+
+    if (hasChildren) {
+        return colSpan;
+    }
+
+    return 1;
+
+}
+
+function getHeadColumns(columns) {
+
+    if (!columns || columns.length < 1) {
+        return columns;
+    }
+
+    let maxDepth = 0;
+    Util.postOrderTraverse({children: columns}, (node, depth) => {
+        if (depth > maxDepth) {
+            maxDepth = depth;
+        }
+    });
+
+    const formatedColumns = formatColumnsSpan({
+        [VirtualRoot]: true,
+        children: columns
+    }, maxDepth);
+
+    if (!formatedColumns) {
+        return columns;
+    }
+
+    const result = [];
+    Util.postOrderTraverse({children: formatedColumns}, (node, depth) => {
+
+        if (!result[depth - 1]) {
+            result[depth - 1] = [];
+        }
+
+        result[depth - 1].push(node);
+
+    });
+
+    return result;
+
+}
+
+function getBodyColumns(columns) {
+
+    if (!columns || columns.length < 1) {
+        return columns;
+    }
+
+    const result = [];
+    Util.postOrderTraverse({children: columns}, node => {
+        if (node && (!node.children || node.children.length < 1)) {
+            result.push(node);
+        }
+    });
+
+    return result;
+
+}
+
 function recursiveSelectChildren(node, value = [], idProp) {
 
     if (!node) {
@@ -343,6 +437,8 @@ export default {
     sortColumns,
     handleFixedColumnsClassName,
     getFirstColumn,
+    getHeadColumns,
+    getBodyColumns,
     recursiveSelectChildren,
     needCollapseButtonSpacing,
     getPageSizeValue
