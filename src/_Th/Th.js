@@ -69,7 +69,7 @@ class Th extends Component {
     render() {
 
         const {
-            className, style, renderer, align,
+            className, style, renderer, align, rowSpan, colSpan,
             sortable, sortingProp, sorting, sortingAscIconCls, sortingDescIconCls
         } = this.props;
 
@@ -82,6 +82,8 @@ class Th extends Component {
             })}
                 style={style}
                 title={typeof renderer === 'string' ? renderer : null}
+                rowSpan={rowSpan}
+                colSpan={colSpan}
                 onClick={this.handleClick}>
 
                 <span className="th-column">
