@@ -214,7 +214,7 @@ BaseTable.propTypes = {
 
         defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType))
 
-    })).isRequired,
+    })),
     headColumns: PropTypes.array,
     bodyColumns: PropTypes.array,
 
