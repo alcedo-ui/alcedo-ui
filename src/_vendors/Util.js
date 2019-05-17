@@ -183,15 +183,15 @@ function reorder(data, startIndex, endIndex) {
 
 }
 
-function preOrderTraverse(node, callback, deep = 0, parent = null) {
+function preOrderTraverse(node, callback, depth = 0, parent = null) {
 
-    if (callback(node, deep, parent) === false) {
+    if (callback(node, depth, parent) === false) {
         return false;
     }
 
     if (node.children && node.children.length > 0) {
         for (let i = 0, len = node.children.length; i < len; i++) {
-            if (preOrderTraverse(node.children[i], callback, deep + 1, node) === false) {
+            if (preOrderTraverse(node.children[i], callback, depth + 1, node) === false) {
                 break;
             }
         }
@@ -199,17 +199,17 @@ function preOrderTraverse(node, callback, deep = 0, parent = null) {
 
 }
 
-function postOrderTraverse(node, callback, deep = 0, parent = null) {
+function postOrderTraverse(node, callback, depth = 0, parent = null) {
 
     if (node.children && node.children.length > 0) {
         for (let i = 0, len = node.children.length; i < len; i++) {
-            if (postOrderTraverse(node.children[i], callback, deep + 1, node) === false) {
+            if (postOrderTraverse(node.children[i], callback, depth + 1, node) === false) {
                 break;
             }
         }
     }
 
-    if (callback(node, deep, parent) === false) {
+    if (callback(node, depth, parent) === false) {
         return false;
     }
 
