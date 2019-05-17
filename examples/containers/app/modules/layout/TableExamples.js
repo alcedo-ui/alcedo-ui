@@ -9,8 +9,8 @@ import WidgetHeader from 'src/WidgetHeader';
 import RaisedButton from 'src/RaisedButton';
 import CircularLoading from 'src/CircularLoading';
 
-import PropTypeDescTable from 'components/PropTypeDescTable';
-import doc from 'assets/propTypes/Table.json';
+// import PropTypeDescTable from 'components/PropTypeDescTable';
+// import doc from 'assets/propTypes/Table.json';
 
 import Util from 'vendors/Util';
 
@@ -304,7 +304,7 @@ class TableExamples extends Component {
 
                 <h2 className="example-title">Properties</h2>
 
-                <PropTypeDescTable data={doc}/>
+                {/*<PropTypeDescTable data={doc}/>*/}
 
             </div>
         );
