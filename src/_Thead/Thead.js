@@ -31,41 +31,45 @@ class Thead extends Component {
     render() {
 
         const {
-                className, style, columns, baseColIndex,
-                sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, onSortChange,
-                ...restProps
-            } = this.props,
-            columnsWithSpan = TableCalculation.getColumnsWithSpan(TableFragment.HEAD, columns);
+            className, style, columns, baseColIndex,
+            sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, onSortChange,
+            ...restProps
+        } = this.props;
 
         return (
             <thead className={className}
                    style={style}>
-                <tr>
-                    {
-                        columnsWithSpan ?
-                            columnsWithSpan.map(({column, span}, colIndex) => column ?
-                                <Th {...restProps}
-                                    key={colIndex}
-                                    className={column.headClassName}
-                                    style={column.headStyle}
-                                    renderer={column.headRenderer}
-                                    align={column.headAlign}
-                                    colIndex={baseColIndex + colIndex}
-                                    span={span}
-                                    sorting={sorting}
-                                    defaultSortingType={column.defaultSortingType || defaultSortingType}
-                                    sortingAscIconCls={sortingAscIconCls}
-                                    sortingDescIconCls={sortingDescIconCls}
-                                    sortable={column.sortable}
-                                    sortingProp={column.sortingProp}
-                                    onSortChange={onSortChange}/>
-                                :
-                                null
-                            )
-                            :
-                            null
-                    }
-                </tr>
+                {
+                    columns && columns.map((row, rowIndex) => row ?
+                        <tr key={rowIndex}>
+                            {
+                                TableCalculation.getColumnsWithSpan(TableFragment.HEAD, row)
+                                                .map(({column, span}, colIndex) => column ?
+                                                    <Th {...restProps}
+                                                        key={colIndex}
+                                                        className={column.headClassName}
+                                                        style={column.headStyle}
+                                                        renderer={column.headRenderer}
+                                                        align={column.headAlign}
+                                                        colIndex={baseColIndex + colIndex}
+                                                        rowSpan={column.rowSpan}
+                                                        colSpan={column.colSpan}
+                                                        sorting={sorting}
+                                                        defaultSortingType={column.defaultSortingType || defaultSortingType}
+                                                        sortingAscIconCls={sortingAscIconCls}
+                                                        sortingDescIconCls={sortingDescIconCls}
+                                                        sortable={column.sortable}
+                                                        sortingProp={column.sortingProp}
+                                                        onSortChange={onSortChange}/>
+                                                    :
+                                                    null
+                                                )
+                            }
+                        </tr>
+                        :
+                        null
+                    )
+                }
             </thead>
         );
 
