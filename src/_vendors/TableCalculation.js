@@ -91,21 +91,6 @@ function hasFixedColumn(columns, fixed) {
     return columns && fixed ? columns.some(column => column && column.fixed === fixed) : false;
 }
 
-function handleFixedColumnsClassName(columns) {
-
-    if (!columns) {
-        return columns;
-    }
-
-    return columns.map(column => ({
-        ...column,
-        headClassName: classnames(column.headClassName, 'table-fixed-column'),
-        bodyClassName: classnames(column.bodyClassName, 'table-fixed-column'),
-        footClassName: classnames(column.footClassName, 'table-fixed-column')
-    }));
-
-}
-
 function getDataByPagination(data, isPaginated, pagination) {
 
     if (!data || data.length < 1) {
@@ -344,7 +329,6 @@ export default {
     sortTableData,
     hasRenderer,
     hasFixedColumn,
-    handleFixedColumnsClassName,
     getDataByPagination,
     indexOfNodeInValue,
     isNodeChecked,
