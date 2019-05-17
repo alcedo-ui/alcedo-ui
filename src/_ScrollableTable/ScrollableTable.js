@@ -81,7 +81,9 @@ class ScrollableTable extends Component {
                                 <BaseTable {...restProps}
                                            style={tableStyle}
                                            fragment={TableFragment.HEAD}
-                                           columns={headColumns || (columns && [columns])}/>
+                                           columns={columns}
+                                           headColumns={headColumns}
+                                           bodyColumns={bodyColumns}/>
                             </div>
                         </div>
                         :
@@ -98,7 +100,9 @@ class ScrollableTable extends Component {
                              style={maskStyle}>
                             <BaseTable {...restProps}
                                        style={tableStyle}
-                                       columns={bodyColumns || columns}/>
+                                       columns={columns}
+                                       headColumns={headColumns}
+                                       bodyColumns={bodyColumns}/>
                         </div>
                     </div>
                 </div>
@@ -113,7 +117,9 @@ class ScrollableTable extends Component {
                                 <BaseTable {...restProps}
                                            style={tableStyle}
                                            fragment={TableFragment.FOOT}
-                                           columns={bodyColumns || columns}/>
+                                           columns={columns}
+                                           headColumns={headColumns}
+                                           bodyColumns={bodyColumns}/>
                             </div>
                         </div>
                         :
