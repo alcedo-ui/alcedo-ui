@@ -199,9 +199,7 @@ class TableContent extends Component {
 
             result.unshift({
                 fixed,
-                headClassName: classNames('table-select-th', {
-                    'table-fixed-column': isFixed
-                }),
+                headClassName: 'table-select-th',
                 headRenderer: () => {
 
                     const {checked, indeterminate} = TableCalculation.isSelectAllChecked(
@@ -221,9 +219,7 @@ class TableContent extends Component {
                     );
 
                 },
-                bodyClassName: classNames('table-select-td', {
-                    'table-fixed-column': isFixed
-                }),
+                bodyClassName: 'table-select-td',
                 bodyRenderer: (rowData, rowIndex, colIndex, tableData, collapsed, depth, path) =>
                     <Checkbox className="table-select"
                               theme={selectTheme}
@@ -234,10 +230,7 @@ class TableContent extends Component {
                               checkedIconCls={checkboxCheckedIconCls}
                               indeterminateIconCls={checkboxIndeterminateIconCls}
                               onCheck={() => this.handleSelect(rowData, rowIndex, colIndex, tableData, collapsed, depth, path)}
-                              onUncheck={() => this.handleDeselect(rowData, rowIndex, colIndex, tableData, collapsed, depth, path)}/>,
-                footClassName: classNames({
-                    'table-fixed-column': isFixed
-                })
+                              onUncheck={() => this.handleDeselect(rowData, rowIndex, colIndex, tableData, collapsed, depth, path)}/>
             });
         }
 
