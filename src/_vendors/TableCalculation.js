@@ -260,27 +260,29 @@ function sortColumns(columns) {
         [HorizontalAlign.CENTER]: [],
         [HorizontalAlign.RIGHT]: []
     };
-
-    columns.forEach(column => {
-        if (column) {
-            const fixed = column.fixed || HorizontalAlign.CENTER;
-            result[fixed].push(fixed === HorizontalAlign.CENTER ?
-                column
-                :
-                {
-                    ...column,
-                    headClassName: classnames(column.headClassName, 'table-fixed-column'),
-                    bodyClassName: classnames(column.bodyClassName, 'table-fixed-column'),
-                    footClassName: classnames(column.footClassName, 'table-fixed-column')
-                }
-            );
-        }
-    });
-
+    columns.forEach(column => column && result[column.fixed || HorizontalAlign.CENTER].push(column));
     return [...result[HorizontalAlign.LEFT], ...result[HorizontalAlign.CENTER], ...result[HorizontalAlign.RIGHT]];
 
 }
 
+function handleFixedColumnsClassName(columns) {
+
+    if (!columns || columns.length < 1) {
+        return columns;
+    }
+
+    return columns.map(column => column && column.fixed && column.fixed !== HorizontalAlign.CENTER ?
+        {
+            ...column,
+            headClassName: classnames(column.headClassName, 'table-fixed-column'),
+            bodyClassName: classnames(column.bodyClassName, 'table-fixed-column'),
+            footClassName: classnames(column.footClassName, 'table-fixed-column')
+        }
+        :
+        column
+    );
+
+}
 
 function getFirstColumn(columns) {
 
@@ -339,6 +341,7 @@ export default {
     formatValue,
     handleSelectAll,
     sortColumns,
+    handleFixedColumnsClassName,
     getFirstColumn,
     recursiveSelectChildren,
     needCollapseButtonSpacing,
