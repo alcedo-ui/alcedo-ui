@@ -58,9 +58,13 @@ class ScrollableTable extends Component {
 
         const {
             className, style, bodyScrollerStyle, maskStyle, tableStyle, footStyle,
-            isHeadFixed, isFootFixed, scroll,
+            columns, headColumns, bodyColumns, isHeadFixed, isFootFixed, scroll,
             onScroll, onWheel, ...restProps
         } = this.props;
+
+        if (!columns && !headColumns && !bodyColumns) {
+            return null;
+        }
 
         return (
             <div className={classNames('scrollable-table', {
@@ -76,7 +80,8 @@ class ScrollableTable extends Component {
                                  onScroll={onScroll}>
                                 <BaseTable {...restProps}
                                            style={tableStyle}
-                                           fragment={TableFragment.HEAD}/>
+                                           fragment={TableFragment.HEAD}
+                                           columns={headColumns || (columns && [columns])}/>
                             </div>
                         </div>
                         :
@@ -92,7 +97,8 @@ class ScrollableTable extends Component {
                         <div className="scrollable-table-body-mask"
                              style={maskStyle}>
                             <BaseTable {...restProps}
-                                       style={tableStyle}/>
+                                       style={tableStyle}
+                                       columns={bodyColumns || columns}/>
                         </div>
                     </div>
                 </div>
@@ -106,7 +112,8 @@ class ScrollableTable extends Component {
                                  onScroll={onScroll}>
                                 <BaseTable {...restProps}
                                            style={tableStyle}
-                                           fragment={TableFragment.FOOT}/>
+                                           fragment={TableFragment.FOOT}
+                                           columns={bodyColumns || columns}/>
                             </div>
                         </div>
                         :
@@ -267,7 +274,9 @@ ScrollableTable.propTypes = {
 
         defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType))
 
-    })).isRequired,
+    })),
+    headColumns: PropTypes.array,
+    bodyColumns: PropTypes.array,
 
     data: PropTypes.array,
     baseColIndex: PropTypes.number,
