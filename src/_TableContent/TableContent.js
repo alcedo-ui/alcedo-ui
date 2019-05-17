@@ -507,7 +507,7 @@ class TableContent extends Component {
     componentWillUnmount() {
         eventsOff(window, 'resize', this.debounceFixLayout);
         this.initTimeout && clearTimeout(this.initTimeout);
-        this.fixLayout && this.fixLayout.cancel();
+        this.debounceFixLayout && this.debounceFixLayout.cancel();
     }
 
     render() {
@@ -518,25 +518,17 @@ class TableContent extends Component {
         } = this.props;
 
         this.sortedColumns = TableCalculation.sortColumns(columns);
-        console.log('sortedColumns::', this.sortedColumns);
-
         this.formatedColumns = this.formatColumns(this.sortedColumns);
-        console.log('formatedColumns::', this.formatedColumns);
+        this.headColumns = TableCalculation.getHeadColumns(this.formatedColumns);
+        this.bodyColumns = TableCalculation.getBodyColumns(this.formatedColumns);
+        // console.log('bodyColumns::', this.bodyColumns);
 
         if (!this.formatedColumns) {
             return null;
         }
 
-        this.centerColumns = TableCalculation.handleFixedColumnsClassName(this.formatedColumns);
-        console.log('centerColumns::', this.centerColumns);
-
-        this.fixedLeftColumns = this.formatedColumns.filter(column =>
-            column && column.fixed === HorizontalAlign.LEFT);
-        console.log('fixedLeftColumns::', this.fixedLeftColumns);
-
         this.fixedRightColumns = this.formatedColumns.filter(column =>
             column && column.fixed === HorizontalAlign.RIGHT);
-        console.log('fixedRightColumns::', this.fixedRightColumns);
 
         this.tableData = this.paginateData(this.sortData(data));
 
@@ -558,7 +550,8 @@ class TableContent extends Component {
                                  bodyScrollerStyle={bodyScrollerStyle}
                                  maskStyle={tableStyle}
                                  tableStyle={tableStyle}
-                                 columns={this.centerColumns}
+                                 headColumns={TableCalculation.handleFixedColumnsClassName(this.headColumns)}
+                                 bodyColumns={TableCalculation.handleFixedColumnsClassName(this.bodyColumns)}
                                  data={this.tableData}
                                  scroll={scroll}
                                  isHeadHidden={isHeadHidden}
@@ -572,55 +565,51 @@ class TableContent extends Component {
                                  onGetFootScrollerEl={el =>
                                      this.handleGetScrollerEl(el, HorizontalAlign.CENTER, TableFragment.FOOT)}/>
 
-                {
-                    this.fixedLeftColumns && this.fixedLeftColumns.length > 0 ?
-                        <ScrollableTable {...restProps}
-                                         ref={this.fixedLeft}
-                                         className="table-content-left"
-                                         bodyScrollerStyle={bodyScrollerStyle}
-                                         fixed={HorizontalAlign.LEFT}
-                                         columns={this.fixedLeftColumns}
-                                         data={this.tableData}
-                                         scroll={scroll}
-                                         isHeadHidden={isHeadHidden}
-                                         isFootHidden={isFootHidden}
-                                         onGetHeadScrollerEl={el =>
-                                             this.handleGetScrollerEl(el, HorizontalAlign.LEFT, TableFragment.HEAD)}
-                                         onGetBodyScrollerEl={el =>
-                                             this.handleGetScrollerEl(el, HorizontalAlign.LEFT, TableFragment.BODY)}
-                                         onGetFootScrollerEl={el =>
-                                             this.handleGetScrollerEl(el, HorizontalAlign.LEFT, TableFragment.FOOT)}
-                                         onScroll={this.handleScroll}
-                                         onWheel={this.handleWheel}
-                                         onExpandChange={this.handleExpandChange}/>
-                        :
-                        null
-                }
+                <ScrollableTable {...restProps}
+                                 ref={this.fixedLeft}
+                                 className="table-content-left"
+                                 bodyScrollerStyle={bodyScrollerStyle}
+                                 fixed={HorizontalAlign.LEFT}
+                                 headColumns={this.headColumns.filter(column =>
+                                     column && column.fixed === HorizontalAlign.LEFT)}
+                                 bodyColumns={this.bodyColumns.filter(column =>
+                                     column && column.fixed === HorizontalAlign.LEFT)}
+                                 data={this.tableData}
+                                 scroll={scroll}
+                                 isHeadHidden={isHeadHidden}
+                                 isFootHidden={isFootHidden}
+                                 onGetHeadScrollerEl={el =>
+                                     this.handleGetScrollerEl(el, HorizontalAlign.LEFT, TableFragment.HEAD)}
+                                 onGetBodyScrollerEl={el =>
+                                     this.handleGetScrollerEl(el, HorizontalAlign.LEFT, TableFragment.BODY)}
+                                 onGetFootScrollerEl={el =>
+                                     this.handleGetScrollerEl(el, HorizontalAlign.LEFT, TableFragment.FOOT)}
+                                 onScroll={this.handleScroll}
+                                 onWheel={this.handleWheel}
+                                 onExpandChange={this.handleExpandChange}/>
 
-                {
-                    this.fixedRightColumns && this.fixedRightColumns.length > 0 ?
-                        <ScrollableTable {...restProps}
-                                         ref={this.fixedRight}
-                                         className="table-content-right"
-                                         bodyScrollerStyle={bodyScrollerStyle}
-                                         fixed={HorizontalAlign.RIGHT}
-                                         columns={this.fixedRightColumns}
-                                         data={this.tableData}
-                                         scroll={scroll}
-                                         isHeadHidden={isHeadHidden}
-                                         isFootHidden={isFootHidden}
-                                         baseColIndex={this.formatedColumns.length - this.fixedRightColumns.length}
-                                         onScroll={this.handleScroll}
-                                         onWheel={this.handleWheel}
-                                         onGetHeadScrollerEl={el =>
-                                             this.handleGetScrollerEl(el, HorizontalAlign.RIGHT, TableFragment.HEAD)}
-                                         onGetBodyScrollerEl={el =>
-                                             this.handleGetScrollerEl(el, HorizontalAlign.RIGHT, TableFragment.BODY)}
-                                         onGetFootScrollerEl={el =>
-                                             this.handleGetScrollerEl(el, HorizontalAlign.RIGHT, TableFragment.FOOT)}/>
-                        :
-                        null
-                }
+                <ScrollableTable {...restProps}
+                                 ref={this.fixedRight}
+                                 className="table-content-right"
+                                 bodyScrollerStyle={bodyScrollerStyle}
+                                 fixed={HorizontalAlign.RIGHT}
+                                 headColumns={this.headColumns.filter(column =>
+                                     column && column.fixed === HorizontalAlign.RIGHT)}
+                                 bodyColumns={this.bodyColumns.filter(column =>
+                                     column && column.fixed === HorizontalAlign.RIGHT)}
+                                 data={this.tableData}
+                                 scroll={scroll}
+                                 isHeadHidden={isHeadHidden}
+                                 isFootHidden={isFootHidden}
+                                 baseColIndex={this.formatedColumns.length - this.fixedRightColumns.length}
+                                 onScroll={this.handleScroll}
+                                 onWheel={this.handleWheel}
+                                 onGetHeadScrollerEl={el =>
+                                     this.handleGetScrollerEl(el, HorizontalAlign.RIGHT, TableFragment.HEAD)}
+                                 onGetBodyScrollerEl={el =>
+                                     this.handleGetScrollerEl(el, HorizontalAlign.RIGHT, TableFragment.BODY)}
+                                 onGetFootScrollerEl={el =>
+                                     this.handleGetScrollerEl(el, HorizontalAlign.RIGHT, TableFragment.FOOT)}/>
 
             </div>
         );
