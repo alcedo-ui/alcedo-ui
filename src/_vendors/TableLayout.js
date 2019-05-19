@@ -48,12 +48,14 @@ function getColumnsWidth(tableEl) {
     }
 
     return {
-        [TableFragment.HEAD]: [].map.call(tableEl.querySelector('thead tr').querySelectorAll('th'),
-            el => el.offsetWidth),
-        [TableFragment.BODY]: [].map.call(tableEl.querySelector('tbody tr').querySelectorAll('td'),
-            el => el.offsetWidth),
-        [TableFragment.FOOT]: [].map.call(tableEl.querySelector('tfoot tr').querySelectorAll('td'),
-            el => el.offsetWidth)
+        [TableFragment.BODY]: [].map.call(
+            tableEl.querySelector('tbody tr').querySelectorAll('td'),
+            td => td ? td.offsetWidth : 0
+        ),
+        [TableFragment.FOOT]: [].map.call(
+            tableEl.querySelector('tfoot tr').querySelectorAll('td'),
+            td => td ? td.offsetWidth : 0
+        )
     };
 
 }
@@ -110,14 +112,14 @@ function fixFragmentWidth(wrapperEl, columnsWidth, fixed, fragment, selector) {
             if (fixed === HorizontalAlign.RIGHT) {
                 cols.forEach((el, index) => {
                     if (el) {
-                        el.style.width = `${columnsWidth[fragment]
-                            [columnsWidth[fragment].length - (cols.length - index)]}px`;
+                        el.style.width = `${columnsWidth
+                            [columnsWidth.length - (cols.length - index)]}px`;
                     }
                 });
             } else {
                 cols.forEach((el, index) => {
                     if (el) {
-                        el.style.width = `${columnsWidth[fragment][index]}px`;
+                        el.style.width = `${columnsWidth[index]}px`;
                     }
                 });
             }
@@ -138,21 +140,21 @@ function fixTableWidth(wrapperEl, columnsWidth, fixed, props) {
      * head
      */
     if (props && props.isHeadFixed) {
-        fixFragmentWidth(wrapperEl, columnsWidth, fixed, TableFragment.HEAD, selector);
+        fixFragmentWidth(wrapperEl, columnsWidth[TableFragment.BODY], fixed, TableFragment.HEAD, selector);
     }
 
     /**
      * body
      */
     if (fixed) {
-        fixFragmentWidth(wrapperEl, columnsWidth, fixed, TableFragment.BODY, selector);
+        fixFragmentWidth(wrapperEl, columnsWidth[TableFragment.BODY], fixed, TableFragment.BODY, selector);
     }
 
     /**
      * foot
      */
     if (props && props.isHeadFixed) {
-        fixFragmentWidth(wrapperEl, columnsWidth, fixed, TableFragment.FOOT, selector);
+        fixFragmentWidth(wrapperEl, columnsWidth[TableFragment.FOOT], fixed, TableFragment.FOOT, selector);
     }
 
 }
