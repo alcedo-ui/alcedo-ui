@@ -392,6 +392,10 @@ function getBodyColumns(columns) {
 
 }
 
+function getFixedColumns(columns, fixed) {
+    return columns ? columns.filter(column => column && column.fixed === fixed) : columns;
+}
+
 function recursiveSelectChildren(node, value = [], idProp) {
 
     if (!node) {
@@ -439,6 +443,7 @@ export default {
     getFirstColumn,
     getHeadColumns,
     getBodyColumns,
+    getFixedColumns,
     recursiveSelectChildren,
     needCollapseButtonSpacing,
     getPageSizeValue
