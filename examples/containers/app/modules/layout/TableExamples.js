@@ -268,7 +268,8 @@ class TableExamples extends Component {
                                           value="Clear Table Sort"
                                           onClick={this.clearSort}/>
 
-                            <Table data={data}
+                            <Table className="example-table"
+                                   data={data}
                                    columns={[...this.columns, {
                                        fixed: Table.Fixed.RIGHT,
                                        headRenderer: 'Action',
