@@ -521,7 +521,6 @@ class TableContent extends Component {
         this.formatedColumns = this.formatColumns(this.sortedColumns);
         this.headColumns = TableCalculation.getHeadColumns(this.formatedColumns);
         this.bodyColumns = TableCalculation.getBodyColumns(this.formatedColumns);
-        // console.log('bodyColumns::', this.bodyColumns);
 
         if (!this.formatedColumns) {
             return null;
@@ -570,8 +569,8 @@ class TableContent extends Component {
                                  className="table-content-left"
                                  bodyScrollerStyle={bodyScrollerStyle}
                                  fixed={HorizontalAlign.LEFT}
-                                 headColumns={TableCalculation.getFixedColumns(this.headColumns, HorizontalAlign.LEFT)}
-                                 bodyColumns={TableCalculation.getFixedColumns(this.bodyColumns, HorizontalAlign.LEFT)}
+                                 headColumns={TableCalculation.getFixedHeadColumns(this.headColumns, HorizontalAlign.LEFT)}
+                                 bodyColumns={TableCalculation.getFixedBodyColumns(this.bodyColumns, HorizontalAlign.LEFT)}
                                  data={this.tableData}
                                  scroll={scroll}
                                  isHeadHidden={isHeadHidden}
@@ -591,8 +590,8 @@ class TableContent extends Component {
                                  className="table-content-right"
                                  bodyScrollerStyle={bodyScrollerStyle}
                                  fixed={HorizontalAlign.RIGHT}
-                                 headColumns={TableCalculation.getFixedColumns(this.headColumns, HorizontalAlign.RIGHT)}
-                                 bodyColumns={TableCalculation.getFixedColumns(this.bodyColumns, HorizontalAlign.RIGHT)}
+                                 headColumns={TableCalculation.getFixedHeadColumns(this.headColumns, HorizontalAlign.RIGHT)}
+                                 bodyColumns={TableCalculation.getFixedBodyColumns(this.bodyColumns, HorizontalAlign.RIGHT)}
                                  data={this.tableData}
                                  scroll={scroll}
                                  isHeadHidden={isHeadHidden}
