@@ -570,10 +570,8 @@ class TableContent extends Component {
                                  className="table-content-left"
                                  bodyScrollerStyle={bodyScrollerStyle}
                                  fixed={HorizontalAlign.LEFT}
-                                 headColumns={this.headColumns.filter(column =>
-                                     column && column.fixed === HorizontalAlign.LEFT)}
-                                 bodyColumns={this.bodyColumns.filter(column =>
-                                     column && column.fixed === HorizontalAlign.LEFT)}
+                                 headColumns={TableCalculation.getFixedColumns(this.headColumns, HorizontalAlign.LEFT)}
+                                 bodyColumns={TableCalculation.getFixedColumns(this.bodyColumns, HorizontalAlign.LEFT)}
                                  data={this.tableData}
                                  scroll={scroll}
                                  isHeadHidden={isHeadHidden}
@@ -593,10 +591,8 @@ class TableContent extends Component {
                                  className="table-content-right"
                                  bodyScrollerStyle={bodyScrollerStyle}
                                  fixed={HorizontalAlign.RIGHT}
-                                 headColumns={this.headColumns.filter(column =>
-                                     column && column.fixed === HorizontalAlign.RIGHT)}
-                                 bodyColumns={this.bodyColumns.filter(column =>
-                                     column && column.fixed === HorizontalAlign.RIGHT)}
+                                 headColumns={TableCalculation.getFixedColumns(this.headColumns, HorizontalAlign.RIGHT)}
+                                 bodyColumns={TableCalculation.getFixedColumns(this.bodyColumns, HorizontalAlign.RIGHT)}
                                  data={this.tableData}
                                  scroll={scroll}
                                  isHeadHidden={isHeadHidden}
