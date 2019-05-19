@@ -363,11 +363,17 @@ function getHeadColumns(columns) {
     const result = [];
     Util.postOrderTraverse({children: formatedColumns}, (node, depth) => {
 
-        if (!result[depth - 1]) {
-            result[depth - 1] = [];
-        }
+        const index = depth - 1;
 
-        result[depth - 1].push(node);
+        if (index >= 0) {
+
+            if (!result[index]) {
+                result[index] = [];
+            }
+
+            result[index].push(node);
+
+        }
 
     });
 
@@ -392,7 +398,18 @@ function getBodyColumns(columns) {
 
 }
 
-function getFixedColumns(columns, fixed) {
+function getFixedHeadColumns(columns, fixed) {
+    return columns ?
+        columns.map(row => row ?
+            row.filter(column => column && column.fixed === fixed)
+            :
+            row
+        )
+        :
+        columns;
+}
+
+function getFixedBodyColumns(columns, fixed) {
     return columns ? columns.filter(column => column && column.fixed === fixed) : columns;
 }
 
@@ -443,7 +460,8 @@ export default {
     getFirstColumn,
     getHeadColumns,
     getBodyColumns,
-    getFixedColumns,
+    getFixedHeadColumns,
+    getFixedBodyColumns,
     recursiveSelectChildren,
     needCollapseButtonSpacing,
     getPageSizeValue
