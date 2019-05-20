@@ -47,15 +47,18 @@ function getColumnsWidth(tableEl) {
         return null;
     }
 
+    const bodyTr = tableEl.querySelector('tbody tr'),
+        footTr = tableEl.querySelector('tfoot tr');
+
     return {
-        [TableFragment.BODY]: [].map.call(
-            tableEl.querySelector('tbody tr').querySelectorAll('td'),
-            td => td ? td.offsetWidth : 0
-        ),
-        [TableFragment.FOOT]: [].map.call(
-            tableEl.querySelector('tfoot tr').querySelectorAll('td'),
-            td => td ? td.offsetWidth : 0
-        )
+        [TableFragment.BODY]: bodyTr ?
+            [].map.call(bodyTr.querySelectorAll('td'), td => td ? td.offsetWidth : 0)
+            :
+            [],
+        [TableFragment.FOOT]: footTr ?
+            [].map.call(footTr.querySelectorAll('td'), td => td ? td.offsetWidth : 0)
+            :
+            []
     };
 
 }
