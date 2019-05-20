@@ -116,7 +116,7 @@ class BriefPagination extends Component {
                 <div className="brief-pagination-right">
 
                     {
-                        pageSizeVisible ?
+                        pageSizesVisible ?
                             <PaginationSize pageSize={pageSize}
                                             pageSizes={pageSizes}
                                             valueField={pageSizeValueField}
