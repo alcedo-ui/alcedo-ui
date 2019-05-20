@@ -287,7 +287,7 @@ class TableExamples extends Component {
                                        width: 1200,
                                        height: 320
                                    }}
-                                   paggingCountRenderer={count => <span>Self Defined Total Count: {count}</span>}
+                                   paginationTotalRenderer={total => <span>Self Defined Total: {total}</span>}
                                    onSortChange={this.handleSortChange}
                                    onPageChange={this.handlePageChange}
                                    onExpand={this.handleExpand}
