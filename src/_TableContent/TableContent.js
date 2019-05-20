@@ -535,7 +535,9 @@ class TableContent extends Component {
         this.tableData = this.paginateData(this.sortData(data));
 
         const bodyScrollerStyle = scroll && scroll.height ? {maxHeight: scroll.height} : null,
-            tableStyle = scroll && scroll.width ? {minWidth: scroll.width} : null;
+            tableStyle = scroll && scroll.width ? {minWidth: scroll.width} : null,
+            isFootHidden = this.props.isFootHidden
+                || !TableCalculation.hasRenderer(this.bodyColumns, TableFragment.FOOT);
 
         return (
             <Fragment>
@@ -554,6 +556,7 @@ class TableContent extends Component {
                                      headColumns={TableCalculation.handleFixedColumnsClassName(this.headColumns)}
                                      bodyColumns={TableCalculation.handleFixedColumnsClassName(this.bodyColumns)}
                                      data={this.tableData}
+                                     isFootHidden={isFootHidden}
                                      scroll={scroll}
                                      onScroll={this.handleScroll}
                                      onWheel={this.handleWheel}
@@ -572,6 +575,7 @@ class TableContent extends Component {
                                      headColumns={TableCalculation.getFixedHeadColumns(this.headColumns, HorizontalAlign.LEFT)}
                                      bodyColumns={TableCalculation.getFixedBodyColumns(this.bodyColumns, HorizontalAlign.LEFT)}
                                      data={this.tableData}
+                                     isFootHidden={isFootHidden}
                                      scroll={scroll}
                                      onGetHeadScrollerEl={el =>
                                          this.handleGetScrollerEl(el, HorizontalAlign.LEFT, TableFragment.HEAD)}
@@ -591,6 +595,7 @@ class TableContent extends Component {
                                      headColumns={TableCalculation.getFixedHeadColumns(this.headColumns, HorizontalAlign.RIGHT)}
                                      bodyColumns={TableCalculation.getFixedBodyColumns(this.bodyColumns, HorizontalAlign.RIGHT)}
                                      data={this.tableData}
+                                     isFootHidden={isFootHidden}
                                      scroll={scroll}
                                      baseColIndex={this.formatedColumns.length - this.fixedRightColumns.length}
                                      onScroll={this.handleScroll}
