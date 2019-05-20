@@ -48,16 +48,14 @@ class TableExamples extends Component {
             sortable: true,
             sortingProp: 'firstName'
         }, {
+            align: Table.Align.RIGHT,
             headRenderer: 'Age',
-            headAlign: Table.Align.RIGHT,
             bodyRenderer: rowDate => rowDate.age,
-            bodyAlign: Table.Align.RIGHT,
             footRenderer: () =>
                 <Fragment>
                     <div>Average</div>
                     <div>{this.state.data.reduce((a, b) => a + b.age, 0) / this.state.data.length}</div>
                 </Fragment>,
-            footAlign: Table.Align.RIGHT,
             sortable: true,
             sortingProp: 'age'
         }, {
@@ -81,16 +79,14 @@ class TableExamples extends Component {
                 bodyRenderer: rowDate => rowDate.other ? `${rowDate.other} 4` : ''
             }]
         }, {
+            align: Table.Align.RIGHT,
             headRenderer: 'Deposit',
-            headAlign: Table.Align.RIGHT,
             bodyRenderer: rowDate => rowDate.deposit ? `$${rowDate.deposit}` : '',
-            bodyAlign: Table.Align.RIGHT,
             footRenderer: () =>
                 <Fragment>
                     <div>Sum</div>
                     <div>${this.state.data.reduce((a, b) => round(a + b.deposit, 2), 0)}</div>
                 </Fragment>,
-            footAlign: Table.Align.RIGHT,
             sortable: true,
             sortingProp: 'deposit'
         }, {
