@@ -243,6 +243,11 @@ Table.propTypes = {
         minWidth: PropTypes.number,
 
         /**
+         * align of current column
+         */
+        align: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
+
+        /**
          * The class name of header.
          */
         headClassName: PropTypes.string,
@@ -251,6 +256,11 @@ Table.propTypes = {
          * Override the styles of header.
          */
         headStyle: PropTypes.object,
+
+        /**
+         * align of table header cell
+         */
+        headAlign: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
 
         /**
          * The render content in table head.
@@ -263,11 +273,6 @@ Table.propTypes = {
          *      render whatever you pass
          */
         headRenderer: PropTypes.any,
-
-        /**
-         * align of table header cell
-         */
-        headAlign: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
 
         /**
          * column span of table header
@@ -285,6 +290,11 @@ Table.propTypes = {
         bodyStyle: PropTypes.object,
 
         /**
+         * align of table body cell
+         */
+        bodyAlign: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
+
+        /**
          * The render content in table body.
          *  (1) callback:
          *      function (rowData, rowIndex, colIndex) {
@@ -295,11 +305,6 @@ Table.propTypes = {
          *      render whatever you pass
          */
         bodyRenderer: PropTypes.any,
-
-        /**
-         * align of table body cell
-         */
-        bodyAlign: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
 
         /**
          * column span of table body
@@ -317,6 +322,11 @@ Table.propTypes = {
         footStyle: PropTypes.object,
 
         /**
+         * align of table footer cell
+         */
+        footAlign: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
+
+        /**
          * The render content in table foot.
          *  (1) callback:
          *      function (tableData, colIndex) {
@@ -327,11 +337,6 @@ Table.propTypes = {
          *      render whatever you pass
          */
         footRenderer: PropTypes.any,
-
-        /**
-         * align of table footer cell
-         */
-        footAlign: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
 
         /**
          * column span of table foot
