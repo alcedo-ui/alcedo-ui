@@ -534,10 +534,7 @@ class TableContent extends Component {
 
         this.tableData = this.paginateData(this.sortData(data));
 
-        const isHeadHidden = !TableCalculation.hasRenderer(columns, TableFragment.HEAD),
-            isFootHidden = !TableCalculation.hasRenderer(columns, TableFragment.FOOT),
-
-            bodyScrollerStyle = scroll && scroll.height ? {maxHeight: scroll.height} : null,
+        const bodyScrollerStyle = scroll && scroll.height ? {maxHeight: scroll.height} : null,
             tableStyle = scroll && scroll.width ? {minWidth: scroll.width} : null;
 
         return (
@@ -558,8 +555,6 @@ class TableContent extends Component {
                                      bodyColumns={TableCalculation.handleFixedColumnsClassName(this.bodyColumns)}
                                      data={this.tableData}
                                      scroll={scroll}
-                                     isHeadHidden={isHeadHidden}
-                                     isFootHidden={isFootHidden}
                                      onScroll={this.handleScroll}
                                      onWheel={this.handleWheel}
                                      onGetHeadScrollerEl={el =>
@@ -578,8 +573,6 @@ class TableContent extends Component {
                                      bodyColumns={TableCalculation.getFixedBodyColumns(this.bodyColumns, HorizontalAlign.LEFT)}
                                      data={this.tableData}
                                      scroll={scroll}
-                                     isHeadHidden={isHeadHidden}
-                                     isFootHidden={isFootHidden}
                                      onGetHeadScrollerEl={el =>
                                          this.handleGetScrollerEl(el, HorizontalAlign.LEFT, TableFragment.HEAD)}
                                      onGetBodyScrollerEl={el =>
@@ -599,8 +592,6 @@ class TableContent extends Component {
                                      bodyColumns={TableCalculation.getFixedBodyColumns(this.bodyColumns, HorizontalAlign.RIGHT)}
                                      data={this.tableData}
                                      scroll={scroll}
-                                     isHeadHidden={isHeadHidden}
-                                     isFootHidden={isFootHidden}
                                      baseColIndex={this.formatedColumns.length - this.fixedRightColumns.length}
                                      onScroll={this.handleScroll}
                                      onWheel={this.handleWheel}
@@ -826,6 +817,12 @@ TableContent.propTypes = {
     pageSizes: PropTypes.array,
 
     /**
+     * hidden
+     */
+    isHeadHidden: PropTypes.bool,
+    isFootHidden: PropTypes.bool,
+
+    /**
      * fixed
      */
     isHeadFixed: PropTypes.bool,
@@ -876,6 +873,8 @@ TableContent.defaultProps = {
     pageSize: 10,
     pageSizes: [5, 10, 15, 20],
 
+    isHeadHidden: false,
+    isFootHidden: false,
     isHeadFixed: false,
     isFootFixed: false
 
