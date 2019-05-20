@@ -65,7 +65,8 @@ class TablePagination extends Component {
     render() {
 
         const {
-                className, style, data, paginationCountVisible, paginationCountRenderer,
+                className, style, data, paginationSelectionVisible, paginationTotalVisible, paginationTotalRenderer,
+                paginationPageSizeVisible, paginationPageSizesVisible,
                 paginationPrevIconCls, paginationNextIconCls, paginationFirstIconCls, paginationLastIconCls,
                 ...restProps
             } = this.props,
@@ -79,12 +80,15 @@ class TablePagination extends Component {
                 <PaginationComponent {...restProps}
                                      total={data.length}
                                      selectedCount={this.getSelectedCount()}
-                                     countVisible={paginationCountVisible}
+                                     selectionVisible={paginationSelectionVisible}
+                                     totalVisible={paginationTotalVisible}
+                                     pageSizeVisible={paginationPageSizeVisible}
+                                     pageSizesVisible={paginationPageSizesVisible}
                                      prevIconCls={paginationPrevIconCls}
                                      nextIconCls={paginationNextIconCls}
                                      firstIconCls={paginationFirstIconCls}
                                      lastIconCls={paginationLastIconCls}
-                                     countRenderer={paginationCountRenderer}/>
+                                     totalRenderer={paginationTotalRenderer}/>
             </div>
         );
 
@@ -116,8 +120,10 @@ TablePagination.propTypes = {
     pageSizes: PropTypes.array,
     useFullPagination: PropTypes.bool,
 
-    paginationCountVisible: PropTypes.bool,
-    pageSizeVisible: PropTypes.bool,
+    paginationSelectionVisible: PropTypes.bool,
+    paginationTotalVisible: PropTypes.bool,
+    paginationPageSizeVisible: PropTypes.bool,
+    paginationPageSizesVisible: PropTypes.bool,
 
     pageSizeRightIconCls: PropTypes.string,
     paginationPrevIconCls: PropTypes.string,
@@ -125,7 +131,7 @@ TablePagination.propTypes = {
     paginationFirstIconCls: PropTypes.string,
     paginationLastIconCls: PropTypes.string,
 
-    paginationCountRenderer: PropTypes.func,
+    paginationTotalRenderer: PropTypes.func,
     onPageChange: PropTypes.func,
     onPageSizeChange: PropTypes.func
 
@@ -140,8 +146,10 @@ TablePagination.defaultProps = {
     pageSizes: [5, 10, 15, 20],
     useFullPagination: false,
 
-    paginationCountVisible: true,
-    pageSizeVisible: true,
+    paginationSelectionVisible: false,
+    paginationTotalVisible: true,
+    paginationPageSizeVisible: true,
+    paginationPageSizesVisible: true,
 
     pageSizeRightIconCls: 'fas fa-angle-down',
     paginationPrevIconCls: 'fas fa-angle-left',
