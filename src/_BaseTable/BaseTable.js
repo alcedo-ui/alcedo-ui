@@ -111,6 +111,11 @@ BaseTable.propTypes = {
     columns: PropTypes.arrayOf(PropTypes.shape({
 
         /**
+         * fixed position of column ( true / 'left' / 'right' )
+         */
+        fixed: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(Util.enumerateValue(HorizontalAlign))]),
+
+        /**
          * width of column
          */
         width: PropTypes.number,
@@ -119,6 +124,11 @@ BaseTable.propTypes = {
          * minimum width of column
          */
         minWidth: PropTypes.number,
+
+        /**
+         * align of current column
+         */
+        align: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
 
         /**
          * The class name of header.
@@ -131,16 +141,21 @@ BaseTable.propTypes = {
         headStyle: PropTypes.object,
 
         /**
-         * The render content in header.
-         * (1) string，example： 'id'
-         * (2) callback，example：function (colIndex) {return colIndex;}
-         */
-        headRenderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-
-        /**
          * align of table header cell
          */
         headAlign: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
+
+        /**
+         * The render content in table head.
+         *  (1) callback:
+         *      function (tableData, colIndex) {
+         *          return colIndex;
+         *      }
+         *
+         *  (2) others:
+         *      render whatever you pass
+         */
+        headRenderer: PropTypes.any,
 
         /**
          * column span of table header
@@ -158,17 +173,21 @@ BaseTable.propTypes = {
         bodyStyle: PropTypes.object,
 
         /**
-         * The render content in table.
-         * (1) data key，example： 'id'
-         * (2) data key tamplate，example：'${id} - ${name}'
-         * (3) callback，example：function (rowData, rowIndex, colIndex) {return rowData.id;}
-         */
-        bodyRenderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-
-        /**
          * align of table body cell
          */
         bodyAlign: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
+
+        /**
+         * The render content in table body.
+         *  (1) callback:
+         *      function (rowData, rowIndex, colIndex) {
+         *          return rowData.id;
+         *      }
+         *
+         *  (2) others:
+         *      render whatever you pass
+         */
+        bodyRenderer: PropTypes.any,
 
         /**
          * column span of table body
@@ -186,16 +205,21 @@ BaseTable.propTypes = {
         footStyle: PropTypes.object,
 
         /**
-         * The render content in footer.
-         * (1) string，example： 'id'
-         * (2) callback，example：function (colIndex) {return colIndex;}
-         */
-        footRenderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-
-        /**
          * align of table footer cell
          */
         footAlign: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
+
+        /**
+         * The render content in table foot.
+         *  (1) callback:
+         *      function (tableData, colIndex) {
+         *          return colIndex;
+         *      }
+         *
+         *  (2) others:
+         *      render whatever you pass
+         */
+        footRenderer: PropTypes.any,
 
         /**
          * column span of table foot
