@@ -81,3 +81,11 @@
         box-shadow: 6px 0 6px -4px rgba(0, 0, 0, 0.15);
     }
 }
+
+.table-no-data {
+    padding: 16px 0;
+    text-align: center;
+    background: $theme-field-bg;
+    border: 1px solid $theme-border;
+    border-top: none;
+}
