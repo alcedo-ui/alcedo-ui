@@ -84,7 +84,10 @@ function sortTableData(data, sorting, sortFunc) {
 }
 
 function hasRenderer(columns, fragment) {
-    return columns && fragment ? columns.some(column => column && column[`${fragment}Renderer`]) : false;
+    return columns && fragment ?
+        columns.some(column => column && column[`${fragment}Renderer`])
+        :
+        false;
 }
 
 function hasFixedColumn(columns, fixed) {
