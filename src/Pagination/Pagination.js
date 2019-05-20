@@ -70,9 +70,9 @@ class Pagination extends Component {
 
         const {
                 className, style, total, pageSizes, pageSizeValueField, pageSizeDisplayField,
-                selectedCount, countVisible, pageSizeVisible, pageSizeRightIconCls,
-                prevIconCls, nextIconCls, firstIconCls, lastIconCls,
-                countRenderer, parentEl
+                selectedCount, selectionVisible, totalVisible, pageSizeVisible, pageSizesVisible,
+                pageSizeRightIconCls, prevIconCls, nextIconCls, firstIconCls, lastIconCls,
+                totalRenderer, parentEl
             } = this.props,
             {page, pageSize} = this.state,
             totalPage = Math.ceil(total / pageSize);
@@ -86,7 +86,7 @@ class Pagination extends Component {
                 <div className="pagination-left">
 
                     {
-                        countVisible ?
+                        selectionVisible ?
                             <div className="pagination-selected">
                                 {`Selected: ${selectedCount}`}
                             </div>
@@ -94,14 +94,19 @@ class Pagination extends Component {
                             null
                     }
 
-                    <div className="pagination-total">
-                        {
-                            countRenderer ?
-                                countRenderer(total, page, totalPage, pageSize, pageSizes)
-                                :
-                                `Total: ${total}`
-                        }
-                    </div>
+                    {
+                        totalVisible ?
+                            <div className="pagination-total">
+                                {
+                                    totalRenderer ?
+                                        totalRenderer(total, page, totalPage, pageSize, pageSizes)
+                                        :
+                                        `Total: ${total}`
+                                }
+                            </div>
+                            :
+                            null
+                    }
 
                 </div>
 
@@ -120,13 +125,18 @@ class Pagination extends Component {
                             null
                     }
 
-                    <PaginationPage page={page}
-                                    totalPage={totalPage}
-                                    prevIconCls={prevIconCls}
-                                    nextIconCls={nextIconCls}
-                                    firstIconCls={firstIconCls}
-                                    lastIconCls={lastIconCls}
-                                    onPageChange={this.handlePageChange}/>
+                    {
+                        pageSizesVisible ?
+                            <PaginationPage page={page}
+                                            totalPage={totalPage}
+                                            prevIconCls={prevIconCls}
+                                            nextIconCls={nextIconCls}
+                                            firstIconCls={firstIconCls}
+                                            lastIconCls={lastIconCls}
+                                            onPageChange={this.handlePageChange}/>
+                            :
+                            null
+                    }
 
                 </div>
 
@@ -184,14 +194,24 @@ Pagination.propTypes = {
     selectedCount: PropTypes.number,
 
     /**
-     * If true,the selectedCount will show.
+     * If true, the selectedCount will show.
      */
-    countVisible: PropTypes.bool,
+    selectionVisible: PropTypes.bool,
+
+    /**
+     * If true, the total will show.
+     */
+    totalVisible: PropTypes.bool,
 
     /**
      * If false, the pageSize choice box will not show.
      */
     pageSizeVisible: PropTypes.bool,
+
+    /**
+     * If false, the pageSizes selection will not show.
+     */
+    pageSizesVisible: PropTypes.bool,
 
     /**
      * Use this property to set page size right icon.
@@ -218,7 +238,7 @@ Pagination.propTypes = {
      */
     lastIconCls: PropTypes.string,
 
-    countRenderer: PropTypes.func,
+    totalRenderer: PropTypes.func,
 
     parentEl: PropTypes.object,
 
@@ -237,8 +257,10 @@ Pagination.defaultProps = {
     pageSizeDisplayField: 'text',
     selectedCount: 0,
 
-    countVisible: false,
+    selectionVisible: false,
+    totalVisible: true,
     pageSizeVisible: true,
+    pageSizesVisible: true,
 
     pageSizeRightIconCls: 'fas fa-angle-down',
     prevIconCls: 'fas fa-angle-left',
