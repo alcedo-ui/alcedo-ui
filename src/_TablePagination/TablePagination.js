@@ -65,7 +65,8 @@ class TablePagination extends Component {
     render() {
 
         const {
-                className, style, data, paginationSelectionVisible, paginationTotalVisible, paginationTotalRenderer,
+                className, style, data, paginationSelectionVisible, paginationSelectionRenderer,
+                paginationTotalVisible, paginationTotalRenderer,
                 paginationPageSizeVisible, paginationPageSizesVisible,
                 paginationPrevIconCls, paginationNextIconCls, paginationFirstIconCls, paginationLastIconCls,
                 ...restProps
@@ -88,6 +89,7 @@ class TablePagination extends Component {
                                      nextIconCls={paginationNextIconCls}
                                      firstIconCls={paginationFirstIconCls}
                                      lastIconCls={paginationLastIconCls}
+                                     selectionRenderer={paginationSelectionRenderer}
                                      totalRenderer={paginationTotalRenderer}/>
             </div>
         );
@@ -131,6 +133,7 @@ TablePagination.propTypes = {
     paginationFirstIconCls: PropTypes.string,
     paginationLastIconCls: PropTypes.string,
 
+    paginationSelectionRenderer: PropTypes.func,
     paginationTotalRenderer: PropTypes.func,
     onPageChange: PropTypes.func,
     onPageSizeChange: PropTypes.func
