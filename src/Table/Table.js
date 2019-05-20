@@ -395,6 +395,7 @@ Table.propTypes = {
     paginationNextIconCls: PropTypes.string,
     paginationFirstIconCls: PropTypes.string,
     paginationLastIconCls: PropTypes.string,
+    paginationSelectionRenderer: PropTypes.func,
     paginationTotalRenderer: PropTypes.func,
 
     /**
