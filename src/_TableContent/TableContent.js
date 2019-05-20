@@ -516,7 +516,7 @@ class TableContent extends Component {
     render() {
 
         const {
-            className, style, columns, data, scroll, emptyText,
+            className, style, columns, data, scroll, noDataText,
             ...restProps
         } = this.props;
 
@@ -614,9 +614,9 @@ class TableContent extends Component {
                 </div>
 
                 {
-                    (!this.tableData || this.tableData.length < 1) && emptyText ?
+                    (!this.tableData || this.tableData.length < 1) && noDataText ?
                         <div className="table-no-data">
-                            {emptyText}
+                            {noDataText}
                         </div>
                         :
                         null
@@ -795,7 +795,7 @@ TableContent.propTypes = {
     idProp: PropTypes.string,
     disabled: PropTypes.bool,
     expandRows: PropTypes.array,
-    emptyText: PropTypes.string,
+    noDataText: PropTypes.string,
 
     /**
      * selection
@@ -860,7 +860,7 @@ TableContent.defaultProps = {
     disabled: false,
     idProp: 'id',
     expandRows: [],
-    emptyText: 'No Data',
+    noDataText: 'No Data',
 
     isSelectRecursive: false,
     uncheckedIconCls: 'far fa-square',
