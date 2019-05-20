@@ -118,7 +118,7 @@ class Pagination extends Component {
                 <div className="pagination-right">
 
                     {
-                        pageSizeVisible ?
+                        pageSizesVisible ?
                             <PaginationSize pageSize={pageSize}
                                             pageSizes={pageSizes}
                                             valueField={pageSizeValueField}
@@ -131,7 +131,7 @@ class Pagination extends Component {
                     }
 
                     {
-                        pageSizesVisible ?
+                        pageSizeVisible ?
                             <PaginationPage page={page}
                                             totalPage={totalPage}
                                             prevIconCls={prevIconCls}
