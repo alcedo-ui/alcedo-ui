@@ -79,7 +79,7 @@ class TablePagination extends Component {
             })}
                  style={style}>
                 <PaginationComponent {...restProps}
-                                     total={data.length}
+                                     total={data && data.length || 0}
                                      selectedCount={this.getSelectedCount()}
                                      selectionVisible={paginationSelectionVisible}
                                      totalVisible={paginationTotalVisible}
