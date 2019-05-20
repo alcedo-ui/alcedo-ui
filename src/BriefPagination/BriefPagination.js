@@ -69,8 +69,8 @@ class BriefPagination extends Component {
 
         const {
                 total, page, pageSize, pageSizes, pageSizeRightIconCls, pageSizeValueField, pageSizeDisplayField,
-                selectedCount, countVisible, pageSizeVisible, prevIconCls, nextIconCls,
-                countRenderer, parentEl
+                totalVisible, selectedCount, selectionVisible, pageSizeVisible, prevIconCls, nextIconCls,
+                totalRenderer, parentEl
             } = this.props,
 
             totalPage = Math.ceil(total / pageSize),
@@ -84,7 +84,7 @@ class BriefPagination extends Component {
                 <div className="brief-pagination-left">
 
                     {
-                        countVisible ?
+                        selectionVisible ?
                             <div className="brief-pagination-selected">
                                 {`Selected: ${selectedCount}`}
                             </div>
@@ -92,14 +92,19 @@ class BriefPagination extends Component {
                             null
                     }
 
-                    <div className="brief-pagination-total">
-                        {
-                            countRenderer ?
-                                countRenderer(total, page, totalPage, pageSize, pageSizes)
-                                :
-                                `Total: ${total}`
-                        }
-                    </div>
+                    {
+                        totalVisible ?
+                            <div className="brief-pagination-total">
+                                {
+                                    totalRenderer ?
+                                        totalRenderer(total, page, totalPage, pageSize, pageSizes)
+                                        :
+                                        `Total: ${total}`
+                                }
+                            </div>
+                            :
+                            null
+                    }
 
                 </div>
 
@@ -186,9 +191,14 @@ BriefPagination.propTypes = {
     selectedCount: PropTypes.number,
 
     /**
-     * If true,the selectedCount will show.
+     * If true, the selectedCount will show.
      */
-    countVisible: PropTypes.bool,
+    selectionVisible: PropTypes.bool,
+
+    /**
+     * If true, the total will show.
+     */
+    totalVisible: PropTypes.bool,
 
     /**
      * If false, the pageSize choice box will not show.
@@ -210,7 +220,7 @@ BriefPagination.propTypes = {
      */
     nextIconCls: PropTypes.string,
 
-    countRenderer: PropTypes.func,
+    totalRenderer: PropTypes.func,
 
     parentEl: PropTypes.object,
 
@@ -229,7 +239,8 @@ BriefPagination.defaultProps = {
     pageSizeDisplayField: 'text',
     selectedCount: 0,
 
-    countVisible: false,
+    selectionVisible: false,
+    totalVisible: true,
     pageSizeVisible: true,
 
     pageSizeRightIconCls: 'fas fa-angle-down',
