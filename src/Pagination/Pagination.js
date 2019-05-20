@@ -72,7 +72,7 @@ class Pagination extends Component {
                 className, style, total, pageSizes, pageSizeValueField, pageSizeDisplayField,
                 selectedCount, selectionVisible, totalVisible, pageSizeVisible, pageSizesVisible,
                 pageSizeRightIconCls, prevIconCls, nextIconCls, firstIconCls, lastIconCls,
-                totalRenderer, parentEl
+                selectionRenderer, totalRenderer, parentEl
             } = this.props,
             {page, pageSize} = this.state,
             totalPage = Math.ceil(total / pageSize);
@@ -88,7 +88,12 @@ class Pagination extends Component {
                     {
                         selectionVisible ?
                             <div className="pagination-selected">
-                                {`Selected: ${selectedCount}`}
+                                {
+                                    selectionRenderer ?
+                                        selectionRenderer(selectedCount, total, page, totalPage, pageSize, pageSizes)
+                                        :
+                                        `Selected: ${selectedCount}`
+                                }
                             </div>
                             :
                             null
@@ -238,6 +243,7 @@ Pagination.propTypes = {
      */
     lastIconCls: PropTypes.string,
 
+    selectionRenderer: PropTypes.func,
     totalRenderer: PropTypes.func,
 
     parentEl: PropTypes.object,
