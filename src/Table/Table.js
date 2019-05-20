@@ -405,6 +405,12 @@ Table.propTypes = {
     paginationTotalRenderer: PropTypes.func,
 
     /**
+     * hidden
+     */
+    isHeadHidden: PropTypes.bool,
+    isFootHidden: PropTypes.bool,
+
+    /**
      * fixed
      */
     isHeadFixed: PropTypes.bool,
@@ -469,6 +475,8 @@ Table.defaultProps = {
     paginationFirstIconCls: 'fas fa-angle-double-left',
     paginationLastIconCls: 'fas fa-angle-double-right',
 
+    isHeadHidden: false,
+    isFootHidden: false,
     isHeadFixed: false,
     isFootFixed: false
 
