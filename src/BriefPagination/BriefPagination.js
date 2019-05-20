@@ -69,7 +69,7 @@ class BriefPagination extends Component {
 
         const {
                 total, page, pageSize, pageSizes, pageSizeRightIconCls, pageSizeValueField, pageSizeDisplayField,
-                totalVisible, selectedCount, selectionVisible, pageSizeVisible, prevIconCls, nextIconCls,
+                totalVisible, selectedCount, selectionVisible, pageSizesVisible, prevIconCls, nextIconCls,
                 selectionRenderer, totalRenderer, parentEl
             } = this.props,
 
@@ -208,7 +208,7 @@ BriefPagination.propTypes = {
     /**
      * If false, the pageSize choice box will not show.
      */
-    pageSizeVisible: PropTypes.bool,
+    pageSizesVisible: PropTypes.bool,
 
     /**
      * Use this property to set page size right icon.
@@ -247,7 +247,7 @@ BriefPagination.defaultProps = {
 
     selectionVisible: false,
     totalVisible: true,
-    pageSizeVisible: true,
+    pageSizesVisible: true,
 
     pageSizeRightIconCls: 'fas fa-angle-down',
     prevIconCls: 'fas fa-angle-left',
