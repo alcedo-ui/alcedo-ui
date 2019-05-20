@@ -70,7 +70,7 @@ class BriefPagination extends Component {
         const {
                 total, page, pageSize, pageSizes, pageSizeRightIconCls, pageSizeValueField, pageSizeDisplayField,
                 totalVisible, selectedCount, selectionVisible, pageSizeVisible, prevIconCls, nextIconCls,
-                totalRenderer, parentEl
+                selectionRenderer, totalRenderer, parentEl
             } = this.props,
 
             totalPage = Math.ceil(total / pageSize),
@@ -86,7 +86,12 @@ class BriefPagination extends Component {
                     {
                         selectionVisible ?
                             <div className="brief-pagination-selected">
-                                {`Selected: ${selectedCount}`}
+                                {
+                                    selectionRenderer ?
+                                        selectionRenderer(selectedCount, total, page, totalPage, pageSize, pageSizes)
+                                        :
+                                        `Selected: ${selectedCount}`
+                                }
                             </div>
                             :
                             null
@@ -220,6 +225,7 @@ BriefPagination.propTypes = {
      */
     nextIconCls: PropTypes.string,
 
+    selectionRenderer: PropTypes.func,
     totalRenderer: PropTypes.func,
 
     parentEl: PropTypes.object,
