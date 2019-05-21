@@ -167,7 +167,7 @@ class TableExamples extends Component {
         console.log('Sort Change Value: ', sorting);
     };
 
-    handlePageChange = (page, pageSize) => {
+    handlePaginationChange = ({page, pageSize}) => {
         console.log(`page: ${page}, pageSize: ${pageSize}`);
     };
 
@@ -285,7 +285,7 @@ class TableExamples extends Component {
                                    }}
                                    paginationTotalRenderer={total => <span>Self Defined Total: {total}</span>}
                                    onSortChange={this.handleSortChange}
-                                   onPageChange={this.handlePageChange}
+                                   onPaginationChange={this.handlePaginationChange}
                                    onExpand={this.handleExpand}
                                    onCollapse={this.handleCollapse}
                                    onDataUpdate={this.handleDataUpdate}
