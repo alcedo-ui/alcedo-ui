@@ -146,7 +146,7 @@ class Table extends Component {
                  style={style}>
 
                 {/* table header, display when select */}
-                <Header/>
+                {/*<Header/>*/}
 
                 {/* table area */}
                 <Content {...restProps}
@@ -162,7 +162,7 @@ class Table extends Component {
                          onExpandChange={this.handleExpandChange}/>
 
                 {/* table footer */}
-                <Footer/>
+                {/*<Footer/>*/}
 
                 {/* table pagination */}
                 {
