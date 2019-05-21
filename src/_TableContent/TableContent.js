@@ -193,12 +193,8 @@ class TableContent extends Component {
          * handle multi select
          */
         if (selectMode === SelectMode.MULTI_SELECT) {
-
-            const fixed = sortedColumns[0].fixed,
-                isFixed = fixed && fixed !== HorizontalAlign.CENTER;
-
             result.unshift({
-                fixed,
+                fixed: sortedColumns[0].fixed,
                 headClassName: 'table-select-th',
                 headRenderer: () => {
 
