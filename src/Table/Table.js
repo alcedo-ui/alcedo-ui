@@ -81,26 +81,12 @@ class Table extends Component {
     };
 
     /**
-     * handle pagination page change
+     * handle pagination change
      */
-    handlePageChange = page => {
-        this.setState({
-            page
-        }, () => {
-            const {onPageChange} = this.props;
-            onPageChange && onPageChange(page);
-        });
-    };
-
-    /**
-     * handle pagination page size change
-     */
-    handlePageSizeChange = pageSize => {
-        this.setState({
-            pageSize
-        }, () => {
-            const {onPageSizeChange} = this.props;
-            onPageSizeChange && onPageSizeChange(pageSize);
+    handlePaginationChange = pagination => {
+        this.setState(pagination, () => {
+            const {onPaginationChange} = this.props;
+            onPaginationChange && onPaginationChange(pagination);
         });
     };
 
@@ -172,8 +158,7 @@ class Table extends Component {
                                     pageSize={pageSize}
                                     pageSizes={pageSizes}
                                     value={value}
-                                    onPageChange={this.handlePageChange}
-                                    onPageSizeChange={this.handlePageSizeChange}/>
+                                    onPaginationChange={this.handlePaginationChange}/>
                         :
                         null
                 }
@@ -436,6 +421,7 @@ Table.propTypes = {
     onCollapse: PropTypes.func,
     onExpandChange: PropTypes.func,
     onSortChange: PropTypes.func,
+    onPaginationChange: PropTypes.func,
     onPageChange: PropTypes.func,
     onPageSizeChange: PropTypes.func
 
