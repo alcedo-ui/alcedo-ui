@@ -47,13 +47,13 @@ class BriefPagination extends Component {
 
         if (pageSizeValue && originPageSizeValue !== pageSizeValue) {
 
-            const {onPageSizeChange} = this.props;
+            const {onPageSizeChange, onPaginationChange} = this.props;
             onPageSizeChange && onPageSizeChange(pageSize);
 
             const totalPage = Math.ceil(this.props.total / pageSizeValue),
                 page = Valid.range(this.state.page, 0, totalPage - 1);
             if (page !== this.state.page) {
-                const {onPageChange, onPaginationChange} = this.props;
+                const {onPageChange} = this.props;
                 onPageChange && onPageChange(page);
                 onPaginationChange && onPaginationChange({
                     page,
