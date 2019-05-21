@@ -54,6 +54,13 @@ class TablePagination extends Component {
 
     };
 
+    handlePaginationChange = pagination => {
+        this.setState(pagination, () => {
+            const {onPaginationChange} = this.props;
+            onPaginationChange && onPaginationChange(pagination);
+        });
+    };
+
     static getDerivedStateFromProps(props, state) {
         return {
             prevProps: props,
@@ -90,7 +97,8 @@ class TablePagination extends Component {
                                      firstIconCls={paginationFirstIconCls}
                                      lastIconCls={paginationLastIconCls}
                                      selectionRenderer={paginationSelectionRenderer}
-                                     totalRenderer={paginationTotalRenderer}/>
+                                     totalRenderer={paginationTotalRenderer}
+                                     onPaginationChange={this.handlePaginationChange}/>
             </div>
         );
 
@@ -135,6 +143,7 @@ TablePagination.propTypes = {
 
     paginationSelectionRenderer: PropTypes.func,
     paginationTotalRenderer: PropTypes.func,
+    onPaginationChange: PropTypes.func,
     onPageChange: PropTypes.func,
     onPageSizeChange: PropTypes.func
 
