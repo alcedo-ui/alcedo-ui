@@ -31,8 +31,12 @@ class Pagination extends Component {
         this.setState({
             page
         }, () => {
-            const {onPageChange} = this.props;
+            const {onPageChange, onPaginationChange} = this.props;
             onPageChange && onPageChange(page);
+            onPaginationChange && onPaginationChange({
+                page,
+                pageSize: this.state.pageSize
+            });
         });
     };
 
@@ -50,8 +54,17 @@ class Pagination extends Component {
             const totalPage = Math.ceil(this.props.total / pageSizeValue),
                 page = Valid.range(this.state.page, 0, totalPage - 1);
             if (page !== this.state.page) {
-                const {onPageChange} = this.props;
+                const {onPageChange, onPaginationChange} = this.props;
                 onPageChange && onPageChange(page);
+                onPaginationChange && onPaginationChange({
+                    page,
+                    pageSize
+                });
+            } else {
+                onPaginationChange && onPaginationChange({
+                    page: this.state.page,
+                    pageSize
+                });
             }
 
         }
@@ -248,6 +261,7 @@ Pagination.propTypes = {
 
     parentEl: PropTypes.object,
 
+    onPaginationChange: PropTypes.func,
     onPageChange: PropTypes.func,
     onPageSizeChange: PropTypes.func
 
