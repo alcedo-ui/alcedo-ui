@@ -7,9 +7,9 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import Header from '../_TableHeader';
+// import Header from '../_TableHeader';
 import Content from '../_TableContent';
-import Footer from '../_TableFooter';
+// import Footer from '../_TableFooter';
 import Pagination from '../_TablePagination';
 import CircularLoading from '../CircularLoading';
 
