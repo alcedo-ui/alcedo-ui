@@ -108,23 +108,6 @@ class TableExamples extends Component {
                             onClick={() => this.deleteRow(rowData.id)}/>
         }];
 
-        this.pageSizes = [{
-            value: 10,
-            text: '10 / page'
-        }, {
-            value: 20,
-            text: '20 / page'
-        }, {
-            value: 30,
-            text: '30 / page'
-        }, {
-            value: 40,
-            text: '40 / page'
-        }, {
-            value: 50,
-            text: '50 / page'
-        }];
-
     }
 
     generateData = (size = 100, base = '', expanded = true) => {
@@ -283,6 +266,22 @@ class TableExamples extends Component {
                                        width: 1200,
                                        height: 320
                                    }}
+                                   pageSizes={[{
+                                       value: 10,
+                                       text: '10 / page'
+                                   }, {
+                                       value: 20,
+                                       text: '20 / page'
+                                   }, {
+                                       value: 30,
+                                       text: '30 / page'
+                                   }, {
+                                       value: 40,
+                                       text: '40 / page'
+                                   }, {
+                                       value: 50,
+                                       text: '50 / page'
+                                   }]}
                                    paginationTotalRenderer={total => <span>Self Defined Total: {total}</span>}
                                    onSortChange={this.handleSortChange}
                                    onPaginationChange={this.handlePaginationChange}
