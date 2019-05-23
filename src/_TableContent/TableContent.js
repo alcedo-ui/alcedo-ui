@@ -148,7 +148,7 @@ class TableContent extends Component {
         }
 
         const {
-                selectTheme, selectMode, selectAllMode, data, disabled, value, idProp,
+                selectTheme, selectMode, selectAllMode, selectColumn, data, disabled, value, idProp,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls
             } = this.props,
             result = sortedColumns.slice();
@@ -194,8 +194,12 @@ class TableContent extends Component {
          */
         if (selectMode === SelectMode.MULTI_SELECT) {
             result.unshift({
-                fixed: sortedColumns[0].fixed,
-                headClassName: 'table-select-th',
+                ...selectColumn,
+                fixed: (selectColumn && selectColumn.fixed) || sortedColumns[0].fixed,
+                align: (selectColumn && selectColumn.align) || HorizontalAlign.CENTER,
+                headClassName: classNames('table-select-th', selectColumn ? {
+                    [selectColumn.headClassName]: selectColumn.headClassName
+                } : ''),
                 headRenderer: () => {
 
                     const {checked, indeterminate} = TableCalculation.isSelectAllChecked(
@@ -215,7 +219,9 @@ class TableContent extends Component {
                     );
 
                 },
-                bodyClassName: 'table-select-td',
+                bodyClassName: classNames('table-select-td', selectColumn ? {
+                    [selectColumn.bodyClassName]: selectColumn.bodyClassName
+                } : ''),
                 bodyRenderer: (rowData, rowIndex, colIndex, tableData, collapsed, depth, path) =>
                     <Checkbox className="table-select"
                               theme={selectTheme}
@@ -633,21 +639,6 @@ TableContent.propTypes = {
     style: PropTypes.object,
 
     /**
-     * The theme of the table select radio or checkbox.
-     */
-    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-    /**
-     * The select mode of table.
-     */
-    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
-
-    /**
-     * The select all mode of table, all or current page.
-     */
-    selectAllMode: PropTypes.oneOf(Util.enumerateValue(SelectAllMode)),
-
-    /**
      * Children passed into table header.
      */
     columns: PropTypes.arrayOf(PropTypes.shape({
@@ -792,6 +783,62 @@ TableContent.propTypes = {
     /**
      * selection
      */
+    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+    selectAllMode: PropTypes.oneOf(Util.enumerateValue(SelectAllMode)),
+    selectColumn: PropTypes.shape({
+
+        /**
+         * fixed position of column ( true / 'left' / 'right' )
+         */
+        fixed: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(Util.enumerateValue(HorizontalAlign))]),
+
+        /**
+         * width of column
+         */
+        width: PropTypes.number,
+
+        /**
+         * minimum width of column
+         */
+        minWidth: PropTypes.number,
+
+        /**
+         * align of current column
+         */
+        align: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
+
+        /**
+         * The class name of header.
+         */
+        headClassName: PropTypes.string,
+
+        /**
+         * Override the styles of header.
+         */
+        headStyle: PropTypes.object,
+
+        /**
+         * align of table header cell
+         */
+        headAlign: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
+
+        /**
+         * The class name of td.
+         */
+        bodyClassName: PropTypes.string,
+
+        /**
+         * Override the styles of td.
+         */
+        bodyStyle: PropTypes.object,
+
+        /**
+         * align of table body cell
+         */
+        bodyAlign: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign))
+
+    }),
     isSelectRecursive: PropTypes.bool,
     checkboxUncheckedIconCls: PropTypes.string,
     checkboxCheckedIconCls: PropTypes.string,
@@ -852,14 +899,13 @@ TableContent.propTypes = {
 
 TableContent.defaultProps = {
 
-    selectMode: SelectMode.SINGLE_SELECT,
-    selectAllMode: SelectAllMode.CURRENT_PAGE,
-
     disabled: false,
     idProp: 'id',
     expandRows: [],
     noDataText: 'No Data',
 
+    selectMode: SelectMode.SINGLE_SELECT,
+    selectAllMode: SelectAllMode.CURRENT_PAGE,
     isSelectRecursive: false,
     uncheckedIconCls: 'far fa-square',
     checkedIconCls: 'fas fa-check-square',
