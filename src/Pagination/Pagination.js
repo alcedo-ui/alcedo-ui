@@ -31,9 +31,9 @@ class Pagination extends Component {
         this.setState({
             page
         }, () => {
-            const {onPageChange, onPaginationChange} = this.props;
+            const {onPageChange, onChange} = this.props;
             onPageChange && onPageChange(page);
-            onPaginationChange && onPaginationChange({
+            onChange && onChange({
                 page,
                 pageSize: this.state.pageSize
             });
@@ -48,7 +48,7 @@ class Pagination extends Component {
 
         if (pageSizeValue && originPageSizeValue !== pageSizeValue) {
 
-            const {onPageSizeChange, onPaginationChange} = this.props;
+            const {onPageSizeChange, onChange} = this.props;
             onPageSizeChange && onPageSizeChange(pageSizeValue);
 
             const totalPage = Math.ceil(this.props.total / pageSizeValue),
@@ -56,12 +56,12 @@ class Pagination extends Component {
             if (page !== this.state.page) {
                 const {onPageChange} = this.props;
                 onPageChange && onPageChange(page);
-                onPaginationChange && onPaginationChange({
+                onChange && onChange({
                     page,
                     pageSize: pageSizeValue
                 });
             } else {
-                onPaginationChange && onPaginationChange({
+                onChange && onChange({
                     page: this.state.page,
                     pageSize: pageSizeValue
                 });
@@ -261,7 +261,7 @@ Pagination.propTypes = {
 
     parentEl: PropTypes.object,
 
-    onPaginationChange: PropTypes.func,
+    onChange: PropTypes.func,
     onPageChange: PropTypes.func,
     onPageSizeChange: PropTypes.func
 
