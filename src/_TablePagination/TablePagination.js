@@ -98,7 +98,7 @@ class TablePagination extends Component {
                                      lastIconCls={paginationLastIconCls}
                                      selectionRenderer={paginationSelectionRenderer}
                                      totalRenderer={paginationTotalRenderer}
-                                     onPaginationChange={this.handlePaginationChange}/>
+                                     onChange={this.handlePaginationChange}/>
             </div>
         );
 
