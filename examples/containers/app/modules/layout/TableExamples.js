@@ -98,6 +98,14 @@ class TableExamples extends Component {
                 <Switcher value={!rowData.disabled}
                           size="small"
                           onClick={e => e.stopPropagation()}/>
+        }, {
+            fixed: Table.Fixed.RIGHT,
+            headRenderer: 'Action',
+            bodyRenderer: rowData => rowData[LOADING_SYMBOL] ?
+                null
+                :
+                <IconButton iconCls="fas fa-trash-alt"
+                            onClick={() => this.deleteRow(rowData.id)}/>
         }];
 
         this.pageSizes = [{
@@ -266,15 +274,7 @@ class TableExamples extends Component {
 
                             <Table className="example-table"
                                    data={data}
-                                   columns={[...this.columns, {
-                                       fixed: Table.Fixed.RIGHT,
-                                       headRenderer: 'Action',
-                                       bodyRenderer: rowData => rowData[LOADING_SYMBOL] ?
-                                           null
-                                           :
-                                           <IconButton iconCls="fas fa-trash-alt"
-                                                       onClick={() => this.deleteRow(rowData.id)}/>
-                                   }]}
+                                   columns={this.columns}
                                    sorting={sorting}
                                    selectMode={Table.SelectMode.MULTI_SELECT}
                                    isHeadFixed={true}
