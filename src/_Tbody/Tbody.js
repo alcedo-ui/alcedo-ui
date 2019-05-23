@@ -101,12 +101,12 @@ Tbody.propTypes = {
         /**
          * width of column
          */
-        width: PropTypes.number,
+        width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
         /**
          * minimum width of column
          */
-        minWidth: PropTypes.number,
+        minWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
         /**
          * align of current column
