@@ -130,6 +130,9 @@ TablePagination.propTypes = {
     pageSizes: PropTypes.array,
     useFullPagination: PropTypes.bool,
 
+    pageSizeValueField: PropTypes.string,
+    pageSizeDisplayField: PropTypes.string,
+
     paginationSelectionVisible: PropTypes.bool,
     paginationTotalVisible: PropTypes.bool,
     paginationPageSizeVisible: PropTypes.bool,
@@ -157,6 +160,9 @@ TablePagination.defaultProps = {
     pageSize: 10,
     pageSizes: [5, 10, 15, 20],
     useFullPagination: false,
+
+    pageSizeValueField: 'value',
+    pageSizeDisplayField: 'text',
 
     paginationSelectionVisible: false,
     paginationTotalVisible: true,
