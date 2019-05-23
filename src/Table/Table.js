@@ -492,6 +492,8 @@ Table.defaultProps = {
     pageSize: 10,
     pageSizes: [5, 10, 15, 20],
     useFullPagination: false,
+    pageSizeValueField: 'value',
+    pageSizeDisplayField: 'text',
     paginationSelectionVisible: false,
     paginationTotalVisible: true,
     paginationPageSizeVisible: true,
