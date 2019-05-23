@@ -193,21 +193,6 @@ Table.propTypes = {
     style: PropTypes.object,
 
     /**
-     * The theme of the table select radio or checkbox.
-     */
-    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
-
-    /**
-     * The select mode of table.
-     */
-    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
-
-    /**
-     * The select all mode of table, all or current page.
-     */
-    selectAllMode: PropTypes.oneOf(Util.enumerateValue(SelectAllMode)),
-
-    /**
      * Children passed into table header.
      */
     columns: PropTypes.arrayOf(PropTypes.shape({
@@ -347,12 +332,68 @@ Table.propTypes = {
     disabled: PropTypes.bool,
     hasInitFadeOut: PropTypes.bool,
     expandRows: PropTypes.array,
-    isSelectRecursive: PropTypes.bool,
     noDataText: PropTypes.string,
 
     /**
-     * multi select checkbox icon
+     * multi select
      */
+    selectTheme: PropTypes.oneOf(Util.enumerateValue(Theme)),
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
+    selectAllMode: PropTypes.oneOf(Util.enumerateValue(SelectAllMode)),
+    selectColumn: PropTypes.shape({
+
+        /**
+         * fixed position of column ( true / 'left' / 'right' )
+         */
+        fixed: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(Util.enumerateValue(HorizontalAlign))]),
+
+        /**
+         * width of column
+         */
+        width: PropTypes.number,
+
+        /**
+         * minimum width of column
+         */
+        minWidth: PropTypes.number,
+
+        /**
+         * align of current column
+         */
+        align: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
+
+        /**
+         * The class name of header.
+         */
+        headClassName: PropTypes.string,
+
+        /**
+         * Override the styles of header.
+         */
+        headStyle: PropTypes.object,
+
+        /**
+         * align of table header cell
+         */
+        headAlign: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
+
+        /**
+         * The class name of td.
+         */
+        bodyClassName: PropTypes.string,
+
+        /**
+         * Override the styles of td.
+         */
+        bodyStyle: PropTypes.object,
+
+        /**
+         * align of table body cell
+         */
+        bodyAlign: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign))
+
+    }),
+    isSelectRecursive: PropTypes.bool,
     checkboxUncheckedIconCls: PropTypes.string,
     checkboxCheckedIconCls: PropTypes.string,
     checkboxIndeterminateIconCls: PropTypes.string,
