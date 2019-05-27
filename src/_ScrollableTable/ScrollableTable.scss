@@ -18,7 +18,14 @@
             overflow: auto;
 
             .scrollable-table-body-mask {
-                overflow: hidden;
+
+                &.mask-vertical {
+                    overflow-y: hidden;
+                }
+
+                &.mask-horizontal {
+                    overflow-x: hidden;
+                }
             }
         }
     }
