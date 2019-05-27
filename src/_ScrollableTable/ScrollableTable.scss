@@ -18,14 +18,12 @@
             overflow: auto;
 
             .scrollable-table-body-mask {
-                display: inline-block;
 
                 &.mask-vertical {
                     overflow-y: hidden;
                 }
 
                 &.mask-horizontal {
-                    display: block;
                     overflow-x: hidden;
                 }
             }
