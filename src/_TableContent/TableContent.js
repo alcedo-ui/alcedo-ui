@@ -323,7 +323,7 @@ class TableContent extends Component {
                     if (isHeadFixed && this.centerHeadScroller) {
                         this.centerHeadScroller.scrollLeft = scrollLeft;
                     }
-                    if (isFootFixed && this.centerHeadScroller) {
+                    if (isFootFixed && this.centerHeadScroller && this.centerFootScroller) {
                         this.centerFootScroller.scrollLeft = scrollLeft;
                     }
                     break;
@@ -332,7 +332,7 @@ class TableContent extends Component {
                     if (this.centerBodyScroller) {
                         this.centerBodyScroller.scrollLeft = scrollLeft;
                     }
-                    if (isFootFixed && this.centerHeadScroller) {
+                    if (isFootFixed && this.centerHeadScroller && this.centerFootScroller) {
                         this.centerFootScroller.scrollLeft = scrollLeft;
                     }
                     break;
