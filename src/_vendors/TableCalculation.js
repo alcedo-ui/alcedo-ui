@@ -264,7 +264,12 @@ function sortColumns(columns) {
         [HorizontalAlign.RIGHT]: []
     };
     columns.forEach(column => column && result[column.fixed || HorizontalAlign.CENTER].push(column));
-    return [...result[HorizontalAlign.LEFT], ...result[HorizontalAlign.CENTER], ...result[HorizontalAlign.RIGHT]];
+
+    return {
+        sortedColumns: [...result[HorizontalAlign.LEFT], ...result[HorizontalAlign.CENTER], ...result[HorizontalAlign.RIGHT]],
+        hasFixedLeftColumn: result[HorizontalAlign.LEFT] && result[HorizontalAlign.LEFT].length > 0,
+        hasFixedRightColumn: result[HorizontalAlign.RIGHT] && result[HorizontalAlign.RIGHT].length > 0
+    };
 
 }
 
