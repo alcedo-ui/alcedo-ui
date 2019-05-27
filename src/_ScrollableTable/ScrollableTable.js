@@ -73,7 +73,7 @@ class ScrollableTable extends Component {
                  style={style}>
 
                 {
-                    isHeadFixed ?
+                    !isHeadHidden && isHeadFixed ?
                         <div className="scrollable-table-head">
                             <div ref={this.headScroller}
                                  className="scrollable-table-head-scroller"
@@ -111,7 +111,7 @@ class ScrollableTable extends Component {
                 </div>
 
                 {
-                    isFootFixed ?
+                    !isFootHidden && isFootFixed ?
                         <div className="scrollable-table-foot"
                              style={footStyle}>
                             <div ref={this.footScroller}
