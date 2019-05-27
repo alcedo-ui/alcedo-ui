@@ -113,6 +113,29 @@ function maskCenterBody(wrapperEl, tableEl, fixedHeadHeight, fixedFootHeight) {
 }
 
 /**
+ * fix center head and foot table width
+ * @param wrapperEl
+ */
+function fixCenterTableWidth(wrapperEl) {
+
+    const centerBody = wrapperEl.querySelector('.table-content-center .scrollable-table-body-scroller .base-table');
+    if (!centerBody) {
+        return;
+    }
+
+    const centerHead = wrapperEl.querySelector('.table-content-center .scrollable-table-head-scroller .base-table');
+    if (centerHead) {
+        centerHead.style.width = `${centerBody.offsetWidth}px`;
+    }
+
+    const centerFoot = wrapperEl.querySelector('.table-content-center .scrollable-table-foot-scroller .base-table');
+    if (centerFoot) {
+        centerFoot.style.width = `${centerBody.offsetWidth}px`;
+    }
+
+}
+
+/**
  * fix head, body or foot columns width according to the center body table columns width
  * @param wrapperEl
  * @param columnsWidth
@@ -120,7 +143,7 @@ function maskCenterBody(wrapperEl, tableEl, fixedHeadHeight, fixedFootHeight) {
  * @param fragment
  * @param selector
  */
-function fixFragmentWidth(wrapperEl, columnsWidth, fixed, fragment, selector) {
+function fixTableFragmentColumnsWidth(wrapperEl, columnsWidth, fixed, fragment, selector) {
 
     const el = wrapperEl.querySelector(`${selector} .scrollable-table-${fragment}-scroller`);
 
@@ -153,7 +176,7 @@ function fixFragmentWidth(wrapperEl, columnsWidth, fixed, fragment, selector) {
  * @param fixed
  * @param props
  */
-function fixTableWidth(wrapperEl, columnsWidth, fixed, props) {
+function fixTableColumnsWidth(wrapperEl, columnsWidth, fixed, props) {
 
     if (!wrapperEl) {
         return;
@@ -165,21 +188,21 @@ function fixTableWidth(wrapperEl, columnsWidth, fixed, props) {
      * head
      */
     if (props && props.isHeadFixed) {
-        fixFragmentWidth(wrapperEl, columnsWidth[TableFragment.BODY], fixed, TableFragment.HEAD, selector);
+        fixTableFragmentColumnsWidth(wrapperEl, columnsWidth[TableFragment.BODY], fixed, TableFragment.HEAD, selector);
     }
 
     /**
      * body
      */
     if (fixed) {
-        fixFragmentWidth(wrapperEl, columnsWidth[TableFragment.BODY], fixed, TableFragment.BODY, selector);
+        fixTableFragmentColumnsWidth(wrapperEl, columnsWidth[TableFragment.BODY], fixed, TableFragment.BODY, selector);
     }
 
     /**
      * foot
      */
     if (props && props.isHeadFixed) {
-        fixFragmentWidth(wrapperEl, columnsWidth[TableFragment.FOOT], fixed, TableFragment.FOOT, selector);
+        fixTableFragmentColumnsWidth(wrapperEl, columnsWidth[TableFragment.FOOT], fixed, TableFragment.FOOT, selector);
     }
 
 }
@@ -192,7 +215,7 @@ function fixTableWidth(wrapperEl, columnsWidth, fixed, props) {
  * @param fragment
  * @param selector
  */
-function fixFragmentHeight(wrapperEl, rowsHeight, fixed, fragment, selector) {
+function fixTableFragmentRowsHeight(wrapperEl, rowsHeight, fixed, fragment, selector) {
 
     const el = wrapperEl.querySelector(`${selector} .scrollable-table-${fragment} t${fragment}`);
 
@@ -216,7 +239,7 @@ function fixFragmentHeight(wrapperEl, rowsHeight, fixed, fragment, selector) {
  * @param fixed
  * @param props
  */
-function fixTableHeight(wrapperEl, rowsHeight, fixed, props) {
+function fixTableRowsHeight(wrapperEl, rowsHeight, fixed, props) {
 
     if (!wrapperEl) {
         return;
@@ -228,21 +251,21 @@ function fixTableHeight(wrapperEl, rowsHeight, fixed, props) {
      * head
      */
     if (props && props.isHeadFixed) {
-        fixFragmentHeight(wrapperEl, rowsHeight, fixed, TableFragment.HEAD, selector);
+        fixTableFragmentRowsHeight(wrapperEl, rowsHeight, fixed, TableFragment.HEAD, selector);
     }
 
     /**
      * body
      */
     if (fixed) {
-        fixFragmentHeight(wrapperEl, rowsHeight, fixed, TableFragment.BODY, selector);
+        fixTableFragmentRowsHeight(wrapperEl, rowsHeight, fixed, TableFragment.BODY, selector);
     }
 
     /**
      * foot
      */
     if (props && props.isHeadFixed) {
-        fixFragmentHeight(wrapperEl, rowsHeight, fixed, TableFragment.FOOT, selector);
+        fixTableFragmentRowsHeight(wrapperEl, rowsHeight, fixed, TableFragment.FOOT, selector);
     }
 
 }
@@ -277,6 +300,7 @@ function fixHorizontalScrollStyle(el, shouldScroll, size = ScrollBar.getSize(Dir
  * @param wrapperEl
  * @param props
  */
+
 function fixTableHorizontalScroll(wrapperEl, props) {
 
     if (!wrapperEl) {
@@ -289,16 +313,16 @@ function fixTableHorizontalScroll(wrapperEl, props) {
         return;
     }
 
-    const centerBody = wrapperEl.querySelector('.table-content-center .scrollable-table-body-scroller'),
-        shouldScroll = centerBody.offsetWidth - horizontalScrollBarSize < centerBody.scrollWidth;
+    const centerBodyScroller = wrapperEl.querySelector('.table-content-center .scrollable-table-body-scroller'),
+        shouldScroll = centerBodyScroller.offsetWidth - horizontalScrollBarSize < centerBodyScroller.scrollWidth;
 
     /**
      * center head scroller
      */
     if (props && props.isHeadFixed) {
-        const centerHead = wrapperEl.querySelector('.table-content-center .scrollable-table-head-scroller');
-        if (centerHead) {
-            fixHorizontalScrollStyle(centerHead, shouldScroll, horizontalScrollBarSize);
+        const centerHeadScroller = wrapperEl.querySelector('.table-content-center .scrollable-table-head-scroller');
+        if (centerHeadScroller) {
+            fixHorizontalScrollStyle(centerHeadScroller, shouldScroll, horizontalScrollBarSize);
         }
     }
 
@@ -446,21 +470,22 @@ function fixLayout(wrapperEl, props) {
     /**
      * center
      */
+    fixCenterTableWidth(wrapperEl);
     maskCenterBody(wrapperEl, tableEl, fixedHeadHeight, fixedFootHeight);
-    fixTableWidth(wrapperEl, columnsWidth, null, props);
-    fixTableHeight(wrapperEl, rowsHeight, null, props);
+    fixTableColumnsWidth(wrapperEl, columnsWidth, null, props);
+    fixTableRowsHeight(wrapperEl, rowsHeight, null, props);
 
     /**
      * left
      */
-    fixTableWidth(wrapperEl, columnsWidth, HorizontalAlign.LEFT, props);
-    fixTableHeight(wrapperEl, rowsHeight, HorizontalAlign.LEFT, props);
+    fixTableColumnsWidth(wrapperEl, columnsWidth, HorizontalAlign.LEFT, props);
+    fixTableRowsHeight(wrapperEl, rowsHeight, HorizontalAlign.LEFT, props);
 
     /**
      * right
      */
-    fixTableWidth(wrapperEl, columnsWidth, HorizontalAlign.RIGHT, props);
-    fixTableHeight(wrapperEl, rowsHeight, HorizontalAlign.RIGHT, props);
+    fixTableColumnsWidth(wrapperEl, columnsWidth, HorizontalAlign.RIGHT, props);
+    fixTableRowsHeight(wrapperEl, rowsHeight, HorizontalAlign.RIGHT, props);
 
     /**
      * fix vertical scroll style
