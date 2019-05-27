@@ -94,6 +94,13 @@ function getbodyScollerHeight(headHeight, footHeight) {
     return `calc(100%${headHeight ? ` - ${sum(headHeight)}px` : ''}${footHeight ? ` - ${sum(footHeight)}px` : ''})`;
 }
 
+/**
+ * mask center body table to hide its fixed head, fixed foot and fixed columns
+ * @param wrapperEl
+ * @param tableEl
+ * @param fixedHeadHeight
+ * @param fixedFootHeight
+ */
 function maskCenterBody(wrapperEl, tableEl, fixedHeadHeight, fixedFootHeight) {
     const el = wrapperEl.querySelector('.table-content-center .scrollable-table-body-mask');
     if (el) {
@@ -105,6 +112,14 @@ function maskCenterBody(wrapperEl, tableEl, fixedHeadHeight, fixedFootHeight) {
     }
 }
 
+/**
+ * fix head, body or foot columns width according to the center body table columns width
+ * @param wrapperEl
+ * @param columnsWidth
+ * @param fixed
+ * @param fragment
+ * @param selector
+ */
 function fixFragmentWidth(wrapperEl, columnsWidth, fixed, fragment, selector) {
 
     const el = wrapperEl.querySelector(`${selector} .scrollable-table-${fragment}-scroller`);
@@ -131,6 +146,13 @@ function fixFragmentWidth(wrapperEl, columnsWidth, fixed, fragment, selector) {
 
 }
 
+/**
+ * fix table columns width, including head, body and foot
+ * @param wrapperEl
+ * @param columnsWidth
+ * @param fixed
+ * @param props
+ */
 function fixTableWidth(wrapperEl, columnsWidth, fixed, props) {
 
     if (!wrapperEl) {
@@ -162,6 +184,14 @@ function fixTableWidth(wrapperEl, columnsWidth, fixed, props) {
 
 }
 
+/**
+ * fix head, body or foot rows height according to the center body table rows height
+ * @param wrapperEl
+ * @param rowsHeight
+ * @param fixed
+ * @param fragment
+ * @param selector
+ */
 function fixFragmentHeight(wrapperEl, rowsHeight, fixed, fragment, selector) {
 
     const el = wrapperEl.querySelector(`${selector} .scrollable-table-${fragment} t${fragment}`);
@@ -179,6 +209,13 @@ function fixFragmentHeight(wrapperEl, rowsHeight, fixed, fragment, selector) {
 
 }
 
+/**
+ * fix table rows height, including head, body and foot
+ * @param wrapperEl
+ * @param rowsHeight
+ * @param fixed
+ * @param props
+ */
 function fixTableHeight(wrapperEl, rowsHeight, fixed, props) {
 
     if (!wrapperEl) {
@@ -210,7 +247,13 @@ function fixTableHeight(wrapperEl, rowsHeight, fixed, props) {
 
 }
 
-function handleHorizontalScrollStyle(el, shouldScroll, size = ScrollBar.getSize(Direction.HORIZONTAL)) {
+/**
+ * fix horizontal scroll style, including fixed head, fixed foot, and fixed columns table body
+ * @param el
+ * @param shouldScroll
+ * @param size
+ */
+function fixHorizontalScrollStyle(el, shouldScroll, size = ScrollBar.getSize(Direction.HORIZONTAL)) {
 
     if (!el) {
         return;
@@ -229,6 +272,11 @@ function handleHorizontalScrollStyle(el, shouldScroll, size = ScrollBar.getSize(
 
 }
 
+/**
+ * fix horizontal scroll
+ * @param wrapperEl
+ * @param props
+ */
 function fixTableHorizontalScroll(wrapperEl, props) {
 
     if (!wrapperEl) {
@@ -250,7 +298,7 @@ function fixTableHorizontalScroll(wrapperEl, props) {
     if (props && props.isHeadFixed) {
         const centerHead = wrapperEl.querySelector('.table-content-center .scrollable-table-head-scroller');
         if (centerHead) {
-            handleHorizontalScrollStyle(centerHead, shouldScroll, horizontalScrollBarSize);
+            fixHorizontalScrollStyle(centerHead, shouldScroll, horizontalScrollBarSize);
         }
     }
 
@@ -260,7 +308,7 @@ function fixTableHorizontalScroll(wrapperEl, props) {
     if (props && props.isFootFixed) {
         const centerFoot = wrapperEl.querySelector('.table-content-center .scrollable-table-foot-scroller');
         if (centerFoot) {
-            handleHorizontalScrollStyle(centerFoot, shouldScroll, horizontalScrollBarSize);
+            fixHorizontalScrollStyle(centerFoot, shouldScroll, horizontalScrollBarSize);
         }
     }
 
@@ -269,7 +317,7 @@ function fixTableHorizontalScroll(wrapperEl, props) {
      */
     const leftBody = wrapperEl.querySelector('.table-content-left .scrollable-table-body-scroller');
     if (leftBody) {
-        handleHorizontalScrollStyle(leftBody, shouldScroll, horizontalScrollBarSize);
+        fixHorizontalScrollStyle(leftBody, shouldScroll, horizontalScrollBarSize);
     }
 
     /**
@@ -293,7 +341,7 @@ function fixTableHorizontalScroll(wrapperEl, props) {
      */
     const rightBody = wrapperEl.querySelector('.table-content-right .scrollable-table-body-scroller');
     if (rightBody) {
-        handleHorizontalScrollStyle(rightBody, shouldScroll, horizontalScrollBarSize);
+        fixHorizontalScrollStyle(rightBody, shouldScroll, horizontalScrollBarSize);
     }
 
     /**
@@ -314,6 +362,11 @@ function fixTableHorizontalScroll(wrapperEl, props) {
 
 }
 
+/**
+ * fix vertical scroll
+ * @param wrapperEl
+ * @param props
+ */
 function fixTableVerticalScroll(wrapperEl, props) {
 
     if (!wrapperEl) {
@@ -362,6 +415,11 @@ function fixTableVerticalScroll(wrapperEl, props) {
 
 }
 
+/**
+ * fix table layout
+ * @param wrapperEl
+ * @param props
+ */
 function fixLayout(wrapperEl, props) {
 
     if (!wrapperEl) {
@@ -411,6 +469,11 @@ function fixLayout(wrapperEl, props) {
 
 }
 
+/**
+ * update scroll class names when horizontal scrolling
+ * @param wrapperEl
+ * @param scrollerEl
+ */
 function updateHorizontalScrollClassNames(wrapperEl, scrollerEl) {
 
     if (!wrapperEl || !scrollerEl) {
