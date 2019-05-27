@@ -107,6 +107,7 @@ function maskCenterBody(wrapperEl, tableEl, fixedHeadHeight, fixedFootHeight) {
         el.style.height = `${tableEl.offsetHeight - fixedHeadHeight - fixedFootHeight - 2}px`;
         const table = el.querySelector('table');
         if (table) {
+            el.style.width = `${tableEl.offsetWidth}px`;
             table.style.marginTop = `${-fixedHeadHeight - 1}px`;
         }
     }
@@ -118,17 +119,17 @@ function maskCenterBody(wrapperEl, tableEl, fixedHeadHeight, fixedFootHeight) {
  */
 function fixCenterTableWidth(wrapperEl) {
 
-    const centerBody = wrapperEl.querySelector('.table-content-center .scrollable-table-body-scroller .base-table');
+    const centerBody = wrapperEl.querySelector('.table-content-center .scrollable-table-body-scroller > table');
     if (!centerBody) {
         return;
     }
 
-    const centerHead = wrapperEl.querySelector('.table-content-center .scrollable-table-head-scroller .base-table');
+    const centerHead = wrapperEl.querySelector('.table-content-center .scrollable-table-head-scroller > table');
     if (centerHead) {
         centerHead.style.width = `${centerBody.offsetWidth}px`;
     }
 
-    const centerFoot = wrapperEl.querySelector('.table-content-center .scrollable-table-foot-scroller .base-table');
+    const centerFoot = wrapperEl.querySelector('.table-content-center .scrollable-table-foot-scroller > table');
     if (centerFoot) {
         centerFoot.style.width = `${centerBody.offsetWidth}px`;
     }
