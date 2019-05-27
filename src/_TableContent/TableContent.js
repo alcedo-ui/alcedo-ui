@@ -312,11 +312,11 @@ class TableContent extends Component {
             return;
         }
 
-        const {isHeadFixed, isFootFixed, scroll = {}} = this.props,
+        const {isHeadFixed, isFootFixed} = this.props,
             target = e.target,
             scrollLeft = target.scrollLeft;
 
-        if (scrollLeft !== this.lastScrollLeft && scroll.width) {
+        if (scrollLeft !== this.lastScrollLeft) {
 
             switch (target) {
                 case this.centerBodyScroller: {
@@ -366,11 +366,10 @@ class TableContent extends Component {
             return;
         }
 
-        const {scroll = {}} = this.props,
-            target = e.target,
+        const target = e.target,
             scrollTop = target.scrollTop;
 
-        if (scrollTop !== this.lastScrollTop && scroll.height
+        if (scrollTop !== this.lastScrollTop
             && (target != this.centerHeadScroller || target != this.centerFootScroller)) {
             switch (target) {
                 case this.centerBodyScroller: {
