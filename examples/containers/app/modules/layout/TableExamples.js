@@ -35,7 +35,6 @@ class TableExamples extends Component {
             bodyRenderer: rowDate => rowDate[LOADING_SYMBOL] ?
                 <CircularLoading/> : rowDate.id,
             footRenderer: 'Total',
-            footSpan: 2,
             sortable: true,
             sortingProp: 'id'
         }, {
