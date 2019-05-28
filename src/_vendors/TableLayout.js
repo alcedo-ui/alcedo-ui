@@ -128,17 +128,17 @@ function maskCenterBody(wrapperEl, tableEl, fixedHeadHeight, fixedFootHeight, is
  */
 function fixCenterTableWidth(wrapperEl) {
 
-    const centerBody = wrapperEl.querySelector('.table-content-center .scrollable-table-body-scroller > table');
+    const centerBody = wrapperEl.querySelector('.table-content-center .scrollable-table-body-scroller table');
     if (!centerBody) {
         return;
     }
 
-    const centerHead = wrapperEl.querySelector('.table-content-center .scrollable-table-head-scroller > table');
+    const centerHead = wrapperEl.querySelector('.table-content-center .scrollable-table-head-scroller table');
     if (centerHead) {
         centerHead.style.width = `${centerBody.offsetWidth}px`;
     }
 
-    const centerFoot = wrapperEl.querySelector('.table-content-center .scrollable-table-foot-scroller > table');
+    const centerFoot = wrapperEl.querySelector('.table-content-center .scrollable-table-foot-scroller table');
     if (centerFoot) {
         centerFoot.style.width = `${centerBody.offsetWidth}px`;
     }
