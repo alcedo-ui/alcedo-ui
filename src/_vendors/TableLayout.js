@@ -103,16 +103,23 @@ function getbodyScollerHeight(headHeight, footHeight) {
  * @param fixedHeadHeight
  * @param fixedFootHeight
  */
-function maskCenterBody(wrapperEl, tableEl, fixedHeadHeight, fixedFootHeight) {
+function maskCenterBody(wrapperEl, tableEl, fixedHeadHeight, fixedFootHeight, isNoData) {
+
     const mask = wrapperEl.querySelector('.table-content-center .scrollable-table-body-mask');
+
     if (mask) {
-        mask.style.height = `${Valid.range(tableEl.offsetHeight - fixedHeadHeight - fixedFootHeight - 2, 0)}px`;
-        const table = mask.querySelector('table');
-        if (table) {
-            mask.style.width = `${tableEl.offsetWidth}px`;
-            table.style.marginTop = `${-fixedHeadHeight - 1}px`;
+        if (isNoData) {
+            mask.style.height = `${Valid.range(tableEl.offsetHeight - fixedFootHeight, 0)}px`;
+        } else {
+            mask.style.height = `${Valid.range(tableEl.offsetHeight - fixedHeadHeight - fixedFootHeight - 2, 0)}px`;
+            const table = mask.querySelector('table');
+            if (table) {
+                mask.style.width = `${tableEl.offsetWidth}px`;
+                table.style.marginTop = `${-fixedHeadHeight - 1}px`;
+            }
         }
     }
+
 }
 
 /**
@@ -474,7 +481,7 @@ function fixLayout(wrapperEl, props, isNoData) {
      * center
      */
     fixCenterTableWidth(wrapperEl);
-    !isNoData && maskCenterBody(wrapperEl, tableEl, fixedHeadHeight, fixedFootHeight);
+    maskCenterBody(wrapperEl, tableEl, fixedHeadHeight, fixedFootHeight, isNoData);
     fixTableColumnsWidth(wrapperEl, columnsWidth, null, props);
     fixTableRowsHeight(wrapperEl, rowsHeight, null, props);
 
