@@ -311,6 +311,7 @@ ScrollableTable.propTypes = {
     data: PropTypes.array,
     baseColIndex: PropTypes.number,
     expandRows: PropTypes.array,
+    isNoData: PropTypes.bool,
 
     /**
      * sorting
@@ -342,6 +343,9 @@ ScrollableTable.propTypes = {
     hasFixedLeftColumn: PropTypes.bool,
     hasFixedRightColumn: PropTypes.bool,
 
+    /**
+     * scroll
+     */
     scroll: PropTypes.shape({
         width: PropTypes.number,
         height: PropTypes.number
@@ -367,6 +371,7 @@ ScrollableTable.defaultProps = {
 
     baseColIndex: 0,
     expandRows: [],
+    isNoData: false,
 
     /**
      * sorting
