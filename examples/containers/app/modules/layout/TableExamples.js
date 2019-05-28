@@ -6,7 +6,6 @@ import Switcher from 'src/Switcher';
 import IconButton from 'src/IconButton';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-import RaisedButton from 'src/RaisedButton';
 import CircularLoading from 'src/CircularLoading';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
@@ -218,12 +217,6 @@ class TableExamples extends Component {
         console.log('Collapse: ', rowData);
     };
 
-    clearSort = () => {
-        this.setState({
-            sorting: null
-        });
-    };
-
     render() {
 
         const {data, sorting} = this.state;
@@ -242,20 +235,70 @@ class TableExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="With isPagging"/>
+                    <WidgetHeader className="example-header"
+                                  title="Normal"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <p>A simple <code>Table</code> example.</p>
 
-                            <RaisedButton className="table-action"
-                                          theme={RaisedButton.Theme.PRIMARY}
-                                          value="Clear Table Sort"
-                                          onClick={this.clearSort}/>
-
                             <Table className="example-table"
                                    data={data}
+                                   columns={this.columns}
+                                   sorting={sorting}
+                                   selectMode={Table.SelectMode.MULTI_SELECT}
+                                   isHeadFixed={true}
+                                   isFootFixed={true}
+                                   scroll={{
+                                       width: 1200,
+                                       height: 320
+                                   }}
+                                   pageSizes={[{
+                                       value: 10,
+                                       text: '10 / page'
+                                   }, {
+                                       value: 20,
+                                       text: '20 / page'
+                                   }, {
+                                       value: 30,
+                                       text: '30 / page'
+                                   }, {
+                                       value: 40,
+                                       text: '40 / page'
+                                   }, {
+                                       value: 50,
+                                       text: '50 / page'
+                                   }]}
+                                   paginationTotalRenderer={total => <span>Self Defined Total: {total}</span>}
+                                   onSortChange={this.handleSortChange}
+                                   onPaginationChange={this.handlePaginationChange}
+                                   onExpand={this.handleExpand}
+                                   onCollapse={this.handleCollapse}
+                                   onDataUpdate={this.handleDataUpdate}
+                                   onChange={this.handleChange}
+                                   onSelect={this.handleSelect}
+                                   onSelectAll={this.handleSelectAll}
+                                   onDeselect={this.handleDeselect}
+                                   onDeselectAll={this.handleSeselectAll}/>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="No Data"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <p>No Data <code>Table</code> example.</p>
+
+                            <Table className="example-table"
+                                   data={[]}
                                    columns={this.columns}
                                    sorting={sorting}
                                    selectMode={Table.SelectMode.MULTI_SELECT}
