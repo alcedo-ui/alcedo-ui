@@ -447,7 +447,7 @@ function fixTableVerticalScroll(wrapperEl, props) {
  * @param wrapperEl
  * @param props
  */
-function fixLayout(wrapperEl, props) {
+function fixLayout(wrapperEl, props, isNoData) {
 
     if (!wrapperEl) {
         return;
@@ -474,7 +474,7 @@ function fixLayout(wrapperEl, props) {
      * center
      */
     fixCenterTableWidth(wrapperEl);
-    maskCenterBody(wrapperEl, tableEl, fixedHeadHeight, fixedFootHeight);
+    !isNoData && maskCenterBody(wrapperEl, tableEl, fixedHeadHeight, fixedFootHeight);
     fixTableColumnsWidth(wrapperEl, columnsWidth, null, props);
     fixTableRowsHeight(wrapperEl, rowsHeight, null, props);
 
