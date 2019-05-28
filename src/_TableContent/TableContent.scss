@@ -86,7 +86,6 @@
     padding: 16px 0;
     text-align: center;
     background: $theme-field-bg;
-    border: 1px solid $theme-border;
-    border-top: none;
+    border-bottom: 1px solid $theme-border;
     color: $theme-description;
 }
