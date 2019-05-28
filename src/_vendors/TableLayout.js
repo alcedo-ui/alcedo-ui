@@ -12,6 +12,8 @@ import HorizontalAlign from '../_statics/HorizontalAlign';
 import Direction from '../_statics/Direction';
 import ScrollBar from './ScrollBar';
 
+import Valid from './Valid';
+
 /**
  * whether a table has a fixed head or a fixed foot or fixed left columns or fixed right columns
  * @param props
@@ -102,12 +104,12 @@ function getbodyScollerHeight(headHeight, footHeight) {
  * @param fixedFootHeight
  */
 function maskCenterBody(wrapperEl, tableEl, fixedHeadHeight, fixedFootHeight) {
-    const el = wrapperEl.querySelector('.table-content-center .scrollable-table-body-mask');
-    if (el) {
-        el.style.height = `${tableEl.offsetHeight - fixedHeadHeight - fixedFootHeight - 2}px`;
-        const table = el.querySelector('table');
+    const mask = wrapperEl.querySelector('.table-content-center .scrollable-table-body-mask');
+    if (mask) {
+        mask.style.height = `${Valid.range(tableEl.offsetHeight - fixedHeadHeight - fixedFootHeight - 2, 0)}px`;
+        const table = mask.querySelector('table');
         if (table) {
-            el.style.width = `${tableEl.offsetWidth}px`;
+            mask.style.width = `${tableEl.offsetWidth}px`;
             table.style.marginTop = `${-fixedHeadHeight - 1}px`;
         }
     }
