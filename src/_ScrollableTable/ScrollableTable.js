@@ -58,8 +58,8 @@ class ScrollableTable extends Component {
 
         const {
             className, style, bodyScrollerStyle, maskStyle, tableStyle, footStyle, columns, headColumns, bodyColumns,
-            isHeadHidden, isFootHidden, isHeadFixed, isFootFixed, hasFixedLeftColumn, hasFixedRightColumn, scroll,
-            onScroll, onWheel, ...restProps
+            isHeadHidden, isFootHidden, isHeadFixed, isFootFixed, isNoData, hasFixedLeftColumn, hasFixedRightColumn,
+            scroll, onScroll, onWheel, ...restProps
         } = this.props;
 
         if (!columns && !headColumns && !bodyColumns) {
@@ -73,7 +73,7 @@ class ScrollableTable extends Component {
                  style={style}>
 
                 {
-                    !isHeadHidden && isHeadFixed ?
+                    !isHeadHidden && isHeadFixed && !isNoData ?
                         <div className="scrollable-table-head">
                             <div ref={this.headScroller}
                                  className="scrollable-table-head-scroller"
@@ -105,13 +105,15 @@ class ScrollableTable extends Component {
                                        style={tableStyle}
                                        columns={columns}
                                        headColumns={headColumns}
-                                       bodyColumns={bodyColumns}/>
+                                       bodyColumns={bodyColumns}
+                                       isHeadHidden={isHeadHidden}
+                                       isFootHidden={isFootHidden}/>
                         </div>
                     </div>
                 </div>
 
                 {
-                    !isFootHidden && isFootFixed ?
+                    !isFootHidden && isFootFixed && !isNoData ?
                         <div className="scrollable-table-foot"
                              style={footStyle}>
                             <div ref={this.footScroller}
