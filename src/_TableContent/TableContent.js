@@ -282,7 +282,7 @@ class TableContent extends Component {
      */
     fixLayout = () => {
         if (this.wrapperEl && TableLayout.hasFixed(this.props, this.columns)) {
-            TableLayout.fixLayout(this.wrapperEl, this.props);
+            TableLayout.fixLayout(this.wrapperEl, this.props, !this.tableData || this.tableData.length < 1);
         }
         TableLayout.updateHorizontalScrollClassNames(this.wrapperEl, this.centerBodyScroller);
     };
@@ -517,7 +517,7 @@ class TableContent extends Component {
     render() {
 
         const {
-                className, style, columns, data, scroll, noDataText,
+                className, style, columns, data, scroll, noDataText, isHeadHidden, isFootHidden,
                 ...restProps
             } = this.props,
             {sortedColumns, hasFixedLeftColumn, hasFixedRightColumn} = TableCalculation.sortColumns(columns);
@@ -538,7 +538,9 @@ class TableContent extends Component {
 
         const bodyScrollerStyle = scroll && scroll.height ? {maxHeight: scroll.height} : null,
             tableStyle = scroll && scroll.width ? {minWidth: scroll.width} : null,
-            isFootHidden = this.props.isFootHidden || !TableCalculation.hasRenderer(this.bodyColumns, TableFragment.FOOT);
+            isNoData = !this.tableData || this.tableData.length < 1,
+            isFinalHeadHidden = isHeadHidden || !TableCalculation.hasRenderer(this.bodyColumns, TableFragment.HEAD),
+            isFinalFootHidden = isFootHidden || !TableCalculation.hasRenderer(this.bodyColumns, TableFragment.FOOT);
 
         return (
             <Fragment>
@@ -557,7 +559,10 @@ class TableContent extends Component {
                                      headColumns={TableCalculation.handleFixedColumnsClassName(this.headColumns)}
                                      bodyColumns={TableCalculation.handleFixedColumnsClassName(this.bodyColumns)}
                                      data={this.tableData}
-                                     isFootHidden={isFootHidden}
+                                     isHeadHidden={isFinalHeadHidden}
+                                     isFootHidden={isFinalFootHidden}
+                                     isFixedHeadHidden={isNoData}
+                                     isFixedFootHidden={isNoData}
                                      hasFixedLeftColumn={hasFixedLeftColumn}
                                      hasFixedRightColumn={hasFixedRightColumn}
                                      scroll={scroll}
@@ -580,7 +585,10 @@ class TableContent extends Component {
                                              headColumns={TableCalculation.getFixedHeadColumns(this.headColumns, HorizontalAlign.LEFT)}
                                              bodyColumns={TableCalculation.getFixedBodyColumns(this.bodyColumns, HorizontalAlign.LEFT)}
                                              data={this.tableData}
-                                             isFootHidden={isFootHidden}
+                                             isHeadHidden={isFinalHeadHidden}
+                                             isFootHidden={isFinalFootHidden}
+                                             isFixedHeadHidden={isNoData}
+                                             isFixedFootHidden={isNoData}
                                              hasFixedLeftColumn={hasFixedLeftColumn}
                                              hasFixedRightColumn={hasFixedRightColumn}
                                              scroll={scroll}
@@ -607,7 +615,10 @@ class TableContent extends Component {
                                              headColumns={TableCalculation.getFixedHeadColumns(this.headColumns, HorizontalAlign.RIGHT)}
                                              bodyColumns={TableCalculation.getFixedBodyColumns(this.bodyColumns, HorizontalAlign.RIGHT)}
                                              data={this.tableData}
-                                             isFootHidden={isFootHidden}
+                                             isHeadHidden={isFinalHeadHidden}
+                                             isFootHidden={isFinalFootHidden}
+                                             isFixedHeadHidden={isNoData}
+                                             isFixedFootHidden={isNoData}
                                              hasFixedLeftColumn={hasFixedLeftColumn}
                                              hasFixedRightColumn={hasFixedRightColumn}
                                              scroll={scroll}
@@ -627,7 +638,7 @@ class TableContent extends Component {
                 </div>
 
                 {
-                    (!this.tableData || this.tableData.length < 1) && noDataText ?
+                    isNoData && noDataText ?
                         <div className="table-no-data">
                             {noDataText}
                         </div>
