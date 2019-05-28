@@ -58,8 +58,8 @@ class ScrollableTable extends Component {
 
         const {
             className, style, bodyScrollerStyle, maskStyle, tableStyle, footStyle, columns, headColumns, bodyColumns,
-            isHeadHidden, isFootHidden, isHeadFixed, isFootFixed, isNoData, hasFixedLeftColumn, hasFixedRightColumn,
-            scroll, onScroll, onWheel, ...restProps
+            isHeadHidden, isFootHidden, isHeadFixed, isFootFixed, isFixedHeadHidden, isFixedFootHidden,
+            hasFixedLeftColumn, hasFixedRightColumn, scroll, onScroll, onWheel, ...restProps
         } = this.props;
 
         if (!columns && !headColumns && !bodyColumns) {
@@ -73,7 +73,7 @@ class ScrollableTable extends Component {
                  style={style}>
 
                 {
-                    !isHeadHidden && isHeadFixed && !isNoData ?
+                    !isHeadHidden && isHeadFixed && !isFixedHeadHidden ?
                         <div className="scrollable-table-head">
                             <div ref={this.headScroller}
                                  className="scrollable-table-head-scroller"
@@ -113,7 +113,7 @@ class ScrollableTable extends Component {
                 </div>
 
                 {
-                    !isFootHidden && isFootFixed && !isNoData ?
+                    !isFootHidden && isFootFixed && !isFixedFootHidden ?
                         <div className="scrollable-table-foot"
                              style={footStyle}>
                             <div ref={this.footScroller}
@@ -311,7 +311,6 @@ ScrollableTable.propTypes = {
     data: PropTypes.array,
     baseColIndex: PropTypes.number,
     expandRows: PropTypes.array,
-    isNoData: PropTypes.bool,
 
     /**
      * sorting
@@ -336,6 +335,8 @@ ScrollableTable.propTypes = {
      */
     isHeadHidden: PropTypes.bool,
     isFootHidden: PropTypes.bool,
+    isFixedHeadHidden: PropTypes.bool,
+    isFixedFootHidden: PropTypes.bool,
 
     /**
      * fixed column
@@ -371,7 +372,6 @@ ScrollableTable.defaultProps = {
 
     baseColIndex: 0,
     expandRows: [],
-    isNoData: false,
 
     /**
      * sorting
@@ -391,6 +391,8 @@ ScrollableTable.defaultProps = {
      */
     isHeadHidden: false,
     isFootHidden: false,
+    isFixedHeadHidden: false,
+    isFixedFootHidden: false,
 
     /**
      * fixed column
