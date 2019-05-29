@@ -525,7 +525,8 @@ class TableContent extends Component {
 
                 // not passing down these props
                 isSelectRecursive, selectUncheckedIconCls, selectCheckedIconCls, selectIndeterminateIconCls,
-                onExpand, onCollapse, onDataUpdate, onSelectAll, onDeselect, onDeselectAll,
+                isPaginated, pageSize,
+                onInit, onExpand, onCollapse, onExpandChange, onDataUpdate, onSelectAll, onDeselect, onDeselectAll,
 
                 ...restProps
 
@@ -898,7 +899,6 @@ TableContent.propTypes = {
     isPaginated: PropTypes.bool,
     page: PropTypes.number,
     pageSize: PropTypes.number,
-    pageSizes: PropTypes.array,
 
     /**
      * hidden
@@ -955,7 +955,6 @@ TableContent.defaultProps = {
     isPaginated: true,
     page: 0,
     pageSize: 10,
-    pageSizes: [5, 10, 15, 20],
 
     isHeadHidden: false,
     isFootHidden: false,
