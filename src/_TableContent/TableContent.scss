@@ -39,11 +39,6 @@
         .scrollable-table-body-scroller {
             overflow-x: hidden;
             overflow-y: auto;
-
-            .scrollable-table-body-mask {
-                margin-top: -1px;
-                margin-bottom: -1px;
-            }
         }
 
     }
@@ -62,6 +57,15 @@
 
     .table-fixed-column {
         visibility: hidden;
+    }
+
+    &.head-fixed {
+        .table-content-left,
+        .table-content-right {
+            .scrollable-table-body-mask {
+                margin-top: -1px;
+            }
+        }
     }
 
     &.scroll-left .table-content-right {

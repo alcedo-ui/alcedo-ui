@@ -281,7 +281,7 @@ class TableContent extends Component {
      * fix table layout at once
      */
     fixLayout = () => {
-        if (this.wrapperEl && TableLayout.hasFixed(this.props, this.columns)) {
+        if (this.wrapperEl && TableLayout.hasFixed(this.props, this)) {
             TableLayout.fixLayout(this.wrapperEl, this.props, !this.tableData || this.tableData.length < 1);
         }
         TableLayout.updateHorizontalScrollClassNames(this.wrapperEl, this.centerBodyScroller);
@@ -521,7 +521,8 @@ class TableContent extends Component {
 
         const {
 
-                className, style, columns, data, scroll, noDataText, isHeadHidden, isFootHidden,
+                className, style, columns, data, scroll, noDataText,
+                isHeadFixed, isFootFixed, isHeadHidden, isFootHidden,
 
                 // not passing down these props
                 isSelectRecursive, selectUncheckedIconCls, selectCheckedIconCls, selectIndeterminateIconCls,
@@ -534,6 +535,8 @@ class TableContent extends Component {
             {sortedColumns, hasFixedLeftColumn, hasFixedRightColumn} = TableCalculation.sortColumns(columns);
 
         this.sortedColumns = sortedColumns;
+        this.hasFixedLeftColumn = hasFixedLeftColumn;
+        this.hasFixedRightColumn = hasFixedRightColumn;
         this.formatedColumns = this.formatColumns(this.sortedColumns);
         this.headColumns = TableCalculation.getHeadColumns(this.formatedColumns);
         this.bodyColumns = TableCalculation.getBodyColumns(this.formatedColumns);
@@ -547,8 +550,7 @@ class TableContent extends Component {
 
         this.tableData = this.paginateData(this.sortData(data));
 
-        const bodyScrollerStyle = scroll && scroll.height ? {maxHeight: scroll.height} : null,
-            tableStyle = scroll && scroll.width ? {minWidth: scroll.width} : null,
+        const {horizontalScrollStyle, verticalScrollStyle} = TableLayout.getScrollerStyle(scroll),
             isNoData = !this.tableData || this.tableData.length < 1,
             isFinalHeadHidden = isHeadHidden || !TableCalculation.hasRenderer(this.bodyColumns, TableFragment.HEAD),
             isFinalFootHidden = isFootHidden || !TableCalculation.hasRenderer(this.bodyColumns, TableFragment.FOOT);
@@ -558,25 +560,28 @@ class TableContent extends Component {
 
                 <div ref={this.wrapper}
                      className={classNames('table-content', {
+                         'head-fixed': isHeadFixed,
+                         'foot-fixed': isFootFixed,
                          [className]: className
                      })}
                      style={style}>
 
                     <ScrollableTable {...restProps}
                                      className="table-content-center"
-                                     bodyScrollerStyle={bodyScrollerStyle}
-                                     maskStyle={tableStyle}
-                                     tableStyle={tableStyle}
+                                     bodyScrollerStyle={verticalScrollStyle}
+                                     maskStyle={horizontalScrollStyle}
+                                     tableStyle={horizontalScrollStyle}
                                      headColumns={TableCalculation.handleFixedColumnsClassName(this.headColumns)}
                                      bodyColumns={TableCalculation.handleFixedColumnsClassName(this.bodyColumns)}
                                      data={this.tableData}
+                                     isHeadFixed={isHeadFixed}
+                                     isFootFixed={isFootFixed}
                                      isHeadHidden={isFinalHeadHidden}
                                      isFootHidden={isFinalFootHidden}
                                      isFixedHeadHidden={isNoData}
                                      isFixedFootHidden={isNoData}
                                      hasFixedLeftColumn={hasFixedLeftColumn}
                                      hasFixedRightColumn={hasFixedRightColumn}
-                                     scroll={scroll}
                                      onScroll={this.handleScroll}
                                      onWheel={this.handleWheel}
                                      onGetHeadScrollerEl={el =>
@@ -591,18 +596,19 @@ class TableContent extends Component {
                             <ScrollableTable {...restProps}
                                              ref={this.fixedLeft}
                                              className="table-content-left"
-                                             bodyScrollerStyle={bodyScrollerStyle}
+                                             bodyScrollerStyle={verticalScrollStyle}
                                              fixed={HorizontalAlign.LEFT}
                                              headColumns={TableCalculation.getFixedHeadColumns(this.headColumns, HorizontalAlign.LEFT)}
                                              bodyColumns={TableCalculation.getFixedBodyColumns(this.bodyColumns, HorizontalAlign.LEFT)}
                                              data={this.tableData}
+                                             isHeadFixed={isHeadFixed}
+                                             isFootFixed={isFootFixed}
                                              isHeadHidden={isFinalHeadHidden}
                                              isFootHidden={isFinalFootHidden}
                                              isFixedHeadHidden={isNoData}
                                              isFixedFootHidden={isNoData}
                                              hasFixedLeftColumn={hasFixedLeftColumn}
                                              hasFixedRightColumn={hasFixedRightColumn}
-                                             scroll={scroll}
                                              onGetHeadScrollerEl={el =>
                                                  this.handleGetScrollerEl(el, HorizontalAlign.LEFT, TableFragment.HEAD)}
                                              onGetBodyScrollerEl={el =>
@@ -621,18 +627,19 @@ class TableContent extends Component {
                             <ScrollableTable {...restProps}
                                              ref={this.fixedRight}
                                              className="table-content-right"
-                                             bodyScrollerStyle={bodyScrollerStyle}
+                                             bodyScrollerStyle={verticalScrollStyle}
                                              fixed={HorizontalAlign.RIGHT}
                                              headColumns={TableCalculation.getFixedHeadColumns(this.headColumns, HorizontalAlign.RIGHT)}
                                              bodyColumns={TableCalculation.getFixedBodyColumns(this.bodyColumns, HorizontalAlign.RIGHT)}
                                              data={this.tableData}
+                                             isHeadFixed={isHeadFixed}
+                                             isFootFixed={isFootFixed}
                                              isHeadHidden={isFinalHeadHidden}
                                              isFootHidden={isFinalFootHidden}
                                              isFixedHeadHidden={isNoData}
                                              isFixedFootHidden={isNoData}
                                              hasFixedLeftColumn={hasFixedLeftColumn}
                                              hasFixedRightColumn={hasFixedRightColumn}
-                                             scroll={scroll}
                                              baseColIndex={this.formatedColumns.length - this.fixedRightColumns.length}
                                              onScroll={this.handleScroll}
                                              onWheel={this.handleWheel}
@@ -913,9 +920,13 @@ TableContent.propTypes = {
     isHeadFixed: PropTypes.bool,
     isFootFixed: PropTypes.bool,
 
+    /**
+     * scroll
+     */
     scroll: PropTypes.shape({
-        width: PropTypes.number,
-        height: PropTypes.number
+        width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        maxHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
     }),
 
     /**
@@ -942,6 +953,9 @@ TableContent.defaultProps = {
     expandRows: [],
     noDataText: 'No Data',
 
+    /**
+     * selection
+     */
     selectMode: SelectMode.SINGLE_SELECT,
     selectAllMode: SelectAllMode.CURRENT_PAGE,
     isSelectRecursive: false,
@@ -949,17 +963,30 @@ TableContent.defaultProps = {
     selectCheckedIconCls: 'fas fa-check-square',
     selectIndeterminateIconCls: 'fas fa-minus-square',
 
+    /**
+     * sorting
+     */
     defaultSortingType: SortingType.ASC,
     sortingAscIconCls: 'fas fa-sort-up',
     sortingDescIconCls: 'fas fa-sort-down',
     autoSorting: true,
 
+    /**
+     * pagination
+     */
     isPaginated: true,
     page: 0,
     pageSize: 10,
 
+    /**
+     * hidden
+     */
     isHeadHidden: false,
     isFootHidden: false,
+
+    /**
+     * fixed
+     */
     isHeadFixed: false,
     isFootFixed: false
 
