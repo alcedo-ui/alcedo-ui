@@ -128,7 +128,7 @@ class Table extends Component {
                 paginationSelectionVisible, paginationTotalVisible, paginationPageSizeVisible,
                 paginationPageSizesVisible, paginationPageSizeRightIconCls,
                 paginationPrevIconCls, paginationNextIconCls, paginationFirstIconCls, paginationLastIconCls,
-                paginationTotalRenderer,
+                paginationTotalRenderer, onPageChange, onPageSizeChange,
 
                 // not passing down these props
                 hasInitFadeOut, pageSize: propsPageSize,
@@ -185,6 +185,8 @@ class Table extends Component {
                                     paginationFirstIconCls={paginationFirstIconCls}
                                     paginationLastIconCls={paginationLastIconCls}
                                     paginationTotalRenderer={paginationTotalRenderer}
+                                    onPageChange={onPageChange}
+                                    onPageSizeChange={onPageSizeChange}
                                     onPaginationChange={this.handlePaginationChange}/>
                         :
                         null
