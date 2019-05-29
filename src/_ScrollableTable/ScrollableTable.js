@@ -60,7 +60,7 @@ class ScrollableTable extends Component {
 
             className, style, bodyScrollerStyle, maskStyle, tableStyle, footStyle, columns, headColumns, bodyColumns,
             isHeadHidden, isFootHidden, isHeadFixed, isFootFixed, isFixedHeadHidden, isFixedFootHidden,
-            hasFixedLeftColumn, hasFixedRightColumn, scroll, onScroll, onWheel,
+            hasFixedLeftColumn, hasFixedRightColumn, onScroll, onWheel,
 
             // not passing down these props
             onGetHeadScrollerEl, onGetBodyScrollerEl, onGetFootScrollerEl,
@@ -113,6 +113,8 @@ class ScrollableTable extends Component {
                                        columns={columns}
                                        headColumns={headColumns}
                                        bodyColumns={bodyColumns}
+                                       isHeadFixed={isHeadFixed}
+                                       isFootFixed={isFootFixed}
                                        isHeadHidden={isHeadHidden}
                                        isFootHidden={isFootHidden}/>
                         </div>
@@ -350,14 +352,6 @@ ScrollableTable.propTypes = {
      */
     hasFixedLeftColumn: PropTypes.bool,
     hasFixedRightColumn: PropTypes.bool,
-
-    /**
-     * scroll
-     */
-    scroll: PropTypes.shape({
-        width: PropTypes.number,
-        height: PropTypes.number
-    }),
 
     /**
      * callback
