@@ -120,8 +120,15 @@ class Table extends Component {
     render() {
 
         const {
-                className, style, isPaginated, pageSizes,
+
+                className, style,
+                isPaginated, pageSizes, paginationTotalRenderer,
+
+                // not passing down these props
+                hasInitFadeOut, onPaginationChange,
+
                 ...restProps
+
             } = this.props,
             {init, sorting, page, pageSize, expandRows, value} = this.state;
 
@@ -158,6 +165,7 @@ class Table extends Component {
                                     pageSize={pageSize}
                                     pageSizes={pageSizes}
                                     value={value}
+                                    paginationTotalRenderer={paginationTotalRenderer}
                                     onPaginationChange={this.handlePaginationChange}/>
                         :
                         null
@@ -394,9 +402,9 @@ Table.propTypes = {
 
     }),
     isSelectRecursive: PropTypes.bool,
-    checkboxUncheckedIconCls: PropTypes.string,
-    checkboxCheckedIconCls: PropTypes.string,
-    checkboxIndeterminateIconCls: PropTypes.string,
+    selectUncheckedIconCls: PropTypes.string,
+    selectCheckedIconCls: PropTypes.string,
+    selectIndeterminateIconCls: PropTypes.string,
 
     /**
      * sorting
@@ -462,6 +470,7 @@ Table.propTypes = {
     onCollapse: PropTypes.func,
     onExpandChange: PropTypes.func,
     onSortChange: PropTypes.func,
+    onDataUpdate: PropTypes.func,
     onPaginationChange: PropTypes.func,
     onPageChange: PropTypes.func,
     onPageSizeChange: PropTypes.func
@@ -470,23 +479,31 @@ Table.propTypes = {
 
 Table.defaultProps = {
 
-    selectMode: SelectMode.SINGLE_SELECT,
-    selectAllMode: SelectAllMode.CURRENT_PAGE,
-
     disabled: false,
     hasInitFadeOut: true,
     expandRows: [],
-    isSelectRecursive: false,
     noDataText: 'No Data',
 
-    uncheckedIconCls: 'far fa-square',
-    checkedIconCls: 'fas fa-check-square',
-    indeterminateIconCls: 'fas fa-minus-square',
+    /**
+     * multi select
+     */
+    selectMode: SelectMode.SINGLE_SELECT,
+    selectAllMode: SelectAllMode.CURRENT_PAGE,
+    isSelectRecursive: false,
+    selectUncheckedIconCls: 'far fa-square',
+    selectCheckedIconCls: 'fas fa-check-square',
+    selectIndeterminateIconCls: 'fas fa-minus-square',
 
+    /**
+     * sorting
+     */
     defaultSortingType: SortingType.ASC,
     sortingAscIconCls: 'fas fa-sort-up',
     sortingDescIconCls: 'fas fa-sort-down',
 
+    /**
+     * pagination
+     */
     isPaginated: true,
     page: 0,
     pageSize: 10,
@@ -504,8 +521,15 @@ Table.defaultProps = {
     paginationFirstIconCls: 'fas fa-angle-double-left',
     paginationLastIconCls: 'fas fa-angle-double-right',
 
+    /**
+     * hidden
+     */
     isHeadHidden: false,
     isFootHidden: false,
+
+    /**
+     * fixed
+     */
     isHeadFixed: false,
     isFootFixed: false
 
