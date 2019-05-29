@@ -20,18 +20,13 @@ import Valid from './Valid';
  * @param columns
  * @returns {boolean}
  */
-function hasFixed(props, columns) {
+function hasFixed(props, config) {
 
     if (props && (props.isHeadFixed || props.isFootFixed)) {
         return true;
     }
 
-    if (!columns) {
-        return false;
-    }
-
-    if ((columns[HorizontalAlign.LEFT] && columns[HorizontalAlign.LEFT].length > 0)
-        || (columns[HorizontalAlign.RIGHT] && columns[HorizontalAlign.RIGHT].length > 0)) {
+    if (config && (config.hasFixedLeftColumn || config.hasFixedRightColumn)) {
         return true;
     }
 
@@ -105,17 +100,17 @@ function getbodyScollerHeight(headHeight, footHeight) {
  */
 function maskCenterBody(wrapperEl, tableEl, fixedHeadHeight, fixedFootHeight, isNoData) {
 
-    const mask = wrapperEl.querySelector('.table-content-center .scrollable-table-body-mask');
+    const maskEl = wrapperEl.querySelector('.table-content-center .scrollable-table-body-mask');
 
-    if (mask) {
+    if (maskEl) {
         if (isNoData) {
-            mask.style.height = `${Valid.range(tableEl.offsetHeight - fixedFootHeight, 0)}px`;
+            maskEl.style.height = `${Valid.range(tableEl.offsetHeight - fixedFootHeight, 0)}px`;
         } else {
-            mask.style.height = `${Valid.range(tableEl.offsetHeight - fixedHeadHeight - fixedFootHeight - 2, 0)}px`;
-            const table = mask.querySelector('table');
-            if (table) {
-                mask.style.width = `${tableEl.offsetWidth}px`;
-                table.style.marginTop = `${-fixedHeadHeight - 1}px`;
+            maskEl.style.height = `${Valid.range(tableEl.offsetHeight - fixedHeadHeight - fixedFootHeight - 1, 0)}px`;
+            if (tableEl) {
+                tableEl.style.marginTop = `${-fixedHeadHeight - 1}px`;
+                maskEl.style.width = 'auto';
+                maskEl.style.width = `${tableEl.offsetWidth}px`;
             }
         }
     }
@@ -225,16 +220,16 @@ function fixTableColumnsWidth(wrapperEl, columnsWidth, fixed, props) {
  * @param fragment
  * @param selector
  */
-function fixTableFragmentRowsHeight(wrapperEl, rowsHeight, fixed, fragment, selector) {
+function fixTableFragmentRowsHeight(wrapperEl, rowsHeight, fixed, fragment, subFragment, selector) {
 
-    const el = wrapperEl.querySelector(`${selector} .scrollable-table-${fragment} t${fragment}`);
+    const el = wrapperEl.querySelector(`${selector} .scrollable-table-${fragment} t${subFragment}`);
 
     if (el) {
         const trs = el.querySelectorAll('tr');
         if (trs) {
             trs.forEach((el, index) => {
                 if (el) {
-                    el.style.height = `${rowsHeight[fragment][index]}px`;
+                    el.style.height = `${rowsHeight[subFragment][index]}px`;
                 }
             });
         }
@@ -261,21 +256,23 @@ function fixTableRowsHeight(wrapperEl, rowsHeight, fixed, props) {
      * head
      */
     if (props && props.isHeadFixed) {
-        fixTableFragmentRowsHeight(wrapperEl, rowsHeight, fixed, TableFragment.HEAD, selector);
+        fixTableFragmentRowsHeight(wrapperEl, rowsHeight, fixed, TableFragment.HEAD, TableFragment.HEAD, selector);
     }
 
     /**
      * body
      */
     if (fixed) {
-        fixTableFragmentRowsHeight(wrapperEl, rowsHeight, fixed, TableFragment.BODY, selector);
+        fixTableFragmentRowsHeight(wrapperEl, rowsHeight, fixed, TableFragment.BODY, TableFragment.HEAD, selector);
+        fixTableFragmentRowsHeight(wrapperEl, rowsHeight, fixed, TableFragment.BODY, TableFragment.BODY, selector);
+        fixTableFragmentRowsHeight(wrapperEl, rowsHeight, fixed, TableFragment.BODY, TableFragment.FOOT, selector);
     }
 
     /**
      * foot
      */
     if (props && props.isHeadFixed) {
-        fixTableFragmentRowsHeight(wrapperEl, rowsHeight, fixed, TableFragment.FOOT, selector);
+        fixTableFragmentRowsHeight(wrapperEl, rowsHeight, fixed, TableFragment.FOOT, TableFragment.FOOT, selector);
     }
 
 }
@@ -480,8 +477,10 @@ function fixLayout(wrapperEl, props, isNoData) {
     /**
      * center
      */
+    if (props && (props.isHeadFixed || props.isFootFixed)) {
+        maskCenterBody(wrapperEl, tableEl, fixedHeadHeight, fixedFootHeight, isNoData);
+    }
     fixCenterTableWidth(wrapperEl);
-    maskCenterBody(wrapperEl, tableEl, fixedHeadHeight, fixedFootHeight, isNoData);
     fixTableColumnsWidth(wrapperEl, columnsWidth, null, props);
     fixTableRowsHeight(wrapperEl, rowsHeight, null, props);
 
@@ -537,11 +536,62 @@ function updateHorizontalScrollClassNames(wrapperEl, scrollerEl) {
 
 }
 
+/**
+ * return scroll styles
+ * @param scroll
+ * @returns {{verticalScrollStyle: null, horizontalScrollStyle: null}}
+ */
+function getScrollerStyle(scroll) {
+
+    const result = {
+        horizontalScrollStyle: null,
+        verticalScrollStyle: null
+    };
+
+    if (!scroll) {
+        return result;
+    }
+
+    if ('width' in scroll) {
+
+        if (!result.horizontalScrollStyle) {
+            result.horizontalScrollStyle = {};
+        }
+
+        result.horizontalScrollStyle.minWidth = scroll.width;
+
+    }
+
+    if ('height' in scroll) {
+
+        if (!result.verticalScrollStyle) {
+            result.verticalScrollStyle = {};
+        }
+
+        result.verticalScrollStyle.height = scroll.height;
+
+    }
+
+    if ('maxHeight' in scroll) {
+
+        if (!result.verticalScrollStyle) {
+            result.verticalScrollStyle = {};
+        }
+
+        result.verticalScrollStyle.maxHeight = scroll.maxHeight;
+
+    }
+
+    return result;
+
+}
+
 export default {
     hasFixed,
     getColumnsWidth,
     getRowsHeight,
     getbodyScollerHeight,
     fixLayout,
-    updateHorizontalScrollClassNames
+    updateHorizontalScrollClassNames,
+    getScrollerStyle
 };
