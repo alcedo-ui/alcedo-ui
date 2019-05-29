@@ -525,7 +525,7 @@ class TableContent extends Component {
 
                 // not passing down these props
                 isSelectRecursive, selectUncheckedIconCls, selectCheckedIconCls, selectIndeterminateIconCls,
-                autoSorting, isPaginated, pageSize,
+                selectColumn, autoSorting, isPaginated, pageSize,
                 onInit, onExpand, onCollapse, onExpandChange, onDataUpdate, onSelectAll, onDeselect, onDeselectAll,
 
                 ...restProps
