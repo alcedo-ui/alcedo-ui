@@ -275,7 +275,54 @@ class TableExamples extends Component {
 
                             <Table className="example-table"
                                    columns={this.columns}
-                                   data={data}/>
+                                   data={data}
+                                   onSortChange={this.handleSortChange}
+                                   onPaginationChange={this.handlePaginationChange}
+                                   onExpand={this.handleExpand}
+                                   onCollapse={this.handleCollapse}
+                                   onDataUpdate={this.handleDataUpdate}
+                                   onChange={this.handleChange}
+                                   onSelect={this.handleSelect}
+                                   onSelectAll={this.handleSelectAll}
+                                   onDeselect={this.handleDeselect}
+                                   onDeselectAll={this.handleSeselectAll}/>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Fix Head & Foot"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <p>
+                                You can config <code>isHeadFixed</code> to fix the Head,&nbsp;
+                                and config <code>isFootFixed</code> to fix the Foot.
+                            </p>
+
+                            <Table className="example-table"
+                                   columns={this.columns}
+                                   data={data}
+                                   isHeadFixed={true}
+                                   isFootFixed={true}
+                                   scroll={{
+                                       maxHeight: 320
+                                   }}
+                                   onSortChange={this.handleSortChange}
+                                   onPaginationChange={this.handlePaginationChange}
+                                   onExpand={this.handleExpand}
+                                   onCollapse={this.handleCollapse}
+                                   onDataUpdate={this.handleDataUpdate}
+                                   onChange={this.handleChange}
+                                   onSelect={this.handleSelect}
+                                   onSelectAll={this.handleSelectAll}
+                                   onDeselect={this.handleDeselect}
+                                   onDeselectAll={this.handleSeselectAll}/>
 
                         </div>
                     </div>
@@ -300,7 +347,17 @@ class TableExamples extends Component {
                                    data={data}
                                    scroll={{
                                        width: 1200
-                                   }}/>
+                                   }}
+                                   onSortChange={this.handleSortChange}
+                                   onPaginationChange={this.handlePaginationChange}
+                                   onExpand={this.handleExpand}
+                                   onCollapse={this.handleCollapse}
+                                   onDataUpdate={this.handleDataUpdate}
+                                   onChange={this.handleChange}
+                                   onSelect={this.handleSelect}
+                                   onSelectAll={this.handleSelectAll}
+                                   onDeselect={this.handleDeselect}
+                                   onDeselectAll={this.handleSeselectAll}/>
 
                         </div>
                     </div>
@@ -310,16 +367,14 @@ class TableExamples extends Component {
                 <Widget>
 
                     <WidgetHeader className="example-header"
-                                  title="Normal"/>
+                                  title="Fix Head, Foot and Columns"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
-                            <p>A simple <code>Table</code> example.</p>
-
                             <Table className="example-table"
                                    data={data}
-                                   columns={this.columns}
+                                   columns={this.getFixedColumns()}
                                    sorting={sorting}
                                    selectMode={Table.SelectMode.MULTI_SELECT}
                                    isHeadFixed={true}
@@ -328,22 +383,6 @@ class TableExamples extends Component {
                                        width: 1200,
                                        height: 320
                                    }}
-                                   pageSizes={[{
-                                       value: 10,
-                                       text: '10 / page'
-                                   }, {
-                                       value: 20,
-                                       text: '20 / page'
-                                   }, {
-                                       value: 30,
-                                       text: '30 / page'
-                                   }, {
-                                       value: 40,
-                                       text: '40 / page'
-                                   }, {
-                                       value: 50,
-                                       text: '50 / page'
-                                   }]}
                                    paginationTotalRenderer={total => <span>Self Defined Total: {total}</span>}
                                    onSortChange={this.handleSortChange}
                                    onPaginationChange={this.handlePaginationChange}
@@ -398,7 +437,6 @@ class TableExamples extends Component {
                                        value: 50,
                                        text: '50 / page'
                                    }]}
-                                   paginationTotalRenderer={total => <span>Self Defined Total: {total}</span>}
                                    onSortChange={this.handleSortChange}
                                    onPaginationChange={this.handlePaginationChange}
                                    onExpand={this.handleExpand}
