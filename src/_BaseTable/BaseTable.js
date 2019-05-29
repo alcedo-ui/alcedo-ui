@@ -302,7 +302,6 @@ BaseTable.propTypes = {
     defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType)),
     sortingAscIconCls: PropTypes.string,
     sortingDescIconCls: PropTypes.string,
-    sortingFunc: PropTypes.func,
 
     /**
      * callback
