@@ -36,10 +36,14 @@ class BaseTable extends Component {
     render() {
 
         const {
-            className, style, fixed, fragment, columns, headColumns, bodyColumns, isHeadHidden, isFootHidden,
-            selectMode, selectAllMode, expandRows,
-            onSortChange,
+
+            className, style, idProp, baseColIndex, fixed, fragment, columns, headColumns, bodyColumns,
+            selectMode, selectAllMode, expandRows, isHeadHidden, isFootHidden,
+            defaultSortingType, sortingAscIconCls, sortingDescIconCls,
+            onSortChange, onExpandChange,
+
             ...restProps
+
         } = this.props;
 
         return (
@@ -57,6 +61,9 @@ class BaseTable extends Component {
                                columns={headColumns || [columns]}
                                selectMode={selectMode}
                                selectAllMode={selectAllMode}
+                               defaultSortingType={defaultSortingType}
+                               sortingAscIconCls={sortingAscIconCls}
+                               sortingDescIconCls={sortingDescIconCls}
                                onSortChange={onSortChange}/>
                         :
                         null
@@ -68,7 +75,10 @@ class BaseTable extends Component {
                                columns={bodyColumns || columns}
                                selectMode={selectMode}
                                selectAllMode={selectAllMode}
-                               expandRows={expandRows}/>
+                               expandRows={expandRows}
+                               idProp={idProp}
+                               baseColIndex={baseColIndex}
+                               onExpandChange={onExpandChange}/>
                         :
                         null
                 }
@@ -254,6 +264,7 @@ BaseTable.propTypes = {
     bodyColumns: PropTypes.array,
 
     data: PropTypes.array,
+    idProp: PropTypes.string,
     baseColIndex: PropTypes.number,
     disabled: PropTypes.bool,
     expandRows: PropTypes.array,
