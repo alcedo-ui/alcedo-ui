@@ -149,7 +149,7 @@ class TableContent extends Component {
 
         const {
                 selectTheme, selectMode, selectAllMode, selectColumn, data, disabled, value, idProp,
-                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls
+                selectUncheckedIconCls, selectCheckedIconCls, selectIndeterminateIconCls
             } = this.props,
             result = sortedColumns.slice();
 
@@ -211,9 +211,9 @@ class TableContent extends Component {
                                   checked={checked}
                                   disabled={disabled}
                                   indeterminate={indeterminate}
-                                  uncheckedIconCls={checkboxUncheckedIconCls}
-                                  checkedIconCls={checkboxCheckedIconCls}
-                                  indeterminateIconCls={checkboxIndeterminateIconCls}
+                                  uncheckedIconCls={selectUncheckedIconCls}
+                                  checkedIconCls={selectCheckedIconCls}
+                                  indeterminateIconCls={selectIndeterminateIconCls}
                                   onCheck={this.handleSelectAll}
                                   onUncheck={this.handleDeselectAll}/>
                     );
@@ -228,9 +228,9 @@ class TableContent extends Component {
                               checked={TableCalculation.isNodeChecked(rowData, value, idProp)}
                               disabled={disabled || rowData.disabled}
                               indeterminate={TableCalculation.isNodeIndeterminate(rowData, value, idProp)}
-                              uncheckedIconCls={checkboxUncheckedIconCls}
-                              checkedIconCls={checkboxCheckedIconCls}
-                              indeterminateIconCls={checkboxIndeterminateIconCls}
+                              uncheckedIconCls={selectUncheckedIconCls}
+                              checkedIconCls={selectCheckedIconCls}
+                              indeterminateIconCls={selectIndeterminateIconCls}
                               onCheck={() => this.handleSelect(rowData, rowIndex, colIndex, tableData, collapsed, depth, path)}
                               onUncheck={() => this.handleDeselect(rowData, rowIndex, colIndex, tableData, collapsed, depth, path)}/>
             });
@@ -503,7 +503,12 @@ class TableContent extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
+
         this.fixLayout();
+
+        const {onDataUpdate} = this.props;
+        onDataUpdate && onDataUpdate(this.tableData);
+
     }
 
     componentWillUnmount() {
@@ -515,8 +520,15 @@ class TableContent extends Component {
     render() {
 
         const {
+
                 className, style, columns, data, scroll, noDataText, isHeadHidden, isFootHidden,
+
+                // not passing down these props
+                isSelectRecursive, selectUncheckedIconCls, selectCheckedIconCls, selectIndeterminateIconCls,
+                onExpand, onCollapse, onDataUpdate, onSelectAll, onDeselect, onDeselectAll,
+
                 ...restProps
+
             } = this.props,
             {sortedColumns, hasFixedLeftColumn, hasFixedRightColumn} = TableCalculation.sortColumns(columns);
 
@@ -864,9 +876,9 @@ TableContent.propTypes = {
 
     }),
     isSelectRecursive: PropTypes.bool,
-    checkboxUncheckedIconCls: PropTypes.string,
-    checkboxCheckedIconCls: PropTypes.string,
-    checkboxIndeterminateIconCls: PropTypes.string,
+    selectUncheckedIconCls: PropTypes.string,
+    selectCheckedIconCls: PropTypes.string,
+    selectIndeterminateIconCls: PropTypes.string,
 
     /**
      * sorting
@@ -917,7 +929,8 @@ TableContent.propTypes = {
     onExpand: PropTypes.func,
     onCollapse: PropTypes.func,
     onExpandChange: PropTypes.func,
-    onSortChange: PropTypes.func
+    onSortChange: PropTypes.func,
+    onDataUpdate: PropTypes.func
 
 };
 
@@ -931,9 +944,9 @@ TableContent.defaultProps = {
     selectMode: SelectMode.SINGLE_SELECT,
     selectAllMode: SelectAllMode.CURRENT_PAGE,
     isSelectRecursive: false,
-    uncheckedIconCls: 'far fa-square',
-    checkedIconCls: 'fas fa-check-square',
-    indeterminateIconCls: 'fas fa-minus-square',
+    selectUncheckedIconCls: 'far fa-square',
+    selectCheckedIconCls: 'fas fa-check-square',
+    selectIndeterminateIconCls: 'fas fa-minus-square',
 
     defaultSortingType: SortingType.ASC,
     sortingAscIconCls: 'fas fa-sort-up',
