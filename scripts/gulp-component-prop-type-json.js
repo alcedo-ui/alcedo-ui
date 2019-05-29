@@ -23,7 +23,7 @@ module.exports = () => {
             const componentName = path.parse(chunk.path).name,
                 fileString = chunk.contents.toString();
 
-            chunk.contents = new Buffer(generateComponentPropTypeJson(componentName, fileString));
+            chunk.contents = Buffer.from(generateComponentPropTypeJson(componentName, fileString));
 
             this.push(chunk);
 

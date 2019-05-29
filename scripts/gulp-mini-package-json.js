@@ -46,7 +46,7 @@ module.exports = () => {
                     }
                 };
 
-            chunk.contents = new Buffer(JSON.stringify(miniData, null, 2));
+            chunk.contents = Buffer.from(JSON.stringify(miniData, null, 2));
 
             this.push(chunk);
 
