@@ -476,8 +476,9 @@ Table.propTypes = {
      * scroll
      */
     scroll: PropTypes.shape({
-        width: PropTypes.number,
-        height: PropTypes.number
+        width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        maxHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
     }),
 
     /**
