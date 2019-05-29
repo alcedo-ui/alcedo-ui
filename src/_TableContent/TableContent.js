@@ -246,8 +246,8 @@ class TableContent extends Component {
      * @returns {*[]}
      */
     sortData = (data = this.props.data) => {
-        const {sorting, sortingFunc} = this.props;
-        return sorting ? TableCalculation.sortTableData(data, sorting, sortingFunc) : data;
+        const {sorting, autoSorting, sortingFunc} = this.props;
+        return autoSorting && sorting ? TableCalculation.sortTableData(data, sorting, sortingFunc) : data;
     };
 
     /**
@@ -525,7 +525,7 @@ class TableContent extends Component {
 
                 // not passing down these props
                 isSelectRecursive, selectUncheckedIconCls, selectCheckedIconCls, selectIndeterminateIconCls,
-                isPaginated, pageSize,
+                autoSorting, isPaginated, pageSize,
                 onInit, onExpand, onCollapse, onExpandChange, onDataUpdate, onSelectAll, onDeselect, onDeselectAll,
 
                 ...restProps
@@ -891,6 +891,7 @@ TableContent.propTypes = {
     defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType)),
     sortingAscIconCls: PropTypes.string,
     sortingDescIconCls: PropTypes.string,
+    autoSorting: PropTypes.bool,
     sortingFunc: PropTypes.func,
 
     /**
@@ -951,6 +952,7 @@ TableContent.defaultProps = {
     defaultSortingType: SortingType.ASC,
     sortingAscIconCls: 'fas fa-sort-up',
     sortingDescIconCls: 'fas fa-sort-down',
+    autoSorting: true,
 
     isPaginated: true,
     page: 0,
