@@ -57,9 +57,16 @@ class ScrollableTable extends Component {
     render() {
 
         const {
+
             className, style, bodyScrollerStyle, maskStyle, tableStyle, footStyle, columns, headColumns, bodyColumns,
             isHeadHidden, isFootHidden, isHeadFixed, isFootFixed, isFixedHeadHidden, isFixedFootHidden,
-            hasFixedLeftColumn, hasFixedRightColumn, scroll, onScroll, onWheel, ...restProps
+            hasFixedLeftColumn, hasFixedRightColumn, scroll, onScroll, onWheel,
+
+            // not passing down these props
+            onGetHeadScrollerEl, onGetBodyScrollerEl, onGetFootScrollerEl,
+
+            ...restProps
+
         } = this.props;
 
         if (!columns && !headColumns && !bodyColumns) {
