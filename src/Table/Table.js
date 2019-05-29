@@ -435,6 +435,7 @@ Table.propTypes = {
     defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType)),
     sortingAscIconCls: PropTypes.string,
     sortingDescIconCls: PropTypes.string,
+    autoSorting: PropTypes.bool,
     sortingFunc: PropTypes.func,
 
     /**
@@ -521,6 +522,7 @@ Table.defaultProps = {
     defaultSortingType: SortingType.ASC,
     sortingAscIconCls: 'fas fa-sort-up',
     sortingDescIconCls: 'fas fa-sort-down',
+    autoSorting: true,
 
     /**
      * pagination
