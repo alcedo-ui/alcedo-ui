@@ -29,7 +29,6 @@ class TableExamples extends Component {
         };
 
         this.columns = [{
-            fixed: Table.Fixed.LEFT,
             headRenderer: 'ID',
             bodyRenderer: rowDate => rowDate[LOADING_SYMBOL] ?
                 <CircularLoading/> : rowDate.id,
@@ -37,7 +36,6 @@ class TableExamples extends Component {
             sortable: true,
             sortingProp: 'id'
         }, {
-            fixed: Table.Fixed.LEFT,
             width: 300,
             headRenderer: 'Name',
             bodyClassName: 'nowrap',
@@ -88,7 +86,6 @@ class TableExamples extends Component {
             sortable: true,
             sortingProp: 'deposit'
         }, {
-            fixed: Table.Fixed.RIGHT,
             headRenderer: 'Status',
             bodyRenderer: rowData => rowData[LOADING_SYMBOL] ?
                 null
@@ -97,7 +94,6 @@ class TableExamples extends Component {
                           size="small"
                           onClick={e => e.stopPropagation()}/>
         }, {
-            fixed: Table.Fixed.RIGHT,
             headRenderer: 'Action',
             bodyRenderer: rowData => rowData[LOADING_SYMBOL] ?
                 null
@@ -106,7 +102,41 @@ class TableExamples extends Component {
                             onClick={() => this.deleteRow(rowData.id)}/>
         }];
 
+        this.pageSizes = [{
+            value: 10,
+            text: '10 / page'
+        }, {
+            value: 20,
+            text: '20 / page'
+        }, {
+            value: 30,
+            text: '30 / page'
+        }, {
+            value: 40,
+            text: '40 / page'
+        }, {
+            value: 50,
+            text: '50 / page'
+        }];
+
     }
+
+    getFixedColumns = () => {
+        return this.columns.map(column => {
+            if (['ID', 'Name'].includes(column.headRenderer)) {
+                return {
+                    fixed: Table.Fixed.LEFT,
+                    ...column
+                };
+            } else if (['Status', 'Action'].includes(column.headRenderer)) {
+                return {
+                    fixed: Table.Fixed.RIGHT,
+                    ...column
+                };
+            }
+            return column;
+        });
+    };
 
     generateData = (size = 100, base = '', expanded = true) => {
 
@@ -244,6 +274,50 @@ class TableExamples extends Component {
                             <p>A simple <code>Table</code> example.</p>
 
                             <Table className="example-table"
+                                   columns={this.columns}
+                                   data={data}/>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Fix Columns"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <p>
+                                You can config <code>fixed</code> in columns to fix the column&nbsp;
+                                <code>Left</code> or <code>Right</code>.
+                            </p>
+
+                            <Table className="example-table"
+                                   columns={this.getFixedColumns()}
+                                   data={data}
+                                   scroll={{
+                                       width: 1200
+                                   }}/>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Normal"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <p>A simple <code>Table</code> example.</p>
+
+                            <Table className="example-table"
                                    data={data}
                                    columns={this.columns}
                                    sorting={sorting}
@@ -306,7 +380,7 @@ class TableExamples extends Component {
                                    isFootFixed={true}
                                    scroll={{
                                        width: 1200,
-                                       height: 320
+                                       maxHeight: 320
                                    }}
                                    pageSizes={[{
                                        value: 10,
