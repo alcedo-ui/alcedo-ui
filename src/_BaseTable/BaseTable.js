@@ -37,13 +37,16 @@ class BaseTable extends Component {
 
         const {
             className, style, fixed, fragment, columns, headColumns, bodyColumns, isHeadHidden, isFootHidden,
+            selectMode, selectAllMode, expandRows,
+            onSortChange,
             ...restProps
         } = this.props;
 
         return (
-            <table className={classNames('base-table', {
-                [className]: className
-            })}
+            <table {...restProps}
+                   className={classNames('base-table', {
+                       [className]: className
+                   })}
                    style={style}>
 
                 <ColGroup columns={TableCalculation.getColumnsWithSpan(fragment, bodyColumns || columns)}/>
@@ -51,7 +54,10 @@ class BaseTable extends Component {
                 {
                     !isHeadHidden && (fragment === TableFragment.HEAD || (!fixed && !fragment)) ?
                         <Thead {...restProps}
-                               columns={headColumns || [columns]}/>
+                               columns={headColumns || [columns]}
+                               selectMode={selectMode}
+                               selectAllMode={selectAllMode}
+                               onSortChange={onSortChange}/>
                         :
                         null
                 }
@@ -59,7 +65,10 @@ class BaseTable extends Component {
                 {
                     !fragment ?
                         <Tbody {...restProps}
-                               columns={bodyColumns || columns}/>
+                               columns={bodyColumns || columns}
+                               selectMode={selectMode}
+                               selectAllMode={selectAllMode}
+                               expandRows={expandRows}/>
                         :
                         null
                 }
@@ -68,7 +77,9 @@ class BaseTable extends Component {
                 {
                     !isFootHidden && (fragment === TableFragment.FOOT || (!fixed && !fragment)) ?
                         <Tfoot {...restProps}
-                               columns={bodyColumns || columns}/>
+                               columns={bodyColumns || columns}
+                               selectMode={selectMode}
+                               selectAllMode={selectAllMode}/>
                         :
                         null
                 }
