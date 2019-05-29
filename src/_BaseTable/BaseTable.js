@@ -37,8 +37,8 @@ class BaseTable extends Component {
 
         const {
 
-            className, style, idProp, baseColIndex, fixed, fragment, columns, headColumns, bodyColumns,
-            selectMode, selectAllMode, expandRows, isHeadHidden, isFootHidden,
+            className, style, data, idProp, baseColIndex, fixed, fragment, columns, headColumns, bodyColumns,
+            selectMode, selectAllMode, expandRows, isHeadFixed, isFootFixed, isHeadHidden, isFootHidden,
             defaultSortingType, sortingAscIconCls, sortingDescIconCls,
             onSortChange, onExpandChange,
 
@@ -56,9 +56,14 @@ class BaseTable extends Component {
                 <ColGroup columns={TableCalculation.getColumnsWithSpan(fragment, bodyColumns || columns)}/>
 
                 {
-                    !isHeadHidden && (fragment === TableFragment.HEAD || (!fixed && !fragment)) ?
+                    !isHeadHidden && (
+                        fragment === TableFragment.HEAD
+                        || (!fixed && !fragment)
+                        || (!fragment && fixed && !isHeadFixed)
+                    ) ?
                         <Thead {...restProps}
                                columns={headColumns || [columns]}
+                               data={data}
                                selectMode={selectMode}
                                selectAllMode={selectAllMode}
                                defaultSortingType={defaultSortingType}
@@ -73,6 +78,7 @@ class BaseTable extends Component {
                     !fragment ?
                         <Tbody {...restProps}
                                columns={bodyColumns || columns}
+                               data={data}
                                selectMode={selectMode}
                                selectAllMode={selectAllMode}
                                expandRows={expandRows}
@@ -85,9 +91,14 @@ class BaseTable extends Component {
 
                 {/** render foot if a footRenderer exists in columns */}
                 {
-                    !isFootHidden && (fragment === TableFragment.FOOT || (!fixed && !fragment)) ?
+                    !isFootHidden && (
+                        fragment === TableFragment.FOOT
+                        || (!fixed && !fragment)
+                        || (!fragment && fixed && !isFootFixed)
+                    ) ?
                         <Tfoot {...restProps}
                                columns={bodyColumns || columns}
+                               data={data}
                                selectMode={selectMode}
                                selectAllMode={selectAllMode}/>
                         :
@@ -270,6 +281,12 @@ BaseTable.propTypes = {
     expandRows: PropTypes.array,
 
     /**
+     * fixed
+     */
+    isHeadFixed: PropTypes.bool,
+    isFootFixed: PropTypes.bool,
+
+    /**
      * hidden
      */
     isHeadHidden: PropTypes.bool,
@@ -305,9 +322,21 @@ BaseTable.defaultProps = {
     disabled: false,
     expandRows: [],
 
+    /**
+     * fixed
+     */
+    isHeadFixed: false,
+    isFootFixed: false,
+
+    /**
+     * hidden
+     */
     isHeadHidden: false,
     isFootHidden: false,
 
+    /**
+     * sorting
+     */
     defaultSortingType: SortingType.ASC,
     sortingAscIconCls: 'fas fa-sort-up',
     sortingDescIconCls: 'fas fa-sort-down'
