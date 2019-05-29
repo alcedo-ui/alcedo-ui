@@ -122,10 +122,17 @@ class Table extends Component {
         const {
 
                 className, style,
-                isPaginated, pageSizes, paginationTotalRenderer,
+
+                // pagination
+                isPaginated, pageSizes, useFullPagination, pageSizeValueField, pageSizeDisplayField,
+                paginationSelectionVisible, paginationTotalVisible, paginationPageSizeVisible,
+                paginationPageSizesVisible, paginationPageSizeRightIconCls,
+                paginationPrevIconCls, paginationNextIconCls, paginationFirstIconCls, paginationLastIconCls,
+                paginationTotalRenderer,
 
                 // not passing down these props
-                hasInitFadeOut, onPaginationChange,
+                hasInitFadeOut, pageSize: propsPageSize,
+                onPaginationChange,
 
                 ...restProps
 
@@ -144,11 +151,11 @@ class Table extends Component {
                 {/* table area */}
                 <Content {...restProps}
                          sorting={sorting}
+                         isPaginated={isPaginated}
                          page={page}
                          pageSize={pageSize}
                          expandRows={expandRows}
                          value={value}
-                         isPaginated={isPaginated}
                          onInit={this.handleInit}
                          onChange={this.handleChange}
                          onSortChange={this.handleSortChange}
@@ -165,6 +172,18 @@ class Table extends Component {
                                     pageSize={pageSize}
                                     pageSizes={pageSizes}
                                     value={value}
+                                    useFullPagination={useFullPagination}
+                                    pageSizeValueField={pageSizeValueField}
+                                    pageSizeDisplayField={pageSizeDisplayField}
+                                    paginationSelectionVisible={paginationSelectionVisible}
+                                    paginationTotalVisible={paginationTotalVisible}
+                                    paginationPageSizeVisible={paginationPageSizeVisible}
+                                    paginationPageSizesVisible={paginationPageSizesVisible}
+                                    paginationPageSizeRightIconCls={paginationPageSizeRightIconCls}
+                                    paginationPrevIconCls={paginationPrevIconCls}
+                                    paginationNextIconCls={paginationNextIconCls}
+                                    paginationFirstIconCls={paginationFirstIconCls}
+                                    paginationLastIconCls={paginationLastIconCls}
                                     paginationTotalRenderer={paginationTotalRenderer}
                                     onPaginationChange={this.handlePaginationChange}/>
                         :
@@ -425,6 +444,8 @@ Table.propTypes = {
     page: PropTypes.number,
     pageSize: PropTypes.number,
     pageSizes: PropTypes.array,
+    pageSizeValueField: PropTypes.string,
+    pageSizeDisplayField: PropTypes.string,
     useFullPagination: PropTypes.bool,
     paginationSelectionVisible: PropTypes.bool,
     paginationTotalVisible: PropTypes.bool,
