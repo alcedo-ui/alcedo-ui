@@ -423,7 +423,7 @@ class TableContent extends Component {
 
         const {scroll = {}} = this.props;
 
-        if (!window.navigator.userAgent.match(/Trident\/7\./) || !scroll.height) {
+        if (!window.navigator.userAgent.match(/Trident\/7\./)) {
             return;
         }
 
