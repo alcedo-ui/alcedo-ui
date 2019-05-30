@@ -39,7 +39,7 @@ class BaseTable extends Component {
 
             className, style, data, idProp, baseColIndex, fixed, fragment, columns, headColumns, bodyColumns,
             selectMode, selectAllMode, expandRows, isHeadFixed, isFootFixed, isHeadHidden, isFootHidden,
-            defaultSortingType, sortingAscIconCls, sortingDescIconCls,
+            sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls,
             onSortChange, onExpandChange,
 
             ...restProps
@@ -66,6 +66,7 @@ class BaseTable extends Component {
                                data={data}
                                selectMode={selectMode}
                                selectAllMode={selectAllMode}
+                               sorting={sorting}
                                defaultSortingType={defaultSortingType}
                                sortingAscIconCls={sortingAscIconCls}
                                sortingDescIconCls={sortingDescIconCls}
@@ -84,6 +85,7 @@ class BaseTable extends Component {
                                expandRows={expandRows}
                                idProp={idProp}
                                baseColIndex={baseColIndex}
+                               sorting={sorting}
                                onExpandChange={onExpandChange}/>
                         :
                         null
