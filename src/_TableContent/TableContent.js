@@ -148,7 +148,7 @@ class TableContent extends Component {
         }
 
         const {
-                selectTheme, selectMode, selectAllMode, selectColumn, data, disabled, value, idProp,
+                selectTheme, selectMode, selectAllMode, selectColumn, data, disabled, value, idProp, expandIconCls,
                 selectUncheckedIconCls, selectCheckedIconCls, selectIndeterminateIconCls
             } = this.props,
             result = sortedColumns.slice();
@@ -172,7 +172,7 @@ class TableContent extends Component {
                             <IconButton className={classNames('collapse-button', {
                                 hidden: !rowData || !rowData.children || rowData.children.length < 1
                             })}
-                                        iconCls="fas fa-chevron-right"
+                                        iconCls={expandIconCls}
                                         disableTouchRipple={true}
                                         onClick={() => this.handleExpandChange(!collapsed, rowData)}/>
                             :
@@ -842,8 +842,13 @@ TableContent.propTypes = {
     value: PropTypes.array,
     idProp: PropTypes.string,
     disabled: PropTypes.bool,
-    expandRows: PropTypes.array,
     noDataText: PropTypes.string,
+
+    /**
+     * expand
+     */
+    expandRows: PropTypes.array,
+    expandIconCls: PropTypes.string,
 
     /**
      * selection
@@ -971,8 +976,13 @@ TableContent.defaultProps = {
 
     disabled: false,
     idProp: 'id',
-    expandRows: [],
     noDataText: 'No Data',
+
+    /**
+     * expand
+     */
+    expandRows: [],
+    expandIconCls: 'fas fa-chevron-right',
 
     /**
      * selection
