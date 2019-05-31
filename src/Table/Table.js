@@ -381,8 +381,13 @@ Table.propTypes = {
     idProp: PropTypes.string,
     disabled: PropTypes.bool,
     hasInitFadeOut: PropTypes.bool,
-    expandRows: PropTypes.array,
     noDataText: PropTypes.string,
+
+    /**
+     * expand
+     */
+    expandRows: PropTypes.array,
+    expandIconCls: PropTypes.string,
 
     /**
      * multi select
@@ -527,8 +532,13 @@ Table.defaultProps = {
 
     disabled: false,
     hasInitFadeOut: true,
-    expandRows: [],
     noDataText: 'No Data',
+
+    /**
+     * expand
+     */
+    expandRows: [],
+    expandIconCls: 'fas fa-chevron-right',
 
     /**
      * multi select
