@@ -10,15 +10,15 @@ import VirtualRoot from '../_statics/VirtualRoot';
 
 import Util from '../_vendors/Util';
 
-function calcSpan(type, column, colIndex, rowIndex) {
+function calcSpan(type, column, data, colIndex, rowIndex) {
     const span = column[`${type}Span`];
     return span && typeof span === 'function' ?
-        span(colIndex, rowIndex)
+        span(data, colIndex, rowIndex)
         :
         +span;
 }
 
-function getColumnsWithSpan(type, columns, rowIndex) {
+function getColumnsWithSpan(type, columns, data, rowIndex) {
 
     if (!type) {
         return columns.map(column => ({
@@ -30,15 +30,15 @@ function getColumnsWithSpan(type, columns, rowIndex) {
     const result = [];
     let spanFlag = 0;
 
-    for (let i = 0, len = columns.length; i < len; i++) {
+    for (let colIndex = 0, len = columns.length; colIndex < len; colIndex++) {
 
         if (spanFlag > 1) {
             spanFlag--;
             continue;
         }
 
-        const column = columns[i],
-            span = calcSpan(type, columns[i], i, rowIndex);
+        const column = columns[colIndex],
+            span = calcSpan(type, columns[colIndex], data, colIndex, rowIndex);
 
         if (span && span > 1) {
             spanFlag = span;
