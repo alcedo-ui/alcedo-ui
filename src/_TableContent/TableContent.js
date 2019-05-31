@@ -64,6 +64,15 @@ class TableContent extends Component {
 
     }
 
+    /**
+     * handle one node selected
+     * @param node
+     * @param rowIndex
+     * @param colIndex
+     * @param collapsed
+     * @param depth
+     * @param path
+     */
     handleSelect = (node, rowIndex, colIndex, collapsed, depth, path) => {
 
         if (!node || this.props.selectMode !== SelectMode.MULTI_SELECT) {
@@ -83,6 +92,15 @@ class TableContent extends Component {
 
     };
 
+    /**
+     * handle one node deselect
+     * @param node
+     * @param rowIndex
+     * @param colIndex
+     * @param collapsed
+     * @param depth
+     * @param path
+     */
     handleDeselect = (node, rowIndex, colIndex, collapsed, depth, path) => {
 
         if (!node || this.props.selectMode !== SelectMode.MULTI_SELECT) {
@@ -104,6 +122,9 @@ class TableContent extends Component {
 
     };
 
+    /**
+     * handle head select all
+     */
     handleSelectAll = () => {
 
         const {
@@ -122,6 +143,9 @@ class TableContent extends Component {
 
     };
 
+    /**
+     * handle head deselect all
+     */
     handleDeselectAll = () => {
 
         const {
@@ -452,6 +476,11 @@ class TableContent extends Component {
 
     };
 
+    /**
+     * handle one node expanded or collapsed
+     * @param collapsed
+     * @param rowData
+     */
     handleExpandChange = (collapsed, rowData) => {
 
         const {idProp, expandRows, onExpand, onCollapse, onExpandChange} = this.props;
@@ -487,14 +516,18 @@ class TableContent extends Component {
 
     componentDidMount() {
 
+        // get elements
         this.wrapperEl = this.wrapper && this.wrapper.current;
         this.fixedLeftEl = this.fixedLeft && this.fixedLeft.current && findDOMNode(this.fixedLeft.current);
         this.fixedRightEl = this.fixedRight && this.fixedRight.current && findDOMNode(this.fixedRight.current);
 
+        // bind event
         eventsOn(window, 'resize', this.debounceFixLayout);
 
+        // fixed layout at startup
         this.fixLayout();
 
+        // trigger initial callback at startup
         const {onInit} = this.props;
         if (onInit) {
             this.initTimeout = setTimeout(() => onInit(), 250);
