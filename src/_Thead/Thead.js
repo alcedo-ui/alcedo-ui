@@ -31,7 +31,7 @@ class Thead extends Component {
     render() {
 
         const {
-            className, style, columns, baseColIndex,
+            className, style, columns, baseColIndex, data,
             sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, onSortChange,
             ...restProps
         } = this.props;
@@ -49,6 +49,7 @@ class Thead extends Component {
                                                         key={colIndex}
                                                         className={column.headClassName}
                                                         style={column.headStyle}
+                                                        data={data}
                                                         renderer={column.headRenderer}
                                                         align={column.headAlign || column.align}
                                                         colIndex={baseColIndex + colIndex}
