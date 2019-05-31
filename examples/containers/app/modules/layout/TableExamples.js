@@ -413,40 +413,8 @@ class TableExamples extends Component {
                             <Table className="example-table"
                                    data={[]}
                                    columns={this.columns}
-                                   sorting={sorting}
                                    selectMode={Table.SelectMode.MULTI_SELECT}
-                                   isHeadFixed={true}
-                                   isFootFixed={true}
-                                   scroll={{
-                                       width: 1200,
-                                       maxHeight: 320
-                                   }}
-                                   pageSizes={[{
-                                       value: 10,
-                                       text: '10 / page'
-                                   }, {
-                                       value: 20,
-                                       text: '20 / page'
-                                   }, {
-                                       value: 30,
-                                       text: '30 / page'
-                                   }, {
-                                       value: 40,
-                                       text: '40 / page'
-                                   }, {
-                                       value: 50,
-                                       text: '50 / page'
-                                   }]}
-                                   onSortChange={this.handleSortChange}
-                                   onPaginationChange={this.handlePaginationChange}
-                                   onExpand={this.handleExpand}
-                                   onCollapse={this.handleCollapse}
-                                   onDataUpdate={this.handleDataUpdate}
-                                   onChange={this.handleChange}
-                                   onSelect={this.handleSelect}
-                                   onSelectAll={this.handleSelectAll}
-                                   onDeselect={this.handleDeselect}
-                                   onDeselectAll={this.handleSeselectAll}/>
+                                   isFootHidden={true}/>
 
                         </div>
                     </div>
