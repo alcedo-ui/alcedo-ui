@@ -37,7 +37,7 @@ class Tfoot extends Component {
     render() {
 
         const {className, columns, data, disabled, baseColIndex, onCellClick} = this.props,
-            columnsWithSpan = TableCalculation.getColumnsWithSpan(TableFragment.FOOT, columns);
+            columnsWithSpan = TableCalculation.getColumnsWithSpan(TableFragment.FOOT, columns, data);
 
         return (
             <tfoot className={classNames({
@@ -127,6 +127,13 @@ Tfoot.propTypes = {
 
         /**
          * column span of table header
+         *  (1) function callback:
+         *      function (tableData, colIndex) {
+         *          return null;
+         *      }
+         *
+         *  (2) number:
+         *      render whatever you pass
          */
         headSpan: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
 
@@ -159,6 +166,13 @@ Tfoot.propTypes = {
 
         /**
          * column span of table body
+         *  (1) function callback:
+         *      function (rowData, colIndex, rowIndex) {
+         *          return null;
+         *      }
+         *
+         *  (2) number:
+         *      render whatever you pass
          */
         bodySpan: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
 
@@ -190,7 +204,14 @@ Tfoot.propTypes = {
         footRenderer: PropTypes.any,
 
         /**
-         * column span of table foot
+         * column span of table foot.
+         *  (1) function callback:
+         *      function (tableData, colIndex) {
+         *          return null;
+         *      }
+         *
+         *  (2) number:
+         *      render whatever you pass
          */
         footSpan: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
 
