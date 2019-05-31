@@ -193,7 +193,7 @@ class TableContent extends Component {
 
                     {
                         TableCalculation.needCollapseButtonSpacing(tableData) ?
-                            <IconButton className={classNames('collapse-button', {
+                            <IconButton className={classNames('expand-button', {
                                 hidden: !rowData || !rowData.children || rowData.children.length < 1
                             })}
                                         iconCls={expandIconCls}
