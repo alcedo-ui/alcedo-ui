@@ -48,6 +48,18 @@ class Table extends Component {
     }
 
     /**
+     * public
+     */
+    collapseAllRows = () => {
+        this.setState({
+            expandRows: []
+        }, () => {
+            const {onExpandChange} = this.props;
+            onExpandChange && onExpandChange([]);
+        });
+    };
+
+    /**
      * keep table loading after do first render
      */
     handleInit = () => {
