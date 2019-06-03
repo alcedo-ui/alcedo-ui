@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component, Fragment, createRef} from 'react';
 import round from 'lodash/round';
 
 import Table from 'src/Table';
@@ -7,6 +7,7 @@ import IconButton from 'src/IconButton';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import CircularLoading from 'src/CircularLoading';
+import RaisedButton from 'src/RaisedButton';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Table.json';
@@ -22,6 +23,8 @@ class TableExamples extends Component {
     constructor(props) {
 
         super(props);
+
+        this.tableRef = createRef();
 
         this.state = {
             data: this.generateData(),
@@ -247,6 +250,11 @@ class TableExamples extends Component {
         console.log('Collapse: ', rowData);
     };
 
+    collapseAllRows = () => {
+        console.log('ref::', this.tableRef.current);
+        this.tableRef && this.tableRef.current && this.tableRef.current.collapseAllRows();
+    };
+
     render() {
 
         const {data, sorting} = this.state;
@@ -372,7 +380,14 @@ class TableExamples extends Component {
                     <div className="widget-content">
                         <div className="example-content">
 
-                            <Table className="example-table"
+                            <p>
+                                <RaisedButton className="action-button"
+                                              value="Collapse All Rows"
+                                              onClick={this.collapseAllRows}/>
+                            </p>
+
+                            <Table ref={this.tableRef}
+                                   className="example-table"
                                    data={data}
                                    columns={this.getFixedColumns()}
                                    sorting={sorting}
