@@ -284,16 +284,13 @@ function fixTableRowsHeight(wrapperEl, rowsHeight, fixed, props) {
  * @param shouldScroll
  * @param size
  */
-function fixHorizontalScrollStyle(el, shouldScroll, size = ScrollBar.getSize(Direction.HORIZONTAL)) {
+function fixHorizontalScrollStyle(el, size = ScrollBar.getSize(Direction.HORIZONTAL)) {
 
     if (!el) {
         return;
     }
 
-    if (!shouldScroll) {
-        el.style.marginBottom = 0;
-        el.style.paddingBottom = 0;
-    } else if (size && size > 0) {
+    if (size && size > 0) {
         el.style.marginBottom = `${-size}px`;
         el.style.paddingBottom = 0;
     } else {
@@ -321,8 +318,8 @@ function fixTableHorizontalScroll(wrapperEl, props) {
         return;
     }
 
-    const centerBodyScroller = wrapperEl.querySelector('.table-content-center .scrollable-table-body-scroller'),
-        shouldScroll = centerBodyScroller.offsetWidth - horizontalScrollBarSize < centerBodyScroller.scrollWidth;
+    // const centerBodyScroller = wrapperEl.querySelector('.table-content-center .scrollable-table-body-scroller'),
+    //     shouldScroll = centerBodyScroller.offsetWidth - horizontalScrollBarSize < centerBodyScroller.scrollWidth;
 
     /**
      * center head scroller
@@ -330,7 +327,7 @@ function fixTableHorizontalScroll(wrapperEl, props) {
     if (props && props.isHeadFixed) {
         const centerHeadScroller = wrapperEl.querySelector('.table-content-center .scrollable-table-head-scroller');
         if (centerHeadScroller) {
-            fixHorizontalScrollStyle(centerHeadScroller, shouldScroll, horizontalScrollBarSize);
+            fixHorizontalScrollStyle(centerHeadScroller, horizontalScrollBarSize);
         }
     }
 
@@ -340,7 +337,7 @@ function fixTableHorizontalScroll(wrapperEl, props) {
     if (props && props.isFootFixed) {
         const centerFoot = wrapperEl.querySelector('.table-content-center .scrollable-table-foot-scroller');
         if (centerFoot) {
-            fixHorizontalScrollStyle(centerFoot, shouldScroll, horizontalScrollBarSize);
+            fixHorizontalScrollStyle(centerFoot, horizontalScrollBarSize);
         }
     }
 
@@ -349,7 +346,7 @@ function fixTableHorizontalScroll(wrapperEl, props) {
      */
     const leftBody = wrapperEl.querySelector('.table-content-left .scrollable-table-body-scroller');
     if (leftBody) {
-        fixHorizontalScrollStyle(leftBody, shouldScroll, horizontalScrollBarSize);
+        fixHorizontalScrollStyle(leftBody, horizontalScrollBarSize);
     }
 
     /**
@@ -357,7 +354,7 @@ function fixTableHorizontalScroll(wrapperEl, props) {
      */
     const leftBodyMask = wrapperEl.querySelector('.table-content-left .scrollable-table-body-mask');
     if (leftBodyMask) {
-        leftBodyMask.style.paddingBottom = shouldScroll ? `${horizontalScrollBarSize}px` : 0;
+        leftBodyMask.style.paddingBottom = `${horizontalScrollBarSize}px`;
     }
 
     /**
@@ -365,7 +362,7 @@ function fixTableHorizontalScroll(wrapperEl, props) {
      */
     const leftFoot = wrapperEl.querySelector('.table-content-left .scrollable-table-foot');
     if (leftFoot) {
-        leftFoot.style.marginTop = shouldScroll ? `${horizontalScrollBarSize}px` : 0;
+        leftFoot.style.marginTop = `${horizontalScrollBarSize}px`;
     }
 
     /**
@@ -373,7 +370,7 @@ function fixTableHorizontalScroll(wrapperEl, props) {
      */
     const rightBody = wrapperEl.querySelector('.table-content-right .scrollable-table-body-scroller');
     if (rightBody) {
-        fixHorizontalScrollStyle(rightBody, shouldScroll, horizontalScrollBarSize);
+        fixHorizontalScrollStyle(rightBody, horizontalScrollBarSize);
     }
 
     /**
@@ -381,7 +378,7 @@ function fixTableHorizontalScroll(wrapperEl, props) {
      */
     const rightBodyMask = wrapperEl.querySelector('.table-content-right .scrollable-table-body-mask');
     if (rightBodyMask) {
-        rightBodyMask.style.paddingBottom = shouldScroll ? `${horizontalScrollBarSize}px` : 0;
+        rightBodyMask.style.paddingBottom = `${horizontalScrollBarSize}px`;
     }
 
     /**
@@ -389,7 +386,7 @@ function fixTableHorizontalScroll(wrapperEl, props) {
      */
     const rightFoot = wrapperEl.querySelector('.table-content-right .scrollable-table-foot');
     if (rightFoot) {
-        rightFoot.style.marginTop = shouldScroll ? `${horizontalScrollBarSize}px` : 0;
+        rightFoot.style.marginTop = `${horizontalScrollBarSize}px`;
     }
 
 }
