@@ -4,6 +4,7 @@
  */
 
 import sum from 'lodash/sum';
+import hasClass from 'dom-helpers/class/hasClass';
 import addClass from 'dom-helpers/class/addClass';
 import removeClass from 'dom-helpers/class/removeClass';
 
@@ -409,39 +410,51 @@ function fixTableVerticalScroll(wrapperEl, props) {
     /**
      * fix center head width
      */
-    if (props && props.isHeadFixed && verticalScrollBarSize && verticalScrollBarSize > 0) {
-        const centerHead = wrapperEl.querySelector('.table-content-center .scrollable-table-head-scroller');
-        if (centerHead) {
-            centerHead.style.width = `calc(100% - ${verticalScrollBarSize}px)`;
-        }
-    }
+    // if (props && props.isHeadFixed && verticalScrollBarSize && verticalScrollBarSize > 0) {
+    //     const centerHead = wrapperEl.querySelector('.table-content-center .scrollable-table-head-scroller');
+    //     if (centerHead) {
+    //         centerHead.style.width = `calc(100% - ${verticalScrollBarSize}px)`;
+    //     }
+    // }
 
     /**
      * fix center foot width
      */
-    if (props && props.isFootFixed && verticalScrollBarSize && verticalScrollBarSize > 0) {
-        const centerFoot = wrapperEl.querySelector('.table-content-center .scrollable-table-foot-scroller');
-        if (centerFoot) {
-            centerFoot.style.width = `calc(100% - ${verticalScrollBarSize}px)`;
-        }
-    }
+    // if (props && props.isFootFixed && verticalScrollBarSize && verticalScrollBarSize > 0) {
+    //     const centerFoot = wrapperEl.querySelector('.table-content-center .scrollable-table-foot-scroller');
+    //     if (centerFoot) {
+    //         centerFoot.style.width = `calc(100% - ${verticalScrollBarSize}px)`;
+    //     }
+    // }
 
     /**
      * fix left body horizontal scroll bar
      */
-    const leftBody = wrapperEl.querySelector('.table-content-left .scrollable-table-body-scroller');
-    if (leftBody) {
+    const leftBodyScroller = wrapperEl.querySelector('.table-content-left .scrollable-table-body-scroller');
+    if (leftBodyScroller) {
+
+        // has vertical scroll bar width, like windows
         if (verticalScrollBarSize && verticalScrollBarSize > 0) {
-            leftBody.style.marginRight = `-${verticalScrollBarSize}px`;
-            leftBody.style.paddingRight = 0;
-        } else {
-            const leftBodyTable = leftBody.querySelector('table');
+
+            leftBodyScroller.style.paddingRight = 0;
+
+            // only fix when vertical scroll
+            if (leftBodyScroller.offsetHeight < leftBodyScroller.scrollHeight) {
+                leftBodyScroller.style.marginRight = `-${verticalScrollBarSize}px`;
+            }
+
+        }
+
+        // no vertical scroll bar width, like mac
+        else {
+            const leftBodyTable = leftBodyScroller.querySelector('table');
             if (leftBodyTable) {
                 const restWidth = wrapperEl.offsetWidth - leftBodyTable.offsetWidth;
-                leftBody.style.marginRight = `-${restWidth}px`;
-                leftBody.style.paddingRight = `${restWidth}px`;
+                leftBodyScroller.style.marginRight = `-${restWidth}px`;
+                leftBodyScroller.style.paddingRight = `${restWidth}px`;
             }
         }
+
     }
 
 }
@@ -514,23 +527,29 @@ function updateHorizontalScrollClassNames(wrapperEl, scrollerEl) {
         return;
     }
 
-    removeClass(wrapperEl, 'scroll-left');
-    removeClass(wrapperEl, 'scroll-center');
-    removeClass(wrapperEl, 'scroll-right');
-
     const {scrollWidth, offsetWidth, scrollLeft} = scrollerEl,
         verticalScrollBarSize = ScrollBar.getSize(Direction.VERTICAL);
 
     // no scroll
     if (scrollWidth === offsetWidth - verticalScrollBarSize) {
+        removeClass(wrapperEl, 'scroll-left');
+        removeClass(wrapperEl, 'scroll-center');
+        removeClass(wrapperEl, 'scroll-right');
         return;
     }
 
-    if (scrollLeft === 0) {
+    if (scrollLeft === 0 && !hasClass(wrapperEl, 'scroll-left')) {
+        removeClass(wrapperEl, 'scroll-center');
+        removeClass(wrapperEl, 'scroll-right');
         addClass(wrapperEl, 'scroll-left');
-    } else if (scrollLeft === scrollWidth - offsetWidth + verticalScrollBarSize) {
+    } else if (scrollLeft === scrollWidth - offsetWidth + verticalScrollBarSize
+        && !hasClass(wrapperEl, 'scroll-right')) {
+        removeClass(wrapperEl, 'scroll-left');
+        removeClass(wrapperEl, 'scroll-center');
         addClass(wrapperEl, 'scroll-right');
-    } else {
+    } else if (!hasClass(wrapperEl, 'scroll-center')) {
+        removeClass(wrapperEl, 'scroll-left');
+        removeClass(wrapperEl, 'scroll-right');
         addClass(wrapperEl, 'scroll-center');
     }
 
