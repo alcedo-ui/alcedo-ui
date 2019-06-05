@@ -19,8 +19,7 @@
         .scrollable-table-foot-scroller {
             padding-bottom: 20px;
             margin-bottom: -20px;
-            overflow-x: auto;
-            overflow-y: scroll;
+            overflow: scroll;
         }
 
         .scrollable-table-body-scroller {

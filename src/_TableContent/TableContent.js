@@ -615,6 +615,7 @@ class TableContent extends Component {
                                      isFixedFootHidden={isNoData}
                                      hasFixedLeftColumn={hasFixedLeftColumn}
                                      hasFixedRightColumn={hasFixedRightColumn}
+                                     scroll={scroll}
                                      onScroll={this.handleScroll}
                                      onWheel={this.handleWheel}
                                      onGetHeadScrollerEl={el =>
@@ -642,6 +643,7 @@ class TableContent extends Component {
                                              isFixedFootHidden={isNoData}
                                              hasFixedLeftColumn={hasFixedLeftColumn}
                                              hasFixedRightColumn={hasFixedRightColumn}
+                                             scroll={scroll}
                                              onGetHeadScrollerEl={el =>
                                                  this.handleGetScrollerEl(el, HorizontalAlign.LEFT, TableFragment.HEAD)}
                                              onGetBodyScrollerEl={el =>
@@ -673,6 +675,7 @@ class TableContent extends Component {
                                              isFixedFootHidden={isNoData}
                                              hasFixedLeftColumn={hasFixedLeftColumn}
                                              hasFixedRightColumn={hasFixedRightColumn}
+                                             scroll={scroll}
                                              baseColIndex={this.formatedColumns.length - this.fixedRightColumns.length}
                                              onScroll={this.handleScroll}
                                              onWheel={this.handleWheel}
