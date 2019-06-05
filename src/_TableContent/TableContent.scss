@@ -15,14 +15,14 @@
     }
 
     .table-content-center {
-        .scrollable-table-head-scroller,
-        .scrollable-table-foot-scroller {
+        .scroll-table-head-scroller,
+        .scroll-table-foot-scroller {
             padding-bottom: 20px;
             margin-bottom: -20px;
             overflow: scroll;
         }
 
-        .scrollable-table-body-scroller {
+        .scroll-table-body-scroller {
             .base-table {
                 width: 100%;
             }
@@ -35,7 +35,7 @@
         top: 0;
         transition: box-shadow .3s ease;
 
-        .scrollable-table-body-scroller {
+        .scroll-table-body-scroller {
             overflow-x: hidden;
             overflow-y: auto;
         }
@@ -49,7 +49,7 @@
     .table-content-right {
         right: 0;
 
-        .scrollable-table-head-scroller {
+        .scroll-table-head-scroller {
             background: $theme-field-bg-disabled;
         }
     }
@@ -61,7 +61,7 @@
     &.head-fixed {
         .table-content-left,
         .table-content-right {
-            .scrollable-table-body-mask {
+            .scroll-table-body-mask {
                 margin-top: -1px;
             }
         }
