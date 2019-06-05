@@ -435,14 +435,11 @@ function fixTableVerticalScroll(wrapperEl, props) {
 
         // has vertical scroll bar width, like windows
         if (verticalScrollBarSize && verticalScrollBarSize > 0) {
-
-            leftBodyScroller.style.paddingRight = 0;
-
-            // only fix when vertical scroll
+            // only fix when has vertical scroll
             if (leftBodyScroller.offsetHeight < leftBodyScroller.scrollHeight) {
+                leftBodyScroller.style.paddingRight = 0;
                 leftBodyScroller.style.marginRight = `-${verticalScrollBarSize}px`;
             }
-
         }
 
         // no vertical scroll bar width, like mac
@@ -527,23 +524,28 @@ function updateHorizontalScrollClassNames(wrapperEl, scrollerEl) {
         return;
     }
 
-    const {scrollWidth, offsetWidth, scrollLeft} = scrollerEl,
-        verticalScrollBarSize = ScrollBar.getSize(Direction.VERTICAL);
+    const verticalScrollBarSize = scrollerEl.offsetHeight < scrollerEl.scrollHeight ?
+        ScrollBar.getSize(Direction.VERTICAL)
+        :
+        0;
+
+    removeClass(wrapperEl, 'scroll-left');
+    removeClass(wrapperEl, 'scroll-center');
+    removeClass(wrapperEl, 'scroll-right');
 
     // no scroll
-    if (scrollWidth === offsetWidth - verticalScrollBarSize) {
-        removeClass(wrapperEl, 'scroll-left');
-        removeClass(wrapperEl, 'scroll-center');
-        removeClass(wrapperEl, 'scroll-right');
+    if (scrollerEl.scrollWidth + verticalScrollBarSize === scrollerEl.offsetWidth) {
         return;
     }
 
-    if (scrollLeft === 0 && !hasClass(wrapperEl, 'scroll-left')) {
+    if (scrollerEl.scrollLeft === 0 && !hasClass(wrapperEl, 'scroll-left')) {
         removeClass(wrapperEl, 'scroll-center');
         removeClass(wrapperEl, 'scroll-right');
         addClass(wrapperEl, 'scroll-left');
-    } else if (scrollLeft === scrollWidth - offsetWidth + verticalScrollBarSize
-        && !hasClass(wrapperEl, 'scroll-right')) {
+    } else if (
+        scrollerEl.scrollLeft === scrollerEl.scrollWidth - scrollerEl.offsetWidth + verticalScrollBarSize
+        && !hasClass(wrapperEl, 'scroll-right')
+    ) {
         removeClass(wrapperEl, 'scroll-left');
         removeClass(wrapperEl, 'scroll-center');
         addClass(wrapperEl, 'scroll-right');
