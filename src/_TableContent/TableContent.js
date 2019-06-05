@@ -307,8 +307,8 @@ class TableContent extends Component {
     fixLayout = () => {
         if (this.wrapperEl && TableLayout.hasFixed(this.props, this)) {
             TableLayout.fixLayout(this.wrapperEl, this.props, !this.tableData || this.tableData.length < 1);
+            TableLayout.updateHorizontalScrollClassNames(this.wrapperEl, this.centerBodyScroller);
         }
-        TableLayout.updateHorizontalScrollClassNames(this.wrapperEl, this.centerBodyScroller);
     };
 
     /**
