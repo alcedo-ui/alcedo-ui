@@ -1,23 +1,23 @@
 /**
- * @file ScrollableTable style
+ * @file ScrollTable style
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-.scrollable-table {
+.scroll-table {
 
-    .scrollable-table-head,
-    .scrollable-table-foot {
+    .scroll-table-head,
+    .scroll-table-foot {
         overflow: hidden;
     }
 
-    .scrollable-table-body {
+    .scroll-table-body {
         position: relative;
         overflow: hidden;
 
-        .scrollable-table-body-scroller {
+        .scroll-table-body-scroller {
             overflow: auto;
 
-            .scrollable-table-body-mask {
+            .scroll-table-body-mask {
 
                 &.mask-vertical {
                     overflow-y: hidden;
@@ -30,7 +30,7 @@
         }
     }
 
-    .scrollable-table-foot {
+    .scroll-table-foot {
         position: relative;
         top: -1px;
     }
