@@ -45,6 +45,10 @@
         text-align: right;
     }
 
+    &.no-wrap {
+        white-space: nowrap;
+    }
+
     &.sorting {
         background: darken($theme-field-bg, 2%);
     }

@@ -41,13 +41,14 @@ class Td extends Component {
     render() {
 
         const {
-            className, style, align, span,
+            className, style, align, span, noWrap,
             sortable, sortingProp, sorting
         } = this.props;
 
         return (
             <td className={classNames({
                 [`align-${align}`]: align && align !== HorizontalAlign.LEFT,
+                'no-wrap': noWrap,
                 sorting: sortable && sortingProp && sorting && sorting.prop && sorting.prop === sortingProp,
                 [className]: className
             })}
@@ -75,6 +76,7 @@ Td.propTypes = {
     align: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
     span: PropTypes.number,
     disabled: PropTypes.bool,
+    noWrap: PropTypes.bool,
     collapsed: PropTypes.bool,
     depth: PropTypes.number,
     path: PropTypes.array,
