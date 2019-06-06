@@ -43,28 +43,32 @@ class Thead extends Component {
                     columns && columns.map((row, rowIndex) => row ?
                         <tr key={rowIndex}>
                             {
-                                TableCalculation.getColumnsWithSpan(TableFragment.HEAD, row, data)
-                                                .map(({column, span}, colIndex) => column ?
-                                                    <Th {...restProps}
-                                                        key={colIndex}
-                                                        className={column.headClassName}
-                                                        style={column.headStyle}
-                                                        data={data}
-                                                        renderer={column.headRenderer}
-                                                        align={column.headAlign || column.align}
-                                                        colIndex={baseColIndex + colIndex}
-                                                        rowSpan={column.rowSpan}
-                                                        colSpan={column.colSpan}
-                                                        sorting={sorting}
-                                                        defaultSortingType={column.defaultSortingType || defaultSortingType}
-                                                        sortingAscIconCls={sortingAscIconCls}
-                                                        sortingDescIconCls={sortingDescIconCls}
-                                                        sortable={column.sortable}
-                                                        sortingProp={column.sortingProp}
-                                                        onSortChange={onSortChange}/>
-                                                    :
-                                                    null
-                                                )
+                                TableCalculation.getColumnsWithSpan(TableFragment.HEAD, row, data).map(({column, span}, colIndex) => column ?
+                                    <Th {...restProps}
+                                        key={colIndex}
+                                        className={column.headClassName}
+                                        style={column.headStyle}
+                                        data={data}
+                                        renderer={column.headRenderer}
+                                        align={column.headAlign || column.align}
+                                        colIndex={baseColIndex + colIndex}
+                                        rowSpan={column.rowSpan}
+                                        colSpan={column.colSpan}
+                                        noWrap={TableCalculation.handleNoWrap(column.headNoWrap, column.noWrap, {
+                                            data,
+                                            rowIndex,
+                                            colIndex: baseColIndex + colIndex
+                                        })}
+                                        sorting={sorting}
+                                        defaultSortingType={column.defaultSortingType || defaultSortingType}
+                                        sortingAscIconCls={sortingAscIconCls}
+                                        sortingDescIconCls={sortingDescIconCls}
+                                        sortable={column.sortable}
+                                        sortingProp={column.sortingProp}
+                                        onSortChange={onSortChange}/>
+                                    :
+                                    null
+                                )
                             }
                         </tr>
                         :
@@ -88,24 +92,29 @@ Thead.propTypes = {
     columns: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.shape({
 
         /**
-         * fixed position of column ( true / 'left' / 'right' )
+         * fixed position of column ( true / 'left' / 'right' ).
          */
         fixed: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(Util.enumerateValue(HorizontalAlign))]),
 
         /**
-         * width of column
+         * width of column.
          */
         width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
         /**
-         * minimum width of column
+         * minimum width of column.
          */
         minWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
         /**
-         * align of current column
+         * align of current column.
          */
         align: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
+
+        /**
+         * no wrap of current column.
+         */
+        noWrap: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 
         /**
          * The class name of header.
@@ -135,7 +144,7 @@ Thead.propTypes = {
         headRenderer: PropTypes.any,
 
         /**
-         * column span of table header
+         * column span of table header.
          *  (1) function callback:
          *      function (tableData, colIndex) {
          *          return null;
@@ -145,6 +154,11 @@ Thead.propTypes = {
          *      render whatever you pass
          */
         headSpan: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+
+        /**
+         * no wrap of table header.
+         */
+        headNoWrap: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 
         /**
          * The class name of td.
@@ -157,7 +171,7 @@ Thead.propTypes = {
         bodyStyle: PropTypes.object,
 
         /**
-         * align of table body cell
+         * align of table body cell.
          */
         bodyAlign: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
 
@@ -174,7 +188,7 @@ Thead.propTypes = {
         bodyRenderer: PropTypes.any,
 
         /**
-         * column span of table body
+         * column span of table body.
          *  (1) function callback:
          *      function (rowData, colIndex, rowIndex) {
          *          return null;
@@ -184,6 +198,11 @@ Thead.propTypes = {
          *      render whatever you pass
          */
         bodySpan: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+
+        /**
+         * no wrap of table body.
+         */
+        bodyNoWrap: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 
         /**
          * The class name of footer.
@@ -223,6 +242,11 @@ Thead.propTypes = {
          *      render whatever you pass
          */
         footSpan: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+
+        /**
+         * no wrap of table foot.
+         */
+        footNoWrap: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 
         /**
          * If true,this column can be sorted.
