@@ -40,8 +40,8 @@ class TableExamples extends Component {
             sortingProp: 'id'
         }, {
             width: 300,
+            noWrap: true,
             headRenderer: 'Name',
-            bodyClassName: 'nowrap',
             bodyRenderer: rowDate => rowDate.firstName && rowDate.lastName ?
                 `${rowDate.firstName} ${rowDate.lastName}` : '',
             sortable: true,
