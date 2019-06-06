@@ -58,6 +58,11 @@ class Tfoot extends Component {
                                 renderer={column.footRenderer}
                                 align={column.footAlign || column.align}
                                 span={span}
+                                noWrap={TableCalculation.handleNoWrap(column.footNoWrap, column.noWrap, {
+                                    data,
+                                    rowIndex: 0,
+                                    colIndex: baseColIndex + colIndex
+                                })}
                                 disabled={disabled}
                                 onCellClick={onCellClick}/>
                         )
@@ -79,24 +84,29 @@ Tfoot.propTypes = {
     columns: PropTypes.arrayOf(PropTypes.shape({
 
         /**
-         * fixed position of column ( true / 'left' / 'right' )
+         * fixed position of column ( true / 'left' / 'right' ).
          */
         fixed: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(Util.enumerateValue(HorizontalAlign))]),
 
         /**
-         * width of column
+         * width of column.
          */
         width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
         /**
-         * minimum width of column
+         * minimum width of column.
          */
         minWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
         /**
-         * align of current column
+         * align of current column.
          */
         align: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
+
+        /**
+         * no wrap of current column.
+         */
+        noWrap: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 
         /**
          * The class name of header.
@@ -126,7 +136,7 @@ Tfoot.propTypes = {
         headRenderer: PropTypes.any,
 
         /**
-         * column span of table header
+         * column span of table header.
          *  (1) function callback:
          *      function (tableData, colIndex) {
          *          return null;
@@ -136,6 +146,11 @@ Tfoot.propTypes = {
          *      render whatever you pass
          */
         headSpan: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+
+        /**
+         * no wrap of table header.
+         */
+        headNoWrap: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 
         /**
          * The class name of td.
@@ -148,7 +163,7 @@ Tfoot.propTypes = {
         bodyStyle: PropTypes.object,
 
         /**
-         * align of table body cell
+         * align of table body cell.
          */
         bodyAlign: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
 
@@ -165,7 +180,7 @@ Tfoot.propTypes = {
         bodyRenderer: PropTypes.any,
 
         /**
-         * column span of table body
+         * column span of table body.
          *  (1) function callback:
          *      function (rowData, colIndex, rowIndex) {
          *          return null;
@@ -175,6 +190,11 @@ Tfoot.propTypes = {
          *      render whatever you pass
          */
         bodySpan: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+
+        /**
+         * no wrap of table body.
+         */
+        bodyNoWrap: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 
         /**
          * The class name of footer.
@@ -214,6 +234,11 @@ Tfoot.propTypes = {
          *      render whatever you pass
          */
         footSpan: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+
+        /**
+         * no wrap of table foot.
+         */
+        footNoWrap: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 
         /**
          * If true,this column can be sorted.
