@@ -25,6 +25,10 @@
         .th-column-title {
             display: table-cell;
             vertical-align: middle;
+
+            &.no-wrap {
+                white-space: nowrap;
+            }
         }
     }
 

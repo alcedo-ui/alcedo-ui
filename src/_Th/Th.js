@@ -69,7 +69,7 @@ class Th extends Component {
     render() {
 
         const {
-            className, style, renderer, align, rowSpan, colSpan,
+            className, style, renderer, align, rowSpan, colSpan, noWrap,
             sortable, sortingProp, sorting, sortingAscIconCls, sortingDescIconCls
         } = this.props;
 
@@ -88,7 +88,9 @@ class Th extends Component {
 
                 <span className="th-column">
 
-                    <span className="th-column-title">
+                    <span className={classNames('th-column-title', {
+                        'no-wrap': noWrap
+                    })}>
                         {this.handleRender()}
                     </span>
 
@@ -119,6 +121,9 @@ Th.propTypes = {
     align: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
     colIndex: PropTypes.number,
     data: PropTypes.array,
+    noWrap: PropTypes.bool,
+    rowSpan: PropTypes.number,
+    colSpan: PropTypes.number,
 
     /**
      * sorting
