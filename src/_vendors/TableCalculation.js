@@ -448,6 +448,22 @@ function getPageSizeValue(pageSize, pageSizeValueField) {
         pageSize;
 }
 
+function handleNoWrap(fragmentNoWrap, columnNoWrap, {data, colIndex, rowIndex}) {
+    return !!((
+            typeof fragmentNoWrap === 'function' ?
+                fragmentNoWrap(data, colIndex, rowIndex)
+                :
+                fragmentNoWrap
+        )
+        ||
+        (
+            typeof columnNoWrap === 'function' ?
+                columnNoWrap(data, colIndex, rowIndex)
+                :
+                columnNoWrap
+        ));
+}
+
 export default {
     calcSpan,
     getColumnsWithSpan,
@@ -472,5 +488,6 @@ export default {
     getFixedBodyColumns,
     recursiveSelectChildren,
     needCollapseButtonSpacing,
-    getPageSizeValue
+    getPageSizeValue,
+    handleNoWrap
 };
