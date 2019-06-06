@@ -14,11 +14,12 @@ class ScrollableTable extends Component {
 
     render() {
 
-        const {children, scroll, ...restProps} = this.props;
+        const {children, style, scroll, ...restProps} = this.props;
 
         return scroll ?
             <div {...restProps}
                  style={{
+                     ...style,
                      overflowX: scroll.width ? 'scroll' : null,
                      overflowY: scroll.height || scroll.maxHeight ? 'scroll' : null
                  }}>
@@ -33,6 +34,8 @@ class ScrollableTable extends Component {
 ScrollableTable.propTypes = {
 
     children: PropTypes.any,
+
+    style: PropTypes.object,
 
     /**
      * scroll
