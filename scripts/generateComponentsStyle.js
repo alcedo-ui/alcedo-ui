@@ -14,12 +14,12 @@ function fsExistsSync(path) {
     return true;
 }
 
-log.title('info', 'WAIT', `Generating Components Style Index... `);
+log.title('info', 'WAIT', 'Generating Components Style Index...');
 
 fs.readdir('./src', (err, files) => {
 
     if (err) {
-        log.title('error', 'ERROR', `read src error `);
+        log.title('error', 'ERROR', 'read src error');
     } else {
 
         try {
@@ -43,7 +43,7 @@ fs.readdir('./src', (err, files) => {
                 if (error) {
                     throw error;
                 }
-                log.title('success', 'DONE', `Generate Components Style Index Successfully! `);
+                log.title('success', 'DONE', 'Generate Components Style Index Successfully!');
             });
 
         } catch (e) {
