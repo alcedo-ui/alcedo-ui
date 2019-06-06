@@ -13,12 +13,12 @@ function isDirectory(path) {
     }
 }
 
-log.title('info', 'WAIT', `Generating Components Index... `);
+log.title('info', 'WAIT', 'Generating Components Index...');
 
 fs.readdir('./src', (err, files) => {
 
     if (err) {
-        log.title('error', 'ERROR', `read src error `);
+        log.title('error', 'ERROR', 'read src error');
     } else {
 
         try {
@@ -38,7 +38,7 @@ fs.readdir('./src', (err, files) => {
                 if (error) {
                     throw error;
                 }
-                log.title('success', 'DONE', `Generate Components Index Successfully! `);
+                log.title('success', 'DONE', 'Generate Components Index Successfully!');
             });
 
         } catch (e) {
