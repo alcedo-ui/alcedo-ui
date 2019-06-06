@@ -192,24 +192,29 @@ ScrollTable.propTypes = {
     columns: PropTypes.arrayOf(PropTypes.shape({
 
         /**
-         * fixed position of column ( true / 'left' / 'right' )
+         * fixed position of column ( true / 'left' / 'right' ).
          */
         fixed: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(Util.enumerateValue(HorizontalAlign))]),
 
         /**
-         * width of column
+         * width of column.
          */
         width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
         /**
-         * minimum width of column
+         * minimum width of column.
          */
         minWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
         /**
-         * align of current column
+         * align of current column.
          */
         align: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
+
+        /**
+         * no wrap of current column.
+         */
+        noWrap: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 
         /**
          * The class name of header.
@@ -239,7 +244,7 @@ ScrollTable.propTypes = {
         headRenderer: PropTypes.any,
 
         /**
-         * column span of table header
+         * column span of table header.
          *  (1) function callback:
          *      function (tableData, colIndex) {
          *          return null;
@@ -249,6 +254,11 @@ ScrollTable.propTypes = {
          *      render whatever you pass
          */
         headSpan: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+
+        /**
+         * no wrap of table header.
+         */
+        headNoWrap: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 
         /**
          * The class name of td.
@@ -261,7 +271,7 @@ ScrollTable.propTypes = {
         bodyStyle: PropTypes.object,
 
         /**
-         * align of table body cell
+         * align of table body cell.
          */
         bodyAlign: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
 
@@ -278,7 +288,7 @@ ScrollTable.propTypes = {
         bodyRenderer: PropTypes.any,
 
         /**
-         * column span of table body
+         * column span of table body.
          *  (1) function callback:
          *      function (rowData, colIndex, rowIndex) {
          *          return null;
@@ -288,6 +298,11 @@ ScrollTable.propTypes = {
          *      render whatever you pass
          */
         bodySpan: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+
+        /**
+         * no wrap of table body.
+         */
+        bodyNoWrap: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 
         /**
          * The class name of footer.
@@ -327,6 +342,11 @@ ScrollTable.propTypes = {
          *      render whatever you pass
          */
         footSpan: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+
+        /**
+         * no wrap of table foot.
+         */
+        footNoWrap: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 
         /**
          * If true,this column can be sorted.
