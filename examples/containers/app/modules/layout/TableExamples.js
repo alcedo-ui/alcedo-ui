@@ -271,7 +271,11 @@ class TableExamples extends Component {
             return data;
         }
 
-        return data.filter(item => item && item.name && item.name.toUpperCase().includes(filter.toUpperCase()));
+        return data.filter(item => item && (
+            (item.firstName && item.firstName.toUpperCase().includes(filter.toUpperCase()))
+            ||
+            (item.lastName && item.lastName.toUpperCase().includes(filter.toUpperCase()))
+        ));
 
     };
 
@@ -425,6 +429,7 @@ class TableExamples extends Component {
                                        width: 1200,
                                        height: filteredData && filteredData.length > 0 ? 320 : 0
                                    }}
+                                   useFullPagination={true}
                                    paginationTotalRenderer={total => <span>Self Defined Total: {total}</span>}
                                    onSortChange={this.handleSortChange}
                                    onPaginationChange={this.handlePaginationChange}
