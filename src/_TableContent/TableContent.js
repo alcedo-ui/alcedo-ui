@@ -306,8 +306,8 @@ class TableContent extends Component {
      */
     fixLayout = () => {
         if (this.wrapperEl && TableLayout.hasFixed(this.props, this)) {
-            TableLayout.fixLayout(this.wrapperEl, this.props, !this.tableData || this.tableData.length < 1);
-            TableLayout.updateHorizontalScrollClassNames(this.wrapperEl, this.centerBodyScroller);
+            TableLayout.fixLayout(this.wrapperEl, this.props);
+            TableLayout.updateHorizontalScrollClassNames(this.wrapperEl, this.centerHeadScroller);
         }
     };
 
@@ -372,7 +372,7 @@ class TableContent extends Component {
                 }
             }
 
-            TableLayout.updateHorizontalScrollClassNames(this.wrapperEl, this.centerBodyScroller);
+            TableLayout.updateHorizontalScrollClassNames(this.wrapperEl, this.centerHeadScroller);
 
         }
 
@@ -610,9 +610,8 @@ class TableContent extends Component {
                                  isHeadFixed={isHeadFixed}
                                  isFootFixed={isFootFixed}
                                  isHeadHidden={isFinalHeadHidden}
+                                 isBodyHidden={isNoData}
                                  isFootHidden={isFinalFootHidden}
-                                 isFixedHeadHidden={isNoData}
-                                 isFixedFootHidden={isNoData}
                                  hasFixedLeftColumn={hasFixedLeftColumn}
                                  hasFixedRightColumn={hasFixedRightColumn}
                                  scroll={scroll}
@@ -638,9 +637,8 @@ class TableContent extends Component {
                                          isHeadFixed={isHeadFixed}
                                          isFootFixed={isFootFixed}
                                          isHeadHidden={isFinalHeadHidden}
+                                         isBodyHidden={isNoData}
                                          isFootHidden={isFinalFootHidden}
-                                         isFixedHeadHidden={isNoData}
-                                         isFixedFootHidden={isNoData}
                                          hasFixedLeftColumn={hasFixedLeftColumn}
                                          hasFixedRightColumn={hasFixedRightColumn}
                                          scroll={scroll}
@@ -670,9 +668,8 @@ class TableContent extends Component {
                                          isHeadFixed={isHeadFixed}
                                          isFootFixed={isFootFixed}
                                          isHeadHidden={isFinalHeadHidden}
+                                         isBodyHidden={isNoData}
                                          isFootHidden={isFinalFootHidden}
-                                         isFixedHeadHidden={isNoData}
-                                         isFixedFootHidden={isNoData}
                                          hasFixedLeftColumn={hasFixedLeftColumn}
                                          hasFixedRightColumn={hasFixedRightColumn}
                                          scroll={scroll}
