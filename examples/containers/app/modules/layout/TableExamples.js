@@ -8,6 +8,7 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import CircularLoading from 'src/CircularLoading';
 import RaisedButton from 'src/RaisedButton';
+import MaterialTextField from 'src/MaterialTextField';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Table.json';
@@ -28,7 +29,8 @@ class TableExamples extends Component {
 
         this.state = {
             data: this.generateData(),
-            sorting: null
+            sorting: null,
+            filter: ''
         };
 
         this.columns = [{
@@ -255,9 +257,27 @@ class TableExamples extends Component {
         this.tableRef && this.tableRef.current && this.tableRef.current.collapseAllRows();
     };
 
+    handleFilter = filter => {
+        this.setState({
+            filter
+        });
+    };
+
+    filterData = (data = this.state.data) => {
+
+        const {filter} = this.state;
+
+        if (!filter) {
+            return data;
+        }
+
+        return data.filter(item => item && item.name && item.name.toUpperCase().includes(filter.toUpperCase()));
+
+    };
+
     render() {
 
-        const {data, sorting} = this.state;
+        const {data, sorting, filter} = this.state;
 
         return (
             <div className="example table-examples">
@@ -380,15 +400,20 @@ class TableExamples extends Component {
                     <div className="widget-content">
                         <div className="example-content">
 
-                            <p>
+                            <p className="float-fix">
                                 <RaisedButton className="action-button"
                                               value="Collapse All Rows"
                                               onClick={this.collapseAllRows}/>
+
+                                <MaterialTextField className="filter"
+                                                   label="Filter"
+                                                   value={filter}
+                                                   onChange={this.handleFilter}/>
                             </p>
 
                             <Table ref={this.tableRef}
                                    className="example-table"
-                                   data={data}
+                                   data={this.filterData(data)}
                                    columns={this.getFixedColumns()}
                                    sorting={sorting}
                                    selectMode={Table.SelectMode.MULTI_SELECT}

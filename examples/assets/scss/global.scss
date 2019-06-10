@@ -31,3 +31,7 @@ body {
     min-width: $minWidth;
     overflow-x: hidden;
 }
+
+.float-fix {
+    @include float-fix;
+}
