@@ -2,14 +2,19 @@
 
 .table-examples {
 
-    .action-button {
-        width: auto;
-        margin-top: 17px;
+    .toolbar {
+        margin-bottom: 16px;
+
+        .action-button {
+            width: auto;
+            margin-top: 17px;
+        }
+
+        .filter {
+            float: right;
+        }
     }
 
-    .filter {
-        float: right;
-    }
 
     .table.example-table {
 

@@ -277,7 +277,8 @@ class TableExamples extends Component {
 
     render() {
 
-        const {data, sorting, filter} = this.state;
+        const {data, sorting, filter} = this.state,
+            filteredData = this.filterData(data);
 
         return (
             <div className="example table-examples">
@@ -400,7 +401,7 @@ class TableExamples extends Component {
                     <div className="widget-content">
                         <div className="example-content">
 
-                            <p className="float-fix">
+                            <div className="toolbar">
                                 <RaisedButton className="action-button"
                                               value="Collapse All Rows"
                                               onClick={this.collapseAllRows}/>
@@ -409,19 +410,20 @@ class TableExamples extends Component {
                                                    label="Filter"
                                                    value={filter}
                                                    onChange={this.handleFilter}/>
-                            </p>
+                            </div>
 
                             <Table ref={this.tableRef}
                                    className="example-table"
-                                   data={this.filterData(data)}
+                                   data={filteredData}
                                    columns={this.getFixedColumns()}
                                    sorting={sorting}
                                    selectMode={Table.SelectMode.MULTI_SELECT}
                                    isHeadFixed={true}
                                    isFootFixed={true}
+                                   isFootHidden={!filteredData || filteredData.length < 1}
                                    scroll={{
                                        width: 1200,
-                                       height: 320
+                                       height: filteredData && filteredData.length > 0 ? 320 : 0
                                    }}
                                    paginationTotalRenderer={total => <span>Self Defined Total: {total}</span>}
                                    onSortChange={this.handleSortChange}
