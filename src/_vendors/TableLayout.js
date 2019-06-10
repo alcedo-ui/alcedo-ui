@@ -99,20 +99,16 @@ function getbodyScollerHeight(headHeight, footHeight) {
  * @param fixedHeadHeight
  * @param fixedFootHeight
  */
-function maskCenterBody(wrapperEl, tableEl, fixedHeadHeight, fixedFootHeight, isNoData) {
+function maskCenterBody(wrapperEl, tableEl, fixedHeadHeight, fixedFootHeight) {
 
     const maskEl = wrapperEl.querySelector('.table-content-center .scroll-table-body-mask');
 
     if (maskEl) {
-        if (isNoData) {
-            maskEl.style.height = `${Valid.range(tableEl.offsetHeight - fixedFootHeight, 0)}px`;
-        } else {
-            maskEl.style.height = `${Valid.range(tableEl.offsetHeight - fixedHeadHeight - fixedFootHeight - 1, 0)}px`;
-            if (tableEl) {
-                tableEl.style.marginTop = `${-fixedHeadHeight - 1}px`;
-                maskEl.style.width = 'auto';
-                maskEl.style.width = `${tableEl.offsetWidth}px`;
-            }
+        maskEl.style.height = `${Valid.range(tableEl.offsetHeight - fixedHeadHeight - fixedFootHeight - 1, 0)}px`;
+        if (tableEl) {
+            tableEl.style.marginTop = `${-fixedHeadHeight - 1}px`;
+            maskEl.style.width = 'auto';
+            maskEl.style.width = `${tableEl.offsetWidth}px`;
         }
     }
 
@@ -458,7 +454,7 @@ function fixTableVerticalScroll(wrapperEl, props) {
  * @param wrapperEl
  * @param props
  */
-function fixLayout(wrapperEl, props, isNoData) {
+function fixLayout(wrapperEl, props) {
 
     if (!wrapperEl) {
         return;
@@ -485,7 +481,7 @@ function fixLayout(wrapperEl, props, isNoData) {
      * center
      */
     if (props && (props.isHeadFixed || props.isFootFixed)) {
-        maskCenterBody(wrapperEl, tableEl, fixedHeadHeight, fixedFootHeight, isNoData);
+        maskCenterBody(wrapperEl, tableEl, fixedHeadHeight, fixedFootHeight);
     }
     fixCenterTableWidth(wrapperEl);
     fixTableColumnsWidth(wrapperEl, columnsWidth, null, props);
