@@ -62,8 +62,8 @@ class ScrollTable extends Component {
         const {
 
             className, style, bodyScrollerStyle, maskStyle, tableStyle, footStyle, columns, headColumns, bodyColumns,
-            isHeadHidden, isFootHidden, isHeadFixed, isFootFixed, isFixedHeadHidden, isFixedFootHidden, scroll,
-            hasFixedLeftColumn, hasFixedRightColumn, onScroll, onWheel,
+            isHeadHidden, isFootHidden, isHeadFixed, isFootFixed, isFixedFootHidden,
+            scroll, hasFixedLeftColumn, hasFixedRightColumn, onScroll, onWheel,
 
             // not passing down these props
             onGetHeadScrollerEl, onGetBodyScrollerEl, onGetFootScrollerEl,
@@ -83,7 +83,7 @@ class ScrollTable extends Component {
                  style={style}>
 
                 {
-                    !isHeadHidden && isHeadFixed && !isFixedHeadHidden ?
+                    !isHeadHidden && isHeadFixed ?
                         <div className="scroll-table-head">
                             <ScrollableTable ref={this.headScroller}
                                              className="scroll-table-head-scroller"
@@ -399,7 +399,6 @@ ScrollTable.propTypes = {
      */
     isHeadHidden: PropTypes.bool,
     isFootHidden: PropTypes.bool,
-    isFixedHeadHidden: PropTypes.bool,
     isFixedFootHidden: PropTypes.bool,
 
     /**
@@ -447,7 +446,6 @@ ScrollTable.defaultProps = {
      */
     isHeadHidden: false,
     isFootHidden: false,
-    isFixedHeadHidden: false,
     isFixedFootHidden: false,
 
     /**
