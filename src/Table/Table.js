@@ -22,6 +22,7 @@ import SortingType from '../_statics/SortingType';
 import Util from '../_vendors/Util';
 import Calculation from '../_vendors/Calculation';
 import ComponentUtil from '../_vendors/ComponentUtil';
+import TableCalculation from '../_vendors/TableCalculation';
 
 class Table extends Component {
 
@@ -116,17 +117,22 @@ class Table extends Component {
     };
 
     static getDerivedStateFromProps(props, state) {
+
+        const page = ComponentUtil.getDerivedState(props, state, 'page'),
+            pageSize = ComponentUtil.getDerivedState(props, state, 'pageSize');
+
         return {
             prevProps: props,
             sorting: ComponentUtil.getDerivedState(props, state, 'sorting'),
-            page: ComponentUtil.getDerivedState(props, state, 'page'),
-            pageSize: ComponentUtil.getDerivedState(props, state, 'pageSize'),
+            page: TableCalculation.handlePage(page, pageSize, props.data),
+            pageSize,
             expandRows: ComponentUtil.getDerivedState(props, state, 'expandRows'),
             value: Calculation.getInitValue({
                 value: ComponentUtil.getDerivedState(props, state, 'value'),
                 selectMode: props.selectMode
             })
         };
+
     }
 
     render() {
