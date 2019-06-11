@@ -9,6 +9,7 @@ import HorizontalAlign from '../_statics/HorizontalAlign';
 import VirtualRoot from '../_statics/VirtualRoot';
 
 import Util from '../_vendors/Util';
+import Valid from '../_vendors/Valid';
 
 function calcSpan(type, column, data, colIndex, rowIndex) {
     const span = column[`${type}Span`];
@@ -464,6 +465,16 @@ function handleNoWrap(fragmentNoWrap, columnNoWrap, {data, colIndex, rowIndex}) 
         ));
 }
 
+function handlePage(page, pageSize, data) {
+
+    if (!data || !pageSize || page < 0) {
+        return 0;
+    }
+
+    return Valid.range(page, 0, Math.ceil(data / pageSize) - 1);
+
+}
+
 export default {
     calcSpan,
     getColumnsWithSpan,
@@ -489,5 +500,6 @@ export default {
     recursiveSelectChildren,
     needCollapseButtonSpacing,
     getPageSizeValue,
-    handleNoWrap
+    handleNoWrap,
+    handlePage
 };
