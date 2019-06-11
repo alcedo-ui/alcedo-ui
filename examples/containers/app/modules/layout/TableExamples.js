@@ -195,10 +195,6 @@ class TableExamples extends Component {
         console.log(`page: ${page}, pageSize: ${pageSize}`);
     };
 
-    handleDataUpdate = currentPageData => {
-        console.log('Data Update Value: ', currentPageData);
-    };
-
     handleSelect = (rowData, rowIndex, value) => {
         console.log('Select Value: ', rowData);
     };
@@ -313,7 +309,6 @@ class TableExamples extends Component {
                                    onPaginationChange={this.handlePaginationChange}
                                    onExpand={this.handleExpand}
                                    onCollapse={this.handleCollapse}
-                                   onDataUpdate={this.handleDataUpdate}
                                    onChange={this.handleChange}
                                    onSelect={this.handleSelect}
                                    onSelectAll={this.handleSelectAll}
@@ -350,7 +345,6 @@ class TableExamples extends Component {
                                    onPaginationChange={this.handlePaginationChange}
                                    onExpand={this.handleExpand}
                                    onCollapse={this.handleCollapse}
-                                   onDataUpdate={this.handleDataUpdate}
                                    onChange={this.handleChange}
                                    onSelect={this.handleSelect}
                                    onSelectAll={this.handleSelectAll}
@@ -385,7 +379,6 @@ class TableExamples extends Component {
                                    onPaginationChange={this.handlePaginationChange}
                                    onExpand={this.handleExpand}
                                    onCollapse={this.handleCollapse}
-                                   onDataUpdate={this.handleDataUpdate}
                                    onChange={this.handleChange}
                                    onSelect={this.handleSelect}
                                    onSelectAll={this.handleSelectAll}
@@ -435,7 +428,6 @@ class TableExamples extends Component {
                                    onPaginationChange={this.handlePaginationChange}
                                    onExpand={this.handleExpand}
                                    onCollapse={this.handleCollapse}
-                                   onDataUpdate={this.handleDataUpdate}
                                    onChange={this.handleChange}
                                    onSelect={this.handleSelect}
                                    onSelectAll={this.handleSelectAll}
