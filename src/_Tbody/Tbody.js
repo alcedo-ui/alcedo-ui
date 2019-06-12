@@ -46,8 +46,14 @@ class Tbody extends Component {
     render() {
 
         const {
+
             className, style, columns, data, startIndex, idProp, disabled,
+
+            // not passing down these props
+            value,
+
             ...restProps
+
         } = this.props;
 
         return (
@@ -265,7 +271,7 @@ Tbody.propTypes = {
     })).isRequired,
 
     data: PropTypes.array,
-    value: PropTypes.any,
+    value: PropTypes.array,
     startIndex: PropTypes.number,
     idProp: PropTypes.string,
     disabled: PropTypes.bool,
