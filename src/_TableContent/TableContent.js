@@ -149,14 +149,14 @@ class TableContent extends Component {
     handleDeselectAll = () => {
 
         const {
-            selectMode, disabled, onChange, onDeselectAll
+            selectMode, value, disabled, onChange, onDeselectAll
         } = this.props;
 
         if (disabled || selectMode !== SelectMode.MULTI_SELECT) {
             return;
         }
 
-        onDeselectAll && onDeselectAll([]);
+        onDeselectAll && onDeselectAll(value);
         onChange && onChange([]);
 
     };
