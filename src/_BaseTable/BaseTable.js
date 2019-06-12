@@ -37,7 +37,7 @@ class BaseTable extends Component {
 
         const {
 
-            className, style, data, idProp, baseColIndex, fixed, fragment, columns, headColumns, bodyColumns,
+            className, style, data, value, idProp, baseColIndex, fixed, fragment, columns, headColumns, bodyColumns,
             selectMode, selectAllMode, expandRows, isHeadFixed, isFootFixed, isHeadHidden, isFootHidden,
             sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls,
             onSortChange, onExpandChange,
@@ -80,6 +80,7 @@ class BaseTable extends Component {
                         <Tbody {...restProps}
                                columns={bodyColumns || columns}
                                data={data}
+                               value={value}
                                selectMode={selectMode}
                                selectAllMode={selectAllMode}
                                expandRows={expandRows}
@@ -318,6 +319,7 @@ BaseTable.propTypes = {
     bodyColumns: PropTypes.array,
 
     data: PropTypes.array,
+    value: PropTypes.array,
     idProp: PropTypes.string,
     baseColIndex: PropTypes.number,
     disabled: PropTypes.bool,
