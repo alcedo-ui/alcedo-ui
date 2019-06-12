@@ -416,6 +416,7 @@ Table.propTypes = {
     })).isRequired,
 
     data: PropTypes.array,
+    value: PropTypes.array,
     idProp: PropTypes.string,
     disabled: PropTypes.bool,
     hasInitFadeOut: PropTypes.bool,
