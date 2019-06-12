@@ -365,6 +365,7 @@ ScrollTable.propTypes = {
     bodyColumns: PropTypes.array,
 
     data: PropTypes.array,
+    value: PropTypes.array,
     baseColIndex: PropTypes.number,
     expandRows: PropTypes.array,
 
