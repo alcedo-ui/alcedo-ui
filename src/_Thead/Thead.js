@@ -57,7 +57,8 @@ class Thead extends Component {
                                         noWrap={TableCalculation.handleNoWrap(column.headNoWrap, column.noWrap, {
                                             data,
                                             rowIndex,
-                                            colIndex: baseColIndex + colIndex
+                                            colIndex: baseColIndex + colIndex,
+                                            tableData: data
                                         })}
                                         sorting={sorting}
                                         defaultSortingType={column.defaultSortingType || defaultSortingType}
