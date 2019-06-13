@@ -49,7 +49,7 @@ class Tr extends Component {
     render() {
 
         const {
-                className, columns, rowIndex, data, isChecked, disabled, baseColIndex, depth, path,
+                className, columns, rowIndex, data, tableData, isChecked, disabled, baseColIndex, depth, path,
                 ...respProps
             } = this.props,
             collapsed = this.isCollapsed(),
@@ -84,7 +84,8 @@ class Tr extends Component {
                                 noWrap={TableCalculation.handleNoWrap(column.bodyNoWrap, column.noWrap, {
                                     data,
                                     rowIndex,
-                                    colIndex: baseColIndex + colIndex
+                                    colIndex: baseColIndex + colIndex,
+                                    tableData
                                 })}
                                 depth={depth}
                                 path={path}
