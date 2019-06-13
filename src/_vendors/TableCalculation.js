@@ -449,17 +449,17 @@ function getPageSizeValue(pageSize, pageSizeValueField) {
         pageSize;
 }
 
-function handleNoWrap(fragmentNoWrap, columnNoWrap, {data, colIndex, rowIndex}) {
+function handleNoWrap(fragmentNoWrap, columnNoWrap, {data, colIndex, rowIndex, tableData}) {
     return !!((
             typeof fragmentNoWrap === 'function' ?
-                fragmentNoWrap(data, colIndex, rowIndex)
+                fragmentNoWrap(data, colIndex, rowIndex, tableData)
                 :
                 fragmentNoWrap
         )
         ||
         (
             typeof columnNoWrap === 'function' ?
-                columnNoWrap(data, colIndex, rowIndex)
+                columnNoWrap(data, colIndex, rowIndex, tableData)
                 :
                 columnNoWrap
         ));
