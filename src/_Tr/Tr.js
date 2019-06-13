@@ -76,6 +76,7 @@ class Tr extends Component {
                                 rowIndex={rowIndex}
                                 colIndex={baseColIndex + colIndex}
                                 data={data}
+                                tableData={tableData}
                                 collapsed={collapsed}
                                 renderer={column.bodyRenderer}
                                 align={column.bodyAlign || column.align}
