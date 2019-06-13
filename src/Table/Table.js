@@ -43,7 +43,7 @@ class Table extends Component {
             page: props.page,
             pageSize: props.pageSize,
             expandRows: props.expandRows,
-            value: Calculation.getInitValue(props)
+            value: props.value
         };
 
     }
@@ -127,10 +127,7 @@ class Table extends Component {
             page: TableCalculation.handlePage(page, pageSize, props.data),
             pageSize,
             expandRows: ComponentUtil.getDerivedState(props, state, 'expandRows'),
-            value: Calculation.getInitValue({
-                value: ComponentUtil.getDerivedState(props, state, 'value'),
-                selectMode: props.selectMode
-            })
+            value: ComponentUtil.getDerivedState(props, state, 'value')
         };
 
     }
