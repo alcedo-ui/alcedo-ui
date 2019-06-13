@@ -39,21 +39,6 @@ class TablePagination extends Component {
         return useFullPagination ? Pagination : BriefPagination;
     };
 
-    getSelectedCount = () => {
-
-        const {selectMode, value} = this.props;
-
-        switch (selectMode) {
-            case SelectMode.MULTI_SELECT:
-                return value.length;
-            case SelectMode.SINGLE_SELECT:
-                return value ? 1 : 0;
-        }
-
-        return 0;
-
-    };
-
     handlePaginationChange = pagination => {
         this.setState(pagination, () => {
             const {onPaginationChange} = this.props;
@@ -72,7 +57,7 @@ class TablePagination extends Component {
     render() {
 
         const {
-                className, style, data, paginationSelectionVisible, paginationSelectionRenderer,
+                className, style, data, value, paginationSelectionVisible, paginationSelectionRenderer,
                 paginationTotalVisible, paginationTotalRenderer,
                 paginationPageSizeVisible, paginationPageSizesVisible,
                 paginationPrevIconCls, paginationNextIconCls, paginationFirstIconCls, paginationLastIconCls,
@@ -87,7 +72,7 @@ class TablePagination extends Component {
                  style={style}>
                 <PaginationComponent {...restProps}
                                      total={data && data.length || 0}
-                                     selectedCount={this.getSelectedCount()}
+                                     selectedCount={value && value.length || 0}
                                      selectionVisible={paginationSelectionVisible}
                                      totalVisible={paginationTotalVisible}
                                      pageSizeVisible={paginationPageSizeVisible}
