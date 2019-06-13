@@ -182,9 +182,9 @@ class TableContent extends Component {
          */
         result[0] = {
             ...sortedColumns[0],
-            bodyClassName: classNames('table-expand-column', {
-                [sortedColumns[0].bodyClassName]: sortedColumns[0].bodyClassName
-            }),
+            // bodyClassName: classNames('table-expand-column', {
+            //     [sortedColumns[0].bodyClassName]: sortedColumns[0].bodyClassName
+            // }),
             bodyRenderer: (rowData, rowIndex, colIndex, tableData, collapsed, depth, path) =>
                 <Fragment>
 
@@ -210,7 +210,8 @@ class TableContent extends Component {
                             sortedColumns[0].bodyRenderer
                     }
 
-                </Fragment>
+                </Fragment>,
+            bodyNoWrap: (rowData, rowIndex, colIndex, tableData) => TableCalculation.needCollapseButtonSpacing(tableData)
         };
 
         /**
