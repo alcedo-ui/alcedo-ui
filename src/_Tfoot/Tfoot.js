@@ -61,7 +61,8 @@ class Tfoot extends Component {
                                 noWrap={TableCalculation.handleNoWrap(column.footNoWrap, column.noWrap, {
                                     data,
                                     rowIndex: 0,
-                                    colIndex: baseColIndex + colIndex
+                                    colIndex: baseColIndex + colIndex,
+                                    tableData: data
                                 })}
                                 disabled={disabled}
                                 onCellClick={onCellClick}/>
