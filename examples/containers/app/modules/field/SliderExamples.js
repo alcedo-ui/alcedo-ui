@@ -108,9 +108,14 @@ class SliderExamples extends Component {
 
                                 <p>Set the decimalPlaces property for the decimal digits of tip.</p>
 
-                                <Slider leftPoint={false}
-                                        scale={[2, 5, 7, 10]}
+                                <Slider leftPoint={true}
+                                        scale={[{value: 4, label: 'Current'},
+                                            {value: 3, label: 'POS 3'},
+                                            {value: 2, label: 'POS 2'},
+                                            {value: 1, label: 'POS 1'}
+                                        ]}
                                         showScale={true}
+                                        showScalePoint={true}
                                         decimalPlaces={2}/>
 
                             </div>
