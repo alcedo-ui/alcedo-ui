@@ -83,7 +83,7 @@ class Pagination extends Component {
 
         const {
                 className, style, total, pageSizes, pageSizeValueField, pageSizeDisplayField,
-                selectedCount, selectionVisible, totalVisible, pageSizeVisible, pageSizesVisible,
+                selectedCount, selectionVisible, totalVisible, pageVisible, pageSizeVisible,
                 pageSizeRightIconCls, prevIconCls, nextIconCls, firstIconCls, lastIconCls,
                 selectionRenderer, totalRenderer, parentEl
             } = this.props,
@@ -131,7 +131,7 @@ class Pagination extends Component {
                 <div className="pagination-right">
 
                     {
-                        pageSizesVisible ?
+                        pageSizeVisible ?
                             <PaginationSize pageSize={pageSize}
                                             pageSizes={pageSizes}
                                             valueField={pageSizeValueField}
@@ -144,7 +144,7 @@ class Pagination extends Component {
                     }
 
                     {
-                        pageSizeVisible ?
+                        pageVisible ?
                             <PaginationPage page={page}
                                             totalPage={totalPage}
                                             prevIconCls={prevIconCls}
@@ -224,12 +224,12 @@ Pagination.propTypes = {
     /**
      * If false, the pageSize choice box will not show.
      */
-    pageSizeVisible: PropTypes.bool,
+    pageVisible: PropTypes.bool,
 
     /**
      * If false, the pageSizes selection will not show.
      */
-    pageSizesVisible: PropTypes.bool,
+    pageSizeVisible: PropTypes.bool,
 
     /**
      * Use this property to set page size right icon.
@@ -279,8 +279,8 @@ Pagination.defaultProps = {
 
     selectionVisible: false,
     totalVisible: true,
+    pageVisible: true,
     pageSizeVisible: true,
-    pageSizesVisible: true,
 
     pageSizeRightIconCls: 'fas fa-angle-down',
     prevIconCls: 'fas fa-angle-left',
