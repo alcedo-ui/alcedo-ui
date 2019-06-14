@@ -114,6 +114,7 @@ class SliderExamples extends Component {
                                             {value: 2, label: 'POS 2'},
                                             {value: 1, label: 'POS 1'}
                                         ]}
+                                        initialScale={4.31}
                                         showScale={true}
                                         showScalePoint={true}
                                         decimalPlaces={2}/>
