@@ -59,7 +59,7 @@ class TablePagination extends Component {
         const {
                 className, style, data, value, paginationSelectionVisible, paginationSelectionRenderer,
                 paginationTotalVisible, paginationTotalRenderer,
-                paginationPageSizeVisible, paginationPageSizesVisible, paginationPageSizeRightIconCls,
+                paginationPageVisible, paginationPageSizeVisible, paginationPageSizeRightIconCls,
                 paginationPrevIconCls, paginationNextIconCls, paginationFirstIconCls, paginationLastIconCls,
                 ...restProps
             } = this.props,
@@ -75,8 +75,8 @@ class TablePagination extends Component {
                                      selectedCount={value && value.length || 0}
                                      selectionVisible={paginationSelectionVisible}
                                      totalVisible={paginationTotalVisible}
+                                     pageVisible={paginationPageVisible}
                                      pageSizeVisible={paginationPageSizeVisible}
-                                     pageSizesVisible={paginationPageSizesVisible}
                                      pageSizeRightIconCls={paginationPageSizeRightIconCls}
                                      prevIconCls={paginationPrevIconCls}
                                      nextIconCls={paginationNextIconCls}
@@ -121,8 +121,8 @@ TablePagination.propTypes = {
 
     paginationSelectionVisible: PropTypes.bool,
     paginationTotalVisible: PropTypes.bool,
+    paginationPageVisible: PropTypes.bool,
     paginationPageSizeVisible: PropTypes.bool,
-    paginationPageSizesVisible: PropTypes.bool,
 
     paginationPageSizeRightIconCls: PropTypes.string,
     paginationPrevIconCls: PropTypes.string,
@@ -152,8 +152,8 @@ TablePagination.defaultProps = {
 
     paginationSelectionVisible: false,
     paginationTotalVisible: true,
+    paginationPageVisible: true,
     paginationPageSizeVisible: true,
-    paginationPageSizesVisible: true,
 
     paginationPageSizeRightIconCls: 'fas fa-angle-down',
     paginationPrevIconCls: 'fas fa-angle-left',
