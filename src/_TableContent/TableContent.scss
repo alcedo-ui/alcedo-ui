@@ -58,6 +58,10 @@
         visibility: hidden;
     }
 
+    .table-select {
+        display: inline-block;
+    }
+
     &.head-fixed {
         .table-content-left,
         .table-content-right {
