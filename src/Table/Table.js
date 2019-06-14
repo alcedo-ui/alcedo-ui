@@ -139,8 +139,8 @@ class Table extends Component {
 
                 // pagination
                 isPaginated, pageSizes, useFullPagination, pageSizeValueField, pageSizeDisplayField,
-                paginationSelectionVisible, paginationTotalVisible, paginationPageSizeVisible,
-                paginationPageSizesVisible, paginationPageSizeRightIconCls,
+                paginationSelectionVisible, paginationTotalVisible, paginationPageVisible,
+                paginationPageSizeVisible, paginationPageSizeRightIconCls,
                 paginationPrevIconCls, paginationNextIconCls, paginationFirstIconCls, paginationLastIconCls,
                 paginationSelectionRenderer, paginationTotalRenderer, onPageChange, onPageSizeChange,
 
@@ -194,8 +194,8 @@ class Table extends Component {
                                     pageSizeDisplayField={pageSizeDisplayField}
                                     paginationSelectionVisible={paginationSelectionVisible}
                                     paginationTotalVisible={paginationTotalVisible}
+                                    paginationPageVisible={paginationPageVisible}
                                     paginationPageSizeVisible={paginationPageSizeVisible}
-                                    paginationPageSizesVisible={paginationPageSizesVisible}
                                     paginationPageSizeRightIconCls={paginationPageSizeRightIconCls}
                                     paginationPrevIconCls={paginationPrevIconCls}
                                     paginationNextIconCls={paginationNextIconCls}
@@ -517,8 +517,8 @@ Table.propTypes = {
     useFullPagination: PropTypes.bool,
     paginationSelectionVisible: PropTypes.bool,
     paginationTotalVisible: PropTypes.bool,
+    paginationPageVisible: PropTypes.bool,
     paginationPageSizeVisible: PropTypes.bool,
-    paginationPageSizesVisible: PropTypes.bool,
     paginationPageSizeRightIconCls: PropTypes.string,
     paginationPrevIconCls: PropTypes.string,
     paginationNextIconCls: PropTypes.string,
@@ -609,8 +609,8 @@ Table.defaultProps = {
     pageSizeDisplayField: 'text',
     paginationSelectionVisible: false,
     paginationTotalVisible: true,
+    paginationPageVisible: true,
     paginationPageSizeVisible: true,
-    paginationPageSizesVisible: true,
     paginationPageSizeRightIconCls: 'fas fa-angle-down',
     paginationPrevIconCls: 'fas fa-angle-left',
     paginationNextIconCls: 'fas fa-angle-right',
