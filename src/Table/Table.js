@@ -135,14 +135,14 @@ class Table extends Component {
 
         const {
 
-                className, style,
+                className, style, selectMode, data,
 
                 // pagination
                 isPaginated, pageSizes, useFullPagination, pageSizeValueField, pageSizeDisplayField,
                 paginationSelectionVisible, paginationTotalVisible, paginationPageSizeVisible,
                 paginationPageSizesVisible, paginationPageSizeRightIconCls,
                 paginationPrevIconCls, paginationNextIconCls, paginationFirstIconCls, paginationLastIconCls,
-                paginationTotalRenderer, onPageChange, onPageSizeChange,
+                paginationSelectionRenderer, paginationTotalRenderer, onPageChange, onPageSizeChange,
 
                 // not passing down these props
                 hasInitFadeOut, pageSize: propsPageSize,
@@ -164,12 +164,14 @@ class Table extends Component {
 
                 {/* table area */}
                 <Content {...restProps}
+                         data={data}
                          sorting={sorting}
                          isPaginated={isPaginated}
                          page={page}
                          pageSize={pageSize}
                          expandRows={expandRows}
                          value={value}
+                         selectMode={selectMode}
                          onInit={this.handleInit}
                          onChange={this.handleChange}
                          onSortChange={this.handleSortChange}
@@ -181,7 +183,8 @@ class Table extends Component {
                 {/* table pagination */}
                 {
                     isPaginated ?
-                        <Pagination {...restProps}
+                        <Pagination selectMode={selectMode}
+                                    data={data}
                                     page={page}
                                     pageSize={pageSize}
                                     pageSizes={pageSizes}
@@ -198,6 +201,7 @@ class Table extends Component {
                                     paginationNextIconCls={paginationNextIconCls}
                                     paginationFirstIconCls={paginationFirstIconCls}
                                     paginationLastIconCls={paginationLastIconCls}
+                                    paginationSelectionRenderer={paginationSelectionRenderer}
                                     paginationTotalRenderer={paginationTotalRenderer}
                                     onPageChange={onPageChange}
                                     onPageSizeChange={onPageSizeChange}
