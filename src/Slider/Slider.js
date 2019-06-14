@@ -109,9 +109,10 @@ class Slider extends Component {
     handleChange = () => {
         const {scale, decimalPlaces, width} = this.props;
         const {left, right} = this.state;
+        const [scaleValue] = this.getScaleValueAndLabel(scale);
 
-        let leftTip = parseFloat((left / width) * (scale[scale.length - 1] - scale[0]) + scale[0]).toFixed(decimalPlaces),
-            rightTip = parseFloat((right / width) * (scale[scale.length - 1] - scale[0]) + scale[0]).toFixed(decimalPlaces);
+        let leftTip = parseFloat((left / width) * (scaleValue[scaleValue.length - 1] - scaleValue[0]) + scaleValue[0]).toFixed(decimalPlaces),
+            rightTip = parseFloat((right / width) * (scaleValue[scaleValue.length - 1] - scaleValue[0]) + scaleValue[0]).toFixed(decimalPlaces);
         this.props.onChange && this.props.onChange(leftTip, rightTip);
     };
 
@@ -185,6 +186,17 @@ class Slider extends Component {
         return j * width / (ruler - 1);
     };
 
+    getScaleValueAndLabel = (scale) => {
+        let scaleValue = [], scaleLabel = [];
+        if (scale.length > 0) {
+            scale.forEach(item => {
+                scaleValue.push(typeof item === 'object' ? item.value : item);
+                scaleLabel.push(typeof item === 'object' ? item.label : item);
+            });
+        }
+        return [scaleValue, scaleLabel];
+    };
+
     componentDidMount() {
 
         this.sliderBoxEl = this.sliderBox && this.sliderBox.current;
@@ -227,9 +239,10 @@ class Slider extends Component {
 
     render() {
 
-        const {leftPoint, scale, width, showScale, decimalPlaces, className, style} = this.props,
+        const {leftPoint, showScalePoint, scale, width, showScale, decimalPlaces, className, style} = this.props,
             {left, right, shadow, tip} = this.state,
             display = (tip || shadow) ? '' : 'hide';
+        let [scaleValue, scaleLabel] = this.getScaleValueAndLabel(scale);
 
         return (
             <div className={classNames('slider', {
@@ -243,6 +256,22 @@ class Slider extends Component {
                 <div ref={this.sliderBox}
                      className="slider-box"
                      onMouseDown={this.handleClick}>
+
+                    {
+                        showScalePoint ?
+                            scaleValue.map(item => {
+                                let pointLeft = (item - scaleValue[0]) / (scaleValue[scaleValue.length - 1] - scaleValue[0]) * width;
+                                return <div
+                                    className={`slider-circle fixed-circle ${pointLeft > right || pointLeft < left ? 'disable-circle' : ''}`}
+                                    style={{
+                                        left: pointLeft
+                                    }}
+                                    onMouseDown={this.handleDown}></div>;
+                            })
+                            :
+                            null
+                    }
+
 
                     {
                         leftPoint ?
@@ -269,12 +298,12 @@ class Slider extends Component {
                         shadow === 'left' || tip === 'left' ?
                             <div className={`slider-tip ${display}`}
                                  style={{left}}>
-                                {parseFloat((left / width) * (scale[scale.length - 1] - scale[0]) + scale[0]).toFixed(decimalPlaces)}
+                                {parseFloat((left / width) * (scaleValue[scaleValue.length - 1] - scaleValue[0]) + scaleValue[0]).toFixed(decimalPlaces)}
                             </div>
                             :
                             <div className={`slider-tip ${display}`}
                                  style={{left: right}}>
-                                {parseFloat((right / width) * (scale[scale.length - 1] - scale[0]) + scale[0]).toFixed(decimalPlaces)}
+                                {parseFloat((right / width) * (scaleValue[scaleValue.length - 1] - scaleValue[0]) + scaleValue[0]).toFixed(decimalPlaces)}
                             </div>
 
                     }
@@ -286,10 +315,10 @@ class Slider extends Component {
                         showScale ?
                             <ul>
                                 {
-                                    scale && scale.map((number, index) =>
+                                    scaleLabel && scaleLabel.map((number, index) =>
                                         <li key={index}
                                             style={{
-                                                left: (number - scale[0]) / (scale[scale.length - 1] - scale[0]) * 100 + '%'
+                                                left: (scaleValue[index] - scaleValue[0]) / (scaleValue[scaleValue.length - 1] - scaleValue[0]) * 100 + '%'
                                             }}>
                                             {number}
                                         </li>
@@ -339,6 +368,11 @@ Slider.propTypes = {
     showScale: PropTypes.bool,
 
     /**
+     * If true,the scale point will have display.
+     */
+    showScalePoint: PropTypes.bool,
+
+    /**
      * The granularity the slider can step through values.
      */
     ruler: PropTypes.number,
@@ -357,6 +391,7 @@ Slider.propTypes = {
 
 Slider.defaultProps = {
     leftPoint: false,
+    showScalePoint: false,
     width: 300,
     scale: [0, 100],
     showScale: false,
