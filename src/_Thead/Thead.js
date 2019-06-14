@@ -17,41 +17,31 @@ class Thead extends Component {
 
     render() {
 
-        const {className, style, columns, sort, sortAscIconCls, sortDescIconCls, hidden, onSort} = this.props,
-
-            theadClassName = classNames('thead', {
-                hidden: hidden,
-                [className]: className
-            });
+        const {className, style, columns, sort, sortAscIconCls, sortDescIconCls, hidden, onSort} = this.props;
 
         return (
-            <thead className={theadClassName}
+            <thead className={classNames('thead', {
+                hidden: hidden,
+                [className]: className
+            })}
                    style={style}>
                 <tr>
                     {
-                        columns && columns.map((item, index) => {
-
-                            const headerClassName = (item.sortable ? 'sortable ' : '')
-                                + (item.headerClassName ? ' ' + item.headerClassName : '');
-
-                            return (
-                                <TableHeader key={index}
-                                             className={headerClassName}
-                                             style={item.headerStyle}
-                                             header={item.header}
-                                             colIndex={index}
-                                             sortable={item.sortable}
-                                             sortProp={item.sortProp}
-                                             sort={sort}
-                                             sortAscIconCls={sortAscIconCls}
-                                             sortDescIconCls={sortDescIconCls}
-                                             hidden={hidden}
-                                             onSort={() => {
-                                                 onSort(item);
-                                             }}/>
-                            );
-
-                        })
+                        columns && columns.map((item, index) =>
+                            <TableHeader key={index}
+                                         className={(item.sortable ? 'sortable ' : '')
+                                         + (item.headerClassName ? ' ' + item.headerClassName : '')}
+                                         style={item.headerStyle}
+                                         header={item.header}
+                                         colIndex={index}
+                                         sortable={item.sortable}
+                                         sortProp={item.sortProp}
+                                         sort={sort}
+                                         sortAscIconCls={sortAscIconCls}
+                                         sortDescIconCls={sortDescIconCls}
+                                         hidden={hidden}
+                                         onSort={() => onSort(item)}/>
+                        )
                     }
                 </tr>
             </thead>

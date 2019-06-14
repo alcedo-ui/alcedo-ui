@@ -16,17 +16,15 @@ class Ripple extends Component {
 
     render() {
 
-        const {className, style, duration, ...restProps} = this.props,
-
-            rippleClassName = classNames('ripple', {
-                [className]: className
-            });
+        const {className, style, duration, ...restProps} = this.props;
 
         return (
             <CSSTransition {...restProps}
                            classNames="ripple"
                            timeout={{enter: duration, exit: duration * 2}}>
-                <div className={rippleClassName}
+                <div className={classNames('ripple', {
+                    [className]: className
+                })}
                      style={style}></div>
             </CSSTransition>
         );

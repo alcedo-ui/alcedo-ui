@@ -22,7 +22,7 @@ class RoundStep extends Component {
 
     }
 
-    clickHandler = activatedStep => {
+    handleClick = activatedStep => {
 
         const {onChange} = this.props;
 
@@ -50,14 +50,12 @@ class RoundStep extends Component {
     render() {
 
         const {className, style, steps, showFinishedStepIcon, finishedStepIconCls, disabled} = this.props,
-            {activatedStep, finishedStep} = this.state,
-
-            stepClassName = classNames('round-step', {
-                [className]: className
-            });
+            {activatedStep, finishedStep} = this.state;
 
         return (
-            <div className={stepClassName}
+            <div className={classNames('round-step', {
+                [className]: className
+            })}
                  style={style}>
                 {
                     steps && steps.map((item, index) =>
@@ -77,7 +75,7 @@ class RoundStep extends Component {
                                        showFinishedStepIcon={showFinishedStepIcon}
                                        finishedStepIconCls={finishedStepIconCls}
                                        disabled={disabled}
-                                       onClick={this.clickHandler}/>
+                                       onClick={this.handleClick}/>
                     )
                 }
             </div>

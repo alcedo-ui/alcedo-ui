@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -31,6 +31,9 @@ class MaterialCascaderSelect extends Component {
 
         super(props, ...restArgs);
 
+        this.cascaderSelect = createRef();
+        this.cascaderSelectInstance = null;
+
         this.state = {
             value: props.value
         };
@@ -41,45 +44,45 @@ class MaterialCascaderSelect extends Component {
      * public
      */
     startRipple = (e, props) => {
-        this.refs.cascaderSelect && this.refs.cascaderSelect.startRipple(e, props);
+        this.cascaderSelectInstance && this.cascaderSelectInstance.startRipple(e, props);
     };
 
     /**
      * public
      */
     endRipple = () => {
-        this.refs.cascaderSelect && this.refs.cascaderSelect.endRipple();
+        this.cascaderSelectInstance && this.cascaderSelectInstance.endRipple();
     };
 
     /**
      * public
      */
     triggerRipple = (e, props) => {
-        this.refs.cascaderSelect && this.refs.cascaderSelect.triggerRipple(e, props);
+        this.cascaderSelectInstance && this.cascaderSelectInstance.triggerRipple(e, props);
     };
 
     /**
      * public
      */
     resetPopupPosition = () => {
-        this.refs.cascaderSelect && this.refs.cascaderSelect.resetPosition();
+        this.cascaderSelectInstance && this.cascaderSelectInstance.resetPosition();
     };
 
     /**
      * public
      */
     openPopup = () => {
-        this.refs.cascaderSelect && this.refs.cascaderSelect.openPopup();
+        this.cascaderSelectInstance && this.cascaderSelectInstance.openPopup();
     };
 
     /**
      * public
      */
     closePopup = () => {
-        this.refs.cascaderSelect && this.refs.cascaderSelect.closePopup();
+        this.cascaderSelectInstance && this.cascaderSelectInstance.closePopup();
     };
 
-    triggerChangeHandler = value => {
+    handleTriggerChange = value => {
         this.setState({
             value
         }, () => {
@@ -87,6 +90,10 @@ class MaterialCascaderSelect extends Component {
             onChange && onChange(value);
         });
     };
+
+    componentDidMount() {
+        this.cascaderSelectInstance = this.cascaderSelect && this.cascaderSelect.current;
+    }
 
     static getDerivedStateFromProps(props, state) {
         return {
@@ -101,14 +108,12 @@ class MaterialCascaderSelect extends Component {
                 className, style, theme, label, isLabelAnimate, disabled, required,
                 ...restProps
             } = this.props,
-            {value} = this.state,
-
-            wrapperClassName = classNames('material-cascader-select', {
-                [className]: className
-            });
+            {value} = this.state;
 
         return (
-            <MaterialProvider className={wrapperClassName}
+            <MaterialProvider className={classNames('material-cascader-select', {
+                [className]: className
+            })}
                               style={style}
                               theme={theme}
                               label={label}
@@ -117,10 +122,10 @@ class MaterialCascaderSelect extends Component {
                               disabled={disabled}
                               required={required}>
                 <CascaderSelect {...restProps}
-                                ref="cascaderSelect"
+                                ref={this.cascaderSelect}
                                 value={value}
                                 disabled={disabled}
-                                onChange={this.triggerChangeHandler}/>
+                                onChange={this.handleTriggerChange}/>
             </MaterialProvider>
         );
 
@@ -340,7 +345,6 @@ MaterialCascaderSelect.propTypes = {
      */
     autoClose: PropTypes.bool,
 
-    shouldPreventContainerScroll: PropTypes.bool,
     isSelectRecursive: PropTypes.bool,
     allowCollapse: PropTypes.bool,
     collapsedIconCls: PropTypes.string,
@@ -414,7 +418,6 @@ MaterialCascaderSelect.defaultProps = {
 
     autoClose: false,
 
-    shouldPreventContainerScroll: true,
     isSelectRecursive: true,
     allowCollapse: true,
 

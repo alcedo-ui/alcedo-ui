@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 import classNames from 'classnames';
@@ -12,13 +12,14 @@ import TextField from '../TextField';
 import Popup from '../Popup';
 import List from '../List';
 import DynamicRenderList from '../DynamicRenderList';
-import Theme from '../Theme';
 
+import Theme from '../Theme';
 import SelectMode from '../_statics/SelectMode';
 import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class DropdownFilter extends Component {
 
@@ -30,6 +31,9 @@ class DropdownFilter extends Component {
 
         super(props, ...restArgs);
 
+        this.dropdownFilter = createRef();
+        this.dropdownFilterEl = null;
+        this.trigger = createRef();
         this.triggerEl = null;
 
         this.state = {
@@ -53,18 +57,16 @@ class DropdownFilter extends Component {
             return filterCallback(filter, data);
         }
 
-        const filterFunc = (originData) => {
-            return originData.filter(item => typeof item === 'object' && !!item[displayField] ?
-                item[displayField].toString().toUpperCase().includes(filter.toUpperCase())
-                :
-                item.toString().toUpperCase().includes(filter.toUpperCase()));
-        };
+        const filterFunc = originData => originData.filter(item => typeof item === 'object' && !!item[displayField] ?
+            item[displayField].toString().toUpperCase().includes(filter.toUpperCase())
+            :
+            item.toString().toUpperCase().includes(filter.toUpperCase()));
 
         return filterFunc(data);
 
     };
 
-    triggerFocusHandler = (...args) => {
+    handleTriggerFocus = (...args) => {
 
         const {disabled, onFocus} = this.props,
             {filter} = this.state;
@@ -77,18 +79,17 @@ class DropdownFilter extends Component {
 
     };
 
-    triggerBlurHandler = (...args) => {
+    handleTriggerBlur = (...args) => {
         const {disabled, onBlur} = this.props;
         !disabled && onBlur && onBlur(...args);
     };
 
-    filterChangeHandler = filter => {
+    handleFilterChange = filter => {
 
-        const value = this.state.value,
-            state = {
-                filter,
-                popupVisible: !!filter
-            };
+        const state = {
+            filter,
+            popupVisible: !!filter
+        };
 
         if (!filter) {
             state.value = undefined;
@@ -101,7 +102,7 @@ class DropdownFilter extends Component {
 
     };
 
-    filterPressEnterHandler = (e, filter) => {
+    handleFilterPressEnter = (e, filter) => {
 
         const {autoClose} = this.props,
             callback = () => {
@@ -130,7 +131,7 @@ class DropdownFilter extends Component {
         });
     };
 
-    popupRenderHandler = popupEl => {
+    handlePopupRender = popupEl => {
 
         const isAbove = DropdownCalculation.isAbove(this.dropdownFilterEl, this.triggerEl, findDOMNode(popupEl));
 
@@ -142,7 +143,7 @@ class DropdownFilter extends Component {
 
     };
 
-    changeHandler = value => {
+    handleChange = value => {
 
         const state = {value};
 
@@ -158,16 +159,15 @@ class DropdownFilter extends Component {
     };
 
     componentDidMount() {
-        this.dropdownFilterEl = this.refs.dropdownFilter;
-        this.triggerEl = findDOMNode(this.refs.trigger);
+        this.dropdownFilterEl = this.dropdownFilter && this.dropdownFilter.current;
+        this.triggerEl = this.trigger && this.trigger.current && findDOMNode(this.trigger.current);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
     }
 
     render() {
@@ -177,8 +177,7 @@ class DropdownFilter extends Component {
                 className, popupClassName, style, popupStyle, theme, popupTheme, placeholder, selectMode,
                 disabled, iconCls, rightIconCls, valueField, displayField, descriptionField, position,
                 useDynamicRenderList, listHeight, itemHeight, scrollBuffer,
-                noMatchedPopupVisible, noMatchedMsg, popupChildren, renderer,
-                parentEl,
+                noMatchedPopupVisible, noMatchedMsg, popupChildren, renderer, parentEl,
 
                 radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
@@ -191,78 +190,52 @@ class DropdownFilter extends Component {
             isAboveFinally = position === Position.TOP || position === Position.TOP_LEFT
                 || position === Position.TOP_RIGHT || (!position && isAbove),
 
-            emptyEl = [{
-                itemRenderer() {
-                    return (
-                        <div className="no-matched-list-item">
-
-                            {
-                                noMatchedMsg ?
-                                    noMatchedMsg
-                                    :
-                                    <span>
-                                        <i className="fas fa-exclamation-triangle no-matched-list-item-icon"></i>
-                                        No matched value.
-                                    </span>
-                            }
-
-                        </div>
-                    );
-                },
-                disableTouchRipple: true
-            }],
-
             listData = this.filterData(),
-            isEmpty = listData.length < 1,
-
-            wrapperClassName = classNames('dropdown-filter', {
-                [className]: className
-            }),
-            triggerClassName = classNames('dropdown-filter-trigger',
-                isEmpty && !noMatchedPopupVisible ? '' : (popupVisible ? 'activated' : ''),
-                isAboveFinally ? 'above' : 'blow'),
-            autoCompletePopupClassName = classNames('dropdown-filter-popup', isAboveFinally ? ' above' : ' blow', {
-                [popupClassName]: popupClassName
-            }),
-            autoCompletePopupStyle = Object.assign({
-                width: this.triggerEl && getComputedStyle(this.triggerEl).width
-            }, popupStyle);
+            isEmpty = listData.length < 1;
 
         return (
-            <div ref="dropdownFilter"
-                 className={wrapperClassName}
+            <div ref={this.dropdownFilter}
+                 className={classNames('dropdown-filter', {
+                     [className]: className
+                 })}
                  style={style}>
 
-                <TextField ref="trigger"
-                           className={triggerClassName}
+                <TextField ref={this.trigger}
+                           className={classNames('dropdown-filter-trigger',
+                               isEmpty && !noMatchedPopupVisible ? '' : (popupVisible ? 'activated' : ''),
+                               isAboveFinally ? 'above' : 'blow')}
                            theme={theme}
                            value={filter}
                            placeholder={placeholder}
                            disabled={disabled}
                            iconCls={iconCls}
                            rightIconCls={rightIconCls}
-                           onFocus={this.triggerFocusHandler}
-                           onBlur={this.triggerBlurHandler}
+                           onFocus={this.handleTriggerFocus}
+                           onBlur={this.handleTriggerBlur}
                            onMouseOver={onMouseOver}
                            onMouseOut={onMouseOut}
-                           onChange={this.filterChangeHandler}
-                           onPressEnter={this.filterPressEnterHandler}
+                           onChange={this.handleFilterChange}
+                           onPressEnter={this.handleFilterPressEnter}
                            onClear={onFilterClear}
-                           onRightIconClick={this.filterPressEnterHandler}/>
+                           onRightIconClick={this.handleFilterPressEnter}/>
 
                 {
                     isEmpty && !noMatchedPopupVisible ?
                         null
                         :
-                        <Popup className={autoCompletePopupClassName}
-                               style={autoCompletePopupStyle}
+                        <Popup className={classNames('dropdown-filter-popup', isAboveFinally ? ' above' : ' blow', {
+                            [popupClassName]: popupClassName
+                        })}
+                               style={Object.assign({
+                                   width: this.triggerEl && getComputedStyle(this.triggerEl).width
+                               }, popupStyle)}
                                theme={popupTheme}
                                visible={popupVisible}
                                triggerEl={this.triggerEl}
                                parentEl={parentEl}
                                hasTriangle={false}
                                position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
-                               onRender={this.popupRenderHandler}
+                               onRender={this.handlePopupRender}
                                onRequestClose={this.closePopup}>
 
                             {
@@ -270,7 +243,26 @@ class DropdownFilter extends Component {
                                     <List className="dropdown-filter-list"
                                           theme={popupTheme}
                                           selectMode={SelectMode.SINGLE_SELECT}
-                                          data={emptyEl}/>
+                                          data={[{
+                                              itemRenderer() {
+                                                  return (
+                                                      <div className="no-matched-list-item">
+
+                                                          {
+                                                              noMatchedMsg ?
+                                                                  noMatchedMsg
+                                                                  :
+                                                                  <span>
+                                                                      <i className="fas fa-exclamation-triangle no-matched-list-item-icon"></i>
+                                                                      No matched value.
+                                                                  </span>
+                                                          }
+
+                                                      </div>
+                                                  );
+                                              },
+                                              disableTouchRipple: true
+                                          }]}/>
                                     :
                                     (
                                         useDynamicRenderList ?
@@ -292,7 +284,7 @@ class DropdownFilter extends Component {
                                                                checkboxCheckedIconCls={checkboxCheckedIconCls}
                                                                checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
                                                                onItemClick={onItemClick}
-                                                               onChange={this.changeHandler}/>
+                                                               onChange={this.handleChange}/>
                                             :
                                             <List className="dropdown-filter-list"
                                                   theme={popupTheme}
@@ -309,7 +301,7 @@ class DropdownFilter extends Component {
                                                   checkboxCheckedIconCls={checkboxCheckedIconCls}
                                                   checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
                                                   onItemClick={onItemClick}
-                                                  onChange={this.changeHandler}/>
+                                                  onChange={this.handleChange}/>
                                     )
                             }
 
@@ -438,6 +430,8 @@ DropdownFilter.propTypes = {
 
     ]).isRequired,
 
+    value: PropTypes.any,
+
     /**
      * If true, the auto complete will be disabled.
      */
@@ -499,6 +493,7 @@ DropdownFilter.propTypes = {
     listHeight: PropTypes.number,
     itemHeight: PropTypes.number,
     scrollBuffer: PropTypes.number,
+    parentEl: PropTypes.object,
 
     radioUncheckedIconCls: PropTypes.string,
     radioCheckedIconCls: PropTypes.string,

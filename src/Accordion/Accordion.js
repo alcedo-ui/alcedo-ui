@@ -3,11 +3,12 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import RaisedButton from '../RaisedButton';
+
 import Theme from '../Theme';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
@@ -18,6 +19,8 @@ class Accordion extends Component {
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
+
+        this.accordionContent = createRef();
 
         this.state = {
             collapsed: props.collapsed,
@@ -31,18 +34,12 @@ class Accordion extends Component {
      */
     resetHeight = callback => {
 
-        if (this.state.collapsed) {
-            return;
-        }
-
-        const el = this.refs.accordionContent;
-
-        if (!el) {
+        const el = this.accordionContent && this.accordionContent.current;
+        if (this.state.collapsed || !el) {
             return;
         }
 
         const style = window.getComputedStyle(el);
-
         if (!style) {
             return;
         }
@@ -85,7 +82,7 @@ class Accordion extends Component {
         });
     };
 
-    clickHandler = () => {
+    handleClick = () => {
         this.state.collapsed ?
             this.expand()
             :
@@ -123,25 +120,23 @@ class Accordion extends Component {
 
     render() {
 
-        const {className, style, children, title, collapseIcon} = this.props,
-            {collapsed, contentHeight} = this.state,
-
-            wrapperClassName = classNames('accordion', {
-                collapsed: collapsed,
-                [className]: className
-            });
+        const {children, className, style, title, collapseIcon} = this.props,
+            {collapsed, contentHeight} = this.state;
 
         return (
-            <div className={wrapperClassName}
+            <div className={classNames('accordion', {
+                collapsed: collapsed,
+                [className]: className
+            })}
                  style={style}>
 
                 <RaisedButton className="accordion-title"
                               theme={Theme.SECONDARY}
                               value={title}
                               rightIconCls={collapseIcon}
-                              onClick={this.clickHandler}/>
+                              onClick={this.handleClick}/>
 
-                <div ref="accordionContent"
+                <div ref={this.accordionContent}
                      className="accordion-content"
                      style={{height: contentHeight}}>
                     {children}
@@ -154,6 +149,8 @@ class Accordion extends Component {
 }
 
 Accordion.propTypes = {
+
+    children: PropTypes.any,
 
     /**
      * The CSS class name of the root element.

@@ -10,13 +10,12 @@ import classNames from 'classnames';
 
 import CascaderListItem from '../_CascaderListItem';
 import Tip from '../Tip';
-import Theme from '../Theme';
 
+import Theme from '../Theme';
 import SelectMode from '../_statics/SelectMode';
 import HorizontalDirection from '../_statics/HorizontalDirection';
 
 import Util from '../_vendors/Util';
-import Event from '../_vendors/Event';
 import Calculation from '../_vendors/Calculation';
 import CascaderCalculation from '../_vendors/CascaderCalculation';
 import ComponentUtil from '../_vendors/ComponentUtil';
@@ -110,7 +109,7 @@ class CascaderList extends Component {
 
     };
 
-    nodeClickHandler = (node, index, path, e) => {
+    handleNodeClick = (node, index, path, e) => {
 
         const {onNodeClick} = this.props;
         onNodeClick && onNodeClick(node, index, path, e);
@@ -124,7 +123,7 @@ class CascaderList extends Component {
 
     };
 
-    nodeSelectHandler = (node, path) => {
+    handleNodeSelect = (node, path) => {
 
         if (!node) {
             return;
@@ -162,7 +161,7 @@ class CascaderList extends Component {
 
     };
 
-    nodeDeselectHandler = (node, path) => {
+    handleNodeDeselect = (node, path) => {
 
         const {selectMode} = this.props;
 
@@ -217,21 +216,17 @@ class CascaderList extends Component {
                 idField, valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
                 isSelectRecursive, renderer
             } = this.props,
-            {value, activatedPath} = this.state,
-
-            wrapperClassName = classNames('cascader-list', {
-                [className]: className
-            }),
-            wrapperStyle = {
-                ...style,
-                width: CascaderCalculation.getMaxDepth(activatedPath) * listWidth
-            };
+            {value, activatedPath} = this.state;
 
         return (
-            <div className={wrapperClassName}
-                 style={wrapperStyle}
-                 disabled={disabled}
-                 onWheel={e => Event.wheelHandler(e, this.props)}>
+            <div className={classNames('cascader-list', {
+                [className]: className
+            })}
+                 style={{
+                     ...style,
+                     width: CascaderCalculation.getMaxDepth(activatedPath) * listWidth
+                 }}
+                 disabled={disabled}>
 
                 <CascaderListItem expandDirection={expandDirection}
                                   activatedPath={activatedPath}
@@ -255,9 +250,9 @@ class CascaderList extends Component {
                                   checkboxCheckedIconCls={checkboxCheckedIconCls}
                                   checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
                                   isSelectRecursive={isSelectRecursive}
-                                  onNodeClick={this.nodeClickHandler}
-                                  onNodeSelect={this.nodeSelectHandler}
-                                  onNodeDeselect={this.nodeDeselectHandler}/>
+                                  onNodeClick={this.handleNodeClick}
+                                  onNodeSelect={this.handleNodeSelect}
+                                  onNodeDeselect={this.handleNodeDeselect}/>
 
                 {children}
 
@@ -267,6 +262,8 @@ class CascaderList extends Component {
 }
 
 CascaderList.propTypes = {
+
+    children: PropTypes.any,
 
     /**
      * The CSS class name of the root element.
@@ -416,7 +413,6 @@ CascaderList.propTypes = {
 
     readOnly: PropTypes.bool,
 
-    shouldPreventContainerScroll: PropTypes.bool,
     isSelectRecursive: PropTypes.bool,
     expandedIconCls: PropTypes.string,
     radioUncheckedIconCls: PropTypes.string,
@@ -450,12 +446,7 @@ CascaderList.propTypes = {
     /**
      * Callback function fired when the tree changed.
      */
-    onChange: PropTypes.func,
-
-    /**
-     * Callback function fired when wrapper wheeled.
-     */
-    onWheel: PropTypes.func
+    onChange: PropTypes.func
 
 };
 
@@ -475,7 +466,6 @@ CascaderList.defaultProps = {
     disabled: false,
     isLoading: false,
     readOnly: false,
-    shouldPreventContainerScroll: true,
     isSelectRecursive: true
 
 };

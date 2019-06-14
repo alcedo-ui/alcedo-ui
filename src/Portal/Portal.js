@@ -108,8 +108,14 @@ class Portal extends Component {
 }
 
 Portal.propTypes = {
+
+    children: PropTypes.any,
+
+    className: PropTypes.string,
+
     visible: PropTypes.bool,
     parentEl: PropTypes.object
+
 };
 
 Portal.defaultProps = {

@@ -15,7 +15,6 @@ import SelectMode from '../_statics/SelectMode';
 import LIST_SEPARATOR from '../_statics/ListSeparator';
 
 import Util from '../_vendors/Util';
-import Event from '../_vendors/Event';
 import Calculation from '../_vendors/Calculation';
 
 class GroupList extends Component {
@@ -45,17 +44,14 @@ class GroupList extends Component {
     render() {
 
         const {children, className, style, data, disabled, ...restProps} = this.props,
-            {value} = this.state,
-
-            listClassName = classNames('group-list', {
-                [className]: className
-            });
+            {value} = this.state;
 
         return (
-            <div className={listClassName}
+            <div className={classNames('group-list', {
+                [className]: className
+            })}
                  style={style}
-                 disabled={disabled}
-                 onWheel={e => Event.wheelHandler(e, this.props)}>
+                 disabled={disabled}>
 
                 {
                     data && data.map((item, index) => item === LIST_SEPARATOR ?
@@ -80,6 +76,8 @@ class GroupList extends Component {
 }
 
 GroupList.propTypes = {
+
+    children: PropTypes.any,
 
     /**
      * The CSS class name of the root element.
@@ -230,8 +228,6 @@ GroupList.propTypes = {
      */
     selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
-    shouldPreventContainerScroll: PropTypes.bool,
-
     radioUncheckedIconCls: PropTypes.string,
     radioCheckedIconCls: PropTypes.string,
     checkboxUncheckedIconCls: PropTypes.string,
@@ -251,12 +247,7 @@ GroupList.propTypes = {
     /**
      * Callback function fired when the list changed.
      */
-    onChange: PropTypes.func,
-
-    /**
-     * Callback function fired when wrapper wheeled.
-     */
-    onWheel: PropTypes.func
+    onChange: PropTypes.func
 
 };
 
@@ -273,7 +264,6 @@ GroupList.defaultProps = {
     descriptionField: 'desc',
     disabled: false,
     selectMode: SelectMode.SINGLE_SELECT,
-    shouldPreventContainerScroll: true,
 
     radioUncheckedIconCls: 'fas fa-check',
     radioCheckedIconCls: 'fas fa-check',

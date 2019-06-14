@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -11,8 +11,8 @@ import query from 'dom-helpers/query';
 
 import PositionPop from '../_PositionPop';
 import Paper from '../Paper';
-import Theme from '../Theme';
 
+import Theme from '../Theme';
 import Position from '../_statics/Position';
 
 import Dom from '../_vendors/Dom';
@@ -30,6 +30,7 @@ class Drawer extends Component {
         super(props, ...restArgs);
 
         this.closeTimeout = null;
+        this.drawerContent = createRef();
 
     }
 
@@ -56,10 +57,10 @@ class Drawer extends Component {
 
     };
 
-    closeHandler = e => {
+    handleClose = e => {
 
         const {visible, isBlurClose, triggerEl, triggerHandler, onRequestClose} = this.props,
-            drawerEl = findDOMNode(this.refs.drawerContent);
+            drawerEl = this.drawerContent && this.drawerContent.current && findDOMNode(this.drawerContent.current);
 
         if (!visible || !triggerEl) {
             return;
@@ -82,7 +83,7 @@ class Drawer extends Component {
 
     };
 
-    renderHandler = (...args) => {
+    handleRender = (...args) => {
 
         PopManagement.push(this, {
             shouldLockBody: this.props.showModal
@@ -93,7 +94,7 @@ class Drawer extends Component {
 
     };
 
-    destroyHandler = (...args) => {
+    handleDestroy = (...args) => {
 
         PopManagement.pop(this);
 
@@ -103,13 +104,13 @@ class Drawer extends Component {
     };
 
     componentDidMount() {
-        Event.addEvent(document, 'click', this.closeHandler);
+        Event.addEvent(document, 'click', this.handleClose);
     }
 
     componentWillUnmount() {
 
         this.clearCloseTimeout();
-        Event.removeEvent(document, 'click', this.closeHandler);
+        Event.removeEvent(document, 'click', this.handleClose);
 
         PopManagement.pop(this);
 
@@ -119,28 +120,26 @@ class Drawer extends Component {
 
         const {
 
-                className,
+            className,
 
-                // not passing down these props
-                triggerEl, isBlurClose, isEscClose, onRender, onRequestClose,
+            // not passing down these props
+            triggerEl, isBlurClose, isEscClose, onRender, onRequestClose,
 
-                ...restProps
+            ...restProps
 
-            } = this.props,
-
-            drawerClassName = classNames('drawer', {
-                [className]: className
-            });
+        } = this.props;
 
         return (
             <PositionPop {...restProps}
-                         className={drawerClassName}
+                         className={classNames('drawer', {
+                             [className]: className
+                         })}
                          container={
-                             <Paper ref="drawerContent"
+                             <Paper ref={this.drawerContent}
                                     depth={6}></Paper>
                          }
-                         onRender={this.renderHandler}
-                         onDestroy={this.destroyHandler}/>
+                         onRender={this.handleRender}
+                         onDestroy={this.handleDestroy}/>
         );
 
     }
@@ -200,6 +199,7 @@ Drawer.propTypes = {
      */
     onRender: PropTypes.func,
 
+    onDestroy: PropTypes.func,
     triggerHandler: PropTypes.func,
 
     /**

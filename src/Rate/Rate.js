@@ -3,7 +3,7 @@
  * @author sunday(sunday.wei@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -15,6 +15,9 @@ class Rate extends Component {
 
         super(props, ...restArgs);
 
+        this.wrapper = createRef();
+        this.wrapperEl = null;
+
         this.state = {
             value: 0,
             items: []
@@ -22,7 +25,7 @@ class Rate extends Component {
 
     }
 
-    triggerEventHandle = (el, triggerEl) => {
+    handleTriggerEvent = (el, triggerEl) => {
         // console.log(el,triggerEl)
         while (el) {
             if (el == triggerEl) {
@@ -35,20 +38,22 @@ class Rate extends Component {
 
     };
 
-    mouseMoveHandler = e => {
+    handleMouseMove = e => {
 
         const {disabled} = this.props;
         if (disabled) {
             return;
         }
-        const mouseEnterFalg = this.triggerEventHandle(e.target, require('react-dom').findDOMNode(this.refs.rate));
+        const mouseEnterFalg = this.handleTriggerEvent(e.target, this.wrapperEl);
         let {value} = this.props;
 
         // console.log(mouseEnterFalg)
         if (mouseEnterFalg) {
             if (e.target.nodeName === 'I') {
                 value = e.target.getAttribute('data-key');
-            } else if (e.target.nodeName === 'DIV' && ((e.target.className.indexOf('half-star') !== -1) || (e.target.className.indexOf('star') !== -1))) {
+            } else if (e.target.nodeName === 'DIV'
+                && ((e.target.className.indexOf('half-star') !== -1)
+                    || (e.target.className.indexOf('star') !== -1))) {
                 value = e.target.getAttribute('data-key');
             }
         } else {
@@ -62,7 +67,7 @@ class Rate extends Component {
         // }
     };
 
-    selectHandler = (value, e) => {
+    handleSelect = (value, e) => {
 
         e.preventDefault();
 
@@ -113,13 +118,17 @@ class Rate extends Component {
     };
 
     componentDidMount() {
+
+        this.wrapperEl = this.wrapper && this.wrapper.current;
+
         const {value} = this.props;
         const items = this.createItems(value);
         this.setState({
             value,
             items
         });
-        Event.addEvent(document, 'mousemove', this.mouseMoveHandler);
+        Event.addEvent(document, 'mousemove', this.handleMouseMove);
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -134,27 +143,23 @@ class Rate extends Component {
     }
 
     componentWillUnmount() {
-        Event.removeEvent(document, 'mousemove', this.mouseMoveHandler);
+        Event.removeEvent(document, 'mousemove', this.handleMouseMove);
     }
 
     render() {
 
         const {className, style, allowHalf, disabled, count} = this.props,
-            {items} = this.state,
-
-            rateClassName = classNames('rate', {
-                [className]: className
-            }),
-
-            rateStyle = {
-                width: count * 30,
-                ...style
-            };
+            {items} = this.state;
 
         return (
-            <div ref="rate"
-                 className={rateClassName}
-                 style={rateStyle}>
+            <div ref={this.wrapper}
+                 className={classNames('rate', {
+                     [className]: className
+                 })}
+                 style={{
+                     width: count * 30,
+                     ...style
+                 }}>
 
                 {
                     items && items.map((item, index) => allowHalf ?
@@ -164,17 +169,17 @@ class Rate extends Component {
                             <div className="half-star-left"
                                  data-key={index + 0.5}
                                  onClick={(e) => {
-                                     this.selectHandler(index + 0.5, e);
+                                     this.handleSelect(index + 0.5, e);
                                  }}>
-                                <i className={`fas fa-star-half ${ item == 'full' || item == 'full-zero' ? 'full' : 'zero'} ${disabled ? 'disabled' : ''}`}
+                                <i className={`fas fa-star-half ${item == 'full' || item == 'full-zero' ? 'full' : 'zero'} ${disabled ? 'disabled' : ''}`}
                                    data-key={index + 0.5}></i>
                             </div>
                             <div className="half-star-right"
                                  data-key={index + 1}
                                  onClick={(e) => {
-                                     this.selectHandler(index + 1, e);
+                                     this.handleSelect(index + 1, e);
                                  }}>
-                                <i className={`fas fa-star-half ${ item == 'zero' || item == 'full-zero' ? 'zero' : 'full'} ${disabled ? 'disabled' : ''}`}
+                                <i className={`fas fa-star-half ${item == 'zero' || item == 'full-zero' ? 'zero' : 'full'} ${disabled ? 'disabled' : ''}`}
                                    data-key={index + 1}></i>
                             </div>
                         </div>
@@ -182,10 +187,10 @@ class Rate extends Component {
                         <div key={index}
                              className={`star ${disabled ? 'disabled' : ''}`}
                              data-key={index + 1}>
-                            <i className={`fas fa-star ${ item == 'zero' ? 'zero' : 'full'} ${disabled ? 'disabled' : ''}`}
+                            <i className={`fas fa-star ${item == 'zero' ? 'zero' : 'full'} ${disabled ? 'disabled' : ''}`}
                                data-key={index + 1}
                                onClick={(e) => {
-                                   this.selectHandler(index + 1, e);
+                                   this.handleSelect(index + 1, e);
                                }}
                             ></i>
                         </div>
@@ -228,6 +233,8 @@ Rate.propTypes = {
      * If true,the Rate component will be disabled.
      */
     disabled: PropTypes.bool,
+
+    count: PropTypes.number,
 
     /**
      * Callback function fired when the rate change.

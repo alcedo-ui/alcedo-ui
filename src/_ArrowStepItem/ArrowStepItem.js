@@ -13,7 +13,7 @@ class ArrowStepItem extends Component {
         super(props, ...restArgs);
     }
 
-    clickHandler = e => {
+    handleClick = e => {
         const {isActivatedStep, isFinishedStep, index, onClick} = this.props;
         !isActivatedStep && isFinishedStep && onClick && onClick(index, e);
     };
@@ -21,23 +21,17 @@ class ArrowStepItem extends Component {
     render() {
 
         const {className, style, isActivatedStep, isFinishedStep, index, value, isFirst, isLast} = this.props,
+            triangleClassName = isActivatedStep ? 'activated' : (isFinishedStep ? 'finished' : '');
 
-            itemClassName = classNames('arrow-step-item',
+        return (
+            <div className={classNames('arrow-step-item',
                 isActivatedStep ? 'activated' : (isFinishedStep ? 'finished' : ''), {
                     first: isFirst,
                     last: isLast,
                     [className]: className
-                }),
-
-            triangleClassName = isActivatedStep ? 'activated' : (isFinishedStep ? 'finished' : ''),
-            triangleTopClassName = classNames('triangle-top', triangleClassName),
-            triangleMiddleClassName = classNames('triangle-middle', triangleClassName),
-            triangleBottomClassName = classNames('triangle-bottom', triangleClassName);
-
-        return (
-            <div className={itemClassName}
+                })}
                  style={style}
-                 onClick={this.clickHandler}>
+                 onClick={this.handleClick}>
 
                 <div className="arrow-step-item-content">
                     <div className="number">
@@ -53,8 +47,8 @@ class ArrowStepItem extends Component {
                         null
                         :
                         <div className="triangle-wrapper triangle-wrapper-left">
-                            <div className={triangleTopClassName}></div>
-                            <div className={triangleBottomClassName}></div>
+                            <div className={classNames('triangle-top', triangleClassName)}></div>
+                            <div className={classNames('triangle-bottom', triangleClassName)}></div>
                         </div>
                 }
 
@@ -63,7 +57,7 @@ class ArrowStepItem extends Component {
                         null
                         :
                         <div className="triangle-wrapper triangle-wrapper-right">
-                            <div className={triangleMiddleClassName}></div>
+                            <div className={classNames('triangle-middle', triangleClassName)}></div>
                         </div>
                 }
 

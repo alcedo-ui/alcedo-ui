@@ -9,8 +9,8 @@ import classNames from 'classnames';
 
 import CircularLoading from '../CircularLoading';
 import TipProvider from '../TipProvider';
-import Theme from '../Theme';
 
+import Theme from '../Theme';
 import Util from '../_vendors/Util';
 
 class Anchor extends Component {
@@ -27,12 +27,12 @@ class Anchor extends Component {
 
     }
 
-    clickHandler = e => {
+    handleClick = e => {
         const {disabled, isLoading, onClick} = this.props;
         !disabled && !isLoading && onClick && onClick(e);
     };
 
-    focusHandler = e => {
+    handleFocus = e => {
         this.setState({
             focused: true
         }, () => {
@@ -41,7 +41,7 @@ class Anchor extends Component {
         });
     };
 
-    blurHandler = e => {
+    handleBlur = e => {
         this.setState({
             focused: false
         }, () => {
@@ -55,20 +55,12 @@ class Anchor extends Component {
         const {
 
                 children, className, style, theme,
-                iconCls, rightIconCls, disabled, isLoading, tip, tipPosition,
-                parentEl,
+                iconCls, rightIconCls, disabled, isLoading, tip, tipPosition, parentEl,
 
                 ...restProps
 
             } = this.props,
             {focused} = this.state,
-
-            anchorClassName = classNames('anchor', {
-                focused: focused,
-                [`theme-${theme}`]: theme,
-                [className]: className
-            }),
-
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
@@ -77,12 +69,16 @@ class Anchor extends Component {
                          position={tipPosition}>
 
                 <a {...restProps}
-                   className={anchorClassName}
+                   className={classNames('anchor', {
+                       focused: focused,
+                       [`theme-${theme}`]: theme,
+                       [className]: className
+                   })}
                    style={style}
                    disabled={disabled || isLoading}
-                   onClick={this.clickHandler}
-                   onFocus={this.focusHandler}
-                   onBlur={this.blurHandler}>
+                   onClick={this.handleClick}
+                   onFocus={this.handleFocus}
+                   onBlur={this.handleBlur}>
 
                     {
                         isLoading && loadingIconPosition === 'left' ?
@@ -124,6 +120,8 @@ class Anchor extends Component {
 
 Anchor.propTypes = {
 
+    children: PropTypes.any,
+
     className: PropTypes.string,
     style: PropTypes.object,
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
@@ -141,6 +139,8 @@ Anchor.propTypes = {
 
     tip: PropTypes.string,
     tipPosition: PropTypes.string,
+
+    parentEl: PropTypes.object,
 
     onClick: PropTypes.func,
     onFocus: PropTypes.func,

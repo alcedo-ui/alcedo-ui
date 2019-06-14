@@ -159,8 +159,6 @@ TipProvider.propTypes = {
      */
     isAnimated: PropTypes.bool,
 
-    shouldPreventContainerScroll: PropTypes.bool,
-
     /**
      * The depth of Paper component.
      */
@@ -211,7 +209,6 @@ TipProvider.defaultProps = {
     hasTriangle: true,
     position: Position.BOTTOM,
     isAnimated: true,
-    shouldPreventContainerScroll: true,
     shouldFollowScroll: false,
     resetPositionWait: 250,
     showModal: false

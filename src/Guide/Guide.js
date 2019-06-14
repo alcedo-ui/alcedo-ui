@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -22,14 +22,19 @@ class Guide extends Component {
     static Type = MsgType;
 
     constructor(props, ...restArgs) {
+
         super(props, ...restArgs);
+
+        this.guide = createRef();
+        this.guideInstance = null;
+
     }
 
     /**
      * public
      */
     resetPosition = () => {
-        this.refs.guide && this.refs.guide.resetPosition();
+        this.guideInstance && this.guideInstance.resetPosition();
     };
 
     getIconCls = () => {
@@ -45,7 +50,7 @@ class Guide extends Component {
         }
     };
 
-    renderHandler = (...args) => {
+    handleRender = (...args) => {
 
         PopManagement.push(this);
 
@@ -54,7 +59,7 @@ class Guide extends Component {
 
     };
 
-    destroyHandler = (...args) => {
+    handleDestroy = (...args) => {
 
         PopManagement.pop(this);
 
@@ -62,6 +67,10 @@ class Guide extends Component {
         onDestroy && onDestroy(...args);
 
     };
+
+    componentDidMount() {
+        this.guideInstance = this.guide && this.guide.current;
+    }
 
     componentWillUnmount() {
         PopManagement.pop(this);
@@ -71,32 +80,27 @@ class Guide extends Component {
 
         const {
 
-                className, contentClassName,
-                type, iconVisible, iconCls, closeButtonVisible, closeButtonValue,
-                children, onRequestClose,
+            children, className, contentClassName,
+            type, iconVisible, iconCls, closeButtonVisible, closeButtonValue, onRequestClose,
 
-                ...restProps
+            ...restProps
 
-            } = this.props,
-
-            guideClassName = classNames('guide', {
-                'icon-hidden': !iconVisible,
-                [className]: className
-            }),
-
-            guideContentClassName = classNames('guide-content', {
-                'theme-default': type === MsgType.DEFAULT,
-                [`theme-${type}`]: type !== MsgType.DEFAULT,
-                [contentClassName]: contentClassName
-            });
+        } = this.props;
 
         return (
             <TriggerPop {...restProps}
-                        ref="guide"
-                        className={guideClassName}
-                        contentClassName={guideContentClassName}
-                        onRender={this.renderHandler}
-                        onDestroy={this.destroyHandler}>
+                        ref={this.guide}
+                        className={classNames('guide', {
+                            'icon-hidden': !iconVisible,
+                            [className]: className
+                        })}
+                        contentClassName={classNames('guide-content', {
+                            'theme-default': type === MsgType.DEFAULT,
+                            [`theme-${type}`]: type !== MsgType.DEFAULT,
+                            [contentClassName]: contentClassName
+                        })}
+                        onRender={this.handleRender}
+                        onDestroy={this.handleDestroy}>
 
                 {
                     !iconVisible || type === MsgType.DEFAULT ?
@@ -122,11 +126,14 @@ class Guide extends Component {
 
             </TriggerPop>
         );
+
     }
 
 }
 
 Guide.propTypes = {
+
+    children: PropTypes.any,
 
     /**
      * The CSS class name of the root element.
@@ -189,7 +196,6 @@ Guide.propTypes = {
 
     isBlurClose: PropTypes.bool,
     isEscClose: PropTypes.bool,
-    shouldPreventContainerScroll: PropTypes.bool,
 
     shouldFollowScroll: PropTypes.bool,
     scrollEl: PropTypes.object,
@@ -245,7 +251,6 @@ Guide.defaultProps = {
 
     isBlurClose: true,
     isEscClose: true,
-    shouldPreventContainerScroll: true,
     shouldFollowScroll: false,
     resetPositionWait: 250,
     showModal: false,

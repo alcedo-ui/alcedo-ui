@@ -29,32 +29,30 @@ class PointStepItem extends Component {
 
     };
 
-    clickHandler = e => {
+    handleClick = e => {
         const {activatedStep, finishedStep, index, disabled, onClick} = this.props;
         !disabled && activatedStep !== index && finishedStep >= index && onClick && onClick(index, e);
     };
 
     render() {
 
-        const {className, style, activatedStep, finishedStep, index, value, isFirst, isLast, disabled} = this.props,
+        const {className, style, activatedStep, finishedStep, index, value, isFirst, isLast, disabled} = this.props;
 
-            itemClassName = classNames('point-step-item',
+        return (
+            <div className={classNames('point-step-item',
                 activatedStep == index ? ' activated' : (finishedStep >= index ? ' finished' : ''), {
                     first: isFirst,
                     last: isLast,
                     disabled: disabled,
                     [className]: className
-                });
-
-        return (
-            <div className={itemClassName}
+                })}
                  style={style}>
 
                 <div className="bg-bar"></div>
                 <div className="bg-round"></div>
 
                 <div className="round"
-                     onClick={this.clickHandler}></div>
+                     onClick={this.handleClick}></div>
 
                 <div className="title">
                     {value.title}

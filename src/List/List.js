@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import isArray from 'lodash/isArray';
 import classNames from 'classnames';
@@ -16,7 +16,6 @@ import SelectMode from '../_statics/SelectMode';
 import LIST_SEPARATOR from '../_statics/ListSeparator';
 
 import Util from '../_vendors/Util';
-import Event from '../_vendors/Event';
 import Calculation from '../_vendors/Calculation';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
@@ -29,6 +28,9 @@ class List extends Component {
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
+
+        this.list = createRef();
+        this.listEl = null;
 
         this.state = {
             value: Calculation.getInitValue(props)
@@ -63,7 +65,7 @@ class List extends Component {
 
     };
 
-    listItemSelectHandler = (item, index) => {
+    handleListItemSelect = (item, index) => {
 
         const {selectMode} = this.props,
             {value} = this.state,
@@ -92,7 +94,7 @@ class List extends Component {
 
     };
 
-    listItemDeselectHandler = (item, index) => {
+    handleListItemDeselect = (item, index) => {
 
         const {selectMode} = this.props;
 
@@ -143,7 +145,7 @@ class List extends Component {
     };
 
     componentDidMount() {
-        this.listEl = this.refs.list;
+        this.listEl = this.list && this.list.current;
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -165,12 +167,12 @@ class List extends Component {
         const {
 
                 theme, activatedTheme, itemHeight, idField, valueField, displayField, descriptionField, disabled,
-                itemDisabled, isLoading, renderer, autoSelect, disableTouchRipple, selectTheme, selectMode,
+                itemDisabled, isLoading, renderer, autoSelect, disableTouchRipple, selectTheme, selectMode, parentEl,
                 indeterminateCallback, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
-                onItemClick,
-                parentEl
+                onItemClick
+
 
             } = this.props,
             {value} = this.state;
@@ -205,8 +207,8 @@ class List extends Component {
                           onItemClick && onItemClick(item, index, e);
                           item.onClick && item.onClick(e);
                       }}
-                      onSelect={() => this.listItemSelectHandler(item, index)}
-                      onDeselect={() => this.listItemDeselectHandler(item, index)}/>
+                      onSelect={() => this.handleListItemSelect(item, index)}
+                      onDeselect={() => this.handleListItemDeselect(item, index)}/>
             :
             <ListItem key={index}
                       index={index}
@@ -232,25 +234,22 @@ class List extends Component {
                       disableTouchRipple={disableTouchRipple}
                       indeterminateCallback={indeterminateCallback}
                       onClick={e => onItemClick && onItemClick(item, index, e)}
-                      onSelect={() => this.listItemSelectHandler(item, index)}
-                      onDeselect={() => this.listItemDeselectHandler(item, index)}/>;
+                      onSelect={() => this.handleListItemSelect(item, index)}
+                      onDeselect={() => this.handleListItemDeselect(item, index)}/>;
 
     };
 
     render() {
 
-        const {children, className, style, data, disabled} = this.props,
-
-            listClassName = classNames('list', {
-                [className]: className
-            });
+        const {children, className, style, data, disabled} = this.props;
 
         return (
-            <div ref="list"
-                 className={listClassName}
+            <div ref={this.list}
+                 className={classNames('list', {
+                     [className]: className
+                 })}
                  disabled={this.isListDisabled(disabled)}
-                 style={style}
-                 onWheel={e => Event.wheelHandler(e, this.props)}>
+                 style={style}>
 
                 {
                     data && data.map((item, index) => item === LIST_SEPARATOR ?
@@ -265,10 +264,13 @@ class List extends Component {
 
             </div>
         );
+
     }
 }
 
 List.propTypes = {
+
+    children: PropTypes.any,
 
     /**
      * The CSS class name of the root element.
@@ -443,11 +445,8 @@ List.propTypes = {
      * Whether select when item clicked.
      */
     autoSelect: PropTypes.bool,
-
-    indeterminateCallback: PropTypes.func,
-
-    shouldPreventContainerScroll: PropTypes.bool,
-
+    itemHeight: PropTypes.number,
+    parentEl: PropTypes.object,
     radioUncheckedIconCls: PropTypes.string,
     radioCheckedIconCls: PropTypes.string,
     checkboxUncheckedIconCls: PropTypes.string,
@@ -479,10 +478,7 @@ List.propTypes = {
      */
     onChange: PropTypes.func,
 
-    /**
-     * Callback function fired when wrapper wheeled.
-     */
-    onWheel: PropTypes.func
+    indeterminateCallback: PropTypes.func
 
 };
 
@@ -502,7 +498,6 @@ List.defaultProps = {
     itemDisabled: false,
     disableTouchRipple: false,
     autoSelect: true,
-    shouldPreventContainerScroll: true,
 
     checkboxUncheckedIconCls: 'far fa-square',
     checkboxCheckedIconCls: 'fas fa-check-square',

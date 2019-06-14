@@ -17,7 +17,6 @@ import SelectMode from '../_statics/SelectMode';
 import VirtualRoot from '../_statics/VirtualRoot';
 
 import Util from '../_vendors/Util';
-import Event from '../_vendors/Event';
 import Calculation from '../_vendors/Calculation';
 import TreeCalculation from '../_vendors/TreeCalculation';
 import ComponentUtil from '../_vendors/ComponentUtil';
@@ -112,7 +111,7 @@ class DraggableTree extends Component {
 
     };
 
-    treeNodeSelectHandler = (node, path, e) => {
+    handleTreeNodeSelect = (node, path, e) => {
 
         if (!node) {
             return;
@@ -148,7 +147,7 @@ class DraggableTree extends Component {
 
     };
 
-    treeNodeDeselectHandler = (nodeData, path, e) => {
+    handleTreeNodeDeselect = (nodeData, path, e) => {
 
         const {selectMode} = this.props;
 
@@ -183,7 +182,7 @@ class DraggableTree extends Component {
 
     };
 
-    nodeToggleStartHandler = () => {
+    handleNodeToggleStart = () => {
 
         const {beforeNodeToggle} = this.props;
 
@@ -197,7 +196,7 @@ class DraggableTree extends Component {
 
     };
 
-    nodeToggleEndHandler = () => {
+    handleNodeToggleEnd = () => {
         this.setState({
             isNodeToggling: false
         });
@@ -278,20 +277,17 @@ class DraggableTree extends Component {
                 idField, valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
                 renderer, onNodeClick
             } = this.props,
-            {data, value, isNodeToggling} = this.state,
-
-            treeClassName = classNames('draggable-tree', {
-                [className]: className
-            });
+            {data, value, isNodeToggling} = this.state;
 
         return (
             <DragDropContext onDragStart={this.onNodeDragStart}
                              onDragEnd={this.onNodeDragEnd}>
 
-                <div className={treeClassName}
+                <div className={classNames('draggable-tree', {
+                    [className]: className
+                })}
                      disabled={disabled}
-                     style={style}
-                     onWheel={e => Event.wheelHandler(e, this.props)}>
+                     style={style}>
 
                     <DraggableTreeNode data={isArray(data) ? {[VirtualRoot]: true, children: data} : data}
                                        value={value}
@@ -316,10 +312,10 @@ class DraggableTree extends Component {
                                        checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
                                        isNodeToggling={isNodeToggling}
                                        onClick={(...args) => onNodeClick && onNodeClick(...args)}
-                                       onNodeToggleStart={this.nodeToggleStartHandler}
-                                       onNodeToggleEnd={this.nodeToggleEndHandler}
-                                       onSelect={this.treeNodeSelectHandler}
-                                       onDeselect={this.treeNodeDeselectHandler}/>
+                                       onNodeToggleStart={this.handleNodeToggleStart}
+                                       onNodeToggleEnd={this.handleNodeToggleEnd}
+                                       onSelect={this.handleTreeNodeSelect}
+                                       onDeselect={this.handleTreeNodeDeselect}/>
 
                     {children}
 
@@ -331,6 +327,8 @@ class DraggableTree extends Component {
 }
 
 DraggableTree.propTypes = {
+
+    children: PropTypes.any,
 
     /**
      * The CSS class name of the root element.
@@ -468,7 +466,6 @@ DraggableTree.propTypes = {
 
     readOnly: PropTypes.bool,
 
-    shouldPreventContainerScroll: PropTypes.bool,
     isSelectRecursive: PropTypes.bool,
     allowCollapse: PropTypes.bool,
     collapsed: PropTypes.bool,
@@ -533,7 +530,6 @@ DraggableTree.defaultProps = {
     disabled: false,
     isLoading: false,
     readOnly: false,
-    shouldPreventContainerScroll: true,
     isSelectRecursive: false,
     allowCollapse: true,
     collapsed: false

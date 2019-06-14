@@ -3,17 +3,18 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import EditableSelect from '../EditableSelect';
 import MaterialFieldSeparator from '../_MaterialFieldSeparator';
-import Theme from '../Theme';
 
+import Theme from '../Theme';
 import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class MaterialEditableSelect extends Component {
 
@@ -24,6 +25,9 @@ class MaterialEditableSelect extends Component {
 
         super(props, ...restArgs);
 
+        this.editableSelect = createRef();
+        this.editableSelectInstance = null;
+
         this.state = {
             value: '',
             filter: props.filterInitValue,
@@ -33,7 +37,7 @@ class MaterialEditableSelect extends Component {
 
     }
 
-    triggerFocusHandler = (...args) => {
+    handleTriggerFocus = (...args) => {
         this.setState({
             isFocus: true
         }, () => {
@@ -42,7 +46,7 @@ class MaterialEditableSelect extends Component {
         });
     };
 
-    triggerBlurHandler = (...args) => {
+    handleTriggerBlur = (...args) => {
         this.setState({
             isFocus: false
         }, () => {
@@ -51,13 +55,13 @@ class MaterialEditableSelect extends Component {
         });
     };
 
-    popupClosedHandler = () => {
+    handlePopupClosed = () => {
         this.setState({
             isFocus: false
         });
     };
 
-    triggerFilterChangeHandler = filter => {
+    handleTriggerFilterChange = filter => {
         this.setState({
             filter
         }, () => {
@@ -66,7 +70,7 @@ class MaterialEditableSelect extends Component {
         });
     };
 
-    triggerChangeHandler = value => {
+    handleTriggerChange = value => {
         this.setState({
             value
         }, () => {
@@ -75,8 +79,7 @@ class MaterialEditableSelect extends Component {
         });
     };
 
-    triggerMouseOverHandler = (...args) => {
-
+    handleTriggerMouseOver = (...args) => {
         this.setState({
             isHover: true
         }, () => {
@@ -85,7 +88,7 @@ class MaterialEditableSelect extends Component {
         });
     };
 
-    triggerMouseOutHandler = (...args) => {
+    handleTriggerMouseOut = (...args) => {
         this.setState({
             isHover: false
         }, () => {
@@ -95,21 +98,24 @@ class MaterialEditableSelect extends Component {
     };
 
     closePopup = () => {
-        this.refs.editableSelect && this.refs.editableSelect.closePopup();
+        this.editableSelectInstance && this.editableSelectInstance.closePopup();
     };
 
     componentDidMount() {
+
+        this.editableSelectInstance = this.editableSelect && this.editableSelect.current;
+
         this.setState({
             value: this.props.value
         });
+
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
     }
 
     render() {
@@ -118,22 +124,16 @@ class MaterialEditableSelect extends Component {
                 className, style, theme, label, isLabelAnimated, popupClassName,
                 ...restProps
             } = this.props,
-            {isFocus, isHover, value} = this.state,
+            {isFocus, isHover, value} = this.state;
 
-            wrapperClassName = classNames('material-editable-select', {
+        return (
+            <div className={classNames('material-editable-select', {
                 animated: isLabelAnimated,
                 'has-label': label,
                 'has-value': value,
                 focused: isFocus,
                 [className]: className
-            }),
-
-            selectClassName = classNames('material-editable-select-popup', {
-                [popupClassName]: popupClassName
-            });
-
-        return (
-            <div className={wrapperClassName}
+            })}
                  style={style}>
 
                 {
@@ -146,17 +146,19 @@ class MaterialEditableSelect extends Component {
                 }
 
                 <EditableSelect {...restProps}
-                                ref="editableSelect"
-                                popupClassName={selectClassName}
+                                ref={this.editableSelect}
+                                popupClassName={classNames('material-editable-select-popup', {
+                                    [popupClassName]: popupClassName
+                                })}
                                 theme={theme}
                                 value={value}
-                                onFocus={this.triggerFocusHandler}
-                                onBlur={this.triggerBlurHandler}
-                                onPopupClosed={this.popupClosedHandler}
-                                onMouseOver={this.triggerMouseOverHandler}
-                                onMouseOut={this.triggerMouseOutHandler}
-                                onFilterChange={this.triggerFilterChangeHandler}
-                                onChange={this.triggerChangeHandler}/>
+                                onFocus={this.handleTriggerFocus}
+                                onBlur={this.handleTriggerBlur}
+                                onPopupClosed={this.handlePopupClosed}
+                                onMouseOver={this.handleTriggerMouseOver}
+                                onMouseOut={this.handleTriggerMouseOut}
+                                onFilterChange={this.handleTriggerFilterChange}
+                                onChange={this.handleTriggerChange}/>
 
                 <MaterialFieldSeparator theme={theme}
                                         isHover={isHover}
@@ -166,7 +168,7 @@ class MaterialEditableSelect extends Component {
         );
 
     }
-};
+}
 
 MaterialEditableSelect.propTypes = {
 
@@ -184,6 +186,8 @@ MaterialEditableSelect.propTypes = {
      * Override the styles of the root element.
      */
     style: PropTypes.object,
+
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     rightIconCls: PropTypes.string,
 
@@ -354,6 +358,8 @@ MaterialEditableSelect.propTypes = {
      */
     isGrouped: PropTypes.bool,
 
+    filterInitValue: PropTypes.string,
+
     /**
      * Callback function fired when the button is touch-tapped.
      */
@@ -362,7 +368,13 @@ MaterialEditableSelect.propTypes = {
     /**
      * Callback function fired when a menu item is selected.
      */
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+
+    onFocus: PropTypes.func,
+    onBlur: PropTypes.func,
+    onFilterChange: PropTypes.func,
+    onMouseOver: PropTypes.func,
+    onMouseOut: PropTypes.func
 
 };
 

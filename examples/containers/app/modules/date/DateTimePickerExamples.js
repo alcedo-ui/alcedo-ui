@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 
 import DateTimePicker from 'src/DateTimePicker';
 import Widget from 'src/Widget';
@@ -11,12 +11,12 @@ import doc from 'assets/propTypes/DateTimePicker.json';
 
 import 'scss/containers/app/modules/date/DateInDialog.scss';
 
-
-
 class DateTimePickerExamples extends Component {
 
     constructor(props) {
+
         super(props);
+
         this.state = {
             DateTimePickerVisible: {}
         };
@@ -60,7 +60,8 @@ class DateTimePickerExamples extends Component {
                 <h2 className="example-title">Date Time Picker</h2>
 
                 <p>
-                    <span>Date Time Picker</span> is used to select a date and time.
+                    <span>Date Time Picker</span>
+                    is used to select a date and time.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -204,6 +205,6 @@ class DateTimePickerExamples extends Component {
             </div>
         );
     }
-};
+}
 
 export default DateTimePickerExamples;

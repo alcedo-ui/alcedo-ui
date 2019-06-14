@@ -3,14 +3,14 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import query from 'dom-helpers/query';
 
 import TriggerPop from '../_TriggerPop';
-import Theme from '../Theme';
 
+import Theme from '../Theme';
 import Position from '../_statics/Position';
 
 import Event from '../_vendors/Event';
@@ -28,6 +28,8 @@ class Popup extends Component {
         super(props, ...restArgs);
 
         this.closeTimeout = null;
+        this.pop = createRef();
+        this.popInstance = null;
 
     }
 
@@ -35,14 +37,14 @@ class Popup extends Component {
      * public
      */
     getEl = () => {
-        return this.refs.pop && this.refs.pop.getEl();
+        return this.popInstance && this.popInstance.getEl();
     };
 
     /**
      * public
      */
     resetPosition = () => {
-        this.refs.pop && this.refs.pop.resetPosition();
+        this.popInstance && this.popInstance.resetPosition();
     };
 
     clearCloseTimeout = () => {
@@ -68,10 +70,10 @@ class Popup extends Component {
 
     };
 
-    closeHandler = e => {
+    handleClose = e => {
 
         const {visible, triggerEl, isBlurClose, triggerHandler, onRequestClose} = this.props,
-            popupEl = this.refs.pop.getEl();
+            popupEl = this.popInstance.getEl();
 
         if (!visible || !triggerEl) {
             return;
@@ -94,7 +96,7 @@ class Popup extends Component {
 
     };
 
-    renderHandler = (...args) => {
+    handleRender = (...args) => {
 
         PopManagement.push(this);
 
@@ -103,7 +105,7 @@ class Popup extends Component {
 
     };
 
-    destroyHandler = (...args) => {
+    handleDestroy = (...args) => {
 
         PopManagement.pop(this);
 
@@ -113,13 +115,17 @@ class Popup extends Component {
     };
 
     componentDidMount() {
-        Event.addEvent(document, 'click', this.closeHandler);
+
+        this.popInstance = this.pop && this.pop.current;
+
+        Event.addEvent(document, 'click', this.handleClose);
+
     }
 
     componentWillUnmount() {
 
         this.clearCloseTimeout();
-        Event.removeEvent(document, 'click', this.closeHandler);
+        Event.removeEvent(document, 'click', this.handleClose);
 
         PopManagement.pop(this);
 
@@ -129,30 +135,26 @@ class Popup extends Component {
 
         const {
 
-                className, contentClassName,
+            className, contentClassName,
 
-                // not passing down these props
-                triggerHandler, onRequestClose,
+            // not passing down these props
+            triggerHandler, onRequestClose,
 
-                ...restProps
+            ...restProps
 
-            } = this.props,
-
-            popupClassName = classNames('popup', {
-                [className]: className
-            }),
-
-            popupContentClassName = classNames('popup-content', {
-                [contentClassName]: contentClassName
-            });
+        } = this.props;
 
         return (
             <TriggerPop {...restProps}
-                        ref="pop"
-                        className={popupClassName}
-                        contentClassName={popupContentClassName}
-                        onRender={this.renderHandler}
-                        onDestroy={this.destroyHandler}/>
+                        ref={this.pop}
+                        className={classNames('popup', {
+                            [className]: className
+                        })}
+                        contentClassName={classNames('popup-content', {
+                            [contentClassName]: contentClassName
+                        })}
+                        onRender={this.handleRender}
+                        onDestroy={this.handleDestroy}/>
         );
     }
 
@@ -218,7 +220,6 @@ Popup.propTypes = {
 
     isBlurClose: PropTypes.bool,
     isEscClose: PropTypes.bool,
-    shouldPreventContainerScroll: PropTypes.bool,
 
     shouldFollowScroll: PropTypes.bool,
     scrollEl: PropTypes.object,
@@ -274,7 +275,6 @@ Popup.defaultProps = {
 
     isBlurClose: true,
     isEscClose: true,
-    shouldPreventContainerScroll: true,
     shouldFollowScroll: false,
     resetPositionWait: 250,
     showModal: false

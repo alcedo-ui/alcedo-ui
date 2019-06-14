@@ -8,8 +8,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import TimeLineItem from '../_TimelineItem';
-import Theme from '../Theme';
 
+import Theme from '../Theme';
 import Util from '../_vendors/Util';
 
 class TimeLine extends Component {
@@ -23,16 +23,13 @@ class TimeLine extends Component {
 
     render() {
 
-        const {data, style, className} = this.props,
-
-            wrapperClassName = classNames('time-line', {
-                [className]: className
-            });
+        const {data, style, className} = this.props;
 
         return (
-            <ul className={wrapperClassName}
+            <ul className={classNames('time-line', {
+                [className]: className
+            })}
                 style={style}>
-
                 {
                     data && data.map((item, index) =>
                         <TimeLineItem key={index}
@@ -45,7 +42,6 @@ class TimeLine extends Component {
                                       headerText={item.headerText}/>
                     )
                 }
-
             </ul>
         );
 

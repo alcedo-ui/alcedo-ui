@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import {DragSource, DropTarget} from 'react-dnd';
 import classNames from 'classnames';
@@ -37,6 +37,8 @@ class DraggableGridItem extends Component {
 
         super(props, ...restArgs);
 
+        this.tipTrigger = createRef();
+
         this.state = {
             tipVisible: false
         };
@@ -61,7 +63,7 @@ class DraggableGridItem extends Component {
         });
     };
 
-    checkboxChangeHandler = checked => {
+    handleCheckboxChange = checked => {
 
         const {onSelect, onDeselect} = this.props;
 
@@ -73,7 +75,7 @@ class DraggableGridItem extends Component {
 
     };
 
-    radioChangeHandler = () => {
+    handleRadioChange = () => {
 
         const {checked} = this.props;
 
@@ -84,7 +86,7 @@ class DraggableGridItem extends Component {
 
     };
 
-    clickHandler = e => {
+    handleClick = e => {
 
         e.preventDefault();
 
@@ -99,21 +101,22 @@ class DraggableGridItem extends Component {
 
         switch (this.props.selectMode) {
             case SelectMode.MULTI_SELECT:
-                this.checkboxChangeHandler(!this.props.checked);
+                this.handleCheckboxChange(!this.props.checked);
                 return;
             case SelectMode.SINGLE_SELECT:
-                this.radioChangeHandler();
+                this.handleRadioChange();
                 return;
         }
 
     };
 
-    mouseOverHandler = e => {
+    handleMouseOver = e => {
         this.showTip(e);
         const {onMouseOver} = this.props;
         onMouseOver && onMouseOver(e);
     };
 
+    /* eslint-disable complexity */
     render() {
 
         const {
@@ -135,14 +138,7 @@ class DraggableGridItem extends Component {
             } = this.props,
             {tipVisible} = this.state,
 
-            listItemClassName = classNames('draggable-grid-item', {
-                [`theme-${theme}`]: theme,
-                activated: checked,
-                [className]: className
-            }),
-
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left',
-
             anchorEl = <i className={`${anchorIconCls} draggable-grid-item-anchor`}
                           aria-hidden="true"></i>,
 
@@ -151,11 +147,15 @@ class DraggableGridItem extends Component {
                      style={col ? {width: `${100 / col}%`} : null}>
 
                     <div {...restProps}
-                         ref={el => this.tipTriggerEl = el}
-                         className={listItemClassName}
+                         ref={this.tipTrigger}
+                         className={classNames('draggable-grid-item', {
+                             [`theme-${theme}`]: theme,
+                             activated: checked,
+                             [className]: className
+                         })}
                          disabled={disabled || isLoading}
-                         onClick={this.clickHandler}
-                         onMouseOver={this.mouseOverHandler}
+                         onClick={this.handleClick}
+                         onMouseOver={this.handleMouseOver}
                          onMouseOut={this.hideTip}>
 
                         {
@@ -244,7 +244,7 @@ class DraggableGridItem extends Component {
                         {
                             tip ?
                                 <Tip visible={tipVisible}
-                                     triggerEl={this.tipTriggerEl}
+                                     triggerEl={this.tipTrigger && this.tipTrigger.current}
                                      position={tipPosition}>
                                     {tip}
                                 </Tip>
@@ -292,6 +292,7 @@ DraggableGridItem.propTypes = {
     isLoading: PropTypes.bool,
     checked: PropTypes.bool,
     readOnly: PropTypes.bool,
+    itemColWidth: PropTypes.number,
 
     iconCls: PropTypes.string,
     rightIconCls: PropTypes.string,
@@ -317,6 +318,7 @@ DraggableGridItem.propTypes = {
     onDeselect: PropTypes.func,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func,
+    onMouseOver: PropTypes.func,
 
     // dnd
     connectDragPreview: PropTypes.func,

@@ -9,8 +9,8 @@ import classNames from 'classnames';
 
 import List from '../List';
 import Tip from '../Tip';
-import Theme from '../Theme';
 
+import Theme from '../Theme';
 import Util from '../_vendors/Util';
 
 class ButtonRadioGroup extends Component {
@@ -23,15 +23,13 @@ class ButtonRadioGroup extends Component {
 
     render() {
 
-        const {className, ...restProps} = this.props,
-
-            fieldClassName = classNames('button-radio-group', {
-                [className]: className
-            });
+        const {className, ...restProps} = this.props;
 
         return (
             <List {...restProps}
-                  className={fieldClassName}/>
+                  className={classNames('button-radio-group', {
+                      [className]: className
+                  })}/>
         );
 
     }
@@ -202,8 +200,6 @@ ButtonRadioGroup.propTypes = {
 
     indeterminateCallback: PropTypes.func,
 
-    shouldPreventContainerScroll: PropTypes.bool,
-
     radioUncheckedIconCls: PropTypes.string,
     radioCheckedIconCls: PropTypes.string,
     checkboxUncheckedIconCls: PropTypes.string,
@@ -243,7 +239,6 @@ ButtonRadioGroup.defaultProps = {
     itemDisabled: false,
     disableTouchRipple: false,
     autoSelect: true,
-    shouldPreventContainerScroll: true,
 
     checkboxUncheckedIconCls: 'far fa-square',
     checkboxCheckedIconCls: 'fas fa-check-square',

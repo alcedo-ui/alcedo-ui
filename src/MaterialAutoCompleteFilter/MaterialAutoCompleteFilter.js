@@ -3,17 +3,18 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import AutoCompleteFilter from '../AutoCompleteFilter';
 import MaterialFieldSeparator from '../_MaterialFieldSeparator';
-import Theme from '../Theme';
 
+import Theme from '../Theme';
 import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class MaterialAutoCompleteFilter extends Component {
 
@@ -24,8 +25,10 @@ class MaterialAutoCompleteFilter extends Component {
 
         super(props, ...restArgs);
 
+        this.autoComplete = createRef();
+
         this.state = {
-            value: '',
+            value: props.value,
             filter: props.filterInitValue,
             isFocus: false,
             isHover: false
@@ -33,7 +36,7 @@ class MaterialAutoCompleteFilter extends Component {
 
     }
 
-    triggerFocusHandler = (...args) => {
+    handleTriggerFocus = (...args) => {
         this.setState({
             isFocus: true
         }, () => {
@@ -42,7 +45,7 @@ class MaterialAutoCompleteFilter extends Component {
         });
     };
 
-    triggerBlurHandler = (...args) => {
+    handleTriggerBlur = (...args) => {
 
         if (this.state.filter === '') {
             this.setState({
@@ -55,13 +58,13 @@ class MaterialAutoCompleteFilter extends Component {
 
     };
 
-    popupClosedHandler = () => {
+    handlePopupClosed = () => {
         this.setState({
             isFocus: false
         });
     };
 
-    triggerFilterChangeHandler = filter => {
+    handleTriggerFilterChange = filter => {
         this.setState({
             filter
         }, () => {
@@ -70,7 +73,7 @@ class MaterialAutoCompleteFilter extends Component {
         });
     };
 
-    triggerChangeHandler = value => {
+    handleTriggerChange = value => {
         this.setState({
             value
         }, () => {
@@ -79,7 +82,7 @@ class MaterialAutoCompleteFilter extends Component {
         });
     };
 
-    triggerMouseOverHandler = (...args) => {
+    handleTriggerMouseOver = (...args) => {
         this.setState({
             isHover: true
         }, () => {
@@ -88,7 +91,7 @@ class MaterialAutoCompleteFilter extends Component {
         });
     };
 
-    triggerMouseOutHandler = (...args) => {
+    handleTriggerMouseOut = (...args) => {
         this.setState({
             isHover: false
         }, () => {
@@ -98,21 +101,18 @@ class MaterialAutoCompleteFilter extends Component {
     };
 
     closePopup = () => {
-        this.refs.localAutoComplete && this.refs.localAutoComplete.closePopup();
+        this.autoCompleteInstance && this.autoCompleteInstance.closePopup();
     };
 
     componentDidMount() {
-        this.setState({
-            value: this.props.value
-        });
+        this.autoCompleteInstance = this.autoComplete && this.autoComplete.current;
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
     }
 
     render() {
@@ -121,22 +121,16 @@ class MaterialAutoCompleteFilter extends Component {
                 className, style, theme, label, isLabelAnimated, popupClassName,
                 ...restProps
             } = this.props,
-            {isFocus, isHover, value, filter} = this.state,
+            {isFocus, isHover, value, filter} = this.state;
 
-            wrapperClassName = classNames('material-auto-complete-filter', {
+        return (
+            <div className={classNames('material-auto-complete-filter', {
                 animated: isLabelAnimated,
                 'has-label': label,
                 'has-value': filter,
                 focused: isFocus,
                 [className]: className
-            }),
-
-            filterClassName = classNames('material-auto-complete-filter-popup', {
-                [popupClassName]: popupClassName
-            });
-
-        return (
-            <div className={wrapperClassName}
+            })}
                  style={style}>
 
                 {
@@ -149,17 +143,19 @@ class MaterialAutoCompleteFilter extends Component {
                 }
 
                 <AutoCompleteFilter {...restProps}
-                                    ref="localAutoComplete"
-                                    popupClassName={filterClassName}
+                                    ref={this.autoComplete}
+                                    popupClassName={classNames('material-auto-complete-filter-popup', {
+                                        [popupClassName]: popupClassName
+                                    })}
                                     theme={theme}
                                     value={value}
-                                    onFocus={this.triggerFocusHandler}
-                                    onBlur={this.triggerBlurHandler}
-                                    onPopupClosed={this.popupClosedHandler}
-                                    onMouseOver={this.triggerMouseOverHandler}
-                                    onMouseOut={this.triggerMouseOutHandler}
-                                    onFilterChange={this.triggerFilterChangeHandler}
-                                    onChange={this.triggerChangeHandler}/>
+                                    onFocus={this.handleTriggerFocus}
+                                    onBlur={this.handleTriggerBlur}
+                                    onPopupClosed={this.handlePopupClosed}
+                                    onMouseOver={this.handleTriggerMouseOver}
+                                    onMouseOut={this.handleTriggerMouseOut}
+                                    onFilterChange={this.handleTriggerFilterChange}
+                                    onChange={this.handleTriggerChange}/>
 
                 <MaterialFieldSeparator theme={theme}
                                         isHover={isHover}
@@ -345,9 +341,8 @@ MaterialAutoCompleteFilter.propTypes = {
     isGrouped: PropTypes.bool,
 
     isLabelAnimated: PropTypes.bool,
-
     filterInitValue: PropTypes.string,
-
+    value: PropTypes.any,
     popupChildren: PropTypes.any,
 
     /**

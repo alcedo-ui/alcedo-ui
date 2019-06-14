@@ -3,15 +3,15 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 import classNames from 'classnames';
 
 import IconButton from '../IconButton';
 import FieldMsg from '../FieldMsg';
-import Theme from '../Theme';
 
+import Theme from '../Theme';
 import FieldType from '../_statics/FieldType';
 
 import Util from '../_vendors/Util';
@@ -26,6 +26,11 @@ class TextArea extends Component {
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
+
+        this.input = createRef();
+        this.inputEl = null;
+        this.clearButton = createRef();
+        this.clearButtonEl = null;
 
         this.state = {
             value: props.value,
@@ -42,14 +47,14 @@ class TextArea extends Component {
      * public
      */
     focus = () => {
-        this.refs.input.focus();
+        this.inputEl && this.inputEl.focus();
     };
 
     /**
      * public
      */
     blur = () => {
-        this.refs.input.blur();
+        this.inputEl && this.inputEl.blur();
     };
 
     /**
@@ -62,7 +67,7 @@ class TextArea extends Component {
         }
     };
 
-    changeHandler = e => {
+    handleChange = e => {
 
         const {onValid, onInvalid} = this.props,
             value = e.target.value,
@@ -80,7 +85,7 @@ class TextArea extends Component {
 
     };
 
-    keyDownHandler = e => {
+    handleKeyDown = e => {
         if (e.keyCode === 13) {
             const {onPressEnter} = this.props,
                 {value} = this.state;
@@ -128,7 +133,7 @@ class TextArea extends Component {
 
     };
 
-    mouseOverHandler = e => {
+    handleMouseOver = e => {
         this.setState({
             infoVisible: true,
             errorVisible: true
@@ -139,7 +144,7 @@ class TextArea extends Component {
         });
     };
 
-    mouseOutHandler = e => {
+    handleMouseOut = e => {
         this.setState({
             infoVisible: false,
             errorVisible: false
@@ -150,18 +155,18 @@ class TextArea extends Component {
         });
     };
 
-    focusHandler = e => {
+    handleFocus = e => {
         this.setState({
             isFocused: true
         }, () => {
             const {isFocusedSelectAll, onFocus} = this.props,
                 {value} = this.state;
             onFocus && onFocus(e, value);
-            isFocusedSelectAll && this.refs.input.setSelectionRange(0, value ? value.length : 0);
+            isFocusedSelectAll && this.inputEl && this.inputEl.setSelectionRange(0, value ? value.length : 0);
         });
     };
 
-    blurHandler = e => {
+    handleBlur = e => {
 
         if (e.relatedTarget == this.clearButtonEl) {
             return;
@@ -177,7 +182,7 @@ class TextArea extends Component {
 
     };
 
-    rightIconClickHandler = e => {
+    handleRightIconClick = e => {
         const {onRightIconClick} = this.props,
             {value} = this.state;
         onRightIconClick && onRightIconClick(e, value);
@@ -185,10 +190,9 @@ class TextArea extends Component {
 
     componentDidMount() {
 
-        this.inputEl = this.refs.input;
+        this.inputEl = this.input && this.input.current;
         this.inputElInitHeight = parseInt(this.inputEl.offsetHeight);
-
-        this.clearButtonEl = findDOMNode(this.refs.clearButton);
+        this.clearButtonEl = this.clearButton && this.clearButton.current && findDOMNode(this.clearButton.current);
 
         this.resetHeight();
 
@@ -205,6 +209,7 @@ class TextArea extends Component {
         };
     }
 
+    /* eslint-disable complexity */
     render() {
 
         const {
@@ -221,13 +226,18 @@ class TextArea extends Component {
                 ...restProps
 
             } = this.props,
-
             {value, isFocused, passwordVisible, infoVisible, errorVisible, invalidMsgs} = this.state,
+            isPassword = type === FieldType.PASSWORD;
 
-            isPassword = type === FieldType.PASSWORD,
-            empty = !value || value.length <= 0,
+        let inputType = type;
+        if (inputType === FieldType.PASSWORD) {
+            inputType = passwordVisible ? FieldType.TEXT : FieldType.PASSWORD;
+        } else if (Valid.isNumberType(type)) {
+            inputType = 'text';
+        }
 
-            fieldClassName = classNames('text-area',
+        return (
+            <div className={classNames('text-area',
                 !value || value.length <= 0 ? 'empty' : 'not-empty',
                 invalidMsgs.length > 0 ? 'theme-error' : (theme ? `theme-${theme}` : ''), {
                     password: isPassword,
@@ -238,44 +248,15 @@ class TextArea extends Component {
                     'has-word-count': wordCountVisible,
                     'has-clear-button': clearButtonVisible,
                     [className]: className
-                }),
-            leftIconClassName = classNames('text-area-left-icon', {
-                deactivated: !onIconClick
-            }),
-            fieldPlaceholderClassName = classNames('text-area-placeholder', {
-                [placeholderClassName]: placeholderClassName
-            }),
-            fieldInputClassName = classNames('text-area-input', {
-                [triggerClassName]: triggerClassName
-            }),
-            passwordVisibleIconClassName = classNames('password-visible-icon', {
-                hidden: !isPassword || !passwordButtonVisible
-            }),
-            clearButtonClassName = classNames('clear-icon', {
-                hidden: !clearButtonVisible || !value || value.length < 1
-            }),
-            rightIconClassName = classNames('text-area-right-icon', {
-                deactivated: !onRightIconClick
-            }),
-            wordCountClassName = classNames('text-area-word-count', {
-                error: value.length > maxLength
-            });
-
-        let inputType = type;
-        if (inputType === FieldType.PASSWORD) {
-            inputType = passwordVisible ? FieldType.TEXT : FieldType.PASSWORD;
-        } else if (Valid.isNumberType(type)) {
-            inputType = 'text';
-        }
-
-        return (
-            <div className={fieldClassName}
+                })}
                  style={style}
                  disabled={disabled}>
 
                 {
                     iconCls ?
-                        <IconButton className={leftIconClassName}
+                        <IconButton className={classNames('text-area-left-icon', {
+                            deactivated: !onIconClick
+                        })}
                                     iconCls={iconCls}
                                     disableTouchRipple={!onIconClick}
                                     onClick={onIconClick}/>
@@ -285,7 +266,9 @@ class TextArea extends Component {
 
                 {
                     placeholder && !value && !isFocused ?
-                        <textarea className={fieldPlaceholderClassName}
+                        <textarea className={classNames('text-area-placeholder', {
+                            [placeholderClassName]: placeholderClassName
+                        })}
                                   value={placeholder}
                                   disabled={true}/>
                         :
@@ -293,43 +276,53 @@ class TextArea extends Component {
                 }
 
                 <textarea {...restProps}
-                          ref="input"
-                          className={fieldInputClassName}
+                          ref={this.input}
+                          className={classNames('text-area-input', {
+                              [triggerClassName]: triggerClassName
+                          })}
                           type={inputType}
                           value={value}
                           maxLength={isStrictMaxLength ? maxLength : null}
-                          onChange={this.changeHandler}
-                          onKeyDown={this.keyDownHandler}
-                          onMouseOver={this.mouseOverHandler}
-                          onMouseOut={this.mouseOutHandler}
-                          onFocus={this.focusHandler}
-                          onBlur={this.blurHandler}
+                          onChange={this.handleChange}
+                          onKeyDown={this.handleKeyDown}
+                          onMouseOver={this.handleMouseOver}
+                          onMouseOut={this.handleMouseOut}
+                          onFocus={this.handleFocus}
+                          onBlur={this.handleBlur}
                           disabled={disabled}/>
 
-                <IconButton className={passwordVisibleIconClassName}
+                <IconButton className={classNames('password-visible-icon', {
+                    hidden: !isPassword || !passwordButtonVisible
+                })}
                             iconCls={passwordVisible ? 'fas fa-eye' : 'far fa-eye-slash'}
                             onClick={this.togglePasswordVisible}/>
 
-                <IconButton ref="clearButton"
-                            className={clearButtonClassName}
+                <IconButton ref={this.clearButton}
+                            className={classNames('clear-icon', {
+                                hidden: !clearButtonVisible || !value || value.length < 1
+                            })}
                             iconCls="fas fa-times-circle"
                             onClick={this.clearValue}/>
 
                 {
                     rightIconCls ?
-                        <IconButton className={rightIconClassName}
+                        <IconButton className={classNames('text-area-right-icon', {
+                            deactivated: !onRightIconClick
+                        })}
                                     rightIconCls={rightIconCls}
                                     disableTouchRipple={!onRightIconClick}
-                                    onClick={this.rightIconClickHandler}/>
+                                    onClick={this.handleRightIconClick}/>
                         :
                         null
                 }
 
-                <div className={wordCountClassName}>
+                <div className={classNames('text-area-word-count', {
+                    error: value.length > maxLength
+                })}>
                     <div className="text-area-word-count-separator"></div>
                     {
                         wordCountVisible ?
-                            `${value ? value.length : 0}${maxLength ? ` / ${maxLength}` : '' }`
+                            `${value ? value.length : 0}${maxLength ? ` / ${maxLength}` : ''}`
                             :
                             null
                     }
@@ -360,6 +353,8 @@ class TextArea extends Component {
 }
 
 TextArea.propTypes = {
+
+    children: PropTypes.any,
 
     /**
      * The CSS class name of the root element.

@@ -3,7 +3,7 @@
  * @author sunday(sunday.wei@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -21,6 +21,8 @@ class DatePickerTextField extends Component {
 
         super(props, ...restArgs);
 
+        this.textField = createRef();
+
         this.state = {
             value: ''
         };
@@ -31,17 +33,17 @@ class DatePickerTextField extends Component {
      * public
      */
     focus = () => {
-        this.refs.textField.focus();
+        this.textField && this.textField.current && this.textField.current.focus();
     };
 
     /**
      * public
      */
     blur = () => {
-        this.refs.textField.blur();
+        this.textField && this.textField.current && this.textField.current.blur();
     };
 
-    triggerChangeHandler = value => {
+    handleTriggerChange = value => {
         this.setState({
             value
         }, () => {
@@ -77,21 +79,19 @@ class DatePickerTextField extends Component {
                 ...restProps
 
             } = this.props,
-            {value} = this.state,
-
-            fieldClassName = classNames('date-picker-text-field', {
-                [className]: className
-            });
+            {value} = this.state;
 
         return (
-            <TextField className={fieldClassName}
-                       {...restProps}
-                       ref="textField"
+            <TextField {...restProps}
+                       ref={this.textField}
+                       className={classNames('date-picker-text-field', {
+                           [className]: className
+                       })}
                        theme={theme}
                        value={value}
                        disabled={disabled}
                        required={required}
-                       onChange={this.triggerChangeHandler}/>
+                       onChange={this.handleTriggerChange}/>
         );
 
     }

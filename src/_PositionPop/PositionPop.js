@@ -3,16 +3,15 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Pop from '../_Pop';
-import Theme from '../Theme';
 
+import Theme from '../Theme';
 import Position from '../_statics/Position';
 
-import Event from '../_vendors/Event';
 import Util from '../_vendors/Util';
 import PositionPopCalculation from '../_vendors/PositionPopCalculation';
 
@@ -22,21 +21,25 @@ class PositionPop extends Component {
     static Theme = Theme;
 
     constructor(props, ...restArgs) {
+
         super(props, ...restArgs);
+
+        this.pop = createRef();
+
     }
 
     /**
      * public
      */
     getEl = () => {
-        return this.refs.pop && this.refs.pop.getEl();
+        return this.pop && this.pop.current && this.pop.current.getEl();
     };
 
     /**
      * reset pop position
      * @param transitionEl
      */
-    resetPosition = (transitionEl = this.refs.pop.getEl()) => {
+    resetPosition = (transitionEl = this.getEl()) => {
         const {parentEl, position} = this.props;
         PositionPopCalculation.setStyle(parentEl, transitionEl, position);
     };
@@ -45,31 +48,28 @@ class PositionPop extends Component {
 
         const {
 
-                children,
+            children,
 
-                container, className, theme, position, isAnimated,
+            container, className, theme, position, isAnimated,
 
-                // not passing down these props
-                isEscClose, isBlurClose, shouldPreventContainerScroll,
+            // not passing down these props
+            isEscClose, isBlurClose,
 
-                ...restProps
+            ...restProps
 
-            } = this.props,
-
-            popClassName = classNames('position-pop', {
-                [`theme-${theme}`]: theme,
-                [`position-pop-${position}`]: position,
-                'position-pop-animated': isAnimated,
-                [className]: className
-            });
+        } = this.props;
 
         return (
             <Pop {...restProps}
-                 ref="pop"
-                 className={popClassName}
+                 ref={this.pop}
+                 className={classNames('position-pop', {
+                     [`theme-${theme}`]: theme,
+                     [`position-pop-${position}`]: position,
+                     'position-pop-animated': isAnimated,
+                     [className]: className
+                 })}
                  container={container}
                  isAnimated={isAnimated}
-                 onWheel={e => Event.wheelHandler(e, this.props)}
                  resetPosition={this.resetPosition}>
                 {popEl => typeof children === 'function' ? children(popEl) : children}
             </Pop>
@@ -80,6 +80,8 @@ class PositionPop extends Component {
 }
 
 PositionPop.propTypes = {
+
+    children: PropTypes.any,
 
     /**
      * The CSS class name of the root element.
@@ -120,7 +122,6 @@ PositionPop.propTypes = {
 
     isBlurClose: PropTypes.bool,
     isEscClose: PropTypes.bool,
-    shouldPreventContainerScroll: PropTypes.bool,
 
     container: PropTypes.node,
 
@@ -150,7 +151,14 @@ PositionPop.propTypes = {
     /**
      * Callback function fired when wrapper wheeled.
      */
-    onWheel: PropTypes.func
+    onWheel: PropTypes.func,
+
+    onModalMouseDown: PropTypes.func,
+    onModalMouseMove: PropTypes.func,
+    onModalMouseUp: PropTypes.func,
+    onModalMouseEnter: PropTypes.func,
+    onModalMouseLeave: PropTypes.func,
+    onModalClick: PropTypes.func
 
 };
 
@@ -166,7 +174,6 @@ PositionPop.defaultProps = {
 
     isBlurClose: true,
     isEscClose: true,
-    shouldPreventContainerScroll: true,
 
     container: <div></div>,
 

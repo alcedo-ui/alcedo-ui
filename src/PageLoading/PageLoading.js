@@ -15,7 +15,6 @@ class PageLoading extends Component {
         super(props, ...restArgs);
 
         this.progressTimeout = null;
-
         this.defaultHighlightStyle = {
             width: 0,
             transition: 'width 0s'
@@ -52,7 +51,7 @@ class PageLoading extends Component {
         this.progressTimeout && clearTimeout(this.progressTimeout);
     };
 
-    enterHandler = () => {
+    handleEnter = () => {
         this.clearProgress();
         this.setState({
             highlightStyle: this.defaultHighlightStyle
@@ -61,7 +60,7 @@ class PageLoading extends Component {
         });
     };
 
-    exitHandler = () => {
+    handleExit = () => {
         this.clearProgress();
         this.setLoading([{
             width: 100,
@@ -69,33 +68,29 @@ class PageLoading extends Component {
         }]);
     };
 
-    componentWillUnmonut() {
+    componentWillUnmount() {
         this.clearProgress();
     }
 
     render() {
 
         const {className, style, visible, duration, finishDuration, showStripes} = this.props,
-            {highlightStyle} = this.state,
-
-            loadingClassName = classNames('page-loading', {
-                striped: showStripes,
-                [className]: className
-            });
+            {highlightStyle} = this.state;
 
         return (
             <CSSTransition in={visible}
                            timeout={{exit: duration + finishDuration}}
                            classNames="page-loading"
-                           onEnter={this.enterHandler}
-                           onExit={this.exitHandler}>
-
-                <div className={loadingClassName}
+                           onEnter={this.handleEnter}
+                           onExit={this.handleExit}>
+                <div className={classNames('page-loading', {
+                    striped: showStripes,
+                    [className]: className
+                })}
                      style={style}>
                     <div className="page-loading-bar"
                          style={highlightStyle}></div>
                 </div>
-
             </CSSTransition>
         );
 

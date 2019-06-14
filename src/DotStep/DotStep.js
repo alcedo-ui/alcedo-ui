@@ -22,7 +22,7 @@ class DotStep extends Component {
 
     }
 
-    clickHandler = activatedStep => {
+    handleClick = activatedStep => {
 
         const {onChange} = this.props;
 
@@ -50,14 +50,12 @@ class DotStep extends Component {
     render() {
 
         const {className, style, steps, displayField, finishedText} = this.props,
-            {activatedStep, finishedStep} = this.state,
-
-            stepClassName = classNames('dot-step', {
-                [className]: className
-            });
+            {activatedStep, finishedStep} = this.state;
 
         return (
-            <div className={stepClassName}
+            <div className={classNames('dot-step', {
+                [className]: className
+            })}
                  style={style}>
 
                 <span className="dot-step-value">
@@ -77,7 +75,7 @@ class DotStep extends Component {
                                          activatedStep={activatedStep}
                                          finishedStep={finishedStep}
                                          data={item}
-                                         onClick={this.clickHandler}/>
+                                         onClick={this.handleClick}/>
                         )
                     }
                 </div>

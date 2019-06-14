@@ -27,7 +27,7 @@ class DraggableListItem extends Component {
         super(props, ...restArgs);
     }
 
-    checkboxChangeHandler = checked => {
+    handleCheckboxChange = checked => {
 
         const {onSelect, onDeselect} = this.props;
 
@@ -39,14 +39,14 @@ class DraggableListItem extends Component {
 
     };
 
-    radioChangeHandler = () => {
+    handleRadioChange = () => {
         if (!this.props.checked) {
             const {onSelect} = this.props;
             onSelect && onSelect();
         }
     };
 
-    clickHandler = e => {
+    handleClick = e => {
 
         e.preventDefault();
 
@@ -61,10 +61,10 @@ class DraggableListItem extends Component {
 
         switch (this.props.selectMode) {
             case SelectMode.MULTI_SELECT:
-                this.checkboxChangeHandler(!this.props.checked);
+                this.handleCheckboxChange(!this.props.checked);
                 return;
             case SelectMode.SINGLE_SELECT:
-                this.radioChangeHandler();
+                this.handleRadioChange();
                 return;
         }
 
@@ -83,12 +83,6 @@ class DraggableListItem extends Component {
                 onMouseEnter, onMouseLeave
 
             } = this.props,
-
-            listItemClassName = classNames('draggable-list-item', {
-                [`theme-${theme}`]: theme,
-                activated: checked,
-                [className]: className
-            }),
 
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
@@ -109,12 +103,16 @@ class DraggableListItem extends Component {
                                              tipContent={tip}
                                              position={tipPosition}>
 
-                                    <div className={listItemClassName}
+                                    <div className={classNames('draggable-list-item', {
+                                        [`theme-${theme}`]: theme,
+                                        activated: checked,
+                                        [className]: className
+                                    })}
                                          style={style}
                                          disabled={disabled || isLoading}
                                          readOnly={readOnly}
                                          title={title}
-                                         onClick={this.clickHandler}
+                                         onClick={this.handleClick}
                                          onMouseEnter={onMouseEnter}
                                          onMouseLeave={onMouseLeave}>
 

@@ -15,14 +15,12 @@ class TextFieldGroup extends Component {
 
     render() {
 
-        const {children, className, style} = this.props,
-
-            groupClassName = classNames('text-field-group', {
-                [className]: className
-            });
+        const {children, className, style} = this.props;
 
         return (
-            <div className={groupClassName}
+            <div className={classNames('text-field-group', {
+                [className]: className
+            })}
                  style={style}>
                 {children}
             </div>
@@ -32,8 +30,12 @@ class TextFieldGroup extends Component {
 }
 
 TextFieldGroup.propTypes = {
+
+    children: PropTypes.any,
+
     className: PropTypes.string,
     style: PropTypes.object
+
 };
 
 export default TextFieldGroup;

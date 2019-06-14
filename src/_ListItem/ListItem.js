@@ -12,11 +12,12 @@ import Radio from '../Radio';
 import CircularLoading from '../CircularLoading';
 import TipProvider from '../TipProvider';
 import TouchRipple from '../TouchRipple';
-import Theme from '../Theme';
 
-import Util from '../_vendors/Util';
+import Theme from '../Theme';
 import Position from '../_statics/Position';
 import SelectMode from '../_statics/SelectMode';
+
+import Util from '../_vendors/Util';
 
 class ListItem extends Component {
 
@@ -27,7 +28,7 @@ class ListItem extends Component {
         super(props, ...restArgs);
     }
 
-    multiSelectChangeHandler = checked => {
+    handleMultiSelectChange = checked => {
 
         const {onSelect, onDeselect} = this.props;
 
@@ -39,14 +40,14 @@ class ListItem extends Component {
 
     };
 
-    singleSelectChangeHandler = () => {
+    handleSingleSelectChange = () => {
         if (!this.props.checked) {
             const {onSelect} = this.props;
             onSelect && onSelect();
         }
     };
 
-    clickHandler = e => {
+    handleClick = e => {
 
         const {disabled, isLoading, readOnly, autoSelect} = this.props;
 
@@ -63,27 +64,28 @@ class ListItem extends Component {
 
         switch (this.props.selectMode) {
             case SelectMode.MULTI_SELECT:
-                this.multiSelectChangeHandler(!this.props.checked);
+                this.handleMultiSelectChange(!this.props.checked);
                 return;
             case SelectMode.SINGLE_SELECT:
-                this.singleSelectChangeHandler();
+                this.handleSingleSelectChange();
                 return;
         }
 
     };
 
-    radioCheckHandler = () => {
-        this.singleSelectChangeHandler();
+    handleRadioCheck = () => {
+        this.handleSingleSelectChange();
     };
 
-    checkboxCheckHandler = () => {
-        this.multiSelectChangeHandler(true);
+    handleCheckboxCheck = () => {
+        this.handleMultiSelectChange(true);
     };
 
-    checkboxUncheckHandler = () => {
-        this.multiSelectChangeHandler(false);
+    handleCheckboxUncheck = () => {
+        this.handleMultiSelectChange(false);
     };
 
+    /* eslint-disable complexity */
     render() {
 
         const {
@@ -101,15 +103,6 @@ class ListItem extends Component {
             } = this.props,
 
             indeterminated = indeterminateCallback && indeterminateCallback(data) || false,
-
-            listItemClassName = classNames('list-item', {
-                [`theme-${theme}`]: !checked && theme,
-                [`theme-${activatedTheme}`]: checked && activatedTheme,
-                activated: checked,
-                indeterminated,
-                [className]: className
-            }),
-
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
@@ -117,12 +110,18 @@ class ListItem extends Component {
                          parentEl={parentEl}
                          position={tipPosition}>
 
-                <div className={listItemClassName}
+                <div className={classNames('list-item', {
+                    [`theme-${theme}`]: !checked && theme,
+                    [`theme-${activatedTheme}`]: checked && activatedTheme,
+                    activated: checked,
+                    indeterminated,
+                    [className]: className
+                })}
                      style={style}
                      disabled={disabled || isLoading}
                      readOnly={readOnly}
                      title={title}
-                     onClick={this.clickHandler}
+                     onClick={this.handleClick}
                      onMouseEnter={onMouseEnter}
                      onMouseLeave={onMouseLeave}>
 
@@ -135,7 +134,7 @@ class ListItem extends Component {
                                    uncheckedIconCls={radioUncheckedIconCls}
                                    checkedIconCls={radioCheckedIconCls}
                                    disableTouchRipple={true}
-                                   onCheck={this.radioCheckHandler}/>
+                                   onCheck={this.handleRadioCheck}/>
                             :
                             null
                     }
@@ -151,8 +150,8 @@ class ListItem extends Component {
                                       checkedIconCls={checkboxCheckedIconCls}
                                       indeterminateIconCls={checkboxIndeterminateIconCls}
                                       disableTouchRipple={true}
-                                      onCheck={this.checkboxCheckHandler}
-                                      onUncheck={this.checkboxUncheckHandler}/>
+                                      onCheck={this.handleCheckboxCheck}
+                                      onUncheck={this.handleCheckboxUncheck}/>
                             :
                             null
                     }
@@ -215,8 +214,7 @@ class ListItem extends Component {
                         disableTouchRipple || readOnly ?
                             null
                             :
-                            <TouchRipple ref="touchRipple"
-                                         className={disabled || isLoading ? 'hidden' : ''}
+                            <TouchRipple className={disabled || isLoading ? 'hidden' : ''}
                                          displayCenter={rippleDisplayCenter}/>
                     }
 
@@ -251,6 +249,7 @@ ListItem.propTypes = {
     rippleDisplayCenter: PropTypes.bool,
     checked: PropTypes.bool,
     readOnly: PropTypes.bool,
+    parentEl: PropTypes.object,
 
     iconCls: PropTypes.string,
     rightIconCls: PropTypes.string,

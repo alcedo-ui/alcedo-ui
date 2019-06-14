@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 import classNames from 'classnames';
@@ -20,6 +20,7 @@ import Position from '../_statics/Position';
 import Util from '../_vendors/Util';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
 import Valid from '../_vendors/Valid';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class AutoCompleteFilter extends Component {
 
@@ -30,7 +31,13 @@ class AutoCompleteFilter extends Component {
 
         super(props, ...restArgs);
 
+        this.wrapper = createRef();
+        this.wrapperEl = null;
+        this.trigger = createRef();
         this.triggerEl = null;
+        this.pop = createRef();
+        this.dynamicRenderList = createRef();
+        this.list = createRef();
 
         this.state = {
             tempSelectIndex: null,
@@ -83,7 +90,7 @@ class AutoCompleteFilter extends Component {
 
     };
 
-    filterFocusHandler = (...args) => {
+    handleFilterFocus = (...args) => {
 
         if (this.props.disabled) {
             return;
@@ -106,16 +113,19 @@ class AutoCompleteFilter extends Component {
 
     };
 
-    filterBlurHandler = (...args) => {
+    handleFilterBlur = (...args) => {
         const {disabled, onBlur} = this.props;
         !disabled && onBlur && onBlur(...args);
     };
 
-    filterKeyDownHandler = e => {
+    handleFilterKeyDown = e => {
 
         const {useDynamicRenderList} = this.props,
             {tempSelectIndex, listData} = this.state,
-            listEl = useDynamicRenderList ? this.refs.dynamicRenderList : this.refs.list;
+            listEl = useDynamicRenderList ?
+                this.dynamicRenderList && this.dynamicRenderList.current
+                :
+                this.list && this.list.current;
         let state = null;
 
         if (e.keyCode === 38 || e.keyCode === 40) {
@@ -145,7 +155,7 @@ class AutoCompleteFilter extends Component {
 
     };
 
-    filterPressEnterHandler = (e, filter) => {
+    handleFilterPressEnter = (e, filter) => {
 
         const {autoClose} = this.props,
             state = {};
@@ -165,7 +175,7 @@ class AutoCompleteFilter extends Component {
 
     };
 
-    filterChangeHandler = filter => {
+    handleFilterChange = filter => {
 
         const {data, minFilterLength} = this.props,
             state = {
@@ -186,13 +196,13 @@ class AutoCompleteFilter extends Component {
             const {onFilterChange} = this.props;
             onFilterChange && onFilterChange(filter);
 
-            this.refs.popup && this.refs.popup.resetPosition();
+            this.pop && this.pop.current && this.pop.current.resetPosition();
 
         });
 
     };
 
-    closePopup = () => {
+    closePop = () => {
         this.setState({
             popupVisible: false
         }, () => {
@@ -201,19 +211,16 @@ class AutoCompleteFilter extends Component {
         });
     };
 
-    popupRenderHandler = popupEl => {
-
-        const isAbove = DropdownCalculation.isAbove(this.autoCompleteFilterEl, this.triggerEl, findDOMNode(popupEl));
-
+    handlePopupRender = pop => {
+        const isAbove = DropdownCalculation.isAbove(this.wrapperEl, this.triggerEl, findDOMNode(pop));
         if (isAbove !== this.state.isAbove) {
             this.setState({
                 isAbove
             });
         }
-
     };
 
-    itemClickHandler = value => {
+    handleItemClick = value => {
 
         const {autoClose, valueField, displayField, renderer} = this.props,
             filter = renderer ? renderer(value) : Util.getTextByDisplayField(value, displayField, valueField),
@@ -271,16 +278,15 @@ class AutoCompleteFilter extends Component {
     };
 
     componentDidMount() {
-        this.autoCompleteFilterEl = this.refs.autoCompleteFilter;
-        this.triggerEl = findDOMNode(this.refs.trigger);
+        this.wrapperEl = this.wrapper && this.wrapper.current;
+        this.triggerEl = this.trigger && this.trigger.current && findDOMNode(this.trigger.current);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
     }
 
     render() {
@@ -294,48 +300,15 @@ class AutoCompleteFilter extends Component {
             } = this.props,
             {isAbove, tempSelectIndex, value, filter, popupVisible, listData} = this.state,
 
-            emptyEl = [{
-                itemRenderer() {
-                    return (
-                        <div className="no-matched-list-item">
-
-                            {
-                                noMatchedMsg ?
-                                    noMatchedMsg
-                                    :
-                                    <span>
-                                        <i className="fas fa-exclamation-triangle no-matched-list-item-icon"></i>
-                                        No matched value.
-                                    </span>
-                            }
-
-                        </div>
-                    );
-                },
-                disableTouchRipple: true
-            }],
-
             isAboveFinally = position === Position.TOP || position === Position.TOP_LEFT
                 || position === Position.TOP_RIGHT || (!position && isAbove),
-            isEmpty = !listData || listData.length < 1,
-
-            wrapperClassName = classNames('auto-complete-filter', {
-                [className]: className
-            }),
-            triggerClassName = classNames('auto-complete-filter-trigger',
-                isEmpty && !noMatchedPopupVisible ? '' : (popupVisible ? ' activated' : ''),
-                isAboveFinally ? ' above' : ' blow'),
-            autoCompletePopupClassName = classNames('auto-complete-filter-popup',
-                isAboveFinally ? ' above' : ' blow', {
-                    [popupClassName]: popupClassName
-                }),
-            autoCompletePopupStyle = Object.assign({
-                width: this.triggerEl && getComputedStyle(this.triggerEl).width
-            }, popupStyle);
+            isEmpty = !listData || listData.length < 1;
 
         return (
-            <div ref="autoCompleteFilter"
-                 className={wrapperClassName}
+            <div ref={this.wrapper}
+                 className={classNames('auto-complete-filter', {
+                     [className]: className
+                 })}
                  style={style}>
 
                 {
@@ -347,31 +320,38 @@ class AutoCompleteFilter extends Component {
                         null
                 }
 
-                <TextField ref="trigger"
-                           className={triggerClassName}
+                <TextField ref={this.trigger}
+                           className={classNames('auto-complete-filter-trigger',
+                               isEmpty && !noMatchedPopupVisible ? '' : (popupVisible ? ' activated' : ''),
+                               isAboveFinally ? ' above' : ' blow')}
                            theme={theme}
                            value={filter}
                            placeholder={placeholder}
                            disabled={disabled}
                            iconCls={iconCls}
                            rightIconCls={rightIconCls}
-                           onFocus={this.filterFocusHandler}
-                           onBlur={this.filterBlurHandler}
+                           onFocus={this.handleFilterFocus}
+                           onBlur={this.handleFilterBlur}
                            onMouseOver={onMouseOver}
                            onMouseOut={onMouseOut}
-                           onChange={this.filterChangeHandler}
-                           onKeyDown={this.filterKeyDownHandler}
-                           onPressEnter={this.filterPressEnterHandler}
+                           onChange={this.handleFilterChange}
+                           onKeyDown={this.handleFilterKeyDown}
+                           onPressEnter={this.handleFilterPressEnter}
                            onClear={onFilterClear}
-                           onRightIconClick={this.filterPressEnterHandler}/>
+                           onRightIconClick={this.handleFilterPressEnter}/>
 
                 {
                     isEmpty && !noMatchedPopupVisible ?
                         null
                         :
-                        <Popup ref="popup"
-                               className={autoCompletePopupClassName}
-                               style={autoCompletePopupStyle}
+                        <Popup ref={this.pop}
+                               className={classNames('auto-complete-filter-popup',
+                                   isAboveFinally ? ' above' : ' blow', {
+                                       [popupClassName]: popupClassName
+                                   })}
+                               style={Object.assign({
+                                   width: this.triggerEl && getComputedStyle(this.triggerEl).width
+                               }, popupStyle)}
                                theme={popupTheme}
                                visible={popupVisible}
                                triggerEl={this.triggerEl}
@@ -379,18 +359,37 @@ class AutoCompleteFilter extends Component {
                                hasTriangle={false}
                                position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                                resetPositionWait={resetPopPositionWait}
-                               onRender={this.popupRenderHandler}
-                               onRequestClose={this.closePopup}>
+                               onRender={this.handlePopupRender}
+                               onRequestClose={this.closePop}>
 
                             {
                                 isEmpty ?
                                     <List className="auto-complete-filter-list"
                                           theme={popupTheme}
-                                          data={emptyEl}/>
+                                          data={[{
+                                              itemRenderer() {
+                                                  return (
+                                                      <div className="no-matched-list-item">
+
+                                                          {
+                                                              noMatchedMsg ?
+                                                                  noMatchedMsg
+                                                                  :
+                                                                  <span>
+                                                                      <i className="fas fa-exclamation-triangle no-matched-list-item-icon"></i>
+                                                                      No matched value.
+                                                                  </span>
+                                                          }
+
+                                                      </div>
+                                                  );
+                                              },
+                                              disableTouchRipple: true
+                                          }]}/>
                                     :
                                     (
                                         useDynamicRenderList ?
-                                            <DynamicRenderList ref="dynamicRenderList"
+                                            <DynamicRenderList ref={this.dynamicRenderList}
                                                                className="auto-complete-filter-list"
                                                                theme={popupTheme}
                                                                data={listData}
@@ -402,9 +401,9 @@ class AutoCompleteFilter extends Component {
                                                                listHeight={listHeight}
                                                                itemHeight={itemHeight}
                                                                scrollBuffer={scrollBuffer}
-                                                               onItemClick={this.itemClickHandler}/>
+                                                               onItemClick={this.handleItemClick}/>
                                             :
-                                            <List ref="list"
+                                            <List ref={this.list}
                                                   className="auto-complete-filter-list"
                                                   theme={popupTheme}
                                                   data={listData}
@@ -413,7 +412,7 @@ class AutoCompleteFilter extends Component {
                                                   displayField={displayField}
                                                   descriptionField={descriptionField}
                                                   renderer={renderer}
-                                                  onItemClick={this.itemClickHandler}/>
+                                                  onItemClick={this.handleItemClick}/>
                                     )
                             }
 
@@ -547,6 +546,8 @@ AutoCompleteFilter.propTypes = {
 
     ]).isRequired,
 
+    value: PropTypes.any,
+
     /**
      * If true, the auto complete will be disabled.
      */
@@ -599,10 +600,9 @@ AutoCompleteFilter.propTypes = {
      */
     noMatchedMsg: PropTypes.string,
 
+    parentEl: PropTypes.object,
     popupChildren: PropTypes.any,
-
     filterInitValue: PropTypes.string,
-
     useDynamicRenderList: PropTypes.bool,
     resetPopPositionWait: PropTypes.number,
     listHeight: PropTypes.number,
@@ -651,7 +651,8 @@ AutoCompleteFilter.propTypes = {
 
     onMouseOver: PropTypes.func,
     onMouseOut: PropTypes.func,
-    onPopupClosed: PropTypes.func
+    onPopupClosed: PropTypes.func,
+    onFilterKeyDown: PropTypes.func
 
 };
 

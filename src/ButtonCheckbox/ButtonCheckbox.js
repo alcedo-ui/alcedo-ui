@@ -8,8 +8,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import RaisedButton from '../RaisedButton';
-import Theme from '../Theme';
 
+import Theme from '../Theme';
 import Util from '../_vendors/Util';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
@@ -27,12 +27,13 @@ class ButtonCheckbox extends Component {
 
     }
 
-    clickHandler = () => {
+    handleClick = () => {
         const value = !this.state.value;
         this.setState({
             value
         }, () => {
-            !this.props.disabled && this.props.onChange && this.props.onChange(value);
+            const {disabled, onChange} = this.props;
+            !disabled && onChange && onChange(value);
         });
     };
 
@@ -52,20 +53,18 @@ class ButtonCheckbox extends Component {
                 ...restProps
 
             } = this.props,
-            {value} = this.state,
-
-            buttonClassName = classNames('button-checkbox', {
-                activated: value,
-                [className]: className
-            });
+            {value} = this.state;
 
         return (
             <RaisedButton {...restProps}
-                          className={buttonClassName}
+                          className={classNames('button-checkbox', {
+                              activated: value,
+                              [className]: className
+                          })}
                           value={text}
                           isRounded={true}
                           theme={value ? activatedTheme : theme}
-                          onClick={this.clickHandler}/>
+                          onClick={this.handleClick}/>
         );
 
     }

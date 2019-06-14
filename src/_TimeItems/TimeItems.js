@@ -3,34 +3,38 @@
  * @author sunday(sunday.wei@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Event from '../_vendors/Event';
-import Util from '../_vendors/Util';
 
 class TimeItems extends Component {
 
     constructor(props, ...restArgs) {
+
         super(props, ...restArgs);
+
+        this.wrapperEl = null;
+        this.wrapper = createRef();
+
     }
 
-    clickHandle = value => {
+    handleClick = value => {
 
         if (!value) {
             return;
         }
 
-        this.scrollTo(this.itemsEl, (+value) * 30, 200);
+        this.scrollTo(this.wrapperEl, (+value) * 30, 200);
 
         const {onChange} = this.props;
         onChange && onChange(value);
 
     };
 
-    mouseMoveHandler = () => {
-        this.itemsEl && (this.itemsEl.style.overflowY = 'auto');
+    handleMouseMove = () => {
+        this.wrapperEl && (this.wrapperEl.style.overflowY = 'auto');
     };
 
     scrollTo = (element, to, duration) => {
@@ -56,41 +60,36 @@ class TimeItems extends Component {
 
     };
 
-    mouseOutHandler = () => {
-        this.itemsEl && (this.itemsEl.style.overflowY = 'hidden');
+    handleMouseOut = () => {
+        this.wrapperEl && (this.wrapperEl.style.overflowY = 'hidden');
     };
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.props.value) {
-            this.scrollTo(this.itemsEl, +(nextProps.value) * 30, 200);
-        }
-    }
 
     componentDidMount() {
 
         const {value} = this.props;
-        this.itemsEl = this.refs.timeItems;
+        this.wrapperEl = this.wrapper && this.wrapper.current;
 
-        this.scrollTo(this.itemsEl, (+value) * 30, 0);
-        Event.addEvent(this.itemsEl, 'mouseover', this.mouseMoveHandler);
-        Event.addEvent(this.itemsEl, 'mouseout', this.mouseOutHandler);
+        this.scrollTo(this.wrapperEl, (+value) * 30, 0);
+        Event.addEvent(this.wrapperEl, 'mouseover', this.handleMouseMove);
+        Event.addEvent(this.wrapperEl, 'mouseout', this.handleMouseOut);
 
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.value !== this.props.value) {
+            this.scrollTo(this.wrapperEl, +(this.props.value) * 30, 200);
+        }
+    }
+
     componentWillUnmount() {
-        Event.removeEvent(this.itemsEl, 'mouseover', this.mouseMoveHandler);
-        Event.removeEvent(this.itemsEl, 'mouseout', this.mouseOutHandler);
+        Event.removeEvent(this.wrapperEl, 'mouseover', this.handleMouseMove);
+        Event.removeEvent(this.wrapperEl, 'mouseout', this.handleMouseOut);
     }
 
     render() {
 
         const {className, style, data, value} = this.props,
             {width} = style,
-
-            itemsClassName = classNames('time-items', {
-                [className]: className
-            }),
-
             liStyle = {};
 
         if (width == '100%') {
@@ -102,31 +101,26 @@ class TimeItems extends Component {
         }
 
         return (
-            <div ref="timeItems"
-                 className={itemsClassName}
+            <div ref={this.wrapper}
+                 className={classNames('time-items', {
+                     [className]: className
+                 })}
                  style={style}>
 
                 <ul className="time-list">
                     {
                         data && data.length ?
-                            data.map((item, key) => {
-
-                                const className = classNames('time-item', {
+                            data.map((item, key) =>
+                                <li className={classNames('time-item', {
                                     disabled: !item.value,
                                     active: item.text == value
-                                });
-
-                                return (
-                                    <li className={className}
-                                        key={key}
-                                        style={liStyle}
-                                        onClick={() => {
-                                            this.clickHandle(item.text);
-                                        }}>
-                                        {item.text}
-                                    </li>
-                                );
-                            })
+                                })}
+                                    key={key}
+                                    style={liStyle}
+                                    onClick={() => this.handleClick(item.text)}>
+                                    {item.text}
+                                </li>
+                            )
                             :
                             null
                     }
@@ -139,9 +133,15 @@ class TimeItems extends Component {
 }
 
 TimeItems.propTypes = {
+
     className: PropTypes.string,
     style: PropTypes.object,
-    data: PropTypes.array
+
+    data: PropTypes.array,
+    value: PropTypes.any,
+
+    onChange: PropTypes.func
+
 };
 
 export default TimeItems;

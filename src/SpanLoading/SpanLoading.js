@@ -39,15 +39,13 @@ class SpanLoading extends Component {
     render() {
 
         const {className, style, description, size, children} = this.props,
-            {spanning} = this.state,
-
-            loadingClassName = classNames('span-loading', {
-                [`span-loading-${size}`]: size,
-                [className]: className
-            });
+            {spanning} = this.state;
 
         return (
-            <div className={loadingClassName}
+            <div className={classNames('span-loading', {
+                [`span-loading-${size}`]: size,
+                [className]: className
+            })}
                  style={style}>
 
                 {
@@ -64,7 +62,9 @@ class SpanLoading extends Component {
 
                 {
                     description ?
-                        <div className={`span-loading-text`}>{description}</div>
+                        <div className="span-loading-text">
+                            {description}
+                        </div>
                         :
                         null
                 }
@@ -75,6 +75,8 @@ class SpanLoading extends Component {
 }
 
 SpanLoading.propTypes = {
+
+    children: PropTypes.any,
 
     /**
      * The CSS class name of the root element.
@@ -104,7 +106,9 @@ SpanLoading.propTypes = {
     /**
      * Set the delay time of loading animation.
      */
-    delay: PropTypes.number
+    delay: PropTypes.number,
+
+    description: PropTypes.any
 
 };
 

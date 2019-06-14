@@ -7,9 +7,9 @@ import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import Theme from '../Theme';
 import List from '../List';
 
+import Theme from '../Theme';
 import SelectMode from '../_statics/SelectMode';
 import HorizontalDirection from '../_statics/HorizontalDirection';
 
@@ -109,7 +109,7 @@ class CascaderListItem extends Component {
 
     };
 
-    listItemClickHanlder = (node, index, e) => {
+    handleListItemClick = (node, index, e) => {
 
         const {data, disabled, isLoading, readOnly} = this.props;
 
@@ -122,12 +122,12 @@ class CascaderListItem extends Component {
 
     };
 
-    listItemSelectHanlder = (node, index) => {
+    handleListItemSelect = (node, index) => {
         const {onNodeSelect} = this.props;
         onNodeSelect && onNodeSelect(node, this.getPath(index));
     };
 
-    listItemDeselectHanlder = (node, index) => {
+    handleListItemDeselect = (node, index) => {
         const {onNodeDeselect} = this.props;
         onNodeDeselect && onNodeDeselect(node, this.getPath(index));
     };
@@ -196,7 +196,7 @@ class CascaderListItem extends Component {
 
         const {
 
-                activatedPath, depth, theme, listWidth, selectTheme, selectMode, expandDirection, data, value,
+                depth, theme, listWidth, selectTheme, selectMode, expandDirection, data,
                 disabled, isLoading, readOnly, idField, valueField, displayField, descriptionField,
 
                 radioUncheckedIconCls, radioCheckedIconCls,
@@ -206,25 +206,20 @@ class CascaderListItem extends Component {
 
             activatedIndex = this.getActivatedIndex(),
             hasChild = activatedIndex > -1 && data[activatedIndex] && data[activatedIndex].children
-                && data[activatedIndex].children.length > 0,
-
-            wrapperClassName = classNames('cascader-list-item', {
-                expanded: hasChild
-            }),
-
-            listClassName = classNames('cascader-popup-list', {
-                first: depth === 0,
-                'expand-left': expandDirection === HorizontalDirection.LEFT
-            }),
-            listStyle = {
-                width: listWidth
-            };
+                && data[activatedIndex].children.length > 0;
 
         return (
-            <div className={wrapperClassName}>
+            <div className={classNames('cascader-list-item', {
+                expanded: hasChild
+            })}>
 
-                <List className={listClassName}
-                      style={listStyle}
+                <List className={classNames('cascader-popup-list', {
+                    first: depth === 0,
+                    'expand-left': expandDirection === HorizontalDirection.LEFT
+                })}
+                      style={{
+                          width: listWidth
+                      }}
                       theme={theme}
                       selectTheme={selectTheme}
                       selectMode={selectMode}
@@ -245,9 +240,9 @@ class CascaderListItem extends Component {
                       autoSelect={selectMode !== SelectMode.MULTI_SELECT}
                       indeterminateCallback={this.isListItemIndeterminate}
                       renderer={this.listItemRenderer}
-                      onItemClick={this.listItemClickHanlder}
-                      onItemSelect={this.listItemSelectHanlder}
-                      onItemDeselect={this.listItemDeselectHanlder}/>
+                      onItemClick={this.handleListItemClick}
+                      onItemSelect={this.handleListItemSelect}
+                      onItemDeselect={this.handleListItemDeselect}/>
 
                 {
                     activatedIndex > -1 && data[activatedIndex] && data[activatedIndex].children

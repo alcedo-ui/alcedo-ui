@@ -40,11 +40,7 @@ class NavMenuItem extends Component {
             {menuHeight, subMenuIndent} = this,
 
             collapsed = expandMenuName !== options.text,
-            hasChildren = options.children && options.children.length > 0,
-
-            linkClassName = classNames('nav-menu-item-link', {
-                'router-link-active': activatedMenu && activatedMenu.route === options.route
-            });
+            hasChildren = options.children && options.children.length > 0;
 
         return (
             <div className={`nav-menu-item ${collapsed ? 'collapsed' : ''} ${hasChildren ? 'hasChildren' : ''}`}>
@@ -68,7 +64,9 @@ class NavMenuItem extends Component {
 
                         </div>
                         :
-                        <Link className={linkClassName}
+                        <Link className={classNames('nav-menu-item-link', {
+                            'router-link-active': activatedMenu && activatedMenu.route === options.route
+                        })}
                               to={options.route}
                               disabled={options.disabled}
                               onClick={this.menuClickHandler}>

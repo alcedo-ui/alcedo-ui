@@ -9,13 +9,12 @@ import isArray from 'lodash/isArray';
 import classNames from 'classnames';
 
 import TreeNode from '../_TreeNode';
-import Theme from '../Theme';
 
+import Theme from '../Theme';
 import SelectMode from '../_statics/SelectMode';
 import VirtualRoot from '../_statics/VirtualRoot';
 
 import Util from '../_vendors/Util';
-import Event from '../_vendors/Event';
 import Calculation from '../_vendors/Calculation';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
@@ -108,7 +107,7 @@ class Tree extends Component {
 
     };
 
-    treeNodeSelectHandler = (node, path, e) => {
+    HandleTreeNodeSelect = (node, path, e) => {
 
         if (!node) {
             return;
@@ -146,7 +145,7 @@ class Tree extends Component {
 
     };
 
-    treeNodeDeselectHandler = (node, path, e) => {
+    handleTreeNodeDeselect = (node, path, e) => {
 
         const {selectMode} = this.props;
 
@@ -182,7 +181,7 @@ class Tree extends Component {
 
     };
 
-    nodeToggleStartHandler = () => {
+    handleNodeToggleStart = () => {
 
         const {beforeNodeToggle} = this.props;
 
@@ -196,7 +195,7 @@ class Tree extends Component {
 
     };
 
-    nodeToggleEndHandler = () => {
+    handleNodeToggleEnd = () => {
         this.setState({
             isNodeToggling: false
         });
@@ -221,17 +220,14 @@ class Tree extends Component {
                 valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
                 isSelectRecursive, renderer, onNodeClick
             } = this.props,
-            {value, isNodeToggling} = this.state,
-
-            treeClassName = classNames('tree', {
-                [className]: className
-            });
+            {value, isNodeToggling} = this.state;
 
         return (
-            <div className={treeClassName}
+            <div className={classNames('tree', {
+                [className]: className
+            })}
                  disabled={disabled}
-                 style={style}
-                 onWheel={e => Event.wheelHandler(e, this.props)}>
+                 style={style}>
 
                 <TreeNode data={isArray(data) ? {[VirtualRoot]: true, children: data} : data}
                           value={value}
@@ -257,10 +253,10 @@ class Tree extends Component {
                           isNodeToggling={isNodeToggling}
                           isSelectRecursive={isSelectRecursive}
                           onClick={(...args) => onNodeClick && onNodeClick(...args)}
-                          onNodeToggleStart={this.nodeToggleStartHandler}
-                          onNodeToggleEnd={this.nodeToggleEndHandler}
-                          onSelect={this.treeNodeSelectHandler}
-                          onDeselect={this.treeNodeDeselectHandler}/>
+                          onNodeToggleStart={this.handleNodeToggleStart}
+                          onNodeToggleEnd={this.handleNodeToggleEnd}
+                          onSelect={this.HandleTreeNodeSelect}
+                          onDeselect={this.handleTreeNodeDeselect}/>
 
                 {children}
 
@@ -270,6 +266,8 @@ class Tree extends Component {
 }
 
 Tree.propTypes = {
+
+    children: PropTypes.any,
 
     /**
      * The CSS class name of the root element.
@@ -399,7 +397,6 @@ Tree.propTypes = {
 
     readOnly: PropTypes.bool,
 
-    shouldPreventContainerScroll: PropTypes.bool,
     isSelectRecursive: PropTypes.bool,
     allowCollapse: PropTypes.bool,
     collapsed: PropTypes.bool,
@@ -436,11 +433,6 @@ Tree.propTypes = {
      */
     onChange: PropTypes.func,
 
-    /**
-     * Callback function fired when wrapper wheeled.
-     */
-    onWheel: PropTypes.func,
-
     beforeNodeToggle: PropTypes.func
 
 };
@@ -458,7 +450,6 @@ Tree.defaultProps = {
     disabled: false,
     isLoading: false,
     readOnly: false,
-    shouldPreventContainerScroll: true,
     isSelectRecursive: false,
     allowCollapse: true,
     collapsed: false

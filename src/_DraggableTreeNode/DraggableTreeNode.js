@@ -10,11 +10,11 @@ import classNames from 'classnames';
 
 import CircularLoading from '../CircularLoading';
 import TipProvider from '../TipProvider';
-import Theme from '../Theme';
 import IconButton from '../IconButton';
 import Radio from '../Radio';
 import Checkbox from '../Checkbox';
 
+import Theme from '../Theme';
 import Position from '../_statics/Position';
 import SelectMode from '../_statics/SelectMode';
 import VirtualRoot from '../_statics/VirtualRoot';
@@ -53,7 +53,7 @@ class DraggableTreeNode extends Component {
 
     };
 
-    checkboxChangeHandler = e => {
+    handleCheckboxChange = e => {
 
         const {data, path, value, onSelect, onDeselect} = this.props;
 
@@ -65,12 +65,12 @@ class DraggableTreeNode extends Component {
 
     };
 
-    radioChangeHandler = e => {
+    handleRadioChange = e => {
         const {data, path, onSelect} = this.props;
         onSelect && onSelect(data, path, e);
     };
 
-    clickHandler = e => {
+    handleClick = e => {
 
         e.preventDefault();
 
@@ -87,15 +87,16 @@ class DraggableTreeNode extends Component {
 
         switch (selectMode) {
             case SelectMode.MULTI_SELECT:
-                this.checkboxChangeHandler(e);
+                this.handleCheckboxChange(e);
                 return;
             case SelectMode.SINGLE_SELECT:
-                this.radioChangeHandler(e);
+                this.handleRadioChange(e);
                 return;
         }
 
     };
 
+    /* eslint-disable complexity */
     render() {
 
         const {
@@ -115,22 +116,9 @@ class DraggableTreeNode extends Component {
             {collapsed} = this.state,
 
             checked = Calculation.isItemChecked(data, value, this.props),
-
             isNodeLoading = data.isLoading || isLoading,
             isNodeDisabled = data.disabled || disabled || isNodeLoading,
-
             isVirtual = VirtualRoot in data,
-
-            nodeClassName = classNames('draggable-tree-node', {
-                [`theme-${theme}`]: theme,
-                dragging: isDragging,
-                [data.className]: data.className
-            }),
-            nodeStyle = {
-                ...data.style,
-                paddingLeft: (depth + 1) * 20
-            },
-
             loadingIconPosition = (data.rightIconCls && !data.iconCls) ? 'right' : 'left';
 
         return (
@@ -150,11 +138,18 @@ class DraggableTreeNode extends Component {
                                     <TipProvider tipContent={data.tip}
                                                  position={data.tipPosition}>
 
-                                        <div className={nodeClassName}
-                                             style={nodeStyle}
+                                        <div className={classNames('draggable-tree-node', {
+                                            [`theme-${theme}`]: theme,
+                                            dragging: isDragging,
+                                            [data.className]: data.className
+                                        })}
+                                             style={{
+                                                 ...data.style,
+                                                 paddingLeft: (depth + 1) * 20
+                                             }}
                                              disabled={isNodeDisabled}
                                              readOnly={readOnly}
-                                             onClick={this.clickHandler}
+                                             onClick={this.handleClick}
                                              onMouseEnter={onMouseEnter}
                                              onMouseLeave={onMouseLeave}>
 

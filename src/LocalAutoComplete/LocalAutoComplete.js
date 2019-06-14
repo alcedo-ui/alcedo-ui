@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 import classNames from 'classnames';
@@ -34,7 +34,13 @@ class LocalAutoComplete extends Component {
 
         super(props, ...restArgs);
 
+        this.wrapper = createRef();
+        this.wrapperEl = null;
+        this.trigger = createRef();
         this.triggerEl = null;
+        this.pop = createRef();
+        this.dynamicRenderList = createRef();
+        this.list = createRef();
 
         this.state = {
             tempSelectIndex: null,
@@ -48,7 +54,7 @@ class LocalAutoComplete extends Component {
 
     }
 
-    noMatchHandler = () => {
+    handleNoMatch = () => {
         const {onNoMatch} = this.props,
             {listData, filter} = this.state;
         if (!listData || listData.length < 1) {
@@ -56,7 +62,7 @@ class LocalAutoComplete extends Component {
         }
     };
 
-    filterFocusHandler = (...args) => {
+    handleFilterFocus = (...args) => {
 
         if (this.props.disabled) {
             return;
@@ -79,7 +85,7 @@ class LocalAutoComplete extends Component {
 
     };
 
-    filterBlurHandler = (...args) => {
+    handleFilterBlur = (...args) => {
 
         this.setState({
             filterFocused: false
@@ -88,17 +94,16 @@ class LocalAutoComplete extends Component {
             const {onBlur} = this.props;
             onBlur && onBlur(...args);
 
-            this.noMatchHandler();
+            this.handleNoMatch();
 
         });
 
     };
 
-    filterKeyDownHandler = e => {
+    handleFilterKeyDown = e => {
 
         const {useDynamicRenderList} = this.props,
-            {tempSelectIndex, listData} = this.state,
-            listEl = useDynamicRenderList ? this.refs.dynamicRenderList : this.refs.list;
+            {tempSelectIndex, listData} = this.state;
         let index = tempSelectIndex;
 
         if (e.keyCode === 38) { // up
@@ -113,16 +118,20 @@ class LocalAutoComplete extends Component {
             tempSelectIndex: newTempSelectIndex
         }, () => {
 
-            const {onFilterKeyDown} = this.props;
-            onFilterKeyDown && onFilterKeyDown(e);
+            const {onFilterKeyDown} = this.props,
+                listInstance = useDynamicRenderList ?
+                    this.dynamicRenderList && this.dynamicRenderList.current
+                    :
+                    this.list && this.list.current;
 
-            listEl && listEl.adjustScroll();
+            onFilterKeyDown && onFilterKeyDown(e);
+            listInstance && listInstance.adjustScroll();
 
         });
 
     };
 
-    filterPressEnterHandler = (e, filter) => {
+    handleFilterPressEnter = (e, filter) => {
 
         const {autoClose} = this.props,
             state = {};
@@ -136,7 +145,7 @@ class LocalAutoComplete extends Component {
             const {onFilterPressEnter} = this.props;
             onFilterPressEnter && onFilterPressEnter(filter);
 
-            this.noMatchHandler();
+            this.handleNoMatch();
 
             this.update();
 
@@ -144,7 +153,7 @@ class LocalAutoComplete extends Component {
 
     };
 
-    filterChangeHandler = filter => {
+    handleFilterChange = filter => {
 
         const {data, minFilterLength} = this.props,
             state = {
@@ -165,7 +174,7 @@ class LocalAutoComplete extends Component {
             const {onFilterChange} = this.props;
             onFilterChange && onFilterChange(filter);
 
-            this.refs.popup && this.refs.popup.resetPosition();
+            this.pop && this.pop.current && this.pop.current.resetPosition();
 
         });
 
@@ -182,7 +191,7 @@ class LocalAutoComplete extends Component {
 
     popupRenderHandler = popupEl => {
 
-        const isAbove = DropdownCalculation.isAbove(this.localAutoCompleteEl, this.triggerEl, findDOMNode(popupEl));
+        const isAbove = DropdownCalculation.isAbove(this.wrapperEl, this.triggerEl, findDOMNode(popupEl));
 
         if (isAbove !== this.state.isAbove) {
             this.setState({
@@ -192,7 +201,7 @@ class LocalAutoComplete extends Component {
 
     };
 
-    itemClickHandler = value => {
+    handleItemClick = value => {
 
         const {autoClose, valueField, displayField, renderer} = this.props,
             filter = renderer ? renderer(value) : Util.getTextByDisplayField(value, displayField, valueField),
@@ -264,24 +273,24 @@ class LocalAutoComplete extends Component {
 
     };
 
-    mouseDownHandler = e => {
-        if (this.state.filterFocused && !Dom.isParent(e.target, this.localAutoCompleteEl)
-            && !Dom.isParent(e.target, findDOMNode(this.refs.popup))) {
+    handleMouseDown = e => {
+        if (this.state.filterFocused && !Dom.isParent(e.target, this.wrapperEl)
+            && this.pop && this.pop.current && !Dom.isParent(e.target, findDOMNode(this.pop.current))) {
             this.update();
         }
     };
 
     componentDidMount() {
 
-        this.localAutoCompleteEl = this.refs.localAutoComplete;
-        this.triggerEl = findDOMNode(this.refs.trigger);
+        this.wrapperEl = this.wrapper && this.wrapper.current;
+        this.triggerEl = this.trigger && this.trigger.current && findDOMNode(this.trigger.current);
 
-        Event.addEvent(document, 'mousedown', this.mouseDownHandler);
+        Event.addEvent(document, 'mousedown', this.handleMouseDown);
 
     }
 
     componentWillUnmount() {
-        Event.removeEvent(document, 'mousedown', this.mouseDownHandler);
+        Event.removeEvent(document, 'mousedown', this.handleMouseDown);
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -304,7 +313,7 @@ class LocalAutoComplete extends Component {
                 onFilterClear, parentEl,
 
                 // not passing down these props
-                data, filter: propsFilter, minFilterLength, autoClose, filterCallback,
+                data, filter: propsFilter, filterInitValue, minFilterLength, autoClose, filterCallback,
                 onFilterPressEnter, onFilterChange, onNoMatch,
 
                 ...restProps
@@ -312,51 +321,15 @@ class LocalAutoComplete extends Component {
             } = this.props,
             {isAbove, tempSelectIndex, value, filter, popupVisible, listData} = this.state,
 
-            emptyEl = [{
-                itemRenderer() {
-                    return (
-                        <div className="no-matched-list-item">
-
-                            {
-                                noMatchedMsg ?
-                                    noMatchedMsg
-                                    :
-                                    <span>
-                                        <i className="fas fa-exclamation-triangle no-matched-list-item-icon"></i>
-                                        No matched value.
-                                    </span>
-                            }
-
-                        </div>
-                    );
-                },
-                disableTouchRipple: true
-            }],
-
             isEmpty = listData && listData.length < 1,
             isAboveFinally = position === Position.TOP || position === Position.TOP_LEFT
-                || position === Position.TOP_RIGHT || (!position && isAbove),
-
-            wrapperClassName = classNames('local-auto-complete', {
-                [className]: className
-            }),
-
-            autoCompleteTriggerClassName = classNames('local-auto-complete-trigger',
-                isEmpty && !noMatchedPopupVisible ? '' : (popupVisible ? ' activated' : ''),
-                isAboveFinally ? ' above' : ' blow', {
-                    [triggerClassName]: triggerClassName
-                }),
-
-            autoCompletePopupClassName = classNames('local-auto-complete-popup', isAboveFinally ? ' above' : ' blow', {
-                [popupClassName]: popupClassName
-            }),
-            autoCompletePopupStyle = Object.assign({
-                width: this.triggerEl && getComputedStyle(this.triggerEl).width
-            }, popupStyle);
+                || position === Position.TOP_RIGHT || (!position && isAbove);
 
         return (
-            <div ref="localAutoComplete"
-                 className={wrapperClassName}
+            <div ref={this.wrapper}
+                 className={classNames('local-auto-complete', {
+                     [className]: className
+                 })}
                  style={style}>
 
                 {
@@ -369,25 +342,33 @@ class LocalAutoComplete extends Component {
                 }
 
                 <TextField {...restProps}
-                           ref="trigger"
-                           className={autoCompleteTriggerClassName}
+                           ref={this.trigger}
+                           className={classNames('local-auto-complete-trigger',
+                               isEmpty && !noMatchedPopupVisible ? '' : (popupVisible ? ' activated' : ''),
+                               isAboveFinally ? ' above' : ' blow', {
+                                   [triggerClassName]: triggerClassName
+                               })}
                            value={filter}
-                           onFocus={this.filterFocusHandler}
-                           onClick={this.filterFocusHandler}
-                           onBlur={this.filterBlurHandler}
-                           onChange={this.filterChangeHandler}
-                           onKeyDown={this.filterKeyDownHandler}
-                           onPressEnter={this.filterPressEnterHandler}
+                           onFocus={this.handleFilterFocus}
+                           onClick={this.handleFilterFocus}
+                           onBlur={this.handleFilterBlur}
+                           onChange={this.handleFilterChange}
+                           onKeyDown={this.handleFilterKeyDown}
+                           onPressEnter={this.handleFilterPressEnter}
                            onClear={onFilterClear}
-                           onRightIconClick={this.filterPressEnterHandler}/>
+                           onRightIconClick={this.handleFilterPressEnter}/>
 
                 {
                     isEmpty && !noMatchedPopupVisible ?
                         null
                         :
-                        <Popup ref="popup"
-                               className={autoCompletePopupClassName}
-                               style={autoCompletePopupStyle}
+                        <Popup ref={this.pop}
+                               className={classNames('local-auto-complete-popup', isAboveFinally ? ' above' : ' blow', {
+                                   [popupClassName]: popupClassName
+                               })}
+                               style={Object.assign({
+                                   width: this.triggerEl && getComputedStyle(this.triggerEl).width
+                               }, popupStyle)}
                                theme={popupTheme}
                                visible={popupVisible}
                                triggerEl={this.triggerEl}
@@ -402,35 +383,52 @@ class LocalAutoComplete extends Component {
                                 isEmpty ?
                                     <List className="local-auto-complete-list"
                                           theme={popupTheme}
-                                          data={emptyEl}/>
+                                          data={[{
+                                              itemRenderer() {
+                                                  return (
+                                                      <div className="no-matched-list-item">
+
+                                                          {
+                                                              noMatchedMsg ?
+                                                                  noMatchedMsg
+                                                                  :
+                                                                  <span>
+                                                                      <i className="fas fa-exclamation-triangle no-matched-list-item-icon"></i>
+                                                                      No matched value.
+                                                                  </span>
+                                                          }
+
+                                                      </div>
+                                                  );
+                                              },
+                                              disableTouchRipple: true
+                                          }]}/>
                                     :
-                                    (
-                                        useDynamicRenderList ?
-                                            <DynamicRenderList ref="dynamicRenderList"
-                                                               className="local-auto-complete-list"
-                                                               theme={popupTheme}
-                                                               data={listData}
-                                                               value={listData[tempSelectIndex]}
-                                                               valueField={valueField}
-                                                               displayField={displayField}
-                                                               descriptionField={descriptionField}
-                                                               renderer={renderer}
-                                                               listHeight={listHeight}
-                                                               itemHeight={itemHeight}
-                                                               scrollBuffer={scrollBuffer}
-                                                               onItemClick={this.itemClickHandler}/>
-                                            :
-                                            <List ref="list"
-                                                  className="local-auto-complete-list"
-                                                  theme={popupTheme}
-                                                  data={listData}
-                                                  value={listData[tempSelectIndex]}
-                                                  valueField={valueField}
-                                                  displayField={displayField}
-                                                  descriptionField={descriptionField}
-                                                  renderer={renderer}
-                                                  onItemClick={this.itemClickHandler}/>
-                                    )
+                                    useDynamicRenderList ?
+                                        <DynamicRenderList ref={this.dynamicRenderList}
+                                                           className="local-auto-complete-list"
+                                                           theme={popupTheme}
+                                                           data={listData}
+                                                           value={listData[tempSelectIndex]}
+                                                           valueField={valueField}
+                                                           displayField={displayField}
+                                                           descriptionField={descriptionField}
+                                                           renderer={renderer}
+                                                           listHeight={listHeight}
+                                                           itemHeight={itemHeight}
+                                                           scrollBuffer={scrollBuffer}
+                                                           onItemClick={this.handleItemClick}/>
+                                        :
+                                        <List ref={this.list}
+                                              className="local-auto-complete-list"
+                                              theme={popupTheme}
+                                              data={listData}
+                                              value={listData[tempSelectIndex]}
+                                              valueField={valueField}
+                                              displayField={displayField}
+                                              descriptionField={descriptionField}
+                                              renderer={renderer}
+                                              onItemClick={this.handleItemClick}/>
                             }
 
                             {popupChildren}
@@ -639,6 +637,8 @@ LocalAutoComplete.propTypes = {
     listHeight: PropTypes.number,
     itemHeight: PropTypes.number,
     scrollBuffer: PropTypes.number,
+    parentEl: PropTypes.object,
+    filterInitValue: PropTypes.string,
 
     /**
      * You can create a complicated renderer callback instead of value and desc prop.

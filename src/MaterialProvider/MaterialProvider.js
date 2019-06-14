@@ -40,26 +40,21 @@ class MaterialProvider extends Component {
     render() {
 
         const {
-
                 children, className, theme, label, isLabelAnimate, hasValue, disabled, required, useSeparator,
-
                 ...restProps
-
             } = this.props,
-            {isHover, isFocus} = this.state,
-
-            providerClassName = classNames('material-provider', {
-                'has-label': label,
-                'has-value': hasValue,
-                'has-separator': useSeparator,
-                animated: isLabelAnimate,
-                focused: isFocus,
-                [className]: className
-            });
+            {isHover, isFocus} = this.state;
 
         return (
             <div {...restProps}
-                 className={providerClassName}
+                 className={classNames('material-provider', {
+                     'has-label': label,
+                     'has-value': hasValue,
+                     'has-separator': useSeparator,
+                     animated: isLabelAnimate,
+                     focused: isFocus,
+                     [className]: className
+                 })}
                  disabled={disabled}>
 
                 <div className="material-provider-label-wrapper">
@@ -134,6 +129,8 @@ class MaterialProvider extends Component {
 }
 
 MaterialProvider.propTypes = {
+
+    children: PropTypes.any,
 
     /**
      * The CSS class name of the root element.

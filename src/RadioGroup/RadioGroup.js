@@ -8,8 +8,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Radio from '../Radio';
-import Theme from '../Theme';
 
+import Theme from '../Theme';
 import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
@@ -28,7 +28,7 @@ class RadioGroup extends Component {
 
     }
 
-    changeHandler = item => {
+    handleChange = item => {
         this.setState({
             value: item.value
         }, () => {
@@ -50,14 +50,12 @@ class RadioGroup extends Component {
                 className, style, theme, name, uncheckedIconCls, checkedIconCls,
                 disabled, data, onCheck
             } = this.props,
-            {value} = this.state,
-
-            groupClassName = classNames('radio-group', {
-                [className]: className
-            });
+            {value} = this.state;
 
         return (
-            <div className={groupClassName}
+            <div className={classNames('radio-group', {
+                [className]: className
+            })}
                  style={style}
                  disabled={disabled}>
                 {
@@ -75,7 +73,7 @@ class RadioGroup extends Component {
                                disabled={disabled || item.disabled}
                                tip={item.tip}
                                tipPosition={item.tipPosition}
-                               onChange={() => this.changeHandler(item)}
+                               onChange={() => this.handleChange(item)}
                                onCheck={e => onCheck && onCheck(item, e)}/>
                     )
                 }

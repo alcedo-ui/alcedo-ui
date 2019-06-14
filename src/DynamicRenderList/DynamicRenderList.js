@@ -3,19 +3,18 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import List from '../List';
 import Tip from '../Tip';
-import Theme from '../Theme';
 
+import Theme from '../Theme';
 import SelectMode from '../_statics/SelectMode';
 import LIST_SEPARATOR from '../_statics/ListSeparator';
 
 import Util from '../_vendors/Util';
-import Event from '../_vendors/Event';
 import Calculation from '../_vendors/Calculation';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
@@ -31,6 +30,10 @@ class DynamicRenderList extends Component {
 
         this.lastDisplayIndex = null;
         this.displayIndex = null;
+        this.wrapper = createRef();
+        this.wrapperEl = null;
+        this.list = createRef();
+        this.listInstance = null;
 
         this.state = {
             value: Calculation.getInitValue(props),
@@ -43,7 +46,7 @@ class DynamicRenderList extends Component {
      * public
      */
     adjustScroll = () => {
-        this.refs.list.adjustScroll();
+        this.listInstance && this.listInstance.adjustScroll();
     };
 
     /**
@@ -66,16 +69,16 @@ class DynamicRenderList extends Component {
 
     };
 
-    scrollHandler = e => {
+    handleScroll = e => {
         this.setState({
-            scrollTop: this.dynamicRenderListEl.scrollTop
+            scrollTop: this.wrapperEl ? this.wrapperEl.scrollTop : 0
         }, () => {
             const {onScroll} = this.props;
             onScroll && onScroll(e);
         });
     };
 
-    changeHandler = value => {
+    handleChange = value => {
         this.setState({
             value
         }, () => {
@@ -85,7 +88,8 @@ class DynamicRenderList extends Component {
     };
 
     componentDidMount() {
-        this.dynamicRenderListEl = this.refs.dynamicRenderList;
+        this.wrapperEl = this.wrapper && this.wrapper.current;
+        this.listInstance = this.list && this.list.current;
     }
 
     componentDidUpdate() {
@@ -129,37 +133,27 @@ class DynamicRenderList extends Component {
             } = this.props,
             {value} = this.state,
 
-            listClassName = classNames('dynamic-render-list', {
-                [className]: className
-            }),
-
-            scrollerStyle = {
-                height: data.length * itemHeight
-            },
-
             index = this.getIndex(),
-
             filteredData = data && index ? data.slice(index.startWithBuffer, index.stopWithBuffer + 1) : data;
 
         return (
-            <div ref="dynamicRenderList"
-                 className={listClassName}
+            <div ref={this.wrapper}
+                 className={classNames('dynamic-render-list', {
+                     [className]: className
+                 })}
                  style={{...style, height: listHeight}}
-                 onScroll={this.scrollHandler}
-                 onWheel={e => Event.wheelHandler(e, this.props)}>
-
+                 onScroll={this.handleScroll}>
                 <div className="dynamic-render-list-scroller"
-                     style={scrollerStyle}>
-
+                     style={{
+                         height: data.length * itemHeight
+                     }}>
                     <List {...restProps}
-                          ref="list"
+                          ref={this.list}
                           style={{transform: `translateY(${index.startWithBuffer * itemHeight}px)`}}
                           data={filteredData}
                           value={value}
-                          onChange={this.changeHandler}/>
-
+                          onChange={this.handleChange}/>
                 </div>
-
             </div>
         );
 
@@ -315,8 +309,6 @@ DynamicRenderList.propTypes = {
      */
     selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
-    shouldPreventContainerScroll: PropTypes.bool,
-
     radioUncheckedIconCls: PropTypes.string,
     radioCheckedIconCls: PropTypes.string,
     checkboxUncheckedIconCls: PropTypes.string,
@@ -348,12 +340,8 @@ DynamicRenderList.propTypes = {
      */
     onChange: PropTypes.func,
 
-    /**
-     * Callback function fired when wrapper wheeled.
-     */
-    onWheel: PropTypes.func,
-
     onRenderItemChange: PropTypes.func,
+    onScroll: PropTypes.func,
 
     listHeight: PropTypes.number,
     itemHeight: PropTypes.number,
@@ -375,7 +363,6 @@ DynamicRenderList.defaultProps = {
     disabled: false,
     itemDisabled: false,
     selectMode: SelectMode.SINGLE_SELECT,
-    shouldPreventContainerScroll: true,
 
     checkboxUncheckedIconCls: 'far fa-square',
     checkboxCheckedIconCls: 'fas fa-check-square',

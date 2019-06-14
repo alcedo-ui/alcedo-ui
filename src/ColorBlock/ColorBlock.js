@@ -15,14 +15,13 @@ class ColorBlock extends Component {
 
     render() {
 
-        const {className, style, value, opacity, ...restProps} = this.props,
-            wrapperClassName = classNames('color-block', {
-                [className]: className
-            });
+        const {className, style, value, opacity, ...restProps} = this.props;
 
         return (
             <div {...restProps}
-                 className={wrapperClassName}
+                 className={classNames('color-block', {
+                     [className]: className
+                 })}
                  style={style}>
                 <div className="color-block-overlay"
                      style={{background: `#${value}`, opacity}}></div>

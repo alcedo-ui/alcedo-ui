@@ -50,7 +50,7 @@ class TimeList extends Component {
     };
 
 
-    hourChangeHandle = value => {
+    handleHourChange = value => {
         let state = cloneDeep(this.state);
         const {minValue, maxValue} = this.props;
         let minHour, minMinute, minSecond, maxHour, maxMinute, maxSecond;
@@ -109,7 +109,7 @@ class TimeList extends Component {
         }
     };
 
-    minuteChangeHandle = value => {
+    handleMinuteChange = value => {
         let state = cloneDeep(this.state);
         const {minValue, maxValue} = this.props;
         let minHour, minMinute, minSecond, maxHour, maxMinute, maxSecond;
@@ -159,7 +159,7 @@ class TimeList extends Component {
 
     };
 
-    secondChangeHandle = value => {
+    handleSecondChange = value => {
         let state = cloneDeep(this.state);
         const {minValue, maxValue} = this.props;
         if (minValue && moment('2000-01-01 ' + state.hour + ':' + state.minute + ':' + value).isBefore('2000-01-01 ' + minValue) || maxValue && moment('2000-01-01 ' + state.hour + ':' + state.minute + ':' + value).isAfter('2000-01-01 ' + maxValue)) {
@@ -286,22 +286,21 @@ class TimeList extends Component {
         const {className, popupVisible, dateFormat} = this.props,
             {hour, minute, second, hoursData, minutesData, secondsData} = this.state,
 
-            calendarClassName = classNames('calendar', {
-                [className]: className
-            }),
             itemsStyle = {
                 width: 100 / (dateFormat.split(':').length) + '%'
             };
 
         return (
-            <div className={calendarClassName}>
+            <div className={classNames('calendar', {
+                [className]: className
+            })}>
 
                 <TimeItems className="hours"
                            style={itemsStyle}
                            data={hoursData}
                            value={hour}
                            popupVisible={popupVisible}
-                           onChange={this.hourChangeHandle}/>
+                           onChange={this.handleHourChange}/>
 
                 {
                     dateFormat.split(':').length > 1 ?
@@ -310,7 +309,7 @@ class TimeList extends Component {
                                    data={minutesData}
                                    value={minute}
                                    popupVisible={popupVisible}
-                                   onChange={this.minuteChangeHandle}/>
+                                   onChange={this.handleMinuteChange}/>
                         :
                         null
                 }
@@ -322,7 +321,7 @@ class TimeList extends Component {
                                    data={secondsData}
                                    value={second}
                                    popupVisible={popupVisible}
-                                   onChange={this.secondChangeHandle}/>
+                                   onChange={this.handleSecondChange}/>
                         :
                         null
                 }
@@ -343,7 +342,9 @@ TimeList.propTypes = {
     second: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     isRequired: PropTypes.bool,
     maxValue: PropTypes.string,
-    minValue: PropTypes.string
+    minValue: PropTypes.string,
+
+    onChange: PropTypes.func
 
 };
 

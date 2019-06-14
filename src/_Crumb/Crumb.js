@@ -23,16 +23,14 @@ class Crumb extends Component {
 
     render() {
 
-        const {className, href, text, ...restProps} = this.props,
-
-            crumbClassName = classNames('crumb', {
-                [className]: className
-            });
+        const {className, href, text, ...restProps} = this.props;
 
         return (
             <a href={href}>
                 <FlatButton {...restProps}
-                            className={crumbClassName}
+                            className={classNames('crumb', {
+                                [className]: className
+                            })}
                             value={text}/>
             </a>
         );
