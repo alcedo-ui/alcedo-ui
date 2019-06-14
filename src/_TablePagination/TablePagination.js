@@ -59,7 +59,7 @@ class TablePagination extends Component {
         const {
                 className, style, data, value, paginationSelectionVisible, paginationSelectionRenderer,
                 paginationTotalVisible, paginationTotalRenderer,
-                paginationPageSizeVisible, paginationPageSizesVisible,
+                paginationPageSizeVisible, paginationPageSizesVisible, paginationPageSizeRightIconCls,
                 paginationPrevIconCls, paginationNextIconCls, paginationFirstIconCls, paginationLastIconCls,
                 ...restProps
             } = this.props,
@@ -77,6 +77,7 @@ class TablePagination extends Component {
                                      totalVisible={paginationTotalVisible}
                                      pageSizeVisible={paginationPageSizeVisible}
                                      pageSizesVisible={paginationPageSizesVisible}
+                                     pageSizeRightIconCls={paginationPageSizeRightIconCls}
                                      prevIconCls={paginationPrevIconCls}
                                      nextIconCls={paginationNextIconCls}
                                      firstIconCls={paginationFirstIconCls}
@@ -123,7 +124,7 @@ TablePagination.propTypes = {
     paginationPageSizeVisible: PropTypes.bool,
     paginationPageSizesVisible: PropTypes.bool,
 
-    pageSizeRightIconCls: PropTypes.string,
+    paginationPageSizeRightIconCls: PropTypes.string,
     paginationPrevIconCls: PropTypes.string,
     paginationNextIconCls: PropTypes.string,
     paginationFirstIconCls: PropTypes.string,
@@ -154,7 +155,7 @@ TablePagination.defaultProps = {
     paginationPageSizeVisible: true,
     paginationPageSizesVisible: true,
 
-    pageSizeRightIconCls: 'fas fa-angle-down',
+    paginationPageSizeRightIconCls: 'fas fa-angle-down',
     paginationPrevIconCls: 'fas fa-angle-left',
     paginationNextIconCls: 'fas fa-angle-right',
     paginationFirstIconCls: 'fas fa-angle-double-left',
