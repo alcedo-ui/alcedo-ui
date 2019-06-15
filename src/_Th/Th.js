@@ -78,6 +78,7 @@ class Th extends Component {
                 [`align-${align}`]: align && align !== HorizontalAlign.LEFT,
                 sortable: sortable,
                 sorting: sortable && sortingProp && sorting && sorting.prop && sorting.prop === sortingProp,
+                'no-wrap': sortable || noWrap,
                 [className]: className
             })}
                 style={style}
@@ -145,6 +146,8 @@ Th.propTypes = {
 Th.defaultProps = {
 
     colIndex: 0,
+
+    noWrap: false,
 
     defaultSortingType: SortingType.ASC,
     sortingAscIconCls: 'fas fa-sort-up',
