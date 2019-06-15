@@ -404,7 +404,6 @@ class TableExamples extends Component {
                                 <RaisedButton className="action-button"
                                               value="Collapse All Rows"
                                               onClick={this.collapseAllRows}/>
-
                                 <MaterialTextField className="filter"
                                                    label="Filter"
                                                    value={filter}

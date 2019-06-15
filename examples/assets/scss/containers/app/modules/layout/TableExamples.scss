@@ -3,28 +3,24 @@
 .table-examples {
 
     .toolbar {
+        @include float-fix;
         margin-bottom: 16px;
 
         .action-button {
+            float: left;
             width: auto;
             margin-top: 17px;
         }
 
         .filter {
             float: right;
+            background: transparent;
         }
     }
 
 
-    .table.example-table {
-
-        //th, td {
-        //    border: 1px solid $theme-border;
-        //}
-
-        .table-action {
-            width: auto;
-            margin: 16px 16px 0 0;
-        }
+    .table.example-table .table-action {
+        width: auto;
+        margin: 16px 16px 0 0;
     }
 }
