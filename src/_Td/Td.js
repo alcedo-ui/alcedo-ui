@@ -106,6 +106,7 @@ Td.defaultProps = {
     colIndex: 0,
 
     disabled: false,
+    noWrap: false,
     collapsed: true,
     depth: 0
 

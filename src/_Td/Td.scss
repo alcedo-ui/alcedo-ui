@@ -10,6 +10,8 @@
     border-bottom: 1px solid $theme-border;
     transition: none;
     cursor: default;
+    word-wrap: break-word;
+    word-break: break-all;
 
     .expand-button {
         width: 16px;
@@ -42,6 +44,8 @@
 
     &.no-wrap {
         white-space: nowrap;
+        word-wrap: normal;
+        word-break: keep-all;
     }
 
     &.sorting {
