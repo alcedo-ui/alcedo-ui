@@ -10,6 +10,8 @@
     border-top: 1px solid $theme-border;
     border-bottom: 1px solid $theme-border;
     cursor: default;
+    word-wrap: break-word;
+    word-break: break-all;
 
     &.align-center {
         text-align: center;
@@ -17,5 +19,11 @@
 
     &.align-right {
         text-align: right;
+    }
+
+    &.no-wrap {
+        white-space: nowrap;
+        word-wrap: normal;
+        word-break: keep-all;
     }
 }
