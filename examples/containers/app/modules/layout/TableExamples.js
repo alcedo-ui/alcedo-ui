@@ -50,6 +50,7 @@ class TableExamples extends Component {
             sortingProp: 'firstName'
         }, {
             align: Table.Align.RIGHT,
+            noWrap: true,
             headRenderer: 'Age',
             bodyRenderer: rowDate => rowDate.age,
             footRenderer: () =>
@@ -81,6 +82,7 @@ class TableExamples extends Component {
             }]
         }, {
             align: Table.Align.RIGHT,
+            noWrap: true,
             headRenderer: 'Deposit',
             bodyRenderer: rowDate => rowDate.deposit ? `$${rowDate.deposit}` : '',
             footRenderer: () =>
