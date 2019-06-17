@@ -198,11 +198,16 @@ class Slider extends Component {
     };
 
     componentDidMount() {
-
+        const {scale, initialScale, width} = this.props;
+        let [scaleValue] = this.getScaleValueAndLabel(scale);
+        let right = typeof initialScale === 'number' ?
+            (initialScale - scaleValue[0]) / (scaleValue[scaleValue.length - 1] - scaleValue[0]) * width
+            :
+            width / 2;
         this.sliderBoxEl = this.sliderBox && this.sliderBox.current;
 
         this.setState({
-            right: this.props.width / 2
+            right: right > width || right < 0 ? 0 : right
         });
 
         Event.addEvent(document, 'mousemove', this.handleMove);
@@ -260,9 +265,11 @@ class Slider extends Component {
                     {
                         showScalePoint ?
                             scaleValue.map(item => {
-                                let pointLeft = (item - scaleValue[0]) / (scaleValue[scaleValue.length - 1] - scaleValue[0]) * width;
+                                let pointLeft = (item - scaleValue[0]) / (scaleValue[scaleValue.length - 1] - scaleValue[0]) * width,
+                                    min = Math.min(left, right),
+                                    max = Math.max(left, right);
                                 return <div
-                                    className={`slider-circle fixed-circle ${pointLeft > right || pointLeft < left ? 'disable-circle' : ''}`}
+                                    className={`slider-circle fixed-circle ${pointLeft < min || pointLeft > max ? 'disable-circle' : ''}`}
                                     style={{
                                         left: pointLeft
                                     }}
@@ -353,6 +360,11 @@ Slider.propTypes = {
     leftPoint: PropTypes.bool,
 
     /**
+     * The right point's position.
+     */
+    initialScale: PropTypes.number,
+
+    /**
      * The width of the slider.
      */
     width: PropTypes.number,
@@ -392,6 +404,7 @@ Slider.propTypes = {
 Slider.defaultProps = {
     leftPoint: false,
     showScalePoint: false,
+    initialScale: null,
     width: 300,
     scale: [0, 100],
     showScale: false,
