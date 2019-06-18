@@ -22,4 +22,14 @@
         height: 6px;
         border-radius: 50%;
     }
+
+    .badge-number {
+        box-sizing: border-box;
+        min-width: 20px;
+        height: 20px;
+        line-height: 20px;
+        padding: 0 6px;
+        border-radius: 10px;
+        text-align: center;
+    }
 }

@@ -5,6 +5,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import BadgeType from '../_statics/BadgeType';
 
@@ -20,7 +21,11 @@ class Badge extends Component {
 
     handleValue = (value = this.props.value) => {
 
-        const {overflowValue} = this.props;
+        const {type, overflowValue} = this.props;
+
+        if (type !== BadgeType.NUMBER) {
+            return null;
+        }
 
         if (overflowValue == null || value <= overflowValue) {
             return value;
@@ -32,7 +37,7 @@ class Badge extends Component {
 
     render() {
 
-        const {children, visible, type, value} = this.props;
+        const {children, visible, type} = this.props;
 
         return (
             <span className="badge-wrapper">
@@ -41,12 +46,9 @@ class Badge extends Component {
 
                 {
                     visible ?
-                        type === BadgeType.NUMBER ?
-                            <sup className="badge badge-number">
-                                {this.handleValue()}
-                            </sup>
-                            :
-                            <sup className="badge badge-dot"></sup>
+                        <sup className={classNames('badge', `badge-${type}`)}>
+                            {this.handleValue()}
+                        </sup>
                         :
                         null
                 }
@@ -78,6 +80,9 @@ Badge.propTypes = {
 
 };
 
-Badge.defaultProps = {};
+Badge.defaultProps = {
+    visible: true,
+    type: BadgeType.DOT
+};
 
 export default Badge;
