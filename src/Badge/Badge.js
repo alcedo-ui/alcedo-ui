@@ -19,6 +19,11 @@ class Badge extends Component {
         super(props, ...restArgs);
     }
 
+    /**
+     * handle display number
+     * @param value
+     * @returns {string|null|Number}
+     */
     handleValue = (value = this.props.value) => {
 
         const {type, overflowValue} = this.props;
@@ -37,12 +42,14 @@ class Badge extends Component {
 
     render() {
 
-        const {children, visible, type} = this.props;
+        const {children, className, style, visible, type} = this.props;
 
         return (
             <span className={classNames('badge-wrapper', {
-                'no-child': !children
-            })}>
+                'no-child': !children,
+                [className]: className
+            })}
+                  style={style}>
 
                 {children}
 
