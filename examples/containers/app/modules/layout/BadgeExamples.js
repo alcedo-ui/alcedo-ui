@@ -103,6 +103,38 @@ class BadgeExamples extends Component {
 
                 </Widget>
 
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Use Badge Only"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <Badge type={Badge.Type.NUMBER}
+                                       value={0}/>
+
+                                <Badge type={Badge.Type.NUMBER}
+                                       value={9}/>
+
+                                <Badge type={Badge.Type.NUMBER}
+                                       value={99}/>
+
+                                <Badge type={Badge.Type.NUMBER}
+                                       value={999}/>
+
+                                <Badge type={Badge.Type.NUMBER}
+                                       value={9999}
+                                       overflowValue={999}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
                 <h2 className="example-title">Properties</h2>
 
                 <PropTypeDescTable data={doc}/>
