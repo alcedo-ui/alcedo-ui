@@ -9,8 +9,6 @@
     background: $theme-field-bg-disabled;
     border-bottom: 1px solid $theme-border;
     overflow: hidden;
-    word-wrap: break-word;
-    word-break: break-all;
 
     .th-column {
         box-sizing: content-box;
@@ -25,8 +23,6 @@
         .th-column-title {
             display: table-cell;
             vertical-align: middle;
-            word-wrap: break-word;
-            word-break: break-all;
 
             &.no-wrap {
                 white-space: nowrap;
