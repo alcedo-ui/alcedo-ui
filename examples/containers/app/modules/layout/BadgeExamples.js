@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import Badge from 'src/Badge';
+import IconButton from 'src/IconButton';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
@@ -26,15 +27,31 @@ class BadgeExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Basic"/>
+                    <WidgetHeader className="example-header" title="Dot"/>
 
                     <div className="widget-content">
                         <div className="example-content">
 
                             <div className="examples-wrapper">
 
-                                <Badge>
+                                <Badge visible={true}>
+                                    <IconButton iconCls="far fa-bell"/>
+                                </Badge>
 
+                                <Badge visible={true}>
+                                    <IconButton iconCls="fas fa-bullhorn"/>
+                                </Badge>
+
+                                <Badge visible={true}>
+                                    <IconButton iconCls="far fa-envelope"/>
+                                </Badge>
+
+                                <Badge visible={true}>
+                                    <IconButton iconCls="fas fa-inbox"/>
+                                </Badge>
+
+                                <Badge visible={true}>
+                                    <IconButton iconCls="fas fa-phone"/>
                                 </Badge>
 
                             </div>
