@@ -3,6 +3,23 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-.badge {
+.badge-wrapper {
+    position: relative;
+    display: inline-block;
 
+    .badge {
+        position: absolute;
+        right: 0;
+        top: 0;
+        color: #fff;
+        background: $theme-error;
+        box-shadow: 0 0 0 1px $theme-field-bg;
+        transform: translate(50%, -50%);
+    }
+
+    .badge-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+    }
 }

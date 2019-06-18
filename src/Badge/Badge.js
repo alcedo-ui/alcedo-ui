@@ -18,23 +18,35 @@ class Badge extends Component {
         super(props, ...restArgs);
     }
 
+    handleValue = (value = this.props.value) => {
+
+        const {overflowValue} = this.props;
+
+        if (overflowValue == null || value <= overflowValue) {
+            return value;
+        }
+
+        return `${overflowValue}+`;
+
+    };
+
     render() {
 
         const {children, visible, type, value} = this.props;
 
         return (
-            <span className="badge">
+            <span className="badge-wrapper">
 
                 {children}
 
                 {
                     visible ?
                         type === BadgeType.NUMBER ?
-                            <sup className="badge-number">
-                                {value}
+                            <sup className="badge badge-number">
+                                {this.handleValue()}
                             </sup>
                             :
-                            <sup className="badge-dot"></sup>
+                            <sup className="badge badge-dot"></sup>
                         :
                         null
                 }
