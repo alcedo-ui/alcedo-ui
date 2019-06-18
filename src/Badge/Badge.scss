@@ -11,6 +11,7 @@
         position: absolute;
         right: 0;
         top: 0;
+        display: block;
         color: #fff;
         background: $theme-error;
         box-shadow: 0 0 0 1px $theme-field-bg;
@@ -31,5 +32,10 @@
         padding: 0 6px;
         border-radius: 10px;
         text-align: center;
+    }
+
+    &.no-child .badge {
+        position: relative;
+        transform: none;
     }
 }

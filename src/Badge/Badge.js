@@ -40,7 +40,9 @@ class Badge extends Component {
         const {children, visible, type} = this.props;
 
         return (
-            <span className="badge-wrapper">
+            <span className={classNames('badge-wrapper', {
+                'no-child': !children
+            })}>
 
                 {children}
 
