@@ -34,23 +34,65 @@ class BadgeExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <Badge visible={true}>
+                                <Badge>
                                     <IconButton iconCls="far fa-bell"/>
                                 </Badge>
 
-                                <Badge visible={true}>
+                                <Badge>
                                     <IconButton iconCls="fas fa-bullhorn"/>
                                 </Badge>
 
-                                <Badge visible={true}>
+                                <Badge>
                                     <IconButton iconCls="far fa-envelope"/>
                                 </Badge>
 
-                                <Badge visible={true}>
+                                <Badge>
                                     <IconButton iconCls="fas fa-inbox"/>
                                 </Badge>
 
-                                <Badge visible={true}>
+                                <Badge>
+                                    <IconButton iconCls="fas fa-phone"/>
+                                </Badge>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Number"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <Badge type={Badge.Type.NUMBER}
+                                       value={0}>
+                                    <IconButton iconCls="far fa-bell"/>
+                                </Badge>
+
+                                <Badge type={Badge.Type.NUMBER}
+                                       value={9}>
+                                    <IconButton iconCls="fas fa-bullhorn"/>
+                                </Badge>
+
+                                <Badge type={Badge.Type.NUMBER}
+                                       value={99}>
+                                    <IconButton iconCls="far fa-envelope"/>
+                                </Badge>
+
+                                <Badge type={Badge.Type.NUMBER}
+                                       value={999}>
+                                    <IconButton iconCls="fas fa-inbox"/>
+                                </Badge>
+
+                                <Badge type={Badge.Type.NUMBER}
+                                       value={9999}
+                                       overflowValue={999}>
                                     <IconButton iconCls="fas fa-phone"/>
                                 </Badge>
 
