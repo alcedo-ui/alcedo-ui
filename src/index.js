@@ -3,6 +3,7 @@ export Anchor from './Anchor';
 export AnchorButton from './AnchorButton';
 export ArrowStep from './ArrowStep';
 export AutoCompleteFilter from './AutoCompleteFilter';
+export Badge from './Badge';
 export BriefPagination from './BriefPagination';
 export ButtonCheckbox from './ButtonCheckbox';
 export ButtonRadioGroup from './ButtonRadioGroup';
@@ -110,4 +111,4 @@ export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 110;
+export const COMPONENTS_TOTAL_COUNT = 111;
