@@ -459,6 +459,11 @@ export default function configureRoutes(store) {
                     component: ac(() => import(
                         /* webpackChunkName: "TimeLineExamples" */
                         'modules/layout/TimeLineExamples'), store)
+                }, {
+                    path: '/components/Badge',
+                    component: ac(() => import(
+                        /* webpackChunkName: "BadgeExamples" */
+                        'modules/layout/BadgeExamples'), store)
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- draggable -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */

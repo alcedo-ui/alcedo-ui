@@ -184,6 +184,9 @@ export default [{
 }, {
     text: 'Layout',
     children: [{
+        text: 'Badge',
+        route: '/components/Badge'
+    }, {
         text: 'Crumbs',
         route: '/components/Crumbs'
     }, {
