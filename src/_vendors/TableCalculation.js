@@ -253,7 +253,12 @@ function handleSelectAll(data, value, idProp) {
 
 }
 
-function sortColumns(columns) {
+/**
+ * separate columns to left, center and right, and check has fixed columns or not
+ * @param columns
+ * @returns {{hasFixedLeftColumn: (Array|boolean), separateColumns: *[], hasFixedRightColumn: (Array|boolean)}|*}
+ */
+function separateColumns(columns) {
 
     if (!columns || columns.length < 1) {
         return columns;
@@ -267,7 +272,7 @@ function sortColumns(columns) {
     columns.forEach(column => column && result[column.fixed || HorizontalAlign.CENTER].push(column));
 
     return {
-        sortedColumns: [
+        separateColumns: [
             ...result[HorizontalAlign.LEFT],
             ...result[HorizontalAlign.CENTER],
             ...result[HorizontalAlign.RIGHT]
@@ -494,7 +499,7 @@ export default {
     handleDeselect,
     formatValue,
     handleSelectAll,
-    sortColumns,
+    separateColumns,
     handleFixedColumnsClassName,
     getFirstColumn,
     getHeadColumns,
