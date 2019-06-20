@@ -166,7 +166,7 @@ class TableContent extends Component {
      * split columns by fixed
      * @returns {{[p: string]: Array}}
      */
-    formatColumns = (columns = this.separateColumns || this.props.columns) => {
+    formatColumns = (columns = this.sortedColumns || this.props.columns) => {
 
         if (!columns || columns.length < 1) {
             return columns;
@@ -568,12 +568,12 @@ class TableContent extends Component {
                 ...restProps
 
             } = this.props,
-            {separateColumns, hasFixedLeftColumn, hasFixedRightColumn} = TableCalculation.separateColumns(columns);
+            {sortedColumns, hasFixedLeftColumn, hasFixedRightColumn} = TableCalculation.sortColumns(columns);
 
-        this.separateColumns = separateColumns;
+        this.sortedColumns = sortedColumns;
         this.hasFixedLeftColumn = hasFixedLeftColumn;
         this.hasFixedRightColumn = hasFixedRightColumn;
-        this.formatedColumns = this.formatColumns(this.separateColumns);
+        this.formatedColumns = this.formatColumns(this.sortedColumns);
         this.headColumns = TableCalculation.getHeadColumns(this.formatedColumns);
         this.bodyColumns = TableCalculation.getBodyColumns(this.formatedColumns);
 
