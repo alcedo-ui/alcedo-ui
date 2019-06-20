@@ -267,7 +267,11 @@ function sortColumns(columns) {
     columns.forEach(column => column && result[column.fixed || HorizontalAlign.CENTER].push(column));
 
     return {
-        sortedColumns: [...result[HorizontalAlign.LEFT], ...result[HorizontalAlign.CENTER], ...result[HorizontalAlign.RIGHT]],
+        sortedColumns: [
+            ...result[HorizontalAlign.LEFT],
+            ...result[HorizontalAlign.CENTER],
+            ...result[HorizontalAlign.RIGHT]
+        ],
         hasFixedLeftColumn: result[HorizontalAlign.LEFT] && result[HorizontalAlign.LEFT].length > 0,
         hasFixedRightColumn: result[HorizontalAlign.RIGHT] && result[HorizontalAlign.RIGHT].length > 0
     };
