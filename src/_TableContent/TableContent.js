@@ -26,8 +26,8 @@ import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
 
 import Util from '../_vendors/Util';
-import TableLayout from '../_vendors/TableLayout';
-import TableCalculation from '../_vendors/TableCalculation';
+import TL from '../_vendors/TableLayout';
+import TC from '../_vendors/TableCalculation';
 
 class TableContent extends Component {
 
@@ -83,9 +83,9 @@ class TableContent extends Component {
         const {data, value, isSelectRecursive, idProp, onSelect, onChange} = this.props;
 
         let result = value && isArray(value) ? value.slice() : [];
-        TableCalculation.handleSelect(node, result, idProp, isSelectRecursive);
+        TC.handleSelect(node, result, idProp, isSelectRecursive);
         if (isSelectRecursive) {
-            result = TableCalculation.formatValue(result, data, idProp);
+            result = TC.formatValue(result, data, idProp);
         }
 
         onSelect && onSelect(node, rowIndex, colIndex, collapsed, depth, path);
@@ -112,9 +112,9 @@ class TableContent extends Component {
 
         let result = value && isArray(value) ? value.slice() : [];
         if (result.length > 0) {
-            TableCalculation.handleDeselect(node, result, idProp, isSelectRecursive);
+            TC.handleDeselect(node, result, idProp, isSelectRecursive);
             if (isSelectRecursive) {
-                result = TableCalculation.formatValue(result, data, idProp);
+                result = TC.formatValue(result, data, idProp);
             }
         }
 
@@ -137,7 +137,7 @@ class TableContent extends Component {
             return;
         }
 
-        TableCalculation.handleSelectAll(selectAllMode === SelectAllMode.ALL ? data : this.tableData, value, idProp);
+        TC.handleSelectAll(selectAllMode === SelectAllMode.ALL ? data : this.tableData, value, idProp);
 
         onSelectAll && onSelectAll(value);
         onChange && onChange(value);
@@ -176,14 +176,14 @@ class TableContent extends Component {
                 selectTheme, selectMode, selectAllMode, selectColumn, data, disabled, value, idProp, expandIconCls,
                 selectUncheckedIconCls, selectCheckedIconCls, selectIndeterminateIconCls
             } = this.props,
-            firstColumn = TableCalculation.getFirstColumn(columns),
+            firstColumn = TC.getFirstColumn(columns),
             result = columns.slice();
 
         /**
          * handle expand
          */
         result[0] = cloneDeep(columns[0]);
-        const expandColumn = TableCalculation.getFirstColumn(result);
+        const expandColumn = TC.getFirstColumn(result);
         if (expandColumn) {
             expandColumn.bodyRenderer = (rowData, rowIndex, colIndex, tableData, collapsed, depth, path) =>
                 <Fragment>
@@ -192,7 +192,7 @@ class TableContent extends Component {
                           style={{paddingLeft: depth * 20}}></span>
 
                     {
-                        TableCalculation.needCollapseButtonSpacing(tableData) ?
+                        TC.needCollapseButtonSpacing(tableData) ?
                             <IconButton className={classNames('expand-button', {
                                 hidden: !rowData || !rowData.children || rowData.children.length < 1
                             })}
@@ -212,7 +212,7 @@ class TableContent extends Component {
 
                 </Fragment>;
             expandColumn.bodyNoWrap = (rowData, rowIndex, colIndex, tableData) =>
-                TableCalculation.needCollapseButtonSpacing(tableData);
+                TC.needCollapseButtonSpacing(tableData);
         }
 
         /**
@@ -228,7 +228,7 @@ class TableContent extends Component {
                 } : ''),
                 headRenderer: () => {
 
-                    const {checked, indeterminate} = TableCalculation.isSelectAllChecked(
+                    const {checked, indeterminate} = TC.isSelectAllChecked(
                         selectAllMode === SelectAllMode.ALL ? data : this.tableData, value, idProp);
 
                     return (
@@ -251,9 +251,9 @@ class TableContent extends Component {
                 bodyRenderer: (rowData, rowIndex, colIndex, tableData, collapsed, depth, path) =>
                     <Checkbox className="table-select"
                               theme={selectTheme}
-                              checked={TableCalculation.isNodeChecked(rowData, value, idProp)}
+                              checked={TC.isNodeChecked(rowData, value, idProp)}
                               disabled={disabled || rowData.disabled}
-                              indeterminate={TableCalculation.isNodeIndeterminate(rowData, value, idProp)}
+                              indeterminate={TC.isNodeIndeterminate(rowData, value, idProp)}
                               uncheckedIconCls={selectUncheckedIconCls}
                               checkedIconCls={selectCheckedIconCls}
                               indeterminateIconCls={selectIndeterminateIconCls}
@@ -273,7 +273,7 @@ class TableContent extends Component {
      */
     sortData = (data = this.props.data) => {
         const {sorting, autoSorting, sortingFunc} = this.props;
-        return autoSorting && sorting ? TableCalculation.sortTableData(data, sorting, sortingFunc) : data;
+        return autoSorting && sorting ? TC.sortTableData(data, sorting, sortingFunc) : data;
     };
 
     /**
@@ -307,9 +307,9 @@ class TableContent extends Component {
      * fix table layout at once
      */
     fixLayout = () => {
-        if (this.wrapperEl && TableLayout.hasFixed(this.props, this)) {
-            TableLayout.fixLayout(this.wrapperEl, this.props);
-            TableLayout.updateHorizontalScrollClassNames(this.wrapperEl, this.centerHeadScroller);
+        if (this.wrapperEl && TL.hasFixed(this.props, this)) {
+            TL.fixLayout(this.wrapperEl, this.props);
+            TL.updateHorizontalScrollClassNames(this.wrapperEl, this.centerHeadScroller);
         }
     };
 
@@ -374,7 +374,7 @@ class TableContent extends Component {
                 }
             }
 
-            TableLayout.updateHorizontalScrollClassNames(this.wrapperEl, this.centerHeadScroller);
+            TL.updateHorizontalScrollClassNames(this.wrapperEl, this.centerHeadScroller);
 
         }
 
@@ -491,7 +491,7 @@ class TableContent extends Component {
 
             onCollapse && onCollapse(rowData);
 
-            const index = TableCalculation.indexOfNodeInValue(rowData, expandRows, idProp);
+            const index = TC.indexOfNodeInValue(rowData, expandRows, idProp);
             if (index !== -1) {
                 expandRows.splice(index, 1);
                 onExpandChange && onExpandChange(expandRows);
@@ -501,13 +501,13 @@ class TableContent extends Component {
 
             onExpand && onExpand(rowData);
 
-            const index = TableCalculation.indexOfNodeInValue(rowData, expandRows, idProp);
+            const index = TC.indexOfNodeInValue(rowData, expandRows, idProp);
             if (index === -1) {
                 expandRows.push(rowData);
                 onExpandChange && onExpandChange(expandRows, () => {
                     const {value, selectMode, isSelectRecursive, onChange} = this.props;
                     if (selectMode === SelectMode.MULTI_SELECT && isSelectRecursive) {
-                        onChange && onChange(TableCalculation.recursiveSelectChildren(rowData, value));
+                        onChange && onChange(TC.recursiveSelectChildren(rowData, value));
                     }
                 });
             }
@@ -568,14 +568,14 @@ class TableContent extends Component {
                 ...restProps
 
             } = this.props,
-            {sortedColumns, hasFixedLeftColumn, hasFixedRightColumn} = TableCalculation.sortColumns(columns);
+            {sortedColumns, hasFixedLeftColumn, hasFixedRightColumn} = TC.sortColumns(columns);
 
         this.sortedColumns = sortedColumns;
         this.hasFixedLeftColumn = hasFixedLeftColumn;
         this.hasFixedRightColumn = hasFixedRightColumn;
         this.formatedColumns = this.formatColumns(this.sortedColumns);
-        this.headColumns = TableCalculation.getHeadColumns(this.formatedColumns);
-        this.bodyColumns = TableCalculation.getBodyColumns(this.formatedColumns);
+        this.headColumns = TC.getHeadColumns(this.formatedColumns);
+        this.bodyColumns = TC.getBodyColumns(this.formatedColumns);
 
         if (!this.formatedColumns) {
             return null;
@@ -586,9 +586,9 @@ class TableContent extends Component {
 
         this.tableData = this.paginateData(this.sortData(data));
 
-        const {horizontalScrollStyle, verticalScrollStyle} = TableLayout.getScrollerStyle(scroll),
-            isFinalHeadHidden = isHeadHidden || !TableCalculation.hasRenderer(this.bodyColumns, TableFragment.HEAD),
-            isFinalFootHidden = isFootHidden || !TableCalculation.hasRenderer(this.bodyColumns, TableFragment.FOOT);
+        const {horizontalScrollStyle, verticalScrollStyle} = TL.getScrollerStyle(scroll),
+            isFinalHeadHidden = isHeadHidden || !TC.hasRenderer(this.bodyColumns, TableFragment.HEAD),
+            isFinalFootHidden = isFootHidden || !TC.hasRenderer(this.bodyColumns, TableFragment.FOOT);
 
         return (
             <Fragment>
@@ -606,8 +606,8 @@ class TableContent extends Component {
                                  bodyScrollerStyle={verticalScrollStyle}
                                  maskStyle={horizontalScrollStyle}
                                  tableStyle={horizontalScrollStyle}
-                                 headColumns={TableCalculation.handleFixedColumnsClassName(this.headColumns)}
-                                 bodyColumns={TableCalculation.handleFixedColumnsClassName(this.bodyColumns)}
+                                 headColumns={TC.handleFixedColumnsClassName(this.headColumns)}
+                                 bodyColumns={TC.handleFixedColumnsClassName(this.bodyColumns)}
                                  data={this.tableData}
                                  isHeadFixed={isHeadFixed}
                                  isFootFixed={isFootFixed}
@@ -632,8 +632,8 @@ class TableContent extends Component {
                                          className="table-content-left"
                                          bodyScrollerStyle={verticalScrollStyle}
                                          fixed={HorizontalAlign.LEFT}
-                                         headColumns={TableCalculation.getFixedHeadColumns(this.headColumns, HorizontalAlign.LEFT)}
-                                         bodyColumns={TableCalculation.getFixedBodyColumns(this.bodyColumns, HorizontalAlign.LEFT)}
+                                         headColumns={TC.getFixedHeadColumns(this.headColumns, HorizontalAlign.LEFT)}
+                                         bodyColumns={TC.getFixedBodyColumns(this.bodyColumns, HorizontalAlign.LEFT)}
                                          data={this.tableData}
                                          isHeadFixed={isHeadFixed}
                                          isFootFixed={isFootFixed}
@@ -662,8 +662,8 @@ class TableContent extends Component {
                                          className="table-content-right"
                                          bodyScrollerStyle={verticalScrollStyle}
                                          fixed={HorizontalAlign.RIGHT}
-                                         headColumns={TableCalculation.getFixedHeadColumns(this.headColumns, HorizontalAlign.RIGHT)}
-                                         bodyColumns={TableCalculation.getFixedBodyColumns(this.bodyColumns, HorizontalAlign.RIGHT)}
+                                         headColumns={TC.getFixedHeadColumns(this.headColumns, HorizontalAlign.RIGHT)}
+                                         bodyColumns={TC.getFixedBodyColumns(this.bodyColumns, HorizontalAlign.RIGHT)}
                                          data={this.tableData}
                                          isHeadFixed={isHeadFixed}
                                          isFootFixed={isFootFixed}
