@@ -12,6 +12,7 @@ import eventsOff from 'dom-helpers/events/off';
 import startCase from 'lodash/startCase';
 import isArray from 'lodash/isArray';
 import debounce from 'lodash/debounce';
+import cloneDeep from 'lodash/cloneDeep';
 
 import ScrollTable from '../_ScrollTable';
 import Checkbox from '../Checkbox';
@@ -165,27 +166,26 @@ class TableContent extends Component {
      * split columns by fixed
      * @returns {{[p: string]: Array}}
      */
-    formatColumns = (sortedColumns = this.props.columns) => {
+    formatColumns = (columns = this.separateColumns || this.props.columns) => {
 
-        if (!sortedColumns || sortedColumns.length < 1) {
-            return sortedColumns;
+        if (!columns || columns.length < 1) {
+            return columns;
         }
 
         const {
                 selectTheme, selectMode, selectAllMode, selectColumn, data, disabled, value, idProp, expandIconCls,
                 selectUncheckedIconCls, selectCheckedIconCls, selectIndeterminateIconCls
             } = this.props,
-            result = sortedColumns.slice();
+            firstColumn = TableCalculation.getFirstColumn(columns),
+            result = columns.slice();
 
         /**
          * handle expand
          */
-        result[0] = {
-            ...sortedColumns[0],
-            // bodyClassName: classNames('table-expand-column', {
-            //     [sortedColumns[0].bodyClassName]: sortedColumns[0].bodyClassName
-            // }),
-            bodyRenderer: (rowData, rowIndex, colIndex, tableData, collapsed, depth, path) =>
+        result[0] = cloneDeep(columns[0]);
+        const expandColumn = TableCalculation.getFirstColumn(result);
+        if (expandColumn) {
+            expandColumn.bodyRenderer = (rowData, rowIndex, colIndex, tableData, collapsed, depth, path) =>
                 <Fragment>
 
                     <span className={classNames('table-indent', `indent-level-${depth}`)}
@@ -204,15 +204,16 @@ class TableContent extends Component {
                     }
 
                     {
-                        typeof sortedColumns[0].bodyRenderer === 'function' ?
-                            sortedColumns[0].bodyRenderer(rowData, rowIndex, colIndex, tableData, collapsed, depth, path)
+                        typeof firstColumn.bodyRenderer === 'function' ?
+                            firstColumn.bodyRenderer(rowData, rowIndex, colIndex, tableData, collapsed, depth, path)
                             :
-                            sortedColumns[0].bodyRenderer
+                            firstColumn.bodyRenderer
                     }
 
-                </Fragment>,
-            bodyNoWrap: (rowData, rowIndex, colIndex, tableData) => TableCalculation.needCollapseButtonSpacing(tableData)
-        };
+                </Fragment>;
+            expandColumn.bodyNoWrap = (rowData, rowIndex, colIndex, tableData) =>
+                TableCalculation.needCollapseButtonSpacing(tableData);
+        }
 
         /**
          * handle multi select
@@ -220,7 +221,7 @@ class TableContent extends Component {
         if (selectMode === SelectMode.MULTI_SELECT) {
             result.unshift({
                 ...selectColumn,
-                fixed: (selectColumn && selectColumn.fixed) || sortedColumns[0].fixed,
+                fixed: (selectColumn && selectColumn.fixed) || columns[0].fixed,
                 align: (selectColumn && selectColumn.align) || HorizontalAlign.CENTER,
                 headClassName: classNames('table-select-th', selectColumn ? {
                     [selectColumn.headClassName]: selectColumn.headClassName
@@ -567,12 +568,12 @@ class TableContent extends Component {
                 ...restProps
 
             } = this.props,
-            {sortedColumns, hasFixedLeftColumn, hasFixedRightColumn} = TableCalculation.sortColumns(columns);
+            {separateColumns, hasFixedLeftColumn, hasFixedRightColumn} = TableCalculation.separateColumns(columns);
 
-        this.sortedColumns = sortedColumns;
+        this.separateColumns = separateColumns;
         this.hasFixedLeftColumn = hasFixedLeftColumn;
         this.hasFixedRightColumn = hasFixedRightColumn;
-        this.formatedColumns = this.formatColumns(this.sortedColumns);
+        this.formatedColumns = this.formatColumns(this.separateColumns);
         this.headColumns = TableCalculation.getHeadColumns(this.formatedColumns);
         this.bodyColumns = TableCalculation.getBodyColumns(this.formatedColumns);
 
