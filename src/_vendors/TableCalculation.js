@@ -302,17 +302,22 @@ function handleFixedColumnsClassName(columns) {
 
 }
 
+/**
+ * get the deepest first child of columns
+ * @param columns
+ * @returns {null|*}
+ */
 function getFirstColumn(columns) {
 
     if (!columns || columns.length < 1) {
         return null;
     }
 
-    const result = columns.find(column => column && column.fixed === HorizontalAlign.LEFT);
-    return result ?
-        result
-        :
-        columns.find(column => column && column.fixed !== HorizontalAlign.RIGHT);
+    if (columns[0] && (!columns[0].children || columns[0].children.length < 1)) {
+        return columns[0];
+    }
+
+    return getFirstColumn(columns[0].children);
 
 }
 
