@@ -269,7 +269,15 @@ function sortColumns(columns) {
         [HorizontalAlign.CENTER]: [],
         [HorizontalAlign.RIGHT]: []
     };
+
+    // separate root column to left, right or center
     columns.forEach(column => column && result[column.fixed || HorizontalAlign.CENTER].push(column));
+
+    // traverse all children nodes in left and right, update "fixed" property inheriting from their parent
+    Util.preOrderTraverse({children: result[HorizontalAlign.LEFT]}, node =>
+        node.fixed = HorizontalAlign.LEFT);
+    Util.preOrderTraverse({children: result[HorizontalAlign.RIGHT]}, node =>
+        node.fixed = HorizontalAlign.RIGHT);
 
     return {
         sortedColumns: [
@@ -321,6 +329,13 @@ function getFirstColumn(columns) {
 
 }
 
+/**
+ * calculate the row span and column span
+ * @param node
+ * @param maxDepth
+ * @param depth
+ * @returns {number|*}
+ */
 function formatColumnsSpan(node, maxDepth, depth = -1) {
 
     if (!node) {
@@ -336,17 +351,19 @@ function formatColumnsSpan(node, maxDepth, depth = -1) {
             childNode && (colSpan += formatColumnsSpan(childNode, maxDepth, depth + 1))
         );
 
-        // col span
+        // column span
         if (colSpan > 1) {
             node.colSpan = colSpan;
         }
 
     } else {
+
         // row span
         const rowSpan = maxDepth - depth;
         if (rowSpan > 1) {
             node.rowSpan = rowSpan;
         }
+
     }
 
     if (node[VirtualRoot]) {
@@ -361,12 +378,19 @@ function formatColumnsSpan(node, maxDepth, depth = -1) {
 
 }
 
+/**
+ * get head columns
+ * transform the columns data (tree construction) to html tr-th row format
+ * @param columns
+ * @returns {Array|*}
+ */
 function getHeadColumns(columns) {
 
     if (!columns || columns.length < 1) {
         return columns;
     }
 
+    // calculate the max depth
     let maxDepth = 0;
     Util.postOrderTraverse({children: columns}, (node, depth) => {
         if (depth > maxDepth) {
@@ -374,6 +398,7 @@ function getHeadColumns(columns) {
         }
     });
 
+    // add row span and column span to column node
     const formatedColumns = formatColumnsSpan({
         [VirtualRoot]: true,
         children: columns
@@ -399,6 +424,8 @@ function getHeadColumns(columns) {
         }
 
     });
+
+    console.log('result::', result);
 
     return result;
 
