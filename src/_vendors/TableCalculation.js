@@ -425,8 +425,6 @@ function getHeadColumns(columns) {
 
     });
 
-    console.log('result::', result);
-
     return result;
 
 }
