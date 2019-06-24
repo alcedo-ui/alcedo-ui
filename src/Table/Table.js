@@ -245,9 +245,9 @@ Table.propTypes = {
     columns: PropTypes.arrayOf(PropTypes.shape({
 
         /**
-         * fixed position of column ( true / 'left' / 'right' ).
+         * fixed position of column ( 'left' / 'right' ).
          */
-        fixed: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(Util.enumerateValue(HorizontalAlign))]),
+        fixed: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
 
         /**
          * width of column.
@@ -437,9 +437,9 @@ Table.propTypes = {
     selectColumn: PropTypes.shape({
 
         /**
-         * fixed position of column ( true / 'left' / 'right' )
+         * fixed position of column ( 'left' / 'right' )
          */
-        fixed: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(Util.enumerateValue(HorizontalAlign))]),
+        fixed: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
 
         /**
          * width of column
