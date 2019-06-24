@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -36,6 +36,9 @@ class Table extends Component {
 
         super(props, ...restArgs);
 
+        this.content = createRef();
+        this.contentInstance = null;
+
         this.state = {
             init: props.hasInitFadeOut,
             sorting: props.sorting,
@@ -46,6 +49,13 @@ class Table extends Component {
         };
 
     }
+
+    /**
+     * public
+     */
+    fixLayout = () => {
+        this.contentInstance && this.contentInstance.fixLayout();
+    };
 
     /**
      * public
@@ -115,6 +125,10 @@ class Table extends Component {
         });
     };
 
+    componentDidMount() {
+        this.contentInstance = this.content && this.content.current;
+    }
+
     static getDerivedStateFromProps(props, state) {
 
         const page = ComponentUtil.getDerivedState(props, state, 'page'),
@@ -164,6 +178,7 @@ class Table extends Component {
 
                 {/* table area */}
                 <Content {...restProps}
+                         ref={this.content}
                          data={data}
                          sorting={sorting}
                          isPaginated={isPaginated}
