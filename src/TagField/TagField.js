@@ -190,8 +190,8 @@ class TagField extends Component {
             return;
         }
 
-        const value = trim(e.target.value),
-            inputValue = value ? value.replace(/\r?\n/gm, this.getSeparators()[0]) : value;
+        const value = e.target.value,
+            inputValue = value ? value.replace(/\r?\n/gm, '') : value;
 
         this.setState({
             inputValue
@@ -378,12 +378,10 @@ class TagField extends Component {
                                            onChange={value => this.handleItemChange(value, index)}
                                            onEditStart={() => this.handleItemEditStart(index)}
                                            onEditEnd={this.handleItemEditEnd}>
-
                                 <IconButton className="tag-field-item-field-delete-button"
                                             iconCls={tagRemoveIconCls}
                                             disabled={disabled || (itemEditing && index !== editingItemIndex)}
                                             onClick={() => this.removeItem(index)}/>
-
                             </EditableField>
                         </span>
                     )
