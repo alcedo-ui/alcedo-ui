@@ -22,11 +22,11 @@ class Td extends Component {
 
     handleRenderer = () => {
 
-        const {collapsed, renderer, rowIndex, colIndex, data, tableData, depth, path} = this.props;
+        const {collapsed, renderer, rowIndex, colIndex, data, parentData, tableData, depth, path} = this.props;
 
         switch (typeof renderer) {
             case 'function':
-                return renderer(data, rowIndex, colIndex, tableData, collapsed, depth, path);
+                return renderer(data, rowIndex, colIndex, parentData, tableData, collapsed, depth, path);
             default:
                 return renderer;
         }
@@ -71,6 +71,7 @@ Td.propTypes = {
     colIndex: PropTypes.number,
 
     data: PropTypes.object,
+    parentData: PropTypes.object,
     tableData: PropTypes.array,
     renderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     align: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
