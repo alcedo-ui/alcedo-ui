@@ -49,7 +49,8 @@ class Tr extends Component {
     render() {
 
         const {
-                className, columns, rowIndex, data, tableData, isChecked, disabled, baseColIndex, depth, path,
+                className, columns, rowIndex, data, parentData, tableData,
+                isChecked, disabled, baseColIndex, depth, path,
                 ...respProps
             } = this.props,
             collapsed = this.isCollapsed(),
@@ -76,6 +77,7 @@ class Tr extends Component {
                                 rowIndex={rowIndex}
                                 colIndex={baseColIndex + colIndex}
                                 data={data}
+                                parentData={parentData}
                                 tableData={tableData}
                                 collapsed={collapsed}
                                 renderer={column.bodyRenderer}
@@ -104,6 +106,7 @@ class Tr extends Component {
                         <Tr {...this.props}
                             key={index}
                             data={item}
+                            parentData={data}
                             depth={depth + 1}
                             path={
                                 path ?
@@ -220,7 +223,7 @@ Tr.propTypes = {
         /**
          * The render content in table body.
          *  (1) callback:
-         *      function (rowData, rowIndex, colIndex) {
+         *      function (rowData, rowIndex, colIndex, parentData, tableData, collapsed, depth, path) {
          *          return rowData.id;
          *      }
          *
@@ -305,6 +308,7 @@ Tr.propTypes = {
     })).isRequired,
 
     data: PropTypes.object,
+    parentData: PropTypes.object,
     tableData: PropTypes.array,
     isChecked: PropTypes.bool,
     disabled: PropTypes.bool,
