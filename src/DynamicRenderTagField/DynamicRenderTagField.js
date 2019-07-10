@@ -203,8 +203,8 @@ class DynamicRenderTagField extends Component {
             return;
         }
 
-        const value = trim(e.target.value),
-            inputValue = value ? value.replace(/\r?\n/gm, this.getSeparators()[0]) : value;
+        const value = e.target.value,
+            inputValue = value ? value.replace(/\r?\n/gm, '') : value;
 
         this.setState({
             inputValue
