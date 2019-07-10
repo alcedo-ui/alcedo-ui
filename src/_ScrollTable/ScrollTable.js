@@ -278,7 +278,7 @@ ScrollTable.propTypes = {
         /**
          * The render content in table body.
          *  (1) callback:
-         *      function (rowData, rowIndex, colIndex) {
+         *      function (rowData, rowIndex, colIndex, parentData, tableData, collapsed, depth, path) {
          *          return rowData.id;
          *      }
          *
