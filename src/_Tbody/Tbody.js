@@ -60,10 +60,11 @@ class Tbody extends Component {
             <tbody className={className}
                    style={style}>
                 {
-                    data && data.map((row, rowIndex) => row ?
+                    data && data.map((row, index) => row ?
                         <Tr {...restProps}
-                            key={idProp && idProp in row ? row[idProp] : rowIndex}
-                            rowIndex={startIndex + rowIndex}
+                            key={idProp && idProp in row ? row[idProp] : index}
+                            index={index}
+                            rowIndex={startIndex + index}
                             columns={columns}
                             data={row}
                             tableData={data}
