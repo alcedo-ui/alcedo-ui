@@ -50,11 +50,12 @@ class Tr extends Component {
 
         const {
                 className, columns, rowIndex, data, parentData, tableData,
-                isChecked, disabled, baseColIndex, depth, path,
+                isChecked, disabled, baseColIndex, depth, index, path,
                 ...respProps
             } = this.props,
             collapsed = this.isCollapsed(),
-            columnsWithSpan = TableCalculation.getColumnsWithSpan(TableFragment.BODY, columns, data, rowIndex);
+            columnsWithSpan = TableCalculation.getColumnsWithSpan(TableFragment.BODY, columns, data, rowIndex),
+            nodePath = path || [{index, node: data}];
 
         return (
             <Fragment>
@@ -91,7 +92,7 @@ class Tr extends Component {
                                     tableData
                                 })}
                                 depth={depth}
-                                path={path}
+                                path={nodePath}
                                 sortable={column.sortable}
                                 sortingProp={column.sortingProp}/>
                             :
@@ -105,12 +106,13 @@ class Tr extends Component {
                     data.children.map((item, index) =>
                         <Tr {...this.props}
                             key={index}
+                            index={index}
                             data={item}
                             parentData={data}
                             depth={depth + 1}
                             path={
-                                path ?
-                                    [...path, {index, node: item}]
+                                nodePath ?
+                                    [...nodePath, {index, node: item}]
                                     :
                                     [{index, node: item}]
                             }/>
@@ -315,6 +317,7 @@ Tr.propTypes = {
     expandRows: PropTypes.array,
     baseColIndex: PropTypes.number,
     depth: PropTypes.number,
+    index: PropTypes.number,
     path: PropTypes.array,
     idProp: PropTypes.string,
 
