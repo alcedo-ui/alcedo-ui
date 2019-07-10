@@ -185,7 +185,7 @@ class TableContent extends Component {
         result[0] = cloneDeep(columns[0]);
         const expandColumn = TC.getFirstColumn(result);
         if (expandColumn) {
-            expandColumn.bodyRenderer = (rowData, rowIndex, colIndex, tableData, collapsed, depth, path) =>
+            expandColumn.bodyRenderer = (rowData, rowIndex, colIndex, parentData, tableData, collapsed, depth, path) =>
                 <Fragment>
 
                     <span className={classNames('table-indent', `indent-level-${depth}`)}
@@ -205,7 +205,7 @@ class TableContent extends Component {
 
                     {
                         typeof firstColumn.bodyRenderer === 'function' ?
-                            firstColumn.bodyRenderer(rowData, rowIndex, colIndex, tableData, collapsed, depth, path)
+                            firstColumn.bodyRenderer(rowData, rowIndex, colIndex, parentData, tableData, collapsed, depth, path)
                             :
                             firstColumn.bodyRenderer
                     }
@@ -248,7 +248,7 @@ class TableContent extends Component {
                 bodyClassName: classNames('table-select-td', selectColumn ? {
                     [selectColumn.bodyClassName]: selectColumn.bodyClassName
                 } : ''),
-                bodyRenderer: (rowData, rowIndex, colIndex, tableData, collapsed, depth, path) =>
+                bodyRenderer: (rowData, rowIndex, colIndex, parentData, tableData, collapsed, depth, path) =>
                     <Checkbox className="table-select"
                               theme={selectTheme}
                               checked={TC.isNodeChecked(rowData, value, idProp)}
@@ -806,7 +806,7 @@ TableContent.propTypes = {
         /**
          * The render content in table body.
          *  (1) callback:
-         *      function (rowData, rowIndex, colIndex) {
+         *      function (rowData, rowIndex, colIndex, parentData, tableData, collapsed, depth, path) {
          *          return rowData.id;
          *      }
          *
