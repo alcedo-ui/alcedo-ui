@@ -4,7 +4,7 @@ const path = require('path'),
     CopyPlugin = require('copy-webpack-plugin'),
     HtmlPlugin = require('html-webpack-plugin'),
     HtmlIncludeAssetsPlugin = require('html-webpack-include-assets-plugin'),
-    CompressionPlugin = require('compression-webpack-plugin'),
+    // CompressionPlugin = require('compression-webpack-plugin'),
     // BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin,
 
     config = require('../config.js'),
@@ -93,16 +93,16 @@ module.exports = merge(baseWebpackConfig, {
                 vendorsAssets['tools'].js
             ],
             append: false
-        }),
-
-        new CompressionPlugin({
-            test: new RegExp('\\.(' + config.productionGzipExtensions.join('|') + ')$'),
-            cache: true,
-            filename: '[path].gz[query]',
-            algorithm: 'gzip',
-            threshold: 1,
-            minRatio: 0.8
         })
+
+        // new CompressionPlugin({
+        //     test: new RegExp('\\.(' + config.productionGzipExtensions.join('|') + ')$'),
+        //     cache: true,
+        //     filename: '[path].gz[query]',
+        //     algorithm: 'gzip',
+        //     threshold: 1,
+        //     minRatio: 0.8
+        // })
 
         // new BundleAnalyzerPlugin()
 
