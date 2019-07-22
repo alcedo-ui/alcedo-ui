@@ -320,6 +320,9 @@ class DropdownSelect extends Component {
                 popupChildren, isHiddenInputFilter, noMatchedMsg, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls, isGrouped,
 
+                // not passing down these props
+                clearHiddenInputFilterInterval, onOpenPopup, onClosePopup,
+
                 ...restProps
 
             } = this.props,
