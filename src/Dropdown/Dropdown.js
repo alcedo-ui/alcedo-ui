@@ -141,7 +141,9 @@ class Dropdown extends Component {
                 resetPopPositionWait, parentEl, triggerEl,
 
                 // events
-                onMouseOver, onMouseOut
+                onMouseOver, onMouseOut,
+
+                ...restProps
 
             } = this.props,
             {popupVisible, isAbove} = this.state,
@@ -150,7 +152,8 @@ class Dropdown extends Component {
                 || position === Position.TOP_RIGHT || (!position && isAbove);
 
         return (
-            <div ref={this.dropdown}
+            <div {...restProps}
+                 ref={this.dropdown}
                  className={classNames('dropdown', {
                      activated: popupVisible,
                      [className]: className
