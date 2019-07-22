@@ -11,11 +11,10 @@ import doc from 'assets/propTypes/Dropdown.json';
 
 import 'scss/containers/app/modules/layout/MaterialDropdownExamples.scss';
 
-
-
 class MaterialDropdownExamples extends Component {
 
     constructor(props) {
+
         super(props);
 
         this.state = {
@@ -50,7 +49,7 @@ class MaterialDropdownExamples extends Component {
 
     render() {
 
-        const {MaterialDropdownVisible}=this.state;
+        const {MaterialDropdownVisible} = this.state;
 
         return (
             <div className="example material-dropdown-examples">
@@ -128,6 +127,6 @@ class MaterialDropdownExamples extends Component {
             </div>
         );
     }
-};
+}
 
 export default MaterialDropdownExamples;
