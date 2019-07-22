@@ -144,7 +144,7 @@ class Dropdown extends Component {
                 onMouseOver, onMouseOut,
 
                 // not passing down these props
-                autoClose, placeholderClassName,
+                autoClose, placeholderClassName, onOpenPopup, onClosePopup,
 
                 ...restProps
 
