@@ -199,6 +199,9 @@ class CascaderSelect extends Component {
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
+                // not passing down these props
+                onNodeSelect,
+
                 ...restProps
 
             } = this.props,
