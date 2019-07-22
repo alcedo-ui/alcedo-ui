@@ -143,6 +143,9 @@ class Dropdown extends Component {
                 // events
                 onMouseOver, onMouseOut,
 
+                // not passing down these props
+                autoClose, placeholderClassName,
+
                 ...restProps
 
             } = this.props,
@@ -228,6 +231,8 @@ Dropdown.propTypes = {
      * The class name of the popup element.
      */
     popupClassName: PropTypes.string,
+
+    placeholderClassName: PropTypes.string,
 
     /**
      * Override the styles of the root element.
