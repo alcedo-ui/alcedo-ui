@@ -321,7 +321,7 @@ class DropdownSelect extends Component {
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls, isGrouped,
 
                 // not passing down these props
-                clearHiddenInputFilterInterval, onOpenPopup, onClosePopup, onItemClick,
+                clearHiddenInputFilterInterval, onOpenPopup, onClosePopup, onItemClick, onChange,
 
                 ...restProps
 
