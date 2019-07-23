@@ -97,7 +97,7 @@
         "crypto": "1.0.1",
         "css-loader": "3.1.0",
         "eslint": "^6.1.0",
-        "eslint-plugin-react": "^7.14.2",
+        "eslint-plugin-react": "^7.14.3",
         "eventsource-polyfill": "0.9.6",
         "express": "4.17.1",
         "fast-sass-loader": "1.5.0",
