@@ -173,7 +173,6 @@ class List extends Component {
 
                 onItemClick
 
-
             } = this.props,
             {value} = this.state;
 
@@ -247,7 +246,7 @@ class List extends Component {
 
             // not passing down these props
             activatedTheme, selectTheme, selectMode, idField, valueField, displayField, descriptionField, itemDisabled,
-            disableTouchRipple, autoSelect, isLoading, radioUncheckedIconCls, radioCheckedIconCls,
+            disableTouchRipple, autoSelect, isLoading, itemHeight, radioUncheckedIconCls, radioCheckedIconCls,
             checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
             indeterminateCallback, renderer, onItemClick, onItemSelect, onItemDeselect,
 
