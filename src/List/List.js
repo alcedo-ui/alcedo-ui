@@ -241,10 +241,23 @@ class List extends Component {
 
     render() {
 
-        const {children, className, style, data, disabled} = this.props;
+        const {
+
+            children, className, style, data, disabled,
+
+            // not passing down these props
+            activatedTheme, selectTheme, selectMode, idField, valueField, displayField, descriptionField, itemDisabled,
+            disableTouchRipple, autoSelect, isLoading, radioUncheckedIconCls, radioCheckedIconCls,
+            checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
+            indeterminateCallback, renderer, onItemClick, onItemSelect, onItemDeselect,
+
+            ...restProps
+
+        } = this.props;
 
         return (
-            <div ref={this.list}
+            <div {...restProps}
+                 ref={this.list}
                  className={classNames('list', {
                      [className]: className
                  })}
