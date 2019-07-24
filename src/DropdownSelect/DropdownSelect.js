@@ -439,9 +439,7 @@ class DropdownSelect extends Component {
                                                valueField={valueField}
                                                displayField={displayField}
                                                descriptionField={descriptionField}
-                                               listHeight={listHeight}
                                                itemHeight={itemHeight}
-                                               scrollBuffer={scrollBuffer}
                                                itemDisabled={itemDisabled}
                                                renderer={renderer}
                                                radioUncheckedIconCls={radioUncheckedIconCls}
