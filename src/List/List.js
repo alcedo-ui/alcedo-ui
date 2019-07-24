@@ -246,7 +246,7 @@ class List extends Component {
 
             // not passing down these props
             activatedTheme, selectTheme, selectMode, idField, valueField, displayField, descriptionField, itemDisabled,
-            disableTouchRipple, autoSelect, isLoading, itemHeight, radioUncheckedIconCls, radioCheckedIconCls,
+            disableTouchRipple, autoSelect, isLoading, itemHeight, parentEl, radioUncheckedIconCls, radioCheckedIconCls,
             checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
             indeterminateCallback, renderer, onItemClick, onItemSelect, onItemDeselect,
 
