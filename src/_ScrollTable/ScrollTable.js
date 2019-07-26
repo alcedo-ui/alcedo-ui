@@ -88,6 +88,7 @@ class ScrollTable extends Component {
                             <ScrollableTable ref={this.headScroller}
                                              className="scroll-table-head-scroller"
                                              scroll={scroll}
+                                             overflowHidden={fixed === HorizontalAlign.LEFT}
                                              onScroll={onScroll}>
                                 <BaseTable {...restProps}
                                            style={tableStyle}
@@ -135,6 +136,7 @@ class ScrollTable extends Component {
                             <ScrollableTable ref={this.footScroller}
                                              className="scroll-table-foot-scroller"
                                              scroll={scroll}
+                                             overflowHidden={fixed === HorizontalAlign.LEFT}
                                              onScroll={onScroll}>
                                 <BaseTable {...restProps}
                                            style={tableStyle}
