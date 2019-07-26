@@ -316,8 +316,8 @@ class TableContent extends Component {
      * @param e
      */
     handleScroll = e => {
-        this.lastScrollLeft = TL.handleHorizontalScroll(e, this.lastScrollLeft, this.wrapperEl, this.props);
         this.lastScrollTop = TL.handleVerticalScroll(e, this.lastScrollTop, this.wrapperEl);
+        this.lastScrollLeft = TL.handleHorizontalScroll(e, this.lastScrollLeft, this.wrapperEl, this.props);
     };
 
     /**
@@ -325,7 +325,7 @@ class TableContent extends Component {
      * @param e
      */
     handleWheel = e => {
-        TL.handleWheel(e, this.lastScrollTop, this.wrapperEl);
+        this.lastScrollTop = TL.handleWheel(e, this.lastScrollTop, this.wrapperEl);
     };
 
     /**
