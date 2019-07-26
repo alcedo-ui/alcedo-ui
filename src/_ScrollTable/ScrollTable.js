@@ -3,8 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component, createRef} from 'react';
-import {findDOMNode} from 'react-dom';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -30,35 +29,7 @@ class ScrollTable extends Component {
     static SortingType = SortingType;
 
     constructor(props, ...restArgs) {
-
         super(props, ...restArgs);
-
-        this.headScroller = createRef();
-        this.bodyScroller = createRef();
-        this.footScroller = createRef();
-
-        this.bodyScrollerEl = null;
-        this.headScrollerEl = null;
-        this.footScrollerEl = null;
-
-    }
-
-    componentDidUpdate() {
-
-        const {
-            isHeadFixed, isFootFixed,
-            onGetBodyScrollerEl, onGetHeadScrollerEl, onGetFootScrollerEl
-        } = this.props;
-
-        !this.bodyScrollerEl && onGetBodyScrollerEl && this.bodyScroller && this.bodyScroller.current
-        && onGetBodyScrollerEl(this.bodyScrollerEl = findDOMNode(this.bodyScroller.current));
-
-        !this.headScrollerEl && isHeadFixed && onGetHeadScrollerEl && this.headScroller && this.headScroller.current
-        && onGetHeadScrollerEl(this.headScrollerEl = findDOMNode(this.headScroller.current));
-
-        !this.footScrollerEl && isFootFixed && onGetFootScrollerEl && this.footScroller && this.footScroller.current
-        && onGetFootScrollerEl(this.footScrollerEl = findDOMNode(this.footScroller.current));
-
     }
 
     render() {
@@ -68,9 +39,6 @@ class ScrollTable extends Component {
             className, style, bodyScrollerStyle, maskStyle, tableStyle, footStyle, columns, headColumns, bodyColumns,
             isHeadHidden, isFootHidden, isHeadFixed, isFootFixed,
             scroll, hasFixedLeftColumn, hasFixedRightColumn, onScroll, onWheel,
-
-            // not passing down these props
-            onGetHeadScrollerEl, onGetBodyScrollerEl, onGetFootScrollerEl,
 
             ...restProps
 
@@ -89,8 +57,7 @@ class ScrollTable extends Component {
                 {
                     !isHeadHidden && isHeadFixed ?
                         <div className="scroll-table-head">
-                            <ScrollableTable ref={this.headScroller}
-                                             className="scroll-table-head-scroller"
+                            <ScrollableTable className="scroll-table-head-scroller"
                                              scroll={scroll}
                                              onScroll={onScroll}>
                                 <BaseTable {...restProps}
@@ -106,8 +73,7 @@ class ScrollTable extends Component {
                 }
 
                 <div className="scroll-table-body">
-                    <ScrollableTable ref={this.bodyScroller}
-                                     className="scroll-table-body-scroller"
+                    <ScrollableTable className="scroll-table-body-scroller"
                                      style={bodyScrollerStyle}
                                      scroll={scroll}
                                      onScroll={onScroll}
@@ -134,8 +100,7 @@ class ScrollTable extends Component {
                     !isFootHidden && isFootFixed ?
                         <div className="scroll-table-foot"
                              style={footStyle}>
-                            <ScrollableTable ref={this.footScroller}
-                                             className="scroll-table-foot-scroller"
+                            <ScrollableTable className="scroll-table-foot-scroller"
                                              scroll={scroll}
                                              onScroll={onScroll}>
                                 <BaseTable {...restProps}
@@ -414,9 +379,6 @@ ScrollTable.propTypes = {
     /**
      * callback
      */
-    onGetBodyScrollerEl: PropTypes.func,
-    onGetHeadScrollerEl: PropTypes.func,
-    onGetFootScrollerEl: PropTypes.func,
     onExpandChange: PropTypes.func,
     onScroll: PropTypes.func,
     onWheel: PropTypes.func,
