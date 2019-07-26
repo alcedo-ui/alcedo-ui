@@ -342,36 +342,7 @@ class TableContent extends Component {
      * @param e
      */
     handleWheel = e => {
-
-        if (!window.navigator.userAgent.match(/Trident\/7\./)) {
-            return;
-        }
-
-        e.preventDefault();
-
-        const wd = e.deltaY,
-            target = e.target;
-
-        let scrollTop = 0;
-
-        if (this.lastScrollTop) {
-            scrollTop = this.lastScrollTop + wd;
-        } else {
-            scrollTop = wd;
-        }
-
-        if (this.leftBodyScroller && this.leftBodyScroller !== target) {
-            this.leftBodyScroller.scrollTop = scrollTop;
-        }
-
-        if (this.centerBodyScroller && this.centerBodyScroller !== target) {
-            this.centerBodyScroller.scrollTop = scrollTop;
-        }
-
-        if (this.rightBodyScroller && this.rightBodyScroller !== target) {
-            this.rightBodyScroller.scrollTop = scrollTop;
-        }
-
+        TL.handleWheel(e, this.lastScrollTop, this.wrapperEl);
     };
 
     /**
