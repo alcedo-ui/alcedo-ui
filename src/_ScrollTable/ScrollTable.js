@@ -3,7 +3,8 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
+import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -29,7 +30,31 @@ class ScrollTable extends Component {
     static SortingType = SortingType;
 
     constructor(props, ...restArgs) {
+
         super(props, ...restArgs);
+
+        this.headScroller = createRef();
+        this.bodyScroller = createRef();
+        this.footScroller = createRef();
+
+    }
+
+    componentDidMount() {
+
+        const {
+            isHeadFixed, isFootFixed,
+            onGetBodyScrollerEl, onGetHeadScrollerEl, onGetFootScrollerEl
+        } = this.props;
+
+        onGetBodyScrollerEl && this.bodyScroller && this.bodyScroller.current
+        && onGetBodyScrollerEl(findDOMNode(this.bodyScroller.current));
+
+        isHeadFixed && onGetHeadScrollerEl && this.headScroller && this.headScroller.current
+        && onGetHeadScrollerEl(findDOMNode(this.headScroller.current));
+
+        isFootFixed && onGetFootScrollerEl && this.footScroller && this.footScroller.current
+        && onGetFootScrollerEl(findDOMNode(this.footScroller.current));
+
     }
 
     render() {
@@ -39,6 +64,9 @@ class ScrollTable extends Component {
             className, style, bodyScrollerStyle, maskStyle, tableStyle, footStyle, columns, headColumns, bodyColumns,
             isHeadHidden, isFootHidden, isHeadFixed, isFootFixed,
             scroll, hasFixedLeftColumn, hasFixedRightColumn, onScroll, onWheel,
+
+            // not passing down these props
+            onGetHeadScrollerEl, onGetBodyScrollerEl, onGetFootScrollerEl,
 
             ...restProps
 
@@ -57,7 +85,8 @@ class ScrollTable extends Component {
                 {
                     !isHeadHidden && isHeadFixed ?
                         <div className="scroll-table-head">
-                            <ScrollableTable className="scroll-table-head-scroller"
+                            <ScrollableTable ref={this.headScroller}
+                                             className="scroll-table-head-scroller"
                                              scroll={scroll}
                                              onScroll={onScroll}>
                                 <BaseTable {...restProps}
@@ -73,7 +102,8 @@ class ScrollTable extends Component {
                 }
 
                 <div className="scroll-table-body">
-                    <ScrollableTable className="scroll-table-body-scroller"
+                    <ScrollableTable ref={this.bodyScroller}
+                                     className="scroll-table-body-scroller"
                                      style={bodyScrollerStyle}
                                      scroll={scroll}
                                      onScroll={onScroll}
@@ -100,7 +130,8 @@ class ScrollTable extends Component {
                     !isFootHidden && isFootFixed ?
                         <div className="scroll-table-foot"
                              style={footStyle}>
-                            <ScrollableTable className="scroll-table-foot-scroller"
+                            <ScrollableTable ref={this.footScroller}
+                                             className="scroll-table-foot-scroller"
                                              scroll={scroll}
                                              onScroll={onScroll}>
                                 <BaseTable {...restProps}
@@ -379,6 +410,9 @@ ScrollTable.propTypes = {
     /**
      * callback
      */
+    onGetBodyScrollerEl: PropTypes.func,
+    onGetHeadScrollerEl: PropTypes.func,
+    onGetFootScrollerEl: PropTypes.func,
     onExpandChange: PropTypes.func,
     onScroll: PropTypes.func,
     onWheel: PropTypes.func,
