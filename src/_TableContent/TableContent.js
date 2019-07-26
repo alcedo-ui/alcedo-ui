@@ -9,7 +9,6 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import eventsOn from 'dom-helpers/events/on';
 import eventsOff from 'dom-helpers/events/off';
-import startCase from 'lodash/startCase';
 import isArray from 'lodash/isArray';
 import debounce from 'lodash/debounce';
 import cloneDeep from 'lodash/cloneDeep';
@@ -41,12 +40,6 @@ class TableContent extends Component {
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
-
-        this.leftBodyScroller = null;
-        this.centerHeadScroller = null;
-        this.centerBodyScroller = null;
-        this.centerFootScroller = null;
-        this.rightBodyScroller = null;
 
         this.lastScrollLeft = 0;
         this.lastScrollTop = 0;
@@ -309,7 +302,7 @@ class TableContent extends Component {
     fixLayout = () => {
         if (this.wrapperEl && TL.hasFixed(this.props, this)) {
             TL.fixLayout(this.wrapperEl, this.props);
-            TL.updateHorizontalScrollClassNames(this.wrapperEl, this.centerHeadScroller);
+            TL.updateHorizontalScrollClassNames(this.wrapperEl);
         }
     };
 
@@ -317,16 +310,6 @@ class TableContent extends Component {
      * fix table layout debounce
      */
     debounceFixLayout = debounce(this.fixLayout, 250);
-
-    /**
-     * handle get scroll el
-     * @param el
-     * @param fixed
-     * @param fragment
-     */
-    handleGetScrollerEl = (el, fixed, fragment) => {
-        this[`${fixed}${startCase(fragment)}Scroller`] = el;
-    };
 
     /**
      * handle table scroll
@@ -484,13 +467,7 @@ class TableContent extends Component {
                                  hasFixedRightColumn={hasFixedRightColumn}
                                  scroll={scroll}
                                  onScroll={this.handleScroll}
-                                 onWheel={this.handleWheel}
-                                 onGetHeadScrollerEl={el =>
-                                     this.handleGetScrollerEl(el, HorizontalAlign.CENTER, TableFragment.HEAD)}
-                                 onGetBodyScrollerEl={el =>
-                                     this.handleGetScrollerEl(el, HorizontalAlign.CENTER, TableFragment.BODY)}
-                                 onGetFootScrollerEl={el =>
-                                     this.handleGetScrollerEl(el, HorizontalAlign.CENTER, TableFragment.FOOT)}/>
+                                 onWheel={this.handleWheel}/>
 
                     {
                         hasFixedLeftColumn ?
@@ -509,12 +486,6 @@ class TableContent extends Component {
                                          hasFixedLeftColumn={hasFixedLeftColumn}
                                          hasFixedRightColumn={hasFixedRightColumn}
                                          scroll={scroll}
-                                         onGetHeadScrollerEl={el =>
-                                             this.handleGetScrollerEl(el, HorizontalAlign.LEFT, TableFragment.HEAD)}
-                                         onGetBodyScrollerEl={el =>
-                                             this.handleGetScrollerEl(el, HorizontalAlign.LEFT, TableFragment.BODY)}
-                                         onGetFootScrollerEl={el =>
-                                             this.handleGetScrollerEl(el, HorizontalAlign.LEFT, TableFragment.FOOT)}
                                          onScroll={this.handleScroll}
                                          onWheel={this.handleWheel}
                                          onExpandChange={this.handleExpandChange}/>
@@ -541,13 +512,7 @@ class TableContent extends Component {
                                          scroll={scroll}
                                          baseColIndex={this.formatedColumns.length - this.fixedRightColumns.length}
                                          onScroll={this.handleScroll}
-                                         onWheel={this.handleWheel}
-                                         onGetHeadScrollerEl={el =>
-                                             this.handleGetScrollerEl(el, HorizontalAlign.RIGHT, TableFragment.HEAD)}
-                                         onGetBodyScrollerEl={el =>
-                                             this.handleGetScrollerEl(el, HorizontalAlign.RIGHT, TableFragment.BODY)}
-                                         onGetFootScrollerEl={el =>
-                                             this.handleGetScrollerEl(el, HorizontalAlign.RIGHT, TableFragment.FOOT)}/>
+                                         onWheel={this.handleWheel}/>
                             :
                             null
                     }
