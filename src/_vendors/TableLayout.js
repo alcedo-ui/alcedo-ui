@@ -764,6 +764,8 @@ function handleWheel(e, lastScrollTop, wrapperEl) {
         rightBodyScroller.scrollTop = scrollTop;
     }
 
+    return scrollTop;
+
 }
 
 export default {
