@@ -600,6 +600,133 @@ function getScrollerStyle(scroll) {
 
 }
 
+/**
+ * handle table vertical scroll
+ * @param e
+ * @param lastScrollTop
+ * @param wrapperEl
+ * @returns {*}
+ */
+function handleVerticalScroll(e, lastScrollTop, wrapperEl) {
+
+    if (!e || e.currentTarget !== e.target) {
+        return;
+    }
+
+    const target = e.target,
+        scrollTop = target.scrollTop,
+
+        centerBodyScroller = wrapperEl.querySelector('.table-content-center .scroll-table-body-scroller'),
+        centerHeadScroller = wrapperEl.querySelector('.table-content-center .scroll-table-head-scroller'),
+        centerFootScroller = wrapperEl.querySelector('.table-content-center .scroll-table-foot-scroller'),
+        leftBodyScroller = wrapperEl.querySelector('.table-content-left .scroll-table-body-scroller'),
+        rightBodyScroller = wrapperEl.querySelector('.table-content-right .scroll-table-body-scroller');
+
+    if (scrollTop !== lastScrollTop
+        && (target != centerHeadScroller || target != centerFootScroller)) {
+        switch (target) {
+            case leftBodyScroller: {
+                if (centerBodyScroller) {
+                    centerBodyScroller.scrollTop = scrollTop;
+                }
+                if (rightBodyScroller) {
+                    rightBodyScroller.scrollTop = scrollTop;
+                }
+                break;
+            }
+            case rightBodyScroller: {
+                if (leftBodyScroller) {
+                    leftBodyScroller.scrollTop = scrollTop;
+                }
+                if (centerBodyScroller) {
+                    centerBodyScroller.scrollTop = scrollTop;
+                }
+                break;
+            }
+            default: {
+                if (leftBodyScroller) {
+                    leftBodyScroller.scrollTop = scrollTop;
+                }
+                if (rightBodyScroller) {
+                    rightBodyScroller.scrollTop = scrollTop;
+                }
+                break;
+            }
+        }
+    }
+
+    return scrollTop;
+
+}
+
+/**
+ * handle table horizontal scroll
+ * @param e
+ * @param lastScrollLeft
+ * @param wrapperEl
+ * @param props
+ * @returns {*}
+ */
+function handleHorizontalScroll(e, lastScrollLeft, wrapperEl, props) {
+
+    if (!e || e.currentTarget !== e.target) {
+        return;
+    }
+
+    const {isHeadFixed, isFootFixed} = props,
+
+        target = e.target,
+        scrollLeft = target.scrollLeft,
+
+        centerEl = wrapperEl.querySelector('.table-content-center'),
+        centerBodyScroller = centerEl.querySelector('.scroll-table-body-scroller'),
+        centerHeadScroller = centerEl.querySelector('.scroll-table-head-scroller'),
+        centerFootScroller = centerEl.querySelector('.scroll-table-foot-scroller');
+
+    if (scrollLeft !== lastScrollLeft) {
+
+        switch (target) {
+            case centerHeadScroller: {
+                if (centerBodyScroller) {
+                    centerBodyScroller.scrollLeft = scrollLeft;
+                }
+                if (isFootFixed && centerHeadScroller && centerFootScroller) {
+                    centerFootScroller.scrollLeft = scrollLeft;
+                }
+                break;
+            }
+            case centerFootScroller: {
+                if (isHeadFixed && centerHeadScroller) {
+                    centerHeadScroller.scrollLeft = scrollLeft;
+                }
+                if (centerBodyScroller) {
+                    centerBodyScroller.scrollLeft = scrollLeft;
+                }
+                break;
+            }
+            default: {
+                if (isHeadFixed && centerHeadScroller) {
+                    centerHeadScroller.scrollLeft = scrollLeft;
+                }
+                if (isFootFixed && centerHeadScroller && centerFootScroller) {
+                    centerFootScroller.scrollLeft = scrollLeft;
+                }
+                break;
+            }
+        }
+
+        updateHorizontalScrollClassNames(wrapperEl, centerHeadScroller);
+
+    }
+
+    return scrollLeft;
+
+}
+
+function handleWheel() {
+
+}
+
 export default {
     hasFixed,
     getColumnsWidth,
@@ -607,5 +734,8 @@ export default {
     getbodyScollerHeight,
     fixLayout,
     updateHorizontalScrollClassNames,
-    getScrollerStyle
+    getScrollerStyle,
+    handleHorizontalScroll,
+    handleVerticalScroll,
+    handleWheel
 };
