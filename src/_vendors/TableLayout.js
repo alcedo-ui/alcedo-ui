@@ -511,9 +511,14 @@ function fixLayout(wrapperEl, props) {
  * @param wrapperEl
  * @param scrollerEl
  */
-function updateHorizontalScrollClassNames(wrapperEl, scrollerEl) {
+function updateHorizontalScrollClassNames(wrapperEl) {
 
-    if (!wrapperEl || !scrollerEl) {
+    if (!wrapperEl) {
+        return;
+    }
+
+    const scrollerEl = wrapperEl.querySelector('.table-content-center .scroll-table-head-scroller');
+    if (!scrollerEl) {
         return;
     }
 
@@ -715,7 +720,7 @@ function handleHorizontalScroll(e, lastScrollLeft, wrapperEl, props) {
             }
         }
 
-        updateHorizontalScrollClassNames(wrapperEl, centerHeadScroller);
+        updateHorizontalScrollClassNames(wrapperEl);
 
     }
 
