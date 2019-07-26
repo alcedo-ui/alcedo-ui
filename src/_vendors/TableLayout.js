@@ -723,7 +723,41 @@ function handleHorizontalScroll(e, lastScrollLeft, wrapperEl, props) {
 
 }
 
-function handleWheel() {
+function handleWheel(e, lastScrollTop, wrapperEl) {
+
+    // pass if ie
+    if (!window.navigator.userAgent.match(/Trident\/7\./)) {
+        return;
+    }
+
+    e.preventDefault();
+
+    const wd = e.deltaY,
+        target = e.target;
+
+    let scrollTop = 0;
+
+    if (lastScrollTop) {
+        scrollTop = lastScrollTop + wd;
+    } else {
+        scrollTop = wd;
+    }
+
+    const leftBodyScroller = wrapperEl.querySelector('.table-content-left .scroll-table-body-scroller'),
+        centerBodyScroller = wrapperEl.querySelector('.table-content-center .scroll-table-body-scroller'),
+        rightBodyScroller = wrapperEl.querySelector('.table-content-right .scroll-table-body-scroller');
+
+    if (leftBodyScroller && leftBodyScroller !== target) {
+        leftBodyScroller.scrollTop = scrollTop;
+    }
+
+    if (centerBodyScroller && centerBodyScroller !== target) {
+        centerBodyScroller.scrollTop = scrollTop;
+    }
+
+    if (rightBodyScroller && rightBodyScroller !== target) {
+        rightBodyScroller.scrollTop = scrollTop;
+    }
 
 }
 
