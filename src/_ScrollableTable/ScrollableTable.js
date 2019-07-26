@@ -12,17 +12,38 @@ class ScrollableTable extends Component {
         super(props, ...restArgs);
     }
 
+    getStyle = () => {
+
+        const {style, scroll, overflowHidden} = this.props;
+
+        if (overflowHidden) {
+            return style;
+        }
+
+        return {
+            ...style,
+            overflowX: scroll.width ? 'auto' : null,
+            overflowY: scroll.height || scroll.maxHeight ? 'scroll' : null
+        };
+
+    };
+
     render() {
 
-        const {children, style, scroll, ...restProps} = this.props;
+        const {
+
+            children, style, scroll,
+
+            // not passing down these props
+            overflowHidden,
+
+            ...restProps
+
+        } = this.props;
 
         return scroll ?
             <div {...restProps}
-                 style={{
-                     ...style
-                     // overflowX: scroll.width ? 'scroll' : null,
-                     // overflowY: scroll.height || scroll.maxHeight ? 'scroll' : null
-                 }}>
+                 style={this.getStyle()}>
                 {children}
             </div>
             :
@@ -44,8 +65,14 @@ ScrollableTable.propTypes = {
         width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         maxHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
-    })
+    }),
 
+    overflowHidden: PropTypes.bool
+
+};
+
+ScrollableTable.defaultProps = {
+    overflowHidden: false
 };
 
 export default ScrollableTable;
