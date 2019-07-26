@@ -329,116 +329,12 @@ class TableContent extends Component {
     };
 
     /**
-     * handle table horizontal scroll
-     * @param e
-     */
-    handleHorizontalScroll = e => {
-
-        if (!e || e.currentTarget !== e.target) {
-            return;
-        }
-
-        const {isHeadFixed, isFootFixed} = this.props,
-            target = e.target,
-            scrollLeft = target.scrollLeft;
-
-        if (scrollLeft !== this.lastScrollLeft) {
-
-            switch (target) {
-                case this.centerBodyScroller: {
-                    if (isHeadFixed && this.centerHeadScroller) {
-                        this.centerHeadScroller.scrollLeft = scrollLeft;
-                    }
-                    if (isFootFixed && this.centerHeadScroller && this.centerFootScroller) {
-                        this.centerFootScroller.scrollLeft = scrollLeft;
-                    }
-                    break;
-                }
-                case this.centerHeadScroller: {
-                    if (this.centerBodyScroller) {
-                        this.centerBodyScroller.scrollLeft = scrollLeft;
-                    }
-                    if (isFootFixed && this.centerHeadScroller && this.centerFootScroller) {
-                        this.centerFootScroller.scrollLeft = scrollLeft;
-                    }
-                    break;
-                }
-                case this.centerFootScroller: {
-                    if (isHeadFixed && this.centerHeadScroller) {
-                        this.centerHeadScroller.scrollLeft = scrollLeft;
-                    }
-                    if (this.centerBodyScroller) {
-                        this.centerBodyScroller.scrollLeft = scrollLeft;
-                    }
-                    break;
-                }
-            }
-
-            TL.updateHorizontalScrollClassNames(this.wrapperEl, this.centerHeadScroller);
-
-        }
-
-        this.lastScrollLeft = scrollLeft;
-
-    };
-
-    /**
-     * handle table vertical scroll
-     * @param e
-     */
-    handleVerticalScroll = e => {
-
-        if (!e || e.currentTarget !== e.target) {
-            return;
-        }
-
-        const target = e.target,
-            scrollTop = target.scrollTop;
-
-        if (scrollTop !== this.lastScrollTop
-            && (target != this.centerHeadScroller || target != this.centerFootScroller)) {
-            switch (target) {
-                case this.centerBodyScroller: {
-                    if (this.leftBodyScroller) {
-                        this.leftBodyScroller.scrollTop = scrollTop;
-                    }
-                    if (this.rightBodyScroller) {
-                        this.rightBodyScroller.scrollTop = scrollTop;
-                    }
-                    break;
-                }
-                case this.leftBodyScroller: {
-                    if (this.centerBodyScroller) {
-                        this.centerBodyScroller.scrollTop = scrollTop;
-                    }
-                    if (this.rightBodyScroller) {
-                        this.rightBodyScroller.scrollTop = scrollTop;
-                    }
-                    break;
-                }
-                case this.rightBodyScroller: {
-                    if (this.leftBodyScroller) {
-                        this.leftBodyScroller.scrollTop = scrollTop;
-                    }
-                    if (this.centerBodyScroller) {
-                        this.centerBodyScroller.scrollTop = scrollTop;
-                    }
-                    break;
-                }
-            }
-        }
-
-        this.lastScrollTop = scrollTop;
-
-    };
-
-    /**
      * handle table scroll
      * @param e
      */
     handleScroll = e => {
-        this.handleHorizontalScroll(e);
-        this.handleVerticalScroll(e);
+        this.lastScrollLeft = TL.handleHorizontalScroll(e, this.lastScrollLeft, this.wrapperEl, this.props);
+        this.lastScrollTop = TL.handleVerticalScroll(e, this.lastScrollTop, this.wrapperEl);
     };
 
     /**
