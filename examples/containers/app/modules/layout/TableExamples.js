@@ -29,6 +29,7 @@ class TableExamples extends Component {
 
         this.state = {
             data: this.generateData(),
+            loadingData: null,
             sorting: null,
             filter: ''
         };
@@ -53,11 +54,13 @@ class TableExamples extends Component {
             noWrap: true,
             headRenderer: 'Age',
             bodyRenderer: rowDate => rowDate.age,
-            footRenderer: () =>
-                <Fragment>
-                    <div>Average</div>
-                    <div>{this.state.data.reduce((a, b) => a + b.age, 0) / this.state.data.length}</div>
-                </Fragment>,
+            footRenderer: this.state.data && this.state.data.length > 0 ? () =>
+                    <Fragment>
+                        <div>Average</div>
+                        <div>{this.state.data.reduce((a, b) => a + b.age, 0) / this.state.data.length}</div>
+                    </Fragment>
+                :
+                null,
             sortable: true,
             sortingProp: 'age'
         }, {
@@ -85,11 +88,13 @@ class TableExamples extends Component {
             noWrap: true,
             headRenderer: 'Deposit',
             bodyRenderer: rowDate => rowDate.deposit ? `$${rowDate.deposit}` : '',
-            footRenderer: () =>
-                <Fragment>
-                    <div>Sum</div>
-                    <div>${this.state.data.reduce((a, b) => round(a + b.deposit, 2), 0)}</div>
-                </Fragment>,
+            footRenderer: this.state.data && this.state.data.length > 0 ? () =>
+                    <Fragment>
+                        <div>Sum</div>
+                        <div>${this.state.data.reduce((a, b) => round(a + b.deposit, 2), 0)}</div>
+                    </Fragment>
+                :
+                null,
             sortable: true,
             sortingProp: 'deposit'
         }, {
@@ -265,7 +270,7 @@ class TableExamples extends Component {
 
         const {filter} = this.state;
 
-        if (!filter) {
+        if (!filter || !data) {
             return data;
         }
 
@@ -277,10 +282,19 @@ class TableExamples extends Component {
 
     };
 
+    componentDidMount() {
+        setTimeout(() => {
+            this.setState({
+                loadingData: this.generateData()
+            });
+        }, 3000);
+    }
+
     render() {
 
-        const {data, sorting, filter} = this.state,
-            filteredData = this.filterData(data);
+        const {data, loadingData, sorting, filter} = this.state,
+            filteredData = this.filterData(data),
+            filteredLoadingData = this.filterData(loadingData);
 
         return (
             <div className="example table-examples">
@@ -410,30 +424,38 @@ class TableExamples extends Component {
                                                    onChange={this.handleFilter}/>
                             </div>
 
-                            <Table ref={this.tableRef}
-                                   className="example-table"
-                                   data={filteredData}
-                                   columns={this.getFixedColumns()}
-                                   sorting={sorting}
-                                   selectMode={Table.SelectMode.MULTI_SELECT}
-                                   isHeadFixed={true}
-                                   isFootFixed={true}
-                                   isFootHidden={!filteredData || filteredData.length < 1}
-                                   scroll={{
-                                       width: 1200,
-                                       height: filteredData && filteredData.length > 0 ? 320 : 0
-                                   }}
-                                   useFullPagination={true}
-                                   paginationTotalRenderer={total => <span>Self Defined Total: {total}</span>}
-                                   onSortChange={this.handleSortChange}
-                                   onPaginationChange={this.handlePaginationChange}
-                                   onExpand={this.handleExpand}
-                                   onCollapse={this.handleCollapse}
-                                   onChange={this.handleChange}
-                                   onSelect={this.handleSelect}
-                                   onSelectAll={this.handleSelectAll}
-                                   onDeselect={this.handleDeselect}
-                                   onDeselectAll={this.handleSeselectAll}/>
+                            <div className="loading-table-wrapper">
+                                {
+                                    filteredLoadingData ?
+                                        <Table ref={this.tableRef}
+                                               className="example-table"
+                                               data={filteredLoadingData}
+                                               columns={this.getFixedColumns()}
+                                               sorting={sorting}
+                                               selectMode={Table.SelectMode.MULTI_SELECT}
+                                               isHeadFixed={true}
+                                               isFootFixed={true}
+                                               isFootHidden={!filteredLoadingData || filteredLoadingData.length < 1}
+                                               scroll={{
+                                                   width: 1200,
+                                                   height: filteredLoadingData && filteredLoadingData.length > 0 ? 320 : 0
+                                               }}
+                                               useFullPagination={true}
+                                               paginationTotalRenderer={total => <span>Self Defined
+                                                   Total: {total}</span>}
+                                               onSortChange={this.handleSortChange}
+                                               onPaginationChange={this.handlePaginationChange}
+                                               onExpand={this.handleExpand}
+                                               onCollapse={this.handleCollapse}
+                                               onChange={this.handleChange}
+                                               onSelect={this.handleSelect}
+                                               onSelectAll={this.handleSelectAll}
+                                               onDeselect={this.handleDeselect}
+                                               onDeselectAll={this.handleSeselectAll}/>
+                                        :
+                                        <CircularLoading/>
+                                }
+                            </div>
 
                         </div>
                     </div>
