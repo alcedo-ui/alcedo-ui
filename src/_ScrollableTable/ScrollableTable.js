@@ -19,9 +19,9 @@ class ScrollableTable extends Component {
         return scroll ?
             <div {...restProps}
                  style={{
-                     ...style,
-                     overflowX: scroll.width ? 'scroll' : null,
-                     overflowY: scroll.height || scroll.maxHeight ? 'scroll' : null
+                     ...style
+                     // overflowX: scroll.width ? 'scroll' : null,
+                     // overflowY: scroll.height || scroll.maxHeight ? 'scroll' : null
                  }}>
                 {children}
             </div>
