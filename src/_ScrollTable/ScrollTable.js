@@ -37,23 +37,27 @@ class ScrollTable extends Component {
         this.bodyScroller = createRef();
         this.footScroller = createRef();
 
+        this.bodyScrollerEl = null;
+        this.headScrollerEl = null;
+        this.footScrollerEl = null;
+
     }
 
-    componentDidMount() {
+    componentDidUpdate() {
 
         const {
             isHeadFixed, isFootFixed,
             onGetBodyScrollerEl, onGetHeadScrollerEl, onGetFootScrollerEl
         } = this.props;
 
-        onGetBodyScrollerEl && this.bodyScroller && this.bodyScroller.current
-        && onGetBodyScrollerEl(findDOMNode(this.bodyScroller.current));
+        !this.bodyScrollerEl && onGetBodyScrollerEl && this.bodyScroller && this.bodyScroller.current
+        && onGetBodyScrollerEl(this.bodyScrollerEl = findDOMNode(this.bodyScroller.current));
 
-        isHeadFixed && onGetHeadScrollerEl && this.headScroller && this.headScroller.current
-        && onGetHeadScrollerEl(findDOMNode(this.headScroller.current));
+        !this.headScrollerEl && isHeadFixed && onGetHeadScrollerEl && this.headScroller && this.headScroller.current
+        && onGetHeadScrollerEl(this.headScrollerEl = findDOMNode(this.headScroller.current));
 
-        isFootFixed && onGetFootScrollerEl && this.footScroller && this.footScroller.current
-        && onGetFootScrollerEl(findDOMNode(this.footScroller.current));
+        !this.footScrollerEl && isFootFixed && onGetFootScrollerEl && this.footScroller && this.footScroller.current
+        && onGetFootScrollerEl(this.footScrollerEl = findDOMNode(this.footScroller.current));
 
     }
 
