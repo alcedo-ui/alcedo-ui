@@ -61,8 +61,8 @@ class ScrollTable extends Component {
 
         const {
 
-            className, style, bodyScrollerStyle, maskStyle, tableStyle, footStyle, columns, headColumns, bodyColumns,
-            isHeadHidden, isFootHidden, isHeadFixed, isFootFixed,
+            className, style, bodyScrollerStyle, maskStyle, tableStyle, footStyle,
+            fixed, columns, headColumns, bodyColumns, isHeadHidden, isFootHidden, isHeadFixed, isFootFixed,
             scroll, hasFixedLeftColumn, hasFixedRightColumn, onScroll, onWheel,
 
             // not passing down these props
@@ -91,6 +91,7 @@ class ScrollTable extends Component {
                                              onScroll={onScroll}>
                                 <BaseTable {...restProps}
                                            style={tableStyle}
+                                           fixed={fixed}
                                            fragment={TableFragment.HEAD}
                                            columns={columns}
                                            headColumns={headColumns}
@@ -115,6 +116,7 @@ class ScrollTable extends Component {
                              style={maskStyle}>
                             <BaseTable {...restProps}
                                        style={tableStyle}
+                                       fixed={fixed}
                                        columns={columns}
                                        headColumns={headColumns}
                                        bodyColumns={bodyColumns}
@@ -136,6 +138,7 @@ class ScrollTable extends Component {
                                              onScroll={onScroll}>
                                 <BaseTable {...restProps}
                                            style={tableStyle}
+                                           fixed={fixed}
                                            fragment={TableFragment.FOOT}
                                            columns={columns}
                                            headColumns={headColumns}
