@@ -511,14 +511,9 @@ function fixLayout(wrapperEl, props) {
  * @param wrapperEl
  * @param scrollerEl
  */
-function updateHorizontalScrollClassNames(wrapperEl) {
+function updateHorizontalScrollClassNames(wrapperEl, scrollerEl) {
 
-    if (!wrapperEl) {
-        return;
-    }
-
-    const scrollerEl = wrapperEl.querySelector('.table-content-center .scroll-table-head-scroller');
-    if (!scrollerEl) {
+    if (!wrapperEl || !scrollerEl) {
         return;
     }
 
@@ -605,169 +600,6 @@ function getScrollerStyle(scroll) {
 
 }
 
-/**
- * handle table vertical scroll
- * @param e
- * @param lastScrollTop
- * @param wrapperEl
- * @returns {*}
- */
-function handleVerticalScroll(e, lastScrollTop, wrapperEl) {
-
-    if (!e || e.currentTarget !== e.target) {
-        return;
-    }
-
-    const target = e.target,
-        scrollTop = target.scrollTop,
-
-        centerBodyScroller = wrapperEl.querySelector('.table-content-center .scroll-table-body-scroller'),
-        centerHeadScroller = wrapperEl.querySelector('.table-content-center .scroll-table-head-scroller'),
-        centerFootScroller = wrapperEl.querySelector('.table-content-center .scroll-table-foot-scroller'),
-        leftBodyScroller = wrapperEl.querySelector('.table-content-left .scroll-table-body-scroller'),
-        rightBodyScroller = wrapperEl.querySelector('.table-content-right .scroll-table-body-scroller');
-
-    if (scrollTop !== lastScrollTop
-        && (target != centerHeadScroller || target != centerFootScroller)) {
-        switch (target) {
-            case leftBodyScroller: {
-                if (centerBodyScroller) {
-                    centerBodyScroller.scrollTop = scrollTop;
-                }
-                if (rightBodyScroller) {
-                    rightBodyScroller.scrollTop = scrollTop;
-                }
-                break;
-            }
-            case rightBodyScroller: {
-                if (leftBodyScroller) {
-                    leftBodyScroller.scrollTop = scrollTop;
-                }
-                if (centerBodyScroller) {
-                    centerBodyScroller.scrollTop = scrollTop;
-                }
-                break;
-            }
-            default: {
-                if (leftBodyScroller) {
-                    leftBodyScroller.scrollTop = scrollTop;
-                }
-                if (rightBodyScroller) {
-                    rightBodyScroller.scrollTop = scrollTop;
-                }
-                break;
-            }
-        }
-    }
-
-    return scrollTop;
-
-}
-
-/**
- * handle table horizontal scroll
- * @param e
- * @param lastScrollLeft
- * @param wrapperEl
- * @param props
- * @returns {*}
- */
-function handleHorizontalScroll(e, lastScrollLeft, wrapperEl, props) {
-
-    if (!e || e.currentTarget !== e.target) {
-        return;
-    }
-
-    const {isHeadFixed, isFootFixed} = props,
-
-        target = e.target,
-        scrollLeft = target.scrollLeft,
-
-        centerEl = wrapperEl.querySelector('.table-content-center'),
-        centerBodyScroller = centerEl.querySelector('.scroll-table-body-scroller'),
-        centerHeadScroller = centerEl.querySelector('.scroll-table-head-scroller'),
-        centerFootScroller = centerEl.querySelector('.scroll-table-foot-scroller');
-
-    if (scrollLeft !== lastScrollLeft) {
-
-        switch (target) {
-            case centerHeadScroller: {
-                if (centerBodyScroller) {
-                    centerBodyScroller.scrollLeft = scrollLeft;
-                }
-                if (isFootFixed && centerHeadScroller && centerFootScroller) {
-                    centerFootScroller.scrollLeft = scrollLeft;
-                }
-                break;
-            }
-            case centerFootScroller: {
-                if (isHeadFixed && centerHeadScroller) {
-                    centerHeadScroller.scrollLeft = scrollLeft;
-                }
-                if (centerBodyScroller) {
-                    centerBodyScroller.scrollLeft = scrollLeft;
-                }
-                break;
-            }
-            default: {
-                if (isHeadFixed && centerHeadScroller) {
-                    centerHeadScroller.scrollLeft = scrollLeft;
-                }
-                if (isFootFixed && centerHeadScroller && centerFootScroller) {
-                    centerFootScroller.scrollLeft = scrollLeft;
-                }
-                break;
-            }
-        }
-
-        updateHorizontalScrollClassNames(wrapperEl);
-
-    }
-
-    return scrollLeft;
-
-}
-
-function handleWheel(e, lastScrollTop, wrapperEl) {
-
-    // pass if ie
-    if (!window.navigator.userAgent.match(/Trident\/7\./)) {
-        return;
-    }
-
-    e.preventDefault();
-
-    const wd = e.deltaY,
-        target = e.target;
-
-    let scrollTop = 0;
-
-    if (lastScrollTop) {
-        scrollTop = lastScrollTop + wd;
-    } else {
-        scrollTop = wd;
-    }
-
-    const leftBodyScroller = wrapperEl.querySelector('.table-content-left .scroll-table-body-scroller'),
-        centerBodyScroller = wrapperEl.querySelector('.table-content-center .scroll-table-body-scroller'),
-        rightBodyScroller = wrapperEl.querySelector('.table-content-right .scroll-table-body-scroller');
-
-    if (leftBodyScroller && leftBodyScroller !== target) {
-        leftBodyScroller.scrollTop = scrollTop;
-    }
-
-    if (centerBodyScroller && centerBodyScroller !== target) {
-        centerBodyScroller.scrollTop = scrollTop;
-    }
-
-    if (rightBodyScroller && rightBodyScroller !== target) {
-        rightBodyScroller.scrollTop = scrollTop;
-    }
-
-    return scrollTop;
-
-}
-
 export default {
     hasFixed,
     getColumnsWidth,
@@ -775,8 +607,5 @@ export default {
     getbodyScollerHeight,
     fixLayout,
     updateHorizontalScrollClassNames,
-    getScrollerStyle,
-    handleHorizontalScroll,
-    handleVerticalScroll,
-    handleWheel
+    getScrollerStyle
 };
