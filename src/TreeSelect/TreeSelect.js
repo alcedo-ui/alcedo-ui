@@ -241,6 +241,9 @@ class TreeSelect extends Component {
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
+                // not passing down these props
+                onChange,
+
                 ...restProps
 
             } = this.props,
