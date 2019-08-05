@@ -37,7 +37,6 @@ class Table extends Component {
         super(props, ...restArgs);
 
         this.content = createRef();
-        this.contentInstance = null;
 
         this.state = {
             init: props.hasInitFadeOut,
@@ -54,7 +53,7 @@ class Table extends Component {
      * public
      */
     fixLayout = () => {
-        this.contentInstance && this.contentInstance.fixLayout();
+        this.content && this.content.current && this.content.current.fixLayout();
     };
 
     /**
@@ -125,8 +124,8 @@ class Table extends Component {
         });
     };
 
-    componentDidMount() {
-        this.contentInstance = this.content && this.content.current;
+    componentDidUpdate() {
+        this.fixLayout();
     }
 
     static getDerivedStateFromProps(props, state) {
