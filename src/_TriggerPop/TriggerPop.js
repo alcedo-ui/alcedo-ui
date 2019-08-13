@@ -272,7 +272,7 @@ TriggerPop.defaultProps = {
 
     theme: Theme.DEFAULT,
     parentEl: document.body,
-    depth: 3,
+    depth: 2,
 
     visible: false,
     hasTriangle: true,
