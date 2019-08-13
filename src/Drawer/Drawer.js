@@ -29,27 +29,18 @@ class Drawer extends Component {
 
         super(props, ...restArgs);
 
-        this.closeTimeout = null;
         this.drawerContent = createRef();
 
     }
 
-    clearCloseTimeout = () => {
-        if (this.closeTimeout) {
-            clearTimeout(this.closeTimeout);
-            this.closeTimeout = null;
-        }
-    };
-
-    triggerHandler = (el, triggerEl, drawerEl, currentVisible, isBlurClose) => {
+    drawerVisibleHandler = (el, drawerEl, currentVisible, isBlurClose) => {
 
         // el is missing
         if (el && !query.contains(document, el)) {
             return currentVisible;
         }
 
-        if ((triggerEl && el && query.contains(triggerEl, el))
-            || (drawerEl && el && query.contains(drawerEl, el))) {
+        if (drawerEl && el && query.contains(drawerEl, el)) {
             return currentVisible;
         }
 
@@ -59,26 +50,23 @@ class Drawer extends Component {
 
     handleClose = e => {
 
-        const {visible, isBlurClose, triggerEl, triggerHandler, onRequestClose} = this.props,
-            drawerEl = this.drawerContent && this.drawerContent.current && findDOMNode(this.drawerContent.current);
+        const {visible, isBlurClose, drawerVisibleHandler, onRequestClose} = this.props;
 
-        if (!visible || !triggerEl) {
+        if (!visible) {
             return;
         }
 
+        const drawerEl = this.drawerContent && this.drawerContent.current && findDOMNode(this.drawerContent.current);
         let currVisible;
 
-        if (triggerHandler) {
-            currVisible = triggerHandler(e.target, triggerEl, drawerEl, visible, isBlurClose);
+        if (drawerVisibleHandler) {
+            currVisible = drawerVisibleHandler(e.target, drawerEl, visible, isBlurClose);
         } else if (!Dom.isParent(e.target)) {
-            currVisible = this.triggerHandler(e.target, triggerEl, drawerEl, visible, isBlurClose);
+            currVisible = this.drawerVisibleHandler(e.target, drawerEl, visible, isBlurClose);
         }
 
         if (currVisible === false) {
-            this.clearCloseTimeout();
-            this.closeTimeout = setTimeout(() => {
-                onRequestClose && onRequestClose(e);
-            });
+            onRequestClose && onRequestClose(e);
         }
 
     };
@@ -103,27 +91,27 @@ class Drawer extends Component {
 
     };
 
-    componentDidMount() {
-        Event.addEvent(document, 'click', this.handleClose);
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (!prevProps.visible && this.props.visible) {
+            Event.addEvent(document, 'click', this.handleClose);
+        } else if (prevProps.visible && !this.props.visible) {
+            Event.removeEvent(document, 'click', this.handleClose);
+        }
     }
 
     componentWillUnmount() {
-
-        this.clearCloseTimeout();
         Event.removeEvent(document, 'click', this.handleClose);
-
         PopManagement.pop(this);
-
     }
 
     render() {
 
         const {
 
-            className,
+            className, depth,
 
             // not passing down these props
-            triggerEl, isBlurClose, isEscClose, onRender, onRequestClose,
+            isBlurClose, isEscClose, onRender, onRequestClose,
 
             ...restProps
 
@@ -134,10 +122,8 @@ class Drawer extends Component {
                          className={classNames('drawer', {
                              [className]: className
                          })}
-                         container={
-                             <Paper ref={this.drawerContent}
-                                    depth={6}></Paper>
-                         }
+                         container={<Paper ref={this.drawerContent}></Paper>}
+                         depth={depth}
                          onRender={this.handleRender}
                          onDestroy={this.handleDestroy}/>
         );
@@ -170,7 +156,10 @@ Drawer.propTypes = {
      */
     position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
-    triggerEl: PropTypes.object,
+    /**
+     * The depth of Paper component.
+     */
+    depth: PropTypes.number,
 
     /**
      * If true,the element will disabled.
@@ -200,7 +189,7 @@ Drawer.propTypes = {
     onRender: PropTypes.func,
 
     onDestroy: PropTypes.func,
-    triggerHandler: PropTypes.func,
+    drawerVisibleHandler: PropTypes.func,
 
     /**
      * The function that trigger when click submit.
@@ -214,6 +203,7 @@ Drawer.defaultProps = {
     parentEl: document.body,
 
     position: Position.LEFT,
+    depth: 2,
     disabled: false,
     visible: false,
     showModal: true,
