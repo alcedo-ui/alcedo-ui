@@ -1,7 +1,7 @@
 {
     "name": "alcedo-ui",
     "author": "Alcedo-UI Team",
-    "version": "2.44.14",
+    "version": "2.45.0",
     "description": "A set of React components.",
     "main": "./src/index.js",
     "scripts": {
