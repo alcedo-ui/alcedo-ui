@@ -165,7 +165,7 @@ PositionPop.propTypes = {
 PositionPop.defaultProps = {
 
     parentEl: document.body,
-    depth: 6,
+    depth: 2,
 
     visible: false,
     theme: Theme.DEFAULT,
