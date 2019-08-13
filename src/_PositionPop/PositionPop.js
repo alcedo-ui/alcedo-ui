@@ -94,24 +94,24 @@ PositionPop.propTypes = {
     style: PropTypes.object,
 
     /**
-     * If true,the trigger pop is visible.
+     * If true, the trigger pop is visible.
      */
     visible: PropTypes.bool,
 
     /**
-     * The trigger pop theme.Can be primary,highlight,success,warning,error.
+     * The trigger pop theme. Can be primary, highlight, success, warning, error.
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     parentEl: PropTypes.object,
 
     /**
-     * The trigger pop alignment.The value can be Popup.Position.LEFT or Popup.Position.RIGHT.
+     * The trigger pop alignment. The value can be Popup.Position.LEFT or Popup.Position.RIGHT.
      */
     position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
-     * If true,popup will have animation effects.
+     * If true, popup will have animation effects.
      */
     isAnimated: PropTypes.bool,
 
