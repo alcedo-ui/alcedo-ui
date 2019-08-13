@@ -10,6 +10,7 @@ import classNames from 'classnames';
 import Theme from '../Theme';
 
 import Util from '../_vendors/Util';
+import Valid from '../_vendors/Valid';
 
 class Paper extends Component {
 
@@ -20,14 +21,13 @@ class Paper extends Component {
     }
 
     formatDepth(depth) {
-        if (isNaN(depth)) {
+
+        if (!depth || isNaN(depth)) {
             return 0;
-        } else if (depth < 0) {
-            return 1;
-        } else if (depth > 7) {
-            return 7;
         }
-        return depth;
+
+        return Valid.range(depth, 0, 7);
+
     }
 
     render() {
