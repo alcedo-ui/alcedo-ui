@@ -59,6 +59,13 @@ class Table extends Component {
     /**
      * public
      */
+    debounceFixLayout = () => {
+        this.content && this.content.current && this.content.current.debounceFixLayout();
+    };
+
+    /**
+     * public
+     */
     collapseAllRows = () => {
         this.setState({
             expandRows: []
@@ -128,7 +135,7 @@ class Table extends Component {
     };
 
     componentDidUpdate() {
-        this.fixLayout();
+        this.debounceFixLayout();
     }
 
     static getDerivedStateFromProps(props, state) {
