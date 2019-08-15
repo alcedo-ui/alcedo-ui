@@ -316,9 +316,7 @@ class TableContent extends Component {
     /**
      * fix table layout debounce
      */
-    debounceFixLayout = debounce(() => setTimeout(() => this.fixLayout(), 0), 250, {
-        leading: true
-    });
+    debounceFixLayout = debounce(() => setTimeout(() => this.fixLayout(), 0), 250);
 
     /**
      * handle get scroll el
