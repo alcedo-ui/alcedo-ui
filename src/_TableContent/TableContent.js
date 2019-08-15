@@ -306,7 +306,7 @@ class TableContent extends Component {
     /**
      * fix table layout at once
      */
-    baseFixLayout = () => {
+    fixLayout = () => {
         if (this.wrapperEl && TL.hasFixed(this.props, this)) {
             TL.fixLayout(this.wrapperEl, this.props);
             TL.updateHorizontalScrollClassNames(this.wrapperEl, this.centerHeadScroller);
@@ -316,7 +316,7 @@ class TableContent extends Component {
     /**
      * fix table layout debounce
      */
-    fixLayout = debounce(() => setTimeout(() => this.baseFixLayout(), 0), 250);
+    debounceFixLayout = debounce(() => setTimeout(() => this.fixLayout(), 0), 250);
 
     /**
      * handle get scroll el
@@ -524,10 +524,10 @@ class TableContent extends Component {
         this.fixedRightEl = this.fixedRight && this.fixedRight.current && findDOMNode(this.fixedRight.current);
 
         // bind event
-        eventsOn(window, 'resize', this.fixLayout);
+        eventsOn(window, 'resize', this.debounceFixLayout);
 
         // fixed layout at startup
-        this.fixLayout();
+        this.debounceFixLayout();
 
         // trigger initial callback at startup
         const {onInit} = this.props;
@@ -539,7 +539,7 @@ class TableContent extends Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
 
-        this.fixLayout();
+        this.debounceFixLayout();
 
         const {onDataUpdate} = this.props;
         onDataUpdate && onDataUpdate(this.tableData);
@@ -547,9 +547,9 @@ class TableContent extends Component {
     }
 
     componentWillUnmount() {
-        eventsOff(window, 'resize', this.fixLayout);
+        eventsOff(window, 'resize', this.debounceFixLayout);
         this.initTimeout && clearTimeout(this.initTimeout);
-        this.fixLayout && this.fixLayout.cancel();
+        this.debounceFixLayout && this.debounceFixLayout.cancel();
     }
 
     render() {
