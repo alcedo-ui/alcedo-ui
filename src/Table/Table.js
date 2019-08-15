@@ -39,7 +39,7 @@ class Table extends Component {
         this.content = createRef();
 
         this.state = {
-            init: props.hasInitFadeOut,
+            isInitialing: props.hasInitFadeOut,
             sorting: props.sorting,
             page: props.page,
             pageSize: props.pageSize,
@@ -72,8 +72,11 @@ class Table extends Component {
      * keep table loading after do first render
      */
     handleInit = () => {
-        this.state.init && this.setState({
-            init: false
+        this.state.isInitialing && this.setState({
+            isInitialing: false
+        }, () => {
+            const {onInit} = this.props;
+            onInit && onInit();
         });
     };
 
@@ -164,7 +167,7 @@ class Table extends Component {
                 ...restProps
 
             } = this.props,
-            {init, sorting, page, pageSize, expandRows, value} = this.state;
+            {isInitialing, sorting, page, pageSize, expandRows, value} = this.state;
 
         return (
             <div className={classNames('table', {
@@ -225,10 +228,10 @@ class Table extends Component {
                 }
 
                 <div className={classNames('table-init-loading-wrapper', {
-                    'fade-out': !init
+                    'fade-out': !isInitialing
                 })}>
                     {
-                        init ?
+                        isInitialing ?
                             <CircularLoading className="table-init-loading"/>
                             :
                             null
@@ -565,6 +568,7 @@ Table.propTypes = {
     /**
      * callback
      */
+    onInit: PropTypes.func,
     onChange: PropTypes.func,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
