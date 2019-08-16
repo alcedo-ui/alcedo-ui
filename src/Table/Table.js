@@ -196,6 +196,7 @@ class Table extends Component {
                          expandRows={expandRows}
                          value={value}
                          selectMode={selectMode}
+                         isInitialing={isInitialing}
                          onInit={this.handleInit}
                          onChange={this.handleChange}
                          onSortChange={this.handleSortChange}
