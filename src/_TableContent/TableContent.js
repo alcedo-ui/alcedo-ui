@@ -539,7 +539,11 @@ class TableContent extends Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
 
-        this.debounceFixLayout();
+        if (this.props.isInitialing) {
+            this.debounceFixLayout();
+        } else {
+            this.fixLayout();
+        }
 
         const {onDataUpdate} = this.props;
         onDataUpdate && onDataUpdate(this.tableData);
@@ -894,6 +898,7 @@ TableContent.propTypes = {
     value: PropTypes.array,
     idProp: PropTypes.string,
     disabled: PropTypes.bool,
+    isInitialing: PropTypes.bool,
     noDataText: PropTypes.string,
 
     /**
@@ -1027,6 +1032,7 @@ TableContent.propTypes = {
 TableContent.defaultProps = {
 
     disabled: false,
+    isInitialing: true,
     idProp: 'id',
     noDataText: 'No Data',
 
