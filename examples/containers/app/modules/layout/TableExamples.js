@@ -293,7 +293,7 @@ class TableExamples extends Component {
     render() {
 
         const {data, loadingData, sorting, filter} = this.state,
-            filteredData = this.filterData(data),
+            // filteredData = this.filterData(data),
             filteredLoadingData = this.filterData(loadingData);
 
         return (
@@ -441,8 +441,8 @@ class TableExamples extends Component {
                                                    height: filteredLoadingData && filteredLoadingData.length > 0 ? 320 : 0
                                                }}
                                                useFullPagination={true}
-                                               paginationTotalRenderer={total => <span>Self Defined
-                                                   Total: {total}</span>}
+                                               paginationTotalRenderer={total =>
+                                                   <span>Self Defined Total: {total}</span>}
                                                onSortChange={this.handleSortChange}
                                                onPaginationChange={this.handlePaginationChange}
                                                onExpand={this.handleExpand}
@@ -453,7 +453,7 @@ class TableExamples extends Component {
                                                onDeselect={this.handleDeselect}
                                                onDeselectAll={this.handleSeselectAll}/>
                                         :
-                                        <CircularLoading/>
+                                        <CircularLoading className="loading-table-loading"/>
                                 }
                             </div>
 
