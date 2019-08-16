@@ -31,7 +31,8 @@ class TableExamples extends Component {
             data: this.generateData(),
             loadingData: null,
             sorting: null,
-            filter: ''
+            filter: '',
+            footVisible: true
         };
 
         this.columns = [{
@@ -256,8 +257,13 @@ class TableExamples extends Component {
     };
 
     collapseAllRows = () => {
-        console.log('ref::', this.tableRef.current);
         this.tableRef && this.tableRef.current && this.tableRef.current.collapseAllRows();
+    };
+
+    toggleFoot = () => {
+        this.setState({
+            footVisible: !this.state.footVisible
+        });
     };
 
     handleFilter = filter => {
@@ -292,7 +298,7 @@ class TableExamples extends Component {
 
     render() {
 
-        const {data, loadingData, sorting, filter} = this.state,
+        const {data, loadingData, sorting, filter, footVisible} = this.state,
             // filteredData = this.filterData(data),
             filteredLoadingData = this.filterData(loadingData);
 
@@ -418,6 +424,9 @@ class TableExamples extends Component {
                                 <RaisedButton className="action-button"
                                               value="Collapse All Rows"
                                               onClick={this.collapseAllRows}/>
+                                <RaisedButton className="action-button"
+                                              value="Toggle Table Foot"
+                                              onClick={this.toggleFoot}/>
                                 <MaterialTextField className="filter"
                                                    label="Filter"
                                                    value={filter}
@@ -435,7 +444,7 @@ class TableExamples extends Component {
                                                selectMode={Table.SelectMode.MULTI_SELECT}
                                                isHeadFixed={true}
                                                isFootFixed={true}
-                                               isFootHidden={!filteredLoadingData || filteredLoadingData.length < 1}
+                                               isFootHidden={!footVisible || !filteredLoadingData || filteredLoadingData.length < 1}
                                                scroll={{
                                                    width: 1200,
                                                    height: filteredLoadingData && filteredLoadingData.length > 0 ? 320 : 0
