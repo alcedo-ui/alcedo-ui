@@ -7,6 +7,7 @@ import React, {Component, createRef} from 'react';
 import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import debounce from 'lodash/debounce';
 
 import BaseTable from '../_BaseTable';
 import ScrollableTable from '../_ScrollableTable';
@@ -39,7 +40,7 @@ class ScrollTable extends Component {
 
     }
 
-    componentDidMount() {
+    updateEl = debounce(() => {
 
         const {
             isHeadFixed, isFootFixed,
@@ -55,6 +56,10 @@ class ScrollTable extends Component {
         isFootFixed && onGetFootScrollerEl && this.footScroller && this.footScroller.current
         && onGetFootScrollerEl(findDOMNode(this.footScroller.current));
 
+    }, 250);
+
+    componentDidUpdate() {
+        this.updateEl();
     }
 
     render() {
