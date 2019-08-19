@@ -376,6 +376,7 @@ ScrollTable.propTypes = {
 
     data: PropTypes.array,
     value: PropTypes.array,
+    hoverRowIndex: PropTypes.number,
     baseColIndex: PropTypes.number,
     expandRows: PropTypes.array,
 
@@ -426,7 +427,8 @@ ScrollTable.propTypes = {
     onExpandChange: PropTypes.func,
     onScroll: PropTypes.func,
     onWheel: PropTypes.func,
-    onSortChange: PropTypes.func
+    onSortChange: PropTypes.func,
+    onRowHover: PropTypes.func
 
 };
 
