@@ -41,6 +41,16 @@ class Tr extends Component {
 
     };
 
+    handleMouseEnter = e => {
+        const {rowIndex, onMouseEnter} = this.props;
+        onMouseEnter && onMouseEnter(e, rowIndex);
+    };
+
+    handleMouseLeave = e => {
+        const {rowIndex, onMouseLeave} = this.props;
+        onMouseLeave && onMouseLeave(e, rowIndex);
+    };
+
     handleClick = e => {
         const {data, rowIndex, disabled, onRowClick} = this.props;
         !disabled && onRowClick && onRowClick(data, rowIndex, e);
@@ -49,9 +59,13 @@ class Tr extends Component {
     render() {
 
         const {
-                className, columns, rowIndex, data, parentData, tableData,
+
+                className, columns, hoverRowIndex, rowIndex, data, parentData, tableData,
                 isChecked, disabled, baseColIndex, depth, index, path,
+                onMouseEnter, onMouseLeave,
+
                 ...respProps
+
             } = this.props,
             collapsed = this.isCollapsed(),
             columnsWithSpan = TableCalculation.getColumnsWithSpan(TableFragment.BODY, columns, data, rowIndex),
@@ -63,11 +77,14 @@ class Tr extends Component {
                 <tr className={classNames({
                     checked: isChecked,
                     expanded: !collapsed,
+                    hover: hoverRowIndex === rowIndex,
                     [data.rowClassName]: data.rowClassName,
                     [className]: className
                 })}
                     style={data.rowStyle}
                     disabled={disabled}
+                    onMouseEnter={this.handleMouseEnter}
+                    onMouseLeave={this.handleMouseLeave}
                     onClick={this.handleClick}>
                     {
                         columnsWithSpan && columnsWithSpan.map(({column, span}, colIndex) => column ?
@@ -131,6 +148,7 @@ Tr.propTypes = {
 
     className: PropTypes.string,
 
+    hoverRowIndex: PropTypes.number,
     rowIndex: PropTypes.number,
 
     /**
@@ -334,6 +352,8 @@ Tr.propTypes = {
      */
     onRowClick: PropTypes.func,
     onCellClick: PropTypes.func,
+    onMouseEnter: PropTypes.func,
+    onMouseLeave: PropTypes.func,
     onExpandChange: PropTypes.func
 
 };

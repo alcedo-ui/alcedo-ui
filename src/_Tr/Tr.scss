@@ -16,7 +16,7 @@
         transform: rotate(90deg);
     }
 
-    &:hover td {
+    &.hover td {
         background: theme-color-hover($theme-secondary);
 
         &.empty {
