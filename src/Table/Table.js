@@ -44,7 +44,8 @@ class Table extends Component {
             page: props.page,
             pageSize: props.pageSize,
             expandRows: props.expandRows,
-            value: props.value
+            value: props.value,
+            hoverRowIndex: null
         };
 
     }
@@ -134,6 +135,16 @@ class Table extends Component {
         });
     };
 
+    /**
+     *
+     * @param hoverRowIndex
+     */
+    handleRowHover = hoverRowIndex => {
+        this.setState({
+            hoverRowIndex
+        });
+    };
+
     componentDidUpdate() {
         this.debounceFixLayout();
     }
@@ -174,7 +185,7 @@ class Table extends Component {
                 ...restProps
 
             } = this.props,
-            {isInitialing, sorting, page, pageSize, expandRows, value} = this.state;
+            {isInitialing, sorting, page, pageSize, expandRows, value, hoverRowIndex} = this.state;
 
         return (
             <div className={classNames('table', {
@@ -195,12 +206,14 @@ class Table extends Component {
                          pageSize={pageSize}
                          expandRows={expandRows}
                          value={value}
+                         hoverRowIndex={hoverRowIndex}
                          selectMode={selectMode}
                          isInitialing={isInitialing}
                          onInit={this.handleInit}
                          onChange={this.handleChange}
                          onSortChange={this.handleSortChange}
-                         onExpandChange={this.handleExpandChange}/>
+                         onExpandChange={this.handleExpandChange}
+                         onRowHover={this.handleRowHover}/>
 
                 {/* table footer */}
                 {/*<Footer/>*/}
