@@ -34,12 +34,12 @@
         position: absolute;
         top: 0;
         transition: box-shadow .3s ease;
+        z-index: 1;
 
         .scroll-table-body-scroller {
             overflow-x: hidden;
             overflow-y: auto;
         }
-
     }
 
     .table-content-left {
