@@ -43,6 +43,16 @@ class Tbody extends Component {
 
     };
 
+    handleTrMouseEnter = (e, rowIndex) => {
+        const {onRowHover} = this.props;
+        onRowHover && onRowHover(rowIndex);
+    };
+
+    handleTrMouseLeave = (e, rowIndex) => {
+        const {onRowHover} = this.props;
+        onRowHover && onRowHover(null);
+    };
+
     render() {
 
         const {
@@ -69,7 +79,9 @@ class Tbody extends Component {
                             data={row}
                             tableData={data}
                             isChecked={this.isItemChecked(row)}
-                            disabled={disabled || row.disabled}/>
+                            disabled={disabled || row.disabled}
+                            onMouseEnter={this.handleTrMouseEnter}
+                            onMouseLeave={this.handleTrMouseLeave}/>
                         :
                         null
                     )
@@ -273,6 +285,7 @@ Tbody.propTypes = {
 
     data: PropTypes.array,
     value: PropTypes.array,
+    hoverRowIndex: PropTypes.number,
     startIndex: PropTypes.number,
     idProp: PropTypes.string,
     disabled: PropTypes.bool,
@@ -292,6 +305,7 @@ Tbody.propTypes = {
      */
     onRowClick: PropTypes.func,
     onCellClick: PropTypes.func,
+    onRowHover: PropTypes.func,
     onExpand: PropTypes.func,
     onCollapse: PropTypes.func
 
