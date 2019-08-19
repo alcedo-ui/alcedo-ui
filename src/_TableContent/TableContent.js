@@ -896,6 +896,7 @@ TableContent.propTypes = {
 
     data: PropTypes.array,
     value: PropTypes.array,
+    hoverRowIndex: PropTypes.number,
     idProp: PropTypes.string,
     disabled: PropTypes.bool,
     isInitialing: PropTypes.bool,
@@ -1025,6 +1026,7 @@ TableContent.propTypes = {
     onCollapse: PropTypes.func,
     onExpandChange: PropTypes.func,
     onSortChange: PropTypes.func,
+    onRowHover: PropTypes.func,
     onDataUpdate: PropTypes.func
 
 };
