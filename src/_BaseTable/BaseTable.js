@@ -37,8 +37,9 @@ class BaseTable extends Component {
 
         const {
 
-            className, style, data, value, idProp, baseColIndex, fixed, fragment, columns, headColumns, bodyColumns,
-            selectMode, selectAllMode, expandRows, isHeadFixed, isFootFixed, isHeadHidden, isFootHidden,
+            className, style, data, value, hoverRowIndex, idProp, baseColIndex, fixed, fragment,
+            columns, headColumns, bodyColumns, selectMode, selectAllMode, expandRows,
+            isHeadFixed, isFootFixed, isHeadHidden, isFootHidden,
             sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls,
             onRowHover, onSortChange, onExpandChange,
 
@@ -81,6 +82,7 @@ class BaseTable extends Component {
                                columns={bodyColumns || columns}
                                data={data}
                                value={value}
+                               hoverRowIndex={hoverRowIndex}
                                selectMode={selectMode}
                                selectAllMode={selectAllMode}
                                expandRows={expandRows}
