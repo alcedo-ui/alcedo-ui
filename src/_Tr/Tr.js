@@ -62,7 +62,6 @@ class Tr extends Component {
 
                 className, columns, hoverRowIndex, rowIndex, data, parentData, tableData,
                 isChecked, disabled, baseColIndex, depth, index, path,
-                onMouseEnter, onMouseLeave,
 
                 ...respProps
 
