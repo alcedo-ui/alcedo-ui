@@ -40,7 +40,7 @@ class BaseTable extends Component {
             className, style, data, value, idProp, baseColIndex, fixed, fragment, columns, headColumns, bodyColumns,
             selectMode, selectAllMode, expandRows, isHeadFixed, isFootFixed, isHeadHidden, isFootHidden,
             sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls,
-            onSortChange, onExpandChange,
+            onRowHover, onSortChange, onExpandChange,
 
             ...restProps
 
@@ -87,7 +87,8 @@ class BaseTable extends Component {
                                idProp={idProp}
                                baseColIndex={baseColIndex}
                                sorting={sorting}
-                               onExpandChange={onExpandChange}/>
+                               onExpandChange={onExpandChange}
+                               onRowHover={onRowHover}/>
                         :
                         null
                 }
@@ -320,6 +321,7 @@ BaseTable.propTypes = {
 
     data: PropTypes.array,
     value: PropTypes.array,
+    hoverRowIndex: PropTypes.number,
     idProp: PropTypes.string,
     baseColIndex: PropTypes.number,
     disabled: PropTypes.bool,
@@ -356,6 +358,7 @@ BaseTable.propTypes = {
     onRowClick: PropTypes.func,
     onCellClick: PropTypes.func,
     onFootClick: PropTypes.func,
+    onRowHover: PropTypes.func,
     onExpandChange: PropTypes.func
 
 };
