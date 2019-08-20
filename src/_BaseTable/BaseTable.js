@@ -19,7 +19,7 @@ import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
 
 import Util from '../_vendors/Util';
-import TableCalculation from '../_vendors/TableCalculation';
+import TC from '../_vendors/TableCalculation';
 
 class BaseTable extends Component {
 
@@ -54,14 +54,14 @@ class BaseTable extends Component {
                    })}
                    style={style}>
 
-                <ColGroup columns={TableCalculation.getColumnsWithSpan(fragment, bodyColumns || columns)}/>
+                <ColGroup columns={TC.getColumnsWithSpan(fragment, bodyColumns || columns)}/>
 
                 {
                     !isHeadHidden && (
                         fragment === TableFragment.HEAD
                         || (!fixed && !fragment)
                         || (!fragment && fixed && !isHeadFixed)
-                    ) ?
+                    ) && TC.hasHeadRenderer(headColumns || [columns], TableFragment.HEAD) ?
                         <Thead {...restProps}
                                columns={headColumns || [columns]}
                                data={data}
@@ -77,7 +77,7 @@ class BaseTable extends Component {
                 }
 
                 {
-                    !fragment ?
+                    !fragment && TC.hasRenderer(bodyColumns || columns, TableFragment.BODY) ?
                         <Tbody {...restProps}
                                columns={bodyColumns || columns}
                                data={data}
@@ -101,7 +101,7 @@ class BaseTable extends Component {
                         fragment === TableFragment.FOOT
                         || (!fixed && !fragment)
                         || (!fragment && fixed && !isFootFixed)
-                    ) ?
+                    ) && TC.hasRenderer(bodyColumns || columns, TableFragment.FOOT) ?
                         <Tfoot {...restProps}
                                columns={bodyColumns || columns}
                                data={data}
