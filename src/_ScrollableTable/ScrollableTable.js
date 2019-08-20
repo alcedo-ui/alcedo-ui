@@ -35,7 +35,7 @@ class ScrollableTable extends Component {
             children, style, scroll,
 
             // not passing down these props
-            overflowHidden,
+            overflowHidden, horizontalOverflowScroll,
 
             ...restProps
 
