@@ -13,7 +13,6 @@ $field-msg-z-index: 81;
     appearance: none;
     resize: none;
     outline: none;
-    overflow: hidden;
     cursor: none;
     pointer-events: none;
 }
@@ -24,6 +23,7 @@ $field-msg-z-index: 81;
     width: 0;
     height: 0;
     white-space: nowrap;
+    overflow: hidden;
 }
 
 @mixin float-fix {
