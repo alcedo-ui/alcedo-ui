@@ -99,11 +99,12 @@ function getbodyScollerHeight(headHeight, footHeight) {
  * @param fixedHeadHeight
  * @param fixedFootHeight
  */
-function maskCenterBody(wrapperEl, tableEl, fixedHeadHeight, fixedFootHeight) {
+function maskCenterBody(wrapperEl, fixedHeadHeight, fixedFootHeight) {
 
-    const maskEl = wrapperEl.querySelector('.table-content-center .scroll-table-body-mask');
+    const tableEl = wrapperEl.querySelector('.table-content-center .scroll-table-body table'),
+        maskEl = wrapperEl.querySelector('.table-content-center .scroll-table-body-mask');
 
-    if (maskEl) {
+    if (tableEl && maskEl) {
         maskEl.style.height = `${Valid.range(tableEl.offsetHeight - fixedHeadHeight - fixedFootHeight - 1, 0)}px`;
         if (tableEl) {
             tableEl.style.marginTop = `${-fixedHeadHeight - 1}px`;
@@ -455,22 +456,23 @@ function fixTableVerticalScroll(wrapperEl, props) {
 /**
  * fix table layout
  * @param wrapperEl
+ * @param rawTableEl
  * @param props
  */
-function fixLayout(wrapperEl, props) {
+function fixLayout(wrapperEl, rawTableEl, props) {
 
-    if (!wrapperEl) {
+    if (!wrapperEl || !rawTableEl) {
         return;
     }
 
-    const tableEl = wrapperEl.querySelector('.table-content-center .scroll-table-body table');
+    // const tableEl = wrapperEl.querySelector('.table-content-center .scroll-table-body table');
+    //
+    // if (!tableEl) {
+    //     return;
+    // }
 
-    if (!tableEl) {
-        return;
-    }
-
-    const columnsWidth = getColumnsWidth(tableEl),
-        rowsHeight = getRowsHeight(tableEl),
+    const columnsWidth = getColumnsWidth(rawTableEl),
+        rowsHeight = getRowsHeight(rawTableEl),
 
         fixedHeadHeight = sum(rowsHeight[TableFragment.HEAD]) || 0,
         fixedFootHeight = sum(rowsHeight[TableFragment.FOOT]) || 0;
@@ -484,7 +486,7 @@ function fixLayout(wrapperEl, props) {
      * center
      */
     if (props && (props.isHeadFixed || props.isFootFixed)) {
-        maskCenterBody(wrapperEl, tableEl, fixedHeadHeight, fixedFootHeight);
+        maskCenterBody(wrapperEl, fixedHeadHeight, fixedFootHeight);
     }
     fixCenterTableWidth(wrapperEl);
     fixTableColumnsWidth(wrapperEl, columnsWidth, null, props);
