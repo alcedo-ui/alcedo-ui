@@ -7,6 +7,7 @@ import classnames from 'classnames';
 
 import HorizontalAlign from '../_statics/HorizontalAlign';
 import VirtualRoot from '../_statics/VirtualRoot';
+import TableFragment from '../_statics/TableFragment';
 
 import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
@@ -91,9 +92,9 @@ function hasRenderer(columns, fragment) {
         false;
 }
 
-function hasHeadRenderer(columnsGroup, fragment) {
-    return columnsGroup && columnsGroup.length > 0 && fragment ?
-        columnsGroup.some(columns => hasRenderer(columns, fragment))
+function hasHeadRenderer(columnsGroup) {
+    return columnsGroup && columnsGroup.length > 0 ?
+        columnsGroup.some(columns => hasRenderer(columns, TableFragment.HEAD))
         :
         false;
 }
