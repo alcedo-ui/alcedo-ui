@@ -81,6 +81,9 @@ class ScrollTable extends Component {
             return null;
         }
 
+        const overflowHidden = fixed === HorizontalAlign.LEFT,
+            horizontalOverflowScroll = !fixed || fixed === HorizontalAlign.CENTER;
+
         return (
             <div className={classNames('scroll-table', {
                 [className]: className
@@ -93,7 +96,8 @@ class ScrollTable extends Component {
                             <ScrollableTable ref={this.headScroller}
                                              className="scroll-table-head-scroller"
                                              scroll={scroll}
-                                             overflowHidden={fixed === HorizontalAlign.LEFT}
+                                             overflowHidden={overflowHidden}
+                                             horizontalOverflowScroll={horizontalOverflowScroll}
                                              onScroll={onScroll}>
                                 <BaseTable {...restProps}
                                            style={tableStyle}
@@ -141,7 +145,8 @@ class ScrollTable extends Component {
                             <ScrollableTable ref={this.footScroller}
                                              className="scroll-table-foot-scroller"
                                              scroll={scroll}
-                                             overflowHidden={fixed === HorizontalAlign.LEFT}
+                                             overflowHidden={overflowHidden}
+                                             horizontalOverflowScroll={horizontalOverflowScroll}
                                              onScroll={onScroll}>
                                 <BaseTable {...restProps}
                                            style={tableStyle}
