@@ -10,6 +10,7 @@
 
     .table-content-raw {
         @include base-invisible;
+        width: 100%;
         overflow: auto scroll;
     }
 
