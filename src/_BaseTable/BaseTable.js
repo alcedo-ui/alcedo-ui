@@ -33,6 +33,7 @@ class BaseTable extends Component {
         super(props, ...restArgs);
     }
 
+    /* eslint-disable complexity */
     render() {
 
         const {
