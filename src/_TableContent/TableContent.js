@@ -28,6 +28,7 @@ import SortingType from '../_statics/SortingType';
 import Util from '../_vendors/Util';
 import TL from '../_vendors/TableLayout';
 import TC from '../_vendors/TableCalculation';
+import BaseTable from '../_BaseTable/BaseTable';
 
 class TableContent extends Component {
 
@@ -600,6 +601,12 @@ class TableContent extends Component {
                          [className]: className
                      })}
                      style={style}>
+
+                    <BaseTable className="table-content-raw"
+                               style={scroll}
+                               headColumns={TC.handleFixedColumnsClassName(this.headColumns)}
+                               bodyColumns={TC.handleFixedColumnsClassName(this.bodyColumns)}
+                               data={this.tableData}/>
 
                     <ScrollTable {...restProps}
                                  className="table-content-center"

@@ -8,6 +8,10 @@
     height: 100%;
     overflow: hidden;
 
+    .table-content-raw {
+        @include invisible;
+    }
+
     .table-content-center,
     .table-content-left,
     .table-content-right {
