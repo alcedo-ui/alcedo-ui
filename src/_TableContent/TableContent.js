@@ -54,6 +54,8 @@ class TableContent extends Component {
 
         this.wrapper = createRef();
         this.wrapperEl = null;
+        this.rawTable = createRef();
+        this.rawTableEl = null;
         this.fixedLeft = createRef();
         this.fixedLeftEl = null;
         this.fixedRight = createRef();
@@ -309,7 +311,7 @@ class TableContent extends Component {
      */
     fixLayout = () => {
         if (this.wrapperEl && TL.hasFixed(this.props, this)) {
-            TL.fixLayout(this.wrapperEl, this.props);
+            TL.fixLayout(this.wrapperEl, this.rawTableEl, this.props);
             TL.updateHorizontalScrollClassNames(this.wrapperEl, this.centerHeadScroller);
         }
     };
@@ -521,6 +523,7 @@ class TableContent extends Component {
 
         // get elements
         this.wrapperEl = this.wrapper && this.wrapper.current;
+        this.rawTableEl = this.rawTable && this.rawTable.current && findDOMNode(this.rawTable.current);
         this.fixedLeftEl = this.fixedLeft && this.fixedLeft.current && findDOMNode(this.fixedLeft.current);
         this.fixedRightEl = this.fixedRight && this.fixedRight.current && findDOMNode(this.fixedRight.current);
 
@@ -602,95 +605,100 @@ class TableContent extends Component {
                      })}
                      style={style}>
 
-                    <BaseTable className="table-content-raw"
+                    <BaseTable ref={this.rawTable}
+                               className="table-content-raw"
                                style={scroll}
                                headColumns={TC.handleFixedColumnsClassName(this.headColumns)}
                                bodyColumns={TC.handleFixedColumnsClassName(this.bodyColumns)}
                                data={this.tableData}/>
 
-                    <ScrollTable {...restProps}
-                                 className="table-content-center"
-                                 bodyScrollerStyle={verticalScrollStyle}
-                                 maskStyle={horizontalScrollStyle}
-                                 tableStyle={horizontalScrollStyle}
-                                 headColumns={TC.handleFixedColumnsClassName(this.headColumns)}
-                                 bodyColumns={TC.handleFixedColumnsClassName(this.bodyColumns)}
-                                 data={this.tableData}
-                                 isHeadFixed={isHeadFixed}
-                                 isFootFixed={isFootFixed}
-                                 isHeadHidden={isFinalHeadHidden}
-                                 isFootHidden={isFinalFootHidden}
-                                 hasFixedLeftColumn={hasFixedLeftColumn}
-                                 hasFixedRightColumn={hasFixedRightColumn}
-                                 scroll={scroll}
-                                 onScroll={this.handleScroll}
-                                 onWheel={this.handleWheel}
-                                 onGetHeadScrollerEl={el =>
-                                     this.handleGetScrollerEl(el, HorizontalAlign.CENTER, TableFragment.HEAD)}
-                                 onGetBodyScrollerEl={el =>
-                                     this.handleGetScrollerEl(el, HorizontalAlign.CENTER, TableFragment.BODY)}
-                                 onGetFootScrollerEl={el =>
-                                     this.handleGetScrollerEl(el, HorizontalAlign.CENTER, TableFragment.FOOT)}/>
+                    <div style={{position: 'relative'}}>
 
-                    {
-                        hasFixedLeftColumn ?
-                            <ScrollTable {...restProps}
-                                         ref={this.fixedLeft}
-                                         className="table-content-left"
-                                         bodyScrollerStyle={verticalScrollStyle}
-                                         fixed={HorizontalAlign.LEFT}
-                                         headColumns={TC.getFixedHeadColumns(this.headColumns, HorizontalAlign.LEFT)}
-                                         bodyColumns={TC.getFixedBodyColumns(this.bodyColumns, HorizontalAlign.LEFT)}
-                                         data={this.tableData}
-                                         isHeadFixed={isHeadFixed}
-                                         isFootFixed={isFootFixed}
-                                         isHeadHidden={isFinalHeadHidden}
-                                         isFootHidden={isFinalFootHidden}
-                                         hasFixedLeftColumn={hasFixedLeftColumn}
-                                         hasFixedRightColumn={hasFixedRightColumn}
-                                         scroll={scroll}
-                                         onGetHeadScrollerEl={el =>
-                                             this.handleGetScrollerEl(el, HorizontalAlign.LEFT, TableFragment.HEAD)}
-                                         onGetBodyScrollerEl={el =>
-                                             this.handleGetScrollerEl(el, HorizontalAlign.LEFT, TableFragment.BODY)}
-                                         onGetFootScrollerEl={el =>
-                                             this.handleGetScrollerEl(el, HorizontalAlign.LEFT, TableFragment.FOOT)}
-                                         onScroll={this.handleScroll}
-                                         onWheel={this.handleWheel}
-                                         onExpandChange={this.handleExpandChange}/>
-                            :
-                            null
-                    }
+                        <ScrollTable {...restProps}
+                                     className="table-content-center"
+                                     bodyScrollerStyle={verticalScrollStyle}
+                                     maskStyle={horizontalScrollStyle}
+                                     tableStyle={horizontalScrollStyle}
+                                     headColumns={TC.handleFixedColumnsClassName(this.headColumns)}
+                                     bodyColumns={TC.handleFixedColumnsClassName(this.bodyColumns)}
+                                     data={this.tableData}
+                                     isHeadFixed={isHeadFixed}
+                                     isFootFixed={isFootFixed}
+                                     isHeadHidden={isFinalHeadHidden}
+                                     isFootHidden={isFinalFootHidden}
+                                     hasFixedLeftColumn={hasFixedLeftColumn}
+                                     hasFixedRightColumn={hasFixedRightColumn}
+                                     scroll={scroll}
+                                     onScroll={this.handleScroll}
+                                     onWheel={this.handleWheel}
+                                     onGetHeadScrollerEl={el =>
+                                         this.handleGetScrollerEl(el, HorizontalAlign.CENTER, TableFragment.HEAD)}
+                                     onGetBodyScrollerEl={el =>
+                                         this.handleGetScrollerEl(el, HorizontalAlign.CENTER, TableFragment.BODY)}
+                                     onGetFootScrollerEl={el =>
+                                         this.handleGetScrollerEl(el, HorizontalAlign.CENTER, TableFragment.FOOT)}/>
 
-                    {
-                        hasFixedRightColumn ?
-                            <ScrollTable {...restProps}
-                                         ref={this.fixedRight}
-                                         className="table-content-right"
-                                         bodyScrollerStyle={verticalScrollStyle}
-                                         fixed={HorizontalAlign.RIGHT}
-                                         headColumns={TC.getFixedHeadColumns(this.headColumns, HorizontalAlign.RIGHT)}
-                                         bodyColumns={TC.getFixedBodyColumns(this.bodyColumns, HorizontalAlign.RIGHT)}
-                                         data={this.tableData}
-                                         isHeadFixed={isHeadFixed}
-                                         isFootFixed={isFootFixed}
-                                         isHeadHidden={isFinalHeadHidden}
-                                         isFootHidden={isFinalFootHidden}
-                                         hasFixedLeftColumn={hasFixedLeftColumn}
-                                         hasFixedRightColumn={hasFixedRightColumn}
-                                         scroll={scroll}
-                                         baseColIndex={this.formatedColumns.length - this.fixedRightColumns.length}
-                                         onScroll={this.handleScroll}
-                                         onWheel={this.handleWheel}
-                                         onGetHeadScrollerEl={el =>
-                                             this.handleGetScrollerEl(el, HorizontalAlign.RIGHT, TableFragment.HEAD)}
-                                         onGetBodyScrollerEl={el =>
-                                             this.handleGetScrollerEl(el, HorizontalAlign.RIGHT, TableFragment.BODY)}
-                                         onGetFootScrollerEl={el =>
-                                             this.handleGetScrollerEl(el, HorizontalAlign.RIGHT, TableFragment.FOOT)}/>
-                            :
-                            null
-                    }
+                        {
+                            hasFixedLeftColumn ?
+                                <ScrollTable {...restProps}
+                                             ref={this.fixedLeft}
+                                             className="table-content-left"
+                                             bodyScrollerStyle={verticalScrollStyle}
+                                             fixed={HorizontalAlign.LEFT}
+                                             headColumns={TC.getFixedHeadColumns(this.headColumns, HorizontalAlign.LEFT)}
+                                             bodyColumns={TC.getFixedBodyColumns(this.bodyColumns, HorizontalAlign.LEFT)}
+                                             data={this.tableData}
+                                             isHeadFixed={isHeadFixed}
+                                             isFootFixed={isFootFixed}
+                                             isHeadHidden={isFinalHeadHidden}
+                                             isFootHidden={isFinalFootHidden}
+                                             hasFixedLeftColumn={hasFixedLeftColumn}
+                                             hasFixedRightColumn={hasFixedRightColumn}
+                                             scroll={scroll}
+                                             onGetHeadScrollerEl={el =>
+                                                 this.handleGetScrollerEl(el, HorizontalAlign.LEFT, TableFragment.HEAD)}
+                                             onGetBodyScrollerEl={el =>
+                                                 this.handleGetScrollerEl(el, HorizontalAlign.LEFT, TableFragment.BODY)}
+                                             onGetFootScrollerEl={el =>
+                                                 this.handleGetScrollerEl(el, HorizontalAlign.LEFT, TableFragment.FOOT)}
+                                             onScroll={this.handleScroll}
+                                             onWheel={this.handleWheel}
+                                             onExpandChange={this.handleExpandChange}/>
+                                :
+                                null
+                        }
+
+                        {
+                            hasFixedRightColumn ?
+                                <ScrollTable {...restProps}
+                                             ref={this.fixedRight}
+                                             className="table-content-right"
+                                             bodyScrollerStyle={verticalScrollStyle}
+                                             fixed={HorizontalAlign.RIGHT}
+                                             headColumns={TC.getFixedHeadColumns(this.headColumns, HorizontalAlign.RIGHT)}
+                                             bodyColumns={TC.getFixedBodyColumns(this.bodyColumns, HorizontalAlign.RIGHT)}
+                                             data={this.tableData}
+                                             isHeadFixed={isHeadFixed}
+                                             isFootFixed={isFootFixed}
+                                             isHeadHidden={isFinalHeadHidden}
+                                             isFootHidden={isFinalFootHidden}
+                                             hasFixedLeftColumn={hasFixedLeftColumn}
+                                             hasFixedRightColumn={hasFixedRightColumn}
+                                             scroll={scroll}
+                                             baseColIndex={this.formatedColumns.length - this.fixedRightColumns.length}
+                                             onScroll={this.handleScroll}
+                                             onWheel={this.handleWheel}
+                                             onGetHeadScrollerEl={el =>
+                                                 this.handleGetScrollerEl(el, HorizontalAlign.RIGHT, TableFragment.HEAD)}
+                                             onGetBodyScrollerEl={el =>
+                                                 this.handleGetScrollerEl(el, HorizontalAlign.RIGHT, TableFragment.BODY)}
+                                             onGetFootScrollerEl={el =>
+                                                 this.handleGetScrollerEl(el, HorizontalAlign.RIGHT, TableFragment.FOOT)}/>
+                                :
+                                null
+                        }
+
+                    </div>
 
                 </div>
 

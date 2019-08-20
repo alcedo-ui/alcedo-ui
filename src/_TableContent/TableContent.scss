@@ -9,7 +9,7 @@
     overflow: hidden;
 
     .table-content-raw {
-        @include invisible;
+        @include base-invisible;
     }
 
     .table-content-center,
