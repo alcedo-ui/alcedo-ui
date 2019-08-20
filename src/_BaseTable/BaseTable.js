@@ -41,6 +41,7 @@ class BaseTable extends Component {
             className, style, data, value, hoverRowIndex, idProp, baseColIndex, fixed, fragment,
             columns, headColumns, bodyColumns, selectMode, selectAllMode, expandRows,
             isHeadFixed, isFootFixed, isHeadHidden, isFootHidden,
+            hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
             sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls,
             onRowHover, onSortChange, onExpandChange,
 
@@ -58,11 +59,11 @@ class BaseTable extends Component {
                 <ColGroup columns={TC.getColumnsWithSpan(fragment, bodyColumns || columns)}/>
 
                 {
-                    !isHeadHidden && (
+                    !isHeadHidden && hasHeadRenderer && (
                         fragment === TableFragment.HEAD
                         || (!fixed && !fragment)
                         || (!fragment && fixed && !isHeadFixed)
-                    ) && TC.hasHeadRenderer(headColumns || [columns], TableFragment.HEAD) ?
+                    ) ?
                         <Thead {...restProps}
                                columns={headColumns || [columns]}
                                data={data}
@@ -78,7 +79,7 @@ class BaseTable extends Component {
                 }
 
                 {
-                    !fragment && TC.hasRenderer(bodyColumns || columns, TableFragment.BODY) ?
+                    !fragment && hasBodyRenderer ?
                         <Tbody {...restProps}
                                columns={bodyColumns || columns}
                                data={data}
@@ -98,11 +99,11 @@ class BaseTable extends Component {
 
                 {/** render foot if a footRenderer exists in columns */}
                 {
-                    !isFootHidden && (
+                    !isFootHidden && hasFootRenderer && (
                         fragment === TableFragment.FOOT
                         || (!fixed && !fragment)
                         || (!fragment && fixed && !isFootFixed)
-                    ) && TC.hasRenderer(bodyColumns || columns, TableFragment.FOOT) ?
+                    ) ?
                         <Tfoot {...restProps}
                                columns={bodyColumns || columns}
                                data={data}
@@ -343,6 +344,13 @@ BaseTable.propTypes = {
     isFootHidden: PropTypes.bool,
 
     /**
+     * has renderer
+     */
+    hasHeadRenderer: PropTypes.bool,
+    hasBodyRenderer: PropTypes.bool,
+    hasFootRenderer: PropTypes.bool,
+
+    /**
      * sorting
      */
     sorting: PropTypes.shape({
@@ -383,6 +391,13 @@ BaseTable.defaultProps = {
      */
     isHeadHidden: false,
     isFootHidden: false,
+
+    /**
+     * has renderer
+     */
+    hasHeadRenderer: true,
+    hasBodyRenderer: true,
+    hasFootRenderer: true,
 
     /**
      * sorting
