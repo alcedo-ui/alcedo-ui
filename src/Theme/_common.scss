@@ -3,7 +3,7 @@ $pop-z-index: 92;
 $modal-z-index: 91;
 $field-msg-z-index: 81;
 
-@mixin invisible {
+@mixin base-invisible {
     position: absolute;
     font: inherit;
     background: transparent;
@@ -14,12 +14,16 @@ $field-msg-z-index: 81;
     resize: none;
     outline: none;
     overflow: hidden;
-    padding: 0;
-    width: 0;
-    height: 0;
     cursor: none;
     pointer-events: none;
     white-space: nowrap;
+}
+
+@mixin invisible {
+    @include base-invisible;
+    padding: 0;
+    width: 0;
+    height: 0;
 }
 
 @mixin float-fix {
