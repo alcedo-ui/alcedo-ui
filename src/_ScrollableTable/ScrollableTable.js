@@ -14,7 +14,7 @@ class ScrollableTable extends Component {
 
     getStyle = () => {
 
-        const {style, scroll, overflowHidden} = this.props;
+        const {style, scroll, overflowHidden, horizontalOverflowScroll} = this.props;
 
         if (overflowHidden) {
             return style;
@@ -22,7 +22,7 @@ class ScrollableTable extends Component {
 
         return {
             ...style,
-            overflowX: scroll.width ? 'auto' : null,
+            overflowX: horizontalOverflowScroll ? 'scroll' : scroll.width ? 'auto' : null,
             overflowY: scroll.height || scroll.maxHeight ? 'scroll' : null
         };
 
@@ -67,12 +67,14 @@ ScrollableTable.propTypes = {
         maxHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
     }),
 
-    overflowHidden: PropTypes.bool
+    overflowHidden: PropTypes.bool,
+    horizontalOverflowScroll: PropTypes.bool
 
 };
 
 ScrollableTable.defaultProps = {
-    overflowHidden: false
+    overflowHidden: false,
+    horizontalOverflowScroll: false
 };
 
 export default ScrollableTable;
