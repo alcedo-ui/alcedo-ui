@@ -327,7 +327,7 @@ function fixTableHorizontalScroll(wrapperEl, rawTableEl, props) {
     if (props && props.isHeadFixed) {
         const centerHeadScroller = wrapperEl.querySelector('.table-content-center .scroll-table-head-scroller');
         if (centerHeadScroller) {
-            fixHorizontalScrollStyle(centerHeadScroller, shouldScroll, horizontalScrollBarSize);
+            fixHorizontalScrollStyle(centerHeadScroller, true, horizontalScrollBarSize);
         }
     }
 
@@ -337,7 +337,7 @@ function fixTableHorizontalScroll(wrapperEl, rawTableEl, props) {
     if (props && props.isFootFixed) {
         const centerFoot = wrapperEl.querySelector('.table-content-center .scroll-table-foot-scroller');
         if (centerFoot) {
-            fixHorizontalScrollStyle(centerFoot, shouldScroll, horizontalScrollBarSize);
+            fixHorizontalScrollStyle(centerFoot, true, horizontalScrollBarSize);
         }
     }
 
