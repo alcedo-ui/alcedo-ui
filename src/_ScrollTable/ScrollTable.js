@@ -418,6 +418,13 @@ ScrollTable.propTypes = {
     isFootHidden: PropTypes.bool,
 
     /**
+     * has renderer
+     */
+    hasHeadRenderer: PropTypes.bool,
+    hasBodyRenderer: PropTypes.bool,
+    hasFootRenderer: PropTypes.bool,
+
+    /**
      * fixed column
      */
     hasFixedLeftColumn: PropTypes.bool,
@@ -463,6 +470,13 @@ ScrollTable.defaultProps = {
      */
     isHeadHidden: false,
     isFootHidden: false,
+
+    /**
+     * has renderer
+     */
+    hasHeadRenderer: true,
+    hasBodyRenderer: true,
+    hasFootRenderer: true,
 
     /**
      * fixed column
