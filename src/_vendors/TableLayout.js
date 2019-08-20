@@ -197,9 +197,9 @@ function fixTableColumnsWidth(wrapperEl, columnsWidth, fixed, props) {
     /**
      * body
      */
-    if (fixed) {
-        fixTableFragmentColumnsWidth(wrapperEl, columnsWidth[TableFragment.BODY], fixed, TableFragment.BODY, selector);
-    }
+    // if (fixed) {
+    fixTableFragmentColumnsWidth(wrapperEl, columnsWidth[TableFragment.BODY], fixed, TableFragment.BODY, selector);
+    // }
 
     /**
      * foot
@@ -488,7 +488,7 @@ function fixLayout(wrapperEl, rawTableEl, props) {
     if (props && (props.isHeadFixed || props.isFootFixed)) {
         maskCenterBody(wrapperEl, fixedHeadHeight, fixedFootHeight);
     }
-    fixCenterTableWidth(wrapperEl);
+    // fixCenterTableWidth(wrapperEl);
     fixTableColumnsWidth(wrapperEl, columnsWidth, null, props);
     fixTableRowsHeight(wrapperEl, rowsHeight, null, props);
 
