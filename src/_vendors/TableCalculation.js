@@ -85,8 +85,15 @@ function sortTableData(data, sorting, sortFunc) {
 }
 
 function hasRenderer(columns, fragment) {
-    return columns && fragment ?
+    return columns && columns.length > 0 && fragment ?
         columns.some(column => column && column[`${fragment}Renderer`])
+        :
+        false;
+}
+
+function hasHeadRenderer(columnsGroup, fragment) {
+    return columnsGroup && columnsGroup.length > 0 && fragment ?
+        columnsGroup.some(columns => hasRenderer(columns, fragment))
         :
         false;
 }
@@ -519,6 +526,7 @@ export default {
     getColumnsWithSpan,
     sortTableData,
     hasRenderer,
+    hasHeadRenderer,
     hasFixedColumn,
     getDataByPagination,
     indexOfNodeInValue,
