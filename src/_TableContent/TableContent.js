@@ -17,6 +17,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import ScrollTable from '../_ScrollTable';
 import Checkbox from '../Checkbox';
 import IconButton from '../IconButton';
+import BaseTable from '../_BaseTable/BaseTable';
 
 import Theme from '../Theme';
 import TableFragment from '../_statics/TableFragment';
@@ -28,7 +29,6 @@ import SortingType from '../_statics/SortingType';
 import Util from '../_vendors/Util';
 import TL from '../_vendors/TableLayout';
 import TC from '../_vendors/TableCalculation';
-import BaseTable from '../_BaseTable/BaseTable';
 
 class TableContent extends Component {
 
@@ -591,8 +591,13 @@ class TableContent extends Component {
         this.tableData = this.paginateData(this.sortData(data));
 
         const {horizontalScrollStyle, verticalScrollStyle} = TL.getScrollerStyle(scroll),
+
             isFinalHeadHidden = isHeadHidden || !TC.hasRenderer(this.bodyColumns, TableFragment.HEAD),
-            isFinalFootHidden = isFootHidden || !TC.hasRenderer(this.bodyColumns, TableFragment.FOOT);
+            isFinalFootHidden = isFootHidden || !TC.hasRenderer(this.bodyColumns, TableFragment.FOOT),
+
+            hasHeadRenderer = TC.hasHeadRenderer(this.headColumns),
+            hasBodyRenderer = TC.hasRenderer(this.bodyColumns, TableFragment.BODY),
+            hasFootRenderer = TC.hasRenderer(this.bodyColumns, TableFragment.FOOT);
 
         return (
             <Fragment>
@@ -608,9 +613,16 @@ class TableContent extends Component {
                     <div className="table-content-raw">
                         <BaseTable ref={this.rawTable}
                                    style={scroll}
-                                   headColumns={TC.handleFixedColumnsClassName(this.headColumns)}
-                                   bodyColumns={TC.handleFixedColumnsClassName(this.bodyColumns)}
-                                   data={this.tableData}/>
+                                   headColumns={this.headColumns}
+                                   bodyColumns={this.bodyColumns}
+                                   data={this.tableData}
+                                   isHeadFixed={isHeadFixed}
+                                   isFootFixed={isFootFixed}
+                                   isHeadHidden={isFinalHeadHidden}
+                                   isFootHidden={isFinalFootHidden}
+                                   hasHeadRenderer={hasHeadRenderer}
+                                   hasBodyRenderer={hasBodyRenderer}
+                                   hasFootRenderer={hasFootRenderer}/>
                     </div>
 
                     <ScrollTable {...restProps}
@@ -627,6 +639,9 @@ class TableContent extends Component {
                                  isFootHidden={isFinalFootHidden}
                                  hasFixedLeftColumn={hasFixedLeftColumn}
                                  hasFixedRightColumn={hasFixedRightColumn}
+                                 hasHeadRenderer={hasHeadRenderer}
+                                 hasBodyRenderer={hasBodyRenderer}
+                                 hasFootRenderer={hasFootRenderer}
                                  scroll={scroll}
                                  onScroll={this.handleScroll}
                                  onWheel={this.handleWheel}
@@ -653,6 +668,9 @@ class TableContent extends Component {
                                          isFootHidden={isFinalFootHidden}
                                          hasFixedLeftColumn={hasFixedLeftColumn}
                                          hasFixedRightColumn={hasFixedRightColumn}
+                                         hasHeadRenderer={hasHeadRenderer}
+                                         hasBodyRenderer={hasBodyRenderer}
+                                         hasFootRenderer={hasFootRenderer}
                                          scroll={scroll}
                                          onGetHeadScrollerEl={el =>
                                              this.handleGetScrollerEl(el, HorizontalAlign.LEFT, TableFragment.HEAD)}
@@ -683,6 +701,9 @@ class TableContent extends Component {
                                          isFootHidden={isFinalFootHidden}
                                          hasFixedLeftColumn={hasFixedLeftColumn}
                                          hasFixedRightColumn={hasFixedRightColumn}
+                                         hasHeadRenderer={hasHeadRenderer}
+                                         hasBodyRenderer={hasBodyRenderer}
+                                         hasFootRenderer={hasFootRenderer}
                                          scroll={scroll}
                                          baseColIndex={this.formatedColumns.length - this.fixedRightColumns.length}
                                          onScroll={this.handleScroll}
