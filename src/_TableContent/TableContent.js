@@ -319,11 +319,6 @@ class TableContent extends Component {
     debounceFixLayout = debounce(() => this.fixLayout(), 250);
 
     /**
-     * fix table layout debounce
-     */
-    fastDebounceFixLayout = debounce(() => this.fixLayout(), 16.666667);
-
-    /**
      * handle get scroll el
      * @param el
      * @param fixed
@@ -544,11 +539,7 @@ class TableContent extends Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
 
-        if (this.props.isInitialing) {
-            this.debounceFixLayout();
-        } else {
-            this.fastDebounceFixLayout();
-        }
+        this.debounceFixLayout();
 
         const {onDataUpdate} = this.props;
         onDataUpdate && onDataUpdate(this.tableData);
