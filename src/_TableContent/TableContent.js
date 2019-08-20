@@ -605,12 +605,13 @@ class TableContent extends Component {
                      })}
                      style={style}>
 
-                    <BaseTable ref={this.rawTable}
-                               className="table-content-raw"
-                               style={scroll}
-                               headColumns={TC.handleFixedColumnsClassName(this.headColumns)}
-                               bodyColumns={TC.handleFixedColumnsClassName(this.bodyColumns)}
-                               data={this.tableData}/>
+                    <div className="table-content-raw">
+                        <BaseTable ref={this.rawTable}
+                                   style={scroll}
+                                   headColumns={TC.handleFixedColumnsClassName(this.headColumns)}
+                                   bodyColumns={TC.handleFixedColumnsClassName(this.bodyColumns)}
+                                   data={this.tableData}/>
+                    </div>
 
                     <div style={{position: 'relative'}}>
 
