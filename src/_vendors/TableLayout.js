@@ -300,15 +300,16 @@ function fixHorizontalScrollStyle(el, shouldScroll, size = ScrollBar.getSize(Dir
 
 }
 
+/* eslint-disable complexity */
 /**
  * fix horizontal scroll
  * @param wrapperEl
+ * @param rawTableEl
  * @param props
  */
+function fixTableHorizontalScroll(wrapperEl, rawTableEl, props) {
 
-function fixTableHorizontalScroll(wrapperEl, props) {
-
-    if (!wrapperEl) {
+    if (!wrapperEl || !rawTableEl) {
         return;
     }
 
@@ -318,8 +319,7 @@ function fixTableHorizontalScroll(wrapperEl, props) {
         return;
     }
 
-    const centerBodyScroller = wrapperEl.querySelector('.table-content-center .scroll-table-body-scroller'),
-        shouldScroll = centerBodyScroller.offsetWidth - horizontalScrollBarSize < centerBodyScroller.scrollWidth;
+    const shouldScroll = rawTableEl.offsetWidth > wrapperEl.offsetWidth;
 
     /**
      * center head scroller
@@ -480,7 +480,7 @@ function fixLayout(wrapperEl, rawTableEl, props) {
     /**
      * fix horizontal scroll style
      */
-    fixTableHorizontalScroll(wrapperEl, props);
+    fixTableHorizontalScroll(wrapperEl, rawTableEl, props);
 
     /**
      * center
