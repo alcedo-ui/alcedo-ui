@@ -18,9 +18,23 @@
         }
     }
 
-    .table.example-table .table-action {
-        width: auto;
-        margin: 16px 16px 0 0;
+    .table.example-table {
+        .table-action {
+            width: auto;
+            margin: 16px 16px 0 0;
+        }
+
+        &.head-hidden .scroll-table-body-scroller {
+            border-top: 1px solid $theme-border;
+        }
+
+        &.foot-hidden .scroll-table-body-scroller {
+            border-bottom: 1px solid $theme-border;
+
+            tbody tr:last-child td {
+                border-bottom: none
+            }
+        }
     }
 
     .loading-table-wrapper {

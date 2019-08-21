@@ -1,4 +1,5 @@
 import React, {Component, Fragment, createRef} from 'react';
+import classNames from 'classnames';
 import round from 'lodash/round';
 
 import Table from 'src/Table';
@@ -32,6 +33,7 @@ class TableExamples extends Component {
             loadingData: null,
             sorting: null,
             filter: '',
+            headVisible: true,
             footVisible: true
         };
 
@@ -260,6 +262,12 @@ class TableExamples extends Component {
         this.tableRef && this.tableRef.current && this.tableRef.current.collapseAllRows();
     };
 
+    toggleHead = () => {
+        this.setState({
+            headVisible: !this.state.headVisible
+        });
+    };
+
     toggleFoot = () => {
         this.setState({
             footVisible: !this.state.footVisible
@@ -298,7 +306,7 @@ class TableExamples extends Component {
 
     render() {
 
-        const {data, loadingData, sorting, filter, footVisible} = this.state,
+        const {data, loadingData, sorting, filter, headVisible, footVisible} = this.state,
             // filteredData = this.filterData(data),
             filteredLoadingData = this.filterData(loadingData);
 
@@ -425,6 +433,9 @@ class TableExamples extends Component {
                                               value="Collapse All Rows"
                                               onClick={this.collapseAllRows}/>
                                 <RaisedButton className="action-button"
+                                              value="Toggle Table Head"
+                                              onClick={this.toggleHead}/>
+                                <RaisedButton className="action-button"
                                               value="Toggle Table Foot"
                                               onClick={this.toggleFoot}/>
                                 <MaterialTextField className="filter"
@@ -437,13 +448,17 @@ class TableExamples extends Component {
                                 {
                                     filteredLoadingData ?
                                         <Table ref={this.tableRef}
-                                               className="example-table"
+                                               className={classNames('example-table', {
+                                                   'head-hidden': !headVisible,
+                                                   'foot-hidden': !footVisible || !filteredLoadingData || filteredLoadingData.length < 1
+                                               })}
                                                data={filteredLoadingData}
                                                columns={this.getFixedColumns()}
                                                sorting={sorting}
                                                selectMode={Table.SelectMode.MULTI_SELECT}
                                                isHeadFixed={true}
                                                isFootFixed={true}
+                                               isHeadHidden={!headVisible}
                                                isFootHidden={!footVisible || !filteredLoadingData || filteredLoadingData.length < 1}
                                                scroll={{
                                                    width: 1200,
