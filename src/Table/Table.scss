@@ -15,6 +15,7 @@
         background: $theme-field-bg;
         transition: opacity $theme-transition-duration ease-in-out,
         left 0s $theme-transition-duration;
+        z-index: 1;
 
         .table-init-loading {
             position: absolute;
