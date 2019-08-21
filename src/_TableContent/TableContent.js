@@ -61,8 +61,6 @@ class TableContent extends Component {
         this.fixedRight = createRef();
         this.fixedRightEl = null;
 
-        this.initTimeout = null;
-
         // sorted current page cache data
         this.tableData = [];
 
@@ -310,10 +308,16 @@ class TableContent extends Component {
      * fix table layout at once
      */
     fixLayout = () => {
+
         if (this.wrapperEl && TL.hasFixed(this.props, this)) {
             TL.fixLayout(this.wrapperEl, this.rawTableEl, this.props);
             TL.updateHorizontalScrollClassNames(this.wrapperEl, this.centerHeadScroller);
         }
+
+        // trigger initial callback at startup
+        const {isInitialing, onInit} = this.props;
+        isInitialing && onInit && onInit();
+
     };
 
     /**
@@ -533,12 +537,6 @@ class TableContent extends Component {
         // fixed layout at startup
         this.debounceFixLayout();
 
-        // trigger initial callback at startup
-        const {onInit} = this.props;
-        if (onInit) {
-            this.initTimeout = setTimeout(() => onInit(), 150);
-        }
-
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -552,7 +550,6 @@ class TableContent extends Component {
 
     componentWillUnmount() {
         eventsOff(window, 'resize', this.debounceFixLayout);
-        this.initTimeout && clearTimeout(this.initTimeout);
         this.debounceFixLayout && this.debounceFixLayout.cancel();
     }
 
