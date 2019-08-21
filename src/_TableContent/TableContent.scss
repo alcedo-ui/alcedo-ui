@@ -40,6 +40,14 @@
         position: absolute;
         top: 0;
         transition: box-shadow .3s ease;
+        z-index: 1;
+        pointer-events: none;
+
+        .scroll-table-head,
+        .scroll-table-body,
+        .scroll-table-foot {
+            pointer-events: auto;
+        }
 
         .scroll-table-body-scroller {
             overflow-x: hidden;
