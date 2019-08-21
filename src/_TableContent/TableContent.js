@@ -319,7 +319,7 @@ class TableContent extends Component {
     /**
      * fix table layout debounce
      */
-    debounceFixLayout = debounce(() => this.fixLayout(), 250);
+    debounceFixLayout = debounce(() => this.fixLayout(), 150);
 
     /**
      * handle get scroll el
@@ -536,7 +536,7 @@ class TableContent extends Component {
         // trigger initial callback at startup
         const {onInit} = this.props;
         if (onInit) {
-            this.initTimeout = setTimeout(() => onInit(), 250);
+            this.initTimeout = setTimeout(() => onInit(), 150);
         }
 
     }
