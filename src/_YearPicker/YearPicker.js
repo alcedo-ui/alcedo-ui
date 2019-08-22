@@ -95,7 +95,7 @@ class YearPicker extends Component {
 
     render() {
 
-        const {className, maxValue, minValue,previousYearIconCls, nextYearIconCls} = this.props;
+        const {className, maxValue, minValue, previousYearIconCls, nextYearIconCls} = this.props;
 
         let {YearArr, selectYear} = this.state;
 
@@ -106,24 +106,28 @@ class YearPicker extends Component {
             total_years = [],
             ul_list = [];
         previous_years.push(
-            (<li className="item-gray" key={Number(YearArr[0]) - 1}>
+            (<li className="item-gray"
+                 key={Number(YearArr[0]) - 1}>
                 <a href="javascript:;">{Number(YearArr[0]) - 1}</a>
             </li>)
         );
         for (let i = 0; i < YearArr.length; i++) {
-            let Years = (<li className={`${Number(selectYear) == Number(YearArr[(i)]) ? 'active' : ''}
-                                           ${(maxValue && (moment(maxValue).format('YYYY') < Number(YearArr[(i)]))) || (minValue && (moment(minValue).format('YYYY') > Number(YearArr[(i)]))) ? 'item-gray' : 'current-years'}`}
+            let liClassName = `${Number(selectYear) == Number(YearArr[(i)]) ? 'active' : ''}
+                                           ${(maxValue && (moment(maxValue).format('YYYY') < Number(YearArr[(i)]))) ||
+            (minValue && (moment(minValue).format('YYYY') > Number(YearArr[(i)]))) ? 'item-gray' : 'current-years'}`;
+            let Years = (<li className={liClassName}
                              key={'current' + i}
                              onClick={() => {
-                                 if ((maxValue && (moment(maxValue).format('YYYY') < Number(YearArr[(i)]))) || (minValue && (moment(minValue).format('YYYY') > Number(YearArr[(i)])))) {
-                                     return;
-                                 } else {
-                                     selectDate(YearArr[(i)]);
-                                 }
+                                 liClassName.indexOf('item-gray') === -1 && selectDate(YearArr[(i)]);
                              }}>
                 <a href="javascript:;">
                     {YearArr[i]}
-                    <TouchRipple/>
+                    {
+                        liClassName.indexOf('item-gray') === -1 ?
+                            <TouchRipple/>
+                            :
+                            null
+                    }
                 </a>
             </li>);
             current_years.push(Years);
@@ -160,7 +164,8 @@ class YearPicker extends Component {
                         rightPreYear ?
                             null
                             :
-                            <i className={`previous-year ${previousYearIconCls}`} onClick={previousYear}>
+                            <i className={`previous-year ${previousYearIconCls}`}
+                               onClick={previousYear}>
                                 <TouchRipple/>
                             </i>
                     }
@@ -168,8 +173,10 @@ class YearPicker extends Component {
                     <span>{YearArr[0]}-{YearArr[YearArr.length - 1]}</span>
                     {
                         leftNextYear ?
-                            null :
-                            <i className={`next-year ${nextYearIconCls}`} onClick={nextYear}>
+                            null
+                            :
+                            <i className={`next-year ${nextYearIconCls}`}
+                               onClick={nextYear}>
                                 <TouchRipple/>
                             </i>
                     }

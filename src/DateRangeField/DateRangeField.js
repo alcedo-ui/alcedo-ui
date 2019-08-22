@@ -105,7 +105,6 @@ class DateRangePickerContent extends Component {
             state.hoverTime = '';
             this.setState(state);
         }
-
     };
 
     dayPickerHoverHandle = (select, date) => {
@@ -150,18 +149,12 @@ class DateRangePickerContent extends Component {
 
     setDateRange = (start, end) => {
         if (start.year == end.year && start.month == end.month) {
-            if (start.month == 12) {
-                end.year = +(end.year) + 1;
-                end.month = 1;
-            } else {
-                end.year = end.year;
-                end.month = +(end.month) + 1;
-            }
+            end.year = start.month == 12 ? +(end.year) + 1 : end.year;
+            end.month = start.month == 12 ? 1 : +(end.month) + 1;
         } else {
             end.year = end.year;
             end.month = end.month;
         }
-
         return {
             start,
             end

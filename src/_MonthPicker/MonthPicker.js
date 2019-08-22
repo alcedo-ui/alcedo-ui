@@ -48,11 +48,7 @@ class MonthPicker extends Component {
     previousYear = () => {
         let {currentYear, currentMonth, selectYear, selectMonth} = this.state;
         selectYear = +selectYear - 1;
-        if (Number(currentYear) === Number(selectYear)) {
-            selectMonth = currentMonth;
-        } else {
-            selectMonth = undefined;
-        }
+        selectMonth = Number(currentYear) === Number(selectYear) ? currentMonth : undefined;
         this.setState({
             selectYear: selectYear,
             selectMonth: selectMonth
@@ -62,12 +58,7 @@ class MonthPicker extends Component {
     nextYear = () => {
         let {currentYear, currentMonth, selectYear, selectMonth} = this.state;
         selectYear = +selectYear + 1;
-
-        if (Number(currentYear) === Number(selectYear)) {
-            selectMonth = currentMonth;
-        } else {
-            selectMonth = undefined;
-        }
+        selectMonth = Number(currentYear) === Number(selectYear) ? currentMonth : undefined;
         this.setState({
             selectYear: selectYear,
             selectMonth: selectMonth
@@ -112,23 +103,24 @@ class MonthPicker extends Component {
 
 
         for (let i = 0; i < MonthEn.length; i++) {
+            let liClassName = `${(currentYear == selectYear) && (Number(selectMonth) == (i + 1)) ? 'active' : ''}
+                                ${(maxValue && (moment(maxValue).format('YYYY') == selectYear) &&
+                (+(moment(maxValue).format('MM'))) < (i + 1)) || (minValue && (moment(minValue).format('YYYY') == selectYear) &&
+                (+(moment(minValue).format('MM'))) > (i + 1)) ? 'item-gray' : 'current-years'}`;
             let Months = (
-                <li className={`${(currentYear == selectYear) && (Number(selectMonth) == (i + 1)) ? 'active' : ''}
-                                ${(maxValue && (moment(maxValue).format('YYYY') == selectYear) && (+(moment(maxValue).format('MM'))) < (i + 1)) ||
-                (minValue && (moment(minValue).format('YYYY') == selectYear) && (+(moment(minValue).format('MM'))) > (i + 1)) ? 'item-gray' : 'current-years'}
-                                `}
+                <li className={liClassName}
                     key={'current' + i}
                     onClick={() => {
-                        if ((maxValue && (moment(maxValue).format('YYYY') == selectYear) && (+(moment(maxValue).format('MM'))) < (i + 1)) ||
-                            (minValue && (moment(minValue).format('YYYY') == selectYear) && (+(moment(minValue).format('MM'))) > (i + 1))) {
-                            return;
-                        } else {
-                            selectDate(i + 1);
-                        }
+                        liClassName.indexOf('item-gray') === -1 && selectDate(i + 1);
                     }}>
                     <a href="javascript:;">
                         {MonthEn[i]}
-                        <TouchRipple/>
+                        {
+                            liClassName.indexOf('item-gray') === -1 ?
+                                <TouchRipple/>
+                                :
+                                null
+                        }
                     </a>
                 </li>);
             current_months.push(Months);
@@ -155,7 +147,8 @@ class MonthPicker extends Component {
                         rightPreYear ?
                             null
                             :
-                            <i className={`previous-year ${previousYearIconCls}`} onClick={previousYear}>
+                            <i className={`previous-year ${previousYearIconCls}`}
+                               onClick={previousYear}>
                                 <TouchRipple/>
                             </i>
                     }
@@ -163,8 +156,10 @@ class MonthPicker extends Component {
                     <span onClick={previousLevel}>{selectYear}</span>
                     {
                         leftNextYear ?
-                            null :
-                            <i className={`next-year ${nextYearIconCls}`} onClick={nextYear}>
+                            null
+                            :
+                            <i className={`next-year ${nextYearIconCls}`}
+                               onClick={nextYear}>
                                 <TouchRipple/>
                             </i>
                     }
