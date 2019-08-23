@@ -488,7 +488,7 @@ function fixLayout(wrapperEl, rawTableEl, props) {
     if (props && (props.isHeadFixed || props.isFootFixed)) {
         maskCenterBody(wrapperEl, fixedHeadHeight, fixedFootHeight);
     }
-    // fixCenterTableWidth(wrapperEl);
+    fixCenterTableWidth(wrapperEl);
     fixTableColumnsWidth(wrapperEl, columnsWidth, null, props);
     fixTableRowsHeight(wrapperEl, rowsHeight, null, props);
 
