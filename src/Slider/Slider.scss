@@ -15,6 +15,10 @@
         background: $theme-field-bg-disabled;
         cursor: pointer;
 
+        &.disabled {
+            cursor: not-allowed;
+        }
+
         .slider-circle {
             box-sizing: border-box;
             width: 15px;
@@ -52,6 +56,12 @@
                 width: 18px;
                 height: 18px;
             }
+
+            &.disabled {
+                width: 15px;
+                height: 15px;
+                border: 2px solid #ccc;
+            }
         }
 
         .slider-highlight {
@@ -61,6 +71,10 @@
             position: absolute;
             left: 0;
             top: 0;
+
+            &.disabled {
+                background: $theme-border-disabled;
+            }
         }
 
         //&:hover {

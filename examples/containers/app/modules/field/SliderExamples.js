@@ -43,7 +43,7 @@ class SliderExamples extends Component {
 
                                 <p>Slider simple default example.</p>
 
-                                <Slider/>
+                                <Slider disabled={true} scale={[20,100]} showScale={true}/>
 
                             </div>
 
@@ -67,6 +67,7 @@ class SliderExamples extends Component {
                                 <Slider //leftPoint={true}
                                         initialScale={20}
                                         scale={[20,100]}
+                                        width={500}
                                         ruler={10}/>
 
                             </div>

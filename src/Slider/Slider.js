@@ -63,6 +63,9 @@ class Slider extends Component {
      * 判断当前点击对象是否是小圆点，修改shadow
      */
     handleDown = ev => {
+        if (this.props.disabled) {
+            return;
+        }
         let element = ev.srcElement ? ev.srcElement : ev.target;
         if (element.getAttribute('class').indexOf('left') > -1) {
             this.setState({
@@ -153,6 +156,9 @@ class Slider extends Component {
      * 点击slider时，改变slider的值
      */
     handleClick = ev => {
+        if(this.props.disabled) {
+            return;
+        }
         let oEvent = ev || event;
         let offsetLeft = this.getElementLeft(this.sliderBoxEl);
         let clickLeft = this.getPosition(oEvent).x - offsetLeft;
@@ -242,7 +248,7 @@ class Slider extends Component {
 
     render() {
 
-        const {leftPoint, showScalePoint, scale, width, showScale, decimalPlaces, className, style} = this.props,
+        const {leftPoint, showScalePoint, scale, width, showScale, decimalPlaces, className, style, disabled} = this.props,
             {left, right, shadow, tip} = this.state,
             display = (tip || shadow) ? '' : 'hide';
         let [scaleValue, scaleLabel] = this.getScaleValueAndLabel(scale);
@@ -257,7 +263,7 @@ class Slider extends Component {
                  }}>
 
                 <div ref={this.sliderBox}
-                     className="slider-box"
+                     className={`slider-box ${disabled ? 'disabled' : ''}`}
                      onMouseDown={this.handleClick}>
 
                     {
@@ -281,7 +287,7 @@ class Slider extends Component {
                     {
                         leftPoint ?
                             <div ref={this.circleLeft}
-                                 className={`slider-circle slider-circle-left ${shadow === 'left' ? 'slider-shadow' : ''}`}
+                                 className={`slider-circle slider-circle-left ${shadow === 'left' ? 'slider-shadow' : ''} ${disabled ? 'disabled' : ''}`}
                                  style={{left}}
                                  onMouseDown={this.handleDown}></div>
                             :
@@ -289,10 +295,10 @@ class Slider extends Component {
                     }
 
                     <div ref={this.circleRight}
-                         className={`slider-circle slider-circle-right ${shadow === 'right' ? 'slider-shadow' : ''}`}
+                         className={`slider-circle slider-circle-right ${shadow === 'right' ? 'slider-shadow' : ''} ${disabled ? 'disabled' : ''}`}
                          style={{left: right}}
                          onMouseDown={this.handleDown}></div>
-                    <div className="slider-highlight"
+                    <div className={`slider-highlight ${disabled ? 'disabled' : ''}`}
                          style={{
                              width: Math.abs(left - right),
                              left: Math.min(left, right)
@@ -351,6 +357,11 @@ Slider.propTypes = {
      * Override the styles of the root element.
      */
     style: PropTypes.object,
+
+    /**
+     * If true,the slider will be disabled.
+     */
+    disabled: PropTypes.bool,
 
     /**
      * If true,the slider will have leftPoint.
