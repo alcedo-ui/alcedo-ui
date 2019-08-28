@@ -64,7 +64,9 @@ class SliderExamples extends Component {
                                 <p>Set the leftPoint property to true for display leftPoint and the ruler property for
                                     the slider step through values.</p>
 
-                                <Slider leftPoint={true}
+                                <Slider //leftPoint={true}
+                                        initialScale={20}
+                                        scale={[20,100]}
                                         ruler={10}/>
 
                             </div>

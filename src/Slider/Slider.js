@@ -6,6 +6,7 @@
 import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import throttle from 'lodash/throttle';
 
 import Event from '../_vendors/Event';
 
@@ -74,6 +75,10 @@ class Slider extends Component {
         }
         return false;
     };
+
+    throttleMove = throttle((e) => {
+        this.handleMove(e);
+    }, 16);
 
     /**
      * 当点击对象为小圆点时，移动指针则改变slider的值
@@ -173,17 +178,10 @@ class Slider extends Component {
      * 当slider设置了ruler参数时，移动或点击操作时，自动匹配到最近的刻度点。
      */
     getNearest = clickLeft => {
-        const {width, ruler} = this.props;
-        let nearest = width;
-        let j = 0;
-        for (let i = 0; i < ruler; i++) {
-            let long = Math.abs(clickLeft - i * width / (ruler - 1));
-            if (long < nearest) {
-                nearest = long;
-                j = i;
-            }
-        }
-        return j * width / (ruler - 1);
+        const {width, ruler, scale} = this.props, min = scale[0], max = scale[scale.length - 1];
+        let nearest = Math.round(clickLeft * (max - min) / (width * ruler)) * ruler / (max - min) * width;
+
+        return nearest > width ? width : nearest;
     };
 
     getScaleValueAndLabel = (scale) => {
@@ -210,7 +208,7 @@ class Slider extends Component {
             right: right > width || right < 0 ? 0 : right
         });
 
-        Event.addEvent(document, 'mousemove', this.handleMove);
+        Event.addEvent(document, 'mousemove', this.throttleMove);
         Event.addEvent(document, 'mouseup', this.handleUp);
 
         if (this.circleRight && this.circleRight.current) {
@@ -227,7 +225,7 @@ class Slider extends Component {
 
     componentWillUnmount() {
 
-        Event.removeEvent(document, 'mousemove', this.handleMove);
+        Event.removeEvent(document, 'mousemove', this.throttleMove);
         Event.removeEvent(document, 'mouseup', this.handleUp);
 
         if (this.circleRight && this.circleRight.current) {
