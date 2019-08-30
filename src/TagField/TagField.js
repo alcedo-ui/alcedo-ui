@@ -191,7 +191,11 @@ class TagField extends Component {
         }
 
         const value = e.target.value,
-            inputValue = value ? value.replace(/\r?\n/gm, '') : value;
+            inputValue = value ?
+                value.replace(/\r?\n$/gm, '') // remove last \r\n
+                     .replace(/\r?\n/gm, this.getSeparators()[0])
+                :
+                value;
 
         this.setState({
             inputValue
