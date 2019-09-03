@@ -22,8 +22,8 @@ class Slider extends Component {
         this.circleRight = createRef();
 
         this.state = {
-            left: 0,
-            right: 0,
+            left: props.left || 0,
+            right: props.right || 0,
             shadow: '',
             tip: ''
         };
@@ -95,17 +95,18 @@ class Slider extends Component {
             if (this.props.ruler) {
                 leftPosition = this.getNearest(leftPosition);
             }
+            let value = this.getValueFromPosition(leftPosition).toFixed(this.props.decimalPlaces);
             if (this.state.shadow === 'left') {
                 this.setState({
-                    left: leftPosition
+                    left: value
                 }, () => {
-                    this.handleChange();
+                    this.handleChange(value, this.state.right);
                 });
             } else {
                 this.setState({
-                    right: leftPosition
+                    right: value
                 }, () => {
-                    this.handleChange();
+                    this.handleChange(this.state.left, value);
                 });
             }
         }
@@ -114,14 +115,8 @@ class Slider extends Component {
     /**
      * 修改tip位置
      */
-    handleChange = () => {
-        const {scale, decimalPlaces, width} = this.props;
-        const {left, right} = this.state;
-        const [scaleValue] = this.getScaleValueAndLabel(scale);
-
-        let leftTip = parseFloat((left / width) * (scaleValue[scaleValue.length - 1] - scaleValue[0]) + scaleValue[0]).toFixed(decimalPlaces),
-            rightTip = parseFloat((right / width) * (scaleValue[scaleValue.length - 1] - scaleValue[0]) + scaleValue[0]).toFixed(decimalPlaces);
-        this.props.onChange && this.props.onChange(leftTip, rightTip);
+    handleChange = (left, right) => {
+        this.props.onChange && this.props.onChange(left, right);
     };
 
     handleUp = () => {
@@ -156,26 +151,29 @@ class Slider extends Component {
      * 点击slider时，改变slider的值
      */
     handleClick = ev => {
-        if(this.props.disabled) {
+        if (this.props.disabled) {
             return;
         }
         let oEvent = ev || event;
         let offsetLeft = this.getElementLeft(this.sliderBoxEl);
         let clickLeft = this.getPosition(oEvent).x - offsetLeft;
+        const {leftPosition, rightPosition} = this.getPositionFromValue(this.state.left, this.state.right);
         if (this.props.ruler) {
             clickLeft = this.getNearest(clickLeft);
         }
-        if (Math.abs(this.state.left - clickLeft) > Math.abs(this.state.right - clickLeft) || this.props.leftPoint === false) {
+        if (Math.abs(leftPosition - clickLeft) > Math.abs(rightPosition - clickLeft) || this.props.leftPoint === false) {
+            let value = this.getValueFromPosition(clickLeft).toFixed(this.props.decimalPlaces);
             this.setState({
-                right: clickLeft
+                right: value
             }, () => {
-                this.handleChange();
+                this.handleChange(this.state.left, value);
             });
         } else {
+            let value = this.getValueFromPosition(clickLeft).toFixed(this.props.decimalPlaces);
             this.setState({
-                left: clickLeft
+                left: value
             }, () => {
-                this.handleChange();
+                this.handleChange(value, this.state.right);
             });
         }
     };
@@ -199,6 +197,26 @@ class Slider extends Component {
             });
         }
         return [scaleValue, scaleLabel];
+    };
+
+    getValueFromPosition = (position) => {
+        const {scale, width} = this.props;
+        const [scaleValue] = this.getScaleValueAndLabel(scale);
+
+        return (position / width) * (scaleValue[scaleValue.length - 1] - scaleValue[0]) + scaleValue[0];
+    };
+
+    getPositionFromValue = (left, right) => {
+        const {scale, width} = this.props;
+        const [scaleValue] = this.getScaleValueAndLabel(scale);
+        let leftValue = parseFloat(left || scaleValue[0]);
+        let rightValue = parseFloat(right || scaleValue[0]);
+        let leftPosition = (leftValue - scaleValue[0]) / (scaleValue[scaleValue.length - 1] - scaleValue[0]) * width,
+            rightPosition = (rightValue - scaleValue[0]) / (scaleValue[scaleValue.length - 1] - scaleValue[0]) * width;
+        return {
+            leftPosition,
+            rightPosition
+        };
     };
 
     componentDidMount() {
@@ -246,12 +264,21 @@ class Slider extends Component {
 
     }
 
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            left: props.left || state.left,
+            right: props.right || state.right
+        };
+    }
+
     render() {
 
         const {leftPoint, showScalePoint, scale, width, showScale, decimalPlaces, className, style, disabled} = this.props,
             {left, right, shadow, tip} = this.state,
             display = (tip || shadow) ? '' : 'hide';
         let [scaleValue, scaleLabel] = this.getScaleValueAndLabel(scale);
+        let {leftPosition, rightPosition} = this.getPositionFromValue(left, right);
 
         return (
             <div className={classNames('slider', {
@@ -270,8 +297,8 @@ class Slider extends Component {
                         showScalePoint ?
                             scaleValue.map(item => {
                                 let pointLeft = (item - scaleValue[0]) / (scaleValue[scaleValue.length - 1] - scaleValue[0]) * width,
-                                    min = Math.min(left, right),
-                                    max = Math.max(left, right);
+                                    min = Math.min(leftPosition, rightPosition),
+                                    max = Math.max(leftPosition, rightPosition);
                                 return <div
                                     className={`slider-circle fixed-circle ${pointLeft < min || pointLeft > max ? 'disable-circle' : ''}`}
                                     style={{
@@ -288,7 +315,7 @@ class Slider extends Component {
                         leftPoint ?
                             <div ref={this.circleLeft}
                                  className={`slider-circle slider-circle-left ${shadow === 'left' ? 'slider-shadow' : ''} ${disabled ? 'disabled' : ''}`}
-                                 style={{left}}
+                                 style={{left: leftPosition}}
                                  onMouseDown={this.handleDown}></div>
                             :
                             null
@@ -296,25 +323,25 @@ class Slider extends Component {
 
                     <div ref={this.circleRight}
                          className={`slider-circle slider-circle-right ${shadow === 'right' ? 'slider-shadow' : ''} ${disabled ? 'disabled' : ''}`}
-                         style={{left: right}}
+                         style={{left: rightPosition}}
                          onMouseDown={this.handleDown}></div>
                     <div className={`slider-highlight ${disabled ? 'disabled' : ''}`}
                          style={{
-                             width: Math.abs(left - right),
-                             left: Math.min(left, right)
+                             width: Math.abs(leftPosition - rightPosition),
+                             left: Math.min(leftPosition, rightPosition)
                          }}></div>
 
                     {
 
                         shadow === 'left' || tip === 'left' ?
                             <div className={`slider-tip ${display}`}
-                                 style={{left}}>
-                                {parseFloat((left / width) * (scaleValue[scaleValue.length - 1] - scaleValue[0]) + scaleValue[0]).toFixed(decimalPlaces)}
+                                 style={{left: leftPosition}}>
+                                {parseFloat((leftPosition / width) * (scaleValue[scaleValue.length - 1] - scaleValue[0]) + scaleValue[0]).toFixed(decimalPlaces)}
                             </div>
                             :
                             <div className={`slider-tip ${display}`}
-                                 style={{left: right}}>
-                                {parseFloat((right / width) * (scaleValue[scaleValue.length - 1] - scaleValue[0]) + scaleValue[0]).toFixed(decimalPlaces)}
+                                 style={{left: rightPosition}}>
+                                {parseFloat((rightPosition / width) * (scaleValue[scaleValue.length - 1] - scaleValue[0]) + scaleValue[0]).toFixed(decimalPlaces)}
                             </div>
 
                     }

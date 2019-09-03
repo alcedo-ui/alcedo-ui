@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 
 import Slider from 'src/Slider';
+import TextField from 'src/TextField';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
@@ -13,6 +14,10 @@ class SliderExamples extends Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            text: 1
+        };
     }
 
     changeHandler = (left, right) => {
@@ -43,8 +48,23 @@ class SliderExamples extends Component {
 
                                 <p>Slider simple default example.</p>
 
-                                <Slider disabled={true} scale={[20,100]} showScale={true}/>
-
+                                <Slider key={1}
+                                        scale={[1, 8]}
+                                        width={500}
+                                        decimalPlaces={1}
+                                        left={1}
+                                        right={this.state.text}
+                                        showScale={true}
+                                        onChange={(left, right) => {
+                                            this.setState({
+                                                text: right
+                                            });
+                                        }}/>
+                                <TextField value={this.state.text} onChange={(value) => {
+                                    this.setState({
+                                        text: value
+                                    });
+                                }}/>
                             </div>
 
                         </div>
@@ -65,10 +85,11 @@ class SliderExamples extends Component {
                                     the slider step through values.</p>
 
                                 <Slider //leftPoint={true}
-                                        initialScale={20}
-                                        scale={[20,100]}
-                                        width={500}
-                                        ruler={10}/>
+                                    key={2}
+                                    initialScale={20}
+                                    scale={[20, 100]}
+                                    width={500}
+                                    ruler={10}/>
 
                             </div>
 
@@ -89,7 +110,8 @@ class SliderExamples extends Component {
                                 <p>Set the showScale property to true and the scale property for size displayed on
                                     slider.</p>
 
-                                <Slider leftPoint={true}
+                                <Slider key={3}
+                                        leftPoint={true}
                                         scale={[0, 50, 80, 100]}
                                         showScale={true}/>
 
@@ -111,7 +133,8 @@ class SliderExamples extends Component {
 
                                 <p>Set the decimalPlaces property for the decimal digits of tip.</p>
 
-                                <Slider leftPoint={true}
+                                <Slider key={4}
+                                        leftPoint={true}
                                         scale={[{value: 4, label: 'Current'},
                                             {value: 3, label: 'POS 3'},
                                             {value: 2, label: 'POS 2'},
@@ -140,7 +163,8 @@ class SliderExamples extends Component {
 
                                 <p>Set the width property for reset the slider width.</p>
 
-                                <Slider leftPoint={true}
+                                <Slider key={5}
+                                        leftPoint={true}
                                         scale={[0, 5, 8, 10]}
                                         showScale={true}
                                         decimalPlaces={1}
