@@ -209,8 +209,12 @@ class Slider extends Component {
     getPositionFromValue = (left, right) => {
         const {scale, width} = this.props;
         const [scaleValue] = this.getScaleValueAndLabel(scale);
+        let min = Math.min(scaleValue[0], scaleValue[scaleValue.length - 1]),
+            max = Math.max(scaleValue[0], scaleValue[scaleValue.length - 1]);
         let leftValue = parseFloat(left || scaleValue[0]);
         let rightValue = parseFloat(right || scaleValue[0]);
+        leftValue = leftValue > max ? max : leftValue < min ? min : leftValue;
+        rightValue = rightValue > max ? max : rightValue < min ? min : rightValue;
         let leftPosition = (leftValue - scaleValue[0]) / (scaleValue[scaleValue.length - 1] - scaleValue[0]) * width,
             rightPosition = (rightValue - scaleValue[0]) / (scaleValue[scaleValue.length - 1] - scaleValue[0]) * width;
         return {
@@ -267,8 +271,8 @@ class Slider extends Component {
     static getDerivedStateFromProps(props, state) {
         return {
             prevProps: props,
-            left: props.left || state.left,
-            right: props.right || state.right
+            left: isFinite(props.left) ? props.left : state.left,
+            right: isFinite(props.right) ? props.right : state.right
         };
     }
 
