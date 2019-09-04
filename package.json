@@ -93,10 +93,10 @@
         "connect-history-api-fallback": "1.6.0",
         "copy-webpack-plugin": "5.0.4",
         "core-js": "3.2.1",
-        "cross-env": "5.2.0",
+        "cross-env": "5.2.1",
         "crypto": "1.0.1",
         "css-loader": "3.2.0",
-        "eslint": "^6.2.2",
+        "eslint": "^6.3.0",
         "eslint-plugin-react": "^7.14.3",
         "eventsource-polyfill": "0.9.6",
         "express": "4.17.1",
@@ -125,7 +125,7 @@
         "url-loader": "2.1.0",
         "webpack": "4.39.3",
         "webpack-bundle-analyzer": "3.4.1",
-        "webpack-dev-middleware": "3.7.0",
+        "webpack-dev-middleware": "3.7.1",
         "webpack-hot-middleware": "2.25.0",
         "webpack-merge": "4.2.2"
     }
