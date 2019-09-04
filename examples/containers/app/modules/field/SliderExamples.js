@@ -52,7 +52,6 @@ class SliderExamples extends Component {
                                         scale={[1, 8]}
                                         width={500}
                                         decimalPlaces={1}
-                                        left={1}
                                         right={this.state.text}
                                         showScale={true}
                                         onChange={(left, right) => {
