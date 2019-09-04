@@ -89,8 +89,8 @@ class Slider extends Component {
     handleMove = ev => {
         if (this.state.shadow) {
             let oEvent = ev || event;
-            let offsetLeft = this.getElementLeft(this.sliderBoxEl);
-            let leftPosition = (this.props.width > (this.getPosition(oEvent).x - offsetLeft)) ? (this.getPosition(oEvent).x - offsetLeft) : this.props.width;
+            let offsetLeft = this.getPosition(oEvent).x-this.getElementLeft(this.sliderBoxEl);
+            let leftPosition = (this.props.width > offsetLeft) ? offsetLeft : this.props.width;
             leftPosition = (leftPosition > 0) ? leftPosition : 0;
             if (this.props.ruler) {
                 leftPosition = this.getNearest(leftPosition);
@@ -129,7 +129,7 @@ class Slider extends Component {
      * 当mouseOver至小圆点，则显示tip
      */
     handleOver = ev => {
-        let element = ev.srcElement ? ev.srcElement : ev.target;
+        let element = ev.srcElement || ev.target;
         if (element.getAttribute('class').indexOf('left') > -1) {
             this.setState({
                 tip: 'left'
@@ -224,30 +224,20 @@ class Slider extends Component {
     };
 
     componentDidMount() {
-        const {scale, initialScale, width} = this.props;
-        let [scaleValue] = this.getScaleValueAndLabel(scale);
-        let right = typeof initialScale === 'number' ?
-            (initialScale - scaleValue[0]) / (scaleValue[scaleValue.length - 1] - scaleValue[0]) * width
-            :
-            width / 2;
         this.sliderBoxEl = this.sliderBox && this.sliderBox.current;
-
-        this.setState({
-            right: right > width || right < 0 ? 0 : right
-        });
 
         Event.addEvent(document, 'mousemove', this.throttleMove);
         Event.addEvent(document, 'mouseup', this.handleUp);
 
-        if (this.circleRight && this.circleRight.current) {
-            Event.addEvent(this.circleRight.current, 'mouseover', this.handleOver);
-            Event.addEvent(this.circleRight.current, 'mouseout', this.handleOut);
-        }
+        // if (this.circleRight && this.circleRight.current) {
+        Event.addEvent(this.circleRight.current, 'mouseover', this.handleOver);
+        Event.addEvent(this.circleRight.current, 'mouseout', this.handleOut);
+        // }
 
-        if (this.circleLeft && this.circleLeft.current) {
-            Event.addEvent(this.circleLeft.current, 'mouseover', this.handleOver);
-            Event.addEvent(this.circleLeft.current, 'mouseout', this.handleOut);
-        }
+        // if (this.circleLeft && this.circleLeft.current) {
+        Event.addEvent(this.circleLeft.current, 'mouseover', this.handleOver);
+        Event.addEvent(this.circleLeft.current, 'mouseout', this.handleOut);
+        // }
 
     }
 
@@ -400,11 +390,6 @@ Slider.propTypes = {
     leftPoint: PropTypes.bool,
 
     /**
-     * The right point's position.
-     */
-    initialScale: PropTypes.number,
-
-    /**
      * The width of the slider.
      */
     width: PropTypes.number,
@@ -444,7 +429,6 @@ Slider.propTypes = {
 Slider.defaultProps = {
     leftPoint: false,
     showScalePoint: false,
-    initialScale: null,
     width: 300,
     scale: [0, 100],
     showScale: false,
