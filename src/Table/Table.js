@@ -136,7 +136,7 @@ class Table extends Component {
     };
 
     /**
-     *
+     * handle row hover
      * @param hoverRowIndex
      */
     handleRowHover = hoverRowIndex => {
