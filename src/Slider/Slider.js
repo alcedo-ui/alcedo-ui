@@ -89,9 +89,9 @@ class Slider extends Component {
     handleMove = ev => {
         if (this.state.shadow) {
             let oEvent = ev || event;
-            let offsetLeft = this.getPosition(oEvent).x-this.getElementLeft(this.sliderBoxEl);
-            let leftPosition = (this.props.width > offsetLeft) ? offsetLeft : this.props.width;
-            leftPosition = (leftPosition > 0) ? leftPosition : 0;
+            let offsetLeft = this.getPosition(oEvent).x - this.getElementLeft(this.sliderBoxEl);
+            let leftPosition = this.props.width > offsetLeft ? offsetLeft : this.props.width;
+            leftPosition = leftPosition > 0 ? leftPosition : 0;
             if (this.props.ruler) {
                 leftPosition = this.getNearest(leftPosition);
             }
