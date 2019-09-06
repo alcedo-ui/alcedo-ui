@@ -9,6 +9,7 @@ import classNames from 'classnames';
 import throttle from 'lodash/throttle';
 
 import Event from '../_vendors/Event';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class Slider extends Component {
 
@@ -89,9 +90,9 @@ class Slider extends Component {
     handleMove = ev => {
         if (this.state.shadow) {
             let oEvent = ev || event;
-            let offsetLeft = this.getPosition(oEvent).x-this.getElementLeft(this.sliderBoxEl);
-            let leftPosition = (this.props.width > offsetLeft) ? offsetLeft : this.props.width;
-            leftPosition = (leftPosition > 0) ? leftPosition : 0;
+            let offsetLeft = this.getPosition(oEvent).x - this.getElementLeft(this.sliderBoxEl);
+            let leftPosition = this.props.width > offsetLeft ? offsetLeft : this.props.width;
+            leftPosition = leftPosition > 0 ? leftPosition : 0;
             if (this.props.ruler) {
                 leftPosition = this.getNearest(leftPosition);
             }
@@ -122,6 +123,8 @@ class Slider extends Component {
     handleUp = () => {
         this.setState({
             shadow: ''
+        }, () => {
+            this.props.onBlur && this.props.onBlur(this.state.left, this.state.right);
         });
     };
 
@@ -261,8 +264,8 @@ class Slider extends Component {
     static getDerivedStateFromProps(props, state) {
         return {
             prevProps: props,
-            left: isFinite(props.left) ? props.left : state.left,
-            right: isFinite(props.right) ? props.right : state.right
+            left: isFinite(props.left) ? ComponentUtil.getDerivedState(props, state, 'left') : state.left,
+            right: isFinite(props.right) ? ComponentUtil.getDerivedState(props, state, 'right') : state.right
         };
     }
 
@@ -422,7 +425,12 @@ Slider.propTypes = {
     /**
      * Callback function fired when the slider change.
      */
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+
+    /**
+     * Callback function fired when the slider blur.
+     */
+    onBlur: PropTypes.func
 
 };
 
