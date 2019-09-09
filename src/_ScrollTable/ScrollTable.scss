@@ -18,6 +18,8 @@
             overflow: auto;
 
             .scroll-table-body-mask {
+                display: inline-block;
+                vertical-align: top;
 
                 &.mask-vertical {
                     overflow-y: hidden;

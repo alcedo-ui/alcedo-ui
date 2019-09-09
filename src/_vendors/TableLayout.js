@@ -99,7 +99,7 @@ function getbodyScollerHeight(headHeight, footHeight) {
  * @param fixedHeadHeight
  * @param fixedFootHeight
  */
-function maskCenterBody(wrapperEl, fixedHeadHeight, fixedFootHeight) {
+function maskCenterBody(wrapperEl, fixedHeadHeight, fixedFootHeight, props) {
 
     const tableEl = wrapperEl.querySelector('.table-content-center .scroll-table-body table'),
         maskEl = wrapperEl.querySelector('.table-content-center .scroll-table-body-mask');
@@ -108,8 +108,8 @@ function maskCenterBody(wrapperEl, fixedHeadHeight, fixedFootHeight) {
         maskEl.style.height = `${Valid.range(tableEl.offsetHeight - fixedHeadHeight - fixedFootHeight - 1, 0)}px`;
         if (tableEl) {
             tableEl.style.marginTop = `${-fixedHeadHeight - 1}px`;
-            maskEl.style.width = 'auto';
-            maskEl.style.width = `${tableEl.offsetWidth}px`;
+            // maskEl.style.width = 'auto';
+            // maskEl.style.width = `${tableEl.offsetWidth}px`;
         }
     }
 
@@ -486,7 +486,7 @@ function fixLayout(wrapperEl, rawTableEl, props) {
      * center
      */
     if (props && (props.isHeadFixed || props.isFootFixed)) {
-        maskCenterBody(wrapperEl, fixedHeadHeight, fixedFootHeight);
+        maskCenterBody(wrapperEl, fixedHeadHeight, fixedFootHeight, props);
     }
     fixCenterTableWidth(wrapperEl);
     fixTableColumnsWidth(wrapperEl, columnsWidth, null, props);
