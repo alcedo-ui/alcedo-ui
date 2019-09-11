@@ -156,14 +156,14 @@ function fixTableFragmentColumnsWidth(wrapperEl, columnsWidth, fixed, fragment, 
         const cols = el.querySelectorAll('col');
         if (cols) {
             if (fixed === HorizontalAlign.RIGHT) {
-                cols.forEach((el, index) => {
+                [].forEach.call(cols, (el, index) => {
                     if (el) {
                         el.style.width = `${columnsWidth
                             [columnsWidth.length - (cols.length - index)]}px`;
                     }
                 });
             } else {
-                cols.forEach((el, index) => {
+                [].forEach.call(cols, (el, index) => {
                     if (el) {
                         el.style.width = `${columnsWidth[index]}px`;
                     }
