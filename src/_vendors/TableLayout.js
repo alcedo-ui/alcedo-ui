@@ -227,7 +227,7 @@ function fixTableFragmentRowsHeight(wrapperEl, rowsHeight, fixed, fragment, subF
     if (el) {
         const trs = el.querySelectorAll('tr');
         if (trs) {
-            trs.forEach((el, index) => {
+            [].forEach.call(trs, (el, index) => {
                 if (el) {
                     el.style.height = `${rowsHeight[subFragment][index]}px`;
                 }
