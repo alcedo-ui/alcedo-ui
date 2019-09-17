@@ -253,8 +253,8 @@ class TreeSelect extends Component {
 
                 className, triggerClassName, popupClassName, style, name, data, popupTheme, renderer,
                 selectMode, valueField, displayField, descriptionField, triggerRenderer,
-                useFilter, filterIconCls, useSelectAll, selectAllText, isSelectRecursive, allowCollapse, collapsed,
-                indentWidth,
+                useFilter, filterIconCls, filterPlaceholder, useSelectAll, selectAllText, isSelectRecursive,
+                allowCollapse, collapsed, indentWidth,
                 onNodeClick, popupChildren, noMatchedMsg,
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
@@ -308,6 +308,7 @@ class TreeSelect extends Component {
                                 <TextField ref={this.filter}
                                            className="tree-select-filter"
                                            value={filter}
+                                           placeholder={filterPlaceholder}
                                            rightIconCls={filterIconCls}
                                            onChange={this.handleFilterChange}/>
                                 :
@@ -584,6 +585,7 @@ TreeSelect.propTypes = {
 
     useFilter: PropTypes.bool,
     filterIconCls: PropTypes.string,
+    filterPlaceholder: PropTypes.string,
     useSelectAll: PropTypes.bool,
     selectAllText: PropTypes.string,
     noMatchedMsg: PropTypes.string,
@@ -649,6 +651,7 @@ TreeSelect.defaultProps = {
     autoClose: true,
     useFilter: false,
     filterIconCls: 'fas fa-search',
+    filterPlaceholder: 'Search ...',
     useSelectAll: false,
     selectAllText: 'Select All',
 
