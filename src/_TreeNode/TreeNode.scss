@@ -30,152 +30,149 @@
     background-color: $theme-field-bg-disabled;
 }
 
-.tree {
+.tree-node {
+    display: block;
+    width: 100%;
+    height: 40px;
+    position: relative;
+    line-height: 40px;
+    border: none;
+    transition: all $theme-transition-duration ease-in-out;
+    cursor: pointer;
+    box-sizing: border-box;
+    font-size: 12px;
+    text-align: left;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: $theme-field;
+    background-color: $theme-field-bg;
 
-    .tree-node {
-        display: block;
-        width: 100%;
-        height: 40px;
+    .tree-node-inner {
+        @include float-fix;
         position: relative;
-        line-height: 40px;
-        border: none;
-        transition: all $theme-transition-duration ease-in-out;
-        cursor: pointer;
-        box-sizing: border-box;
-        font-size: 12px;
-        text-align: left;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        color: $theme-field;
-        background-color: $theme-field-bg;
 
-        .tree-node-inner {
-            @include float-fix;
-            position: relative;
+        .tree-node-collapse-icon {
+            position: absolute;
+            left: -20px;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            transform: translateY(50%);
 
-            .tree-node-collapse-icon {
-                position: absolute;
-                left: -20px;
-                top: 0;
-                width: 20px;
-                height: 20px;
-                transform: translateY(50%);
+            .button-icon.button-icon-left {
+                width: 100%;
+            }
+        }
 
-                .button-icon.button-icon-left {
-                    width: 100%;
-                }
+        .tree-node-select {
+            float: left;
+            width: 16px;
+            height: 40px;
+            margin-right: 10px;
+            overflow: hidden;
+        }
+
+        .button-icon {
+            float: left;
+            width: 16px;
+            text-align: center;
+            font-size: inherit;
+            color: inherit;
+
+            &.button-icon-left {
+                float: left;
             }
 
-            .tree-node-select {
-                float: left;
-                width: 16px;
-                height: 40px;
+            &.button-icon-right {
+                float: right;
+                margin-left: 15px;
+            }
+
+            .circular-loading {
                 margin-right: 10px;
-                overflow: hidden;
-            }
-
-            .button-icon {
-                float: left;
-                width: 16px;
-                text-align: center;
-                font-size: inherit;
-                color: inherit;
-
-                &.button-icon-left {
-                    float: left;
-                }
-
-                &.button-icon-right {
-                    float: right;
-                    margin-left: 15px;
-                }
-
-                .circular-loading {
-                    margin-right: 10px;
-                }
-            }
-
-            .tree-node-content {
-                overflow: hidden;
-                white-space: nowrap;
-                text-overflow: ellipsis;
-
-                .tree-node-content-desc {
-                    opacity: .5;
-                    margin-left: 10px;
-                }
-            }
-
-            .touch-ripple {
-                border-radius: $theme-border-radius;
-
-                &.hidden {
-                    display: none;
-                }
             }
         }
 
-        &[readonly] {
-            @include tree-node-readonly;
+        .tree-node-content {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
 
-            &:hover,
-            &:active {
-                @include tree-node-readonly;
+            .tree-node-content-desc {
+                opacity: .5;
+                margin-left: 10px;
             }
         }
 
-        &[disabled] {
-            @include tree-node-disabled;
+        .touch-ripple {
+            border-radius: $theme-border-radius;
 
-            &:hover,
-            &:active {
-                @include tree-node-disabled;
+            &.hidden {
+                display: none;
             }
         }
+    }
 
-        &:hover {
-            background-color: theme-color-hover($theme-secondary);
-        }
+    &[readonly] {
+        @include tree-node-readonly;
 
+        &:hover,
         &:active {
-            background-color: theme-color-active($theme-field-bg);
-        }
-
-        // default theme
-        //@include tree-node-theme($theme-field, $theme-field-bg);
-
-        // other themes
-        &.theme-primary {
-            @include tree-node-theme($theme-secondary, $theme-primary);
-        }
-
-        &.theme-secondary {
-            @include tree-node-theme($theme-primary, $theme-secondary);
-        }
-
-        &.theme-highlight {
-            @include tree-node-theme(#fff, $theme-highlight);
-        }
-
-        &.theme-info {
-            @include tree-node-theme(#fff, $theme-info);
-        }
-
-        &.theme-success {
-            @include tree-node-theme(#fff, $theme-success);
-        }
-
-        &.theme-warning {
-            @include tree-node-theme(#fff, $theme-warning);
-        }
-
-        &.theme-error {
-            @include tree-node-theme(#fff, $theme-error);
+            @include tree-node-readonly;
         }
     }
 
-    .tree-node-children.collapsed {
-        height: 0;
-        overflow: hidden;
+    &[disabled] {
+        @include tree-node-disabled;
+
+        &:hover,
+        &:active {
+            @include tree-node-disabled;
+        }
     }
+
+    &:hover {
+        background-color: theme-color-hover($theme-secondary);
+    }
+
+    &:active {
+        background-color: theme-color-active($theme-field-bg);
+    }
+
+    // default theme
+    //@include tree-node-theme($theme-field, $theme-field-bg);
+
+    // other themes
+    &.theme-primary {
+        @include tree-node-theme($theme-secondary, $theme-primary);
+    }
+
+    &.theme-secondary {
+        @include tree-node-theme($theme-primary, $theme-secondary);
+    }
+
+    &.theme-highlight {
+        @include tree-node-theme(#fff, $theme-highlight);
+    }
+
+    &.theme-info {
+        @include tree-node-theme(#fff, $theme-info);
+    }
+
+    &.theme-success {
+        @include tree-node-theme(#fff, $theme-success);
+    }
+
+    &.theme-warning {
+        @include tree-node-theme(#fff, $theme-warning);
+    }
+
+    &.theme-error {
+        @include tree-node-theme(#fff, $theme-error);
+    }
+}
+
+.tree-node-children.collapsed {
+    height: 0;
+    overflow: hidden;
 }
