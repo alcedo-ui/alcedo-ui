@@ -4,6 +4,9 @@
  */
 
 import Util from './Util';
+import Calculation from './Calculation';
+import isArray from 'lodash/isArray';
+import VirtualRoot from '../_statics/VirtualRoot';
 
 function calDepth(data, path) {
 
@@ -114,8 +117,62 @@ function findNodeById(node, id, callback, index = null, parent = null) {
 
 }
 
+function addRecursiveValue(node, value, props) {
+
+    if (!node || !value) {
+        return;
+    }
+
+    if (!Calculation.isItemChecked(node, value, props)) {
+        value.push(node);
+    }
+
+    if (!node.children || node.children.length < 1) {
+        return;
+    }
+
+    for (let item of node.children) {
+        addRecursiveValue(item, value, props);
+    }
+
+}
+
+/**
+ * traverse tree data to update value when multi recursive select
+ * @param value
+ * @returns {Array}
+ */
+function updateValue(value, props) {
+
+    const {data, valueField, displayField} = props;
+    let result = [];
+
+    Util.postOrderTraverse(isArray(data) ? {[VirtualRoot]: true, children: data} : data, node => {
+        if (!(VirtualRoot in node)) {
+            if (!node.children || node.children.length < 1) {
+                if (value.findIndex(item =>
+                    Util.getValueByValueField(item, valueField, displayField)
+                    === Util.getValueByValueField(node, valueField, displayField)) > -1) {
+                    result.push(node);
+                }
+            } else {
+                if (node.children.every(child => result.findIndex(item =>
+                    Util.getValueByValueField(item, valueField, displayField)
+                    === Util.getValueByValueField(child, valueField, displayField)) > -1)) {
+                    result.push(node);
+                }
+            }
+        }
+    });
+
+    return result;
+
+}
+
 export default {
     calDepth,
     calPath,
-    findNodeById
+    findNodeById,
+    addRecursiveValue,
+    updateValue
 };
