@@ -3,10 +3,12 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+import isArray from 'lodash/isArray';
+
+import VirtualRoot from '../_statics/VirtualRoot';
+
 import Util from './Util';
 import Calculation from './Calculation';
-import isArray from 'lodash/isArray';
-import VirtualRoot from '../_statics/VirtualRoot';
 
 function calDepth(data, path) {
 
@@ -169,10 +171,31 @@ function updateValue(value, props) {
 
 }
 
+function getTotalCount(data) {
+
+    if (!data) {
+        return 0;
+    }
+
+    let result = 0;
+
+    Util.preOrderTraverse(isArray(data) ? {[VirtualRoot]: true, children: data} : data, node => {
+        if (!(VirtualRoot in node)) {
+            if (node.children && node.children.length > 0) {
+                result += node.children.length;
+            }
+        }
+    });
+
+    return result + 1;
+
+}
+
 export default {
     calDepth,
     calPath,
     findNodeById,
     addRecursiveValue,
-    updateValue
+    updateValue,
+    getTotalCount
 };
