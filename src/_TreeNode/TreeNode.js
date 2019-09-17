@@ -134,7 +134,7 @@ class TreeNode extends Component {
         const {
 
                 index, depth, theme, selectTheme, selectMode, value,
-                disabled, isLoading, readOnly, allowCollapse, isSelectRecursive,
+                disabled, isLoading, readOnly, allowCollapse, isSelectRecursive, indentWidth,
                 valueField, displayField, descriptionField, filter,
 
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
@@ -167,7 +167,7 @@ class TreeNode extends Component {
                         })}
                              style={{
                                  ...data.style,
-                                 paddingLeft: (depth + 1) * 20
+                                 paddingLeft: (depth + 1) * indentWidth
                              }}
                              title={data.title}
                              disabled={isNodeDisabled}
@@ -312,6 +312,7 @@ TreeNode.propTypes = {
     collapsed: PropTypes.bool,
     isNodeToggling: PropTypes.bool,
     isSelectRecursive: PropTypes.bool,
+    indentWidth: PropTypes.number,
 
     renderer: PropTypes.func,
 
@@ -354,6 +355,7 @@ TreeNode.defaultProps = {
     collapsed: false,
     isNodeToggling: false,
     isSelectRecursive: false,
+    indentWidth: 20,
 
     collapsedIconCls: 'fas fa-caret-right',
     expandedIconCls: 'fas fa-caret-down',
