@@ -102,7 +102,7 @@ class TreeSelectExamples extends Component {
                 <p>
                     <span>Tree Select</span>
                     &nbsp;can fully display the hierarchy, and has interactive functions such as
-                    expansion, withdrawal and selection.
+                          expansion, withdrawal and selection.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -152,6 +152,7 @@ class TreeSelectExamples extends Component {
                                             checkboxCheckedIconCls="fas fa-check-circle"
                                             checkboxIndeterminateIconCls="fas fa-minus-circle"
                                             useFilter={true}
+                                            useSelectAll={true}
                                             tip="TreeSelect Example"
                                             onChange={this.changeHandler}/>
                             </div>
@@ -210,6 +211,6 @@ class TreeSelectExamples extends Component {
             </div>
         );
     }
-};
+}
 
 export default TreeSelectExamples;
