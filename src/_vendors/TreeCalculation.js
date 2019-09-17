@@ -181,13 +181,11 @@ function getTotalCount(data) {
 
     Util.preOrderTraverse(isArray(data) ? {[VirtualRoot]: true, children: data} : data, node => {
         if (!(VirtualRoot in node)) {
-            if (node.children && node.children.length > 0) {
-                result += node.children.length;
-            }
+            result++;
         }
     });
 
-    return result + 1;
+    return result;
 
 }
 
