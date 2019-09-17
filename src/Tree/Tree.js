@@ -17,6 +17,7 @@ import VirtualRoot from '../_statics/VirtualRoot';
 import Util from '../_vendors/Util';
 import Calculation from '../_vendors/Calculation';
 import ComponentUtil from '../_vendors/ComponentUtil';
+import TreeCalculation from '../_vendors/TreeCalculation';
 
 class Tree extends Component {
 
@@ -33,26 +34,6 @@ class Tree extends Component {
         };
 
     }
-
-    addRecursiveValue = (node, value) => {
-
-        if (!node || !value) {
-            return;
-        }
-
-        if (!Calculation.isItemChecked(node, value, this.props)) {
-            value.push(node);
-        }
-
-        if (!node.children || node.children.length < 1) {
-            return;
-        }
-
-        for (let item of node.children) {
-            this.addRecursiveValue(item, value);
-        }
-
-    };
 
     removeRecursiveValue = (node, value) => {
 
@@ -75,39 +56,7 @@ class Tree extends Component {
 
     };
 
-    /**
-     * traverse tree data to update value when multi recursive select
-     * @param value
-     * @returns {Array}
-     */
-    updateValue = value => {
-
-        const {data, valueField, displayField} = this.props;
-        let result = [];
-
-        Util.postOrderTraverse(isArray(data) ? {[VirtualRoot]: true, children: data} : data, node => {
-            if (!(VirtualRoot in node)) {
-                if (!node.children || node.children.length < 1) {
-                    if (value.findIndex(item =>
-                        Util.getValueByValueField(item, valueField, displayField)
-                        === Util.getValueByValueField(node, valueField, displayField)) > -1) {
-                        result.push(node);
-                    }
-                } else {
-                    if (node.children.every(child => result.findIndex(item =>
-                        Util.getValueByValueField(item, valueField, displayField)
-                        === Util.getValueByValueField(child, valueField, displayField)) > -1)) {
-                        result.push(node);
-                    }
-                }
-            }
-        });
-
-        return result;
-
-    };
-
-    HandleTreeNodeSelect = (node, path, e) => {
+    handleTreeNodeSelect = (node, path, e) => {
 
         if (!node) {
             return;
@@ -125,8 +74,8 @@ class Tree extends Component {
             }
 
             if (isSelectRecursive) {
-                this.addRecursiveValue(node, result);
-                result = this.updateValue(result);
+                TreeCalculation.addRecursiveValue(node, result, this.props);
+                result = TreeCalculation.updateValue(result, this.props);
             } else {
                 result.push(node);
             }
@@ -162,7 +111,7 @@ class Tree extends Component {
         } else {
             if (isSelectRecursive) {
                 this.removeRecursiveValue(node, value);
-                value = this.updateValue(value);
+                value = TreeCalculation.updateValue(value, this.props);
             } else {
                 const index = Calculation.getMultiSelectItemIndex(node, value, this.props);
                 if (index > -1) {
@@ -256,7 +205,7 @@ class Tree extends Component {
                           onClick={(...args) => onNodeClick && onNodeClick(...args)}
                           onNodeToggleStart={this.handleNodeToggleStart}
                           onNodeToggleEnd={this.handleNodeToggleEnd}
-                          onSelect={this.HandleTreeNodeSelect}
+                          onSelect={this.handleTreeNodeSelect}
                           onDeselect={this.handleTreeNodeDeselect}/>
 
                 {children}
