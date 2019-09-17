@@ -202,9 +202,15 @@ class TreeSelect extends Component {
 
     handleSelectAllClick = () => {
 
-        const {data} = this.props;
-        let result = [];
+        const {data} = this.props,
+            {value} = this.state;
 
+        if (value && value.length > 0 && value.length === this.total) {
+            this.handleChange([]);
+            return;
+        }
+
+        let result = [];
         TreeCalculation.addRecursiveValue(isArray(data) ? {children: data} : data, result, this.props);
         this.handleChange(TreeCalculation.updateValue(result, this.props));
 
@@ -263,6 +269,8 @@ class TreeSelect extends Component {
 
             isMultiSelect = selectMode === SelectMode.MULTI_SELECT;
 
+        this.total = TreeCalculation.getTotalCount(data);
+
         return (
             <div className={classNames('tree-select', {
                 [className]: className
@@ -313,8 +321,8 @@ class TreeSelect extends Component {
                                      onClick={this.handleSelectAllClick}>
                                     <div className="tree-node-inner">
                                         <Checkbox className="tree-node-select"
-                                                  checked={data && value && value.length === data.length}
-                                                  indeterminate={data && value && value.length > 0 && value.length < data.length}
+                                                  checked={value && value.length === this.total}
+                                                  indeterminate={value && value.length > 0 && value.length < this.total}
                                                   uncheckedIconCls={checkboxUncheckedIconCls}
                                                   checkedIconCls={checkboxCheckedIconCls}
                                                   indeterminateIconCls={checkboxIndeterminateIconCls}/>
