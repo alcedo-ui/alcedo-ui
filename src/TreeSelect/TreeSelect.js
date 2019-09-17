@@ -236,7 +236,7 @@ class TreeSelect extends Component {
 
                 className, triggerClassName, popupClassName, style, name, data, popupTheme, renderer,
                 selectMode, valueField, displayField, descriptionField, triggerRenderer,
-                useFilter, filterIconCls, isSelectRecursive, allowCollapse, collapsed,
+                useFilter, filterIconCls, isSelectRecursive, allowCollapse, collapsed, indentWidth,
                 onNodeClick, popupChildren, noMatchedMsg,
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
@@ -327,6 +327,7 @@ class TreeSelect extends Component {
                                       isSelectRecursive={isSelectRecursive}
                                       allowCollapse={allowCollapse}
                                       collapsed={collapsed}
+                                      indentWidth={indentWidth}
                                       collapsedIconCls={collapsedIconCls}
                                       expandedIconCls={expandedIconCls}
                                       radioUncheckedIconCls={radioUncheckedIconCls}
@@ -537,6 +538,7 @@ TreeSelect.propTypes = {
     isSelectRecursive: PropTypes.bool,
     allowCollapse: PropTypes.bool,
     collapsed: PropTypes.bool,
+    autoPopupWidth: PropTypes.bool,
     collapsedIconCls: PropTypes.string,
     expandedIconCls: PropTypes.string,
     radioUncheckedIconCls: PropTypes.string,
@@ -548,6 +550,7 @@ TreeSelect.propTypes = {
     popupChildren: PropTypes.any,
 
     resetPopPositionWait: PropTypes.number,
+    indentWidth: PropTypes.number,
 
     renderer: PropTypes.func,
 
@@ -598,7 +601,9 @@ TreeSelect.defaultProps = {
     isSelectRecursive: false,
     allowCollapse: true,
     collapsed: false,
-    resetPopPositionWait: 250
+    autoPopupWidth: true,
+    resetPopPositionWait: 250,
+    indentWidth: 20
 
 };
 
