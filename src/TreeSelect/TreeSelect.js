@@ -20,6 +20,7 @@ import Position from '../_statics/Position';
 import Util from '../_vendors/Util';
 import TreeCalculation from '../_vendors/TreeCalculation';
 import ComponentUtil from '../_vendors/ComponentUtil';
+import Checkbox from '../Checkbox';
 
 class TreeSelect extends Component {
 
@@ -199,6 +200,16 @@ class TreeSelect extends Component {
         });
     };
 
+    handleSelectAllClick = () => {
+
+        const {data} = this.props;
+        let result = [];
+
+        TreeCalculation.addRecursiveValue(isArray(data) ? {children: data} : data, result, this.props);
+        this.handleChange(TreeCalculation.updateValue(result, this.props));
+
+    };
+
     isEmpty = (filter = this.state.filter, data = this.props.data) => {
 
         if (!filter) {
@@ -236,7 +247,8 @@ class TreeSelect extends Component {
 
                 className, triggerClassName, popupClassName, style, name, data, popupTheme, renderer,
                 selectMode, valueField, displayField, descriptionField, triggerRenderer,
-                useFilter, filterIconCls, isSelectRecursive, allowCollapse, collapsed, indentWidth,
+                useFilter, filterIconCls, useSelectAll, selectAllText, isSelectRecursive, allowCollapse, collapsed,
+                indentWidth,
                 onNodeClick, popupChildren, noMatchedMsg,
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
@@ -247,7 +259,9 @@ class TreeSelect extends Component {
                 ...restProps
 
             } = this.props,
-            {value, filter, popupVisible} = this.state;
+            {value, filter, popupVisible} = this.state,
+
+            isMultiSelect = selectMode === SelectMode.MULTI_SELECT;
 
         return (
             <div className={classNames('tree-select', {
@@ -280,6 +294,7 @@ class TreeSelect extends Component {
                           onClosePopup={this.handlePopupClosed}>
 
                     <div className="tree-select-popup-fixed">
+
                         {
                             useFilter ?
                                 <TextField ref={this.filter}
@@ -290,6 +305,26 @@ class TreeSelect extends Component {
                                 :
                                 null
                         }
+
+                        {
+                            isMultiSelect && useSelectAll ?
+                                <div className="tree-node tree-select-all-wrapper"
+                                     style={{padding: `0 ${indentWidth}px`}}
+                                     onClick={this.handleSelectAllClick}>
+                                    <div className="tree-node-inner">
+                                        <Checkbox className="tree-node-select"
+                                                  checked={data && value && value.length === data.length}
+                                                  indeterminate={data && value && value.length > 0 && value.length < data.length}
+                                                  uncheckedIconCls={checkboxUncheckedIconCls}
+                                                  checkedIconCls={checkboxCheckedIconCls}
+                                                  indeterminateIconCls={checkboxIndeterminateIconCls}/>
+                                        {selectAllText}
+                                    </div>
+                                </div>
+                                :
+                                null
+                        }
+
                     </div>
 
                     <div className="tree-select-list-scroller">
@@ -297,6 +332,13 @@ class TreeSelect extends Component {
                         {
                             useFilter ?
                                 <div className="tree-select-filter-placeholder"></div>
+                                :
+                                null
+                        }
+
+                        {
+                            isMultiSelect && useSelectAll ?
+                                <div className="tree-select-all-placeholder"></div>
                                 :
                                 null
                         }
@@ -534,6 +576,8 @@ TreeSelect.propTypes = {
 
     useFilter: PropTypes.bool,
     filterIconCls: PropTypes.string,
+    useSelectAll: PropTypes.bool,
+    selectAllText: PropTypes.string,
     noMatchedMsg: PropTypes.string,
     isSelectRecursive: PropTypes.bool,
     allowCollapse: PropTypes.bool,
@@ -597,6 +641,8 @@ TreeSelect.defaultProps = {
     autoClose: true,
     useFilter: false,
     filterIconCls: 'fas fa-search',
+    useSelectAll: false,
+    selectAllText: 'Select All',
 
     isSelectRecursive: false,
     allowCollapse: true,
