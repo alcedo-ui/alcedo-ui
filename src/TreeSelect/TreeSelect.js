@@ -268,7 +268,7 @@ class TreeSelect extends Component {
                           ref={this.dropdown}
                           triggerClassName={classNames({
                               activated: popupVisible,
-                              empty: !triggerRenderer && !value,
+                              empty: !triggerRenderer && (!value || value.length < 1),
                               [triggerClassName]: triggerClassName
                           })}
                           popupClassName={classNames('tree-select-popup', {
