@@ -1,3 +1,8 @@
+/**
+ * @file TreeSelect Examples
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 
 import Widget from 'src/Widget';
