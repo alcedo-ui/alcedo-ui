@@ -310,6 +310,7 @@ class DropdownSelect extends Component {
         };
     }
 
+    /* eslint-disable complexity */
     render() {
 
         const {
@@ -418,7 +419,7 @@ class DropdownSelect extends Component {
                         }
 
                         {
-                            listData.length < 1 ?
+                            !listData || listData.length < 1 ?
                                 <div className="no-matched">
                                     {
                                         noMatchedMsg ?
