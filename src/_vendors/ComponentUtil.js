@@ -1,20 +1,31 @@
 import isEqual from 'lodash/isEqual';
 
-function getDerivedState(props, state, key) {
+function getDerivedState(props, state, ...keys) {
 
-    if (!props || !state || !key) {
+    if (!props || !state || !keys || keys.length < 1) {
         return;
+    }
+
+    let propsKey = '',
+        stateKey = '';
+
+    if (keys.length === 2) {
+        propsKey = keys[0];
+        stateKey = keys[1];
+    } else {
+        propsKey = keys[0];
+        stateKey = keys[0];
     }
 
     const prevProps = state.prevProps;
 
     return prevProps ?
-        isEqual(prevProps[key], props[key]) ?
-            state[key]
+        isEqual(prevProps[propsKey], props[propsKey]) ?
+            state[stateKey]
             :
-            props[key]
+            props[propsKey]
         :
-        props[key];
+        props[propsKey];
 
 }
 
