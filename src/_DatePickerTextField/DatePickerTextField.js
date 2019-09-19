@@ -1,5 +1,5 @@
 /**
- * @file MaterialDatePickerTextField component
+ * @file DatePickerTextField component
  * @author sunday(sunday.wei@derbysoft.com)
  */
 
@@ -7,10 +7,15 @@ import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+// components
 import TextField from '../TextField';
+
+// statics
 import Theme from '../Theme';
 
+// vendors
 import Util from '../_vendors/Util';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class DatePickerTextField extends Component {
 
@@ -58,13 +63,18 @@ class DatePickerTextField extends Component {
         });
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value || nextProps.popupVisible !== this.props.popupVisible) {
-            this.setState({
-                value: nextProps.value,
-                isFocus: nextProps.popupVisible
-            });
+    static getDerivedStateFromProps(props, state) {
+
+        if (props.value !== state.value || props.popupVisible !== state.prevProps.popupVisible) {
+            return {
+                prevProps: props,
+                value: ComponentUtil.getDerivedState(props, state, 'value'),
+                isFocus: ComponentUtil.getDerivedState(props, state, 'popupVisible', 'isFocus')
+            };
         }
+
+        return null;
+
     }
 
     render() {
