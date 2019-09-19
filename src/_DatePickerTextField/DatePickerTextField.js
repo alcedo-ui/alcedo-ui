@@ -65,7 +65,7 @@ class DatePickerTextField extends Component {
 
     static getDerivedStateFromProps(props, state) {
 
-        if (props.value !== state.value || props.popupVisible !== state.prevProps.popupVisible) {
+        if (props.value !== state.value || (state.prevProps && props.popupVisible !== state.prevProps.popupVisible)) {
             return {
                 prevProps: props,
                 value: ComponentUtil.getDerivedState(props, state, 'value'),
