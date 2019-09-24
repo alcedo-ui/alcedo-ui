@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component, cloneElement, Fragment} from 'react';
+import React, {Component, cloneElement, Fragment, createRef} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 
@@ -23,6 +23,9 @@ class PopoverProvider extends Component {
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
+
+        this.trigger = createRef();
+        this.triggerEl = null;
 
         this.state = {
             visible: props.visible
@@ -44,8 +47,21 @@ class PopoverProvider extends Component {
         });
     };
 
+    handleMouseOver = e => {
+
+        const {children} = this.props;
+
+        if (children && children.props && children.props.onMouseOver
+            && typeof children.props.onMouseOver === 'function') {
+            children.props.onMouseOver(e);
+        }
+
+        this.show();
+
+    };
+
     componentDidMount() {
-        this.refs.trigger && (this.triggerEl = findDOMNode(this.refs.trigger));
+        this.triggerEl = this.trigger && this.trigger.current && findDOMNode(this.trigger.current);
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -69,17 +85,8 @@ class PopoverProvider extends Component {
 
                 {
                     cloneElement(children, {
-                        ref: 'trigger',
-                        onMouseOver: e => {
-
-                            if (children && children.props && children.props.onMouseOver
-                                && typeof children.props.onMouseOver === 'function') {
-                                children.props.onMouseOver(e);
-                            }
-
-                            this.show();
-
-                        }
+                        ref: this.trigger,
+                        onMouseOver: this.handleMouseOver
                     })
                 }
 
@@ -97,6 +104,8 @@ class PopoverProvider extends Component {
 }
 
 PopoverProvider.propTypes = {
+
+    children: PropTypes.any,
 
     /**
      * The CSS class name of the root element.
