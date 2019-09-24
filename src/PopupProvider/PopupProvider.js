@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component, cloneElement, Fragment} from 'react';
+import React, {Component, cloneElement, Fragment, createRef} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 
@@ -23,6 +23,9 @@ class PopupProvider extends Component {
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
+
+        this.trigger = createRef();
+        this.triggerEl = null;
 
         this.state = {
             visible: props.visible
@@ -48,8 +51,21 @@ class PopupProvider extends Component {
         });
     };
 
+    handleClick = e => {
+
+        const {children} = this.props;
+
+        if (children && children.props && children.props.onClick
+            && typeof children.props.onClick === 'function') {
+            children.props.onClick(e);
+        }
+
+        this.toggle();
+
+    };
+
     componentDidMount() {
-        this.refs.trigger && (this.triggerEl = findDOMNode(this.refs.trigger));
+        this.triggerEl = this.trigger && this.trigger.current && findDOMNode(this.trigger.current);
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -73,17 +89,8 @@ class PopupProvider extends Component {
 
                 {
                     cloneElement(children, {
-                        ref: 'trigger',
-                        onClick: e => {
-
-                            if (children && children.props && children.props.onClick
-                                && typeof children.props.onClick === 'function') {
-                                children.props.onClick(e);
-                            }
-
-                            this.toggle();
-
-                        }
+                        ref: this.trigger,
+                        onClick: this.handleClick
                     })
                 }
 
@@ -101,6 +108,8 @@ class PopupProvider extends Component {
 }
 
 PopupProvider.propTypes = {
+
+    children: PropTypes.any,
 
     /**
      * The CSS class name of the root element.
