@@ -7,11 +7,14 @@ import React, {Component, cloneElement, Fragment, createRef} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 
+// components
 import Tip from '../Tip';
 
+// statics
 import Theme from '../Theme';
 import Position from '../_statics/Position';
 
+// vendors
 import Util from '../_vendors/Util';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
