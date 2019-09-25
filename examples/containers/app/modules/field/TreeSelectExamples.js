@@ -159,6 +159,7 @@ class TreeSelectExamples extends Component {
                                             useFilter={true}
                                             useSelectAll={true}
                                             tip="TreeSelect Example"
+                                            isNodeCollapsed={node => node.id === '01'}
                                             onChange={this.changeHandler}/>
                             </div>
                         </div>
