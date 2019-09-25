@@ -255,7 +255,7 @@ class TreeSelect extends Component {
                 selectMode, valueField, displayField, descriptionField, triggerRenderer,
                 useFilter, filterIconCls, filterPlaceholder, useSelectAll, selectAllText, isSelectRecursive,
                 allowCollapse, collapsed, indentWidth,
-                onNodeClick, popupChildren, noMatchedMsg,
+                onNodeClick, popupChildren, noMatchedMsg, isNodeCollapsed,
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
@@ -387,6 +387,7 @@ class TreeSelect extends Component {
                                       checkboxCheckedIconCls={checkboxCheckedIconCls}
                                       checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
                                       renderer={renderer}
+                                      isNodeCollapsed={isNodeCollapsed}
                                       onNodeClick={onNodeClick}
                                       onNodeSelect={this.handleNodeSelect}
                                       onChange={this.handleChange}/>
@@ -625,6 +626,7 @@ TreeSelect.propTypes = {
      */
     onChange: PropTypes.func,
 
+    isNodeCollapsed: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
     onMouseOver: PropTypes.func,
