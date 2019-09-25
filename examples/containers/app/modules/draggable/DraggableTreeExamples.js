@@ -112,6 +112,6 @@ class DraggableTreeExamples extends Component {
             </div>
         );
     }
-};
+}
 
 export default DraggableTreeExamples;
