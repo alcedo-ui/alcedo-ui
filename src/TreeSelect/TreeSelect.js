@@ -260,7 +260,7 @@ class TreeSelect extends Component {
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
                 // not passing down these props
-                onChange,
+                value: v, onChange,
 
                 ...restProps
 
