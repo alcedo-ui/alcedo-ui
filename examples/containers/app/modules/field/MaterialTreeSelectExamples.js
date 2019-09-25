@@ -11,7 +11,6 @@ import doc from 'examples/assets/propTypes/MaterialTreeSelect.json';
 
 import 'scss/containers/app/modules/field/MaterialTreeSelectExamples.scss';
 
-
 class MaterialTreeSelectExamples extends Component {
 
     constructor(props) {
@@ -155,6 +154,7 @@ class MaterialTreeSelectExamples extends Component {
                                                         checkboxCheckedIconCls="fas fa-check-circle"
                                                         checkboxIndeterminateIconCls="fas fa-minus-circle"
                                                         tip="MaterialTreeSelect Example"
+                                                        isNodeCollapsed={node => node.id === '01'}
                                                         onChange={this.onChangeHandler}/>
                                 </div>
                             </div>
