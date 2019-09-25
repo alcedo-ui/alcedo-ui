@@ -32,10 +32,30 @@ class DraggableTreeNode extends Component {
         super(props, ...restArgs);
 
         this.state = {
-            collapsed: props.data && props.data[VirtualRoot] ? false : props.collapsed
+            collapsed: this.isCollapsed(props)
         };
 
     }
+
+    isCollapsed = (props = this.props) => {
+
+        const {data, isNodeCollapsed, collapsed, index, depth, path} = props;
+
+        if (data && data[VirtualRoot]) {
+            return false;
+        }
+
+        if (isNodeCollapsed) {
+            if (typeof isNodeCollapsed === 'function') {
+                return isNodeCollapsed(data, index, depth, path);
+            } else {
+                return !!isNodeCollapsed;
+            }
+        }
+
+        return collapsed;
+
+    };
 
     toggleTreeNode = e => {
 
