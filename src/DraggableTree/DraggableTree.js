@@ -275,7 +275,7 @@ class DraggableTree extends Component {
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
                 idField, valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
-                renderer, onNodeClick
+                renderer, onNodeClick, isNodeCollapsed
             } = this.props,
             {data, value, isNodeToggling} = this.state;
 
@@ -311,6 +311,7 @@ class DraggableTree extends Component {
                                        checkboxCheckedIconCls={checkboxCheckedIconCls}
                                        checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
                                        isNodeToggling={isNodeToggling}
+                                       isNodeCollapsed={isNodeCollapsed}
                                        onClick={(...args) => onNodeClick && onNodeClick(...args)}
                                        onNodeToggleStart={this.handleNodeToggleStart}
                                        onNodeToggleEnd={this.handleNodeToggleEnd}
@@ -507,11 +508,10 @@ DraggableTree.propTypes = {
      */
     onWheel: PropTypes.func,
 
+    isNodeCollapsed: PropTypes.func,
     beforeNodeToggle: PropTypes.func,
-
     onNodeDragStart: PropTypes.func,
     onNodeDragEnd: PropTypes.func,
-
     onSequenceChange: PropTypes.func
 
 };
