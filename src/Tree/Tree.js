@@ -167,7 +167,7 @@ class Tree extends Component {
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
                 valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
-                isSelectRecursive, renderer, onNodeClick
+                isSelectRecursive, renderer, onNodeClick, isNodeCollapsed
             } = this.props,
             {value, isNodeToggling} = this.state;
 
@@ -206,7 +206,8 @@ class Tree extends Component {
                           onNodeToggleStart={this.handleNodeToggleStart}
                           onNodeToggleEnd={this.handleNodeToggleEnd}
                           onSelect={this.handleTreeNodeSelect}
-                          onDeselect={this.handleTreeNodeDeselect}/>
+                          onDeselect={this.handleTreeNodeDeselect}
+                          isNodeCollapsed={isNodeCollapsed}/>
 
                 {children}
 
@@ -384,6 +385,7 @@ Tree.propTypes = {
      */
     onChange: PropTypes.func,
 
+    isNodeCollapsed: PropTypes.func,
     beforeNodeToggle: PropTypes.func
 
 };
