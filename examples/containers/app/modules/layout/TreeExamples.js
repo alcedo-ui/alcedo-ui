@@ -155,6 +155,7 @@ class TreeExamples extends Component {
                                           checkboxUncheckedIconCls="far fa-circle"
                                           checkboxCheckedIconCls="fas fa-check-circle"
                                           checkboxIndeterminateIconCls="fas fa-minus-circle"
+                                          isNodeCollapsed={node => node.id === '01'}
                                           onNodeSelect={this.nodeSelectHandler}
                                           onChange={this.changeHandler}/>
                                 </Paper>
@@ -171,6 +172,6 @@ class TreeExamples extends Component {
             </div>
         );
     }
-};
+}
 
 export default TreeExamples;
