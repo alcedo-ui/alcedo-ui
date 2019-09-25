@@ -349,6 +349,7 @@ MaterialTreeSelect.propTypes = {
      */
     onChange: PropTypes.func,
 
+    isNodeCollapsed: PropTypes.func,
     onWheel: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
