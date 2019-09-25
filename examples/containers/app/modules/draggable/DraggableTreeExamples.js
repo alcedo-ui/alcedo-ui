@@ -93,6 +93,7 @@ class DraggableTreeExamples extends Component {
 
                                 <Paper className="tree-wrapper">
                                     <DraggableTree data={this.data}
+                                                   isNodeCollapsed={node => node.id === '01'}
                                                    onChange={this.changeHandler}
                                                    onSequenceChange={this.sequenceChangeHandler}/>
                                 </Paper>
