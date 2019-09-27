@@ -332,7 +332,7 @@ MaterialTreeSelect.propTypes = {
 
     renderer: PropTypes.func,
 
-    triggerRenderer: PropTypes.func,
+    triggerRenderer: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
 
     /**
      * Callback function fired when the button is touch-tapped.
