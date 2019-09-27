@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 
 import DateRangePicker from 'src/DateRangePicker';
 import Widget from 'src/Widget';
@@ -14,7 +14,9 @@ import 'scss/containers/app/modules/date/DateInDialog.scss';
 class DateRangePickerExamples extends Component {
 
     constructor(props) {
+
         super(props);
+
         this.state = {
             DateRangePickerVisible: {}
         };
@@ -59,7 +61,8 @@ class DateRangePickerExamples extends Component {
                 <h2 className="example-title">Date Range Picker</h2>
 
                 <p>
-                    <span>Date Range Picker</span> is used to select a date range.
+                    <span>Date Range Picker</span>
+                    is used to select a date range.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -94,10 +97,11 @@ class DateRangePickerExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p><code>Date Range Picker</code> using the <code>value</code> property to set initial
-                                    date and the <code>dateFormat</code> property to set date format.</p>
+                                                                  date and the <code>dateFormat</code> property to set
+                                                                  date format.</p>
 
                                 <DateRangePicker value={['2015-07-01', '2017-04-21']}
-                                                 dateFormat={'YYYY-MM-DD'}
+                                                 dateFormat="YYYY-MM-DD"
                                                  onChange={this.onChangeHandler}/>
 
                             </div>
@@ -117,12 +121,12 @@ class DateRangePickerExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p><code>Date Range Picker</code> using the <code>maxValue</code> property
-                                    and <code>minValue</code>
-                                    property to set date selectable range.</p>
+                                                                  and <code>minValue</code>
+                                                                  property to set date selectable range.</p>
 
-                                <DateRangePicker dateFormat={'YYYY-MM-DD'}
-                                                 maxValue={'2018-12-21'}
-                                                 minValue={'2017-02-01'}
+                                <DateRangePicker dateFormat="YYYY-MM-DD"
+                                                 maxValue="2018-12-21"
+                                                 minValue="2017-02-01"
                                                  onChange={this.onChangeHandler}/>
                             </div>
 
@@ -141,12 +145,12 @@ class DateRangePickerExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p><code>Date Range Picker</code> using the <code>placeholder</code> property to set
-                                    default value.</p>
+                                                                  default value.</p>
 
-                                <DateRangePicker dateFormat={'YYYY-MM-DD'}
+                                <DateRangePicker dateFormat="YYYY-MM-DD"
                                                  popupVisible={true}
-                                                 maxValue={'2018-12-21'}
-                                                 minValue={'2017-02-01'}
+                                                 maxValue="2018-12-21"
+                                                 minValue="2017-02-01"
                                                  onChange={this.onChangeHandler}/>
                             </div>
 
@@ -165,7 +169,7 @@ class DateRangePickerExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p><code>Date Range Picker</code> using the <code>placeholder</code> property to set
-                                    default value.</p>
+                                                                  default value.</p>
 
                                 <RaisedButton className="trigger-button dialog-button"
                                               value="Show Dialog"
@@ -177,11 +181,11 @@ class DateRangePickerExamples extends Component {
                                         dialogContentEl =>
                                             <div className="popover-dialog-content-scroller">
                                                 <div className="field-group">
-                                                    <DateRangePicker dateFormat={'YYYY-MM-DD'}
+                                                    <DateRangePicker dateFormat="YYYY-MM-DD"
                                                                      popupVisible={true}
                                                                      parentEl={dialogContentEl}
-                                                                     maxValue={'2018-12-21'}
-                                                                     minValue={'2017-02-01'}
+                                                                     maxValue="2018-12-21"
+                                                                     minValue="2017-02-01"
                                                                      onChange={this.onChangeHandler}/>
                                                 </div>
                                             </div>
@@ -202,6 +206,6 @@ class DateRangePickerExamples extends Component {
             </div>
         );
     }
-};
+}
 
 export default DateRangePickerExamples;
