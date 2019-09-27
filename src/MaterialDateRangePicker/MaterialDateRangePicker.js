@@ -352,21 +352,24 @@ class MaterialDateRangePicker extends Component {
             } = this.props,
             {popupVisible, left, right, startTime, endTime, hoverTime, isAbove} = this.state;
 
-        let textFieldValue = left.text && right.text ? left.text + '~ ' + right.text : '';
-
-        let maxYear = right.year;
-        let maxMonth = right.month;
+        let textFieldValue = left.text && right.text ? left.text + '~ ' + right.text : '', maxYear = right.year,
+            maxMonth = right.month;
         maxYear = maxMonth == 1 ? +maxYear - 1 : maxYear;
         maxMonth = maxMonth == 1 ? 11 : +maxMonth - 2;
 
-        let maxDay = Util.MonthDays(maxYear)[maxMonth];
-        let leftMaxValue = moment([maxYear, maxMonth, maxDay]).format('YYYY-MM-DD');
-        let minYear = left.year;
-        let minMonth = left.month;
+        let maxDay = Util.MonthDays(maxYear)[maxMonth],
+            leftMaxValue = maxValue && moment([maxYear, maxMonth, maxDay]).isAfter(maxValue) ?
+                maxValue
+                :
+                moment([maxYear, maxMonth, maxDay]).format('YYYY-MM-DD'),
+            minYear = left.year, minMonth = left.month;
         minYear = minMonth == 12 ? +minYear + 1 : minYear;
         minMonth = minMonth == 12 ? 1 : +minMonth + 1;
 
-        let rightMinValue = moment([minYear, minMonth - 1, 1]).format('YYYY-MM-DD');
+        let rightMinValue = minValue && moment([minYear, minMonth - 1, 1]).isBefore(minValue) ?
+            minValue
+            :
+            moment([minYear, minMonth - 1, 1]).format('YYYY-MM-DD');
 
         return (
             <div className={classNames('material-date-range-picker', {
