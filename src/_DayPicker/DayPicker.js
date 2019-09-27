@@ -266,7 +266,7 @@ class DayPicker extends Component {
                             liClassName.indexOf('item-gray') === -1 && selectDate(i + 1);
                         }}
                         onMouseOver={() => {
-                            this.hoverDateHandle((i + 1));
+                            liClassName.indexOf('item-gray') === -1 && this.hoverDateHandle((i + 1));
                         }}>
                         <a href="javascript:;">
                             {i + 1}
