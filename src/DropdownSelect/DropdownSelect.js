@@ -316,10 +316,11 @@ class DropdownSelect extends Component {
         const {
 
                 className, triggerClassName, popupClassName, style, name, popupTheme, data, triggerRenderer,
-                useDynamicRenderList, listHeight, itemHeight, scrollBuffer, renderer, selectMode, itemDisabled,
-                useFilter, filterIconCls, useSelectAll, selectAllText, valueField, displayField, descriptionField,
-                popupChildren, isHiddenInputFilter, noMatchedMsg, radioUncheckedIconCls, radioCheckedIconCls,
-                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls, isGrouped,
+                useDynamicRenderList, listHeight, itemHeight, scrollBuffer, renderer, listItemRenderer, selectMode,
+                itemDisabled, useFilter, filterIconCls, useSelectAll, selectAllText, valueField, displayField,
+                descriptionField, popupChildren, isHiddenInputFilter, noMatchedMsg, isGrouped,
+                radioUncheckedIconCls, radioCheckedIconCls,
+                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
                 // not passing down these props
                 value: v, clearHiddenInputFilterInterval, onOpenPopup, onClosePopup, onItemClick, onChange,
@@ -442,7 +443,7 @@ class DropdownSelect extends Component {
                                                descriptionField={descriptionField}
                                                itemHeight={itemHeight}
                                                itemDisabled={itemDisabled}
-                                               renderer={renderer}
+                                               renderer={listItemRenderer || renderer}
                                                radioUncheckedIconCls={radioUncheckedIconCls}
                                                radioCheckedIconCls={radioCheckedIconCls}
                                                checkboxUncheckedIconCls={checkboxUncheckedIconCls}
@@ -464,7 +465,7 @@ class DropdownSelect extends Component {
                                                            itemHeight={itemHeight}
                                                            scrollBuffer={scrollBuffer}
                                                            itemDisabled={itemDisabled}
-                                                           renderer={renderer}
+                                                           renderer={listItemRenderer || renderer}
                                                            radioUncheckedIconCls={radioUncheckedIconCls}
                                                            radioCheckedIconCls={radioCheckedIconCls}
                                                            checkboxUncheckedIconCls={checkboxUncheckedIconCls}
@@ -482,7 +483,7 @@ class DropdownSelect extends Component {
                                               displayField={displayField}
                                               descriptionField={descriptionField}
                                               itemDisabled={itemDisabled}
-                                              renderer={renderer}
+                                              renderer={listItemRenderer || renderer}
                                               radioUncheckedIconCls={radioUncheckedIconCls}
                                               radioCheckedIconCls={radioCheckedIconCls}
                                               checkboxUncheckedIconCls={checkboxUncheckedIconCls}
@@ -736,6 +737,7 @@ DropdownSelect.propTypes = {
     autoPopupWidth: PropTypes.bool,
 
     renderer: PropTypes.func,
+    listItemRenderer: PropTypes.func,
     filterCallback: PropTypes.func,
 
     /**
