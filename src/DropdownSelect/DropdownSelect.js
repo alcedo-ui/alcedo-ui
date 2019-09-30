@@ -4,7 +4,6 @@
  */
 
 import React, {Component, createRef} from 'react';
-import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -37,8 +36,8 @@ class DropdownSelect extends Component {
         this.hiddenFilter = createRef();
         this.dropdown = createRef();
         this.dropdownInstance = null;
+        this.actions = createRef();
         this.filter = createRef();
-        this.selectAll = createRef();
         this.scroller = createRef();
 
         this.state = {
@@ -100,15 +99,8 @@ class DropdownSelect extends Component {
             return result;
         }
 
-        if (this.filter && this.filter.current) {
-            const el = findDOMNode(this.filter.current);
-            if (el) {
-                result -= el.offsetHeight;
-            }
-        }
-
-        if (this.selectAll && this.selectAll.current && this.selectAll.current.offsetHeight) {
-            result -= this.selectAll.current.offsetHeight;
+        if (this.actions && this.actions.current && this.actions.current.offsetHeight) {
+            result -= this.actions.current.offsetHeight;
         }
 
         return result;
@@ -129,15 +121,8 @@ class DropdownSelect extends Component {
 
         let scrollerHeight = popEl.offsetHeight;
 
-        if (this.filter && this.filter.current) {
-            const el = findDOMNode(this.filter.current);
-            if (el && el.offsetHeight) {
-                scrollerHeight -= el.offsetHeight;
-            }
-        }
-
-        if (this.selectAll && this.selectAll.current && this.selectAll.current.offsetHeight) {
-            scrollerHeight -= this.selectAll.current.offsetHeight;
+        if (this.actions && this.actions.current && this.actions.current.offsetHeight) {
+            scrollerHeight -= this.actions.current.offsetHeight;
         }
 
         this.setState({
@@ -432,28 +417,34 @@ class DropdownSelect extends Component {
                           onClosePopup={this.handlePopupClose}>
 
                     {
-                        useFilter ?
-                            <TextField ref={this.filter}
-                                       className="dropdown-select-filter"
-                                       value={filter}
-                                       rightIconCls={filterIconCls}
-                                       onChange={this.handleFilterChange}/>
-                            :
-                            null
-                    }
-
-                    {
-                        isMultiSelect && useSelectAll ?
-                            <div ref={this.selectAll}
-                                 className="list-item dropdown-select-all-wrapper"
-                                 onClick={this.handleSelectAllClick}>
-                                <Checkbox className="list-item-select"
-                                          checked={data && value && value.length === data.length}
-                                          indeterminate={data && value && value.length > 0 && value.length < data.length}
-                                          uncheckedIconCls={checkboxUncheckedIconCls}
-                                          checkedIconCls={checkboxCheckedIconCls}
-                                          indeterminateIconCls={checkboxIndeterminateIconCls}/>
-                                {selectAllText}
+                        useFilter || (isMultiSelect && useSelectAll) ?
+                            <div ref={this.actions}
+                                 className="dropdown-select-popup-actions">
+                                {
+                                    useFilter ?
+                                        <TextField ref={this.filter}
+                                                   className="dropdown-select-filter"
+                                                   value={filter}
+                                                   rightIconCls={filterIconCls}
+                                                   onChange={this.handleFilterChange}/>
+                                        :
+                                        null
+                                }
+                                {
+                                    isMultiSelect && useSelectAll ?
+                                        <div className="list-item dropdown-select-all-wrapper"
+                                             onClick={this.handleSelectAllClick}>
+                                            <Checkbox className="list-item-select"
+                                                      checked={data && value && value.length === data.length}
+                                                      indeterminate={data && value && value.length > 0 && value.length < data.length}
+                                                      uncheckedIconCls={checkboxUncheckedIconCls}
+                                                      checkedIconCls={checkboxCheckedIconCls}
+                                                      indeterminateIconCls={checkboxIndeterminateIconCls}/>
+                                            {selectAllText}
+                                        </div>
+                                        :
+                                        null
+                                }
                             </div>
                             :
                             null

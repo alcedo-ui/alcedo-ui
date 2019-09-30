@@ -39,6 +39,9 @@
 .popup.dropdown-select-popup {
 
     .popup-content {
+        .dropdown-select-popup-actions {
+            @include float-fix;
+        }
 
         .dropdown-select-filter {
             border: none;
