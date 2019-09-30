@@ -22,6 +22,7 @@ import Util from '../_vendors/Util';
 import TreeCalculation from '../_vendors/TreeCalculation';
 import ComponentUtil from '../_vendors/ComponentUtil';
 import Dom from '../_vendors/Dom';
+import {findDOMNode} from 'react-dom';
 
 class TreeSelect extends Component {
 
@@ -161,8 +162,11 @@ class TreeSelect extends Component {
 
         let scrollerHeight = popEl.offsetHeight;
 
-        if (this.filter && this.filter.current && this.filter.current.offsetHeight) {
-            scrollerHeight -= this.filter.current.offsetHeight;
+        if (this.filter && this.filter.current) {
+            const el = findDOMNode(this.filter.current);
+            if (el && el.offsetHeight) {
+                scrollerHeight -= el.offsetHeight;
+            }
         }
 
         if (this.selectAll && this.selectAll.current && this.selectAll.current.offsetHeight) {
@@ -336,13 +340,12 @@ class TreeSelect extends Component {
 
                     {
                         useFilter ?
-                            <div ref={this.filter}>
-                                <TextField className="tree-select-filter"
-                                           value={filter}
-                                           placeholder={filterPlaceholder}
-                                           rightIconCls={filterIconCls}
-                                           onChange={this.handleFilterChange}/>
-                            </div>
+                            <TextField ref={this.filter}
+                                       className="tree-select-filter"
+                                       value={filter}
+                                       placeholder={filterPlaceholder}
+                                       rightIconCls={filterIconCls}
+                                       onChange={this.handleFilterChange}/>
                             :
                             null
                     }
