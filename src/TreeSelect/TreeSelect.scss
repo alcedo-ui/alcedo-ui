@@ -35,14 +35,9 @@
 .popup.tree-select-popup {
 
     .popup-content {
-
-        //.tree-select-popup-fixed {
-        //    position: absolute;
-        //    top: 0;
-        //    left: 0;
-        //    width: 100%;
-        //    background: $theme-field-bg;
-        //    z-index: 1;
+        .tree-select-popup-actions {
+            @include float-fix;
+        }
 
         .tree-select-filter {
             border: none;
@@ -64,8 +59,6 @@
                 display: inline-block;
             }
         }
-
-        //}
 
         .tree-select-list-scroller {
             overflow-y: auto;

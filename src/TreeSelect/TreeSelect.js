@@ -22,7 +22,6 @@ import Util from '../_vendors/Util';
 import TreeCalculation from '../_vendors/TreeCalculation';
 import ComponentUtil from '../_vendors/ComponentUtil';
 import Dom from '../_vendors/Dom';
-import {findDOMNode} from 'react-dom';
 
 class TreeSelect extends Component {
 
@@ -37,8 +36,8 @@ class TreeSelect extends Component {
 
         this.dropdown = createRef();
         this.dropdownInstance = null;
+        this.actions = createRef();
         this.filter = createRef();
-        this.selectAll = createRef();
         this.scroller = createRef();
 
         this.state = {
@@ -162,15 +161,8 @@ class TreeSelect extends Component {
 
         let scrollerHeight = popEl.offsetHeight;
 
-        if (this.filter && this.filter.current) {
-            const el = findDOMNode(this.filter.current);
-            if (el && el.offsetHeight) {
-                scrollerHeight -= el.offsetHeight;
-            }
-        }
-
-        if (this.selectAll && this.selectAll.current && this.selectAll.current.offsetHeight) {
-            scrollerHeight -= this.selectAll.current.offsetHeight;
+        if (this.actions && this.actions.current && this.actions.current.offsetHeight) {
+            scrollerHeight -= this.actions.current.offsetHeight;
         }
 
         this.setState({
@@ -339,32 +331,38 @@ class TreeSelect extends Component {
                           onClosePopup={this.handlePopupClosed}>
 
                     {
-                        useFilter ?
-                            <TextField ref={this.filter}
-                                       className="tree-select-filter"
-                                       value={filter}
-                                       placeholder={filterPlaceholder}
-                                       rightIconCls={filterIconCls}
-                                       onChange={this.handleFilterChange}/>
-                            :
-                            null
-                    }
-
-                    {
-                        isMultiSelect && useSelectAll ?
-                            <div ref={this.selectAll}
-                                 className="tree-node tree-select-all-wrapper"
-                                 style={{padding: `0 ${indentWidth}px`}}
-                                 onClick={this.handleSelectAllClick}>
-                                <div className="tree-node-inner">
-                                    <Checkbox className="tree-node-select"
-                                              checked={value && value.length === this.total}
-                                              indeterminate={value && value.length > 0 && value.length < this.total}
-                                              uncheckedIconCls={checkboxUncheckedIconCls}
-                                              checkedIconCls={checkboxCheckedIconCls}
-                                              indeterminateIconCls={checkboxIndeterminateIconCls}/>
-                                    {selectAllText}
-                                </div>
+                        useFilter || (isMultiSelect && useSelectAll) ?
+                            <div ref={this.actions}
+                                 className="tree-select-popup-actions">
+                                {
+                                    useFilter ?
+                                        <TextField ref={this.filter}
+                                                   className="tree-select-filter"
+                                                   value={filter}
+                                                   placeholder={filterPlaceholder}
+                                                   rightIconCls={filterIconCls}
+                                                   onChange={this.handleFilterChange}/>
+                                        :
+                                        null
+                                }
+                                {
+                                    isMultiSelect && useSelectAll ?
+                                        <div className="tree-node tree-select-all-wrapper"
+                                             style={{padding: `0 ${indentWidth}px`}}
+                                             onClick={this.handleSelectAllClick}>
+                                            <div className="tree-node-inner">
+                                                <Checkbox className="tree-node-select"
+                                                          checked={value && value.length === this.total}
+                                                          indeterminate={value && value.length > 0 && value.length < this.total}
+                                                          uncheckedIconCls={checkboxUncheckedIconCls}
+                                                          checkedIconCls={checkboxCheckedIconCls}
+                                                          indeterminateIconCls={checkboxIndeterminateIconCls}/>
+                                                {selectAllText}
+                                            </div>
+                                        </div>
+                                        :
+                                        null
+                                }
                             </div>
                             :
                             null
