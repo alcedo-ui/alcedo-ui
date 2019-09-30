@@ -36,40 +36,36 @@
 
     .popup-content {
 
-        .tree-select-popup-fixed {
-            position: absolute;
-            top: 0;
-            left: 0;
+        //.tree-select-popup-fixed {
+        //    position: absolute;
+        //    top: 0;
+        //    left: 0;
+        //    width: 100%;
+        //    background: $theme-field-bg;
+        //    z-index: 1;
+
+        .tree-select-filter {
+            border: none;
+            border-bottom: 1px solid $theme-border;
+            border-radius: 0;
             width: 100%;
-            background: $theme-field-bg;
-            z-index: 1;
-
-            .tree-select-filter {
-                border: none;
-                border-bottom: 1px solid $theme-border;
-                border-radius: 0;
-                width: 100%;
-                height: 40px;
-
-                .icon-button {
-                    margin: 0;
-                }
-            }
-
-            .tree-select-all-wrapper {
-                box-sizing: border-box;
-                border-bottom: 1px solid $theme-border;
-
-                .tree-node-content {
-                    display: inline-block;
-                }
-            }
-        }
-
-        .tree-select-filter-placeholder,
-        .tree-select-all-placeholder {
             height: 40px;
+
+            .icon-button {
+                margin: 0;
+            }
         }
+
+        .tree-select-all-wrapper {
+            box-sizing: border-box;
+            border-bottom: 1px solid $theme-border;
+
+            .tree-node-content {
+                display: inline-block;
+            }
+        }
+
+        //}
 
         .tree-select-list-scroller {
             overflow-y: auto;

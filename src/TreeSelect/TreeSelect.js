@@ -10,9 +10,10 @@ import classNames from 'classnames';
 
 import Dropdown from '../Dropdown';
 import Tree from '../Tree';
-import Theme from '../Theme';
 import TextField from '../TextField';
+import Checkbox from '../Checkbox';
 
+import Theme from '../Theme';
 import SelectMode from '../_statics/SelectMode';
 import VirtualRoot from '../_statics/VirtualRoot';
 import Position from '../_statics/Position';
@@ -20,7 +21,7 @@ import Position from '../_statics/Position';
 import Util from '../_vendors/Util';
 import TreeCalculation from '../_vendors/TreeCalculation';
 import ComponentUtil from '../_vendors/ComponentUtil';
-import Checkbox from '../Checkbox';
+import Dom from '../_vendors/Dom';
 
 class TreeSelect extends Component {
 
@@ -36,11 +37,14 @@ class TreeSelect extends Component {
         this.dropdown = createRef();
         this.dropdownInstance = null;
         this.filter = createRef();
+        this.selectAll = createRef();
+        this.scroller = createRef();
 
         this.state = {
             filter: '',
             value: props.value,
             popupVisible: false,
+            scrollerHeight: 'auto',
             path: props.selectMode === SelectMode.SINGLE_SELECT ?
                 TreeCalculation.calPath(props.value, props.data, props) : undefined
         };
@@ -143,6 +147,34 @@ class TreeSelect extends Component {
 
     };
 
+    updateScrollHeight = () => {
+
+        if (!this.scroller || !this.scroller.current) {
+            return;
+        }
+
+        const popEl = Dom.findParentByClassName(this.scroller.current, 'tree-select-popup');
+
+        if (!popEl) {
+            return;
+        }
+
+        let scrollerHeight = popEl.offsetHeight;
+
+        if (this.filter && this.filter.current && this.filter.current.offsetHeight) {
+            scrollerHeight -= this.filter.current.offsetHeight;
+        }
+
+        if (this.selectAll && this.selectAll.current && this.selectAll.current.offsetHeight) {
+            scrollerHeight -= this.selectAll.current.offsetHeight;
+        }
+
+        this.setState({
+            scrollerHeight
+        });
+
+    };
+
     handleNodeSelect = (value, path) => {
 
         if (this.props.selectMode !== SelectMode.SINGLE_SELECT) {
@@ -179,6 +211,7 @@ class TreeSelect extends Component {
             this.filter && this.filter.current && this.filter.current.focus();
         }
 
+        this.updateScrollHeight();
         onOpenPopup && onOpenPopup(e);
 
     };
@@ -265,7 +298,7 @@ class TreeSelect extends Component {
                 ...restProps
 
             } = this.props,
-            {value, filter, popupVisible} = this.state,
+            {value, filter, popupVisible, scrollerHeight} = this.state,
 
             isMultiSelect = selectMode === SelectMode.MULTI_SELECT;
 
@@ -301,57 +334,42 @@ class TreeSelect extends Component {
                           onOpenPopup={this.handlePopupOpen}
                           onClosePopup={this.handlePopupClosed}>
 
-                    <div className="tree-select-popup-fixed">
-
-                        {
-                            useFilter ?
-                                <TextField ref={this.filter}
-                                           className="tree-select-filter"
+                    {
+                        useFilter ?
+                            <div ref={this.filter}>
+                                <TextField className="tree-select-filter"
                                            value={filter}
                                            placeholder={filterPlaceholder}
                                            rightIconCls={filterIconCls}
                                            onChange={this.handleFilterChange}/>
-                                :
-                                null
-                        }
+                            </div>
+                            :
+                            null
+                    }
 
-                        {
-                            isMultiSelect && useSelectAll ?
-                                <div className="tree-node tree-select-all-wrapper"
-                                     style={{padding: `0 ${indentWidth}px`}}
-                                     onClick={this.handleSelectAllClick}>
-                                    <div className="tree-node-inner">
-                                        <Checkbox className="tree-node-select"
-                                                  checked={value && value.length === this.total}
-                                                  indeterminate={value && value.length > 0 && value.length < this.total}
-                                                  uncheckedIconCls={checkboxUncheckedIconCls}
-                                                  checkedIconCls={checkboxCheckedIconCls}
-                                                  indeterminateIconCls={checkboxIndeterminateIconCls}/>
-                                        {selectAllText}
-                                    </div>
+                    {
+                        isMultiSelect && useSelectAll ?
+                            <div ref={this.selectAll}
+                                 className="tree-node tree-select-all-wrapper"
+                                 style={{padding: `0 ${indentWidth}px`}}
+                                 onClick={this.handleSelectAllClick}>
+                                <div className="tree-node-inner">
+                                    <Checkbox className="tree-node-select"
+                                              checked={value && value.length === this.total}
+                                              indeterminate={value && value.length > 0 && value.length < this.total}
+                                              uncheckedIconCls={checkboxUncheckedIconCls}
+                                              checkedIconCls={checkboxCheckedIconCls}
+                                              indeterminateIconCls={checkboxIndeterminateIconCls}/>
+                                    {selectAllText}
                                 </div>
-                                :
-                                null
-                        }
+                            </div>
+                            :
+                            null
+                    }
 
-                    </div>
-
-                    <div className="tree-select-list-scroller">
-
-                        {
-                            useFilter ?
-                                <div className="tree-select-filter-placeholder"></div>
-                                :
-                                null
-                        }
-
-                        {
-                            isMultiSelect && useSelectAll ?
-                                <div className="tree-select-all-placeholder"></div>
-                                :
-                                null
-                        }
-
+                    <div ref={this.scroller}
+                         className="tree-select-list-scroller"
+                         style={{height: scrollerHeight}}>
                         {
                             this.isEmpty() ?
                                 <div className="no-matched">
@@ -392,7 +410,6 @@ class TreeSelect extends Component {
                                       onNodeSelect={this.handleNodeSelect}
                                       onChange={this.handleChange}/>
                         }
-
                     </div>
 
                     {popupChildren}
