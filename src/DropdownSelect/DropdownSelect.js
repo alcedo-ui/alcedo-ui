@@ -19,6 +19,7 @@ import SelectMode from '../_statics/SelectMode';
 import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
+import Dom from '../_vendors/Dom';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
 class DropdownSelect extends Component {
@@ -37,13 +38,13 @@ class DropdownSelect extends Component {
         this.dropdownInstance = null;
         this.filter = createRef();
         this.selectAll = createRef();
-        this.dropdownSelectListScroller = createRef();
-        this.dropdownSelectListScrollerEl = null;
+        this.scroller = createRef();
 
         this.state = {
             value: props.value,
             filter: '',
-            popupVisible: false
+            popupVisible: false,
+            scrollerHeight: 'auto'
         };
 
     }
@@ -107,6 +108,34 @@ class DropdownSelect extends Component {
         }
 
         return result;
+
+    };
+
+    updateScrollHeight = () => {
+
+        if (!this.scroller || !this.scroller.current) {
+            return;
+        }
+
+        const popEl = Dom.findParentByClassName(this.scroller.current, 'dropdown-select-popup');
+
+        if (!popEl) {
+            return;
+        }
+
+        let scrollerHeight = popEl.offsetHeight;
+
+        if (this.filter && this.filter.current && this.filter.current.offsetHeight) {
+            scrollerHeight -= this.filter.current.offsetHeight;
+        }
+
+        if (this.selectAll && this.selectAll.current && this.selectAll.current.offsetHeight) {
+            scrollerHeight -= this.selectAll.current.offsetHeight;
+        }
+
+        this.setState({
+            scrollerHeight
+        });
 
     };
 
@@ -224,6 +253,7 @@ class DropdownSelect extends Component {
         this.setState({
             popupVisible: true
         }, () => {
+            this.updateScrollHeight();
             const {onOpenPopup} = this.props;
             onOpenPopup && onOpenPopup(e);
         });
@@ -264,8 +294,8 @@ class DropdownSelect extends Component {
                 item.toUpperCase().startsWith(target.value.toUpperCase())
         );
 
-        this.dropdownSelectListScrollerEl
-        && this.scrollTo(this.dropdownSelectListScrollerEl, (index) * 40, 200);
+        this.scroller && this.scroller.current
+        && this.scrollTo(this.scroller.current, (index) * 40, 200);
 
     };
 
@@ -321,7 +351,6 @@ class DropdownSelect extends Component {
 
     componentDidMount() {
         this.dropdownInstance = this.dropdown && this.dropdown.current;
-        this.dropdownSelectListScrollerEl = this.dropdownSelectListScroller && this.dropdownSelectListScroller.current;
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -349,7 +378,7 @@ class DropdownSelect extends Component {
                 ...restProps
 
             } = this.props,
-            {value, filter, popupVisible} = this.state,
+            {value, filter, popupVisible, scrollerHeight} = this.state,
 
             isMultiSelect = selectMode === SelectMode.MULTI_SELECT,
             listData = this.filterData();
@@ -421,9 +450,9 @@ class DropdownSelect extends Component {
                             null
                     }
 
-                    <div ref={this.dropdownSelectListScroller}
-                         className="dropdown-select-list-scroller">
-
+                    <div ref={this.scroller}
+                         className="dropdown-select-list-scroller"
+                         style={{height: scrollerHeight}}>
                         {
                             !listData || listData.length < 1 ?
                                 <div className="no-matched">
@@ -497,7 +526,6 @@ class DropdownSelect extends Component {
                                               onItemClick={this.handleItemClick}
                                               onChange={this.handleChange}/>
                         }
-
                     </div>
 
                     {popupChildren}
