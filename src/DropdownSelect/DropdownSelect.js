@@ -4,6 +4,7 @@
  */
 
 import React, {Component, createRef} from 'react';
+import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -99,8 +100,11 @@ class DropdownSelect extends Component {
             return result;
         }
 
-        if (this.filter && this.filter.current && this.filter.current.offsetHeight) {
-            result -= this.filter.current.offsetHeight;
+        if (this.filter && this.filter.current) {
+            const el = findDOMNode(this.filter.current);
+            if (el) {
+                result -= el.offsetHeight;
+            }
         }
 
         if (this.selectAll && this.selectAll.current && this.selectAll.current.offsetHeight) {
@@ -125,8 +129,11 @@ class DropdownSelect extends Component {
 
         let scrollerHeight = popEl.offsetHeight;
 
-        if (this.filter && this.filter.current && this.filter.current.offsetHeight) {
-            scrollerHeight -= this.filter.current.offsetHeight;
+        if (this.filter && this.filter.current) {
+            const el = findDOMNode(this.filter.current);
+            if (el && el.offsetHeight) {
+                scrollerHeight -= el.offsetHeight;
+            }
         }
 
         if (this.selectAll && this.selectAll.current && this.selectAll.current.offsetHeight) {
@@ -253,9 +260,12 @@ class DropdownSelect extends Component {
         this.setState({
             popupVisible: true
         }, () => {
-            this.updateScrollHeight();
+
             const {onOpenPopup} = this.props;
             onOpenPopup && onOpenPopup(e);
+
+            this.updateScrollHeight();
+
         });
 
     };
@@ -423,12 +433,11 @@ class DropdownSelect extends Component {
 
                     {
                         useFilter ?
-                            <div ref={this.filter}>
-                                <TextField className="dropdown-select-filter"
-                                           value={filter}
-                                           rightIconCls={filterIconCls}
-                                           onChange={this.handleFilterChange}/>
-                            </div>
+                            <TextField ref={this.filter}
+                                       className="dropdown-select-filter"
+                                       value={filter}
+                                       rightIconCls={filterIconCls}
+                                       onChange={this.handleFilterChange}/>
                             :
                             null
                     }
