@@ -56,7 +56,13 @@ class Th extends Component {
 
         if (sorting && sorting.prop === sortingProp) {
             result.prop = sorting.prop;
-            result.type = -sorting.type;
+            if (!sorting.type) {
+                result.type = defaultSortingType;
+            } else if (sorting.type === defaultSortingType) {
+                result.type = -defaultSortingType;
+            } else {
+                result.type = SortingType.DEFAULT;
+            }
         } else {
             result.prop = sortingProp;
             result.type = defaultSortingType;
