@@ -151,7 +151,7 @@ class TreeNode extends Component {
 
                 index, depth, theme, selectTheme, selectMode, value,
                 disabled, isLoading, readOnly, allowCollapse, isSelectRecursive, indentWidth,
-                valueField, displayField, descriptionField, filter,
+                valueField, displayField, descriptionField,
 
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
@@ -167,12 +167,9 @@ class TreeNode extends Component {
             isNodeLoading = data.isLoading || isLoading,
             isNodeDisabled = data.disabled || disabled || isNodeLoading,
 
-            isNodeMatched = !filter || (data && displayField in data
-                && data[displayField].toString().toUpperCase().includes(filter.toUpperCase())),
-
             loadingIconPosition = (data.rightIconCls && !data.iconCls) ? 'right' : 'left';
 
-        return isNodeMatched ?
+        return (
             <Fragment>
 
                 <div className={classNames('tree-node', {
@@ -284,8 +281,7 @@ class TreeNode extends Component {
                 {this.renderChildren()}
 
             </Fragment>
-            :
-            null;
+        );
 
     }
 }
@@ -303,7 +299,6 @@ TreeNode.propTypes = {
 
     data: PropTypes.object,
     value: PropTypes.any,
-    filter: PropTypes.string,
 
     valueField: PropTypes.string,
     displayField: PropTypes.string,
