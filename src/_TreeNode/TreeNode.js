@@ -95,10 +95,8 @@ class TreeNode extends Component {
             return;
         }
 
-        const {onClick} = this.props;
+        const {selectMode, onClick} = this.props;
         onClick && onClick(data, path, e);
-
-        const {selectMode} = this.props;
 
         switch (selectMode) {
             case SelectMode.MULTI_SELECT:
@@ -117,10 +115,8 @@ class TreeNode extends Component {
             {collapsed} = this.state,
             isVirtual = VirtualRoot in data;
 
-        return data.children && data.children.length > 0 ?
-            <div className={classNames('tree-node-children', {
-                collapsed
-            })}>
+        return !collapsed && data.children && data.children.length > 0 ?
+            <Fragment>
                 {
                     data.children.map((item, index) =>
                         <TreeNode {...this.props}
@@ -136,7 +132,7 @@ class TreeNode extends Component {
                                   }/>
                     )
                 }
-            </div>
+            </Fragment>
             :
             null;
 
