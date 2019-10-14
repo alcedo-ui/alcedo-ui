@@ -19,7 +19,7 @@ import VirtualRoot from '../_statics/VirtualRoot';
 import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
-import TreeCalculation from '../_vendors/TreeCalculation';
+import TC from '../_vendors/TreeCalculation';
 import ComponentUtil from '../_vendors/ComponentUtil';
 import Dom from '../_vendors/Dom';
 
@@ -46,7 +46,7 @@ class TreeSelect extends Component {
             popupVisible: false,
             scrollerHeight: 'auto',
             path: props.selectMode === SelectMode.SINGLE_SELECT ?
-                TreeCalculation.calPath(props.value, props.data, props) : undefined
+                TC.calPath(props.value, props.data, props) : undefined
         };
 
     }
@@ -240,8 +240,8 @@ class TreeSelect extends Component {
         }
 
         let result = [];
-        TreeCalculation.addRecursiveValue(isArray(data) ? {children: data} : data, result, this.props);
-        this.handleChange(TreeCalculation.updateValue(result, this.props));
+        TC.addRecursiveValue(isArray(data) ? {children: data} : data, result, this.props);
+        this.handleChange(TC.updateValue(result, this.props));
 
     };
 
@@ -298,7 +298,8 @@ class TreeSelect extends Component {
 
             isMultiSelect = selectMode === SelectMode.MULTI_SELECT;
 
-        this.total = TreeCalculation.getTotalCount(data);
+        this.data = TC.filterData(data, filter, this.props);
+        this.total = TC.getTotalCount(this.data);
 
         return (
             <div className={classNames('tree-select', {
@@ -388,7 +389,7 @@ class TreeSelect extends Component {
                                 <Tree className="tree-select-list"
                                       theme={popupTheme}
                                       selectMode={selectMode}
-                                      data={data}
+                                      data={this.data}
                                       filter={filter}
                                       value={value}
                                       valueField={valueField}
