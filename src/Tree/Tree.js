@@ -171,8 +171,6 @@ class Tree extends Component {
             } = this.props,
             {value, isNodeToggling} = this.state;
 
-        console.log('data::', data);
-
         return (
             <div className={classNames('tree', {
                 [className]: className
