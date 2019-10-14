@@ -189,11 +189,70 @@ function getTotalCount(data) {
 
 }
 
+function isNodeMatched(node, filter, props) {
+
+    if (node[VirtualRoot]) {
+        return true;
+    }
+
+    const value = Util.getTextByDisplayField(node,
+        props && props.displayField || undefined,
+        props && props.valueField || undefined);
+    return value.toString().toUpperCase().includes(filter.toUpperCase());
+
+}
+
+function filterNode(node, filter, props) {
+
+    if (!node || !filter) {
+        return node;
+    }
+
+    const result = {...node};
+    let hasChildMatched = false;
+
+    if (node.children && node.children.length > 0) {
+        result.children = [];
+        for (let child of node.children) {
+            const filteredChild = filterNode(child, filter, props);
+            if (filteredChild) {
+                result.children.push(filteredChild);
+            }
+        }
+        if (result.children && result.children.length > 0) {
+            hasChildMatched = true;
+        }
+    }
+
+    return hasChildMatched || isNodeMatched(node, filter, props) ?
+        result
+        :
+        null;
+
+}
+
+function filterData(data, filter, props) {
+
+    if (!filter || !data || data.length < 1) {
+        return data;
+    }
+
+    const isArrayData = isArray(data),
+        result = filterNode(isArrayData ? {[VirtualRoot]: true, children: data} : data, filter, props);
+
+    return isArrayData ?
+        result.children
+        :
+        result;
+
+}
+
 export default {
     calDepth,
     calPath,
     findNodeById,
     addRecursiveValue,
     updateValue,
-    getTotalCount
+    getTotalCount,
+    filterData
 };
