@@ -163,13 +163,15 @@ class Tree extends Component {
     render() {
 
         const {
-                children, className, style, theme, data, filter, allowCollapse, collapsed, indentWidth,
+                children, className, style, theme, data, allowCollapse, collapsed, indentWidth,
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
                 valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
                 isSelectRecursive, renderer, onNodeClick, isNodeCollapsed
             } = this.props,
             {value, isNodeToggling} = this.state;
+
+        console.log('data::', data);
 
         return (
             <div className={classNames('tree', {
@@ -184,7 +186,6 @@ class Tree extends Component {
                           valueField={valueField}
                           displayField={displayField}
                           descriptionField={descriptionField}
-                          filter={filter}
                           disabled={disabled}
                           isLoading={isLoading}
                           readOnly={readOnly}
@@ -333,8 +334,6 @@ Tree.propTypes = {
      * The description field name in data. (default: "desc")
      */
     descriptionField: PropTypes.string,
-
-    filter: PropTypes.string,
 
     /**
      * If true, the tree will be disabled.
