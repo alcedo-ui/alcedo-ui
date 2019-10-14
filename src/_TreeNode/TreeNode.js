@@ -176,132 +176,120 @@ class TreeNode extends Component {
 
             loadingIconPosition = (data.rightIconCls && !data.iconCls) ? 'right' : 'left';
 
-        return (
+        return isNodeMatched ?
             <Fragment>
 
-                {
-                    isNodeMatched ?
-                        <div className={classNames('tree-node', {
-                            [`theme-${theme}`]: theme,
-                            [data.className]: data.className
-                        })}
-                             style={{
-                                 ...data.style,
-                                 paddingLeft: (depth + 1) * indentWidth
-                             }}
-                             title={data.title}
-                             disabled={isNodeDisabled}
-                             readOnly={readOnly}
-                             onClick={this.handleClick}
-                             onMouseEnter={onMouseEnter}
-                             onMouseLeave={onMouseLeave}>
+                <div className={classNames('tree-node', {
+                    [`theme-${theme}`]: theme,
+                    [data.className]: data.className
+                })}
+                     style={{
+                         ...data.style,
+                         paddingLeft: (depth + 1) * indentWidth
+                     }}
+                     title={data.title}
+                     disabled={isNodeDisabled}
+                     readOnly={readOnly}
+                     onClick={this.handleClick}
+                     onMouseEnter={onMouseEnter}
+                     onMouseLeave={onMouseLeave}>
 
-                            <div className="tree-node-inner">
+                    <div className="tree-node-inner">
 
-                                {
-                                    allowCollapse && data.children && data.children.length > 0 ?
-                                        <IconButton className="tree-node-collapse-icon"
-                                                    iconCls={collapsed ?
-                                                        data.collapsedIconCls || collapsedIconCls
-                                                        :
-                                                        data.expandedIconCls || expandedIconCls}
-                                                    onClick={this.toggleTreeNode}/>
-                                        :
-                                        null
-                                }
+                        {
+                            allowCollapse && data.children && data.children.length > 0 ?
+                                <IconButton className="tree-node-collapse-icon"
+                                            iconCls={collapsed ?
+                                                data.collapsedIconCls || collapsedIconCls
+                                                :
+                                                data.expandedIconCls || expandedIconCls}
+                                            onClick={this.toggleTreeNode}/>
+                                :
+                                null
+                        }
 
-                                {
-                                    selectMode === SelectMode.SINGLE_SELECT && (radioUncheckedIconCls || radioCheckedIconCls) ?
-                                        <Radio className="tree-node-select"
-                                               theme={selectTheme}
-                                               checked={checked}
-                                               disabled={isNodeDisabled}
-                                               uncheckedIconCls={data.radioUncheckedIconCls || radioUncheckedIconCls}
-                                               checkedIconCls={data.radioCheckedIconCls || radioCheckedIconCls}
-                                               disableTouchRipple={true}/>
-                                        :
-                                        null
-                                }
+                        {
+                            selectMode === SelectMode.SINGLE_SELECT && (radioUncheckedIconCls || radioCheckedIconCls) ?
+                                <Radio className="tree-node-select"
+                                       theme={selectTheme}
+                                       checked={checked}
+                                       disabled={isNodeDisabled}
+                                       uncheckedIconCls={data.radioUncheckedIconCls || radioUncheckedIconCls}
+                                       checkedIconCls={data.radioCheckedIconCls || radioCheckedIconCls}
+                                       disableTouchRipple={true}/>
+                                :
+                                null
+                        }
 
-                                {
-                                    selectMode === SelectMode.MULTI_SELECT ?
-                                        <Checkbox className="tree-node-select"
-                                                  theme={selectTheme}
-                                                  checked={checked}
-                                                  indeterminate={isSelectRecursive ? indeterminate : false}
-                                                  disabled={isNodeDisabled}
-                                                  uncheckedIconCls={data.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
-                                                  checkedIconCls={data.checkboxCheckedIconCls || checkboxCheckedIconCls}
-                                                  indeterminateIconCls={data.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
-                                                  disableTouchRipple={true}/>
-                                        :
-                                        null
-                                }
+                        {
+                            selectMode === SelectMode.MULTI_SELECT ?
+                                <Checkbox className="tree-node-select"
+                                          theme={selectTheme}
+                                          checked={checked}
+                                          indeterminate={isSelectRecursive ? indeterminate : false}
+                                          disabled={isNodeDisabled}
+                                          uncheckedIconCls={data.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
+                                          checkedIconCls={data.checkboxCheckedIconCls || checkboxCheckedIconCls}
+                                          indeterminateIconCls={data.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
+                                          disableTouchRipple={true}/>
+                                :
+                                null
+                        }
 
-                                {
-                                    isNodeLoading && loadingIconPosition === 'left' ?
-                                        <div className="button-icon button-icon-left">
-                                            <CircularLoading className="button-loading-icon"
-                                                             size="small"/>
+                        {
+                            isNodeLoading && loadingIconPosition === 'left' ?
+                                <div className="button-icon button-icon-left">
+                                    <CircularLoading className="button-loading-icon"
+                                                     size="small"/>
+                                </div>
+                                :
+                                data.iconCls ?
+                                    <i className={`button-icon button-icon-left ${data.iconCls}`}
+                                       aria-hidden="true"></i>
+                                    :
+                                    null
+                        }
+
+                        {
+                            data.itemRenderer && typeof data.itemRenderer === 'function' ?
+                                data.itemRenderer(data, index)
+                                :
+                                renderer && typeof renderer === 'function' ?
+                                    renderer(data, index)
+                                    :
+                                    data[descriptionField] ?
+                                        <div className="tree-node-content">
+                                            <span className="tree-node-content-value">
+                                                {Util.getTextByDisplayField(data, displayField, valueField)}
+                                            </span>
+                                            <span className="tree-node-content-desc">
+                                                {data[descriptionField]}
+                                            </span>
                                         </div>
                                         :
-                                        (
-                                            data.iconCls ?
-                                                <i className={`button-icon button-icon-left ${data.iconCls}`}
-                                                   aria-hidden="true"></i>
-                                                :
-                                                null
-                                        )
-                                }
+                                        Util.getTextByDisplayField(data, displayField, valueField)
+                        }
 
-                                {
-                                    data.itemRenderer && typeof data.itemRenderer === 'function' ?
-                                        data.itemRenderer(data, index)
-                                        :
-                                        (
-                                            renderer && typeof renderer === 'function' ?
-                                                renderer(data, index)
-                                                :
-                                                (
-                                                    data[descriptionField] ?
-                                                        <div className="tree-node-content">
-                                                            <span className="tree-node-content-value">
-                                                                {Util.getTextByDisplayField(data, displayField, valueField)}
-                                                            </span>
-                                                            <span className="tree-node-content-desc">
-                                                                {data[descriptionField]}
-                                                            </span>
-                                                        </div>
-                                                        :
-                                                        Util.getTextByDisplayField(data, displayField, valueField)
-                                                )
-                                        )
-                                }
+                        {
+                            isNodeLoading && loadingIconPosition === 'right' ?
+                                <CircularLoading className="button-icon button-icon-right button-loading-icon"
+                                                 size="small"/>
+                                :
+                                data.rightIconCls ?
+                                    <i className={`button-icon button-icon-right ${data.rightIconCls}`}
+                                       aria-hidden="true"></i>
+                                    :
+                                    null
+                        }
+                    </div>
 
-                                {
-                                    isNodeLoading && loadingIconPosition === 'right' ?
-                                        <CircularLoading className="button-icon button-icon-right button-loading-icon"
-                                                         size="small"/>
-                                        :
-                                        (
-                                            data.rightIconCls ?
-                                                <i className={`button-icon button-icon-right ${data.rightIconCls}`}
-                                                   aria-hidden="true"></i>
-                                                :
-                                                null
-                                        )
-                                }
-                            </div>
-
-                        </div>
-                        :
-                        null
-                }
+                </div>
 
                 {this.renderChildren()}
 
             </Fragment>
-        );
+            :
+            null;
 
     }
 }
