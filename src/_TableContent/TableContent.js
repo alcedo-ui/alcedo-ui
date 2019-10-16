@@ -254,7 +254,7 @@ class TableContent extends Component {
                               theme={selectTheme}
                               checked={TC.isNodeChecked(rowData, value, idProp)}
                               disabled={disabled || rowData.disabled}
-                              indeterminate={TC.isNodeIndeterminate(rowData, value, idProp)}
+                              indeterminate={TC.isItemIndeterminate(rowData, value, idProp)}
                               uncheckedIconCls={selectUncheckedIconCls}
                               checkedIconCls={selectCheckedIconCls}
                               indeterminateIconCls={selectIndeterminateIconCls}
