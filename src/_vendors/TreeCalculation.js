@@ -247,6 +247,52 @@ function filterData(data, filter, props) {
 
 }
 
+function isCheckedAll(data, value, props) {
+
+    if (!data || !value || value.length < 1) {
+        return false;
+    }
+
+    const args = [props && props.valueField, props && props.displayField];
+    let result = true;
+    Util.preOrderTraverse(isArray(data) ? {[VirtualRoot]: true, children: data} : data, node => {
+        if (!(VirtualRoot in node)) {
+            for (let item of value) {
+                if (Util.getValueByValueField(node, ...args) !== Util.getValueByValueField(node, ...args)) {
+                    result = false;
+                    return false;
+                }
+            }
+        }
+    });
+
+    return result;
+
+}
+
+function isCheckedIndeterminate(data, value, props) {
+
+    if (!data || !value || value.length < 1) {
+        return false;
+    }
+
+    const args = [props && props.valueField, props && props.displayField];
+    let result = false;
+    Util.preOrderTraverse(isArray(data) ? {[VirtualRoot]: true, children: data} : data, node => {
+        if (!(VirtualRoot in node)) {
+            for (let item of value) {
+                if (Util.getValueByValueField(node, ...args) === Util.getValueByValueField(node, ...args)) {
+                    result = true;
+                    return false;
+                }
+            }
+        }
+    });
+
+    return result;
+
+}
+
 export default {
     calDepth,
     calPath,
@@ -254,5 +300,7 @@ export default {
     addRecursiveValue,
     updateValue,
     getTotalCount,
-    filterData
+    filterData,
+    isCheckedAll,
+    isCheckedIndeterminate
 };
