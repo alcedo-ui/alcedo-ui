@@ -105,7 +105,7 @@ class CascaderListItem extends Component {
             return false;
         }
 
-        return Calculation.isNodeIndeterminate(node, this.props.value, this.props);
+        return Calculation.isItemIndeterminate(node, this.props.value, this.props);
 
     };
 
