@@ -231,10 +231,9 @@ class TreeSelect extends Component {
 
     handleSelectAllClick = () => {
 
-        const {data} = this.props,
-            {value} = this.state;
+        const data = this.data || this.props.data;
 
-        if (value && value.length > 0 && value.length === this.total) {
+        if (this.isCheckedAll) {
             this.handleChange([]);
             return;
         }
@@ -245,7 +244,7 @@ class TreeSelect extends Component {
 
     };
 
-    isEmpty = (filter = this.state.filter, data = this.props.data) => {
+    isEmpty = (filter = this.state.filter, data = this.data || this.props.data) => {
 
         if (!filter) {
             return !data;
@@ -300,6 +299,10 @@ class TreeSelect extends Component {
 
         this.data = TC.filterData(data, filter, this.props);
         this.total = TC.getTotalCount(this.data);
+        if (isMultiSelect) {
+            this.isCheckedAll = TC.isCheckedAll(this.data, value, this.props);
+            this.isCheckedIndeterminate = TC.isCheckedIndeterminate(this.data, value, this.props);
+        }
 
         return (
             <div className={classNames('tree-select', {
@@ -353,8 +356,8 @@ class TreeSelect extends Component {
                                              onClick={this.handleSelectAllClick}>
                                             <div className="tree-node-inner">
                                                 <Checkbox className="tree-node-select"
-                                                          checked={value && value.length === this.total}
-                                                          indeterminate={value && value.length > 0 && value.length < this.total}
+                                                          checked={this.isCheckedAll}
+                                                          indeterminate={this.isCheckedIndeterminate}
                                                           uncheckedIconCls={checkboxUncheckedIconCls}
                                                           checkedIconCls={checkboxCheckedIconCls}
                                                           indeterminateIconCls={checkboxIndeterminateIconCls}/>
@@ -390,7 +393,6 @@ class TreeSelect extends Component {
                                       theme={popupTheme}
                                       selectMode={selectMode}
                                       data={this.data}
-                                      filter={filter}
                                       value={value}
                                       valueField={valueField}
                                       displayField={displayField}
