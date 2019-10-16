@@ -238,7 +238,7 @@ class TreeSelect extends Component {
             return;
         }
 
-        let result = [];
+        let result = this.state.value || [];
         TC.addRecursiveValue(isArray(data) ? {children: data} : data, result, this.props);
         this.handleChange(TC.updateValue(result, this.props));
 
