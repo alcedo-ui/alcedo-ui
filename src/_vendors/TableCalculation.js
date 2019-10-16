@@ -137,27 +137,6 @@ function isNodeChecked(node, value, idProp) {
     return indexOfNodeInValue(node, value, idProp) >= 0;
 }
 
-function isNodeIndeterminate(node, value, idProp) {
-
-    if (!node || !node.children || node.children.length < 1
-        || !value || !value.length || value.length < 1) {
-        return false;
-    }
-
-    let total = 0,
-        count = 0;
-
-    Util.preOrderTraverse(node, nodeItem => {
-        total++;
-        if (isNodeChecked(nodeItem, value, idProp)) {
-            count++;
-        }
-    });
-
-    return count > 0 && total !== count;
-
-}
-
 function isSelectAllChecked(data, value, idProp) {
 
     let total = 0,
@@ -532,7 +511,6 @@ export default {
     getDataByPagination,
     indexOfNodeInValue,
     isNodeChecked,
-    isNodeIndeterminate,
     isSelectAllChecked,
     handleSelect,
     handleDeselect,
