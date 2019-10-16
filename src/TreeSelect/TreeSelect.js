@@ -231,14 +231,15 @@ class TreeSelect extends Component {
 
     handleSelectAllClick = () => {
 
-        const data = this.data || this.props.data;
+        const {value} = this.state,
+            data = this.data || this.props.data;
 
         if (this.isCheckedAll) {
-            this.handleChange([]);
+            this.handleChange(TC.removeAllNode(data, value, this.props));
             return;
         }
 
-        let result = this.state.value || [];
+        let result = value || [];
         TC.addRecursiveValue(isArray(data) ? {children: data} : data, result, this.props);
         this.handleChange(TC.updateValue(result, this.props));
 
