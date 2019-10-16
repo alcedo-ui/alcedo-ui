@@ -247,22 +247,39 @@ function filterData(data, filter, props) {
 
 }
 
-function isCheckedAll(data, value, props) {
+function isCheckedAll(data, value, props = {}) {
 
     if (!data || !value || value.length < 1) {
         return false;
     }
 
-    const args = [props && props.valueField, props && props.displayField];
+    return isNodeChecked({children: isArray(data) ? data : [data]}, value, props);
+
+}
+
+function isCheckedIndeterminate(data, value, props = {}) {
+
+    if (!data || !value || value.length < 1) {
+        return false;
+    }
+
+    return isNodeCheckedIndeterminate({children: isArray(data) ? data : [data]}, value, props);
+
+}
+
+function isNodeChecked(node, value, props = {}) {
+
+    if (!props.isSelectRecursive) {
+        return Calculation.isItemChecked(node, value, props);
+    }
+
     let result = true;
-    Util.preOrderTraverse(isArray(data) ? {[VirtualRoot]: true, children: data} : data, node => {
-        if (!(VirtualRoot in node)) {
-            for (let item of value) {
-                if (Util.getValueByValueField(node, ...args) !== Util.getValueByValueField(node, ...args)) {
-                    result = false;
-                    return false;
-                }
-            }
+    Util.preOrderTraverse(node, currentNode => {
+        // leaf node & not checked
+        if (currentNode && (!currentNode.children || currentNode.children.length < 1)
+            && !Calculation.isItemChecked(currentNode, value, props)) {
+            result = false;
+            return false;
         }
     });
 
@@ -270,26 +287,25 @@ function isCheckedAll(data, value, props) {
 
 }
 
-function isCheckedIndeterminate(data, value, props) {
+function isNodeCheckedIndeterminate(node, value, props) {
 
-    if (!data || !value || value.length < 1) {
-        return false;
+    if (!props.isSelectRecursive) {
+        return Calculation.isItemIndeterminate(node, value, props);
     }
 
-    const args = [props && props.valueField, props && props.displayField];
-    let result = false;
-    Util.preOrderTraverse(isArray(data) ? {[VirtualRoot]: true, children: data} : data, node => {
-        if (!(VirtualRoot in node)) {
-            for (let item of value) {
-                if (Util.getValueByValueField(node, ...args) === Util.getValueByValueField(node, ...args)) {
-                    result = true;
-                    return false;
-                }
+    let total = 0,
+        count = 0;
+    Util.preOrderTraverse(node, currentNode => {
+        // leaf node & not checked
+        if (currentNode && (!currentNode.children || currentNode.children.length < 1)) {
+            total++;
+            if (Calculation.isItemChecked(currentNode, value, props)) {
+                count++;
             }
         }
     });
 
-    return result;
+    return count > 0 && count < total;
 
 }
 
@@ -302,5 +318,7 @@ export default {
     getTotalCount,
     filterData,
     isCheckedAll,
-    isCheckedIndeterminate
+    isCheckedIndeterminate,
+    isNodeChecked,
+    isNodeCheckedIndeterminate
 };
