@@ -17,7 +17,7 @@ import SelectMode from '../_statics/SelectMode';
 import VirtualRoot from '../_statics/VirtualRoot';
 
 import Util from '../_vendors/Util';
-import Calculation from '../_vendors/Calculation';
+import TC from '../_vendors/TreeCalculation';
 
 class TreeNode extends Component {
 
@@ -74,7 +74,7 @@ class TreeNode extends Component {
 
         const {data, path, value, onSelect, onDeselect} = this.props;
 
-        if (!Calculation.isItemChecked(data, value, this.props)) {
+        if (!TC.isNodeChecked(data, value, this.props)) {
             onSelect && onSelect(data, path, e);
         } else {
             onDeselect && onDeselect(data, path, e);
@@ -161,8 +161,8 @@ class TreeNode extends Component {
             } = this.props,
             {collapsed} = this.state,
 
-            checked = Calculation.isItemChecked(data, value, this.props),
-            indeterminate = Calculation.isNodeIndeterminate(data, value, this.props),
+            checked = TC.isNodeChecked(data, value, this.props),
+            indeterminate = TC.isNodeCheckedIndeterminate(data, value, this.props),
 
             isNodeLoading = data.isLoading || isLoading,
             isNodeDisabled = data.disabled || disabled || isNodeLoading,
