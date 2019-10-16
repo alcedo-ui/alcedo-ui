@@ -122,17 +122,25 @@ function isItemChecked(item, value, {selectMode, valueField, displayField}) {
         return false;
     }
 
-    if (selectMode === SelectMode.MULTI_SELECT) {
-        return isArray(value) && value.filter(valueItem =>
-            Util.isValueEqual(valueItem, item, valueField, displayField)
-        ).length > 0;
-    } else if (selectMode === SelectMode.SINGLE_SELECT) {
+    // Single Selection
+    if (selectMode === SelectMode.SINGLE_SELECT) {
         return Util.isValueEqual(value, item, valueField, displayField);
     }
 
+    // Multiple Selection
+    if (!isArray(value) || value.length < 1) {
+        return false;
+    }
+    for (let v of value) {
+        if (Util.isValueEqual(v, item, valueField, displayField)) {
+            return true;
+        }
+    }
+    return false;
+
 }
 
-function isNodeIndeterminate(node, value, {valueField, displayField}) {
+function isItemIndeterminate(node, value, {valueField, displayField}) {
 
     if (!node || !node.children || node.children.length < 1
         || !value || !value.length || value.length < 1) {
@@ -144,9 +152,7 @@ function isNodeIndeterminate(node, value, {valueField, displayField}) {
 
     Util.preOrderTraverse(node, nodeItem => {
         total++;
-        if (value && value.findIndex(item =>
-            Util.getValueByValueField(item, valueField, displayField)
-            === Util.getValueByValueField(nodeItem, valueField, displayField)) > -1) {
+        if (value.findIndex(item => Util.getValueByValueField(item, valueField, displayField) === Util.getValueByValueField(nodeItem, valueField, displayField)) > -1) {
             count++;
         }
     });
@@ -202,6 +208,6 @@ export default {
     getMultiSelectItemIndex,
     displayIndexByScrollTopMulColumns,
     isItemChecked,
-    isNodeIndeterminate,
+    isItemIndeterminate,
     filterLocalAutoCompleteData
 };
