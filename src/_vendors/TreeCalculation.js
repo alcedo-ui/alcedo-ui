@@ -329,6 +329,27 @@ function removeAllNode(data, value, props = {}) {
 
 }
 
+function removeRecursiveValue(node, value, props) {
+
+    if (!node || !value) {
+        return;
+    }
+
+    const index = Calculation.getMultiSelectItemIndex(node, value, props);
+    if (index > -1) {
+        value.splice(index, 1);
+    }
+
+    if (!node.children || node.children.length < 1) {
+        return;
+    }
+
+    for (let item of node.children) {
+        removeRecursiveValue(item, value, props);
+    }
+
+}
+
 export default {
     calDepth,
     calPath,
@@ -341,5 +362,6 @@ export default {
     isCheckedIndeterminate,
     isNodeChecked,
     isNodeCheckedIndeterminate,
-    removeAllNode
+    removeAllNode,
+    removeRecursiveValue
 };
