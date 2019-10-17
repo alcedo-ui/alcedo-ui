@@ -17,7 +17,7 @@ import VirtualRoot from '../_statics/VirtualRoot';
 import Util from '../_vendors/Util';
 import Calculation from '../_vendors/Calculation';
 import ComponentUtil from '../_vendors/ComponentUtil';
-import TreeCalculation from '../_vendors/TreeCalculation';
+import TC from '../_vendors/TreeCalculation';
 
 class Tree extends Component {
 
@@ -68,14 +68,11 @@ class Tree extends Component {
 
         if (selectMode === SelectMode.MULTI_SELECT) {
 
-            let result = value ? value.slice() : value;
-            if (!result || !isArray(result)) {
-                result = [];
-            }
+            let result = value && isArray(value) ? value.slice() : [];
 
             if (isSelectRecursive) {
-                TreeCalculation.addRecursiveValue(node, result, this.props);
-                result = TreeCalculation.updateValue(result, this.props);
+                TC.addRecursiveValue(node, result, this.props);
+                result = TC.updateValue(result, this.props);
             } else {
                 result.push(node);
             }
@@ -111,7 +108,7 @@ class Tree extends Component {
         } else {
             if (isSelectRecursive) {
                 this.removeRecursiveValue(node, value);
-                value = TreeCalculation.updateValue(value, this.props);
+                value = TC.updateValue(value, this.props);
             } else {
                 const index = Calculation.getMultiSelectItemIndex(node, value, this.props);
                 if (index > -1) {
