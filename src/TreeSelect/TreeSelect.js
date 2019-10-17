@@ -22,6 +22,7 @@ import Util from '../_vendors/Util';
 import TC from '../_vendors/TreeCalculation';
 import ComponentUtil from '../_vendors/ComponentUtil';
 import Dom from '../_vendors/Dom';
+import Calculation from '../_vendors/Calculation';
 
 class TreeSelect extends Component {
 
@@ -171,15 +172,70 @@ class TreeSelect extends Component {
 
     };
 
-    handleNodeSelect = (value, path) => {
+    handleNodeSelect = (node, path, e) => {
 
-        if (this.props.selectMode !== SelectMode.SINGLE_SELECT) {
+        if (!node) {
             return;
         }
 
-        this.setState({
-            path
+        const {selectMode, isSelectRecursive} = this.props,
+            {value} = this.state,
+            state = {};
+        let result = null;
+
+        if (selectMode === SelectMode.MULTI_SELECT) {
+
+            result = value && isArray(value) ? value.slice() : [];
+
+            if (isSelectRecursive) {
+                TC.addRecursiveValue(node, result, this.props);
+                result = TC.updateValue(result, this.props);
+            } else {
+                result.push(node);
+            }
+
+        } else if (selectMode === SelectMode.SINGLE_SELECT) {
+            result = node;
+            state.path = path;
+        }
+
+        this.setState(state, () => {
+            const {onNodeSelect} = this.props;
+            onNodeSelect && onNodeSelect(node, path, e);
+            this.handleChange(result);
         });
+
+
+    };
+
+    handleNodeDeselect = (node, path, e) => {
+
+        const {selectMode} = this.props;
+        if (!node || selectMode !== SelectMode.MULTI_SELECT) {
+            return;
+        }
+
+        const {isSelectRecursive} = this.props,
+            {value} = this.state;
+        let result = value ? value.slice() : value;
+
+        if (!result || !isArray(result)) {
+            result = [];
+        } else {
+            if (isSelectRecursive) {
+                TC.removeRecursiveValue(node, result, this.props);
+                result = TC.updateValue(result, this.props);
+            } else {
+                const index = Calculation.getMultiSelectItemIndex(node, result, this.props);
+                if (index > -1) {
+                    result.splice(index, 1);
+                }
+            }
+        }
+
+        const {onNodeDeselect} = this.props;
+        onNodeDeselect && onNodeDeselect(node, path, e);
+        this.handleChange(result);
 
     };
 
@@ -413,7 +469,9 @@ class TreeSelect extends Component {
                                       isNodeCollapsed={isNodeCollapsed}
                                       onNodeClick={onNodeClick}
                                       onNodeSelect={this.handleNodeSelect}
-                                      onChange={this.handleChange}/>
+                                      onNodeDeselect={this.handleNodeDeselect}
+                                    // onChange={this.handleChange}
+                                />
                         }
                     </div>
 
@@ -653,7 +711,9 @@ TreeSelect.propTypes = {
     onBlur: PropTypes.func,
     onMouseOver: PropTypes.func,
     onMouseOut: PropTypes.func,
-    onOpenPopup: PropTypes.func
+    onOpenPopup: PropTypes.func,
+    onNodeSelect: PropTypes.func,
+    onNodeDeselect: PropTypes.func
 
 };
 
