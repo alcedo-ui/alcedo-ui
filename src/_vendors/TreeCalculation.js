@@ -8,7 +8,7 @@ import isArray from 'lodash/isArray';
 import VirtualRoot from '../_statics/VirtualRoot';
 
 import Util from './Util';
-import Calculation from './Calculation';
+import Calc from './Calculation';
 
 function calDepth(data, path) {
 
@@ -125,7 +125,7 @@ function addRecursiveValue(node, value, props) {
         return;
     }
 
-    if (!Calculation.isItemChecked(node, value, props)) {
+    if (!Calc.isItemChecked(node, value, props)) {
         value.push(node);
     }
 
@@ -270,14 +270,14 @@ function isCheckedIndeterminate(data, value, props = {}) {
 function isNodeChecked(node, value, props = {}) {
 
     if (!props.isSelectRecursive) {
-        return Calculation.isItemChecked(node, value, props);
+        return Calc.isItemChecked(node, value, props);
     }
 
     let result = true;
     Util.preOrderTraverse(node, currentNode => {
         // leaf node & not checked
         if (currentNode && (!currentNode.children || currentNode.children.length < 1)
-            && !Calculation.isItemChecked(currentNode, value, props)) {
+            && !Calc.isItemChecked(currentNode, value, props)) {
             result = false;
             return false;
         }
@@ -290,7 +290,7 @@ function isNodeChecked(node, value, props = {}) {
 function isNodeCheckedIndeterminate(node, value, props) {
 
     if (!props.isSelectRecursive) {
-        return Calculation.isItemIndeterminate(node, value, props);
+        return Calc.isItemIndeterminate(node, value, props);
     }
 
     let total = 0,
@@ -299,7 +299,7 @@ function isNodeCheckedIndeterminate(node, value, props) {
         // leaf node & not checked
         if (currentNode && (!currentNode.children || currentNode.children.length < 1)) {
             total++;
-            if (Calculation.isItemChecked(currentNode, value, props)) {
+            if (Calc.isItemChecked(currentNode, value, props)) {
                 count++;
             }
         }
@@ -335,7 +335,7 @@ function removeRecursiveValue(node, value, props) {
         return;
     }
 
-    const index = Calculation.getMultiSelectItemIndex(node, value, props);
+    const index = Calc.getMultiSelectItemIndex(node, value, props);
     if (index > -1) {
         value.splice(index, 1);
     }
