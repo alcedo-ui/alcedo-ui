@@ -29,6 +29,7 @@ import SortingType from '../_statics/SortingType';
 import Util from '../_vendors/Util';
 import TL from '../_vendors/TableLayout';
 import TC from '../_vendors/TableCalculation';
+import Calc from '../_vendors/Calculation';
 
 class TableContent extends Component {
 
@@ -254,7 +255,7 @@ class TableContent extends Component {
                               theme={selectTheme}
                               checked={TC.isNodeChecked(rowData, value, idProp)}
                               disabled={disabled || rowData.disabled}
-                              indeterminate={TC.isItemIndeterminate(rowData, value, idProp)}
+                              indeterminate={Calc.isItemIndeterminate(rowData, value, idProp)}
                               uncheckedIconCls={selectUncheckedIconCls}
                               checkedIconCls={selectCheckedIconCls}
                               indeterminateIconCls={selectIndeterminateIconCls}
