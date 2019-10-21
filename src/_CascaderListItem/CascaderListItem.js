@@ -13,7 +13,7 @@ import Theme from '../Theme';
 import SelectMode from '../_statics/SelectMode';
 import HorizontalDirection from '../_statics/HorizontalDirection';
 
-import Calculation from '../_vendors/Calculation';
+import Calc from '../_vendors/Calculation';
 import CascaderCalculation from '../_vendors/CascaderCalculation';
 import Util from '../_vendors/Util';
 
@@ -105,7 +105,7 @@ class CascaderListItem extends Component {
             return false;
         }
 
-        return Calculation.isItemIndeterminate(node, this.props.value, this.props);
+        return Calc.isItemIndeterminate(node, this.props.value, this.props);
 
     };
 
