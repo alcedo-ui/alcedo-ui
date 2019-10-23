@@ -51,8 +51,8 @@ class Th extends Component {
             return;
         }
 
-        const {sorting, defaultSortingType, sortingProp} = this.props,
-            result = {};
+        const {sorting, defaultSortingType, sortingProp} = this.props;
+        let result = {};
 
         if (sorting && sorting.prop === sortingProp) {
             result.prop = sorting.prop;
@@ -61,7 +61,7 @@ class Th extends Component {
             } else if (sorting.type === defaultSortingType) {
                 result.type = -defaultSortingType;
             } else {
-                result.type = SortingType.DEFAULT;
+                result = null;
             }
         } else {
             result.prop = sortingProp;
