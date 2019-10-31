@@ -7,12 +7,14 @@ import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import classNames from 'classnames';
-import eventOn from 'dom-helpers/events/on';
-import eventOff from 'dom-helpers/events/off';
 
+// Components
 import CircularLoading from '../CircularLoading';
 
+// Statics
 import LazyLoadStatus from '../_statics/LazyLoadStatus';
+
+// Vendors
 import Event from '../_vendors/Event';
 
 class LazyImage extends Component {
@@ -74,7 +76,7 @@ class LazyImage extends Component {
 
         this.wrapperEl = this.wrapper && this.wrapper.current;
 
-        eventOn(this.props.scrollEl, 'scroll', this.handleScroll);
+        Event.addEvent(this.props.scrollEl, 'scroll', this.handleScroll);
 
         this.handleScroll();
 
@@ -82,7 +84,7 @@ class LazyImage extends Component {
 
     componentWillUnmount() {
 
-        eventOff(this.props.scrollEl, 'scroll', this.handleScroll);
+        Event.removeEvent(this.props.scrollEl, 'scroll', this.handleScroll);
 
         if (this.handleScroll) {
             this.handleScroll.cancel();
