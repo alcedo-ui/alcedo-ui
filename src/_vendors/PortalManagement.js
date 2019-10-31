@@ -1,5 +1,10 @@
-import addClass from 'dom-helpers/class/addClass';
-import removeClass from 'dom-helpers/class/removeClass';
+/**
+ * @file PortalManagement vendor
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+import addClass from 'dom-helpers/addClass';
+import removeClass from 'dom-helpers/removeClass';
 
 const map = {};
 
