@@ -6,18 +6,20 @@
 import React, {Component, Fragment, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import eventsOn from 'dom-helpers/events/on';
-import eventsOff from 'dom-helpers/events/off';
 
+// Components
 import Pop from '../_Pop';
 import Paper from '../Paper';
-import Theme from '../Theme';
 
+// Statics
+import Theme from '../Theme';
 import Position from '../_statics/Position';
 
+// Vendors
 import Util from '../_vendors/Util';
 import TriggerPopCalculation from '../_vendors/TriggerPopCalculation';
 import Dom from '../_vendors/Dom';
+import Event from '../_vendors/Event';
 
 class TriggerPop extends Component {
 
@@ -93,7 +95,7 @@ class TriggerPop extends Component {
             return;
         }
 
-        scrollEl && eventsOn(scrollEl, 'scroll', this.handleScroll);
+        scrollEl && Event.addEvent(scrollEl, 'scroll', this.handleScroll);
 
     };
 
@@ -102,7 +104,7 @@ class TriggerPop extends Component {
      * @param scrollEl
      */
     removeWatchScroll = (scrollEl = this.getScrollEl()) => {
-        scrollEl && eventsOff(scrollEl, 'scroll', this.handleScroll);
+        scrollEl && Event.removeEvent(scrollEl, 'scroll', this.handleScroll);
     };
 
     componentDidUpdate(prevProps) {
