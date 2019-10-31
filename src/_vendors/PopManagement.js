@@ -3,9 +3,9 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import addClass from 'dom-helpers/class/addClass';
-import removeClass from 'dom-helpers/class/removeClass';
-import hasClass from 'dom-helpers/class/hasClass';
+import addClass from 'dom-helpers/addClass';
+import removeClass from 'dom-helpers/removeClass';
+import hasClass from 'dom-helpers/hasClass';
 
 import Event from './Event';
 
