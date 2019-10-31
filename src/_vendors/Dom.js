@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import queryContains from 'dom-helpers/query/contains';
+import domContains from 'dom-helpers/contains';
 
 function getOffset(el, parentEl = document.body) {
 
@@ -238,7 +238,7 @@ function getTotalScrollOffset(el, scrollEl = document.body) {
         return result;
     }
 
-    while (el && queryContains(scrollEl, el)) {
+    while (el && domContains(scrollEl, el)) {
         result.left += el.scrollLeft;
         result.top += el.scrollTop;
         el = el.parentElement;
