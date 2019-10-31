@@ -7,16 +7,18 @@ import React, {Component, cloneElement} from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import Transition from 'react-transition-group/Transition';
-import eventsOn from 'dom-helpers/events/on';
-import eventsOff from 'dom-helpers/events/off';
 import classNames from 'classnames';
 
+// Components
 import Portal from '../Portal';
-import Theme from '../Theme';
 
+// Statics
+import Theme from '../Theme';
 import Position from '../_statics/Position';
 
+// Vendors
 import Util from '../_vendors/Util';
+import Event from '../_vendors/Event';
 
 class Pop extends Component {
 
@@ -104,12 +106,12 @@ class Pop extends Component {
     //
     //     this.scrollEl = scrollEl;
     //
-    //     eventsOn(scrollEl, 'scroll', this.debounceResetPosition);
+    //     Event.addEvent(scrollEl, 'scroll', this.debounceResetPosition);
     //
     // };
 
     componentDidMount() {
-        eventsOn(window, 'resize', this.debounceResetPosition);
+        Event.addEvent(window, 'resize', this.debounceResetPosition);
     }
 
     componentDidUpdate(prevProps) {
@@ -122,14 +124,14 @@ class Pop extends Component {
         // if (!prevProps.visible && this.props.visible) {
         //     this.addWatchScroll();
         // } else if (prevProps.visible && !this.props.visible) {
-        //     this.scrollEl && eventsOff(this.scrollEl, 'scroll', this.debounceResetPosition);
+        //     this.scrollEl && Event.removeEvent(this.scrollEl, 'scroll', this.debounceResetPosition);
         //     this.scrollEl = null;
         // }
 
     }
 
     componentWillUnmount() {
-        eventsOff(window, 'resize', this.debounceResetPosition);
+        Event.removeEvent(window, 'resize', this.debounceResetPosition);
     }
 
     static getDerivedStateFromProps(props) {
