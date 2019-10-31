@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {DragDropContext} from 'react-dnd';
+import {DndProvider} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
 import DraggableGrid from 'src/DraggableGrid';
@@ -9,7 +9,6 @@ import WidgetHeader from 'src/WidgetHeader';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/DraggableGrid.json';
 
-@DragDropContext(HTML5Backend)
 class DraggableGridExamples extends Component {
 
     constructor(props) {
@@ -49,62 +48,67 @@ class DraggableGridExamples extends Component {
                 <h2 className="example-title">DraggableGrid</h2>
 
                 <p>
-                    <span>DraggableGrid</span> used to move the draggable object by clicking the mouse and dragging it
+                    <span>DraggableGrid</span>
+                    used to move the draggable object by clicking the mouse and dragging it
                     in the viewport.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
 
-                <Widget>
+                <DndProvider backend={HTML5Backend}>
 
-                    <WidgetHeader className="example-header" title="DraggableGrid"/>
+                    <Widget>
 
-                    <div className="widget-content">
-                        <div className="example-content">
+                        <WidgetHeader className="example-header" title="DraggableGrid"/>
 
-                            <div className="examples-wrapper">
+                        <div className="widget-content">
+                            <div className="example-content">
 
-                                <p>
-                                    A multiple-choice<code> DraggableGrid</code> example.
-                                </p>
+                                <div className="examples-wrapper">
 
-                                <DraggableGrid selectMode={DraggableGrid.SelectMode.MULTI_SELECT}
-                                               data={this.gridData}
-                                               onSequenceChange={this.sequenceChangeHandler}
-                                               onChange={this.changeHandler}/>
+                                    <p>
+                                        A multiple-choice<code> DraggableGrid</code> example.
+                                    </p>
 
-                            </div>
+                                    <DraggableGrid selectMode={DraggableGrid.SelectMode.MULTI_SELECT}
+                                                   data={this.gridData}
+                                                   onSequenceChange={this.sequenceChangeHandler}
+                                                   onChange={this.changeHandler}/>
 
-                        </div>
-                    </div>
-
-                </Widget>
-
-                <Widget>
-
-                    <WidgetHeader className="example-header" title="Draggable Group"/>
-
-                    <div className="widget-content">
-                        <div className="example-content">
-
-                            <div className="examples-wrapper">
-
-                                <p>
-                                    A <code>DraggableGrid</code> simple example.
-                                </p>
-
-                                <DraggableGrid style={{height: 120}}
-                                               data={this.largeListData}
-                                               col={5}
-                                               onSequenceChange={this.sequenceChangeHandler}
-                                               onChange={this.changeHandler}/>
+                                </div>
 
                             </div>
-
                         </div>
-                    </div>
 
-                </Widget>
+                    </Widget>
+
+                    <Widget>
+
+                        <WidgetHeader className="example-header" title="Draggable Group"/>
+
+                        <div className="widget-content">
+                            <div className="example-content">
+
+                                <div className="examples-wrapper">
+
+                                    <p>
+                                        A <code>DraggableGrid</code> simple example.
+                                    </p>
+
+                                    <DraggableGrid style={{height: 120}}
+                                                   data={this.largeListData}
+                                                   col={5}
+                                                   onSequenceChange={this.sequenceChangeHandler}
+                                                   onChange={this.changeHandler}/>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </Widget>
+
+                </DndProvider>
 
                 <h2 className="example-title">Properties</h2>
 
