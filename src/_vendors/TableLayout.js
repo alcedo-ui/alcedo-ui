@@ -4,7 +4,7 @@
  */
 
 import sum from 'lodash/sum';
-import hasClass from 'dom-helpers/class/hasClass';
+import hasClass from 'dom-helpers/hasClass';
 import addClass from 'dom-helpers/addClass';
 import removeClass from 'dom-helpers/removeClass';
 
