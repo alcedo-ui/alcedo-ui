@@ -7,7 +7,7 @@ import React, {Component, createRef} from 'react';
 import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import query from 'dom-helpers/query';
+import queryContains from 'dom-helpers/query/contains';
 
 import PositionPop from '../_PositionPop';
 import Paper from '../Paper';
@@ -36,11 +36,11 @@ class Drawer extends Component {
     drawerVisibleHandler = (el, drawerEl, currentVisible, isBlurClose) => {
 
         // el is missing
-        if (el && !query.contains(document, el)) {
+        if (el && !queryContains(document, el)) {
             return currentVisible;
         }
 
-        if (drawerEl && el && query.contains(drawerEl, el)) {
+        if (drawerEl && el && queryContains(drawerEl, el)) {
             return currentVisible;
         }
 
