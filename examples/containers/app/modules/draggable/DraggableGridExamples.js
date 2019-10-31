@@ -117,6 +117,6 @@ class DraggableGridExamples extends Component {
             </div>
         );
     }
-};
+}
 
 export default DraggableGridExamples;
