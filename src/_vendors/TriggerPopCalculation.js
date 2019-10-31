@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import queryContains from 'dom-helpers/query/contains';
+import domContains from 'dom-helpers/contains';
 
 import Dom from './Dom';
 import Position from '../_statics/Position';
@@ -132,7 +132,7 @@ function getStyle(parentEl, triggerEl, popupEl, scrollEl, position) {
 
     // to solve the fixed parent element problem
     const closestFixedEl = Dom.getClosestFixed(triggerEl);
-    if (closestFixedEl && parentEl && queryContains(parentEl, closestFixedEl)) {
+    if (closestFixedEl && parentEl && domContains(parentEl, closestFixedEl)) {
         result.position = 'fixed';
     }
 
