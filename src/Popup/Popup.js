@@ -6,7 +6,7 @@
 import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import queryContains from 'dom-helpers/query/contains';
+import domContains from 'dom-helpers/contains';
 
 // Components
 import TriggerPop from '../_TriggerPop';
@@ -60,12 +60,12 @@ class Popup extends Component {
     triggerHandler = (el, triggerEl, popupEl, currentVisible, isBlurClose) => {
 
         // el is missing
-        if (el && !queryContains(document, el)) {
+        if (el && !domContains(document, el)) {
             return currentVisible;
         }
 
-        if ((triggerEl && el && queryContains(triggerEl, el))
-            || (popupEl && el && queryContains(popupEl, el))) {
+        if ((triggerEl && el && domContains(triggerEl, el))
+            || (popupEl && el && domContains(popupEl, el))) {
             return currentVisible;
         }
 
