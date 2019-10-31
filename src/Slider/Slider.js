@@ -185,7 +185,9 @@ class Slider extends Component {
      * 当slider设置了ruler参数时，移动或点击操作时，自动匹配到最近的刻度点。
      */
     getNearest = clickLeft => {
-        const {width, ruler, scale} = this.props, min = scale[0], max = scale[scale.length - 1];
+        const {width, ruler, scale} = this.props;
+        let scaleValue = this.getScaleValueAndLabel(scale)[0], min = scaleValue[0],
+            max = scaleValue[scaleValue.length - 1];
         let nearest = Math.round(clickLeft * (max - min) / (width * ruler)) * ruler / (max - min) * width;
 
         return nearest > width ? width : nearest;
