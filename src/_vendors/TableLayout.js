@@ -5,8 +5,8 @@
 
 import sum from 'lodash/sum';
 import hasClass from 'dom-helpers/class/hasClass';
-import addClass from 'dom-helpers/class/addClass';
-import removeClass from 'dom-helpers/class/removeClass';
+import addClass from 'dom-helpers/addClass';
+import removeClass from 'dom-helpers/removeClass';
 
 import TableFragment from '../_statics/TableFragment';
 import HorizontalAlign from '../_statics/HorizontalAlign';
