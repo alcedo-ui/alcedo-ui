@@ -7,18 +7,18 @@ import React, {Component, Fragment, createRef} from 'react';
 import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import eventsOn from 'dom-helpers/events/on';
-import eventsOff from 'dom-helpers/events/off';
 import startCase from 'lodash/startCase';
 import isArray from 'lodash/isArray';
 import debounce from 'lodash/debounce';
 import cloneDeep from 'lodash/cloneDeep';
 
+// Components
 import ScrollTable from '../_ScrollTable';
 import Checkbox from '../Checkbox';
 import IconButton from '../IconButton';
 import BaseTable from '../_BaseTable/BaseTable';
 
+// Statics
 import Theme from '../Theme';
 import TableFragment from '../_statics/TableFragment';
 import HorizontalAlign from '../_statics/HorizontalAlign';
@@ -26,10 +26,12 @@ import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
 
+// Vendors
 import Util from '../_vendors/Util';
 import TL from '../_vendors/TableLayout';
 import TC from '../_vendors/TableCalculation';
 import Calc from '../_vendors/Calculation';
+import Event from '../_vendors/Event';
 
 class TableContent extends Component {
 
@@ -533,7 +535,7 @@ class TableContent extends Component {
         this.fixedRightEl = this.fixedRight && this.fixedRight.current && findDOMNode(this.fixedRight.current);
 
         // bind event
-        eventsOn(window, 'resize', this.debounceFixLayout);
+        Event.addEvent(window, 'resize', this.debounceFixLayout);
 
         // fixed layout at startup
         this.debounceFixLayout();
@@ -550,7 +552,7 @@ class TableContent extends Component {
     }
 
     componentWillUnmount() {
-        eventsOff(window, 'resize', this.debounceFixLayout);
+        Event.removeEvent(window, 'resize', this.debounceFixLayout);
         this.debounceFixLayout && this.debounceFixLayout.cancel();
     }
 
