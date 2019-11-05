@@ -48,13 +48,18 @@
 
         .tab-content-scroller {
             @include float-fix;
-            transition: all $theme-transition-duration ease-in-out;
 
             .tab-content {
                 float: left;
                 padding: 20px;
                 box-sizing: border-box;
             }
+        }
+    }
+
+    &.animated {
+        .tab-content-scroller {
+            transition: all $theme-transition-duration ease-in-out;
         }
     }
 }

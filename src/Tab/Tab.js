@@ -45,12 +45,13 @@ class Tab extends Component {
 
     render() {
 
-        const {className, style, isTabFullWidth, tabs} = this.props,
+        const {className, style, isTabFullWidth, tabs, isAnimated} = this.props,
             {activatedIndex} = this.state,
             tabWidthPerCent = 100 / tabs.length;
 
         return (
             <div className={classNames('tab', {
+                animated: isAnimated,
                 [className]: className
             })}
                  style={style}>
@@ -194,6 +195,8 @@ Tab.propTypes = {
      */
     isTabFullWidth: PropTypes.bool,
 
+    isAnimated: PropTypes.bool,
+
     onIndexChange: PropTypes.func
 
 };
@@ -203,8 +206,8 @@ Tab.defaultProps = {
     tabs: [],
 
     activatedIndex: 0,
-    isTabFullWidth: true
-
+    isTabFullWidth: true,
+    isAnimated: true
 
 };
 
