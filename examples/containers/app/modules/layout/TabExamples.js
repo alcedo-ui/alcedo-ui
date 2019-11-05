@@ -51,7 +51,8 @@ class TabExamples extends Component {
                 <h2 className="example-title">Tabs</h2>
 
                 <p>
-                    <span>Tabs</span> make it easy to explore and switch between different views or functional aspects
+                    <span>Tabs</span>
+                    make it easy to explore and switch between different views or functional aspects
                     of an app or to browse categorized data sets.
                 </p>
 
@@ -133,7 +134,8 @@ class TabExamples extends Component {
                                     value: 'Tab 4',
                                     disabled: true
                                 }]}
-                                     isTabFullWidth={false}/>
+                                     isTabFullWidth={false}
+                                     isAnimated={false}/>
 
                             </div>
 
