@@ -730,9 +730,14 @@ DropdownSelect.propTypes = {
     textFormat: PropTypes.func,
 
     /**
-     * If true,the drop-down box automatically closed after selection.
+     * If true, the drop-down box automatically closed after selection.
      */
     autoClose: PropTypes.bool,
+
+    /**
+     * If true, the drop-down box automatically closed when blur.
+     */
+    isBlurClose: PropTypes.bool,
 
     /**
      * If true,the drop-down box will have search input.
@@ -821,6 +826,7 @@ DropdownSelect.defaultProps = {
     descriptionField: 'desc',
 
     autoClose: true,
+    isBlurClose: true,
     useFilter: false,
     filterIconCls: 'fas fa-search',
     useSelectAll: false,
