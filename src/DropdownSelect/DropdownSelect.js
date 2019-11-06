@@ -251,7 +251,7 @@ class DropdownSelect extends Component {
             const {onOpenPopup} = this.props;
             onOpenPopup && onOpenPopup(e);
 
-            this.updateScrollHeight();
+            // this.updateScrollHeight();
 
         });
 
