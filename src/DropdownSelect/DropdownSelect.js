@@ -19,7 +19,7 @@ import SelectMode from '../_statics/SelectMode';
 import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
-import Dom from '../_vendors/Dom';
+// import Dom from '../_vendors/Dom';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
 class DropdownSelect extends Component {
@@ -107,31 +107,31 @@ class DropdownSelect extends Component {
 
     };
 
-    updateScrollHeight = () => {
-
-        if (!this.scroller || !this.scroller.current) {
-            return;
-        }
-
-        const scrollerEl = this.scroller.current,
-            popEl = Dom.findParentByClassName(scrollerEl, 'dropdown-select-popup');
-
-        if (!popEl) {
-            return;
-        }
-
-        scrollerEl.style.height = 'auto';
-
-        let scrollerHeight = popEl.offsetHeight;
-        if (this.actions && this.actions.current && this.actions.current.offsetHeight) {
-            scrollerHeight -= this.actions.current.offsetHeight;
-        }
-
-        this.setState({
-            scrollerHeight
-        });
-
-    };
+    // updateScrollHeight = () => {
+    //
+    //     if (!this.scroller || !this.scroller.current) {
+    //         return;
+    //     }
+    //
+    //     const scrollerEl = this.scroller.current,
+    //         popEl = Dom.findParentByClassName(scrollerEl, 'dropdown-select-popup');
+    //
+    //     if (!popEl) {
+    //         return;
+    //     }
+    //
+    //     scrollerEl.style.height = 'auto';
+    //
+    //     let scrollerHeight = popEl.offsetHeight;
+    //     if (this.actions && this.actions.current && this.actions.current.offsetHeight) {
+    //         scrollerHeight -= this.actions.current.offsetHeight;
+    //     }
+    //
+    //     this.setState({
+    //         scrollerHeight
+    //     });
+    //
+    // };
 
     handleFilterChange = filter => {
         this.setState({
