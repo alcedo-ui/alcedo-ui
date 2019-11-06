@@ -98,7 +98,7 @@ class Dropdown extends Component {
 
     handleRequestClose = e => {
 
-        if (!this.props.autoClose) {
+        if (!this.props.isBlurClose) {
             return;
         }
 
@@ -311,9 +311,14 @@ Dropdown.propTypes = {
     autoPopupWidth: PropTypes.bool,
 
     /**
-     * If true,the dropdown box automatically closed after selection.
+     * If true, the dropdown box automatically closed after selection.
      */
     autoClose: PropTypes.bool,
+
+    /**
+     * If true, the dropdown box automatically closed when blur.
+     */
+    isBlurClose: PropTypes.bool,
 
     resetPopPositionWait: PropTypes.number,
 
@@ -349,6 +354,7 @@ Dropdown.defaultProps = {
     disableTouchRipple: false,
     autoPopupWidth: true,
     autoClose: true,
+    isBlurClose: true,
     tipPosition: Position.BOTTOM,
 
     resetPopPositionWait: 250
