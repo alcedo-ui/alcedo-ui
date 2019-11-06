@@ -85,6 +85,7 @@ class Dropdown extends Component {
      * public
      */
     closePopup = e => {
+
         this.setState({
             popupVisible: false
         }, () => {
@@ -92,6 +93,17 @@ class Dropdown extends Component {
             onClosePopup && onClosePopup(e);
             onBlur && onBlur(e);
         });
+
+    };
+
+    handleRequestClose = e => {
+
+        if (!this.props.autoClose) {
+            return;
+        }
+
+        this.closePopup(e);
+
     };
 
     togglePopup = e => {
@@ -203,7 +215,7 @@ class Dropdown extends Component {
                        position={position ? position : (isAboveFinally ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        resetPositionWait={resetPopPositionWait}
                        onRender={this.handlePopupRender}
-                       onRequestClose={this.closePopup}>
+                       onRequestClose={this.handleRequestClose}>
                     {children}
                 </Popup>
 
