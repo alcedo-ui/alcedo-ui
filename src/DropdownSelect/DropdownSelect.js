@@ -113,14 +113,16 @@ class DropdownSelect extends Component {
             return;
         }
 
-        const popEl = Dom.findParentByClassName(this.scroller.current, 'dropdown-select-popup');
+        const scrollerEl = this.scroller.current,
+            popEl = Dom.findParentByClassName(scrollerEl, 'dropdown-select-popup');
 
         if (!popEl) {
             return;
         }
 
-        let scrollerHeight = popEl.offsetHeight;
+        scrollerEl.style.height = 'auto';
 
+        let scrollerHeight = popEl.offsetHeight;
         if (this.actions && this.actions.current && this.actions.current.offsetHeight) {
             scrollerHeight -= this.actions.current.offsetHeight;
         }
