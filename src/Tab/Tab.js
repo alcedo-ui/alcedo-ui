@@ -101,23 +101,30 @@ class Tab extends Component {
                 </div>
 
                 <div className="tab-content-wrapper">
-                    <div className="tab-content-scroller"
-                         style={{
-                             width: `${tabs.length * 100}%`,
-                             transform: `translate(${-activatedIndex * tabWidthPerCent}%, 0)`
-                         }}>
-                        {
-                            tabs && tabs.map((item, index) =>
-                                <div key={index}
-                                     className="tab-content"
-                                     style={{
-                                         width: `${tabWidthPerCent}%`
-                                     }}>
-                                    {item.renderer}
-                                </div>
-                            )
-                        }
-                    </div>
+                    {
+                        isAnimated ?
+                            <div className="tab-content-scroller"
+                                 style={{
+                                     width: `${tabs.length * 100}%`,
+                                     transform: `translate(${-activatedIndex * tabWidthPerCent}%, 0)`
+                                 }}>
+                                {
+                                    tabs && tabs.map((item, index) =>
+                                        <div key={index}
+                                             className="tab-content"
+                                             style={{
+                                                 width: `${tabWidthPerCent}%`
+                                             }}>
+                                            {item.renderer}
+                                        </div>
+                                    )
+                                }
+                            </div>
+                            :
+                            <div className="tab-content">
+                                {tabs && tabs[activatedIndex].renderer}
+                            </div>
+                    }
                 </div>
 
             </div>
