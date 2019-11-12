@@ -23,6 +23,13 @@ class Tab extends Component {
 
     }
 
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            activatedIndex: ComponentUtil.getDerivedState(props, state, 'activatedIndex')
+        };
+    }
+
     handleTabClick = (item, activatedIndex) => {
         this.setState({
             activatedIndex
@@ -36,12 +43,18 @@ class Tab extends Component {
         });
     };
 
-    static getDerivedStateFromProps(props, state) {
-        return {
-            prevProps: props,
-            activatedIndex: ComponentUtil.getDerivedState(props, state, 'activatedIndex')
-        };
-    }
+    getRenderer = item => {
+
+        if (!item || !item.renderer) {
+            return null;
+        }
+
+        return typeof item.renderer === 'function' ?
+            item.renderer(item)
+            :
+            item.renderer;
+
+    };
 
     render() {
 
@@ -115,14 +128,14 @@ class Tab extends Component {
                                              style={{
                                                  width: `${tabWidthPerCent}%`
                                              }}>
-                                            {item.renderer}
+                                            {this.getRenderer(item)}
                                         </div>
                                     )
                                 }
                             </div>
                             :
                             <div className="tab-content">
-                                {tabs && tabs[activatedIndex].renderer}
+                                {tabs && this.getRenderer(tabs[activatedIndex])}
                             </div>
                     }
                 </div>
