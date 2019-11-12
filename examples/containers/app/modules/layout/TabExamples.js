@@ -73,19 +73,13 @@ class TabExamples extends Component {
 
                                 <Tab tabs={[{
                                     value: 'Tab 1',
-                                    renderer: <div>
-                                        <h1>Tab 1</h1>
-                                    </div>
+                                    renderer: <h1>Tab 1</h1>
                                 }, {
                                     value: 'Tab 2',
-                                    renderer: <div>
-                                        <h1>Tab 2</h1>
-                                    </div>
+                                    renderer: <h1>Tab 2</h1>
                                 }, {
                                     value: 'Tab 3',
-                                    renderer: <div>
-                                        <h1>onActive</h1>
-                                    </div>,
+                                    renderer: <h1>onActive</h1>,
                                     onActive: this.activeHandler
                                 }, {
                                     value: 'Tab 4',
@@ -116,19 +110,13 @@ class TabExamples extends Component {
 
                                 <Tab tabs={[{
                                     value: 'Tab 1',
-                                    renderer: <div>
-                                        <h1>Tab 1</h1>
-                                    </div>
+                                    renderer: <h1>Tab 1</h1>
                                 }, {
                                     value: 'Tab 2',
-                                    renderer: <div>
-                                        <h1>Tab 2</h1>
-                                    </div>
+                                    renderer: <h1>Tab 2</h1>
                                 }, {
                                     value: 'Tab 3',
-                                    renderer: <div>
-                                        <h1>onActive</h1>
-                                    </div>,
+                                    renderer: <h1>onActive</h1>,
                                     onActive: this.activeHandler
                                 }, {
                                     value: 'Tab 4',
@@ -160,27 +148,19 @@ class TabExamples extends Component {
                                 <Tab tabs={[{
                                     value: 'Bicycle',
                                     iconCls: 'fas fa-bicycle',
-                                    renderer: <div>
-                                        <h1>Bicycle</h1>
-                                    </div>
+                                    renderer: <h1>Bicycle</h1>
                                 }, {
                                     value: 'Taxi',
                                     iconCls: 'fas fa-taxi',
-                                    renderer: <div>
-                                        <h1>Taxi</h1>
-                                    </div>
+                                    renderer: <h1>Taxi</h1>
                                 }, {
                                     value: 'Plane',
                                     iconCls: 'fas fa-plane',
-                                    renderer: <div>
-                                        <h1>Plane</h1>
-                                    </div>
+                                    renderer: <h1>Plane</h1>
                                 }, {
                                     value: 'Rocket',
                                     iconCls: 'fas fa-rocket',
-                                    renderer: <div>
-                                        <h1>Rocket</h1>
-                                    </div>
+                                    renderer: <h1>Rocket</h1>
                                 }]}
                                      isTabFullWidth={false}/>
 
