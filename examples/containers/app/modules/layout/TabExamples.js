@@ -201,6 +201,6 @@ class TabExamples extends Component {
             </div>
         );
     }
-};
+}
 
 export default TabExamples;
