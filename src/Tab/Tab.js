@@ -30,15 +30,15 @@ class Tab extends Component {
         };
     }
 
-    handleTabClick = (item, activatedIndex) => {
+    handleTabClick = (item, activatedIndex, e) => {
         this.setState({
             activatedIndex
         }, () => {
 
-            item.onActive && item.onActive(item, activatedIndex);
+            item.onActive && item.onActive(item, activatedIndex, e);
 
             const {onTabClick, onIndexChange} = this.props;
-            onTabClick && onTabClick(item, activatedIndex);
+            onTabClick && onTabClick(item, activatedIndex, e);
             onIndexChange && onIndexChange(activatedIndex, item);
 
         });
@@ -95,7 +95,7 @@ class Tab extends Component {
                                             style={{
                                                 width: isTabFullWidth ? `${tabWidthPerCent}%` : 'auto'
                                             }}
-                                            onClick={() => this.handleTabClick(item, index)}/>
+                                            onClick={e => this.handleTabClick(item, index, e)}/>
                             );
 
                         })
