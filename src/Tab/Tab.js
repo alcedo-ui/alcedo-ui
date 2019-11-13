@@ -98,8 +98,8 @@ class Tab extends Component {
                                             style={{
                                                 width: isTabFullWidth ? `${tabWidthPerCent}%` : 'auto'
                                             }}
-                                            onMouseDown={e => onTabMouseDown(item, index, e)}
-                                            onMouseUp={e => onTabMouseUp(item, index, e)}
+                                            onMouseDown={e => onTabMouseDown && onTabMouseDown(item, index, e)}
+                                            onMouseUp={e => onTabMouseUp && onTabMouseUp(item, index, e)}
                                             onClick={e => this.handleTabClick(item, index, e)}/>
                             );
 
