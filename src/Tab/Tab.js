@@ -37,7 +37,8 @@ class Tab extends Component {
 
             item.onActive && item.onActive(item, activatedIndex);
 
-            const {onIndexChange} = this.props;
+            const {onTabClick, onIndexChange} = this.props;
+            onTabClick && onTabClick(item, activatedIndex);
             onIndexChange && onIndexChange(activatedIndex, item);
 
         });
@@ -217,7 +218,8 @@ Tab.propTypes = {
 
     isAnimated: PropTypes.bool,
 
-    onIndexChange: PropTypes.func
+    onIndexChange: PropTypes.func,
+    onTabClick: PropTypes.func
 
 };
 
