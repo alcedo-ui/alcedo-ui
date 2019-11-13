@@ -59,7 +59,10 @@ class Tab extends Component {
 
     render() {
 
-        const {className, style, isTabFullWidth, tabs, isAnimated} = this.props,
+        const {
+                className, style, isTabFullWidth, tabs, isAnimated,
+                onTabMouseDown, onTabMouseUp
+            } = this.props,
             {activatedIndex} = this.state,
             tabWidthPerCent = 100 / tabs.length;
 
@@ -95,6 +98,8 @@ class Tab extends Component {
                                             style={{
                                                 width: isTabFullWidth ? `${tabWidthPerCent}%` : 'auto'
                                             }}
+                                            onMouseDown={e => onTabMouseDown(item, index, e)}
+                                            onMouseUp={e => onTabMouseUp(item, index, e)}
                                             onClick={e => this.handleTabClick(item, index, e)}/>
                             );
 
@@ -219,7 +224,9 @@ Tab.propTypes = {
     isAnimated: PropTypes.bool,
 
     onIndexChange: PropTypes.func,
-    onTabClick: PropTypes.func
+    onTabClick: PropTypes.func,
+    onTabMouseDown: PropTypes.func,
+    onTabMouseUp: PropTypes.func
 
 };
 
