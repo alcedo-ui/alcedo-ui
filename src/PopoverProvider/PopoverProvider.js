@@ -47,6 +47,9 @@ class PopoverProvider extends Component {
     hide = () => {
         this.setState({
             visible: false
+        }, () => {
+            const {onRequestClose} = this.props;
+            onRequestClose && onRequestClose();
         });
     };
 
