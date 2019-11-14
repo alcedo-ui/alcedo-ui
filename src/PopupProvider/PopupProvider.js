@@ -42,6 +42,11 @@ class PopupProvider extends Component {
     toggle = () => {
         this.setState({
             visible: !this.state.visible
+        }, () => {
+            if (!this.state.visible) {
+                const {onRequestClose} = this.props;
+                onRequestClose && onRequestClose();
+            }
         });
     };
 
@@ -51,6 +56,9 @@ class PopupProvider extends Component {
     hide = () => {
         this.setState({
             visible: false
+        }, () => {
+            const {onRequestClose} = this.props;
+            onRequestClose && onRequestClose();
         });
     };
 
