@@ -150,7 +150,7 @@ class Dropdown extends Component {
                 className, triggerClassName, popupClassName, style, triggerStyle, popupStyle,
                 theme, activatedTheme, popupTheme, position, iconCls, triggerValue, title, tip, tipPosition,
                 rightIconCls, disabled, isLoading, disableTouchRipple, autoPopupWidth,
-                resetPopPositionWait, parentEl, triggerEl,
+                resetPopPositionWait, parentEl, triggerEl, shouldFollowScroll,
 
                 // events
                 onMouseOver, onMouseOut,
@@ -214,6 +214,7 @@ class Dropdown extends Component {
                        hasTriangle={false}
                        position={position ? position : (isAboveFinally ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        resetPositionWait={resetPopPositionWait}
+                       shouldFollowScroll={shouldFollowScroll}
                        onRender={this.handlePopupRender}
                        onRequestClose={this.handleRequestClose}>
                     {children}
@@ -319,7 +320,7 @@ Dropdown.propTypes = {
      * If true, the dropdown box automatically closed when blur.
      */
     isBlurClose: PropTypes.bool,
-
+    shouldFollowScroll: PropTypes.bool,
     resetPopPositionWait: PropTypes.number,
 
     /**
