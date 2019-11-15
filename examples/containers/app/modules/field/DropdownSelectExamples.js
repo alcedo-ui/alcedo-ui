@@ -340,6 +340,13 @@ class DropdownSelectExamples extends Component {
                                                                     tip="DropdownSelect Example"
                                                                     onChange={this.onChange}/>
                                                 </div>
+                                                <div className="field-group">
+                                                    <DropdownSelect data={data}
+                                                                    isHiddenInputFilter={true}
+                                                                    tip="DropdownSelect Example"
+                                                                    shouldFollowScroll={true}
+                                                                    onChange={this.onChange}/>
+                                                </div>
                                             </div>
                                     }
 
