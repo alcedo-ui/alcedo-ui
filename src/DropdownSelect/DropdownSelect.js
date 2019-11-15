@@ -775,6 +775,7 @@ DropdownSelect.propTypes = {
     checkboxIndeterminateIconCls: PropTypes.string,
     resetPopPositionWait: PropTypes.number,
     autoPopupWidth: PropTypes.bool,
+    shouldFollowScroll: PropTypes.bool,
 
     renderer: PropTypes.func,
     listItemRenderer: PropTypes.func,
