@@ -365,7 +365,7 @@ class DropdownSelect extends Component {
                 className, triggerClassName, popupClassName, style, name, popupTheme, data, triggerRenderer,
                 useDynamicRenderList, listHeight, itemHeight, scrollBuffer, renderer, listItemRenderer, selectMode,
                 itemDisabled, useFilter, filterIconCls, useSelectAll, selectAllText, valueField, displayField,
-                descriptionField, popupChildren, isHiddenInputFilter, noMatchedMsg, isGrouped,
+                descriptionField, popupChildren, isHiddenInputFilter, noMatchedMsg, isGrouped, filterPlaceholder,
                 radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
@@ -427,6 +427,7 @@ class DropdownSelect extends Component {
                                         <TextField ref={this.filter}
                                                    className="dropdown-select-filter"
                                                    value={filter}
+                                                   placeholder={filterPlaceholder}
                                                    rightIconCls={filterIconCls}
                                                    onChange={this.handleFilterChange}/>
                                         :
@@ -750,6 +751,7 @@ DropdownSelect.propTypes = {
     isGrouped: PropTypes.bool,
 
     filterIconCls: PropTypes.string,
+    filterPlaceholder: PropTypes.string,
     useSelectAll: PropTypes.bool,
     selectAllText: PropTypes.string,
 
@@ -830,6 +832,7 @@ DropdownSelect.defaultProps = {
     isBlurClose: true,
     useFilter: false,
     filterIconCls: 'fas fa-search',
+    filterPlaceholder: 'Search ...',
     useSelectAll: false,
     selectAllText: 'Select All',
     useDynamicRenderList: false,
