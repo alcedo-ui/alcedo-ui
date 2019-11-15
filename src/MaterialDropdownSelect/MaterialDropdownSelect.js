@@ -342,7 +342,7 @@ MaterialDropdownSelect.propTypes = {
     isGrouped: PropTypes.bool,
 
     required: PropTypes.bool,
-
+    shouldFollowScroll: PropTypes.bool,
     resetPopPositionWait: PropTypes.number,
 
     /**
