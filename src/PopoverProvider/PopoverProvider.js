@@ -40,6 +40,9 @@ class PopoverProvider extends Component {
         if (!this.state.visible) {
             this.setState({
                 visible: true
+            }, () => {
+                const {onRequestOpen} = this.props;
+                onRequestOpen && onRequestOpen();
             });
         }
     };
@@ -196,6 +199,11 @@ PopoverProvider.propTypes = {
      * The function of popover destroyed.
      */
     onDestroyed: PropTypes.func,
+
+    /**
+     * Callback function fired when the popover is requested to be opened.
+     */
+    onRequestOpen: PropTypes.func,
 
     /**
      * Callback function fired when the popover is requested to be closed.
