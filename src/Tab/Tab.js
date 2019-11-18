@@ -31,17 +31,25 @@ class Tab extends Component {
     }
 
     handleTabClick = (item, activatedIndex, e) => {
+
+        const {onTabClick} = this.props;
+        onTabClick && onTabClick(item, activatedIndex, e);
+
+        if (activatedIndex === this.state.activatedIndex) {
+            return;
+        }
+
         this.setState({
             activatedIndex
         }, () => {
 
             item.onActive && item.onActive(item, activatedIndex, e);
 
-            const {onTabClick, onIndexChange} = this.props;
-            onTabClick && onTabClick(item, activatedIndex, e);
-            onIndexChange && onIndexChange(activatedIndex, item);
+            const {onIndexChange} = this.props;
+            onIndexChange && onIndexChange(activatedIndex, item, e);
 
         });
+
     };
 
     getRenderer = item => {
