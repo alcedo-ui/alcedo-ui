@@ -4,9 +4,12 @@ import Tab from 'src/Tab';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import Toaster from 'src/Toaster';
+import IconButton from 'src/IconButton';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Tab.json';
+
+import 'scss/containers/app/modules/layout/TabExamples.scss';
 
 class TabExamples extends Component {
 
@@ -39,6 +42,10 @@ class TabExamples extends Component {
         this.setState({
             toasts: []
         });
+    };
+
+    addTab = () => {
+        console.log('Add Tab');
     };
 
     render() {
@@ -123,7 +130,12 @@ class TabExamples extends Component {
                                     disabled: true
                                 }]}
                                      isTabFullWidth={false}
-                                     isAnimated={false}/>
+                                     isAnimated={false}
+                                     tabsChildren={
+                                         <IconButton className="tab-button customized-tab-button"
+                                                     iconCls="fas fa-plus"
+                                                     onClick={this.addTab}/>
+                                     }/>
 
                             </div>
 

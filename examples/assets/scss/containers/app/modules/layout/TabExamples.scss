@@ -1,0 +1,13 @@
+@import '../../../../my-theme.scss';
+
+.tab-examples {
+
+    .customized-tab-button {
+        width: auto;
+        background: $theme-widget-bg;
+
+        .touch-ripple {
+            border-radius: 0;
+        }
+    }
+}
