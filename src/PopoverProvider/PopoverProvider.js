@@ -82,7 +82,16 @@ class PopoverProvider extends Component {
 
     render() {
 
-        const {children, popoverContent, ...restProps} = this.props,
+        const {
+
+                children, popoverContent,
+
+                // not passing down these props
+                onRequestOpen, onRequestClose,
+
+                ...restProps
+
+            } = this.props,
             {visible} = this.state;
 
         if (!popoverContent) {
