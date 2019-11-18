@@ -39,6 +39,11 @@ class Tab extends Component {
             return;
         }
 
+        const {beforeIndexChange} = this.props;
+        if (beforeIndexChange && beforeIndexChange(activatedIndex, item, e) === false) {
+            return;
+        }
+
         this.setState({
             activatedIndex
         }, () => {
@@ -231,6 +236,7 @@ Tab.propTypes = {
 
     isAnimated: PropTypes.bool,
 
+    beforeIndexChange: PropTypes.func,
     onIndexChange: PropTypes.func,
     onTabClick: PropTypes.func,
     onTabMouseDown: PropTypes.func,
