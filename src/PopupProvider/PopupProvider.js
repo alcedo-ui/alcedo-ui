@@ -46,6 +46,9 @@ class PopupProvider extends Component {
             if (!this.state.visible) {
                 const {onRequestClose} = this.props;
                 onRequestClose && onRequestClose();
+            } else {
+                const {onRequestOpen} = this.props;
+                onRequestOpen && onRequestOpen();
             }
         });
     };
@@ -140,24 +143,24 @@ PopupProvider.propTypes = {
     style: PropTypes.object,
 
     /**
-     * The popover theme.Can be primary,highlight,success,warning,error.
+     * The popup theme.Can be primary,highlight,success,warning,error.
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     parentEl: PropTypes.object,
 
     /**
-     * This is the DOM element that will be used to set the position of the popover.
+     * This is the DOM element that will be used to set the position of the popup.
      */
     triggerEl: PropTypes.object,
 
     /**
-     * If true,the popover is visible.
+     * If true,the popup is visible.
      */
     visible: PropTypes.bool,
 
     /**
-     * If true,the popover will have a triangle on the top of the DOM element.
+     * If true,the popup will have a triangle on the top of the DOM element.
      */
     hasTriangle: PropTypes.bool,
 
@@ -213,7 +216,12 @@ PopupProvider.propTypes = {
     onDestroyed: PropTypes.func,
 
     /**
-     * Callback function fired when the popover is requested to be closed.
+     * Callback function fired when the popup is requested to be opened.
+     */
+    onRequestOpen: PropTypes.func,
+
+    /**
+     * Callback function fired when the popup is requested to be closed.
      */
     onRequestClose: PropTypes.func,
 
