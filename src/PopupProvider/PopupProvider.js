@@ -91,7 +91,16 @@ class PopupProvider extends Component {
 
     render() {
 
-        const {children, popupContent, ...restProps} = this.props,
+        const {
+
+                children, popupContent,
+
+                // not passing down these props
+                onRequestOpen, onRequestClose,
+
+                ...restProps
+
+            } = this.props,
             {visible} = this.state;
 
         if (!popupContent) {
