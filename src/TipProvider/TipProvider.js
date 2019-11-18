@@ -40,6 +40,9 @@ class TipProvider extends Component {
         if (!this.state.visible) {
             this.setState({
                 visible: true
+            }, () => {
+                const {onRequestOpen} = this.props;
+                onRequestOpen && onRequestOpen();
             });
         }
     };
@@ -47,6 +50,9 @@ class TipProvider extends Component {
     hide = () => {
         this.setState({
             visible: false
+        }, () => {
+            const {onRequestClose} = this.props;
+            onRequestClose && onRequestClose();
         });
     };
 
@@ -210,6 +216,9 @@ TipProvider.propTypes = {
      * Callback function fired when wrapper wheeled.
      */
     onWheel: PropTypes.func,
+
+    onRequestOpen: PropTypes.func,
+    onRequestClose: PropTypes.func,
 
     tipContent: PropTypes.any
 
