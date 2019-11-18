@@ -95,7 +95,16 @@ class TipProvider extends Component {
 
     render() {
 
-        const {children, tipContent, parentEl, ...restProps} = this.props,
+        const {
+
+                children, tipContent, parentEl,
+
+                // not passing down these props
+                onRequestOpen, onRequestClose,
+
+                ...restProps
+
+            } = this.props,
             {visible} = this.state;
 
         if (!tipContent) {
