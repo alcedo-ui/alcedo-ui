@@ -73,7 +73,7 @@ class Tab extends Component {
     render() {
 
         const {
-                className, style, isTabFullWidth, tabs, isAnimated,
+                children, tabsChildren, className, style, isTabFullWidth, tabs, isAnimated,
                 onTabMouseDown, onTabMouseUp
             } = this.props,
             {activatedIndex} = this.state,
@@ -130,6 +130,8 @@ class Tab extends Component {
                             null
                     }
 
+                    {tabsChildren}
+
                 </div>
 
                 <div className="tab-content-wrapper">
@@ -159,6 +161,8 @@ class Tab extends Component {
                     }
                 </div>
 
+                {children}
+
             </div>
         );
 
@@ -166,6 +170,9 @@ class Tab extends Component {
 }
 
 Tab.propTypes = {
+
+    children: PropTypes.any,
+    tabsChildren: PropTypes.any,
 
     /**
      * The CSS class name of the root element.
