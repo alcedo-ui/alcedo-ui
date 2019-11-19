@@ -10,7 +10,10 @@ import classNames from 'classnames';
 import FlatButton from '../FlatButton';
 import IconButton from '../IconButton';
 
+import Position from '../_statics/Position';
+
 import ComponentUtil from '../_vendors/ComponentUtil';
+import Event from '../_vendors/Event';
 
 class Tab extends Component {
 
@@ -20,6 +23,8 @@ class Tab extends Component {
 
         this.tabs = createRef();
         this.tabsEl = null;
+
+        this.tabsScrollTimeout = null;
 
         this.state = {
             activatedIndex: props.activatedIndex,
@@ -85,24 +90,33 @@ class Tab extends Component {
 
     };
 
-    tabsScrollLeft = () => {
+    handleTabsScroll = (direction, keepScrolling) => {
 
         if (!this.tabsEl) {
             return;
         }
 
-        this.tabsEl.scrollLeft -= this.props.scrollStep;
+        const {scrollStep, scrollInterval, keepScrollingWait} = this.props;
+
+        this.tabsEl.scrollLeft += (direction === Position.LEFT ? -1 : 1) * scrollStep;
+
+        this.clearTabsScrollTimeout();
+        this.tabsScrollTimeout = setTimeout(() => {
+            this.handleTabsScroll(direction, true);
+        }, keepScrolling === true ? scrollInterval : keepScrollingWait);
 
     };
 
+    tabsScrollLeft = () => {
+        this.handleTabsScroll(Position.LEFT);
+    };
+
     tabsScrollRight = () => {
+        this.handleTabsScroll(Position.RIGHT);
+    };
 
-        if (!this.tabsEl) {
-            return;
-        }
-
-        this.tabsEl.scrollLeft += this.props.scrollStep;
-
+    clearTabsScrollTimeout = () => {
+        this.tabsScrollTimeout && clearTimeout(this.tabsScrollTimeout);
     };
 
     componentDidMount() {
@@ -113,6 +127,8 @@ class Tab extends Component {
             isTabsOverflow: this.isTabsOverflow()
         });
 
+        Event.addEvent(document, 'mouseup', this.clearTabsScrollTimeout);
+
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -122,6 +138,10 @@ class Tab extends Component {
                 isTabsOverflow
             });
         }
+    }
+
+    componentWillUnmount() {
+        Event.removeEvent(document, 'mouseup', this.clearTabsScrollTimeout);
     }
 
     render() {
@@ -322,6 +342,8 @@ Tab.propTypes = {
     scrollLeftIconCls: PropTypes.string,
     scrollRightIconCls: PropTypes.string,
     scrollStep: PropTypes.number,
+    scrollInterval: PropTypes.number,
+    keepScrollingWait: PropTypes.number,
 
     beforeIndexChange: PropTypes.func,
     onIndexChange: PropTypes.func,
@@ -341,7 +363,9 @@ Tab.defaultProps = {
 
     scrollLeftIconCls: 'fas fa-chevron-left',
     scrollRightIconCls: 'fas fa-chevron-right',
-    scrollStep: 100
+    scrollStep: 100,
+    scrollInterval: 100,
+    keepScrollingWait: 500
 
 };
 
