@@ -32,6 +32,10 @@
                 border-bottom-right-radius: 0;
                 margin-left: 6px;
 
+                &:first-child {
+                    margin-left: 0;
+                }
+
                 &.activated {
                     background: $theme-secondary;
                 }
