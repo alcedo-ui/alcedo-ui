@@ -18,7 +18,7 @@ class TabExamples extends Component {
         super(props);
 
         this.state = {
-            tabs: this.generateTabs(4),
+            tabs: this.generateTabs(20),
             toasts: []
         };
 
