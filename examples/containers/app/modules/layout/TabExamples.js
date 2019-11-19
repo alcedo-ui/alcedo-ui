@@ -18,6 +18,7 @@ class TabExamples extends Component {
         super(props);
 
         this.state = {
+            tabs: this.generateTabs(4),
             toasts: []
         };
 
@@ -44,13 +45,32 @@ class TabExamples extends Component {
         });
     };
 
+    generateTabs = length => {
+        return Array.from({length}, (item, index) => ({
+            value: `Tab ${index + 1}`,
+            renderer: <h1>Tab {index + 1}</h1>
+        }));
+    };
+
     addTab = () => {
-        console.log('Add Tab');
+
+        const {tabs} = this.state,
+            index = tabs.length + 1;
+
+        tabs.push({
+            value: `Tab ${index}`,
+            renderer: <h1>Tab {index}</h1>
+        });
+
+        this.setState({
+            tabs
+        });
+
     };
 
     render() {
 
-        const {toasts} = this.state;
+        const {tabs, toasts} = this.state;
 
         return (
             <div className="example tab-examples">
@@ -115,20 +135,7 @@ class TabExamples extends Component {
                                     for partial width.
                                 </p>
 
-                                <Tab tabs={[{
-                                    value: 'Tab 1',
-                                    renderer: <h1>Tab 1</h1>
-                                }, {
-                                    value: 'Tab 2',
-                                    renderer: <h1>Tab 2</h1>
-                                }, {
-                                    value: 'Tab 3',
-                                    renderer: <h1>onActive</h1>,
-                                    onActive: this.activeHandler
-                                }, {
-                                    value: 'Tab 4',
-                                    disabled: true
-                                }]}
+                                <Tab tabs={tabs}
                                      isTabFullWidth={false}
                                      isAnimated={false}
                                      tabsChildren={
