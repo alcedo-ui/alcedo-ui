@@ -3,11 +3,12 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, Fragment, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import FlatButton from '../FlatButton';
+import IconButton from '../IconButton';
 
 import ComponentUtil from '../_vendors/ComponentUtil';
 
@@ -16,6 +17,9 @@ class Tab extends Component {
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
+
+        this.tabs = createRef();
+        this.tabsEl = null;
 
         this.state = {
             activatedIndex: props.activatedIndex
@@ -70,18 +74,56 @@ class Tab extends Component {
 
     };
 
+    isTabsOverflow = () => {
+
+        if (!this.tabsEl) {
+            return false;
+        }
+
+        return this.tabsEl.scrollWidth > this.tabsEl.offsetWidth;
+
+    };
+
+    tabsScrollLeft = () => {
+
+        if (!this.tabsEl) {
+            return;
+        }
+
+        this.tabsEl.scrollLeft -= this.props.scrollStep;
+
+    };
+
+    tabsScrollRight = () => {
+
+        if (!this.tabsEl) {
+            return;
+        }
+
+        this.tabsEl.scrollLeft += this.props.scrollStep;
+
+    };
+
+    componentDidMount() {
+        this.tabsEl = this.tabs && this.tabs.current;
+    }
+
     render() {
 
         const {
                 children, tabsChildren, className, style, isTabFullWidth, tabs, isAnimated,
+                scrollLeftIconCls, scrollRightIconCls,
                 onTabMouseDown, onTabMouseUp
             } = this.props,
             {activatedIndex} = this.state,
+
+            isTabsOverflow = this.isTabsOverflow(),
             tabWidthPerCent = 100 / tabs.length;
 
         return (
             <div className={classNames('tab', {
                 animated: isAnimated,
+                'tabs-overflow': isTabsOverflow,
                 [className]: className
             })}
                  style={style}>
@@ -90,34 +132,41 @@ class Tab extends Component {
                     'auto-width': !isTabFullWidth
                 })}>
 
-                    {
-                        tabs && tabs.map((item, index) => {
+                    <div ref={this.tabs}
+                         className="tabs-scroller">
 
-                            const {
+                        {
+                            tabs && tabs.map((item, index) => {
 
-                                // not passing down these props
-                                renderer, onActive,
+                                const {
 
-                                ...restProps
+                                    // not passing down these props
+                                    renderer, onActive,
 
-                            } = item;
+                                    ...restProps
 
-                            return (
-                                <FlatButton {...restProps}
-                                            key={index}
-                                            className={classNames('tab-button', {
-                                                activated: activatedIndex === index
-                                            })}
-                                            style={{
-                                                width: isTabFullWidth ? `${tabWidthPerCent}%` : 'auto'
-                                            }}
-                                            onMouseDown={e => onTabMouseDown && onTabMouseDown(item, index, e)}
-                                            onMouseUp={e => onTabMouseUp && onTabMouseUp(item, index, e)}
-                                            onClick={e => this.handleTabClick(item, index, e)}/>
-                            );
+                                } = item;
 
-                        })
-                    }
+                                return (
+                                    <FlatButton {...restProps}
+                                                key={index}
+                                                className={classNames('tab-button', {
+                                                    activated: activatedIndex === index
+                                                })}
+                                                style={{
+                                                    width: isTabFullWidth ? `${tabWidthPerCent}%` : 'auto'
+                                                }}
+                                                onMouseDown={e => onTabMouseDown && onTabMouseDown(item, index, e)}
+                                                onMouseUp={e => onTabMouseUp && onTabMouseUp(item, index, e)}
+                                                onClick={e => this.handleTabClick(item, index, e)}/>
+                                );
+
+                            })
+                        }
+
+                        {tabsChildren}
+
+                    </div>
 
                     {
                         isTabFullWidth ?
@@ -130,7 +179,19 @@ class Tab extends Component {
                             null
                     }
 
-                    {tabsChildren}
+                    {
+                        isTabsOverflow ?
+                            <Fragment>
+                                <IconButton className="tab-button tab-scroll-left-button"
+                                            iconCls={scrollLeftIconCls}
+                                            onMouseDown={this.tabsScrollLeft}/>
+                                <IconButton className="tab-button tab-scroll-right-button"
+                                            iconCls={scrollRightIconCls}
+                                            onMouseDown={this.tabsScrollRight}/>
+                            </Fragment>
+                            :
+                            null
+                    }
 
                 </div>
 
@@ -243,6 +304,10 @@ Tab.propTypes = {
 
     isAnimated: PropTypes.bool,
 
+    scrollLeftIconCls: PropTypes.string,
+    scrollRightIconCls: PropTypes.string,
+    scrollStep: PropTypes.number,
+
     beforeIndexChange: PropTypes.func,
     onIndexChange: PropTypes.func,
     onTabClick: PropTypes.func,
@@ -257,7 +322,11 @@ Tab.defaultProps = {
 
     activatedIndex: 0,
     isTabFullWidth: true,
-    isAnimated: true
+    isAnimated: true,
+
+    scrollLeftIconCls: 'fas fa-chevron-left',
+    scrollRightIconCls: 'fas fa-chevron-right',
+    scrollStep: 100
 
 };
 

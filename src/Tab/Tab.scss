@@ -7,14 +7,20 @@
 
     .tabs {
         position: relative;
-        overflow: hidden;
         border-bottom: 1px solid $theme-border;
         box-sizing: border-box;
+        white-space: nowrap;
+        overflow: hidden;
 
-        .tab-button {
-            padding: 0 20px;
-            border-radius: 0;
-            margin: 0;
+        .tabs-scroller {
+            overflow: hidden;
+
+            .tab-button {
+                padding: 0 20px;
+                border-radius: 0;
+                margin: 0;
+                vertical-align: bottom;
+            }
         }
 
         .ink-bar {
@@ -39,6 +45,27 @@
                 &.activated {
                     background: $theme-secondary;
                 }
+
+                &.tab-scroll-left-button,
+                &.tab-scroll-right-button {
+                    position: absolute;
+                    top: 0;
+                    width: 24px;
+                    padding: 0;
+                    margin: 0;
+
+                    .touch-ripple {
+                        border-radius: 0;
+                    }
+                }
+
+                &.tab-scroll-left-button {
+                    left: 0;
+                }
+
+                &.tab-scroll-right-button {
+                    right: 0;
+                }
             }
         }
     }
@@ -59,6 +86,10 @@
                 box-sizing: border-box;
             }
         }
+    }
+
+    &.tabs-overflow .tabs {
+        padding: 0 24px;
     }
 
     &.animated {
