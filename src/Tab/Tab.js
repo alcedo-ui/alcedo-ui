@@ -22,7 +22,8 @@ class Tab extends Component {
         this.tabsEl = null;
 
         this.state = {
-            activatedIndex: props.activatedIndex
+            activatedIndex: props.activatedIndex,
+            isTabsOverflow: false
         };
 
     }
@@ -105,7 +106,22 @@ class Tab extends Component {
     };
 
     componentDidMount() {
+
         this.tabsEl = this.tabs && this.tabs.current;
+
+        this.setState({
+            isTabsOverflow: this.isTabsOverflow()
+        });
+
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        const isTabsOverflow = this.isTabsOverflow();
+        if (isTabsOverflow !== this.state.isTabsOverflow) {
+            this.setState({
+                isTabsOverflow
+            });
+        }
     }
 
     render() {
@@ -115,9 +131,8 @@ class Tab extends Component {
                 scrollLeftIconCls, scrollRightIconCls,
                 onTabMouseDown, onTabMouseUp
             } = this.props,
-            {activatedIndex} = this.state,
+            {activatedIndex, isTabsOverflow} = this.state,
 
-            isTabsOverflow = this.isTabsOverflow(),
             tabWidthPerCent = 100 / tabs.length;
 
         return (
