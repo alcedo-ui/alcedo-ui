@@ -116,41 +116,52 @@ class Tabs extends Component {
                 })}
                      style={style}>
 
-                    <div ref={this.tabs}
-                         className="tabs-scroller">
-
+                    <Droppable droppableId="droppable">
                         {
-                            data && data.map((item, index) => {
+                            dropProvided => (
+                                <div ref={dropProvided.innerRef}
+                                     {...dropProvided.droppableProps}>
+                                    <div ref={this.tabs}
+                                         className="tabs-scroller">
 
-                                const {
+                                        {
+                                            data && data.map((item, index) => {
 
-                                    // not passing down these props
-                                    renderer, onActive,
+                                                const {
 
-                                    ...restProps
+                                                    // not passing down these props
+                                                    renderer, onActive,
 
-                                } = item;
+                                                    ...restProps
 
-                                return (
-                                    <FlatButton {...restProps}
-                                                key={index}
-                                                className={classNames('tab-button', {
-                                                    activated: activatedIndex === index
-                                                })}
-                                                style={{
-                                                    width: isTabFullWidth ? `${tabWidthPerCent}%` : 'auto'
-                                                }}
-                                                onMouseDown={e => onTabMouseDown && onTabMouseDown(item, index, e)}
-                                                onMouseUp={e => onTabMouseUp && onTabMouseUp(item, index, e)}
-                                                onClick={e => onTabClick(item, index, e)}/>
-                                );
+                                                } = item;
 
-                            })
+                                                return (
+                                                    <FlatButton {...restProps}
+                                                                key={index}
+                                                                className={classNames('tab-button', {
+                                                                    activated: activatedIndex === index
+                                                                })}
+                                                                style={{
+                                                                    width: isTabFullWidth ? `${tabWidthPerCent}%` : 'auto'
+                                                                }}
+                                                                onMouseDown={e => onTabMouseDown && onTabMouseDown(item, index, e)}
+                                                                onMouseUp={e => onTabMouseUp && onTabMouseUp(item, index, e)}
+                                                                onClick={e => onTabClick(item, index, e)}/>
+                                                );
+
+                                            })
+                                        }
+
+                                        {children}
+
+                                        {dropProvided.placeholder}
+
+                                    </div>
+                                </div>
+                            )
                         }
-
-                        {children}
-
-                    </div>
+                    </Droppable>
 
                     {
                         isTabFullWidth ?
