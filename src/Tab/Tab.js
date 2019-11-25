@@ -3,17 +3,14 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component, Fragment, createRef} from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import FlatButton from '../FlatButton';
-import IconButton from '../IconButton';
-
-import Position from '../_statics/Position';
+import Tabs from '../_Tabs';
 
 import ComponentUtil from '../_vendors/ComponentUtil';
-import Event from '../_vendors/Event';
+import Util from '../_vendors/Util';
 
 class Tab extends Component {
 
@@ -21,12 +18,8 @@ class Tab extends Component {
 
         super(props, ...restArgs);
 
-        this.tabs = createRef();
-        this.tabsEl = null;
-
-        this.tabsScrollTimeout = null;
-
         this.state = {
+            tabs: props.tabs,
             activatedIndex: props.activatedIndex,
             isTabsOverflow: false
         };
@@ -36,9 +29,23 @@ class Tab extends Component {
     static getDerivedStateFromProps(props, state) {
         return {
             prevProps: props,
+            tabs: ComponentUtil.getDerivedState(props, state, 'tabs'),
             activatedIndex: ComponentUtil.getDerivedState(props, state, 'activatedIndex')
         };
     }
+
+    getRenderer = item => {
+
+        if (!item || !item.renderer) {
+            return null;
+        }
+
+        return typeof item.renderer === 'function' ?
+            item.renderer(item)
+            :
+            item.renderer;
+
+    };
 
     handleTabClick = (item, activatedIndex, e) => {
 
@@ -67,91 +74,37 @@ class Tab extends Component {
 
     };
 
-    getRenderer = item => {
-
-        if (!item || !item.renderer) {
-            return null;
-        }
-
-        return typeof item.renderer === 'function' ?
-            item.renderer(item)
-            :
-            item.renderer;
-
+    handleTabsOverflowChange = isTabsOverflow => {
+        this.setState({
+            isTabsOverflow
+        });
     };
 
-    isTabsOverflow = () => {
+    handleTabButtonDragEnd = result => {
 
-        if (!this.tabsEl) {
-            return false;
-        }
-
-        return this.tabsEl.scrollWidth > this.tabsEl.offsetWidth;
-
-    };
-
-    handleTabsScroll = (direction, keepScrolling) => {
-
-        if (!this.tabsEl) {
+        if (!result || !('draggableId' in result)
+            || !result.source || !('index' in result.source)
+            || !result.destination || !('index' in result.destination)) {
             return;
         }
 
-        const {scrollStep, scrollInterval, keepScrollingWait} = this.props;
-
-        this.tabsEl.scrollLeft += (direction === Position.LEFT ? -1 : 1) * scrollStep;
-
-        this.clearTabsScrollTimeout();
-        this.tabsScrollTimeout = setTimeout(() => {
-            this.handleTabsScroll(direction, true);
-        }, keepScrolling === true ? scrollInterval : keepScrollingWait);
-
-    };
-
-    tabsScrollLeft = () => {
-        this.handleTabsScroll(Position.LEFT);
-    };
-
-    tabsScrollRight = () => {
-        this.handleTabsScroll(Position.RIGHT);
-    };
-
-    clearTabsScrollTimeout = () => {
-        this.tabsScrollTimeout && clearTimeout(this.tabsScrollTimeout);
-    };
-
-    componentDidMount() {
-
-        this.tabsEl = this.tabs && this.tabs.current;
+        const {tabs} = this.state;
+        Util.reorder(tabs, result.source.index, result.destination.index);
 
         this.setState({
-            isTabsOverflow: this.isTabsOverflow()
+            tabs
+        }, () => {
+            const {onTabButtonDragEnd, onTabsSequenceChange} = this.props;
+            onTabButtonDragEnd && onTabButtonDragEnd(result);
+            onTabsSequenceChange && onTabsSequenceChange(tabs);
         });
 
-        Event.addEvent(document, 'mouseup', this.clearTabsScrollTimeout);
-
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        const isTabsOverflow = this.isTabsOverflow();
-        if (isTabsOverflow !== this.state.isTabsOverflow) {
-            this.setState({
-                isTabsOverflow
-            });
-        }
-    }
-
-    componentWillUnmount() {
-        Event.removeEvent(document, 'mouseup', this.clearTabsScrollTimeout);
-    }
+    };
 
     render() {
 
-        const {
-                children, tabsChildren, className, style, isTabFullWidth, tabs, isAnimated,
-                scrollLeftIconCls, scrollRightIconCls,
-                onTabMouseDown, onTabMouseUp
-            } = this.props,
-            {activatedIndex, isTabsOverflow} = this.state,
+        const {children, tabsChildren, className, style, isAnimated} = this.props,
+            {tabs, activatedIndex, isTabsOverflow} = this.state,
 
             tabWidthPerCent = 100 / tabs.length;
 
@@ -163,72 +116,15 @@ class Tab extends Component {
             })}
                  style={style}>
 
-                <div className={classNames('tabs', {
-                    'auto-width': !isTabFullWidth
-                })}>
-
-                    <div ref={this.tabs}
-                         className="tabs-scroller">
-
-                        {
-                            tabs && tabs.map((item, index) => {
-
-                                const {
-
-                                    // not passing down these props
-                                    renderer, onActive,
-
-                                    ...restProps
-
-                                } = item;
-
-                                return (
-                                    <FlatButton {...restProps}
-                                                key={index}
-                                                className={classNames('tab-button', {
-                                                    activated: activatedIndex === index
-                                                })}
-                                                style={{
-                                                    width: isTabFullWidth ? `${tabWidthPerCent}%` : 'auto'
-                                                }}
-                                                onMouseDown={e => onTabMouseDown && onTabMouseDown(item, index, e)}
-                                                onMouseUp={e => onTabMouseUp && onTabMouseUp(item, index, e)}
-                                                onClick={e => this.handleTabClick(item, index, e)}/>
-                                );
-
-                            })
-                        }
-
-                        {tabsChildren}
-
-                    </div>
-
-                    {
-                        isTabFullWidth ?
-                            <div className="ink-bar"
-                                 style={{
-                                     width: `${tabWidthPerCent}%`,
-                                     transform: `translate(${activatedIndex * 100}%, 0)`
-                                 }}></div>
-                            :
-                            null
-                    }
-
-                    {
-                        isTabsOverflow ?
-                            <Fragment>
-                                <IconButton className="tab-button tab-scroll-left-button"
-                                            iconCls={scrollLeftIconCls}
-                                            onMouseDown={this.tabsScrollLeft}/>
-                                <IconButton className="tab-button tab-scroll-right-button"
-                                            iconCls={scrollRightIconCls}
-                                            onMouseDown={this.tabsScrollRight}/>
-                            </Fragment>
-                            :
-                            null
-                    }
-
-                </div>
+                <Tabs {...this.props}
+                      data={tabs}
+                      activatedIndex={activatedIndex}
+                      isTabsOverflow={isTabsOverflow}
+                      onTabClick={this.handleTabClick}
+                      onTabsOverflowChange={this.handleTabsOverflowChange}
+                      onTabButtonDragEnd={this.handleTabButtonDragEnd}>
+                    {tabsChildren}
+                </Tabs>
 
                 <div className="tab-content-wrapper">
                     {
@@ -349,7 +245,10 @@ Tab.propTypes = {
     onIndexChange: PropTypes.func,
     onTabClick: PropTypes.func,
     onTabMouseDown: PropTypes.func,
-    onTabMouseUp: PropTypes.func
+    onTabMouseUp: PropTypes.func,
+    onTabButtonDragStart: PropTypes.func,
+    onTabButtonDragEnd: PropTypes.func,
+    onTabsSequenceChange: PropTypes.func
 
 };
 
