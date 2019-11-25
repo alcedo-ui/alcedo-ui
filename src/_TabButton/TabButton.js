@@ -1,5 +1,5 @@
 /**
- * @file TabsButton component
+ * @file TabButton component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import {Draggable} from 'react-beautiful-dnd';
 import FlatButton from '../FlatButton';
 
 class TabButton extends Component {
@@ -32,17 +33,34 @@ class TabButton extends Component {
 
     render() {
 
-        const {className, style, index, isTabFullWidth, data, activatedIndex, ...restProps} = this.props;
+        const {
+            className, style, index, isTabFullWidth, data, activatedIndex, draggable,
+            ...restProps
+        } = this.props;
 
         return (
-            <FlatButton {...restProps}
-                        className={classNames('tab-button', {
-                            [className]: className
-                        })}
-                        style={style}
-                        onMouseDown={this.handleMouseDown}
-                        onMouseUp={this.handleMouseUp}
-                        onClick={this.handleClick}/>
+            <Draggable key={index}
+                       draggableId={'' + index}
+                       index={index}
+                       isDragDisabled={!draggable}>
+                {
+                    dragProvided => (
+                        <div ref={dragProvided.innerRef}
+                             style={dragProvided.draggableStyle}
+                             {...dragProvided.draggableProps}
+                             {...dragProvided.dragHandleProps}>
+                            <FlatButton {...restProps}
+                                        className={classNames('tab-button', {
+                                            [className]: className
+                                        })}
+                                        style={style}
+                                        onMouseDown={this.handleMouseDown}
+                                        onMouseUp={this.handleMouseUp}
+                                        onClick={this.handleClick}/>
+                        </div>
+                    )
+                }
+            </Draggable>
         );
 
     }
@@ -120,6 +138,8 @@ TabButton.propTypes = {
      */
     isTabFullWidth: PropTypes.bool,
 
+    draggable: PropTypes.bool,
+
     onMouseDown: PropTypes.func,
     onMouseUp: PropTypes.func,
     onClick: PropTypes.func
@@ -129,7 +149,8 @@ TabButton.propTypes = {
 TabButton.defaultProps = {
     activatedIndex: 0,
     index: 0,
-    isTabFullWidth: true
+    isTabFullWidth: true,
+    draggable: false
 };
 
 export default TabButton;

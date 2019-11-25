@@ -1,5 +1,5 @@
 /**
- * @file TabsButton
+ * @file TabButton
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
