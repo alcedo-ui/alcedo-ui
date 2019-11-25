@@ -1,0 +1,105 @@
+/**
+ * @file Tab style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+.tab {
+
+    .tabs {
+        position: relative;
+        border-bottom: 1px solid $theme-border;
+        box-sizing: border-box;
+        white-space: nowrap;
+        overflow: hidden;
+
+        .tabs-scroller {
+            overflow: hidden;
+
+            .tab-button {
+                padding: 0 20px;
+                border-radius: 0;
+                margin: 0;
+                vertical-align: bottom;
+            }
+        }
+
+        .ink-bar {
+            position: absolute;
+            bottom: 0;
+            height: 2px;
+            background: $theme-highlight;
+            transition: transform $theme-transition-duration ease-in-out;
+        }
+
+        &.auto-width {
+            .tab-button {
+                border-radius: $theme-border-radius;
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+                margin-left: 6px;
+
+                &:first-child {
+                    margin-left: 0;
+                }
+
+                &.activated {
+                    background: $theme-secondary;
+                }
+
+                &.tab-scroll-left-button,
+                &.tab-scroll-right-button {
+                    position: absolute;
+                    top: 0;
+                    width: 24px;
+                    padding: 0;
+                    margin: 0;
+
+                    .touch-ripple {
+                        border-radius: 0;
+                    }
+                }
+
+                &.tab-scroll-left-button {
+                    left: 0;
+                }
+
+                &.tab-scroll-right-button {
+                    right: 0;
+                }
+            }
+        }
+    }
+
+    .tab-content-wrapper {
+        width: 100%;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        overflow: hidden;
+        background: $theme-field-bg;
+
+        .tab-content-scroller {
+            @include float-fix;
+
+            .tab-content {
+                float: left;
+                padding: 20px;
+                box-sizing: border-box;
+            }
+        }
+    }
+
+    &.tabs-overflow .tabs {
+        padding: 0 24px;
+    }
+
+    &.animated {
+        .tab-content-scroller {
+            transition: all $theme-transition-duration ease-in-out;
+        }
+    }
+}
+
+.tab-empty {
+    line-height: 100px;
+    text-align: center;
+}
