@@ -8,8 +8,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import {DragDropContext, Droppable} from 'react-beautiful-dnd';
-import FlatButton from '../FlatButton';
 import IconButton from '../IconButton';
+import TabsButton from '../_TabButton';
 
 import Position from '../_statics/Position';
 
@@ -137,17 +137,15 @@ class Tabs extends Component {
                                                 } = item;
 
                                                 return (
-                                                    <FlatButton {...restProps}
+                                                    <TabsButton {...restProps}
                                                                 key={index}
-                                                                className={classNames('tab-button', {
-                                                                    activated: activatedIndex === index
-                                                                })}
-                                                                style={{
-                                                                    width: isTabFullWidth ? `${tabWidthPerCent}%` : 'auto'
-                                                                }}
-                                                                onMouseDown={e => onTabMouseDown && onTabMouseDown(item, index, e)}
-                                                                onMouseUp={e => onTabMouseUp && onTabMouseUp(item, index, e)}
-                                                                onClick={e => onTabClick(item, index, e)}/>
+                                                                className={classNames({activated: activatedIndex === index})}
+                                                                style={{width: isTabFullWidth ? `${tabWidthPerCent}%` : 'auto'}}
+                                                                data={item}
+                                                                index={index}
+                                                                onMouseDown={onTabMouseDown}
+                                                                onMouseUp={onTabMouseUp}
+                                                                onClick={onTabClick}/>
                                                 );
 
                                             })
