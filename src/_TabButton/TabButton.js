@@ -34,11 +34,25 @@ class TabButton extends Component {
     render() {
 
         const {
-            className, style, index, isTabFullWidth, data, activatedIndex, draggable,
-            ...restProps
-        } = this.props;
+                className, style, index, isTabFullWidth, data, activatedIndex, draggable,
+                ...restProps
+            } = this.props,
+            trigger = (
+                <FlatButton {...restProps}
+                            className={classNames('tab-button', {
+                                [className]: className
+                            })}
+                            style={style}
+                            container={<div></div>}
+                            disableTouchRipple={true}
+                            onMouseDown={this.handleMouseDown}
+                            onMouseUp={this.handleMouseUp}
+                            onClick={this.handleClick}/>
+            );
 
-        return (
+        return isTabFullWidth ?
+            trigger
+            :
             <Draggable key={index}
                        draggableId={'' + index}
                        index={index}
@@ -47,23 +61,14 @@ class TabButton extends Component {
                     dragProvided => (
                         <div ref={dragProvided.innerRef}
                              className="tab-button-wrapper"
-                             style={{...dragProvided.draggableStyle, ...style}}
+                             style={dragProvided.draggableStyle}
                              {...dragProvided.draggableProps}
                              {...dragProvided.dragHandleProps}>
-                            <FlatButton {...restProps}
-                                        className={classNames('tab-button', {
-                                            [className]: className
-                                        })}
-                                        container={<div></div>}
-                                        disableTouchRipple={true}
-                                        onMouseDown={this.handleMouseDown}
-                                        onMouseUp={this.handleMouseUp}
-                                        onClick={this.handleClick}/>
+                            {trigger}
                         </div>
                     )
                 }
-            </Draggable>
-        );
+            </Draggable>;
 
     }
 }
