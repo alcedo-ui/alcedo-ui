@@ -91,9 +91,22 @@ class Tab extends Component {
         const {tabs} = this.state;
         Util.reorder(tabs, result.source.index, result.destination.index);
 
-        this.setState({
-            tabs
-        }, () => {
+        const {activatedIndex} = this.state,
+            state = {
+                tabs
+            };
+
+        if (activatedIndex === result.source.index) {
+            state.activatedIndex = result.destination.index;
+        } else if (activatedIndex === result.destination.index) {
+            state.activatedIndex = result.source.index;
+        } else if (activatedIndex > result.source.index && activatedIndex < result.destination.index) {
+            state.activatedIndex = activatedIndex - 1;
+        } else if (activatedIndex < result.source.index && activatedIndex > result.destination.index) {
+            state.activatedIndex = activatedIndex + 1;
+        }
+
+        this.setState(state, () => {
             const {onTabButtonDragEnd, onTabsSequenceChange} = this.props;
             onTabButtonDragEnd && onTabButtonDragEnd(result);
             onTabsSequenceChange && onTabsSequenceChange(tabs);
