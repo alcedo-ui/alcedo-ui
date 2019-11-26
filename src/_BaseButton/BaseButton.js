@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component, createRef} from 'react';
+import React, {Component, cloneElement, Fragment, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -65,7 +65,7 @@ class BaseButton extends Component {
 
                 children, className, style, theme, isRounded, isCircular, disableTouchRipple,
                 iconCls, rightIconCls, type, value, disabled, readOnly, isLoading, rippleDisplayCenter,
-                tip, tipPosition, renderer, parentEl, triggerEl,
+                tip, tipPosition, renderer, parentEl, triggerEl, container,
 
                 ...restProps
 
@@ -78,73 +78,78 @@ class BaseButton extends Component {
                          triggerEl={triggerEl}
                          parentEl={parentEl}
                          position={tipPosition}>
-
-                <button {...restProps}
-                        className={classNames('base-button', {
+                {
+                    cloneElement(container, {
+                        ...restProps,
+                        className: classNames('base-button', {
                             [`theme-${theme}`]: theme,
                             'button-circular': isCircular,
                             'button-rounded': isRounded,
                             [className]: className
-                        })}
-                        style={style}
-                        type={type}
-                        disabled={disabled || isLoading}
-                        readOnly={readOnly}
-                        onClick={this.handleClick}>
+                        }),
+                        style,
+                        type,
+                        disabled: disabled || isLoading,
+                        readOnly,
+                        onClick: this.handleClick,
+                        children: (
+                            <Fragment>
 
-                    {
-                        isLoading && loadingIconPosition === 'left' ?
-                            <CircularLoading className="button-icon button-icon-left button-loading-icon"
-                                             size="small"/>
-                            :
-                            (
-                                iconCls ?
-                                    <i className={`button-icon button-icon-left ${iconCls}`}
-                                       aria-hidden="true"></i>
-                                    :
-                                    null
-                            )
-                    }
+                                {
+                                    isLoading && loadingIconPosition === 'left' ?
+                                        <CircularLoading className="button-icon button-icon-left button-loading-icon"
+                                                         size="small"/>
+                                        :
+                                        (
+                                            iconCls ?
+                                                <i className={`button-icon button-icon-left ${iconCls}`}
+                                                   aria-hidden="true"></i>
+                                                :
+                                                null
+                                        )
+                                }
 
-                    {
-                        renderer && typeof renderer === 'function' ?
-                            renderer(this.props)
-                            :
-                            (
-                                value ?
-                                    <span className="base-button-value">{value}</span>
-                                    :
-                                    null
-                            )
-                    }
+                                {
+                                    renderer && typeof renderer === 'function' ?
+                                        renderer(this.props)
+                                        :
+                                        (
+                                            value ?
+                                                <span className="base-button-value">{value}</span>
+                                                :
+                                                null
+                                        )
+                                }
 
-                    {
-                        isLoading && loadingIconPosition === 'right' ?
-                            <CircularLoading className="button-icon button-icon-right button-loading-icon"
-                                             size="small"/>
-                            :
-                            (
-                                rightIconCls ?
-                                    <i className={`button-icon button-icon-right ${rightIconCls}`}
-                                       aria-hidden="true"></i>
-                                    :
-                                    null
-                            )
-                    }
+                                {
+                                    isLoading && loadingIconPosition === 'right' ?
+                                        <CircularLoading className="button-icon button-icon-right button-loading-icon"
+                                                         size="small"/>
+                                        :
+                                        (
+                                            rightIconCls ?
+                                                <i className={`button-icon button-icon-right ${rightIconCls}`}
+                                                   aria-hidden="true"></i>
+                                                :
+                                                null
+                                        )
+                                }
 
-                    {children}
+                                {children}
 
-                    {
-                        disableTouchRipple ?
-                            null
-                            :
-                            <TouchRipple ref={this.touchRipple}
-                                         className={disabled || isLoading ? 'hidden' : ''}
-                                         displayCenter={rippleDisplayCenter}/>
-                    }
+                                {
+                                    disableTouchRipple ?
+                                        null
+                                        :
+                                        <TouchRipple ref={this.touchRipple}
+                                                     className={disabled || isLoading ? 'hidden' : ''}
+                                                     displayCenter={rippleDisplayCenter}/>
+                                }
 
-                </button>
-
+                            </Fragment>
+                        )
+                    })
+                }
             </TipProvider>
         );
 
@@ -181,6 +186,8 @@ BaseButton.propTypes = {
     parentEl: PropTypes.object,
     triggerEl: PropTypes.object,
 
+    container: PropTypes.object,
+
     renderer: PropTypes.func,
     onClick: PropTypes.func
 
@@ -200,7 +207,9 @@ BaseButton.defaultProps = {
     disableTouchRipple: false,
     rippleDisplayCenter: false,
 
-    tipPosition: Position.BOTTOM
+    tipPosition: Position.BOTTOM,
+
+    container: <button></button>
 
 };
 
