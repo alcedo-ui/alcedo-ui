@@ -12,8 +12,10 @@ import IconButton from '../IconButton';
 import TabsButton from '../_TabButton';
 
 import Position from '../_statics/Position';
+import Direction from '../_statics/Direction';
 
 import Event from '../_vendors/Event';
+import ScrollBar from '../_vendors/ScrollBar';
 
 class Tabs extends Component {
 
@@ -39,6 +41,22 @@ class Tabs extends Component {
         }
 
         return this.tabsEl.scrollWidth > this.tabsEl.offsetWidth;
+
+    };
+
+    getScrollerStyle = () => {
+
+        const horizontalScrollBarSize = ScrollBar.getSize(Direction.HORIZONTAL);
+
+        if (!horizontalScrollBarSize || horizontalScrollBarSize <= 0) {
+            return null;
+        }
+
+        return {
+            height: `calc(100% + ${horizontalScrollBarSize}px)`,
+            marginBottom: -horizontalScrollBarSize,
+            paddingBottom: 0
+        };
 
     };
 
@@ -117,7 +135,8 @@ class Tabs extends Component {
                      style={style}>
 
                     <div ref={this.tabs}
-                         className="tabs-scroller">
+                         className="tabs-scroller"
+                         style={this.getScrollerStyle()}>
 
                         <Droppable droppableId="droppable"
                                    direction="horizontal">
@@ -303,7 +322,7 @@ Tabs.defaultProps = {
     scrollRightIconCls: 'fas fa-chevron-right',
     scrollStep: 100,
     scrollInterval: 100,
-    keepScrollingWait: 500
+    keepScrollingWait: 250
 
 };
 

@@ -13,15 +13,20 @@
 
     .tabs-scroller {
         height: 100%;
-        overflow-x: auto;
+        padding-bottom: 20px;
+        margin-bottom: -20px;
+        overflow-x: scroll;
         overflow-y: hidden;
     }
 
     .tab-buttons-wrapper {
         display: inline-block;
+        width: 100%;
+        height: 100%;
 
         .tab-buttons {
-            display: inline-block;
+            width: 100%;
+            height: 100%;
         }
     }
 
@@ -34,8 +39,14 @@
     }
 
     &.auto-width {
-        .tab-button-wrapper {
+        .tab-buttons-wrapper {
+            width: auto;
             margin-left: 4px;
+
+            .tab-buttons {
+                display: inline-block;
+                width: auto;
+            }
 
             &:first-child {
                 margin-left: 0;
