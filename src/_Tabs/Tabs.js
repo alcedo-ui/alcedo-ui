@@ -1,5 +1,5 @@
 /**
- * @file Tab component
+ * @file Tabs component
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
@@ -155,8 +155,6 @@ class Tabs extends Component {
                                             })
                                         }
 
-                                        {children}
-
                                         {dropProvided.placeholder}
 
                                     </div>
@@ -189,6 +187,8 @@ class Tabs extends Component {
                             :
                             null
                     }
+
+                    {children}
 
                 </div>
 
