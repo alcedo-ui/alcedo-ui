@@ -190,6 +190,46 @@ class TabExamples extends Component {
 
                 </Widget>
 
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Draggable"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <p>
+                                    Tabs without icons by default.Set the iconCls property for left icons.
+                                </p>
+
+                                <Tab tabs={[{
+                                    value: 'Bicycle',
+                                    iconCls: 'fas fa-bicycle',
+                                    renderer: <h1>Bicycle</h1>
+                                }, {
+                                    value: 'Taxi',
+                                    iconCls: 'fas fa-taxi',
+                                    renderer: <h1>Taxi</h1>
+                                }, {
+                                    value: 'Plane',
+                                    iconCls: 'fas fa-plane',
+                                    renderer: <h1>Plane</h1>
+                                }, {
+                                    value: 'Rocket',
+                                    iconCls: 'fas fa-rocket',
+                                    renderer: <h1>Rocket</h1>
+                                }]}
+                                     isTabFullWidth={false}
+                                     draggable={true}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
                 <Toaster toasts={toasts}
                          onToastPop={this.toastPopHandler}/>
 

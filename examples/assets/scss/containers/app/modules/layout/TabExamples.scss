@@ -2,8 +2,8 @@
 
 .tab-examples {
 
-    .customized-tab-button {
-        width: auto;
+    .tab-button.customized-tab-button {
+        width: 40px;
         background: $theme-widget-bg;
 
         .touch-ripple {
