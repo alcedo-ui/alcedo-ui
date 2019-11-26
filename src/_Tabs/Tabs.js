@@ -99,7 +99,7 @@ class Tabs extends Component {
     render() {
 
         const {
-                children, className, style, isTabFullWidth, data, activatedIndex, isTabsOverflow,
+                children, className, style, isTabFullWidth, data, activatedIndex, isTabsOverflow, draggable,
                 scrollLeftIconCls, scrollRightIconCls,
                 onTabMouseDown, onTabMouseUp, onTabClick, onTabButtonDragStart, onTabButtonDragEnd
             } = this.props,
@@ -116,10 +116,12 @@ class Tabs extends Component {
                 })}
                      style={style}>
 
-                    <Droppable droppableId="droppable">
+                    <Droppable droppableId="droppable"
+                               direction="horizontal">
                         {
                             dropProvided => (
                                 <div ref={dropProvided.innerRef}
+
                                      {...dropProvided.droppableProps}>
                                     <div ref={this.tabs}
                                          className="tabs-scroller">
@@ -143,6 +145,7 @@ class Tabs extends Component {
                                                                 style={{width: isTabFullWidth ? `${tabWidthPerCent}%` : 'auto'}}
                                                                 data={item}
                                                                 index={index}
+                                                                draggable={draggable}
                                                                 onMouseDown={onTabMouseDown}
                                                                 onMouseUp={onTabMouseUp}
                                                                 onClick={onTabClick}/>
@@ -266,6 +269,7 @@ Tabs.propTypes = {
     isTabFullWidth: PropTypes.bool,
 
     isTabsOverflow: PropTypes.bool,
+    draggable: PropTypes.bool,
 
     scrollLeftIconCls: PropTypes.string,
     scrollRightIconCls: PropTypes.string,
@@ -288,6 +292,7 @@ Tabs.defaultProps = {
 
     activatedIndex: 0,
     isTabFullWidth: true,
+    draggable: false,
 
     scrollLeftIconCls: 'fas fa-chevron-left',
     scrollRightIconCls: 'fas fa-chevron-right',

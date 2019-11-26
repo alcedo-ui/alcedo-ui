@@ -5,8 +5,9 @@
 
 .tabs {
     position: relative;
-    border-bottom: 1px solid $theme-border;
     box-sizing: border-box;
+    height: 41px;
+    border-bottom: 1px solid $theme-border;
     white-space: nowrap;
     overflow: hidden;
 
@@ -24,6 +25,7 @@
 
     &.auto-width {
         .tab-button {
+            width: auto;
             border-radius: $theme-border-radius;
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
