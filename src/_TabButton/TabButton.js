@@ -46,14 +46,16 @@ class TabButton extends Component {
                 {
                     dragProvided => (
                         <div ref={dragProvided.innerRef}
-                             style={dragProvided.draggableStyle}
+                             className="tab-button-wrapper"
+                             style={{...dragProvided.draggableStyle, ...style}}
                              {...dragProvided.draggableProps}
                              {...dragProvided.dragHandleProps}>
                             <FlatButton {...restProps}
                                         className={classNames('tab-button', {
                                             [className]: className
                                         })}
-                                        style={style}
+                                        container={<div></div>}
+                                        disableTouchRipple={true}
                                         onMouseDown={this.handleMouseDown}
                                         onMouseUp={this.handleMouseUp}
                                         onClick={this.handleClick}/>
