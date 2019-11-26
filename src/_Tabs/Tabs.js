@@ -145,6 +145,7 @@ class Tabs extends Component {
                                                                 style={{width: isTabFullWidth ? `${tabWidthPerCent}%` : 'auto'}}
                                                                 data={item}
                                                                 index={index}
+                                                                isTabFullWidth={isTabFullWidth}
                                                                 draggable={draggable}
                                                                 onMouseDown={onTabMouseDown}
                                                                 onMouseUp={onTabMouseUp}
