@@ -116,52 +116,58 @@ class Tabs extends Component {
                 })}
                      style={style}>
 
-                    <Droppable droppableId="droppable"
-                               direction="horizontal">
-                        {
-                            dropProvided => (
-                                <div ref={dropProvided.innerRef}
+                    <div ref={this.tabs}
+                         className="tabs-scroller">
 
-                                     {...dropProvided.droppableProps}>
-                                    <div ref={this.tabs}
-                                         className="tabs-scroller">
+                        <Droppable droppableId="droppable"
+                                   direction="horizontal">
+                            {
+                                dropProvided => (
+                                    <div className="tab-buttons-wrapper"
+                                         ref={dropProvided.innerRef}
+                                         {...dropProvided.droppableProps}>
+                                        <div className="tab-buttons">
 
-                                        {
-                                            data && data.map((item, index) => {
+                                            {
+                                                data && data.map((item, index) => {
 
-                                                const {
+                                                    const {
 
-                                                    // not passing down these props
-                                                    renderer, onActive,
+                                                        // not passing down these props
+                                                        renderer, onActive,
 
-                                                    ...restProps
+                                                        ...restProps
 
-                                                } = item;
+                                                    } = item;
 
-                                                return (
-                                                    <TabsButton {...restProps}
-                                                                key={index}
-                                                                className={classNames({activated: activatedIndex === index})}
-                                                                style={{width: isTabFullWidth ? `${tabWidthPerCent}%` : 'auto'}}
-                                                                data={item}
-                                                                index={index}
-                                                                isTabFullWidth={isTabFullWidth}
-                                                                draggable={draggable}
-                                                                onMouseDown={onTabMouseDown}
-                                                                onMouseUp={onTabMouseUp}
-                                                                onClick={onTabClick}/>
-                                                );
+                                                    return (
+                                                        <TabsButton {...restProps}
+                                                                    key={index}
+                                                                    className={classNames({activated: activatedIndex === index})}
+                                                                    style={{width: isTabFullWidth ? `${tabWidthPerCent}%` : 'auto'}}
+                                                                    data={item}
+                                                                    index={index}
+                                                                    isTabFullWidth={isTabFullWidth}
+                                                                    draggable={draggable}
+                                                                    onMouseDown={onTabMouseDown}
+                                                                    onMouseUp={onTabMouseUp}
+                                                                    onClick={onTabClick}/>
+                                                    );
 
-                                            })
-                                        }
+                                                })
+                                            }
 
-                                        {dropProvided.placeholder}
+                                            {dropProvided.placeholder}
 
+                                        </div>
                                     </div>
-                                </div>
-                            )
-                        }
-                    </Droppable>
+                                )
+                            }
+                        </Droppable>
+
+                        {children}
+
+                    </div>
 
                     {
                         isTabFullWidth ?
@@ -187,8 +193,6 @@ class Tabs extends Component {
                             :
                             null
                     }
-
-                    {children}
 
                 </div>
 

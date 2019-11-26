@@ -12,7 +12,17 @@
     overflow: hidden;
 
     .tabs-scroller {
-        overflow: hidden;
+        height: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+    .tab-buttons-wrapper {
+        display: inline-block;
+
+        .tab-buttons {
+            display: inline-block;
+        }
     }
 
     .ink-bar {
@@ -24,16 +34,19 @@
     }
 
     &.auto-width {
+        .tab-button-wrapper {
+            margin-left: 4px;
+
+            &:first-child {
+                margin-left: 0;
+            }
+        }
+
         .tab-button {
             width: auto;
             border-radius: $theme-border-radius;
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
-            margin-left: 6px;
-
-            &:first-child {
-                margin-left: 0;
-            }
 
             &.activated {
                 background: $theme-secondary;
