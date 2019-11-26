@@ -234,6 +234,7 @@ Tab.propTypes = {
     isTabFullWidth: PropTypes.bool,
 
     isAnimated: PropTypes.bool,
+    draggable: PropTypes.bool,
 
     scrollLeftIconCls: PropTypes.string,
     scrollRightIconCls: PropTypes.string,
@@ -259,6 +260,7 @@ Tab.defaultProps = {
     activatedIndex: 0,
     isTabFullWidth: true,
     isAnimated: true,
+    draggable: false,
 
     scrollLeftIconCls: 'fas fa-chevron-left',
     scrollRightIconCls: 'fas fa-chevron-right',
