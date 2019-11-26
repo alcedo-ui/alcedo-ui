@@ -221,6 +221,7 @@ class TabExamples extends Component {
                                     renderer: <h1>Rocket</h1>
                                 }]}
                                      isTabFullWidth={false}
+                                     isAnimated={false}
                                      draggable={true}/>
 
                             </div>
