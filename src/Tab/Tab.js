@@ -279,7 +279,7 @@ Tab.defaultProps = {
     scrollRightIconCls: 'fas fa-chevron-right',
     scrollStep: 100,
     scrollInterval: 100,
-    keepScrollingWait: 500
+    keepScrollingWait: 250
 
 };
 
