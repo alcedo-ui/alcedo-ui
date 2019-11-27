@@ -47,6 +47,7 @@ class TabExamples extends Component {
 
     generateTabs = length => {
         return Array.from({length}, (item, index) => ({
+            id: index + 1,
             value: `Tab ${index + 1}`,
             renderer: <h1>Tab {index + 1}</h1>
         }));
@@ -58,6 +59,7 @@ class TabExamples extends Component {
             index = tabs.length + 1;
 
         tabs.push({
+            id: index,
             value: `Tab ${index}`,
             renderer: <h1>Tab {index}</h1>
         });
@@ -139,6 +141,7 @@ class TabExamples extends Component {
                                      isTabFullWidth={false}
                                      isAnimated={false}
                                      draggable={true}
+                                     idProp="id"
                                      tabsChildren={
                                          <IconButton className="tab-button customized-tab-button"
                                                      iconCls="fas fa-plus"
