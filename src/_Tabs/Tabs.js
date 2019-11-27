@@ -100,6 +100,7 @@ class Tabs extends Component {
 
         this.tabsEl = this.tabs && this.tabs.current;
 
+        Event.addEvent(window, 'resize', this.handleTabsOverflowChange);
         Event.addEvent(document, 'mouseup', this.clearTabsScrollTimeout);
 
         this.handleTabsOverflowChange();
@@ -111,6 +112,7 @@ class Tabs extends Component {
     }
 
     componentWillUnmount() {
+        Event.removeEvent(window, 'resize', this.handleTabsOverflowChange);
         Event.removeEvent(document, 'mouseup', this.clearTabsScrollTimeout);
     }
 
