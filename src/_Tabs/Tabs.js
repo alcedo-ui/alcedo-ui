@@ -117,7 +117,7 @@ class Tabs extends Component {
     render() {
 
         const {
-                children, className, style, isTabFullWidth, data, activatedIndex, isTabsOverflow, draggable,
+                children, className, style, isTabFullWidth, data, activatedIndex, isTabsOverflow, draggable, idProp,
                 scrollLeftIconCls, scrollRightIconCls,
                 onTabMouseDown, onTabMouseUp, onTabClick, onTabButtonDragStart, onTabButtonDragEnd
             } = this.props,
@@ -161,7 +161,7 @@ class Tabs extends Component {
 
                                                     return (
                                                         <TabsButton {...restProps}
-                                                                    key={index}
+                                                                    key={idProp && item[idProp] || index}
                                                                     className={classNames({activated: activatedIndex === index})}
                                                                     style={{width: isTabFullWidth ? `${tabWidthPerCent}%` : 'auto'}}
                                                                     data={item}
@@ -294,6 +294,8 @@ Tabs.propTypes = {
 
     isTabsOverflow: PropTypes.bool,
     draggable: PropTypes.bool,
+
+    idProp: PropTypes.string,
 
     scrollLeftIconCls: PropTypes.string,
     scrollRightIconCls: PropTypes.string,
