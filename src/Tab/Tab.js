@@ -249,6 +249,8 @@ Tab.propTypes = {
     isAnimated: PropTypes.bool,
     draggable: PropTypes.bool,
 
+    idProp: PropTypes.string,
+
     scrollLeftIconCls: PropTypes.string,
     scrollRightIconCls: PropTypes.string,
     scrollStep: PropTypes.number,
