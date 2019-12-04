@@ -203,15 +203,17 @@ class LocalAutoComplete extends Component {
 
     handleItemClick = value => {
 
-        const {autoClose, valueField, displayField, renderer} = this.props,
-            filter = renderer ? renderer(value) : Util.getTextByDisplayField(value, displayField, valueField),
+        const {autoClose} = this.props,
             state = {
                 tempSelectIndex: null,
-                value,
-                filter,
-                listData: Calculation.filterLocalAutoCompleteData(filter, this.props)
+                value
             },
             isChanged = this.state.value != value;
+
+        state.filter = this.getFilterRender(value);
+        if (state.filter !== this.state.filter) {
+            state.listData = Calculation.filterLocalAutoCompleteData(state.filter, this.props);
+        }
 
         if (autoClose) {
             state.popupVisible = false;
@@ -225,15 +227,15 @@ class LocalAutoComplete extends Component {
 
     };
 
-    getTriggerRender = value => {
+    getFilterRender = value => {
 
-        const {valueField, displayField, triggerRenderer, renderer} = this.props;
+        const {valueField, displayField, filterRenderer, renderer} = this.props;
 
-        if (triggerRenderer) {
-            if (typeof triggerRenderer === 'function') {
-                return triggerRenderer(value);
+        if (filterRenderer) {
+            if (typeof filterRenderer === 'function') {
+                return filterRenderer(value);
             } else {
-                return triggerRenderer;
+                return filterRenderer;
             }
         }
 
@@ -247,13 +249,14 @@ class LocalAutoComplete extends Component {
     update = () => {
 
         const {valueField, displayField} = this.props,
-            {filter, tempSelectIndex, listData} = this.state;
+            {filter, tempSelectIndex, listData} = this.state,
 
-        let index = isNumber(tempSelectIndex) ? tempSelectIndex : 0,
+            index = isNumber(tempSelectIndex) ? tempSelectIndex : 0,
             state = {
                 tempSelectIndex: null
-            },
-            value,
+            };
+
+        let value,
             filterChanged = false,
             valueChanged = false;
 
@@ -261,7 +264,7 @@ class LocalAutoComplete extends Component {
 
             value = listData[index];
 
-            state.filter = this.getTriggerRender(value);
+            state.filter = this.getFilterRender(value);
             filterChanged = state.filter !== filter;
 
             if (filterChanged) {
@@ -325,7 +328,7 @@ class LocalAutoComplete extends Component {
 
                 className, triggerClassName, popupClassName, style, popupStyle, popupTheme, name, position,
                 valueField, displayField, descriptionField, noMatchedPopupVisible, noMatchedMsg, popupChildren,
-                triggerRenderer, renderer, useDynamicRenderList, listHeight, itemHeight, scrollBuffer,
+                filterRenderer, renderer, useDynamicRenderList, listHeight, itemHeight, scrollBuffer,
                 resetPopPositionWait, onFilterClear, parentEl,
 
                 // not passing down these props
@@ -661,7 +664,7 @@ LocalAutoComplete.propTypes = {
      */
     renderer: PropTypes.func,
 
-    triggerRenderer: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
+    filterRenderer: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
 
     /**
      * The function that trigger when filter key down.
