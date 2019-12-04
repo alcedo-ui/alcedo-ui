@@ -180,7 +180,7 @@ class LocalAutoCompleteExamples extends Component {
 
                                 <p>
                                     <code>LocalAutoComplete</code> with default select mode, <code> normal</code>
-                                    , <code>checkbox</code>, <code>radio</code> applied.
+                                                                   , <code>checkbox</code>, <code>radio</code> applied.
                                 </p>
 
                                 <LocalAutoComplete popupStyle={{maxHeight: 300}}
@@ -205,7 +205,7 @@ class LocalAutoCompleteExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>Set the <code>disabled</code> property to true,the <code>LocalAutoComplete</code>
-                                    will disabled.</p>
+                                   will disabled.</p>
 
                                 <LocalAutoComplete popupStyle={{maxHeight: 300}}
                                                    disabled={true}
@@ -234,12 +234,12 @@ class LocalAutoCompleteExamples extends Component {
                                 <LocalAutoComplete popupStyle={{maxHeight: 300}}
                                                    noMatchedMsg="There have no matched value."
                                                    data={this.data}
-                                                   renderer={data => {
-                                                       return data && typeof data === 'object' ?
-                                                           `${data.text} (${data.value})`
-                                                           :
-                                                           `${data} (${data})`;
-                                                   }}
+                                                   triggerRenderer={data => data && typeof data === 'object' ? data.text : data}
+                                                   renderer={data => data && typeof data === 'object' ?
+                                                       `${data.text} (${data.value})`
+                                                       :
+                                                       `${data} (${data})`
+                                                   }
                                                    placeholder="Please select ..."
                                                    onChange={this.onChange}/>
 
@@ -310,12 +310,11 @@ class LocalAutoCompleteExamples extends Component {
                                                 <LocalAutoComplete popupStyle={{maxHeight: 300}}
                                                                    noMatchedMsg="There have no matched value."
                                                                    data={this.data}
-                                                                   renderer={data => {
-                                                                       return data && typeof data === 'object' ?
-                                                                           `${data.text} (${data.value})`
-                                                                           :
-                                                                           `${data} (${data})`;
-                                                                   }}
+                                                                   renderer={data => data && typeof data === 'object' ?
+                                                                       `${data.text} (${data.value})`
+                                                                       :
+                                                                       `${data} (${data})`
+                                                                   }
                                                                    parentEl={dialogContentEl}
                                                                    placeholder="Please select ..."
                                                                    onChange={this.onChange}/>
@@ -340,6 +339,6 @@ class LocalAutoCompleteExamples extends Component {
 
         );
     }
-};
+}
 
 export default LocalAutoCompleteExamples;
