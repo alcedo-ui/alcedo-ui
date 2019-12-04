@@ -225,9 +225,28 @@ class LocalAutoComplete extends Component {
 
     };
 
+    getTriggerRender = value => {
+
+        const {valueField, displayField, triggerRenderer, renderer} = this.props;
+
+        if (triggerRenderer) {
+            if (typeof triggerRenderer === 'function') {
+                return triggerRenderer(value);
+            } else {
+                return triggerRenderer;
+            }
+        }
+
+        return renderer ?
+            renderer(value)
+            :
+            Util.getTextByDisplayField(value, displayField, valueField);
+
+    };
+
     update = () => {
 
-        const {displayField, valueField, renderer} = this.props,
+        const {valueField, displayField} = this.props,
             {filter, tempSelectIndex, listData} = this.state;
 
         let index = isNumber(tempSelectIndex) ? tempSelectIndex : 0,
@@ -242,10 +261,7 @@ class LocalAutoComplete extends Component {
 
             value = listData[index];
 
-            state.filter = renderer ?
-                renderer(value)
-                :
-                Util.getTextByDisplayField(value, displayField, valueField);
+            state.filter = this.getTriggerRender(value);
             filterChanged = state.filter !== filter;
 
             if (filterChanged) {
@@ -309,8 +325,8 @@ class LocalAutoComplete extends Component {
 
                 className, triggerClassName, popupClassName, style, popupStyle, popupTheme, name, position,
                 valueField, displayField, descriptionField, noMatchedPopupVisible, noMatchedMsg, popupChildren,
-                renderer, useDynamicRenderList, listHeight, itemHeight, scrollBuffer, resetPopPositionWait,
-                onFilterClear, parentEl,
+                triggerRenderer, renderer, useDynamicRenderList, listHeight, itemHeight, scrollBuffer,
+                resetPopPositionWait, onFilterClear, parentEl,
 
                 // not passing down these props
                 data, filter: propsFilter, filterInitValue, minFilterLength, autoClose, filterCallback,
@@ -644,6 +660,8 @@ LocalAutoComplete.propTypes = {
      * You can create a complicated renderer callback instead of value and desc prop.
      */
     renderer: PropTypes.func,
+
+    triggerRenderer: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
 
     /**
      * The function that trigger when filter key down.
