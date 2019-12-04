@@ -234,7 +234,7 @@ class LocalAutoCompleteExamples extends Component {
                                 <LocalAutoComplete popupStyle={{maxHeight: 300}}
                                                    noMatchedMsg="There have no matched value."
                                                    data={this.data}
-                                                   triggerRenderer={data => data && typeof data === 'object' ? data.text : data}
+                                                   filterRenderer={data => data && typeof data === 'object' ? data.text : data}
                                                    renderer={data => data && typeof data === 'object' ?
                                                        `${data.text} (${data.value})`
                                                        :
