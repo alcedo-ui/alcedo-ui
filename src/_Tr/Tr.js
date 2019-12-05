@@ -5,16 +5,19 @@
 
 import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Components
 import Td from '../_Td';
 
+// Statics
 import TableFragment from '../_statics/TableFragment';
 import HorizontalAlign from '../_statics/HorizontalAlign';
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
 
+// Vendors
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 import TableCalculation from '../_vendors/TableCalculation';
 
