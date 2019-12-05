@@ -212,7 +212,7 @@ class Table extends Component {
                 ...restProps
 
             } = this.props,
-            {isInitialing, sorting, page, pageSize, expandRows, value, hoverRowIndex} = this.state;
+            {isInitialing, sorting, page, pageSize, expandRows, value, scrolling, hoverRowIndex} = this.state;
 
         return (
             <div className={classNames('table', {
@@ -233,6 +233,7 @@ class Table extends Component {
                          pageSize={pageSize}
                          expandRows={expandRows}
                          value={value}
+                         scrolling={scrolling}
                          hoverRowIndex={hoverRowIndex}
                          selectMode={selectMode}
                          isInitialing={isInitialing}
