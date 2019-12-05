@@ -4,14 +4,13 @@
  */
 
 import React, {Component, createRef} from 'react';
-import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import debounce from 'lodash/debounce';
 
+// Components
 import BaseTable from '../_BaseTable';
 import ScrollableTable from '../_ScrollableTable';
 
+// Statics
 import Theme from '../Theme';
 import TableFragment from '../_statics/TableFragment';
 import HorizontalAlign from '../_statics/HorizontalAlign';
@@ -19,6 +18,10 @@ import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
 
+// Vendors
+import {findDOMNode} from 'react-dom';
+import classNames from 'classnames';
+import debounce from 'lodash/debounce';
 import Util from '../_vendors/Util';
 
 class ScrollTable extends Component {
@@ -105,8 +108,7 @@ class ScrollTable extends Component {
                                            fragment={TableFragment.HEAD}
                                            columns={columns}
                                            headColumns={headColumns}
-                                           bodyColumns={bodyColumns}
-                                           isMouseEventForbidden={scrolling}/>
+                                           bodyColumns={bodyColumns}/>
                             </ScrollableTable>
                         </div>
                         :
@@ -134,8 +136,7 @@ class ScrollTable extends Component {
                                        isHeadFixed={isHeadFixed}
                                        isFootFixed={isFootFixed}
                                        isHeadHidden={isHeadHidden}
-                                       isFootHidden={isFootHidden}
-                                       isMouseEventForbidden={scrolling}/>
+                                       isFootHidden={isFootHidden}/>
                         </div>
                     </ScrollableTable>
                 </div>
@@ -156,8 +157,7 @@ class ScrollTable extends Component {
                                            fragment={TableFragment.FOOT}
                                            columns={columns}
                                            headColumns={headColumns}
-                                           bodyColumns={bodyColumns}
-                                           isMouseEventForbidden={scrolling}/>
+                                           bodyColumns={bodyColumns}/>
                             </ScrollableTable>
                         </div>
                         :
