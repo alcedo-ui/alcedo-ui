@@ -39,7 +39,7 @@ class BaseTable extends Component {
         const {
 
             className, style, data, value, hoverRowIndex, idProp, baseColIndex, fixed, fragment,
-            columns, headColumns, bodyColumns, selectMode, selectAllMode, expandRows,
+            columns, headColumns, bodyColumns, selectMode, selectAllMode, expandRows, isMouseEventForbidden,
             isHeadFixed, isFootFixed, isHeadHidden, isFootHidden,
             hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
             sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls,
@@ -91,6 +91,7 @@ class BaseTable extends Component {
                                idProp={idProp}
                                baseColIndex={baseColIndex}
                                sorting={sorting}
+                               isMouseEventForbidden={isMouseEventForbidden}
                                onExpandChange={onExpandChange}
                                onRowHover={onRowHover}/>
                         :
@@ -330,6 +331,7 @@ BaseTable.propTypes = {
     baseColIndex: PropTypes.number,
     disabled: PropTypes.bool,
     expandRows: PropTypes.array,
+    isMouseEventForbidden: PropTypes.bool,
 
     /**
      * fixed
@@ -379,6 +381,7 @@ BaseTable.defaultProps = {
     baseColIndex: 0,
     disabled: false,
     expandRows: [],
+    isMouseEventForbidden: false,
 
     /**
      * fixed
