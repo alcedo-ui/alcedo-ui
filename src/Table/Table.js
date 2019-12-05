@@ -45,6 +45,7 @@ class Table extends Component {
             pageSize: props.pageSize,
             expandRows: props.expandRows,
             value: props.value,
+            scrolling: false,
             hoverRowIndex: null
         };
 
@@ -136,6 +137,32 @@ class Table extends Component {
     };
 
     /**
+     * handle scroll start
+     */
+    handleScrollStart = () => {
+        this.setState({
+            scrolling: true
+        }, () => {
+            const {onScrollStart, onScrollChange} = this.props;
+            onScrollStart && onScrollStart();
+            onScrollChange && onScrollChange(true);
+        });
+    };
+
+    /**
+     * handle scroll end
+     */
+    handleScrollEnd = () => {
+        this.setState({
+            scrolling: false
+        }, () => {
+            const {onScrollEnd, onScrollChange} = this.props;
+            onScrollEnd && onScrollEnd();
+            onScrollChange && onScrollChange(false);
+        });
+    };
+
+    /**
      * handle row hover
      * @param hoverRowIndex
      */
@@ -213,6 +240,8 @@ class Table extends Component {
                          onChange={this.handleChange}
                          onSortChange={this.handleSortChange}
                          onExpandChange={this.handleExpandChange}
+                         onScrollStart={this.handleScrollStart}
+                         onScrollEnd={this.handleScrollEnd}
                          onRowHover={this.handleRowHover}/>
 
                 {/* table footer */}
@@ -602,7 +631,10 @@ Table.propTypes = {
     onDataUpdate: PropTypes.func,
     onPaginationChange: PropTypes.func,
     onPageChange: PropTypes.func,
-    onPageSizeChange: PropTypes.func
+    onPageSizeChange: PropTypes.func,
+    onScrollStart: PropTypes.func,
+    onScrollEnd: PropTypes.func,
+    onScrollChange: PropTypes.func
 
 };
 
