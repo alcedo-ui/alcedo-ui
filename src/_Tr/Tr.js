@@ -42,13 +42,13 @@ class Tr extends Component {
     };
 
     handleMouseEnter = e => {
-        const {rowIndex, onMouseEnter} = this.props;
-        onMouseEnter && onMouseEnter(e, rowIndex);
+        const {isMouseEventForbidden, rowIndex, onMouseEnter} = this.props;
+        !isMouseEventForbidden && onMouseEnter && onMouseEnter(e, rowIndex);
     };
 
     handleMouseLeave = e => {
-        const {rowIndex, onMouseLeave} = this.props;
-        onMouseLeave && onMouseLeave(e, rowIndex);
+        const {isMouseEventForbidden, rowIndex, onMouseLeave} = this.props;
+        !isMouseEventForbidden && onMouseLeave && onMouseLeave(e, rowIndex);
     };
 
     handleClick = e => {
@@ -337,6 +337,7 @@ Tr.propTypes = {
     index: PropTypes.number,
     path: PropTypes.array,
     idProp: PropTypes.string,
+    isMouseEventForbidden: PropTypes.bool,
 
     /**
      * sorting
@@ -364,7 +365,8 @@ Tr.defaultProps = {
     expandRows: [],
     baseColIndex: 0,
     depth: 0,
-    idProp: 'id'
+    idProp: 'id',
+    isMouseEventForbidden: false
 };
 
 export default Tr;
