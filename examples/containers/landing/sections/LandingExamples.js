@@ -41,7 +41,7 @@ class LandingExamples extends Component {
                             <div className="window-header-dot"></div>
                         </div>
                         <img className="landing-examples-demo-img"
-                             src={require('assets/images/example.jpg')}/>
+                             src={import('assets/images/example.jpg')}/>
                     </Paper>
 
                 </div>
