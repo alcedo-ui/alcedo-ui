@@ -6,11 +6,6 @@
 import React, {Component, Fragment, createRef} from 'react';
 import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import startCase from 'lodash/startCase';
-import isArray from 'lodash/isArray';
-import debounce from 'lodash/debounce';
-import cloneDeep from 'lodash/cloneDeep';
 
 // Components
 import ScrollTable from '../_ScrollTable';
@@ -27,6 +22,11 @@ import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
 
 // Vendors
+import classNames from 'classnames';
+import startCase from 'lodash/startCase';
+import isArray from 'lodash/isArray';
+import debounce from 'lodash/debounce';
+import cloneDeep from 'lodash/cloneDeep';
 import Util from '../_vendors/Util';
 import TL from '../_vendors/TableLayout';
 import TC from '../_vendors/TableCalculation';
@@ -338,6 +338,18 @@ class TableContent extends Component {
         this[`${fixed}${startCase(fragment)}Scroller`] = el;
     };
 
+    handleScrollChange = debounce(() => {
+
+        const {scrolling, onScrollStart, onScrollEnd} = this.props;
+
+        if (!scrolling) {
+            onScrollStart && onScrollStart();
+        } else {
+            onScrollEnd && onScrollEnd();
+        }
+
+    }, 150, {leading: true});
+
     /**
      * handle table horizontal scroll
      * @param e
@@ -347,6 +359,8 @@ class TableContent extends Component {
         if (!e || e.currentTarget !== e.target) {
             return;
         }
+
+        this.handleScrollChange();
 
         const {isHeadFixed, isFootFixed} = this.props,
             target = e.target,
@@ -401,6 +415,8 @@ class TableContent extends Component {
         if (!e || e.currentTarget !== e.target) {
             return;
         }
+
+        this.handleScrollChange();
 
         const target = e.target,
             scrollTop = target.scrollTop;
@@ -462,6 +478,8 @@ class TableContent extends Component {
         }
 
         e.preventDefault();
+
+        this.handleScrollChange();
 
         const wd = e.deltaY,
             target = e.target;
@@ -560,14 +578,14 @@ class TableContent extends Component {
 
         const {
 
-                className, style, columns, data, scroll, noDataText,
+                className, style, columns, data, scrolling, scroll, noDataText,
                 isHeadFixed, isFootFixed, isHeadHidden, isFootHidden,
 
                 // not passing down these props
                 isInitialing, isSelectRecursive, selectUncheckedIconCls, selectCheckedIconCls,
                 selectIndeterminateIconCls, selectColumn, expandIconCls, autoSorting, isPaginated, page, pageSize,
                 sortingFunc, onInit, onChange, onExpand, onCollapse, onExpandChange, onDataUpdate,
-                onSelect, onSelectAll, onDeselect, onDeselectAll,
+                onSelect, onSelectAll, onDeselect, onDeselectAll, onScrollStart, onScrollEnd,
 
                 ...restProps
 
@@ -642,6 +660,7 @@ class TableContent extends Component {
                                  hasHeadRenderer={hasHeadRenderer}
                                  hasBodyRenderer={hasBodyRenderer}
                                  hasFootRenderer={hasFootRenderer}
+                                 scrolling={scrolling}
                                  scroll={scroll}
                                  onScroll={this.handleScroll}
                                  onWheel={this.handleWheel}
@@ -671,6 +690,7 @@ class TableContent extends Component {
                                          hasHeadRenderer={hasHeadRenderer}
                                          hasBodyRenderer={hasBodyRenderer}
                                          hasFootRenderer={hasFootRenderer}
+                                         scrolling={scrolling}
                                          scroll={scroll}
                                          onGetHeadScrollerEl={el =>
                                              this.handleGetScrollerEl(el, HorizontalAlign.LEFT, TableFragment.HEAD)}
@@ -704,6 +724,7 @@ class TableContent extends Component {
                                          hasHeadRenderer={hasHeadRenderer}
                                          hasBodyRenderer={hasBodyRenderer}
                                          hasFootRenderer={hasFootRenderer}
+                                         scrolling={scrolling}
                                          scroll={scroll}
                                          baseColIndex={this.formatedColumns.length - this.fixedRightColumns.length}
                                          onScroll={this.handleScroll}
@@ -1036,6 +1057,7 @@ TableContent.propTypes = {
     /**
      * scroll
      */
+    scrolling: PropTypes.bool,
     scroll: PropTypes.shape({
         width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -1055,6 +1077,8 @@ TableContent.propTypes = {
     onCollapse: PropTypes.func,
     onExpandChange: PropTypes.func,
     onSortChange: PropTypes.func,
+    onScrollStart: PropTypes.func,
+    onScrollEnd: PropTypes.func,
     onRowHover: PropTypes.func,
     onDataUpdate: PropTypes.func
 
@@ -1082,6 +1106,11 @@ TableContent.defaultProps = {
     selectUncheckedIconCls: 'far fa-square',
     selectCheckedIconCls: 'fas fa-check-square',
     selectIndeterminateIconCls: 'fas fa-minus-square',
+
+    /**
+     * scroll
+     */
+    scrolling: false,
 
     /**
      * sorting
