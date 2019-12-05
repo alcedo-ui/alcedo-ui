@@ -5,19 +5,22 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Components
 import ColGroup from '../_ColGroup';
 import Thead from '../_Thead';
 import Tbody from '../_Tbody';
 import Tfoot from '../_Tfoot';
 
+// Statics
 import TableFragment from '../_statics/TableFragment';
 import HorizontalAlign from '../_statics/HorizontalAlign';
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
 
+// Vendors
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 import TC from '../_vendors/TableCalculation';
 
