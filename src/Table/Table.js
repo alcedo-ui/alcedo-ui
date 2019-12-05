@@ -141,7 +141,8 @@ class Table extends Component {
      */
     handleScrollStart = () => {
         this.setState({
-            scrolling: true
+            scrolling: true,
+            hoverRowIndex: null
         }, () => {
             const {onScrollStart, onScrollChange} = this.props;
             onScrollStart && onScrollStart();
@@ -167,9 +168,15 @@ class Table extends Component {
      * @param hoverRowIndex
      */
     handleRowHover = hoverRowIndex => {
+
+        if (this.state.scrolling) {
+            return;
+        }
+
         this.setState({
             hoverRowIndex
         });
+
     };
 
     componentDidUpdate() {
