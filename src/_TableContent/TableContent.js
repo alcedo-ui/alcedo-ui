@@ -338,14 +338,14 @@ class TableContent extends Component {
         this[`${fixed}${startCase(fragment)}Scroller`] = el;
     };
 
-    handleScrollChange = debounce(() => {
+    handleScrollChange = debounce(e => {
 
         const {scrolling, onScrollStart, onScrollEnd} = this.props;
 
         if (!scrolling) {
-            onScrollStart && onScrollStart();
+            onScrollStart && onScrollStart(e);
         } else {
-            onScrollEnd && onScrollEnd();
+            onScrollEnd && onScrollEnd(e);
         }
 
     }, 150, {leading: true});
@@ -360,7 +360,7 @@ class TableContent extends Component {
             return;
         }
 
-        this.handleScrollChange();
+        this.handleScrollChange(e);
 
         const {isHeadFixed, isFootFixed} = this.props,
             target = e.target,
@@ -416,7 +416,7 @@ class TableContent extends Component {
             return;
         }
 
-        this.handleScrollChange();
+        this.handleScrollChange(e);
 
         const target = e.target,
             scrollTop = target.scrollTop;
@@ -477,7 +477,7 @@ class TableContent extends Component {
             return;
         }
 
-        e.preventDefault();
+        e.preventDefault(e);
 
         this.handleScrollChange();
 
