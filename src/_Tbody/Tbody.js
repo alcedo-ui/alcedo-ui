@@ -57,7 +57,7 @@ class Tbody extends Component {
 
         const {
 
-            className, style, columns, data, startIndex, idProp, disabled,
+            className, style, columns, data, startIndex, idProp, disabled, isMouseEventForbidden,
 
             // not passing down these props
             value,
@@ -80,6 +80,7 @@ class Tbody extends Component {
                             tableData={data}
                             isChecked={this.isItemChecked(row)}
                             disabled={disabled || row.disabled}
+                            isMouseEventForbidden={isMouseEventForbidden}
                             onMouseEnter={this.handleTrMouseEnter}
                             onMouseLeave={this.handleTrMouseLeave}/>
                         :
@@ -291,6 +292,7 @@ Tbody.propTypes = {
     disabled: PropTypes.bool,
     baseColIndex: PropTypes.number,
     expandRows: PropTypes.array,
+    isMouseEventForbidden: PropTypes.bool,
 
     /**
      * sorting
@@ -317,7 +319,8 @@ Tbody.defaultProps = {
     idProp: 'id',
     disabled: false,
     baseColIndex: 0,
-    expandRows: []
+    expandRows: [],
+    isMouseEventForbidden: false
 };
 
 export default Tbody;
