@@ -68,7 +68,7 @@ class ScrollTable extends Component {
 
             className, style, bodyScrollerStyle, maskStyle, tableStyle, footStyle,
             fixed, columns, headColumns, bodyColumns, isHeadHidden, isFootHidden, isHeadFixed, isFootFixed,
-            scroll, hasFixedLeftColumn, hasFixedRightColumn, onScroll, onWheel,
+            scrolling, scroll, hasFixedLeftColumn, hasFixedRightColumn, onScroll, onWheel,
 
             // not passing down these props
             onGetHeadScrollerEl, onGetBodyScrollerEl, onGetFootScrollerEl,
@@ -105,7 +105,8 @@ class ScrollTable extends Component {
                                            fragment={TableFragment.HEAD}
                                            columns={columns}
                                            headColumns={headColumns}
-                                           bodyColumns={bodyColumns}/>
+                                           bodyColumns={bodyColumns}
+                                           isMouseEventForbidden={scrolling}/>
                             </ScrollableTable>
                         </div>
                         :
@@ -133,7 +134,8 @@ class ScrollTable extends Component {
                                        isHeadFixed={isHeadFixed}
                                        isFootFixed={isFootFixed}
                                        isHeadHidden={isHeadHidden}
-                                       isFootHidden={isFootHidden}/>
+                                       isFootHidden={isFootHidden}
+                                       isMouseEventForbidden={scrolling}/>
                         </div>
                     </ScrollableTable>
                 </div>
@@ -154,7 +156,8 @@ class ScrollTable extends Component {
                                            fragment={TableFragment.FOOT}
                                            columns={columns}
                                            headColumns={headColumns}
-                                           bodyColumns={bodyColumns}/>
+                                           bodyColumns={bodyColumns}
+                                           isMouseEventForbidden={scrolling}/>
                             </ScrollableTable>
                         </div>
                         :
@@ -388,6 +391,7 @@ ScrollTable.propTypes = {
     /**
      * scroll
      */
+    scrolling: PropTypes.bool,
     scroll: PropTypes.shape({
         width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -451,6 +455,11 @@ ScrollTable.defaultProps = {
 
     baseColIndex: 0,
     expandRows: [],
+
+    /**
+     * scroll
+     */
+    scrolling: false,
 
     /**
      * sorting
