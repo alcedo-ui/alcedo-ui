@@ -6,13 +6,16 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
+// Components
 import Tr from '../_Tr';
 
+// Statics
 import HorizontalAlign from '../_statics/HorizontalAlign';
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
 
+// Vendors
 import Util from '../_vendors/Util';
 
 class Tbody extends Component {
