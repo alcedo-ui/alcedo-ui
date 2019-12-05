@@ -5,23 +5,26 @@
 
 import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Components
 // import Header from '../_TableHeader';
 import Content from '../_TableContent';
 // import Footer from '../_TableFooter';
 import Pagination from '../_TablePagination';
 import CircularLoading from '../CircularLoading';
 
+// Statics
 import Theme from '../Theme';
 import HorizontalAlign from '../_statics/HorizontalAlign';
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
 
+// Vendors
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 import ComponentUtil from '../_vendors/ComponentUtil';
-import TableCalculation from '../_vendors/TableCalculation';
+import TC from '../_vendors/TableCalculation';
 
 class Table extends Component {
 
@@ -37,6 +40,7 @@ class Table extends Component {
         super(props, ...restArgs);
 
         this.content = createRef();
+        this.tempHoverRowIndex = null;
 
         this.state = {
             isInitialing: props.hasInitFadeOut,
@@ -47,6 +51,22 @@ class Table extends Component {
             value: props.value,
             scrolling: false,
             hoverRowIndex: null
+        };
+
+    }
+
+    static getDerivedStateFromProps(props, state) {
+
+        const page = ComponentUtil.getDerivedState(props, state, 'page'),
+            pageSize = ComponentUtil.getDerivedState(props, state, 'pageSize');
+
+        return {
+            prevProps: props,
+            sorting: ComponentUtil.getDerivedState(props, state, 'sorting'),
+            page: TC.handlePage(page, pageSize, props.data),
+            pageSize,
+            expandRows: ComponentUtil.getDerivedState(props, state, 'expandRows'),
+            value: ComponentUtil.getDerivedState(props, state, 'value')
         };
 
     }
@@ -139,13 +159,13 @@ class Table extends Component {
     /**
      * handle scroll start
      */
-    handleScrollStart = () => {
+    handleScrollStart = e => {
         this.setState({
             scrolling: true,
             hoverRowIndex: null
         }, () => {
             const {onScrollStart, onScrollChange} = this.props;
-            onScrollStart && onScrollStart();
+            onScrollStart && onScrollStart(e);
             onScrollChange && onScrollChange(true);
         });
     };
@@ -153,12 +173,13 @@ class Table extends Component {
     /**
      * handle scroll end
      */
-    handleScrollEnd = () => {
+    handleScrollEnd = e => {
         this.setState({
-            scrolling: false
+            scrolling: false,
+            hoverRowIndex: this.tempHoverRowIndex
         }, () => {
             const {onScrollEnd, onScrollChange} = this.props;
-            onScrollEnd && onScrollEnd();
+            onScrollEnd && onScrollEnd(e);
             onScrollChange && onScrollChange(false);
         });
     };
@@ -168,35 +189,17 @@ class Table extends Component {
      * @param hoverRowIndex
      */
     handleRowHover = hoverRowIndex => {
-
         if (this.state.scrolling) {
-            return;
+            this.tempHoverRowIndex = hoverRowIndex;
+        } else {
+            this.setState({
+                hoverRowIndex
+            });
         }
-
-        this.setState({
-            hoverRowIndex
-        });
-
     };
 
     componentDidUpdate() {
         this.debounceFixLayout();
-    }
-
-    static getDerivedStateFromProps(props, state) {
-
-        const page = ComponentUtil.getDerivedState(props, state, 'page'),
-            pageSize = ComponentUtil.getDerivedState(props, state, 'pageSize');
-
-        return {
-            prevProps: props,
-            sorting: ComponentUtil.getDerivedState(props, state, 'sorting'),
-            page: TableCalculation.handlePage(page, pageSize, props.data),
-            pageSize,
-            expandRows: ComponentUtil.getDerivedState(props, state, 'expandRows'),
-            value: ComponentUtil.getDerivedState(props, state, 'value')
-        };
-
     }
 
     render() {
