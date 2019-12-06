@@ -152,9 +152,7 @@ class Tabs extends Component {
             } = this.props,
 
             scrollerStyle = this.getScrollerStyle(),
-            inkBarStyle = this.getInkBarStyle(),
-            tabWidthPerCent = 100 / data.length;
-
+            inkBarStyle = this.getInkBarStyle();
 
         return (
             <DragDropContext onDragStart={onTabButtonDragStart}
@@ -195,7 +193,7 @@ class Tabs extends Component {
                                                         <TabsButton {...restProps}
                                                                     key={idProp && item[idProp] || index}
                                                                     className={classNames({activated: activatedIndex === index})}
-                                                                    style={{width: isTabFullWidth ? `${tabWidthPerCent}%` : 'auto'}}
+                                                                    style={{width: isTabFullWidth ? `${100 / data.length}%` : 'auto'}}
                                                                     data={item}
                                                                     index={index}
                                                                     isTabFullWidth={isTabFullWidth}
