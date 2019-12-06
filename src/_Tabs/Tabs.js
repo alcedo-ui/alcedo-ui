@@ -193,7 +193,7 @@ class Tabs extends Component {
                                                     const {
 
                                                         // not passing down these props
-                                                        renderer, onActive,
+                                                        onActive,
 
                                                         ...restProps
 
@@ -312,9 +312,14 @@ Tabs.propTypes = {
         iconPosition: PropTypes.string,
 
         /**
-         * The render content in tab.
+         * The render of tab button.
          */
         renderer: PropTypes.any,
+
+        /**
+         * The render content in tab.
+         */
+        tabContentRenderer: PropTypes.any,
 
         /**
          * Callback function fired when click onActive tab.
