@@ -49,7 +49,7 @@ class TabExamples extends Component {
         return Array.from({length}, (item, index) => ({
             id: index + 1,
             value: `Tab ${index + 1}`,
-            renderer: <h1>Tab {index + 1}</h1>
+            tabContentRenderer: <h1>Tab {index + 1}</h1>
         }));
     };
 
@@ -61,7 +61,7 @@ class TabExamples extends Component {
         tabs.push({
             id: index,
             value: `Tab ${index}`,
-            renderer: <h1>Tab {index}</h1>
+            tabContentRenderer: <h1>Tab {index}</h1>
         });
 
         this.setState({
@@ -110,13 +110,13 @@ class TabExamples extends Component {
 
                                 <Tab tabs={[{
                                     value: 'Tab 1',
-                                    renderer: <h1>Tab 1</h1>
+                                    tabContentRenderer: <h1>Tab 1</h1>
                                 }, {
                                     value: 'Tab 2',
-                                    renderer: <h1>Tab 2</h1>
+                                    tabContentRenderer: <h1>Tab 2</h1>
                                 }, {
                                     value: 'Tab 3',
-                                    renderer: <h1>onActive</h1>,
+                                    tabContentRenderer: <h1>onActive</h1>,
                                     onActive: this.activeHandler
                                 }, {
                                     value: 'Tab 4',
@@ -181,19 +181,19 @@ class TabExamples extends Component {
                                 <Tab tabs={[{
                                     value: 'Bicycle',
                                     iconCls: 'fas fa-bicycle',
-                                    renderer: <h1>Bicycle</h1>
+                                    tabContentRenderer: <h1>Bicycle</h1>
                                 }, {
                                     value: 'Taxi',
                                     iconCls: 'fas fa-taxi',
-                                    renderer: <h1>Taxi</h1>
+                                    tabContentRenderer: <h1>Taxi</h1>
                                 }, {
                                     value: 'Plane',
                                     iconCls: 'fas fa-plane',
-                                    renderer: <h1>Plane</h1>
+                                    tabContentRenderer: <h1>Plane</h1>
                                 }, {
                                     value: 'Rocket',
                                     iconCls: 'fas fa-rocket',
-                                    renderer: <h1>Rocket</h1>
+                                    tabContentRenderer: <h1>Rocket</h1>
                                 }]}
                                      isTabFullWidth={false}/>
 
@@ -220,19 +220,19 @@ class TabExamples extends Component {
                                 <Tab tabs={[{
                                     value: 'Bicycle',
                                     iconCls: 'fas fa-bicycle',
-                                    renderer: <h1>Bicycle</h1>
+                                    tabContentRenderer: <h1>Bicycle</h1>
                                 }, {
                                     value: 'Taxi',
                                     iconCls: 'fas fa-taxi',
-                                    renderer: <h1>Taxi</h1>
+                                    tabContentRenderer: <h1>Taxi</h1>
                                 }, {
                                     value: 'Plane',
                                     iconCls: 'fas fa-plane',
-                                    renderer: <h1>Plane</h1>
+                                    tabContentRenderer: <h1>Plane</h1>
                                 }, {
                                     value: 'Rocket',
                                     iconCls: 'fas fa-rocket',
-                                    renderer: <h1>Rocket</h1>
+                                    tabContentRenderer: <h1>Rocket</h1>
                                 }]}
                                      isTabFullWidth={false}
                                      isAnimated={false}
