@@ -70,6 +70,14 @@ class TabExamples extends Component {
 
     };
 
+    handleScrollLeftButtonMouseDown = () => {
+        console.log('scroll left button mouse down');
+    };
+
+    handleScrollRightButtonMouseDown = () => {
+        console.log('scroll right button mouse down');
+    };
+
     render() {
 
         const {tabs, toasts} = this.state;
@@ -146,7 +154,9 @@ class TabExamples extends Component {
                                          <IconButton className="tab-button customized-tab-button"
                                                      iconCls="fas fa-plus"
                                                      onClick={this.addTab}/>
-                                     }/>
+                                     }
+                                     onScrollLeftButtonMouseDown={this.handleScrollLeftButtonMouseDown}
+                                     onScrollRightButtonMouseDown={this.handleScrollRightButtonMouseDown}/>
 
                             </div>
 
