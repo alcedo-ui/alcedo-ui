@@ -192,11 +192,11 @@ class Tabs extends Component {
                                                     return (
                                                         <TabsButton {...restProps}
                                                                     key={idProp && item[idProp] || index}
-                                                                    className={classNames({activated: activatedIndex === index})}
                                                                     style={{width: isTabFullWidth ? `${100 / data.length}%` : 'auto'}}
                                                                     data={item}
                                                                     index={index}
                                                                     isTabFullWidth={isTabFullWidth}
+                                                                    activated={activatedIndex === index}
                                                                     draggable={draggable}
                                                                     onMouseDown={onTabMouseDown}
                                                                     onMouseUp={onTabMouseUp}
