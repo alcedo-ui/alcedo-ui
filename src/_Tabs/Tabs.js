@@ -103,12 +103,22 @@ class Tabs extends Component {
 
     };
 
-    tabsScrollLeft = () => {
+    tabsScrollLeft = e => {
+
         this.handleTabsScroll(Position.LEFT);
+
+        const {onScrollLeftButtonMouseDown} = this.props;
+        onScrollLeftButtonMouseDown && onScrollLeftButtonMouseDown(e);
+
     };
 
-    tabsScrollRight = () => {
+    tabsScrollRight = e => {
+
         this.handleTabsScroll(Position.RIGHT);
+
+        const {onScrollRightButtonMouseDown} = this.props;
+        onScrollRightButtonMouseDown && onScrollRightButtonMouseDown(e);
+
     };
 
     clearTabsScrollTimeout = () => {
@@ -340,7 +350,9 @@ Tabs.propTypes = {
     onTabMouseUp: PropTypes.func,
     onTabsOverflowChange: PropTypes.func,
     onTabButtonDragStart: PropTypes.func,
-    onTabButtonDragEnd: PropTypes.func
+    onTabButtonDragEnd: PropTypes.func,
+    onScrollLeftButtonMouseDown: PropTypes.func,
+    onScrollRightButtonMouseDown: PropTypes.func
 
 };
 
