@@ -78,6 +78,10 @@ class TabExamples extends Component {
         console.log('scroll right button mouse down');
     };
 
+    handleIndexChange = index => {
+        console.log(`Index: ${index} activated`);
+    };
+
     render() {
 
         const {tabs, toasts} = this.state;
@@ -156,7 +160,8 @@ class TabExamples extends Component {
                                                      onClick={this.addTab}/>
                                      }
                                      onScrollLeftButtonMouseDown={this.handleScrollLeftButtonMouseDown}
-                                     onScrollRightButtonMouseDown={this.handleScrollRightButtonMouseDown}/>
+                                     onScrollRightButtonMouseDown={this.handleScrollRightButtonMouseDown}
+                                     onIndexChange={this.handleIndexChange}/>
 
                             </div>
 
