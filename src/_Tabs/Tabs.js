@@ -5,15 +5,18 @@
 
 import React, {Component, Fragment, createRef} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Components
 import {DragDropContext, Droppable} from 'react-beautiful-dnd';
 import IconButton from '../IconButton';
 import TabsButton from '../_TabButton';
 
+// Statics
 import Position from '../_statics/Position';
 import Direction from '../_statics/Direction';
 
+// Vendors
+import classNames from 'classnames';
 import Event from '../_vendors/Event';
 import ScrollBar from '../_vendors/ScrollBar';
 
@@ -58,6 +61,29 @@ class Tabs extends Component {
             paddingBottom: 0
         };
 
+    };
+
+    getInkBarStyle = () => {
+
+        if (!this.tabsEl) {
+            return null;
+        }
+
+        const tabs = this.tabsEl.querySelectorAll('.tab-buttons .tab-button');
+
+        if (!tabs || tabs.length < 1) {
+            return null;
+        }
+
+        const {activatedIndex} = this.props,
+            activatedtab = tabs[activatedIndex];
+
+        return activatedtab ? {
+                width: activatedtab.offsetWidth,
+                left: activatedtab.offsetLeft
+            }
+            :
+            null;
     };
 
     handleTabsScroll = (direction, keepScrolling) => {
@@ -119,12 +145,14 @@ class Tabs extends Component {
     render() {
 
         const {
-                children, className, style, isTabFullWidth, data, activatedIndex, isTabsOverflow, draggable, idProp,
+                children, className, style, isTabFullWidth, isInkBarHidden,
+                data, activatedIndex, isTabsOverflow, draggable, idProp,
                 scrollLeftIconCls, scrollRightIconCls,
                 onTabMouseDown, onTabMouseUp, onTabClick, onTabButtonDragStart, onTabButtonDragEnd
             } = this.props,
 
-            tabWidthPerCent = 100 / data.length;
+            scrollerStyle = this.getScrollerStyle(),
+            inkBarStyle = this.getInkBarStyle();
 
         return (
             <DragDropContext onDragStart={onTabButtonDragStart}
@@ -138,7 +166,7 @@ class Tabs extends Component {
 
                     <div ref={this.tabs}
                          className="tabs-scroller"
-                         style={this.getScrollerStyle()}>
+                         style={scrollerStyle}>
 
                         <Droppable droppableId="droppable"
                                    direction="horizontal">
@@ -164,11 +192,11 @@ class Tabs extends Component {
                                                     return (
                                                         <TabsButton {...restProps}
                                                                     key={idProp && item[idProp] || index}
-                                                                    className={classNames({activated: activatedIndex === index})}
-                                                                    style={{width: isTabFullWidth ? `${tabWidthPerCent}%` : 'auto'}}
+                                                                    style={{width: isTabFullWidth ? `${100 / data.length}%` : 'auto'}}
                                                                     data={item}
                                                                     index={index}
                                                                     isTabFullWidth={isTabFullWidth}
+                                                                    activated={activatedIndex === index}
                                                                     draggable={draggable}
                                                                     onMouseDown={onTabMouseDown}
                                                                     onMouseUp={onTabMouseUp}
@@ -186,20 +214,21 @@ class Tabs extends Component {
                             }
                         </Droppable>
 
+                        {
+                            !isInkBarHidden && inkBarStyle ?
+                                <div className="ink-bar"
+                                     style={{
+                                         bottom: scrollerStyle ? 0 : 20,
+                                         width: inkBarStyle.width,
+                                         transform: `translate(${inkBarStyle.left}px, 0)`
+                                     }}></div>
+                                :
+                                null
+                        }
+
                         {children}
 
                     </div>
-
-                    {
-                        isTabFullWidth ?
-                            <div className="ink-bar"
-                                 style={{
-                                     width: `${tabWidthPerCent}%`,
-                                     transform: `translate(${activatedIndex * 100}%, 0)`
-                                 }}></div>
-                            :
-                            null
-                    }
 
                     {
                         isTabsOverflow ?
@@ -294,6 +323,7 @@ Tabs.propTypes = {
      */
     isTabFullWidth: PropTypes.bool,
 
+    isInkBarHidden: PropTypes.bool,
     isTabsOverflow: PropTypes.bool,
     draggable: PropTypes.bool,
 
@@ -320,6 +350,7 @@ Tabs.defaultProps = {
 
     activatedIndex: 0,
     isTabFullWidth: true,
+    isInkBarHidden: false,
     draggable: false,
 
     scrollLeftIconCls: 'fas fa-chevron-left',

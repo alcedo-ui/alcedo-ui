@@ -5,10 +5,12 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Components
 import Tabs from '../_Tabs';
 
+// Vendors
+import classNames from 'classnames';
 import ComponentUtil from '../_vendors/ComponentUtil';
 import Util from '../_vendors/Util';
 
@@ -246,6 +248,7 @@ Tab.propTypes = {
      */
     isTabFullWidth: PropTypes.bool,
 
+    isInkBarHidden: PropTypes.bool,
     isAnimated: PropTypes.bool,
     draggable: PropTypes.bool,
 
@@ -274,6 +277,7 @@ Tab.defaultProps = {
 
     activatedIndex: 0,
     isTabFullWidth: true,
+    isInkBarHidden: false,
     isAnimated: true,
     draggable: false,
 

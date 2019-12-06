@@ -6,9 +6,16 @@
         width: 40px;
         margin-left: 4px;
         background: $theme-widget-bg;
+        border-top-left-radius: $theme-border-radius;
+        border-top-right-radius: $theme-border-radius;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
 
         .touch-ripple {
-            border-radius: 0;
+            border-top-left-radius: $theme-border-radius;
+            border-top-right-radius: $theme-border-radius;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
         }
     }
 }

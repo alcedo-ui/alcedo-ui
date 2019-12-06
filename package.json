@@ -1,7 +1,7 @@
 {
     "name": "alcedo-ui",
     "author": "Alcedo-UI Team",
-    "version": "2.49.4",
+    "version": "2.49.5",
     "description": "A set of React components.",
     "main": "./src/index.js",
     "scripts": {
@@ -43,7 +43,7 @@
         "moment": "2.24.0",
         "prop-types": "15.7.2",
         "react": "16.12.0",
-        "react-beautiful-dnd": "12.1.1",
+        "react-beautiful-dnd": "12.2.0",
         "react-dnd": "9.5.1",
         "react-dnd-html5-backend": "9.5.1",
         "react-dom": "16.12.0",
@@ -105,7 +105,7 @@
         "friendly-errors-webpack-plugin": "1.7.0",
         "gulp": "4.0.2",
         "gulp-babel": "8.0.0",
-        "gulp-rename": "1.4.0",
+        "gulp-rename": "2.0.0",
         "gulp-util": "3.0.8",
         "happypack": "5.0.1",
         "html-loader": "0.5.5",

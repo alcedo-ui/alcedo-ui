@@ -15,4 +15,32 @@
     border-radius: 0;
     margin: 0;
     vertical-align: bottom;
+    border-top-left-radius: $theme-border-radius;
+    border-top-right-radius: $theme-border-radius;
+
+    &.tab-scroll-left-button,
+    &.tab-scroll-right-button {
+        position: absolute;
+        top: 0;
+        width: 24px;
+        padding: 0;
+        margin: 0;
+        border-radius: $theme-border-radius;
+
+        .touch-ripple {
+            border-radius: $theme-border-radius;
+        }
+
+        &:hover {
+            background: $theme-secondary;
+        }
+    }
+
+    &.tab-scroll-left-button {
+        left: 0;
+    }
+
+    &.tab-scroll-right-button {
+        right: 0;
+    }
 }
