@@ -118,7 +118,7 @@ class Tab extends Component {
 
     render() {
 
-        const {children, tabsChildren, className, style, isAnimated} = this.props,
+        const {children, tabsChildren, className, style, isAnimated, ...restProps} = this.props,
             {tabs, activatedIndex, isTabsOverflow} = this.state,
 
             tabWidthPerCent = 100 / tabs.length;
@@ -131,7 +131,7 @@ class Tab extends Component {
             })}
                  style={style}>
 
-                <Tabs {...this.props}
+                <Tabs {...restProps}
                       data={tabs}
                       activatedIndex={activatedIndex}
                       isTabsOverflow={isTabsOverflow}
