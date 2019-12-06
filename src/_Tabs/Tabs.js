@@ -199,7 +199,7 @@ class Tabs extends Component {
                                                     const {
 
                                                         // not passing down these props
-                                                        onActive,
+                                                        tabContentRenderer, onActive,
 
                                                         ...restProps
 
