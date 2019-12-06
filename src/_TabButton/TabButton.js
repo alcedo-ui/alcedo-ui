@@ -34,12 +34,13 @@ class TabButton extends Component {
     render() {
 
         const {
-                className, style, index, isTabFullWidth, data, activatedIndex, draggable,
+                className, style, index, isTabFullWidth, data, activatedIndex, activated, draggable,
                 ...restProps
             } = this.props,
             trigger = (
                 <FlatButton {...restProps}
                             className={classNames('tab-button', {
+                                activated,
                                 [className]: className
                             })}
                             style={style}
@@ -140,6 +141,8 @@ TabButton.propTypes = {
     activatedIndex: PropTypes.number,
     index: PropTypes.number,
 
+    activated: PropTypes.bool,
+
     /**
      * If true,the data is FullWidth.
      */
@@ -158,6 +161,7 @@ TabButton.propTypes = {
 TabButton.defaultProps = {
     activatedIndex: 0,
     index: 0,
+    activated: false,
     isTabFullWidth: true,
     draggable: false
 };
