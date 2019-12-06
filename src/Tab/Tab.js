@@ -38,14 +38,14 @@ class Tab extends Component {
 
     getRenderer = item => {
 
-        if (!item || !item.renderer) {
+        if (!item || !item.tabContentRenderer) {
             return null;
         }
 
-        return typeof item.renderer === 'function' ?
-            item.renderer(item)
+        return typeof item.tabContentRenderer === 'function' ?
+            item.tabContentRenderer(item)
             :
-            item.renderer;
+            item.tabContentRenderer;
 
     };
 
@@ -227,9 +227,14 @@ Tab.propTypes = {
         iconPosition: PropTypes.string,
 
         /**
-         * The render content in tab.
+         * The render of tab button.
          */
         renderer: PropTypes.any,
+
+        /**
+         * The render content in tab.
+         */
+        tabContentRenderer: PropTypes.any,
 
         /**
          * Callback function fired when click onActive tab.
