@@ -43,7 +43,13 @@ class Tabs extends Component {
             return false;
         }
 
-        return this.tabsEl.scrollWidth > this.tabsEl.offsetWidth;
+        const scrollEl = this.tabsEl.querySelector('.tab-buttons-wrapper');
+
+        if (!scrollEl) {
+            return false;
+        }
+
+        return Math.floor(this.tabsEl.offsetWidth) < Math.floor(scrollEl.offsetWidth);
 
     };
 
