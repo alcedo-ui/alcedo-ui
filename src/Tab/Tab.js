@@ -267,7 +267,9 @@ Tab.propTypes = {
     onTabMouseUp: PropTypes.func,
     onTabButtonDragStart: PropTypes.func,
     onTabButtonDragEnd: PropTypes.func,
-    onTabsSequenceChange: PropTypes.func
+    onTabsSequenceChange: PropTypes.func,
+    onScrollLeftButtonMouseDown: PropTypes.func,
+    onScrollRightButtonMouseDown: PropTypes.func
 
 };
 
