@@ -5,11 +5,20 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Components
 import RoundStepItem from '../_RoundStepItem';
 
+// Statics
+import Position from '../_statics/Position';
+
+// Vendors
+import classNames from 'classnames';
+import Util from '../_vendors/Util';
+
 class RoundStep extends Component {
+
+    static TitlePosition = Position;
 
     constructor(props, ...restArgs) {
 
@@ -49,7 +58,10 @@ class RoundStep extends Component {
 
     render() {
 
-        const {className, style, steps, showFinishedStepIcon, finishedStepIconCls, disabled} = this.props,
+        const {
+                className, style,
+                steps, showFinishedStepIcon, finishedStepIconCls, disabled, titlePosition
+            } = this.props,
             {activatedStep, finishedStep} = this.state;
 
         return (
@@ -75,6 +87,7 @@ class RoundStep extends Component {
                                        showFinishedStepIcon={showFinishedStepIcon}
                                        finishedStepIconCls={finishedStepIconCls}
                                        disabled={disabled}
+                                       titlePosition={titlePosition}
                                        onClick={this.handleClick}/>
                     )
                 }
@@ -95,7 +108,6 @@ RoundStep.propTypes = {
      * Override the styles of the root element.
      */
     style: PropTypes.object,
-
 
     /**
      * The render content of step.
@@ -134,6 +146,8 @@ RoundStep.propTypes = {
 
     disabled: PropTypes.bool,
 
+    titlePosition: PropTypes.oneOf(Util.enumerateValue(Position)),
+
     /**
      * Callback function fired when step change.
      */
@@ -148,7 +162,9 @@ RoundStep.defaultProps = {
 
     showFinishedStepIcon: true,
     finishedStepIconCls: 'fas fa-check',
-    disabled: false
+    disabled: false,
+
+    titlePosition: Position.BOTTOM
 
 };
 
