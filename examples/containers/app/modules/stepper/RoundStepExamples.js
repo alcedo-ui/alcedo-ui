@@ -88,11 +88,46 @@ class RoundStepExamples extends Component {
                     <div className="widget-content">
                         <div className="example-content">
 
-                            <p>A simple <code>RoundStep</code> example.</p>
+                            <RoundStep steps={steps}
+                                       activatedStep={activatedStep}
+                                       finishedStep={finishedStep}
+                                       onChange={this.updateStep}/>
+
+                            <div className="step-ctrls">
+
+                                <RaisedButton value="Prev"
+                                              iconCls="fas fa-angle-left"
+                                              disabled={activatedStep <= 0}
+                                              onClick={this.prev}/>
+
+                                <RaisedButton value={activatedStep < steps.length - 1 ? 'Next' : 'Finish'}
+                                              rightIconCls={activatedStep < steps.length - 1 ? 'fas fa-angle-right' : ''}
+                                              disabled={activatedStep >= steps.length}
+                                              onClick={this.next}/>
+
+                                <RaisedButton value="Reset"
+                                              iconCls="fas fa-undo"
+                                              onClick={this.reset}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Title Position"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
 
                             <RoundStep steps={steps}
                                        activatedStep={activatedStep}
                                        finishedStep={finishedStep}
+                                       titlePosition={RoundStep.TitlePosition.TOP}
                                        onChange={this.updateStep}/>
 
                             <div className="step-ctrls">
@@ -125,6 +160,6 @@ class RoundStepExamples extends Component {
             </div>
         );
     }
-};
+}
 
 export default RoundStepExamples;
