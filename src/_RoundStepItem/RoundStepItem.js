@@ -5,9 +5,17 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+
+// Statics
+import Position from '../_statics/Position';
+
+// Vendors
 import classNames from 'classnames';
+import Util from '../_vendors/Util';
 
 class RoundStepItem extends Component {
+
+    static TitlePosition = Position;
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
@@ -37,9 +45,15 @@ class RoundStepItem extends Component {
     render() {
 
         const {
-            className, style, activatedStep, finishedStep, index, value, isFirst, isLast,
-            showFinishedStepIcon, finishedStepIconCls, disabled
-        } = this.props;
+                className, style, activatedStep, finishedStep, index, value, isFirst, isLast,
+                showFinishedStepIcon, finishedStepIconCls, disabled, titlePosition
+            } = this.props,
+
+            titleEl = (
+                <div className="title">
+                    {value.title}
+                </div>
+            );
 
         return (
             <div className={classNames('round-step-item',
@@ -51,37 +65,51 @@ class RoundStepItem extends Component {
                 })}
                  style={style}>
 
-                <div className="bg-bar"></div>
-                <div className="bg-round"></div>
-
                 {
-                    !isFirst && (finishedStep >= index || activatedStep >= index) ?
-                        <div className="left-bar"></div>
+                    titlePosition === Position.TOP ?
+                        titleEl
                         :
                         null
                 }
 
-                {
-                    !isLast ?
-                        <div className={'right-bar' + this.getRightBarClassName()}></div>
-                        :
-                        null
-                }
+                <div className="round-step-item-content">
 
-                <div className="round"
-                     onClick={this.handleClick}>
+                    <div className="bg-bar"></div>
+                    <div className="bg-round"></div>
+
                     {
-                        showFinishedStepIcon && finishedStep > index ?
-                            <i className={finishedStepIconCls}
-                               aria-hidden="true"></i>
+                        !isFirst && (finishedStep >= index || activatedStep >= index) ?
+                            <div className="left-bar"></div>
                             :
-                            (index + 1)
+                            null
                     }
+
+                    {
+                        !isLast ?
+                            <div className={'right-bar' + this.getRightBarClassName()}></div>
+                            :
+                            null
+                    }
+
+                    <div className="round"
+                         onClick={this.handleClick}>
+                        {
+                            showFinishedStepIcon && finishedStep > index ?
+                                <i className={finishedStepIconCls}
+                                   aria-hidden="true"></i>
+                                :
+                                (index + 1)
+                        }
+                    </div>
+
                 </div>
 
-                <div className="title">
-                    {value.title}
-                </div>
+                {
+                    titlePosition !== Position.TOP ?
+                        titleEl
+                        :
+                        null
+                }
 
             </div>
         );
@@ -106,6 +134,8 @@ RoundStepItem.propTypes = {
 
     disabled: PropTypes.bool,
 
+    titlePosition: PropTypes.oneOf(Util.enumerateValue(Position)),
+
     onClick: PropTypes.func
 
 };
@@ -122,7 +152,9 @@ RoundStepItem.defaultProps = {
     showFinishedStepIcon: true,
     finishedStepIconCls: 'fas fa-check',
 
-    disabled: false
+    disabled: false,
+
+    titlePosition: Position.BOTTOM
 
 };
 

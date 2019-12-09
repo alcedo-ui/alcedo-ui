@@ -7,71 +7,75 @@
     float: left;
     width: 50%;
     height: 90px;
-    position: relative;
 
-    .bg-bar {
-        position: absolute;
-        top: 20px;
-        left: 0;
-        width: 100%;
-        height: 20px;
-        background: $theme-border;
-    }
+    .round-step-item-content {
+        position: relative;
+        height: 60px;
 
-    .bg-round {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        position: absolute;
-        left: 50%;
-        top: 10px;
-        margin-left: -20px;
-        background: $theme-border;
-    }
-
-    .left-bar,
-    .right-bar {
-        position: absolute;
-        top: 24px;
-        height: 12px;
-        background: $theme-primary;
-    }
-
-    .left-bar {
-        height: 12px;
-        width: 50%;
-    }
-
-    .right-bar {
-        left: 50%;
-        width: 20%;
-
-        &.hidden {
-            display: none;
+        .bg-bar {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background: $theme-border;
         }
 
-        &.full {
+        .bg-round {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            top: 10px;
+            margin-left: -20px;
+            background: $theme-border;
+        }
+
+        .left-bar,
+        .right-bar {
+            position: absolute;
+            top: 24px;
+            height: 12px;
+            background: $theme-primary;
+        }
+
+        .left-bar {
+            height: 12px;
             width: 50%;
         }
-    }
 
-    .round {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        position: absolute;
-        left: 50%;
-        top: 14px;
-        margin-left: -16px;
-        text-align: center;
-        line-height: 32px;
-        font-weight: bold;
-        background: $theme-field-bg;
-        color: $theme-field-disabled;
+        .right-bar {
+            left: 50%;
+            width: 20%;
 
-        i {
+            &.hidden {
+                display: none;
+            }
+
+            &.full {
+                width: 50%;
+            }
+        }
+
+        .round {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            top: 14px;
+            margin-left: -16px;
             text-align: center;
             line-height: 32px;
+            font-weight: bold;
+            background: $theme-field-bg;
+            color: $theme-field-disabled;
+
+            i {
+                text-align: center;
+                line-height: 32px;
+            }
         }
     }
 
@@ -80,9 +84,6 @@
         height: 30px;
         line-height: 30px;
         text-align: center;
-        position: absolute;
-        top: 55px;
-        left: 0;
         color: $theme-description;
     }
 
