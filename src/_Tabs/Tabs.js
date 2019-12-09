@@ -28,11 +28,13 @@ class Tabs extends Component {
 
         this.tabs = createRef();
         this.tabsEl = null;
+        this.scrollLeftButton = createRef();
+        this.scrollRightButton = createRef();
 
         this.tabsScrollTimeout = null;
 
         this.state = {
-            isTabsOverflow: false
+            scrollLeft: 0
         };
 
     }
@@ -50,6 +52,20 @@ class Tabs extends Component {
         }
 
         return Math.floor(this.tabsEl.offsetWidth) < Math.floor(scrollEl.offsetWidth);
+
+    };
+
+    isScrollLeftButtonDisabled = scrollLeft => {
+        return scrollLeft <= 0;
+    };
+
+    isScrollRightButtonDisabled = scrollLeft => {
+
+        if (!this.tabsEl) {
+            return false;
+        }
+
+        return scrollLeft >= this.tabsEl.scrollWidth - this.tabsEl.offsetWidth;
 
     };
 
@@ -92,6 +108,12 @@ class Tabs extends Component {
             null;
     };
 
+    handleOnTabsScroll = e => {
+        this.setState({
+            scrollLeft: e.target.scrollLeft
+        });
+    };
+
     handleTabsScroll = (direction, keepScrolling) => {
 
         if (!this.tabsEl) {
@@ -101,6 +123,10 @@ class Tabs extends Component {
         const {scrollStep, scrollInterval, keepScrollingWait} = this.props;
 
         this.tabsEl.scrollLeft += (direction === Position.LEFT ? -1 : 1) * scrollStep;
+
+        this.setState({
+            scrollLeft: this.tabsEl.scrollLeft
+        });
 
         this.clearTabsScrollTimeout();
         this.tabsScrollTimeout = setTimeout(() => {
@@ -132,10 +158,22 @@ class Tabs extends Component {
     };
 
     handleTabsOverflowChange = () => {
-        const {isTabsOverflow, onTabsOverflowChange} = this.props;
-        if (onTabsOverflowChange && isTabsOverflow !== this.isTabsOverflow()) {
-            onTabsOverflowChange(!isTabsOverflow);
+
+        const {isTabsOverflow, onTabsOverflowChange} = this.props,
+            current = this.isTabsOverflow();
+
+        if (current !== isTabsOverflow) {
+
+            if (current && this.tabsEl) {
+                this.setState({
+                    scrollLeft: this.tabsEl.scrollLeft
+                });
+            }
+
+            onTabsOverflowChange && onTabsOverflowChange(!isTabsOverflow);
+
         }
+
     };
 
     componentDidMount() {
@@ -166,6 +204,7 @@ class Tabs extends Component {
                 scrollLeftIconCls, scrollRightIconCls,
                 onTabMouseDown, onTabMouseUp, onTabClick, onTabButtonDragStart, onTabButtonDragEnd
             } = this.props,
+            {scrollLeft} = this.state,
 
             scrollerStyle = this.getScrollerStyle(),
             inkBarStyle = this.getInkBarStyle();
@@ -182,7 +221,8 @@ class Tabs extends Component {
 
                     <div ref={this.tabs}
                          className="tabs-scroller"
-                         style={scrollerStyle}>
+                         style={scrollerStyle}
+                         onScroll={this.handleOnTabsScroll}>
 
                         <Droppable droppableId="droppable"
                                    direction="horizontal">
@@ -249,11 +289,15 @@ class Tabs extends Component {
                     {
                         isTabsOverflow ?
                             <Fragment>
-                                <IconButton className="tab-button tab-scroll-left-button"
+                                <IconButton ref={this.scrollLeftButton}
+                                            className="tab-button tab-scroll-left-button"
                                             iconCls={scrollLeftIconCls}
+                                            disabled={this.isScrollLeftButtonDisabled(scrollLeft)}
                                             onMouseDown={this.tabsScrollLeft}/>
-                                <IconButton className="tab-button tab-scroll-right-button"
+                                <IconButton ref={this.scrollRightButton}
+                                            className="tab-button tab-scroll-right-button"
                                             iconCls={scrollRightIconCls}
+                                            disabled={this.isScrollRightButtonDisabled(scrollLeft)}
                                             onMouseDown={this.tabsScrollRight}/>
                             </Fragment>
                             :
