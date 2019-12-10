@@ -45,7 +45,7 @@ class BaseTable extends Component {
             columns, headColumns, bodyColumns, selectMode, selectAllMode, expandRows, isMouseEventForbidden,
             isHeadFixed, isFootFixed, isHeadHidden, isFootHidden,
             hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
-            sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls,
+            sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, isClickSorting,
             onRowHover, onSortChange, onExpandChange,
 
             ...restProps
@@ -76,6 +76,7 @@ class BaseTable extends Component {
                                defaultSortingType={defaultSortingType}
                                sortingAscIconCls={sortingAscIconCls}
                                sortingDescIconCls={sortingDescIconCls}
+                               isClickSorting={isClickSorting}
                                onSortChange={onSortChange}/>
                         :
                         null
@@ -365,6 +366,7 @@ BaseTable.propTypes = {
     defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType)),
     sortingAscIconCls: PropTypes.string,
     sortingDescIconCls: PropTypes.string,
+    isClickSorting: PropTypes.bool,
 
     /**
      * callback
@@ -410,7 +412,8 @@ BaseTable.defaultProps = {
      */
     defaultSortingType: SortingType.ASC,
     sortingAscIconCls: 'fas fa-sort-up',
-    sortingDescIconCls: 'fas fa-sort-down'
+    sortingDescIconCls: 'fas fa-sort-down',
+    isClickSorting: true
 
 };
 
