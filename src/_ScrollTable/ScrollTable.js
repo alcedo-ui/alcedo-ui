@@ -408,6 +408,7 @@ ScrollTable.propTypes = {
     defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType)),
     sortingAscIconCls: PropTypes.string,
     sortingDescIconCls: PropTypes.string,
+    isClickSorting: PropTypes.bool,
 
     /**
      * fixed
@@ -467,6 +468,7 @@ ScrollTable.defaultProps = {
     defaultSortingType: SortingType.ASC,
     sortingAscIconCls: 'fas fa-sort-up',
     sortingDescIconCls: 'fas fa-sort-down',
+    isClickSorting: true,
 
     /**
      * fixed
