@@ -41,7 +41,6 @@
     }
 
     &.sortable {
-        cursor: pointer;
 
         &.sorting {
             background: darken($theme-field-bg-disabled, 2%);
@@ -50,6 +49,10 @@
         &:hover {
             background: $theme-secondary;
         }
+    }
+
+    &.clickable {
+        cursor: pointer;
     }
 
     &.no-wrap {

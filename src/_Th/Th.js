@@ -45,9 +45,9 @@ class Th extends Component {
      */
     handleClick = () => {
 
-        const {sortable, onSortChange} = this.props;
+        const {sortable, isClickSorting, onSortChange} = this.props;
 
-        if (!sortable || !onSortChange) {
+        if (!sortable || !isClickSorting || !onSortChange) {
             return;
         }
 
@@ -76,13 +76,14 @@ class Th extends Component {
 
         const {
             className, style, renderer, align, rowSpan, colSpan, noWrap,
-            sortable, sortingProp, sorting, sortingAscIconCls, sortingDescIconCls
+            sortable, sortingProp, sorting, sortingAscIconCls, sortingDescIconCls, isClickSorting
         } = this.props;
 
         return (
             <th className={classNames({
                 [`align-${align}`]: align && align !== HorizontalAlign.LEFT,
                 sortable: sortable,
+                clickable: isClickSorting,
                 sorting: sortable && sortingProp && sorting && sorting.prop && sorting.prop === sortingProp,
                 'no-wrap': sortable || noWrap,
                 [className]: className
@@ -144,6 +145,7 @@ Th.propTypes = {
     sortingDescIconCls: PropTypes.string,
     sortable: PropTypes.bool,
     sortingProp: PropTypes.string,
+    isClickSorting: PropTypes.bool,
 
     onSortChange: PropTypes.func
 
@@ -158,7 +160,8 @@ Th.defaultProps = {
     defaultSortingType: SortingType.ASC,
     sortingAscIconCls: 'fas fa-sort-up',
     sortingDescIconCls: 'fas fa-sort-down',
-    sortable: false
+    sortable: false,
+    isClickSorting: true
 
 };
 
