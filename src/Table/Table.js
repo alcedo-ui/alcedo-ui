@@ -125,12 +125,18 @@ class Table extends Component {
      * handle sort change
      */
     handleSortChange = sorting => {
+
+        if (!this.props.isClickSorting) {
+            return;
+        }
+
         this.setState({
             sorting
         }, () => {
             const {onSortChange} = this.props;
             onSortChange && onSortChange(sorting);
         });
+
     };
 
     /**
@@ -581,6 +587,7 @@ Table.propTypes = {
     sortingAscIconCls: PropTypes.string,
     sortingDescIconCls: PropTypes.string,
     autoSorting: PropTypes.bool,
+    isClickSorting: PropTypes.bool,
     sortingFunc: PropTypes.func,
 
     /**
@@ -678,6 +685,7 @@ Table.defaultProps = {
     sortingAscIconCls: 'fas fa-sort-up',
     sortingDescIconCls: 'fas fa-sort-down',
     autoSorting: true,
+    isClickSorting: true,
 
     /**
      * pagination
