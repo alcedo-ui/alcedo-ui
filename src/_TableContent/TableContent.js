@@ -1033,6 +1033,7 @@ TableContent.propTypes = {
     sortingAscIconCls: PropTypes.string,
     sortingDescIconCls: PropTypes.string,
     autoSorting: PropTypes.bool,
+    isClickSorting: PropTypes.bool,
     sortingFunc: PropTypes.func,
 
     /**
@@ -1119,6 +1120,7 @@ TableContent.defaultProps = {
     sortingAscIconCls: 'fas fa-sort-up',
     sortingDescIconCls: 'fas fa-sort-down',
     autoSorting: true,
+    isClickSorting: true,
 
     /**
      * pagination
