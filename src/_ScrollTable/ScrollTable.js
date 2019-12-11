@@ -387,6 +387,7 @@ ScrollTable.propTypes = {
     hoverRowIndex: PropTypes.number,
     baseColIndex: PropTypes.number,
     expandRows: PropTypes.array,
+    ignoreColumnWidth: PropTypes.bool,
 
     /**
      * scroll
@@ -456,6 +457,7 @@ ScrollTable.defaultProps = {
 
     baseColIndex: 0,
     expandRows: [],
+    ignoreColumnWidth: false,
 
     /**
      * scroll
