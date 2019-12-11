@@ -471,8 +471,6 @@ function fixLayout(wrapperEl, rawTableEl, props) {
         fixedHeadHeight = sum(rowsHeight[TableFragment.HEAD]) || 0,
         fixedFootHeight = sum(rowsHeight[TableFragment.FOOT]) || 0;
 
-    console.log('columnsWidth::', columnsWidth);
-
     /**
      * fix horizontal scroll style
      */
