@@ -192,9 +192,9 @@ function fixTableColumnsWidth(wrapperEl, columnsWidth, fixed, props) {
     /**
      * head
      */
-    if (props && props.isHeadFixed) {
-        fixTableFragmentColumnsWidth(wrapperEl, columnsWidth[TableFragment.BODY], fixed, TableFragment.HEAD, selector);
-    }
+    // if (props && props.isHeadFixed) {
+    fixTableFragmentColumnsWidth(wrapperEl, columnsWidth[TableFragment.BODY], fixed, TableFragment.HEAD, selector);
+    // }
 
     /**
      * body
@@ -206,9 +206,9 @@ function fixTableColumnsWidth(wrapperEl, columnsWidth, fixed, props) {
     /**
      * foot
      */
-    if (props && props.isHeadFixed) {
-        fixTableFragmentColumnsWidth(wrapperEl, columnsWidth[TableFragment.FOOT], fixed, TableFragment.FOOT, selector);
-    }
+    // if (props && props.isHeadFixed) {
+    fixTableFragmentColumnsWidth(wrapperEl, columnsWidth[TableFragment.FOOT], fixed, TableFragment.FOOT, selector);
+    // }
 
 }
 
