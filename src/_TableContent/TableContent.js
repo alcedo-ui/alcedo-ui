@@ -662,6 +662,7 @@ class TableContent extends Component {
                                  hasFootRenderer={hasFootRenderer}
                                  scrolling={scrolling}
                                  scroll={scroll}
+                                 ignoreColumnWidth={true}
                                  onScroll={this.handleScroll}
                                  onWheel={this.handleWheel}
                                  onGetHeadScrollerEl={el =>
@@ -692,6 +693,7 @@ class TableContent extends Component {
                                          hasFootRenderer={hasFootRenderer}
                                          scrolling={scrolling}
                                          scroll={scroll}
+                                         ignoreColumnWidth={true}
                                          onGetHeadScrollerEl={el =>
                                              this.handleGetScrollerEl(el, HorizontalAlign.LEFT, TableFragment.HEAD)}
                                          onGetBodyScrollerEl={el =>
@@ -726,6 +728,7 @@ class TableContent extends Component {
                                          hasFootRenderer={hasFootRenderer}
                                          scrolling={scrolling}
                                          scroll={scroll}
+                                         ignoreColumnWidth={true}
                                          baseColIndex={this.formatedColumns.length - this.fixedRightColumns.length}
                                          onScroll={this.handleScroll}
                                          onWheel={this.handleWheel}
