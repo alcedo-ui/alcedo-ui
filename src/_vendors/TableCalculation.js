@@ -501,6 +501,16 @@ function handlePage(page, pageSize, data) {
 
 }
 
+function getRawTableData(data) {
+
+    if (data && data.length > 0) {
+        return data;
+    }
+
+    return [{}];
+
+}
+
 export default {
     calcSpan,
     getColumnsWithSpan,
@@ -527,5 +537,6 @@ export default {
     needCollapseButtonSpacing,
     getPageSizeValue,
     handleNoWrap,
-    handlePage
+    handlePage,
+    getRawTableData
 };
