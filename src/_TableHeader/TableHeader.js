@@ -30,9 +30,9 @@ class TableHeader extends Component {
                 [className]: className
             })}
                  style={style}>
-
             </div>
         );
+
     }
 }
 
@@ -49,7 +49,5 @@ TableHeader.propTypes = {
     style: PropTypes.object
 
 };
-
-TableHeader.defaultProps = {};
 
 export default TableHeader;
