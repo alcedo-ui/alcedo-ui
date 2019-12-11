@@ -633,7 +633,7 @@ class TableContent extends Component {
                                    style={scroll}
                                    headColumns={this.headColumns}
                                    bodyColumns={this.bodyColumns}
-                                   data={this.tableData}
+                                   data={TC.getRawTableData(this.tableData)}
                                    isHeadFixed={isHeadFixed}
                                    isFootFixed={isFootFixed}
                                    isHeadHidden={isFinalHeadHidden}
