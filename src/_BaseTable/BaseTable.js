@@ -41,7 +41,7 @@ class BaseTable extends Component {
 
         const {
 
-            className, style, data, value, hoverRowIndex, idProp, baseColIndex, fixed, fragment,
+            className, style, data, value, hoverRowIndex, idProp, baseColIndex, fixed, fragment, ignoreColumnWidth,
             columns, headColumns, bodyColumns, selectMode, selectAllMode, expandRows, isMouseEventForbidden,
             isHeadFixed, isFootFixed, isHeadHidden, isFootHidden,
             hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
@@ -59,7 +59,8 @@ class BaseTable extends Component {
                    })}
                    style={style}>
 
-                <ColGroup columns={TC.getColumnsWithSpan(fragment, bodyColumns || columns)}/>
+                <ColGroup columns={TC.getColumnsWithSpan(fragment, bodyColumns || columns)}
+                          ignoreColumnWidth={ignoreColumnWidth}/>
 
                 {
                     !isHeadHidden && hasHeadRenderer && (
@@ -336,6 +337,7 @@ BaseTable.propTypes = {
     disabled: PropTypes.bool,
     expandRows: PropTypes.array,
     isMouseEventForbidden: PropTypes.bool,
+    ignoreColumnWidth: PropTypes.bool,
 
     /**
      * fixed
@@ -387,6 +389,7 @@ BaseTable.defaultProps = {
     disabled: false,
     expandRows: [],
     isMouseEventForbidden: false,
+    ignoreColumnWidth: false,
 
     /**
      * fixed
