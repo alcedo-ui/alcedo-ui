@@ -150,7 +150,7 @@ function fixCenterTableWidth(wrapperEl) {
  */
 function fixTableFragmentColumnsWidth(wrapperEl, columnsWidth, fixed, fragment, selector) {
 
-    const el = wrapperEl.querySelector(`${selector} .scroll-table-${fragment}-scroller`);
+    const el = wrapperEl.querySelector(`${selector} .scroll-table-${fragment}`);
 
     if (el) {
         const cols = el.querySelectorAll('col');
@@ -192,23 +192,21 @@ function fixTableColumnsWidth(wrapperEl, columnsWidth, fixed, props) {
     /**
      * head
      */
-    // if (props && props.isHeadFixed) {
-    fixTableFragmentColumnsWidth(wrapperEl, columnsWidth[TableFragment.BODY], fixed, TableFragment.HEAD, selector);
-    // }
+    if (props && props.isHeadFixed) {
+        fixTableFragmentColumnsWidth(wrapperEl, columnsWidth[TableFragment.BODY], fixed, TableFragment.HEAD, selector);
+    }
 
     /**
      * body
      */
-    // if (fixed) {
     fixTableFragmentColumnsWidth(wrapperEl, columnsWidth[TableFragment.BODY], fixed, TableFragment.BODY, selector);
-    // }
 
     /**
      * foot
      */
-    // if (props && props.isHeadFixed) {
-    fixTableFragmentColumnsWidth(wrapperEl, columnsWidth[TableFragment.FOOT], fixed, TableFragment.FOOT, selector);
-    // }
+    if (props && props.isHeadFixed) {
+        fixTableFragmentColumnsWidth(wrapperEl, columnsWidth[TableFragment.FOOT], fixed, TableFragment.FOOT, selector);
+    }
 
 }
 
@@ -472,6 +470,8 @@ function fixLayout(wrapperEl, rawTableEl, props) {
 
         fixedHeadHeight = sum(rowsHeight[TableFragment.HEAD]) || 0,
         fixedFootHeight = sum(rowsHeight[TableFragment.FOOT]) || 0;
+
+    console.log('columnsWidth::', columnsWidth);
 
     /**
      * fix horizontal scroll style
