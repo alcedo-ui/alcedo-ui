@@ -5,14 +5,16 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import isEmpty from 'lodash/isEmpty';
 
+// Statics
 import TableFragment from '../_statics/TableFragment';
 import HorizontalAlign from '../_statics/HorizontalAlign';
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
 
+// Vendors
+import isEmpty from 'lodash/isEmpty';
 import Util from '../_vendors/Util';
 
 class ColGroup extends Component {
@@ -44,14 +46,14 @@ class ColGroup extends Component {
 
     render() {
 
-        const {columns} = this.props;
+        const {columns, ignoreColumnWidth} = this.props;
 
         return columns ?
             <colgroup>
                 {
                     columns.map(({column, span}, index) => column ?
                         <col key={index}
-                             style={this.getColStyle(column)}
+                             style={ignoreColumnWidth ? null : this.getColStyle(column)}
                              span={span && span > 1 ? span : null}/>
                         :
                         null
@@ -199,8 +201,14 @@ ColGroup.propTypes = {
 
         defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType))
 
-    })).isRequired
+    })).isRequired,
 
+    ignoreColumnWidth: PropTypes.bool
+
+};
+
+ColGroup.defaultProps = {
+    ignoreColumnWidth: false
 };
 
 export default ColGroup;
