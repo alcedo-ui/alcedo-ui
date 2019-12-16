@@ -19,7 +19,7 @@ import SelectMode from '../_statics/SelectMode';
 import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
-// import Dom from '../_vendors/Dom';
+import Dom from '../_vendors/Dom';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
 class DropdownSelect extends Component {
@@ -43,10 +43,16 @@ class DropdownSelect extends Component {
         this.state = {
             value: props.value,
             filter: '',
-            popupVisible: false,
-            scrollerHeight: 'auto'
+            popupVisible: false
         };
 
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
     }
 
     /**
@@ -107,31 +113,29 @@ class DropdownSelect extends Component {
 
     };
 
-    // updateScrollHeight = () => {
-    //
-    //     if (!this.scroller || !this.scroller.current) {
-    //         return;
-    //     }
-    //
-    //     const scrollerEl = this.scroller.current,
-    //         popEl = Dom.findParentByClassName(scrollerEl, 'dropdown-select-popup');
-    //
-    //     if (!popEl) {
-    //         return;
-    //     }
-    //
-    //     scrollerEl.style.height = 'auto';
-    //
-    //     let scrollerHeight = popEl.offsetHeight;
-    //     if (this.actions && this.actions.current && this.actions.current.offsetHeight) {
-    //         scrollerHeight -= this.actions.current.offsetHeight;
-    //     }
-    //
-    //     this.setState({
-    //         scrollerHeight
-    //     });
-    //
-    // };
+    updateScrollHeight = () => {
+
+        if (!this.scroller || !this.scroller.current) {
+            return;
+        }
+
+        const scrollerEl = this.scroller.current,
+            popEl = Dom.findParentByClassName(scrollerEl, 'popup-content');
+
+        if (!popEl) {
+            return;
+        }
+
+        scrollerEl.style.height = 'auto';
+
+        let scrollerHeight = popEl.offsetHeight;
+        if (this.actions && this.actions.current && this.actions.current.offsetHeight) {
+            scrollerHeight -= this.actions.current.offsetHeight;
+        }
+
+        scrollerEl.style.height = `${scrollerHeight}px`;
+
+    };
 
     handleFilterChange = filter => {
         this.setState({
@@ -251,7 +255,9 @@ class DropdownSelect extends Component {
             const {onOpenPopup} = this.props;
             onOpenPopup && onOpenPopup(e);
 
-            // this.updateScrollHeight();
+            setTimeout(() => {
+                this.updateScrollHeight();
+            }, 0);
 
         });
 
@@ -348,13 +354,6 @@ class DropdownSelect extends Component {
 
     componentDidMount() {
         this.dropdownInstance = this.dropdown && this.dropdown.current;
-    }
-
-    static getDerivedStateFromProps(props, state) {
-        return {
-            prevProps: props,
-            value: ComponentUtil.getDerivedState(props, state, 'value')
-        };
     }
 
     /* eslint-disable complexity */
@@ -454,8 +453,7 @@ class DropdownSelect extends Component {
                     }
 
                     <div ref={this.scroller}
-                         className="dropdown-select-list-scroller"
-                         style={{height: scrollerHeight}}>
+                         className="dropdown-select-list-scroller">
                         {
                             !listData || listData.length < 1 ?
                                 <div className="no-matched">

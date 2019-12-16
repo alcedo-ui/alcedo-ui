@@ -62,6 +62,7 @@
 
         .dropdown-select-list-scroller {
             overflow-y: auto;
+            height: auto;
             max-height: inherit;
 
             .no-matched {
