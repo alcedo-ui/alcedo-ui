@@ -102,13 +102,17 @@ class ScrollTable extends Component {
                                              overflowHidden={overflowHidden}
                                              horizontalOverflowScroll={horizontalOverflowScroll}
                                              onScroll={onScroll}>
-                                <BaseTable {...restProps}
-                                           style={tableStyle}
-                                           fixed={fixed}
-                                           fragment={TableFragment.HEAD}
-                                           columns={columns}
-                                           headColumns={headColumns}
-                                           bodyColumns={bodyColumns}/>
+                                {
+                                    parentEl =>
+                                        <BaseTable {...restProps}
+                                                   style={tableStyle}
+                                                   fixed={fixed}
+                                                   fragment={TableFragment.HEAD}
+                                                   columns={columns}
+                                                   headColumns={headColumns}
+                                                   bodyColumns={bodyColumns}
+                                                   parentEl={parentEl}/>
+                                }
                             </ScrollableTable>
                         </div>
                         :
@@ -122,22 +126,26 @@ class ScrollTable extends Component {
                                      scroll={scroll}
                                      onScroll={onScroll}
                                      onWheel={onWheel}>
-                        <div className={classNames('scroll-table-body-mask', {
-                            'mask-vertical': (!isHeadHidden && isHeadFixed) || (!isFootHidden && isFootFixed),
-                            'mask-horizontal': hasFixedLeftColumn || hasFixedRightColumn
-                        })}
-                             style={maskStyle}>
-                            <BaseTable {...restProps}
-                                       style={tableStyle}
-                                       fixed={fixed}
-                                       columns={columns}
-                                       headColumns={headColumns}
-                                       bodyColumns={bodyColumns}
-                                       isHeadFixed={isHeadFixed}
-                                       isFootFixed={isFootFixed}
-                                       isHeadHidden={isHeadHidden}
-                                       isFootHidden={isFootHidden}/>
-                        </div>
+                        {
+                            parentEl =>
+                                <div className={classNames('scroll-table-body-mask', {
+                                    'mask-vertical': (!isHeadHidden && isHeadFixed) || (!isFootHidden && isFootFixed),
+                                    'mask-horizontal': hasFixedLeftColumn || hasFixedRightColumn
+                                })}
+                                     style={maskStyle}>
+                                    <BaseTable {...restProps}
+                                               style={tableStyle}
+                                               fixed={fixed}
+                                               columns={columns}
+                                               headColumns={headColumns}
+                                               bodyColumns={bodyColumns}
+                                               isHeadFixed={isHeadFixed}
+                                               isFootFixed={isFootFixed}
+                                               isHeadHidden={isHeadHidden}
+                                               isFootHidden={isFootHidden}
+                                               parentEl={parentEl}/>
+                                </div>
+                        }
                     </ScrollableTable>
                 </div>
 
@@ -151,13 +159,17 @@ class ScrollTable extends Component {
                                              overflowHidden={overflowHidden}
                                              horizontalOverflowScroll={horizontalOverflowScroll}
                                              onScroll={onScroll}>
-                                <BaseTable {...restProps}
-                                           style={tableStyle}
-                                           fixed={fixed}
-                                           fragment={TableFragment.FOOT}
-                                           columns={columns}
-                                           headColumns={headColumns}
-                                           bodyColumns={bodyColumns}/>
+                                {
+                                    parentEl =>
+                                        <BaseTable {...restProps}
+                                                   style={tableStyle}
+                                                   fixed={fixed}
+                                                   fragment={TableFragment.FOOT}
+                                                   columns={columns}
+                                                   headColumns={headColumns}
+                                                   bodyColumns={bodyColumns}
+                                                   parentEl={parentEl}/>
+                                }
                             </ScrollableTable>
                         </div>
                         :
