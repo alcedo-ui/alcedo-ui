@@ -44,14 +44,19 @@ class Tr extends Component {
 
     };
 
+    isHover = () => {
+        const {hoverRow, data, idProp} = this.props;
+        return !!(hoverRow && hoverRow[idProp] && data && data[idProp] && hoverRow[idProp] === data[idProp]);
+    };
+
     handleMouseEnter = e => {
-        const {isMouseEventForbidden, rowIndex, onMouseEnter} = this.props;
-        !isMouseEventForbidden && onMouseEnter && onMouseEnter(e, rowIndex);
+        const {isMouseEventForbidden, data, onMouseEnter} = this.props;
+        !isMouseEventForbidden && onMouseEnter && onMouseEnter(e, data);
     };
 
     handleMouseLeave = e => {
-        const {isMouseEventForbidden, rowIndex, onMouseLeave} = this.props;
-        !isMouseEventForbidden && onMouseLeave && onMouseLeave(e, rowIndex);
+        const {isMouseEventForbidden, data, onMouseLeave} = this.props;
+        !isMouseEventForbidden && onMouseLeave && onMouseLeave(e, data);
     };
 
     handleClick = e => {
@@ -63,7 +68,7 @@ class Tr extends Component {
 
         const {
 
-                className, columns, hoverRowIndex, rowIndex, data, parentData, tableData,
+                className, columns, rowIndex, data, parentData, tableData,
                 isChecked, disabled, baseColIndex, depth, index, path,
 
                 ...respProps
@@ -79,7 +84,7 @@ class Tr extends Component {
                 <tr className={classNames({
                     checked: isChecked,
                     expanded: !collapsed,
-                    hover: hoverRowIndex === rowIndex,
+                    hover: this.isHover(),
                     [data.rowClassName]: data.rowClassName,
                     [className]: className
                 })}
@@ -150,7 +155,7 @@ Tr.propTypes = {
 
     className: PropTypes.string,
 
-    hoverRowIndex: PropTypes.number,
+    hoverRow: PropTypes.object,
     rowIndex: PropTypes.number,
 
     /**
