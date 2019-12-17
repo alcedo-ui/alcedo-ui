@@ -40,7 +40,7 @@ class Table extends Component {
         super(props, ...restArgs);
 
         this.content = createRef();
-        this.tempHoverRowIndex = null;
+        this.tempHoverRow = null;
 
         this.state = {
             isInitialing: props.hasInitFadeOut,
@@ -50,7 +50,7 @@ class Table extends Component {
             expandRows: props.expandRows,
             value: props.value,
             scrolling: false,
-            hoverRowIndex: null
+            hoverRow: null
         };
 
     }
@@ -168,7 +168,7 @@ class Table extends Component {
     handleScrollStart = e => {
         this.setState({
             scrolling: true,
-            hoverRowIndex: null
+            hoverRow: null
         }, () => {
             const {onScrollStart, onScrollChange} = this.props;
             onScrollStart && onScrollStart(e);
@@ -182,7 +182,7 @@ class Table extends Component {
     handleScrollEnd = e => {
         this.setState({
             scrolling: false,
-            hoverRowIndex: this.tempHoverRowIndex
+            hoverRow: this.tempHoverRow
         }, () => {
             const {onScrollEnd, onScrollChange} = this.props;
             onScrollEnd && onScrollEnd(e);
@@ -192,14 +192,14 @@ class Table extends Component {
 
     /**
      * handle row hover
-     * @param hoverRowIndex
+     * @param hoverRow
      */
-    handleRowHover = hoverRowIndex => {
+    handleRowHover = hoverRow => {
         if (this.state.scrolling) {
-            this.tempHoverRowIndex = hoverRowIndex;
+            this.tempHoverRow = hoverRow;
         } else {
             this.setState({
-                hoverRowIndex
+                hoverRow
             });
         }
     };
@@ -228,7 +228,7 @@ class Table extends Component {
                 ...restProps
 
             } = this.props,
-            {isInitialing, sorting, page, pageSize, expandRows, value, scrolling, hoverRowIndex} = this.state;
+            {isInitialing, sorting, page, pageSize, expandRows, value, scrolling, hoverRow} = this.state;
 
         return (
             <div className={classNames('table', {
@@ -250,7 +250,7 @@ class Table extends Component {
                          expandRows={expandRows}
                          value={value}
                          scrolling={scrolling}
-                         hoverRowIndex={hoverRowIndex}
+                         hoverRow={hoverRow}
                          selectMode={selectMode}
                          isInitialing={isInitialing}
                          onInit={this.handleInit}
