@@ -346,6 +346,7 @@ Tr.propTypes = {
     path: PropTypes.array,
     idProp: PropTypes.string,
     isMouseEventForbidden: PropTypes.bool,
+    parentEl: PropTypes.object,
 
     /**
      * sorting
