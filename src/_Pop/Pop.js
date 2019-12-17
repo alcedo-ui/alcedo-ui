@@ -204,7 +204,7 @@ class Pop extends Component {
                                 hidden: !enter,
                                 [className]: className
                             }),
-                            children: typeof children === 'function' ? children(transitionEl) : children
+                            children: typeof children === 'function' ? children(transitionEl) : children || null
                         })
                     }
                 </Transition>
