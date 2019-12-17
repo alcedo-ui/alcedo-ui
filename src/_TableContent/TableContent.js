@@ -316,8 +316,11 @@ class TableContent extends Component {
             TL.fixLayout(this.wrapperEl, this.rawTableEl, this.props);
 
             if (TL.hasFixed(this.props, this)) {
-                TL.updateHorizontalScrollClassNames(this.wrapperEl, this.centerHeadScroller);
+                setTimeout(() => {
+                    TL.updateHorizontalScrollClassNames(this.wrapperEl, this.centerHeadScroller);
+                }, 250);
             }
+
         }
 
         // trigger initial callback at startup
