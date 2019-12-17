@@ -46,12 +46,12 @@ class Tbody extends Component {
 
     };
 
-    handleTrMouseEnter = (e, rowIndex) => {
+    handleTrMouseEnter = (e, rowData) => {
         const {onRowHover} = this.props;
-        onRowHover && onRowHover(rowIndex);
+        onRowHover && onRowHover(rowData);
     };
 
-    handleTrMouseLeave = (e, rowIndex) => {
+    handleTrMouseLeave = () => {
         const {onRowHover} = this.props;
         onRowHover && onRowHover(null);
     };
@@ -289,7 +289,7 @@ Tbody.propTypes = {
 
     data: PropTypes.array,
     value: PropTypes.array,
-    hoverRowIndex: PropTypes.number,
+    hoverRow: PropTypes.object,
     startIndex: PropTypes.number,
     idProp: PropTypes.string,
     disabled: PropTypes.bool,
