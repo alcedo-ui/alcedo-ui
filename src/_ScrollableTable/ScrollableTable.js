@@ -3,13 +3,21 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 
 class ScrollableTable extends Component {
 
     constructor(props, ...restArgs) {
+
         super(props, ...restArgs);
+
+        this.wrapper = createRef();
+
+        this.state = {
+            wrapperEl: null
+        };
+
     }
 
     getStyle = () => {
@@ -28,23 +36,31 @@ class ScrollableTable extends Component {
 
     };
 
+    componentDidMount() {
+        this.setState({
+            wrapperEl: this.wrapper && this.wrapper.current
+        });
+    }
+
     render() {
 
         const {
 
-            children, style, scroll,
+                children, style, scroll,
 
-            // not passing down these props
-            overflowHidden, horizontalOverflowScroll,
+                // not passing down these props
+                overflowHidden, horizontalOverflowScroll,
 
-            ...restProps
+                ...restProps
 
-        } = this.props;
+            } = this.props,
+            {wrapperEl} = this.state;
 
         return scroll ?
             <div {...restProps}
+                 ref={this.wrapper}
                  style={this.getStyle()}>
-                {children}
+                {typeof children === 'function' ? children(wrapperEl) : children || null}
             </div>
             :
             children;
