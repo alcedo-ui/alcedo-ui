@@ -456,7 +456,8 @@ class TableExamples extends Component {
                                                }}
                                                useFullPagination={true}
                                                paginationTotalRenderer={total =>
-                                                   <span>Self Defined Total: {total}</span>}
+                                                   <span>Self Defined Total: {total}</span>
+                                               }
                                                onSortChange={this.handleSortChange}
                                                onPaginationChange={this.handlePaginationChange}
                                                onExpand={this.handleExpand}
