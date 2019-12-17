@@ -959,7 +959,7 @@ TableContent.propTypes = {
 
     data: PropTypes.array,
     value: PropTypes.array,
-    hoverRowIndex: PropTypes.number,
+    hoverRow: PropTypes.object,
     idProp: PropTypes.string,
     disabled: PropTypes.bool,
     isInitialing: PropTypes.bool,
