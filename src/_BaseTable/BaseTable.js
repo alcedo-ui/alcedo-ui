@@ -41,7 +41,7 @@ class BaseTable extends Component {
 
         const {
 
-            className, style, data, value, hoverRowIndex, idProp, baseColIndex, fixed, fragment, ignoreColumnWidth,
+            className, style, data, value, hoverRow, idProp, baseColIndex, fixed, fragment, ignoreColumnWidth,
             columns, headColumns, bodyColumns, selectMode, selectAllMode, expandRows, isMouseEventForbidden,
             isHeadFixed, isFootFixed, isHeadHidden, isFootHidden,
             hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
@@ -89,7 +89,7 @@ class BaseTable extends Component {
                                columns={bodyColumns || columns}
                                data={data}
                                value={value}
-                               hoverRowIndex={hoverRowIndex}
+                               hoverRow={hoverRow}
                                selectMode={selectMode}
                                selectAllMode={selectAllMode}
                                expandRows={expandRows}
@@ -331,7 +331,7 @@ BaseTable.propTypes = {
 
     data: PropTypes.array,
     value: PropTypes.array,
-    hoverRowIndex: PropTypes.number,
+    hoverRow: PropTypes.object,
     idProp: PropTypes.string,
     baseColIndex: PropTypes.number,
     disabled: PropTypes.bool,
