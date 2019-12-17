@@ -23,6 +23,13 @@ class PopupProvider extends Component {
     static Position = Position;
     static Theme = Theme;
 
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'visible')
+        };
+    }
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -80,13 +87,6 @@ class PopupProvider extends Component {
 
     componentDidMount() {
         this.triggerEl = this.trigger && this.trigger.current && findDOMNode(this.trigger.current);
-    }
-
-    static getDerivedStateFromProps(props, state) {
-        return {
-            prevProps: props,
-            value: ComponentUtil.getDerivedState(props, state, 'visible')
-        };
     }
 
     render() {
