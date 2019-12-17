@@ -22,17 +22,8 @@ import Valid from './Valid';
  * @returns {boolean}
  */
 function hasFixed(props, config) {
-
-    if (props && (props.isHeadFixed || props.isFootFixed)) {
-        return true;
-    }
-
-    if (config && (config.hasFixedLeftColumn || config.hasFixedRightColumn)) {
-        return true;
-    }
-
-    return false;
-
+    return !!((props && (props.isHeadFixed || props.isFootFixed))
+        || (config && (config.hasFixedLeftColumn || config.hasFixedRightColumn)));
 }
 
 /**
@@ -505,6 +496,28 @@ function fixLayout(wrapperEl, rawTableEl, props) {
 
 }
 
+function getHorizontalScrollStatus(wrapperEl) {
+
+    if (!wrapperEl) {
+        return null;
+    }
+
+    if (hasClass(wrapperEl, 'scroll-left')) {
+        return HorizontalAlign.LEFT;
+    }
+
+    if (hasClass(wrapperEl, 'scroll-right')) {
+        return HorizontalAlign.RIGHT;
+    }
+
+    if (hasClass(wrapperEl, 'scroll-center')) {
+        return HorizontalAlign.CENTER;
+    }
+
+    return null;
+
+}
+
 /**
  * update scroll class names when horizontal scrolling
  * @param wrapperEl
@@ -516,32 +529,35 @@ function updateHorizontalScrollClassNames(wrapperEl, scrollerEl) {
         return;
     }
 
-    const verticalScrollBarSize = scrollerEl.offsetHeight < scrollerEl.scrollHeight ?
-        ScrollBar.getSize(Direction.VERTICAL)
-        :
-        0;
+    const prevStatus = getHorizontalScrollStatus(wrapperEl),
+        verticalScrollBarSize = scrollerEl.offsetHeight < scrollerEl.scrollHeight ?
+            ScrollBar.getSize(Direction.VERTICAL)
+            :
+            0;
 
-    removeClass(wrapperEl, 'scroll-left');
-    removeClass(wrapperEl, 'scroll-center');
-    removeClass(wrapperEl, 'scroll-right');
-
-    // no scroll
-    if (scrollerEl.scrollWidth + verticalScrollBarSize === scrollerEl.offsetWidth) {
-        return;
+    // change to no scroll
+    if (scrollerEl.scrollWidth + verticalScrollBarSize === scrollerEl.offsetWidth && prevStatus !== null) {
+        removeClass(wrapperEl, 'scroll-left');
+        removeClass(wrapperEl, 'scroll-center');
+        removeClass(wrapperEl, 'scroll-right');
     }
-
-    if (scrollerEl.scrollLeft === 0 && !hasClass(wrapperEl, 'scroll-left')) {
+    // change to scroll left
+    else if (scrollerEl.scrollLeft === 0 && prevStatus !== HorizontalAlign.LEFT) {
         removeClass(wrapperEl, 'scroll-center');
         removeClass(wrapperEl, 'scroll-right');
         addClass(wrapperEl, 'scroll-left');
-    } else if (
-        scrollerEl.scrollLeft === scrollerEl.scrollWidth - scrollerEl.offsetWidth + verticalScrollBarSize
-        && !hasClass(wrapperEl, 'scroll-right')
-    ) {
+    }
+    // change to scroll right
+    else if (scrollerEl.scrollLeft === scrollerEl.scrollWidth - scrollerEl.offsetWidth + verticalScrollBarSize
+        && prevStatus !== HorizontalAlign.RIGHT) {
         removeClass(wrapperEl, 'scroll-left');
         removeClass(wrapperEl, 'scroll-center');
         addClass(wrapperEl, 'scroll-right');
-    } else if (!hasClass(wrapperEl, 'scroll-center')) {
+    }
+    // change to scroll center
+    else if (scrollerEl.scrollLeft > 0
+        && scrollerEl.scrollLeft < scrollerEl.scrollWidth - scrollerEl.offsetWidth + verticalScrollBarSize
+        && prevStatus !== HorizontalAlign.CENTER) {
         removeClass(wrapperEl, 'scroll-left');
         removeClass(wrapperEl, 'scroll-right');
         addClass(wrapperEl, 'scroll-center');
