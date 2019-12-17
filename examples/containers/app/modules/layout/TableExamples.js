@@ -30,7 +30,6 @@ class TableExamples extends Component {
 
         this.state = {
             data: this.generateData(),
-            loadingData: null,
             sorting: null,
             filter: '',
             headVisible: true,
@@ -296,19 +295,10 @@ class TableExamples extends Component {
 
     };
 
-    componentDidMount() {
-        setTimeout(() => {
-            this.setState({
-                loadingData: this.generateData()
-            });
-        }, 3000);
-    }
-
     render() {
 
-        const {data, loadingData, sorting, filter, headVisible, footVisible} = this.state,
-            // filteredData = this.filterData(data),
-            filteredLoadingData = this.filterData(loadingData);
+        const {data, sorting, filter, headVisible, footVisible} = this.state,
+            filteredLoadingData = this.filterData(data);
 
         return (
             <div className="example table-examples">
