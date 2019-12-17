@@ -296,7 +296,7 @@ Tbody.propTypes = {
     baseColIndex: PropTypes.number,
     expandRows: PropTypes.array,
     isMouseEventForbidden: PropTypes.bool,
-    parentEl: PropTypes.object,
+    scrollEl: PropTypes.object,
 
     /**
      * sorting
