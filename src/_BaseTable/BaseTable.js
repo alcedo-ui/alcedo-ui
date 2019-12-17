@@ -338,6 +338,7 @@ BaseTable.propTypes = {
     expandRows: PropTypes.array,
     isMouseEventForbidden: PropTypes.bool,
     ignoreColumnWidth: PropTypes.bool,
+    parentEl: PropTypes.object,
 
     /**
      * fixed
