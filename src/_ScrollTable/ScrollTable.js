@@ -384,7 +384,7 @@ ScrollTable.propTypes = {
 
     data: PropTypes.array,
     value: PropTypes.array,
-    hoverRowIndex: PropTypes.number,
+    hoverRow: PropTypes.object,
     baseColIndex: PropTypes.number,
     expandRows: PropTypes.array,
     ignoreColumnWidth: PropTypes.bool,
