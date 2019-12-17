@@ -265,7 +265,7 @@ Thead.propTypes = {
 
     data: PropTypes.array,
     baseColIndex: PropTypes.number,
-    parentEl: PropTypes.object,
+    scrollEl: PropTypes.object,
 
     /**
      * sorting
