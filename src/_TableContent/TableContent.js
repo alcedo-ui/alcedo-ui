@@ -582,7 +582,7 @@ class TableContent extends Component {
         const {
 
                 className, style, columns, data, scrolling, scroll, noDataText,
-                isHeadFixed, isFootFixed, isHeadHidden, isFootHidden,
+                isHeadFixed, isFootFixed, isHeadHidden, isFootHidden, expandRows,
 
                 // not passing down these props
                 isInitialing, isSelectRecursive, selectUncheckedIconCls, selectCheckedIconCls,
@@ -637,6 +637,7 @@ class TableContent extends Component {
                                    headColumns={this.headColumns}
                                    bodyColumns={this.bodyColumns}
                                    data={TC.getRawTableData(this.tableData)}
+                                   expandRows={expandRows}
                                    isHeadFixed={isHeadFixed}
                                    isFootFixed={isFootFixed}
                                    isHeadHidden={isFinalHeadHidden}
@@ -654,6 +655,7 @@ class TableContent extends Component {
                                  headColumns={TC.handleFixedColumnsClassName(this.headColumns)}
                                  bodyColumns={TC.handleFixedColumnsClassName(this.bodyColumns)}
                                  data={this.tableData}
+                                 expandRows={expandRows}
                                  isHeadFixed={isHeadFixed}
                                  isFootFixed={isFootFixed}
                                  isHeadHidden={isFinalHeadHidden}
@@ -685,6 +687,7 @@ class TableContent extends Component {
                                          headColumns={TC.getFixedHeadColumns(this.headColumns, HorizontalAlign.LEFT)}
                                          bodyColumns={TC.getFixedBodyColumns(this.bodyColumns, HorizontalAlign.LEFT)}
                                          data={this.tableData}
+                                         expandRows={expandRows}
                                          isHeadFixed={isHeadFixed}
                                          isFootFixed={isFootFixed}
                                          isHeadHidden={isFinalHeadHidden}
@@ -720,6 +723,7 @@ class TableContent extends Component {
                                          headColumns={TC.getFixedHeadColumns(this.headColumns, HorizontalAlign.RIGHT)}
                                          bodyColumns={TC.getFixedBodyColumns(this.bodyColumns, HorizontalAlign.RIGHT)}
                                          data={this.tableData}
+                                         expandRows={expandRows}
                                          isHeadFixed={isHeadFixed}
                                          isFootFixed={isFootFixed}
                                          isHeadHidden={isFinalHeadHidden}
