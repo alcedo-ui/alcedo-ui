@@ -103,7 +103,7 @@ class ScrollTable extends Component {
                                              horizontalOverflowScroll={horizontalOverflowScroll}
                                              onScroll={onScroll}>
                                 {
-                                    parentEl =>
+                                    scrollEl =>
                                         <BaseTable {...restProps}
                                                    style={tableStyle}
                                                    fixed={fixed}
@@ -111,7 +111,7 @@ class ScrollTable extends Component {
                                                    columns={columns}
                                                    headColumns={headColumns}
                                                    bodyColumns={bodyColumns}
-                                                   parentEl={parentEl}/>
+                                                   scrollEl={scrollEl}/>
                                 }
                             </ScrollableTable>
                         </div>
@@ -127,7 +127,7 @@ class ScrollTable extends Component {
                                      onScroll={onScroll}
                                      onWheel={onWheel}>
                         {
-                            parentEl =>
+                            scrollEl =>
                                 <div className={classNames('scroll-table-body-mask', {
                                     'mask-vertical': (!isHeadHidden && isHeadFixed) || (!isFootHidden && isFootFixed),
                                     'mask-horizontal': hasFixedLeftColumn || hasFixedRightColumn
@@ -143,7 +143,7 @@ class ScrollTable extends Component {
                                                isFootFixed={isFootFixed}
                                                isHeadHidden={isHeadHidden}
                                                isFootHidden={isFootHidden}
-                                               parentEl={parentEl}/>
+                                               scrollEl={scrollEl}/>
                                 </div>
                         }
                     </ScrollableTable>
@@ -160,7 +160,7 @@ class ScrollTable extends Component {
                                              horizontalOverflowScroll={horizontalOverflowScroll}
                                              onScroll={onScroll}>
                                 {
-                                    parentEl =>
+                                    scrollEl =>
                                         <BaseTable {...restProps}
                                                    style={tableStyle}
                                                    fixed={fixed}
@@ -168,7 +168,7 @@ class ScrollTable extends Component {
                                                    columns={columns}
                                                    headColumns={headColumns}
                                                    bodyColumns={bodyColumns}
-                                                   parentEl={parentEl}/>
+                                                   scrollEl={scrollEl}/>
                                 }
                             </ScrollableTable>
                         </div>
