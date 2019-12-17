@@ -110,7 +110,7 @@ class TriggerPop extends Component {
     componentDidUpdate(prevProps) {
         if (this.props.shouldFollowScroll && !prevProps.visible && this.props.visible) {
             this.addWatchScroll();
-        } else if (prevProps.shouldFollowScroll && prevProps.visible && !this.props.visible) {
+        } else if (prevProps.visible && !this.props.visible) {
             this.removeWatchScroll();
         }
     }
