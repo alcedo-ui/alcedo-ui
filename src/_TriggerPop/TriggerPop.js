@@ -125,7 +125,7 @@ class TriggerPop extends Component {
             hasTriangle, triangle, position, isAnimated,
 
             // not passing down these props
-            isEscClose, isBlurClose, shouldFollowScroll,
+            isEscClose, isBlurClose, shouldFollowScroll, scrollEl,
 
             ...restProps
 
