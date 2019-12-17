@@ -36,7 +36,7 @@ class Tfoot extends Component {
 
     render() {
 
-        const {className, columns, data, disabled, baseColIndex, onCellClick} = this.props,
+        const {className, columns, data, disabled, baseColIndex, parentEl, onCellClick} = this.props,
             columnsWithSpan = TableCalculation.getColumnsWithSpan(TableFragment.FOOT, columns, data);
 
         return (
@@ -65,6 +65,7 @@ class Tfoot extends Component {
                                     tableData: data
                                 })}
                                 disabled={disabled}
+                                parentEl={parentEl}
                                 onCellClick={onCellClick}/>
                         )
                     }
@@ -258,6 +259,7 @@ Tfoot.propTypes = {
     data: PropTypes.array,
     disabled: PropTypes.bool,
     baseColIndex: PropTypes.number,
+    parentEl: PropTypes.object,
 
     onFootClick: PropTypes.func,
     onCellClick: PropTypes.func
