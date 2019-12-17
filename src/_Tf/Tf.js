@@ -27,11 +27,11 @@ class Tf extends Component {
      */
     handleRender = () => {
 
-        const {colIndex, data, parentEl, renderer} = this.props;
+        const {colIndex, data, scrollEl, renderer} = this.props;
 
         switch (typeof renderer) {
             case 'function':
-                return renderer(data, colIndex, parentEl);
+                return renderer(data, colIndex, scrollEl);
             default:
                 return renderer;
         }
@@ -70,7 +70,7 @@ Tf.propTypes = {
     align: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
     span: PropTypes.number,
     noWrap: PropTypes.bool,
-    parentEl: PropTypes.object,
+    scrollEl: PropTypes.object,
 
     onCellClick: PropTypes.func
 
