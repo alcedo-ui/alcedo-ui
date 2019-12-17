@@ -29,11 +29,11 @@ class Th extends Component {
      */
     handleRender = () => {
 
-        const {colIndex, data, renderer} = this.props;
+        const {colIndex, data, parentEl, renderer} = this.props;
 
         switch (typeof renderer) {
             case 'function':
-                return renderer(data, colIndex);
+                return renderer(data, colIndex, parentEl);
             default:
                 return renderer;
         }
@@ -132,6 +132,7 @@ Th.propTypes = {
     noWrap: PropTypes.bool,
     rowSpan: PropTypes.number,
     colSpan: PropTypes.number,
+    parentEl: PropTypes.object,
 
     /**
      * sorting
