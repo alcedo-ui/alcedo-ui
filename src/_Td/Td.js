@@ -22,11 +22,11 @@ class Td extends Component {
 
     handleRenderer = () => {
 
-        const {collapsed, renderer, rowIndex, colIndex, data, parentData, tableData, depth, path, parentEl} = this.props;
+        const {collapsed, renderer, rowIndex, colIndex, data, parentData, tableData, depth, path, scrollEl} = this.props;
 
         switch (typeof renderer) {
             case 'function':
-                return renderer(data, rowIndex, colIndex, parentData, tableData, collapsed, depth, path, parentEl);
+                return renderer(data, rowIndex, colIndex, parentData, tableData, collapsed, depth, path, scrollEl);
             default:
                 return renderer;
         }
@@ -81,7 +81,7 @@ Td.propTypes = {
     collapsed: PropTypes.bool,
     depth: PropTypes.number,
     path: PropTypes.array,
-    parentEl: PropTypes.object,
+    scrollEl: PropTypes.object,
 
     /**
      * sorting
