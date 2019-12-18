@@ -82,7 +82,9 @@ class Pagination extends Component {
     render() {
 
         const {
-                className, style, total, pageSizes, pageSizeValueField, pageSizeDisplayField,
+                className, style,
+                pageSizeClassName, pageSizeTriggerClassName, pageSizePopupClassName,
+                total, pageSizes, pageSizeValueField, pageSizeDisplayField,
                 selectedCount, selectionVisible, totalVisible, pageVisible, pageSizeVisible,
                 pageSizeRightIconCls, prevIconCls, nextIconCls, firstIconCls, lastIconCls,
                 selectionRenderer, totalRenderer, parentEl
@@ -132,7 +134,10 @@ class Pagination extends Component {
 
                     {
                         pageSizeVisible ?
-                            <PaginationSize pageSize={pageSize}
+                            <PaginationSize className={pageSizeClassName}
+                                            triggerClassName={pageSizeTriggerClassName}
+                                            popupClassName={pageSizePopupClassName}
+                                            pageSize={pageSize}
                                             pageSizes={pageSizes}
                                             valueField={pageSizeValueField}
                                             displayField={pageSizeDisplayField}
@@ -175,6 +180,10 @@ Pagination.propTypes = {
      * Override the styles of the root element.
      */
     style: PropTypes.object,
+
+    pageSizeClassName: PropTypes.string,
+    pageSizeTriggerClassName: PropTypes.string,
+    pageSizePopupClassName: PropTypes.string,
 
     /**
      * The total of data.
