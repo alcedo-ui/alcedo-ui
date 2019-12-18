@@ -215,6 +215,7 @@ class Table extends Component {
                 className, style, selectMode, data,
 
                 // pagination
+                pageSizeClassName, pageSizeTriggerClassName, pageSizePopupClassName,
                 isPaginated, pageSizes, useFullPagination, pageSizeValueField, pageSizeDisplayField,
                 paginationSelectionVisible, paginationTotalVisible, paginationPageVisible,
                 paginationPageSizeVisible, paginationPageSizeRightIconCls,
@@ -267,7 +268,10 @@ class Table extends Component {
                 {/* table pagination */}
                 {
                     isPaginated ?
-                        <Pagination selectMode={selectMode}
+                        <Pagination pageSizeClassName={pageSizeClassName}
+                                    pageSizeTriggerClassName={pageSizeTriggerClassName}
+                                    pageSizePopupClassName={pageSizePopupClassName}
+                                    selectMode={selectMode}
                                     data={data}
                                     page={page}
                                     pageSize={pageSize}
@@ -593,6 +597,9 @@ Table.propTypes = {
     /**
      * pagination
      */
+    pageSizeClassName: PropTypes.string,
+    pageSizeTriggerClassName: PropTypes.string,
+    pageSizePopupClassName: PropTypes.string,
     isPaginated: PropTypes.bool,
     page: PropTypes.number,
     pageSize: PropTypes.number,
