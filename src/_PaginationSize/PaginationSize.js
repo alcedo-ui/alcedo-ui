@@ -6,7 +6,11 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
+// Components
 import DropdownSelect from '../DropdownSelect';
+
+// Vendors
+import classNames from 'classnames';
 
 class PaginationSize extends Component {
 
@@ -22,20 +26,25 @@ class PaginationSize extends Component {
     render() {
 
         const {
-                className, style, pageSize, pageSizes, valueField, displayField, rightIconCls,
-                parentEl
+                className, triggerClassName, popupClassName, style,
+                pageSize, pageSizes, valueField, displayField, rightIconCls, parentEl
             } = this.props,
 
             temp = pageSizes.find(item => item && item.value === pageSize),
             value = temp ? temp : pageSize;
 
         return (
-            <div className={`pagination-size ${className}`}
+            <div className={classNames('pagination-size', {
+                [className]: className
+            })}
                  style={style}>
 
                 <label>Show Rows:</label>
 
-                <DropdownSelect className="pagination-size-select"
+                <DropdownSelect className={classNames('pagination-size-select', {
+                    [triggerClassName]: triggerClassName
+                })}
+                                popupClassName={popupClassName}
                                 value={value}
                                 data={pageSizes}
                                 autoClose={true}
@@ -54,6 +63,8 @@ class PaginationSize extends Component {
 PaginationSize.propTypes = {
 
     className: PropTypes.string,
+    triggerClassName: PropTypes.string,
+    popupClassName: PropTypes.string,
     style: PropTypes.object,
 
     pageSize: PropTypes.number,
