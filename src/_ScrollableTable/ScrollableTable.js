@@ -36,6 +36,15 @@ class ScrollableTable extends Component {
 
     };
 
+    getChildren = () => {
+
+        const {children} = this.props,
+            {wrapperEl} = this.state;
+
+        return (typeof children === 'function' ? children(wrapperEl) : children) || null;
+
+    };
+
     componentDidMount() {
         this.setState({
             wrapperEl: this.wrapper && this.wrapper.current
@@ -46,21 +55,21 @@ class ScrollableTable extends Component {
 
         const {
 
-                children, style, scroll,
+                style, scroll,
 
                 // not passing down these props
-                overflowHidden, horizontalOverflowScroll,
+                children: c, overflowHidden, horizontalOverflowScroll,
 
                 ...restProps
 
             } = this.props,
-            {wrapperEl} = this.state;
+            children = this.getChildren();
 
         return scroll ?
             <div {...restProps}
                  ref={this.wrapper}
                  style={this.getStyle()}>
-                {typeof children === 'function' ? children(wrapperEl) : children || null}
+                {children}
             </div>
             :
             children;
