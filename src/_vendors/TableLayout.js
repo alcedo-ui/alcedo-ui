@@ -445,6 +445,21 @@ function fixTableVerticalScroll(wrapperEl, props) {
 }
 
 /**
+ * fix raw table width
+ * @param wrapperEl
+ * @param rawTableEl
+ */
+function fixRawTableWidth(wrapperEl, rawTableEl) {
+
+    if (!wrapperEl || !rawTableEl) {
+        return;
+    }
+
+    rawTableEl.style.minWidth = `${wrapperEl.clientWidth}px`;
+
+}
+
+/**
  * fix table layout
  * @param wrapperEl
  * @param rawTableEl
@@ -461,6 +476,11 @@ function fixLayout(wrapperEl, rawTableEl, props) {
 
         fixedHeadHeight = sum(rowsHeight[TableFragment.HEAD]) || 0,
         fixedFootHeight = sum(rowsHeight[TableFragment.FOOT]) || 0;
+
+    /**
+     * fix raw table width
+     */
+    fixRawTableWidth(wrapperEl, rawTableEl);
 
     /**
      * fix horizontal scroll style
