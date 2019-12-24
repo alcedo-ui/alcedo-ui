@@ -5,16 +5,26 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Components
 import PaginationSize from '../_PaginationSize';
 import PaginationPage from '../_PaginationPage';
 
+// Vendors
+import classNames from 'classnames';
 import Valid from '../_vendors/Valid';
 import TableCalculation from '../_vendors/TableCalculation';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
 class Pagination extends Component {
+
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            page: ComponentUtil.getDerivedState(props, state, 'page'),
+            pageSize: ComponentUtil.getDerivedState(props, state, 'pageSize')
+        };
+    }
 
     constructor(props, ...restArgs) {
 
@@ -70,14 +80,6 @@ class Pagination extends Component {
         }
 
     };
-
-    static getDerivedStateFromProps(props, state) {
-        return {
-            prevProps: props,
-            page: ComponentUtil.getDerivedState(props, state, 'page'),
-            pageSize: ComponentUtil.getDerivedState(props, state, 'pageSize')
-        };
-    }
 
     render() {
 
