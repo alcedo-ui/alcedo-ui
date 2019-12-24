@@ -5,15 +5,18 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Components
 import Pagination from '../Pagination';
 import BriefPagination from '../BriefPagination';
 
+// Statics
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
 
+// Vendors
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
