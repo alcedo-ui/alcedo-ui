@@ -218,7 +218,7 @@ class Table extends Component {
                 pageSizeClassName, pageSizeTriggerClassName, pageSizePopupClassName,
                 isPaginated, pageSizes, useFullPagination, pageSizeValueField, pageSizeDisplayField,
                 paginationSelectionVisible, paginationTotalVisible, paginationPageVisible,
-                paginationPageSizeVisible, paginationPageSizeRightIconCls,
+                paginationPageSizeVisible, paginationParentEl, paginationPageSizeRightIconCls,
                 paginationPrevIconCls, paginationNextIconCls, paginationFirstIconCls, paginationLastIconCls,
                 paginationSelectionRenderer, paginationTotalRenderer, onPageChange, onPageSizeChange,
 
@@ -277,6 +277,7 @@ class Table extends Component {
                                     pageSize={pageSize}
                                     pageSizes={pageSizes}
                                     value={value}
+                                    parentEl={paginationParentEl}
                                     useFullPagination={useFullPagination}
                                     pageSizeValueField={pageSizeValueField}
                                     pageSizeDisplayField={pageSizeDisplayField}
@@ -606,6 +607,7 @@ Table.propTypes = {
     pageSizes: PropTypes.array,
     pageSizeValueField: PropTypes.string,
     pageSizeDisplayField: PropTypes.string,
+    paginationParentEl: PropTypes.object,
     useFullPagination: PropTypes.bool,
     paginationSelectionVisible: PropTypes.bool,
     paginationTotalVisible: PropTypes.bool,
