@@ -117,6 +117,7 @@ TablePagination.propTypes = {
     page: PropTypes.number,
     pageSize: PropTypes.number,
     pageSizes: PropTypes.array,
+    parentEl: PropTypes.object,
     useFullPagination: PropTypes.bool,
 
     pageSizeValueField: PropTypes.string,
