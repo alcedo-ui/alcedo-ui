@@ -52,7 +52,7 @@
         "react-router-config": "5.1.1",
         "react-router-dom": "5.1.2",
         "react-transition-group": "4.3.0",
-        "redux": "4.0.4",
+        "redux": "4.0.5",
         "redux-thunk": "2.3.0"
     },
     "devDependencies": {
@@ -92,7 +92,7 @@
         "compression-webpack-plugin": "3.0.1",
         "connect-history-api-fallback": "1.6.0",
         "copy-webpack-plugin": "5.1.1",
-        "core-js": "3.6.0",
+        "core-js": "3.6.1",
         "cross-env": "6.0.3",
         "crypto": "1.0.1",
         "css-loader": "3.4.0",
