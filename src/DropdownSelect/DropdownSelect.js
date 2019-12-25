@@ -220,9 +220,13 @@ class DropdownSelect extends Component {
 
     handleChange = value => {
 
-        const {autoClose} = this.props;
+        const {autoClose, onBeforeChange} = this.props;
         if (autoClose) {
             this.closePopup();
+        }
+
+        if (onBeforeChange && onBeforeChange(value, this.state.value) === false) {
+            return;
         }
 
         this.setState({
@@ -801,6 +805,7 @@ DropdownSelect.propTypes = {
      */
     onChange: PropTypes.func,
 
+    onBeforeChange: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
     onMouseOver: PropTypes.func,
