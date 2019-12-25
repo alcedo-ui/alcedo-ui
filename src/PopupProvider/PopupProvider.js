@@ -64,12 +64,18 @@ class PopupProvider extends Component {
      * public
      */
     hide = () => {
+
+        if (!this.state.visible) {
+            return;
+        }
+
         this.setState({
             visible: false
         }, () => {
             const {onRequestClose} = this.props;
             onRequestClose && onRequestClose();
         });
+
     };
 
     handleClick = e => {
