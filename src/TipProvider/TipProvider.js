@@ -23,6 +23,13 @@ class TipProvider extends Component {
     static Position = Position;
     static Theme = Theme;
 
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'visible')
+        };
+    }
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -36,23 +43,56 @@ class TipProvider extends Component {
 
     }
 
+    /**
+     * public
+     */
     show = () => {
-        if (!this.state.visible) {
-            this.setState({
-                visible: true
-            }, () => {
-                const {onRequestOpen} = this.props;
-                onRequestOpen && onRequestOpen();
-            });
+
+        if (this.state.visible) {
+            return;
         }
+
+        this.setState({
+            visible: true
+        }, () => {
+            const {onRequestOpen} = this.props;
+            onRequestOpen && onRequestOpen();
+        });
+
     };
 
+    /**
+     * public
+     */
     hide = () => {
+
+        if (!this.state.visible) {
+            return;
+        }
+
         this.setState({
             visible: false
         }, () => {
             const {onRequestClose} = this.props;
             onRequestClose && onRequestClose();
+        });
+
+    };
+
+    /**
+     * public
+     */
+    toggle = () => {
+        this.setState({
+            visible: !this.state.visible
+        }, () => {
+            if (!this.state.visible) {
+                const {onRequestClose} = this.props;
+                onRequestClose && onRequestClose();
+            } else {
+                const {onRequestOpen} = this.props;
+                onRequestOpen && onRequestOpen();
+            }
         });
     };
 
@@ -84,13 +124,6 @@ class TipProvider extends Component {
 
     componentDidMount() {
         this.triggerEl = this.trigger && this.trigger.current && findDOMNode(this.trigger.current);
-    }
-
-    static getDerivedStateFromProps(props, state) {
-        return {
-            prevProps: props,
-            value: ComponentUtil.getDerivedState(props, state, 'visible')
-        };
     }
 
     render() {
