@@ -46,18 +46,19 @@ class PopupProvider extends Component {
     /**
      * public
      */
-    toggle = () => {
+    show = () => {
+
+        if (this.state.visible) {
+            return;
+        }
+
         this.setState({
-            visible: !this.state.visible
+            visible: true
         }, () => {
-            if (!this.state.visible) {
-                const {onRequestClose} = this.props;
-                onRequestClose && onRequestClose();
-            } else {
-                const {onRequestOpen} = this.props;
-                onRequestOpen && onRequestOpen();
-            }
+            const {onRequestOpen} = this.props;
+            onRequestOpen && onRequestOpen();
         });
+
     };
 
     /**
@@ -76,6 +77,23 @@ class PopupProvider extends Component {
             onRequestClose && onRequestClose();
         });
 
+    };
+
+    /**
+     * public
+     */
+    toggle = () => {
+        this.setState({
+            visible: !this.state.visible
+        }, () => {
+            if (!this.state.visible) {
+                const {onRequestClose} = this.props;
+                onRequestClose && onRequestClose();
+            } else {
+                const {onRequestOpen} = this.props;
+                onRequestOpen && onRequestOpen();
+            }
+        });
     };
 
     handleClick = e => {
