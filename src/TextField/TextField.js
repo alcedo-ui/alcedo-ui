@@ -58,6 +58,8 @@ class TextField extends Component {
 
     handleChange = e => {
 
+        e && e.persist();
+
         const {onValid, onInvalid} = this.props,
 
             value = e.target.value,
@@ -67,7 +69,7 @@ class TextField extends Component {
             value,
             invalidMsgs
         }, () => {
-            this.props.onChange && this.props.onChange(value, e);
+            this.props.onChange && this.props.onChange(value);
             invalidMsgs && invalidMsgs.length > 0 ? onInvalid && onInvalid() : onValid && onValid();
         });
 
