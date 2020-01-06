@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 
 // Components
 import ScrollTable from '../_ScrollTable';
+import ScrollableTable from '../_ScrollableTable';
 import Checkbox from '../Checkbox';
 import IconButton from '../IconButton';
 import BaseTable from '../_BaseTable/BaseTable';
@@ -635,19 +636,22 @@ class TableContent extends Component {
                      style={style}>
 
                     <div className="table-content-raw">
-                        <BaseTable ref={this.rawTable}
-                                   style={scroll}
-                                   headColumns={this.headColumns}
-                                   bodyColumns={this.bodyColumns}
-                                   data={TC.getRawTableData(this.tableData)}
-                                   expandRows={expandRows}
-                                   isHeadFixed={isHeadFixed}
-                                   isFootFixed={isFootFixed}
-                                   isHeadHidden={isFinalHeadHidden}
-                                   isFootHidden={isFinalFootHidden}
-                                   hasHeadRenderer={hasHeadRenderer}
-                                   hasBodyRenderer={hasBodyRenderer}
-                                   hasFootRenderer={hasFootRenderer}/>
+                        <ScrollableTable className="table-content-raw-scroller"
+                                         scroll={scroll}>
+                            <BaseTable ref={this.rawTable}
+                                       style={scroll}
+                                       headColumns={this.headColumns}
+                                       bodyColumns={this.bodyColumns}
+                                       data={TC.getRawTableData(this.tableData)}
+                                       expandRows={expandRows}
+                                       isHeadFixed={isHeadFixed}
+                                       isFootFixed={isFootFixed}
+                                       isHeadHidden={isFinalHeadHidden}
+                                       isFootHidden={isFinalFootHidden}
+                                       hasHeadRenderer={hasHeadRenderer}
+                                       hasBodyRenderer={hasBodyRenderer}
+                                       hasFootRenderer={hasFootRenderer}/>
+                        </ScrollableTable>
                     </div>
 
                     <ScrollTable {...restProps}
