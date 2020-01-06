@@ -455,7 +455,12 @@ function fixRawTableWidth(wrapperEl, rawTableEl) {
         return;
     }
 
-    rawTableEl.style.minWidth = `${wrapperEl.clientWidth}px`;
+    const scrollerEl = wrapperEl.querySelector('.table-content-raw-scroller');
+
+    rawTableEl.style.minWidth = scrollerEl ?
+        `${scrollerEl.offsetWidth}px`
+        :
+        `${wrapperEl.clientWidth}px`;
 
 }
 
