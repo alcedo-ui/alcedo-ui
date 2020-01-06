@@ -545,10 +545,7 @@ function getPrevHorizontalScrollStatus(wrapperEl) {
 
 function getCurrentHorizontalScrollStatus(wrapperEl, scrollerEl) {
 
-    const verticalScrollBarSize = scrollerEl.offsetHeight < scrollerEl.scrollHeight ?
-        ScrollBar.getSize(Direction.VERTICAL)
-        :
-        0;
+    const verticalScrollBarSize = ScrollBar.getSize(Direction.VERTICAL);
 
     if (scrollerEl.scrollWidth + verticalScrollBarSize === scrollerEl.offsetWidth) {
         return null;
