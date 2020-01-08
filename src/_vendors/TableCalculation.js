@@ -257,7 +257,7 @@ function sortColumns(columns) {
         [HorizontalAlign.RIGHT]: []
     };
 
-    // separate root column to left, right or center
+    // separate root column to left, center and right
     columns.forEach(column => column && result[column.fixed || HorizontalAlign.CENTER].push(column));
 
     // traverse all children nodes in left and right, update "fixed" property inheriting from their parent
