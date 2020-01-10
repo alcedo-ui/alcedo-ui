@@ -5,18 +5,21 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Components
 import Tf from '../_Tf';
 
+// Statics
 import TableFragment from '../_statics/TableFragment';
 import HorizontalAlign from '../_statics/HorizontalAlign';
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
 
+// Vendors
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
-import TableCalculation from '../_vendors/TableCalculation';
+import TC from '../_vendors/TableCalculation';
 
 class Tfoot extends Component {
 
@@ -29,6 +32,14 @@ class Tfoot extends Component {
         super(props, ...restArgs);
     }
 
+    getColumnsSpan = () => {
+        const {columns, data, onRequestColumnsSpan} = this.props;
+        return onRequestColumnsSpan ?
+            onRequestColumnsSpan(TableFragment.FOOT, columns, data)
+            :
+            TC.getColumnsSpan(TableFragment.FOOT, columns, data);
+    };
+
     handleClick = e => {
         const {data, disabled, onFootClick} = this.props;
         !disabled && onFootClick && onFootClick(data, e);
@@ -36,8 +47,8 @@ class Tfoot extends Component {
 
     render() {
 
-        const {className, columns, data, disabled, baseColIndex, scrollEl, onCellClick} = this.props,
-            columnsWithSpan = TableCalculation.getColumnsWithSpan(TableFragment.FOOT, columns, data);
+        const {className, data, disabled, baseColIndex, scrollEl, onCellClick} = this.props,
+            columnsSpan = this.getColumnsSpan();
 
         return (
             <tfoot className={classNames({
@@ -49,7 +60,7 @@ class Tfoot extends Component {
                    onClick={this.handleClick}>
                 <tr>
                     {
-                        columnsWithSpan && columnsWithSpan.map(({column, span}, colIndex) =>
+                        columnsSpan && columnsSpan.map(({column, span}, colIndex) =>
                             <Tf key={colIndex}
                                 className={column.footClassName}
                                 style={column.footStyle}
@@ -58,7 +69,7 @@ class Tfoot extends Component {
                                 renderer={column.footRenderer}
                                 align={column.footAlign || column.align}
                                 span={span}
-                                noWrap={TableCalculation.handleNoWrap(column.footNoWrap, column.noWrap, {
+                                noWrap={TC.handleNoWrap(column.footNoWrap, column.noWrap, {
                                     data,
                                     rowIndex: 0,
                                     colIndex: baseColIndex + colIndex,
@@ -262,7 +273,8 @@ Tfoot.propTypes = {
     scrollEl: PropTypes.object,
 
     onFootClick: PropTypes.func,
-    onCellClick: PropTypes.func
+    onCellClick: PropTypes.func,
+    onRequestColumnsSpan: PropTypes.func
 
 };
 
