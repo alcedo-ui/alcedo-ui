@@ -36,6 +36,14 @@ class BaseTable extends Component {
         super(props, ...restArgs);
     }
 
+    getColumnsSpan = () => {
+        const {fragment, bodyColumns, columns, onRequestColumnsSpan} = this.props;
+        return onRequestColumnsSpan ?
+            onRequestColumnsSpan(fragment, bodyColumns || columns)
+            :
+            TC.getColumnsSpan(fragment, bodyColumns || columns);
+    };
+
     /* eslint-disable complexity */
     render() {
 
@@ -59,7 +67,7 @@ class BaseTable extends Component {
                    })}
                    style={style}>
 
-                <ColGroup columns={TC.getColumnsSpan(fragment, bodyColumns || columns)}
+                <ColGroup columns={this.getColumnsSpan()}
                           ignoreColumnWidth={ignoreColumnWidth}/>
 
                 {
