@@ -20,7 +20,7 @@ function calcSpan(type, column, data, colIndex, rowIndex) {
         +span;
 }
 
-function getColumnsWithSpan(type, columns, data, rowIndex) {
+function getColumnsSpan(type, columns, data, rowIndex) {
 
     if (!type) {
         return columns.map(column => ({
@@ -55,6 +55,10 @@ function getColumnsWithSpan(type, columns, data, rowIndex) {
 
     return result;
 
+}
+
+function fixColumnSpan(columns, originColumns, fixed, fragment) {
+    return columns;
 }
 
 function sortTableData(data, sorting, sortFunc) {
@@ -513,7 +517,8 @@ function getRawTableData(data) {
 
 export default {
     calcSpan,
-    getColumnsWithSpan,
+    getColumnsSpan,
+    fixColumnSpan,
     sortTableData,
     hasRenderer,
     hasHeadRenderer,
