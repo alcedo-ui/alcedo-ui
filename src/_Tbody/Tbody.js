@@ -313,7 +313,8 @@ Tbody.propTypes = {
     onCellClick: PropTypes.func,
     onRowHover: PropTypes.func,
     onExpand: PropTypes.func,
-    onCollapse: PropTypes.func
+    onCollapse: PropTypes.func,
+    onRequestColumnsSpan: PropTypes.func,
 
 };
 
