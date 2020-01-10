@@ -6,16 +6,19 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
+// Components
 import Th from '../_Th';
 
+// Statics
 import HorizontalAlign from '../_statics/HorizontalAlign';
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
-
-import Util from '../_vendors/Util';
 import TableFragment from '../_statics/TableFragment';
-import TableCalculation from '../_vendors/TableCalculation';
+
+// Vendors
+import Util from '../_vendors/Util';
+import TC from '../_vendors/TableCalculation';
 
 class Thead extends Component {
 
@@ -27,6 +30,14 @@ class Thead extends Component {
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
     }
+
+    getColumnsSpan = row => {
+        const {data, onRequestColumnsSpan} = this.props;
+        return onRequestColumnsSpan ?
+            onRequestColumnsSpan(TableFragment.HEAD, row, data)
+            :
+            TC.getColumnsSpan(TableFragment.HEAD, row, data);
+    };
 
     render() {
 
@@ -43,33 +54,35 @@ class Thead extends Component {
                     columns && columns.map((row, rowIndex) => row ?
                         <tr key={rowIndex}>
                             {
-                                TableCalculation.getColumnsWithSpan(TableFragment.HEAD, row, data).map(({column, span}, colIndex) => column ?
-                                    <Th {...restProps}
-                                        key={colIndex}
-                                        className={column.headClassName}
-                                        style={column.headStyle}
-                                        data={data}
-                                        renderer={column.headRenderer}
-                                        align={column.headAlign || column.align}
-                                        colIndex={baseColIndex + colIndex}
-                                        rowSpan={column.rowSpan}
-                                        colSpan={column.colSpan}
-                                        noWrap={TableCalculation.handleNoWrap(column.headNoWrap, column.noWrap, {
-                                            data,
-                                            rowIndex,
-                                            colIndex: baseColIndex + colIndex,
-                                            tableData: data
-                                        })}
-                                        sorting={sorting}
-                                        defaultSortingType={column.defaultSortingType || defaultSortingType}
-                                        sortingAscIconCls={sortingAscIconCls}
-                                        sortingDescIconCls={sortingDescIconCls}
-                                        sortable={column.sortable}
-                                        sortingProp={column.sortingProp}
-                                        onSortChange={onSortChange}/>
-                                    :
-                                    null
-                                )
+                                (
+                                    this.getColumnsSpan(row)?.map(({column, span}, colIndex) => column ?
+                                        <Th {...restProps}
+                                            key={colIndex}
+                                            className={column.headClassName}
+                                            style={column.headStyle}
+                                            data={data}
+                                            renderer={column.headRenderer}
+                                            align={column.headAlign || column.align}
+                                            colIndex={baseColIndex + colIndex}
+                                            rowSpan={column.rowSpan}
+                                            colSpan={column.colSpan}
+                                            noWrap={TC.handleNoWrap(column.headNoWrap, column.noWrap, {
+                                                data,
+                                                rowIndex,
+                                                colIndex: baseColIndex + colIndex,
+                                                tableData: data
+                                            })}
+                                            sorting={sorting}
+                                            defaultSortingType={column.defaultSortingType || defaultSortingType}
+                                            sortingAscIconCls={sortingAscIconCls}
+                                            sortingDescIconCls={sortingDescIconCls}
+                                            sortable={column.sortable}
+                                            sortingProp={column.sortingProp}
+                                            onSortChange={onSortChange}/>
+                                        :
+                                        null
+                                    )
+                                ) || null
                             }
                         </tr>
                         :
@@ -279,7 +292,8 @@ Thead.propTypes = {
     sortingDescIconCls: PropTypes.string,
     isClickSorting: PropTypes.bool,
 
-    onSortChange: PropTypes.func
+    onSortChange: PropTypes.func,
+    onRequestColumnsSpan: PropTypes.func
 
 };
 
