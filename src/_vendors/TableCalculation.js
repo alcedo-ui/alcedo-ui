@@ -12,17 +12,17 @@ import TableFragment from '../_statics/TableFragment';
 import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
 
-function calcSpan(type, column, data, colIndex, rowIndex) {
-    const span = column[`${type}Span`];
+function calcSpan(fragment, column, data, colIndex, rowIndex) {
+    const span = column[`${fragment}Span`];
     return span && typeof span === 'function' ?
         span(data, colIndex, rowIndex)
         :
         +span;
 }
 
-function getColumnsSpan(type, columns, data, rowIndex) {
+function getColumnsSpan(fragment, columns, data, rowIndex) {
 
-    if (!type) {
+    if (!fragment) {
         return columns.map(column => ({
             column,
             span: 1
@@ -30,7 +30,7 @@ function getColumnsSpan(type, columns, data, rowIndex) {
     }
 
     const result = [];
-    let spanFlag = 0;
+    let spanFlag = 1;
 
     for (let colIndex = 0, len = columns.length; colIndex < len; colIndex++) {
 
@@ -40,7 +40,7 @@ function getColumnsSpan(type, columns, data, rowIndex) {
         }
 
         const column = columns[colIndex],
-            span = calcSpan(type, columns[colIndex], data, colIndex, rowIndex);
+            span = calcSpan(fragment, columns[colIndex], data, colIndex, rowIndex);
 
         if (span && span > 1) {
             spanFlag = span;
@@ -57,8 +57,83 @@ function getColumnsSpan(type, columns, data, rowIndex) {
 
 }
 
-function fixColumnSpan(columns, originColumns, fixed, fragment) {
-    return columns;
+function getUnequalFixedColumnsCount(column, restColumns) {
+
+    if (!column || !restColumns || restColumns.length < 1) {
+        return 0;
+    }
+
+    const fixed = column.fixed || HorizontalAlign.CENTER;
+    return restColumns.filter(item => item && ((item.fixed || HorizontalAlign.CENTER) !== fixed)).length;
+
+}
+
+// function fixColumnSpan(columnsSpan, originColumns) {
+//
+//     if (!columnsSpan || columnsSpan.length < 1 || !originColumns || originColumns.length < 1) {
+//         return columnsSpan;
+//     }
+//
+//     for (let i = 0, len = columnsSpan.length; i < len;) {
+//
+//         if (!columnsSpan[i] || !columnsSpan[i].column || !columnsSpan[i].span || columnsSpan[i].span <= 1) {
+//             i++;
+//             continue;
+//         }
+//
+//         const {column, span} = columnsSpan[i],
+//             index = originColumns.indexOf(column);
+//
+//         columnsSpan[i].span -= getUnequalFixedColumnsCount(column, originColumns.slice(index + 1, index + span));
+//         i += span;
+//
+//     }
+//
+//     return columnsSpan;
+//
+// }
+
+function getAdvancedColumnsSpan(originColumns, fixed, fragment, columns, data, rowIndex) {
+
+    if (!fragment) {
+        return columns.map(column => ({
+            column,
+            span: 1
+        }));
+    }
+
+    const result = [];
+    let spanFlag = 1;
+
+    for (let colIndex = 0, len = columns.length; colIndex < len; colIndex++) {
+
+        if (spanFlag > 1) {
+            spanFlag--;
+            continue;
+        }
+
+        const column = columns[colIndex],
+            span = calcSpan(fragment, columns[colIndex], data, colIndex, rowIndex);
+
+        if (span && span > 1) {
+
+            spanFlag = span;
+
+            const index = originColumns.indexOf(column);
+
+            spanFlag -= getUnequalFixedColumnsCount(column, originColumns.slice(index + 1, index + span));
+
+        }
+
+        result.push({
+            column,
+            span: spanFlag > 1 ? spanFlag : null
+        });
+
+    }
+
+    return result;
+
 }
 
 function sortTableData(data, sorting, sortFunc) {
@@ -519,6 +594,7 @@ export default {
     calcSpan,
     getColumnsSpan,
     fixColumnSpan,
+    getAdvancedColumnsSpan,
     sortTableData,
     hasRenderer,
     hasHeadRenderer,
