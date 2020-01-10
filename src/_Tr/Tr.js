@@ -19,7 +19,7 @@ import SortingType from '../_statics/SortingType';
 // Vendors
 import classNames from 'classnames';
 import Util from '../_vendors/Util';
-import TableCalculation from '../_vendors/TableCalculation';
+import TC from '../_vendors/TableCalculation';
 
 class Tr extends Component {
 
@@ -40,7 +40,7 @@ class Tr extends Component {
             return true;
         }
 
-        return TableCalculation.indexOfNodeInValue(data, expandRows, idProp) === -1;
+        return TC.indexOfNodeInValue(data, expandRows, idProp) === -1;
 
     };
 
@@ -75,7 +75,7 @@ class Tr extends Component {
 
             } = this.props,
             collapsed = this.isCollapsed(),
-            columnsWithSpan = TableCalculation.getColumnsWithSpan(TableFragment.BODY, columns, data, rowIndex),
+            columnsWithSpan = TC.getColumnsWithSpan(TableFragment.BODY, columns, data, rowIndex),
             nodePath = path || [{index, node: data}];
 
         return (
@@ -109,7 +109,7 @@ class Tr extends Component {
                                 align={column.bodyAlign || column.align}
                                 span={span}
                                 disabled={disabled}
-                                noWrap={TableCalculation.handleNoWrap(column.bodyNoWrap, column.noWrap, {
+                                noWrap={TC.handleNoWrap(column.bodyNoWrap, column.noWrap, {
                                     data,
                                     rowIndex,
                                     colIndex: baseColIndex + colIndex,
