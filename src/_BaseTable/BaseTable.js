@@ -46,7 +46,7 @@ class BaseTable extends Component {
             isMouseEventForbidden, isHeadFixed, isFootFixed, isHeadHidden, isFootHidden,
             hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
             sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, isClickSorting,
-            onRowHover, onSortChange, onExpandChange,
+            onRowHover, onSortChange, onExpandChange, onRequestColumnsSpan,
 
             ...restProps
 
@@ -59,7 +59,7 @@ class BaseTable extends Component {
                    })}
                    style={style}>
 
-                <ColGroup columns={TC.getColumnsWithSpan(fragment, bodyColumns || columns)}
+                <ColGroup columns={TC.getColumnsSpan(fragment, bodyColumns || columns)}
                           ignoreColumnWidth={ignoreColumnWidth}/>
 
                 {
@@ -79,7 +79,8 @@ class BaseTable extends Component {
                                sortingDescIconCls={sortingDescIconCls}
                                isClickSorting={isClickSorting}
                                scrollEl={scrollEl}
-                               onSortChange={onSortChange}/>
+                               onSortChange={onSortChange}
+                               onRequestColumnsSpan={onRequestColumnsSpan}/>
                         :
                         null
                 }
@@ -100,7 +101,8 @@ class BaseTable extends Component {
                                isMouseEventForbidden={isMouseEventForbidden}
                                scrollEl={scrollEl}
                                onExpandChange={onExpandChange}
-                               onRowHover={onRowHover}/>
+                               onRowHover={onRowHover}
+                               onRequestColumnsSpan={onRequestColumnsSpan}/>
                         :
                         null
                 }
@@ -117,7 +119,8 @@ class BaseTable extends Component {
                                data={data}
                                selectMode={selectMode}
                                selectAllMode={selectAllMode}
-                               scrollEl={scrollEl}/>
+                               scrollEl={scrollEl}
+                               onRequestColumnsSpan={onRequestColumnsSpan}/>
                         :
                         null
                 }
@@ -383,7 +386,8 @@ BaseTable.propTypes = {
     onCellClick: PropTypes.func,
     onFootClick: PropTypes.func,
     onRowHover: PropTypes.func,
-    onExpandChange: PropTypes.func
+    onExpandChange: PropTypes.func,
+    onRequestColumnsSpan: PropTypes.func
 
 };
 
