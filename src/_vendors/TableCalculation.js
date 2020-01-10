@@ -593,7 +593,7 @@ function getRawTableData(data) {
 export default {
     calcSpan,
     getColumnsSpan,
-    fixColumnSpan,
+    // fixColumnSpan,
     getAdvancedColumnsSpan,
     sortTableData,
     hasRenderer,
