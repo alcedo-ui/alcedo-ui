@@ -553,7 +553,7 @@ class TableContent extends Component {
 
     handleRequestColumnsSpan = (fixed, fragment, ...restArgs) => {
         const {columns} = this.props;
-        return TC.fixColumnSpan(TC.getColumnsSpan(fragment, ...restArgs), columns, fixed, fragment);
+        return TC.getAdvancedColumnsSpan(columns, fixed, fragment, ...restArgs);
     };
 
     componentDidMount() {
@@ -657,7 +657,8 @@ class TableContent extends Component {
                                        isFootHidden={isFinalFootHidden}
                                        hasHeadRenderer={hasHeadRenderer}
                                        hasBodyRenderer={hasBodyRenderer}
-                                       hasFootRenderer={hasFootRenderer}/>
+                                       hasFootRenderer={hasFootRenderer}
+                                       onRequestColumnsSpan={(...restArgs) => this.handleRequestColumnsSpan(null, ...restArgs)}/>
                         </ScrollableTable>
                     </div>
 
