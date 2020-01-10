@@ -42,8 +42,8 @@ class BaseTable extends Component {
         const {
 
             className, style, data, value, hoverRow, idProp, baseColIndex, fixed, fragment, ignoreColumnWidth, scrollEl,
-            columns, headColumns, bodyColumns, selectMode, selectAllMode, expandRows, isMouseEventForbidden,
-            isHeadFixed, isFootFixed, isHeadHidden, isFootHidden,
+            columns, headColumns, bodyColumns, selectMode, selectAllMode, expandRows,
+            isMouseEventForbidden, isHeadFixed, isFootFixed, isHeadHidden, isFootHidden,
             hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
             sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, isClickSorting,
             onRowHover, onSortChange, onExpandChange,
