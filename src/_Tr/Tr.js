@@ -49,6 +49,14 @@ class Tr extends Component {
         return !!(hoverRow && hoverRow[idProp] && data && data[idProp] && hoverRow[idProp] === data[idProp]);
     };
 
+    getColumnsSpan = () => {
+        const {columns, data, rowIndex, onRequestColumnsSpan} = this.props;
+        return onRequestColumnsSpan ?
+            onRequestColumnsSpan(TableFragment.BODY, columns, data, rowIndex)
+            :
+            TC.getColumnsSpan(TableFragment.BODY, columns, data, rowIndex);
+    };
+
     handleMouseEnter = e => {
         const {isMouseEventForbidden, data, onMouseEnter} = this.props;
         !isMouseEventForbidden && onMouseEnter && onMouseEnter(e, data);
@@ -75,7 +83,7 @@ class Tr extends Component {
 
             } = this.props,
             collapsed = this.isCollapsed(),
-            columnsWithSpan = TC.getColumnsWithSpan(TableFragment.BODY, columns, data, rowIndex),
+            columnsSpan = this.getColumnsSpan(),
             nodePath = path || [{index, node: data}];
 
         return (
@@ -94,7 +102,7 @@ class Tr extends Component {
                     onMouseLeave={this.handleMouseLeave}
                     onClick={this.handleClick}>
                     {
-                        columnsWithSpan && columnsWithSpan.map(({column, span}, colIndex) => column ?
+                        columnsSpan && columnsSpan.map(({column, span}, colIndex) => column ?
                             <Td {...respProps}
                                 key={colIndex}
                                 className={column.bodyClassName}
@@ -363,7 +371,8 @@ Tr.propTypes = {
     onCellClick: PropTypes.func,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func,
-    onExpandChange: PropTypes.func
+    onExpandChange: PropTypes.func,
+    onRequestColumnsSpan: PropTypes.func
 
 };
 
