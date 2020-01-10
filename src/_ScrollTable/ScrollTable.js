@@ -61,6 +61,11 @@ class ScrollTable extends Component {
 
     }, 250);
 
+    handleColumnsSpan = (...restArgs) => {
+        const {fixed, onRequestColumnsSpan} = this.props;
+        return onRequestColumnsSpan && onRequestColumnsSpan(fixed, ...restArgs);
+    };
+
     componentDidUpdate() {
         this.updateEl();
     }
@@ -111,7 +116,8 @@ class ScrollTable extends Component {
                                                    columns={columns}
                                                    headColumns={headColumns}
                                                    bodyColumns={bodyColumns}
-                                                   scrollEl={scrollEl}/>
+                                                   scrollEl={scrollEl}
+                                                   onRequestColumnsSpan={this.handleColumnsSpan}/>
                                 }
                             </ScrollableTable>
                         </div>
@@ -143,7 +149,8 @@ class ScrollTable extends Component {
                                                isFootFixed={isFootFixed}
                                                isHeadHidden={isHeadHidden}
                                                isFootHidden={isFootHidden}
-                                               scrollEl={scrollEl}/>
+                                               scrollEl={scrollEl}
+                                               onRequestColumnsSpan={this.handleColumnsSpan}/>
                                 </div>
                         }
                     </ScrollableTable>
@@ -168,7 +175,8 @@ class ScrollTable extends Component {
                                                    columns={columns}
                                                    headColumns={headColumns}
                                                    bodyColumns={bodyColumns}
-                                                   scrollEl={scrollEl}/>
+                                                   scrollEl={scrollEl}
+                                                   onRequestColumnsSpan={this.handleColumnsSpan}/>
                                 }
                             </ScrollableTable>
                         </div>
@@ -458,7 +466,8 @@ ScrollTable.propTypes = {
     onScroll: PropTypes.func,
     onWheel: PropTypes.func,
     onSortChange: PropTypes.func,
-    onRowHover: PropTypes.func
+    onRowHover: PropTypes.func,
+    onRequestColumnsSpan: PropTypes.func
 
 };
 
