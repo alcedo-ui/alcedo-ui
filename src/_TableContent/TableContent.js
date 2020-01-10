@@ -551,6 +551,11 @@ class TableContent extends Component {
 
     };
 
+    handleRequestColumnsSpan = (fixed, fragment, ...restArgs) => {
+        const {columns} = this.props;
+        return TC.fixColumnSpan(TC.getColumnsSpan(fragment, ...restArgs), columns, fixed, fragment);
+    };
+
     componentDidMount() {
 
         // get elements
@@ -600,15 +605,17 @@ class TableContent extends Component {
             {sortedColumns, hasFixedLeftColumn, hasFixedRightColumn} = TC.sortColumns(columns);
 
         this.sortedColumns = sortedColumns;
+
         this.hasFixedLeftColumn = hasFixedLeftColumn;
         this.hasFixedRightColumn = hasFixedRightColumn;
-        this.formatedColumns = this.formatColumns(this.sortedColumns);
-        this.headColumns = TC.getHeadColumns(this.formatedColumns);
-        this.bodyColumns = TC.getBodyColumns(this.formatedColumns);
 
+        this.formatedColumns = this.formatColumns(this.sortedColumns);
         if (!this.formatedColumns) {
             return null;
         }
+
+        this.headColumns = TC.getHeadColumns(this.formatedColumns);
+        this.bodyColumns = TC.getBodyColumns(this.formatedColumns);
 
         this.fixedRightColumns = this.formatedColumns.filter(column =>
             column && column.fixed === HorizontalAlign.RIGHT);
@@ -677,6 +684,7 @@ class TableContent extends Component {
                                  ignoreColumnWidth={true}
                                  onScroll={this.handleScroll}
                                  onWheel={this.handleWheel}
+                                 onRequestColumnsSpan={this.handleRequestColumnsSpan}
                                  onGetHeadScrollerEl={el =>
                                      this.handleGetScrollerEl(el, HorizontalAlign.CENTER, TableFragment.HEAD)}
                                  onGetBodyScrollerEl={el =>
@@ -707,15 +715,16 @@ class TableContent extends Component {
                                          scrolling={scrolling}
                                          scroll={scroll}
                                          ignoreColumnWidth={true}
+                                         onScroll={this.handleScroll}
+                                         onWheel={this.handleWheel}
+                                         onExpandChange={this.handleExpandChange}
+                                         onRequestColumnsSpan={this.handleRequestColumnsSpan}
                                          onGetHeadScrollerEl={el =>
                                              this.handleGetScrollerEl(el, HorizontalAlign.LEFT, TableFragment.HEAD)}
                                          onGetBodyScrollerEl={el =>
                                              this.handleGetScrollerEl(el, HorizontalAlign.LEFT, TableFragment.BODY)}
                                          onGetFootScrollerEl={el =>
-                                             this.handleGetScrollerEl(el, HorizontalAlign.LEFT, TableFragment.FOOT)}
-                                         onScroll={this.handleScroll}
-                                         onWheel={this.handleWheel}
-                                         onExpandChange={this.handleExpandChange}/>
+                                             this.handleGetScrollerEl(el, HorizontalAlign.LEFT, TableFragment.FOOT)}/>
                             :
                             null
                     }
@@ -746,6 +755,7 @@ class TableContent extends Component {
                                          baseColIndex={this.formatedColumns.length - this.fixedRightColumns.length}
                                          onScroll={this.handleScroll}
                                          onWheel={this.handleWheel}
+                                         onRequestColumnsSpan={this.handleRequestColumnsSpan}
                                          onGetHeadScrollerEl={el =>
                                              this.handleGetScrollerEl(el, HorizontalAlign.RIGHT, TableFragment.HEAD)}
                                          onGetBodyScrollerEl={el =>
