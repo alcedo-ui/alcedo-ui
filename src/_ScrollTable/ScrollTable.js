@@ -116,6 +116,7 @@ class ScrollTable extends Component {
                                                    columns={columns}
                                                    headColumns={headColumns}
                                                    bodyColumns={bodyColumns}
+                                                   ignoreColumnSpan={true}
                                                    scrollEl={scrollEl}
                                                    onRequestColumnsSpan={this.handleColumnsSpan}/>
                                 }
@@ -175,6 +176,7 @@ class ScrollTable extends Component {
                                                    columns={columns}
                                                    headColumns={headColumns}
                                                    bodyColumns={bodyColumns}
+                                                   ignoreColumnSpan={true}
                                                    scrollEl={scrollEl}
                                                    onRequestColumnsSpan={this.handleColumnsSpan}/>
                                 }
