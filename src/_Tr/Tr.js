@@ -77,7 +77,7 @@ class Tr extends Component {
         const {
 
                 className, columns, rowIndex, data, parentData, tableData,
-                isChecked, disabled, baseColIndex, depth, index, path,
+                isChecked, disabled, baseColIndex, ignoreColumnSpan, depth, index, path,
 
                 ...respProps
 
@@ -115,7 +115,7 @@ class Tr extends Component {
                                 collapsed={collapsed}
                                 renderer={column.bodyRenderer}
                                 align={column.bodyAlign || column.align}
-                                span={span}
+                                span={ignoreColumnSpan ? null : span}
                                 disabled={disabled}
                                 noWrap={TC.handleNoWrap(column.bodyNoWrap, column.noWrap, {
                                     data,
@@ -354,6 +354,7 @@ Tr.propTypes = {
     path: PropTypes.array,
     idProp: PropTypes.string,
     isMouseEventForbidden: PropTypes.bool,
+    ignoreColumnSpan: PropTypes.bool,
     scrollEl: PropTypes.object,
 
     /**
@@ -384,7 +385,8 @@ Tr.defaultProps = {
     baseColIndex: 0,
     depth: 0,
     idProp: 'id',
-    isMouseEventForbidden: false
+    isMouseEventForbidden: false,
+    ignoreColumnSpan: false
 };
 
 export default Tr;
