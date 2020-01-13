@@ -46,7 +46,7 @@ class ColGroup extends Component {
 
     render() {
 
-        const {columns, ignoreColumnWidth} = this.props;
+        const {columns, ignoreColumnWidth, ignoreColumnSpan} = this.props;
 
         return columns ?
             <colgroup>
@@ -54,7 +54,7 @@ class ColGroup extends Component {
                     columns.map(({column, span}, index) => column ?
                         <col key={index}
                              style={ignoreColumnWidth ? null : this.getColStyle(column)}
-                             span={span && span > 1 ? span : null}/>
+                             span={ignoreColumnSpan ? null : (span && span > 1 ? span : null)}/>
                         :
                         null
                     )
@@ -203,12 +203,14 @@ ColGroup.propTypes = {
 
     })).isRequired,
 
-    ignoreColumnWidth: PropTypes.bool
+    ignoreColumnWidth: PropTypes.bool,
+    ignoreColumnSpan: PropTypes.bool
 
 };
 
 ColGroup.defaultProps = {
-    ignoreColumnWidth: false
+    ignoreColumnWidth: false,
+    ignoreColumnSpan: false
 };
 
 export default ColGroup;
