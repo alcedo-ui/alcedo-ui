@@ -60,7 +60,7 @@ class Tbody extends Component {
 
         const {
 
-            className, style, columns, data, startIndex, idProp, disabled, isMouseEventForbidden,
+            className, style, columns, data, startIndex, idProp, disabled, isMouseEventForbidden, ignoreColumnSpan,
 
             // not passing down these props
             value,
@@ -84,6 +84,7 @@ class Tbody extends Component {
                             isChecked={this.isItemChecked(row)}
                             disabled={disabled || row.disabled}
                             isMouseEventForbidden={isMouseEventForbidden}
+                            ignoreColumnSpan={ignoreColumnSpan}
                             onMouseEnter={this.handleTrMouseEnter}
                             onMouseLeave={this.handleTrMouseLeave}/>
                         :
@@ -296,6 +297,7 @@ Tbody.propTypes = {
     baseColIndex: PropTypes.number,
     expandRows: PropTypes.array,
     isMouseEventForbidden: PropTypes.bool,
+    ignoreColumnSpan: PropTypes.bool,
     scrollEl: PropTypes.object,
 
     /**
@@ -314,7 +316,7 @@ Tbody.propTypes = {
     onRowHover: PropTypes.func,
     onExpand: PropTypes.func,
     onCollapse: PropTypes.func,
-    onRequestColumnsSpan: PropTypes.func,
+    onRequestColumnsSpan: PropTypes.func
 
 };
 
@@ -325,7 +327,8 @@ Tbody.defaultProps = {
     disabled: false,
     baseColIndex: 0,
     expandRows: [],
-    isMouseEventForbidden: false
+    isMouseEventForbidden: false,
+    ignoreColumnSpan: false
 };
 
 export default Tbody;
