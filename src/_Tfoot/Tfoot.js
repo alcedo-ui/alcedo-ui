@@ -71,7 +71,7 @@ class Tfoot extends Component {
                                 data={data}
                                 renderer={column.footRenderer}
                                 align={column.footAlign || column.align}
-                                span={span}
+                                span={ignoreColumnSpan ? null : span}
                                 noWrap={TC.handleNoWrap(column.footNoWrap, column.noWrap, {
                                     data,
                                     rowIndex: 0,
@@ -79,7 +79,6 @@ class Tfoot extends Component {
                                     tableData: data
                                 })}
                                 disabled={disabled}
-                                ignoreColumnSpan={ignoreColumnSpan}
                                 scrollEl={scrollEl}
                                 onCellClick={onCellClick}/>
                         )
