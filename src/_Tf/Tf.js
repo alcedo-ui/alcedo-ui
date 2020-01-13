@@ -42,7 +42,7 @@ class Tf extends Component {
 
     render() {
 
-        const {className, style, align, noWrap, ignoreColumnSpan, span, onCellClick} = this.props;
+        const {className, style, align, noWrap, span, onCellClick} = this.props;
 
         return (
             <td className={classNames({
@@ -51,7 +51,7 @@ class Tf extends Component {
                 [className]: className
             })}
                 style={style}
-                colSpan={(ignoreColumnSpan ? null : span) || null}
+                colSpan={span || null}
                 onClick={onCellClick}>
                 {this.handleRender()}
             </td>
@@ -72,7 +72,6 @@ Tf.propTypes = {
     align: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
     span: PropTypes.number,
     noWrap: PropTypes.bool,
-    ignoreColumnSpan: PropTypes.bool,
     scrollEl: PropTypes.object,
 
     onCellClick: PropTypes.func
@@ -82,8 +81,7 @@ Tf.propTypes = {
 Tf.defaultProps = {
     colIndex: 0,
     align: HorizontalAlign.LEFT,
-    noWrap: false,
-    ignoreColumnSpan: false
+    noWrap: false
 };
 
 export default Tf;
