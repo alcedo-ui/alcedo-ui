@@ -336,6 +336,30 @@ class TableContent extends Component {
     debounceFixLayout = debounce(() => this.fixLayout(), 150);
 
     /**
+     * handle resize end callback and fix table layout debounce
+     */
+    debounceResizeFixLayout = debounce(() => {
+        const {resizing, onResizeEnd} = this.props;
+        if (resizing) {
+            onResizeEnd && onResizeEnd();
+            this.fixLayout();
+        }
+    }, 600);
+
+    /**
+     * handle resize start callback
+     * @param e
+     */
+    handleReize = e => {
+        const {resizing, onResizeStart} = this.props;
+        if (!resizing) {
+            onResizeStart && onResizeStart(e);
+        } else {
+            this.debounceResizeFixLayout();
+        }
+    };
+
+    /**
      * handle get scroll el
      * @param el
      * @param fixed
@@ -565,7 +589,7 @@ class TableContent extends Component {
         this.fixedRightEl = this.fixedRight && this.fixedRight.current && findDOMNode(this.fixedRight.current);
 
         // bind event
-        Event.addEvent(window, 'resize', this.debounceFixLayout);
+        Event.addEvent(window, 'resize', this.handleReize);
 
         // fixed layout at startup
         this.debounceFixLayout();
@@ -582,7 +606,7 @@ class TableContent extends Component {
     }
 
     componentWillUnmount() {
-        Event.removeEvent(window, 'resize', this.debounceFixLayout);
+        Event.removeEvent(window, 'resize', this.handleReize);
         this.debounceFixLayout && this.debounceFixLayout.cancel();
     }
 
@@ -594,10 +618,11 @@ class TableContent extends Component {
                 isHeadFixed, isFootFixed, isHeadHidden, isFootHidden, expandRows,
 
                 // not passing down these props
-                isInitialing, isSelectRecursive, selectUncheckedIconCls, selectCheckedIconCls,
+                isInitialing, isSelectRecursive, selectUncheckedIconCls, selectCheckedIconCls, resizing,
                 selectIndeterminateIconCls, selectColumn, expandIconCls, autoSorting, isPaginated, page, pageSize,
                 sortingFunc, onInit, onChange, onExpand, onCollapse, onExpandChange, onDataUpdate,
-                onSelect, onSelectAll, onDeselect, onDeselectAll, onScrollStart, onScrollEnd,
+                onSelect, onSelectAll, onDeselect, onDeselectAll,
+                onScrollStart, onScrollEnd, onResizeStart, onResizeEnd,
 
                 ...restProps
 
@@ -1094,6 +1119,11 @@ TableContent.propTypes = {
     }),
 
     /**
+     * resize
+     */
+    resizing: PropTypes.bool,
+
+    /**
      * callback
      */
     onInit: PropTypes.func,
@@ -1108,6 +1138,8 @@ TableContent.propTypes = {
     onSortChange: PropTypes.func,
     onScrollStart: PropTypes.func,
     onScrollEnd: PropTypes.func,
+    onResizeStart: PropTypes.func,
+    onResizeEnd: PropTypes.func,
     onRowHover: PropTypes.func,
     onDataUpdate: PropTypes.func
 
@@ -1140,6 +1172,11 @@ TableContent.defaultProps = {
      * scroll
      */
     scrolling: false,
+
+    /**
+     * resize
+     */
+    resizing: false,
 
     /**
      * sorting
