@@ -5,11 +5,13 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Statics
 import HorizontalAlign from '../_statics/HorizontalAlign';
 import SortingType from '../_statics/SortingType';
 
+// Vendors
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 
 class Tf extends Component {
@@ -40,7 +42,7 @@ class Tf extends Component {
 
     render() {
 
-        const {className, style, align, noWrap, span, onCellClick} = this.props;
+        const {className, style, align, noWrap, ignoreColumnSpan, span, onCellClick} = this.props;
 
         return (
             <td className={classNames({
@@ -49,7 +51,7 @@ class Tf extends Component {
                 [className]: className
             })}
                 style={style}
-                colSpan={span || null}
+                colSpan={(ignoreColumnSpan ? null : span) || null}
                 onClick={onCellClick}>
                 {this.handleRender()}
             </td>
@@ -70,6 +72,7 @@ Tf.propTypes = {
     align: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
     span: PropTypes.number,
     noWrap: PropTypes.bool,
+    ignoreColumnSpan: PropTypes.bool,
     scrollEl: PropTypes.object,
 
     onCellClick: PropTypes.func
@@ -79,7 +82,8 @@ Tf.propTypes = {
 Tf.defaultProps = {
     colIndex: 0,
     align: HorizontalAlign.LEFT,
-    noWrap: false
+    noWrap: false,
+    ignoreColumnSpan: false
 };
 
 export default Tf;
