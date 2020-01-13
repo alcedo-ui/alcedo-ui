@@ -42,7 +42,7 @@ class Thead extends Component {
     render() {
 
         const {
-            className, style, columns, baseColIndex, data,
+            className, style, columns, baseColIndex, data, ignoreColumnSpan,
             sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, onSortChange,
             ...restProps
         } = this.props;
@@ -65,7 +65,7 @@ class Thead extends Component {
                                             align={column.headAlign || column.align}
                                             colIndex={baseColIndex + colIndex}
                                             rowSpan={column.rowSpan}
-                                            colSpan={column.colSpan}
+                                            colSpan={ignoreColumnSpan ? null : column.colSpan}
                                             noWrap={TC.handleNoWrap(column.headNoWrap, column.noWrap, {
                                                 data,
                                                 rowIndex,
@@ -278,6 +278,7 @@ Thead.propTypes = {
 
     data: PropTypes.array,
     baseColIndex: PropTypes.number,
+    ignoreColumnSpan: PropTypes.bool,
     scrollEl: PropTypes.object,
 
     /**
@@ -300,6 +301,7 @@ Thead.propTypes = {
 Thead.defaultProps = {
 
     baseColIndex: 0,
+    ignoreColumnSpan: false,
 
     defaultSortingType: SortingType.ASC,
     sortingAscIconCls: 'fas fa-sort-up',
