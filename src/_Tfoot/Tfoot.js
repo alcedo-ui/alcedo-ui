@@ -47,7 +47,10 @@ class Tfoot extends Component {
 
     render() {
 
-        const {className, data, disabled, baseColIndex, scrollEl, onCellClick} = this.props,
+        const {
+                className, data, disabled, baseColIndex, ignoreColumnSpan, scrollEl,
+                onCellClick
+            } = this.props,
             columnsSpan = this.getColumnsSpan();
 
         return (
@@ -76,6 +79,7 @@ class Tfoot extends Component {
                                     tableData: data
                                 })}
                                 disabled={disabled}
+                                ignoreColumnSpan={ignoreColumnSpan}
                                 scrollEl={scrollEl}
                                 onCellClick={onCellClick}/>
                         )
@@ -270,6 +274,7 @@ Tfoot.propTypes = {
     data: PropTypes.array,
     disabled: PropTypes.bool,
     baseColIndex: PropTypes.number,
+    ignoreColumnSpan: PropTypes.bool,
     scrollEl: PropTypes.object,
 
     onFootClick: PropTypes.func,
@@ -280,7 +285,8 @@ Tfoot.propTypes = {
 
 Tfoot.defaultProps = {
     disabled: false,
-    baseColIndex: 0
+    baseColIndex: 0,
+    ignoreColumnSpan: false
 };
 
 export default Tfoot;
