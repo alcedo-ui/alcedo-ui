@@ -49,10 +49,10 @@ class BaseTable extends Component {
 
         const {
 
-            className, style, data, value, hoverRow, idProp, baseColIndex, fixed, fragment, ignoreColumnWidth, scrollEl,
+            className, style, data, value, hoverRow, idProp, baseColIndex, fixed, fragment, scrollEl,
             columns, headColumns, bodyColumns, selectMode, selectAllMode, expandRows,
             isMouseEventForbidden, isHeadFixed, isFootFixed, isHeadHidden, isFootHidden,
-            hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
+            ignoreColumnWidth, ignoreColumnSpan, hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
             sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, isClickSorting,
             onRowHover, onSortChange, onExpandChange, onRequestColumnsSpan,
 
@@ -68,7 +68,8 @@ class BaseTable extends Component {
                    style={style}>
 
                 <ColGroup columns={this.getColumnsSpan()}
-                          ignoreColumnWidth={ignoreColumnWidth}/>
+                          ignoreColumnWidth={ignoreColumnWidth}
+                          ignoreColumnSpan={ignoreColumnSpan}/>
 
                 {
                     !isHeadHidden && hasHeadRenderer && (
@@ -86,6 +87,7 @@ class BaseTable extends Component {
                                sortingAscIconCls={sortingAscIconCls}
                                sortingDescIconCls={sortingDescIconCls}
                                isClickSorting={isClickSorting}
+                               ignoreColumnSpan={ignoreColumnSpan}
                                scrollEl={scrollEl}
                                onSortChange={onSortChange}
                                onRequestColumnsSpan={onRequestColumnsSpan}/>
@@ -107,6 +109,7 @@ class BaseTable extends Component {
                                baseColIndex={baseColIndex}
                                sorting={sorting}
                                isMouseEventForbidden={isMouseEventForbidden}
+                               ignoreColumnSpan={ignoreColumnSpan}
                                scrollEl={scrollEl}
                                onExpandChange={onExpandChange}
                                onRowHover={onRowHover}
@@ -127,6 +130,7 @@ class BaseTable extends Component {
                                data={data}
                                selectMode={selectMode}
                                selectAllMode={selectAllMode}
+                               ignoreColumnSpan={ignoreColumnSpan}
                                scrollEl={scrollEl}
                                onRequestColumnsSpan={onRequestColumnsSpan}/>
                         :
@@ -352,6 +356,7 @@ BaseTable.propTypes = {
     expandRows: PropTypes.array,
     isMouseEventForbidden: PropTypes.bool,
     ignoreColumnWidth: PropTypes.bool,
+    ignoreColumnSpan: PropTypes.bool,
     scrollEl: PropTypes.object,
 
     /**
@@ -406,6 +411,7 @@ BaseTable.defaultProps = {
     expandRows: [],
     isMouseEventForbidden: false,
     ignoreColumnWidth: false,
+    ignoreColumnSpan: false,
 
     /**
      * fixed
