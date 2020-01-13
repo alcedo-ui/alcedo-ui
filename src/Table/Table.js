@@ -50,6 +50,7 @@ class Table extends Component {
             expandRows: props.expandRows,
             value: props.value,
             scrolling: false,
+            resizing: false,
             hoverRow: null
         };
 
@@ -164,6 +165,7 @@ class Table extends Component {
 
     /**
      * handle scroll start
+     * @param e
      */
     handleScrollStart = e => {
         this.setState({
@@ -178,6 +180,7 @@ class Table extends Component {
 
     /**
      * handle scroll end
+     * @param e
      */
     handleScrollEnd = e => {
         this.setState({
@@ -187,6 +190,34 @@ class Table extends Component {
             const {onScrollEnd, onScrollChange} = this.props;
             onScrollEnd && onScrollEnd(e);
             onScrollChange && onScrollChange(false);
+        });
+    };
+
+    /**
+     * handle resize start
+     * @param e
+     */
+    handleResizeStart = e => {
+        this.setState({
+            resizing: true
+        }, () => {
+            const {onResizeStart, onResizeChange} = this.props;
+            onResizeStart && onResizeStart(e);
+            onResizeChange && onResizeChange(true);
+        });
+    };
+
+    /**
+     * handle resize end
+     * @param e
+     */
+    handleResizeEnd = e => {
+        this.setState({
+            resizing: false
+        }, () => {
+            const {onResizeEnd, onResizeChange} = this.props;
+            onResizeEnd && onResizeEnd(e);
+            onResizeChange && onResizeChange(false);
         });
     };
 
@@ -229,7 +260,7 @@ class Table extends Component {
                 ...restProps
 
             } = this.props,
-            {isInitialing, sorting, page, pageSize, expandRows, value, scrolling, hoverRow} = this.state;
+            {isInitialing, sorting, page, pageSize, expandRows, value, scrolling, resizing, hoverRow} = this.state;
 
         return (
             <div className={classNames('table', {
@@ -251,6 +282,7 @@ class Table extends Component {
                          expandRows={expandRows}
                          value={value}
                          scrolling={scrolling}
+                         resizing={resizing}
                          hoverRow={hoverRow}
                          selectMode={selectMode}
                          isInitialing={isInitialing}
@@ -260,6 +292,8 @@ class Table extends Component {
                          onExpandChange={this.handleExpandChange}
                          onScrollStart={this.handleScrollStart}
                          onScrollEnd={this.handleScrollEnd}
+                         onResizeStart={this.handleResizeStart}
+                         onResizeEnd={this.handleResizeEnd}
                          onRowHover={this.handleRowHover}/>
 
                 {/* table footer */}
@@ -661,7 +695,10 @@ Table.propTypes = {
     onPageSizeChange: PropTypes.func,
     onScrollStart: PropTypes.func,
     onScrollEnd: PropTypes.func,
-    onScrollChange: PropTypes.func
+    onScrollChange: PropTypes.func,
+    onResizeStart: PropTypes.func,
+    onResizeEnd: PropTypes.func,
+    onResizeChange: PropTypes.func
 
 };
 
