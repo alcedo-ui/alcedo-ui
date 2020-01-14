@@ -3,16 +3,17 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+// Statics
+import TableFragment from '../_statics/TableFragment';
+import HorizontalAlign from '../_statics/HorizontalAlign';
+import Direction from '../_statics/Direction';
+
+// Vendors
 import sum from 'lodash/sum';
 import hasClass from 'dom-helpers/hasClass';
 import addClass from 'dom-helpers/addClass';
 import removeClass from 'dom-helpers/removeClass';
-
-import TableFragment from '../_statics/TableFragment';
-import HorizontalAlign from '../_statics/HorizontalAlign';
-import Direction from '../_statics/Direction';
 import ScrollBar from './ScrollBar';
-
 import Valid from './Valid';
 
 /**
@@ -22,8 +23,7 @@ import Valid from './Valid';
  * @returns {boolean}
  */
 function hasFixed(props, config) {
-    return !!((props && (props.isHeadFixed || props.isFootFixed))
-        || (config && (config.hasFixedLeftColumn || config.hasFixedRightColumn)));
+    return !!(props?.isHeadFixed || props?.isFootFixed || config?.hasFixedLeftColumn || config?.hasFixedRightColumn);
 }
 
 /**
