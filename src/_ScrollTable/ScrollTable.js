@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 // Components
 import BaseTable from '../_BaseTable';
 import ScrollableTable from '../_ScrollableTable';
+import VirtualTable from '../_VirtualTable';
 
 // Statics
 import Theme from '../Theme';
@@ -76,7 +77,9 @@ class ScrollTable extends Component {
 
             className, style, bodyScrollerStyle, maskStyle, tableStyle, footStyle,
             fixed, columns, headColumns, bodyColumns, isHeadHidden, isFootHidden, isHeadFixed, isFootFixed,
-            scrolling, scroll, hasFixedLeftColumn, hasFixedRightColumn, onScroll, onWheel,
+            data, scrolling, scroll, hasFixedLeftColumn, hasFixedRightColumn,
+            useDynamicRender, dynamicRenderIndex, tableHeight, rowHeight, scrollBuffer,
+            onScroll, onWheel,
 
             // not passing down these props
             onGetHeadScrollerEl, onGetBodyScrollerEl, onGetFootScrollerEl,
@@ -103,9 +106,14 @@ class ScrollTable extends Component {
                         <div className="scroll-table-head">
                             <ScrollableTable ref={this.headScroller}
                                              className="scroll-table-head-scroller"
+                                             fragment={TableFragment.HEAD}
                                              scroll={scroll}
                                              overflowHidden={overflowHidden}
                                              horizontalOverflowScroll={horizontalOverflowScroll}
+                                             useDynamicRender={useDynamicRender}
+                                             tableHeight={tableHeight}
+                                             rowHeight={rowHeight}
+                                             scrollBuffer={scrollBuffer}
                                              onScroll={onScroll}>
                                 {
                                     scrollEl =>
@@ -116,7 +124,12 @@ class ScrollTable extends Component {
                                                    columns={columns}
                                                    headColumns={headColumns}
                                                    bodyColumns={bodyColumns}
+                                                   data={data}
                                                    scrollEl={scrollEl}
+                                                   useDynamicRender={useDynamicRender}
+                                                   tableHeight={tableHeight}
+                                                   rowHeight={rowHeight}
+                                                   scrollBuffer={scrollBuffer}
                                                    onRequestColumnsSpan={this.handleColumnsSpan}/>
                                 }
                             </ScrollableTable>
@@ -130,6 +143,10 @@ class ScrollTable extends Component {
                                      className="scroll-table-body-scroller"
                                      style={bodyScrollerStyle}
                                      scroll={scroll}
+                                     useDynamicRender={useDynamicRender}
+                                     tableHeight={tableHeight}
+                                     rowHeight={rowHeight}
+                                     scrollBuffer={scrollBuffer}
                                      onScroll={onScroll}
                                      onWheel={onWheel}>
                         {
@@ -139,18 +156,30 @@ class ScrollTable extends Component {
                                     'mask-horizontal': hasFixedLeftColumn || hasFixedRightColumn
                                 })}
                                      style={maskStyle}>
-                                    <BaseTable {...restProps}
-                                               style={tableStyle}
-                                               fixed={fixed}
-                                               columns={columns}
-                                               headColumns={headColumns}
-                                               bodyColumns={bodyColumns}
-                                               isHeadFixed={isHeadFixed}
-                                               isFootFixed={isFootFixed}
-                                               isHeadHidden={isHeadHidden}
-                                               isFootHidden={isFootHidden}
-                                               scrollEl={scrollEl}
-                                               onRequestColumnsSpan={this.handleColumnsSpan}/>
+                                    <VirtualTable data={data}
+                                                  useDynamicRender={useDynamicRender}
+                                                  rowHeight={rowHeight}>
+                                        <BaseTable {...restProps}
+                                                   style={{
+                                                       ...tableStyle,
+                                                       transform: `translateY(${dynamicRenderIndex.startWithBuffer * rowHeight}px)`
+                                                   }}
+                                                   fixed={fixed}
+                                                   columns={columns}
+                                                   headColumns={headColumns}
+                                                   bodyColumns={bodyColumns}
+                                                   isHeadFixed={isHeadFixed}
+                                                   isFootFixed={isFootFixed}
+                                                   isHeadHidden={isHeadHidden}
+                                                   isFootHidden={isFootHidden}
+                                                   data={data}
+                                                   scrollEl={scrollEl}
+                                                   useDynamicRender={useDynamicRender}
+                                                   tableHeight={tableHeight}
+                                                   rowHeight={rowHeight}
+                                                   scrollBuffer={scrollBuffer}
+                                                   onRequestColumnsSpan={this.handleColumnsSpan}/>
+                                    </VirtualTable>
                                 </div>
                         }
                     </ScrollableTable>
@@ -162,9 +191,14 @@ class ScrollTable extends Component {
                              style={footStyle}>
                             <ScrollableTable ref={this.footScroller}
                                              className="scroll-table-foot-scroller"
+                                             fragment={TableFragment.FOOT}
                                              scroll={scroll}
                                              overflowHidden={overflowHidden}
                                              horizontalOverflowScroll={horizontalOverflowScroll}
+                                             useDynamicRender={useDynamicRender}
+                                             tableHeight={tableHeight}
+                                             rowHeight={rowHeight}
+                                             scrollBuffer={scrollBuffer}
                                              onScroll={onScroll}>
                                 {
                                     scrollEl =>
@@ -176,7 +210,12 @@ class ScrollTable extends Component {
                                                    headColumns={headColumns}
                                                    bodyColumns={bodyColumns}
                                                    ignoreColumnSpan={true}
+                                                   data={data}
                                                    scrollEl={scrollEl}
+                                                   useDynamicRender={useDynamicRender}
+                                                   tableHeight={tableHeight}
+                                                   rowHeight={rowHeight}
+                                                   scrollBuffer={scrollBuffer}
                                                    onRequestColumnsSpan={this.handleColumnsSpan}/>
                                 }
                             </ScrollableTable>
@@ -404,6 +443,7 @@ ScrollTable.propTypes = {
     bodyColumns: PropTypes.array,
 
     data: PropTypes.array,
+    dynamicRenderData: PropTypes.array,
     value: PropTypes.array,
     hoverRow: PropTypes.object,
     baseColIndex: PropTypes.number,
@@ -456,6 +496,15 @@ ScrollTable.propTypes = {
      */
     hasFixedLeftColumn: PropTypes.bool,
     hasFixedRightColumn: PropTypes.bool,
+
+    /**
+     * Dynamic Render
+     */
+    useDynamicRender: PropTypes.bool,
+    dynamicRenderIndex: PropTypes.object,
+    tableHeight: PropTypes.number,
+    rowHeight: PropTypes.number,
+    scrollBuffer: PropTypes.number,
 
     /**
      * callback
@@ -517,7 +566,15 @@ ScrollTable.defaultProps = {
      * fixed column
      */
     hasFixedLeftColumn: false,
-    hasFixedRightColumn: false
+    hasFixedRightColumn: false,
+
+    /**
+     * Dynamic Render
+     */
+    useDynamicRender: false,
+    tableHeight: 200,
+    rowHeight: 40,
+    scrollBuffer: 6
 
 };
 
