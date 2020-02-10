@@ -49,7 +49,7 @@ class BaseTable extends Component {
 
         const {
 
-            className, style, data, value, hoverRow, idProp, baseColIndex, fixed, fragment, scrollEl,
+            className, style, data, dynamicRenderData, value, hoverRow, idProp, baseColIndex, fixed, fragment, scrollEl,
             columns, headColumns, bodyColumns, selectMode, selectAllMode, expandRows,
             isMouseEventForbidden, isHeadFixed, isFootFixed, isHeadHidden, isFootHidden,
             ignoreColumnWidth, ignoreColumnSpan, hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
@@ -80,6 +80,7 @@ class BaseTable extends Component {
                         <Thead {...restProps}
                                columns={headColumns || [columns]}
                                data={data}
+                               dynamicRenderData={dynamicRenderData}
                                selectMode={selectMode}
                                selectAllMode={selectAllMode}
                                sorting={sorting}
@@ -100,6 +101,7 @@ class BaseTable extends Component {
                         <Tbody {...restProps}
                                columns={bodyColumns || columns}
                                data={data}
+                               dynamicRenderData={dynamicRenderData}
                                value={value}
                                hoverRow={hoverRow}
                                selectMode={selectMode}
@@ -128,6 +130,7 @@ class BaseTable extends Component {
                         <Tfoot {...restProps}
                                columns={bodyColumns || columns}
                                data={data}
+                               dynamicRenderData={dynamicRenderData}
                                selectMode={selectMode}
                                selectAllMode={selectAllMode}
                                ignoreColumnSpan={ignoreColumnSpan}
@@ -348,6 +351,7 @@ BaseTable.propTypes = {
     bodyColumns: PropTypes.array,
 
     data: PropTypes.array,
+    dynamicRenderData: PropTypes.array,
     value: PropTypes.array,
     hoverRow: PropTypes.object,
     idProp: PropTypes.string,
@@ -389,6 +393,14 @@ BaseTable.propTypes = {
     sortingAscIconCls: PropTypes.string,
     sortingDescIconCls: PropTypes.string,
     isClickSorting: PropTypes.bool,
+
+    /**
+     * Dynamic Render
+     */
+    useDynamicRender: PropTypes.bool,
+    tableHeight: PropTypes.number,
+    rowHeight: PropTypes.number,
+    scrollBuffer: PropTypes.number,
 
     /**
      * callback
@@ -438,7 +450,15 @@ BaseTable.defaultProps = {
     defaultSortingType: SortingType.ASC,
     sortingAscIconCls: 'fas fa-sort-up',
     sortingDescIconCls: 'fas fa-sort-down',
-    isClickSorting: true
+    isClickSorting: true,
+
+    /**
+     * Dynamic Render
+     */
+    useDynamicRender: false,
+    tableHeight: 200,
+    rowHeight: 40,
+    scrollBuffer: 6
 
 };
 
