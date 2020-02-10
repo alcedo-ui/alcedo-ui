@@ -6,6 +6,12 @@
 import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 
+// Statics
+import TableFragment from '../_statics/TableFragment';
+
+// Vendors
+import Util from '../_vendors/Util';
+
 class ScrollableTable extends Component {
 
     constructor(props, ...restArgs) {
@@ -22,14 +28,24 @@ class ScrollableTable extends Component {
 
     getStyle = () => {
 
-        const {style, scroll, overflowHidden, horizontalOverflowScroll} = this.props;
+        const {
+                style, scroll, fragment, overflowHidden, horizontalOverflowScroll,
+                useDynamicRender, tableHeight
+            } = this.props,
+            result = {
+                ...style
+            };
+
+        if ((!fragment || fragment === TableFragment.BODY) && useDynamicRender) {
+            result.height = tableHeight;
+        }
 
         if (overflowHidden) {
-            return style;
+            return result;
         }
 
         return {
-            ...style,
+            ...result,
             overflowX: horizontalOverflowScroll ? 'scroll' : scroll.width ? 'auto' : null,
             overflowY: scroll.height || scroll.maxHeight ? 'scroll' : null
         };
@@ -59,6 +75,7 @@ class ScrollableTable extends Component {
 
                 // not passing down these props
                 children: c, overflowHidden, horizontalOverflowScroll,
+                useDynamicRender, tableHeight, rowHeight, scrollBuffer,
 
                 ...restProps
 
@@ -92,14 +109,33 @@ ScrollableTable.propTypes = {
         maxHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
     }),
 
+    fragment: PropTypes.oneOf(Util.enumerateValue(TableFragment)),
     overflowHidden: PropTypes.bool,
-    horizontalOverflowScroll: PropTypes.bool
+    horizontalOverflowScroll: PropTypes.bool,
+
+    /**
+     * Dynamic Render
+     */
+    useDynamicRender: PropTypes.bool,
+    tableHeight: PropTypes.number,
+    rowHeight: PropTypes.number,
+    scrollBuffer: PropTypes.number
 
 };
 
 ScrollableTable.defaultProps = {
+
     overflowHidden: false,
-    horizontalOverflowScroll: false
+    horizontalOverflowScroll: false,
+
+    /**
+     * Dynamic Render
+     */
+    useDynamicRender: false,
+    tableHeight: 200,
+    rowHeight: 40,
+    scrollBuffer: 6
+
 };
 
 export default ScrollableTable;
