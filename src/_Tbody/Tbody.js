@@ -60,20 +60,23 @@ class Tbody extends Component {
 
         const {
 
-            className, style, columns, data, startIndex, idProp, disabled, isMouseEventForbidden, ignoreColumnSpan,
+                className, style, columns, data, dynamicRenderData,
+                startIndex, idProp, disabled, isMouseEventForbidden, ignoreColumnSpan, useDynamicRender,
 
-            // not passing down these props
-            value,
+                // not passing down these props
+                value,
 
-            ...restProps
+                ...restProps
 
-        } = this.props;
+            } = this.props,
+
+            finalData = (useDynamicRender ? dynamicRenderData : data) || [];
 
         return (
             <tbody className={className}
                    style={style}>
                 {
-                    data && data.map((row, index) => row ?
+                    finalData && finalData.map((row, index) => row ?
                         <Tr {...restProps}
                             key={idProp && idProp in row ? row[idProp] : index}
                             index={index}
@@ -289,6 +292,7 @@ Tbody.propTypes = {
     })).isRequired,
 
     data: PropTypes.array,
+    dynamicRenderData: PropTypes.array,
     value: PropTypes.array,
     hoverRow: PropTypes.object,
     startIndex: PropTypes.number,
@@ -309,6 +313,14 @@ Tbody.propTypes = {
     }),
 
     /**
+     * Dynamic Render
+     */
+    useDynamicRender: PropTypes.bool,
+    tableHeight: PropTypes.number,
+    rowHeight: PropTypes.number,
+    scrollBuffer: PropTypes.number,
+
+    /**
      * callback
      */
     onRowClick: PropTypes.func,
@@ -321,6 +333,7 @@ Tbody.propTypes = {
 };
 
 Tbody.defaultProps = {
+
     selectMode: SelectMode.SINGLE_SELECT,
     startIndex: 0,
     idProp: 'id',
@@ -328,7 +341,16 @@ Tbody.defaultProps = {
     baseColIndex: 0,
     expandRows: [],
     isMouseEventForbidden: false,
-    ignoreColumnSpan: false
+    ignoreColumnSpan: false,
+
+    /**
+     * Dynamic Render
+     */
+    useDynamicRender: false,
+    tableHeight: 200,
+    rowHeight: 40,
+    scrollBuffer: 6
+
 };
 
 export default Tbody;
