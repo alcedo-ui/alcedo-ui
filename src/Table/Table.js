@@ -50,6 +50,7 @@ class Table extends Component {
             expandRows: props.expandRows,
             value: props.value,
             scrolling: false,
+            scrollTop: 0,
             resizing: false,
             hoverRow: null
         };
@@ -260,7 +261,10 @@ class Table extends Component {
                 ...restProps
 
             } = this.props,
-            {isInitialing, sorting, page, pageSize, expandRows, value, scrolling, resizing, hoverRow} = this.state;
+            {
+                isInitialing, sorting, page, pageSize, expandRows, value,
+                scrolling, scrollTop, resizing, hoverRow
+            } = this.state;
 
         return (
             <div className={classNames('table', {
@@ -282,6 +286,7 @@ class Table extends Component {
                          expandRows={expandRows}
                          value={value}
                          scrolling={scrolling}
+                         scrollTop={scrollTop}
                          resizing={resizing}
                          hoverRow={hoverRow}
                          selectMode={selectMode}
@@ -677,6 +682,14 @@ Table.propTypes = {
     }),
 
     /**
+     * Dynamic Render
+     */
+    useDynamicRender: PropTypes.bool,
+    tableHeight: PropTypes.number,
+    rowHeight: PropTypes.number,
+    scrollBuffer: PropTypes.number,
+
+    /**
      * callback
      */
     onInit: PropTypes.func,
@@ -763,7 +776,15 @@ Table.defaultProps = {
      * fixed
      */
     isHeadFixed: false,
-    isFootFixed: false
+    isFootFixed: false,
+
+    /**
+     * Dynamic Render
+     */
+    useDynamicRender: false,
+    tableHeight: 200,
+    rowHeight: 40,
+    scrollBuffer: 6
 
 };
 
