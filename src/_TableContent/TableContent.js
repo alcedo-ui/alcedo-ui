@@ -70,6 +70,36 @@ class TableContent extends Component {
 
     }
 
+    componentDidMount() {
+
+        // get elements
+        this.wrapperEl = this.wrapper && this.wrapper.current;
+        this.rawTableEl = this.rawTable && this.rawTable.current && findDOMNode(this.rawTable.current);
+        this.fixedLeftEl = this.fixedLeft && this.fixedLeft.current && findDOMNode(this.fixedLeft.current);
+        this.fixedRightEl = this.fixedRight && this.fixedRight.current && findDOMNode(this.fixedRight.current);
+
+        // bind event
+        Event.addEvent(window, 'resize', this.handleReize);
+
+        // fixed layout at startup
+        this.debounceFixLayout();
+
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+
+        this.debounceFixLayout();
+
+        const {onDataUpdate} = this.props;
+        onDataUpdate && onDataUpdate(this.tableData);
+
+    }
+
+    componentWillUnmount() {
+        Event.removeEvent(window, 'resize', this.handleReize);
+        this.debounceFixLayout && this.debounceFixLayout.cancel();
+    }
+
     /**
      * handle one node selected
      * @param node
@@ -306,6 +336,21 @@ class TableContent extends Component {
 
         return data.slice(start, stop);
 
+    };
+
+    /**
+     * calculate final display index in list
+     * @returns
+     *  {
+     *      start,
+     *      stop,
+     *      startWithBuffer,
+     *      stopWithBuffer
+     *  }
+     */
+    getIndex = data => {
+        const {scrollTop, tableHeight, rowHeight, scrollBuffer} = this.props;
+        return Calc.displayIndexByScrollTop(data, tableHeight, rowHeight, scrollTop, scrollBuffer);
     };
 
     /**
@@ -581,42 +626,12 @@ class TableContent extends Component {
         return TC.getAdvancedColumnsSpan(columns, fixed, fragment, ...restArgs);
     };
 
-    componentDidMount() {
-
-        // get elements
-        this.wrapperEl = this.wrapper && this.wrapper.current;
-        this.rawTableEl = this.rawTable && this.rawTable.current && findDOMNode(this.rawTable.current);
-        this.fixedLeftEl = this.fixedLeft && this.fixedLeft.current && findDOMNode(this.fixedLeft.current);
-        this.fixedRightEl = this.fixedRight && this.fixedRight.current && findDOMNode(this.fixedRight.current);
-
-        // bind event
-        Event.addEvent(window, 'resize', this.handleReize);
-
-        // fixed layout at startup
-        this.debounceFixLayout();
-
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-
-        this.debounceFixLayout();
-
-        const {onDataUpdate} = this.props;
-        onDataUpdate && onDataUpdate(this.tableData);
-
-    }
-
-    componentWillUnmount() {
-        Event.removeEvent(window, 'resize', this.handleReize);
-        this.debounceFixLayout && this.debounceFixLayout.cancel();
-    }
-
     render() {
 
         const {
 
-                className, style, columns, data, scrolling, scroll, noDataText,
-                isHeadFixed, isFootFixed, isHeadHidden, isFootHidden, expandRows,
+                className, style, columns, data, scrolling, scrollTop, scroll, noDataText,
+                isHeadFixed, isFootFixed, isHeadHidden, isFootHidden, expandRows, useDynamicRender,
 
                 // not passing down these props
                 isInitialing, isSelectRecursive, selectUncheckedIconCls, selectCheckedIconCls, resizing,
@@ -648,6 +663,16 @@ class TableContent extends Component {
 
         this.tableData = this.paginateData(this.sortData(data));
 
+        if (useDynamicRender) {
+            this.dynamicRenderIndex = this.getIndex(this.tableData);
+            this.dynamicRenderData = this.tableData && this.dynamicRenderIndex ?
+                this.tableData.slice(this.dynamicRenderIndex.startWithBuffer, this.dynamicRenderIndex.stopWithBuffer + 1)
+                :
+                this.tableData;
+        }
+
+        this.finalData = useDynamicRender ? this.dynamicRenderData : this.tableData;
+
         const {horizontalScrollStyle, verticalScrollStyle} = TL.getScrollerStyle(scroll),
 
             isFinalHeadHidden = isHeadHidden || !TC.hasRenderer(this.bodyColumns, TableFragment.HEAD),
@@ -676,6 +701,7 @@ class TableContent extends Component {
                                        headColumns={this.headColumns}
                                        bodyColumns={this.bodyColumns}
                                        data={TC.getRawTableData(this.tableData)}
+                                       dynamicRenderData={this.dynamicRenderData}
                                        expandRows={expandRows}
                                        isHeadFixed={isHeadFixed}
                                        isFootFixed={isFootFixed}
@@ -684,6 +710,7 @@ class TableContent extends Component {
                                        hasHeadRenderer={hasHeadRenderer}
                                        hasBodyRenderer={hasBodyRenderer}
                                        hasFootRenderer={hasFootRenderer}
+                                       useDynamicRender={useDynamicRender}
                                        onRequestColumnsSpan={(...restArgs) => this.handleRequestColumnsSpan(null, ...restArgs)}/>
                         </ScrollableTable>
                     </div>
@@ -696,6 +723,7 @@ class TableContent extends Component {
                                  headColumns={TC.handleFixedColumnsClassName(this.headColumns)}
                                  bodyColumns={TC.handleFixedColumnsClassName(this.bodyColumns)}
                                  data={this.tableData}
+                                 dynamicRenderData={this.dynamicRenderData}
                                  expandRows={expandRows}
                                  isHeadFixed={isHeadFixed}
                                  isFootFixed={isFootFixed}
@@ -709,6 +737,8 @@ class TableContent extends Component {
                                  scrolling={scrolling}
                                  scroll={scroll}
                                  ignoreColumnWidth={true}
+                                 useDynamicRender={useDynamicRender}
+                                 dynamicRenderIndex={this.dynamicRenderIndex}
                                  onScroll={this.handleScroll}
                                  onWheel={this.handleWheel}
                                  onRequestColumnsSpan={this.handleRequestColumnsSpan}
@@ -729,6 +759,7 @@ class TableContent extends Component {
                                          headColumns={TC.getFixedHeadColumns(this.headColumns, HorizontalAlign.LEFT)}
                                          bodyColumns={TC.getFixedBodyColumns(this.bodyColumns, HorizontalAlign.LEFT)}
                                          data={this.tableData}
+                                         dynamicRenderData={this.dynamicRenderData}
                                          expandRows={expandRows}
                                          isHeadFixed={isHeadFixed}
                                          isFootFixed={isFootFixed}
@@ -742,6 +773,8 @@ class TableContent extends Component {
                                          scrolling={scrolling}
                                          scroll={scroll}
                                          ignoreColumnWidth={true}
+                                         useDynamicRender={useDynamicRender}
+                                         dynamicRenderIndex={this.dynamicRenderIndex}
                                          onScroll={this.handleScroll}
                                          onWheel={this.handleWheel}
                                          onExpandChange={this.handleExpandChange}
@@ -766,6 +799,7 @@ class TableContent extends Component {
                                          headColumns={TC.getFixedHeadColumns(this.headColumns, HorizontalAlign.RIGHT)}
                                          bodyColumns={TC.getFixedBodyColumns(this.bodyColumns, HorizontalAlign.RIGHT)}
                                          data={this.tableData}
+                                         dynamicRenderData={this.dynamicRenderData}
                                          expandRows={expandRows}
                                          isHeadFixed={isHeadFixed}
                                          isFootFixed={isFootFixed}
@@ -780,6 +814,8 @@ class TableContent extends Component {
                                          scroll={scroll}
                                          ignoreColumnWidth={true}
                                          baseColIndex={this.formatedColumns.length - this.fixedRightColumns.length}
+                                         useDynamicRender={useDynamicRender}
+                                         dynamicRenderIndex={this.dynamicRenderIndex}
                                          onScroll={this.handleScroll}
                                          onWheel={this.handleWheel}
                                          onRequestColumnsSpan={this.handleRequestColumnsSpan}
@@ -796,7 +832,7 @@ class TableContent extends Component {
                 </div>
 
                 {
-                    noDataText && (!this.tableData || this.tableData.length < 1) ?
+                    noDataText && (!this.finalData || this.finalData.length < 1) ?
                         <div className="table-no-data">
                             {noDataText}
                         </div>
@@ -1113,6 +1149,7 @@ TableContent.propTypes = {
      * scroll
      */
     scrolling: PropTypes.bool,
+    scrollTop: PropTypes.number,
     scroll: PropTypes.shape({
         width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -1123,6 +1160,14 @@ TableContent.propTypes = {
      * resize
      */
     resizing: PropTypes.bool,
+
+    /**
+     * Dynamic Render
+     */
+    useDynamicRender: PropTypes.bool,
+    tableHeight: PropTypes.number,
+    rowHeight: PropTypes.number,
+    scrollBuffer: PropTypes.number,
 
     /**
      * callback
@@ -1173,6 +1218,7 @@ TableContent.defaultProps = {
      * scroll
      */
     scrolling: false,
+    scrollTop: 0,
 
     /**
      * resize
@@ -1205,7 +1251,15 @@ TableContent.defaultProps = {
      * fixed
      */
     isHeadFixed: false,
-    isFootFixed: false
+    isFootFixed: false,
+
+    /**
+     * Dynamic Render
+     */
+    useDynamicRender: false,
+    tableHeight: 200,
+    rowHeight: 40,
+    scrollBuffer: 6
 
 };
 
