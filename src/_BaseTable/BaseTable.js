@@ -51,6 +51,7 @@ class BaseTable extends Component {
 
             className, style, data, dynamicRenderData, value, hoverRow, idProp, baseColIndex, fixed, fragment, scrollEl,
             columns, headColumns, bodyColumns, selectMode, selectAllMode, expandRows,
+            useDynamicRender, tableHeight, rowHeight, scrollBuffer,
             isMouseEventForbidden, isHeadFixed, isFootFixed, isHeadHidden, isFootHidden,
             ignoreColumnWidth, ignoreColumnSpan, hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
             sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, isClickSorting,
@@ -113,6 +114,10 @@ class BaseTable extends Component {
                                isMouseEventForbidden={isMouseEventForbidden}
                                ignoreColumnSpan={ignoreColumnSpan}
                                scrollEl={scrollEl}
+                               useDynamicRender={useDynamicRender}
+                               tableHeight={tableHeight}
+                               rowHeight={rowHeight}
+                               scrollBuffer={scrollBuffer}
                                onExpandChange={onExpandChange}
                                onRowHover={onRowHover}
                                onRequestColumnsSpan={onRequestColumnsSpan}/>
