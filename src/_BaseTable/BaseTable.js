@@ -51,7 +51,7 @@ class BaseTable extends Component {
 
             className, style, data, dynamicRenderData, value, hoverRow, idProp, baseColIndex, fixed, fragment, scrollEl,
             columns, headColumns, bodyColumns, selectMode, selectAllMode, expandRows,
-            useDynamicRender, tableHeight, rowHeight, scrollBuffer,
+            useDynamicRender, scrollHeight, rowHeight, scrollBuffer,
             isMouseEventForbidden, isHeadFixed, isFootFixed, isHeadHidden, isFootHidden,
             ignoreColumnWidth, ignoreColumnSpan, hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
             sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, isClickSorting,
@@ -115,7 +115,7 @@ class BaseTable extends Component {
                                ignoreColumnSpan={ignoreColumnSpan}
                                scrollEl={scrollEl}
                                useDynamicRender={useDynamicRender}
-                               tableHeight={tableHeight}
+                               scrollHeight={scrollHeight}
                                rowHeight={rowHeight}
                                scrollBuffer={scrollBuffer}
                                onExpandChange={onExpandChange}
@@ -403,7 +403,7 @@ BaseTable.propTypes = {
      * Dynamic Render
      */
     useDynamicRender: PropTypes.bool,
-    tableHeight: PropTypes.number,
+    scrollHeight: PropTypes.number,
     rowHeight: PropTypes.number,
     scrollBuffer: PropTypes.number,
 
@@ -461,8 +461,8 @@ BaseTable.defaultProps = {
      * Dynamic Render
      */
     useDynamicRender: false,
-    tableHeight: 200,
-    rowHeight: 40,
+    scrollHeight: 500,
+    rowHeight: 50,
     scrollBuffer: 6
 
 };
