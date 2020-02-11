@@ -44,6 +44,23 @@ class ScrollTable extends Component {
 
     }
 
+    componentDidUpdate() {
+        this.updateEl();
+    }
+
+    getBodyStyle = () => {
+
+        const {tableStyle, useDynamicRender, dynamicRenderIndex, rowHeight} = this.props;
+
+        return useDynamicRender && dynamicRenderIndex ? {
+                ...tableStyle,
+                transform: `translateY(${dynamicRenderIndex.startWithBuffer * rowHeight}px)`
+            }
+            :
+            tableStyle;
+
+    };
+
     updateEl = debounce(() => {
 
         const {
@@ -66,10 +83,6 @@ class ScrollTable extends Component {
         const {fixed, onRequestColumnsSpan} = this.props;
         return onRequestColumnsSpan && onRequestColumnsSpan(fixed, ...restArgs);
     };
-
-    componentDidUpdate() {
-        this.updateEl();
-    }
 
     render() {
 
@@ -159,10 +172,7 @@ class ScrollTable extends Component {
                                     <div className="scroll-table-body-table-wrapper"
                                          style={useDynamicRender ? {height: data?.length * rowHeight} : null}>
                                         <BaseTable {...restProps}
-                                                   style={{
-                                                       ...tableStyle,
-                                                       transform: `translateY(${dynamicRenderIndex.startWithBuffer * rowHeight}px)`
-                                                   }}
+                                                   style={this.getBodyStyle()}
                                                    fixed={fixed}
                                                    columns={columns}
                                                    headColumns={headColumns}
