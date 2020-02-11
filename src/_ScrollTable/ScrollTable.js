@@ -91,7 +91,7 @@ class ScrollTable extends Component {
             className, style, bodyScrollerStyle, maskStyle, tableStyle, footStyle,
             fixed, columns, headColumns, bodyColumns, isHeadHidden, isFootHidden, isHeadFixed, isFootFixed,
             data, scrolling, scroll, hasFixedLeftColumn, hasFixedRightColumn,
-            useDynamicRender, dynamicRenderIndex, tableHeight, rowHeight, scrollBuffer,
+            useDynamicRender, dynamicRenderIndex, scrollHeight, rowHeight, scrollBuffer,
             onScroll, onWheel,
 
             // not passing down these props
@@ -124,7 +124,7 @@ class ScrollTable extends Component {
                                              overflowHidden={overflowHidden}
                                              horizontalOverflowScroll={horizontalOverflowScroll}
                                              useDynamicRender={useDynamicRender}
-                                             tableHeight={tableHeight}
+                                             scrollHeight={scrollHeight}
                                              rowHeight={rowHeight}
                                              scrollBuffer={scrollBuffer}
                                              onScroll={onScroll}>
@@ -140,7 +140,7 @@ class ScrollTable extends Component {
                                                    data={data}
                                                    scrollEl={scrollEl}
                                                    useDynamicRender={useDynamicRender}
-                                                   tableHeight={tableHeight}
+                                                   scrollHeight={scrollHeight}
                                                    rowHeight={rowHeight}
                                                    scrollBuffer={scrollBuffer}
                                                    onRequestColumnsSpan={this.handleColumnsSpan}/>
@@ -157,7 +157,7 @@ class ScrollTable extends Component {
                                      style={bodyScrollerStyle}
                                      scroll={scroll}
                                      useDynamicRender={useDynamicRender}
-                                     tableHeight={tableHeight}
+                                     scrollHeight={scrollHeight}
                                      rowHeight={rowHeight}
                                      scrollBuffer={scrollBuffer}
                                      onScroll={onScroll}
@@ -185,7 +185,7 @@ class ScrollTable extends Component {
                                                    data={data}
                                                    scrollEl={scrollEl}
                                                    useDynamicRender={useDynamicRender}
-                                                   tableHeight={tableHeight}
+                                                   scrollHeight={scrollHeight}
                                                    rowHeight={rowHeight}
                                                    scrollBuffer={scrollBuffer}
                                                    onRequestColumnsSpan={this.handleColumnsSpan}/>
@@ -206,7 +206,7 @@ class ScrollTable extends Component {
                                              overflowHidden={overflowHidden}
                                              horizontalOverflowScroll={horizontalOverflowScroll}
                                              useDynamicRender={useDynamicRender}
-                                             tableHeight={tableHeight}
+                                             scrollHeight={scrollHeight}
                                              rowHeight={rowHeight}
                                              scrollBuffer={scrollBuffer}
                                              onScroll={onScroll}>
@@ -223,7 +223,7 @@ class ScrollTable extends Component {
                                                    data={data}
                                                    scrollEl={scrollEl}
                                                    useDynamicRender={useDynamicRender}
-                                                   tableHeight={tableHeight}
+                                                   scrollHeight={scrollHeight}
                                                    rowHeight={rowHeight}
                                                    scrollBuffer={scrollBuffer}
                                                    onRequestColumnsSpan={this.handleColumnsSpan}/>
@@ -512,7 +512,7 @@ ScrollTable.propTypes = {
      */
     useDynamicRender: PropTypes.bool,
     dynamicRenderIndex: PropTypes.object,
-    tableHeight: PropTypes.number,
+    scrollHeight: PropTypes.number,
     rowHeight: PropTypes.number,
     scrollBuffer: PropTypes.number,
 
@@ -582,8 +582,8 @@ ScrollTable.defaultProps = {
      * Dynamic Render
      */
     useDynamicRender: false,
-    tableHeight: 200,
-    rowHeight: 40,
+    scrollHeight: 500,
+    rowHeight: 50,
     scrollBuffer: 6
 
 };
