@@ -696,7 +696,7 @@ Table.propTypes = {
      * Dynamic Render
      */
     useDynamicRender: PropTypes.bool,
-    tableHeight: PropTypes.number,
+    scrollHeight: PropTypes.number,
     rowHeight: PropTypes.number,
     scrollBuffer: PropTypes.number,
 
@@ -793,8 +793,8 @@ Table.defaultProps = {
      * Dynamic Render
      */
     useDynamicRender: false,
-    tableHeight: 200,
-    rowHeight: 40,
+    scrollHeight: 500,
+    rowHeight: 50,
     scrollBuffer: 6
 
 };
