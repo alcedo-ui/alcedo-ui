@@ -29,6 +29,20 @@ class Tbody extends Component {
         super(props, ...restArgs);
     }
 
+    getStyle = row => {
+
+        const {useDynamicRender, rowHeight} = this.props;
+
+        return useDynamicRender ?
+            {
+                ...row?.rowStyle,
+                height: rowHeight
+            }
+            :
+            row?.rowStyle;
+
+    };
+
     isItemChecked = rowData => {
 
         const {selectMode, idProp, value} = this.props;
@@ -78,6 +92,7 @@ class Tbody extends Component {
                 {
                     finalData && finalData.map((row, index) => row ?
                         <Tr {...restProps}
+                            style={this.getStyle(row)}
                             key={idProp && idProp in row ? row[idProp] : index}
                             index={index}
                             rowIndex={startIndex + index}
