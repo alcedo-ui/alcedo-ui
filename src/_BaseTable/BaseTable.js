@@ -52,7 +52,7 @@ class BaseTable extends Component {
             className, style, data, dynamicRenderData, value, hoverRow, idProp, baseColIndex, fixed, fragment, scrollEl,
             columns, headColumns, bodyColumns, selectMode, selectAllMode, expandRows,
             useDynamicRender, scrollHeight, rowHeight, scrollBuffer,
-            isMouseEventForbidden, isHeadFixed, isFootFixed, isHeadHidden, isFootHidden,
+            isMouseEventForbidden, isHeadFixed, isFootFixed, isHeadHidden, isBodyHidden, isFootHidden,
             ignoreColumnWidth, ignoreColumnSpan, hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
             sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, isClickSorting,
             onRowHover, onSortChange, onExpandChange, onRequestColumnsSpan,
@@ -73,11 +73,7 @@ class BaseTable extends Component {
                           ignoreColumnSpan={ignoreColumnSpan}/>
 
                 {
-                    !isHeadHidden && hasHeadRenderer && (
-                        fragment === TableFragment.HEAD
-                        || (!fixed && !fragment)
-                        || (!fragment && fixed && !isHeadFixed)
-                    ) ?
+                    !isHeadHidden && hasHeadRenderer ?
                         <Thead {...restProps}
                                columns={headColumns || [columns]}
                                data={data}
@@ -98,7 +94,7 @@ class BaseTable extends Component {
                 }
 
                 {
-                    (!fragment || fragment === TableFragment.BODY) && hasBodyRenderer ?
+                    !isBodyHidden && hasBodyRenderer ?
                         <Tbody {...restProps}
                                columns={bodyColumns || columns}
                                data={data}
@@ -127,11 +123,7 @@ class BaseTable extends Component {
 
                 {/** render foot if a footRenderer exists in columns */}
                 {
-                    !isFootHidden && hasFootRenderer && (
-                        fragment === TableFragment.FOOT
-                        || (!fixed && !fragment)
-                        || (!fragment && fixed && !isFootFixed)
-                    ) ?
+                    !isFootHidden && hasFootRenderer ?
                         <Tfoot {...restProps}
                                columns={bodyColumns || columns}
                                data={data}
@@ -378,6 +370,7 @@ BaseTable.propTypes = {
      * hidden
      */
     isHeadHidden: PropTypes.bool,
+    isBodyHidden: PropTypes.bool,
     isFootHidden: PropTypes.bool,
 
     /**
@@ -440,6 +433,7 @@ BaseTable.defaultProps = {
      * hidden
      */
     isHeadHidden: false,
+    isBodyHidden: false,
     isFootHidden: false,
 
     /**
