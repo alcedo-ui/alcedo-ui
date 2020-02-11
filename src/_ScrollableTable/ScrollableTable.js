@@ -77,7 +77,7 @@ class ScrollableTable extends Component {
             } = this.props,
             children = this.getChildren();
 
-        return style ?
+        return style || scroll ?
             <div {...restProps}
                  ref={this.wrapper}
                  style={this.getStyle()}>
