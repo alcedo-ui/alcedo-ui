@@ -98,8 +98,9 @@ function maskCenterBody(wrapperEl, rawTableEl, fixedHeadHeight, fixedFootHeight)
 
     if (rawTableEl && maskEl && tableWrapperEl && tableEl) {
 
-        maskEl.style.height = `${Valid.range(tableWrapperEl.offsetHeight - fixedHeadHeight - fixedFootHeight - 1, 0)}px`;
-        tableEl.style.marginTop = `${-fixedHeadHeight - 1}px`;
+        // maskEl.style.height = `${Valid.range(tableWrapperEl.offsetHeight - fixedHeadHeight - fixedFootHeight - 1, 0)}px`;
+        // tableEl.style.marginTop = `${-fixedHeadHeight - 1}px`;
+        tableEl.style.marginTop = '-1px';
 
         if (maskEl.offsetWidth !== rawTableEl.offsetWidth) {
             maskEl.style.width = `${rawTableEl.offsetWidth}px`;
