@@ -156,9 +156,8 @@ class ScrollTable extends Component {
                                     'mask-horizontal': hasFixedLeftColumn || hasFixedRightColumn
                                 })}
                                      style={maskStyle}>
-                                    <VirtualTable data={data}
-                                                  useDynamicRender={useDynamicRender}
-                                                  rowHeight={rowHeight}>
+                                    <div className="scroll-table-body-table-wrapper"
+                                         style={useDynamicRender ? {height: data?.length * rowHeight} : null}>
                                         <BaseTable {...restProps}
                                                    style={{
                                                        ...tableStyle,
@@ -179,7 +178,7 @@ class ScrollTable extends Component {
                                                    rowHeight={rowHeight}
                                                    scrollBuffer={scrollBuffer}
                                                    onRequestColumnsSpan={this.handleColumnsSpan}/>
-                                    </VirtualTable>
+                                    </div>
                                 </div>
                         }
                     </ScrollableTable>
