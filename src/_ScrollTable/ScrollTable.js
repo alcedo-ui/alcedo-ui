@@ -9,7 +9,6 @@ import PropTypes from 'prop-types';
 // Components
 import BaseTable from '../_BaseTable';
 import ScrollableTable from '../_ScrollableTable';
-import VirtualTable from '../_VirtualTable';
 
 // Statics
 import Theme from '../Theme';
@@ -143,6 +142,8 @@ class ScrollTable extends Component {
                                                    scrollHeight={scrollHeight}
                                                    rowHeight={rowHeight}
                                                    scrollBuffer={scrollBuffer}
+                                                   isBodyHidden={true}
+                                                   isFootHidden={true}
                                                    onRequestColumnsSpan={this.handleColumnsSpan}/>
                                 }
                             </ScrollableTable>
@@ -180,8 +181,8 @@ class ScrollTable extends Component {
                                                    bodyColumns={bodyColumns}
                                                    isHeadFixed={isHeadFixed}
                                                    isFootFixed={isFootFixed}
-                                                   isHeadHidden={isHeadHidden}
-                                                   isFootHidden={isFootHidden}
+                                                   isHeadHidden={isHeadHidden || isHeadFixed}
+                                                   isFootHidden={isFootHidden || isFootFixed}
                                                    data={data}
                                                    scrollEl={scrollEl}
                                                    useDynamicRender={useDynamicRender}
@@ -226,6 +227,8 @@ class ScrollTable extends Component {
                                                    scrollHeight={scrollHeight}
                                                    rowHeight={rowHeight}
                                                    scrollBuffer={scrollBuffer}
+                                                   isHeadHidden={true}
+                                                   isBodyHidden={true}
                                                    onRequestColumnsSpan={this.handleColumnsSpan}/>
                                 }
                             </ScrollableTable>
