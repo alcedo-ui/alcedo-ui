@@ -424,9 +424,9 @@ class TableContent extends Component {
         this[`${fixed}${startCase(fragment)}Scroller`] = el;
     };
 
-    handleScrollTopChange = e => {
+    handleScrollTopChange = scrollTop => {
         const {onScrollTopChange} = this.props;
-        onScrollTopChange && onScrollTopChange(e.target.scrollTop);
+        onScrollTopChange && onScrollTopChange(scrollTop);
     };
 
     handleDebounceScrollChange = debounce(e => {
@@ -451,7 +451,6 @@ class TableContent extends Component {
             return;
         }
 
-        this.handleScrollTopChange(e);
         this.handleDebounceScrollChange(e);
 
         const {isHeadFixed, isFootFixed} = this.props,
@@ -523,6 +522,7 @@ class TableContent extends Component {
                     if (this.rightBodyScroller) {
                         this.rightBodyScroller.scrollTop = scrollTop;
                     }
+                    this.handleScrollTopChange(scrollTop);
                     break;
                 }
                 case this.leftBodyScroller: {
@@ -532,6 +532,7 @@ class TableContent extends Component {
                     if (this.rightBodyScroller) {
                         this.rightBodyScroller.scrollTop = scrollTop;
                     }
+                    this.handleScrollTopChange(scrollTop);
                     break;
                 }
                 case this.rightBodyScroller: {
@@ -541,6 +542,7 @@ class TableContent extends Component {
                     if (this.centerBodyScroller) {
                         this.centerBodyScroller.scrollTop = scrollTop;
                     }
+                    this.handleScrollTopChange(scrollTop);
                     break;
                 }
             }
