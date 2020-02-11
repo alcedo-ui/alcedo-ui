@@ -86,14 +86,14 @@ class TableContent extends Component {
 
     }
 
-    shouldComponentUpdate(nextProps, nextState, nextContext) {
-
-        const {scrollTop: s, ...current} = this.props,
-            {scrollTop, ...next} = nextProps;
-
-        return Object.keys(next).some(key => current[key] != next[key]);
-
-    }
+    // shouldComponentUpdate(nextProps, nextState, nextContext) {
+    //
+    //     const {scrollTop: st, scrolling: s, ...current} = this.props,
+    //         {scrollTop, scrolling, ...next} = nextProps;
+    //
+    //     return Object.keys(next).some(key => current[key] != next[key]);
+    //
+    // }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
 
@@ -358,8 +358,8 @@ class TableContent extends Component {
      *  }
      */
     getIndex = data => {
-        const {scrollTop, tableHeight, rowHeight, scrollBuffer} = this.props;
-        return Calc.displayIndexByScrollTop(data, tableHeight, rowHeight, scrollTop, scrollBuffer);
+        const {scrollTop, scrollHeight, rowHeight, scrollBuffer} = this.props;
+        return Calc.displayIndexByScrollTop(data, scrollHeight, rowHeight, scrollTop, scrollBuffer);
     };
 
     /**
@@ -1180,7 +1180,7 @@ TableContent.propTypes = {
      * Dynamic Render
      */
     useDynamicRender: PropTypes.bool,
-    tableHeight: PropTypes.number,
+    scrollHeight: PropTypes.number,
     rowHeight: PropTypes.number,
     scrollBuffer: PropTypes.number,
 
@@ -1273,8 +1273,8 @@ TableContent.defaultProps = {
      * Dynamic Render
      */
     useDynamicRender: false,
-    tableHeight: 200,
-    rowHeight: 40,
+    scrollHeight: 500,
+    rowHeight: 50,
     scrollBuffer: 6
 
 };
