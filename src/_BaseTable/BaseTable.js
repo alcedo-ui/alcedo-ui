@@ -98,7 +98,7 @@ class BaseTable extends Component {
                 }
 
                 {
-                    !fragment && hasBodyRenderer ?
+                    (!fragment || fragment === TableFragment.BODY) && hasBodyRenderer ?
                         <Tbody {...restProps}
                                columns={bodyColumns || columns}
                                data={data}
