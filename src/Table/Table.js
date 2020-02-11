@@ -165,6 +165,16 @@ class Table extends Component {
     };
 
     /**
+     * handle scroll top change
+     * @param scrollTop
+     */
+    handleScrollTopChange = scrollTop => {
+        this.setState({
+            scrollTop
+        });
+    };
+
+    /**
      * handle scroll start
      * @param e
      */
@@ -295,6 +305,7 @@ class Table extends Component {
                          onChange={this.handleChange}
                          onSortChange={this.handleSortChange}
                          onExpandChange={this.handleExpandChange}
+                         onScrollTopChange={this.handleScrollTopChange}
                          onScrollStart={this.handleScrollStart}
                          onScrollEnd={this.handleScrollEnd}
                          onResizeStart={this.handleResizeStart}
