@@ -76,7 +76,7 @@ class Tr extends Component {
 
         const {
 
-                className, columns, rowIndex, data, parentData, tableData,
+                className, style, columns, rowIndex, data, parentData, tableData,
                 isChecked, disabled, baseColIndex, ignoreColumnSpan, depth, index, path,
 
                 ...respProps
@@ -96,7 +96,7 @@ class Tr extends Component {
                     [data.rowClassName]: data.rowClassName,
                     [className]: className
                 })}
-                    style={data.rowStyle}
+                    style={style}
                     disabled={disabled}
                     onMouseEnter={this.handleMouseEnter}
                     onMouseLeave={this.handleMouseLeave}
@@ -162,6 +162,7 @@ class Tr extends Component {
 Tr.propTypes = {
 
     className: PropTypes.string,
+    style: PropTypes.object,
 
     hoverRow: PropTypes.object,
     rowIndex: PropTypes.number,
