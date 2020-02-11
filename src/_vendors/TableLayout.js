@@ -14,7 +14,7 @@ import hasClass from 'dom-helpers/hasClass';
 import addClass from 'dom-helpers/addClass';
 import removeClass from 'dom-helpers/removeClass';
 import ScrollBar from './ScrollBar';
-import Valid from './Valid';
+// import Valid from './Valid';
 
 /**
  * whether a table has a fixed head or a fixed foot or fixed left columns or fixed right columns
@@ -616,18 +616,14 @@ function updateHorizontalScrollClassNames(wrapperEl, scrollerEl) {
  * @param scroll
  * @returns {{verticalScrollStyle: null, horizontalScrollStyle: null}}
  */
-function getScrollerStyle(scroll) {
+function getScrollerStyle(scroll, props) {
 
     const result = {
         horizontalScrollStyle: null,
         verticalScrollStyle: null
     };
 
-    if (!scroll) {
-        return result;
-    }
-
-    if ('width' in scroll) {
+    if (scroll && 'width' in scroll) {
 
         if (!result.horizontalScrollStyle) {
             result.horizontalScrollStyle = {};
@@ -637,7 +633,7 @@ function getScrollerStyle(scroll) {
 
     }
 
-    if ('height' in scroll) {
+    if (scroll && 'height' in scroll) {
 
         if (!result.verticalScrollStyle) {
             result.verticalScrollStyle = {};
@@ -647,7 +643,17 @@ function getScrollerStyle(scroll) {
 
     }
 
-    if ('maxHeight' in scroll) {
+    if (props?.useDynamicRender && props?.scrollHeight) {
+
+        if (!result.verticalScrollStyle) {
+            result.verticalScrollStyle = {};
+        }
+
+        result.verticalScrollStyle.height = props.scrollHeight;
+
+    }
+
+    if (scroll && 'maxHeight' in scroll) {
 
         if (!result.verticalScrollStyle) {
             result.verticalScrollStyle = {};
