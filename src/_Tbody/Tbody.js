@@ -36,7 +36,9 @@ class Tbody extends Component {
         return useDynamicRender ?
             {
                 ...row?.rowStyle,
-                height: rowHeight
+                height: rowHeight - 1,
+                paddingTop: 0,
+                paddingBottom: 0
             }
             :
             row?.rowStyle;
@@ -92,7 +94,7 @@ class Tbody extends Component {
                 {
                     finalData && finalData.map((row, index) => row ?
                         <Tr {...restProps}
-                            style={this.getStyle(row)}
+                            style={row?.rowStyle || null}
                             key={idProp && idProp in row ? row[idProp] : index}
                             index={index}
                             rowIndex={startIndex + index}
@@ -103,6 +105,7 @@ class Tbody extends Component {
                             disabled={disabled || row.disabled}
                             isMouseEventForbidden={isMouseEventForbidden}
                             ignoreColumnSpan={ignoreColumnSpan}
+                            useDynamicRender={useDynamicRender}
                             onMouseEnter={this.handleTrMouseEnter}
                             onMouseLeave={this.handleTrMouseLeave}/>
                         :
@@ -331,7 +334,7 @@ Tbody.propTypes = {
      * Dynamic Render
      */
     useDynamicRender: PropTypes.bool,
-    tableHeight: PropTypes.number,
+    scrollHeight: PropTypes.number,
     rowHeight: PropTypes.number,
     scrollBuffer: PropTypes.number,
 
@@ -362,8 +365,8 @@ Tbody.defaultProps = {
      * Dynamic Render
      */
     useDynamicRender: false,
-    tableHeight: 200,
-    rowHeight: 40,
+    scrollHeight: 500,
+    rowHeight: 50,
     scrollBuffer: 6
 
 };
