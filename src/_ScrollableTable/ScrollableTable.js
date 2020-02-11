@@ -30,14 +30,14 @@ class ScrollableTable extends Component {
 
         const {
                 style, scroll, fragment, overflowHidden, horizontalOverflowScroll,
-                useDynamicRender, tableHeight
+                useDynamicRender, scrollHeight
             } = this.props,
             result = {
                 ...style
             };
 
         if ((!fragment || fragment === TableFragment.BODY) && useDynamicRender) {
-            result.height = tableHeight;
+            result.height = scrollHeight;
         }
 
         if (overflowHidden) {
@@ -75,7 +75,7 @@ class ScrollableTable extends Component {
 
                 // not passing down these props
                 children: c, overflowHidden, horizontalOverflowScroll,
-                useDynamicRender, tableHeight, rowHeight, scrollBuffer,
+                useDynamicRender, scrollHeight, rowHeight, scrollBuffer,
 
                 ...restProps
 
@@ -117,7 +117,7 @@ ScrollableTable.propTypes = {
      * Dynamic Render
      */
     useDynamicRender: PropTypes.bool,
-    tableHeight: PropTypes.number,
+    scrollHeight: PropTypes.number,
     rowHeight: PropTypes.number,
     scrollBuffer: PropTypes.number
 
@@ -132,8 +132,8 @@ ScrollableTable.defaultProps = {
      * Dynamic Render
      */
     useDynamicRender: false,
-    tableHeight: 200,
-    rowHeight: 40,
+    scrollHeight: 500,
+    rowHeight: 50,
     scrollBuffer: 6
 
 };
