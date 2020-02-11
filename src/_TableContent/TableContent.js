@@ -86,6 +86,15 @@ class TableContent extends Component {
 
     }
 
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+
+        const {scrollTop: s, ...current} = this.props,
+            {scrollTop, ...next} = nextProps;
+
+        return Object.keys(next).some(key => current[key] != next[key]);
+
+    }
+
     componentDidUpdate(prevProps, prevState, snapshot) {
 
         this.debounceFixLayout();
