@@ -489,7 +489,8 @@ class TableExamples extends Component {
                                 <Table ref={this.tableRef}
                                        className="example-table"
                                        data={filteredLoadingData}
-                                       columns={this.getFixedColumns()}
+                                       // columns={this.getFixedColumns()}
+                                       columns={this.columns}
                                        sorting={sorting}
                                        selectMode={Table.SelectMode.MULTI_SELECT}
                                        isHeadFixed={true}
