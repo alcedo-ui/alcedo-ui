@@ -32,6 +32,22 @@ class Tr extends Component {
         super(props, ...restArgs);
     }
 
+    getTdStyle = style => {
+
+        const {useDynamicRender, rowHeight} = this.props;
+
+        return useDynamicRender ?
+            {
+                ...style,
+                height: rowHeight,
+                paddingTop: 0,
+                paddingBottom: 0
+            }
+            :
+            style;
+
+    };
+
     isCollapsed = () => {
 
         const {idProp, data, expandRows} = this.props;
@@ -78,6 +94,7 @@ class Tr extends Component {
 
                 className, style, columns, rowIndex, data, parentData, tableData,
                 isChecked, disabled, baseColIndex, ignoreColumnSpan, depth, index, path,
+                useDynamicRender, rowHeight,
 
                 ...respProps
 
@@ -106,7 +123,7 @@ class Tr extends Component {
                             <Td {...respProps}
                                 key={colIndex}
                                 className={column.bodyClassName}
-                                style={column.bodyStyle}
+                                style={this.getTdStyle(column.bodyStyle)}
                                 rowIndex={rowIndex}
                                 colIndex={baseColIndex + colIndex}
                                 data={data}
@@ -367,6 +384,12 @@ Tr.propTypes = {
     }),
 
     /**
+     * Dynamic Render
+     */
+    useDynamicRender: PropTypes.bool,
+    rowHeight: PropTypes.number,
+
+    /**
      * callback
      */
     onRowClick: PropTypes.func,
@@ -379,6 +402,7 @@ Tr.propTypes = {
 };
 
 Tr.defaultProps = {
+
     rowIndex: 0,
     isChecked: false,
     disabled: false,
@@ -387,7 +411,14 @@ Tr.defaultProps = {
     depth: 0,
     idProp: 'id',
     isMouseEventForbidden: false,
-    ignoreColumnSpan: false
+    ignoreColumnSpan: false,
+
+    /**
+     * Dynamic Render
+     */
+    useDynamicRender: false,
+    rowHeight: 50
+
 };
 
 export default Tr;
