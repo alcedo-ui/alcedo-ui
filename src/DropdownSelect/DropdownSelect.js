@@ -848,7 +848,7 @@ DropdownSelect.defaultProps = {
 
     listHeight: 200,
     itemHeight: 40,
-    scrollBuffer: 6
+    scrollBuffer: 8
 
 };
 

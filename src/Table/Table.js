@@ -795,7 +795,7 @@ Table.defaultProps = {
     useDynamicRender: false,
     scrollHeight: 500,
     rowHeight: 50,
-    scrollBuffer: 6
+    scrollBuffer: 8
 
 };
 
