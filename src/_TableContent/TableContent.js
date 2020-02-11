@@ -690,7 +690,7 @@ class TableContent extends Component {
 
         this.finalData = useDynamicRender ? this.dynamicRenderData : this.tableData;
 
-        const {horizontalScrollStyle, verticalScrollStyle} = TL.getScrollerStyle(scroll),
+        const {horizontalScrollStyle, verticalScrollStyle} = TL.getScrollerStyle(scroll, this.props),
 
             isFinalHeadHidden = isHeadHidden || !TC.hasRenderer(this.bodyColumns, TableFragment.HEAD),
             isFinalFootHidden = isFootHidden || !TC.hasRenderer(this.bodyColumns, TableFragment.FOOT),
