@@ -174,6 +174,7 @@ class ScrollTable extends Component {
                                         <BaseTable {...restProps}
                                                    style={this.getBodyStyle()}
                                                    fixed={fixed}
+                                                   fragment={TableFragment.BODY}
                                                    columns={columns}
                                                    headColumns={headColumns}
                                                    bodyColumns={bodyColumns}
