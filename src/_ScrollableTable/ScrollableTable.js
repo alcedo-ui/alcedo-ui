@@ -28,27 +28,22 @@ class ScrollableTable extends Component {
 
     getStyle = () => {
 
-        const {
-                style, scroll, fragment, overflowHidden, horizontalOverflowScroll,
-                useDynamicRender, scrollHeight
-            } = this.props,
-            result = {
-                ...style
-            };
-
-        if ((!fragment || fragment === TableFragment.BODY) && useDynamicRender) {
-            result.height = scrollHeight;
-        }
+        const {style, scroll, overflowHidden, horizontalOverflowScroll} = this.props;
 
         if (overflowHidden) {
-            return result;
+            return style;
         }
 
-        return {
-            ...result,
-            overflowX: horizontalOverflowScroll ? 'scroll' : scroll.width ? 'auto' : null,
-            overflowY: scroll.height || scroll.maxHeight ? 'scroll' : null
+        const result = {
+            ...style
         };
+
+        if (scroll) {
+            result.overflowX = horizontalOverflowScroll ? 'scroll' : scroll.width ? 'auto' : null;
+            result.overflowY = scroll.height || scroll.maxHeight ? 'scroll' : null;
+        }
+
+        return result;
 
     };
 
@@ -82,7 +77,7 @@ class ScrollableTable extends Component {
             } = this.props,
             children = this.getChildren();
 
-        return scroll ?
+        return style ?
             <div {...restProps}
                  ref={this.wrapper}
                  style={this.getStyle()}>
