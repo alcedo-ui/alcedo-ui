@@ -4,6 +4,7 @@
  */
 
 .table table > tbody > tr > td {
+    box-sizing: border-box;
     text-align: left;
     padding: 8px;
     background: $theme-field-bg;
