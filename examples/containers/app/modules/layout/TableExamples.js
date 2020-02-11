@@ -494,10 +494,7 @@ class TableExamples extends Component {
                                        selectMode={Table.SelectMode.MULTI_SELECT}
                                        isHeadFixed={true}
                                        isFootFixed={true}
-                                       scroll={{
-                                           width: 1200,
-                                           height: filteredLoadingData && filteredLoadingData.length > 0 ? 320 : 0
-                                       }}
+                                       scroll={{width: 1200}}
                                        isPaginated={false}
                                        useDynamicRender={true}
                                        onSortChange={this.handleSortChange}
