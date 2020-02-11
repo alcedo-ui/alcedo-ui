@@ -415,7 +415,12 @@ class TableContent extends Component {
         this[`${fixed}${startCase(fragment)}Scroller`] = el;
     };
 
-    handleScrollChange = debounce(e => {
+    handleScrollTopChange = e => {
+        const {onScrollTopChange} = this.props;
+        onScrollTopChange && onScrollTopChange(e.target.scrollTop);
+    };
+
+    handleDebounceScrollChange = debounce(e => {
 
         const {scrolling, onScrollStart, onScrollEnd} = this.props;
 
@@ -437,7 +442,8 @@ class TableContent extends Component {
             return;
         }
 
-        this.handleScrollChange(e);
+        this.handleScrollTopChange(e);
+        this.handleDebounceScrollChange(e);
 
         const {isHeadFixed, isFootFixed} = this.props,
             target = e.target,
@@ -493,7 +499,7 @@ class TableContent extends Component {
             return;
         }
 
-        this.handleScrollChange(e);
+        this.handleDebounceScrollChange(e);
 
         const target = e.target,
             scrollTop = target.scrollTop;
@@ -556,7 +562,7 @@ class TableContent extends Component {
 
         e.preventDefault(e);
 
-        this.handleScrollChange();
+        this.handleDebounceScrollChange();
 
         const wd = e.deltaY,
             target = e.target;
@@ -638,7 +644,7 @@ class TableContent extends Component {
                 selectIndeterminateIconCls, selectColumn, expandIconCls, autoSorting, isPaginated, page, pageSize,
                 sortingFunc, onInit, onChange, onExpand, onCollapse, onExpandChange, onDataUpdate,
                 onSelect, onSelectAll, onDeselect, onDeselectAll,
-                onScrollStart, onScrollEnd, onResizeStart, onResizeEnd,
+                onScrollTopChange, onScrollStart, onScrollEnd, onResizeStart, onResizeEnd,
 
                 ...restProps
 
@@ -1182,6 +1188,7 @@ TableContent.propTypes = {
     onCollapse: PropTypes.func,
     onExpandChange: PropTypes.func,
     onSortChange: PropTypes.func,
+    onScrollTopChange: PropTypes.func,
     onScrollStart: PropTypes.func,
     onScrollEnd: PropTypes.func,
     onResizeStart: PropTypes.func,
