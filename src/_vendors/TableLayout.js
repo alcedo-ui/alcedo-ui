@@ -92,12 +92,13 @@ function getbodyScollerHeight(headHeight, footHeight) {
  */
 function maskCenterBody(wrapperEl, rawTableEl, fixedHeadHeight, fixedFootHeight) {
 
-    const tableEl = wrapperEl.querySelector('.table-content-center .scroll-table-body table'),
-        maskEl = wrapperEl.querySelector('.table-content-center .scroll-table-body-mask');
+    const maskEl = wrapperEl.querySelector('.table-content-center .scroll-table-body-mask'),
+        tableWrapperEl = wrapperEl.querySelector('.table-content-center .scroll-table-body .scroll-table-body-table-wrapper'),
+        tableEl = wrapperEl.querySelector('.table-content-center .scroll-table-body table');
 
-    if (rawTableEl && tableEl && maskEl) {
+    if (rawTableEl && maskEl && tableWrapperEl && tableEl) {
 
-        maskEl.style.height = `${Valid.range(tableEl.offsetHeight - fixedHeadHeight - fixedFootHeight - 1, 0)}px`;
+        maskEl.style.height = `${Valid.range(tableWrapperEl.offsetHeight - fixedHeadHeight - fixedFootHeight - 1, 0)}px`;
         tableEl.style.marginTop = `${-fixedHeadHeight - 1}px`;
 
         if (maskEl.offsetWidth !== rawTableEl.offsetWidth) {
