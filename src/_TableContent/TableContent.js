@@ -369,7 +369,7 @@ class TableContent extends Component {
 
         if (this.wrapperEl) {
 
-            TL.fixLayout(this.wrapperEl, this.rawTableEl, this.props);
+            TL.fixLayout(this.wrapperEl, this.rawTableEl, this.props, this);
 
             if (TL.hasFixed(this.props, this)) {
                 setTimeout(() => {
