@@ -14,6 +14,7 @@ import hasClass from 'dom-helpers/hasClass';
 import addClass from 'dom-helpers/addClass';
 import removeClass from 'dom-helpers/removeClass';
 import ScrollBar from './ScrollBar';
+
 // import Valid from './Valid';
 
 /**
@@ -129,6 +130,42 @@ function fixCenterTableWidth(wrapperEl) {
     const centerFoot = wrapperEl.querySelector('.table-content-center .scroll-table-foot-scroller table');
     if (centerFoot) {
         centerFoot.style.width = `${centerBody.offsetWidth}px`;
+    }
+
+}
+
+/**
+ * fix fixed table width
+ * @param wrapperEl
+ * @param columnsWidth
+ * @param fixed
+ * @param props
+ * @param others
+ */
+function fixFixedTableWidth(wrapperEl, columnsWidth, fixed, props, others) {
+
+    const fixedEl = wrapperEl.querySelector(`.table-content-${fixed}`);
+
+    if (!fixedEl || !columnsWidth || columnsWidth?.length < 1
+        || !others?.formatedColumns || others?.formatedColumns?.length < 1) {
+        return;
+    }
+
+    const len = others.formatedColumns.filter(column => column?.fixed === fixed).length;
+
+    const headTableEl = fixedEl.querySelector(`.scroll-table-${TableFragment.HEAD} table`);
+    if (headTableEl) {
+        headTableEl.style.width = `${sum(columnsWidth[TableFragment.BODY].slice(0, len)) + 1}px`;
+    }
+
+    const bodyTableEl = fixedEl.querySelector(`.scroll-table-${TableFragment.BODY} table`);
+    if (bodyTableEl) {
+        bodyTableEl.style.width = `${sum(columnsWidth[TableFragment.BODY].slice(0, len)) + 1}px`;
+    }
+
+    const footTableEl = fixedEl.querySelector(`.scroll-table-${TableFragment.FOOT} table`);
+    if (footTableEl) {
+        footTableEl.style.width = `${sum(columnsWidth[TableFragment.FOOT].slice(0, len)) + 1}px`;
     }
 
 }
@@ -472,7 +509,7 @@ function fixRawTableWidth(wrapperEl, rawTableEl) {
  * @param rawTableEl
  * @param props
  */
-function fixLayout(wrapperEl, rawTableEl, props) {
+function fixLayout(wrapperEl, rawTableEl, props, others) {
 
     if (!wrapperEl || !rawTableEl) {
         return;
@@ -507,12 +544,14 @@ function fixLayout(wrapperEl, rawTableEl, props) {
     /**
      * left
      */
+    fixFixedTableWidth(wrapperEl, columnsWidth, HorizontalAlign.LEFT, props, others);
     fixTableColumnsWidth(wrapperEl, columnsWidth, HorizontalAlign.LEFT, props);
     fixTableRowsHeight(wrapperEl, rowsHeight, HorizontalAlign.LEFT, props);
 
     /**
      * right
      */
+    fixFixedTableWidth(wrapperEl, columnsWidth, HorizontalAlign.RIGHT, props, others);
     fixTableColumnsWidth(wrapperEl, columnsWidth, HorizontalAlign.RIGHT, props);
     fixTableRowsHeight(wrapperEl, rowsHeight, HorizontalAlign.RIGHT, props);
 
