@@ -651,7 +651,7 @@ class TableContent extends Component {
                 isHeadFixed, isFootFixed, isHeadHidden, isFootHidden, expandRows, useDynamicRender,
 
                 // not passing down these props
-                isInitialing, isSelectRecursive, selectUncheckedIconCls, selectCheckedIconCls, resizing,
+                isInitialing, isSelectRecursive, selectUncheckedIconCls, selectCheckedIconCls, resizing, sorting,
                 selectIndeterminateIconCls, selectColumn, expandIconCls, autoSorting, isPaginated, page, pageSize,
                 sortingFunc, onInit, onChange, onExpand, onCollapse, onExpandChange, onDataUpdate,
                 onSelect, onSelectAll, onDeselect, onDeselectAll,
@@ -724,6 +724,7 @@ class TableContent extends Component {
                                        isFootFixed={isFootFixed}
                                        isHeadHidden={isFinalHeadHidden}
                                        isFootHidden={isFinalFootHidden}
+                                       sorting={sorting}
                                        hasHeadRenderer={hasHeadRenderer}
                                        hasBodyRenderer={hasBodyRenderer}
                                        hasFootRenderer={hasFootRenderer}
@@ -753,6 +754,7 @@ class TableContent extends Component {
                                  hasFootRenderer={hasFootRenderer}
                                  scrolling={scrolling}
                                  scroll={scroll}
+                                 sorting={sorting}
                                  ignoreColumnWidth={true}
                                  useDynamicRender={useDynamicRender}
                                  dynamicRenderIndex={this.dynamicRenderIndex}
@@ -789,6 +791,7 @@ class TableContent extends Component {
                                          hasFootRenderer={hasFootRenderer}
                                          scrolling={scrolling}
                                          scroll={scroll}
+                                         sorting={sorting}
                                          ignoreColumnWidth={true}
                                          useDynamicRender={useDynamicRender}
                                          dynamicRenderIndex={this.dynamicRenderIndex}
@@ -829,6 +832,7 @@ class TableContent extends Component {
                                          hasFootRenderer={hasFootRenderer}
                                          scrolling={scrolling}
                                          scroll={scroll}
+                                         sorting={sorting}
                                          ignoreColumnWidth={true}
                                          baseColIndex={this.formatedColumns.length - this.fixedRightColumns.length}
                                          useDynamicRender={useDynamicRender}
