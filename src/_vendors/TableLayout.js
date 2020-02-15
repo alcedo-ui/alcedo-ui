@@ -74,7 +74,7 @@ function getRowsHeight(tableEl) {
 
 }
 
-function isVerticalScroll(wrapperEl) {
+function hasVerticalScroll(wrapperEl) {
 
     const bodyScroller = wrapperEl.querySelector('.table-content-center .scroll-table-body-scroller'),
         bodyTable = bodyScroller?.querySelector('table');
@@ -445,7 +445,8 @@ function fixTableVerticalScroll(wrapperEl, props) {
         return;
     }
 
-    const verticalScrollBarSize = ScrollBar.getSize(Direction.VERTICAL);
+    const hasVS = hasVerticalScroll(wrapperEl),
+        verticalScrollBarSize = ScrollBar.getSize(Direction.VERTICAL);
 
     /**
      * fix center head width
@@ -498,20 +499,26 @@ function fixTableVerticalScroll(wrapperEl, props) {
     }
 
     /**
-     * fix right head and foot horizontal scroll bar
+     * fix head and foot horizontal scroll bar
      */
-    if (isVerticalScroll(wrapperEl)) {
+    const centerHeadScroller = wrapperEl.querySelector('.table-content-center .scroll-table-head-scroller');
+    if (centerHeadScroller) {
+        centerHeadScroller.style.overflowY = hasVS ? 'scroll' : 'auto';
+    }
 
-        const rightHeadScroller = wrapperEl.querySelector('.table-content-right .scroll-table-head-scroller');
-        if (rightHeadScroller) {
-            rightHeadScroller.style.overflowY = 'scroll';
-        }
+    const centerFootScroller = wrapperEl.querySelector('.table-content-center .scroll-table-foot-scroller');
+    if (centerFootScroller) {
+        centerFootScroller.style.overflowY = hasVS ? 'scroll' : 'auto';
+    }
 
-        const rightFootScroller = wrapperEl.querySelector('.table-content-right .scroll-table-foot-scroller');
-        if (rightFootScroller) {
-            rightFootScroller.style.overflowY = 'scroll';
-        }
+    const rightHeadScroller = wrapperEl.querySelector('.table-content-right .scroll-table-head-scroller');
+    if (rightHeadScroller) {
+        rightHeadScroller.style.overflowY = hasVS ? 'scroll' : 'auto';
+    }
 
+    const rightFootScroller = wrapperEl.querySelector('.table-content-right .scroll-table-foot-scroller');
+    if (rightFootScroller) {
+        rightFootScroller.style.overflowY = hasVS ? 'scroll' : 'auto';
     }
 
 }
@@ -619,7 +626,7 @@ function getPrevHorizontalScrollStatus(wrapperEl) {
 
 function getCurrentHorizontalScrollStatus(wrapperEl, scrollerEl) {
 
-    const verticalScrollBarSize = isVerticalScroll(wrapperEl) ?
+    const verticalScrollBarSize = hasVerticalScroll(wrapperEl) ?
         ScrollBar.getSize(Direction.VERTICAL)
         :
         0;
