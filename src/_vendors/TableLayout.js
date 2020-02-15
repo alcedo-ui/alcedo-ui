@@ -468,8 +468,9 @@ function fixTableVerticalScroll(wrapperEl, props) {
             // // only fix when has vertical scroll
             // if (leftBodyScroller.offsetHeight < leftBodyScroller.scrollHeight) {
             if (props?.isHeadFixed || props?.isFootFixed) {
-                leftBodyScroller.style.paddingRight = 0;
+                leftBodyScroller.style.overflowY = 'scroll';
                 leftBodyScroller.style.marginRight = `-${verticalScrollBarSize}px`;
+                leftBodyScroller.style.paddingRight = 0;
             }
             // }
         }
