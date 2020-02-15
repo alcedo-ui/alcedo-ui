@@ -90,8 +90,9 @@ function getbodyScollerHeight(headHeight, footHeight) {
  * @param tableEl
  * @param fixedHeadHeight
  * @param fixedFootHeight
+ * @param props
  */
-function maskCenterBody(wrapperEl, rawTableEl, fixedHeadHeight, fixedFootHeight) {
+function maskCenterBody(wrapperEl, rawTableEl, fixedHeadHeight, fixedFootHeight, props) {
 
     const maskEl = wrapperEl.querySelector('.table-content-center .scroll-table-body-mask'),
         tableWrapperEl = wrapperEl.querySelector('.table-content-center .scroll-table-body .scroll-table-body-table-wrapper'),
@@ -101,7 +102,9 @@ function maskCenterBody(wrapperEl, rawTableEl, fixedHeadHeight, fixedFootHeight)
 
         // maskEl.style.height = `${Valid.range(tableWrapperEl.offsetHeight - fixedHeadHeight - fixedFootHeight - 1, 0)}px`;
         // tableEl.style.marginTop = `${-fixedHeadHeight - 1}px`;
-        tableEl.style.marginTop = '-1px';
+        if (props?.isHeadFixed && props?.isFootFixed) {
+            tableEl.style.marginTop = '-1px';
+        }
 
         if (maskEl.offsetWidth !== rawTableEl.offsetWidth) {
             maskEl.style.width = `${rawTableEl.offsetWidth}px`;
@@ -462,11 +465,13 @@ function fixTableVerticalScroll(wrapperEl, props) {
 
         // has vertical scroll bar width, like windows
         if (verticalScrollBarSize && verticalScrollBarSize > 0) {
-            // only fix when has vertical scroll
-            if (leftBodyScroller.offsetHeight < leftBodyScroller.scrollHeight) {
+            // // only fix when has vertical scroll
+            // if (leftBodyScroller.offsetHeight < leftBodyScroller.scrollHeight) {
+            if (props?.isHeadFixed || props?.isFootFixed) {
                 leftBodyScroller.style.paddingRight = 0;
                 leftBodyScroller.style.marginRight = `-${verticalScrollBarSize}px`;
             }
+            // }
         }
 
         // no vertical scroll bar width, like mac
@@ -535,7 +540,7 @@ function fixLayout(wrapperEl, rawTableEl, props, others) {
      * center
      */
     if (props && (props.isHeadFixed || props.isFootFixed)) {
-        maskCenterBody(wrapperEl, rawTableEl, fixedHeadHeight, fixedFootHeight);
+        maskCenterBody(wrapperEl, rawTableEl, fixedHeadHeight, fixedFootHeight, props);
     }
     fixCenterTableWidth(wrapperEl);
     fixTableColumnsWidth(wrapperEl, columnsWidth, null, props);
