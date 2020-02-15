@@ -487,6 +487,27 @@ function fixTableVerticalScroll(wrapperEl, props) {
 
     }
 
+    /**
+     * fix right head and foot horizontal scroll bar
+     */
+    const rightBodyScroller = wrapperEl.querySelector('.table-content-right .scroll-table-body-scroller'),
+        rightBodyTable = rightBodyScroller?.querySelector('table');
+
+    // need scroll
+    if (rightBodyScroller && rightBodyTable && rightBodyTable.offsetHeight > rightBodyScroller.offsetHeight) {
+
+        const rightHeadScroller = wrapperEl.querySelector('.table-content-right .scroll-table-head-scroller');
+        if (rightHeadScroller) {
+            rightHeadScroller.style.overflowY = 'scroll';
+        }
+
+        const rightFootScroller = wrapperEl.querySelector('.table-content-right .scroll-table-foot-scroller');
+        if (rightFootScroller) {
+            rightFootScroller.style.overflowY = 'scroll';
+        }
+
+    }
+
 }
 
 /**
