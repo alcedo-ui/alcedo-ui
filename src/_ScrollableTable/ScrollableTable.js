@@ -40,7 +40,8 @@ class ScrollableTable extends Component {
 
         if (scroll) {
             result.overflowX = horizontalOverflowScroll ? 'scroll' : scroll.width ? 'auto' : null;
-            result.overflowY = scroll.height || scroll.maxHeight ? 'scroll' : null;
+            // config overflowY in TableLayout
+            // result.overflowY = scroll.height || scroll.maxHeight ? 'scroll' : null;
         }
 
         return result;
