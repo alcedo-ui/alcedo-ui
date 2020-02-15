@@ -1,3 +1,8 @@
+/**
+ * @file TableExamples.js
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component, Fragment, createRef} from 'react';
 import classNames from 'classnames';
 import round from 'lodash/round';
