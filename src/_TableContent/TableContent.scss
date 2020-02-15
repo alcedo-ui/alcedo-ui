@@ -53,6 +53,11 @@
             overflow-x: hidden;
             overflow-y: auto;
         }
+
+        .scroll-table-head-scroller,
+        .scroll-table-foot-scroller {
+            overflow: auto;
+        }
     }
 
     .table-content-left {
