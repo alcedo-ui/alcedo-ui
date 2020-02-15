@@ -714,7 +714,10 @@ class TableContent extends Component {
                         <ScrollableTable className="table-content-raw-scroller"
                                          scroll={scroll}>
                             <BaseTable ref={this.rawTable}
-                                       style={scroll}
+                                       style={{
+                                           ...scroll,
+                                           height: 'auto'
+                                       }}
                                        headColumns={this.headColumns}
                                        bodyColumns={this.bodyColumns}
                                        data={TC.getRawTableData(this.tableData)}
