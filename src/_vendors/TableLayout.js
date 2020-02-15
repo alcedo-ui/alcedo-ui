@@ -74,6 +74,16 @@ function getRowsHeight(tableEl) {
 
 }
 
+function isVerticalScroll(wrapperEl) {
+
+    const bodyScroller = wrapperEl.querySelector('.table-content-center .scroll-table-body-scroller'),
+        bodyTable = bodyScroller?.querySelector('table');
+
+    // need scroll
+    return bodyScroller && bodyTable && bodyTable.offsetHeight > bodyScroller.offsetHeight;
+
+}
+
 /**
  * calculate table body scroller height
  * @param headHeight
@@ -490,11 +500,7 @@ function fixTableVerticalScroll(wrapperEl, props) {
     /**
      * fix right head and foot horizontal scroll bar
      */
-    const rightBodyScroller = wrapperEl.querySelector('.table-content-right .scroll-table-body-scroller'),
-        rightBodyTable = rightBodyScroller?.querySelector('table');
-
-    // need scroll
-    if (rightBodyScroller && rightBodyTable && rightBodyTable.offsetHeight > rightBodyScroller.offsetHeight) {
+    if (isVerticalScroll(wrapperEl)) {
 
         const rightHeadScroller = wrapperEl.querySelector('.table-content-right .scroll-table-head-scroller');
         if (rightHeadScroller) {
@@ -613,7 +619,10 @@ function getPrevHorizontalScrollStatus(wrapperEl) {
 
 function getCurrentHorizontalScrollStatus(wrapperEl, scrollerEl) {
 
-    const verticalScrollBarSize = ScrollBar.getSize(Direction.VERTICAL);
+    const verticalScrollBarSize = isVerticalScroll(wrapperEl) ?
+        ScrollBar.getSize(Direction.VERTICAL)
+        :
+        0;
 
     if (scrollerEl.scrollWidth + verticalScrollBarSize === scrollerEl.offsetWidth) {
         return null;
