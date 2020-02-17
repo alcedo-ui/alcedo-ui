@@ -164,21 +164,23 @@ function fixFixedTableWidth(wrapperEl, columnsWidth, fixed, props, others) {
         return;
     }
 
-    const len = others.formatedColumns.filter(column => column?.fixed === fixed).length;
+    const len = others.formatedColumns.filter(column => column?.fixed === fixed).length,
+        bodyWidth = sum(columnsWidth[TableFragment.BODY].slice(0, len)) + 1,
+        footWidth = sum(columnsWidth[TableFragment.FOOT].slice(0, len)) + 1;
 
-    const headTableEl = fixedEl.querySelector(`.scroll-table-${TableFragment.HEAD} table`);
+    const headTableEl = fixedEl.querySelector(`.scroll-table-${TableFragment.HEAD}`);
     if (headTableEl) {
-        headTableEl.style.width = `${sum(columnsWidth[TableFragment.BODY].slice(0, len)) + 1}px`;
+        headTableEl.style.width = `${bodyWidth}px`;
     }
 
-    const bodyTableEl = fixedEl.querySelector(`.scroll-table-${TableFragment.BODY} table`);
+    const bodyTableEl = fixedEl.querySelector(`.scroll-table-${TableFragment.BODY}`);
     if (bodyTableEl) {
-        bodyTableEl.style.width = `${sum(columnsWidth[TableFragment.BODY].slice(0, len)) + 1}px`;
+        bodyTableEl.style.width = `${bodyWidth}px`;
     }
 
-    const footTableEl = fixedEl.querySelector(`.scroll-table-${TableFragment.FOOT} table`);
+    const footTableEl = fixedEl.querySelector(`.scroll-table-${TableFragment.FOOT}`);
     if (footTableEl) {
-        footTableEl.style.width = `${sum(columnsWidth[TableFragment.FOOT].slice(0, len)) + 1}px`;
+        footTableEl.style.width = `${footWidth}px`;
     }
 
 }
@@ -591,7 +593,6 @@ function fixLayout(wrapperEl, rawTableEl, props, others) {
     /**
      * right
      */
-    fixFixedTableWidth(wrapperEl, columnsWidth, HorizontalAlign.RIGHT, props, others);
     fixTableColumnsWidth(wrapperEl, columnsWidth, HorizontalAlign.RIGHT, props);
     fixTableRowsHeight(wrapperEl, rowsHeight, HorizontalAlign.RIGHT, props);
 
