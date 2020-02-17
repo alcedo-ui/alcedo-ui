@@ -501,24 +501,24 @@ function fixTableVerticalScroll(wrapperEl, props) {
     /**
      * fix head and foot horizontal scroll bar
      */
-    const centerHeadScroller = wrapperEl.querySelector('.table-content-center .scroll-table-head-scroller');
+    const centerHeadScroller = wrapperEl.querySelector('.table-content-center .scroll-table-head');
     if (centerHeadScroller) {
-        centerHeadScroller.style.overflowY = hasVS ? 'scroll' : 'auto';
+        centerHeadScroller.style.paddingRight = hasVS ? `${verticalScrollBarSize}px` : 0;
     }
 
-    const centerFootScroller = wrapperEl.querySelector('.table-content-center .scroll-table-foot-scroller');
+    const centerFootScroller = wrapperEl.querySelector('.table-content-center .scroll-table-foot');
     if (centerFootScroller) {
-        centerFootScroller.style.overflowY = hasVS ? 'scroll' : 'auto';
+        centerFootScroller.style.paddingRight = hasVS ? `${verticalScrollBarSize}px` : 0;
     }
 
-    const rightHeadScroller = wrapperEl.querySelector('.table-content-right .scroll-table-head-scroller');
+    const rightHeadScroller = wrapperEl.querySelector('.table-content-right .scroll-table-head');
     if (rightHeadScroller) {
-        rightHeadScroller.style.overflowY = hasVS ? 'scroll' : 'auto';
+        rightHeadScroller.style.paddingRight = hasVS ? `${verticalScrollBarSize}px` : 0;
     }
 
-    const rightFootScroller = wrapperEl.querySelector('.table-content-right .scroll-table-foot-scroller');
+    const rightFootScroller = wrapperEl.querySelector('.table-content-right .scroll-table-foot');
     if (rightFootScroller) {
-        rightFootScroller.style.overflowY = hasVS ? 'scroll' : 'auto';
+        rightFootScroller.style.paddingRight = hasVS ? `${verticalScrollBarSize}px` : 0;
     }
 
 }
