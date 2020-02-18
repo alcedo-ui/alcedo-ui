@@ -165,22 +165,21 @@ function fixFixedTableWidth(wrapperEl, columnsWidth, fixed, props, others) {
     }
 
     const len = others.formatedColumns.filter(column => column?.fixed === fixed).length,
-        bodyWidth = sum(columnsWidth[TableFragment.BODY].slice(0, len)) + 1,
-        footWidth = sum(columnsWidth[TableFragment.FOOT].slice(0, len)) + 1;
+        tableWidth = sum(columnsWidth[TableFragment.BODY].slice(0, len)) + 1;
 
     const headTableEl = fixedEl.querySelector(`.scroll-table-${TableFragment.HEAD}`);
     if (headTableEl) {
-        headTableEl.style.width = `${bodyWidth}px`;
+        headTableEl.style.width = `${tableWidth}px`;
     }
 
     const bodyTableEl = fixedEl.querySelector(`.scroll-table-${TableFragment.BODY}`);
     if (bodyTableEl) {
-        bodyTableEl.style.width = `${bodyWidth}px`;
+        bodyTableEl.style.width = `${tableWidth}px`;
     }
 
     const footTableEl = fixedEl.querySelector(`.scroll-table-${TableFragment.FOOT}`);
     if (footTableEl) {
-        footTableEl.style.width = `${footWidth}px`;
+        footTableEl.style.width = `${tableWidth}px`;
     }
 
 }
