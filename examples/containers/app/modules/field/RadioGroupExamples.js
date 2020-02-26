@@ -170,6 +170,6 @@ class RadioGroupExamples extends Component {
             </div>
         );
     }
-};
+}
 
 export default RadioGroupExamples;
