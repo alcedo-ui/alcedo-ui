@@ -23,6 +23,13 @@ class TextField extends Component {
     static Type = FieldType;
     static Theme = Theme;
 
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
+    }
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -39,6 +46,16 @@ class TextField extends Component {
             errorVisible: false,
             invalidMsgs: ''
         };
+
+    }
+
+    componentDidMount() {
+
+        this.inputEl = this.input && this.input.current;
+
+        if (this.props.autoFocus === true) {
+            this.inputEl.focus();
+        }
 
     }
 
@@ -187,23 +204,6 @@ class TextField extends Component {
             {value} = this.state;
         onRightIconClick && onRightIconClick(e, value);
     };
-
-    componentDidMount() {
-
-        this.inputEl = this.input && this.input.current;
-
-        if (this.props.autoFocus === true) {
-            this.inputEl.focus();
-        }
-
-    }
-
-    static getDerivedStateFromProps(props, state) {
-        return {
-            prevProps: props,
-            value: ComponentUtil.getDerivedState(props, state, 'value')
-        };
-    }
 
     /* eslint-disable complexity */
     render() {
