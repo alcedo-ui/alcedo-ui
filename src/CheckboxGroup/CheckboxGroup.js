@@ -5,20 +5,31 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import cloneDeep from 'lodash/cloneDeep';
-import isArray from 'lodash/isArray';
-import classNames from 'classnames';
 
+// Components
 import Checkbox from '../Checkbox';
 
+// Statics
 import Theme from '../Theme';
 import Position from '../_statics/Position';
 
+// Vendors
+import cloneDeep from 'lodash/cloneDeep';
+import isArray from 'lodash/isArray';
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class CheckboxGroup extends Component {
 
     static Theme = Theme;
+
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
+    }
 
     constructor(props, ...restArgs) {
 
@@ -57,14 +68,6 @@ class CheckboxGroup extends Component {
 
     };
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value && nextProps.value !== this.state.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
-    }
-
     render() {
 
         const {data} = this.props;
@@ -74,7 +77,8 @@ class CheckboxGroup extends Component {
         }
 
         const {
-                className, style, theme, name, disabled, idProp, uncheckedIconCls, checkedIconCls, indeterminateIconCls,
+                className, style, theme, name, disabled, idProp, valueField, labelField,
+                uncheckedIconCls, checkedIconCls, indeterminateIconCls,
                 onCheck, onUncheck
             } = this.props,
             {value} = this.state;
@@ -95,8 +99,8 @@ class CheckboxGroup extends Component {
                                   checkedIconCls={item.checkedIconCls || checkedIconCls}
                                   indeterminateIconCls={item.indeterminateIconCls || indeterminateIconCls}
                                   name={name}
-                                  label={item.label}
-                                  value={item.value}
+                                  label={Util.getTextByDisplayField(item, labelField, valueField)}
+                                  value={Util.getValueByValueField(item, valueField, labelField)}
                                   disabled={disabled || item.disabled}
                                   checked={value && value.findIndex(v => v.value === item.value) > -1}
                                   tip={item.tip}
@@ -143,6 +147,8 @@ CheckboxGroup.propTypes = {
     disabled: PropTypes.bool,
 
     idProp: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    valueField: PropTypes.string,
+    labelField: PropTypes.string,
 
     uncheckedIconCls: PropTypes.string,
     checkedIconCls: PropTypes.string,
@@ -161,7 +167,9 @@ CheckboxGroup.defaultProps = {
     theme: Theme.DEFAULT,
 
     disabled: false,
-    idProp: 'id'
+    idProp: 'id',
+    valueField: 'value',
+    labelField: 'label'
 
 };
 
