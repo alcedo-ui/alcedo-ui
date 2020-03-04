@@ -638,9 +638,23 @@ class TableContent extends Component {
 
     };
 
+    /**
+     * handle the callback of requesting columns span calculation
+     * @param fixed
+     * @param fragment
+     * @param restArgs
+     */
     handleRequestColumnsSpan = (fixed, fragment, ...restArgs) => {
         const {columns} = this.props;
         return TC.getAdvancedColumnsSpan(columns, fixed, fragment, ...restArgs);
+    };
+
+    /**
+     * handle the callback of requesting raw table columns span calculation
+     * @param restArgs
+     */
+    handleRequestRawTableColumnsSpan = (...restArgs) => {
+        return this.handleRequestColumnsSpan(null, ...restArgs);
     };
 
     render() {
@@ -733,7 +747,7 @@ class TableContent extends Component {
                                        hasBodyRenderer={hasBodyRenderer}
                                        hasFootRenderer={hasFootRenderer}
                                        useDynamicRender={useDynamicRender}
-                                       onRequestColumnsSpan={(...restArgs) => this.handleRequestColumnsSpan(null, ...restArgs)}/>
+                                       onRequestColumnsSpan={this.handleRequestRawTableColumnsSpan}/>
                         </ScrollableTable>
                     </div>
 
