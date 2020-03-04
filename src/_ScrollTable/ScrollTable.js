@@ -525,6 +525,13 @@ ScrollTable.propTypes = {
     scrollBuffer: PropTypes.number,
 
     /**
+     * column resizable
+     */
+    isColumnResizable: PropTypes.bool,
+    minColumnWidth: PropTypes.number,
+    maxColumnWidth: PropTypes.number,
+
+    /**
      * callback
      */
     onGetBodyScrollerEl: PropTypes.func,
@@ -593,7 +600,14 @@ ScrollTable.defaultProps = {
     useDynamicRender: false,
     scrollHeight: 500,
     rowHeight: 50,
-    scrollBuffer: 8
+    scrollBuffer: 8,
+
+    /**
+     * column resizable
+     */
+    isColumnResizable: false,
+    minColumnWidth: 40,
+    maxColumnWidth: Infinity
 
 };
 
