@@ -15,8 +15,6 @@ import addClass from 'dom-helpers/addClass';
 import removeClass from 'dom-helpers/removeClass';
 import ScrollBar from './ScrollBar';
 
-// import Valid from './Valid';
-
 /**
  * whether a table has a fixed head or a fixed foot or fixed left columns or fixed right columns
  * @param props
@@ -599,6 +597,11 @@ function fixLayout(wrapperEl, rawTableEl, props, others) {
      * fix vertical scroll style
      */
     fixTableVerticalScroll(wrapperEl, props);
+
+    return {
+        columnsWidth,
+        rowsHeight
+    };
 
 }
 
