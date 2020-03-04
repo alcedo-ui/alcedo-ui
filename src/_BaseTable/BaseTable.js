@@ -51,7 +51,7 @@ class BaseTable extends Component {
 
             className, style, data, dynamicRenderData, value, hoverRow, idProp, baseColIndex, fixed, fragment, scrollEl,
             columns, headColumns, bodyColumns, selectMode, selectAllMode, expandRows,
-            useDynamicRender, scrollHeight, rowHeight, scrollBuffer,
+            useDynamicRender, scrollHeight, rowHeight, scrollBuffer, isColumnResizable, minColumnWidth, maxColumnWidth,
             isMouseEventForbidden, isLayoutFixed, isHeadFixed, isFootFixed, isHeadHidden, isBodyHidden, isFootHidden,
             ignoreColumnWidth, ignoreColumnSpan, hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
             sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, isClickSorting,
@@ -90,6 +90,9 @@ class BaseTable extends Component {
                                isClickSorting={isClickSorting}
                                ignoreColumnSpan={ignoreColumnSpan}
                                scrollEl={scrollEl}
+                               isColumnResizable={isColumnResizable}
+                               minColumnWidth={minColumnWidth}
+                               maxColumnWidth={maxColumnWidth}
                                onSortChange={onSortChange}
                                onRequestColumnsSpan={onRequestColumnsSpan}/>
                         :
@@ -405,6 +408,13 @@ BaseTable.propTypes = {
     scrollBuffer: PropTypes.number,
 
     /**
+     * column resizable
+     */
+    isColumnResizable: PropTypes.bool,
+    minColumnWidth: PropTypes.number,
+    maxColumnWidth: PropTypes.number,
+
+    /**
      * callback
      */
     onSortChange: PropTypes.func,
@@ -462,7 +472,14 @@ BaseTable.defaultProps = {
     useDynamicRender: false,
     scrollHeight: 500,
     rowHeight: 50,
-    scrollBuffer: 8
+    scrollBuffer: 8,
+
+    /**
+     * column resizable
+     */
+    isColumnResizable: false,
+    minColumnWidth: 40,
+    maxColumnWidth: Infinity
 
 };
 
