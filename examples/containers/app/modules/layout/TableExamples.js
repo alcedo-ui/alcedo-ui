@@ -4,9 +4,8 @@
  */
 
 import React, {Component, Fragment, createRef} from 'react';
-import classNames from 'classnames';
-import round from 'lodash/round';
 
+// Components
 import Table from 'src/Table';
 import Switcher from 'src/Switcher';
 import IconButton from 'src/IconButton';
@@ -15,12 +14,17 @@ import WidgetHeader from 'src/WidgetHeader';
 import CircularLoading from 'src/CircularLoading';
 import RaisedButton from 'src/RaisedButton';
 import MaterialTextField from 'src/MaterialTextField';
-
 import PropTypeDescTable from 'components/PropTypeDescTable';
+
+// Statics
 import doc from 'assets/propTypes/Table.json';
 
+// Vendors
+import classNames from 'classnames';
+import round from 'lodash/round';
 import Util from 'vendors/Util';
 
+// Styles
 import 'scss/containers/app/modules/layout/TableExamples.scss';
 
 const LOADING_SYMBOL = Symbol('LOADING_SYMBOL');
@@ -74,19 +78,19 @@ class TableExamples extends Component {
             headRenderer: 'Other Column',
             headAlign: Table.Align.CENTER,
             children: [{
-                width: 300,
+                width: 100,
                 headRenderer: 'Other Column 1',
                 bodyRenderer: rowDate => rowDate.other ? `${rowDate.other} 1` : ''
             }, {
-                width: 300,
+                width: 100,
                 headRenderer: 'Other Column 2',
                 bodyRenderer: rowDate => rowDate.other ? `${rowDate.other} 2` : ''
             }, {
-                width: 300,
+                width: 100,
                 headRenderer: 'Other Column 3',
                 bodyRenderer: rowDate => rowDate.other ? `${rowDate.other} 3` : ''
             }, {
-                width: 300,
+                width: 100,
                 headRenderer: 'Other Column 4',
                 bodyRenderer: rowDate => rowDate.other ? `${rowDate.other} 4` : ''
             }]
@@ -105,14 +109,19 @@ class TableExamples extends Component {
             sortable: true,
             sortingProp: 'deposit'
         }, {
+            width: 64,
+            align: Table.Align.CENTER,
             headRenderer: 'Status',
             bodyRenderer: rowData => rowData[LOADING_SYMBOL] ?
                 null
                 :
-                <Switcher value={!rowData.disabled}
+                <Switcher style={{display: 'inline-block', verticalAlign: 'middle'}}
+                          value={!rowData.disabled}
                           size="small"
                           onClick={e => e.stopPropagation()}/>
         }, {
+            width: 56,
+            align: Table.Align.CENTER,
             headRenderer: 'Action',
             bodyRenderer: rowData => rowData[LOADING_SYMBOL] ?
                 null
