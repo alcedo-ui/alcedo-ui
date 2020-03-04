@@ -648,7 +648,7 @@ class TableContent extends Component {
         const {
 
                 className, style, columns, data, scrolling, scrollTop, scroll, noDataText,
-                isHeadFixed, isFootFixed, isHeadHidden, isFootHidden, expandRows, useDynamicRender,
+                isLayoutFixed, isHeadFixed, isFootFixed, isHeadHidden, isFootHidden, expandRows, useDynamicRender,
 
                 // not passing down these props
                 isInitialing, isSelectRecursive, selectUncheckedIconCls, selectCheckedIconCls, resizing, sorting,
@@ -723,6 +723,7 @@ class TableContent extends Component {
                                        data={TC.getRawTableData(this.tableData)}
                                        dynamicRenderData={this.dynamicRenderData}
                                        expandRows={expandRows}
+                                       isLayoutFixed={isLayoutFixed}
                                        isHeadFixed={isHeadFixed}
                                        isFootFixed={isFootFixed}
                                        isHeadHidden={isFinalHeadHidden}
@@ -746,6 +747,7 @@ class TableContent extends Component {
                                  data={this.tableData}
                                  dynamicRenderData={this.dynamicRenderData}
                                  expandRows={expandRows}
+                                 isLayoutFixed={isLayoutFixed}
                                  isHeadFixed={isHeadFixed}
                                  isFootFixed={isFootFixed}
                                  isHeadHidden={isFinalHeadHidden}
@@ -783,6 +785,7 @@ class TableContent extends Component {
                                          data={this.tableData}
                                          dynamicRenderData={this.dynamicRenderData}
                                          expandRows={expandRows}
+                                         isLayoutFixed={isLayoutFixed}
                                          isHeadFixed={isHeadFixed}
                                          isFootFixed={isFootFixed}
                                          isHeadHidden={isFinalHeadHidden}
@@ -824,6 +827,7 @@ class TableContent extends Component {
                                          data={this.tableData}
                                          dynamicRenderData={this.dynamicRenderData}
                                          expandRows={expandRows}
+                                         isLayoutFixed={isLayoutFixed}
                                          isHeadFixed={isHeadFixed}
                                          isFootFixed={isFootFixed}
                                          isHeadHidden={isFinalHeadHidden}
@@ -1166,6 +1170,7 @@ TableContent.propTypes = {
     /**
      * fixed
      */
+    isLayoutFixed: PropTypes.bool,
     isHeadFixed: PropTypes.bool,
     isFootFixed: PropTypes.bool,
 
@@ -1269,6 +1274,7 @@ TableContent.defaultProps = {
     /**
      * hidden
      */
+    isLayoutFixed: false,
     isHeadHidden: false,
     isFootHidden: false,
 
