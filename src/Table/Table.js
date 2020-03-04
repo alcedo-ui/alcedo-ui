@@ -35,6 +35,22 @@ class Table extends Component {
     static SelectAllMode = SelectAllMode;
     static SortingType = SortingType;
 
+    static getDerivedStateFromProps(props, state) {
+
+        const page = ComponentUtil.getDerivedState(props, state, 'page'),
+            pageSize = ComponentUtil.getDerivedState(props, state, 'pageSize');
+
+        return {
+            prevProps: props,
+            sorting: ComponentUtil.getDerivedState(props, state, 'sorting'),
+            page: TC.handlePage(page, pageSize, props.data),
+            pageSize,
+            expandRows: ComponentUtil.getDerivedState(props, state, 'expandRows'),
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
+
+    }
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -52,25 +68,14 @@ class Table extends Component {
             scrolling: false,
             scrollTop: 0,
             resizing: false,
-            hoverRow: null
+            hoverRow: null,
+            columnsWidth: null
         };
 
     }
 
-    static getDerivedStateFromProps(props, state) {
-
-        const page = ComponentUtil.getDerivedState(props, state, 'page'),
-            pageSize = ComponentUtil.getDerivedState(props, state, 'pageSize');
-
-        return {
-            prevProps: props,
-            sorting: ComponentUtil.getDerivedState(props, state, 'sorting'),
-            page: TC.handlePage(page, pageSize, props.data),
-            pageSize,
-            expandRows: ComponentUtil.getDerivedState(props, state, 'expandRows'),
-            value: ComponentUtil.getDerivedState(props, state, 'value')
-        };
-
+    componentDidUpdate() {
+        this.debounceFixLayout();
     }
 
     /**
@@ -246,9 +251,11 @@ class Table extends Component {
         }
     };
 
-    componentDidUpdate() {
-        this.debounceFixLayout();
-    }
+    handleColumnsWidthChange = columnsWidth => {
+        this.setState({
+            columnsWidth
+        });
+    };
 
     render() {
 
@@ -273,7 +280,7 @@ class Table extends Component {
             } = this.props,
             {
                 isInitialing, sorting, page, pageSize, expandRows, value,
-                scrolling, scrollTop, resizing, hoverRow
+                scrolling, scrollTop, resizing, hoverRow, columnsWidth
             } = this.state;
 
         return (
@@ -299,6 +306,7 @@ class Table extends Component {
                          scrollTop={scrollTop}
                          resizing={resizing}
                          hoverRow={hoverRow}
+                         columnsWidth={columnsWidth}
                          selectMode={selectMode}
                          isInitialing={isInitialing}
                          onInit={this.handleInit}
@@ -310,7 +318,8 @@ class Table extends Component {
                          onScrollEnd={this.handleScrollEnd}
                          onResizeStart={this.handleResizeStart}
                          onResizeEnd={this.handleResizeEnd}
-                         onRowHover={this.handleRowHover}/>
+                         onRowHover={this.handleRowHover}
+                         onColumnsWidthChange={this.handleColumnsWidthChange}/>
 
                 {/* table footer */}
                 {/*<Footer/>*/}
@@ -702,6 +711,13 @@ Table.propTypes = {
     scrollBuffer: PropTypes.number,
 
     /**
+     * column resizable
+     */
+    isColumnResizable: PropTypes.bool,
+    minColumnWidth: PropTypes.number,
+    maxColumnWidth: PropTypes.number,
+
+    /**
      * callback
      */
     onInit: PropTypes.func,
@@ -797,7 +813,14 @@ Table.defaultProps = {
     useDynamicRender: false,
     scrollHeight: 500,
     rowHeight: 50,
-    scrollBuffer: 8
+    scrollBuffer: 8,
+
+    /**
+     * column resizable
+     */
+    isColumnResizable: false,
+    minColumnWidth: 40,
+    maxColumnWidth: Infinity
 
 };
 
