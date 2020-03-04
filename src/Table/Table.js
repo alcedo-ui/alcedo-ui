@@ -680,6 +680,7 @@ Table.propTypes = {
     /**
      * fixed
      */
+    isLayoutFixed: PropTypes.bool,
     isHeadFixed: PropTypes.bool,
     isFootFixed: PropTypes.bool,
 
@@ -786,6 +787,7 @@ Table.defaultProps = {
     /**
      * fixed
      */
+    isLayoutFixed: false,
     isHeadFixed: false,
     isFootFixed: false,
 
