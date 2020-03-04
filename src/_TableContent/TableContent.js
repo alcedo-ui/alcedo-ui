@@ -369,7 +369,8 @@ class TableContent extends Component {
 
         if (this.wrapperEl) {
 
-            TL.fixLayout(this.wrapperEl, this.rawTableEl, this.props, this);
+            const {columnsWidth} = TL.fixLayout(this.wrapperEl, this.rawTableEl, this.props, this);
+            this.handleColumnsWidthChange(columnsWidth?.[TableFragment.BODY]);
 
             if (TL.hasFixed(this.props, this)) {
                 setTimeout(() => {
@@ -400,6 +401,11 @@ class TableContent extends Component {
             this.fixLayout();
         }
     }, 600);
+
+    handleColumnsWidthChange = columnsWidth => {
+        const {onColumnsWidthChange} = this.props;
+        columnsWidth && onColumnsWidthChange && onColumnsWidthChange(columnsWidth);
+    };
 
     /**
      * handle resize start callback
@@ -1213,6 +1219,14 @@ TableContent.propTypes = {
     scrollBuffer: PropTypes.number,
 
     /**
+     * column resizable
+     */
+    isColumnResizable: PropTypes.bool,
+    columnsWidth: PropTypes.array,
+    minColumnWidth: PropTypes.number,
+    maxColumnWidth: PropTypes.number,
+
+    /**
      * callback
      */
     onInit: PropTypes.func,
@@ -1231,7 +1245,8 @@ TableContent.propTypes = {
     onResizeStart: PropTypes.func,
     onResizeEnd: PropTypes.func,
     onRowHover: PropTypes.func,
-    onDataUpdate: PropTypes.func
+    onDataUpdate: PropTypes.func,
+    onColumnsWidthChange: PropTypes.func
 
 };
 
@@ -1304,7 +1319,14 @@ TableContent.defaultProps = {
     useDynamicRender: false,
     scrollHeight: 500,
     rowHeight: 50,
-    scrollBuffer: 8
+    scrollBuffer: 8,
+
+    /**
+     * column resizable
+     */
+    isColumnResizable: false,
+    minColumnWidth: 40,
+    maxColumnWidth: Infinity
 
 };
 
