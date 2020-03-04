@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 // Components
+import ResizableTh from '../_ResizableTh';
 import Th from '../_Th';
 
 // Statics
@@ -43,7 +44,9 @@ class Thead extends Component {
 
         const {
             className, style, columns, baseColIndex, data, ignoreColumnSpan,
-            sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, onSortChange,
+            sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls,
+            isColumnResizable, minColumnWidth, maxColumnWidth,
+            onSortChange,
             ...restProps
         } = this.props;
 
@@ -56,29 +59,33 @@ class Thead extends Component {
                             {
                                 (
                                     this.getColumnsSpan(row)?.map(({column, span}, colIndex) => column ?
-                                        <Th {...restProps}
-                                            key={colIndex}
-                                            className={column.headClassName}
-                                            style={column.headStyle}
-                                            data={data}
-                                            renderer={column.headRenderer}
-                                            align={column.headAlign || column.align}
-                                            colIndex={baseColIndex + colIndex}
-                                            rowSpan={column.rowSpan}
-                                            colSpan={ignoreColumnSpan ? null : column.colSpan}
-                                            noWrap={TC.handleNoWrap(column.headNoWrap, column.noWrap, {
-                                                data,
-                                                rowIndex,
-                                                colIndex: baseColIndex + colIndex,
-                                                tableData: data
-                                            })}
-                                            sorting={sorting}
-                                            defaultSortingType={column.defaultSortingType || defaultSortingType}
-                                            sortingAscIconCls={sortingAscIconCls}
-                                            sortingDescIconCls={sortingDescIconCls}
-                                            sortable={column.sortable}
-                                            sortingProp={column.sortingProp}
-                                            onSortChange={onSortChange}/>
+                                        <ResizableTh resizable={isColumnResizable && !column.children}
+                                                     minWidth={minColumnWidth}
+                                                     maxWidth={maxColumnWidth}>
+                                            <Th {...restProps}
+                                                key={colIndex}
+                                                className={column.headClassName}
+                                                style={column.headStyle}
+                                                data={data}
+                                                renderer={column.headRenderer}
+                                                align={column.headAlign || column.align}
+                                                colIndex={baseColIndex + colIndex}
+                                                rowSpan={column.rowSpan}
+                                                colSpan={ignoreColumnSpan ? null : column.colSpan}
+                                                noWrap={TC.handleNoWrap(column.headNoWrap, column.noWrap, {
+                                                    data,
+                                                    rowIndex,
+                                                    colIndex: baseColIndex + colIndex,
+                                                    tableData: data
+                                                })}
+                                                sorting={sorting}
+                                                defaultSortingType={column.defaultSortingType || defaultSortingType}
+                                                sortingAscIconCls={sortingAscIconCls}
+                                                sortingDescIconCls={sortingDescIconCls}
+                                                sortable={column.sortable}
+                                                sortingProp={column.sortingProp}
+                                                onSortChange={onSortChange}/>
+                                        </ResizableTh>
                                         :
                                         null
                                     )
@@ -293,6 +300,13 @@ Thead.propTypes = {
     sortingDescIconCls: PropTypes.string,
     isClickSorting: PropTypes.bool,
 
+    /**
+     * column resizable
+     */
+    isColumnResizable: PropTypes.bool,
+    minColumnWidth: PropTypes.number,
+    maxColumnWidth: PropTypes.number,
+
     onSortChange: PropTypes.func,
     onRequestColumnsSpan: PropTypes.func
 
@@ -303,10 +317,20 @@ Thead.defaultProps = {
     baseColIndex: 0,
     ignoreColumnSpan: false,
 
+    /**
+     * sorting
+     */
     defaultSortingType: SortingType.ASC,
     sortingAscIconCls: 'fas fa-sort-up',
     sortingDescIconCls: 'fas fa-sort-down',
-    isClickSorting: true
+    isClickSorting: true,
+
+    /**
+     * column resizable
+     */
+    isColumnResizable: false,
+    minColumnWidth: 40,
+    maxColumnWidth: Infinity
 
 };
 
