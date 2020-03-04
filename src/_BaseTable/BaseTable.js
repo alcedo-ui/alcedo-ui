@@ -52,7 +52,7 @@ class BaseTable extends Component {
             className, style, data, dynamicRenderData, value, hoverRow, idProp, baseColIndex, fixed, fragment, scrollEl,
             columns, headColumns, bodyColumns, selectMode, selectAllMode, expandRows,
             useDynamicRender, scrollHeight, rowHeight, scrollBuffer,
-            isMouseEventForbidden, isHeadFixed, isFootFixed, isHeadHidden, isBodyHidden, isFootHidden,
+            isMouseEventForbidden, isLayoutFixed, isHeadFixed, isFootFixed, isHeadHidden, isBodyHidden, isFootHidden,
             ignoreColumnWidth, ignoreColumnSpan, hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
             sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, isClickSorting,
             onRowHover, onSortChange, onExpandChange, onRequestColumnsSpan,
@@ -66,7 +66,10 @@ class BaseTable extends Component {
                    className={classNames('base-table', {
                        [className]: className
                    })}
-                   style={style}>
+                   style={{
+                       ...style,
+                       tableLayout: isLayoutFixed ? 'fixed' : null
+                   }}>
 
                 <ColGroup columns={this.getColumnsSpan()}
                           ignoreColumnWidth={ignoreColumnWidth}
@@ -363,6 +366,7 @@ BaseTable.propTypes = {
     /**
      * fixed
      */
+    isLayoutFixed: PropTypes.bool,
     isHeadFixed: PropTypes.bool,
     isFootFixed: PropTypes.bool,
 
@@ -426,6 +430,7 @@ BaseTable.defaultProps = {
     /**
      * fixed
      */
+    isLayoutFixed: false,
     isHeadFixed: false,
     isFootFixed: false,
 
