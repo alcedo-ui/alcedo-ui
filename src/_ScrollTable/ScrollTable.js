@@ -88,7 +88,8 @@ class ScrollTable extends Component {
         const {
 
             className, style, bodyScrollerStyle, maskStyle, tableStyle, footStyle,
-            fixed, columns, headColumns, bodyColumns, isHeadHidden, isFootHidden, isHeadFixed, isFootFixed,
+            fixed, columns, headColumns, bodyColumns,
+            isHeadHidden, isFootHidden, isLayoutFixed, isHeadFixed, isFootFixed,
             data, scrolling, scroll, hasFixedLeftColumn, hasFixedRightColumn,
             useDynamicRender, dynamicRenderIndex, scrollHeight, rowHeight, scrollBuffer,
             onScroll, onWheel,
@@ -144,6 +145,7 @@ class ScrollTable extends Component {
                                                    scrollBuffer={scrollBuffer}
                                                    isBodyHidden={true}
                                                    isFootHidden={true}
+                                                   isLayoutFixed={isLayoutFixed}
                                                    onRequestColumnsSpan={this.handleColumnsSpan}/>
                                 }
                             </ScrollableTable>
@@ -179,6 +181,7 @@ class ScrollTable extends Component {
                                                    columns={columns}
                                                    headColumns={headColumns}
                                                    bodyColumns={bodyColumns}
+                                                   isLayoutFixed={isLayoutFixed}
                                                    isHeadFixed={isHeadFixed}
                                                    isFootFixed={isFootFixed}
                                                    isHeadHidden={isHeadHidden || isHeadFixed}
@@ -229,6 +232,7 @@ class ScrollTable extends Component {
                                                    scrollBuffer={scrollBuffer}
                                                    isHeadHidden={true}
                                                    isBodyHidden={true}
+                                                   isLayoutFixed={isLayoutFixed}
                                                    onRequestColumnsSpan={this.handleColumnsSpan}/>
                                 }
                             </ScrollableTable>
@@ -488,6 +492,7 @@ ScrollTable.propTypes = {
     /**
      * fixed
      */
+    isLayoutFixed: PropTypes.bool,
     isHeadFixed: PropTypes.bool,
     isFootFixed: PropTypes.bool,
 
@@ -559,6 +564,7 @@ ScrollTable.defaultProps = {
     /**
      * fixed
      */
+    isLayoutFixed: false,
     isHeadFixed: false,
     isFootFixed: false,
 
