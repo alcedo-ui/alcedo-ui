@@ -16,6 +16,7 @@ import SortingType from '../_statics/SortingType';
 
 // Vendors
 import classNames from 'classnames';
+import isEqual from 'lodash/isEqual';
 import Util from '../_vendors/Util';
 
 class Th extends Component {
@@ -76,25 +77,41 @@ class Th extends Component {
 
     };
 
-    handleResize = width => {
+    handleResize = (width, e) => {
         const {path, onColumnsWidthChange} = this.props;
-        onColumnsWidthChange && onColumnsWidthChange(path, width);
+        onColumnsWidthChange && onColumnsWidthChange(path, width, e);
+    };
+
+    handleResizeStart = (width, e) => {
+        const {path, onColumnResizeStart} = this.props;
+        onColumnResizeStart && onColumnResizeStart(path, width, e);
+    };
+
+    handleResizeStop = (width, e) => {
+        const {path, onColumnResizeEnd} = this.props;
+        onColumnResizeEnd && onColumnResizeEnd(path, width, e);
     };
 
     render() {
 
         const {
-            className, style, renderer, align, rowSpan, colSpan, noWrap,
-            isColumnResizable, width, minColumnWidth, maxColumnWidth,
-            sortable, sortingProp, sorting, sortingAscIconCls, sortingDescIconCls, isClickSorting
-        } = this.props;
+                className, style, renderer, align, rowSpan, colSpan, noWrap, path,
+                isColumnResizable, width, minColumnWidth, maxColumnWidth, resizingColumnPath,
+                sortable, sortingProp, sorting, sortingAscIconCls, sortingDescIconCls, isClickSorting
+            } = this.props,
+
+            isResizingActivated = isEqual(resizingColumnPath, path);
 
         return (
             <ResizableTh resizable={isColumnResizable}
+                         activated={isResizingActivated}
+                         deactivated={resizingColumnPath && !isResizingActivated}
                          width={width}
                          minWidth={minColumnWidth}
                          maxWidth={maxColumnWidth}
-                         onResize={this.handleResize}>
+                         onResize={this.handleResize}
+                         onResizeStart={this.handleResizeStart}
+                         onResizeStop={this.handleResizeStop}>
                 <th className={classNames({
                     [`align-${align}`]: align && align !== HorizontalAlign.LEFT,
                     sortable: sortable,
@@ -173,9 +190,12 @@ Th.propTypes = {
     width: PropTypes.number,
     minColumnWidth: PropTypes.number,
     maxColumnWidth: PropTypes.number,
+    resizingColumnPath: PropTypes.array,
 
     onSortChange: PropTypes.func,
-    onColumnsWidthChange: PropTypes.func
+    onColumnsWidthChange: PropTypes.func,
+    onColumnResizeStart: PropTypes.func,
+    onColumnResizeEnd: PropTypes.func
 
 };
 
