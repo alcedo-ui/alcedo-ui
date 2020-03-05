@@ -42,6 +42,7 @@ class Table extends Component {
 
         return {
             prevProps: props,
+            columns: ComponentUtil.getDerivedState(props, state, 'columns') || [],
             sorting: ComponentUtil.getDerivedState(props, state, 'sorting'),
             page: TC.handlePage(page, pageSize, props.data),
             pageSize,
@@ -60,6 +61,7 @@ class Table extends Component {
 
         this.state = {
             isInitialing: props.hasInitFadeOut,
+            columns: [],
             sorting: props.sorting,
             page: props.page,
             pageSize: props.pageSize,
@@ -68,8 +70,7 @@ class Table extends Component {
             scrolling: false,
             scrollTop: 0,
             resizing: false,
-            hoverRow: null,
-            columnsWidth: null
+            hoverRow: null
         };
 
     }
@@ -251,10 +252,19 @@ class Table extends Component {
         }
     };
 
-    handleColumnsWidthChange = columnsWidth => {
+    handleColumnsWidthChange = (index, width) => {
+
+        const columns = [...this.state.columns];
+
+        columns[index] = {
+            ...columns[index],
+            width
+        };
+
         this.setState({
-            columnsWidth
+            columns
         });
+
     };
 
     render() {
@@ -272,15 +282,15 @@ class Table extends Component {
                 paginationSelectionRenderer, paginationTotalRenderer, onPageChange, onPageSizeChange,
 
                 // not passing down these props
-                hasInitFadeOut, pageSize: propsPageSize,
+                columns: cols, hasInitFadeOut, pageSize: propsPageSize,
                 onPaginationChange,
 
                 ...restProps
 
             } = this.props,
             {
-                isInitialing, sorting, page, pageSize, expandRows, value,
-                scrolling, scrollTop, resizing, hoverRow, columnsWidth
+                isInitialing, columns, sorting, page, pageSize, expandRows, value,
+                scrolling, scrollTop, resizing, hoverRow
             } = this.state;
 
         return (
@@ -295,6 +305,7 @@ class Table extends Component {
                 {/* table area */}
                 <Content {...restProps}
                          ref={this.content}
+                         columns={columns}
                          data={data}
                          sorting={sorting}
                          isPaginated={isPaginated}
@@ -306,7 +317,6 @@ class Table extends Component {
                          scrollTop={scrollTop}
                          resizing={resizing}
                          hoverRow={hoverRow}
-                         columnsWidth={columnsWidth}
                          selectMode={selectMode}
                          isInitialing={isInitialing}
                          onInit={this.handleInit}
