@@ -593,6 +593,19 @@ function getRawTableData(data) {
 
 }
 
+function getColumnByPath(columns, path) {
+
+    if (!columns || columns.length < 1 || !path || path.length < 1) {
+        return null;
+    }
+
+    let result = {children: columns};
+    path.forEach(pathIndex => result = result.children[pathIndex]);
+
+    return result;
+
+}
+
 export default {
     calcSpan,
     getColumnsSpan,
@@ -622,5 +635,6 @@ export default {
     getPageSizeValue,
     handleNoWrap,
     handlePage,
-    getRawTableData
+    getRawTableData,
+    getColumnByPath
 };
