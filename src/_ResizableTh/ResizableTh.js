@@ -9,6 +9,9 @@ import PropTypes from 'prop-types';
 // Components
 import {Resizable} from 'react-resizable';
 
+// Vendors
+import classNames from 'classnames';
+
 class ResizableTh extends Component {
 
     constructor(props, ...restArgs) {
@@ -17,18 +20,33 @@ class ResizableTh extends Component {
 
     handleResize = (e, {size}) => {
         const {onResize} = this.props;
-        onResize && onResize(size?.width);
+        onResize && onResize(size?.width, e);
+    };
+
+    handleResizeStart = (e, {size}) => {
+        const {onResizeStart} = this.props;
+        onResizeStart && onResizeStart(size?.width, e);
+    };
+
+    handleResizeStop = (e, {size}) => {
+        const {onResizeStop} = this.props;
+        onResizeStop && onResizeStop(size?.width, e);
     };
 
     render() {
 
-        const {children, resizable, width} = this.props;
+        const {children, resizable, activated, deactivated, width} = this.props;
 
         return resizable && width && !isNaN(width) ?
-            <Resizable className="resizable-th"
+            <Resizable className={classNames('resizable-th', {
+                activated,
+                deactivated
+            })}
                        width={width}
                        height={0}
-                       onResize={this.handleResize}>
+                       onResize={this.handleResize}
+                       onResizeStart={this.handleResizeStart}
+                       onResizeStop={this.handleResizeStop}>
                 {children}
             </Resizable>
             :
@@ -42,11 +60,15 @@ ResizableTh.propTypes = {
     children: PropTypes.any,
 
     resizable: PropTypes.bool,
+    activated: PropTypes.bool,
+    deactivated: PropTypes.bool,
     width: PropTypes.number,
     minWidth: PropTypes.number,
     maxWidth: PropTypes.number,
 
-    onResize: PropTypes.func
+    onResize: PropTypes.func,
+    onResizeStart: PropTypes.func,
+    onResizeStop: PropTypes.func
 
 };
 

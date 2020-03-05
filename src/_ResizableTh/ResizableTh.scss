@@ -14,5 +14,17 @@
         right: -5px;
         cursor: col-resize;
         z-index: 1;
+
+        &:hover {
+            background: $theme-highlight;
+        }
+    }
+
+    &.activated .react-resizable-handle {
+        background: $theme-highlight;
+    }
+
+    &.deactivated .react-resizable-handle:hover {
+        background: unset;
     }
 }
