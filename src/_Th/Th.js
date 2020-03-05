@@ -50,9 +50,9 @@ class Th extends Component {
      */
     handleClick = () => {
 
-        const {sortable, isClickSorting, onSortChange} = this.props;
+        const {sortable, isClickSorting, resizingColumnPath, onSortChange} = this.props;
 
-        if (!sortable || !isClickSorting || !onSortChange) {
+        if (!sortable || !isClickSorting || !onSortChange || resizingColumnPath) {
             return;
         }
 
