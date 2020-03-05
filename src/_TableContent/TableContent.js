@@ -663,6 +663,7 @@ class TableContent extends Component {
 
                 className, style, columns, data, scrolling, scrollTop, scroll, noDataText,
                 isLayoutFixed, isHeadFixed, isFootFixed, isHeadHidden, isFootHidden, expandRows, useDynamicRender,
+                isColumnResizable, minColumnWidth, maxColumnWidth,
 
                 // not passing down these props
                 isInitialing, isSelectRecursive, selectUncheckedIconCls, selectCheckedIconCls, resizing, sorting,
@@ -747,6 +748,9 @@ class TableContent extends Component {
                                        hasBodyRenderer={hasBodyRenderer}
                                        hasFootRenderer={hasFootRenderer}
                                        useDynamicRender={useDynamicRender}
+                                       isColumnResizable={isColumnResizable}
+                                       minColumnWidth={minColumnWidth}
+                                       maxColumnWidth={maxColumnWidth}
                                        onRequestColumnsSpan={this.handleRequestRawTableColumnsSpan}/>
                         </ScrollableTable>
                     </div>
@@ -777,6 +781,9 @@ class TableContent extends Component {
                                  ignoreColumnWidth={true}
                                  useDynamicRender={useDynamicRender}
                                  dynamicRenderIndex={this.dynamicRenderIndex}
+                                 isColumnResizable={isColumnResizable}
+                                 minColumnWidth={minColumnWidth}
+                                 maxColumnWidth={maxColumnWidth}
                                  onScroll={this.handleScroll}
                                  onWheel={this.handleWheel}
                                  onRequestColumnsSpan={this.handleRequestColumnsSpan}
@@ -815,6 +822,9 @@ class TableContent extends Component {
                                          ignoreColumnWidth={true}
                                          useDynamicRender={useDynamicRender}
                                          dynamicRenderIndex={this.dynamicRenderIndex}
+                                         isColumnResizable={isColumnResizable}
+                                         minColumnWidth={minColumnWidth}
+                                         maxColumnWidth={maxColumnWidth}
                                          onScroll={this.handleScroll}
                                          onWheel={this.handleWheel}
                                          onExpandChange={this.handleExpandChange}
@@ -858,6 +868,9 @@ class TableContent extends Component {
                                          baseColIndex={this.formatedColumns.length - this.fixedRightColumns.length}
                                          useDynamicRender={useDynamicRender}
                                          dynamicRenderIndex={this.dynamicRenderIndex}
+                                         isColumnResizable={isColumnResizable}
+                                         minColumnWidth={minColumnWidth}
+                                         maxColumnWidth={maxColumnWidth}
                                          onScroll={this.handleScroll}
                                          onWheel={this.handleWheel}
                                          onRequestColumnsSpan={this.handleRequestColumnsSpan}
@@ -1321,7 +1334,7 @@ TableContent.defaultProps = {
      * column resizable
      */
     isColumnResizable: false,
-    minColumnWidth: 40,
+    minColumnWidth: 64,
     maxColumnWidth: Infinity
 
 };
