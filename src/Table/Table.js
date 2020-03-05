@@ -252,17 +252,20 @@ class Table extends Component {
         }
     };
 
-    handleColumnsWidthChange = (index, width) => {
+    handleColumnsWidthChange = (column, width) => {
 
-        const columns = [...this.state.columns];
-
-        columns[index] = {
-            ...columns[index],
-            width
-        };
+        const {columns} = this.state;
+        Util.preOrderTraverse({children: columns}, node => {
+            if (node == column) {
+                node.width = width;
+                return false;
+            }
+        });
 
         this.setState({
             columns
+        }, () => {
+            this.fixLayout();
         });
 
     };
