@@ -41,12 +41,6 @@
         position: relative;
         min-height: 200px;
 
-        .table {
-            th, td {
-                border: 1px solid $theme-border;
-            }
-        }
-
         .loading-table-loading {
             position: absolute;
             left: 0;
@@ -54,6 +48,12 @@
             top: 0;
             bottom: 0;
             margin: auto;
+        }
+    }
+
+    .table.border-collapse {
+        th, td {
+            border: 1px solid $theme-border;
         }
     }
 }

@@ -452,7 +452,7 @@ class TableExamples extends Component {
                                 {
                                     filteredLoadingData ?
                                         <Table ref={this.tableRef}
-                                               className={classNames('example-table', {
+                                               className={classNames('example-table border-collapse', {
                                                    'head-hidden': !headVisible,
                                                    'foot-hidden': !footVisible || !filteredLoadingData || filteredLoadingData.length < 1
                                                })}
@@ -520,6 +520,38 @@ class TableExamples extends Component {
                                        onDeselect={this.handleDeselect}
                                        onDeselectAll={this.handleSeselectAll}/>
                             </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Resize Column Width"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <p>A simple <code>Table</code> example.</p>
+
+                            <Table className="example-table border-collapse"
+                                   columns={this.columns}
+                                   data={data}
+                                   isColumnResizable={true}
+                                   scroll={{
+                                       width: 1000
+                                   }}
+                                   onSortChange={this.handleSortChange}
+                                   onPaginationChange={this.handlePaginationChange}
+                                   onExpand={this.handleExpand}
+                                   onCollapse={this.handleCollapse}
+                                   onChange={this.handleChange}
+                                   onSelect={this.handleSelect}
+                                   onSelectAll={this.handleSelectAll}
+                                   onDeselect={this.handleDeselect}
+                                   onDeselectAll={this.handleSeselectAll}/>
 
                         </div>
                     </div>
