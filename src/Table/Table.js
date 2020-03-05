@@ -296,12 +296,14 @@ class Table extends Component {
     };
 
     handleColumnResizeEnd = (path, width, e) => {
-        this.setState({
-            resizingColumnPath: null
-        }, () => {
-            const {onColumnResizeEnd} = this.props;
-            onColumnResizeEnd && onColumnResizeEnd(TC.getColumnByPath(columns, path), width, path, e);
-        });
+        setTimeout(() => {
+            this.setState({
+                resizingColumnPath: null
+            }, () => {
+                const {onColumnResizeEnd} = this.props;
+                onColumnResizeEnd && onColumnResizeEnd(TC.getColumnByPath(columns, path), width, path, e);
+            });
+        }, 0);
     };
 
     render() {
