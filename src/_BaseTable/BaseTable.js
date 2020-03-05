@@ -65,8 +65,9 @@ class BaseTable extends Component {
 
                 className, style, data, dynamicRenderData, value, hoverRow, idProp, baseColIndex, fragment, scrollEl,
                 headColumns, bodyColumns, selectMode, selectAllMode, expandRows, resizingColumnPath,
-                useDynamicRender, scrollHeight, rowHeight, scrollBuffer, isColumnResizable, minColumnWidth, maxColumnWidth,
-                isMouseEventForbidden, isLayoutFixed, isHeadFixed, isFootFixed, isHeadHidden, isBodyHidden, isFootHidden,
+                useDynamicRender, scrollHeight, rowHeight, scrollBuffer,
+                isColumnResizable, minColumnWidth, maxColumnWidth, isHeadHidden, isBodyHidden, isFootHidden,
+                isMouseEventForbidden, isLayoutFixed, isHeadFixed, isFootFixed,
                 ignoreColumnWidth, ignoreColumnSpan, hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
                 sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, isClickSorting,
                 onRowHover, onSortChange, onExpandChange, onRequestColumnsSpan,
@@ -91,6 +92,8 @@ class BaseTable extends Component {
                    }}>
 
                 <ColGroup columns={this.getColumnsSpan()}
+                          isColumnResizable={isColumnResizable}
+                          minColumnWidth={minColumnWidth}
                           ignoreColumnWidth={ignoreColumnWidth}
                           ignoreColumnSpan={ignoreColumnSpan}/>
 
@@ -504,7 +507,7 @@ BaseTable.defaultProps = {
      * column resizable
      */
     isColumnResizable: false,
-    minColumnWidth: 40,
+    minColumnWidth: 64,
     maxColumnWidth: Infinity
 
 };
