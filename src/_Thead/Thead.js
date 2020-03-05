@@ -62,6 +62,7 @@ class Thead extends Component {
                                     this.getColumnsSpan(row)?.map(({column, span}, colIndex) => column ?
                                         <Th {...restProps}
                                             key={colIndex}
+                                            column={column}
                                             className={column.headClassName}
                                             style={column.headStyle}
                                             width={column.width}
