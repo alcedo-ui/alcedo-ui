@@ -15,8 +15,9 @@ class ResizableTh extends Component {
         super(props, ...restArgs);
     }
 
-    handleResize = () => {
-        const {onColumnsWidthChange} = this.props;
+    handleResize = (e, {size}) => {
+        const {onResize} = this.props;
+        onResize && onResize(size?.width);
     };
 
     render() {
@@ -45,7 +46,7 @@ ResizableTh.propTypes = {
     minWidth: PropTypes.number,
     maxWidth: PropTypes.number,
 
-    onColumnsWidthChange: PropTypes.func
+    onResize: PropTypes.func
 
 };
 
