@@ -369,8 +369,7 @@ class TableContent extends Component {
 
         if (this.wrapperEl) {
 
-            const {columnsWidth} = TL.fixLayout(this.wrapperEl, this.rawTableEl, this.props, this);
-            this.handleColumnsWidthChange(columnsWidth?.[TableFragment.BODY]);
+            TL.fixLayout(this.wrapperEl, this.rawTableEl, this.props, this);
 
             if (TL.hasFixed(this.props, this)) {
                 setTimeout(() => {
@@ -401,11 +400,6 @@ class TableContent extends Component {
             this.fixLayout();
         }
     }, 600);
-
-    handleColumnsWidthChange = columnsWidth => {
-        const {onColumnsWidthChange} = this.props;
-        columnsWidth && onColumnsWidthChange && onColumnsWidthChange(columnsWidth);
-    };
 
     /**
      * handle resize start callback
@@ -1222,7 +1216,6 @@ TableContent.propTypes = {
      * column resizable
      */
     isColumnResizable: PropTypes.bool,
-    columnsWidth: PropTypes.array,
     minColumnWidth: PropTypes.number,
     maxColumnWidth: PropTypes.number,
 
