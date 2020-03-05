@@ -55,7 +55,7 @@ class BaseTable extends Component {
             isMouseEventForbidden, isLayoutFixed, isHeadFixed, isFootFixed, isHeadHidden, isBodyHidden, isFootHidden,
             ignoreColumnWidth, ignoreColumnSpan, hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
             sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, isClickSorting,
-            onRowHover, onSortChange, onExpandChange, onRequestColumnsSpan,
+            onRowHover, onSortChange, onExpandChange, onRequestColumnsSpan, onColumnsWidthChange,
 
             ...restProps
 
@@ -94,7 +94,8 @@ class BaseTable extends Component {
                                minColumnWidth={minColumnWidth}
                                maxColumnWidth={maxColumnWidth}
                                onSortChange={onSortChange}
-                               onRequestColumnsSpan={onRequestColumnsSpan}/>
+                               onRequestColumnsSpan={onRequestColumnsSpan}
+                               onColumnsWidthChange={onColumnsWidthChange}/>
                         :
                         null
                 }
@@ -116,6 +117,7 @@ class BaseTable extends Component {
                                isMouseEventForbidden={isMouseEventForbidden}
                                ignoreColumnSpan={ignoreColumnSpan}
                                scrollEl={scrollEl}
+                               isColumnResizable={isColumnResizable}
                                useDynamicRender={useDynamicRender}
                                scrollHeight={scrollHeight}
                                rowHeight={rowHeight}
@@ -424,7 +426,8 @@ BaseTable.propTypes = {
     onFootClick: PropTypes.func,
     onRowHover: PropTypes.func,
     onExpandChange: PropTypes.func,
-    onRequestColumnsSpan: PropTypes.func
+    onRequestColumnsSpan: PropTypes.func,
+    onColumnsWidthChange: PropTypes.func
 
 };
 
