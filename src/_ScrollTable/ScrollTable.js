@@ -530,6 +530,7 @@ ScrollTable.propTypes = {
     isColumnResizable: PropTypes.bool,
     minColumnWidth: PropTypes.number,
     maxColumnWidth: PropTypes.number,
+    resizingColumnPath: PropTypes.array,
 
     /**
      * callback
@@ -543,7 +544,9 @@ ScrollTable.propTypes = {
     onSortChange: PropTypes.func,
     onRowHover: PropTypes.func,
     onRequestColumnsSpan: PropTypes.func,
-    onColumnsWidthChange: PropTypes.func
+    onColumnsWidthChange: PropTypes.func,
+    onColumnResizeStart: PropTypes.func,
+    onColumnResizeEnd: PropTypes.func
 
 };
 
