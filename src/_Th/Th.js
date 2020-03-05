@@ -5,13 +5,17 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Components
 import ThSortIcon from '../_ThSortingIcon';
+import ResizableTh from '../_ResizableTh';
 
+// Statics
 import HorizontalAlign from '../_statics/HorizontalAlign';
 import SortingType from '../_statics/SortingType';
 
+// Vendors
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 
 class Th extends Component {
@@ -75,46 +79,57 @@ class Th extends Component {
     render() {
 
         const {
+
             className, style, renderer, align, rowSpan, colSpan, noWrap,
-            sortable, sortingProp, sorting, sortingAscIconCls, sortingDescIconCls, isClickSorting
+            isColumnResizable, width, minColumnWidth, maxColumnWidth,
+            sortable, sortingProp, sorting, sortingAscIconCls, sortingDescIconCls, isClickSorting,
+
+            onColumnsWidthChange
+
         } = this.props;
 
         return (
-            <th className={classNames({
-                [`align-${align}`]: align && align !== HorizontalAlign.LEFT,
-                sortable: sortable,
-                clickable: isClickSorting,
-                sorting: sortable && sortingProp && sorting && sorting.prop && sorting.prop === sortingProp,
-                'no-wrap': sortable || noWrap,
-                [className]: className
-            })}
-                style={style}
-                title={typeof renderer === 'string' ? renderer : null}
-                rowSpan={rowSpan}
-                colSpan={colSpan}
-                onClick={this.handleClick}>
+            <ResizableTh resizable={isColumnResizable}
+                         width={width}
+                         minWidth={minColumnWidth}
+                         maxWidth={maxColumnWidth}
+                         onColumnsWidthChange={onColumnsWidthChange}>
+                <th className={classNames({
+                    [`align-${align}`]: align && align !== HorizontalAlign.LEFT,
+                    sortable: sortable,
+                    clickable: isClickSorting,
+                    sorting: sortable && sortingProp && sorting && sorting.prop && sorting.prop === sortingProp,
+                    'no-wrap': sortable || noWrap,
+                    [className]: className
+                })}
+                    style={style}
+                    title={typeof renderer === 'string' ? renderer : null}
+                    rowSpan={rowSpan}
+                    colSpan={colSpan}
+                    onClick={this.handleClick}>
 
-                <span className="th-column">
+                    <span className="th-column">
 
-                    <span className={classNames('th-column-title', {
-                        'no-wrap': noWrap
-                    })}>
-                        {this.handleRender()}
+                        <span className={classNames('th-column-title', {
+                            'no-wrap': noWrap
+                        })}>
+                            {this.handleRender()}
+                        </span>
+
+                        {
+                            sortable ?
+                                <ThSortIcon sorting={sorting}
+                                            sortingProp={sortingProp}
+                                            sortingAscIconCls={sortingAscIconCls}
+                                            sortingDescIconCls={sortingDescIconCls}/>
+                                :
+                                null
+                        }
+
                     </span>
 
-                    {
-                        sortable ?
-                            <ThSortIcon sorting={sorting}
-                                        sortingProp={sortingProp}
-                                        sortingAscIconCls={sortingAscIconCls}
-                                        sortingDescIconCls={sortingDescIconCls}/>
-                            :
-                            null
-                    }
-
-                </span>
-
-            </th>
+                </th>
+            </ResizableTh>
         );
 
     }
@@ -148,21 +163,39 @@ Th.propTypes = {
     sortingProp: PropTypes.string,
     isClickSorting: PropTypes.bool,
 
-    onSortChange: PropTypes.func
+    /**
+     * column resizable
+     */
+    isColumnResizable: PropTypes.bool,
+    width: PropTypes.number,
+    minColumnWidth: PropTypes.number,
+    maxColumnWidth: PropTypes.number,
+
+    onSortChange: PropTypes.func,
+    onColumnsWidthChange: PropTypes.func
 
 };
 
 Th.defaultProps = {
 
     colIndex: 0,
-
     noWrap: false,
 
+    /**
+     * sorting
+     */
     defaultSortingType: SortingType.ASC,
     sortingAscIconCls: 'fas fa-sort-up',
     sortingDescIconCls: 'fas fa-sort-down',
     sortable: false,
-    isClickSorting: true
+    isClickSorting: true,
+
+    /**
+     * column resizable
+     */
+    isColumnResizable: false,
+    minColumnWidth: 40,
+    maxColumnWidth: Infinity
 
 };
 
