@@ -533,13 +533,11 @@ class TableExamples extends Component {
 
                     <div className="widget-content">
                         <div className="example-content">
-
-                            <p>A simple <code>Table</code> example.</p>
-
                             <Table className="example-table border-collapse"
                                    columns={this.columns}
                                    data={data}
                                    isColumnResizable={true}
+                                   isLayoutFixed={true}
                                    scroll={{
                                        width: 1000
                                    }}
@@ -552,7 +550,6 @@ class TableExamples extends Component {
                                    onSelectAll={this.handleSelectAll}
                                    onDeselect={this.handleDeselect}
                                    onDeselectAll={this.handleSeselectAll}/>
-
                         </div>
                     </div>
 
