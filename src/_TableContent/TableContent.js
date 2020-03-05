@@ -1218,6 +1218,7 @@ TableContent.propTypes = {
     isColumnResizable: PropTypes.bool,
     minColumnWidth: PropTypes.number,
     maxColumnWidth: PropTypes.number,
+    resizingColumnPath: PropTypes.array,
 
     /**
      * callback
@@ -1239,7 +1240,9 @@ TableContent.propTypes = {
     onResizeEnd: PropTypes.func,
     onRowHover: PropTypes.func,
     onDataUpdate: PropTypes.func,
-    onColumnsWidthChange: PropTypes.func
+    onColumnsWidthChange: PropTypes.func,
+    onColumnResizeStart: PropTypes.func,
+    onColumnResizeEnd: PropTypes.func
 
 };
 
