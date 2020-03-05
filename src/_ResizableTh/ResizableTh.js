@@ -15,13 +15,19 @@ class ResizableTh extends Component {
         super(props, ...restArgs);
     }
 
+    handleResize = () => {
+        const {onColumnsWidthChange} = this.props;
+    };
+
     render() {
 
-        const {children, resizable, width, onResize} = this.props;
+        const {children, resizable, width} = this.props;
 
-        return resizable ?
-            <Resizable width={width}
-                       onResize={onResize}>
+        return resizable && width && !isNaN(width) ?
+            <Resizable className="resizable-th"
+                       width={width}
+                       height={0}
+                       onResize={this.handleResize}>
                 {children}
             </Resizable>
             :
@@ -39,9 +45,7 @@ ResizableTh.propTypes = {
     minWidth: PropTypes.number,
     maxWidth: PropTypes.number,
 
-    onResize: PropTypes.func,
-    onResizeStart: PropTypes.func,
-    onResizeStop: PropTypes.func
+    onColumnsWidthChange: PropTypes.func
 
 };
 
