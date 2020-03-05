@@ -1,3 +1,8 @@
+/**
+ * @file TableExamples.scss
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 @import '../../../../my-theme.scss';
 
 .table-examples {
@@ -34,6 +39,12 @@
             tbody tr:last-child td {
                 border-bottom: none
             }
+        }
+
+        td.no-wrap > * {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
     }
 
