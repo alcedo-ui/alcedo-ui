@@ -32,11 +32,14 @@ class Thead extends Component {
     }
 
     getColumnsSpan = row => {
+
         const {data, onRequestColumnsSpan} = this.props;
+
         return onRequestColumnsSpan ?
             onRequestColumnsSpan(TableFragment.HEAD, row, data)
             :
             TC.getColumnsSpan(TableFragment.HEAD, row, data);
+
     };
 
     render() {
