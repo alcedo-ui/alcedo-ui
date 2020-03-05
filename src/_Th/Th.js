@@ -76,16 +76,17 @@ class Th extends Component {
 
     };
 
+    handleResize = width => {
+        const {column, onColumnsWidthChange} = this.props;
+        onColumnsWidthChange && onColumnsWidthChange(column, width);
+    };
+
     render() {
 
         const {
-
             className, style, renderer, align, rowSpan, colSpan, noWrap,
             isColumnResizable, width, minColumnWidth, maxColumnWidth,
-            sortable, sortingProp, sorting, sortingAscIconCls, sortingDescIconCls, isClickSorting,
-
-            onColumnsWidthChange
-
+            sortable, sortingProp, sorting, sortingAscIconCls, sortingDescIconCls, isClickSorting
         } = this.props;
 
         return (
@@ -93,7 +94,7 @@ class Th extends Component {
                          width={width}
                          minWidth={minColumnWidth}
                          maxWidth={maxColumnWidth}
-                         onColumnsWidthChange={onColumnsWidthChange}>
+                         onResize={this.handleResize}>
                 <th className={classNames({
                     [`align-${align}`]: align && align !== HorizontalAlign.LEFT,
                     sortable: sortable,
@@ -140,6 +141,7 @@ Th.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
 
+    column: PropTypes.object,
     renderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     align: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
     colIndex: PropTypes.number,
