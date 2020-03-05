@@ -22,6 +22,7 @@ import SortingType from '../_statics/SortingType';
 
 // Vendors
 import classNames from 'classnames';
+import cloneDeep from 'lodash/cloneDeep';
 import Util from '../_vendors/Util';
 import ComponentUtil from '../_vendors/ComponentUtil';
 import TC from '../_vendors/TableCalculation';
@@ -252,20 +253,34 @@ class Table extends Component {
         }
     };
 
-    handleColumnsWidthChange = (column, width) => {
+    /**
+     * Update new column width value to column
+     * @param path
+     * @param width
+     */
+    handleColumnsWidthChange = (path, width) => {
 
         const {columns} = this.state;
-        Util.preOrderTraverse({children: columns}, node => {
-            if (node == column) {
-                node.width = width;
-                return false;
-            }
-        });
+
+        if (!columns || columns.length < 1 || !path || path.length < 1) {
+            return;
+        }
+
+        const nextColumns = cloneDeep(columns);
+        let column = {children: nextColumns};
+
+        path.forEach(pathIndex => column = column.children[pathIndex]);
+        column.width = width;
 
         this.setState({
-            columns
+            columns: nextColumns
         }, () => {
+
             this.fixLayout();
+
+            const {onColumnsWidthChange} = this.props;
+            onColumnsWidthChange && onColumnsWidthChange(column, width, path);
+
         });
 
     };
@@ -752,7 +767,8 @@ Table.propTypes = {
     onScrollChange: PropTypes.func,
     onResizeStart: PropTypes.func,
     onResizeEnd: PropTypes.func,
-    onResizeChange: PropTypes.func
+    onResizeChange: PropTypes.func,
+    onColumnsWidthChange: PropTypes.func
 
 };
 
