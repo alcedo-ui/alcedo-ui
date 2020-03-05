@@ -309,10 +309,13 @@ Thead.propTypes = {
     isColumnResizable: PropTypes.bool,
     minColumnWidth: PropTypes.number,
     maxColumnWidth: PropTypes.number,
+    resizingColumnPath: PropTypes.array,
 
     onSortChange: PropTypes.func,
     onRequestColumnsSpan: PropTypes.func,
-    onColumnsWidthChange: PropTypes.func
+    onColumnsWidthChange: PropTypes.func,
+    onColumnResizeStart: PropTypes.func,
+    onColumnResizeEnd: PropTypes.func
 
 };
 
