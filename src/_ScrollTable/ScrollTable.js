@@ -610,7 +610,7 @@ ScrollTable.defaultProps = {
      * column resizable
      */
     isColumnResizable: false,
-    minColumnWidth: 40,
+    minColumnWidth: 64,
     maxColumnWidth: Infinity
 
 };
