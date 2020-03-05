@@ -77,8 +77,8 @@ class Th extends Component {
     };
 
     handleResize = width => {
-        const {column, onColumnsWidthChange} = this.props;
-        onColumnsWidthChange && onColumnsWidthChange(column, width);
+        const {path, onColumnsWidthChange} = this.props;
+        onColumnsWidthChange && onColumnsWidthChange(path, width);
     };
 
     render() {
@@ -142,6 +142,7 @@ Th.propTypes = {
     style: PropTypes.object,
 
     column: PropTypes.object,
+    path: PropTypes.array,
     renderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     align: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
     colIndex: PropTypes.number,
