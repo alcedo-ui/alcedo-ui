@@ -64,12 +64,13 @@ class BaseTable extends Component {
         const {
 
                 className, style, data, dynamicRenderData, value, hoverRow, idProp, baseColIndex, fragment, scrollEl,
-                headColumns, bodyColumns, selectMode, selectAllMode, expandRows,
+                headColumns, bodyColumns, selectMode, selectAllMode, expandRows, resizingColumnPath,
                 useDynamicRender, scrollHeight, rowHeight, scrollBuffer, isColumnResizable, minColumnWidth, maxColumnWidth,
                 isMouseEventForbidden, isLayoutFixed, isHeadFixed, isFootFixed, isHeadHidden, isBodyHidden, isFootHidden,
                 ignoreColumnWidth, ignoreColumnSpan, hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
                 sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, isClickSorting,
-                onRowHover, onSortChange, onExpandChange, onRequestColumnsSpan, onColumnsWidthChange,
+                onRowHover, onSortChange, onExpandChange, onRequestColumnsSpan,
+                onColumnsWidthChange, onColumnResizeStart, onColumnResizeEnd,
 
                 // not passing down these props
                 columns: cols,
@@ -111,9 +112,12 @@ class BaseTable extends Component {
                                isColumnResizable={isColumnResizable}
                                minColumnWidth={minColumnWidth}
                                maxColumnWidth={maxColumnWidth}
+                               resizingColumnPath={resizingColumnPath}
                                onSortChange={onSortChange}
                                onRequestColumnsSpan={onRequestColumnsSpan}
-                               onColumnsWidthChange={onColumnsWidthChange}/>
+                               onColumnsWidthChange={onColumnsWidthChange}
+                               onColumnResizeStart={onColumnResizeStart}
+                               onColumnResizeEnd={onColumnResizeEnd}/>
                         :
                         null
                 }
@@ -431,6 +435,7 @@ BaseTable.propTypes = {
     isColumnResizable: PropTypes.bool,
     minColumnWidth: PropTypes.number,
     maxColumnWidth: PropTypes.number,
+    resizingColumnPath: PropTypes.array,
 
     /**
      * callback
@@ -443,7 +448,9 @@ BaseTable.propTypes = {
     onRowHover: PropTypes.func,
     onExpandChange: PropTypes.func,
     onRequestColumnsSpan: PropTypes.func,
-    onColumnsWidthChange: PropTypes.func
+    onColumnsWidthChange: PropTypes.func,
+    onColumnResizeStart: PropTypes.func,
+    onColumnResizeEnd: PropTypes.func
 
 };
 
