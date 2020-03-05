@@ -20,11 +20,19 @@ function calcSpan(fragment, column, data, colIndex, rowIndex) {
         +span;
 }
 
+/**
+ * get columns span
+ * @param fragment
+ * @param columns
+ * @param data
+ * @param rowIndex
+ * @returns {[]|*}
+ */
 function getColumnsSpan(fragment, columns, data, rowIndex) {
 
     if (!fragment) {
         return columns.map(column => ({
-            column,
+            ...column,
             span: 1
         }));
     }
@@ -39,7 +47,7 @@ function getColumnsSpan(fragment, columns, data, rowIndex) {
             continue;
         }
 
-        const column = columns[colIndex],
+        const {column, path} = columns[colIndex],
             span = calcSpan(fragment, columns[colIndex], data, colIndex, rowIndex);
 
         if (span && span > 1) {
@@ -48,6 +56,7 @@ function getColumnsSpan(fragment, columns, data, rowIndex) {
 
         result.push({
             column,
+            path,
             span
         });
 
@@ -57,11 +66,21 @@ function getColumnsSpan(fragment, columns, data, rowIndex) {
 
 }
 
+/**
+ * get the correct column span when some columns are frozen
+ * @param originColumns
+ * @param fixed
+ * @param fragment
+ * @param columns
+ * @param data
+ * @param rowIndex
+ * @returns {[]|*}
+ */
 function getAdvancedColumnsSpan(originColumns, fixed, fragment, columns, data, rowIndex) {
 
     if (!fragment) {
         return columns.map(column => ({
-            column,
+            ...column,
             span: 1
         }));
     }
@@ -76,7 +95,7 @@ function getAdvancedColumnsSpan(originColumns, fixed, fragment, columns, data, r
             continue;
         }
 
-        const column = columns[colIndex];
+        const {column, path} = columns[colIndex];
 
         if (column) {
 
@@ -101,6 +120,7 @@ function getAdvancedColumnsSpan(originColumns, fixed, fragment, columns, data, r
 
         result.push({
             column,
+            path,
             span: span > 1 ? span : null
         });
 
@@ -140,7 +160,7 @@ function sortTableData(data, sorting, sortFunc) {
 
 function hasRenderer(columns, fragment) {
     return columns && columns.length > 0 && fragment ?
-        columns.some(column => column && column[`${fragment}Renderer`])
+        columns.some(config => config && config.column && config.column[`${fragment}Renderer`])
         :
         false;
 }
@@ -445,11 +465,14 @@ function getHeadColumns(columns) {
     }, maxDepth);
 
     if (!formatedColumns) {
-        return columns;
+        return columns.map((column, index) => ({
+            column,
+            path: [index]
+        }));
     }
 
     const result = [];
-    Util.postOrderTraverse({children: formatedColumns}, (node, depth) => {
+    Util.postOrderTraverse({children: formatedColumns}, (column, depth, parent, path) => {
 
         const index = depth - 1;
 
@@ -459,7 +482,10 @@ function getHeadColumns(columns) {
                 result[index] = [];
             }
 
-            result[index].push(node);
+            result[index].push({
+                column,
+                path
+            });
 
         }
 
@@ -476,9 +502,12 @@ function getBodyColumns(columns) {
     }
 
     const result = [];
-    Util.postOrderTraverse({children: columns}, node => {
-        if (node && (!node.children || node.children.length < 1)) {
-            result.push(node);
+    Util.postOrderTraverse({children: columns}, (column, depth, parent, path) => {
+        if (column && (!column.children || column.children.length < 1)) {
+            result.push({
+                column,
+                path
+            });
         }
     });
 
