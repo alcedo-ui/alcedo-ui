@@ -71,7 +71,8 @@ class Table extends Component {
             scrolling: false,
             scrollTop: 0,
             resizing: false,
-            hoverRow: null
+            hoverRow: null,
+            resizingColumnPath: null
         };
 
     }
@@ -258,7 +259,7 @@ class Table extends Component {
      * @param path
      * @param width
      */
-    handleColumnsWidthChange = (path, width) => {
+    handleColumnsWidthChange = (path, width, e) => {
 
         const {columns} = this.state;
 
@@ -266,11 +267,11 @@ class Table extends Component {
             return;
         }
 
-        const nextColumns = cloneDeep(columns);
-        let column = {children: nextColumns};
-
-        path.forEach(pathIndex => column = column.children[pathIndex]);
-        column.width = width;
+        const nextColumns = cloneDeep(columns),
+            column = TC.getColumnByPath(nextColumns, path);
+        if (column) {
+            column.width = width;
+        }
 
         this.setState({
             columns: nextColumns
@@ -279,10 +280,28 @@ class Table extends Component {
             this.fixLayout();
 
             const {onColumnsWidthChange} = this.props;
-            onColumnsWidthChange && onColumnsWidthChange(column, width, path);
+            onColumnsWidthChange && onColumnsWidthChange(column, width, path, e);
 
         });
 
+    };
+
+    handleColumnResizeStart = (path, width, e) => {
+        this.setState({
+            resizingColumnPath: path
+        }, () => {
+            const {columns, onColumnResizeStart} = this.props;
+            onColumnResizeStart && onColumnResizeStart(TC.getColumnByPath(columns, path), width, path, e);
+        });
+    };
+
+    handleColumnResizeEnd = (path, width, e) => {
+        this.setState({
+            resizingColumnPath: null
+        }, () => {
+            const {onColumnResizeEnd} = this.props;
+            onColumnResizeEnd && onColumnResizeEnd(TC.getColumnByPath(columns, path), width, path, e);
+        });
     };
 
     render() {
@@ -308,7 +327,7 @@ class Table extends Component {
             } = this.props,
             {
                 isInitialing, columns, sorting, page, pageSize, expandRows, value,
-                scrolling, scrollTop, resizing, hoverRow
+                scrolling, scrollTop, resizing, hoverRow, resizingColumnPath
             } = this.state;
 
         return (
@@ -335,6 +354,7 @@ class Table extends Component {
                          scrollTop={scrollTop}
                          resizing={resizing}
                          hoverRow={hoverRow}
+                         resizingColumnPath={resizingColumnPath}
                          selectMode={selectMode}
                          isInitialing={isInitialing}
                          onInit={this.handleInit}
@@ -347,7 +367,9 @@ class Table extends Component {
                          onResizeStart={this.handleResizeStart}
                          onResizeEnd={this.handleResizeEnd}
                          onRowHover={this.handleRowHover}
-                         onColumnsWidthChange={this.handleColumnsWidthChange}/>
+                         onColumnsWidthChange={this.handleColumnsWidthChange}
+                         onColumnResizeStart={this.handleColumnResizeStart}
+                         onColumnResizeEnd={this.handleColumnResizeEnd}/>
 
                 {/* table footer */}
                 {/*<Footer/>*/}
@@ -768,7 +790,9 @@ Table.propTypes = {
     onResizeStart: PropTypes.func,
     onResizeEnd: PropTypes.func,
     onResizeChange: PropTypes.func,
-    onColumnsWidthChange: PropTypes.func
+    onColumnsWidthChange: PropTypes.func,
+    onColumnResizeStart: PropTypes.func,
+    onColumnResizeEnd: PropTypes.func
 
 };
 
