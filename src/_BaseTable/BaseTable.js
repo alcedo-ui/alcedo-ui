@@ -36,12 +36,26 @@ class BaseTable extends Component {
         super(props, ...restArgs);
     }
 
+    getColumns = (columns = this.props.columns) => {
+        return columns ?
+            columns.map((column, index) => ({
+                column,
+                path: [index]
+            }))
+            :
+            columns;
+    };
+
     getColumnsSpan = () => {
-        const {fragment, bodyColumns, columns, onRequestColumnsSpan} = this.props;
+
+        const {fragment, bodyColumns, onRequestColumnsSpan} = this.props,
+            columns = this.getColumns();
+
         return onRequestColumnsSpan ?
             onRequestColumnsSpan(fragment, bodyColumns || columns)
             :
             TC.getColumnsSpan(fragment, bodyColumns || columns);
+
     };
 
     /* eslint-disable complexity */
@@ -49,17 +63,21 @@ class BaseTable extends Component {
 
         const {
 
-            className, style, data, dynamicRenderData, value, hoverRow, idProp, baseColIndex, fixed, fragment, scrollEl,
-            columns, headColumns, bodyColumns, selectMode, selectAllMode, expandRows,
-            useDynamicRender, scrollHeight, rowHeight, scrollBuffer, isColumnResizable, minColumnWidth, maxColumnWidth,
-            isMouseEventForbidden, isLayoutFixed, isHeadFixed, isFootFixed, isHeadHidden, isBodyHidden, isFootHidden,
-            ignoreColumnWidth, ignoreColumnSpan, hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
-            sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, isClickSorting,
-            onRowHover, onSortChange, onExpandChange, onRequestColumnsSpan, onColumnsWidthChange,
+                className, style, data, dynamicRenderData, value, hoverRow, idProp, baseColIndex, fragment, scrollEl,
+                headColumns, bodyColumns, selectMode, selectAllMode, expandRows,
+                useDynamicRender, scrollHeight, rowHeight, scrollBuffer, isColumnResizable, minColumnWidth, maxColumnWidth,
+                isMouseEventForbidden, isLayoutFixed, isHeadFixed, isFootFixed, isHeadHidden, isBodyHidden, isFootHidden,
+                ignoreColumnWidth, ignoreColumnSpan, hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
+                sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, isClickSorting,
+                onRowHover, onSortChange, onExpandChange, onRequestColumnsSpan, onColumnsWidthChange,
 
-            ...restProps
+                // not passing down these props
+                columns: cols,
 
-        } = this.props;
+                ...restProps
+
+            } = this.props,
+            columns = this.getColumns();
 
         return (
             <table {...restProps}
@@ -78,7 +96,7 @@ class BaseTable extends Component {
                 {
                     !isHeadHidden && hasHeadRenderer ?
                         <Thead {...restProps}
-                               columns={headColumns || [columns]}
+                               columns={headColumns || columns}
                                data={data}
                                dynamicRenderData={dynamicRenderData}
                                selectMode={selectMode}
@@ -172,8 +190,6 @@ BaseTable.propTypes = {
      * The select all mode of table, all or current page.
      */
     selectAllMode: PropTypes.oneOf(Util.enumerateValue(SelectAllMode)),
-
-    fixed: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(Util.enumerateValue(HorizontalAlign))]),
 
     fragment: PropTypes.oneOf(Util.enumerateValue(TableFragment)),
 
