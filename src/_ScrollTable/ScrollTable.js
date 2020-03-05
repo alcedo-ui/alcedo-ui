@@ -542,7 +542,8 @@ ScrollTable.propTypes = {
     onWheel: PropTypes.func,
     onSortChange: PropTypes.func,
     onRowHover: PropTypes.func,
-    onRequestColumnsSpan: PropTypes.func
+    onRequestColumnsSpan: PropTypes.func,
+    onColumnsWidthChange: PropTypes.func
 
 };
 
