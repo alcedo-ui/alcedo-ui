@@ -37,6 +37,14 @@ class TriggerPop extends Component {
 
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.shouldFollowScroll && !prevProps.visible && this.props.visible) {
+            this.addWatchScroll();
+        } else if (prevProps.visible && !this.props.visible) {
+            this.removeWatchScroll();
+        }
+    }
+
     /**
      * public
      */
@@ -49,11 +57,8 @@ class TriggerPop extends Component {
      * @param transitionEl
      */
     resetPosition = (transitionEl = this.getEl()) => {
-
         const {parentEl, triggerEl, position} = this.props;
-
         TriggerPopCalculation.setStyle(parentEl, triggerEl, transitionEl, this.getScrollEl(), position);
-
     };
 
     /**
@@ -107,14 +112,6 @@ class TriggerPop extends Component {
         scrollEl && Event.removeEvent(scrollEl, 'scroll', this.handleScroll);
     };
 
-    componentDidUpdate(prevProps) {
-        if (this.props.shouldFollowScroll && !prevProps.visible && this.props.visible) {
-            this.addWatchScroll();
-        } else if (prevProps.visible && !this.props.visible) {
-            this.removeWatchScroll();
-        }
-    }
-
     render() {
 
         const {
@@ -141,6 +138,7 @@ class TriggerPop extends Component {
                      'trigger-pop-animated': isAnimated,
                      [className]: className
                  })}
+                 position={position}
                  container={<Paper></Paper>}
                  isAnimated={isAnimated}
                  resetPosition={this.resetPosition}>
