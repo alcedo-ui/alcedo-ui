@@ -518,7 +518,7 @@ function getBodyColumns(columns) {
 function getFixedHeadColumns(columns, fixed) {
     return columns ?
         columns.map(row => row ?
-            row.filter(column => column && column.fixed === fixed)
+            row.filter(config => config?.column?.fixed === fixed)
             :
             row
         )
@@ -527,7 +527,7 @@ function getFixedHeadColumns(columns, fixed) {
 }
 
 function getFixedBodyColumns(columns, fixed) {
-    return columns ? columns.filter(column => column && column.fixed === fixed) : columns;
+    return columns ? columns.filter(config => config?.column?.fixed === fixed) : columns;
 }
 
 function recursiveSelectChildren(node, value = [], idProp) {
