@@ -29,6 +29,13 @@ class DropdownSelect extends Component {
     static Position = Position;
     static TipPosition = Position;
 
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
+    }
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -48,11 +55,12 @@ class DropdownSelect extends Component {
 
     }
 
-    static getDerivedStateFromProps(props, state) {
-        return {
-            prevProps: props,
-            value: ComponentUtil.getDerivedState(props, state, 'value')
-        };
+    componentDidMount() {
+        this.dropdownInstance = this.dropdown && this.dropdown.current;
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        this.updateScrollHeight();
     }
 
     /**
@@ -255,14 +263,8 @@ class DropdownSelect extends Component {
         this.setState({
             popupVisible: true
         }, () => {
-
             const {onOpenPopup} = this.props;
             onOpenPopup && onOpenPopup(e);
-
-            setTimeout(() => {
-                this.updateScrollHeight();
-            }, 0);
-
         });
 
     };
@@ -355,10 +357,6 @@ class DropdownSelect extends Component {
                 Util.getTextByDisplayField(value, displayField, valueField);
 
     };
-
-    componentDidMount() {
-        this.dropdownInstance = this.dropdown && this.dropdown.current;
-    }
 
     /* eslint-disable complexity */
     render() {
