@@ -25,6 +25,20 @@ class Pop extends Component {
     static Position = Position;
     static Theme = Theme;
 
+    static getDerivedStateFromProps(props) {
+
+        const result = {
+            prevProps: props
+        };
+
+        if (props.visible) {
+            result.exited = !props.visible;
+        }
+
+        return result;
+
+    }
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -37,6 +51,30 @@ class Pop extends Component {
             transitionEl: null
         };
 
+    }
+
+    componentDidMount() {
+        Event.addEvent(window, 'resize', this.debounceResetPosition);
+    }
+
+    componentDidUpdate(prevProps) {
+
+        if (prevProps.position !== this.props.position) {
+            const {resetPosition} = this.props;
+            resetPosition && resetPosition(this.state.transitionEl);
+        }
+
+        // if (!prevProps.visible && this.props.visible) {
+        //     this.addWatchScroll();
+        // } else if (prevProps.visible && !this.props.visible) {
+        //     this.scrollEl && Event.removeEvent(this.scrollEl, 'scroll', this.debounceResetPosition);
+        //     this.scrollEl = null;
+        // }
+
+    }
+
+    componentWillUnmount() {
+        Event.removeEvent(window, 'resize', this.debounceResetPosition);
     }
 
     /**
@@ -109,44 +147,6 @@ class Pop extends Component {
     //     Event.addEvent(scrollEl, 'scroll', this.debounceResetPosition);
     //
     // };
-
-    componentDidMount() {
-        Event.addEvent(window, 'resize', this.debounceResetPosition);
-    }
-
-    componentDidUpdate(prevProps) {
-
-        if (prevProps.position !== this.props.position) {
-            const {resetPosition} = this.props;
-            resetPosition && resetPosition(this.state.transitionEl);
-        }
-
-        // if (!prevProps.visible && this.props.visible) {
-        //     this.addWatchScroll();
-        // } else if (prevProps.visible && !this.props.visible) {
-        //     this.scrollEl && Event.removeEvent(this.scrollEl, 'scroll', this.debounceResetPosition);
-        //     this.scrollEl = null;
-        // }
-
-    }
-
-    componentWillUnmount() {
-        Event.removeEvent(window, 'resize', this.debounceResetPosition);
-    }
-
-    static getDerivedStateFromProps(props) {
-
-        const result = {
-            prevProps: props
-        };
-
-        if (props.visible) {
-            result.exited = !props.visible;
-        }
-
-        return result;
-
-    }
 
     render() {
 
