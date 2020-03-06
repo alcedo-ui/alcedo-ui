@@ -70,6 +70,7 @@ class PositionPop extends Component {
                  })}
                  container={container}
                  isAnimated={isAnimated}
+                 position={position}
                  resetPosition={this.resetPosition}>
                 {popEl => typeof children === 'function' ? children(popEl) : children}
             </Pop>
