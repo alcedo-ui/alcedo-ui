@@ -46,10 +46,9 @@ class BaseTable extends Component {
             columns;
     };
 
-    getColumnsSpan = () => {
+    getColumnsSpan = (columns = this.getColumns()) => {
 
-        const {fragment, bodyColumns, onRequestColumnsSpan} = this.props,
-            columns = this.getColumns();
+        const {fragment, bodyColumns, onRequestColumnsSpan} = this.props;
 
         return onRequestColumnsSpan ?
             onRequestColumnsSpan(fragment, bodyColumns || columns)
@@ -91,7 +90,7 @@ class BaseTable extends Component {
                        tableLayout: isLayoutFixed ? 'fixed' : null
                    }}>
 
-                <ColGroup columns={this.getColumnsSpan()}
+                <ColGroup columns={this.getColumnsSpan(columns)}
                           isColumnResizable={isColumnResizable}
                           minColumnWidth={minColumnWidth}
                           ignoreColumnWidth={ignoreColumnWidth}
