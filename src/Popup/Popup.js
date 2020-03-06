@@ -36,6 +36,23 @@ class Popup extends Component {
 
     }
 
+    componentDidMount() {
+
+        this.popInstance = this.pop && this.pop.current;
+
+        Event.addEvent(document, 'click', this.handleClose);
+
+    }
+
+    componentWillUnmount() {
+
+        this.clearCloseTimeout();
+        Event.removeEvent(document, 'click', this.handleClose);
+
+        PopManagement.pop(this);
+
+    }
+
     /**
      * public
      */
@@ -116,23 +133,6 @@ class Popup extends Component {
         onDestroy && onDestroy(...args);
 
     };
-
-    componentDidMount() {
-
-        this.popInstance = this.pop && this.pop.current;
-
-        Event.addEvent(document, 'click', this.handleClose);
-
-    }
-
-    componentWillUnmount() {
-
-        this.clearCloseTimeout();
-        Event.removeEvent(document, 'click', this.handleClose);
-
-        PopManagement.pop(this);
-
-    }
 
     render() {
 
