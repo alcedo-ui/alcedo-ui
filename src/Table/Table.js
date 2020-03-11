@@ -60,6 +60,8 @@ class Table extends Component {
 
         this.content = createRef();
 
+        this.tempHoverRow = null;
+
         this.state = {
             isInitialing: props.hasInitFadeOut,
             columns: [],
@@ -210,7 +212,8 @@ class Table extends Component {
      */
     handleScrollEnd = e => {
         this.setState({
-            scrolling: false
+            scrolling: false,
+            hoverRow: this.tempHoverRow
         }, () => {
             const {onScrollEnd, onScrollChange} = this.props;
             onScrollEnd && onScrollEnd(e);
@@ -251,7 +254,9 @@ class Table extends Component {
      * @param hoverRow
      */
     handleRowHover = hoverRow => {
-        if (!this.state.scrolling) {
+        if (this.state.scrolling) {
+            this.tempHoverRow = hoverRow;
+        } else {
             this.setState({
                 hoverRow
             });
