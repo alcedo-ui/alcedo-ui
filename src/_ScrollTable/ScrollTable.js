@@ -90,7 +90,7 @@ class ScrollTable extends Component {
             className, style, bodyScrollerStyle, maskStyle, tableStyle, footStyle,
             fixed, columns, headColumns, bodyColumns,
             isHeadHidden, isFootHidden, isLayoutFixed, isHeadFixed, isFootFixed,
-            data, scrolling, scroll, hasFixedLeftColumn, hasFixedRightColumn,
+            data, scroll, hasFixedLeftColumn, hasFixedRightColumn,
             useDynamicRender, dynamicRenderIndex, scrollHeight, rowHeight, scrollBuffer,
             onScroll, onWheel,
 
@@ -470,7 +470,6 @@ ScrollTable.propTypes = {
     /**
      * scroll
      */
-    scrolling: PropTypes.bool,
     scroll: PropTypes.shape({
         width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -558,11 +557,6 @@ ScrollTable.defaultProps = {
     baseColIndex: 0,
     expandRows: [],
     ignoreColumnWidth: false,
-
-    /**
-     * scroll
-     */
-    scrolling: false,
 
     /**
      * sorting
