@@ -23,6 +23,7 @@ import SortingType from '../_statics/SortingType';
 // Vendors
 import classNames from 'classnames';
 import cloneDeep from 'lodash/cloneDeep';
+import debounce from 'lodash/debounce';
 import Util from '../_vendors/Util';
 import ComponentUtil from '../_vendors/ComponentUtil';
 import TC from '../_vendors/TableCalculation';
@@ -58,7 +59,6 @@ class Table extends Component {
         super(props, ...restArgs);
 
         this.content = createRef();
-        this.tempHoverRow = null;
 
         this.state = {
             isInitialing: props.hasInitFadeOut,
@@ -75,10 +75,6 @@ class Table extends Component {
             resizingColumnPath: null
         };
 
-    }
-
-    componentDidUpdate() {
-        this.debounceFixLayout();
     }
 
     /**
@@ -182,14 +178,25 @@ class Table extends Component {
         });
     };
 
+    handleDebounceScrollChange = debounce(e => {
+
+        const {scrolling} = this.state;
+
+        if (!scrolling) {
+            this.handleScrollStart(e);
+        } else {
+            this.handleScrollEnd(e);
+        }
+
+    }, 150, {leading: true});
+
     /**
      * handle scroll start
      * @param e
      */
     handleScrollStart = e => {
         this.setState({
-            scrolling: true,
-            hoverRow: null
+            scrolling: true
         }, () => {
             const {onScrollStart, onScrollChange} = this.props;
             onScrollStart && onScrollStart(e);
@@ -203,8 +210,7 @@ class Table extends Component {
      */
     handleScrollEnd = e => {
         this.setState({
-            scrolling: false,
-            hoverRow: this.tempHoverRow
+            scrolling: false
         }, () => {
             const {onScrollEnd, onScrollChange} = this.props;
             onScrollEnd && onScrollEnd(e);
@@ -245,9 +251,7 @@ class Table extends Component {
      * @param hoverRow
      */
     handleRowHover = hoverRow => {
-        if (this.state.scrolling) {
-            this.tempHoverRow = hoverRow;
-        } else {
+        if (!this.state.scrolling) {
             this.setState({
                 hoverRow
             });
@@ -329,7 +333,7 @@ class Table extends Component {
             } = this.props,
             {
                 isInitialing, columns, sorting, page, pageSize, expandRows, value,
-                scrolling, scrollTop, resizing, hoverRow, resizingColumnPath
+                scrollTop, resizing, hoverRow, resizingColumnPath
             } = this.state;
 
         return (
@@ -352,7 +356,6 @@ class Table extends Component {
                          pageSize={pageSize}
                          expandRows={expandRows}
                          value={value}
-                         scrolling={scrolling}
                          scrollTop={scrollTop}
                          resizing={resizing}
                          hoverRow={hoverRow}
@@ -364,8 +367,7 @@ class Table extends Component {
                          onSortChange={this.handleSortChange}
                          onExpandChange={this.handleExpandChange}
                          onScrollTopChange={this.handleScrollTopChange}
-                         onScrollStart={this.handleScrollStart}
-                         onScrollEnd={this.handleScrollEnd}
+                         onScroll={this.handleDebounceScrollChange}
                          onResizeStart={this.handleResizeStart}
                          onResizeEnd={this.handleResizeEnd}
                          onRowHover={this.handleRowHover}
