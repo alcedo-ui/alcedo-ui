@@ -95,7 +95,7 @@ class Tbody extends Component {
                     finalData && finalData.map((row, index) => row ?
                         <Tr {...restProps}
                             style={row?.rowStyle || null}
-                            key={idProp && idProp in row ? row[idProp] : index}
+                            key={index}
                             index={index}
                             rowIndex={startIndex + index}
                             columns={columns}
