@@ -175,9 +175,11 @@ class Table extends Component {
      * @param scrollTop
      */
     handleScrollTopChange = scrollTop => {
-        this.setState({
-            scrollTop
-        });
+        if (this.props.useDynamicRender) {
+            this.setState({
+                scrollTop
+            });
+        }
     };
 
     handleDebounceScrollChange = debounce(e => {
