@@ -288,7 +288,10 @@ class TableContent extends PureComponent {
                               theme={selectTheme}
                               checked={TC.isNodeChecked(rowData, value, idProp)}
                               disabled={disabled || rowData.disabled}
-                              indeterminate={Calc.isItemIndeterminate(rowData, value, idProp)}
+                              indeterminate={Calc.isItemIndeterminate(rowData, value, {
+                                  valueField: idProp,
+                                  displayField: idProp
+                              })}
                               uncheckedIconCls={selectUncheckedIconCls}
                               checkedIconCls={selectCheckedIconCls}
                               indeterminateIconCls={selectIndeterminateIconCls}
