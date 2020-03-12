@@ -256,13 +256,15 @@ class Table extends Component {
      * @param hoverRow
      */
     handleRowHover = hoverRow => {
-        if (this.state.scrolling) {
-            this.tempHoverRow = hoverRow;
-        } else {
+
+        this.tempHoverRow = hoverRow;
+
+        if (!this.state.scrolling) {
             this.setState({
                 hoverRow
             });
         }
+
     };
 
     /**
