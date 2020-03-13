@@ -335,7 +335,7 @@ class Table extends Component {
 
                 // not passing down these props
                 columns: cols, hasInitFadeOut, pageSize: propsPageSize,
-                onPaginationChange,
+                onPaginationChange, onScrollStart, onScrollEnd,
 
                 ...restProps
 
