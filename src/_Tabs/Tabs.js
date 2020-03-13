@@ -79,8 +79,7 @@ class Tabs extends Component {
 
         return {
             height: `calc(100% + ${horizontalScrollBarSize}px)`,
-            marginBottom: -horizontalScrollBarSize,
-            paddingBottom: 0
+            marginBottom: -horizontalScrollBarSize
         };
 
     };
@@ -276,7 +275,7 @@ class Tabs extends Component {
                                      style={{
                                          bottom: scrollerStyle ? 0 : 20,
                                          width: inkBarStyle.width,
-                                         transform: `translate(${inkBarStyle.left}px, 0)`
+                                         transform: `translateX(${inkBarStyle.left}px)`
                                      }}></div>
                                 :
                                 null
