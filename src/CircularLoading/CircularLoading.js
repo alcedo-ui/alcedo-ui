@@ -5,8 +5,12 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Statics
+import Theme from '../Theme';
+
+// Vendors
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 
 class CircularLoading extends Component {
@@ -16,6 +20,7 @@ class CircularLoading extends Component {
         SMALL: 'small',
         LARGE: 'large'
     };
+    static Theme = Theme;
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
@@ -82,7 +87,7 @@ CircularLoading.propTypes = {
     /**
      * Set the theme of loading,can use highlight,success,error,warning.
      */
-    theme: PropTypes.string,
+    theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     /**
      * Set the CircularLoading border-width.
