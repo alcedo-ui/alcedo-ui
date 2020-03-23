@@ -1,12 +1,20 @@
+/**
+ * @file CircularLoadingExamples.js
+ * @author wendy(wendy.wei@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 
+// Components
 import CircularLoading from 'src/CircularLoading';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-
 import PropTypeDescTable from 'components/PropTypeDescTable';
+
+// Statics
 import doc from 'assets/propTypes/CircularLoading.json';
 
+// Styles
 import 'scss/containers/app/modules/loading/CircularLoadingExamples.scss';
 
 class CircularLoadingExamples extends Component {
@@ -22,7 +30,8 @@ class CircularLoadingExamples extends Component {
                 <h2 className="example-title">CircularLoading</h2>
 
                 <p>
-                    <span>CircularLoading</span> use to show pages and blocks loading status.
+                    <span>CircularLoading</span>
+                    use to show pages and blocks loading status.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -80,16 +89,16 @@ class CircularLoadingExamples extends Component {
                             <CircularLoading spanning={true}/>
 
                             <CircularLoading spanning={true}
-                                             theme="success"/>
+                                             theme={CircularLoading.Theme.SUCCESS}/>
 
                             <CircularLoading spanning={true}
-                                             theme="error"/>
+                                             theme={CircularLoading.Theme.ERROR}/>
 
                             <CircularLoading spanning={true}
-                                             theme="warning"/>
+                                             theme={CircularLoading.Theme.WARNING}/>
 
                             <CircularLoading spanning={true}
-                                             theme="highlight"/>
+                                             theme={CircularLoading.Theme.HIGHLIGHT}/>
 
                         </div>
                     </div>
@@ -126,8 +135,8 @@ class CircularLoadingExamples extends Component {
                             <p>Set the weight property for different border-width CircularLoading.</p>
 
                             <CircularLoading spanning={true}
-                                             weight={5}
-                                             size="large"/>
+                                             weight={4}
+                                             size={CircularLoading.Size.LARGE}/>
 
                             <CircularLoading spanning={true}
                                              weight={2}
