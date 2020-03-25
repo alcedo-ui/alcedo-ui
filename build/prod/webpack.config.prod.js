@@ -2,8 +2,8 @@ const path = require('path'),
     webpack = require('webpack'),
     merge = require('webpack-merge'),
     CopyPlugin = require('copy-webpack-plugin'),
-    HtmlPlugin = require('html-webpack-plugin'),
-    HtmlIncludeAssetsPlugin = require('html-webpack-include-assets-plugin'),
+    HtmlWebpackPlugin = require('html-webpack-plugin'),
+    HtmlWebpackTagsPlugin = require('html-webpack-tags-plugin'),
     // CompressionPlugin = require('compression-webpack-plugin'),
     // BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin,
 
@@ -73,7 +73,7 @@ module.exports = merge(baseWebpackConfig, {
             manifest: require(utils.assetsVendorsAbsolutePath('tools-manifest.json'))
         }),
 
-        new HtmlPlugin({
+        new HtmlWebpackPlugin({
             filename: config.build.index,
             template: './examples/index.html',
             favicon: './examples/assets/images/favicon.ico',
@@ -85,8 +85,8 @@ module.exports = merge(baseWebpackConfig, {
             chunksSortMode: 'dependency'
         }),
 
-        new HtmlIncludeAssetsPlugin({
-            assets: [
+        new HtmlWebpackTagsPlugin({
+            tags: [
                 vendorsAssets['polyfill'].js,
                 vendorsAssets['moment'].js,
                 vendorsAssets['react'].js,
