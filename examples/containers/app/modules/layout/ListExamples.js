@@ -1,15 +1,23 @@
+/**
+ * @file List examples
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 
+// Components
 import List from 'src/List';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import Paper from 'src/Paper';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
-
 import PropTypeDescTable from 'components/PropTypeDescTable';
+
+// Statics
 import doc from 'assets/propTypes/List.json';
 
+// Styles
 import 'scss/containers/app/modules/layout/ListExamples.scss';
 
 class ListExamples extends Component {
@@ -22,6 +30,7 @@ class ListExamples extends Component {
             iconCls: 'fab fa-facebook',
             value: 'Facebook',
             text: 'Facebook',
+            tipClassName: 'facebook-tip',
             tip: 'Facebook'
         }, {
             iconCls: 'fab fa-twitter',
@@ -230,7 +239,7 @@ class ListExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>Set the <code>theme</code> property to "success","error","warning","primary" and set
-                                    the <code>rightIconCls</code> property to get rightIcons.</p>
+                                   the <code>rightIconCls</code> property to get rightIcons.</p>
 
                                 <Paper>
                                     <List data={this.themeListData}/>

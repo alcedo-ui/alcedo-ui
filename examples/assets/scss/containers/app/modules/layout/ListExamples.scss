@@ -1,3 +1,8 @@
+/**
+ * @file List examples style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 @import '../../../../my-theme.scss';
 
 .list-examples {
@@ -16,7 +21,12 @@
 .popover-dialog-content-scroller {
     width: 1000px;
     height: 1000px;
+
     .paper {
         width: 300px;
     }
+}
+
+.facebook-tip .tip-content {
+    color: $theme-highlight;
 }
