@@ -388,6 +388,11 @@ List.propTypes = {
         rightIconCls: PropTypes.string,
 
         /**
+         * The class name of tip.
+         */
+        tipClassName: PropTypes.string,
+
+        /**
          * The message of tip.
          */
         tip: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
