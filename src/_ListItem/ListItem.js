@@ -91,7 +91,7 @@ class ListItem extends Component {
         const {
 
                 index, className, style, theme, activatedTheme, data, text, desc, title, iconCls, rightIconCls,
-                tip, tipPosition, disabled, isLoading, disableTouchRipple, rippleDisplayCenter, readOnly,
+                tipClassName, tip, tipPosition, disabled, isLoading, disableTouchRipple, rippleDisplayCenter, readOnly,
                 renderer, itemRenderer,
 
                 checked, selectTheme, selectMode, indeterminateCallback, radioUncheckedIconCls, radioCheckedIconCls,
@@ -106,7 +106,8 @@ class ListItem extends Component {
             loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
 
         return (
-            <TipProvider tipContent={tip}
+            <TipProvider className={tipClassName}
+                         tipContent={tip}
                          parentEl={parentEl}
                          position={tipPosition}>
 
@@ -254,6 +255,7 @@ ListItem.propTypes = {
     iconCls: PropTypes.string,
     rightIconCls: PropTypes.string,
 
+    tipClassName: PropTypes.string,
     tip: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
 
