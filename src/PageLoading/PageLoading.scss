@@ -30,4 +30,8 @@
         opacity: 1;
         transition: opacity 0s;
     }
+    &.page-loading-enter-done {
+        opacity: 1;
+        transition: opacity 0s;
+    }
 }
