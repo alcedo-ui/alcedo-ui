@@ -81,8 +81,7 @@ module.exports = merge(baseWebpackConfig, {
             minify: {
                 removeComments: true,
                 collapseWhitespace: true
-            },
-            chunksSortMode: 'dependency'
+            }
         }),
 
         new HtmlWebpackTagsPlugin({
