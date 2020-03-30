@@ -96,8 +96,6 @@ class LocalAutoComplete extends Component {
 
             this.handleNoMatch();
 
-            this.update();
-
         });
 
     };
