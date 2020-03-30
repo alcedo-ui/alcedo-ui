@@ -96,6 +96,8 @@ class LocalAutoComplete extends Component {
 
             this.handleNoMatch();
 
+            this.update();
+
         });
 
     };
@@ -248,10 +250,13 @@ class LocalAutoComplete extends Component {
 
     update = () => {
 
-        const {valueField, displayField} = this.props,
+        const {valueField, displayField, minFilterLength} = this.props,
             {filter, tempSelectIndex, listData} = this.state,
 
-            index = isNumber(tempSelectIndex) ? tempSelectIndex : 0,
+            index = filter?.length >= minFilterLength ?
+                isNumber(tempSelectIndex) ? tempSelectIndex : 0
+                :
+                -1,
             state = {
                 tempSelectIndex: null
             };
@@ -262,7 +267,7 @@ class LocalAutoComplete extends Component {
 
         if (listData && listData.length > 0) {
 
-            value = listData[index];
+            value = index >= 0 ? listData[index] : null;
 
             state.filter = this.getFilterRender(value);
             filterChanged = state.filter !== filter;
