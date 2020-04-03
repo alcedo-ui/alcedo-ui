@@ -462,6 +462,7 @@ ScrollTable.propTypes = {
     data: PropTypes.array,
     dynamicRenderData: PropTypes.array,
     value: PropTypes.array,
+    idProp: PropTypes.string,
     hoverRow: PropTypes.object,
     baseColIndex: PropTypes.number,
     expandRows: PropTypes.array,
@@ -553,7 +554,7 @@ ScrollTable.defaultProps = {
 
     selectMode: SelectMode.SINGLE_SELECT,
     selectAllMode: SelectAllMode.CURRENT_PAGE,
-
+    idProp: 'id',
     baseColIndex: 0,
     expandRows: [],
     ignoreColumnWidth: false,
