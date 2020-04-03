@@ -461,6 +461,7 @@ BaseTable.defaultProps = {
     baseColIndex: 0,
     disabled: false,
     expandRows: [],
+    idProp: 'id',
     isMouseEventForbidden: false,
     ignoreColumnWidth: false,
     ignoreColumnSpan: false,
