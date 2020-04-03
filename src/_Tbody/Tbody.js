@@ -77,7 +77,7 @@ class Tbody extends Component {
         const {
 
                 className, style, columns, data, dynamicRenderData,
-                startIndex, idProp, disabled, isMouseEventForbidden, ignoreColumnSpan, useDynamicRender,
+                startIndex, disabled, isMouseEventForbidden, ignoreColumnSpan, useDynamicRender,
 
                 // not passing down these props
                 value,
