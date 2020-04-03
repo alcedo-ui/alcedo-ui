@@ -811,6 +811,7 @@ Table.propTypes = {
 
 Table.defaultProps = {
 
+    idProp: 'id',
     disabled: false,
     hasInitFadeOut: true,
     noDataText: 'No Data',
