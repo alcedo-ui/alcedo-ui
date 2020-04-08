@@ -342,6 +342,7 @@ class TableExamples extends Component {
                             <Table className="example-table"
                                    columns={this.columns}
                                    data={data}
+                                   canBeExpanded={true}
                                    onSortChange={this.handleSortChange}
                                    onPaginationChange={this.handlePaginationChange}
                                    onExpand={this.handleExpand}
