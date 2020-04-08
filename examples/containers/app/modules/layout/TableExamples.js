@@ -56,8 +56,11 @@ class TableExamples extends Component {
             width: 300,
             noWrap: true,
             headRenderer: 'Name',
+            headTitle: 'Name',
             bodyRenderer: rowDate => rowDate.firstName && rowDate.lastName ?
-                `${rowDate.firstName} ${rowDate.lastName}` : '',
+                `${rowDate.firstName} ${rowDate.lastName}` : null,
+            bodyTitle: rowDate => rowDate.firstName && rowDate.lastName ?
+                `${rowDate.firstName} ${rowDate.lastName}` : null,
             sortable: true,
             sortingProp: 'firstName'
         }, {
