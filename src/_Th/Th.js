@@ -46,6 +46,23 @@ class Th extends Component {
     };
 
     /**
+     * handle th title
+     * @returns {*}
+     */
+    handleTitle = () => {
+
+        const {colIndex, data, scrollEl, title} = this.props;
+
+        switch (typeof title) {
+            case 'function':
+                return title(data, colIndex, scrollEl);
+            default:
+                return title;
+        }
+
+    };
+
+    /**
      * handle th click and trigger sorting callback
      */
     handleClick = () => {
@@ -130,7 +147,8 @@ class Th extends Component {
 
                         <span className={classNames('th-column-title', {
                             'no-wrap': noWrap
-                        })}>
+                        })}
+                              title={this.handleTitle()?.toString() || null}>
                             {this.handleRender()}
                         </span>
 
@@ -164,6 +182,7 @@ Th.propTypes = {
     align: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
     colIndex: PropTypes.number,
     data: PropTypes.array,
+    title: PropTypes.any,
     noWrap: PropTypes.bool,
     rowSpan: PropTypes.number,
     colSpan: PropTypes.number,
