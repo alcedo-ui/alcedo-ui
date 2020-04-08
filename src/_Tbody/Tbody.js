@@ -29,21 +29,21 @@ class Tbody extends Component {
         super(props, ...restArgs);
     }
 
-    getStyle = row => {
-
-        const {useDynamicRender, rowHeight} = this.props;
-
-        return useDynamicRender ?
-            {
-                ...row?.rowStyle,
-                height: rowHeight - 1,
-                paddingTop: 0,
-                paddingBottom: 0
-            }
-            :
-            row?.rowStyle;
-
-    };
+    // getStyle = row => {
+    //
+    //     const {useDynamicRender, rowHeight} = this.props;
+    //
+    //     return useDynamicRender ?
+    //         {
+    //             ...row?.rowStyle,
+    //             height: rowHeight - 1,
+    //             paddingTop: 0,
+    //             paddingBottom: 0
+    //         }
+    //         :
+    //         row?.rowStyle;
+    //
+    // };
 
     isItemChecked = rowData => {
 
@@ -191,6 +191,18 @@ Tbody.propTypes = {
         headRenderer: PropTypes.any,
 
         /**
+         * The title in table head.
+         *  (1) callback:
+         *      function (tableData, colIndex) {
+         *          return colIndex;
+         *      }
+         *
+         *  (2) others:
+         *      render whatever you pass
+         */
+        headTitle: PropTypes.any,
+
+        /**
          * column span of table header.
          *  (1) function callback:
          *      function (tableData, colIndex) {
@@ -235,6 +247,18 @@ Tbody.propTypes = {
         bodyRenderer: PropTypes.any,
 
         /**
+         * The title in table body.
+         *  (1) callback:
+         *      function (rowData, rowIndex, colIndex, parentData, tableData, collapsed, depth, path) {
+         *          return rowData.id;
+         *      }
+         *
+         *  (2) others:
+         *      render whatever you pass
+         */
+        bodyTitle: PropTypes.any,
+
+        /**
          * column span of table body.
          *  (1) function callback:
          *      function (rowData, colIndex, rowIndex) {
@@ -277,6 +301,18 @@ Tbody.propTypes = {
          *      render whatever you pass
          */
         footRenderer: PropTypes.any,
+
+        /**
+         * The title in table foot.
+         *  (1) callback:
+         *      function (tableData, colIndex) {
+         *          return colIndex;
+         *      }
+         *
+         *  (2) others:
+         *      render whatever you pass
+         */
+        footTitle: PropTypes.any,
 
         /**
          * column span of table foot.
