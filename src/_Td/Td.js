@@ -33,6 +33,19 @@ class Td extends Component {
 
     };
 
+    handleTitle = () => {
+
+        const {collapsed, title, rowIndex, colIndex, data, parentData, tableData, depth, path, scrollEl} = this.props;
+
+        switch (typeof title) {
+            case 'function':
+                return title(data, rowIndex, colIndex, parentData, tableData, collapsed, depth, path, scrollEl);
+            default:
+                return title;
+        }
+
+    };
+
     handleClick = e => {
         const {data, rowIndex, colIndex, disabled, onCellClick} = this.props;
         !disabled && onCellClick && onCellClick(data, rowIndex, colIndex, e);
@@ -54,6 +67,7 @@ class Td extends Component {
             })}
                 style={style}
                 colSpan={span || null}
+                title={this.handleTitle()?.toString() || null}
                 onClick={this.handleClick}>
                 {this.handleRenderer()}
             </td>
@@ -71,6 +85,7 @@ Td.propTypes = {
     colIndex: PropTypes.number,
 
     data: PropTypes.object,
+    title: PropTypes.any,
     parentData: PropTypes.object,
     tableData: PropTypes.array,
     renderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
