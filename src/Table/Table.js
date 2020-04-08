@@ -672,6 +672,7 @@ Table.propTypes = {
     /**
      * expand
      */
+    canBeExpanded: PropTypes.bool,
     expandRows: PropTypes.array,
     expandIconCls: PropTypes.string,
 
