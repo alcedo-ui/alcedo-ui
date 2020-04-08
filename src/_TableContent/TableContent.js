@@ -208,8 +208,8 @@ class TableContent extends PureComponent {
         }
 
         const {
-                selectTheme, selectMode, selectAllMode, selectColumn, data, disabled, value, idProp, expandIconCls,
-                selectUncheckedIconCls, selectCheckedIconCls, selectIndeterminateIconCls
+                selectTheme, selectMode, selectAllMode, selectColumn, data, disabled, value, idProp, canBeExpanded,
+                expandIconCls, selectUncheckedIconCls, selectCheckedIconCls, selectIndeterminateIconCls
             } = this.props,
             firstColumn = TC.getFirstColumn(columns),
             result = columns.slice();
@@ -217,37 +217,39 @@ class TableContent extends PureComponent {
         /**
          * handle expand
          */
-        result[0] = cloneDeep(columns[0]);
-        const expandColumn = TC.getFirstColumn(result);
-        if (expandColumn) {
-            expandColumn.bodyRenderer = (rowData, rowIndex, colIndex, parentData, tableData, collapsed, depth, path) =>
-                <Fragment>
+        if (canBeExpanded) {
+            result[0] = cloneDeep(columns[0]);
+            const expandColumn = TC.getFirstColumn(result);
+            if (expandColumn) {
+                expandColumn.bodyRenderer = (rowData, rowIndex, colIndex, parentData, tableData, collapsed, depth, path) =>
+                    <Fragment>
 
-                    <span className={classNames('table-indent', `indent-level-${depth}`)}
-                          style={{paddingLeft: depth * 20}}></span>
+                        <span className={classNames('table-indent', `indent-level-${depth}`)}
+                              style={{paddingLeft: depth * 20}}></span>
 
-                    {
-                        TC.needCollapseButtonSpacing(tableData) ?
-                            <IconButton className={classNames('expand-button', {
-                                hidden: !rowData || !rowData.children || rowData.children.length < 1
-                            })}
-                                        iconCls={expandIconCls}
-                                        disableTouchRipple={true}
-                                        onClick={() => this.handleExpandChange(!collapsed, rowData)}/>
-                            :
-                            null
-                    }
+                        {
+                            TC.needCollapseButtonSpacing(tableData) ?
+                                <IconButton className={classNames('expand-button', {
+                                    hidden: !rowData || !rowData.children || rowData.children.length < 1
+                                })}
+                                            iconCls={expandIconCls}
+                                            disableTouchRipple={true}
+                                            onClick={() => this.handleExpandChange(!collapsed, rowData)}/>
+                                :
+                                null
+                        }
 
-                    {
-                        typeof firstColumn.bodyRenderer === 'function' ?
-                            firstColumn.bodyRenderer(rowData, rowIndex, colIndex, parentData, tableData, collapsed, depth, path)
-                            :
-                            firstColumn.bodyRenderer
-                    }
+                        {
+                            typeof firstColumn.bodyRenderer === 'function' ?
+                                firstColumn.bodyRenderer(rowData, rowIndex, colIndex, parentData, tableData, collapsed, depth, path)
+                                :
+                                firstColumn.bodyRenderer
+                        }
 
-                </Fragment>;
-            expandColumn.bodyNoWrap = (rowData, rowIndex, colIndex, tableData) =>
-                TC.needCollapseButtonSpacing(tableData);
+                    </Fragment>;
+                expandColumn.bodyNoWrap = (rowData, rowIndex, colIndex, tableData) =>
+                    TC.needCollapseButtonSpacing(tableData);
+            }
         }
 
         /**
@@ -258,6 +260,7 @@ class TableContent extends PureComponent {
                 ...selectColumn,
                 fixed: (selectColumn && selectColumn.fixed) || columns[0].fixed,
                 align: (selectColumn && selectColumn.align) || HorizontalAlign.CENTER,
+                width: selectColumn?.width || 56,
                 headClassName: classNames('table-select-th', selectColumn ? {
                     [selectColumn.headClassName]: selectColumn.headClassName
                 } : ''),
@@ -1119,6 +1122,7 @@ TableContent.propTypes = {
     /**
      * expand
      */
+    canBeExpanded: PropTypes.bool,
     expandRows: PropTypes.array,
     expandIconCls: PropTypes.string,
 
