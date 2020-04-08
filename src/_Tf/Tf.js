@@ -40,6 +40,23 @@ class Tf extends Component {
 
     };
 
+    /**
+     * handle th content render
+     * @returns {*}
+     */
+    handleTitle = () => {
+
+        const {colIndex, data, scrollEl, title} = this.props;
+
+        switch (typeof title) {
+            case 'function':
+                return title(data, colIndex, scrollEl);
+            default:
+                return title;
+        }
+
+    };
+
     render() {
 
         const {className, style, align, noWrap, span, onCellClick} = this.props;
@@ -52,6 +69,7 @@ class Tf extends Component {
             })}
                 style={style}
                 colSpan={span || null}
+                title={this.handleTitle()?.toString() || null}
                 onClick={onCellClick}>
                 {this.handleRender()}
             </td>
@@ -67,6 +85,7 @@ Tf.propTypes = {
 
     colIndex: PropTypes.number,
     data: PropTypes.array,
+    title: PropTypes.any,
 
     renderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     align: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
