@@ -47,7 +47,7 @@ class ScrollableTable extends Component {
 
         const {
 
-                className, scrollerClassName, style, scroll,
+                className, style, scroll,
 
                 // not passing down these props
                 children: c, useDynamicRender, scrollHeight, rowHeight, scrollBuffer,
@@ -76,7 +76,6 @@ ScrollableTable.propTypes = {
     children: PropTypes.any,
 
     className: PropTypes.string,
-    scrollerClassName: PropTypes.string,
     style: PropTypes.object,
 
     /**
