@@ -3,15 +3,24 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import classnames from 'classnames';
-
+// Statics
 import HorizontalAlign from '../_statics/HorizontalAlign';
 import VirtualRoot from '../_statics/VirtualRoot';
 import TableFragment from '../_statics/TableFragment';
 
+// Vendors
 import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
 
+/**
+ * calculate column span by fragment
+ * @param fragment
+ * @param column
+ * @param data
+ * @param colIndex
+ * @param rowIndex
+ * @returns {*}
+ */
 function calcSpan(fragment, column, data, colIndex, rowIndex) {
     const span = column[`${fragment}Span`];
     return span && typeof span === 'function' ?
@@ -351,25 +360,6 @@ function sortColumns(columns) {
 
 }
 
-function handleFixedColumnsClassName(columns) {
-
-    if (!columns || columns.length < 1) {
-        return columns;
-    }
-
-    return columns.map(column => column && column.fixed && column.fixed !== HorizontalAlign.CENTER ?
-        {
-            ...column,
-            headClassName: classnames(column.headClassName, 'table-fixed-column'),
-            bodyClassName: classnames(column.bodyClassName, 'table-fixed-column'),
-            footClassName: classnames(column.footClassName, 'table-fixed-column')
-        }
-        :
-        column
-    );
-
-}
-
 /**
  * get the deepest first child of columns
  * @param columns
@@ -624,7 +614,6 @@ export default {
     formatValue,
     handleSelectAll,
     sortColumns,
-    handleFixedColumnsClassName,
     getFirstColumn,
     getHeadColumns,
     getBodyColumns,
