@@ -92,9 +92,6 @@ class ScrollTable extends Component {
             return null;
         }
 
-        // const overflowHidden = fixed === HorizontalAlign.LEFT,
-        // horizontalOverflowScroll = !fixed || fixed === HorizontalAlign.CENTER;
-
         return (
             <div className={classNames('scroll-table', {
                 [className]: className
@@ -105,11 +102,8 @@ class ScrollTable extends Component {
                     !isHeadHidden && isHeadFixed ?
                         <ScrollableTable ref={this.headScroller}
                                          className="scroll-table-head"
-                                         scrollerClassName="scroll-table-head-scroller"
                                          fragment={TableFragment.HEAD}
                                          scroll={scroll}
-                            // overflowHidden={overflowHidden}
-                            // horizontalOverflowScroll={horizontalOverflowScroll}
                                          useDynamicRender={useDynamicRender}
                                          scrollHeight={scrollHeight}
                                          rowHeight={rowHeight}
@@ -142,7 +136,6 @@ class ScrollTable extends Component {
 
                 <ScrollableTable ref={this.bodyScroller}
                                  className="scroll-table-body"
-                                 scrollerClassName="scroll-table-body-scroller"
                                  style={bodyScrollerStyle}
                                  scroll={scroll}
                                  useDynamicRender={useDynamicRender}
@@ -153,11 +146,6 @@ class ScrollTable extends Component {
                                  onWheel={onWheel}>
                     {
                         scrollEl =>
-                            // <div className={classNames('scroll-table-body-mask', {
-                            //     'mask-vertical': (!isHeadHidden && isHeadFixed) || (!isFootHidden && isFootFixed),
-                            //     'mask-horizontal': hasFixedLeftColumn || hasFixedRightColumn
-                            // })}
-                            //      style={maskStyle}>
                             <div className="scroll-table-body-table-wrapper"
                                  style={useDynamicRender ? {height: data?.length * rowHeight} : null}>
                                 <BaseTable {...restProps}
@@ -186,7 +174,6 @@ class ScrollTable extends Component {
                                            scrollBuffer={scrollBuffer}
                                            onRequestColumnsSpan={this.handleColumnsSpan}/>
                             </div>
-                        // </div>
                     }
                 </ScrollableTable>
 
@@ -194,12 +181,9 @@ class ScrollTable extends Component {
                     !isFootHidden && isFootFixed ?
                         <ScrollableTable ref={this.footScroller}
                                          className="scroll-table-foot"
-                                         scrollerClassName="scroll-table-foot-scroller"
                                          style={footStyle}
                                          fragment={TableFragment.FOOT}
                                          scroll={scroll}
-                            // overflowHidden={overflowHidden}
-                            // horizontalOverflowScroll={horizontalOverflowScroll}
                                          useDynamicRender={useDynamicRender}
                                          scrollHeight={scrollHeight}
                                          rowHeight={rowHeight}
