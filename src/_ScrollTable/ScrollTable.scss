@@ -19,5 +19,13 @@
         &.scrollable {
             overflow: scroll;
         }
+
+        &.has-head .base-table tbody tr:first-child td {
+            border-top: none;
+        }
+
+        &.has-foot .base-table tbody tr:last-child td {
+            border-bottom: none;
+        }
     }
 }

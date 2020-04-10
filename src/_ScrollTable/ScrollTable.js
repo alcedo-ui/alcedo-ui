@@ -92,6 +92,9 @@ class ScrollTable extends Component {
             return null;
         }
 
+        const hasHead = !isHeadHidden && isHeadFixed,
+            hasFoot = !isFootHidden && isFootFixed;
+
         return (
             <div className={classNames('scroll-table', {
                 [className]: className
@@ -99,7 +102,7 @@ class ScrollTable extends Component {
                  style={style}>
 
                 {
-                    !isHeadHidden && isHeadFixed ?
+                    hasHead ?
                         <ScrollableTable ref={this.headScroller}
                                          className="scroll-table-head"
                                          fragment={TableFragment.HEAD}
@@ -135,7 +138,10 @@ class ScrollTable extends Component {
                 }
 
                 <ScrollableTable ref={this.bodyScroller}
-                                 className="scroll-table-body"
+                                 className={classNames('scroll-table-body', {
+                                     'has-head': hasHead,
+                                     'has-foot': hasFoot
+                                 })}
                                  style={bodyScrollerStyle}
                                  scroll={scroll}
                                  useDynamicRender={useDynamicRender}
@@ -178,7 +184,7 @@ class ScrollTable extends Component {
                 </ScrollableTable>
 
                 {
-                    !isFootHidden && isFootFixed ?
+                    hasFoot ?
                         <ScrollableTable ref={this.footScroller}
                                          className="scroll-table-foot"
                                          style={footStyle}
