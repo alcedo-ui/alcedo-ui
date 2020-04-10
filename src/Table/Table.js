@@ -58,8 +58,6 @@ class Table extends Component {
 
         this.content = createRef();
 
-        this.tempHoverRow = null;
-
         this.state = {
             isInitialing: props.hasInitFadeOut,
             columns: [],
@@ -71,7 +69,6 @@ class Table extends Component {
             scrolling: false,
             scrollTop: 0,
             resizing: false,
-            hoverRow: null,
             resizingColumnPath: null
         };
 
@@ -198,8 +195,7 @@ class Table extends Component {
      */
     handleScrollEnd = e => {
         this.setState({
-            scrolling: false,
-            hoverRow: this.tempHoverRow
+            scrolling: false
         }, () => {
             const {onScrollEnd, onScrollChange} = this.props;
             onScrollEnd && onScrollEnd(e);
@@ -233,22 +229,6 @@ class Table extends Component {
             onResizeEnd && onResizeEnd(e);
             onResizeChange && onResizeChange(false);
         });
-    };
-
-    /**
-     * handle row hover
-     * @param hoverRow
-     */
-    handleRowHover = hoverRow => {
-
-        this.tempHoverRow = hoverRow;
-
-        if (!this.state.scrolling) {
-            this.setState({
-                hoverRow
-            });
-        }
-
     };
 
     /**
@@ -322,7 +302,7 @@ class Table extends Component {
             } = this.props,
             {
                 isInitialing, columns, sorting, page, pageSize, expandRows, value,
-                scrollTop, resizing, hoverRow, resizingColumnPath
+                scrollTop, resizing, resizingColumnPath
             } = this.state;
 
         return (
@@ -344,7 +324,6 @@ class Table extends Component {
                          value={value}
                          scrollTop={scrollTop}
                          resizing={resizing}
-                         hoverRow={hoverRow}
                          resizingColumnPath={resizingColumnPath}
                          selectMode={selectMode}
                          isInitialing={isInitialing}
@@ -356,7 +335,6 @@ class Table extends Component {
                          onScroll={this.handleDebounceScrollChange}
                          onResizeStart={this.handleResizeStart}
                          onResizeEnd={this.handleResizeEnd}
-                         onRowHover={this.handleRowHover}
                          onColumnsWidthChange={this.handleColumnsWidthChange}
                          onColumnResizeStart={this.handleColumnResizeStart}
                          onColumnResizeEnd={this.handleColumnResizeEnd}/>
