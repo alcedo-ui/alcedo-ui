@@ -10,6 +10,8 @@ import PropTypes from 'prop-types';
 import TableFragment from '../_statics/TableFragment';
 
 // Vendors
+import isEmpty from 'lodash/isEmpty';
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 
 class ScrollableTable extends Component {
@@ -26,27 +28,11 @@ class ScrollableTable extends Component {
 
     }
 
-    getStyle = () => {
-
-        const {style, scroll, overflowHidden, horizontalOverflowScroll} = this.props;
-
-        if (overflowHidden) {
-            return style;
-        }
-
-        const result = {
-            ...style
-        };
-
-        if (scroll) {
-            result.overflowX = horizontalOverflowScroll ? 'scroll' : scroll.width ? 'auto' : null;
-            // config overflowY in TableLayout
-            // result.overflowY = scroll.height || scroll.maxHeight ? 'scroll' : null;
-        }
-
-        return result;
-
-    };
+    componentDidMount() {
+        this.setState({
+            wrapperEl: this.wrapper && this.wrapper.current
+        });
+    }
 
     getChildren = () => {
 
@@ -57,35 +43,30 @@ class ScrollableTable extends Component {
 
     };
 
-    componentDidMount() {
-        this.setState({
-            wrapperEl: this.wrapper && this.wrapper.current
-        });
-    }
-
     render() {
 
         const {
 
-                style, scroll,
+                className, scrollerClassName, style, scroll,
 
                 // not passing down these props
-                children: c, overflowHidden, horizontalOverflowScroll,
-                useDynamicRender, scrollHeight, rowHeight, scrollBuffer,
+                children: c, useDynamicRender, scrollHeight, rowHeight, scrollBuffer,
 
                 ...restProps
 
             } = this.props,
             children = this.getChildren();
 
-        return style || scroll ?
+        return (
             <div {...restProps}
                  ref={this.wrapper}
-                 style={this.getStyle()}>
+                 className={classNames(className, {
+                     scrollable: !isEmpty(scroll)
+                 })}
+                 style={style}>
                 {children}
             </div>
-            :
-            children;
+        );
 
     }
 }
@@ -94,6 +75,8 @@ ScrollableTable.propTypes = {
 
     children: PropTypes.any,
 
+    className: PropTypes.string,
+    scrollerClassName: PropTypes.string,
     style: PropTypes.object,
 
     /**
@@ -106,8 +89,6 @@ ScrollableTable.propTypes = {
     }),
 
     fragment: PropTypes.oneOf(Util.enumerateValue(TableFragment)),
-    overflowHidden: PropTypes.bool,
-    horizontalOverflowScroll: PropTypes.bool,
 
     /**
      * Dynamic Render
@@ -120,9 +101,6 @@ ScrollableTable.propTypes = {
 };
 
 ScrollableTable.defaultProps = {
-
-    overflowHidden: false,
-    horizontalOverflowScroll: false,
 
     /**
      * Dynamic Render
