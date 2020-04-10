@@ -7,9 +7,7 @@ import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 
 // Components
-// import Header from '../_TableHeader';
 import Content from '../_TableContent';
-// import Footer from '../_TableFooter';
 import Pagination from '../_TablePagination';
 import CircularLoading from '../CircularLoading';
 
@@ -351,9 +349,6 @@ class Table extends Component {
             })}
                  style={style}>
 
-                {/* table header, display when select */}
-                {/*<Header/>*/}
-
                 {/* table area */}
                 <Content {...restProps}
                          ref={this.content}
@@ -383,9 +378,6 @@ class Table extends Component {
                          onColumnsWidthChange={this.handleColumnsWidthChange}
                          onColumnResizeStart={this.handleColumnResizeStart}
                          onColumnResizeEnd={this.handleColumnResizeEnd}/>
-
-                {/* table footer */}
-                {/*<Footer/>*/}
 
                 {/* table pagination */}
                 {
@@ -814,6 +806,7 @@ Table.propTypes = {
      * column resizable
      */
     isColumnResizable: PropTypes.bool,
+    defaultColumnWidth: PropTypes.number,
     minColumnWidth: PropTypes.number,
     maxColumnWidth: PropTypes.number,
 
@@ -907,7 +900,7 @@ Table.defaultProps = {
     /**
      * fixed
      */
-    isLayoutFixed: false,
+    isLayoutFixed: true,
     isHeadFixed: false,
     isFootFixed: false,
 
@@ -923,6 +916,7 @@ Table.defaultProps = {
      * column resizable
      */
     isColumnResizable: false,
+    defaultColumnWidth: 100,
     minColumnWidth: 64,
     maxColumnWidth: Infinity
 
