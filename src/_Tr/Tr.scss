@@ -6,6 +6,10 @@
 .base-table > tbody > tr {
     box-sizing: border-box;
 
+    &:hover td {
+        background: theme-color-hover($theme-secondary);
+    }
+
     &.expanded-children-row {
         .expanded-children-column {
             padding: 15px 32px;
@@ -14,14 +18,6 @@
 
     &.expanded .expand-button .button-icon {
         transform: rotate(90deg);
-    }
-
-    &.hover td {
-        background: theme-color-hover($theme-secondary);
-
-        &.empty {
-            background: $theme-field-bg;
-        }
     }
 
     &[disabled] {

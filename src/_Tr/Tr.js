@@ -60,27 +60,12 @@ class Tr extends Component {
 
     };
 
-    isHover = () => {
-        const {hoverRow, data, idProp} = this.props;
-        return !!(hoverRow && hoverRow[idProp] && data && data[idProp] && hoverRow[idProp] === data[idProp]);
-    };
-
     getColumnsSpan = () => {
         const {columns, data, rowIndex, onRequestColumnsSpan} = this.props;
         return onRequestColumnsSpan ?
             onRequestColumnsSpan(TableFragment.BODY, columns, data, rowIndex)
             :
             TC.getColumnsSpan(TableFragment.BODY, columns, data, rowIndex);
-    };
-
-    handleMouseEnter = e => {
-        const {isMouseEventForbidden, data, onMouseEnter} = this.props;
-        !isMouseEventForbidden && onMouseEnter && onMouseEnter(e, data);
-    };
-
-    handleMouseLeave = e => {
-        const {isMouseEventForbidden, data, onMouseLeave} = this.props;
-        !isMouseEventForbidden && onMouseLeave && onMouseLeave(e, data);
     };
 
     handleClick = e => {
@@ -109,14 +94,11 @@ class Tr extends Component {
                 <tr className={classNames({
                     checked: isChecked,
                     expanded: !collapsed,
-                    hover: this.isHover(),
                     [data.rowClassName]: data.rowClassName,
                     [className]: className
                 })}
                     style={style}
                     disabled={disabled}
-                    onMouseEnter={this.handleMouseEnter}
-                    onMouseLeave={this.handleMouseLeave}
                     onClick={this.handleClick}>
                     {
                         columnsSpan && columnsSpan.map(({column, span}, colIndex) => column ?
@@ -182,7 +164,6 @@ Tr.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
 
-    hoverRow: PropTypes.object,
     rowIndex: PropTypes.number,
 
     /**
@@ -431,8 +412,6 @@ Tr.propTypes = {
      */
     onRowClick: PropTypes.func,
     onCellClick: PropTypes.func,
-    onMouseEnter: PropTypes.func,
-    onMouseLeave: PropTypes.func,
     onExpandChange: PropTypes.func,
     onRequestColumnsSpan: PropTypes.func
 
