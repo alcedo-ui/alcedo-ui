@@ -47,19 +47,6 @@ class ScrollTable extends Component {
         this.updateEl();
     }
 
-    getBodyStyle = () => {
-
-        const {tableStyle, useDynamicRender, dynamicRenderIndex, rowHeight} = this.props;
-
-        return useDynamicRender && dynamicRenderIndex ? {
-                ...tableStyle,
-                transform: `translateY(${dynamicRenderIndex.startWithBuffer * rowHeight}px)`
-            }
-            :
-            tableStyle;
-
-    };
-
     updateEl = debounce(() => {
 
         const {
@@ -105,8 +92,8 @@ class ScrollTable extends Component {
             return null;
         }
 
-        const overflowHidden = fixed === HorizontalAlign.LEFT,
-            horizontalOverflowScroll = !fixed || fixed === HorizontalAlign.CENTER;
+        // const overflowHidden = fixed === HorizontalAlign.LEFT,
+        // horizontalOverflowScroll = !fixed || fixed === HorizontalAlign.CENTER;
 
         return (
             <div className={classNames('scroll-table', {
@@ -116,127 +103,130 @@ class ScrollTable extends Component {
 
                 {
                     !isHeadHidden && isHeadFixed ?
-                        <div className="scroll-table-head">
-                            <ScrollableTable ref={this.headScroller}
-                                             className="scroll-table-head-scroller"
-                                             fragment={TableFragment.HEAD}
-                                             scroll={scroll}
-                                             overflowHidden={overflowHidden}
-                                             horizontalOverflowScroll={horizontalOverflowScroll}
-                                             useDynamicRender={useDynamicRender}
-                                             scrollHeight={scrollHeight}
-                                             rowHeight={rowHeight}
-                                             scrollBuffer={scrollBuffer}
-                                             onScroll={onScroll}>
-                                {
-                                    scrollEl =>
-                                        <BaseTable {...restProps}
-                                                   style={tableStyle}
-                                                   fixed={fixed}
-                                                   fragment={TableFragment.HEAD}
-                                                   columns={columns}
-                                                   headColumns={headColumns}
-                                                   bodyColumns={bodyColumns}
-                                                   data={data}
-                                                   scrollEl={scrollEl}
-                                                   useDynamicRender={useDynamicRender}
-                                                   scrollHeight={scrollHeight}
-                                                   rowHeight={rowHeight}
-                                                   scrollBuffer={scrollBuffer}
-                                                   isBodyHidden={true}
-                                                   isFootHidden={true}
-                                                   isLayoutFixed={isLayoutFixed}
-                                                   onRequestColumnsSpan={this.handleColumnsSpan}/>
-                                }
-                            </ScrollableTable>
-                        </div>
+                        <ScrollableTable ref={this.headScroller}
+                                         className="scroll-table-head"
+                                         scrollerClassName="scroll-table-head-scroller"
+                                         fragment={TableFragment.HEAD}
+                                         scroll={scroll}
+                            // overflowHidden={overflowHidden}
+                            // horizontalOverflowScroll={horizontalOverflowScroll}
+                                         useDynamicRender={useDynamicRender}
+                                         scrollHeight={scrollHeight}
+                                         rowHeight={rowHeight}
+                                         scrollBuffer={scrollBuffer}
+                                         onScroll={onScroll}>
+                            {
+                                scrollEl =>
+                                    <BaseTable {...restProps}
+                                               style={tableStyle}
+                                               fixed={fixed}
+                                               fragment={TableFragment.HEAD}
+                                               columns={columns}
+                                               headColumns={headColumns}
+                                               bodyColumns={bodyColumns}
+                                               data={data}
+                                               scrollEl={scrollEl}
+                                               useDynamicRender={useDynamicRender}
+                                               scrollHeight={scrollHeight}
+                                               rowHeight={rowHeight}
+                                               scrollBuffer={scrollBuffer}
+                                               isBodyHidden={true}
+                                               isFootHidden={true}
+                                               isLayoutFixed={isLayoutFixed}
+                                               onRequestColumnsSpan={this.handleColumnsSpan}/>
+                            }
+                        </ScrollableTable>
                         :
                         null
                 }
 
-                <div className="scroll-table-body">
-                    <ScrollableTable ref={this.bodyScroller}
-                                     className="scroll-table-body-scroller"
-                                     style={bodyScrollerStyle}
-                                     scroll={scroll}
-                                     useDynamicRender={useDynamicRender}
-                                     scrollHeight={scrollHeight}
-                                     rowHeight={rowHeight}
-                                     scrollBuffer={scrollBuffer}
-                                     onScroll={onScroll}
-                                     onWheel={onWheel}>
-                        {
-                            scrollEl =>
-                                <div className={classNames('scroll-table-body-mask', {
-                                    'mask-vertical': (!isHeadHidden && isHeadFixed) || (!isFootHidden && isFootFixed),
-                                    'mask-horizontal': hasFixedLeftColumn || hasFixedRightColumn
-                                })}
-                                     style={maskStyle}>
-                                    <div className="scroll-table-body-table-wrapper"
-                                         style={useDynamicRender ? {height: data?.length * rowHeight} : null}>
-                                        <BaseTable {...restProps}
-                                                   style={this.getBodyStyle()}
-                                                   fixed={fixed}
-                                                   fragment={TableFragment.BODY}
-                                                   columns={columns}
-                                                   headColumns={headColumns}
-                                                   bodyColumns={bodyColumns}
-                                                   isLayoutFixed={isLayoutFixed}
-                                                   isHeadFixed={isHeadFixed}
-                                                   isFootFixed={isFootFixed}
-                                                   isHeadHidden={isHeadHidden || isHeadFixed}
-                                                   isFootHidden={isFootHidden || isFootFixed}
-                                                   data={data}
-                                                   scrollEl={scrollEl}
-                                                   useDynamicRender={useDynamicRender}
-                                                   scrollHeight={scrollHeight}
-                                                   rowHeight={rowHeight}
-                                                   scrollBuffer={scrollBuffer}
-                                                   onRequestColumnsSpan={this.handleColumnsSpan}/>
-                                    </div>
-                                </div>
-                        }
-                    </ScrollableTable>
-                </div>
+                <ScrollableTable ref={this.bodyScroller}
+                                 className="scroll-table-body"
+                                 scrollerClassName="scroll-table-body-scroller"
+                                 style={bodyScrollerStyle}
+                                 scroll={scroll}
+                                 useDynamicRender={useDynamicRender}
+                                 scrollHeight={scrollHeight}
+                                 rowHeight={rowHeight}
+                                 scrollBuffer={scrollBuffer}
+                                 onScroll={onScroll}
+                                 onWheel={onWheel}>
+                    {
+                        scrollEl =>
+                            // <div className={classNames('scroll-table-body-mask', {
+                            //     'mask-vertical': (!isHeadHidden && isHeadFixed) || (!isFootHidden && isFootFixed),
+                            //     'mask-horizontal': hasFixedLeftColumn || hasFixedRightColumn
+                            // })}
+                            //      style={maskStyle}>
+                            <div className="scroll-table-body-table-wrapper"
+                                 style={useDynamicRender ? {height: data?.length * rowHeight} : null}>
+                                <BaseTable {...restProps}
+                                           style={{
+                                               ...tableStyle,
+                                               transform: useDynamicRender && dynamicRenderIndex ?
+                                                   `translateY(${dynamicRenderIndex.startWithBuffer * rowHeight}px)`
+                                                   :
+                                                   null
+                                           }}
+                                           fixed={fixed}
+                                           fragment={TableFragment.BODY}
+                                           columns={columns}
+                                           headColumns={headColumns}
+                                           bodyColumns={bodyColumns}
+                                           isLayoutFixed={isLayoutFixed}
+                                           isHeadFixed={isHeadFixed}
+                                           isFootFixed={isFootFixed}
+                                           isHeadHidden={isHeadHidden || isHeadFixed}
+                                           isFootHidden={isFootHidden || isFootFixed}
+                                           data={data}
+                                           scrollEl={scrollEl}
+                                           useDynamicRender={useDynamicRender}
+                                           scrollHeight={scrollHeight}
+                                           rowHeight={rowHeight}
+                                           scrollBuffer={scrollBuffer}
+                                           onRequestColumnsSpan={this.handleColumnsSpan}/>
+                            </div>
+                        // </div>
+                    }
+                </ScrollableTable>
 
                 {
                     !isFootHidden && isFootFixed ?
-                        <div className="scroll-table-foot"
-                             style={footStyle}>
-                            <ScrollableTable ref={this.footScroller}
-                                             className="scroll-table-foot-scroller"
-                                             fragment={TableFragment.FOOT}
-                                             scroll={scroll}
-                                             overflowHidden={overflowHidden}
-                                             horizontalOverflowScroll={horizontalOverflowScroll}
-                                             useDynamicRender={useDynamicRender}
-                                             scrollHeight={scrollHeight}
-                                             rowHeight={rowHeight}
-                                             scrollBuffer={scrollBuffer}
-                                             onScroll={onScroll}>
-                                {
-                                    scrollEl =>
-                                        <BaseTable {...restProps}
-                                                   style={tableStyle}
-                                                   fixed={fixed}
-                                                   fragment={TableFragment.FOOT}
-                                                   columns={columns}
-                                                   headColumns={headColumns}
-                                                   bodyColumns={bodyColumns}
-                                                   ignoreColumnSpan={true}
-                                                   data={data}
-                                                   scrollEl={scrollEl}
-                                                   useDynamicRender={useDynamicRender}
-                                                   scrollHeight={scrollHeight}
-                                                   rowHeight={rowHeight}
-                                                   scrollBuffer={scrollBuffer}
-                                                   isHeadHidden={true}
-                                                   isBodyHidden={true}
-                                                   isLayoutFixed={isLayoutFixed}
-                                                   onRequestColumnsSpan={this.handleColumnsSpan}/>
-                                }
-                            </ScrollableTable>
-                        </div>
+                        <ScrollableTable ref={this.footScroller}
+                                         className="scroll-table-foot"
+                                         scrollerClassName="scroll-table-foot-scroller"
+                                         style={footStyle}
+                                         fragment={TableFragment.FOOT}
+                                         scroll={scroll}
+                            // overflowHidden={overflowHidden}
+                            // horizontalOverflowScroll={horizontalOverflowScroll}
+                                         useDynamicRender={useDynamicRender}
+                                         scrollHeight={scrollHeight}
+                                         rowHeight={rowHeight}
+                                         scrollBuffer={scrollBuffer}
+                                         onScroll={onScroll}>
+                            {
+                                scrollEl =>
+                                    <BaseTable {...restProps}
+                                               style={tableStyle}
+                                               fixed={fixed}
+                                               fragment={TableFragment.FOOT}
+                                               columns={columns}
+                                               headColumns={headColumns}
+                                               bodyColumns={bodyColumns}
+                                               ignoreColumnSpan={true}
+                                               data={data}
+                                               scrollEl={scrollEl}
+                                               useDynamicRender={useDynamicRender}
+                                               scrollHeight={scrollHeight}
+                                               rowHeight={rowHeight}
+                                               scrollBuffer={scrollBuffer}
+                                               isHeadHidden={true}
+                                               isBodyHidden={true}
+                                               isLayoutFixed={isLayoutFixed}
+                                               onRequestColumnsSpan={this.handleColumnsSpan}/>
+                            }
+                        </ScrollableTable>
                         :
                         null
                 }
@@ -564,6 +554,7 @@ ScrollTable.propTypes = {
      * column resizable
      */
     isColumnResizable: PropTypes.bool,
+    defaultColumnWidth: PropTypes.number,
     minColumnWidth: PropTypes.number,
     maxColumnWidth: PropTypes.number,
     resizingColumnPath: PropTypes.array,
@@ -606,7 +597,7 @@ ScrollTable.defaultProps = {
     /**
      * fixed
      */
-    isLayoutFixed: false,
+    isLayoutFixed: true,
     isHeadFixed: false,
     isFootFixed: false,
 
@@ -641,6 +632,7 @@ ScrollTable.defaultProps = {
      * column resizable
      */
     isColumnResizable: false,
+    defaultColumnWidth: 100,
     minColumnWidth: 64,
     maxColumnWidth: Infinity
 

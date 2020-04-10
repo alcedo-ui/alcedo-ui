@@ -15,22 +15,8 @@
         position: relative;
         overflow: hidden;
 
-        .scroll-table-body-scroller {
-            overflow: auto;
-
-            .scroll-table-body-mask {
-                //display: inline-block;
-                //width: 100%;
-                //vertical-align: top;
-
-                &.mask-vertical {
-                    overflow-y: hidden;
-                }
-
-                &.mask-horizontal {
-                    overflow-x: hidden;
-                }
-            }
+        &.scrollable {
+            overflow: scroll;
         }
     }
 
