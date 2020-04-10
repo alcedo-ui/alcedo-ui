@@ -62,7 +62,7 @@ class BaseTable extends Component {
 
         const {
 
-                className, style, data, dynamicRenderData, value, hoverRow, idProp, baseColIndex, fragment, scrollEl,
+                className, style, data, dynamicRenderData, value, idProp, baseColIndex, fragment, scrollEl,
                 headColumns, bodyColumns, selectMode, selectAllMode, expandRows, resizingColumnPath,
                 useDynamicRender, scrollHeight, rowHeight, scrollBuffer,
                 isColumnResizable, defaultColumnWidth, minColumnWidth, maxColumnWidth,
@@ -70,7 +70,7 @@ class BaseTable extends Component {
                 isMouseEventForbidden, isLayoutFixed, isHeadFixed, isFootFixed,
                 ignoreColumnWidth, ignoreColumnSpan, hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
                 sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, isClickSorting,
-                onRowHover, onSortChange, onExpandChange, onRequestColumnsSpan,
+                onSortChange, onExpandChange, onRequestColumnsSpan,
                 onColumnsWidthChange, onColumnResizeStart, onColumnResizeEnd,
 
                 // not passing down these props
@@ -133,7 +133,6 @@ class BaseTable extends Component {
                                data={data}
                                dynamicRenderData={dynamicRenderData}
                                value={value}
-                               hoverRow={hoverRow}
                                selectMode={selectMode}
                                selectAllMode={selectAllMode}
                                expandRows={expandRows}
@@ -149,7 +148,6 @@ class BaseTable extends Component {
                                rowHeight={rowHeight}
                                scrollBuffer={scrollBuffer}
                                onExpandChange={onExpandChange}
-                               onRowHover={onRowHover}
                                onRequestColumnsSpan={onRequestColumnsSpan}/>
                         :
                         null
@@ -418,7 +416,6 @@ BaseTable.propTypes = {
     data: PropTypes.array,
     dynamicRenderData: PropTypes.array,
     value: PropTypes.array,
-    hoverRow: PropTypes.object,
     idProp: PropTypes.string,
     baseColIndex: PropTypes.number,
     disabled: PropTypes.bool,
@@ -486,7 +483,6 @@ BaseTable.propTypes = {
     onRowClick: PropTypes.func,
     onCellClick: PropTypes.func,
     onFootClick: PropTypes.func,
-    onRowHover: PropTypes.func,
     onExpandChange: PropTypes.func,
     onRequestColumnsSpan: PropTypes.func,
     onColumnsWidthChange: PropTypes.func,
