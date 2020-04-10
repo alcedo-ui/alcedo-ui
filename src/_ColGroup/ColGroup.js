@@ -31,17 +31,11 @@ class ColGroup extends Component {
 
     getColStyle = column => {
 
-        const {isColumnResizable, minColumnWidth} = this.props,
+        const {isColumnResizable, defaultColumnWidth, minColumnWidth} = this.props,
             result = {};
 
         // width
-        result.width = column.width ?
-            column.width
-            :
-            isColumnResizable ?
-                minColumnWidth
-                :
-                null;
+        result.width = column.width || defaultColumnWidth || 100;
 
         // min width
         result.minWidth = column.minWidth ?
@@ -219,6 +213,7 @@ ColGroup.propTypes = {
      * column resizable
      */
     isColumnResizable: PropTypes.bool,
+    defaultColumnWidth: PropTypes.number,
     minColumnWidth: PropTypes.number,
 
     ignoreColumnWidth: PropTypes.bool,
@@ -232,6 +227,7 @@ ColGroup.defaultProps = {
      * column resizable
      */
     isColumnResizable: false,
+    defaultColumnWidth: 100,
     minColumnWidth: 64,
 
     ignoreColumnWidth: false,
