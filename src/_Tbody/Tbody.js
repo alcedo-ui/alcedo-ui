@@ -62,16 +62,6 @@ class Tbody extends Component {
 
     };
 
-    handleTrMouseEnter = (e, rowData) => {
-        const {onRowHover} = this.props;
-        onRowHover && onRowHover(rowData);
-    };
-
-    handleTrMouseLeave = () => {
-        const {onRowHover} = this.props;
-        onRowHover && onRowHover(null);
-    };
-
     render() {
 
         const {
@@ -105,9 +95,7 @@ class Tbody extends Component {
                             disabled={disabled || row.disabled}
                             isMouseEventForbidden={isMouseEventForbidden}
                             ignoreColumnSpan={ignoreColumnSpan}
-                            useDynamicRender={useDynamicRender}
-                            onMouseEnter={this.handleTrMouseEnter}
-                            onMouseLeave={this.handleTrMouseLeave}/>
+                            useDynamicRender={useDynamicRender}/>
                         :
                         null
                     )
@@ -348,7 +336,6 @@ Tbody.propTypes = {
     data: PropTypes.array,
     dynamicRenderData: PropTypes.array,
     value: PropTypes.array,
-    hoverRow: PropTypes.object,
     startIndex: PropTypes.number,
     idProp: PropTypes.string,
     disabled: PropTypes.bool,
@@ -379,7 +366,6 @@ Tbody.propTypes = {
      */
     onRowClick: PropTypes.func,
     onCellClick: PropTypes.func,
-    onRowHover: PropTypes.func,
     onExpand: PropTypes.func,
     onCollapse: PropTypes.func,
     onRequestColumnsSpan: PropTypes.func
