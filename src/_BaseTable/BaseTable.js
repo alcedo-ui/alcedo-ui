@@ -65,7 +65,8 @@ class BaseTable extends Component {
                 className, style, data, dynamicRenderData, value, hoverRow, idProp, baseColIndex, fragment, scrollEl,
                 headColumns, bodyColumns, selectMode, selectAllMode, expandRows, resizingColumnPath,
                 useDynamicRender, scrollHeight, rowHeight, scrollBuffer,
-                isColumnResizable, minColumnWidth, maxColumnWidth, isHeadHidden, isBodyHidden, isFootHidden,
+                isColumnResizable, defaultColumnWidth, minColumnWidth, maxColumnWidth,
+                isHeadHidden, isBodyHidden, isFootHidden,
                 isMouseEventForbidden, isLayoutFixed, isHeadFixed, isFootFixed,
                 ignoreColumnWidth, ignoreColumnSpan, hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
                 sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, isClickSorting,
@@ -92,6 +93,7 @@ class BaseTable extends Component {
 
                 <ColGroup columns={this.getColumnsSpan(columns)}
                           isColumnResizable={isColumnResizable}
+                          defaultColumnWidth={defaultColumnWidth}
                           minColumnWidth={minColumnWidth}
                           ignoreColumnWidth={ignoreColumnWidth}
                           ignoreColumnSpan={ignoreColumnSpan}/>
@@ -471,6 +473,7 @@ BaseTable.propTypes = {
      * column resizable
      */
     isColumnResizable: PropTypes.bool,
+    defaultColumnWidth: PropTypes.number,
     minColumnWidth: PropTypes.number,
     maxColumnWidth: PropTypes.number,
     resizingColumnPath: PropTypes.array,
@@ -505,7 +508,7 @@ BaseTable.defaultProps = {
     /**
      * fixed
      */
-    isLayoutFixed: false,
+    isLayoutFixed: true,
     isHeadFixed: false,
     isFootFixed: false,
 
@@ -543,6 +546,7 @@ BaseTable.defaultProps = {
      * column resizable
      */
     isColumnResizable: false,
+    defaultColumnWidth: 100,
     minColumnWidth: 64,
     maxColumnWidth: Infinity
 
