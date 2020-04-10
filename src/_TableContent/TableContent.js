@@ -659,11 +659,10 @@ class TableContent extends PureComponent {
                      style={style}>
 
                     <ScrollTable {...restProps}
-                                 className="table-content-center"
                                  bodyScrollerStyle={verticalScrollStyle}
                                  tableStyle={horizontalScrollStyle}
-                                 headColumns={TC.handleFixedColumnsClassName(this.headColumns)}
-                                 bodyColumns={TC.handleFixedColumnsClassName(this.bodyColumns)}
+                                 headColumns={this.headColumns}
+                                 bodyColumns={this.bodyColumns}
                                  data={this.tableData}
                                  dynamicRenderData={this.dynamicRenderData}
                                  expandRows={expandRows}
