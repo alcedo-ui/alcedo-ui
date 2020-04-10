@@ -80,20 +80,6 @@ class Table extends Component {
     /**
      * public
      */
-    fixLayout = () => {
-        this.content && this.content.current && this.content.current.fixLayout();
-    };
-
-    /**
-     * public
-     */
-    debounceFixLayout = () => {
-        this.content && this.content.current && this.content.current.debounceFixLayout();
-    };
-
-    /**
-     * public
-     */
     collapseAllRows = () => {
         this.setState({
             expandRows: []
@@ -287,12 +273,8 @@ class Table extends Component {
         this.setState({
             columns: nextColumns
         }, () => {
-
-            this.fixLayout();
-
             const {onColumnsWidthChange} = this.props;
             onColumnsWidthChange && onColumnsWidthChange(column, width, path, e);
-
         });
 
     };
