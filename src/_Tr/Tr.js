@@ -32,19 +32,19 @@ class Tr extends Component {
         super(props, ...restArgs);
     }
 
-    getTdStyle = style => {
+    getTdStyle = (column, colIndex) => {
 
         const {useDynamicRender, rowHeight} = this.props;
 
         return useDynamicRender ?
             {
-                ...style,
+                ...column?.bodyStyle,
                 height: rowHeight,
                 paddingTop: 0,
                 paddingBottom: 0
             }
             :
-            style;
+            column?.bodyStyle;
 
     };
 
@@ -105,7 +105,7 @@ class Tr extends Component {
                             <Td {...respProps}
                                 key={colIndex}
                                 className={column.bodyClassName}
-                                style={this.getTdStyle(column.bodyStyle)}
+                                style={this.getTdStyle(column, colIndex)}
                                 rowIndex={rowIndex}
                                 colIndex={baseColIndex + colIndex}
                                 data={data}
