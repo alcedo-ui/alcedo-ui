@@ -604,7 +604,7 @@ class TableContent extends PureComponent {
                 // not passing down these props
                 isInitialing, isSelectRecursive, selectUncheckedIconCls, selectCheckedIconCls, resizing, sorting,
                 selectIndeterminateIconCls, selectColumn, expandIconCls, autoSorting, isPaginated, page, pageSize,
-                sortingFunc, onInit, onChange, onExpand, onCollapse, onExpandChange, onDataUpdate,
+                canBeExpanded, sortingFunc, onInit, onChange, onExpand, onCollapse, onExpandChange, onDataUpdate,
                 onSelect, onSelectAll, onDeselect, onDeselectAll,
                 onScrollTopChange, onScroll, onResizeStart, onResizeEnd,
 
