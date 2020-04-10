@@ -4,15 +4,12 @@
  */
 
 import React, {PureComponent, Fragment, createRef} from 'react';
-import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
 
 // Components
 import ScrollTable from '../_ScrollTable';
-import ScrollableTable from '../_ScrollableTable';
 import Checkbox from '../Checkbox';
 import IconButton from '../IconButton';
-import BaseTable from '../_BaseTable/BaseTable';
 
 // Statics
 import Theme from '../Theme';
@@ -58,12 +55,6 @@ class TableContent extends PureComponent {
 
         this.wrapper = createRef();
         this.wrapperEl = null;
-        this.rawTable = createRef();
-        this.rawTableEl = null;
-        this.fixedLeft = createRef();
-        this.fixedLeftEl = null;
-        this.fixedRight = createRef();
-        this.fixedRightEl = null;
 
         // sorted current page cache data
         this.tableData = [];
@@ -74,30 +65,23 @@ class TableContent extends PureComponent {
 
         // get elements
         this.wrapperEl = this.wrapper && this.wrapper.current;
-        this.rawTableEl = this.rawTable && this.rawTable.current && findDOMNode(this.rawTable.current);
-        this.fixedLeftEl = this.fixedLeft && this.fixedLeft.current && findDOMNode(this.fixedLeft.current);
-        this.fixedRightEl = this.fixedRight && this.fixedRight.current && findDOMNode(this.fixedRight.current);
 
         // bind event
         Event.addEvent(window, 'resize', this.handleReize);
 
-        // fixed layout at startup
-        this.debounceFixLayout();
+        // trigger initial callback at startup
+        const {isInitialing, onInit} = this.props;
+        isInitialing && onInit && onInit();
 
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-
-        this.debounceFixLayout();
-
         const {onDataUpdate} = this.props;
         onDataUpdate && onDataUpdate(this.tableData);
-
     }
 
     componentWillUnmount() {
         Event.removeEvent(window, 'resize', this.handleReize);
-        this.debounceFixLayout && this.debounceFixLayout.cancel();
     }
 
     /**
@@ -360,41 +344,12 @@ class TableContent extends PureComponent {
     };
 
     /**
-     * fix table layout at once
-     */
-    fixLayout = () => {
-
-        if (this.wrapperEl) {
-
-            TL.fixLayout(this.wrapperEl, this.rawTableEl, this.props, this);
-
-            if (TL.hasFixed(this.props, this)) {
-                setTimeout(() => {
-                    TL.updateHorizontalScrollClassNames(this.wrapperEl, this.centerBodyScroller);
-                }, 250);
-            }
-
-        }
-
-        // trigger initial callback at startup
-        const {isInitialing, onInit} = this.props;
-        isInitialing && onInit && onInit();
-
-    };
-
-    /**
-     * fix table layout debounce
-     */
-    debounceFixLayout = debounce(() => this.fixLayout(), 150);
-
-    /**
      * handle resize end callback and fix table layout debounce
      */
     debounceResizeFixLayout = debounce(() => {
         const {resizing, onResizeEnd} = this.props;
         if (resizing) {
             onResizeEnd && onResizeEnd();
-            this.fixLayout();
         }
     }, 600);
 
@@ -638,14 +593,6 @@ class TableContent extends PureComponent {
         return TC.getAdvancedColumnsSpan(columns, fixed, fragment, ...restArgs);
     };
 
-    /**
-     * handle the callback of requesting raw table columns span calculation
-     * @param restArgs
-     */
-    handleRequestRawTableColumnsSpan = (...restArgs) => {
-        return this.handleRequestColumnsSpan(null, ...restArgs);
-    };
-
     render() {
 
         const {
@@ -679,9 +626,6 @@ class TableContent extends PureComponent {
         this.headColumns = TC.getHeadColumns(this.formatedColumns);
         this.bodyColumns = TC.getBodyColumns(this.formatedColumns);
 
-        this.fixedRightColumns = this.formatedColumns.filter(column =>
-            column && column.fixed === HorizontalAlign.RIGHT);
-
         this.tableData = this.paginateData(this.sortData(data));
 
         if (useDynamicRender) {
@@ -714,40 +658,9 @@ class TableContent extends PureComponent {
                      })}
                      style={style}>
 
-                    <div className="table-content-raw">
-                        <ScrollableTable className="table-content-raw-scroller"
-                                         scroll={scroll}>
-                            <BaseTable ref={this.rawTable}
-                                       style={{
-                                           ...scroll,
-                                           height: 'auto'
-                                       }}
-                                       headColumns={this.headColumns}
-                                       bodyColumns={this.bodyColumns}
-                                       data={TC.getRawTableData(this.tableData)}
-                                       dynamicRenderData={this.dynamicRenderData}
-                                       expandRows={expandRows}
-                                       isLayoutFixed={isLayoutFixed}
-                                       isHeadFixed={isHeadFixed}
-                                       isFootFixed={isFootFixed}
-                                       isHeadHidden={isFinalHeadHidden}
-                                       isFootHidden={isFinalFootHidden}
-                                       sorting={sorting}
-                                       hasHeadRenderer={hasHeadRenderer}
-                                       hasBodyRenderer={hasBodyRenderer}
-                                       hasFootRenderer={hasFootRenderer}
-                                       useDynamicRender={useDynamicRender}
-                                       isColumnResizable={isColumnResizable}
-                                       minColumnWidth={minColumnWidth}
-                                       maxColumnWidth={maxColumnWidth}
-                                       onRequestColumnsSpan={this.handleRequestRawTableColumnsSpan}/>
-                        </ScrollableTable>
-                    </div>
-
                     <ScrollTable {...restProps}
                                  className="table-content-center"
                                  bodyScrollerStyle={verticalScrollStyle}
-                                 maskStyle={horizontalScrollStyle}
                                  tableStyle={horizontalScrollStyle}
                                  headColumns={TC.handleFixedColumnsClassName(this.headColumns)}
                                  bodyColumns={TC.handleFixedColumnsClassName(this.bodyColumns)}
@@ -766,7 +679,6 @@ class TableContent extends PureComponent {
                                  hasFootRenderer={hasFootRenderer}
                                  scroll={scroll}
                                  sorting={sorting}
-                                 ignoreColumnWidth={true}
                                  useDynamicRender={useDynamicRender}
                                  dynamicRenderIndex={this.dynamicRenderIndex}
                                  isColumnResizable={isColumnResizable}
@@ -781,94 +693,6 @@ class TableContent extends PureComponent {
                                      this.handleGetScrollerEl(el, HorizontalAlign.CENTER, TableFragment.BODY)}
                                  onGetFootScrollerEl={el =>
                                      this.handleGetScrollerEl(el, HorizontalAlign.CENTER, TableFragment.FOOT)}/>
-
-                    {
-                        hasFixedLeftColumn ?
-                            <ScrollTable {...restProps}
-                                         ref={this.fixedLeft}
-                                         className="table-content-left"
-                                         bodyScrollerStyle={verticalScrollStyle}
-                                         fixed={HorizontalAlign.LEFT}
-                                         headColumns={TC.getFixedHeadColumns(this.headColumns, HorizontalAlign.LEFT)}
-                                         bodyColumns={TC.getFixedBodyColumns(this.bodyColumns, HorizontalAlign.LEFT)}
-                                         data={this.tableData}
-                                         dynamicRenderData={this.dynamicRenderData}
-                                         expandRows={expandRows}
-                                         isLayoutFixed={isLayoutFixed}
-                                         isHeadFixed={isHeadFixed}
-                                         isFootFixed={isFootFixed}
-                                         isHeadHidden={isFinalHeadHidden}
-                                         isFootHidden={isFinalFootHidden}
-                                         hasFixedLeftColumn={hasFixedLeftColumn}
-                                         hasFixedRightColumn={hasFixedRightColumn}
-                                         hasHeadRenderer={hasHeadRenderer}
-                                         hasBodyRenderer={hasBodyRenderer}
-                                         hasFootRenderer={hasFootRenderer}
-                                         scroll={scroll}
-                                         sorting={sorting}
-                                         ignoreColumnWidth={true}
-                                         useDynamicRender={useDynamicRender}
-                                         dynamicRenderIndex={this.dynamicRenderIndex}
-                                         isColumnResizable={isColumnResizable}
-                                         minColumnWidth={minColumnWidth}
-                                         maxColumnWidth={maxColumnWidth}
-                                         onScroll={this.handleScroll}
-                                         onWheel={this.handleWheel}
-                                         onExpandChange={this.handleExpandChange}
-                                         onRequestColumnsSpan={this.handleRequestColumnsSpan}
-                                         onGetHeadScrollerEl={el =>
-                                             this.handleGetScrollerEl(el, HorizontalAlign.LEFT, TableFragment.HEAD)}
-                                         onGetBodyScrollerEl={el =>
-                                             this.handleGetScrollerEl(el, HorizontalAlign.LEFT, TableFragment.BODY)}
-                                         onGetFootScrollerEl={el =>
-                                             this.handleGetScrollerEl(el, HorizontalAlign.LEFT, TableFragment.FOOT)}/>
-                            :
-                            null
-                    }
-
-                    {
-                        hasFixedRightColumn ?
-                            <ScrollTable {...restProps}
-                                         ref={this.fixedRight}
-                                         className="table-content-right"
-                                         bodyScrollerStyle={verticalScrollStyle}
-                                         fixed={HorizontalAlign.RIGHT}
-                                         headColumns={TC.getFixedHeadColumns(this.headColumns, HorizontalAlign.RIGHT)}
-                                         bodyColumns={TC.getFixedBodyColumns(this.bodyColumns, HorizontalAlign.RIGHT)}
-                                         data={this.tableData}
-                                         dynamicRenderData={this.dynamicRenderData}
-                                         expandRows={expandRows}
-                                         isLayoutFixed={isLayoutFixed}
-                                         isHeadFixed={isHeadFixed}
-                                         isFootFixed={isFootFixed}
-                                         isHeadHidden={isFinalHeadHidden}
-                                         isFootHidden={isFinalFootHidden}
-                                         hasFixedLeftColumn={hasFixedLeftColumn}
-                                         hasFixedRightColumn={hasFixedRightColumn}
-                                         hasHeadRenderer={hasHeadRenderer}
-                                         hasBodyRenderer={hasBodyRenderer}
-                                         hasFootRenderer={hasFootRenderer}
-                                         scroll={scroll}
-                                         sorting={sorting}
-                                         ignoreColumnWidth={true}
-                                         baseColIndex={this.formatedColumns.length - this.fixedRightColumns.length}
-                                         useDynamicRender={useDynamicRender}
-                                         dynamicRenderIndex={this.dynamicRenderIndex}
-                                         isColumnResizable={isColumnResizable}
-                                         minColumnWidth={minColumnWidth}
-                                         maxColumnWidth={maxColumnWidth}
-                                         onScroll={this.handleScroll}
-                                         onWheel={this.handleWheel}
-                                         onRequestColumnsSpan={this.handleRequestColumnsSpan}
-                                         onGetHeadScrollerEl={el =>
-                                             this.handleGetScrollerEl(el, HorizontalAlign.RIGHT, TableFragment.HEAD)}
-                                         onGetBodyScrollerEl={el =>
-                                             this.handleGetScrollerEl(el, HorizontalAlign.RIGHT, TableFragment.BODY)}
-                                         onGetFootScrollerEl={el =>
-                                             this.handleGetScrollerEl(el, HorizontalAlign.RIGHT, TableFragment.FOOT)}/>
-                            :
-                            null
-                    }
 
                 </div>
 
@@ -1251,6 +1075,7 @@ TableContent.propTypes = {
      * column resizable
      */
     isColumnResizable: PropTypes.bool,
+    defaultColumnWidth: PropTypes.number,
     minColumnWidth: PropTypes.number,
     maxColumnWidth: PropTypes.number,
     resizingColumnPath: PropTypes.array,
@@ -1332,7 +1157,7 @@ TableContent.defaultProps = {
     /**
      * hidden
      */
-    isLayoutFixed: false,
+    isLayoutFixed: true,
     isHeadHidden: false,
     isFootHidden: false,
 
@@ -1354,6 +1179,7 @@ TableContent.defaultProps = {
      * column resizable
      */
     isColumnResizable: false,
+    defaultColumnWidth: 100,
     minColumnWidth: 64,
     maxColumnWidth: Infinity
 
