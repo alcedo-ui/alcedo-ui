@@ -714,7 +714,7 @@ function getScrollerStyle(scroll, props) {
             result.horizontalScrollStyle = {};
         }
 
-        result.horizontalScrollStyle.minWidth = scroll.width;
+        result.horizontalScrollStyle.width = scroll.width;
 
     }
 
