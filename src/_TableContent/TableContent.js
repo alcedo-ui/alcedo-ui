@@ -936,7 +936,6 @@ TableContent.propTypes = {
 
     data: PropTypes.array,
     value: PropTypes.array,
-    hoverRow: PropTypes.object,
     idProp: PropTypes.string,
     disabled: PropTypes.bool,
     isInitialing: PropTypes.bool,
@@ -1096,7 +1095,6 @@ TableContent.propTypes = {
     onScroll: PropTypes.func,
     onResizeStart: PropTypes.func,
     onResizeEnd: PropTypes.func,
-    onRowHover: PropTypes.func,
     onDataUpdate: PropTypes.func,
     onColumnsWidthChange: PropTypes.func,
     onColumnResizeStart: PropTypes.func,
