@@ -46,12 +46,12 @@ class Tr extends Component {
 
         if (column.fixed === HorizontalAlign.LEFT) {
             result.position = 'sticky';
-            result.left = TC.getTableWidth(columnsSpan.slice(0, colIndex).map(item => item.column), defaultColumnWidth);
+            result.left = TC.getColumnsSpanWidth(columnsSpan.slice(0, colIndex), defaultColumnWidth);
         }
 
         if (column.fixed === HorizontalAlign.RIGHT) {
             result.position = 'sticky';
-            result.right = TC.getTableWidth(columnsSpan.slice(colIndex + 1).map(item => item.column), defaultColumnWidth);
+            result.right = TC.getColumnsSpanWidth(columnsSpan.slice(colIndex + 1), defaultColumnWidth);
         }
 
         return result;
