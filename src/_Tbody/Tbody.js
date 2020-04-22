@@ -346,7 +346,6 @@ Tbody.propTypes = {
     rowHeight: PropTypes.number,
     scrollBuffer: PropTypes.number,
 
-
     /**
      * column resizable
      */
