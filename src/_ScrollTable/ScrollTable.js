@@ -23,6 +23,7 @@ import {findDOMNode} from 'react-dom';
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
 import Util from '../_vendors/Util';
+import TC from '../_vendors/TableCalculation';
 
 class ScrollTable extends Component {
 
@@ -74,11 +75,10 @@ class ScrollTable extends Component {
 
         const {
 
-            className, style, bodyScrollerStyle, maskStyle, tableStyle, footStyle,
-            fixed, columns, headColumns, bodyColumns,
+            className, style, horizontalScrollStyle, verticalScrollStyle, fixed, columns, headColumns, bodyColumns,
             isHeadHidden, isFootHidden, isLayoutFixed, isHeadFixed, isFootFixed,
             data, scroll, hasFixedLeftColumn, hasFixedRightColumn,
-            useDynamicRender, dynamicRenderIndex, scrollHeight, rowHeight, scrollBuffer,
+            useDynamicRender, dynamicRenderIndex, scrollHeight, rowHeight, scrollBuffer, defaultColumnWidth,
             onScroll, onWheel,
 
             // not passing down these props
@@ -92,7 +92,8 @@ class ScrollTable extends Component {
             return null;
         }
 
-        const hasHead = !isHeadHidden && isHeadFixed,
+        const tableWidth = horizontalScrollStyle?.width || TC.getTableWidth(bodyColumns, defaultColumnWidth),
+            hasHead = !isHeadHidden && isHeadFixed,
             hasFoot = !isFootHidden && isFootFixed;
 
         return (
@@ -115,7 +116,7 @@ class ScrollTable extends Component {
                             {
                                 scrollEl =>
                                     <BaseTable {...restProps}
-                                               style={tableStyle}
+                                               style={{width: tableWidth}}
                                                fixed={fixed}
                                                fragment={TableFragment.HEAD}
                                                columns={columns}
@@ -130,6 +131,7 @@ class ScrollTable extends Component {
                                                isBodyHidden={true}
                                                isFootHidden={true}
                                                isLayoutFixed={isLayoutFixed}
+                                               defaultColumnWidth={defaultColumnWidth}
                                                onRequestColumnsSpan={this.handleColumnsSpan}/>
                             }
                         </ScrollableTable>
@@ -142,7 +144,7 @@ class ScrollTable extends Component {
                                      'has-head': hasHead,
                                      'has-foot': hasFoot
                                  })}
-                                 style={bodyScrollerStyle}
+                                 style={verticalScrollStyle}
                                  scroll={scroll}
                                  useDynamicRender={useDynamicRender}
                                  scrollHeight={scrollHeight}
@@ -156,7 +158,7 @@ class ScrollTable extends Component {
                                  style={useDynamicRender ? {height: data?.length * rowHeight} : null}>
                                 <BaseTable {...restProps}
                                            style={{
-                                               ...tableStyle,
+                                               width: tableWidth,
                                                transform: useDynamicRender && dynamicRenderIndex ?
                                                    `translateY(${dynamicRenderIndex.startWithBuffer * rowHeight}px)`
                                                    :
@@ -178,6 +180,7 @@ class ScrollTable extends Component {
                                            scrollHeight={scrollHeight}
                                            rowHeight={rowHeight}
                                            scrollBuffer={scrollBuffer}
+                                           defaultColumnWidth={defaultColumnWidth}
                                            onRequestColumnsSpan={this.handleColumnsSpan}/>
                             </div>
                     }
@@ -187,7 +190,6 @@ class ScrollTable extends Component {
                     hasFoot ?
                         <ScrollableTable ref={this.footScroller}
                                          className="scroll-table-foot"
-                                         style={footStyle}
                                          fragment={TableFragment.FOOT}
                                          scroll={scroll}
                                          useDynamicRender={useDynamicRender}
@@ -198,7 +200,7 @@ class ScrollTable extends Component {
                             {
                                 scrollEl =>
                                     <BaseTable {...restProps}
-                                               style={tableStyle}
+                                               style={{width: tableWidth}}
                                                fixed={fixed}
                                                fragment={TableFragment.FOOT}
                                                columns={columns}
@@ -214,6 +216,7 @@ class ScrollTable extends Component {
                                                isHeadHidden={true}
                                                isBodyHidden={true}
                                                isLayoutFixed={isLayoutFixed}
+                                               defaultColumnWidth={defaultColumnWidth}
                                                onRequestColumnsSpan={this.handleColumnsSpan}/>
                             }
                         </ScrollableTable>
@@ -239,10 +242,8 @@ ScrollTable.propTypes = {
      */
     style: PropTypes.object,
 
-    bodyScrollerStyle: PropTypes.object,
-    maskStyle: PropTypes.object,
-    tableStyle: PropTypes.object,
-    footStyle: PropTypes.object,
+    horizontalScrollStyle: PropTypes.object,
+    verticalScrollStyle: PropTypes.object,
 
     fixed: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(Util.enumerateValue(HorizontalAlign))]),
 
