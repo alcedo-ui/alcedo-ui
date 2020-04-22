@@ -598,7 +598,14 @@ function getColumnByPath(columns, path) {
 
 function getTableWidth(columns, defaultColumnWidth = 100) {
     return columns ?
-        columns.reduce((a, b) => a + (b.width || defaultColumnWidth), 0)
+        columns.reduce((a, b) => a + (b?.width || defaultColumnWidth), 0)
+        :
+        0;
+}
+
+function getColumnsSpanWidth(columnsSpan, defaultColumnWidth = 100) {
+    return columnsSpan ?
+        columnsSpan.reduce((a, b) => a + (b?.column?.width || defaultColumnWidth), 0)
         :
         0;
 }
@@ -633,5 +640,6 @@ export default {
     handlePage,
     getRawTableData,
     getColumnByPath,
-    getTableWidth
+    getTableWidth,
+    getColumnsSpanWidth
 };
