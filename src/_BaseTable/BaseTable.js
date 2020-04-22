@@ -165,6 +165,7 @@ class BaseTable extends Component {
                                selectAllMode={selectAllMode}
                                ignoreColumnSpan={ignoreColumnSpan}
                                scrollEl={scrollEl}
+                               defaultColumnWidth={defaultColumnWidth}
                                onRequestColumnsSpan={onRequestColumnsSpan}/>
                         :
                         null
