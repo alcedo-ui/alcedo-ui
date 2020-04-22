@@ -42,7 +42,7 @@ class Thead extends Component {
 
     };
 
-    getStyle = (row, column, colIndex) => {
+    getStyle = (columnsSpan, column, colIndex) => {
 
         const {defaultColumnWidth} = this.props,
             result = {
@@ -51,12 +51,12 @@ class Thead extends Component {
 
         if (column.fixed === HorizontalAlign.LEFT) {
             result.position = 'sticky';
-            result.left = TC.getTableWidth(row.slice(0, colIndex).map(item => item.column), defaultColumnWidth);
+            result.left = TC.getTableWidth(columnsSpan.slice(0, colIndex).map(item => item.column), defaultColumnWidth);
         }
 
         if (column.fixed === HorizontalAlign.RIGHT) {
             result.position = 'sticky';
-            result.right = TC.getTableWidth(row.slice(colIndex + 1).map(item => item.column), defaultColumnWidth);
+            result.right = TC.getTableWidth(columnsSpan.slice(colIndex + 1).map(item => item.column), defaultColumnWidth);
         }
 
         return result;
