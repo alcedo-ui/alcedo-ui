@@ -611,13 +611,15 @@ class TableContent extends PureComponent {
                 ...restProps
 
             } = this.props,
+
+            // get sorted columns according to fixed column
             {sortedColumns, hasFixedLeftColumn, hasFixedRightColumn} = TC.sortColumns(columns);
 
         this.sortedColumns = sortedColumns;
-
         this.hasFixedLeftColumn = hasFixedLeftColumn;
         this.hasFixedRightColumn = hasFixedRightColumn;
 
+        // add row expand and multi select column
         this.formatedColumns = this.formatColumns(this.sortedColumns);
         if (!this.formatedColumns) {
             return null;
@@ -659,8 +661,8 @@ class TableContent extends PureComponent {
                      style={style}>
 
                     <ScrollTable {...restProps}
-                                 bodyScrollerStyle={verticalScrollStyle}
-                                 tableStyle={horizontalScrollStyle}
+                                 horizontalScrollStyle={horizontalScrollStyle}
+                                 verticalScrollStyle={verticalScrollStyle}
                                  headColumns={this.headColumns}
                                  bodyColumns={this.bodyColumns}
                                  data={this.tableData}
