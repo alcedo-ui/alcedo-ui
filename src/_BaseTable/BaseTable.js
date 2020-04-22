@@ -114,6 +114,7 @@ class BaseTable extends Component {
                                ignoreColumnSpan={ignoreColumnSpan}
                                scrollEl={scrollEl}
                                isColumnResizable={isColumnResizable}
+                               defaultColumnWidth={defaultColumnWidth}
                                minColumnWidth={minColumnWidth}
                                maxColumnWidth={maxColumnWidth}
                                resizingColumnPath={resizingColumnPath}
@@ -143,6 +144,7 @@ class BaseTable extends Component {
                                ignoreColumnSpan={ignoreColumnSpan}
                                scrollEl={scrollEl}
                                isColumnResizable={isColumnResizable}
+                               defaultColumnWidth={defaultColumnWidth}
                                useDynamicRender={useDynamicRender}
                                scrollHeight={scrollHeight}
                                rowHeight={rowHeight}
