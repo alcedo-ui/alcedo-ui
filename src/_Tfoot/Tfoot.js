@@ -40,6 +40,27 @@ class Tfoot extends Component {
             TC.getColumnsSpan(TableFragment.FOOT, columns, data);
     };
 
+    getStyle = (columnsSpan, column, colIndex) => {
+
+        const {defaultColumnWidth} = this.props,
+            result = {
+                ...column.footStyle
+            };
+
+        if (column.fixed === HorizontalAlign.LEFT) {
+            result.position = 'sticky';
+            result.left = TC.getColumnsSpanWidth(columnsSpan.slice(0, colIndex), defaultColumnWidth);
+        }
+
+        if (column.fixed === HorizontalAlign.RIGHT) {
+            result.position = 'sticky';
+            result.right = TC.getColumnsSpanWidth(columnsSpan.slice(colIndex + 1), defaultColumnWidth);
+        }
+
+        return result;
+
+    };
+
     handleClick = e => {
         const {data, disabled, onFootClick} = this.props;
         !disabled && onFootClick && onFootClick(data, e);
@@ -66,7 +87,7 @@ class Tfoot extends Component {
                         columnsSpan && columnsSpan.map(({column, span}, colIndex) =>
                             <Tf key={colIndex}
                                 className={column.footClassName}
-                                style={column.footStyle}
+                                style={this.getStyle(columnsSpan, column, colIndex)}
                                 colIndex={baseColIndex + colIndex}
                                 data={data}
                                 title={column.footTitle}
@@ -313,6 +334,11 @@ Tfoot.propTypes = {
     ignoreColumnSpan: PropTypes.bool,
     scrollEl: PropTypes.object,
 
+    /**
+     * column resizable
+     */
+    defaultColumnWidth: PropTypes.number,
+
     onFootClick: PropTypes.func,
     onCellClick: PropTypes.func,
     onRequestColumnsSpan: PropTypes.func
@@ -320,9 +346,16 @@ Tfoot.propTypes = {
 };
 
 Tfoot.defaultProps = {
+
     disabled: false,
     baseColIndex: 0,
-    ignoreColumnSpan: false
+    ignoreColumnSpan: false,
+
+    /**
+     * column resizable
+     */
+    defaultColumnWidth: 100
+
 };
 
 export default Tfoot;
