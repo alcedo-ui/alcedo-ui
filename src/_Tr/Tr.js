@@ -32,19 +32,29 @@ class Tr extends Component {
         super(props, ...restArgs);
     }
 
-    getTdStyle = (column, colIndex) => {
+    getTdStyle = (columnsSpan, column, colIndex) => {
 
-        const {useDynamicRender, rowHeight} = this.props;
-
-        return useDynamicRender ?
-            {
+        const {useDynamicRender, rowHeight, defaultColumnWidth} = this.props,
+            result = useDynamicRender ? {
                 ...column?.bodyStyle,
                 height: rowHeight,
                 paddingTop: 0,
                 paddingBottom: 0
-            }
-            :
-            column?.bodyStyle;
+            } : {
+                ...column?.bodyStyle
+            };
+
+        if (column.fixed === HorizontalAlign.LEFT) {
+            result.position = 'sticky';
+            result.left = TC.getTableWidth(columnsSpan.slice(0, colIndex).map(item => item.column), defaultColumnWidth);
+        }
+
+        if (column.fixed === HorizontalAlign.RIGHT) {
+            result.position = 'sticky';
+            result.right = TC.getTableWidth(columnsSpan.slice(colIndex + 1).map(item => item.column), defaultColumnWidth);
+        }
+
+        return result;
 
     };
 
@@ -105,7 +115,7 @@ class Tr extends Component {
                             <Td {...respProps}
                                 key={colIndex}
                                 className={column.bodyClassName}
-                                style={this.getTdStyle(column, colIndex)}
+                                style={this.getTdStyle(columnsSpan, column, colIndex)}
                                 rowIndex={rowIndex}
                                 colIndex={baseColIndex + colIndex}
                                 data={data}
@@ -408,6 +418,11 @@ Tr.propTypes = {
     rowHeight: PropTypes.number,
 
     /**
+     * column resizable
+     */
+    defaultColumnWidth: PropTypes.number,
+
+    /**
      * callback
      */
     onRowClick: PropTypes.func,
@@ -433,7 +448,12 @@ Tr.defaultProps = {
      * Dynamic Render
      */
     useDynamicRender: false,
-    rowHeight: 50
+    rowHeight: 50,
+
+    /**
+     * column resizable
+     */
+    defaultColumnWidth: 100
 
 };
 
