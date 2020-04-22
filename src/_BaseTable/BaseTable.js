@@ -143,7 +143,6 @@ class BaseTable extends Component {
                                isMouseEventForbidden={isMouseEventForbidden}
                                ignoreColumnSpan={ignoreColumnSpan}
                                scrollEl={scrollEl}
-                               isColumnResizable={isColumnResizable}
                                defaultColumnWidth={defaultColumnWidth}
                                useDynamicRender={useDynamicRender}
                                scrollHeight={scrollHeight}
