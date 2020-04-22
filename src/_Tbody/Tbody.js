@@ -29,22 +29,6 @@ class Tbody extends Component {
         super(props, ...restArgs);
     }
 
-    // getStyle = row => {
-    //
-    //     const {useDynamicRender, rowHeight} = this.props;
-    //
-    //     return useDynamicRender ?
-    //         {
-    //             ...row?.rowStyle,
-    //             height: rowHeight - 1,
-    //             paddingTop: 0,
-    //             paddingBottom: 0
-    //         }
-    //         :
-    //         row?.rowStyle;
-    //
-    // };
-
     isItemChecked = rowData => {
 
         const {selectMode, idProp, value} = this.props;
@@ -67,7 +51,7 @@ class Tbody extends Component {
         const {
 
                 className, style, columns, data, dynamicRenderData,
-                startIndex, disabled, isMouseEventForbidden, ignoreColumnSpan, useDynamicRender,
+                startIndex, disabled, isMouseEventForbidden, ignoreColumnSpan, useDynamicRender, defaultColumnWidth,
 
                 // not passing down these props
                 value,
@@ -95,7 +79,8 @@ class Tbody extends Component {
                             disabled={disabled || row.disabled}
                             isMouseEventForbidden={isMouseEventForbidden}
                             ignoreColumnSpan={ignoreColumnSpan}
-                            useDynamicRender={useDynamicRender}/>
+                            useDynamicRender={useDynamicRender}
+                            defaultColumnWidth={defaultColumnWidth}/>
                         :
                         null
                     )
@@ -361,6 +346,12 @@ Tbody.propTypes = {
     rowHeight: PropTypes.number,
     scrollBuffer: PropTypes.number,
 
+
+    /**
+     * column resizable
+     */
+    defaultColumnWidth: PropTypes.number,
+
     /**
      * callback
      */
@@ -389,7 +380,12 @@ Tbody.defaultProps = {
     useDynamicRender: false,
     scrollHeight: 500,
     rowHeight: 50,
-    scrollBuffer: 8
+    scrollBuffer: 8,
+
+    /**
+     * column resizable
+     */
+    defaultColumnWidth: 100
 
 };
 
