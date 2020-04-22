@@ -42,6 +42,27 @@ class Thead extends Component {
 
     };
 
+    getStyle = (row, column, colIndex) => {
+
+        const {defaultColumnWidth} = this.props,
+            result = {
+                ...column.headStyle
+            };
+
+        if (column.fixed === HorizontalAlign.LEFT) {
+            result.position = 'sticky';
+            result.left = TC.getTableWidth(row.slice(0, colIndex).map(item => item.column), defaultColumnWidth);
+        }
+
+        if (column.fixed === HorizontalAlign.RIGHT) {
+            result.position = 'sticky';
+            result.right = TC.getTableWidth(row.slice(colIndex + 1).map(item => item.column), defaultColumnWidth);
+        }
+
+        return result;
+
+    };
+
     render() {
 
         const {
@@ -68,7 +89,7 @@ class Thead extends Component {
                                             column={column}
                                             path={path}
                                             className={column.headClassName}
-                                            style={column.headStyle}
+                                            style={this.getStyle(row, column, colIndex)}
                                             width={column.width}
                                             data={data}
                                             title={column.headTitle}
@@ -344,6 +365,7 @@ Thead.propTypes = {
      * column resizable
      */
     isColumnResizable: PropTypes.bool,
+    defaultColumnWidth: PropTypes.number,
     minColumnWidth: PropTypes.number,
     maxColumnWidth: PropTypes.number,
     resizingColumnPath: PropTypes.array,
@@ -373,6 +395,7 @@ Thead.defaultProps = {
      * column resizable
      */
     isColumnResizable: false,
+    defaultColumnWidth: 100,
     minColumnWidth: 64,
     maxColumnWidth: Infinity
 
