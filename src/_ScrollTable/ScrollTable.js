@@ -75,8 +75,8 @@ class ScrollTable extends Component {
 
         const {
 
-            className, style, horizontalScrollStyle, verticalScrollStyle, fixed, columns, headColumns, bodyColumns,
-            isHeadHidden, isFootHidden, isLayoutFixed, isHeadFixed, isFootFixed,
+            className, style, horizontalScrollStyle, verticalScrollStyle, fixed, columns,
+            headColumns, bodyColumns, columnsWidth, isHeadHidden, isFootHidden, isLayoutFixed, isHeadFixed, isFootFixed,
             data, scroll, hasFixedLeftColumn, hasFixedRightColumn,
             useDynamicRender, dynamicRenderIndex, scrollHeight, rowHeight, scrollBuffer, defaultColumnWidth,
             onScroll, onWheel,
@@ -120,6 +120,7 @@ class ScrollTable extends Component {
                                                fixed={fixed}
                                                fragment={TableFragment.HEAD}
                                                columns={columns}
+                                               columnsWidth={columnsWidth}
                                                headColumns={headColumns}
                                                bodyColumns={bodyColumns}
                                                data={data}
@@ -204,6 +205,7 @@ class ScrollTable extends Component {
                                                fixed={fixed}
                                                fragment={TableFragment.FOOT}
                                                columns={columns}
+                                               columnsWidth={columnsWidth}
                                                headColumns={headColumns}
                                                bodyColumns={bodyColumns}
                                                ignoreColumnSpan={true}
@@ -475,14 +477,13 @@ ScrollTable.propTypes = {
     })),
     headColumns: PropTypes.array,
     bodyColumns: PropTypes.array,
-
+    columnsWidth: PropTypes.object,
     data: PropTypes.array,
     dynamicRenderData: PropTypes.array,
     value: PropTypes.array,
     idProp: PropTypes.string,
     baseColIndex: PropTypes.number,
     expandRows: PropTypes.array,
-    ignoreColumnWidth: PropTypes.bool,
 
     /**
      * scroll
@@ -573,7 +574,6 @@ ScrollTable.defaultProps = {
     idProp: 'id',
     baseColIndex: 0,
     expandRows: [],
-    ignoreColumnWidth: false,
 
     /**
      * sorting
