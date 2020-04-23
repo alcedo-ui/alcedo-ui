@@ -61,6 +61,7 @@ class Table extends Component {
         this.state = {
             isInitialing: props.hasInitFadeOut,
             columns: [],
+            columnsWidth: new Map(),
             sorting: props.sorting,
             page: props.page,
             pageSize: props.pageSize,
@@ -301,7 +302,7 @@ class Table extends Component {
 
             } = this.props,
             {
-                isInitialing, columns, sorting, page, pageSize, expandRows, value,
+                isInitialing, columns, columnsWidth, sorting, page, pageSize, expandRows, value,
                 scrollTop, resizing, resizingColumnPath
             } = this.state;
 
@@ -323,6 +324,7 @@ class Table extends Component {
                          expandRows={expandRows}
                          value={value}
                          scrollTop={scrollTop}
+                         columnsWidth={columnsWidth}
                          resizing={resizing}
                          resizingColumnPath={resizingColumnPath}
                          selectMode={selectMode}
