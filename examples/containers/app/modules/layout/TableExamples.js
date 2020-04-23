@@ -46,6 +46,7 @@ class TableExamples extends Component {
         };
 
         this.columns = [{
+            key: 'id',
             headRenderer: 'ID',
             bodyRenderer: rowDate => rowDate[LOADING_SYMBOL] ?
                 <CircularLoading/> : rowDate.id,
@@ -53,7 +54,8 @@ class TableExamples extends Component {
             sortable: true,
             sortingProp: 'id'
         }, {
-            width: 300,
+            key: 'name',
+            width: '10%',
             noWrap: true,
             headRenderer: 'Name',
             headTitle: 'Name',
@@ -64,6 +66,7 @@ class TableExamples extends Component {
             sortable: true,
             sortingProp: 'firstName'
         }, {
+            key: 'age',
             align: Table.Align.RIGHT,
             noWrap: true,
             headRenderer: 'Age',
@@ -78,26 +81,32 @@ class TableExamples extends Component {
             sortable: true,
             sortingProp: 'age'
         }, {
+            key: 'otherColumn',
             headRenderer: 'Other Column',
             headAlign: Table.Align.CENTER,
             children: [{
+                key: 'otherColumn1',
                 width: 100,
                 headRenderer: 'Other Column 1',
                 bodyRenderer: rowDate => rowDate.other ? `${rowDate.other} 1` : ''
             }, {
+                key: 'otherColumn2',
                 width: 100,
                 headRenderer: 'Other Column 2',
                 bodyRenderer: rowDate => rowDate.other ? `${rowDate.other} 2` : ''
             }, {
+                key: 'otherColumn3',
                 width: 100,
                 headRenderer: 'Other Column 3',
                 bodyRenderer: rowDate => rowDate.other ? `${rowDate.other} 3` : ''
             }, {
+                key: 'otherColumn4',
                 width: 100,
                 headRenderer: 'Other Column 4',
                 bodyRenderer: rowDate => rowDate.other ? `${rowDate.other} 4` : ''
             }]
         }, {
+            key: 'deposit',
             align: Table.Align.RIGHT,
             noWrap: true,
             headRenderer: 'Deposit',
@@ -112,6 +121,7 @@ class TableExamples extends Component {
             sortable: true,
             sortingProp: 'deposit'
         }, {
+            key: 'status',
             width: 64,
             align: Table.Align.CENTER,
             headRenderer: 'Status',
@@ -123,6 +133,7 @@ class TableExamples extends Component {
                           size="small"
                           onClick={e => e.stopPropagation()}/>
         }, {
+            key: 'action',
             width: 56,
             align: Table.Align.CENTER,
             headRenderer: 'Action',
@@ -339,19 +350,21 @@ class TableExamples extends Component {
 
                 {/*            <p>A simple <code>Table</code> example.</p>*/}
 
-                {/*            <Table className="example-table"*/}
-                {/*                   columns={this.columns}*/}
-                {/*                   data={data}*/}
-                {/*                   canBeExpanded={true}*/}
-                {/*                   onSortChange={this.handleSortChange}*/}
-                {/*                   onPaginationChange={this.handlePaginationChange}*/}
-                {/*                   onExpand={this.handleExpand}*/}
-                {/*                   onCollapse={this.handleCollapse}*/}
-                {/*                   onChange={this.handleChange}*/}
-                {/*                   onSelect={this.handleSelect}*/}
-                {/*                   onSelectAll={this.handleSelectAll}*/}
-                {/*                   onDeselect={this.handleDeselect}*/}
-                {/*                   onDeselectAll={this.handleSeselectAll}/>*/}
+                {/*            <div className="example-table-wrapper">*/}
+                {/*                <Table className="example-table"*/}
+                {/*                       columns={this.columns}*/}
+                {/*                       data={data}*/}
+                {/*                       canBeExpanded={true}*/}
+                {/*                       onSortChange={this.handleSortChange}*/}
+                {/*                       onPaginationChange={this.handlePaginationChange}*/}
+                {/*                       onExpand={this.handleExpand}*/}
+                {/*                       onCollapse={this.handleCollapse}*/}
+                {/*                       onChange={this.handleChange}*/}
+                {/*                       onSelect={this.handleSelect}*/}
+                {/*                       onSelectAll={this.handleSelectAll}*/}
+                {/*                       onDeselect={this.handleDeselect}*/}
+                {/*                       onDeselectAll={this.handleSeselectAll}/>*/}
+                {/*            </div>*/}
 
                 {/*        </div>*/}
                 {/*    </div>*/}
@@ -377,7 +390,6 @@ class TableExamples extends Component {
                 {/*                   isHeadFixed={true}*/}
                 {/*                   isFootFixed={true}*/}
                 {/*                   scroll={{*/}
-                {/*                       width: 1200,*/}
                 {/*                       maxHeight: 320*/}
                 {/*                   }}*/}
                 {/*                   onSortChange={this.handleSortChange}*/}
@@ -411,9 +423,6 @@ class TableExamples extends Component {
                 {/*            <Table className="example-table"*/}
                 {/*                   columns={this.getFixedColumns()}*/}
                 {/*                   data={data}*/}
-                {/*                   scroll={{*/}
-                {/*                       width: 1200*/}
-                {/*                   }}*/}
                 {/*                   onSortChange={this.handleSortChange}*/}
                 {/*                   onPaginationChange={this.handlePaginationChange}*/}
                 {/*                   onExpand={this.handleExpand}*/}
@@ -457,7 +466,7 @@ class TableExamples extends Component {
                                 {
                                     filteredLoadingData ?
                                         <Table ref={this.tableRef}
-                                               className={classNames('example-table border-collapse', {
+                                               className={classNames('example-table', {
                                                    'head-hidden': !headVisible,
                                                    'foot-hidden': !footVisible || !filteredLoadingData || filteredLoadingData.length < 1
                                                })}
@@ -470,7 +479,6 @@ class TableExamples extends Component {
                                                isHeadHidden={!headVisible}
                                                isFootHidden={!footVisible || !filteredLoadingData || filteredLoadingData.length < 1}
                                                scroll={{
-                                                   width: 1200,
                                                    height: filteredLoadingData && filteredLoadingData.length > 0 ? 320 : 0
                                                }}
                                                useFullPagination={true}
@@ -513,7 +521,6 @@ class TableExamples extends Component {
                 {/*                       selectMode={Table.SelectMode.MULTI_SELECT}*/}
                 {/*                       isHeadFixed={true}*/}
                 {/*                       isFootFixed={true}*/}
-                {/*                       scroll={{width: 1200}}*/}
                 {/*                       isPaginated={false}*/}
                 {/*                       useDynamicRender={true}*/}
                 {/*                       onSortChange={this.handleSortChange}*/}
@@ -543,9 +550,6 @@ class TableExamples extends Component {
                 {/*                   data={data}*/}
                 {/*                   isColumnResizable={true}*/}
                 {/*                   isLayoutFixed={true}*/}
-                {/*                   scroll={{*/}
-                {/*                       width: 1000*/}
-                {/*                   }}*/}
                 {/*                   onSortChange={this.handleSortChange}*/}
                 {/*                   onPaginationChange={this.handlePaginationChange}*/}
                 {/*                   onExpand={this.handleExpand}*/}

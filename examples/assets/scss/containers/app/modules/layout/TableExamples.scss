@@ -2,10 +2,13 @@
  * @file TableExamples.scss
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
-
 @import '../../../../my-theme.scss';
 
 .table-examples {
+
+    .example-table-wrapper {
+        overflow: auto;
+    }
 
     .toolbar {
         @include float-fix;
@@ -59,12 +62,6 @@
             top: 0;
             bottom: 0;
             margin: auto;
-        }
-    }
-
-    .table.border-collapse {
-        th, td {
-            border: 1px solid $theme-border;
         }
     }
 }
