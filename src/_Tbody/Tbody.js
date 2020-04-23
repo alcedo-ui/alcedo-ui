@@ -32,7 +32,7 @@ class Tbody extends Component {
 
     isItemChecked = rowData => {
 
-        const {selectMode, idProp, value} = this.props;
+        const {selectMode, idField, value} = this.props;
 
         if (!rowData || !value || selectMode === SelectMode.NORMAL) {
             return false;
@@ -40,9 +40,9 @@ class Tbody extends Component {
 
         switch (selectMode) {
             case SelectMode.MULTI_SELECT:
-                return value && value.findIndex(item => item[idProp] === rowData[idProp]) !== -1;
+                return value && value.findIndex(item => item[idField] === rowData[idField]) !== -1;
             case SelectMode.SINGLE_SELECT:
-                return value[idProp] === rowData[idProp];
+                return value[idField] === rowData[idField];
         }
 
     };
@@ -53,6 +53,7 @@ class Tbody extends Component {
 
                 className, style, columns, data, dynamicRenderData,
                 startIndex, disabled, isMouseEventForbidden, ignoreColumnSpan, useDynamicRender, defaultColumnWidth,
+                onColumnResize,
 
                 // not passing down these props
                 value,
@@ -67,7 +68,8 @@ class Tbody extends Component {
             <tbody className={className}
                    style={style}>
 
-                <MeasureTr columns={columns}/>
+                <MeasureTr columns={columns}
+                           onColumnResize={onColumnResize}/>
 
                 {
                     finalData && finalData.map((row, index) => row ?
@@ -326,7 +328,7 @@ Tbody.propTypes = {
     dynamicRenderData: PropTypes.array,
     value: PropTypes.array,
     startIndex: PropTypes.number,
-    idProp: PropTypes.string,
+    idField: PropTypes.string,
     disabled: PropTypes.bool,
     baseColIndex: PropTypes.number,
     expandRows: PropTypes.array,
@@ -362,6 +364,7 @@ Tbody.propTypes = {
     onCellClick: PropTypes.func,
     onExpand: PropTypes.func,
     onCollapse: PropTypes.func,
+    onColumnResize: PropTypes.func,
     onRequestColumnsSpan: PropTypes.func
 
 };
@@ -370,7 +373,7 @@ Tbody.defaultProps = {
 
     selectMode: SelectMode.SINGLE_SELECT,
     startIndex: 0,
-    idProp: 'id',
+    idField: 'id',
     disabled: false,
     baseColIndex: 0,
     expandRows: [],
