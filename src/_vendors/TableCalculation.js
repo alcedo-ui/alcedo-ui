@@ -200,13 +200,13 @@ function getDataByPagination(data, isPaginated, pagination) {
 
 }
 
-function indexOfNodeInValue(node, value, idProp) {
+function indexOfNodeInValue(node, value, idField) {
 
     if (!node || !value) {
         return -1;
     }
 
-    let index = value.findIndex(item => (idProp in item) && (idProp in node) && item[idProp] === node[idProp]);
+    let index = value.findIndex(item => (idField in item) && (idField in node) && item[idField] === node[idField]);
     if (index < 0) {
         index = value.indexOf(node);
     }
@@ -215,11 +215,11 @@ function indexOfNodeInValue(node, value, idProp) {
 
 }
 
-function isNodeChecked(node, value, idProp) {
-    return indexOfNodeInValue(node, value, idProp) >= 0;
+function isNodeChecked(node, value, idField) {
+    return indexOfNodeInValue(node, value, idField) >= 0;
 }
 
-function isSelectAllChecked(data, value, idProp) {
+function isSelectAllChecked(data, value, idField) {
 
     let total = 0,
         count = 0;
@@ -230,7 +230,7 @@ function isSelectAllChecked(data, value, idProp) {
     }, node => {
         if (node && !node.disabled && !(VirtualRoot in node)) {
             total++;
-            if (isNodeChecked(node, value, idProp)) {
+            if (isNodeChecked(node, value, idField)) {
                 count++;
             }
         }
@@ -243,13 +243,13 @@ function isSelectAllChecked(data, value, idProp) {
 
 }
 
-function handleSelect(node, value, idProp, isSelectRecursive) {
+function handleSelect(node, value, idField, isSelectRecursive) {
 
     if (!node || node.disabled || !value) {
         return value;
     }
 
-    if (!isNodeChecked(node, value, idProp)) {
+    if (!isNodeChecked(node, value, idField)) {
         value.push(node);
     }
 
@@ -258,20 +258,20 @@ function handleSelect(node, value, idProp, isSelectRecursive) {
     }
 
     for (let item of node.children) {
-        handleSelect(item, value, idProp);
+        handleSelect(item, value, idField);
     }
 
     return value;
 
 }
 
-function handleDeselect(node, value, idProp, isSelectRecursive) {
+function handleDeselect(node, value, idField, isSelectRecursive) {
 
     if (!node || node.disabled || !value) {
         return value;
     }
 
-    const index = indexOfNodeInValue(node, value, idProp);
+    const index = indexOfNodeInValue(node, value, idField);
     if (index > -1) {
         value.splice(index, 1);
     }
@@ -281,25 +281,25 @@ function handleDeselect(node, value, idProp, isSelectRecursive) {
     }
 
     for (let item of node.children) {
-        handleDeselect(item, value, idProp);
+        handleDeselect(item, value, idField);
     }
 
     return value;
 
 }
 
-function formatValue(value, data, idProp) {
+function formatValue(value, data, idField) {
 
     let result = [];
 
     Util.postOrderTraverse({[VirtualRoot]: true, children: data}, node => {
         if (!(VirtualRoot in node)) {
             if (!node.children || node.children.length < 1) {
-                if (isNodeChecked(node, value, idProp)) {
+                if (isNodeChecked(node, value, idField)) {
                     result.push(node);
                 }
             } else {
-                if (node.children.every(child => isNodeChecked(child, value, idProp))) {
+                if (node.children.every(child => isNodeChecked(child, value, idField))) {
                     result.push(node);
                 }
             }
@@ -310,13 +310,13 @@ function formatValue(value, data, idProp) {
 
 }
 
-function handleSelectAll(data, value, idProp) {
+function handleSelectAll(data, value, idField) {
 
     if (!data || data.length < 1) {
         return value;
     }
 
-    data.forEach(node => handleSelect(node, value, idProp, true));
+    data.forEach(node => handleSelect(node, value, idField, true));
 
     return value;
 
@@ -520,14 +520,14 @@ function getFixedBodyColumns(columns, fixed) {
     return columns ? columns.filter(config => config?.column?.fixed === fixed) : columns;
 }
 
-function recursiveSelectChildren(node, value = [], idProp) {
+function recursiveSelectChildren(node, value = [], idField) {
 
     if (!node) {
         return value;
     }
 
     Util.preOrderTraverse(node, child => {
-        if (!isNodeChecked(child, value, idProp)) {
+        if (!isNodeChecked(child, value, idField)) {
             value.push(child);
         }
     });
@@ -596,11 +596,19 @@ function getColumnByPath(columns, path) {
 
 }
 
-function getTableWidth(columns, defaultColumnWidth = 100) {
-    return columns ?
-        columns.reduce((a, b) => a + (b?.width || defaultColumnWidth), 0)
-        :
-        0;
+function getTableWidth(columnsWidth, defaultColumnWidth = 100) {
+
+    if (!columnsWidth) {
+        return 0;
+    }
+
+    let result = 0;
+    for (let width of columnsWidth.values()) {
+        result += width || defaultColumnWidth;
+    }
+
+    return result;
+
 }
 
 function getColumnsSpanWidth(columnsSpan, defaultColumnWidth = 100) {
