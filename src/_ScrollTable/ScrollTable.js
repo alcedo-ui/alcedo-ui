@@ -79,7 +79,7 @@ class ScrollTable extends Component {
             headColumns, bodyColumns, columnsWidth, isHeadHidden, isFootHidden, isLayoutFixed, isHeadFixed, isFootFixed,
             data, scroll, hasFixedLeftColumn, hasFixedRightColumn,
             useDynamicRender, dynamicRenderIndex, scrollHeight, rowHeight, scrollBuffer, defaultColumnWidth,
-            onScroll, onWheel,
+            onScroll, onWheel, onColumnResize,
 
             // not passing down these props
             onGetHeadScrollerEl, onGetBodyScrollerEl, onGetFootScrollerEl,
@@ -92,7 +92,7 @@ class ScrollTable extends Component {
             return null;
         }
 
-        const tableWidth = horizontalScrollStyle?.width || TC.getTableWidth(bodyColumns, defaultColumnWidth),
+        const tableWidth = horizontalScrollStyle?.width || TC.getTableWidth(columnsWidth, defaultColumnWidth),
             hasHead = !isHeadHidden && isHeadFixed,
             hasFoot = !isFootHidden && isFootFixed;
 
@@ -182,7 +182,8 @@ class ScrollTable extends Component {
                                            rowHeight={rowHeight}
                                            scrollBuffer={scrollBuffer}
                                            defaultColumnWidth={defaultColumnWidth}
-                                           onRequestColumnsSpan={this.handleColumnsSpan}/>
+                                           onRequestColumnsSpan={this.handleColumnsSpan}
+                                           onColumnResize={onColumnResize}/>
                             </div>
                     }
                 </ScrollableTable>
@@ -481,7 +482,7 @@ ScrollTable.propTypes = {
     data: PropTypes.array,
     dynamicRenderData: PropTypes.array,
     value: PropTypes.array,
-    idProp: PropTypes.string,
+    idField: PropTypes.string,
     baseColIndex: PropTypes.number,
     expandRows: PropTypes.array,
 
@@ -563,7 +564,8 @@ ScrollTable.propTypes = {
     onRequestColumnsSpan: PropTypes.func,
     onColumnsWidthChange: PropTypes.func,
     onColumnResizeStart: PropTypes.func,
-    onColumnResizeEnd: PropTypes.func
+    onColumnResizeEnd: PropTypes.func,
+    onColumnResize: PropTypes.func
 
 };
 
@@ -571,7 +573,7 @@ ScrollTable.defaultProps = {
 
     selectMode: SelectMode.SINGLE_SELECT,
     selectAllMode: SelectAllMode.CURRENT_PAGE,
-    idProp: 'id',
+    idField: 'id',
     baseColIndex: 0,
     expandRows: [],
 
