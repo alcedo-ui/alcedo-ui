@@ -77,7 +77,7 @@ class CheckboxGroup extends Component {
         }
 
         const {
-                className, style, theme, name, disabled, idProp, valueField, labelField,
+                className, style, theme, name, disabled, idField, valueField, labelField,
                 uncheckedIconCls, checkedIconCls, indeterminateIconCls,
                 onCheck, onUncheck
             } = this.props,
@@ -91,7 +91,7 @@ class CheckboxGroup extends Component {
                  disabled={disabled}>
                 {
                     data && data.map((item, index) =>
-                        <Checkbox key={item && idProp in item ? item[idProp] : index}
+                        <Checkbox key={item && idField in item ? item[idField] : index}
                                   className={item.className ? item.className : ''}
                                   style={item.style}
                                   theme={item.theme || theme}
@@ -146,7 +146,7 @@ CheckboxGroup.propTypes = {
     value: PropTypes.array,
     disabled: PropTypes.bool,
 
-    idProp: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    idField: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     valueField: PropTypes.string,
     labelField: PropTypes.string,
 
@@ -167,7 +167,7 @@ CheckboxGroup.defaultProps = {
     theme: Theme.DEFAULT,
 
     disabled: false,
-    idProp: 'id',
+    idField: 'id',
     valueField: 'value',
     labelField: 'label'
 
