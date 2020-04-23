@@ -153,7 +153,7 @@ class TabExamples extends Component {
                                      isTabFullWidth={false}
                                      isAnimated={false}
                                      draggable={true}
-                                     idProp="id"
+                                     idField="id"
                                      tabsChildren={
                                          <IconButton className="tab-button customized-tab-button"
                                                      iconCls="fas fa-plus"
