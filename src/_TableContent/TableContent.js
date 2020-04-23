@@ -935,7 +935,7 @@ TableContent.propTypes = {
         defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType))
 
     })).isRequired,
-
+    columnsWidth: PropTypes.object,
     data: PropTypes.array,
     value: PropTypes.array,
     idProp: PropTypes.string,
