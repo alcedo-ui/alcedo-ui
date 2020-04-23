@@ -99,12 +99,12 @@ class TableContent extends PureComponent {
             return;
         }
 
-        const {data, value, isSelectRecursive, idProp, onSelect, onChange} = this.props;
+        const {data, value, isSelectRecursive, idField, onSelect, onChange} = this.props;
 
         let result = value && isArray(value) ? value.slice() : [];
-        TC.handleSelect(node, result, idProp, isSelectRecursive);
+        TC.handleSelect(node, result, idField, isSelectRecursive);
         if (isSelectRecursive) {
-            result = TC.formatValue(result, data, idProp);
+            result = TC.formatValue(result, data, idField);
         }
 
         onSelect && onSelect(node, rowIndex, colIndex, collapsed, depth, path);
@@ -127,13 +127,13 @@ class TableContent extends PureComponent {
             return;
         }
 
-        const {isSelectRecursive, value, idProp, onDeselect, onChange} = this.props;
+        const {isSelectRecursive, value, idField, onDeselect, onChange} = this.props;
 
         let result = value && isArray(value) ? value.slice() : [];
         if (result.length > 0) {
-            TC.handleDeselect(node, result, idProp, isSelectRecursive);
+            TC.handleDeselect(node, result, idField, isSelectRecursive);
             if (isSelectRecursive) {
-                result = TC.formatValue(result, data, idProp);
+                result = TC.formatValue(result, data, idField);
             }
         }
 
@@ -148,7 +148,7 @@ class TableContent extends PureComponent {
     handleSelectAll = () => {
 
         const {
-            selectMode, selectAllMode, data, value, disabled, idProp,
+            selectMode, selectAllMode, data, value, disabled, idField,
             onChange, onSelectAll
         } = this.props;
 
@@ -156,7 +156,7 @@ class TableContent extends PureComponent {
             return;
         }
 
-        TC.handleSelectAll(selectAllMode === SelectAllMode.ALL ? data : this.tableData, value, idProp);
+        TC.handleSelectAll(selectAllMode === SelectAllMode.ALL ? data : this.tableData, value, idField);
 
         onSelectAll && onSelectAll(value);
         onChange && onChange(value);
@@ -192,11 +192,11 @@ class TableContent extends PureComponent {
         }
 
         const {
-                selectTheme, selectMode, selectAllMode, selectColumn, data, disabled, value, idProp, canBeExpanded,
+                selectTheme, selectMode, selectAllMode, selectColumn, data, disabled, value, idField, canBeExpanded,
                 expandIconCls, selectUncheckedIconCls, selectCheckedIconCls, selectIndeterminateIconCls
             } = this.props,
             firstColumn = TC.getFirstColumn(columns),
-            result = columns.slice();
+            result = [...columns];
 
         /**
          * handle expand
@@ -251,7 +251,7 @@ class TableContent extends PureComponent {
                 headRenderer: () => {
 
                     const {checked, indeterminate} = TC.isSelectAllChecked(
-                        selectAllMode === SelectAllMode.ALL ? data : this.tableData, value, idProp);
+                        selectAllMode === SelectAllMode.ALL ? data : this.tableData, value, idField);
 
                     return (
                         <Checkbox className="table-select"
@@ -273,11 +273,11 @@ class TableContent extends PureComponent {
                 bodyRenderer: (rowData, rowIndex, colIndex, parentData, tableData, collapsed, depth, path) =>
                     <Checkbox className="table-select"
                               theme={selectTheme}
-                              checked={TC.isNodeChecked(rowData, value, idProp)}
+                              checked={TC.isNodeChecked(rowData, value, idField)}
                               disabled={disabled || rowData.disabled}
                               indeterminate={Calc.isItemIndeterminate(rowData, value, {
-                                  valueField: idProp,
-                                  displayField: idProp
+                                  valueField: idField,
+                                  displayField: idField
                               })}
                               uncheckedIconCls={selectUncheckedIconCls}
                               checkedIconCls={selectCheckedIconCls}
@@ -551,13 +551,13 @@ class TableContent extends PureComponent {
      */
     handleExpandChange = (collapsed, rowData) => {
 
-        const {idProp, expandRows, onExpand, onCollapse, onExpandChange} = this.props;
+        const {idField, expandRows, onExpand, onCollapse, onExpandChange} = this.props;
 
         if (collapsed) {
 
             onCollapse && onCollapse(rowData);
 
-            const index = TC.indexOfNodeInValue(rowData, expandRows, idProp);
+            const index = TC.indexOfNodeInValue(rowData, expandRows, idField);
             if (index !== -1) {
                 expandRows.splice(index, 1);
                 onExpandChange && onExpandChange(expandRows);
@@ -567,7 +567,7 @@ class TableContent extends PureComponent {
 
             onExpand && onExpand(rowData);
 
-            const index = TC.indexOfNodeInValue(rowData, expandRows, idProp);
+            const index = TC.indexOfNodeInValue(rowData, expandRows, idField);
             if (index === -1) {
                 expandRows.push(rowData);
                 onExpandChange && onExpandChange(expandRows, () => {
@@ -938,7 +938,7 @@ TableContent.propTypes = {
     columnsWidth: PropTypes.object,
     data: PropTypes.array,
     value: PropTypes.array,
-    idProp: PropTypes.string,
+    idField: PropTypes.string,
     disabled: PropTypes.bool,
     isInitialing: PropTypes.bool,
     noDataText: PropTypes.string,
@@ -1100,7 +1100,8 @@ TableContent.propTypes = {
     onDataUpdate: PropTypes.func,
     onColumnsWidthChange: PropTypes.func,
     onColumnResizeStart: PropTypes.func,
-    onColumnResizeEnd: PropTypes.func
+    onColumnResizeEnd: PropTypes.func,
+    onColumnResize: PropTypes.func
 
 };
 
@@ -1108,7 +1109,7 @@ TableContent.defaultProps = {
 
     disabled: false,
     isInitialing: true,
-    idProp: 'id',
+    idField: 'id',
     noDataText: 'No Data',
 
     /**
