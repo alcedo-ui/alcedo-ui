@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 // Components
+import MeasureTr from '../_MeasureTr';
 import Tr from '../_Tr';
 
 // Statics
@@ -65,6 +66,9 @@ class Tbody extends Component {
         return (
             <tbody className={className}
                    style={style}>
+
+                <MeasureTr columns={columns}/>
+
                 {
                     finalData && finalData.map((row, index) => row ?
                         <Tr {...restProps}
