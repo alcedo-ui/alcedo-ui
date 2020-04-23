@@ -199,7 +199,7 @@ class Tabs extends Component {
 
         const {
                 children, className, style, isTabFullWidth, isInkBarHidden,
-                data, activatedIndex, isTabsOverflow, draggable, idProp,
+                data, activatedIndex, isTabsOverflow, draggable, idField,
                 scrollLeftIconCls, scrollRightIconCls,
                 onTabMouseDown, onTabMouseUp, onTabClick, onTabButtonDragStart, onTabButtonDragEnd
             } = this.props,
@@ -246,7 +246,7 @@ class Tabs extends Component {
 
                                                     return (
                                                         <TabsButton {...restProps}
-                                                                    key={idProp && item[idProp] || index}
+                                                                    key={idField && item[idField] || index}
                                                                     style={{width: isTabFullWidth ? `${100 / data.length}%` : 'auto'}}
                                                                     data={item}
                                                                     index={index}
@@ -391,7 +391,7 @@ Tabs.propTypes = {
     isTabsOverflow: PropTypes.bool,
     draggable: PropTypes.bool,
 
-    idProp: PropTypes.string,
+    idField: PropTypes.string,
 
     scrollLeftIconCls: PropTypes.string,
     scrollRightIconCls: PropTypes.string,
