@@ -280,6 +280,17 @@ class Table extends Component {
         }, 0);
     };
 
+    handleColumnResize = (column, width) => {
+        if (column?.headRenderer === 'Name') {
+            console.log('handleColumnResize::', column, width);
+        }
+        const {columnsWidth} = this.state;
+        columnsWidth.set(column, width);
+        this.setState({
+            columnsWidth
+        });
+    };
+
     render() {
 
         const {
@@ -339,7 +350,8 @@ class Table extends Component {
                          onResizeEnd={this.handleResizeEnd}
                          onColumnsWidthChange={this.handleColumnsWidthChange}
                          onColumnResizeStart={this.handleColumnResizeStart}
-                         onColumnResizeEnd={this.handleColumnResizeEnd}/>
+                         onColumnResizeEnd={this.handleColumnResizeEnd}
+                         onColumnResize={this.handleColumnResize}/>
 
                 {/* table pagination */}
                 {
@@ -615,10 +627,10 @@ Table.propTypes = {
         defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType))
 
     })).isRequired,
-
+    columnKeyField: PropTypes.string,
     data: PropTypes.array,
     value: PropTypes.array,
-    idProp: PropTypes.string,
+    idField: PropTypes.string,
     disabled: PropTypes.bool,
     hasInitFadeOut: PropTypes.bool,
     noDataText: PropTypes.string,
@@ -803,7 +815,7 @@ Table.propTypes = {
 
 Table.defaultProps = {
 
-    idProp: 'id',
+    idField: 'id',
     disabled: false,
     hasInitFadeOut: true,
     noDataText: 'No Data',
