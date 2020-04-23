@@ -63,12 +63,12 @@ class BaseTable extends Component {
         const {
 
                 className, style, data, dynamicRenderData, value, idProp, baseColIndex, fragment, scrollEl,
-                headColumns, bodyColumns, selectMode, selectAllMode, expandRows, resizingColumnPath,
+                headColumns, bodyColumns, columnsWidth, selectMode, selectAllMode, expandRows, resizingColumnPath,
                 useDynamicRender, scrollHeight, rowHeight, scrollBuffer,
                 isColumnResizable, defaultColumnWidth, minColumnWidth, maxColumnWidth,
                 isHeadHidden, isBodyHidden, isFootHidden,
                 isMouseEventForbidden, isLayoutFixed, isHeadFixed, isFootFixed,
-                ignoreColumnWidth, ignoreColumnSpan, hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
+                ignoreColumnSpan, hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
                 sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, isClickSorting,
                 onSortChange, onExpandChange, onRequestColumnsSpan,
                 onColumnsWidthChange, onColumnResizeStart, onColumnResizeEnd,
@@ -92,16 +92,17 @@ class BaseTable extends Component {
                    }}>
 
                 <ColGroup columns={this.getColumnsSpan(columns)}
+                          columnsWidth={columnsWidth}
                           isColumnResizable={isColumnResizable}
                           defaultColumnWidth={defaultColumnWidth}
                           minColumnWidth={minColumnWidth}
-                          ignoreColumnWidth={ignoreColumnWidth}
                           ignoreColumnSpan={ignoreColumnSpan}/>
 
                 {
                     !isHeadHidden && hasHeadRenderer ?
                         <Thead {...restProps}
                                columns={headColumns || columns}
+                               columnsWidth={columnsWidth}
                                data={data}
                                dynamicRenderData={dynamicRenderData}
                                selectMode={selectMode}
@@ -414,7 +415,7 @@ BaseTable.propTypes = {
     })),
     headColumns: PropTypes.array,
     bodyColumns: PropTypes.array,
-
+    columnsWidth: PropTypes.object,
     data: PropTypes.array,
     dynamicRenderData: PropTypes.array,
     value: PropTypes.array,
@@ -423,7 +424,6 @@ BaseTable.propTypes = {
     disabled: PropTypes.bool,
     expandRows: PropTypes.array,
     isMouseEventForbidden: PropTypes.bool,
-    ignoreColumnWidth: PropTypes.bool,
     ignoreColumnSpan: PropTypes.bool,
     scrollEl: PropTypes.object,
 
@@ -500,7 +500,6 @@ BaseTable.defaultProps = {
     expandRows: [],
     idProp: 'id',
     isMouseEventForbidden: false,
-    ignoreColumnWidth: false,
     ignoreColumnSpan: false,
 
     /**
