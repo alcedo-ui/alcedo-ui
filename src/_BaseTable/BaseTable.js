@@ -62,7 +62,7 @@ class BaseTable extends Component {
 
         const {
 
-                className, style, data, dynamicRenderData, value, idProp, baseColIndex, fragment, scrollEl,
+                className, style, data, dynamicRenderData, value, idField, baseColIndex, fragment, scrollEl,
                 headColumns, bodyColumns, columnsWidth, selectMode, selectAllMode, expandRows, resizingColumnPath,
                 useDynamicRender, scrollHeight, rowHeight, scrollBuffer,
                 isColumnResizable, defaultColumnWidth, minColumnWidth, maxColumnWidth,
@@ -71,7 +71,7 @@ class BaseTable extends Component {
                 ignoreColumnSpan, hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
                 sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, isClickSorting,
                 onSortChange, onExpandChange, onRequestColumnsSpan,
-                onColumnsWidthChange, onColumnResizeStart, onColumnResizeEnd,
+                onColumnsWidthChange, onColumnResizeStart, onColumnResizeEnd, onColumnResize,
 
                 // not passing down these props
                 columns: cols,
@@ -138,7 +138,7 @@ class BaseTable extends Component {
                                selectMode={selectMode}
                                selectAllMode={selectAllMode}
                                expandRows={expandRows}
-                               idProp={idProp}
+                               idField={idField}
                                baseColIndex={baseColIndex}
                                sorting={sorting}
                                isMouseEventForbidden={isMouseEventForbidden}
@@ -150,7 +150,8 @@ class BaseTable extends Component {
                                rowHeight={rowHeight}
                                scrollBuffer={scrollBuffer}
                                onExpandChange={onExpandChange}
-                               onRequestColumnsSpan={onRequestColumnsSpan}/>
+                               onRequestColumnsSpan={onRequestColumnsSpan}
+                               onColumnResize={onColumnResize}/>
                         :
                         null
                 }
@@ -419,7 +420,7 @@ BaseTable.propTypes = {
     data: PropTypes.array,
     dynamicRenderData: PropTypes.array,
     value: PropTypes.array,
-    idProp: PropTypes.string,
+    idField: PropTypes.string,
     baseColIndex: PropTypes.number,
     disabled: PropTypes.bool,
     expandRows: PropTypes.array,
@@ -489,7 +490,8 @@ BaseTable.propTypes = {
     onRequestColumnsSpan: PropTypes.func,
     onColumnsWidthChange: PropTypes.func,
     onColumnResizeStart: PropTypes.func,
-    onColumnResizeEnd: PropTypes.func
+    onColumnResizeEnd: PropTypes.func,
+    onColumnResize: PropTypes.func
 
 };
 
@@ -498,7 +500,7 @@ BaseTable.defaultProps = {
     baseColIndex: 0,
     disabled: false,
     expandRows: [],
-    idProp: 'id',
+    idField: 'id',
     isMouseEventForbidden: false,
     ignoreColumnSpan: false,
 
