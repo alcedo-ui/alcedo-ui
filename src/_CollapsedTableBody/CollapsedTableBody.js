@@ -22,7 +22,7 @@ class CollapsedTableBody extends Component {
 
     isItemChecked = rowData => {
 
-        const {selectMode, idProp, value} = this.props;
+        const {selectMode, idField, value} = this.props;
 
         if (!rowData || !value) {
             return false;
@@ -30,17 +30,17 @@ class CollapsedTableBody extends Component {
 
         switch (selectMode) {
             case SelectMode.MULTI_SELECT:
-                return value && value.findIndex(item => item[idProp] === rowData[idProp]) !== -1;
+                return value && value.findIndex(item => item[idField] === rowData[idField]) !== -1;
             case SelectMode.SINGLE_SELECT:
-                return value[idProp] === rowData[idProp];
+                return value[idField] === rowData[idField];
         }
 
     };
 
     onExpandClick = (row, rowIndex, colIndex) => {
-        const {idProp, onExpandClick} = this.props;
+        const {idField, onExpandClick} = this.props;
         let {expandedList} = this.state;
-        expandedList[row[idProp]] = 'PART';
+        expandedList[row[idField]] = 'PART';
 
         this.setState({
             expandedList
@@ -50,9 +50,9 @@ class CollapsedTableBody extends Component {
     };
 
     onCollapseClick = (row, rowIndex, colIndex) => {
-        const {idProp, onCollapseClick} = this.props;
+        const {idField, onCollapseClick} = this.props;
         let {expandedList} = this.state;
-        delete expandedList[row[idProp]];
+        delete expandedList[row[idField]];
 
         this.setState({
             expandedList
@@ -62,9 +62,9 @@ class CollapsedTableBody extends Component {
     };
 
     onViewAllClick = (row, rowIndex) => {
-        const {idProp, onViewAllClick} = this.props;
+        const {idField, onViewAllClick} = this.props;
         let {expandedList} = this.state;
-        expandedList[row[idProp]] = 'ALL';
+        expandedList[row[idField]] = 'ALL';
 
         this.setState({
             expandedList
@@ -76,7 +76,7 @@ class CollapsedTableBody extends Component {
     render() {
 
         const {
-            columns, data, startIndex, idProp, disabled, value, selectMode, expandedChildrenLimit, expandedIconCls,
+            columns, data, startIndex, idField, disabled, value, selectMode, expandedChildrenLimit, expandedIconCls,
             onRowClick, onCellClick
         } = this.props, {expandedList} = this.state;
 
@@ -85,24 +85,24 @@ class CollapsedTableBody extends Component {
                 {
                     data && data.map((row, rowIndex) => row ?
                         <Fragment>
-                            <TableRow key={idProp && idProp in row ? row[idProp] : rowIndex}
+                            <TableRow key={idField && idField in row ? row[idField] : rowIndex}
                                       rowIndex={startIndex + rowIndex}
                                       columns={columns}
                                       data={row}
-                                      isExpanded={!!expandedList[row[idProp]]}
+                                      isExpanded={!!expandedList[row[idField]]}
                                       expandedIconCls={expandedIconCls}
                                       isChecked={this.isItemChecked(row)}
                                       disabled={disabled || row.disabled}
                                       onRowClick={onRowClick}
                                       onCellClick={onCellClick}
                                       onExpand={(colIndex) => {
-                                          idProp && idProp in row && this.onExpandClick(row, rowIndex, colIndex);
+                                          idField && idField in row && this.onExpandClick(row, rowIndex, colIndex);
                                       }}
                                       onCollapse={(colIndex) => {
-                                          idProp && idProp in row && this.onCollapseClick(row, rowIndex, colIndex);
+                                          idField && idField in row && this.onCollapseClick(row, rowIndex, colIndex);
                                       }}/>
                             {
-                                expandedList[row[idProp]] ?
+                                expandedList[row[idField]] ?
                                     !row.children || row.children.length === 0 ?
                                         <tr>
                                             <td>
@@ -110,12 +110,12 @@ class CollapsedTableBody extends Component {
                                             </td>
                                         </tr>
                                         :
-                                        (row.children.length <= expandedChildrenLimit || expandedList[row[idProp]] === 'ALL') ?
+                                        (row.children.length <= expandedChildrenLimit || expandedList[row[idField]] === 'ALL') ?
                                             <Fragment>
                                                 {
                                                     row.children.map((childRow, childIndex) => childRow ?
                                                         <TableRow className="expanded-children-row"
-                                                                  key={idProp && idProp in childRow ? childRow[idProp] : childIndex + 'child'}
+                                                                  key={idField && idField in childRow ? childRow[idField] : childIndex + 'child'}
                                                                   rowIndex={startIndex + childIndex}
                                                                   columns={columns}
                                                                   data={childRow}
@@ -133,7 +133,7 @@ class CollapsedTableBody extends Component {
                                                 {
                                                     row.children.slice(0, expandedChildrenLimit).map((childRow, childIndex) => childRow ?
                                                         <TableRow className="expanded-children-row"
-                                                                  key={idProp && idProp in childRow ? childRow[idProp] : childIndex + 'child'}
+                                                                  key={idField && idField in childRow ? childRow[idField] : childIndex + 'child'}
                                                                   rowIndex={startIndex + childIndex}
                                                                   columns={columns}
                                                                   data={childRow}
@@ -146,9 +146,11 @@ class CollapsedTableBody extends Component {
                                                     )
                                                 }
                                                 <tr>
-                                                    <td><span className="view-all" onClick={() => {
-                                                        this.onViewAllClick(row, rowIndex);
-                                                    }}>View All({row.children.length})</span>
+                                                    <td>
+                                                        <span className="view-all" onClick={() => {
+                                                            this.onViewAllClick(row, rowIndex);
+                                                        }}>View All({row.children.length})
+                                                        </span>
                                                     </td>
                                                 </tr>
                                             </Fragment>
@@ -172,7 +174,7 @@ CollapsedTableBody.propTypes = {
     data: PropTypes.array,
     startIndex: PropTypes.number,
     expandedChildrenLimit: PropTypes.number,
-    idProp: PropTypes.string,
+    idField: PropTypes.string,
     selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
     disabled: PropTypes.bool,
 
@@ -188,7 +190,7 @@ CollapsedTableBody.defaultProps = {
     columns: [],
     expandedChildrenLimit: 10,
     startIndex: 0,
-    idProp: 'id',
+    idField: 'id',
     selectMode: SelectMode.SINGLE_SELECT,
     disabled: false
 };
