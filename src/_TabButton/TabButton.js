@@ -150,7 +150,7 @@ TabButton.propTypes = {
 
     draggable: PropTypes.bool,
 
-    idProp: PropTypes.string,
+    idField: PropTypes.string,
 
     onMouseDown: PropTypes.func,
     onMouseUp: PropTypes.func,
