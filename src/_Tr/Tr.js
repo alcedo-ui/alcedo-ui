@@ -60,13 +60,13 @@ class Tr extends Component {
 
     isCollapsed = () => {
 
-        const {idProp, data, expandRows} = this.props;
+        const {idField, data, expandRows} = this.props;
 
         if (!expandRows || expandRows.length < 1) {
             return true;
         }
 
-        return TC.indexOfNodeInValue(data, expandRows, idProp) === -1;
+        return TC.indexOfNodeInValue(data, expandRows, idField) === -1;
 
     };
 
@@ -398,7 +398,7 @@ Tr.propTypes = {
     depth: PropTypes.number,
     index: PropTypes.number,
     path: PropTypes.array,
-    idProp: PropTypes.string,
+    idField: PropTypes.string,
     isMouseEventForbidden: PropTypes.bool,
     ignoreColumnSpan: PropTypes.bool,
     scrollEl: PropTypes.object,
@@ -440,7 +440,7 @@ Tr.defaultProps = {
     expandRows: [],
     baseColIndex: 0,
     depth: 0,
-    idProp: 'id',
+    idField: 'id',
     isMouseEventForbidden: false,
     ignoreColumnSpan: false,
 
