@@ -31,11 +31,11 @@ class ColGroup extends Component {
 
     getColStyle = column => {
 
-        const {isColumnResizable, defaultColumnWidth, minColumnWidth} = this.props,
+        const {columnsWidth, isColumnResizable, defaultColumnWidth, minColumnWidth} = this.props,
             result = {};
 
         // width
-        result.width = column.width || defaultColumnWidth || 100;
+        result.width = (columnsWidth && columnsWidth.get(column)) || column.width || defaultColumnWidth;
 
         // min width
         result.minWidth = column.minWidth ?
@@ -52,14 +52,14 @@ class ColGroup extends Component {
 
     render() {
 
-        const {columns, ignoreColumnWidth, ignoreColumnSpan} = this.props;
+        const {columns, ignoreColumnSpan} = this.props;
 
         return columns ?
             <colgroup>
                 {
                     columns.map(({column, span}, index) => column ?
                         <col key={index}
-                             style={ignoreColumnWidth ? null : this.getColStyle(column)}
+                             style={this.getColStyle(column)}
                              span={ignoreColumnSpan ? null : (span && span > 1 ? span : null)}/>
                         :
                         null
@@ -208,6 +208,7 @@ ColGroup.propTypes = {
         defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType))
 
     })).isRequired,
+    columnsWidth: PropTypes.object,
 
     /**
      * column resizable
@@ -216,7 +217,6 @@ ColGroup.propTypes = {
     defaultColumnWidth: PropTypes.number,
     minColumnWidth: PropTypes.number,
 
-    ignoreColumnWidth: PropTypes.bool,
     ignoreColumnSpan: PropTypes.bool
 
 };
@@ -230,7 +230,6 @@ ColGroup.defaultProps = {
     defaultColumnWidth: 100,
     minColumnWidth: 64,
 
-    ignoreColumnWidth: false,
     ignoreColumnSpan: false
 
 };
