@@ -37,7 +37,7 @@ class ResizableTh extends Component {
 
         const {children, resizable, activated, deactivated, width} = this.props;
 
-        return resizable && width && !isNaN(width) ?
+        return resizable ?
             <Resizable className={classNames('resizable-th', {
                 activated,
                 deactivated
@@ -62,7 +62,7 @@ ResizableTh.propTypes = {
     resizable: PropTypes.bool,
     activated: PropTypes.bool,
     deactivated: PropTypes.bool,
-    width: PropTypes.number,
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     minWidth: PropTypes.number,
     maxWidth: PropTypes.number,
 
