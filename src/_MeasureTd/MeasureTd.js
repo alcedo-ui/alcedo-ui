@@ -43,8 +43,8 @@ class MeasureTd extends Component {
 
             this.width = width;
 
-            const {column, onResize} = this.props;
-            onResize && onResize(column, width);
+            const {column, columnKeyField, onResize} = this.props;
+            onResize && onResize((columnKeyField && column[columnKeyField]) || column, width);
 
         }
 
@@ -65,6 +65,11 @@ MeasureTd.propTypes = {
     style: PropTypes.object,
 
     column: PropTypes.shape({
+
+        /**
+         * unique keyof column.
+         */
+        key: PropTypes.string,
 
         /**
          * fixed position of column ( 'left' / 'right' ).
@@ -272,9 +277,14 @@ MeasureTd.propTypes = {
         defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType))
 
     }),
+    columnKeyField: PropTypes.string,
 
     onResize: PropTypes.func
 
+};
+
+MeasureTd.defaultProps = {
+    columnKeyField: 'key'
 };
 
 export default MeasureTd;
