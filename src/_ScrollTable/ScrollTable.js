@@ -271,6 +271,11 @@ ScrollTable.propTypes = {
     columns: PropTypes.arrayOf(PropTypes.shape({
 
         /**
+         * unique keyof column.
+         */
+        key: PropTypes.string,
+
+        /**
          * fixed position of column ( 'left' / 'right' ).
          */
         fixed: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
@@ -478,12 +483,12 @@ ScrollTable.propTypes = {
     })),
     headColumns: PropTypes.array,
     bodyColumns: PropTypes.array,
+    columnKeyField: PropTypes.string,
     columnsWidth: PropTypes.object,
     data: PropTypes.array,
     dynamicRenderData: PropTypes.array,
     value: PropTypes.array,
     idField: PropTypes.string,
-    baseColIndex: PropTypes.number,
     expandRows: PropTypes.array,
 
     /**
@@ -571,10 +576,10 @@ ScrollTable.propTypes = {
 
 ScrollTable.defaultProps = {
 
+    columnKeyField: 'key',
     selectMode: SelectMode.SINGLE_SELECT,
     selectAllMode: SelectAllMode.CURRENT_PAGE,
     idField: 'id',
-    baseColIndex: 0,
     expandRows: [],
 
     /**
