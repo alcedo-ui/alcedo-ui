@@ -63,7 +63,7 @@ class BaseTable extends Component {
         const {
 
                 className, style, data, dynamicRenderData, value, idField, fragment, scrollEl,
-                headColumns, bodyColumns, columnKeyField, columnsWidth,
+                headColumns, bodyColumns, columnKeyField, columnsWidth, useColumnsWidth,
                 selectMode, selectAllMode, expandRows, resizingColumnPath,
                 useDynamicRender, scrollHeight, rowHeight, scrollBuffer,
                 isColumnResizable, defaultColumnWidth, minColumnWidth, maxColumnWidth,
@@ -95,11 +95,13 @@ class BaseTable extends Component {
                 <ColGroup columns={this.getColumnsSpan(columns)}
                           columnKeyField={columnKeyField}
                           columnsWidth={columnsWidth}
+                          useColumnsWidth={useColumnsWidth}
                           isColumnResizable={isColumnResizable}
                           defaultColumnWidth={defaultColumnWidth}
                           minColumnWidth={minColumnWidth}
                           ignoreColumnSpan={ignoreColumnSpan}/>
 
+                {/** render head if a headRenderer exists in columns */}
                 {
                     !isHeadHidden && hasHeadRenderer ?
                         <Thead {...restProps}
@@ -137,6 +139,7 @@ class BaseTable extends Component {
                         <Tbody {...restProps}
                                columns={bodyColumns || columns}
                                columnKeyField={columnKeyField}
+                               columnsWidth={columnsWidth}
                                data={data}
                                dynamicRenderData={dynamicRenderData}
                                value={value}
@@ -430,6 +433,7 @@ BaseTable.propTypes = {
     bodyColumns: PropTypes.array,
     columnKeyField: PropTypes.string,
     columnsWidth: PropTypes.object,
+    useColumnsWidth: PropTypes.bool,
     data: PropTypes.array,
     dynamicRenderData: PropTypes.array,
     value: PropTypes.array,
@@ -510,6 +514,7 @@ BaseTable.propTypes = {
 BaseTable.defaultProps = {
 
     columnKeyField: 'key',
+    useColumnsWidth: false,
     disabled: false,
     expandRows: [],
     idField: 'id',
