@@ -116,7 +116,6 @@ class ScrollTable extends Component {
                             {
                                 scrollEl =>
                                     <BaseTable {...restProps}
-                                               style={{width: tableWidth}}
                                                fixed={fixed}
                                                fragment={TableFragment.HEAD}
                                                columns={columns}
@@ -203,7 +202,6 @@ class ScrollTable extends Component {
                             {
                                 scrollEl =>
                                     <BaseTable {...restProps}
-                                               style={{width: tableWidth}}
                                                fixed={fixed}
                                                fragment={TableFragment.FOOT}
                                                columns={columns}
