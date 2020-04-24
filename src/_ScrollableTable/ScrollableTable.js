@@ -57,16 +57,16 @@ class ScrollableTable extends Component {
             } = this.props,
             children = this.getChildren();
 
-        return (
-            <div {...restProps}
-                 ref={this.wrapper}
-                 className={classNames(className, {
-                     scrollable: !isEmpty(scroll)
-                 })}
-                 style={style}>
-                {children}
-            </div>
-        );
+        return !isEmpty(scroll) ? (
+                <div {...restProps}
+                     ref={this.wrapper}
+                     className={className}
+                     style={style}>
+                    {children}
+                </div>
+            )
+            :
+            children;
 
     }
 }
