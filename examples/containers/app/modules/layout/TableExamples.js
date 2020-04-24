@@ -47,6 +47,7 @@ class TableExamples extends Component {
 
         this.columns = [{
             key: 'id',
+            noWrap: true,
             headRenderer: 'ID',
             bodyRenderer: rowDate => rowDate[LOADING_SYMBOL] ?
                 <CircularLoading/> : rowDate.id,
@@ -87,21 +88,25 @@ class TableExamples extends Component {
             children: [{
                 key: 'otherColumn1',
                 width: 100,
+                noWrap: true,
                 headRenderer: 'Other Column 1',
                 bodyRenderer: rowDate => rowDate.other ? `${rowDate.other} 1` : ''
             }, {
                 key: 'otherColumn2',
                 width: 100,
+                noWrap: true,
                 headRenderer: 'Other Column 2',
                 bodyRenderer: rowDate => rowDate.other ? `${rowDate.other} 2` : ''
             }, {
                 key: 'otherColumn3',
                 width: 100,
+                noWrap: true,
                 headRenderer: 'Other Column 3',
                 bodyRenderer: rowDate => rowDate.other ? `${rowDate.other} 3` : ''
             }, {
                 key: 'otherColumn4',
                 width: 100,
+                noWrap: true,
                 headRenderer: 'Other Column 4',
                 bodyRenderer: rowDate => rowDate.other ? `${rowDate.other} 4` : ''
             }]
@@ -479,6 +484,7 @@ class TableExamples extends Component {
                                                isHeadHidden={!headVisible}
                                                isFootHidden={!footVisible || !filteredLoadingData || filteredLoadingData.length < 1}
                                                scroll={{
+                                                   width: 1200,
                                                    height: filteredLoadingData && filteredLoadingData.length > 0 ? 320 : 0
                                                }}
                                                useFullPagination={true}
