@@ -11,6 +11,26 @@
     .table-select {
         display: inline-block;
     }
+
+    &.scroll-left,
+    &.scroll-center {
+        th.first-fixed-right,
+        td.first-fixed-right {
+            &::after {
+                box-shadow: inset -10px 0 8px -8px transparentize(#000, .85);
+            }
+        }
+    }
+
+    &.scroll-right,
+    &.scroll-center {
+        th.last-fixed-left,
+        td.last-fixed-left {
+            &::after {
+                box-shadow: inset 10px 0 8px -8px transparentize(#000, .85);
+            }
+        }
+    }
 }
 
 .table-no-data {
