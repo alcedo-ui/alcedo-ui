@@ -242,6 +242,7 @@ class TableContent extends PureComponent {
         if (selectMode === SelectMode.MULTI_SELECT) {
             result.unshift({
                 ...selectColumn,
+                key: 'table-multi-select-column',
                 fixed: (selectColumn && selectColumn.fixed) || columns[0].fixed,
                 align: (selectColumn && selectColumn.align) || HorizontalAlign.CENTER,
                 width: selectColumn?.width || 56,
