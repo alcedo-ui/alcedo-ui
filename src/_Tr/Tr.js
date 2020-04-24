@@ -108,7 +108,14 @@ class Tr extends Component {
                         columnsSpan && columnsSpan.map(({column, span}, colIndex) => column ?
                             <Td {...respProps}
                                 key={colIndex}
-                                className={column.bodyClassName}
+                                className={classNames(column.bodyClassName, {
+                                    'fixed-left': column.fixed === HorizontalAlign.LEFT,
+                                    'last-fixed-left': column.fixed === HorizontalAlign.LEFT
+                                        && columnsSpan?.[colIndex + 1]?.column?.fixed !== HorizontalAlign.LEFT,
+                                    'fixed-right': column.fixed === HorizontalAlign.RIGHT,
+                                    'first-fixed-right': column.fixed === HorizontalAlign.RIGHT
+                                        && columnsSpan?.[colIndex - 1]?.column?.fixed !== HorizontalAlign.RIGHT
+                                })}
                                 style={this.getTdStyle(column, colIndex, columnsSpan)}
                                 rowIndex={rowIndex}
                                 colIndex={colIndex}
