@@ -31,7 +31,7 @@ class MeasureTr extends Component {
 
     render() {
 
-        const {columns, onColumnResize} = this.props;
+        const {columns, columnKeyField, onColumnResize} = this.props;
 
         return columns ?
             <tr className="measure-tr">
@@ -39,6 +39,7 @@ class MeasureTr extends Component {
                     columns.map(({column}, index) =>
                         <MeasureTd key={index}
                                    column={column}
+                                   columnKeyField={columnKeyField}
                                    onResize={onColumnResize}></MeasureTd>
                     )
                 }
@@ -58,6 +59,11 @@ MeasureTr.propTypes = {
      * Children passed into table header.
      */
     columns: PropTypes.arrayOf(PropTypes.shape({
+
+        /**
+         * unique keyof column.
+         */
+        key: PropTypes.string,
 
         /**
          * fixed position of column ( 'left' / 'right' ).
@@ -265,9 +271,14 @@ MeasureTr.propTypes = {
         defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType))
 
     })).isRequired,
+    columnKeyField: PropTypes.string,
 
     onColumnResize: PropTypes.func
 
+};
+
+MeasureTr.defaultProps = {
+    columnKeyField: 'key'
 };
 
 export default MeasureTr;
