@@ -40,25 +40,12 @@ class Tfoot extends Component {
             TC.getColumnsSpan(TableFragment.FOOT, columns, data);
     };
 
-    getStyle = (columnsSpan, column, colIndex) => {
-
-        const {defaultColumnWidth} = this.props,
-            result = {
-                ...column.footStyle
-            };
-
-        if (column.fixed === HorizontalAlign.LEFT) {
-            result.position = 'sticky';
-            result.left = TC.getColumnsSpanWidth(columnsSpan.slice(0, colIndex), defaultColumnWidth);
-        }
-
-        if (column.fixed === HorizontalAlign.RIGHT) {
-            result.position = 'sticky';
-            result.right = TC.getColumnsSpanWidth(columnsSpan.slice(colIndex + 1), defaultColumnWidth);
-        }
-
-        return result;
-
+    getStyle = (column, colIndex, columnsSpan) => {
+        const {columnKeyField, columnsWidth, defaultColumnWidth} = this.props;
+        return {
+            ...column.footStyle,
+            ...TC.getStickyColumnStyle(column, colIndex, columnsSpan, columnKeyField, columnsWidth, defaultColumnWidth)
+        };
     };
 
     handleClick = e => {
@@ -87,7 +74,7 @@ class Tfoot extends Component {
                         columnsSpan && columnsSpan.map(({column, span}, colIndex) =>
                             <Tf key={colIndex}
                                 className={column.footClassName}
-                                style={this.getStyle(columnsSpan, column, colIndex)}
+                                style={this.getStyle(column, colIndex, columnsSpan)}
                                 colIndex={colIndex}
                                 data={data}
                                 title={column.footTitle}
@@ -332,7 +319,8 @@ Tfoot.propTypes = {
         defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType))
 
     })).isRequired,
-
+    columnKeyField: PropTypes.string,
+    columnsWidth: PropTypes.object,
     data: PropTypes.array,
     disabled: PropTypes.bool,
     ignoreColumnSpan: PropTypes.bool,
@@ -351,6 +339,7 @@ Tfoot.propTypes = {
 
 Tfoot.defaultProps = {
 
+    columnKeyField: 'key',
     disabled: false,
     ignoreColumnSpan: false,
 
