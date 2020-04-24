@@ -88,7 +88,7 @@ class Tr extends Component {
         const {
 
                 className, style, columns, rowIndex, data, parentData, tableData,
-                isChecked, disabled, baseColIndex, ignoreColumnSpan, depth, index, path,
+                isChecked, disabled, ignoreColumnSpan, depth, index, path,
                 useDynamicRender, rowHeight,
 
                 ...respProps
@@ -117,7 +117,7 @@ class Tr extends Component {
                                 className={column.bodyClassName}
                                 style={this.getTdStyle(columnsSpan, column, colIndex)}
                                 rowIndex={rowIndex}
-                                colIndex={baseColIndex + colIndex}
+                                colIndex={colIndex}
                                 data={data}
                                 title={column.bodyTitle}
                                 parentData={parentData}
@@ -130,7 +130,7 @@ class Tr extends Component {
                                 noWrap={TC.handleNoWrap(column.bodyNoWrap, column.noWrap, {
                                     data,
                                     rowIndex,
-                                    colIndex: baseColIndex + colIndex,
+                                    colIndex: colIndex,
                                     tableData
                                 })}
                                 depth={depth}
@@ -180,6 +180,11 @@ Tr.propTypes = {
      * Children passed into table header.
      */
     columns: PropTypes.arrayOf(PropTypes.shape({
+
+        /**
+         * unique keyof column.
+         */
+        key: PropTypes.string,
 
         /**
          * fixed position of column ( 'left' / 'right' ).
@@ -394,7 +399,6 @@ Tr.propTypes = {
     isChecked: PropTypes.bool,
     disabled: PropTypes.bool,
     expandRows: PropTypes.array,
-    baseColIndex: PropTypes.number,
     depth: PropTypes.number,
     index: PropTypes.number,
     path: PropTypes.array,
@@ -438,7 +442,6 @@ Tr.defaultProps = {
     isChecked: false,
     disabled: false,
     expandRows: [],
-    baseColIndex: 0,
     depth: 0,
     idField: 'id',
     isMouseEventForbidden: false,
