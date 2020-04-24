@@ -42,32 +42,24 @@ class Thead extends Component {
 
     };
 
-    getStyle = (columnsSpan, column, colIndex) => {
+    getStyle = (column, colIndex, columnsSpan) => {
+        const {columnKeyField, columnsWidth, defaultColumnWidth} = this.props;
+        return {
+            ...column.headStyle,
+            ...TC.getStickyColumnStyle(column, colIndex, columnsSpan, columnKeyField, columnsWidth, defaultColumnWidth)
+        };
+    };
 
-        const {defaultColumnWidth} = this.props,
-            result = {
-                ...column.headStyle
-            };
-
-        if (column.fixed === HorizontalAlign.LEFT) {
-            result.position = 'sticky';
-            result.left = TC.getColumnsSpanWidth(columnsSpan.slice(0, colIndex), defaultColumnWidth);
-        }
-
-        if (column.fixed === HorizontalAlign.RIGHT) {
-            result.position = 'sticky';
-            result.right = TC.getColumnsSpanWidth(columnsSpan.slice(colIndex + 1), defaultColumnWidth);
-        }
-
-        return result;
-
+    handleClick = e => {
+        const {data, disabled, onHeadClick} = this.props;
+        !disabled && onHeadClick && onHeadClick(data, e);
     };
 
     render() {
 
         const {
 
-            className, style, columns, columnsWidth, data, ignoreColumnSpan,
+            className, style, columns, columnsWidth, data, disabled, ignoreColumnSpan,
             sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls,
             onSortChange,
 
@@ -77,7 +69,9 @@ class Thead extends Component {
 
         return (
             <thead className={className}
-                   style={style}>
+                   style={style}
+                   disabled="disabled"
+                   onClick={this.handleClick}>
                 {
                     columns && columns.map((row, rowIndex) => row ?
                         <tr key={rowIndex}>
@@ -89,7 +83,7 @@ class Thead extends Component {
                                             column={column}
                                             path={path}
                                             className={column.headClassName}
-                                            style={this.getStyle(row, column, colIndex)}
+                                            style={this.getStyle(column, colIndex, row)}
                                             width={(columnsWidth && columnsWidth.get(column)) || column.width}
                                             data={data}
                                             title={column.headTitle}
@@ -348,8 +342,10 @@ Thead.propTypes = {
         defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType))
 
     }))).isRequired,
+    columnKeyField: PropTypes.string,
     columnsWidth: PropTypes.object,
     data: PropTypes.array,
+    disabled: PropTypes.bool,
     ignoreColumnSpan: PropTypes.bool,
     scrollEl: PropTypes.object,
 
@@ -374,6 +370,7 @@ Thead.propTypes = {
     maxColumnWidth: PropTypes.number,
     resizingColumnPath: PropTypes.array,
 
+    onHeadClick: PropTypes.func,
     onSortChange: PropTypes.func,
     onRequestColumnsSpan: PropTypes.func,
     onColumnsWidthChange: PropTypes.func,
@@ -384,6 +381,8 @@ Thead.propTypes = {
 
 Thead.defaultProps = {
 
+    columnKeyField: 'key',
+    disabled: false,
     ignoreColumnSpan: false,
 
     /**
