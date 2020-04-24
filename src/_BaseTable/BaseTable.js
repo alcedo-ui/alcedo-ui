@@ -71,7 +71,7 @@ class BaseTable extends Component {
                 isMouseEventForbidden, isLayoutFixed, isHeadFixed, isFootFixed,
                 ignoreColumnSpan, hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
                 sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, isClickSorting,
-                onSortChange, onExpandChange, onRequestColumnsSpan,
+                onSortChange, onExpandChange, onRequestColumnsSpan, onHeadClick, onFootClick,
                 onColumnsWidthChange, onColumnResizeStart, onColumnResizeEnd, onColumnResize,
 
                 // not passing down these props
@@ -104,6 +104,7 @@ class BaseTable extends Component {
                     !isHeadHidden && hasHeadRenderer ?
                         <Thead {...restProps}
                                columns={headColumns || columns}
+                               columnKeyField={columnKeyField}
                                columnsWidth={columnsWidth}
                                data={data}
                                dynamicRenderData={dynamicRenderData}
@@ -121,6 +122,7 @@ class BaseTable extends Component {
                                minColumnWidth={minColumnWidth}
                                maxColumnWidth={maxColumnWidth}
                                resizingColumnPath={resizingColumnPath}
+                               onHeadClick={onHeadClick}
                                onSortChange={onSortChange}
                                onRequestColumnsSpan={onRequestColumnsSpan}
                                onColumnsWidthChange={onColumnsWidthChange}
@@ -163,6 +165,8 @@ class BaseTable extends Component {
                     !isFootHidden && hasFootRenderer ?
                         <Tfoot {...restProps}
                                columns={bodyColumns || columns}
+                               columnKeyField={columnKeyField}
+                               columnsWidth={columnsWidth}
                                data={data}
                                dynamicRenderData={dynamicRenderData}
                                selectMode={selectMode}
@@ -170,7 +174,8 @@ class BaseTable extends Component {
                                ignoreColumnSpan={ignoreColumnSpan}
                                scrollEl={scrollEl}
                                defaultColumnWidth={defaultColumnWidth}
-                               onRequestColumnsSpan={onRequestColumnsSpan}/>
+                               onRequestColumnsSpan={onRequestColumnsSpan}
+                               onFootClick={onFootClick}/>
                         :
                         null
                 }
