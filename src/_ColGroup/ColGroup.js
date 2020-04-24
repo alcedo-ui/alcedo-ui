@@ -34,11 +34,6 @@ class ColGroup extends Component {
         const {columnKeyField, columnsWidth, isColumnResizable, defaultColumnWidth, minColumnWidth} = this.props,
             result = {};
 
-        if (column?.headRenderer === 'Name') {
-            console.log('columnsWidth::',
-                columnsWidth && columnsWidth.get((columnKeyField && column[columnKeyField]) || column));
-        }
-
         // width
         result.width = (columnsWidth && columnsWidth.get((columnKeyField && column[columnKeyField]) || column))
             || column.width || defaultColumnWidth;
