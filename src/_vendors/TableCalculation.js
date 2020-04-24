@@ -618,7 +618,7 @@ function getColumnsSpanWidth(columnsSpan, columnKeyField = 'key', columnsWidth, 
         0;
 }
 
-function getStickyColumnStyle(column, colIndex, columnsSpan, columnKeyField, columnsWidth, defaultColumnWidth) {
+function getStickyColumnStyle(column, colIndex, columnsSpan, columnKeyField = 'key', columnsWidth, defaultColumnWidth) {
 
     const result = {};
 
