@@ -51,7 +51,7 @@ class Tbody extends Component {
 
         const {
 
-                className, style, columns, data, dynamicRenderData,
+                className, style, columns, columnKeyField, data, dynamicRenderData,
                 startIndex, disabled, isMouseEventForbidden, ignoreColumnSpan, useDynamicRender, defaultColumnWidth,
                 onColumnResize,
 
@@ -69,6 +69,7 @@ class Tbody extends Component {
                    style={style}>
 
                 <MeasureTr columns={columns}
+                           columnKeyField={columnKeyField}
                            onColumnResize={onColumnResize}/>
 
                 {
@@ -116,6 +117,11 @@ Tbody.propTypes = {
      * Children passed into table header.
      */
     columns: PropTypes.arrayOf(PropTypes.shape({
+
+        /**
+         * unique keyof column.
+         */
+        key: PropTypes.string,
 
         /**
          * fixed position of column ( 'left' / 'right' ).
@@ -323,14 +329,13 @@ Tbody.propTypes = {
         defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType))
 
     })).isRequired,
-
+    columnKeyField: PropTypes.string,
     data: PropTypes.array,
     dynamicRenderData: PropTypes.array,
     value: PropTypes.array,
     startIndex: PropTypes.number,
     idField: PropTypes.string,
     disabled: PropTypes.bool,
-    baseColIndex: PropTypes.number,
     expandRows: PropTypes.array,
     isMouseEventForbidden: PropTypes.bool,
     ignoreColumnSpan: PropTypes.bool,
@@ -371,11 +376,11 @@ Tbody.propTypes = {
 
 Tbody.defaultProps = {
 
+    columnKeyField: 'key',
     selectMode: SelectMode.SINGLE_SELECT,
     startIndex: 0,
     idField: 'id',
     disabled: false,
-    baseColIndex: 0,
     expandRows: [],
     isMouseEventForbidden: false,
     ignoreColumnSpan: false,
