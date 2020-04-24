@@ -67,7 +67,7 @@ class Thead extends Component {
 
         const {
 
-            className, style, columns, columnsWidth, baseColIndex, data, ignoreColumnSpan,
+            className, style, columns, columnsWidth, data, ignoreColumnSpan,
             sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls,
             onSortChange,
 
@@ -95,13 +95,13 @@ class Thead extends Component {
                                             title={column.headTitle}
                                             renderer={column.headRenderer}
                                             align={column.headAlign || column.align}
-                                            colIndex={baseColIndex + colIndex}
+                                            colIndex={colIndex}
                                             rowSpan={column.rowSpan}
                                             colSpan={ignoreColumnSpan ? null : column.colSpan}
                                             noWrap={TC.handleNoWrap(column.headNoWrap, column.noWrap, {
                                                 data,
                                                 rowIndex,
-                                                colIndex: baseColIndex + colIndex,
+                                                colIndex: colIndex,
                                                 tableData: data
                                             })}
                                             sorting={sorting}
@@ -136,6 +136,11 @@ Thead.propTypes = {
      * Children passed into table header.
      */
     columns: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.shape({
+
+        /**
+         * unique keyof column.
+         */
+        key: PropTypes.string,
 
         /**
          * fixed position of column ( 'left' / 'right' ).
@@ -345,7 +350,6 @@ Thead.propTypes = {
     }))).isRequired,
     columnsWidth: PropTypes.object,
     data: PropTypes.array,
-    baseColIndex: PropTypes.number,
     ignoreColumnSpan: PropTypes.bool,
     scrollEl: PropTypes.object,
 
@@ -380,7 +384,6 @@ Thead.propTypes = {
 
 Thead.defaultProps = {
 
-    baseColIndex: 0,
     ignoreColumnSpan: false,
 
     /**
