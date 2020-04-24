@@ -14,11 +14,7 @@
 
     .scroll-table-body {
         position: relative;
-        overflow: hidden;
-
-        &.scrollable {
-            overflow: scroll;
-        }
+        overflow: scroll;
 
         &.has-head .base-table tbody tr:first-child td {
             border-top: none;

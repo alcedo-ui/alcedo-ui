@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 // Components
 import BaseTable from '../_BaseTable';
 import ScrollableTable from '../_ScrollableTable';
+import DynamicRenderTableProvider from '../_DynamicRenderTableProvider';
 
 // Statics
 import Theme from '../Theme';
@@ -23,7 +24,6 @@ import {findDOMNode} from 'react-dom';
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
 import Util from '../_vendors/Util';
-import TC from '../_vendors/TableCalculation';
 
 class ScrollTable extends Component {
 
@@ -92,7 +92,7 @@ class ScrollTable extends Component {
             return null;
         }
 
-        const tableWidth = horizontalScrollStyle?.width || TC.getTableWidth(columnsWidth, defaultColumnWidth),
+        const tableWidth = horizontalScrollStyle?.width /*|| TC.getTableWidth(columnsWidth, defaultColumnWidth)*/,
             hasHead = !isHeadHidden && isHeadFixed,
             hasFoot = !isFootHidden && isFootFixed;
 
@@ -155,8 +155,9 @@ class ScrollTable extends Component {
                                  onWheel={onWheel}>
                     {
                         scrollEl =>
-                            <div className="scroll-table-body-table-wrapper"
-                                 style={useDynamicRender ? {height: data?.length * rowHeight} : null}>
+                            <DynamicRenderTableProvider data={data}
+                                                        useDynamicRender={useDynamicRender}
+                                                        rowHeight={rowHeight}>
                                 <BaseTable {...restProps}
                                            style={{
                                                width: tableWidth,
@@ -184,7 +185,7 @@ class ScrollTable extends Component {
                                            defaultColumnWidth={defaultColumnWidth}
                                            onRequestColumnsSpan={this.handleColumnsSpan}
                                            onColumnResize={onColumnResize}/>
-                            </div>
+                            </DynamicRenderTableProvider>
                     }
                 </ScrollableTable>
 
