@@ -730,6 +730,11 @@ TableContent.propTypes = {
     columns: PropTypes.arrayOf(PropTypes.shape({
 
         /**
+         * unique keyof column.
+         */
+        key: PropTypes.string,
+
+        /**
          * fixed position of column ( 'left' / 'right' ).
          */
         fixed: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
@@ -935,6 +940,7 @@ TableContent.propTypes = {
         defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType))
 
     })).isRequired,
+    columnKeyField: PropTypes.string,
     columnsWidth: PropTypes.object,
     data: PropTypes.array,
     value: PropTypes.array,
@@ -1107,6 +1113,7 @@ TableContent.propTypes = {
 
 TableContent.defaultProps = {
 
+    columnKeyField: 'key',
     disabled: false,
     isInitialing: true,
     idField: 'id',
