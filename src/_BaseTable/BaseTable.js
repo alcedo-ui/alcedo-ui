@@ -62,8 +62,9 @@ class BaseTable extends Component {
 
         const {
 
-                className, style, data, dynamicRenderData, value, idField, baseColIndex, fragment, scrollEl,
-                headColumns, bodyColumns, columnsWidth, selectMode, selectAllMode, expandRows, resizingColumnPath,
+                className, style, data, dynamicRenderData, value, idField, fragment, scrollEl,
+                headColumns, bodyColumns, columnKeyField, columnsWidth,
+                selectMode, selectAllMode, expandRows, resizingColumnPath,
                 useDynamicRender, scrollHeight, rowHeight, scrollBuffer,
                 isColumnResizable, defaultColumnWidth, minColumnWidth, maxColumnWidth,
                 isHeadHidden, isBodyHidden, isFootHidden,
@@ -92,6 +93,7 @@ class BaseTable extends Component {
                    }}>
 
                 <ColGroup columns={this.getColumnsSpan(columns)}
+                          columnKeyField={columnKeyField}
                           columnsWidth={columnsWidth}
                           isColumnResizable={isColumnResizable}
                           defaultColumnWidth={defaultColumnWidth}
@@ -132,6 +134,7 @@ class BaseTable extends Component {
                     !isBodyHidden && hasBodyRenderer ?
                         <Tbody {...restProps}
                                columns={bodyColumns || columns}
+                               columnKeyField={columnKeyField}
                                data={data}
                                dynamicRenderData={dynamicRenderData}
                                value={value}
@@ -139,7 +142,6 @@ class BaseTable extends Component {
                                selectAllMode={selectAllMode}
                                expandRows={expandRows}
                                idField={idField}
-                               baseColIndex={baseColIndex}
                                sorting={sorting}
                                isMouseEventForbidden={isMouseEventForbidden}
                                ignoreColumnSpan={ignoreColumnSpan}
@@ -207,6 +209,11 @@ BaseTable.propTypes = {
      * Children passed into table header.
      */
     columns: PropTypes.arrayOf(PropTypes.shape({
+
+        /**
+         * unique keyof column.
+         */
+        key: PropTypes.string,
 
         /**
          * fixed position of column ( 'left' / 'right' ).
@@ -416,12 +423,12 @@ BaseTable.propTypes = {
     })),
     headColumns: PropTypes.array,
     bodyColumns: PropTypes.array,
+    columnKeyField: PropTypes.string,
     columnsWidth: PropTypes.object,
     data: PropTypes.array,
     dynamicRenderData: PropTypes.array,
     value: PropTypes.array,
     idField: PropTypes.string,
-    baseColIndex: PropTypes.number,
     disabled: PropTypes.bool,
     expandRows: PropTypes.array,
     isMouseEventForbidden: PropTypes.bool,
@@ -497,7 +504,7 @@ BaseTable.propTypes = {
 
 BaseTable.defaultProps = {
 
-    baseColIndex: 0,
+    columnKeyField: 'key',
     disabled: false,
     expandRows: [],
     idField: 'id',
