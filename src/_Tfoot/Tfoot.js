@@ -69,7 +69,7 @@ class Tfoot extends Component {
     render() {
 
         const {
-                className, data, disabled, baseColIndex, ignoreColumnSpan, scrollEl,
+                className, data, disabled, ignoreColumnSpan, scrollEl,
                 onCellClick
             } = this.props,
             columnsSpan = this.getColumnsSpan();
@@ -88,7 +88,7 @@ class Tfoot extends Component {
                             <Tf key={colIndex}
                                 className={column.footClassName}
                                 style={this.getStyle(columnsSpan, column, colIndex)}
-                                colIndex={baseColIndex + colIndex}
+                                colIndex={colIndex}
                                 data={data}
                                 title={column.footTitle}
                                 renderer={column.footRenderer}
@@ -97,7 +97,7 @@ class Tfoot extends Component {
                                 noWrap={TC.handleNoWrap(column.footNoWrap, column.noWrap, {
                                     data,
                                     rowIndex: 0,
-                                    colIndex: baseColIndex + colIndex,
+                                    colIndex: colIndex,
                                     tableData: data
                                 })}
                                 disabled={disabled}
@@ -120,6 +120,11 @@ Tfoot.propTypes = {
      * Children passed into table header.
      */
     columns: PropTypes.arrayOf(PropTypes.shape({
+
+        /**
+         * unique keyof column.
+         */
+        key: PropTypes.string,
 
         /**
          * fixed position of column ( 'left' / 'right' ).
@@ -330,7 +335,6 @@ Tfoot.propTypes = {
 
     data: PropTypes.array,
     disabled: PropTypes.bool,
-    baseColIndex: PropTypes.number,
     ignoreColumnSpan: PropTypes.bool,
     scrollEl: PropTypes.object,
 
@@ -348,7 +352,6 @@ Tfoot.propTypes = {
 Tfoot.defaultProps = {
 
     disabled: false,
-    baseColIndex: 0,
     ignoreColumnSpan: false,
 
     /**
