@@ -280,12 +280,9 @@ class Table extends Component {
         }, 0);
     };
 
-    handleColumnResize = (column, width) => {
-        if (column?.headRenderer === 'Name') {
-            console.log('handleColumnResize::', column, width);
-        }
+    handleColumnResize = (columnKey, width) => {
         const {columnsWidth} = this.state;
-        columnsWidth.set(column, width);
+        columnsWidth.set(columnKey, width);
         this.setState({
             columnsWidth
         });
