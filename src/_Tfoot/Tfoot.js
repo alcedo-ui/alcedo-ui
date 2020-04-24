@@ -73,7 +73,14 @@ class Tfoot extends Component {
                     {
                         columnsSpan && columnsSpan.map(({column, span}, colIndex) =>
                             <Tf key={colIndex}
-                                className={column.footClassName}
+                                className={classNames(column.footClassName, {
+                                    'fixed-left': column.fixed === HorizontalAlign.LEFT,
+                                    'last-fixed-left': column.fixed === HorizontalAlign.LEFT
+                                        && columnsSpan?.[colIndex + 1]?.column?.fixed !== HorizontalAlign.LEFT,
+                                    'fixed-right': column.fixed === HorizontalAlign.RIGHT,
+                                    'first-fixed-right': column.fixed === HorizontalAlign.RIGHT
+                                        && columnsSpan?.[colIndex - 1]?.column?.fixed !== HorizontalAlign.RIGHT
+                                })}
                                 style={this.getStyle(column, colIndex, columnsSpan)}
                                 colIndex={colIndex}
                                 data={data}
