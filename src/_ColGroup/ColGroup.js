@@ -31,16 +31,17 @@ class ColGroup extends Component {
 
     getColStyle = column => {
 
-        const {columnsWidth, isColumnResizable, defaultColumnWidth, minColumnWidth} = this.props,
+        const {columnKeyField, columnsWidth, isColumnResizable, defaultColumnWidth, minColumnWidth} = this.props,
             result = {};
 
         if (column?.headRenderer === 'Name') {
-            console.log('column::', column);
-            console.log('columnsWidth.get(column)::', columnsWidth && columnsWidth.get(column));
+            console.log('columnsWidth::',
+                columnsWidth && columnsWidth.get((columnKeyField && column[columnKeyField]) || column));
         }
 
         // width
-        result.width = (columnsWidth && columnsWidth.get(column)) || column.width || defaultColumnWidth;
+        result.width = (columnsWidth && columnsWidth.get((columnKeyField && column[columnKeyField]) || column))
+            || column.width || defaultColumnWidth;
 
         // min width
         result.minWidth = column.minWidth ?
@@ -83,6 +84,11 @@ ColGroup.propTypes = {
      * Children passed into table header.
      */
     columns: PropTypes.arrayOf(PropTypes.shape({
+
+        /**
+         * unique keyof column.
+         */
+        key: PropTypes.string,
 
         /**
          * fixed position of column ( 'left' / 'right' )
@@ -213,6 +219,7 @@ ColGroup.propTypes = {
         defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType))
 
     })).isRequired,
+    columnKeyField: PropTypes.string,
     columnsWidth: PropTypes.object,
 
     /**
@@ -227,6 +234,8 @@ ColGroup.propTypes = {
 };
 
 ColGroup.defaultProps = {
+
+    columnKeyField: 'key',
 
     /**
      * column resizable
