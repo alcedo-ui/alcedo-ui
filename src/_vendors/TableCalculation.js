@@ -611,11 +611,29 @@ function getTableWidth(columnsWidth, defaultColumnWidth = 100) {
 
 }
 
-function getColumnsSpanWidth(columnsSpan, defaultColumnWidth = 100) {
-    return columnsSpan ?
-        columnsSpan.reduce((a, b) => a + (b?.column?.width || defaultColumnWidth), 0)
+function getColumnsSpanWidth(columnsSpan, columnKeyField = 'key', columnsWidth, defaultColumnWidth = 100) {
+    return columnsSpan && columnsWidth ?
+        columnsSpan.reduce((a, b) => a + (columnsWidth.get(b?.column[columnKeyField]) || defaultColumnWidth), 0)
         :
         0;
+}
+
+function getStickyColumnStyle(column, colIndex, columnsSpan, columnKeyField, columnsWidth, defaultColumnWidth) {
+
+    const result = {};
+
+    if (column.fixed === HorizontalAlign.LEFT) {
+        result.position = 'sticky';
+        result.left = getColumnsSpanWidth(columnsSpan.slice(0, colIndex), columnKeyField, columnsWidth, defaultColumnWidth);
+    }
+
+    if (column.fixed === HorizontalAlign.RIGHT) {
+        result.position = 'sticky';
+        result.right = getColumnsSpanWidth(columnsSpan.slice(colIndex + 1), columnKeyField, columnsWidth, defaultColumnWidth);
+    }
+
+    return result;
+
 }
 
 export default {
@@ -649,5 +667,6 @@ export default {
     getRawTableData,
     getColumnByPath,
     getTableWidth,
-    getColumnsSpanWidth
+    getColumnsSpanWidth,
+    getStickyColumnStyle
 };
