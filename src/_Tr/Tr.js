@@ -32,30 +32,24 @@ class Tr extends Component {
         super(props, ...restArgs);
     }
 
-    getTdStyle = (columnsSpan, column, colIndex) => {
-
-        const {useDynamicRender, rowHeight, defaultColumnWidth} = this.props,
-            result = useDynamicRender ? {
-                ...column?.bodyStyle,
+    getDynamicRenderStyle = () => {
+        const {useDynamicRender, rowHeight} = this.props;
+        return useDynamicRender ? {
                 height: rowHeight,
                 paddingTop: 0,
                 paddingBottom: 0
-            } : {
-                ...column?.bodyStyle
-            };
+            }
+            :
+            null;
+    };
 
-        if (column.fixed === HorizontalAlign.LEFT) {
-            result.position = 'sticky';
-            result.left = TC.getColumnsSpanWidth(columnsSpan.slice(0, colIndex), defaultColumnWidth);
-        }
-
-        if (column.fixed === HorizontalAlign.RIGHT) {
-            result.position = 'sticky';
-            result.right = TC.getColumnsSpanWidth(columnsSpan.slice(colIndex + 1), defaultColumnWidth);
-        }
-
-        return result;
-
+    getTdStyle = (column, colIndex, columnsSpan) => {
+        const {columnKeyField, columnsWidth, defaultColumnWidth} = this.props;
+        return {
+            ...column?.bodyStyle,
+            ...TC.getStickyColumnStyle(column, colIndex, columnsSpan, columnKeyField, columnsWidth, defaultColumnWidth),
+            ...this.getDynamicRenderStyle()
+        };
     };
 
     isCollapsed = () => {
@@ -115,7 +109,7 @@ class Tr extends Component {
                             <Td {...respProps}
                                 key={colIndex}
                                 className={column.bodyClassName}
-                                style={this.getTdStyle(columnsSpan, column, colIndex)}
+                                style={this.getTdStyle(column, colIndex, columnsSpan)}
                                 rowIndex={rowIndex}
                                 colIndex={colIndex}
                                 data={data}
@@ -392,7 +386,8 @@ Tr.propTypes = {
         defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType))
 
     })).isRequired,
-
+    columnKeyField: PropTypes.string,
+    columnsWidth: PropTypes.object,
     data: PropTypes.object,
     parentData: PropTypes.object,
     tableData: PropTypes.array,
@@ -438,6 +433,7 @@ Tr.propTypes = {
 
 Tr.defaultProps = {
 
+    columnKeyField: 'key',
     rowIndex: 0,
     isChecked: false,
     disabled: false,
