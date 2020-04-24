@@ -80,6 +80,7 @@ class Tbody extends Component {
                             index={index}
                             rowIndex={startIndex + index}
                             columns={columns}
+                            columnKeyField={columnKeyField}
                             data={row}
                             tableData={data}
                             isChecked={this.isItemChecked(row)}
@@ -330,6 +331,7 @@ Tbody.propTypes = {
 
     })).isRequired,
     columnKeyField: PropTypes.string,
+    columnsWidth: PropTypes.object,
     data: PropTypes.array,
     dynamicRenderData: PropTypes.array,
     value: PropTypes.array,
