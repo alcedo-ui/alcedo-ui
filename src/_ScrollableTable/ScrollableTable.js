@@ -11,7 +11,6 @@ import TableFragment from '../_statics/TableFragment';
 
 // Vendors
 import isEmpty from 'lodash/isEmpty';
-import classNames from 'classnames';
 import Util from '../_vendors/Util';
 
 class ScrollableTable extends Component {
@@ -50,7 +49,7 @@ class ScrollableTable extends Component {
                 className, style, scroll,
 
                 // not passing down these props
-                children: c, useDynamicRender, scrollHeight, rowHeight, scrollBuffer,
+                children: c, fragment, useDynamicRender, scrollHeight, rowHeight, scrollBuffer,
 
                 ...restProps
 
