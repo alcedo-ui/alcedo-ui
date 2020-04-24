@@ -76,7 +76,7 @@ class ScrollTable extends Component {
         const {
 
             className, style, horizontalScrollStyle, verticalScrollStyle, fixed, columns,
-            headColumns, bodyColumns, columnsWidth, isHeadHidden, isFootHidden, isLayoutFixed, isHeadFixed, isFootFixed,
+            headColumns, bodyColumns, isHeadHidden, isFootHidden, isLayoutFixed, isHeadFixed, isFootFixed,
             data, scroll, hasFixedLeftColumn, hasFixedRightColumn,
             useDynamicRender, dynamicRenderIndex, scrollHeight, rowHeight, scrollBuffer, defaultColumnWidth,
             onScroll, onWheel, onColumnResize,
@@ -119,7 +119,6 @@ class ScrollTable extends Component {
                                                fixed={fixed}
                                                fragment={TableFragment.HEAD}
                                                columns={columns}
-                                               columnsWidth={columnsWidth}
                                                headColumns={headColumns}
                                                bodyColumns={bodyColumns}
                                                data={data}
@@ -132,6 +131,7 @@ class ScrollTable extends Component {
                                                isFootHidden={true}
                                                isLayoutFixed={isLayoutFixed}
                                                defaultColumnWidth={defaultColumnWidth}
+                                               useColumnsWidth={true}
                                                onRequestColumnsSpan={this.handleColumnsSpan}/>
                             }
                         </ScrollableTable>
@@ -205,7 +205,6 @@ class ScrollTable extends Component {
                                                fixed={fixed}
                                                fragment={TableFragment.FOOT}
                                                columns={columns}
-                                               columnsWidth={columnsWidth}
                                                headColumns={headColumns}
                                                bodyColumns={bodyColumns}
                                                ignoreColumnSpan={true}
@@ -219,6 +218,7 @@ class ScrollTable extends Component {
                                                isBodyHidden={true}
                                                isLayoutFixed={isLayoutFixed}
                                                defaultColumnWidth={defaultColumnWidth}
+                                               useColumnsWidth={true}
                                                onRequestColumnsSpan={this.handleColumnsSpan}/>
                             }
                         </ScrollableTable>
