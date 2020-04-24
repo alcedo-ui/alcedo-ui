@@ -19,6 +19,7 @@ import TableFragment from '../_statics/TableFragment';
 // Vendors
 import Util from '../_vendors/Util';
 import TC from '../_vendors/TableCalculation';
+import classNames from 'classnames';
 
 class Thead extends Component {
 
@@ -77,12 +78,19 @@ class Thead extends Component {
                         <tr key={rowIndex}>
                             {
                                 (
-                                    this.getColumnsSpan(row)?.map(({column, path, span}, colIndex) => column ?
+                                    this.getColumnsSpan(row)?.map(({column, path, span}, colIndex, columnsSpan) => column ?
                                         <Th {...restProps}
                                             key={colIndex}
                                             column={column}
                                             path={path}
-                                            className={column.headClassName}
+                                            className={classNames(column.headClassName, {
+                                                'fixed-left': column.fixed === HorizontalAlign.LEFT,
+                                                'last-fixed-left': column.fixed === HorizontalAlign.LEFT
+                                                    && columnsSpan?.[colIndex + 1]?.column?.fixed !== HorizontalAlign.LEFT,
+                                                'fixed-right': column.fixed === HorizontalAlign.RIGHT,
+                                                'first-fixed-right': column.fixed === HorizontalAlign.RIGHT
+                                                    && columnsSpan?.[colIndex - 1]?.column?.fixed !== HorizontalAlign.RIGHT
+                                            })}
                                             style={this.getStyle(column, colIndex, row)}
                                             width={(columnsWidth && columnsWidth.get(column)) || column.width}
                                             data={data}
