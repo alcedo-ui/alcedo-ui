@@ -55,7 +55,7 @@ class TableExamples extends Component {
             sortingProp: 'id'
         }, {
             key: 'name',
-            width: '10%',
+            width: '20%',
             noWrap: true,
             headRenderer: 'Name',
             headTitle: 'Name',
