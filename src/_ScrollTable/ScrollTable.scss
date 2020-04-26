@@ -11,7 +11,7 @@
 
 .scroll-table-body {
     position: relative;
-    overflow: scroll;
+    overflow: auto;
 
     &.has-head .base-table tbody tr:first-child td {
         border-top: none;

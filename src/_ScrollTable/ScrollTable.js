@@ -83,6 +83,18 @@ class ScrollTable extends Component {
 
     };
 
+    hasVerticalScroll = () => {
+
+        const scrollEl = this.lastScrollerEl[TableFragment.BODY];
+
+        if (!scrollEl) {
+            return false;
+        }
+
+        return scrollEl.scrollHeight > scrollEl.offsetHeight;
+
+    };
+
     handleColumnsSpan = (...restArgs) => {
         const {fixed, onRequestColumnsSpan} = this.props;
         return onRequestColumnsSpan && onRequestColumnsSpan(fixed, ...restArgs);
@@ -92,14 +104,13 @@ class ScrollTable extends Component {
 
         const {
 
-            horizontalScrollStyle, verticalScrollStyle, fixed, columns,
-            headColumns, bodyColumns, isHeadHidden, isFootHidden, isLayoutFixed, isHeadFixed, isFootFixed,
-            data, scroll, hasFixedLeftColumn, hasFixedRightColumn,
+            horizontalScrollStyle, verticalScrollStyle, fixed, columns, headColumns, bodyColumns,
+            isHeadHidden, isFootHidden, isLayoutFixed, isHeadFixed, isFootFixed, data, scroll, hasFixedRightColumn,
             useDynamicRender, dynamicRenderIndex, scrollHeight, rowHeight, scrollBuffer, defaultColumnWidth,
             onScroll, onWheel, onColumnResize,
 
             // not passing down these props
-            onInit, onGetScrollerEl,
+            hasFixedLeftColumn, onInit, onGetScrollerEl,
 
             ...restProps
 
@@ -109,7 +120,8 @@ class ScrollTable extends Component {
             return null;
         }
 
-        const hasHead = !isHeadHidden && isHeadFixed,
+        const hasVerticalScroll = this.hasVerticalScroll(),
+            hasHead = !isHeadHidden && isHeadFixed,
             hasFoot = !isFootHidden && isFootFixed;
 
         return (
@@ -134,12 +146,14 @@ class ScrollTable extends Component {
                                                columns={columns}
                                                headColumns={headColumns}
                                                bodyColumns={bodyColumns}
+                                               hasFixedRightColumn={hasFixedRightColumn}
                                                data={data}
                                                scrollEl={scrollEl}
                                                useDynamicRender={useDynamicRender}
                                                scrollHeight={scrollHeight}
                                                rowHeight={rowHeight}
                                                scrollBuffer={scrollBuffer}
+                                               hasVerticalScroll={hasVerticalScroll}
                                                isBodyHidden={true}
                                                isFootHidden={true}
                                                isLayoutFixed={isLayoutFixed}
@@ -184,6 +198,7 @@ class ScrollTable extends Component {
                                            columns={columns}
                                            headColumns={headColumns}
                                            bodyColumns={bodyColumns}
+                                           hasFixedRightColumn={hasFixedRightColumn}
                                            isLayoutFixed={isLayoutFixed}
                                            isHeadFixed={isHeadFixed}
                                            isFootFixed={isFootFixed}
@@ -221,6 +236,7 @@ class ScrollTable extends Component {
                                                columns={columns}
                                                headColumns={headColumns}
                                                bodyColumns={bodyColumns}
+                                               hasFixedRightColumn={hasFixedRightColumn}
                                                ignoreColumnSpan={true}
                                                data={data}
                                                scrollEl={scrollEl}
@@ -228,6 +244,7 @@ class ScrollTable extends Component {
                                                scrollHeight={scrollHeight}
                                                rowHeight={rowHeight}
                                                scrollBuffer={scrollBuffer}
+                                               hasVerticalScroll={hasVerticalScroll}
                                                isHeadHidden={true}
                                                isBodyHidden={true}
                                                isLayoutFixed={isLayoutFixed}
