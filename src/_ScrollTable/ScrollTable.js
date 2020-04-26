@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component, createRef} from 'react';
+import React, {Component, Fragment, createRef} from 'react';
 import PropTypes from 'prop-types';
 
 // Components
@@ -75,7 +75,7 @@ class ScrollTable extends Component {
 
         const {
 
-            className, style, horizontalScrollStyle, verticalScrollStyle, fixed, columns,
+            horizontalScrollStyle, verticalScrollStyle, fixed, columns,
             headColumns, bodyColumns, isHeadHidden, isFootHidden, isLayoutFixed, isHeadFixed, isFootFixed,
             data, scroll, hasFixedLeftColumn, hasFixedRightColumn,
             useDynamicRender, dynamicRenderIndex, scrollHeight, rowHeight, scrollBuffer, defaultColumnWidth,
@@ -92,15 +92,11 @@ class ScrollTable extends Component {
             return null;
         }
 
-        const tableWidth = horizontalScrollStyle?.width /*|| TC.getTableWidth(columnsWidth, defaultColumnWidth)*/,
-            hasHead = !isHeadHidden && isHeadFixed,
+        const hasHead = !isHeadHidden && isHeadFixed,
             hasFoot = !isFootHidden && isFootFixed;
 
         return (
-            <div className={classNames('scroll-table', {
-                [className]: className
-            })}
-                 style={style}>
+            <Fragment>
 
                 {
                     hasHead ?
@@ -159,7 +155,8 @@ class ScrollTable extends Component {
                                                         rowHeight={rowHeight}>
                                 <BaseTable {...restProps}
                                            style={{
-                                               width: tableWidth,
+                                               width: horizontalScrollStyle?.width,
+                                               minWidth: horizontalScrollStyle?.width ? '100%' : null,
                                                transform: useDynamicRender && dynamicRenderIndex ?
                                                    `translateY(${dynamicRenderIndex.startWithBuffer * rowHeight}px)`
                                                    :
@@ -226,23 +223,13 @@ class ScrollTable extends Component {
                         null
                 }
 
-            </div>
+            </Fragment>
         );
 
     }
 }
 
 ScrollTable.propTypes = {
-
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
-
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
 
     horizontalScrollStyle: PropTypes.object,
     verticalScrollStyle: PropTypes.object,
