@@ -9,7 +9,6 @@ import PropTypes from 'prop-types';
 // Components
 import Content from '../_TableContent';
 import Pagination from '../_TablePagination';
-import CircularLoading from '../CircularLoading';
 
 // Statics
 import Theme from '../Theme';
@@ -17,6 +16,7 @@ import HorizontalAlign from '../_statics/HorizontalAlign';
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
+import Direction from '../_statics/Direction';
 
 // Vendors
 import classNames from 'classnames';
@@ -25,6 +25,7 @@ import debounce from 'lodash/debounce';
 import Util from '../_vendors/Util';
 import ComponentUtil from '../_vendors/ComponentUtil';
 import TC from '../_vendors/TableCalculation';
+import ScrollBar from '../_vendors/ScrollBar';
 
 class Table extends Component {
 
@@ -59,7 +60,6 @@ class Table extends Component {
         this.content = createRef();
 
         this.state = {
-            isInitialing: props.hasInitFadeOut,
             columns: [],
             columnsWidth: new Map(),
             sorting: props.sorting,
@@ -86,18 +86,6 @@ class Table extends Component {
         }, () => {
             const {onExpandChange} = this.props;
             onExpandChange && onExpandChange([]);
-        });
-    };
-
-    /**
-     * keep table loading after do first render
-     */
-    handleInit = () => {
-        this.state.isInitialing && this.setState({
-            isInitialing: false
-        }, () => {
-            const {onInit} = this.props;
-            onInit && onInit();
         });
     };
 
@@ -325,14 +313,14 @@ class Table extends Component {
                 paginationSelectionRenderer, paginationTotalRenderer, onPageChange, onPageSizeChange,
 
                 // not passing down these props
-                columns: cols, hasInitFadeOut, pageSize: propsPageSize,
+                columns: cols, pageSize: propsPageSize,
                 onPaginationChange, onScrollStart, onScrollEnd,
 
                 ...restProps
 
             } = this.props,
             {
-                isInitialing, columns, columnsWidth, sorting, page, pageSize, expandRows, value,
+                columns, columnsWidth, sorting, page, pageSize, expandRows, value,
                 isPingLeft, isPingRight, scrollTop, resizing, resizingColumnPath
             } = this.state;
 
@@ -364,8 +352,6 @@ class Table extends Component {
                          resizing={resizing}
                          resizingColumnPath={resizingColumnPath}
                          selectMode={selectMode}
-                         isInitialing={isInitialing}
-                         onInit={this.handleInit}
                          onChange={this.handleChange}
                          onSortChange={this.handleSortChange}
                          onExpandChange={this.handleExpandChange}
@@ -413,17 +399,6 @@ class Table extends Component {
                         :
                         null
                 }
-
-                <div className={classNames('table-init-loading-wrapper', {
-                    'fade-out': !isInitialing
-                })}>
-                    {
-                        isInitialing ?
-                            <CircularLoading className="table-init-loading"/>
-                            :
-                            null
-                    }
-                </div>
 
             </div>
         );
@@ -664,7 +639,6 @@ Table.propTypes = {
     value: PropTypes.array,
     idField: PropTypes.string,
     disabled: PropTypes.bool,
-    hasInitFadeOut: PropTypes.bool,
     noDataText: PropTypes.string,
 
     /**
@@ -819,7 +793,6 @@ Table.propTypes = {
     /**
      * callback
      */
-    onInit: PropTypes.func,
     onChange: PropTypes.func,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
@@ -850,7 +823,6 @@ Table.defaultProps = {
     columnKeyField: 'key',
     idField: 'id',
     disabled: false,
-    hasInitFadeOut: true,
     noDataText: 'No Data',
 
     /**
