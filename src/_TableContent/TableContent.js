@@ -66,10 +66,6 @@ class TableContent extends PureComponent {
         // bind event
         Event.addEvent(window, 'resize', this.handleReize);
 
-        // trigger initial callback at startup
-        const {isInitialing, onInit} = this.props;
-        isInitialing && onInit && onInit();
-
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -577,10 +573,10 @@ class TableContent extends PureComponent {
                 isColumnResizable, minColumnWidth, maxColumnWidth,
 
                 // not passing down these props
-                isInitialing, isSelectRecursive, selectUncheckedIconCls, selectCheckedIconCls, resizing, sorting,
+                isSelectRecursive, selectUncheckedIconCls, selectCheckedIconCls, resizing, sorting,
                 selectIndeterminateIconCls, selectColumn, expandIconCls, autoSorting, isPaginated, page, pageSize,
                 canBeExpanded, scrollTop, onPingLeftChange, onPingRightChange,
-                sortingFunc, onInit, onChange, onExpand, onCollapse, onExpandChange, onDataUpdate, onSelect,
+                sortingFunc, onChange, onExpand, onCollapse, onExpandChange, onDataUpdate, onSelect,
                 onSelectAll, onDeselect, onDeselectAll, onScrollTopChange, onScroll, onResizeStart, onResizeEnd,
 
                 ...restProps
@@ -900,7 +896,6 @@ TableContent.propTypes = {
     value: PropTypes.array,
     idField: PropTypes.string,
     disabled: PropTypes.bool,
-    isInitialing: PropTypes.bool,
     noDataText: PropTypes.string,
 
     /**
@@ -1044,7 +1039,6 @@ TableContent.propTypes = {
     /**
      * callback
      */
-    onInit: PropTypes.func,
     onChange: PropTypes.func,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
@@ -1072,7 +1066,6 @@ TableContent.defaultProps = {
 
     columnKeyField: 'key',
     disabled: false,
-    isInitialing: true,
     idField: 'id',
     noDataText: 'No Data',
 
