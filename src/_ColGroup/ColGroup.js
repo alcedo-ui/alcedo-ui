@@ -47,10 +47,7 @@ class ColGroup extends Component {
         result.minWidth = column.minWidth ?
             column.minWidth
             :
-            isColumnResizable ?
-                minColumnWidth
-                :
-                null;
+            result.width;
 
         return isEmpty(result) ? null : result;
 
