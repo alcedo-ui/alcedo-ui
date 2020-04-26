@@ -374,14 +374,23 @@ class TableContent extends PureComponent {
         this[`${fragment}Scroller`] = el;
     };
 
-    handleScrollTopChange = scrollTop => {
-        const {onScrollTopChange} = this.props;
-        onScrollTopChange && onScrollTopChange(scrollTop);
-    };
-
     handleScrollChange = e => {
         const {onScroll} = this.props;
         onScroll && onScroll(e);
+    };
+
+    handleScrollPingChange = target => {
+
+        if (!target) {
+            return;
+        }
+
+        const {onPingLeftChange, onPingRightChange} = this.props,
+            {scrollLeft, scrollWidth, offsetWidth} = target;
+
+        onPingLeftChange && onPingLeftChange(scrollLeft !== 0);
+        onPingRightChange && onPingRightChange(scrollLeft < scrollWidth - offsetWidth);
+
     };
 
     /**
@@ -398,7 +407,7 @@ class TableContent extends PureComponent {
 
         const {isHeadFixed, isFootFixed} = this.props,
             target = e.target,
-            scrollLeft = target.scrollLeft;
+            {scrollLeft} = target;
 
         if (scrollLeft !== this.lastScrollLeft) {
 
@@ -432,11 +441,10 @@ class TableContent extends PureComponent {
                 }
             }
 
-            // TL.updateHorizontalScrollClassNames(this.wrapperEl, this.headScroller);
+            this.handleScrollPingChange(target);
+            this.lastScrollLeft = scrollLeft;
 
         }
-
-        this.lastScrollLeft = scrollLeft;
 
     };
 
@@ -455,12 +463,16 @@ class TableContent extends PureComponent {
         const target = e.target,
             scrollTop = target.scrollTop;
 
-        if (scrollTop !== this.lastScrollTop
-            && (target != this.headScroller || target != this.footScroller)) {
-            this.handleScrollTopChange(scrollTop);
-        }
+        if (scrollTop !== this.lastScrollTop) {
 
-        this.lastScrollTop = scrollTop;
+            if (target != this.headScroller || target != this.footScroller) {
+                const {onScrollTopChange} = this.props;
+                onScrollTopChange && onScrollTopChange(scrollTop);
+            }
+
+            this.lastScrollTop = scrollTop;
+
+        }
 
     };
 
@@ -498,7 +510,8 @@ class TableContent extends PureComponent {
         }
 
         if (this.bodyScroller && this.bodyScroller !== target) {
-            this.bodyScroller.scrollTop = scrollTop;
+            const {onScrollTopChange} = this.props;
+            onScrollTopChange && onScrollTopChange(scrollTop);
         }
 
     };
@@ -556,16 +569,16 @@ class TableContent extends PureComponent {
 
         const {
 
-                className, style, columns, data, scrollTop, scroll, noDataText,
-                isLayoutFixed, isHeadFixed, isFootFixed, isHeadHidden, isFootHidden, expandRows, useDynamicRender,
+                columns, data, scroll, noDataText,
+                isLayoutFixed, isHeadHidden, isFootHidden, expandRows, useDynamicRender,
                 isColumnResizable, minColumnWidth, maxColumnWidth,
 
                 // not passing down these props
                 isInitialing, isSelectRecursive, selectUncheckedIconCls, selectCheckedIconCls, resizing, sorting,
                 selectIndeterminateIconCls, selectColumn, expandIconCls, autoSorting, isPaginated, page, pageSize,
-                canBeExpanded, sortingFunc, onInit, onChange, onExpand, onCollapse, onExpandChange, onDataUpdate,
-                onSelect, onSelectAll, onDeselect, onDeselectAll,
-                onScrollTopChange, onScroll, onResizeStart, onResizeEnd,
+                canBeExpanded, scrollTop, onPingLeftChange, onPingRightChange,
+                sortingFunc, onInit, onChange, onExpand, onCollapse, onExpandChange, onDataUpdate, onSelect,
+                onSelectAll, onDeselect, onDeselectAll, onScrollTopChange, onScroll, onResizeStart, onResizeEnd,
 
                 ...restProps
 
@@ -612,12 +625,7 @@ class TableContent extends PureComponent {
             <Fragment>
 
                 <div ref={this.wrapper}
-                     className={classNames('table-content', {
-                         'head-fixed': isHeadFixed,
-                         'foot-fixed': isFootFixed,
-                         [className]: className
-                     })}
-                     style={style}>
+                     className="table-content">
 
                     <ScrollTable {...restProps}
                                  horizontalScrollStyle={horizontalScrollStyle}
@@ -628,8 +636,6 @@ class TableContent extends PureComponent {
                                  dynamicRenderData={this.dynamicRenderData}
                                  expandRows={expandRows}
                                  isLayoutFixed={isLayoutFixed}
-                                 isHeadFixed={isHeadFixed}
-                                 isFootFixed={isFootFixed}
                                  isHeadHidden={isFinalHeadHidden}
                                  isFootHidden={isFinalFootHidden}
                                  hasFixedLeftColumn={hasFixedLeftColumn}
@@ -647,9 +653,9 @@ class TableContent extends PureComponent {
                                  onScroll={this.handleScroll}
                                  onWheel={this.handleWheel}
                                  onRequestColumnsSpan={this.handleRequestColumnsSpan}
-                                 onGetHeadScrollerEl={el => this.handleGetScrollerEl(el, TableFragment.HEAD)}
-                                 onGetBodyScrollerEl={el => this.handleGetScrollerEl(el, TableFragment.BODY)}
-                                 onGetFootScrollerEl={el => this.handleGetScrollerEl(el, TableFragment.FOOT)}/>
+                                 onGetHeadScrollerEl={this.handleGetScrollerEl}
+                                 onGetBodyScrollerEl={this.handleGetScrollerEl}
+                                 onGetFootScrollerEl={this.handleGetScrollerEl}/>
 
                 </div>
 
@@ -669,16 +675,6 @@ class TableContent extends PureComponent {
 }
 
 TableContent.propTypes = {
-
-    /**
-     * The CSS class name of the root element.
-     */
-    className: PropTypes.string,
-
-    /**
-     * Override the styles of the root element.
-     */
-    style: PropTypes.object,
 
     /**
      * Children passed into table header.
@@ -1013,6 +1009,7 @@ TableContent.propTypes = {
     /**
      * scroll
      */
+    scrollLeft: PropTypes.number,
     scrollTop: PropTypes.number,
     scroll: PropTypes.shape({
         width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -1055,6 +1052,8 @@ TableContent.propTypes = {
     onCollapse: PropTypes.func,
     onExpandChange: PropTypes.func,
     onSortChange: PropTypes.func,
+    onPingLeftChange: PropTypes.func,
+    onPingRightChange: PropTypes.func,
     onScrollTopChange: PropTypes.func,
     onScroll: PropTypes.func,
     onResizeStart: PropTypes.func,
