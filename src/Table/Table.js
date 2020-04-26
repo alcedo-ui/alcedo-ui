@@ -16,7 +16,6 @@ import HorizontalAlign from '../_statics/HorizontalAlign';
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
-import Direction from '../_statics/Direction';
 
 // Vendors
 import classNames from 'classnames';
@@ -25,7 +24,6 @@ import debounce from 'lodash/debounce';
 import Util from '../_vendors/Util';
 import ComponentUtil from '../_vendors/ComponentUtil';
 import TC from '../_vendors/TableCalculation';
-import ScrollBar from '../_vendors/ScrollBar';
 
 class Table extends Component {
 
