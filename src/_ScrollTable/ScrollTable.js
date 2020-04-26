@@ -56,13 +56,13 @@ class ScrollTable extends Component {
         } = this.props;
 
         onGetBodyScrollerEl && this.bodyScroller && this.bodyScroller.current
-        && onGetBodyScrollerEl(findDOMNode(this.bodyScroller.current));
+        && onGetBodyScrollerEl(findDOMNode(this.bodyScroller.current), TableFragment.BODY);
 
         isHeadFixed && onGetHeadScrollerEl && this.headScroller && this.headScroller.current
-        && onGetHeadScrollerEl(findDOMNode(this.headScroller.current));
+        && onGetHeadScrollerEl(findDOMNode(this.headScroller.current), TableFragment.HEAD);
 
         isFootFixed && onGetFootScrollerEl && this.footScroller && this.footScroller.current
-        && onGetFootScrollerEl(findDOMNode(this.footScroller.current));
+        && onGetFootScrollerEl(findDOMNode(this.footScroller.current), TableFragment.FOOT);
 
     }, 250);
 
