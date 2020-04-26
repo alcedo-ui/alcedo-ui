@@ -61,7 +61,7 @@ class Thead extends Component {
         const {
 
             className, style, columns, columnsWidth, data, disabled, ignoreColumnSpan,
-            sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls,
+            sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, defaultColumnWidth,
             onSortChange,
 
             ...restProps
@@ -92,7 +92,7 @@ class Thead extends Component {
                                                     && columnsSpan?.[colIndex - 1]?.column?.fixed !== HorizontalAlign.RIGHT
                                             })}
                                             style={this.getStyle(column, colIndex, row)}
-                                            width={(columnsWidth && columnsWidth.get(column)) || column.width}
+                                            width={(columnsWidth && columnsWidth.get(column)) || defaultColumnWidth}
                                             data={data}
                                             title={column.headTitle}
                                             renderer={column.headRenderer}
