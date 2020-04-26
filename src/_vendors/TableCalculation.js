@@ -7,10 +7,12 @@
 import HorizontalAlign from '../_statics/HorizontalAlign';
 import VirtualRoot from '../_statics/VirtualRoot';
 import TableFragment from '../_statics/TableFragment';
+import Direction from '../_statics/Direction';
 
 // Vendors
 import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
+import ScrollBar from '../_vendors/ScrollBar';
 
 /**
  * calculate column span by fragment
@@ -618,18 +620,22 @@ function getColumnsSpanWidth(columnsSpan, columnKeyField = 'key', columnsWidth, 
         0;
 }
 
-function getStickyColumnStyle(column, colIndex, columnsSpan, columnKeyField = 'key', columnsWidth, defaultColumnWidth) {
+function getStickyColumnStyle(fragment, fixed, colIndex, columnsSpan,
+    columnKeyField = 'key', columnsWidth, defaultColumnWidth, hasVerticalScroll) {
 
     const result = {};
 
-    if (column.fixed === HorizontalAlign.LEFT) {
+    if (fixed === HorizontalAlign.LEFT) {
         result.position = 'sticky';
-        result.left = getColumnsSpanWidth(columnsSpan.slice(0, colIndex), columnKeyField, columnsWidth, defaultColumnWidth);
+        result.left =
+            getColumnsSpanWidth(columnsSpan.slice(0, colIndex), columnKeyField, columnsWidth, defaultColumnWidth);
     }
 
-    if (column.fixed === HorizontalAlign.RIGHT) {
+    if (fixed === HorizontalAlign.RIGHT) {
         result.position = 'sticky';
-        result.right = getColumnsSpanWidth(columnsSpan.slice(colIndex + 1), columnKeyField, columnsWidth, defaultColumnWidth);
+        result.right =
+            getColumnsSpanWidth(columnsSpan.slice(colIndex + 1), columnKeyField, columnsWidth, defaultColumnWidth)
+            + (hasVerticalScroll ? ScrollBar.getSize(Direction.VERTICAL) : 0);
     }
 
     return result;
