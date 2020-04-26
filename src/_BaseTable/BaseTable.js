@@ -62,12 +62,12 @@ class BaseTable extends Component {
 
         const {
 
-                className, style, data, dynamicRenderData, value, idField, fragment, scrollEl,
+                className, style, data, dynamicRenderData, value, idField, fragment, scrollEl, hasVerticalScroll,
                 headColumns, bodyColumns, columnKeyField, columnsWidth, useColumnsWidth,
                 selectMode, selectAllMode, expandRows, resizingColumnPath,
                 useDynamicRender, scrollHeight, rowHeight, scrollBuffer,
                 isColumnResizable, defaultColumnWidth, minColumnWidth, maxColumnWidth,
-                isHeadHidden, isBodyHidden, isFootHidden,
+                isHeadHidden, isBodyHidden, isFootHidden, hasFixedRightColumn,
                 isMouseEventForbidden, isLayoutFixed, isHeadFixed, isFootFixed,
                 ignoreColumnSpan, hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
                 sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, isClickSorting,
@@ -108,6 +108,7 @@ class BaseTable extends Component {
                                columns={headColumns || columns}
                                columnKeyField={columnKeyField}
                                columnsWidth={columnsWidth}
+                               hasFixedRightColumn={hasFixedRightColumn}
                                data={data}
                                dynamicRenderData={dynamicRenderData}
                                selectMode={selectMode}
@@ -119,6 +120,7 @@ class BaseTable extends Component {
                                isClickSorting={isClickSorting}
                                ignoreColumnSpan={ignoreColumnSpan}
                                scrollEl={scrollEl}
+                               hasVerticalScroll={hasVerticalScroll}
                                isColumnResizable={isColumnResizable}
                                defaultColumnWidth={defaultColumnWidth}
                                minColumnWidth={minColumnWidth}
@@ -170,12 +172,14 @@ class BaseTable extends Component {
                                columns={bodyColumns || columns}
                                columnKeyField={columnKeyField}
                                columnsWidth={columnsWidth}
+                               hasFixedRightColumn={hasFixedRightColumn}
                                data={data}
                                dynamicRenderData={dynamicRenderData}
                                selectMode={selectMode}
                                selectAllMode={selectAllMode}
                                ignoreColumnSpan={ignoreColumnSpan}
                                scrollEl={scrollEl}
+                               hasVerticalScroll={hasVerticalScroll}
                                defaultColumnWidth={defaultColumnWidth}
                                onRequestColumnsSpan={onRequestColumnsSpan}
                                onFootClick={onFootClick}/>
@@ -442,6 +446,11 @@ BaseTable.propTypes = {
     expandRows: PropTypes.array,
     isMouseEventForbidden: PropTypes.bool,
     ignoreColumnSpan: PropTypes.bool,
+
+    /**
+     * scroll
+     */
+    hasVerticalScroll: PropTypes.bool,
     scrollEl: PropTypes.object,
 
     /**
@@ -450,6 +459,7 @@ BaseTable.propTypes = {
     isLayoutFixed: PropTypes.bool,
     isHeadFixed: PropTypes.bool,
     isFootFixed: PropTypes.bool,
+    hasFixedRightColumn: PropTypes.bool,
 
     /**
      * hidden
@@ -522,11 +532,17 @@ BaseTable.defaultProps = {
     ignoreColumnSpan: false,
 
     /**
+     * scroll
+     */
+    hasVerticalScroll: false,
+
+    /**
      * fixed
      */
     isLayoutFixed: true,
     isHeadFixed: false,
     isFootFixed: false,
+    hasFixedRightColumn: false,
 
     /**
      * hidden
