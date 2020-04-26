@@ -107,7 +107,7 @@ class ScrollTable extends Component {
             horizontalScrollStyle, verticalScrollStyle, fixed, columns, headColumns, bodyColumns,
             isHeadHidden, isFootHidden, isLayoutFixed, isHeadFixed, isFootFixed, data, scroll, hasFixedRightColumn,
             useDynamicRender, dynamicRenderIndex, scrollHeight, rowHeight, scrollBuffer, defaultColumnWidth,
-            onScroll, onWheel, onColumnResize,
+            onScroll, onWheel, onColumnMeasure,
 
             // not passing down these props
             hasFixedLeftColumn, onInit, onGetScrollerEl,
@@ -212,7 +212,7 @@ class ScrollTable extends Component {
                                            scrollBuffer={scrollBuffer}
                                            defaultColumnWidth={defaultColumnWidth}
                                            onRequestColumnsSpan={this.handleColumnsSpan}
-                                           onColumnResize={onColumnResize}/>
+                                           onColumnMeasure={onColumnMeasure}/>
                             </DynamicRenderTableProvider>
                     }
                 </ScrollableTable>
@@ -589,7 +589,7 @@ ScrollTable.propTypes = {
     onColumnsWidthChange: PropTypes.func,
     onColumnResizeStart: PropTypes.func,
     onColumnResizeEnd: PropTypes.func,
-    onColumnResize: PropTypes.func
+    onColumnMeasure: PropTypes.func
 
 };
 
