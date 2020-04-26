@@ -29,22 +29,22 @@ class MeasureTd extends Component {
 
     componentDidMount() {
 
-        Event.addEvent(window, 'resize', this.handleReize);
+        Event.addEvent(window, 'resize', this.handleMeasure);
 
         this.tdEl = this.td?.current;
-        this.handleReize();
+        this.handleMeasure();
 
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        this.handleReize();
+        this.handleMeasure();
     }
 
     componentWillUnmount() {
-        Event.removeEvent(window, 'resize', this.handleReize);
+        Event.removeEvent(window, 'resize', this.handleMeasure);
     }
 
-    handleReize = () => {
+    handleMeasure = () => {
 
         const width = this.tdEl.offsetWidth;
 
@@ -52,8 +52,8 @@ class MeasureTd extends Component {
 
             this.lastWidth = width;
 
-            const {column, columnKeyField, onResize} = this.props;
-            onResize && onResize((columnKeyField && column[columnKeyField]) || column, width);
+            const {column, columnKeyField, onMeasure} = this.props;
+            onMeasure && onMeasure((columnKeyField && column[columnKeyField]) || column, width);
 
         }
 
@@ -288,7 +288,7 @@ MeasureTd.propTypes = {
     }),
     columnKeyField: PropTypes.string,
 
-    onResize: PropTypes.func
+    onMeasure: PropTypes.func
 
 };
 
