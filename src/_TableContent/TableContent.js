@@ -1058,7 +1058,7 @@ TableContent.propTypes = {
     onColumnsWidthChange: PropTypes.func,
     onColumnResizeStart: PropTypes.func,
     onColumnResizeEnd: PropTypes.func,
-    onColumnResize: PropTypes.func
+    onColumnMeasure: PropTypes.func
 
 };
 
