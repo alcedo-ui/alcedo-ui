@@ -68,6 +68,8 @@ class Table extends Component {
             expandRows: props.expandRows,
             value: props.value,
             scrolling: false,
+            isPingLeft: false,
+            isPingRight: false,
             scrollTop: 0,
             resizing: false,
             resizingColumnPath: null
@@ -149,6 +151,26 @@ class Table extends Component {
             const {onExpandChange} = this.props;
             onExpandChange && onExpandChange(expandRows);
             callback && callback();
+        });
+    };
+
+    /**
+     * handle horizontal scroll ping left change
+     * @param isPingLeft
+     */
+    handlePingLeftChange = isPingLeft => {
+        this.setState({
+            isPingLeft
+        });
+    };
+
+    /**
+     * handle horizontal scroll ping right change
+     * @param isPingRight
+     */
+    handlePingRightChange = isPingRight => {
+        this.setState({
+            isPingRight
         });
     };
 
@@ -292,7 +314,7 @@ class Table extends Component {
 
         const {
 
-                className, style, selectMode, data,
+                className, style, selectMode, data, isHeadFixed, isFootFixed,
 
                 // pagination
                 pageSizeClassName, pageSizeTriggerClassName, pageSizePopupClassName,
@@ -311,11 +333,15 @@ class Table extends Component {
             } = this.props,
             {
                 isInitialing, columns, columnsWidth, sorting, page, pageSize, expandRows, value,
-                scrollTop, resizing, resizingColumnPath
+                isPingLeft, isPingRight, scrollTop, resizing, resizingColumnPath
             } = this.state;
 
         return (
             <div className={classNames('table', {
+                'head-fixed': isHeadFixed,
+                'foot-fixed': isFootFixed,
+                'ping-left': isPingLeft,
+                'ping-right': isPingRight,
                 [className]: className
             })}
                  style={style}>
@@ -326,6 +352,8 @@ class Table extends Component {
                          columns={columns}
                          data={data}
                          sorting={sorting}
+                         isHeadFixed={isHeadFixed}
+                         isFootFixed={isFootFixed}
                          isPaginated={isPaginated}
                          page={page}
                          pageSize={pageSize}
@@ -341,6 +369,8 @@ class Table extends Component {
                          onChange={this.handleChange}
                          onSortChange={this.handleSortChange}
                          onExpandChange={this.handleExpandChange}
+                         onPingLeftChange={this.handlePingLeftChange}
+                         onPingRightChange={this.handlePingRightChange}
                          onScrollTopChange={this.handleScrollTopChange}
                          onScroll={this.handleDebounceScrollChange}
                          onResizeStart={this.handleResizeStart}

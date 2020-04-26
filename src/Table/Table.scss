@@ -31,4 +31,22 @@
             left: -999999px;
         }
     }
+
+    &.ping-left {
+        th.last-fixed-left,
+        td.last-fixed-left {
+            &::after {
+                box-shadow: inset 10px 0 8px -8px transparentize(#000, .85);
+            }
+        }
+    }
+
+    &.ping-right {
+        th.first-fixed-right,
+        td.first-fixed-right {
+            &::after {
+                box-shadow: inset -10px 0 8px -8px transparentize(#000, .85);
+            }
+        }
+    }
 }
