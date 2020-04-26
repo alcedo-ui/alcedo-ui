@@ -22,7 +22,6 @@ import SortingType from '../_statics/SortingType';
 // Vendors
 import {findDOMNode} from 'react-dom';
 import classNames from 'classnames';
-import debounce from 'lodash/debounce';
 import Util from '../_vendors/Util';
 
 class ScrollTable extends Component {
@@ -48,7 +47,7 @@ class ScrollTable extends Component {
         this.updateEl();
     }
 
-    updateEl = debounce(() => {
+    updateEl = () => {
 
         const {
             isHeadFixed, isFootFixed,
@@ -64,7 +63,7 @@ class ScrollTable extends Component {
         isFootFixed && onGetFootScrollerEl && this.footScroller && this.footScroller.current
         && onGetFootScrollerEl(findDOMNode(this.footScroller.current), TableFragment.FOOT);
 
-    }, 250);
+    };
 
     handleColumnsSpan = (...restArgs) => {
         const {fixed, onRequestColumnsSpan} = this.props;
