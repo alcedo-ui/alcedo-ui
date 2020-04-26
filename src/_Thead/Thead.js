@@ -46,10 +46,11 @@ class Thead extends Component {
     };
 
     getStyle = (column, colIndex, columnsSpan) => {
-        const {columnKeyField, columnsWidth, defaultColumnWidth} = this.props;
+        const {columnKeyField, columnsWidth, defaultColumnWidth, hasVerticalScroll} = this.props;
         return {
             ...column.headStyle,
-            ...TC.getStickyColumnStyle(column, colIndex, columnsSpan, columnKeyField, columnsWidth, defaultColumnWidth)
+            ...TC.getStickyColumnStyle(TableFragment.HEAD, column?.fixed, colIndex,
+                columnsSpan, columnKeyField, columnsWidth, defaultColumnWidth, hasVerticalScroll)
         };
     };
 
@@ -63,7 +64,8 @@ class Thead extends Component {
         const {
 
                 className, style, columns, columnsWidth, data, disabled, ignoreColumnSpan,
-                sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, defaultColumnWidth,
+                hasFixedRightColumn, hasVerticalScroll, sorting,
+                defaultSortingType, sortingAscIconCls, sortingDescIconCls, defaultColumnWidth, columnKeyField,
                 onSortChange,
 
                 ...restProps
@@ -77,65 +79,83 @@ class Thead extends Component {
                    disabled="disabled"
                    onClick={this.handleClick}>
                 {
-                    columns && columns.map((row, rowIndex) => row ?
-                        <tr key={rowIndex}>
+                    columns && columns.map((row, rowIndex) => {
 
-                            {
-                                (
-                                    this.getColumnsSpan(row)?.map(({column, path, span}, colIndex, columnsSpan) => column ?
-                                        <Th {...restProps}
-                                            key={colIndex}
-                                            column={column}
-                                            path={path}
-                                            className={classNames(column.headClassName, {
-                                                'fixed-left': column.fixed === HorizontalAlign.LEFT,
-                                                'last-fixed-left': column.fixed === HorizontalAlign.LEFT
-                                                    && columnsSpan?.[colIndex + 1]?.column?.fixed !== HorizontalAlign.LEFT,
-                                                'fixed-right': column.fixed === HorizontalAlign.RIGHT,
-                                                'first-fixed-right': column.fixed === HorizontalAlign.RIGHT
-                                                    && columnsSpan?.[colIndex - 1]?.column?.fixed !== HorizontalAlign.RIGHT
-                                            })}
-                                            style={this.getStyle(column, colIndex, row)}
-                                            width={(columnsWidth && columnsWidth.get(column)) || defaultColumnWidth}
-                                            data={data}
-                                            title={column.headTitle}
-                                            renderer={column.headRenderer}
-                                            align={column.headAlign || column.align}
-                                            colIndex={colIndex}
-                                            rowSpan={column.rowSpan}
-                                            colSpan={ignoreColumnSpan ? null : column.colSpan}
-                                            noWrap={TC.handleNoWrap(column.headNoWrap, column.noWrap, {
-                                                data,
-                                                rowIndex,
-                                                colIndex: colIndex,
-                                                tableData: data
-                                            })}
-                                            sorting={sorting}
-                                            defaultSortingType={column.defaultSortingType || defaultSortingType}
-                                            sortingAscIconCls={sortingAscIconCls}
-                                            sortingDescIconCls={sortingDescIconCls}
-                                            sortable={column.sortable}
-                                            sortingProp={column.sortingProp}
-                                            onSortChange={onSortChange}/>
+                        if (!row) {
+                            return null;
+                        }
+
+                        const columnsSpan = this.getColumnsSpan(row);
+
+                        return (
+                            <tr key={rowIndex}>
+
+                                {
+                                    columnsSpan ?
+                                        columnsSpan.map(({column, path, span}, colIndex) => column ?
+                                            <Th {...restProps}
+                                                key={colIndex}
+                                                column={column}
+                                                path={path}
+                                                className={classNames(column.headClassName, {
+                                                    'fixed-left': column.fixed === HorizontalAlign.LEFT,
+                                                    'last-fixed-left': column.fixed === HorizontalAlign.LEFT
+                                                        && columnsSpan?.[colIndex + 1]?.column?.fixed !== HorizontalAlign.LEFT,
+                                                    'fixed-right': column.fixed === HorizontalAlign.RIGHT,
+                                                    'first-fixed-right': column.fixed === HorizontalAlign.RIGHT
+                                                        && columnsSpan?.[colIndex - 1]?.column?.fixed !== HorizontalAlign.RIGHT
+                                                })}
+                                                style={this.getStyle(column, colIndex, row)}
+                                                width={(columnsWidth && columnsWidth.get(column)) || defaultColumnWidth}
+                                                data={data}
+                                                title={column.headTitle}
+                                                renderer={column.headRenderer}
+                                                align={column.headAlign || column.align}
+                                                colIndex={colIndex}
+                                                rowSpan={column.rowSpan}
+                                                colSpan={ignoreColumnSpan ? null : column.colSpan}
+                                                noWrap={TC.handleNoWrap(column.headNoWrap, column.noWrap, {
+                                                    data,
+                                                    rowIndex,
+                                                    colIndex: colIndex,
+                                                    tableData: data
+                                                })}
+                                                sorting={sorting}
+                                                defaultSortingType={column.defaultSortingType || defaultSortingType}
+                                                sortingAscIconCls={sortingAscIconCls}
+                                                sortingDescIconCls={sortingDescIconCls}
+                                                sortable={column.sortable}
+                                                sortingProp={column.sortingProp}
+                                                onSortChange={onSortChange}/>
+                                            :
+                                            null
+                                        )
                                         :
                                         null
-                                    )
-                                ) || null
-                            }
+                                }
 
-                            {
-                                verticalScrollBarSize > 0 && rowIndex === 0 ?
-                                    <Th className="scroll-bar-th"
-                                        style={{width: verticalScrollBarSize}}
-                                        rowSpan={columns.length}/>
-                                    :
-                                    null
-                            }
+                                {
+                                    hasVerticalScroll && columnsSpan && verticalScrollBarSize > 0 && rowIndex === 0 ?
+                                        <th className={classNames('scroll-bar-th', {
+                                            'fixed-right': hasFixedRightColumn
+                                        })}
+                                            style={{
+                                                width: verticalScrollBarSize,
+                                                ...(hasFixedRightColumn ? {
+                                                    position: 'sticky',
+                                                    right: 0
+                                                } : null)
+                                            }}
+                                            rowSpan={columns.length}>
+                                        </th>
+                                        :
+                                        null
+                                }
 
-                        </tr>
-                        :
-                        null
-                    )
+                            </tr>
+                        );
+
+                    })
                 }
             </thead>
         );
@@ -369,7 +389,17 @@ Thead.propTypes = {
     data: PropTypes.array,
     disabled: PropTypes.bool,
     ignoreColumnSpan: PropTypes.bool,
+
+    /**
+     * scroll
+     */
     scrollEl: PropTypes.object,
+    hasVerticalScroll: PropTypes.bool,
+
+    /**
+     * fixed
+     */
+    hasFixedRightColumn: PropTypes.bool,
 
     /**
      * sorting
@@ -406,6 +436,16 @@ Thead.defaultProps = {
     columnKeyField: 'key',
     disabled: false,
     ignoreColumnSpan: false,
+
+    /**
+     * scroll
+     */
+    hasVerticalScroll: false,
+
+    /**
+     * fixed
+     */
+    hasFixedRightColumn: false,
 
     /**
      * sorting
