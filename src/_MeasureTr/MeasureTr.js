@@ -31,7 +31,7 @@ class MeasureTr extends Component {
 
     render() {
 
-        const {columns, columnKeyField, onColumnResize} = this.props;
+        const {columns, columnKeyField, onColumnMeasure} = this.props;
 
         return columns ?
             <tr className="measure-tr">
@@ -40,7 +40,7 @@ class MeasureTr extends Component {
                         <MeasureTd key={index}
                                    column={column}
                                    columnKeyField={columnKeyField}
-                                   onResize={onColumnResize}></MeasureTd>
+                                   onMeasure={onColumnMeasure}></MeasureTd>
                     )
                 }
             </tr>
@@ -273,7 +273,7 @@ MeasureTr.propTypes = {
     })).isRequired,
     columnKeyField: PropTypes.string,
 
-    onColumnResize: PropTypes.func
+    onColumnMeasure: PropTypes.func
 
 };
 
