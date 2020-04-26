@@ -399,11 +399,9 @@ class TableContent extends PureComponent {
      */
     handleHorizontalScroll = e => {
 
-        if (!e || e.currentTarget !== e.target) {
+        if (!e) {
             return;
         }
-
-        this.handleScrollChange(e);
 
         const {isHeadFixed, isFootFixed} = this.props,
             target = e.target,
@@ -454,18 +452,16 @@ class TableContent extends PureComponent {
      */
     handleVerticalScroll = e => {
 
-        if (!e || e.currentTarget !== e.target) {
+        if (!e) {
             return;
         }
-
-        this.handleScrollChange(e);
 
         const target = e.target,
             scrollTop = target.scrollTop;
 
         if (scrollTop !== this.lastScrollTop) {
 
-            if (target != this.headScroller || target != this.footScroller) {
+            if (target != this.headScroller && target != this.footScroller) {
                 const {onScrollTopChange} = this.props;
                 onScrollTopChange && onScrollTopChange(scrollTop);
             }
@@ -481,8 +477,15 @@ class TableContent extends PureComponent {
      * @param e
      */
     handleScroll = e => {
+
+        if (!e || e.currentTarget !== e.target) {
+            return;
+        }
+
+        this.handleScrollChange(e);
         this.handleHorizontalScroll(e);
         this.handleVerticalScroll(e);
+
     };
 
     /**
