@@ -8,7 +8,6 @@
     text-align: left;
     padding: 8px;
     background: $theme-field-bg-disabled;
-    border-top: 1px solid $theme-border;
     border-bottom: 1px solid $theme-border;
     cursor: default;
     word-wrap: break-word;
@@ -56,5 +55,9 @@
         word-wrap: normal;
         word-break: keep-all;
         text-overflow: ellipsis;
+    }
+
+    &.scroll-bar-tf {
+        padding: 0;
     }
 }
