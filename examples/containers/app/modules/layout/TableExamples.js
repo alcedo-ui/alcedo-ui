@@ -360,6 +360,9 @@ class TableExamples extends Component {
                                        columns={this.columns}
                                        data={data}
                                        canBeExpanded={true}
+                                       scroll={{
+                                           width: 1000
+                                       }}
                                        onSortChange={this.handleSortChange}
                                        onPaginationChange={this.handlePaginationChange}
                                        onExpand={this.handleExpand}
@@ -428,6 +431,9 @@ class TableExamples extends Component {
                             <Table className="example-table"
                                    columns={this.getFixedColumns()}
                                    data={data}
+                                   scroll={{
+                                       width: 1000
+                                   }}
                                    onSortChange={this.handleSortChange}
                                    onPaginationChange={this.handlePaginationChange}
                                    onExpand={this.handleExpand}
@@ -484,7 +490,7 @@ class TableExamples extends Component {
                                                isHeadHidden={!headVisible}
                                                isFootHidden={!footVisible || !filteredLoadingData || filteredLoadingData.length < 1}
                                                scroll={{
-                                                   width: 1200,
+                                                   width: 1000,
                                                    height: filteredLoadingData && filteredLoadingData.length > 0 ? 320 : 0
                                                }}
                                                useFullPagination={true}
@@ -529,6 +535,9 @@ class TableExamples extends Component {
                                        isFootFixed={true}
                                        isPaginated={false}
                                        useDynamicRender={true}
+                                       scroll={{
+                                           width: 1000
+                                       }}
                                        onSortChange={this.handleSortChange}
                                        onExpand={this.handleExpand}
                                        onCollapse={this.handleCollapse}
