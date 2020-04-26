@@ -43,10 +43,11 @@ class Tfoot extends Component {
     };
 
     getStyle = (column, colIndex, columnsSpan) => {
-        const {columnKeyField, columnsWidth, defaultColumnWidth} = this.props;
+        const {columnKeyField, columnsWidth, defaultColumnWidth, hasVerticalScroll} = this.props;
         return {
             ...column.footStyle,
-            ...TC.getStickyColumnStyle(column, colIndex, columnsSpan, columnKeyField, columnsWidth, defaultColumnWidth)
+            ...TC.getStickyColumnStyle(TableFragment.FOOT, column?.fixed, colIndex,
+                columnsSpan, columnKeyField, columnsWidth, defaultColumnWidth, hasVerticalScroll)
         };
     };
 
@@ -58,7 +59,7 @@ class Tfoot extends Component {
     render() {
 
         const {
-                className, data, disabled, ignoreColumnSpan, scrollEl,
+                className, data, disabled, ignoreColumnSpan, scrollEl, hasVerticalScroll, hasFixedRightColumn,
                 onCellClick
             } = this.props,
             columnsSpan = this.getColumnsSpan(),
@@ -105,9 +106,18 @@ class Tfoot extends Component {
                     }
 
                     {
-                        verticalScrollBarSize > 0 ?
-                            <Tf className="scroll-bar-tf"
-                                style={{width: verticalScrollBarSize}}/>
+                        hasVerticalScroll && columnsSpan && verticalScrollBarSize > 0 ?
+                            <td className={classNames('scroll-bar-tf', {
+                                'fixed-right': hasFixedRightColumn
+                            })}
+                                style={{
+                                    width: verticalScrollBarSize,
+                                    ...(hasFixedRightColumn ? {
+                                        position: 'sticky',
+                                        right: 0
+                                    } : null)
+                                }}>
+                            </td>
                             :
                             null
                     }
@@ -344,7 +354,17 @@ Tfoot.propTypes = {
     data: PropTypes.array,
     disabled: PropTypes.bool,
     ignoreColumnSpan: PropTypes.bool,
+
+    /**
+     * scroll
+     */
     scrollEl: PropTypes.object,
+    hasVerticalScroll: PropTypes.bool,
+
+    /**
+     * fixed
+     */
+    hasFixedRightColumn: PropTypes.bool,
 
     /**
      * column resizable
@@ -362,6 +382,16 @@ Tfoot.defaultProps = {
     columnKeyField: 'key',
     disabled: false,
     ignoreColumnSpan: false,
+
+    /**
+     * scroll
+     */
+    hasVerticalScroll: false,
+
+    /**
+     * fixed
+     */
+    hasFixedRightColumn: false,
 
     /**
      * column resizable
