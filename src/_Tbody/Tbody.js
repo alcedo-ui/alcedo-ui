@@ -53,7 +53,7 @@ class Tbody extends Component {
 
                 className, style, columns, columnKeyField, data, dynamicRenderData,
                 startIndex, disabled, isMouseEventForbidden, ignoreColumnSpan, useDynamicRender, defaultColumnWidth,
-                onColumnResize,
+                onColumnMeasure,
 
                 // not passing down these props
                 value,
@@ -70,7 +70,7 @@ class Tbody extends Component {
 
                 <MeasureTr columns={columns}
                            columnKeyField={columnKeyField}
-                           onColumnResize={onColumnResize}/>
+                           onColumnMeasure={onColumnMeasure}/>
 
                 {
                     finalData && finalData.map((row, index) => row ?
@@ -371,7 +371,7 @@ Tbody.propTypes = {
     onCellClick: PropTypes.func,
     onExpand: PropTypes.func,
     onCollapse: PropTypes.func,
-    onColumnResize: PropTypes.func,
+    onColumnMeasure: PropTypes.func,
     onRequestColumnsSpan: PropTypes.func
 
 };
