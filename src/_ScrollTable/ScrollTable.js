@@ -41,27 +41,45 @@ class ScrollTable extends Component {
         this.bodyScroller = createRef();
         this.footScroller = createRef();
 
+        this.lastScrollerEl = {};
+
+    }
+
+    componentDidMount() {
+
+        this.updateEl();
+
+        const {onInit} = this.props;
+        onInit && onInit();
+
     }
 
     componentDidUpdate() {
         this.updateEl();
     }
 
+    updateFragmentEl = fragment => {
+
+        const {onGetScrollerEl} = this.props,
+            instance = this?.[`${fragment}Scroller`]?.current,
+            el = instance && findDOMNode(instance);
+
+        if (!onGetScrollerEl || !el || this.lastScrollerEl[fragment] == el) {
+            return;
+        }
+
+        onGetScrollerEl(fragment, el);
+        this.lastScrollerEl[fragment] = el;
+
+    };
+
     updateEl = () => {
 
-        const {
-            isHeadFixed, isFootFixed,
-            onGetBodyScrollerEl, onGetHeadScrollerEl, onGetFootScrollerEl
-        } = this.props;
+        const {isHeadFixed, isFootFixed} = this.props;
 
-        onGetBodyScrollerEl && this.bodyScroller && this.bodyScroller.current
-        && onGetBodyScrollerEl(findDOMNode(this.bodyScroller.current), TableFragment.BODY);
-
-        isHeadFixed && onGetHeadScrollerEl && this.headScroller && this.headScroller.current
-        && onGetHeadScrollerEl(findDOMNode(this.headScroller.current), TableFragment.HEAD);
-
-        isFootFixed && onGetFootScrollerEl && this.footScroller && this.footScroller.current
-        && onGetFootScrollerEl(findDOMNode(this.footScroller.current), TableFragment.FOOT);
+        this.updateFragmentEl(TableFragment.BODY);
+        isHeadFixed && this.updateFragmentEl(TableFragment.HEAD);
+        isFootFixed && this.updateFragmentEl(TableFragment.FOOT);
 
     };
 
@@ -81,7 +99,7 @@ class ScrollTable extends Component {
             onScroll, onWheel, onColumnResize,
 
             // not passing down these props
-            onGetHeadScrollerEl, onGetBodyScrollerEl, onGetFootScrollerEl,
+            onInit, onGetScrollerEl,
 
             ...restProps
 
@@ -544,9 +562,8 @@ ScrollTable.propTypes = {
     /**
      * callback
      */
-    onGetBodyScrollerEl: PropTypes.func,
-    onGetHeadScrollerEl: PropTypes.func,
-    onGetFootScrollerEl: PropTypes.func,
+    onInit: PropTypes.func,
+    onGetScrollerEl: PropTypes.func,
     onExpandChange: PropTypes.func,
     onScroll: PropTypes.func,
     onWheel: PropTypes.func,
