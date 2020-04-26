@@ -370,7 +370,7 @@ class TableContent extends PureComponent {
      * @param fixed
      * @param fragment
      */
-    handleGetScrollerEl = (el, fragment) => {
+    handleGetScrollerEl = (fragment, el) => {
         this[`${fragment}Scroller`] = el;
     };
 
@@ -379,7 +379,7 @@ class TableContent extends PureComponent {
         onScroll && onScroll(e);
     };
 
-    handleScrollPingChange = target => {
+    handleScrollPingChange = (target = this.bodyScroller) => {
 
         if (!target) {
             return;
@@ -650,12 +650,11 @@ class TableContent extends PureComponent {
                                  isColumnResizable={isColumnResizable}
                                  minColumnWidth={minColumnWidth}
                                  maxColumnWidth={maxColumnWidth}
+                                 onInit={this.handleScrollPingChange}
                                  onScroll={this.handleScroll}
                                  onWheel={this.handleWheel}
                                  onRequestColumnsSpan={this.handleRequestColumnsSpan}
-                                 onGetHeadScrollerEl={this.handleGetScrollerEl}
-                                 onGetBodyScrollerEl={this.handleGetScrollerEl}
-                                 onGetFootScrollerEl={this.handleGetScrollerEl}/>
+                                 onGetScrollerEl={this.handleGetScrollerEl}/>
 
                 </div>
 
