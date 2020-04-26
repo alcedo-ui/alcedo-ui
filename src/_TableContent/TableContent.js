@@ -21,7 +21,6 @@ import SortingType from '../_statics/SortingType';
 
 // Vendors
 import classNames from 'classnames';
-import startCase from 'lodash/startCase';
 import isArray from 'lodash/isArray';
 import debounce from 'lodash/debounce';
 import cloneDeep from 'lodash/cloneDeep';
@@ -44,11 +43,9 @@ class TableContent extends PureComponent {
 
         super(props, ...restArgs);
 
-        this.leftBodyScroller = null;
-        this.centerHeadScroller = null;
-        this.centerBodyScroller = null;
-        this.centerFootScroller = null;
-        this.rightBodyScroller = null;
+        this.headScroller = null;
+        this.bodyScroller = null;
+        this.footScroller = null;
 
         this.lastScrollLeft = 0;
         this.lastScrollTop = 0;
@@ -373,8 +370,8 @@ class TableContent extends PureComponent {
      * @param fixed
      * @param fragment
      */
-    handleGetScrollerEl = (el, fixed, fragment) => {
-        this[`${fixed}${startCase(fragment)}Scroller`] = el;
+    handleGetScrollerEl = (el, fragment) => {
+        this[`${fragment}Scroller`] = el;
     };
 
     handleScrollTopChange = scrollTop => {
@@ -406,36 +403,36 @@ class TableContent extends PureComponent {
         if (scrollLeft !== this.lastScrollLeft) {
 
             switch (target) {
-                case this.centerBodyScroller: {
-                    if (isHeadFixed && this.centerHeadScroller) {
-                        this.centerHeadScroller.scrollLeft = scrollLeft;
+                case this.bodyScroller: {
+                    if (isHeadFixed && this.headScroller) {
+                        this.headScroller.scrollLeft = scrollLeft;
                     }
-                    if (isFootFixed && this.centerHeadScroller && this.centerFootScroller) {
-                        this.centerFootScroller.scrollLeft = scrollLeft;
-                    }
-                    break;
-                }
-                case this.centerHeadScroller: {
-                    if (this.centerBodyScroller) {
-                        this.centerBodyScroller.scrollLeft = scrollLeft;
-                    }
-                    if (isFootFixed && this.centerHeadScroller && this.centerFootScroller) {
-                        this.centerFootScroller.scrollLeft = scrollLeft;
+                    if (isFootFixed && this.headScroller && this.footScroller) {
+                        this.footScroller.scrollLeft = scrollLeft;
                     }
                     break;
                 }
-                case this.centerFootScroller: {
-                    if (isHeadFixed && this.centerHeadScroller) {
-                        this.centerHeadScroller.scrollLeft = scrollLeft;
+                case this.headScroller: {
+                    if (this.bodyScroller) {
+                        this.bodyScroller.scrollLeft = scrollLeft;
                     }
-                    if (this.centerBodyScroller) {
-                        this.centerBodyScroller.scrollLeft = scrollLeft;
+                    if (isFootFixed && this.headScroller && this.footScroller) {
+                        this.footScroller.scrollLeft = scrollLeft;
+                    }
+                    break;
+                }
+                case this.footScroller: {
+                    if (isHeadFixed && this.headScroller) {
+                        this.headScroller.scrollLeft = scrollLeft;
+                    }
+                    if (this.bodyScroller) {
+                        this.bodyScroller.scrollLeft = scrollLeft;
                     }
                     break;
                 }
             }
 
-            TL.updateHorizontalScrollClassNames(this.wrapperEl, this.centerHeadScroller);
+            // TL.updateHorizontalScrollClassNames(this.wrapperEl, this.headScroller);
 
         }
 
@@ -459,39 +456,8 @@ class TableContent extends PureComponent {
             scrollTop = target.scrollTop;
 
         if (scrollTop !== this.lastScrollTop
-            && (target != this.centerHeadScroller || target != this.centerFootScroller)) {
-            switch (target) {
-                case this.centerBodyScroller: {
-                    if (this.leftBodyScroller) {
-                        this.leftBodyScroller.scrollTop = scrollTop;
-                    }
-                    if (this.rightBodyScroller) {
-                        this.rightBodyScroller.scrollTop = scrollTop;
-                    }
-                    this.handleScrollTopChange(scrollTop);
-                    break;
-                }
-                case this.leftBodyScroller: {
-                    if (this.centerBodyScroller) {
-                        this.centerBodyScroller.scrollTop = scrollTop;
-                    }
-                    if (this.rightBodyScroller) {
-                        this.rightBodyScroller.scrollTop = scrollTop;
-                    }
-                    this.handleScrollTopChange(scrollTop);
-                    break;
-                }
-                case this.rightBodyScroller: {
-                    if (this.leftBodyScroller) {
-                        this.leftBodyScroller.scrollTop = scrollTop;
-                    }
-                    if (this.centerBodyScroller) {
-                        this.centerBodyScroller.scrollTop = scrollTop;
-                    }
-                    this.handleScrollTopChange(scrollTop);
-                    break;
-                }
-            }
+            && (target != this.headScroller || target != this.footScroller)) {
+            this.handleScrollTopChange(scrollTop);
         }
 
         this.lastScrollTop = scrollTop;
@@ -531,16 +497,8 @@ class TableContent extends PureComponent {
             scrollTop = wd;
         }
 
-        if (this.leftBodyScroller && this.leftBodyScroller !== target) {
-            this.leftBodyScroller.scrollTop = scrollTop;
-        }
-
-        if (this.centerBodyScroller && this.centerBodyScroller !== target) {
-            this.centerBodyScroller.scrollTop = scrollTop;
-        }
-
-        if (this.rightBodyScroller && this.rightBodyScroller !== target) {
-            this.rightBodyScroller.scrollTop = scrollTop;
+        if (this.bodyScroller && this.bodyScroller !== target) {
+            this.bodyScroller.scrollTop = scrollTop;
         }
 
     };
@@ -689,12 +647,9 @@ class TableContent extends PureComponent {
                                  onScroll={this.handleScroll}
                                  onWheel={this.handleWheel}
                                  onRequestColumnsSpan={this.handleRequestColumnsSpan}
-                                 onGetHeadScrollerEl={el =>
-                                     this.handleGetScrollerEl(el, HorizontalAlign.CENTER, TableFragment.HEAD)}
-                                 onGetBodyScrollerEl={el =>
-                                     this.handleGetScrollerEl(el, HorizontalAlign.CENTER, TableFragment.BODY)}
-                                 onGetFootScrollerEl={el =>
-                                     this.handleGetScrollerEl(el, HorizontalAlign.CENTER, TableFragment.FOOT)}/>
+                                 onGetHeadScrollerEl={el => this.handleGetScrollerEl(el, TableFragment.HEAD)}
+                                 onGetBodyScrollerEl={el => this.handleGetScrollerEl(el, TableFragment.BODY)}
+                                 onGetFootScrollerEl={el => this.handleGetScrollerEl(el, TableFragment.FOOT)}/>
 
                 </div>
 
