@@ -288,7 +288,7 @@ class Table extends Component {
         }, 0);
     };
 
-    handleColumnResize = (columnKey, width) => {
+    handleColumnMeasure = (columnKey, width) => {
         const {columnsWidth} = this.state;
         columnsWidth.set(columnKey, width);
         this.setState({
@@ -362,7 +362,7 @@ class Table extends Component {
                          onColumnsWidthChange={this.handleColumnsWidthChange}
                          onColumnResizeStart={this.handleColumnResizeStart}
                          onColumnResizeEnd={this.handleColumnResizeEnd}
-                         onColumnResize={this.handleColumnResize}/>
+                         onColumnMeasure={this.handleColumnMeasure}/>
 
                 {/* table pagination */}
                 {
