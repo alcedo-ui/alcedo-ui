@@ -31,10 +31,7 @@ class ColGroup extends Component {
 
     getColStyle = column => {
 
-        const {
-                columnKeyField, columnsWidth, useColumnsWidth,
-                isColumnResizable, defaultColumnWidth, minColumnWidth
-            } = this.props,
+        const {columnKeyField, columnsWidth, useColumnsWidth, defaultColumnWidth} = this.props,
             result = {};
 
         // width
