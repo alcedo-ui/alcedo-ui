@@ -47,7 +47,8 @@ class Tr extends Component {
         const {columnKeyField, columnsWidth, defaultColumnWidth} = this.props;
         return {
             ...column?.bodyStyle,
-            ...TC.getStickyColumnStyle(column, colIndex, columnsSpan, columnKeyField, columnsWidth, defaultColumnWidth),
+            ...TC.getStickyColumnStyle(TableFragment.BODY, column?.fixed, colIndex,
+                columnsSpan, columnKeyField, columnsWidth, defaultColumnWidth),
             ...this.getDynamicRenderStyle()
         };
     };
