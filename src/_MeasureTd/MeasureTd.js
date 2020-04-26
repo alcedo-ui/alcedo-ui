@@ -23,7 +23,7 @@ class MeasureTd extends Component {
         this.td = createRef();
         this.tdEl = null;
 
-        this.width = null;
+        this.lastWidth = null;
 
     }
 
@@ -48,9 +48,9 @@ class MeasureTd extends Component {
 
         const width = this.tdEl.offsetWidth;
 
-        if (width !== this.width) {
+        if (width !== this.lastWidth) {
 
-            this.width = width;
+            this.lastWidth = width;
 
             const {column, columnKeyField, onResize} = this.props;
             onResize && onResize((columnKeyField && column[columnKeyField]) || column, width);
