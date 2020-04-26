@@ -72,7 +72,7 @@ class BaseTable extends Component {
                 ignoreColumnSpan, hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
                 sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, isClickSorting,
                 onSortChange, onExpandChange, onRequestColumnsSpan, onHeadClick, onFootClick,
-                onColumnsWidthChange, onColumnResizeStart, onColumnResizeEnd, onColumnResize,
+                onColumnsWidthChange, onColumnResizeStart, onColumnResizeEnd, onColumnMeasure,
 
                 // not passing down these props
                 columns: cols,
@@ -160,7 +160,7 @@ class BaseTable extends Component {
                                scrollBuffer={scrollBuffer}
                                onExpandChange={onExpandChange}
                                onRequestColumnsSpan={onRequestColumnsSpan}
-                               onColumnResize={onColumnResize}/>
+                               onColumnMeasure={onColumnMeasure}/>
                         :
                         null
                 }
@@ -517,7 +517,7 @@ BaseTable.propTypes = {
     onColumnsWidthChange: PropTypes.func,
     onColumnResizeStart: PropTypes.func,
     onColumnResizeEnd: PropTypes.func,
-    onColumnResize: PropTypes.func
+    onColumnMeasure: PropTypes.func
 
 };
 
