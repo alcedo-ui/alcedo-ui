@@ -15,11 +15,13 @@ import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
 import TableFragment from '../_statics/TableFragment';
+import Direction from '../_statics/Direction';
 
 // Vendors
 import Util from '../_vendors/Util';
 import TC from '../_vendors/TableCalculation';
 import classNames from 'classnames';
+import ScrollBar from '../_vendors/ScrollBar';
 
 class Thead extends Component {
 
@@ -60,13 +62,14 @@ class Thead extends Component {
 
         const {
 
-            className, style, columns, columnsWidth, data, disabled, ignoreColumnSpan,
-            sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, defaultColumnWidth,
-            onSortChange,
+                className, style, columns, columnsWidth, data, disabled, ignoreColumnSpan,
+                sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, defaultColumnWidth,
+                onSortChange,
 
-            ...restProps
+                ...restProps
 
-        } = this.props;
+            } = this.props,
+            verticalScrollBarSize = ScrollBar.getSize(Direction.VERTICAL);
 
         return (
             <thead className={className}
@@ -76,6 +79,7 @@ class Thead extends Component {
                 {
                     columns && columns.map((row, rowIndex) => row ?
                         <tr key={rowIndex}>
+
                             {
                                 (
                                     this.getColumnsSpan(row)?.map(({column, path, span}, colIndex, columnsSpan) => column ?
@@ -118,6 +122,16 @@ class Thead extends Component {
                                     )
                                 ) || null
                             }
+
+                            {
+                                verticalScrollBarSize > 0 && rowIndex === 0 ?
+                                    <Th className="scroll-bar-th"
+                                        style={{width: verticalScrollBarSize}}
+                                        rowSpan={columns.length}/>
+                                    :
+                                    null
+                            }
+
                         </tr>
                         :
                         null
