@@ -12,6 +12,7 @@ import SortingType from '../_statics/SortingType';
 
 // Vendors
 import Util from '../_vendors/Util';
+import Event from '../_vendors/Event';
 
 class MeasureTd extends Component {
 
@@ -27,12 +28,20 @@ class MeasureTd extends Component {
     }
 
     componentDidMount() {
+
+        Event.addEvent(window, 'resize', this.handleReize);
+
         this.tdEl = this.td?.current;
         this.handleReize();
+
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         this.handleReize();
+    }
+
+    componentWillUnmount() {
+        Event.removeEvent(window, 'resize', this.handleReize);
     }
 
     handleReize = () => {
