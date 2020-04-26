@@ -15,11 +15,13 @@ import HorizontalAlign from '../_statics/HorizontalAlign';
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
+import Direction from '../_statics/Direction';
 
 // Vendors
 import classNames from 'classnames';
 import Util from '../_vendors/Util';
 import TC from '../_vendors/TableCalculation';
+import ScrollBar from '../_vendors/ScrollBar';
 
 class Tfoot extends Component {
 
@@ -59,7 +61,8 @@ class Tfoot extends Component {
                 className, data, disabled, ignoreColumnSpan, scrollEl,
                 onCellClick
             } = this.props,
-            columnsSpan = this.getColumnsSpan();
+            columnsSpan = this.getColumnsSpan(),
+            verticalScrollBarSize = ScrollBar.getSize(Direction.VERTICAL);
 
         return (
             <tfoot className={classNames({
@@ -70,6 +73,7 @@ class Tfoot extends Component {
                    disabled={disabled}
                    onClick={this.handleClick}>
                 <tr>
+
                     {
                         columnsSpan && columnsSpan.map(({column, span}, colIndex) =>
                             <Tf key={colIndex}
@@ -99,6 +103,15 @@ class Tfoot extends Component {
                                 onCellClick={onCellClick}/>
                         )
                     }
+
+                    {
+                        verticalScrollBarSize > 0 ?
+                            <Tf className="scroll-bar-tf"
+                                style={{width: verticalScrollBarSize}}/>
+                            :
+                            null
+                    }
+
                 </tr>
             </tfoot>
         );
