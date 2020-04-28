@@ -8,23 +8,32 @@
 
     .react-resizable-handle {
         position: absolute;
-        width: 4px;
-        height: 100%;
         top: 0;
-        right: -2px;
+        right: -3px;
+        width: 8px;
+        height: 100%;
+        background: transparent;
         cursor: col-resize;
         z-index: 1;
 
-        &:hover {
-            background: $theme-highlight;
+        &::after {
+            content: "";
+            display: block;
+            width: 3px;
+            height: 100%;
+
+        }
+
+        &:hover::after {
+            border-right: 2px solid $theme-highlight;
         }
     }
 
-    &.activated .react-resizable-handle {
-        background: $theme-highlight;
+    &.activated .react-resizable-handle::after {
+        border-right: 2px solid $theme-highlight;
     }
 
-    &.deactivated .react-resizable-handle:hover {
-        background: unset;
+    &.deactivated .react-resizable-handle::after {
+        border-right: none;
     }
 }
