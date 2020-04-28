@@ -246,8 +246,6 @@ class Table extends Component {
      */
     handleColumnsWidthChange = (resizingColumn, width, e) => {
 
-        console.log('handleColumnsWidthChange::', width);
-
         const {columnKeyField} = this.props,
             {columns, columnsWidth} = this.state;
         if (!columns || columns.length < 1 || !resizingColumn) {
