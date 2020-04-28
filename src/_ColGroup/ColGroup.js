@@ -34,10 +34,6 @@ class ColGroup extends Component {
         const {columnKeyField, columnsWidth, useColumnsWidth, defaultColumnWidth} = this.props,
             result = {};
 
-        if (column.key === 'id') {
-            console.log('ColGroup::', columnsWidth.get('id'));
-        }
-
         // width
         result.width = useColumnsWidth ?
             (columnsWidth && columnsWidth.get((columnKeyField && column[columnKeyField]) || column))
