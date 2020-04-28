@@ -16,6 +16,7 @@ import SortingType from '../_statics/SortingType';
 // Vendors
 import isEmpty from 'lodash/isEmpty';
 import Util from '../_vendors/Util';
+import TC from '../_vendors/TableCalculation';
 
 class ColGroup extends Component {
 
@@ -36,7 +37,7 @@ class ColGroup extends Component {
 
         // width
         result.width = useColumnsWidth ?
-            (columnsWidth && columnsWidth.get((columnKeyField && column[columnKeyField]) || column))
+            (columnsWidth && columnsWidth.get(TC.getColumnKey(column, columnKeyField)))
             :
             (column.width || defaultColumnWidth);
 
