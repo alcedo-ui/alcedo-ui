@@ -64,7 +64,7 @@ class BaseTable extends Component {
 
                 className, style, data, dynamicRenderData, value, idField, fragment, scrollEl, hasVerticalScroll,
                 headColumns, bodyColumns, columnKeyField, columnsWidth, useColumnsWidth,
-                selectMode, selectAllMode, expandRows, resizingColumnPath,
+                selectMode, selectAllMode, expandRows, resizingColumn,
                 useDynamicRender, scrollHeight, rowHeight, scrollBuffer,
                 isColumnResizable, defaultColumnWidth, minColumnWidth, maxColumnWidth,
                 isHeadHidden, isBodyHidden, isFootHidden, hasFixedRightColumn,
@@ -125,7 +125,7 @@ class BaseTable extends Component {
                                defaultColumnWidth={defaultColumnWidth}
                                minColumnWidth={minColumnWidth}
                                maxColumnWidth={maxColumnWidth}
-                               resizingColumnPath={resizingColumnPath}
+                               resizingColumn={resizingColumn}
                                onHeadClick={onHeadClick}
                                onSortChange={onSortChange}
                                onRequestColumnsSpan={onRequestColumnsSpan}
@@ -502,7 +502,7 @@ BaseTable.propTypes = {
     defaultColumnWidth: PropTypes.number,
     minColumnWidth: PropTypes.number,
     maxColumnWidth: PropTypes.number,
-    resizingColumnPath: PropTypes.array,
+    resizingColumn: PropTypes.object,
 
     /**
      * callback
