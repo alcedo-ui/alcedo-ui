@@ -31,6 +31,12 @@
         }
     }
 
+    .td-column {
+        display: inline-block;
+        max-width: 100%;
+        vertical-align: middle;
+    }
+
     &.empty {
         text-align: center;
         color: $theme-description;
@@ -73,15 +79,12 @@
         text-align: right;
     }
 
-    &.no-wrap > .td-column {
-        display: inline-block;
-        width: 100%;
+    &.no-wrap .td-column {
         overflow: hidden;
         white-space: nowrap;
         word-wrap: normal;
         word-break: keep-all;
         text-overflow: ellipsis;
-        vertical-align: middle;
     }
 
     &.sorting {
