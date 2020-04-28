@@ -35,7 +35,7 @@ class ResizableTh extends Component {
 
     render() {
 
-        const {children, resizable, activated, deactivated, width} = this.props;
+        const {children, resizable, activated, deactivated, width, minWidth, maxWidth} = this.props;
 
         return resizable ?
             <Resizable className={classNames('resizable-th', {
@@ -44,6 +44,8 @@ class ResizableTh extends Component {
             })}
                        width={width}
                        height={0}
+                       minConstraints={[minWidth, null]}
+                       maxConstraints={[maxWidth, null]}
                        onResize={this.handleResize}
                        onResizeStart={this.handleResizeStart}
                        onResizeStop={this.handleResizeStop}>
@@ -53,6 +55,7 @@ class ResizableTh extends Component {
             children;
 
     }
+
 }
 
 ResizableTh.propTypes = {
