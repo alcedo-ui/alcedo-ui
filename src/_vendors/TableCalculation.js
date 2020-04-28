@@ -31,6 +31,10 @@ function calcSpan(fragment, column, data, colIndex, rowIndex) {
         +span;
 }
 
+function getColumnKey(column, columnKeyField) {
+    return (column && columnKeyField && column[columnKeyField]) || column;
+}
+
 /**
  * get columns span
  * @param fragment
@@ -58,7 +62,7 @@ function getColumnsSpan(fragment, columns, data, rowIndex) {
             continue;
         }
 
-        const {column, path} = columns[colIndex],
+        const column = columns[colIndex],
             span = calcSpan(fragment, columns[colIndex], data, colIndex, rowIndex);
 
         if (span && span > 1) {
@@ -67,7 +71,6 @@ function getColumnsSpan(fragment, columns, data, rowIndex) {
 
         result.push({
             column,
-            path,
             span
         });
 
@@ -106,7 +109,7 @@ function getAdvancedColumnsSpan(originColumns, fixed, fragment, columns, data, r
             continue;
         }
 
-        const {column, path} = columns[colIndex];
+        const column = columns[colIndex];
 
         if (column) {
 
@@ -131,7 +134,6 @@ function getAdvancedColumnsSpan(originColumns, fixed, fragment, columns, data, r
 
         result.push({
             column,
-            path,
             span: span > 1 ? span : null
         });
 
@@ -171,7 +173,7 @@ function sortTableData(data, sorting, sortFunc) {
 
 function hasRenderer(columns, fragment) {
     return columns && columns.length > 0 && fragment ?
-        columns.some(config => config && config.column && config.column[`${fragment}Renderer`])
+        columns.some(column => column?.[`${fragment}Renderer`])
         :
         false;
 }
@@ -456,15 +458,8 @@ function getHeadColumns(columns) {
         children: columns
     }, maxDepth);
 
-    if (!formatedColumns) {
-        return columns.map((column, index) => ({
-            column,
-            path: [index]
-        }));
-    }
-
     const result = [];
-    Util.postOrderTraverse({children: formatedColumns}, (column, depth, parent, path) => {
+    Util.postOrderTraverse({children: formatedColumns}, (column, depth) => {
 
         const index = depth - 1;
 
@@ -474,10 +469,7 @@ function getHeadColumns(columns) {
                 result[index] = [];
             }
 
-            result[index].push({
-                column,
-                path
-            });
+            result[index].push(column);
 
         }
 
@@ -494,12 +486,9 @@ function getBodyColumns(columns) {
     }
 
     const result = [];
-    Util.postOrderTraverse({children: columns}, (column, depth, parent, path) => {
+    Util.postOrderTraverse({children: columns}, column => {
         if (column && (!column.children || column.children.length < 1)) {
-            result.push({
-                column,
-                path
-            });
+            result.push(column);
         }
     });
 
@@ -585,18 +574,18 @@ function getRawTableData(data) {
 
 }
 
-function getColumnByPath(columns, path) {
-
-    if (!columns || columns.length < 1 || !path || path.length < 1) {
-        return null;
-    }
-
-    let result = {children: columns};
-    path.forEach(pathIndex => result = result.children[pathIndex]);
-
-    return result;
-
-}
+// function getColumnByPath(columns, path) {
+//
+//     if (!columns || columns.length < 1 || !path || path.length < 1) {
+//         return null;
+//     }
+//
+//     let result = {children: columns};
+//     path.forEach(pathIndex => result = result.children[pathIndex]);
+//
+//     return result;
+//
+// }
 
 function getTableWidth(columnsWidth, defaultColumnWidth = 100) {
 
@@ -615,7 +604,8 @@ function getTableWidth(columnsWidth, defaultColumnWidth = 100) {
 
 function getColumnsSpanWidth(columnsSpan, columnKeyField = 'key', columnsWidth, defaultColumnWidth = 100) {
     return columnsSpan && columnsWidth ?
-        columnsSpan.reduce((a, b) => a + (columnsWidth.get(b?.column[columnKeyField]) || defaultColumnWidth), 0)
+        columnsSpan.reduce((a, b) =>
+            a + (columnsWidth.get(getColumnKey(b?.column, columnKeyField)) || defaultColumnWidth), 0)
         :
         0;
 }
@@ -644,6 +634,7 @@ function getStickyColumnStyle(fragment, fixed, colIndex, columnsSpan,
 
 export default {
     calcSpan,
+    getColumnKey,
     getColumnsSpan,
     // fixColumnSpan,
     getAdvancedColumnsSpan,
@@ -671,7 +662,7 @@ export default {
     handleNoWrap,
     handlePage,
     getRawTableData,
-    getColumnByPath,
+    // getColumnByPath,
     getTableWidth,
     getColumnsSpanWidth,
     getStickyColumnStyle
