@@ -602,29 +602,29 @@ function getTableWidth(columnsWidth, defaultColumnWidth = 100) {
 
 }
 
-function getColumnsSpanWidth(columnsSpan, columnKeyField = 'key', columnsWidth, defaultColumnWidth = 100) {
-    return columnsSpan && columnsWidth ?
-        columnsSpan.reduce((a, b) =>
-            a + (columnsWidth.get(getColumnKey(b?.column, columnKeyField)) || defaultColumnWidth), 0)
+function getColumnsSpanWidth(columns, columnKeyField = 'key', columnsWidth, defaultColumnWidth = 100) {
+    return columns && columnsWidth ?
+        columns.reduce((sum, column) =>
+            sum + (columnsWidth.get(getColumnKey(column, columnKeyField)) || defaultColumnWidth), 0)
         :
         0;
 }
 
-function getStickyColumnStyle(fragment, fixed, colIndex, columnsSpan,
-    columnKeyField = 'key', columnsWidth, defaultColumnWidth, hasVerticalScroll) {
+function getStickyColumnStyle(fixed, colIndex, columns, columnKeyField = 'key',
+    columnsWidth, defaultColumnWidth, hasVerticalScroll) {
 
     const result = {};
 
     if (fixed === HorizontalAlign.LEFT) {
         result.position = 'sticky';
         result.left =
-            getColumnsSpanWidth(columnsSpan.slice(0, colIndex), columnKeyField, columnsWidth, defaultColumnWidth);
+            getColumnsSpanWidth(columns.slice(0, colIndex), columnKeyField, columnsWidth, defaultColumnWidth);
     }
 
     if (fixed === HorizontalAlign.RIGHT) {
         result.position = 'sticky';
         result.right =
-            getColumnsSpanWidth(columnsSpan.slice(colIndex + 1), columnKeyField, columnsWidth, defaultColumnWidth)
+            getColumnsSpanWidth(columns.slice(colIndex + 1), columnKeyField, columnsWidth, defaultColumnWidth)
             + (hasVerticalScroll ? ScrollBar.getSize(Direction.VERTICAL) : 0);
     }
 
