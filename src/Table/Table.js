@@ -23,7 +23,6 @@ import debounce from 'lodash/debounce';
 import Util from '../_vendors/Util';
 import ComponentUtil from '../_vendors/ComponentUtil';
 import TC from '../_vendors/TableCalculation';
-import Valid from '../_vendors/Valid';
 
 class Table extends Component {
 
@@ -297,7 +296,7 @@ class Table extends Component {
             return;
         }
 
-        columnsWidth.set(columnKey, Valid.range(width, minColumnWidth));
+        columnsWidth.set(columnKey, width);
         this.setState({
             columnsWidth
         });
