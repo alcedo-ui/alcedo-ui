@@ -36,7 +36,7 @@ class MeasureTr extends Component {
         return columns ?
             <tr className="measure-tr">
                 {
-                    columns.map(({column}, index) =>
+                    columns.map((column, index) =>
                         <MeasureTd key={index}
                                    column={column}
                                    columnKeyField={columnKeyField}
