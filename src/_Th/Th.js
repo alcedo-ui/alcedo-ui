@@ -146,9 +146,7 @@ class Th extends Component {
 
                     <span className="th-column">
 
-                        <span className={classNames('th-column-title', {
-                            'no-wrap': noWrap
-                        })}
+                        <span className="th-column-title"
                               title={this.handleTitle()?.toString() || null}>
                             {this.handleRender()}
                         </span>

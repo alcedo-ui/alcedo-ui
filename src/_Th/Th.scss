@@ -12,7 +12,8 @@
 
     .th-column {
         box-sizing: content-box;
-        display: inline-block;
+        display: inline-flex;
+        max-width: 100%;
         text-align: left;
         color: $theme-field;
         font-weight: 700;
@@ -21,14 +22,8 @@
         overflow: hidden;
 
         .th-column-title {
-            display: table-cell;
-            vertical-align: middle;
-
-            &.no-wrap {
-                white-space: nowrap;
-                word-wrap: normal;
-                word-break: keep-all;
-            }
+            display: inline-block;
+            max-width: 100%;
         }
     }
 
@@ -84,10 +79,12 @@
         cursor: pointer;
     }
 
-    &.no-wrap {
+    &.no-wrap .th-column-title {
+        overflow: hidden;
         white-space: nowrap;
         word-wrap: normal;
         word-break: keep-all;
+        text-overflow: ellipsis;
     }
 
     &.scroll-bar-th {
