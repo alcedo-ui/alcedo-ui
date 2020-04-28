@@ -19,7 +19,6 @@ import SortingType from '../_statics/SortingType';
 
 // Vendors
 import classNames from 'classnames';
-import cloneDeep from 'lodash/cloneDeep';
 import debounce from 'lodash/debounce';
 import Util from '../_vendors/Util';
 import ComponentUtil from '../_vendors/ComponentUtil';
@@ -70,7 +69,7 @@ class Table extends Component {
             isPingRight: false,
             scrollTop: 0,
             resizing: false,
-            resizingColumnPath: null
+            resizingColumn: null
         };
 
     }
@@ -245,55 +244,65 @@ class Table extends Component {
      * @param path
      * @param width
      */
-    handleColumnsWidthChange = (path, width, e) => {
+    handleColumnsWidthChange = (resizingColumn, width, e) => {
 
-        const {columns} = this.state;
+        console.log('handleColumnsWidthChange::', width);
 
-        if (!columns || columns.length < 1 || !path || path.length < 1) {
+        const {columnKeyField} = this.props,
+            {columns, columnsWidth} = this.state;
+        if (!columns || columns.length < 1 || !resizingColumn) {
             return;
         }
 
-        const nextColumns = cloneDeep(columns),
-            column = TC.getColumnByPath(nextColumns, path);
-        if (column) {
-            column.width = width;
-        }
+        const nextColumns = [...columns];
+
+        resizingColumn.width = width;
+        columnsWidth.set(TC.getColumnKey(resizingColumn, columnKeyField), width);
 
         this.setState({
-            columns: nextColumns
+            columns: nextColumns,
+            columnsWidth
         }, () => {
             const {onColumnsWidthChange} = this.props;
-            onColumnsWidthChange && onColumnsWidthChange(column, width, path, e);
+            onColumnsWidthChange && onColumnsWidthChange(resizingColumn, width, e);
         });
 
     };
 
-    handleColumnResizeStart = (path, width, e) => {
+    handleColumnResizeStart = (resizingColumn, width, e) => {
         this.setState({
-            resizingColumnPath: path
+            resizingColumn
         }, () => {
-            const {columns, onColumnResizeStart} = this.props;
-            onColumnResizeStart && onColumnResizeStart(TC.getColumnByPath(columns, path), width, path, e);
+            const {onColumnResizeStart} = this.props;
+            onColumnResizeStart && onColumnResizeStart(resizingColumn, width, e);
         });
     };
 
-    handleColumnResizeEnd = (path, width, e) => {
+    handleColumnResizeEnd = (resizingColumn, width, e) => {
         setTimeout(() => {
             this.setState({
-                resizingColumnPath: null
+                resizingColumn: null
             }, () => {
                 const {onColumnResizeEnd} = this.props;
-                onColumnResizeEnd && onColumnResizeEnd(TC.getColumnByPath(columns, path), width, path, e);
+                onColumnResizeEnd && onColumnResizeEnd(resizingColumn, width, e);
             });
         }, 0);
     };
 
     handleColumnMeasure = (columnKey, width) => {
-        const {columnsWidth} = this.state;
+
+        const {columnKeyField} = this.props,
+            {resizingColumn, columnsWidth} = this.state;
+
+        if (columnKey == TC.getColumnKey(resizingColumn, columnKeyField)) {
+            return;
+        }
+
         columnsWidth.set(columnKey, width);
         this.setState({
             columnsWidth
         });
+
     };
 
     render() {
@@ -319,7 +328,7 @@ class Table extends Component {
             } = this.props,
             {
                 columns, columnsWidth, sorting, page, pageSize, expandRows, value,
-                isPingLeft, isPingRight, scrollTop, resizing, resizingColumnPath
+                isPingLeft, isPingRight, scrollTop, resizing, resizingColumn
             } = this.state;
 
         return (
@@ -348,7 +357,7 @@ class Table extends Component {
                          scrollTop={scrollTop}
                          columnsWidth={columnsWidth}
                          resizing={resizing}
-                         resizingColumnPath={resizingColumnPath}
+                         resizingColumn={resizingColumn}
                          selectMode={selectMode}
                          onChange={this.handleChange}
                          onSortChange={this.handleSortChange}
@@ -402,6 +411,7 @@ class Table extends Component {
         );
 
     }
+
 }
 
 Table.propTypes = {
