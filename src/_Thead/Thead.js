@@ -65,7 +65,7 @@ class Thead extends Component {
 
                 className, style, columns, columnsWidth, data, disabled, ignoreColumnSpan,
                 hasFixedRightColumn, hasVerticalScroll, sorting,
-                defaultSortingType, sortingAscIconCls, sortingDescIconCls, defaultColumnWidth, columnKeyField,
+                defaultSortingType, sortingAscIconCls, sortingDescIconCls, defaultColumnWidth,
                 onSortChange,
 
                 ...restProps
@@ -92,11 +92,10 @@ class Thead extends Component {
 
                                 {
                                     columnsSpan ?
-                                        columnsSpan.map(({column, path, span}, colIndex) => column ?
+                                        columnsSpan.map(({column, span}, colIndex) => column ?
                                             <Th {...restProps}
                                                 key={colIndex}
                                                 column={column}
-                                                path={path}
                                                 className={classNames(column.headClassName, {
                                                     'fixed-left': column.fixed === HorizontalAlign.LEFT,
                                                     'last-fixed-left': column.fixed === HorizontalAlign.LEFT
@@ -420,7 +419,7 @@ Thead.propTypes = {
     defaultColumnWidth: PropTypes.number,
     minColumnWidth: PropTypes.number,
     maxColumnWidth: PropTypes.number,
-    resizingColumnPath: PropTypes.array,
+    resizingColumn: PropTypes.object,
 
     onHeadClick: PropTypes.func,
     onSortChange: PropTypes.func,
