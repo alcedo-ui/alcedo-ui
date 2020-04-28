@@ -64,7 +64,7 @@ class Thead extends Component {
         const {
 
                 className, style, columns, columnsWidth, data, disabled, ignoreColumnSpan,
-                hasFixedRightColumn, hasVerticalScroll, sorting,
+                hasFixedRightColumn, hasVerticalScroll, sorting, columnKeyField,
                 defaultSortingType, sortingAscIconCls, sortingDescIconCls, defaultColumnWidth,
                 onSortChange,
 
@@ -96,16 +96,22 @@ class Thead extends Component {
                                             <Th {...restProps}
                                                 key={colIndex}
                                                 column={column}
+                                                columnKeyField={columnKeyField}
                                                 className={classNames(column.headClassName, {
                                                     'fixed-left': column.fixed === HorizontalAlign.LEFT,
                                                     'last-fixed-left': column.fixed === HorizontalAlign.LEFT
-                                                        && columnsSpan?.[colIndex + 1]?.column?.fixed !== HorizontalAlign.LEFT,
+                                                        && columnsSpan?.[colIndex + 1]?.column?.fixed
+                                                        !== HorizontalAlign.LEFT,
                                                     'fixed-right': column.fixed === HorizontalAlign.RIGHT,
                                                     'first-fixed-right': column.fixed === HorizontalAlign.RIGHT
-                                                        && columnsSpan?.[colIndex - 1]?.column?.fixed !== HorizontalAlign.RIGHT
+                                                        && columnsSpan?.[colIndex - 1]?.column?.fixed
+                                                        !== HorizontalAlign.RIGHT
                                                 })}
                                                 style={this.getStyle(column, colIndex, row)}
-                                                width={(columnsWidth && columnsWidth.get(column)) || defaultColumnWidth}
+                                                width={(
+                                                    columnsWidth
+                                                    && columnsWidth.get(TC.getColumnKey(column, columnKeyField))
+                                                ) || defaultColumnWidth}
                                                 data={data}
                                                 title={column.headTitle}
                                                 renderer={column.headRenderer}
