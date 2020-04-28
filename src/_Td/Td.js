@@ -69,7 +69,7 @@ class Td extends Component {
                 colSpan={span || null}
                 title={this.handleTitle()?.toString() || null}
                 onClick={this.handleClick}>
-                <span>{this.handleRenderer()}</span>
+                <span className="td-column">{this.handleRenderer()}</span>
             </td>
         );
 

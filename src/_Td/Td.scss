@@ -73,7 +73,7 @@
         text-align: right;
     }
 
-    &.no-wrap > span {
+    &.no-wrap > .td-column {
         display: inline-block;
         width: 100%;
         overflow: hidden;
