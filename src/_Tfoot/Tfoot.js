@@ -42,12 +42,12 @@ class Tfoot extends Component {
             TC.getColumnsSpan(TableFragment.FOOT, columns, data);
     };
 
-    getStyle = (column, colIndex, columnsSpan) => {
-        const {columnKeyField, columnsWidth, defaultColumnWidth, hasVerticalScroll} = this.props;
+    getStyle = (column, colIndex) => {
+        const {columns, columnKeyField, columnsWidth, defaultColumnWidth, hasVerticalScroll} = this.props;
         return {
             ...column.footStyle,
-            ...TC.getStickyColumnStyle(TableFragment.FOOT, column?.fixed, colIndex,
-                columnsSpan, columnKeyField, columnsWidth, defaultColumnWidth, hasVerticalScroll)
+            ...TC.getStickyColumnStyle(column?.fixed, colIndex, columns,
+                columnKeyField, columnsWidth, defaultColumnWidth, hasVerticalScroll)
         };
     };
 
@@ -86,7 +86,7 @@ class Tfoot extends Component {
                                     'first-fixed-right': column.fixed === HorizontalAlign.RIGHT
                                         && columnsSpan?.[colIndex - 1]?.column?.fixed !== HorizontalAlign.RIGHT
                                 })}
-                                style={this.getStyle(column, colIndex, columnsSpan)}
+                                style={this.getStyle(column, colIndex)}
                                 colIndex={colIndex}
                                 data={data}
                                 title={column.footTitle}
