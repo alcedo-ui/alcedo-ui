@@ -1034,7 +1034,7 @@ TableContent.propTypes = {
     defaultColumnWidth: PropTypes.number,
     minColumnWidth: PropTypes.number,
     maxColumnWidth: PropTypes.number,
-    resizingColumnPath: PropTypes.array,
+    resizingColumn: PropTypes.object,
 
     /**
      * callback
