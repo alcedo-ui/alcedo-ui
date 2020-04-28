@@ -4,7 +4,6 @@
  */
 
 .base-table > tbody > tr {
-    box-sizing: border-box;
 
     &:hover td {
         background: theme-color-hover($theme-secondary);
