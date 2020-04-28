@@ -23,6 +23,7 @@ import debounce from 'lodash/debounce';
 import Util from '../_vendors/Util';
 import ComponentUtil from '../_vendors/ComponentUtil';
 import TC from '../_vendors/TableCalculation';
+import Valid from '../_vendors/Valid';
 
 class Table extends Component {
 
@@ -289,14 +290,14 @@ class Table extends Component {
 
     handleColumnMeasure = (columnKey, width) => {
 
-        const {columnKeyField} = this.props,
+        const {columnKeyField, minColumnWidth} = this.props,
             {resizingColumn, columnsWidth} = this.state;
 
         if (columnKey == TC.getColumnKey(resizingColumn, columnKeyField)) {
             return;
         }
 
-        columnsWidth.set(columnKey, width);
+        columnsWidth.set(columnKey, Valid.range(width, minColumnWidth));
         this.setState({
             columnsWidth
         });
