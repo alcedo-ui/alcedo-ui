@@ -238,7 +238,7 @@ class TableContent extends PureComponent {
                 key: 'table-multi-select-column',
                 fixed: (selectColumn && selectColumn.fixed) || columns[0].fixed,
                 align: (selectColumn && selectColumn.align) || HorizontalAlign.CENTER,
-                width: selectColumn?.width || 56,
+                width: selectColumn?.width || 64,
                 headClassName: classNames('table-select-th', selectColumn ? {
                     [selectColumn.headClassName]: selectColumn.headClassName
                 } : ''),
