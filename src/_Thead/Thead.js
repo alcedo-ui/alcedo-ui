@@ -45,12 +45,12 @@ class Thead extends Component {
 
     };
 
-    getStyle = (column, colIndex, columnsSpan) => {
+    getStyle = (column, colIndex, columns) => {
         const {columnKeyField, columnsWidth, defaultColumnWidth, hasVerticalScroll} = this.props;
         return {
             ...column.headStyle,
-            ...TC.getStickyColumnStyle(TableFragment.HEAD, column?.fixed, colIndex,
-                columnsSpan, columnKeyField, columnsWidth, defaultColumnWidth, hasVerticalScroll)
+            ...TC.getStickyColumnStyle(column?.fixed, colIndex, columns,
+                columnKeyField, columnsWidth, defaultColumnWidth, hasVerticalScroll)
         };
     };
 
