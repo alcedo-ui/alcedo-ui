@@ -564,7 +564,9 @@ class TableExamples extends Component {
                                    columns={this.columns}
                                    data={data}
                                    isColumnResizable={true}
-                                   isLayoutFixed={true}
+                                   scroll={{
+                                       width: 1000
+                                   }}
                                    onSortChange={this.handleSortChange}
                                    onPaginationChange={this.handlePaginationChange}
                                    onExpand={this.handleExpand}
