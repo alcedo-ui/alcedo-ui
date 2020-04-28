@@ -43,12 +43,6 @@
                 border-bottom: none
             }
         }
-
-        td.no-wrap > * {
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-        }
     }
 
     .loading-table-wrapper {

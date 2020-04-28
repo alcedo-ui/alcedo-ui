@@ -57,6 +57,7 @@ class TableExamples extends Component {
         }, {
             key: 'name',
             width: '20%',
+            minWidth: 64,
             noWrap: true,
             headRenderer: 'Name',
             headTitle: 'Name',
