@@ -43,12 +43,12 @@ class Tr extends Component {
             null;
     };
 
-    getTdStyle = (column, colIndex, columnsSpan) => {
-        const {columnKeyField, columnsWidth, defaultColumnWidth} = this.props;
+    getTdStyle = (column, colIndex) => {
+        const {columns, columnKeyField, columnsWidth, defaultColumnWidth} = this.props;
         return {
             ...column?.bodyStyle,
-            ...TC.getStickyColumnStyle(TableFragment.BODY, column?.fixed, colIndex,
-                columnsSpan, columnKeyField, columnsWidth, defaultColumnWidth),
+            ...TC.getStickyColumnStyle(column?.fixed, colIndex, columns,
+                columnKeyField, columnsWidth, defaultColumnWidth),
             ...this.getDynamicRenderStyle()
         };
     };
@@ -117,7 +117,7 @@ class Tr extends Component {
                                     'first-fixed-right': column.fixed === HorizontalAlign.RIGHT
                                         && columnsSpan?.[colIndex - 1]?.column?.fixed !== HorizontalAlign.RIGHT
                                 })}
-                                style={this.getTdStyle(column, colIndex, columnsSpan)}
+                                style={this.getTdStyle(column, colIndex)}
                                 rowIndex={rowIndex}
                                 colIndex={colIndex}
                                 data={data}
