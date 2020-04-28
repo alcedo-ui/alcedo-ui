@@ -73,11 +73,15 @@
         text-align: right;
     }
 
-    &.no-wrap {
+    &.no-wrap > span {
+        display: inline-block;
+        width: 100%;
+        overflow: hidden;
         white-space: nowrap;
         word-wrap: normal;
         word-break: keep-all;
         text-overflow: ellipsis;
+        vertical-align: middle;
     }
 
     &.sorting {
