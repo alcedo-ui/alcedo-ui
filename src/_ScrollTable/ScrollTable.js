@@ -200,8 +200,6 @@ class ScrollTable extends Component {
                                            bodyColumns={bodyColumns}
                                            hasFixedRightColumn={hasFixedRightColumn}
                                            isLayoutFixed={isLayoutFixed}
-                                           isHeadFixed={isHeadFixed}
-                                           isFootFixed={isFootFixed}
                                            isHeadHidden={isHeadHidden || isHeadFixed}
                                            isFootHidden={isFootHidden || isFootFixed}
                                            data={data}
