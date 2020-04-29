@@ -185,8 +185,8 @@ class TableContent extends PureComponent {
         }
 
         const {
-                selectTheme, selectMode, selectAllMode, selectColumn, data, disabled, value, idField, canBeExpanded,
-                expandIconCls, selectUncheckedIconCls, selectCheckedIconCls, selectIndeterminateIconCls
+                columnKeyField, selectTheme, selectMode, selectAllMode, selectColumn, data, disabled, value, idField,
+                canBeExpanded, expandIconCls, selectUncheckedIconCls, selectCheckedIconCls, selectIndeterminateIconCls
             } = this.props,
             firstColumn = TC.getFirstColumn(columns),
             result = [...columns];
@@ -235,7 +235,7 @@ class TableContent extends PureComponent {
         if (selectMode === SelectMode.MULTI_SELECT) {
             result.unshift({
                 ...selectColumn,
-                key: 'table-multi-select-column',
+                [columnKeyField]: 'table-multi-select-column',
                 fixed: (selectColumn && selectColumn.fixed) || columns[0].fixed,
                 align: (selectColumn && selectColumn.align) || HorizontalAlign.CENTER,
                 width: selectColumn?.width || 64,
