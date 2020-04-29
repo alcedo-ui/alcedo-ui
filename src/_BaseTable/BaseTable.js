@@ -63,9 +63,8 @@ class BaseTable extends Component {
         const {
 
                 className, style, data, dynamicRenderData, value, idField, scrollEl, hasVerticalScroll,
-                headColumns, bodyColumns, columnKeyField, columnsWidth, useColumnsWidth,
-                selectMode, selectAllMode, expandRows, resizingColumn,
-                useDynamicRender, scrollHeight, rowHeight, scrollBuffer,
+                headColumns, bodyColumns, columnKeyField, columnsWidth, useColumnsWidth, selectMode, selectAllMode,
+                expandRows, resizingColumn, useDynamicRender, scrollHeight, rowHeight, scrollBuffer,
                 isColumnResizable, defaultColumnWidth, minColumnWidth, maxColumnWidth,
                 isHeadHidden, isBodyHidden, isFootHidden, hasFixedRightColumn,
                 isLayoutFixed, ignoreColumnSpan, hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
