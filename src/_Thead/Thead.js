@@ -109,7 +109,7 @@ class Thead extends Component {
                                                 })}
                                                 style={this.getStyle(column, colIndex, row)}
                                                 width={(
-                                                    columnsWidth
+                                                    columnsWidth && columnKeyField
                                                     && columnsWidth.get(TC.getColumnKey(column, columnKeyField))
                                                 ) || defaultColumnWidth}
                                                 data={data}
