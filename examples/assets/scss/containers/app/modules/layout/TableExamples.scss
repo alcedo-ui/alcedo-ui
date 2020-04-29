@@ -10,6 +10,15 @@
         overflow: auto;
     }
 
+    .dynamic-width-cell-block {
+        box-sizing: border-box;
+        height: 24px;
+        line-height: 16px;
+        padding: 4px 8px;
+        background: $theme-secondary;
+        border-radius: 12px;
+    }
+
     .toolbar {
         @include float-fix;
         margin-bottom: 16px;

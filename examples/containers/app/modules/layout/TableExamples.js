@@ -47,10 +47,11 @@ class TableExamples extends Component {
 
         this.columns = [{
             key: 'id',
+            width: 64,
             noWrap: true,
             headRenderer: 'ID',
-            bodyRenderer: rowDate => rowDate[LOADING_SYMBOL] ?
-                <CircularLoading/> : rowDate.id,
+            bodyRenderer: rowData => rowData[LOADING_SYMBOL] ?
+                <CircularLoading/> : rowData.id,
             footRenderer: 'Total',
             sortable: true,
             sortingProp: 'id'
@@ -61,22 +62,23 @@ class TableExamples extends Component {
             noWrap: true,
             headRenderer: 'Name',
             headTitle: 'Name',
-            bodyRenderer: rowDate => rowDate.firstName && rowDate.lastName ?
-                `${rowDate.firstName} ${rowDate.lastName}` : null,
-            bodyTitle: rowDate => rowDate.firstName && rowDate.lastName ?
-                `${rowDate.firstName} ${rowDate.lastName}` : null,
+            bodyRenderer: rowData => rowData.firstName && rowData.lastName ?
+                `${rowData.firstName} ${rowData.lastName}` : null,
+            bodyTitle: rowData => rowData.firstName && rowData.lastName ?
+                `${rowData.firstName} ${rowData.lastName}` : null,
             sortable: true,
             sortingProp: 'firstName'
         }, {
             key: 'age',
+            width: 64,
             align: Table.Align.RIGHT,
             noWrap: true,
             headRenderer: 'Age',
-            bodyRenderer: rowDate => rowDate.age,
+            bodyRenderer: rowData => rowData.age,
             footRenderer: this.state.data && this.state.data.length > 0 ? () =>
                     <Fragment>
                         <div>Average</div>
-                        <div>{this.state.data.reduce((a, b) => a + b.age, 0) / this.state.data.length}</div>
+                        <div>{round(this.state.data.reduce((a, b) => a + b.age, 0) / this.state.data.length, 0)}</div>
                     </Fragment>
                 :
                 null,
@@ -88,44 +90,54 @@ class TableExamples extends Component {
             headAlign: Table.Align.CENTER,
             children: [{
                 key: 'otherColumn1',
-                width: 100,
+                width: 120,
                 noWrap: true,
                 headRenderer: 'Other Column 1',
-                bodyRenderer: rowDate => rowDate.other ? `${rowDate.other} 1` : ''
+                bodyRenderer: rowData => rowData.other ? `${rowData.other} 1` : ''
             }, {
                 key: 'otherColumn2',
-                width: 100,
+                width: 120,
                 noWrap: true,
                 headRenderer: 'Other Column 2',
-                bodyRenderer: rowDate => rowDate.other ? `${rowDate.other} 2` : ''
+                bodyRenderer: rowData => rowData.other ? `${rowData.other} 2` : ''
             }, {
                 key: 'otherColumn3',
-                width: 100,
+                width: 120,
                 noWrap: true,
                 headRenderer: 'Other Column 3',
-                bodyRenderer: rowDate => rowDate.other ? `${rowDate.other} 3` : ''
+                bodyRenderer: rowData => rowData.other ? `${rowData.other} 3` : ''
             }, {
                 key: 'otherColumn4',
-                width: 100,
+                width: 120,
                 noWrap: true,
                 headRenderer: 'Other Column 4',
-                bodyRenderer: rowDate => rowDate.other ? `${rowDate.other} 4` : ''
+                bodyRenderer: rowData => rowData.other ? `${rowData.other} 4` : ''
             }]
         }, {
-            key: 'deposit',
+            key: 'dynamicWidth',
+            width: data => data && data.length > 0 ?
+                Math.max(...data.map(item => item.dynamicWidth)) + 16
+                :
+                120,
             align: Table.Align.RIGHT,
             noWrap: true,
-            headRenderer: 'Deposit',
-            bodyRenderer: rowDate => rowDate.deposit ? `$${rowDate.deposit}` : '',
+            headRenderer: 'Dynamic Width',
+            bodyRenderer: rowData => rowData ?
+                <div className="dynamic-width-cell-block"
+                     style={{width: rowData.dynamicWidth || null}}>
+                    {rowData.dynamicWidth ? `Width: ${rowData.dynamicWidth}px` : ''}
+                </div>
+                :
+                null,
             footRenderer: this.state.data && this.state.data.length > 0 ? () =>
                     <Fragment>
                         <div>Sum</div>
-                        <div>${this.state.data.reduce((a, b) => round(a + b.deposit, 2), 0)}</div>
+                        <div>{this.state.data.reduce((a, b) => round(a + b.dynamicWidth), 0)}</div>
                     </Fragment>
                 :
                 null,
             sortable: true,
-            sortingProp: 'deposit'
+            sortingProp: 'dynamicWidth'
         }, {
             key: 'status',
             width: 64,
@@ -171,12 +183,12 @@ class TableExamples extends Component {
 
     getFixedColumns = () => {
         return this.columns.map(column => {
-            if (['ID', 'Name'].includes(column.headRenderer)) {
+            if (['id', 'name'].includes(column.key)) {
                 return {
                     fixed: Table.Fixed.LEFT,
                     ...column
                 };
-            } else if (['Status', 'Action'].includes(column.headRenderer)) {
+            } else if (['status', 'action'].includes(column.key)) {
                 return {
                     fixed: Table.Fixed.RIGHT,
                     ...column
@@ -197,7 +209,7 @@ class TableExamples extends Component {
                     firstName: `firstName${id}`,
                     lastName: `lastName${id}`,
                     age: Math.floor(Math.random() * 100),
-                    deposit: round(Math.random() * 1000000, 2),
+                    dynamicWidth: 100 + i * 5,
                     other: 'Other Content'
                 };
 
@@ -343,118 +355,119 @@ class TableExamples extends Component {
         return (
             <div className="example table-examples">
 
-                <h2 className="example-title">Table</h2>
+                {/*<h2 className="example-title">Table</h2>*/}
 
-                <p>
-                    <span>Table</span>
-                    &nbsp;are used to display data and to organize it.
-                </p>
+                {/*<p>*/}
+                {/*    <span>Table</span>*/}
+                {/*    &nbsp;are used to display data and to organize it.*/}
+                {/*</p>*/}
 
-                <h2 className="example-title">Examples</h2>
+                {/*<h2 className="example-title">Examples</h2>*/}
 
-                <Widget>
+                {/*<Widget>*/}
 
-                    <WidgetHeader className="example-header"
-                                  title="Normal"/>
+                {/*    <WidgetHeader className="example-header"*/}
+                {/*                  title="Normal"/>*/}
 
-                    <div className="widget-content">
-                        <div className="example-content">
+                {/*    <div className="widget-content">*/}
+                {/*        <div className="example-content">*/}
 
-                            <p>A simple <code>Table</code> example.</p>
+                {/*            <p>A simple <code>Table</code> example.</p>*/}
 
-                            <div className="example-table-wrapper">
-                                <Table className="example-table"
-                                       columns={this.columns}
-                                       data={data}
-                                       canBeExpanded={true}
-                                       scroll={{
-                                           width: 1000
-                                       }}
-                                       onSortChange={this.handleSortChange}
-                                       onPaginationChange={this.handlePaginationChange}
-                                       onExpand={this.handleExpand}
-                                       onCollapse={this.handleCollapse}
-                                       onChange={this.handleChange}
-                                       onSelect={this.handleSelect}
-                                       onSelectAll={this.handleSelectAll}
-                                       onDeselect={this.handleDeselect}
-                                       onDeselectAll={this.handleSeselectAll}/>
-                            </div>
+                {/*            <div className="example-table-wrapper">*/}
+                {/*                <Table className="example-table"*/}
+                {/*                       columns={this.columns}*/}
+                {/*                       data={data}*/}
+                {/*                       canBeExpanded={true}*/}
+                {/*                       scroll={{*/}
+                {/*                           width: 1200*/}
+                {/*                       }}*/}
+                {/*                       onSortChange={this.handleSortChange}*/}
+                {/*                       onPaginationChange={this.handlePaginationChange}*/}
+                {/*                       onExpand={this.handleExpand}*/}
+                {/*                       onCollapse={this.handleCollapse}*/}
+                {/*                       onChange={this.handleChange}*/}
+                {/*                       onSelect={this.handleSelect}*/}
+                {/*                       onSelectAll={this.handleSelectAll}*/}
+                {/*                       onDeselect={this.handleDeselect}*/}
+                {/*                       onDeselectAll={this.handleSeselectAll}/>*/}
+                {/*            </div>*/}
 
-                        </div>
-                    </div>
+                {/*        </div>*/}
+                {/*    </div>*/}
 
-                </Widget>
+                {/*</Widget>*/}
 
-                <Widget>
+                {/*<Widget>*/}
 
-                    <WidgetHeader className="example-header"
-                                  title="Fix Head & Foot"/>
+                {/*    <WidgetHeader className="example-header"*/}
+                {/*                  title="Fix Head & Foot"/>*/}
 
-                    <div className="widget-content">
-                        <div className="example-content">
+                {/*    <div className="widget-content">*/}
+                {/*        <div className="example-content">*/}
 
-                            <p>
-                                You can config <code>isHeadFixed</code> to fix the Head,&nbsp;
-                                and config <code>isFootFixed</code> to fix the Foot.
-                            </p>
+                {/*            <p>*/}
+                {/*                You can config <code>isHeadFixed</code> to fix the Head,&nbsp;*/}
+                {/*                and config <code>isFootFixed</code> to fix the Foot.*/}
+                {/*            </p>*/}
 
-                            <Table className="example-table"
-                                   columns={this.columns}
-                                   data={data}
-                                   isHeadFixed={true}
-                                   isFootFixed={true}
-                                   scroll={{
-                                       maxHeight: 320
-                                   }}
-                                   onSortChange={this.handleSortChange}
-                                   onPaginationChange={this.handlePaginationChange}
-                                   onExpand={this.handleExpand}
-                                   onCollapse={this.handleCollapse}
-                                   onChange={this.handleChange}
-                                   onSelect={this.handleSelect}
-                                   onSelectAll={this.handleSelectAll}
-                                   onDeselect={this.handleDeselect}
-                                   onDeselectAll={this.handleSeselectAll}/>
+                {/*            <Table className="example-table"*/}
+                {/*                   columns={this.columns}*/}
+                {/*                   data={data}*/}
+                {/*                   isHeadFixed={true}*/}
+                {/*                   isFootFixed={true}*/}
+                {/*                   scroll={{*/}
+                {/*                       width: 1200,*/}
+                {/*                       maxHeight: 320*/}
+                {/*                   }}*/}
+                {/*                   onSortChange={this.handleSortChange}*/}
+                {/*                   onPaginationChange={this.handlePaginationChange}*/}
+                {/*                   onExpand={this.handleExpand}*/}
+                {/*                   onCollapse={this.handleCollapse}*/}
+                {/*                   onChange={this.handleChange}*/}
+                {/*                   onSelect={this.handleSelect}*/}
+                {/*                   onSelectAll={this.handleSelectAll}*/}
+                {/*                   onDeselect={this.handleDeselect}*/}
+                {/*                   onDeselectAll={this.handleSeselectAll}/>*/}
 
-                        </div>
-                    </div>
+                {/*        </div>*/}
+                {/*    </div>*/}
 
-                </Widget>
+                {/*</Widget>*/}
 
-                <Widget>
+                {/*<Widget>*/}
 
-                    <WidgetHeader className="example-header"
-                                  title="Fix Columns"/>
+                {/*    <WidgetHeader className="example-header"*/}
+                {/*                  title="Fix Columns"/>*/}
 
-                    <div className="widget-content">
-                        <div className="example-content">
+                {/*    <div className="widget-content">*/}
+                {/*        <div className="example-content">*/}
 
-                            <p>
-                                You can config <code>fixed</code> in columns to fix the column&nbsp;
-                                <code>Left</code> or <code>Right</code>.
-                            </p>
+                {/*            <p>*/}
+                {/*                You can config <code>fixed</code> in columns to fix the column&nbsp;*/}
+                {/*                <code>Left</code> or <code>Right</code>.*/}
+                {/*            </p>*/}
 
-                            <Table className="example-table"
-                                   columns={this.getFixedColumns()}
-                                   data={data}
-                                   scroll={{
-                                       width: 1000
-                                   }}
-                                   onSortChange={this.handleSortChange}
-                                   onPaginationChange={this.handlePaginationChange}
-                                   onExpand={this.handleExpand}
-                                   onCollapse={this.handleCollapse}
-                                   onChange={this.handleChange}
-                                   onSelect={this.handleSelect}
-                                   onSelectAll={this.handleSelectAll}
-                                   onDeselect={this.handleDeselect}
-                                   onDeselectAll={this.handleSeselectAll}/>
+                {/*            <Table className="example-table"*/}
+                {/*                   columns={this.getFixedColumns()}*/}
+                {/*                   data={data}*/}
+                {/*                   scroll={{*/}
+                {/*                       width: 1200*/}
+                {/*                   }}*/}
+                {/*                   onSortChange={this.handleSortChange}*/}
+                {/*                   onPaginationChange={this.handlePaginationChange}*/}
+                {/*                   onExpand={this.handleExpand}*/}
+                {/*                   onCollapse={this.handleCollapse}*/}
+                {/*                   onChange={this.handleChange}*/}
+                {/*                   onSelect={this.handleSelect}*/}
+                {/*                   onSelectAll={this.handleSelectAll}*/}
+                {/*                   onDeselect={this.handleDeselect}*/}
+                {/*                   onDeselectAll={this.handleSeselectAll}/>*/}
 
-                        </div>
-                    </div>
+                {/*        </div>*/}
+                {/*    </div>*/}
 
-                </Widget>
+                {/*</Widget>*/}
 
                 <Widget>
 
@@ -497,7 +510,7 @@ class TableExamples extends Component {
                                                isHeadHidden={!headVisible}
                                                isFootHidden={!footVisible || !filteredLoadingData || filteredLoadingData.length < 1}
                                                scroll={{
-                                                   width: 1000,
+                                                   width: 1200,
                                                    height: filteredLoadingData && filteredLoadingData.length > 0 ? 320 : 0
                                                }}
                                                useFullPagination={true}
@@ -523,99 +536,99 @@ class TableExamples extends Component {
 
                 </Widget>
 
-                <Widget>
+                {/*<Widget>*/}
 
-                    <WidgetHeader className="example-header"
-                                  title="Dynamic Render"/>
+                {/*    <WidgetHeader className="example-header"*/}
+                {/*                  title="Dynamic Render"/>*/}
 
-                    <div className="widget-content">
-                        <div className="example-content">
+                {/*    <div className="widget-content">*/}
+                {/*        <div className="example-content">*/}
 
-                            <div className="loading-table-wrapper">
-                                <Table ref={this.tableRef}
-                                       className="example-table"
-                                       data={this.generateData(1000)}
-                                       columns={this.columns}
-                                       sorting={sorting}
-                                       selectMode={Table.SelectMode.MULTI_SELECT}
-                                       isHeadFixed={true}
-                                       isFootFixed={true}
-                                       isPaginated={false}
-                                       useDynamicRender={true}
-                                       scroll={{
-                                           width: 1000
-                                       }}
-                                       onSortChange={this.handleSortChange}
-                                       onExpand={this.handleExpand}
-                                       onCollapse={this.handleCollapse}
-                                       onChange={this.handleChange}
-                                       onSelect={this.handleSelect}
-                                       onSelectAll={this.handleSelectAll}
-                                       onDeselect={this.handleDeselect}
-                                       onDeselectAll={this.handleSeselectAll}/>
-                            </div>
+                {/*            <div className="loading-table-wrapper">*/}
+                {/*                <Table ref={this.tableRef}*/}
+                {/*                       className="example-table"*/}
+                {/*                       data={this.generateData(1000)}*/}
+                {/*                       columns={this.columns}*/}
+                {/*                       sorting={sorting}*/}
+                {/*                       selectMode={Table.SelectMode.MULTI_SELECT}*/}
+                {/*                       isHeadFixed={true}*/}
+                {/*                       isFootFixed={true}*/}
+                {/*                       isPaginated={false}*/}
+                {/*                       useDynamicRender={true}*/}
+                {/*                       scroll={{*/}
+                {/*                           width: 1200*/}
+                {/*                       }}*/}
+                {/*                       onSortChange={this.handleSortChange}*/}
+                {/*                       onExpand={this.handleExpand}*/}
+                {/*                       onCollapse={this.handleCollapse}*/}
+                {/*                       onChange={this.handleChange}*/}
+                {/*                       onSelect={this.handleSelect}*/}
+                {/*                       onSelectAll={this.handleSelectAll}*/}
+                {/*                       onDeselect={this.handleDeselect}*/}
+                {/*                       onDeselectAll={this.handleSeselectAll}/>*/}
+                {/*            </div>*/}
 
-                        </div>
-                    </div>
+                {/*        </div>*/}
+                {/*    </div>*/}
 
-                </Widget>
+                {/*</Widget>*/}
 
-                <Widget>
+                {/*<Widget>*/}
 
-                    <WidgetHeader className="example-header"
-                                  title="Resize Column Width"/>
+                {/*    <WidgetHeader className="example-header"*/}
+                {/*                  title="Resize Column Width"/>*/}
 
-                    <div className="widget-content">
-                        <div className="example-content">
-                            <Table className="example-table border-collapse"
-                                   columns={this.columns}
-                                   data={data}
-                                   isColumnResizable={true}
-                                   scroll={{
-                                       width: 1000
-                                   }}
-                                   onSortChange={this.handleSortChange}
-                                   onPaginationChange={this.handlePaginationChange}
-                                   onExpand={this.handleExpand}
-                                   onCollapse={this.handleCollapse}
-                                   onChange={this.handleChange}
-                                   onSelect={this.handleSelect}
-                                   onSelectAll={this.handleSelectAll}
-                                   onDeselect={this.handleDeselect}
-                                   onDeselectAll={this.handleSeselectAll}
-                                   onColumnsWidthChange={this.handleColumnsWidthChange}/>
-                        </div>
-                    </div>
+                {/*    <div className="widget-content">*/}
+                {/*        <div className="example-content">*/}
+                {/*            <Table className="example-table border-collapse"*/}
+                {/*                   columns={this.columns}*/}
+                {/*                   data={data}*/}
+                {/*                   isColumnResizable={true}*/}
+                {/*                   scroll={{*/}
+                {/*                       width: 1200*/}
+                {/*                   }}*/}
+                {/*                   onSortChange={this.handleSortChange}*/}
+                {/*                   onPaginationChange={this.handlePaginationChange}*/}
+                {/*                   onExpand={this.handleExpand}*/}
+                {/*                   onCollapse={this.handleCollapse}*/}
+                {/*                   onChange={this.handleChange}*/}
+                {/*                   onSelect={this.handleSelect}*/}
+                {/*                   onSelectAll={this.handleSelectAll}*/}
+                {/*                   onDeselect={this.handleDeselect}*/}
+                {/*                   onDeselectAll={this.handleSeselectAll}*/}
+                {/*                   onColumnsWidthChange={this.handleColumnsWidthChange}/>*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
 
-                </Widget>
+                {/*</Widget>*/}
 
-                <Widget>
+                {/*<Widget>*/}
 
-                    <WidgetHeader className="example-header"
-                                  title="No Data"/>
+                {/*    <WidgetHeader className="example-header"*/}
+                {/*                  title="No Data"/>*/}
 
-                    <div className="widget-content">
-                        <div className="example-content">
+                {/*    <div className="widget-content">*/}
+                {/*        <div className="example-content">*/}
 
-                            <p>No Data <code>Table</code> example.</p>
+                {/*            <p>No Data <code>Table</code> example.</p>*/}
 
-                            <Table className="example-table"
-                                   data={[]}
-                                   columns={this.columns}
-                                   selectMode={Table.SelectMode.MULTI_SELECT}
-                                   isFootHidden={true}
-                                   scroll={{
-                                       width: 1000
-                                   }}/>
+                {/*            <Table className="example-table"*/}
+                {/*                   data={[]}*/}
+                {/*                   columns={this.columns}*/}
+                {/*                   selectMode={Table.SelectMode.MULTI_SELECT}*/}
+                {/*                   isFootHidden={true}*/}
+                {/*                   scroll={{*/}
+                {/*                       width: 1200*/}
+                {/*                   }}/>*/}
 
-                        </div>
-                    </div>
+                {/*        </div>*/}
+                {/*    </div>*/}
 
-                </Widget>
+                {/*</Widget>*/}
 
-                <h2 className="example-title">Properties</h2>
+                {/*<h2 className="example-title">Properties</h2>*/}
 
-                <PropTypeDescTable data={doc}/>
+                {/*<PropTypeDescTable data={doc}/>*/}
 
             </div>
         );
