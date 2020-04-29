@@ -303,7 +303,7 @@ ScrollTable.propTypes = {
         /**
          * width of column.
          */
-        width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        width: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
 
         /**
          * minimum width of column.
