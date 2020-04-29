@@ -62,7 +62,7 @@ class BaseTable extends Component {
 
         const {
 
-                className, style, data, dynamicRenderData, value, idField, fragment, scrollEl, hasVerticalScroll,
+                className, style, data, dynamicRenderData, value, idField, scrollEl, hasVerticalScroll,
                 headColumns, bodyColumns, columnKeyField, columnsWidth, useColumnsWidth,
                 selectMode, selectAllMode, expandRows, resizingColumn,
                 useDynamicRender, scrollHeight, rowHeight, scrollBuffer,
@@ -75,7 +75,7 @@ class BaseTable extends Component {
                 onColumnsWidthChange, onColumnResizeStart, onColumnResizeEnd, onColumnMeasure,
 
                 // not passing down these props
-                columns: cols,
+                columns: cols, fragment,
 
                 ...restProps
 
@@ -112,8 +112,6 @@ class BaseTable extends Component {
                                hasFixedRightColumn={hasFixedRightColumn}
                                data={data}
                                dynamicRenderData={dynamicRenderData}
-                               selectMode={selectMode}
-                               selectAllMode={selectAllMode}
                                sorting={sorting}
                                defaultSortingType={defaultSortingType}
                                sortingAscIconCls={sortingAscIconCls}
@@ -147,7 +145,6 @@ class BaseTable extends Component {
                                dynamicRenderData={dynamicRenderData}
                                value={value}
                                selectMode={selectMode}
-                               selectAllMode={selectAllMode}
                                expandRows={expandRows}
                                idField={idField}
                                sorting={sorting}
@@ -175,8 +172,6 @@ class BaseTable extends Component {
                                hasFixedRightColumn={hasFixedRightColumn}
                                data={data}
                                dynamicRenderData={dynamicRenderData}
-                               selectMode={selectMode}
-                               selectAllMode={selectAllMode}
                                ignoreColumnSpan={ignoreColumnSpan}
                                scrollEl={scrollEl}
                                hasVerticalScroll={hasVerticalScroll}
