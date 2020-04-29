@@ -295,18 +295,20 @@ class Table extends Component {
         }, 0);
     };
 
-    handleColumnMeasure = (columnKey, width) => {
+    handleColumnMeasure = (column, width) => {
 
         const {columnKeyField} = this.props,
-            {resizingColumn, columnsWidth} = this.state;
+            {resizingColumn, columnsWidth} = this.state,
+            columnKey = TC.getColumnKey(column, columnKeyField);
 
         if (columnKey == TC.getColumnKey(resizingColumn, columnKeyField)) {
             return;
         }
 
         columnsWidth.set(columnKey, width);
+
         this.setState({
-            columnsWidth
+            columnsWidth: Util.shallowCloneMap(columnsWidth)
         });
 
     };
