@@ -487,7 +487,7 @@ ScrollTable.propTypes = {
         footNoWrap: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 
         /**
-         * If true,this column can be sorted.
+         * If true, this column can be sorted.
          */
         sortable: PropTypes.bool,
 
@@ -496,7 +496,12 @@ ScrollTable.propTypes = {
          */
         sortingProp: PropTypes.string,
 
-        defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType))
+        defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType)),
+
+        /**
+         * whether the column can be resized
+         */
+        resizable: PropTypes.bool
 
     })),
     headColumns: PropTypes.array,
@@ -568,7 +573,6 @@ ScrollTable.propTypes = {
     /**
      * column resizable
      */
-    isColumnResizable: PropTypes.bool,
     defaultColumnWidth: PropTypes.number,
     minColumnWidth: PropTypes.number,
     maxColumnWidth: PropTypes.number,
@@ -644,7 +648,6 @@ ScrollTable.defaultProps = {
     /**
      * column resizable
      */
-    isColumnResizable: false,
     defaultColumnWidth: 100,
     minColumnWidth: 64,
     maxColumnWidth: Infinity
