@@ -104,11 +104,6 @@ Tbody.propTypes = {
     selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     /**
-     * The select all mode of table, all or current page.
-     */
-    selectAllMode: PropTypes.oneOf(Util.enumerateValue(SelectAllMode)),
-
-    /**
      * Children passed into table header.
      */
     columns: PropTypes.arrayOf(PropTypes.shape({
