@@ -52,8 +52,8 @@ class MeasureTd extends Component {
 
             this.lastWidth = width;
 
-            const {column, columnKeyField, onMeasure} = this.props;
-            onMeasure && onMeasure((columnKeyField && column[columnKeyField]) || column, width);
+            const {column, onMeasure} = this.props;
+            onMeasure && onMeasure(column, width);
 
         }
 
@@ -286,14 +286,9 @@ MeasureTd.propTypes = {
         defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType))
 
     }),
-    columnKeyField: PropTypes.string,
 
     onMeasure: PropTypes.func
 
-};
-
-MeasureTd.defaultProps = {
-    columnKeyField: 'key'
 };
 
 export default MeasureTd;
