@@ -26,9 +26,7 @@
     }
 
     &:hover {
-        th {
-            background: $theme-secondary;
-        }
+        background: $theme-secondary;
 
         .react-resizable-handle {
             &::after {
