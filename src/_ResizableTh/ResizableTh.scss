@@ -25,13 +25,19 @@
         }
     }
 
-    &:hover .react-resizable-handle {
-        &::after {
-            border-right: 1px solid theme-color-active($theme-secondary);
+    &:hover {
+        th {
+            background: $theme-secondary;
         }
 
-        &:hover::after {
-            border-right: 2px solid $theme-highlight;
+        .react-resizable-handle {
+            &::after {
+                border-right: 1px solid theme-color-active($theme-secondary);
+            }
+
+            &:hover::after {
+                border-right: 2px solid $theme-highlight;
+            }
         }
     }
 
