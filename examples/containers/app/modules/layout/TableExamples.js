@@ -61,7 +61,6 @@ class TableExamples extends Component {
             minWidth: 64,
             noWrap: true,
             headRenderer: 'Name (Percentage Width)',
-            headTitle: 'Name',
             bodyRenderer: rowData => rowData.firstName && rowData.lastName ?
                 `${rowData.firstName} ${rowData.lastName}` : null,
             bodyTitle: rowData => rowData.firstName && rowData.lastName ?
