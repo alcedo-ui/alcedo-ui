@@ -32,14 +32,14 @@ class ColGroup extends Component {
 
     getColStyle = column => {
 
-        const {columnKeyField, columnsWidth, useColumnsWidth, defaultColumnWidth} = this.props,
+        const {columnKeyField, columnsWidth, useColumnsWidth} = this.props,
             result = {};
 
         // width
         result.width = useColumnsWidth ?
             (columnsWidth && columnsWidth.get(TC.getColumnKey(column, columnKeyField)))
             :
-            (column.width || defaultColumnWidth);
+            column.width;
 
         // min width
         result.minWidth = column.minWidth ?
