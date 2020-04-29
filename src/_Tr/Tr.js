@@ -82,9 +82,11 @@ class Tr extends Component {
 
         const {
 
-                className, style, columns, rowIndex, data, parentData, tableData,
-                isChecked, disabled, ignoreColumnSpan, depth, index, path,
-                useDynamicRender, rowHeight,
+                className, style, rowIndex, data, tableData, isChecked, disabled,
+                ignoreColumnSpan, depth, index, path, useDynamicRender, rowHeight,
+
+                // not passing down these props
+                columns, columnsWidth,
 
                 ...respProps
 
@@ -122,7 +124,6 @@ class Tr extends Component {
                                 colIndex={colIndex}
                                 data={data}
                                 title={column.bodyTitle}
-                                parentData={parentData}
                                 tableData={tableData}
                                 collapsed={collapsed}
                                 renderer={column.bodyRenderer}
@@ -406,7 +407,6 @@ Tr.propTypes = {
     index: PropTypes.number,
     path: PropTypes.array,
     idField: PropTypes.string,
-    isMouseEventForbidden: PropTypes.bool,
     ignoreColumnSpan: PropTypes.bool,
     scrollEl: PropTypes.object,
 
@@ -448,7 +448,6 @@ Tr.defaultProps = {
     expandRows: [],
     depth: 0,
     idField: 'id',
-    isMouseEventForbidden: false,
     ignoreColumnSpan: false,
 
     /**
