@@ -65,7 +65,7 @@ class BaseTable extends Component {
                 className, style, data, dynamicRenderData, value, idField, scrollEl, hasVerticalScroll,
                 headColumns, bodyColumns, columnKeyField, columnsWidth, useColumnsWidth, selectMode, selectAllMode,
                 expandRows, resizingColumn, useDynamicRender, scrollHeight, rowHeight, scrollBuffer,
-                isColumnResizable, defaultColumnWidth, minColumnWidth, maxColumnWidth,
+                defaultColumnWidth, minColumnWidth, maxColumnWidth,
                 isHeadHidden, isBodyHidden, isFootHidden, hasFixedRightColumn,
                 isLayoutFixed, ignoreColumnSpan, hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
                 sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, isClickSorting,
@@ -95,7 +95,6 @@ class BaseTable extends Component {
                           columnsWidth={columnsWidth}
                           data={dynamicRenderData || data}
                           useColumnsWidth={useColumnsWidth}
-                          isColumnResizable={isColumnResizable}
                           defaultColumnWidth={defaultColumnWidth}
                           minColumnWidth={minColumnWidth}
                           ignoreColumnSpan={ignoreColumnSpan}/>
@@ -118,7 +117,6 @@ class BaseTable extends Component {
                                ignoreColumnSpan={ignoreColumnSpan}
                                scrollEl={scrollEl}
                                hasVerticalScroll={hasVerticalScroll}
-                               isColumnResizable={isColumnResizable}
                                defaultColumnWidth={defaultColumnWidth}
                                minColumnWidth={minColumnWidth}
                                maxColumnWidth={maxColumnWidth}
@@ -414,7 +412,7 @@ BaseTable.propTypes = {
         footNoWrap: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 
         /**
-         * If true,this column can be sorted.
+         * If true, this column can be sorted.
          */
         sortable: PropTypes.bool,
 
@@ -423,7 +421,12 @@ BaseTable.propTypes = {
          */
         sortingProp: PropTypes.string,
 
-        defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType))
+        defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType)),
+
+        /**
+         * whether the column can be resized
+         */
+        resizable: PropTypes.bool
 
     })),
     headColumns: PropTypes.array,
@@ -488,7 +491,6 @@ BaseTable.propTypes = {
     /**
      * column resizable
      */
-    isColumnResizable: PropTypes.bool,
     defaultColumnWidth: PropTypes.number,
     minColumnWidth: PropTypes.number,
     maxColumnWidth: PropTypes.number,
@@ -564,7 +566,6 @@ BaseTable.defaultProps = {
     /**
      * column resizable
      */
-    isColumnResizable: false,
     defaultColumnWidth: 100,
     minColumnWidth: 64,
     maxColumnWidth: Infinity
