@@ -65,7 +65,7 @@ ResizableTh.propTypes = {
     resizable: PropTypes.bool,
     activated: PropTypes.bool,
     deactivated: PropTypes.bool,
-    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    width: PropTypes.number,
     minWidth: PropTypes.number,
     maxWidth: PropTypes.number,
 
