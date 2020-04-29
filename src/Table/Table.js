@@ -20,6 +20,7 @@ import SortingType from '../_statics/SortingType';
 // Vendors
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
+import cloneDeep from 'lodash/cloneDeep';
 import Util from '../_vendors/Util';
 import ComponentUtil from '../_vendors/ComponentUtil';
 import TC from '../_vendors/TableCalculation';
@@ -253,17 +254,20 @@ class Table extends Component {
         }
 
         const key = TC.getColumnKey(resizingColumn, columnKeyField),
-            index = columns.findIndex(column => TC.getColumnKey(column, columnKeyField) == key);
-        if (index === -1) {
+            nextColumns = cloneDeep(columns);
+
+        let column = null;
+        Util.preOrderTraverse({children: nextColumns}, node => {
+            if (node && TC.getColumnKey(node, columnKeyField) == key) {
+                column = node;
+            }
+        });
+        if (!column) {
             return;
         }
 
-        const nextColumns = [...columns];
-        nextColumns[index] = {
-            ...nextColumns[index],
-            width
-        };
-        columnsWidth.set(TC.getColumnKey(resizingColumn, columnKeyField), width);
+        column.width = width;
+        columnsWidth.set(key, width);
 
         this.setState({
             columns: nextColumns,
