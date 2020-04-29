@@ -97,24 +97,29 @@ ColGroup.propTypes = {
         key: PropTypes.string,
 
         /**
-         * fixed position of column ( 'left' / 'right' )
+         * fixed position of column ( 'left' / 'right' ).
          */
         fixed: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
 
         /**
-         * width of column
+         * width of column.
          */
-        width: PropTypes.number,
+        width: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
 
         /**
-         * minimum width of column
+         * minimum width of column.
          */
-        minWidth: PropTypes.number,
+        minWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
         /**
-         * align of current column
+         * align of current column.
          */
         align: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
+
+        /**
+         * no wrap of current column.
+         */
+        noWrap: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 
         /**
          * The class name of header.
@@ -144,9 +149,33 @@ ColGroup.propTypes = {
         headRenderer: PropTypes.any,
 
         /**
-         * column span of table header
+         * The title in table head.
+         *  (1) callback:
+         *      function (tableData, colIndex) {
+         *          return colIndex;
+         *      }
+         *
+         *  (2) others:
+         *      render whatever you pass
+         */
+        headTitle: PropTypes.any,
+
+        /**
+         * column span of table header.
+         *  (1) function callback:
+         *      function (tableData, colIndex) {
+         *          return null;
+         *      }
+         *
+         *  (2) number:
+         *      render whatever you pass
          */
         headSpan: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+
+        /**
+         * no wrap of table header.
+         */
+        headNoWrap: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 
         /**
          * The class name of td.
@@ -159,7 +188,7 @@ ColGroup.propTypes = {
         bodyStyle: PropTypes.object,
 
         /**
-         * align of table body cell
+         * align of table body cell.
          */
         bodyAlign: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
 
@@ -176,9 +205,33 @@ ColGroup.propTypes = {
         bodyRenderer: PropTypes.any,
 
         /**
-         * column span of table body
+         * The title in table body.
+         *  (1) callback:
+         *      function (rowData, rowIndex, colIndex, parentData, tableData, collapsed, depth, path) {
+         *          return rowData.id;
+         *      }
+         *
+         *  (2) others:
+         *      render whatever you pass
+         */
+        bodyTitle: PropTypes.any,
+
+        /**
+         * column span of table body.
+         *  (1) function callback:
+         *      function (rowData, colIndex, rowIndex) {
+         *          return null;
+         *      }
+         *
+         *  (2) number:
+         *      render whatever you pass
          */
         bodySpan: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+
+        /**
+         * no wrap of table body.
+         */
+        bodyNoWrap: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 
         /**
          * The class name of footer.
@@ -208,12 +261,36 @@ ColGroup.propTypes = {
         footRenderer: PropTypes.any,
 
         /**
-         * column span of table foot
+         * The title in table foot.
+         *  (1) callback:
+         *      function (tableData, colIndex) {
+         *          return colIndex;
+         *      }
+         *
+         *  (2) others:
+         *      render whatever you pass
+         */
+        footTitle: PropTypes.any,
+
+        /**
+         * column span of table foot.
+         *  (1) function callback:
+         *      function (tableData, colIndex) {
+         *          return null;
+         *      }
+         *
+         *  (2) number:
+         *      render whatever you pass
          */
         footSpan: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
 
         /**
-         * If true,this column can be sorted.
+         * no wrap of table foot.
+         */
+        footNoWrap: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+
+        /**
+         * If true, this column can be sorted.
          */
         sortable: PropTypes.bool,
 
@@ -222,7 +299,12 @@ ColGroup.propTypes = {
          */
         sortingProp: PropTypes.string,
 
-        defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType))
+        defaultSortingType: PropTypes.oneOf(Util.enumerateValue(SortingType)),
+
+        /**
+         * whether the column can be resized
+         */
+        resizable: PropTypes.bool
 
     })).isRequired,
     columnKeyField: PropTypes.string,
@@ -234,7 +316,6 @@ ColGroup.propTypes = {
     /**
      * column resizable
      */
-    isColumnResizable: PropTypes.bool,
     defaultColumnWidth: PropTypes.number,
     minColumnWidth: PropTypes.number,
 
@@ -250,7 +331,6 @@ ColGroup.defaultProps = {
     /**
      * column resizable
      */
-    isColumnResizable: false,
     defaultColumnWidth: 100,
     minColumnWidth: 64,
 
