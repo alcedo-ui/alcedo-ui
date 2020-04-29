@@ -252,9 +252,17 @@ class Table extends Component {
             return;
         }
 
-        const nextColumns = [...columns];
+        const key = TC.getColumnKey(resizingColumn, columnKeyField),
+            index = columns.findIndex(column => TC.getColumnKey(column, columnKeyField) == key);
+        if (index === -1) {
+            return;
+        }
 
-        resizingColumn.width = width;
+        const nextColumns = [...columns];
+        nextColumns[index] = {
+            ...nextColumns[index],
+            width
+        };
         columnsWidth.set(TC.getColumnKey(resizingColumn, columnKeyField), width);
 
         this.setState({
