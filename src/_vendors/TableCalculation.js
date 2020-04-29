@@ -185,24 +185,24 @@ function hasHeadRenderer(columnsGroup) {
         false;
 }
 
-function hasFixedColumn(columns, fixed) {
-    return columns && fixed ? columns.some(column => column && column.fixed === fixed) : false;
-}
+// function hasFixedColumn(columns, fixed) {
+//     return columns && fixed ? columns.some(column => column && column.fixed === fixed) : false;
+// }
 
-function getDataByPagination(data, isPaginated, pagination) {
-
-    if (!data || data.length < 1) {
-        return [];
-    }
-
-    if (!isPaginated || !pagination) {
-        return data;
-    }
-
-    return data.slice(pagination.page * pagination.pageSize, (pagination.page + 1) * pagination.pageSize)
-               .filter(item => item && !item.disabled);
-
-}
+// function getDataByPagination(data, isPaginated, pagination) {
+//
+//     if (!data || data.length < 1) {
+//         return [];
+//     }
+//
+//     if (!isPaginated || !pagination) {
+//         return data;
+//     }
+//
+//     return data.slice(pagination.page * pagination.pageSize, (pagination.page + 1) * pagination.pageSize)
+//                .filter(item => item && !item.disabled);
+//
+// }
 
 function indexOfNodeInValue(node, value, idField) {
 
@@ -496,21 +496,6 @@ function getBodyColumns(columns) {
 
 }
 
-function getFixedHeadColumns(columns, fixed) {
-    return columns ?
-        columns.map(row => row ?
-            row.filter(config => config?.column?.fixed === fixed)
-            :
-            row
-        )
-        :
-        columns;
-}
-
-function getFixedBodyColumns(columns, fixed) {
-    return columns ? columns.filter(config => config?.column?.fixed === fixed) : columns;
-}
-
 function recursiveSelectChildren(node, value = [], idField) {
 
     if (!node) {
@@ -564,16 +549,6 @@ function handlePage(page, pageSize, data) {
 
 }
 
-function getRawTableData(data) {
-
-    if (data && data.length > 0) {
-        return data;
-    }
-
-    return [{}];
-
-}
-
 // function getColumnByPath(columns, path) {
 //
 //     if (!columns || columns.length < 1 || !path || path.length < 1) {
@@ -587,22 +562,7 @@ function getRawTableData(data) {
 //
 // }
 
-function getTableWidth(columnsWidth, defaultColumnWidth = 100) {
-
-    if (!columnsWidth) {
-        return 0;
-    }
-
-    let result = 0;
-    for (let width of columnsWidth.values()) {
-        result += width || defaultColumnWidth;
-    }
-
-    return result;
-
-}
-
-function getColumnsSpanWidth(columns, columnKeyField = 'key', columnsWidth, defaultColumnWidth = 100) {
+function getColumnsTotalWidth(columns, columnKeyField = 'key', columnsWidth, defaultColumnWidth = 100) {
     return columns && columnsWidth ?
         columns.reduce((sum, column) =>
             sum + (columnsWidth.get(getColumnKey(column, columnKeyField)) || defaultColumnWidth), 0)
@@ -618,13 +578,13 @@ function getStickyColumnStyle(fixed, colIndex, columns, columnKeyField = 'key',
     if (fixed === HorizontalAlign.LEFT) {
         result.position = 'sticky';
         result.left =
-            getColumnsSpanWidth(columns.slice(0, colIndex), columnKeyField, columnsWidth, defaultColumnWidth);
+            getColumnsTotalWidth(columns.slice(0, colIndex), columnKeyField, columnsWidth, defaultColumnWidth);
     }
 
     if (fixed === HorizontalAlign.RIGHT) {
         result.position = 'sticky';
         result.right =
-            getColumnsSpanWidth(columns.slice(colIndex + 1), columnKeyField, columnsWidth, defaultColumnWidth)
+            getColumnsTotalWidth(columns.slice(colIndex + 1), columnKeyField, columnsWidth, defaultColumnWidth)
             + (hasVerticalScroll ? ScrollBar.getSize(Direction.VERTICAL) : 0);
     }
 
@@ -641,8 +601,8 @@ export default {
     sortTableData,
     hasRenderer,
     hasHeadRenderer,
-    hasFixedColumn,
-    getDataByPagination,
+    // hasFixedColumn,
+    // getDataByPagination,
     indexOfNodeInValue,
     isNodeChecked,
     isSelectAllChecked,
@@ -654,16 +614,12 @@ export default {
     getFirstColumn,
     getHeadColumns,
     getBodyColumns,
-    getFixedHeadColumns,
-    getFixedBodyColumns,
     recursiveSelectChildren,
     needCollapseButtonSpacing,
     getPageSizeValue,
     handleNoWrap,
     handlePage,
-    getRawTableData,
     // getColumnByPath,
-    getTableWidth,
-    getColumnsSpanWidth,
+    getColumnsTotalWidth,
     getStickyColumnStyle
 };
