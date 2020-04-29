@@ -121,7 +121,7 @@ class Th extends Component {
                 == TC.getColumnKey(resizingColumn, columnKeyField);
 
         return (
-            <ResizableTh resizable={isColumnResizable}
+            <ResizableTh resizable={isColumnResizable && (!column?.children || column?.children?.length < 1)}
                          activated={isResizingActivated}
                          deactivated={resizingColumn && !isResizingActivated}
                          width={width}
