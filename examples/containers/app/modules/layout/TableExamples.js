@@ -329,6 +329,12 @@ class TableExamples extends Component {
 
     };
 
+    handleColumnsWidthChange = (column, width, nextColumns) => {
+        console.log('column::', column);
+        console.log('width::', width);
+        console.log('nextColumns::', nextColumns);
+    };
+
     render() {
 
         const {data, sorting, filter, headVisible, footVisible} = this.state,
@@ -576,7 +582,8 @@ class TableExamples extends Component {
                                    onSelect={this.handleSelect}
                                    onSelectAll={this.handleSelectAll}
                                    onDeselect={this.handleDeselect}
-                                   onDeselectAll={this.handleSeselectAll}/>
+                                   onDeselectAll={this.handleSeselectAll}
+                                   onColumnsWidthChange={this.handleColumnsWidthChange}/>
                         </div>
                     </div>
 
@@ -596,7 +603,10 @@ class TableExamples extends Component {
                                    data={[]}
                                    columns={this.columns}
                                    selectMode={Table.SelectMode.MULTI_SELECT}
-                                   isFootHidden={true}/>
+                                   isFootHidden={true}
+                                   scroll={{
+                                       width: 1000
+                                   }}/>
 
                         </div>
                     </div>
