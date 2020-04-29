@@ -14,7 +14,6 @@ import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
 
 // Vendors
-import isEmpty from 'lodash/isEmpty';
 import Util from '../_vendors/Util';
 import TC from '../_vendors/TableCalculation';
 
@@ -30,16 +29,27 @@ class ColGroup extends Component {
         super(props, ...restArgs);
     }
 
+    getColumnWidth = column => {
+
+        const {columnKeyField, columnsWidth, useColumnsWidth, data} = this.props;
+
+        if (useColumnsWidth && columnKeyField && columnsWidth) {
+            return columnsWidth.get(TC.getColumnKey(column, columnKeyField));
+        }
+
+        if (typeof column.width === 'function') {
+            return column.width(data);
+        }
+
+        return column.width || null;
+
+    };
+
     getColStyle = column => {
 
-        const {columnKeyField, columnsWidth, useColumnsWidth} = this.props,
-            result = {};
-
-        // width
-        result.width = useColumnsWidth ?
-            (columnsWidth && columnsWidth.get(TC.getColumnKey(column, columnKeyField)))
-            :
-            column.width;
+        const result = {
+            width: this.getColumnWidth(column)
+        };
 
         // min width
         result.minWidth = column.minWidth ?
@@ -47,7 +57,7 @@ class ColGroup extends Component {
             :
             result.width;
 
-        return isEmpty(result) ? null : result;
+        return !result.width && !result.minWidth ? null : result;
 
     };
 
@@ -218,6 +228,8 @@ ColGroup.propTypes = {
     columnKeyField: PropTypes.string,
     columnsWidth: PropTypes.object,
     useColumnsWidth: PropTypes.bool,
+
+    data: PropTypes.array,
 
     /**
      * column resizable
