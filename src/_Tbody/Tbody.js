@@ -51,8 +51,7 @@ class Tbody extends Component {
 
         const {
 
-                className, style, columns, columnKeyField, data, dynamicRenderData,
-                startIndex, disabled, isMouseEventForbidden, ignoreColumnSpan, useDynamicRender, defaultColumnWidth,
+                className, style, columns, data, dynamicRenderData, startIndex, disabled, useDynamicRender,
                 onColumnMeasure,
 
                 // not passing down these props
@@ -69,7 +68,6 @@ class Tbody extends Component {
                    style={style}>
 
                 <MeasureTr columns={columns}
-                           columnKeyField={columnKeyField}
                            onColumnMeasure={onColumnMeasure}/>
 
                 {
@@ -80,15 +78,11 @@ class Tbody extends Component {
                             index={index}
                             rowIndex={startIndex + index}
                             columns={columns}
-                            columnKeyField={columnKeyField}
                             data={row}
                             tableData={data}
                             isChecked={this.isItemChecked(row)}
                             disabled={disabled || row.disabled}
-                            isMouseEventForbidden={isMouseEventForbidden}
-                            ignoreColumnSpan={ignoreColumnSpan}
-                            useDynamicRender={useDynamicRender}
-                            defaultColumnWidth={defaultColumnWidth}/>
+                            useDynamicRender={useDynamicRender}/>
                         :
                         null
                     )
@@ -339,7 +333,6 @@ Tbody.propTypes = {
     idField: PropTypes.string,
     disabled: PropTypes.bool,
     expandRows: PropTypes.array,
-    isMouseEventForbidden: PropTypes.bool,
     ignoreColumnSpan: PropTypes.bool,
     scrollEl: PropTypes.object,
 
@@ -384,7 +377,6 @@ Tbody.defaultProps = {
     idField: 'id',
     disabled: false,
     expandRows: [],
-    isMouseEventForbidden: false,
     ignoreColumnSpan: false,
 
     /**
