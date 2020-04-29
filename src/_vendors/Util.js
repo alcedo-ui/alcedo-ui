@@ -215,6 +215,14 @@ function postOrderTraverse(node, callback, depth = 0, parent = null, path = null
 
 }
 
+function shallowCloneMap(map) {
+    const result = new Map();
+    for (let [key, value] of map.entries()) {
+        result.set(key, value);
+    }
+    return result;
+}
+
 export default {
     isEnableLocalStorage,
     isEnableSessionStorage,
@@ -232,5 +240,6 @@ export default {
     getDiag,
     reorder,
     preOrderTraverse,
-    postOrderTraverse
+    postOrderTraverse,
+    shallowCloneMap
 };
