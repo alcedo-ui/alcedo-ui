@@ -95,6 +95,7 @@ class BaseTable extends Component {
                 <ColGroup columns={this.getColumnsSpan(columns)}
                           columnKeyField={columnKeyField}
                           columnsWidth={columnsWidth}
+                          data={dynamicRenderData || data}
                           useColumnsWidth={useColumnsWidth}
                           isColumnResizable={isColumnResizable}
                           defaultColumnWidth={defaultColumnWidth}
@@ -235,7 +236,7 @@ BaseTable.propTypes = {
         /**
          * width of column.
          */
-        width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        width: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
 
         /**
          * minimum width of column.
