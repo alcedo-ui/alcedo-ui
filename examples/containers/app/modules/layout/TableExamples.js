@@ -22,6 +22,7 @@ import doc from 'assets/propTypes/Table.json';
 // Vendors
 import classNames from 'classnames';
 import round from 'lodash/round';
+import cloneDeep from 'lodash/cloneDeep';
 import Util from 'vendors/Util';
 
 // Styles
@@ -66,8 +67,7 @@ class TableExamples extends Component {
             bodyTitle: rowData => rowData.firstName && rowData.lastName ?
                 `${rowData.firstName} ${rowData.lastName}` : null,
             sortable: true,
-            sortingProp: 'firstName',
-            resizable: true
+            sortingProp: 'firstName'
         }, {
             key: 'age',
             width: 64,
@@ -83,8 +83,7 @@ class TableExamples extends Component {
                 :
                 null,
             sortable: true,
-            sortingProp: 'age',
-            resizable: true
+            sortingProp: 'age'
         }, {
             key: 'otherColumn',
             headRenderer: 'Other Column',
@@ -94,29 +93,25 @@ class TableExamples extends Component {
                 width: 120,
                 noWrap: true,
                 headRenderer: 'Other Column 1',
-                bodyRenderer: rowData => rowData.other ? `${rowData.other} 1` : '',
-                resizable: true
+                bodyRenderer: rowData => rowData.other ? `${rowData.other} 1` : ''
             }, {
                 key: 'otherColumn2',
                 width: 120,
                 noWrap: true,
                 headRenderer: 'Other Column 2',
-                bodyRenderer: rowData => rowData.other ? `${rowData.other} 2` : '',
-                resizable: true
+                bodyRenderer: rowData => rowData.other ? `${rowData.other} 2` : ''
             }, {
                 key: 'otherColumn3',
                 width: 120,
                 noWrap: true,
                 headRenderer: 'Other Column 3',
-                bodyRenderer: rowData => rowData.other ? `${rowData.other} 3` : '',
-                resizable: true
+                bodyRenderer: rowData => rowData.other ? `${rowData.other} 3` : ''
             }, {
                 key: 'otherColumn4',
                 width: 120,
                 noWrap: true,
                 headRenderer: 'Other Column 4',
-                bodyRenderer: rowData => rowData.other ? `${rowData.other} 4` : '',
-                resizable: true
+                bodyRenderer: rowData => rowData.other ? `${rowData.other} 4` : ''
             }]
         }, {
             key: 'functionWidth',
@@ -142,8 +137,7 @@ class TableExamples extends Component {
                 :
                 null,
             sortable: true,
-            sortingProp: 'functionWidth',
-            resizable: true
+            sortingProp: 'functionWidth'
         }, {
             key: 'status',
             width: 64,
@@ -191,17 +185,28 @@ class TableExamples extends Component {
         return this.columns.map(column => {
             if (['id', 'name'].includes(column.key)) {
                 return {
-                    fixed: Table.Fixed.LEFT,
-                    ...column
+                    ...column,
+                    fixed: Table.Fixed.LEFT
                 };
             } else if (['status', 'action'].includes(column.key)) {
                 return {
-                    fixed: Table.Fixed.RIGHT,
-                    ...column
+                    ...column,
+                    fixed: Table.Fixed.RIGHT
                 };
             }
             return column;
         });
+    };
+
+    getResizableColumns = () => {
+        const result = cloneDeep(this.columns);
+        Util.preOrderTraverse({children: result}, node => {
+            if (['name', 'age', 'otherColumn1', 'otherColumn2',
+                'otherColumn3', 'otherColumn4', 'functionWidth'].includes(node.key)) {
+                node.resizable = true;
+            }
+        });
+        return result;
     };
 
     generateData = (size = 100, base = '', expanded = true) => {
@@ -587,7 +592,7 @@ class TableExamples extends Component {
                     <div className="widget-content">
                         <div className="example-content">
                             <Table className="example-table border-collapse"
-                                   columns={this.columns}
+                                   columns={this.getResizableColumns()}
                                    data={data}
                                    scroll={{
                                        width: 1200
