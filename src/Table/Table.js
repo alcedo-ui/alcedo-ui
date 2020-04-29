@@ -270,7 +270,7 @@ class Table extends Component {
             columnsWidth
         }, () => {
             const {onColumnsWidthChange} = this.props;
-            onColumnsWidthChange && onColumnsWidthChange(resizingColumn, width, e);
+            onColumnsWidthChange && onColumnsWidthChange(resizingColumn, width, nextColumns, e);
         });
 
     };
@@ -297,7 +297,7 @@ class Table extends Component {
 
     handleColumnMeasure = (columnKey, width) => {
 
-        const {columnKeyField, minColumnWidth} = this.props,
+        const {columnKeyField} = this.props,
             {resizingColumn, columnsWidth} = this.state;
 
         if (columnKey == TC.getColumnKey(resizingColumn, columnKeyField)) {
