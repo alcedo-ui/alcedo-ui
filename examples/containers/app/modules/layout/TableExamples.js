@@ -66,7 +66,8 @@ class TableExamples extends Component {
             bodyTitle: rowData => rowData.firstName && rowData.lastName ?
                 `${rowData.firstName} ${rowData.lastName}` : null,
             sortable: true,
-            sortingProp: 'firstName'
+            sortingProp: 'firstName',
+            resizable: true
         }, {
             key: 'age',
             width: 64,
@@ -82,7 +83,8 @@ class TableExamples extends Component {
                 :
                 null,
             sortable: true,
-            sortingProp: 'age'
+            sortingProp: 'age',
+            resizable: true
         }, {
             key: 'otherColumn',
             headRenderer: 'Other Column',
@@ -92,25 +94,29 @@ class TableExamples extends Component {
                 width: 120,
                 noWrap: true,
                 headRenderer: 'Other Column 1',
-                bodyRenderer: rowData => rowData.other ? `${rowData.other} 1` : ''
+                bodyRenderer: rowData => rowData.other ? `${rowData.other} 1` : '',
+                resizable: true
             }, {
                 key: 'otherColumn2',
                 width: 120,
                 noWrap: true,
                 headRenderer: 'Other Column 2',
-                bodyRenderer: rowData => rowData.other ? `${rowData.other} 2` : ''
+                bodyRenderer: rowData => rowData.other ? `${rowData.other} 2` : '',
+                resizable: true
             }, {
                 key: 'otherColumn3',
                 width: 120,
                 noWrap: true,
                 headRenderer: 'Other Column 3',
-                bodyRenderer: rowData => rowData.other ? `${rowData.other} 3` : ''
+                bodyRenderer: rowData => rowData.other ? `${rowData.other} 3` : '',
+                resizable: true
             }, {
                 key: 'otherColumn4',
                 width: 120,
                 noWrap: true,
                 headRenderer: 'Other Column 4',
-                bodyRenderer: rowData => rowData.other ? `${rowData.other} 4` : ''
+                bodyRenderer: rowData => rowData.other ? `${rowData.other} 4` : '',
+                resizable: true
             }]
         }, {
             key: 'functionWidth',
@@ -136,7 +142,8 @@ class TableExamples extends Component {
                 :
                 null,
             sortable: true,
-            sortingProp: 'functionWidth'
+            sortingProp: 'functionWidth',
+            resizable: true
         }, {
             key: 'status',
             width: 64,
@@ -582,7 +589,6 @@ class TableExamples extends Component {
                             <Table className="example-table border-collapse"
                                    columns={this.columns}
                                    data={data}
-                                   isColumnResizable={true}
                                    scroll={{
                                        width: 1200
                                    }}
