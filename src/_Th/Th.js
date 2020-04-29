@@ -205,7 +205,7 @@ Th.propTypes = {
      * column resizable
      */
     isColumnResizable: PropTypes.bool,
-    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    width: PropTypes.number,
     minColumnWidth: PropTypes.number,
     maxColumnWidth: PropTypes.number,
     resizingColumn: PropTypes.object,
