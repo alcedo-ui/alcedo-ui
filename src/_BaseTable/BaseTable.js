@@ -68,8 +68,7 @@ class BaseTable extends Component {
                 useDynamicRender, scrollHeight, rowHeight, scrollBuffer,
                 isColumnResizable, defaultColumnWidth, minColumnWidth, maxColumnWidth,
                 isHeadHidden, isBodyHidden, isFootHidden, hasFixedRightColumn,
-                isLayoutFixed, isHeadFixed, isFootFixed,
-                ignoreColumnSpan, hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
+                isLayoutFixed, ignoreColumnSpan, hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
                 sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, isClickSorting,
                 onSortChange, onExpandChange, onRequestColumnsSpan, onHeadClick, onFootClick,
                 onColumnsWidthChange, onColumnResizeStart, onColumnResizeEnd, onColumnMeasure,
@@ -451,8 +450,6 @@ BaseTable.propTypes = {
      * fixed
      */
     isLayoutFixed: PropTypes.bool,
-    isHeadFixed: PropTypes.bool,
-    isFootFixed: PropTypes.bool,
     hasFixedRightColumn: PropTypes.bool,
 
     /**
@@ -533,8 +530,6 @@ BaseTable.defaultProps = {
      * fixed
      */
     isLayoutFixed: true,
-    isHeadFixed: false,
-    isFootFixed: false,
     hasFixedRightColumn: false,
 
     /**
