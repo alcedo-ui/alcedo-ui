@@ -5,22 +5,36 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import isArray from 'lodash/isArray';
-import classNames from 'classnames';
 
+// Components
 import GridItem from '../_GridItem';
 import Tip from '../Tip';
-import Theme from '../Theme';
 
+// Statics
+import Theme from '../Theme';
 import SelectMode from '../_statics/SelectMode';
 
+// Vendors
+import isArray from 'lodash/isArray';
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 import Calculation from '../_vendors/Calculation';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class Grid extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
+
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: Calculation.getInitValue({
+                value: ComponentUtil.getDerivedState(props, state, 'value'),
+                selectMode: props.selectMode
+            })
+        };
+    }
 
     constructor(props, ...restArgs) {
 
@@ -90,14 +104,7 @@ class Grid extends Component {
 
     };
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: Calculation.getInitValue(nextProps)
-            });
-        }
-    }
-
+    /* eslint-disable complexity */
     renderGridItem = (item, index) => {
 
         if (!item) {
@@ -111,79 +118,65 @@ class Grid extends Component {
                 selectTheme, selectMode, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
-                idField, valueField, displayField, descriptionField, disabled, isLoading, renderer, onItemClick,
-                parentEl
+                idField, valueField, displayField, descriptionField, disabled, isLoading, renderer, parentEl,
+                onItemClick
 
             } = this.props,
             {value} = this.state;
 
         return typeof item === 'object' ?
-            (
-                <GridItem key={(idField in item && item[idField]) || index}
-                          {...item}
-                          index={index}
-                          style={{height: itemHeight}}
-                          theme={item.theme || theme}
-                          parentEl={parentEl}
-                          col={col}
-                          selectTheme={item.selectTheme || selectTheme}
-                          radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
-                          radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
-                          checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
-                          checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
-                          checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
-                          data={item}
-                          checked={Calculation.isItemChecked(item, value, this.props)}
-                          value={Util.getValueByValueField(item, valueField, displayField)}
-                          text={Util.getTextByDisplayField(item, displayField, valueField)}
-                          desc={item[descriptionField] || null}
-                          disabled={disabled || item.disabled}
-                          isLoading={isLoading || item.isLoading}
-                          selectMode={selectMode}
-                          renderer={renderer}
-                          onClick={e => {
-                              onItemClick && onItemClick(item, index, e);
-                              item.onClick && item.onClick(e);
-                          }}
-                          onSelect={() => {
-                              this.listItemSelectHandler(item, index);
-                          }}
-                          onDeselect={() => {
-                              this.listItemDeselectHandler(item, index);
-                          }}/>
-            )
+            <GridItem key={(idField in item && item[idField]) || index}
+                      {...item}
+                      index={index}
+                      style={{height: itemHeight}}
+                      theme={item.theme || theme}
+                      parentEl={parentEl}
+                      col={col}
+                      selectTheme={item.selectTheme || selectTheme}
+                      radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
+                      radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
+                      checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
+                      checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
+                      checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
+                      data={item}
+                      checked={Calculation.isItemChecked(item, value, this.props)}
+                      value={Util.getValueByValueField(item, valueField, displayField)}
+                      text={Util.getTextByDisplayField(item, displayField, valueField)}
+                      desc={item[descriptionField] || null}
+                      disabled={disabled || item.disabled}
+                      isLoading={isLoading || item.isLoading}
+                      selectMode={selectMode}
+                      renderer={renderer}
+                      onClick={e => {
+                          onItemClick && onItemClick(item, index, e);
+                          item.onClick && item.onClick(e);
+                      }}
+                      onSelect={() => this.listItemSelectHandler(item, index)}
+                      onDeselect={() => this.listItemDeselectHandler(item, index)}/>
             :
-            (
-                <GridItem key={index}
-                          index={index}
-                          style={{height: itemHeight}}
-                          theme={item.theme || theme}
-                          parentEl={parentEl}
-                          col={col}
-                          selectTheme={item.selectTheme || selectTheme}
-                          radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
-                          radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
-                          checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
-                          checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
-                          checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
-                          data={item}
-                          checked={Calculation.isItemChecked(item, value, this.props)}
-                          value={item}
-                          text={item}
-                          disabled={disabled}
-                          isLoading={isLoading}
-                          selectMode={selectMode}
-                          renderer={renderer}
-                          onClick={e => {
-                              onItemClick && onItemClick(item, index, e);
-                          }}
-                          onSelect={() => {
-                              this.listItemSelectHandler(item, index);
-                          }}
-                          onDeselect={() => {
-                              this.listItemDeselectHandler(item, index);
-                          }}/>
-            );
+            <GridItem key={index}
+                      index={index}
+                      style={{height: itemHeight}}
+                      theme={item.theme || theme}
+                      parentEl={parentEl}
+                      col={col}
+                      selectTheme={item.selectTheme || selectTheme}
+                      radioUncheckedIconCls={item.radioUncheckedIconCls || radioUncheckedIconCls}
+                      radioCheckedIconCls={item.radioCheckedIconCls || radioCheckedIconCls}
+                      checkboxUncheckedIconCls={item.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
+                      checkboxCheckedIconCls={item.checkboxCheckedIconCls || checkboxCheckedIconCls}
+                      checkboxIndeterminateIconCls={item.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
+                      data={item}
+                      checked={Calculation.isItemChecked(item, value, this.props)}
+                      value={item}
+                      text={item}
+                      disabled={disabled}
+                      isLoading={isLoading}
+                      selectMode={selectMode}
+                      renderer={renderer}
+                      onClick={e => onItemClick && onItemClick(item, index, e)}
+                      onSelect={() => this.listItemSelectHandler(item, index)}
+                      onDeselect={() => this.listItemDeselectHandler(item, index)}/>;
 
     };
 
@@ -206,6 +199,7 @@ class Grid extends Component {
         );
 
     }
+
 }
 
 Grid.propTypes = {
@@ -363,6 +357,8 @@ Grid.propTypes = {
     checkboxIndeterminateIconCls: PropTypes.string,
 
     col: PropTypes.number,
+    itemHeight: PropTypes.number,
+    parentEl: PropTypes.object,
 
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
