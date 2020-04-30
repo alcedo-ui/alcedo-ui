@@ -5,11 +5,26 @@
 
 import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Vendors
+import classNames from 'classnames';
 import Event from '../_vendors/Event';
+import RC from '../_vendors/RateCalculation';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class Rate extends Component {
+
+    static getDerivedStateFromProps(props, state) {
+
+        const value = ComponentUtil.getDerivedState(props, state, 'value');
+
+        return {
+            prevProps: props,
+            value,
+            items: RC.createItems(value, props.allowHalf, props.count)
+        };
+
+    }
 
     constructor(props, ...restArgs) {
 
@@ -24,6 +39,31 @@ class Rate extends Component {
         };
 
     }
+
+    componentDidMount() {
+
+        this.wrapperEl = this.wrapper && this.wrapper.current;
+
+        const {value} = this.props,
+            items = this.createItems(value);
+
+        this.setState({
+            value,
+            items
+        });
+
+        Event.addEvent(document, 'mousemove', this.handleMouseMove);
+
+    }
+
+    componentWillUnmount() {
+        Event.removeEvent(document, 'mousemove', this.handleMouseMove);
+    }
+
+    createItems = value => {
+        const {allowHalf, count} = this.props;
+        return RC.createItems(value, allowHalf, count);
+    };
 
     handleTriggerEvent = (el, triggerEl) => {
         // console.log(el,triggerEl)
@@ -87,64 +127,6 @@ class Rate extends Component {
         });
 
     };
-
-    createItems = value => {
-        const {allowHalf, count} = this.props;
-        let items = [];
-        if (allowHalf) {
-            for (let i = 0; i < count; i++) {
-                if (i <= value - 1) {
-                    items.push('full');
-                } else if (i < value && i > value - 1) {
-                    items.push('full-zero');
-                } else if (i > value) {
-                    items.push('zero');
-                } else {
-                    items.push('zero');
-                }
-            }
-        } else {
-            for (let i = 0; i < count; i++) {
-                if (i < value) {
-                    items.push('full');
-                } else if (i > value) {
-                    items.push('zero');
-                } else {
-                    items.push('zero');
-                }
-            }
-        }
-        return items;
-    };
-
-    componentDidMount() {
-
-        this.wrapperEl = this.wrapper && this.wrapper.current;
-
-        const {value} = this.props;
-        const items = this.createItems(value);
-        this.setState({
-            value,
-            items
-        });
-        Event.addEvent(document, 'mousemove', this.handleMouseMove);
-
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.props.value) {
-            const value = nextProps.value;
-            const items = this.createItems(value);
-            this.setState({
-                value,
-                items
-            });
-        }
-    }
-
-    componentWillUnmount() {
-        Event.removeEvent(document, 'mousemove', this.handleMouseMove);
-    }
 
     render() {
 
