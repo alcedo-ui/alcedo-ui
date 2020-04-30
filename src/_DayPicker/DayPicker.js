@@ -5,13 +5,40 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 
+// Components
 import TouchRipple from '../TouchRipple';
 
+// Vendors
+import moment from 'moment';
 import Util from '../_vendors/Util';
+import ComponentUtil from '../_vendors/ComponentUtil';
+import DC from '../_vendors/DateCalculation';
 
 class DayPicker extends Component {
+
+    static getDerivedStateFromProps(props, state) {
+
+        const value = ComponentUtil.getDerivedState(props, state, 'value'),
+            selectYear = ComponentUtil.getDerivedState(props, state, 'year', 'selectYear'),
+            selectMonth = ComponentUtil.getDerivedState(props, state, 'month', 'selectMonth');
+
+        return {
+            prevProps: props,
+            selectYear,
+            selectMonth,
+            selectDay: ComponentUtil.getDerivedState(props, state, 'day', 'selectDay'),
+            hour: ComponentUtil.getDerivedState(props, state, 'hour'),
+            minute: ComponentUtil.getDerivedState(props, state, 'minute'),
+            second: ComponentUtil.getDerivedState(props, state, 'second'),
+            currentYear: moment(value).format('YYYY'),
+            currentMonth: moment(value).format('MM'),
+            currentDay: moment(value).format('DD'),
+            date_num_array: Util.MonthDays(selectYear),
+            first_day: DC.weekday(selectYear, selectMonth)
+        };
+
+    }
 
     constructor(props, ...restArgs) {
 
@@ -21,20 +48,19 @@ class DayPicker extends Component {
             row_number: 6,
             col_number: 7
         };
-        const value = this.props.value;
 
         this.state = {
-            selectYear: this.props.year,
-            selectMonth: this.props.month,
-            selectDay: this.props.day,
-            hour: this.props.hour,
-            minute: this.props.minute,
-            second: this.props.second,
-            currentYear: moment(value).format('YYYY'),
-            currentMonth: moment(value).format('MM'),
-            currentDay: moment(value).format('DD'),
-            date_num_array: Util.MonthDays(this.props.year),
-            first_day: this.weekday(this.props.year, this.props.month)
+            selectYear: props.year,
+            selectMonth: props.month,
+            selectDay: props.day,
+            hour: props.hour,
+            minute: props.minute,
+            second: props.second,
+            currentYear: moment(props.value).format('YYYY'),
+            currentMonth: moment(props.value).format('MM'),
+            currentDay: moment(props.value).format('DD'),
+            date_num_array: Util.MonthDays(props.year),
+            first_day: DC.weekday(props.year, props.month)
         };
 
     }
@@ -83,7 +109,7 @@ class DayPicker extends Component {
         let {currentYear, currentMonth, currentDay, selectYear, selectMonth, selectDay, date_num_array, first_day} = this.state;
         selectYear = +selectYear - 1;
         date_num_array = Util.MonthDays(selectYear);
-        first_day = this.weekday(selectYear, selectMonth);
+        first_day = DC.weekday(selectYear, selectMonth);
         selectDay = Number(currentYear) === Number(selectYear) &&
         Number(currentMonth) === Number(selectMonth) ?
             currentDay
@@ -113,7 +139,7 @@ class DayPicker extends Component {
             selectMonth = +selectMonth - 1;
         }
 
-        first_day = this.weekday(selectYear, selectMonth);
+        first_day = DC.weekday(selectYear, selectMonth);
         selectDay = Number(currentYear) === Number(selectYear) && Number(currentMonth) === Number(selectMonth) ? currentDay : undefined;
         this.setState({
             selectYear: selectYear,
@@ -137,7 +163,7 @@ class DayPicker extends Component {
             selectMonth = +selectMonth + 1;
         }
 
-        first_day = this.weekday(selectYear, selectMonth);
+        first_day = DC.weekday(selectYear, selectMonth);
         selectDay = Number(currentYear) === Number(selectYear) && Number(currentMonth) === Number(selectMonth) ? currentDay : undefined;
 
         this.setState({
@@ -155,7 +181,7 @@ class DayPicker extends Component {
         let {currentYear, currentMonth, currentDay, selectYear, selectMonth, selectDay, date_num_array, first_day} = this.state;
         selectYear = +selectYear + 1;
         date_num_array = Util.MonthDays(selectYear);
-        first_day = this.weekday(selectYear, selectMonth);
+        first_day = DC.weekday(selectYear, selectMonth);
         selectDay = Number(currentYear) === Number(selectYear) && Number(currentMonth) === Number(selectMonth) ? currentDay : undefined;
 
         this.setState({
@@ -174,51 +200,6 @@ class DayPicker extends Component {
         let MonthEn = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         return MonthEn[num];
     };
-
-    weekday = (selectYear, selectMonth) => {
-        let num = new Date(selectYear + '/' + selectMonth + '/01').getDay();
-        return num == 0 ? 7 : num;
-    };
-
-    componentDidMount() {
-        const {value, year, month, day, hour, minute, second} = this.props;
-        if (year && month && day && value) {
-            this.setState({
-                selectYear: year,
-                selectMonth: month,
-                selectDay: day,
-                hour: hour,
-                minute: minute,
-                second: second,
-                currentYear: moment(value).format('YYYY'),
-                currentMonth: moment(value).format('MM'),
-                currentDay: moment(value).format('DD'),
-                date_num_array: Util.MonthDays(year),
-                first_day: this.weekday(year, month)
-            });
-
-        }
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.props.value || nextProps.year !== this.props.year || nextProps.month !== this.props.month || nextProps.day !== this.props.day ||
-            nextProps.hour !== this.props.hour || nextProps.minute !== this.props.minute || nextProps.second !== this.props.second) {
-            const value = nextProps.value;
-            this.setState({
-                selectYear: nextProps.year,
-                selectMonth: nextProps.month,
-                selectDay: nextProps.day,
-                hour: nextProps.hour,
-                minute: nextProps.minute,
-                second: nextProps.second,
-                currentYear: moment(value).format('YYYY'),
-                currentMonth: moment(value).format('MM'),
-                currentDay: moment(value).format('DD'),
-                date_num_array: Util.MonthDays(nextProps.year),
-                first_day: this.weekday(nextProps.year, nextProps.month)
-            });
-        }
-    }
 
     render() {
 
@@ -244,7 +225,7 @@ class DayPicker extends Component {
 
         for (let i = 0; i < first_day; i++) {
             previous_days.push(<li className="item-gray" key={'previous' + i}>
-                <a href="javascript:;">{previous_month_days - (first_day - i) + 1}</a>
+                <a href="javascript:void(0);">{previous_month_days - (first_day - i) + 1}</a>
             </li>);
         }
         if (isRange) {
@@ -405,7 +386,7 @@ class DayPicker extends Component {
                         <li>Fri</li>
                         <li>Sat</li>
                     </ul>
-                    <div className='c-body-content'>
+                    <div className="c-body-content">
                         {
                             ul_list && ul_list.map((item, key) =>
                                 <ul key={'ul' + key}
