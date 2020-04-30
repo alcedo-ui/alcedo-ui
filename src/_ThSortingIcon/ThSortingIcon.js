@@ -17,14 +17,20 @@ class ThSortingIcon extends Component {
 
     render() {
 
-        const {sorting, sortingProp, sortingAscIconCls, sortingDescIconCls} = this.props;
+        const {
+            className, style,
+            sorting, sortingProp, sortingAscIconCls, sortingDescIconCls
+        } = this.props;
 
         return (
-            <div className={classNames('th-sorting-icon-wrapper',
-                sorting && sorting.type && sorting.prop === sortingProp ?
+            <div
+                className={classNames('th-sorting-icon-wrapper', sorting && sorting.type && sorting.prop === sortingProp ?
                     (sorting.type > 0 ? 'asc' : 'desc')
                     :
-                    '')}>
+                    '', {
+                    [className]: className
+                })}
+                style={style}>
                 <i className={`th-sorting-icon ${sortingAscIconCls} up`}
                    aria-hidden="true"></i>
                 <i className={`th-sorting-icon ${sortingDescIconCls} down`}
@@ -36,10 +42,15 @@ class ThSortingIcon extends Component {
 }
 
 ThSortingIcon.propTypes = {
+
+    className: PropTypes.string,
+    style: PropTypes.style,
+
     sorting: PropTypes.object,
     sortingProp: PropTypes.string,
     sortingAscIconCls: PropTypes.string,
     sortingDescIconCls: PropTypes.string
+
 };
 
 ThSortingIcon.defaultProps = {
