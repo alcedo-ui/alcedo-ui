@@ -5,6 +5,8 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+
+// Vendors
 import classNames from 'classnames';
 
 class ThSortingIcon extends Component {
@@ -19,7 +21,10 @@ class ThSortingIcon extends Component {
 
         return (
             <div className={classNames('th-sorting-icon-wrapper',
-                sorting && sorting.type && sorting.prop === sortingProp ? (sorting.type > 0 ? ' asc' : ' desc') : '')}>
+                sorting && sorting.type && sorting.prop === sortingProp ?
+                    (sorting.type > 0 ? 'asc' : 'desc')
+                    :
+                    '')}>
                 <i className={`th-sorting-icon ${sortingAscIconCls} up`}
                    aria-hidden="true"></i>
                 <i className={`th-sorting-icon ${sortingDescIconCls} down`}
