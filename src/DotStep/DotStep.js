@@ -5,11 +5,23 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Components
 import DotStepItem from '../_DotStepItem';
 
+// Vendors
+import classNames from 'classnames';
+import ComponentUtil from '../_vendors/ComponentUtil';
+
 class DotStep extends Component {
+
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            activatedStep: ComponentUtil.getDerivedState(props, state, 'activatedStep'),
+            finishedStep: ComponentUtil.getDerivedState(props, state, 'finishedStep')
+        };
+    }
 
     constructor(props, ...restArgs) {
 
@@ -36,16 +48,6 @@ class DotStep extends Component {
         });
 
     };
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.activatedStep !== this.state.activatedStep
-            || nextProps.finishedStep !== this.state.finishedStep) {
-            this.setState({
-                activatedStep: nextProps.activatedStep,
-                finishedStep: nextProps.finishedStep
-            });
-        }
-    }
 
     render() {
 
