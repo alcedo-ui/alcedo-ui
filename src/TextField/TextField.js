@@ -6,14 +6,17 @@
 import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
-import classNames from 'classnames';
 
+// Components
 import IconButton from '../IconButton';
 import FieldMsg from '../FieldMsg';
-import Theme from '../Theme';
 
+// Statics
+import Theme from '../Theme';
 import FieldType from '../_statics/FieldType';
 
+// Vendors
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
 import ComponentUtil from '../_vendors/ComponentUtil';
