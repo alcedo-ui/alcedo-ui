@@ -5,23 +5,37 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Components
 import List from '../List';
-import Theme from '../Theme';
 import Tip from '../Tip';
 
+// Statics
+import Theme from '../Theme';
 import SelectMode from '../_statics/SelectMode';
 import LIST_SEPARATOR from '../_statics/ListSeparator';
 
+// Vendors
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 import Calculation from '../_vendors/Calculation';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class GroupList extends Component {
 
     static SelectMode = SelectMode;
     static LIST_SEPARATOR = LIST_SEPARATOR;
     static Theme = Theme;
+
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: Calculation.getInitValue({
+                value: ComponentUtil.getDerivedState(props, state, 'value'),
+                selectMode: props.selectMode
+            })
+        };
+    }
 
     constructor(props, ...restArgs) {
 
@@ -31,14 +45,6 @@ class GroupList extends Component {
             value: Calculation.getInitValue(props)
         };
 
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: Calculation.getInitValue(nextProps)
-            });
-        }
     }
 
     render() {
