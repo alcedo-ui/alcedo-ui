@@ -5,27 +5,60 @@
 
 import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
-import cloneDeep from 'lodash/cloneDeep';
-import classNames from 'classnames';
 
+// Components
 import PositionPop from '../_PositionPop';
 import Notification from '../_Notification';
 
+// Statics
 import MsgType from '../_statics/MsgType';
 import Position from '../_statics/Position';
 
+// Vendors
+import cloneDeep from 'lodash/cloneDeep';
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
+import NC from '../_vendors/NotificationCalculation';
 
 class Notifier extends Component {
 
     static Type = MsgType;
     static Position = Position;
 
+    static getDerivedStateFromProps(props, state) {
+
+        if (!props.notifications || props.notifications.length < 1) {
+            return null;
+        }
+
+        let notifications = cloneDeep(props.notifications);
+        for (let i = 0, len = notifications.length; i < len; i++) {
+            if (typeof notifications[i] !== 'object') {
+                notifications[i] = {
+                    message: notifications[i]
+                };
+            }
+            notifications[i].notificationId = NC.getNotificationsKey();
+        }
+
+        if (NC.isPositiveSequence(props.position)) {
+            notifications = [...state.notifications, ...notifications];
+        } else {
+            notifications = [...notifications.reverse(), ...state.notifications];
+        }
+
+        return {
+            prevProps: props,
+            notifications,
+            visible: true
+        };
+
+    }
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
 
-        this.nextKey = 0;
         this.pop = createRef();
         this.popInstance = null;
 
@@ -36,9 +69,20 @@ class Notifier extends Component {
 
     }
 
-    isPositiveSequence = (position = this.props.position) => {
-        return position !== Position.BOTTOM_LEFT && position !== Position.BOTTOM && position !== Position.BOTTOM_RIGHT;
-    };
+    componentDidMount() {
+        this.popInstance = this.pop && this.pop.current;
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.notifications && this.props.notifications.length > 0) {
+
+            this.popInstance && this.popInstance.resetPosition();
+
+            const {onNotificationPop} = this.props;
+            onNotificationPop && onNotificationPop();
+
+        }
+    }
 
     /**
      * public
@@ -48,10 +92,10 @@ class Notifier extends Component {
 
         let notifications = this.state.notifications;
 
-        if (this.isPositiveSequence()) {
-            notifications.push({...notification, notificationId: this.nextKey++});
+        if (NC.isPositiveSequence(this.props.position)) {
+            notifications.push({...notification, notificationId: NC.getNotificationsKey()});
         } else {
-            notifications.unshift({...notification, notificationId: this.nextKey++});
+            notifications.unshift({...notification, notificationId: NC.getNotificationsKey()});
         }
 
         this.setState({
@@ -86,46 +130,6 @@ class Notifier extends Component {
         });
 
     };
-
-    componentDidMount() {
-        this.popInstance = this.pop && this.pop.current;
-    }
-
-    componentWillReceiveProps(nextProps) {
-
-        if (nextProps.notifications && nextProps.notifications.length > 0) {
-
-            let notifications = cloneDeep(nextProps.notifications);
-            for (let i = 0, len = notifications.length; i < len; i++) {
-                if (typeof notifications[i] !== 'object') {
-                    notifications[i] = {
-                        message: notifications[i]
-                    };
-                }
-                notifications[i].notificationId = this.nextKey++;
-            }
-
-            if (this.isPositiveSequence()) {
-                notifications = [...this.state.notifications, ...notifications];
-            } else {
-                notifications = [...notifications.reverse(), ...this.state.notifications];
-            }
-
-            this.setState({
-                notifications,
-                visible: true
-            }, () => {
-
-                this.popInstance && this.popInstance.resetPosition();
-
-                const {onNotificationPop} = this.props;
-                onNotificationPop && onNotificationPop();
-
-            });
-
-        }
-
-    }
 
     render() {
 
