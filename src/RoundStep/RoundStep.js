@@ -15,10 +15,19 @@ import Position from '../_statics/Position';
 // Vendors
 import classNames from 'classnames';
 import Util from '../_vendors/Util';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class RoundStep extends Component {
 
     static TitlePosition = Position;
+
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            activatedStep: ComponentUtil.getDerivedState(props, state, 'activatedStep'),
+            finishedStep: ComponentUtil.getDerivedState(props, state, 'finishedStep')
+        };
+    }
 
     constructor(props, ...restArgs) {
 
@@ -45,16 +54,6 @@ class RoundStep extends Component {
         });
 
     };
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.activatedStep !== this.state.activatedStep
-            || nextProps.finishedStep !== this.state.finishedStep) {
-            this.setState({
-                activatedStep: nextProps.activatedStep,
-                finishedStep: nextProps.finishedStep
-            });
-        }
-    }
 
     render() {
 
