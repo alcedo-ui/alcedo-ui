@@ -5,19 +5,30 @@
 
 import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Components
 import IconButton from '../IconButton';
-import Theme from '../Theme';
 import TipProvider from '../TipProvider';
 
+// Statics
+import Theme from '../Theme';
 import Position from '../_statics/Position';
 
+// Vendors
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class Checkbox extends Component {
 
     static Theme = Theme;
+
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            checked: ComponentUtil.getDerivedState(props, state, 'checked')
+        };
+    }
 
     constructor(props, ...restArgs) {
 
@@ -29,6 +40,10 @@ class Checkbox extends Component {
             checked: !!props.checked
         };
 
+    }
+
+    componentDidMount() {
+        this.checkboxIconInstance = this.checkboxIcon && this.checkboxIcon.current;
     }
 
     clickHandler = e => {
@@ -81,18 +96,6 @@ class Checkbox extends Component {
         this.checkboxIconInstance && this.checkboxIconInstance.endRipple();
 
     };
-
-    componentDidMount() {
-        this.checkboxIconInstance = this.checkboxIcon && this.checkboxIcon.current;
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.checked !== this.state.checked) {
-            this.setState({
-                checked: !!nextProps.checked
-            });
-        }
-    }
 
     render() {
 
