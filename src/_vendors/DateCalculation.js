@@ -8,6 +8,31 @@ function weekday(selectYear, selectMonth) {
     return num === 0 ? 7 : num;
 }
 
+function rangeData(range, minValue, maxValue, isRequired) {
+
+    const arr = [];
+
+    for (let i = 0; i < range; i++) {
+        if (i < 10) {
+            i = '0' + i;
+        }
+        let obj;
+        if (isRequired) {
+            ((+i > +maxValue) || (+i < +minValue)) ?
+                obj = {text: i, value: false}
+                :
+                obj = {text: i, value: true};
+        } else {
+            obj = {text: i, value: true};
+        }
+        arr.push(obj);
+    }
+
+    return arr;
+
+}
+
 export default {
-    weekday
+    weekday,
+    rangeData
 };
