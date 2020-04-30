@@ -5,21 +5,35 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Components
 import Grid from '../Grid';
-import Theme from '../Theme';
 import Tip from '../Tip';
 
+// Statics
+import Theme from '../Theme';
 import SelectMode from '../_statics/SelectMode';
 
+// Vendors
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 import Calculation from '../_vendors/Calculation';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class GroupGrid extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
+
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: Calculation.getInitValue({
+                value: ComponentUtil.getDerivedState(props, state, 'value'),
+                selectMode: props.selectMode
+            })
+        };
+    }
 
     constructor(props, ...restArgs) {
 
@@ -29,14 +43,6 @@ class GroupGrid extends Component {
             value: Calculation.getInitValue(props)
         };
 
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: Calculation.getInitValue(nextProps)
-            });
-        }
     }
 
     render() {
