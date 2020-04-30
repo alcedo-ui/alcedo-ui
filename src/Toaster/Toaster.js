@@ -5,27 +5,60 @@
 
 import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
-import cloneDeep from 'lodash/cloneDeep';
-import classNames from 'classnames';
 
+// Components
 import PositionPop from '../_PositionPop';
 import Toast from '../_Toast';
 
+// Statics
 import MsgType from '../_statics/MsgType';
 import Position from '../_statics/Position';
 
+// Vendors
+import cloneDeep from 'lodash/cloneDeep';
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
+import TC from '../_vendors/ToasterCalculation';
 
 class Toaster extends Component {
 
     static Type = MsgType;
     static Position = Position;
 
+    static getDerivedStateFromProps(props, state) {
+
+        if (!props.toasts || props.toasts.length < 1) {
+            return null;
+        }
+
+        let toasts = cloneDeep(props.toasts);
+        for (let i = 0, len = toasts.length; i < len; i++) {
+            if (typeof toasts[i] !== 'object') {
+                toasts[i] = {
+                    message: toasts[i]
+                };
+            }
+            toasts[i].toastsId = TC.getToastsKey();
+        }
+
+        if (TC.isPositiveSequence(props.position)) {
+            toasts = [...state.toasts, ...toasts];
+        } else {
+            toasts = [...toasts.reverse(), ...state.toasts];
+        }
+
+        return {
+            prevProps: props,
+            toasts,
+            visible: true
+        };
+
+    }
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
 
-        this.nextKey = 0;
         this.pop = createRef();
         this.popInstance = null;
 
@@ -36,9 +69,20 @@ class Toaster extends Component {
 
     }
 
-    isPositiveSequence = (position = this.props.position) => {
-        return position !== Position.BOTTOM_LEFT && position !== Position.BOTTOM && position !== Position.BOTTOM_RIGHT;
-    };
+    componentDidMount() {
+        this.popInstance = this.pop && this.pop.current;
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.toasts && this.props.toasts.length > 0) {
+
+            this.popInstance && this.popInstance.resetPosition();
+
+            const {onToastPop} = this.props;
+            onToastPop && onToastPop();
+
+        }
+    }
 
     /**
      * public
@@ -48,10 +92,10 @@ class Toaster extends Component {
 
         let toasts = this.state.toasts;
 
-        if (this.isPositiveSequence()) {
-            toasts.push({...toast, toastsId: this.nextKey++});
+        if (TC.isPositiveSequence(this.props.position)) {
+            toasts.push({...toast, toastsId: TC.getToastsKey()});
         } else {
-            toasts.unshift({...toast, toastsId: this.nextKey++});
+            toasts.unshift({...toast, toastsId: TC.getToastsKey()});
         }
 
         this.setState({
@@ -86,46 +130,6 @@ class Toaster extends Component {
         });
 
     };
-
-    componentDidMount() {
-        this.popInstance = this.pop && this.pop.current;
-    }
-
-    componentWillReceiveProps(nextProps) {
-
-        if (nextProps.toasts && nextProps.toasts.length > 0) {
-
-            let toasts = cloneDeep(nextProps.toasts);
-            for (let i = 0, len = toasts.length; i < len; i++) {
-                if (typeof toasts[i] !== 'object') {
-                    toasts[i] = {
-                        message: toasts[i]
-                    };
-                }
-                toasts[i].toastsId = this.nextKey++;
-            }
-
-            if (this.isPositiveSequence()) {
-                toasts = [...this.state.toasts, ...toasts];
-            } else {
-                toasts = [...toasts.reverse(), ...this.state.toasts];
-            }
-
-            this.setState({
-                toasts,
-                visible: true
-            }, () => {
-
-                this.popInstance && this.popInstance.resetPosition();
-
-                const {onToastPop} = this.props;
-                onToastPop && onToastPop();
-
-            });
-
-        }
-
-    }
 
     render() {
 
