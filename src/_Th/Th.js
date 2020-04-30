@@ -118,7 +118,8 @@ class Th extends Component {
             } = this.props,
 
             isResizingActivated = TC.getColumnKey(column, columnKeyField)
-                == TC.getColumnKey(resizingColumn, columnKeyField);
+                == TC.getColumnKey(resizingColumn, columnKeyField),
+            isSorting = sortable && sortingProp && sorting && sorting.prop && sorting.prop === sortingProp;
 
         return (
             <ResizableTh resizable={column.resizable && (!column?.children || column?.children?.length < 1)}
@@ -134,7 +135,9 @@ class Th extends Component {
                     [`align-${align}`]: align && align !== HorizontalAlign.LEFT,
                     sortable: sortable,
                     clickable: sortable && isClickSorting,
-                    sorting: sortable && sortingProp && sorting && sorting.prop && sorting.prop === sortingProp,
+                    sorting: isSorting,
+                    asc: isSorting && sorting.type > 0,
+                    desc: isSorting && sorting.type < 0,
                     'no-wrap': sortable || noWrap,
                     [className]: className
                 })}
