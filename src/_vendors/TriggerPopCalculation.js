@@ -130,6 +130,12 @@ function getStyle(parentEl, triggerEl, popupEl, scrollEl, position) {
         }
     }
 
+    // scroll offset
+    if (scrollEl) {
+        result.left -= scrollEl.scrollLeft;
+        result.top -= scrollEl.scrollTop;
+    }
+
     // to solve the fixed parent element problem
     const closestFixedEl = Dom.getClosestFixed(triggerEl);
     if (closestFixedEl && parentEl && domContains(parentEl, closestFixedEl)) {
