@@ -23,6 +23,7 @@ import SortingType from '../_statics/SortingType';
 import {findDOMNode} from 'react-dom';
 import classNames from 'classnames';
 import Util from '../_vendors/Util';
+import {getHideHorizontalScrollBarStyle} from '../_vendors/ScrollBar';
 
 class ScrollTable extends Component {
 
@@ -122,7 +123,8 @@ class ScrollTable extends Component {
 
         const hasVerticalScroll = this.hasVerticalScroll(),
             hasHead = !isHeadHidden && isHeadFixed,
-            hasFoot = !isFootHidden && isFootFixed;
+            hasFoot = !isFootHidden && isFootFixed,
+            scrollableTableStyle = getHideHorizontalScrollBarStyle();
 
         return (
             <Fragment>
@@ -131,6 +133,7 @@ class ScrollTable extends Component {
                     hasHead ?
                         <ScrollableTable ref={this.headScroller}
                                          className="scroll-table-head"
+                                         style={scrollableTableStyle}
                                          fragment={TableFragment.HEAD}
                                          scroll={scroll}
                                          useDynamicRender={useDynamicRender}
@@ -219,6 +222,7 @@ class ScrollTable extends Component {
                     hasFoot ?
                         <ScrollableTable ref={this.footScroller}
                                          className="scroll-table-foot"
+                                         style={scrollableTableStyle}
                                          fragment={TableFragment.FOOT}
                                          scroll={scroll}
                                          useDynamicRender={useDynamicRender}
