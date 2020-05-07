@@ -44,7 +44,7 @@ class ThSortingIcon extends Component {
 ThSortingIcon.propTypes = {
 
     className: PropTypes.string,
-    style: PropTypes.style,
+    style: PropTypes.object,
 
     sorting: PropTypes.object,
     sortingProp: PropTypes.string,
