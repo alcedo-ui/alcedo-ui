@@ -52,7 +52,7 @@ function leftHorizontalRight(triggerEl, triggerOffset) {
     return triggerOffset.left + triggerEl.offsetWidth;
 }
 
-function getStyle(parentEl, triggerEl, popupEl, scrollEl, position) {
+export function getStyle(parentEl, triggerEl, popupEl, scrollEl, position) {
 
     if (!triggerEl || !popupEl) {
         return;
@@ -130,12 +130,6 @@ function getStyle(parentEl, triggerEl, popupEl, scrollEl, position) {
         }
     }
 
-    // scroll offset
-    if (scrollEl) {
-        result.left -= scrollEl.scrollLeft;
-        result.top -= scrollEl.scrollTop;
-    }
-
     // to solve the fixed parent element problem
     const closestFixedEl = Dom.getClosestFixed(triggerEl);
     if (closestFixedEl && parentEl && domContains(parentEl, closestFixedEl)) {
@@ -146,7 +140,7 @@ function getStyle(parentEl, triggerEl, popupEl, scrollEl, position) {
 
 }
 
-function setStyle(parentEl, triggerEl, popupEl, scrollEl, position) {
+export function setStyle(parentEl, triggerEl, popupEl, scrollEl, position) {
 
     const style = getStyle(parentEl, triggerEl, popupEl, scrollEl, position);
 
