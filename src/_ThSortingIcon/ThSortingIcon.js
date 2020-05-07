@@ -24,12 +24,13 @@ class ThSortingIcon extends Component {
 
         return (
             <div
-                className={classNames('th-sorting-icon-wrapper', sorting && sorting.type && sorting.prop === sortingProp ?
-                    (sorting.type > 0 ? 'asc' : 'desc')
-                    :
-                    '', {
-                    [className]: className
-                })}
+                className={classNames('th-sorting-icon-wrapper',
+                    sorting && sorting.type && sorting.prop === sortingProp ?
+                        (sorting.type > 0 ? 'asc' : 'desc')
+                        :
+                        '', {
+                        [className]: className
+                    })}
                 style={style}>
                 <i className={`th-sorting-icon ${sortingAscIconCls} up`}
                    aria-hidden="true"></i>
