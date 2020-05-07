@@ -46,7 +46,7 @@ class ScrollableTable extends Component {
 
         const {
 
-                className, style, scroll, useDynamicRender,
+                scroll, useDynamicRender,
 
                 // not passing down these props
                 children: c, fragment, scrollHeight, rowHeight, scrollBuffer,
@@ -58,9 +58,7 @@ class ScrollableTable extends Component {
 
         return useDynamicRender || !isEmpty(scroll) ?
             <div {...restProps}
-                 ref={this.wrapper}
-                 className={className}
-                 style={style}>
+                 ref={this.wrapper}>
                 {children}
             </div>
             :
