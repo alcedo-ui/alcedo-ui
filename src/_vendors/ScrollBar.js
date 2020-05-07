@@ -3,16 +3,22 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import classNames from 'classnames';
+// Statics
 import Direction from '../_statics/Direction';
+
+// Vendors
+import classNames from 'classnames';
+
+// Styles
 import './ScrollBar.scss';
 
+// cache
 const tempSize = {
     vertical: null,
     horizontal: null
 };
 
-function getSize(direction = Direction.VERTICAL) {
+export function getSize(direction = Direction.VERTICAL) {
 
     if (document == undefined || window == undefined) {
         return;
@@ -45,6 +51,21 @@ function getSize(direction = Direction.VERTICAL) {
 
 }
 
+export function getHideHorizontalScrollBarStyle() {
+
+    const size = getSize(Direction.HORIZONTAL);
+
+    return size > 0 ? {
+        marginBottom: -size,
+        paddingBottom: 0
+    } : {
+        marginBottom: -20,
+        paddingBottom: 20
+    };
+
+}
+
 export default {
-    getSize
+    getSize,
+    getHideHorizontalScrollBarStyle
 };
