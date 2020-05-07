@@ -56,11 +56,11 @@ export function getHideHorizontalScrollBarStyle() {
     const size = getSize(Direction.HORIZONTAL);
 
     return size > 0 ? {
-        marginBottom: -size,
-        paddingBottom: 0
+        paddingBottom: 0,
+        marginBottom: -size
     } : {
-        marginBottom: -20,
-        paddingBottom: 20
+        paddingBottom: 20,
+        marginBottom: -20
     };
 
 }
