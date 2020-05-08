@@ -66,8 +66,9 @@ class BaseTable extends Component {
                 headColumns, bodyColumns, columnKeyField, columnsWidth, useColumnsWidth, selectMode, selectAllMode,
                 expandRows, resizingColumn, useDynamicRender, scrollHeight, rowHeight, scrollBuffer,
                 defaultColumnWidth, minColumnWidth, maxColumnWidth,
-                isHeadHidden, isBodyHidden, isFootHidden, hasFixedRightColumn,
-                isLayoutFixed, ignoreColumnSpan, hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
+                isHeadHidden, isBodyHidden, isFootHidden,
+                isLayoutFixed, isHeadFixed, isFootFixed, hasFixedLeftColumn, hasFixedRightColumn,
+                ignoreColumnSpan, hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
                 sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, isClickSorting,
                 onSortChange, onExpandChange, onRequestColumnsSpan, onHeadClick, onFootClick,
                 onColumnsWidthChange, onColumnResizeStart, onColumnResizeEnd, onColumnMeasure,
@@ -151,6 +152,7 @@ class BaseTable extends Component {
                                scrollHeight={scrollHeight}
                                rowHeight={rowHeight}
                                scrollBuffer={scrollBuffer}
+                               needMeasure={hasFixedLeftColumn || hasFixedRightColumn || isHeadFixed || isFootFixed}
                                onExpandChange={onExpandChange}
                                onRequestColumnsSpan={onRequestColumnsSpan}
                                onColumnMeasure={onColumnMeasure}/>
@@ -452,6 +454,9 @@ BaseTable.propTypes = {
      * fixed
      */
     isLayoutFixed: PropTypes.bool,
+    isHeadFixed: PropTypes.bool,
+    isFootFixed: PropTypes.bool,
+    hasFixedLeftColumn: PropTypes.bool,
     hasFixedRightColumn: PropTypes.bool,
 
     /**
@@ -531,6 +536,9 @@ BaseTable.defaultProps = {
      * fixed
      */
     isLayoutFixed: true,
+    isHeadFixed: false,
+    isFootFixed: false,
+    hasFixedLeftColumn: false,
     hasFixedRightColumn: false,
 
     /**
