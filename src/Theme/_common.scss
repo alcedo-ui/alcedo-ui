@@ -68,3 +68,29 @@ $field-msg-z-index: 81;
         box-shadow: none;
     }
 }
+
+@mixin table-fixed-shadow {
+    &.last-fixed-left::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 20px;
+        transform: translateX(100%);
+        transition: box-shadow 0.3s;
+        pointer-events: none;
+    }
+
+    &.first-fixed-right::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 20px;
+        transform: translateX(-100%);
+        transition: box-shadow 0.3s;
+        pointer-events: none;
+    }
+}
