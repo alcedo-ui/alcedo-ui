@@ -106,12 +106,12 @@ class ScrollTable extends Component {
         const {
 
             horizontalScrollStyle, verticalScrollStyle, fixed, columns, headColumns, bodyColumns,
-            isHeadHidden, isFootHidden, isLayoutFixed, isHeadFixed, isFootFixed, data, scroll, hasFixedRightColumn,
+            isHeadHidden, isFootHidden, isLayoutFixed, isHeadFixed, isFootFixed, data, scroll,
             useDynamicRender, dynamicRenderIndex, scrollHeight, rowHeight, scrollBuffer, defaultColumnWidth,
             onScroll, onWheel, onColumnMeasure,
 
             // not passing down these props
-            hasFixedLeftColumn, onInit, onGetScrollerEl,
+            onInit, onGetScrollerEl,
 
             ...restProps
 
@@ -149,7 +149,8 @@ class ScrollTable extends Component {
                                                columns={columns}
                                                headColumns={headColumns}
                                                bodyColumns={bodyColumns}
-                                               hasFixedRightColumn={hasFixedRightColumn}
+                                               isHeadFixed={isHeadFixed}
+                                               isFootFixed={isFootFixed}
                                                data={data}
                                                scrollEl={scrollEl}
                                                useDynamicRender={useDynamicRender}
@@ -201,7 +202,8 @@ class ScrollTable extends Component {
                                            columns={columns}
                                            headColumns={headColumns}
                                            bodyColumns={bodyColumns}
-                                           hasFixedRightColumn={hasFixedRightColumn}
+                                           isHeadFixed={isHeadFixed}
+                                           isFootFixed={isFootFixed}
                                            isLayoutFixed={isLayoutFixed}
                                            isHeadHidden={isHeadHidden || isHeadFixed}
                                            isFootHidden={isFootHidden || isFootFixed}
@@ -238,7 +240,8 @@ class ScrollTable extends Component {
                                                columns={columns}
                                                headColumns={headColumns}
                                                bodyColumns={bodyColumns}
-                                               hasFixedRightColumn={hasFixedRightColumn}
+                                               isHeadFixed={isHeadFixed}
+                                               isFootFixed={isFootFixed}
                                                ignoreColumnSpan={true}
                                                data={data}
                                                scrollEl={scrollEl}
