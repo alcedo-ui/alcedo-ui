@@ -14,7 +14,7 @@
     position: relative;
     overflow: auto;
 
-    &.has-head .base-table tbody tr:first-child td {
+    &.has-head .base-table tbody tr:nth-child(2) td {
         border-top: none;
     }
 
