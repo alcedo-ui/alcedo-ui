@@ -248,8 +248,9 @@ class List extends Component {
             children, className, style, data, disabled,
 
             // not passing down these props
-            activatedTheme, selectTheme, selectMode, idField, valueField, displayField, descriptionField, itemDisabled,
-            disableTouchRipple, autoSelect, isLoading, itemHeight, parentEl, radioUncheckedIconCls, radioCheckedIconCls,
+            activatedTheme, selectTheme, selectMode, value, idField, valueField, displayField, descriptionField,
+            itemDisabled, disableTouchRipple, autoSelect, isLoading, itemHeight, parentEl,
+            radioUncheckedIconCls, radioCheckedIconCls,
             checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
             indeterminateCallback, renderer, onItemClick, onItemSelect, onItemDeselect,
 
