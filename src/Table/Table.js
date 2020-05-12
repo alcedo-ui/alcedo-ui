@@ -256,6 +256,7 @@ class Table extends Component {
         const key = TC.getColumnKey(resizingColumn, columnKeyField),
             nextColumns = cloneDeep(columns);
 
+        // find the column in columns
         let column = null;
         Util.preOrderTraverse({children: nextColumns}, node => {
             if (node && TC.getColumnKey(node, columnKeyField) == key) {
@@ -266,6 +267,7 @@ class Table extends Component {
             return;
         }
 
+        // update column width
         column.width = width;
         columnsWidth.set(key, width);
 
@@ -279,6 +281,12 @@ class Table extends Component {
 
     };
 
+    /**
+     * handle column resize start event
+     * @param resizingColumn
+     * @param width
+     * @param e
+     */
     handleColumnResizeStart = (resizingColumn, width, e) => {
         this.setState({
             resizingColumn
@@ -288,6 +296,12 @@ class Table extends Component {
         });
     };
 
+    /**
+     * handle column resize end event
+     * @param resizingColumn
+     * @param width
+     * @param e
+     */
     handleColumnResizeEnd = (resizingColumn, width, e) => {
         setTimeout(() => {
             this.setState({
@@ -299,16 +313,23 @@ class Table extends Component {
         }, 0);
     };
 
+    /**
+     * handle column measure event
+     * @param column
+     * @param width
+     */
     handleColumnMeasure = (column, width) => {
 
         const {columnKeyField} = this.props,
             {resizingColumn, columnsWidth} = this.state,
             columnKey = TC.getColumnKey(column, columnKeyField);
 
+        // ignore resizing Column
         if (columnKey == TC.getColumnKey(resizingColumn, columnKeyField)) {
             return;
         }
 
+        // update column width
         columnsWidth.set(columnKey, width);
 
         this.setState({
