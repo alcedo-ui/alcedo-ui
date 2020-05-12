@@ -13,6 +13,7 @@
 .scroll-table-body {
     position: relative;
     overflow: auto;
+    z-index: 1;
 
     &.has-head .base-table tbody tr:nth-child(2) td {
         border-top: none;
