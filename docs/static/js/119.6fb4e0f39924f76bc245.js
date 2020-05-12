@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[119],{819:function(p,e,i){"use strict";i.r(e),e.default=i.p+"static/img/example.b60bdbd.jpg"}}]);
