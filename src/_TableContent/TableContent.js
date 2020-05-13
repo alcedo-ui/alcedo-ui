@@ -573,7 +573,7 @@ class TableContent extends PureComponent {
                 minColumnWidth, maxColumnWidth,
 
                 // not passing down these props
-                isSelectRecursive, selectUncheckedIconCls, selectCheckedIconCls, resizing, sorting,
+                isSelectRecursive, selectUncheckedIconCls, selectCheckedIconCls, resizing,
                 selectIndeterminateIconCls, selectColumn, expandIconCls, autoSorting, isPaginated, page, pageSize,
                 canBeExpanded, scrollTop, onPingLeftChange, onPingRightChange,
                 sortingFunc, onChange, onExpand, onCollapse, onExpandChange, onDataUpdate, onSelect,
@@ -625,7 +625,6 @@ class TableContent extends PureComponent {
 
                 <div ref={this.wrapper}
                      className="table-content">
-
                     <ScrollTable {...restProps}
                                  horizontalScrollStyle={horizontalScrollStyle}
                                  verticalScrollStyle={verticalScrollStyle}
@@ -643,7 +642,6 @@ class TableContent extends PureComponent {
                                  hasBodyRenderer={hasBodyRenderer}
                                  hasFootRenderer={hasFootRenderer}
                                  scroll={scroll}
-                                 sorting={sorting}
                                  useDynamicRender={useDynamicRender}
                                  dynamicRenderIndex={this.dynamicRenderIndex}
                                  minColumnWidth={minColumnWidth}
@@ -653,7 +651,6 @@ class TableContent extends PureComponent {
                                  onWheel={this.handleWheel}
                                  onRequestColumnsSpan={this.handleRequestColumnsSpan}
                                  onGetScrollerEl={this.handleGetScrollerEl}/>
-
                 </div>
 
                 {
