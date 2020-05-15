@@ -46,7 +46,7 @@ class Table extends Component {
             page: TC.handlePage(page, pageSize, props.data),
             pageSize,
             expandRows: ComponentUtil.getDerivedState(props, state, 'expandRows'),
-            value: ComponentUtil.getDerivedState(props, state, 'value')
+            value: ComponentUtil.getDerivedState(props, state, 'value') || []
         };
 
     }
@@ -64,7 +64,7 @@ class Table extends Component {
             page: props.page,
             pageSize: props.pageSize,
             expandRows: props.expandRows,
-            value: props.value,
+            value: props.value || [],
             scrolling: false,
             isPingLeft: false,
             isPingRight: false,
@@ -92,7 +92,7 @@ class Table extends Component {
      */
     handleChange = (value, rowIndex) => {
         this.setState({
-            value
+            value: [...value]
         }, () => {
             const {onChange} = this.props;
             onChange && onChange(value, rowIndex);
