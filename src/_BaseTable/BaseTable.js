@@ -63,10 +63,9 @@ class BaseTable extends Component {
         const {
 
                 className, style, data, dynamicRenderData, value, idField, scrollEl, hasVerticalScroll,
-                headColumns, bodyColumns, columnKeyField, columnsWidth, useColumnsWidth, selectMode, selectAllMode,
+                headColumns, bodyColumns, columnKeyField, columnsWidth, useColumnsWidth, selectMode,
                 expandRows, resizingColumn, useDynamicRender, scrollHeight, rowHeight, scrollBuffer,
-                defaultColumnWidth, minColumnWidth, maxColumnWidth,
-                isHeadHidden, isBodyHidden, isFootHidden,
+                defaultColumnWidth, minColumnWidth, maxColumnWidth, isHeadHidden, isBodyHidden, isFootHidden,
                 isLayoutFixed, isHeadFixed, isFootFixed, hasFixedLeftColumn, hasFixedRightColumn,
                 ignoreColumnSpan, hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
                 sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, isClickSorting,
@@ -74,7 +73,7 @@ class BaseTable extends Component {
                 onColumnsWidthChange, onColumnResizeStart, onColumnResizeEnd, onColumnMeasure,
 
                 // not passing down these props
-                columns: cols, fragment,
+                columns: cols, fragment, selectAllMode,
 
                 ...restProps
 
