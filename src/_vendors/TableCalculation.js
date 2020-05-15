@@ -247,7 +247,7 @@ function isSelectAllChecked(data, value, idField) {
 
 }
 
-function handleSelect(node, value, idField, isSelectRecursive) {
+function handleSelect(node, value = [], idField, isSelectRecursive) {
 
     if (!node || node.disabled || !value) {
         return value;
@@ -262,7 +262,7 @@ function handleSelect(node, value, idField, isSelectRecursive) {
     }
 
     for (let item of node.children) {
-        handleSelect(item, value, idField);
+        handleSelect(item, value, idField, isSelectRecursive);
     }
 
     return value;
@@ -314,7 +314,7 @@ function formatValue(value, data, idField) {
 
 }
 
-function handleSelectAll(data, value, idField) {
+function handleSelectAll(data, value = [], idField) {
 
     if (!data || data.length < 1) {
         return value;
