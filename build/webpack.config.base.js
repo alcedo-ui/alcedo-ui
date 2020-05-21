@@ -36,6 +36,9 @@ module.exports = {
         filename: '[name].js',
         publicPath: config.assetsPublicPath
     },
+    watchOptions: {
+        ignored: /node_modules/
+    },
     resolve: {
         extensions: ['.js', '.json'],
         alias: {
