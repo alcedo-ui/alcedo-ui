@@ -39,6 +39,26 @@ class Tabs extends Component {
 
     }
 
+    componentDidMount() {
+
+        this.tabsEl = this.tabs && this.tabs.current;
+
+        Event.addEvent(window, 'resize', this.handleTabsOverflowChange);
+        Event.addEvent(document, 'mouseup', this.clearTabsScrollTimeout);
+
+        this.handleTabsOverflowChange();
+
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        this.handleTabsOverflowChange();
+    }
+
+    componentWillUnmount() {
+        Event.removeEvent(window, 'resize', this.handleTabsOverflowChange);
+        Event.removeEvent(document, 'mouseup', this.clearTabsScrollTimeout);
+    }
+
     isTabsOverflow = () => {
 
         if (!this.tabsEl) {
@@ -174,26 +194,6 @@ class Tabs extends Component {
         }
 
     };
-
-    componentDidMount() {
-
-        this.tabsEl = this.tabs && this.tabs.current;
-
-        Event.addEvent(window, 'resize', this.handleTabsOverflowChange);
-        Event.addEvent(document, 'mouseup', this.clearTabsScrollTimeout);
-
-        this.handleTabsOverflowChange();
-
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        this.handleTabsOverflowChange();
-    }
-
-    componentWillUnmount() {
-        Event.removeEvent(window, 'resize', this.handleTabsOverflowChange);
-        Event.removeEvent(document, 'mouseup', this.clearTabsScrollTimeout);
-    }
 
     render() {
 
