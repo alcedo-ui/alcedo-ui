@@ -21,17 +21,17 @@ const chokidar = require('chokidar'),
 
 chokidar.watch('.');
 
-compiler.hooks.compilation.tap('html-webpack-plugin-after-emit', () => {
-    hotMiddleware.publish({action: 'reload'});
-});
+compiler.hooks.compilation.tap('html-webpack-plugin-after-emit', () =>
+    hotMiddleware.publish({action: 'reload'})
+);
 
 app.use(devMiddleware)
    .use(hotMiddleware)
    .use(config.dev.assetsVirtualRoot, express.static('./static'));
 
-devMiddleware.waitUntilValid(() => {
-    log.title('success', 'DONE', `Listening At ${uri}`);
-});
+devMiddleware.waitUntilValid(() =>
+    log.title('success', 'DONE', `Listening At ${uri}`)
+);
 
 module.exports = app.listen(config.dev.port, err => {
 
