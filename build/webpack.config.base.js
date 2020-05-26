@@ -28,17 +28,17 @@ function resolve(dir) {
 }
 
 module.exports = {
+
     entry: {
         app: './examples/index.js'
     },
+
     output: {
         path: config.build.assetsRoot,
         filename: '[name].js',
         publicPath: config.assetsPublicPath
     },
-    watchOptions: {
-        ignored: /node_modules/
-    },
+
     resolve: {
         extensions: ['.js', '.json'],
         alias: {
@@ -56,6 +56,7 @@ module.exports = {
             'docs': resolve('docs')
         }
     },
+
     module: {
         rules: [{
             test: /\.js$/,
@@ -86,6 +87,7 @@ module.exports = {
             loader: 'html-loader'
         }]
     },
+
     plugins: [
         new HappyPack({
             id: 'js',
@@ -96,4 +98,5 @@ module.exports = {
             verbose: false
         })
     ]
+
 };
