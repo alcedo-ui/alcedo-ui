@@ -16,6 +16,14 @@ import Util from '../_vendors/Util';
 
 class Tab extends Component {
 
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            tabs: ComponentUtil.getDerivedState(props, state, 'tabs'),
+            activatedIndex: ComponentUtil.getDerivedState(props, state, 'activatedIndex')
+        };
+    }
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -26,14 +34,6 @@ class Tab extends Component {
             isTabsOverflow: false
         };
 
-    }
-
-    static getDerivedStateFromProps(props, state) {
-        return {
-            prevProps: props,
-            tabs: ComponentUtil.getDerivedState(props, state, 'tabs'),
-            activatedIndex: ComponentUtil.getDerivedState(props, state, 'activatedIndex')
-        };
     }
 
     getRenderer = item => {
