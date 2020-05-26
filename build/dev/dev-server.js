@@ -1,4 +1,5 @@
-const open = require('open'),
+const chokidar = require('chokidar'),
+    open = require('open'),
     webpack = require('webpack'),
     express = require('express'),
     log = require('friendly-errors-webpack-plugin/src/output'),
@@ -17,6 +18,8 @@ const open = require('open'),
         log: false
     }),
     app = express();
+
+chokidar.watch('.');
 
 compiler.hooks.compilation.tap('html-webpack-plugin-after-emit', () => {
     hotMiddleware.publish({action: 'reload'});
