@@ -18,7 +18,21 @@ class TabExamples extends Component {
         super(props);
 
         this.state = {
-            tabs: this.generateTabs(20),
+            tabs: [{
+                value: 'Tab 1',
+                tabContentRenderer: <h1>Tab 1</h1>
+            }, {
+                value: 'Tab 2',
+                tabContentRenderer: <h1>Tab 2</h1>
+            }, {
+                value: 'Tab 3',
+                tabContentRenderer: <h1>onActive</h1>,
+                onActive: this.activeHandler
+            }, {
+                value: 'Tab 4',
+                disabled: true
+            }],
+            longTabs: this.generateTabs(20),
             toasts: []
         };
 
@@ -45,6 +59,30 @@ class TabExamples extends Component {
         });
     };
 
+    handleAddTab = () => {
+
+        const {tabs} = this.state,
+            index = tabs.length + 1;
+
+        tabs.push({
+            value: `Tab ${index}`,
+            tabContentRenderer: <h1>Tab {index}</h1>
+        });
+
+        this.setState({
+            tabs
+        });
+
+    };
+
+    handleRemoveTab = () => {
+        const {tabs} = this.state;
+        tabs.pop();
+        this.setState({
+            tabs
+        });
+    };
+
     generateTabs = length => {
         return Array.from({length}, (item, index) => ({
             id: index + 1,
@@ -55,17 +93,17 @@ class TabExamples extends Component {
 
     addTab = () => {
 
-        const {tabs} = this.state,
-            index = tabs.length + 1;
+        const {longTabs} = this.state,
+            index = longTabs.length + 1;
 
-        tabs.push({
+        longTabs.push({
             id: index,
             value: `Tab ${index}`,
             tabContentRenderer: <h1>Tab {index}</h1>
         });
 
         this.setState({
-            tabs
+            longTabs
         });
 
     };
@@ -84,7 +122,7 @@ class TabExamples extends Component {
 
     render() {
 
-        const {tabs, toasts} = this.state;
+        const {tabs, longTabs, toasts} = this.state;
 
         return (
             <div className="example tab-examples">
@@ -112,20 +150,14 @@ class TabExamples extends Component {
                                     A simple example of Tabs. The third tab demonstrates the onActive property of Tab.
                                 </p>
 
-                                <Tab tabs={[{
-                                    value: 'Tab 1',
-                                    tabContentRenderer: <h1>Tab 1</h1>
-                                }, {
-                                    value: 'Tab 2',
-                                    tabContentRenderer: <h1>Tab 2</h1>
-                                }, {
-                                    value: 'Tab 3',
-                                    tabContentRenderer: <h1>onActive</h1>,
-                                    onActive: this.activeHandler
-                                }, {
-                                    value: 'Tab 4',
-                                    disabled: true
-                                }]}
+                                <div className="toolbar">
+                                    <IconButton iconCls="fas fa-plus"
+                                                onClick={this.handleAddTab}/>
+                                    <IconButton iconCls="fas fa-minus"
+                                                onClick={this.handleRemoveTab}/>
+                                </div>
+
+                                <Tab tabs={tabs}
                                      activatedIndex={1}/>
 
                             </div>
@@ -149,7 +181,7 @@ class TabExamples extends Component {
                                     for partial width.
                                 </p>
 
-                                <Tab tabs={tabs}
+                                <Tab tabs={longTabs}
                                      isTabFullWidth={false}
                                      isAnimated={false}
                                      draggable={true}
