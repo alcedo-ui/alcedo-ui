@@ -17,6 +17,7 @@ import Direction from '../_statics/Direction';
 
 // Vendors
 import classNames from 'classnames';
+import debounce from 'lodash/debounce';
 import Event from '../_vendors/Event';
 import ScrollBar from '../_vendors/ScrollBar';
 
@@ -34,7 +35,9 @@ class Tabs extends Component {
         this.tabsScrollTimeout = null;
 
         this.state = {
-            scrollLeft: 0
+            scrollLeft: 0,
+            inkBarWidth: 0,
+            inkBarOffsetLeft: 0
         };
 
     }
@@ -43,19 +46,21 @@ class Tabs extends Component {
 
         this.tabsEl = this.tabs && this.tabs.current;
 
-        Event.addEvent(window, 'resize', this.handleTabsOverflowChange);
+        Event.addEvent(window, 'resize', this.handleResize);
         Event.addEvent(document, 'mouseup', this.clearTabsScrollTimeout);
 
+        this.handleInkBarSizeChange();
         this.handleTabsOverflowChange();
 
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
+        this.handleInkBarSizeChange();
         this.handleTabsOverflowChange();
     }
 
     componentWillUnmount() {
-        Event.removeEvent(window, 'resize', this.handleTabsOverflowChange);
+        Event.removeEvent(window, 'resize', this.handleResize);
         Event.removeEvent(document, 'mouseup', this.clearTabsScrollTimeout);
     }
 
@@ -104,27 +109,8 @@ class Tabs extends Component {
 
     };
 
-    getInkBarStyle = () => {
-
-        if (!this.tabsEl) {
-            return null;
-        }
-
-        const tabs = this.tabsEl.querySelectorAll('.tab-buttons .tab-button');
-
-        if (!tabs || tabs.length < 1) {
-            return null;
-        }
-
-        const {activatedIndex} = this.props,
-            activatedtab = tabs[activatedIndex];
-
-        return activatedtab ? {
-                width: activatedtab.offsetWidth,
-                left: activatedtab.offsetLeft
-            }
-            :
-            null;
+    clearTabsScrollTimeout = () => {
+        this.tabsScrollTimeout && clearTimeout(this.tabsScrollTimeout);
     };
 
     handleOnTabsScroll = e => {
@@ -172,8 +158,37 @@ class Tabs extends Component {
 
     };
 
-    clearTabsScrollTimeout = () => {
-        this.tabsScrollTimeout && clearTimeout(this.tabsScrollTimeout);
+    handleInkBarSizeChange = () => {
+
+        if (!this.tabsEl) {
+            return;
+        }
+
+        const tabs = this.tabsEl.querySelectorAll('.tab-buttons .tab-button');
+
+        if (!tabs || tabs.length < 1) {
+            return;
+        }
+
+        const {activatedIndex} = this.props,
+            activatedtab = tabs[activatedIndex];
+
+        if (!activatedtab) {
+            return;
+        }
+
+        if (activatedtab.offsetWidth !== this.state.inkBarWidth) {
+            this.setState({
+                inkBarWidth: activatedtab.offsetWidth
+            });
+        }
+
+        if (activatedtab.offsetLeft !== this.state.inkBarOffsetLeft) {
+            this.setState({
+                inkBarOffsetLeft: activatedtab.offsetLeft
+            });
+        }
+
     };
 
     handleTabsOverflowChange = () => {
@@ -195,6 +210,11 @@ class Tabs extends Component {
 
     };
 
+    handleResize = debounce(() => {
+        this.handleInkBarSizeChange();
+        this.handleTabsOverflowChange();
+    }, 150);
+
     render() {
 
         const {
@@ -203,10 +223,9 @@ class Tabs extends Component {
                 scrollLeftIconCls, scrollRightIconCls,
                 onTabMouseDown, onTabMouseUp, onTabClick, onTabButtonDragStart, onTabButtonDragEnd
             } = this.props,
-            {scrollLeft} = this.state,
+            {scrollLeft, inkBarWidth, inkBarOffsetLeft} = this.state,
 
-            scrollerStyle = this.getScrollerStyle(),
-            inkBarStyle = this.getInkBarStyle();
+            scrollerStyle = this.getScrollerStyle();
 
         return (
             <DragDropContext onDragStart={onTabButtonDragStart}
@@ -270,12 +289,12 @@ class Tabs extends Component {
                         </Droppable>
 
                         {
-                            !isInkBarHidden && inkBarStyle ?
+                            !isInkBarHidden ?
                                 <div className="ink-bar"
                                      style={{
                                          bottom: scrollerStyle ? 0 : 20,
-                                         width: inkBarStyle.width,
-                                         transform: `translateX(${inkBarStyle.left}px)`
+                                         width: inkBarWidth,
+                                         transform: `translateX(${inkBarOffsetLeft}px)`
                                      }}></div>
                                 :
                                 null
