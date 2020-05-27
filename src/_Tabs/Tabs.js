@@ -20,6 +20,7 @@ import classNames from 'classnames';
 import debounce from 'lodash/debounce';
 import Event from '../_vendors/Event';
 import ScrollBar from '../_vendors/ScrollBar';
+import Valid from '../_vendors/Valid';
 
 class Tabs extends Component {
 
@@ -170,7 +171,7 @@ class Tabs extends Component {
             return;
         }
 
-        const {activatedIndex} = this.props,
+        const activatedIndex = Valid.range(this.props.activatedIndex, 0, tabs.length - 1),
             activatedtab = tabs[activatedIndex];
 
         if (!activatedtab) {
