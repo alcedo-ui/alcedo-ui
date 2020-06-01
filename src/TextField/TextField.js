@@ -534,7 +534,6 @@ TextField.defaultProps = {
     theme: Theme.DEFAULT,
 
     type: 'text',
-    value: '',
     disabled: false,
     readOnly: false,
     autoFocus: false,
