@@ -46,4 +46,8 @@
     &.deactivated .react-resizable-handle::after {
         border-right: none;
     }
+
+    &:last-child {
+        overflow-x: hidden;
+    }
 }
