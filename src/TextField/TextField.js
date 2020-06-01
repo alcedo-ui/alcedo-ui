@@ -280,7 +280,7 @@ class TextField extends Component {
                            [triggerClassName]: triggerClassName
                        })}
                        type={inputType}
-                       value={value}
+                       value={value || ''}
                        disabled={disabled}
                        maxLength={isStrictMaxLength ? maxLength : null}
                        onChange={this.handleChange}
