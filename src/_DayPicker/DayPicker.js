@@ -25,6 +25,7 @@ class DayPicker extends Component {
 
         return {
             prevProps: props,
+            value,
             selectYear,
             selectMonth,
             selectDay: ComponentUtil.getDerivedState(props, state, 'day', 'selectDay'),
