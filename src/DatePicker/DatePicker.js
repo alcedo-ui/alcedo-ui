@@ -126,7 +126,7 @@ class DatePicker extends Component {
             month: month,
             day: day
         }, () => {
-            this.props.onChange && this.props.onChange(moment(date.time).format(dateFormat));
+            this.props.onChange && this.props.onChange(moment(timer).format(dateFormat));
         });
     };
 

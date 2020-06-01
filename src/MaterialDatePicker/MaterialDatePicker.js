@@ -193,12 +193,6 @@ class MaterialDatePicker extends Component {
         this.validValueFormat(value, dateFormat);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value && nextProps.value !== this.props.value || nextProps.dateFormat !== this.props.dateFormat) {
-            this.validValueFormat(nextProps.value, nextProps.dateFormat);
-        }
-    }
-
     static getDerivedStateFromProps(props, state) {
 
         const value = ComponentUtil.getDerivedState(props, state, 'value'),
