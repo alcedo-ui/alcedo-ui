@@ -16,7 +16,10 @@ class DatePickerExamples extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            DatePickerVisible: {}
+            DatePickerVisible: {},
+            DatePickerValue: {
+                2: '2017/02/03'
+            }
         };
 
     }
@@ -46,13 +49,19 @@ class DatePickerExamples extends Component {
     };
 
 
-    onChangeHandler = value => {
+    onChangeHandler = (id, value) => {
+        const {DatePickerValue} = this.state;
+
+        DatePickerValue[id] = value;
+        this.setState({
+            DatePickerValue
+        });
         console.log(value);
     };
 
     render() {
 
-        const {DatePickerVisible} = this.state;
+        const {DatePickerVisible, DatePickerValue} = this.state;
 
         return (
             <div className="example time-picker-examples">
@@ -78,7 +87,7 @@ class DatePickerExamples extends Component {
                                     <code>DatePicker</code> using the <code>value</code> property to set initial date.
                                 </p>
 
-                                <DatePicker value={''}
+                                <DatePicker value={DatePickerValue[1]}
                                             dateFormat={'YYYY-MM-DD'}
                                             name="date"
                                             readOnly={true}
@@ -86,7 +95,7 @@ class DatePickerExamples extends Component {
                                             popupClassName={'popupClassName'}
                                             position={DatePicker.Position.TOP}
                                             autoClose={true}
-                                            onChange={this.onChangeHandler}/>
+                                            onChange={value => this.onChangeHandler(1, value)}/>
 
                             </div>
 
@@ -109,9 +118,9 @@ class DatePickerExamples extends Component {
 
                                 <DatePicker name="date"
                                             dateFormat='YYYY/MM/DD'
-                                            value='2017/02/03'
+                                            value={DatePickerValue[2]}
                                             autoClose={false}
-                                            onChange={this.onChangeHandler}/>
+                                            onChange={value => this.onChangeHandler(2, value)}/>
                             </div>
 
                         </div>
@@ -131,11 +140,12 @@ class DatePickerExamples extends Component {
                                     property to set date selectable range.</p>
 
                                 <DatePicker name="date"
+                                            value={DatePickerValue[3]}
                                             dateFormat='YYYY-MM-DD'
                                             maxValue='2050-02-01'
                                             minValue='2017-02-03'
                                             autoClose={false}
-                                            onChange={this.onChangeHandler}/>
+                                            onChange={value => this.onChangeHandler(3, value)}/>
 
                             </div>
 
@@ -156,11 +166,12 @@ class DatePickerExamples extends Component {
                                     date.</p>
 
                                 <DatePicker name="date"
+                                            value={DatePickerValue[4]}
                                             dateFormat='YYYY-MM-DD'
                                             maxValue='2050-02-01'
                                             minValue='2017-02-03'
                                             autoClose={false}
-                                            onChange={this.onChangeHandler}/>
+                                            onChange={value => this.onChangeHandler(4, value)}/>
 
                             </div>
 
@@ -191,12 +202,13 @@ class DatePickerExamples extends Component {
                                             <div className="popover-dialog-content-scroller">
                                                 <div className="field-group">
                                                     <DatePicker name="date"
+                                                                value={DatePickerValue[5]}
                                                                 dateFormat='YYYY-MM-DD'
                                                                 maxValue='2050-02-01'
                                                                 minValue='2017-02-03'
                                                                 parentEl={dialogContentEl}
                                                                 autoClose={false}
-                                                                onChange={this.onChangeHandler}/>
+                                                                onChange={value => this.onChangeHandler(5, value)}/>
                                                 </div>
                                             </div>
                                     }
