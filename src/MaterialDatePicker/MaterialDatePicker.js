@@ -231,9 +231,9 @@ class MaterialDatePicker extends Component {
     render() {
 
         const {
-                className, name, placeholder, dateFormat, maxValue, minValue, label, isLabelAnimate, isFooter, position,
-                theme, popupClassName, rightIconCls, previousYearIconCls, previousMonthIconCls, nextYearIconCls,
-                nextMonthIconCls, readOnly, disabled, parentEl
+                popupChildren, className, name, placeholder, dateFormat, maxValue, minValue, label,
+                isLabelAnimate, isFooter, position, theme, popupClassName, rightIconCls, previousYearIconCls,
+                previousMonthIconCls, nextYearIconCls, nextMonthIconCls, readOnly, disabled, parentEl
             } = this.props,
             {value, popupVisible, datePickerLevel, year, month, day, isAbove} = this.state,
             textValue = value && moment(value).format(dateFormat);
@@ -334,6 +334,8 @@ class MaterialDatePicker extends Component {
                             null
                     }
 
+                    {popupChildren}
+
                 </Popup>
             </div>
         );
@@ -341,6 +343,8 @@ class MaterialDatePicker extends Component {
 }
 
 MaterialDatePicker.propTypes = {
+
+    popupChildren: PropTypes.any,
 
     /**
      * The CSS class name of the root element.

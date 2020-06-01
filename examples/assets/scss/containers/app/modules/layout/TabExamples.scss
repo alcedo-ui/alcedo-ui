@@ -2,6 +2,14 @@
 
 .tab-examples {
 
+    .toolbar {
+        @include float-fix;
+
+        & > * {
+            float: right;
+        }
+    }
+
     .tab-button.customized-tab-button {
         width: 40px;
         margin-left: 4px;

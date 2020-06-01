@@ -50,11 +50,12 @@ module.exports = merge(baseWebpackConfig, {
             }
         }),
 
-        new CopyPlugin([{
-            from: path.resolve(__dirname, '../../static'),
-            to: config.assetsSubDirectory,
-            ignore: ['.*']
-        }]),
+        new CopyPlugin({
+            patterns: [{
+                from: path.resolve(__dirname, '../../static'),
+                to: config.assetsSubDirectory
+            }]
+        }),
 
         new webpack.DllReferencePlugin({
             context: __dirname,

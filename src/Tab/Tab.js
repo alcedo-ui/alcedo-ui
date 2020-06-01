@@ -13,8 +13,22 @@ import Tabs from '../_Tabs';
 import classNames from 'classnames';
 import ComponentUtil from '../_vendors/ComponentUtil';
 import Util from '../_vendors/Util';
+import Valid from '../_vendors/Valid';
 
 class Tab extends Component {
+
+    static getDerivedStateFromProps(props, state) {
+
+        const tabs = ComponentUtil.getDerivedState(props, state, 'tabs');
+
+        return {
+            prevProps: props,
+            tabs,
+            activatedIndex: Valid.range(ComponentUtil.getDerivedState(props, state, 'activatedIndex'),
+                0, tabs.length - 1)
+        };
+
+    }
 
     constructor(props, ...restArgs) {
 
@@ -26,14 +40,6 @@ class Tab extends Component {
             isTabsOverflow: false
         };
 
-    }
-
-    static getDerivedStateFromProps(props, state) {
-        return {
-            prevProps: props,
-            tabs: ComponentUtil.getDerivedState(props, state, 'tabs'),
-            activatedIndex: ComponentUtil.getDerivedState(props, state, 'activatedIndex')
-        };
     }
 
     getRenderer = item => {
