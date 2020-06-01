@@ -132,7 +132,7 @@ class DatePickerExamples extends Component {
 
                                 <DatePicker name="date"
                                             dateFormat='YYYY-MM-DD'
-                                            maxValue='2020-02-01'
+                                            maxValue='2050-02-01'
                                             minValue='2017-02-03'
                                             autoClose={false}
                                             onChange={this.onChangeHandler}/>
@@ -157,7 +157,7 @@ class DatePickerExamples extends Component {
 
                                 <DatePicker name="date"
                                             dateFormat='YYYY-MM-DD'
-                                            maxValue='2020-02-01'
+                                            maxValue='2050-02-01'
                                             minValue='2017-02-03'
                                             autoClose={false}
                                             onChange={this.onChangeHandler}/>
@@ -192,7 +192,7 @@ class DatePickerExamples extends Component {
                                                 <div className="field-group">
                                                     <DatePicker name="date"
                                                                 dateFormat='YYYY-MM-DD'
-                                                                maxValue='2020-02-01'
+                                                                maxValue='2050-02-01'
                                                                 minValue='2017-02-03'
                                                                 parentEl={dialogContentEl}
                                                                 autoClose={false}

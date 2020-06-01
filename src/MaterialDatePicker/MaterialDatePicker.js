@@ -10,6 +10,10 @@ import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
 
+import Util from '../_vendors/Util';
+import ComponentUtil from '../_vendors/ComponentUtil';
+import DropdownCalculation from '../_vendors/DropdownCalculation';
+
 import DatePickerTextField from '../_MaterialDatePickerTextField';
 import DayPicker from '../_DayPicker';
 import MonthPicker from '../_MonthPicker';
@@ -18,9 +22,6 @@ import Popup from '../Popup';
 
 import Theme from '../Theme';
 import Position from '../_statics/Position';
-
-import DropdownCalculation from '../_vendors/DropdownCalculation';
-import Util from '../_vendors/Util';
 
 class MaterialDatePicker extends Component {
 
@@ -36,6 +37,7 @@ class MaterialDatePicker extends Component {
         this.triggerEl = null;
 
         const defaultValue = props.value ? props.value : moment().format('YYYY-MM-DD');
+
         this.state = {
             value: props.value,
             popupVisible: false,
@@ -185,19 +187,45 @@ class MaterialDatePicker extends Component {
     };
 
     componentDidMount() {
-
+        this.triggerEl = this.trigger && this.trigger.current && findDOMNode(this.trigger.current);
         // debugger
         const {value, dateFormat} = this.props;
         this.validValueFormat(value, dateFormat);
-
-        this.triggerEl = this.trigger && this.trigger.current && findDOMNode(this.trigger.current);
-
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.value !== this.props.value || prevProps.dateFormat !== this.props.dateFormat) {
-            this.validValueFormat(this.props.value, this.props.dateFormat);
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.value && nextProps.value !== this.props.value || nextProps.dateFormat !== this.props.dateFormat) {
+            this.validValueFormat(nextProps.value, nextProps.dateFormat);
         }
+    }
+
+    static getDerivedStateFromProps(props, state) {
+
+        const value = ComponentUtil.getDerivedState(props, state, 'value'),
+            dateFormat = ComponentUtil.getDerivedState(props, state, 'dateFormat');
+
+        if (value) {
+            // debugger
+            if (moment(value, dateFormat).isValid()) {
+                const year = moment(value).format('YYYY'),
+                    month = moment(value).format('MM'),
+                    day = moment(value).format('DD');
+                state.value = moment(value, dateFormat);
+                state.year = year;
+                state.month = month;
+                state.day = day;
+            } else {
+                this.validValue = false;
+                console.error('Invalid date');
+            }
+        } else {
+            state.value = '';
+            state.year = moment().format('YYYY');
+            state.month = moment().format('MM');
+            state.day = moment().format('DD');
+        }
+        return state;
+
     }
 
     render() {

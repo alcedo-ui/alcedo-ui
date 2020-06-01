@@ -11,6 +11,7 @@ import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/MaterialDatePicker.json';
 
 import 'assets/scss/containers/app/modules/date/DateInDialog.scss';
+import DatePicker from '../../../../../src/DatePicker';
 
 
 
@@ -23,7 +24,8 @@ class MaterialDatePickerExamples extends Component {
         this.state = {
             start: this.yesterday(),
             end: this.yesterday(),
-            MaterialDatePickerVisible: {}
+            MaterialDatePickerVisible: {},
+            value: '2017-03-06'
         };
 
     }
@@ -58,6 +60,9 @@ class MaterialDatePickerExamples extends Component {
 
     onChangeHandle = value => {
         console.log(value);
+        this.setState({
+            value
+        });
     };
 
     startChangeHandler = start => {
@@ -76,7 +81,7 @@ class MaterialDatePickerExamples extends Component {
 
     render() {
 
-        const {start, end, MaterialDatePickerVisible} = this.state;
+        const {start, end, MaterialDatePickerVisible, value} = this.state;
 
         return (
             <div className="example time-picker-examples">
@@ -106,7 +111,9 @@ class MaterialDatePickerExamples extends Component {
 
                                 <MaterialDatePicker label="Start"
                                                     value={start}
-                                                    maxValue={end}
+                                                    maxValue={''}
+                                                    minValue={''}
+                                                    autoClose={false}
                                                     rightIconCls="far fa-calendar-alt"
                                                     popupClassName="popupClassName"
                                                     onChange={this.startChangeHandler}/>
@@ -114,7 +121,8 @@ class MaterialDatePickerExamples extends Component {
                                 <MaterialDatePicker label="End"
                                                     value={end}
                                                     minValue={start}
-                                                    maxValue={this.yesterday()}
+                                                    maxValue={''}
+                                                    autoClose={false}
                                                     rightIconCls="far fa-calendar-alt"
                                                     popupClassName="popupClassName"
                                                     onChange={this.endChangeHandler}/>
@@ -142,10 +150,10 @@ class MaterialDatePickerExamples extends Component {
 
                                 <MaterialDatePicker name="date"
                                                     label={'date'}
-                                                    value="2017-12-12"
+                                                    value={value}
                                                     isLabelAnimate={false}
                                                     autoClose={false}
-                                                    disabled={true}
+                                                    disabled={false}
                                                     onChange={this.onChangeHandle}/>
 
                             </div>
