@@ -21,12 +21,13 @@ import ScrollBar from '../_vendors/ScrollBar';
  * @param data
  * @param colIndex
  * @param rowIndex
+ * @param columns
  * @returns {*}
  */
-function calcSpan(fragment, column, data, colIndex, rowIndex) {
+function calcSpan(fragment, column, data, colIndex, rowIndex, columns) {
     const span = column[`${fragment}Span`];
     return span && typeof span === 'function' ?
-        span(data, colIndex, rowIndex)
+        span(data, colIndex, rowIndex, columns)
         :
         +span;
 }
@@ -63,7 +64,7 @@ function getColumnsSpan(fragment, columns, data, rowIndex) {
         }
 
         const column = columns[colIndex],
-            span = calcSpan(fragment, columns[colIndex], data, colIndex, rowIndex);
+            span = calcSpan(fragment, columns[colIndex], data, colIndex, rowIndex, columns);
 
         if (span && span > 1) {
             spanFlag = span;
@@ -113,7 +114,7 @@ function getAdvancedColumnsSpan(originColumns, fixed, fragment, columns, data, r
 
         if (column) {
 
-            span = calcSpan(fragment, columns[colIndex], data, colIndex, rowIndex) || 1;
+            span = calcSpan(fragment, columns[colIndex], data, colIndex, rowIndex, originColumns) || 1;
 
             if (span && span > 1) {
 
