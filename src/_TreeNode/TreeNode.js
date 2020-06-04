@@ -34,6 +34,18 @@ class TreeNode extends Component {
 
     }
 
+    isNodeDisabled = (isNodeLoading = this.props.data?.isLoading || this.props.isLoading) => {
+
+        const {data, value, treeData, disabled, nodeDisabled} = this.props;
+
+        return data.disabled || disabled || isNodeLoading
+            || (
+                nodeDisabled != undefined
+                && (typeof nodeDisabled === 'function' ? nodeDisabled(data, value, treeData) : nodeDisabled)
+            );
+
+    };
+
     isCollapsed = (props = this.props) => {
 
         const {data, isNodeCollapsed, collapsed, index, depth, path} = props;
@@ -89,9 +101,9 @@ class TreeNode extends Component {
 
     handleClick = e => {
 
-        const {data, path, disabled, isLoading, readOnly} = this.props;
+        const {data, path, readOnly} = this.props;
 
-        if (disabled || isLoading || readOnly || data.disabled || data.isLoading || data.readOnly) {
+        if (readOnly || data.readOnly || this.isNodeDisabled()) {
             return;
         }
 
@@ -150,7 +162,7 @@ class TreeNode extends Component {
         const {
 
                 index, depth, theme, selectTheme, selectMode, value,
-                disabled, isLoading, readOnly, allowCollapse, isSelectRecursive, indentWidth,
+                isLoading, readOnly, allowCollapse, isSelectRecursive, indentWidth,
                 valueField, displayField, descriptionField,
 
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
@@ -165,7 +177,7 @@ class TreeNode extends Component {
             indeterminate = TC.isNodeCheckedIndeterminate(data, value, this.props),
 
             isNodeLoading = data.isLoading || isLoading,
-            isNodeDisabled = data.disabled || disabled || isNodeLoading,
+            isNodeDisabled = this.isNodeDisabled(isNodeLoading),
 
             loadingIconPosition = (data.rightIconCls && !data.iconCls) ? 'right' : 'left';
 
@@ -298,6 +310,7 @@ TreeNode.propTypes = {
     selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
 
     data: PropTypes.object,
+    treeData: PropTypes.object,
     value: PropTypes.any,
 
     valueField: PropTypes.string,
@@ -305,6 +318,7 @@ TreeNode.propTypes = {
     descriptionField: PropTypes.string,
 
     disabled: PropTypes.bool,
+    nodeDisabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
     isLoading: PropTypes.bool,
     readOnly: PropTypes.bool,
     allowCollapse: PropTypes.bool,
