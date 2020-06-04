@@ -225,7 +225,8 @@ class TableContent extends PureComponent {
 
                     </Fragment>;
                 expandColumn.bodyNoWrap = (rowData, rowIndex, colIndex, tableData) =>
-                    TC.needCollapseButtonSpacing(tableData);
+                    TC.needCollapseButtonSpacing(tableData)
+                    || TC.handleNoWrap(firstColumn.bodyNoWrap, false, {rowData, colIndex, rowIndex, tableData});
             }
         }
 
