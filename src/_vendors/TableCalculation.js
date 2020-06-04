@@ -526,18 +526,16 @@ function getPageSizeValue(pageSize, pageSizeValueField) {
 
 function handleNoWrap(fragmentNoWrap, columnNoWrap, {data, colIndex, rowIndex, tableData}) {
     return !!((
-            typeof fragmentNoWrap === 'function' ?
-                fragmentNoWrap(data, colIndex, rowIndex, tableData)
-                :
-                fragmentNoWrap
-        )
-        ||
-        (
-            typeof columnNoWrap === 'function' ?
-                columnNoWrap(data, colIndex, rowIndex, tableData)
-                :
-                columnNoWrap
-        ));
+        typeof fragmentNoWrap === 'function' ?
+            fragmentNoWrap(data, colIndex, rowIndex, tableData)
+            :
+            fragmentNoWrap
+    ) || (
+        typeof columnNoWrap === 'function' ?
+            columnNoWrap(data, colIndex, rowIndex, tableData)
+            :
+            columnNoWrap
+    ));
 }
 
 function handlePage(page, pageSize, data) {
