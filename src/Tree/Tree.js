@@ -141,10 +141,11 @@ class Tree extends Component {
                 children, className, style, theme, data, allowCollapse, collapsed, indentWidth,
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
-                valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
-                isSelectRecursive, renderer, onNodeClick, isNodeCollapsed
+                valueField, displayField, descriptionField, disabled, nodeDisabled, isLoading,
+                readOnly, selectMode, isSelectRecursive, renderer, onNodeClick, isNodeCollapsed
             } = this.props,
-            {value, isNodeToggling} = this.state;
+            {value, isNodeToggling} = this.state,
+            treeData = isArray(data) ? {[VirtualRoot]: true, children: data} : data;
 
         return (
             <div className={classNames('tree', {
@@ -153,13 +154,15 @@ class Tree extends Component {
                  disabled={disabled}
                  style={style}>
 
-                <TreeNode data={isArray(data) ? {[VirtualRoot]: true, children: data} : data}
+                <TreeNode data={treeData}
+                          treeData={treeData}
                           value={value}
                           theme={theme}
                           valueField={valueField}
                           displayField={displayField}
                           descriptionField={descriptionField}
                           disabled={disabled}
+                          nodeDisabled={nodeDisabled}
                           isLoading={isLoading}
                           readOnly={readOnly}
                           selectMode={selectMode}
@@ -312,6 +315,11 @@ Tree.propTypes = {
      * If true, the tree will be disabled.
      */
     disabled: PropTypes.bool,
+
+    /**
+     * Tree node disabled callback.
+     */
+    nodeDisabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 
     /**
      * If true, the tree will be at loading status.
