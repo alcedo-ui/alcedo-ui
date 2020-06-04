@@ -13,6 +13,7 @@
 .checkbox {
     color: $theme-field;
     height: 40px;
+    cursor: pointer;
 
     .hidden-checkbox {
         position: absolute;
@@ -31,7 +32,7 @@
         height: 100%;
         position: relative;
         vertical-align: middle;
-        cursor: pointer;
+        cursor: inherit;
 
         .checkbox-bg-icon,
         .checkbox-indeterminate-icon,
@@ -61,10 +62,9 @@
 
     .checkbox-label {
         display: inline-block;
-        cursor: inherit;
         user-select: none;
         vertical-align: middle;
-        cursor: pointer;
+        cursor: inherit;
     }
 
     &.indeterminated {
@@ -85,10 +85,7 @@
 
     &[disabled] {
         color: $theme-field-disabled;
-
-        .checkbox-label {
-            cursor: not-allowed;
-        }
+        cursor: not-allowed;
     }
 
     // default theme
