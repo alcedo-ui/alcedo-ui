@@ -3,8 +3,8 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+// Statics
 import Position from '../_statics/Position';
-import Dom from './Dom';
 
 function horizontalCenter(popupEl) {
     return (window.innerWidth - popupEl.offsetWidth) / 2;
