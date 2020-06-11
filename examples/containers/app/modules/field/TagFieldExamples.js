@@ -15,36 +15,30 @@ class TagFieldExamples extends Component {
 
         super(props);
 
-        this.data = [{
-            text: 'Hotelcode1'
-        }, {
-            text: 'Hotelcode2'
-        }, {
-            className: 'duplicate',
-            text: 'Hotelcode3'
-        }, {
-            className: 'duplicate',
-            text: 'Hotelcode4'
-        }, {
-            text: 'Hotelcode5'
-        }, {
-            className: 'unfound',
-            text: 'Hotelcode6'
-        }, {
-            className: 'unfound',
-            value: 'Hotelcode7'
-        }];
+        this.state = {
+            value: []
+        };
 
     }
 
+    handleChange = value => {
+        this.setState({
+            value
+        }, () => console.log('value changed::', value));
+    };
+
     render() {
+
+        const {value} = this.state;
+
         return (
             <div className="example tag-field-examples">
 
                 <h2 className="example-title">TagField</h2>
 
                 <p>
-                    <span>TagField</span> allow users to input text.
+                    <span>TagField</span>
+                    allow users to input text.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -62,10 +56,10 @@ class TagFieldExamples extends Component {
                                 <p><code>TagField</code></p>
 
                                 <TagField style={{height: 100}}
-                                          data={[]}
+                                          data={value}
                                           placeholder="Please input ..."
                                           separators={[',', ';', '|']}
-                                          onChange={value => console.log(value)}/>
+                                          onChange={this.handleChange}/>
 
                             </div>
 
