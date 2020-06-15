@@ -35,7 +35,7 @@ class Popover extends Component {
     }
 
     componentDidMount() {
-        this.popInstance = this.pop && this.pop.current;
+        this.popInstance = this.pop?.current;
     }
 
     componentWillUnmount() {
@@ -46,7 +46,7 @@ class Popover extends Component {
      * public
      */
     resetPosition = () => {
-        this.popInstance && this.popInstance.resetPosition();
+        this.popInstance?.resetPosition?.();
     };
 
     clearCloseTimeout = () => {
@@ -63,9 +63,7 @@ class Popover extends Component {
     handleMouseOut = e => {
         const {onRequestClose} = this.props;
         this.clearCloseTimeout();
-        this.closeTimeout = setTimeout(() => {
-            onRequestClose && onRequestClose(e);
-        }, 1000 / 6);
+        this.closeTimeout = setTimeout(() => onRequestClose?.(e), 1000 / 6);
     };
 
     handleRender = (el, ...restArgs) => {
