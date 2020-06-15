@@ -43,6 +43,10 @@ class PopoverProvider extends Component {
 
     }
 
+    componentDidMount() {
+        this.triggerEl = findDOMNode(this.trigger?.current);
+    }
+
     /**
      * public
      */
@@ -56,7 +60,7 @@ class PopoverProvider extends Component {
             visible: true
         }, () => {
             const {onRequestOpen} = this.props;
-            onRequestOpen && onRequestOpen();
+            onRequestOpen?.();
         });
 
     };
@@ -74,7 +78,7 @@ class PopoverProvider extends Component {
             visible: false
         }, () => {
             const {onRequestClose} = this.props;
-            onRequestClose && onRequestClose();
+            onRequestClose?.();
         });
 
     };
@@ -88,30 +92,18 @@ class PopoverProvider extends Component {
         }, () => {
             if (!this.state.visible) {
                 const {onRequestClose} = this.props;
-                onRequestClose && onRequestClose();
+                onRequestClose?.();
             } else {
                 const {onRequestOpen} = this.props;
-                onRequestOpen && onRequestOpen();
+                onRequestOpen?.();
             }
         });
     };
 
     handleMouseOver = e => {
-
-        const {children} = this.props;
-
-        if (children && children.props && children.props.onMouseOver
-            && typeof children.props.onMouseOver === 'function') {
-            children.props.onMouseOver(e);
-        }
-
+        this.props?.children?.props?.onMouseOver?.(e);
         this.show();
-
     };
-
-    componentDidMount() {
-        this.triggerEl = this.trigger && this.trigger.current && findDOMNode(this.trigger.current);
-    }
 
     render() {
 
