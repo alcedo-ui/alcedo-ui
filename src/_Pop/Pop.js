@@ -61,7 +61,7 @@ class Pop extends Component {
 
         if (prevProps.position !== this.props.position) {
             const {resetPosition} = this.props;
-            resetPosition && resetPosition(this.state.transitionEl);
+            resetPosition?.(this.state.transitionEl);
         }
 
         // if (!prevProps.visible && this.props.visible) {
@@ -87,21 +87,21 @@ class Pop extends Component {
     handleEnter = el => {
 
         const {triggerEl, resetPosition} = this.props;
-        resetPosition && resetPosition(el);
+        resetPosition?.(el);
 
         this.setState({
             enter: true,
             transitionEl: el
         }, () => {
             const {onRender} = this.props;
-            onRender && onRender(el, triggerEl);
+            onRender?.(el, triggerEl);
         });
 
     };
 
     handleEntered = el => {
         const {triggerEl, onRendered} = this.props;
-        onRendered && onRendered(el, triggerEl);
+        onRendered?.(el, triggerEl);
     };
 
     handleExit = el => {
@@ -109,7 +109,7 @@ class Pop extends Component {
             enter: false
         }, () => {
             const {triggerEl, onDestroy} = this.props;
-            onDestroy && onDestroy(el, triggerEl);
+            onDestroy?.(el, triggerEl);
         });
     };
 
@@ -119,13 +119,13 @@ class Pop extends Component {
             transitionEl: null
         }, () => {
             const {triggerEl, onDestroyed} = this.props;
-            onDestroyed && onDestroyed(el, triggerEl);
+            onDestroyed?.(el, triggerEl);
         });
     };
 
     debounceResetPosition = debounce(() => {
         const {resetPosition} = this.props;
-        resetPosition && resetPosition(this.state.transitionEl);
+        resetPosition?.(this.state.transitionEl);
     }, this.props.resetPositionWait);
 
     // addWatchScroll = () => {
