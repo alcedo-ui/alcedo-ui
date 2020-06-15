@@ -38,7 +38,7 @@ class Popup extends Component {
 
     componentDidMount() {
 
-        this.popInstance = this.pop && this.pop.current;
+        this.popInstance = this.pop?.current;
 
         Event.addEvent(document, 'click', this.handleClose);
 
@@ -57,14 +57,14 @@ class Popup extends Component {
      * public
      */
     getEl = () => {
-        return this.popInstance && this.popInstance.getEl();
+        return this.popInstance?.getEl?.();
     };
 
     /**
      * public
      */
     resetPosition = () => {
-        this.popInstance && this.popInstance.resetPosition();
+        this.popInstance?.resetPosition?.();
     };
 
     clearCloseTimeout = () => {
@@ -110,28 +110,20 @@ class Popup extends Component {
         if (currVisible === false) {
             this.clearCloseTimeout();
             this.closeTimeout = setTimeout(() => {
-                onRequestClose && onRequestClose(e);
+                onRequestClose?.(e);
             });
         }
 
     };
 
     handleRender = (...args) => {
-
         PopManagement.push(this);
-
-        const {onRender} = this.props;
-        onRender && onRender(...args);
-
+        this.props.onRender?.(...args);
     };
 
     handleDestroy = (...args) => {
-
         PopManagement.pop(this);
-
-        const {onDestroy} = this.props;
-        onDestroy && onDestroy(...args);
-
+        this.props.onDestroy?.(...args);
     };
 
     render() {
