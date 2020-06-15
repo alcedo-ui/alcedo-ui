@@ -5,13 +5,16 @@
 
 import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Components
 import TriggerPop from '../_TriggerPop';
-import Theme from '../Theme';
 
+// Statics
+import Theme from '../Theme';
 import Position from '../_statics/Position';
 
+// Vendors
+import classNames from 'classnames';
 import Event from '../_vendors/Event';
 import Util from '../_vendors/Util';
 
@@ -25,9 +28,18 @@ class Popover extends Component {
         super(props, ...restArgs);
 
         this.closeTimeout = null;
+
         this.pop = createRef();
         this.popInstance = null;
 
+    }
+
+    componentDidMount() {
+        this.popInstance = this.pop && this.pop.current;
+    }
+
+    componentWillUnmount() {
+        this.clearCloseTimeout();
     }
 
     /**
@@ -56,29 +68,29 @@ class Popover extends Component {
         }, 1000 / 6);
     };
 
-    handleRender = el => {
-        const {triggerEl} = this.props;
+    handleRender = (el, ...restArgs) => {
+
+        const {triggerEl, onRender} = this.props;
+        onRender?.(el, ...restArgs);
+
         Event.addEvent(triggerEl, 'mouseover', this.handleMouseOver);
         Event.addEvent(triggerEl, 'mouseout', this.handleMouseOut);
         Event.addEvent(el, 'mouseover', this.handleMouseOver);
         Event.addEvent(el, 'mouseout', this.handleMouseOut);
+
     };
 
-    handleDestroy = el => {
-        const {triggerEl} = this.props;
+    handleDestroy = (el, ...restArgs) => {
+
+        const {triggerEl, onDestroy} = this.props;
+        onDestroy?.(el, ...restArgs);
+
         Event.removeEvent(triggerEl, 'mouseover', this.handleMouseOver);
         Event.removeEvent(triggerEl, 'mouseout', this.handleMouseOut);
         Event.removeEvent(el, 'mouseover', this.handleMouseOver);
         Event.removeEvent(el, 'mousemove', this.handleMouseOut);
+
     };
-
-    componentDidMount() {
-        this.popInstance = this.pop && this.pop.current;
-    }
-
-    componentWillUnmount() {
-        this.clearCloseTimeout();
-    }
 
     render() {
 
