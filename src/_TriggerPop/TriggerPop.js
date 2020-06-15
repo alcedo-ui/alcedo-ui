@@ -49,7 +49,7 @@ class TriggerPop extends Component {
      * public
      */
     getEl = () => {
-        return this.pop && this.pop.current && this.pop.current.getEl();
+        return this.pop?.current?.getEl?.();
     };
 
     /**
