@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component, createRef} from 'react';
+import React, {Component, createRef, createElement} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 
@@ -117,6 +117,8 @@ class TextField extends Component {
             value: '',
             invalidMsgs
         }, () => {
+
+            this.inputEl.value = '';
 
             this.focus();
 
@@ -237,6 +239,26 @@ class TextField extends Component {
             inputType = 'text';
         }
 
+        const inputProps = {
+            ...restProps,
+            ref: this.input,
+            className: classNames('text-field-input', {
+                [triggerClassName]: triggerClassName
+            }),
+            type: inputType,
+            disabled: disabled,
+            maxLength: isStrictMaxLength ? maxLength : null,
+            onChange: this.handleChange,
+            onKeyDown: this.handleKeyDown,
+            onMouseOver: this.handleMouseOver,
+            onMouseOut: this.handleMouseOut,
+            onFocus: this.handleFocus,
+            onBlur: this.handleBlur
+        };
+        if (type !== FieldType.PASSWORD) {
+            inputProps.value = value || '';
+        }
+
         return (
             <div className={classNames('text-field',
                 empty ? 'empty' : 'not-empty',
@@ -264,7 +286,7 @@ class TextField extends Component {
                 }
 
                 {
-                    (placeholder !== '' && placeholder !== null) && !isFocused && !value  ?
+                    (placeholder !== '' && placeholder !== null) && !isFocused && !value ?
                         <input className={classNames('text-field-placeholder', {
                             [placeholderClassName]: placeholderClassName
                         })}
@@ -274,21 +296,7 @@ class TextField extends Component {
                         null
                 }
 
-                <input {...restProps}
-                       ref={this.input}
-                       className={classNames('text-field-input', {
-                           [triggerClassName]: triggerClassName
-                       })}
-                       type={inputType}
-                       value={value || ''}
-                       disabled={disabled}
-                       maxLength={isStrictMaxLength ? maxLength : null}
-                       onChange={this.handleChange}
-                       onKeyDown={this.handleKeyDown}
-                       onMouseOver={this.handleMouseOver}
-                       onMouseOut={this.handleMouseOut}
-                       onFocus={this.handleFocus}
-                       onBlur={this.handleBlur}/>
+                {createElement('input', inputProps)}
 
                 {
                     clearButtonVisible ?
