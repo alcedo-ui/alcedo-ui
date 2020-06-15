@@ -50,11 +50,16 @@ class TextFieldExamples extends Component {
     };
 
     changeHandler = (v, index) => {
+
         const {value} = this.state;
         value[index] = v;
+
         this.setState({
             value
+        }, () => {
+            console.log('value changed::', v);
         });
+
     };
 
     render() {
@@ -83,8 +88,11 @@ class TextFieldExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>TextField</code> using the <code>type</code> property to set the type of input
-                                    to display such as "password" or "text".</p>
+                                <p>
+                                    <code>TextField</code> using the
+                                    <code>type</code> property to set the type of input to display such
+                                                           as &quot;password&quot; or &quot;text&quot;.
+                                </p>
 
                                 <div className="field-group">
                                     <label className="text-field-label">Default</label>
@@ -118,8 +126,10 @@ class TextFieldExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>TextField</code> using the <code>rightIconCls</code> property to set a icon
-                                    display at right.</p>
+                                <p>
+                                    <code>TextField</code> using the
+                                    <code>rightIconCls</code> property to set a icon display at right.
+                                </p>
 
                                 <div className="field-group">
                                     <label className="text-field-label">Search</label>
@@ -147,8 +157,10 @@ class TextFieldExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>TextField</code> using the <code>iconCls</code> property to set the icon of
-                                    TextField to display at left.</p>
+                                <p>
+                                    <code>TextField</code> using the
+                                    <code>iconCls</code> property to set the icon of TextField to display at left.
+                                </p>
 
                                 <div className="field-group">
                                     <label className="text-field-label">Username</label>
@@ -184,9 +196,11 @@ class TextFieldExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>TextFieldGroup</code>code> without <code>label</code> element
-                                    and <code>disabled</code>
-                                    props applied.</p>
+                                <p>
+                                    <code>TextFieldGroup</code> without
+                                    <code>label</code> element and
+                                    <code>disabled</code> props applied.
+                                </p>
 
                                 <TextFieldGroup>
 
@@ -220,8 +234,11 @@ class TextFieldExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>TextField</code> with <code>pattern</code> and <code>patternInvalidMsg</code>
-                                    applied.</p>
+                                <p>
+                                    <code>TextField</code> with
+                                    <code>pattern</code> and
+                                    <code>patternInvalidMsg</code> applied.
+                                </p>
 
                                 <div>Required</div>
                                 <div className="field-group">
@@ -321,7 +338,6 @@ class TextFieldExamples extends Component {
                                                value="Disabled"
                                                theme={TextField.Theme.PRIMARY}
                                                disabled={true}
-                                               value={value[16] || ''}
                                                onChange={v => this.changeHandler(v, 16)}/>
                                 </div>
 
@@ -342,8 +358,11 @@ class TextFieldExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>TextField</code> with <code>pattern</code> and <code>patternInvalidMsg</code>
-                                    applied.</p>
+                                <p>
+                                    <code>TextField</code> with
+                                    <code>pattern</code> and
+                                    <code>patternInvalidMsg</code> applied.
+                                </p>
 
                                 <RaisedButton className="trigger-button dialog-button"
                                               value="Show Dialog"
@@ -355,7 +374,7 @@ class TextFieldExamples extends Component {
                                         dialogContentEl =>
                                             <div className="popover-dialog-content-scroller">
                                                 <div>Required</div>
-                                                <div className='field-group'>
+                                                <div className="field-group">
                                                     <TextField required={true}
                                                                clearButtonVisible={false}
                                                                fieldMsgVisible={true}
@@ -457,6 +476,6 @@ class TextFieldExamples extends Component {
             </div>
         );
     }
-};
+}
 
 export default TextFieldExamples;
