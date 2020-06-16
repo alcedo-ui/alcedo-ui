@@ -34,6 +34,8 @@ class MaterialTextField extends Component {
 
         super(props, ...restArgs);
 
+        this.provider = createRef();
+        this.providerInstance = null;
         this.textField = createRef();
         this.textFieldInstance = null;
 
@@ -44,6 +46,7 @@ class MaterialTextField extends Component {
     }
 
     componentDidMount() {
+        this.providerInstance = this.provider?.current;
         this.textFieldInstance = this.textField?.current;
     }
 
@@ -51,6 +54,7 @@ class MaterialTextField extends Component {
      * public
      */
     focus = () => {
+        this.providerInstance?.focus?.();
         this.textFieldInstance?.focus?.();
     };
 
@@ -58,6 +62,7 @@ class MaterialTextField extends Component {
      * public
      */
     blur = () => {
+        this.providerInstance?.blur?.();
         this.textFieldInstance?.blur?.();
     };
 
@@ -79,9 +84,10 @@ class MaterialTextField extends Component {
             {value} = this.state;
 
         return (
-            <MaterialProvider className={classNames('material-text-field', {
-                [className]: className
-            })}
+            <MaterialProvider ref={this.provider}
+                              className={classNames('material-text-field', {
+                                  [className]: className
+                              })}
                               style={style}
                               theme={theme}
                               label={label}
