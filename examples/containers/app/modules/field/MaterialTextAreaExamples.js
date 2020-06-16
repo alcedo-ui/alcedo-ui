@@ -1,12 +1,20 @@
+/**
+ * @file MaterialTextArea examples
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 
+// Components
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import MaterialTextArea from 'src/MaterialTextArea';
 
+// Docs
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/MaterialTextArea.json';
 
+// Styles
 import 'scss/containers/app/modules/field/MaterialTextAreaExamples.scss';
 
 class MaterialTextAreaExamples extends Component {
@@ -15,12 +23,6 @@ class MaterialTextAreaExamples extends Component {
         super(props);
     }
 
-    onChangeHandle = value => {
-        this.setState({
-            value: value
-        });
-    };
-
     render() {
         return (
             <div className="example material-text-area-examples">
@@ -28,7 +30,8 @@ class MaterialTextAreaExamples extends Component {
                 <h2 className="examples-title">MaterialTextArea</h2>
 
                 <p>
-                    <span>MaterialTextArea</span> allow users to input text.
+                    <span>MaterialTextArea</span>
+                    allow users to input text.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -108,6 +111,6 @@ class MaterialTextAreaExamples extends Component {
 
         );
     }
-};
+}
 
 export default MaterialTextAreaExamples;
