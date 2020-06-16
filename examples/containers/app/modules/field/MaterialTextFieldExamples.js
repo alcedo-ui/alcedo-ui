@@ -15,6 +15,7 @@ import RaisedButton from 'src/RaisedButton';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/MaterialTextField.json';
 
+// Styles
 import 'scss/containers/app/modules/field/MaterialTextFieldExamples.scss';
 
 class MaterialTextFieldExamples extends Component {
