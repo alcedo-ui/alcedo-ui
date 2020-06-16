@@ -5,25 +5,39 @@
 
 import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Components
 import TextArea from '../TextArea';
 import MaterialProvider from '../MaterialProvider';
+
+// Statics
 import Theme from '../Theme';
 
+// Vendors
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class MaterialTextArea extends Component {
 
     static Type = TextArea.Type;
     static Theme = Theme;
 
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
+    }
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
 
-        this.input = createRef();
-        this.inputInstance = null;
+        this.provider = createRef();
+        this.providerInstance = null;
+        this.textArea = createRef();
+        this.textAreaInstance = null;
 
         this.state = {
             value: props.value
@@ -31,18 +45,25 @@ class MaterialTextArea extends Component {
 
     }
 
+    componentDidMount() {
+        this.providerInstance = this.provider?.current;
+        this.textAreaInstance = this.textArea?.current;
+    }
+
     /**
      * public
      */
     focus = () => {
-        this.inputInstance && this.inputInstance.focus();
+        this.providerInstance?.focus?.();
+        this.textAreaInstance?.focus?.();
     };
 
     /**
      * public
      */
     blur = () => {
-        this.inputInstance && this.inputInstance.blur();
+        this.providerInstance?.blur?.();
+        this.textAreaInstance?.blur?.();
     };
 
     handleTriggerChange = value => {
@@ -54,18 +75,6 @@ class MaterialTextArea extends Component {
         });
     };
 
-    componentDidMount() {
-        this.inputInstance = this.input && this.input.current;
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
-    }
-
     render() {
 
         const {
@@ -75,10 +84,11 @@ class MaterialTextArea extends Component {
             {value} = this.state;
 
         return (
-            <MaterialProvider className={classNames('material-text-area', {
-                'has-word-count': wordCountVisible,
-                [className]: className
-            })}
+            <MaterialProvider ref={this.provider}
+                              className={classNames('material-text-area', {
+                                  'has-word-count': wordCountVisible,
+                                  [className]: className
+                              })}
                               style={style}
                               theme={theme}
                               label={label}
@@ -87,7 +97,7 @@ class MaterialTextArea extends Component {
                               disabled={disabled}
                               required={required}>
                 <TextArea {...restProps}
-                          ref={this.input}
+                          ref={this.textArea}
                           theme={theme}
                           value={value}
                           disabled={disabled}
