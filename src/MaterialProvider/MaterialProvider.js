@@ -5,11 +5,15 @@
 
 import React, {Component, Children, cloneElement} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Components
 import MaterialFieldSeparator from '../_MaterialFieldSeparator';
+
+// Statics
 import Theme from '../Theme';
 
+// Vendors
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 
 class MaterialProvider extends Component {
