@@ -29,9 +29,15 @@ class MaterialProvider extends Component {
 
     }
 
-    setFocused = isFocus => {
+    focus = () => {
         this.setState({
-            isFocus
+            isFocus: true
+        });
+    };
+
+    blur = () => {
+        this.setState({
+            isFocus: false
         });
     };
 
@@ -85,11 +91,11 @@ class MaterialProvider extends Component {
                                 }),
                                 onFocus: (...args) => {
                                     restProps.onFocus && restProps.onFocus(...args);
-                                    this.setFocused(true);
+                                    this.focus();
                                 },
                                 onBlur: (...args) => {
                                     restProps.onBlur && restProps.onBlur(...args);
-                                    this.setFocused(false);
+                                    this.blur();
                                 },
                                 onMouseOver: (...args) => {
                                     restProps.onMouseOver && restProps.onMouseOver(...args);
