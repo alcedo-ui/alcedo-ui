@@ -1,11 +1,21 @@
-import React, {Component} from 'react';
+/**
+ * @file MaterialTextField examples
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
 
+import React, {Component, createRef} from 'react';
+
+// Components
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import MaterialTextField from 'src/MaterialTextField';
+import RaisedButton from 'src/RaisedButton';
 
+// Docs
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/MaterialTextField.json';
+
+import 'scss/containers/app/modules/field/MaterialTextFieldExamples.scss';
 
 class MaterialTextFieldExamples extends Component {
 
@@ -13,16 +23,26 @@ class MaterialTextFieldExamples extends Component {
 
         super(props);
 
+        this.textField = createRef();
+
         this.state = {
             value: ''
         };
 
     }
 
-    onChangeHandler = value => {
+    handleChange = value => {
         this.setState({
             value
         });
+    };
+
+    handleFocus = () => {
+        this.textField?.current?.focus?.();
+    };
+
+    handleBlur = () => {
+        this.textField?.current?.blur?.();
     };
 
     render() {
@@ -35,7 +55,8 @@ class MaterialTextFieldExamples extends Component {
                 <h2 className="examples-title">MaterialTextField</h2>
 
                 <p>
-                    <span>MaterialTextField</span> allow users to input text.
+                    <span>MaterialTextField</span>
+                    allow users to input text.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -53,13 +74,20 @@ class MaterialTextFieldExamples extends Component {
                                 <p><code>MaterialTextField</code> simple example.</p>
 
                                 <div className="field-group">
-                                    <MaterialTextField theme={MaterialTextField.Theme.HIGHLIGHT}
+                                    <MaterialTextField ref={this.textField}
+                                                       theme={MaterialTextField.Theme.HIGHLIGHT}
                                                        label="Search"
                                                        placeholder="keywords"
-                                                       autoFocus={true}
                                                        rightIconCls={'fas fa-search'}
                                                        value={value}
-                                                       onChange={this.onChangeHandler}/>
+                                                       onChange={this.handleChange}/>
+                                </div>
+
+                                <div className="actions">
+                                    <RaisedButton value="Focus"
+                                                  onClick={this.handleFocus}/>
+                                    <RaisedButton value="Blur"
+                                                  onClick={this.handleBlur}/>
                                 </div>
 
                             </div>
@@ -116,6 +144,6 @@ class MaterialTextFieldExamples extends Component {
 
         );
     }
-};
+}
 
 export default MaterialTextFieldExamples;
