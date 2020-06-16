@@ -5,12 +5,16 @@
 
 import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Components
 import TextField from '../TextField';
 import MaterialProvider from '../MaterialProvider';
 
+// Statics
 import Theme from '../Theme';
+
+// Vendors
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
@@ -18,6 +22,13 @@ class MaterialTextField extends Component {
 
     static Type = TextField.Type;
     static Theme = Theme;
+
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
+    }
 
     constructor(props, ...restArgs) {
 
@@ -32,18 +43,22 @@ class MaterialTextField extends Component {
 
     }
 
+    componentDidMount() {
+        this.textFieldInstance = this.textField?.current;
+    }
+
     /**
      * public
      */
     focus = () => {
-        this.textFieldInstance && this.textFieldInstance.focus();
+        this.textFieldInstance?.focus?.();
     };
 
     /**
      * public
      */
     blur = () => {
-        this.textFieldInstance && this.textFieldInstance.blur();
+        this.textFieldInstance?.blur?.();
     };
 
     handleTriggerChange = value => {
@@ -54,17 +69,6 @@ class MaterialTextField extends Component {
             onChange && onChange(value);
         });
     };
-
-    componentDidMount() {
-        this.textFieldInstance = this.textField && this.textField.current;
-    }
-
-    static getDerivedStateFromProps(props, state) {
-        return {
-            prevProps: props,
-            value: ComponentUtil.getDerivedState(props, state, 'value')
-        };
-    }
 
     render() {
 
