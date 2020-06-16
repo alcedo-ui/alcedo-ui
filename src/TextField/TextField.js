@@ -57,7 +57,7 @@ class TextField extends Component {
         this.inputEl = this.input && this.input.current;
 
         if (this.props.autoFocus === true) {
-            this.inputEl.focus();
+            this.focus();
         }
 
     }
@@ -66,14 +66,14 @@ class TextField extends Component {
      * public
      */
     focus = () => {
-        this.inputEl && this.inputEl.focus();
+        this.inputEl?.focus?.();
     };
 
     /**
      * public
      */
     blur = () => {
-        this.inputEl && this.inputEl.blur();
+        this.inputEl?.blur?.();
     };
 
     handleChange = e => {
@@ -180,26 +180,22 @@ class TextField extends Component {
             const {isFocusedSelectAll, onFocus} = this.props,
                 {value} = this.state;
 
-            onFocus && onFocus(e, value);
-
-            isFocusedSelectAll && this.inputEl && this.inputEl.setSelectionRange(0, value ? value.length : 0);
+            onFocus?.(e, value);
+            isFocusedSelectAll && this.inputEl?.setSelectionRange?.(0, value ? value.length : 0);
 
         });
     };
 
     handleBlur = e => {
 
-        if (this.clearButton && this.clearButton.current && e.relatedTarget
-            && e.relatedTarget == findDOMNode(this.clearButton.current)) {
+        if (e?.relatedTarget == findDOMNode(this.clearButton?.current)) {
             return;
         }
 
         this.setState({
             isFocused: false
         }, () => {
-            const {onBlur} = this.props,
-                {value} = this.state;
-            onBlur && onBlur(e, value);
+            this.props?.onBlur?.(e, this.state.value);
         });
 
     };
