@@ -47,7 +47,7 @@ class MaterialProvider extends Component {
 
         return (
             <div {...restProps}
-                 className={classNames('material-provider', {
+                 className={classNames('material-provider', `theme-${theme}`, {
                      'has-label': label,
                      'has-value': hasValue,
                      'has-separator': useSeparator,

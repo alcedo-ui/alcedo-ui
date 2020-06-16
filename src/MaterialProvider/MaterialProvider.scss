@@ -3,6 +3,12 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+@mixin material-provider-theme($color, $border-color) {
+    .material-provider-label {
+        color: $color;
+    }
+}
+
 .material-provider {
     position: relative;
     width: 300px;
@@ -93,5 +99,37 @@
         .material-provider-field {
             background-color: transparent;
         }
+    }
+
+    // default theme
+    @include material-provider-theme($theme-primary, $theme-primary);
+
+    // other themes
+    &.theme-primary {
+        @include material-provider-theme($theme-primary, $theme-primary);
+    }
+
+    &.theme-secondary {
+        @include material-provider-theme($theme-secondary, $theme-secondary);
+    }
+
+    &.theme-highlight {
+        @include material-provider-theme($theme-highlight, $theme-highlight);
+    }
+
+    &.theme-info {
+        @include material-provider-theme($theme-info, $theme-info);
+    }
+
+    &.theme-success {
+        @include material-provider-theme($theme-success, $theme-success);
+    }
+
+    &.theme-warning {
+        @include material-provider-theme($theme-warning, $theme-warning);
+    }
+
+    &.theme-error {
+        @include material-provider-theme($theme-error, $theme-error);
     }
 }
