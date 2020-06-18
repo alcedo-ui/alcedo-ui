@@ -11,8 +11,8 @@ import HorizontalAlign from '../_statics/HorizontalAlign';
 import SortingType from '../_statics/SortingType';
 
 // Vendors
+import ResizeObserver from 'resize-observer-polyfill';
 import Util from '../_vendors/Util';
-import Event from '../_vendors/Event';
 
 class MeasureTd extends Component {
 
@@ -23,34 +23,47 @@ class MeasureTd extends Component {
         this.td = createRef();
         this.tdEl = null;
 
+        this.observer = null;
         this.lastWidth = null;
 
     }
 
     componentDidMount() {
-
-        Event.addEvent(window, 'resize', this.handleMeasure);
-
         this.tdEl = this.td?.current;
-        this.handleMeasure();
-
+        this.addObserver();
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        this.handleMeasure();
+        this.addObserver();
     }
 
     componentWillUnmount() {
-        Event.removeEvent(window, 'resize', this.handleMeasure);
+        this.removeObserver();
     }
 
-    handleMeasure = () => {
+    addObserver = () => {
+        if (this.tdEl && !this.observer) {
+            this.observer = new ResizeObserver(this.handleMeasure);
+            this.observer.observe(this.tdEl);
+        }
+    };
 
-        const width = this.tdEl.offsetWidth;
+    removeObserver() {
+        if (this.observer) {
+            this.observer.disconnect();
+            this.observer = null;
+        }
+    }
 
-        if (width !== this.lastWidth) {
+    handleMeasure = entries => {
 
-            this.lastWidth = width;
+        const target = entries[0].target,
+            {width} = target.getBoundingClientRect(),
+            fixedWidth = Math.floor(width);
+
+        if (this.lastWidth !== fixedWidth) {
+
+            this.lastWidth = fixedWidth;
 
             const {column, onMeasure} = this.props;
             onMeasure && onMeasure(column, width);
