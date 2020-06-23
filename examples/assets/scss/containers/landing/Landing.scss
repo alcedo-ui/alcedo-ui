@@ -1,3 +1,7 @@
+/**
+ * @file Landing.scss
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
 @import '../../my-theme.scss';
 
 .landing {
@@ -30,9 +34,7 @@
             }
 
             .landing-code {
-
                 @include shadow(3);
-
                 display: block;
                 width: 80%;
                 max-width: 700px;
@@ -67,10 +69,6 @@
 
                 &.landing-bash {
                     color: $theme-highlight;
-                }
-
-                &.landing-jsx {
-
                 }
             }
         }

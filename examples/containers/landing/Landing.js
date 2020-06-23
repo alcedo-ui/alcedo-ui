@@ -1,6 +1,12 @@
-import React, {Component} from 'react';
+/**
+ * @file Landing.js
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+import React, {useState, useCallback, useEffect, useRef} from 'react';
 import {findDOMNode} from 'react-dom';
 
+// Components
 import LandingNav from './LandingNav';
 import LandingIntro from './sections/LandingIntro';
 import LandingComponentCount from './sections/LandingComponentCount';
@@ -9,17 +15,15 @@ import LandingUsage from './sections/LandingUsage';
 import LandingExamples from './sections/LandingExamples';
 import LandingFoot from './LandingFoot';
 
+// Vendors
 import Event from 'vendors/Event';
 
+// Styles
 import 'scss/containers/landing/Landing.scss';
 
-class Landing extends Component {
+function Landing() {
 
-    constructor(props) {
-
-        super(props);
-
-        this.menu = [{
+    const MENU = [{
             name: 'Intro',
             hash: '#landing-intro'
         }, {
@@ -31,89 +35,83 @@ class Landing extends Component {
         }, {
             name: 'Examples',
             hash: '#landing-examples'
-        }];
+        }],
 
-        this.state = {
-            bodyScrollTop: 0,
-            activatedMenu: this.menu[0],
-            isNavFixed: false
-        };
+        nav = useRef(null),
 
-    }
+        [bodyScrollTop, setBodyScrollTop] = useState(0),
+        [activatedMenu, setActivatedMenu] = useState(MENU[0]),
+        [isNavFixed, setIsNavFixed] = useState(false),
+        [navHeight, setNavHeight] = useState(0),
 
-    isNavFixed = bodyScrollTop => {
-        const introEl = document.querySelector(this.menu[0].hash);
-        return introEl && (bodyScrollTop > introEl.clientHeight - this.navHeight);
-    };
+        getIsNavFixed = useCallback(bodyScrollTop => {
+            const introEl = document.querySelector(MENU[0].hash);
+            return introEl && (bodyScrollTop > introEl.clientHeight - navHeight);
+        }),
 
-    getActivatedMenu = bodyScrollTop => {
+        getActivatedMenu = useCallback(bodyScrollTop => {
 
-        let activatedMenu = this.menu[0];
+            let activatedMenu = MENU[0];
 
-        for (let i = 0, len = this.menu.length; i < len; i++) {
-            const el = document.querySelector(this.menu[i].hash);
-            if (el && bodyScrollTop >= el.offsetTop - this.navHeight) {
-                activatedMenu = this.menu[i];
+            for (let i = 0, len = MENU.length; i < len; i++) {
+                const el = document.querySelector(MENU[i].hash);
+                if (el && bodyScrollTop >= el.offsetTop - navHeight) {
+                    activatedMenu = MENU[i];
+                }
             }
-        }
 
-        return activatedMenu;
+            return activatedMenu;
 
-    };
+        }),
 
-    scrollHandler = () => {
+        handleScroll = useCallback(() => {
 
-        const bodyScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+            const bodyScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
 
-        this.setState({
-            bodyScrollTop,
-            activatedMenu: this.getActivatedMenu(bodyScrollTop),
-            isNavFixed: this.isNavFixed(bodyScrollTop)
+            setBodyScrollTop(bodyScrollTop);
+            setActivatedMenu(getActivatedMenu(bodyScrollTop));
+            setIsNavFixed(getIsNavFixed(bodyScrollTop));
+
         });
 
-    };
+    useEffect(() => {
 
-    componentDidMount() {
+        // mount
+        Event.addEvent(document, 'scroll', handleScroll);
 
-        Event.addEvent(document, 'scroll', this.scrollHandler);
+        const navEl = findDOMNode(nav?.current);
+        setNavHeight(navEl?.offsetHeight || 80);
 
-        this.navEl = findDOMNode(this.refs.nav);
-        this.navHeight = (this.navEl && this.navEl.offsetHeight) || 80;
+        // unmount
+        return () => {
+            Event.removeEvent(document, 'scroll', handleScroll);
+        };
 
-    }
+    }, []);
 
-    componentWillUnmount() {
-        Event.removeEvent(document, 'scroll', this.scrollHandler);
-    }
+    return (
+        <div className="landing">
 
-    render() {
+            <LandingNav ref={nav}
+                        menu={MENU}
+                        activatedMenu={activatedMenu}
+                        isFixed={isNavFixed}/>
 
-        const {bodyScrollTop, activatedMenu, isNavFixed} = this.state;
+            <LandingIntro/>
 
-        return (
-            <div className="landing">
+            <LandingComponentCount bodyScrollTop={bodyScrollTop}/>
 
-                <LandingNav ref="nav"
-                            menu={this.menu}
-                            activatedMenu={activatedMenu}
-                            isFixed={isNavFixed}/>
+            <LandingGetStarted/>
 
-                <LandingIntro/>
+            <LandingUsage/>
 
-                <LandingComponentCount bodyScrollTop={bodyScrollTop}/>
+            <LandingExamples/>
 
-                <LandingGetStarted/>
+            <LandingFoot/>
 
-                <LandingUsage/>
+        </div>
+    );
 
-                <LandingExamples/>
-
-                <LandingFoot/>
-
-            </div>
-        );
-
-    }
 }
 
 export default Landing;
