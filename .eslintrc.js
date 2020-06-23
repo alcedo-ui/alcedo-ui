@@ -4,7 +4,10 @@ module.exports = {
         'node': true,
         'es6': true
     },
-    'extends': 'plugin:react/recommended',
+    'extends': [
+        'plugin:react/recommended',
+        'plugin:react-hooks/recommended'
+    ],
     'globals': {
         'Atomics': 'readonly',
         'SharedArrayBuffer': 'readonly'
@@ -35,7 +38,8 @@ module.exports = {
         ]
     },
     'plugins': [
-        'react'
+        'react',
+        'react-hooks'
     ],
     'rules': {
 
