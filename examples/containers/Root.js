@@ -27,6 +27,9 @@ import 'scss/containers/Root.scss';
 
 function Root({route, location}) {
 
+    /**
+     * handle switch between desktop mode and mobile mode
+     */
     const handleResize = useCallback(() => {
         window.innerWidth >= Config.desktopMinWidth ?
             (!this.props.isDesktop && this.props.switchToDesktop())
