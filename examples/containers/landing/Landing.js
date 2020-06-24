@@ -46,8 +46,8 @@ function Landing() {
 
         getIsNavFixed = useCallback(bodyScrollTop => {
             const introEl = document.querySelector(MENU[0].hash);
-            return introEl && (bodyScrollTop > introEl.clientHeight - navHeight);
-        }),
+            return !!(introEl && (bodyScrollTop > introEl.clientHeight - navHeight));
+        }, [navHeight]),
 
         getActivatedMenu = useCallback(bodyScrollTop => {
 
@@ -66,13 +66,15 @@ function Landing() {
 
         handleScroll = useCallback(() => {
 
-            const bodyScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+            const nextBodyScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
 
-            setBodyScrollTop(bodyScrollTop);
-            setActivatedMenu(getActivatedMenu(bodyScrollTop));
-            setIsNavFixed(getIsNavFixed(bodyScrollTop));
+            if (nextBodyScrollTop !== bodyScrollTop) {
+                setBodyScrollTop(nextBodyScrollTop);
+                setActivatedMenu(getActivatedMenu(nextBodyScrollTop));
+                setIsNavFixed(getIsNavFixed(nextBodyScrollTop));
+            }
 
-        });
+        }, [bodyScrollTop]);
 
     useEffect(() => {
 
@@ -81,13 +83,14 @@ function Landing() {
 
         const navEl = findDOMNode(nav?.current);
         setNavHeight(navEl?.offsetHeight || 80);
+        handleScroll();
 
         // unmount
         return () => {
             Event.removeEvent(document, 'scroll', handleScroll);
         };
 
-    }, []);
+    }, [navHeight]);
 
     return (
         <div className="landing">
