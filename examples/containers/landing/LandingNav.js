@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {useCallback} from 'react';
+import React, {useCallback, forwardRef} from 'react';
 import PropTypes from 'prop-types';
 
 // Components
@@ -16,7 +16,7 @@ import classnames from 'classnames';
 // Styles
 import 'scss/containers/landing/LandingNav.scss';
 
-function LandingNav({menu, activatedMenu, isFixed}) {
+const LandingNav = forwardRef(({menu, activatedMenu, isFixed}, ref) => {
 
     const handleClick = useCallback(activatedMenu => {
         const scrollTop = document.querySelector(activatedMenu.hash).offsetTop - 60;
@@ -25,9 +25,10 @@ function LandingNav({menu, activatedMenu, isFixed}) {
     });
 
     return (
-        <div className={classnames('landing-nav-wrapper', {
-            fixed: isFixed
-        })}>
+        <div ref={ref}
+             className={classnames('landing-nav-wrapper', {
+                 fixed: isFixed
+             })}>
 
             <div className="landing-nav-bg"></div>
 
@@ -61,7 +62,7 @@ function LandingNav({menu, activatedMenu, isFixed}) {
         </div>
     );
 
-}
+});
 
 LandingNav.propTypes = {
     menu: PropTypes.array,
