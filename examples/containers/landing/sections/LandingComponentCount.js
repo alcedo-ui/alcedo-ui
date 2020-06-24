@@ -13,8 +13,7 @@ class LandingComponentCount extends Component {
 
     render() {
         return (
-            <section ref="section"
-                     id="landing-component-count"
+            <section id="landing-component-count"
                      className="landing-section">
 
                 <div className="landing-section-inner">
