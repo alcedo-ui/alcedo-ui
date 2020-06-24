@@ -17,7 +17,7 @@ function LandingFoot() {
 
             <div>
                 <span className="name">Alcedo-UI</span>
-                is freely distributable under the terms of the
+                &nbsp;is freely distributable under the terms of the
                 <a className="licence"
                    href="https://github.com/alcedo-ui/alcedo-ui/blob/dev/LICENSE">
                     {' MIT license'}
