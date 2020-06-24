@@ -90,7 +90,7 @@ function Landing() {
             Event.removeEvent(document, 'scroll', handleScroll);
         };
 
-    }, [navHeight]);
+    }, [bodyScrollTop, navHeight]);
 
     return (
         <div className="landing">
