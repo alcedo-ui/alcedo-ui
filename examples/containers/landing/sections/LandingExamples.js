@@ -16,7 +16,7 @@ class LandingExamples extends Component {
         super(props);
     }
 
-    goToDemo = () => {
+    goToExamples = () => {
         this.props.routerPush('/components');
     };
 
@@ -30,8 +30,8 @@ class LandingExamples extends Component {
                     <div className="landing-section-title">Examples</div>
 
                     <FlatButton className="ghost-button"
-                                value="Go to Demo"
-                                onClick={this.goToDemo}/>
+                                value="Go to Examples"
+                                onClick={this.goToExamples}/>
 
                     <Paper className="landing-examples-demo"
                            depth={4}>
