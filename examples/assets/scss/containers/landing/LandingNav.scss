@@ -1,3 +1,7 @@
+/**
+ * @file LandingNav.scss
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
 @import '../../my-theme.scss';
 
 .landing-nav-wrapper {
@@ -63,29 +67,6 @@
                 width: 400px;
                 margin: 0 auto;
                 padding: 0;
-
-                .landing-nav-menu-item {
-                    display: inline-block;
-                    width: 100px;
-                    line-height: 80px;
-                    text-align: center;
-                    font-size: 14px;
-                    text-decoration: none;
-                    color: transparentize(#fff, .5);
-                    font-weight: 300;
-                    cursor: pointer;
-                    transition: color $theme-transition-duration ease-in-out;
-                    user-select: none;
-
-                    &.activated {
-                        color: transparentize(#fff, .2);
-                        font-weight: 400;
-                    }
-
-                    &:hover {
-                        color: transparentize(#fff, .2);
-                    }
-                }
             }
         }
     }
@@ -103,7 +84,6 @@
             opacity: 1;
         }
     }
-
 }
 
 @media (max-width: 767px) {

@@ -1,73 +1,66 @@
-import React, {Component} from 'react';
+/**
+ * @file LandingNav.js
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+import React, {useCallback} from 'react';
 import PropTypes from 'prop-types';
+
+// Components
+import IconAnchor from 'src/IconAnchor';
+import NavItem from './LandingNavItem';
+
+// Vendors
 import classnames from 'classnames';
 
-import IconAnchor from 'src/IconAnchor';
-
+// Styles
 import 'scss/containers/landing/LandingNav.scss';
 
-class LandingNav extends Component {
+function LandingNav({menu, activatedMenu, isFixed}) {
 
-    constructor(props) {
-        super(props);
-    }
-
-    menuClickHandler = activatedMenu => {
+    const handleClick = useCallback(activatedMenu => {
         const scrollTop = document.querySelector(activatedMenu.hash).offsetTop - 60;
         document.body.scrollTop = scrollTop;
         document.documentElement.scrollTop = scrollTop;
-    };
+    });
 
-    render() {
+    return (
+        <div className={classnames('landing-nav-wrapper', {
+            fixed: isFixed
+        })}>
 
-        const {menu, activatedMenu, isFixed} = this.props,
+            <div className="landing-nav-bg"></div>
 
-            wrapperClassName = classnames('landing-nav-wrapper', {
-                fixed: isFixed
-            });
+            <div className="landing-nav">
+                <div className="landing-nav-inner">
 
-        return (
-            <div ref="wrapper"
-                 className={wrapperClassName}>
+                    <a className="logo"
+                       href="#/">
+                        <i className="logo-icon"></i>
+                        <span className="logo-text">Alcedo-UI</span>
+                    </a>
 
-                <div className="landing-nav-bg"></div>
+                    <ul className="landing-nav-menu">
+                        {
+                            menu && menu.map((item, index) =>
+                                <NavItem key={index}
+                                         data={item}
+                                         activated={activatedMenu.hash === item.hash}
+                                         onClick={handleClick}/>
+                            )
+                        }
+                    </ul>
 
-                <div className="landing-nav">
-                    <div className="landing-nav-inner">
+                    <IconAnchor className="github-icon"
+                                iconCls="fab fa-github"
+                                href="https://github.com/alcedo-ui/alcedo-ui"/>
 
-                        <a className="logo"
-                           href="#/">
-                            <i className="logo-icon"></i>
-                            <span className="logo-text">Alcedo-UI</span>
-                        </a>
-
-                        <ul className="landing-nav-menu">
-                            {
-                                menu && menu.map((item, index) =>
-                                    <li key={index}
-                                        className={classnames('landing-nav-menu-item', {
-                                            activated: activatedMenu.hash === item.hash
-                                        })}
-                                        onClick={() => {
-                                            this.menuClickHandler(item);
-                                        }}>
-                                        {item.name}
-                                    </li>
-                                )
-                            }
-                        </ul>
-
-                        <IconAnchor className="github-icon"
-                                    iconCls="fab fa-github"
-                                    href="https://github.com/alcedo-ui/alcedo-ui"/>
-
-                    </div>
                 </div>
-
             </div>
-        );
 
-    }
+        </div>
+    );
+
 }
 
 LandingNav.propTypes = {
