@@ -92,7 +92,7 @@ class ScrollTable extends Component {
             return false;
         }
 
-        return scrollEl.scrollHeight > scrollEl.offsetHeight;
+        return scrollEl.scrollHeight > scrollEl.clientHeight;
 
     };
 
