@@ -12,7 +12,6 @@ module.exports = {
         srcRoot: path.resolve(__dirname, '../examples'),
         index: path.resolve(__dirname, '../examples/index.html'),
         assetsVirtualRoot: path.posix.join('/', 'static'),
-        proxyTable: {},
         cssSourceMap: false
     },
 
