@@ -5,10 +5,12 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Statics
 import BadgeType from '../_statics/BadgeType';
 
+// Vendors
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 
 class Badge extends Component {
@@ -18,6 +20,26 @@ class Badge extends Component {
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
     }
+
+    /**
+     * handle display when value overflow
+     * @returns {string}
+     */
+    handleOverflow = () => {
+
+        const {value, overflowValue, overflowRenderer} = this.props;
+
+        if (!overflowRenderer) {
+            return `${overflowValue}+`;
+        }
+
+        if (typeof overflowRenderer === 'function') {
+            return overflowRenderer?.(value, overflowValue);
+        }
+
+        return overflowRenderer;
+
+    };
 
     /**
      * handle display number
@@ -36,7 +58,7 @@ class Badge extends Component {
             return value;
         }
 
-        return `${overflowValue}+`;
+        return this.handleOverflow();
 
     };
 
@@ -85,7 +107,8 @@ Badge.propTypes = {
     visible: PropTypes.bool,
     type: PropTypes.oneOf(Util.enumerateValue(BadgeType)),
     value: PropTypes.number,
-    overflowValue: PropTypes.number
+    overflowValue: PropTypes.number,
+    overflowRenderer: PropTypes.any
 
 };
 
