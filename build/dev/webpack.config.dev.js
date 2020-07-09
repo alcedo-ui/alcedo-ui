@@ -1,5 +1,5 @@
 const webpack = require('webpack'),
-    merge = require('webpack-merge'),
+    {merge} = require('webpack-merge'),
     HtmlWebpackPlugin = require('html-webpack-plugin'),
     FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin'),
 
