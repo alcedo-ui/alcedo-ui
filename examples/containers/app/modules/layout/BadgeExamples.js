@@ -1,13 +1,16 @@
 import React, {Component} from 'react';
 
+// Components
 import Badge from 'src/Badge';
 import IconButton from 'src/IconButton';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
+// Docs
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Badge.json';
 
+// Styles
 import 'scss/containers/app/modules/layout/BadgeExamples.scss';
 
 class BadgeExamples extends Component {
@@ -142,6 +145,6 @@ class BadgeExamples extends Component {
             </div>
         );
     }
-};
+}
 
 export default BadgeExamples;
