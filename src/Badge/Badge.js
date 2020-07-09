@@ -64,13 +64,23 @@ class Badge extends Component {
 
     render() {
 
-        const {children, className, style, visible, type} = this.props;
+        const {
+
+            children, className, style, visible, type,
+
+            // not passing down these props
+            value, overflowValue, overflowRenderer,
+
+            ...restProps
+
+        } = this.props;
 
         return (
-            <span className={classNames('badge-wrapper', {
-                'no-child': !children,
-                [className]: className
-            })}
+            <span {...restProps}
+                  className={classNames('badge-wrapper', {
+                      'no-child': !children,
+                      [className]: className
+                  })}
                   style={style}>
 
                 {children}
@@ -106,6 +116,7 @@ Badge.propTypes = {
 
     visible: PropTypes.bool,
     type: PropTypes.oneOf(Util.enumerateValue(BadgeType)),
+
     value: PropTypes.number,
     overflowValue: PropTypes.number,
     overflowRenderer: PropTypes.any
