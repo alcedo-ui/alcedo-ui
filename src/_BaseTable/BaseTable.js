@@ -151,7 +151,6 @@ class BaseTable extends Component {
                                scrollHeight={scrollHeight}
                                rowHeight={rowHeight}
                                scrollBuffer={scrollBuffer}
-                               needMeasure={hasFixedLeftColumn || hasFixedRightColumn || isHeadFixed || isFootFixed}
                                onExpandChange={onExpandChange}
                                onRequestColumnsSpan={onRequestColumnsSpan}
                                onColumnMeasure={onColumnMeasure}/>
