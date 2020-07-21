@@ -51,7 +51,7 @@ class Tbody extends Component {
 
         const {
 
-                className, style, columns, data, dynamicRenderData, startIndex, disabled, useDynamicRender, needMeasure,
+                className, style, columns, data, dynamicRenderData, startIndex, disabled, useDynamicRender,
                 onColumnMeasure,
 
                 // not passing down these props
@@ -67,13 +67,8 @@ class Tbody extends Component {
             <tbody className={className}
                    style={style}>
 
-                {
-                    needMeasure ?
-                        <MeasureTr columns={columns}
-                                   onColumnMeasure={onColumnMeasure}/>
-                        :
-                        null
-                }
+                <MeasureTr columns={columns}
+                           onColumnMeasure={onColumnMeasure}/>
 
                 {
                     finalData && finalData.map((row, index) => row ?
@@ -340,7 +335,6 @@ Tbody.propTypes = {
     expandRows: PropTypes.array,
     ignoreColumnSpan: PropTypes.bool,
     scrollEl: PropTypes.object,
-    needMeasure: PropTypes.bool,
 
     /**
      * sorting
@@ -384,7 +378,6 @@ Tbody.defaultProps = {
     disabled: false,
     expandRows: [],
     ignoreColumnSpan: false,
-    needMeasure: false,
 
     /**
      * Dynamic Render
