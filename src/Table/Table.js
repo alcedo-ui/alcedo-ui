@@ -261,6 +261,7 @@ class Table extends Component {
         Util.preOrderTraverse({children: nextColumns}, node => {
             if (node && TC.getColumnKey(node, columnKeyField) == key) {
                 column = node;
+                return false;
             }
         });
         if (!column) {
