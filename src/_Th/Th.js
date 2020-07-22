@@ -185,6 +185,8 @@ Th.propTypes = {
          */
         key: PropTypes.string,
 
+        children: PropTypes.any,
+
         /**
          * fixed position of column ( 'left' / 'right' ).
          */
