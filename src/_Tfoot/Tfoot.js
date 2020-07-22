@@ -34,6 +34,10 @@ class Tfoot extends Component {
         super(props, ...restArgs);
     }
 
+    shouldComponentUpdate(nextProps) {
+        return !nextProps.resizingColumn;
+    }
+
     getColumnsSpan = () => {
         const {columns, data, onRequestColumnsSpan} = this.props;
         return onRequestColumnsSpan ?
@@ -375,6 +379,7 @@ Tfoot.propTypes = {
      * column resizable
      */
     defaultColumnWidth: PropTypes.number,
+    resizingColumn: PropTypes.object,
 
     onFootClick: PropTypes.func,
     onCellClick: PropTypes.func,
