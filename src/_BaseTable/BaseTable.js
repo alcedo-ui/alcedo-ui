@@ -151,6 +151,7 @@ class BaseTable extends Component {
                                scrollHeight={scrollHeight}
                                rowHeight={rowHeight}
                                scrollBuffer={scrollBuffer}
+                               resizingColumn={resizingColumn}
                                onExpandChange={onExpandChange}
                                onRequestColumnsSpan={onRequestColumnsSpan}
                                onColumnMeasure={onColumnMeasure}/>
@@ -172,6 +173,7 @@ class BaseTable extends Component {
                                scrollEl={scrollEl}
                                hasVerticalScroll={hasVerticalScroll}
                                defaultColumnWidth={defaultColumnWidth}
+                               resizingColumn={resizingColumn}
                                onRequestColumnsSpan={onRequestColumnsSpan}
                                onFootClick={onFootClick}/>
                         :
