@@ -25,16 +25,19 @@ import 'assets/font-awesome/css/fontawesome-all.min.css';
 import 'scss/global.scss';
 import 'scss/containers/Root.scss';
 
-function Root({route, location}) {
+function Root({
+    route, location, isDesktop,
+    switchToDesktop, switchToMobile
+}) {
 
     /**
      * handle switch between desktop mode and mobile mode
      */
     const handleResize = useCallback(() => {
         window.innerWidth >= Config.desktopMinWidth ?
-            (!this.props.isDesktop && this.props.switchToDesktop())
+            (!isDesktop && switchToDesktop?.())
             :
-            (this.props.isDesktop && this.props.switchToMobile());
+            (isDesktop && switchToMobile?.());
     });
 
     useEffect(() => {
