@@ -30,6 +30,10 @@ class Tbody extends Component {
         super(props, ...restArgs);
     }
 
+    shouldComponentUpdate(nextProps) {
+        return !nextProps.resizingColumn;
+    }
+
     isItemChecked = rowData => {
 
         const {selectMode, idField, value} = this.props;
@@ -356,6 +360,7 @@ Tbody.propTypes = {
      * column resizable
      */
     defaultColumnWidth: PropTypes.number,
+    resizingColumn: PropTypes.object,
 
     /**
      * callback
