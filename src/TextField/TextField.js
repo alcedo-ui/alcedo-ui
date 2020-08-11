@@ -188,7 +188,8 @@ class TextField extends Component {
 
     handleBlur = e => {
 
-        if (e?.relatedTarget == findDOMNode(this.clearButton?.current)) {
+        const clearButtonEl = findDOMNode(this.clearButton?.current);
+        if (clearButtonEl && e?.relatedTarget == clearButtonEl) {
             return;
         }
 
