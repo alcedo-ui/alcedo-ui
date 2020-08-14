@@ -106,7 +106,8 @@ class CheckboxGroup extends Component {
                                       label={Util.getTextByDisplayField(item, labelField, valueField)}
                                       value={itemValue}
                                       disabled={disabled || item.disabled}
-                                      checked={value && value.findIndex(v => v?.value === itemValue) > -1}
+                                      checked={value?.findIndex(v =>
+                                          Util.getTextByDisplayField(v, labelField, valueField) === itemValue) > -1}
                                       tip={item.tip}
                                       tipPosition={item.tipPosition}
                                       onChange={() => this.handleChange(item)}
