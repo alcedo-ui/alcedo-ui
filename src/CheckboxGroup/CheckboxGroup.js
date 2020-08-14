@@ -43,13 +43,17 @@ class CheckboxGroup extends Component {
 
     handleChange = item => {
 
+        const {valueField, labelField} = this.props;
+
         let value = cloneDeep(this.state.value);
 
         if (!value || !isArray(value)) {
             value = [item];
         } else {
 
-            const index = value.findIndex(v => v.value === item.value);
+            const index = value.findIndex(v =>
+                Util.getValueByValueField(v, valueField, labelField)
+                === Util.getValueByValueField(item, valueField, labelField));
 
             if (index > -1) {
                 value.splice(index, 1);
@@ -61,10 +65,7 @@ class CheckboxGroup extends Component {
 
         this.setState({
             value
-        }, () => {
-            const {disabled, onChange} = this.props;
-            !disabled && onChange && onChange(value);
-        });
+        }, () => !this.props.disabled && this.props.onChange?.(value));
 
     };
 
@@ -107,12 +108,12 @@ class CheckboxGroup extends Component {
                                       value={itemValue}
                                       disabled={disabled || item.disabled}
                                       checked={value?.findIndex(v =>
-                                          Util.getTextByDisplayField(v, labelField, valueField) === itemValue) > -1}
+                                          Util.getValueByValueField(v, valueField, labelField) === itemValue) > -1}
                                       tip={item.tip}
                                       tipPosition={item.tipPosition}
                                       onChange={() => this.handleChange(item)}
-                                      onCheck={e => onCheck && onCheck(item, e)}
-                                      onUncheck={e => onUncheck && onUncheck(item, e)}/>
+                                      onCheck={e => onCheck?.(item, e)}
+                                      onUncheck={e => onUncheck?.(item, e)}/>
                         );
 
                     })
