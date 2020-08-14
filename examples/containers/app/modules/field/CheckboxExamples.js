@@ -51,7 +51,7 @@ class CheckboxExamples extends Component {
 
     handleCheck = item => {
         if (item) {
-            console.log('checked', item);
+            console.log('checked::', item);
         } else {
             console.log('checked');
         }
@@ -59,7 +59,7 @@ class CheckboxExamples extends Component {
 
     handleUncheck = item => {
         if (item) {
-            console.log('unchecked', item);
+            console.log('unchecked::', item);
         } else {
             console.log('unchecked');
         }
@@ -72,6 +72,7 @@ class CheckboxExamples extends Component {
     };
 
     handleGroupChange = checkboxGroupValue => {
+        console.log('checkbox group changed::', checkboxGroupValue);
         this.setState({
             checkboxGroupValue
         });
