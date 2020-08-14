@@ -169,7 +169,7 @@ class List extends Component {
 
         const {
 
-                theme, activatedTheme, itemHeight, idField, valueField, displayField, descriptionField, disabled,
+                theme, activatedTheme, itemHeight, valueField, displayField, descriptionField, disabled,
                 itemDisabled, isLoading, renderer, autoSelect, disableTouchRipple, selectTheme, selectMode, parentEl,
                 indeterminateCallback, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
@@ -180,7 +180,7 @@ class List extends Component {
             {value} = this.state;
 
         return typeof item === 'object' ?
-            <ListItem key={(idField in item && item[idField]) || index}
+            <ListItem key={index}
                       {...item}
                       index={index}
                       parentEl={parentEl}
