@@ -1,10 +1,17 @@
+/**
+ * @file CheckboxExamples.js
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 
+// Components
 import Checkbox from 'src/Checkbox';
 import CheckboxGroup from 'src/CheckboxGroup';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
+// Docs
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Checkbox.json';
 
@@ -42,7 +49,7 @@ class CheckboxExamples extends Component {
 
     }
 
-    checkHandler = item => {
+    handleCheck = item => {
         if (item) {
             console.log('checked', item);
         } else {
@@ -50,7 +57,7 @@ class CheckboxExamples extends Component {
         }
     };
 
-    uncheckHandler = item => {
+    handleUncheck = item => {
         if (item) {
             console.log('unchecked', item);
         } else {
@@ -58,13 +65,13 @@ class CheckboxExamples extends Component {
         }
     };
 
-    checkboxChangeHandler = value => {
+    handleChange = value => {
         this.setState({
             checkboxGroupValue: value ? [...this.data] : []
         });
     };
 
-    checkboxGroupChangeHandler = checkboxGroupValue => {
+    handleGroupChange = checkboxGroupValue => {
         this.setState({
             checkboxGroupValue
         });
@@ -72,8 +79,7 @@ class CheckboxExamples extends Component {
 
     render() {
 
-        const {checkboxGroupValue} = this.state,
-            indeterminate = checkboxGroupValue.length > 0 && checkboxGroupValue.length < this.data.length;
+        const {checkboxGroupValue} = this.state;
 
         return (
             <div className="example checkbox-examples">
@@ -99,8 +105,8 @@ class CheckboxExamples extends Component {
                                 <p><code>Checkbox</code> simple example.</p>
 
                                 <Checkbox label="Licence"
-                                          onCheck={this.checkHandler}
-                                          onUncheck={this.uncheckHandler}/>
+                                          onCheck={this.handleCheck}
+                                          onUncheck={this.handleUncheck}/>
 
                             </div>
 
@@ -145,15 +151,16 @@ class CheckboxExamples extends Component {
                                 <Checkbox theme={Checkbox.Theme.HIGHLIGHT}
                                           label="All"
                                           checked={checkboxGroupValue.length === this.data.length}
-                                          indeterminate={indeterminate}
-                                          onChange={this.checkboxChangeHandler}/>
+                                          indeterminate={checkboxGroupValue.length > 0
+                                          && checkboxGroupValue.length < this.data.length}
+                                          onChange={this.handleChange}/>
 
                                 <CheckboxGroup theme={CheckboxGroup.Theme.HIGHLIGHT}
                                                data={this.data}
                                                value={checkboxGroupValue}
-                                               onChange={this.checkboxGroupChangeHandler}
-                                               onCheck={this.checkHandler}
-                                               onUncheck={this.uncheckHandler}/>
+                                               onChange={this.handleGroupChange}
+                                               onCheck={this.handleCheck}
+                                               onUncheck={this.handleUncheck}/>
 
                             </div>
 
@@ -191,6 +198,6 @@ class CheckboxExamples extends Component {
             </div>
         );
     }
-};
+}
 
 export default CheckboxExamples;
