@@ -90,25 +90,31 @@ class CheckboxGroup extends Component {
                  style={style}
                  disabled={disabled}>
                 {
-                    data && data.map((item, index) =>
-                        <Checkbox key={item && idField in item ? item[idField] : index}
-                                  className={item.className ? item.className : ''}
-                                  style={item.style}
-                                  theme={item.theme || theme}
-                                  uncheckedIconCls={item.uncheckedIconCls || uncheckedIconCls}
-                                  checkedIconCls={item.checkedIconCls || checkedIconCls}
-                                  indeterminateIconCls={item.indeterminateIconCls || indeterminateIconCls}
-                                  name={name}
-                                  label={Util.getTextByDisplayField(item, labelField, valueField)}
-                                  value={Util.getValueByValueField(item, valueField, labelField)}
-                                  disabled={disabled || item.disabled}
-                                  checked={value && value.findIndex(v => v.value === item.value) > -1}
-                                  tip={item.tip}
-                                  tipPosition={item.tipPosition}
-                                  onChange={() => this.handleChange(item)}
-                                  onCheck={e => onCheck && onCheck(item, e)}
-                                  onUncheck={e => onUncheck && onUncheck(item, e)}/>
-                    )
+                    data && data.map((item, index) => {
+
+                        const itemValue = Util.getValueByValueField(item, valueField, labelField);
+
+                        return (
+                            <Checkbox key={item && idField in item ? item[idField] : index}
+                                      className={item.className ? item.className : ''}
+                                      style={item.style}
+                                      theme={item.theme || theme}
+                                      uncheckedIconCls={item.uncheckedIconCls || uncheckedIconCls}
+                                      checkedIconCls={item.checkedIconCls || checkedIconCls}
+                                      indeterminateIconCls={item.indeterminateIconCls || indeterminateIconCls}
+                                      name={name}
+                                      label={Util.getTextByDisplayField(item, labelField, valueField)}
+                                      value={itemValue}
+                                      disabled={disabled || item.disabled}
+                                      checked={value && value.findIndex(v => v?.value === itemValue) > -1}
+                                      tip={item.tip}
+                                      tipPosition={item.tipPosition}
+                                      onChange={() => this.handleChange(item)}
+                                      onCheck={e => onCheck && onCheck(item, e)}
+                                      onUncheck={e => onUncheck && onUncheck(item, e)}/>
+                        );
+
+                    })
                 }
             </div>
         );
