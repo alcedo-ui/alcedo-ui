@@ -36,6 +36,7 @@
     border: none;
     padding: 0;
     background-color: transparent;
+    text-overflow: initial;
 
     .button-icon.button-icon-left {
         margin: 0;
@@ -52,15 +53,19 @@
     &.theme-primary {
         @include icon-button-theme($theme-primary);
     }
+
     &.theme-highlight {
         @include icon-button-theme($theme-highlight);
     }
+
     &.theme-success {
         @include icon-button-theme($theme-success);
     }
+
     &.theme-warning {
         @include icon-button-theme($theme-warning);
     }
+
     &.theme-error {
         @include icon-button-theme($theme-error);
     }
