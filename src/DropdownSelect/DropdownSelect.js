@@ -134,6 +134,7 @@ class DropdownSelect extends Component {
             return;
         }
 
+        const scrollTop = scrollerEl.scrollTop;
         scrollerEl.style.height = 'auto';
 
         let scrollerHeight = popEl.offsetHeight;
@@ -142,6 +143,7 @@ class DropdownSelect extends Component {
         }
 
         scrollerEl.style.height = `${scrollerHeight}px`;
+        scrollerEl.scrollTop = scrollTop;
 
     };
 
