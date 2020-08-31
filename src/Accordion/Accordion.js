@@ -165,7 +165,7 @@ Accordion.propTypes = {
     /**
      * The accordion's title.
      */
-    title: PropTypes.string,
+    title: PropTypes.any,
 
     collapsed: PropTypes.bool,
 
