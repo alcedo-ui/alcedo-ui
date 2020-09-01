@@ -80,30 +80,26 @@ class TextField extends Component {
 
         e && e.persist();
 
-        const {onValid, onInvalid} = this.props,
-
-            value = e.target.value,
+        const value = e.target.value,
             invalidMsgs = Valid.fieldValid(value, this.props);
 
         this.setState({
             value,
             invalidMsgs
         }, () => {
-            this.props.onChange && this.props.onChange(value);
-            invalidMsgs && invalidMsgs.length > 0 ? onInvalid && onInvalid() : onValid && onValid();
+            this.props.onChange?.(value);
+            invalidMsgs?.length > 0 ? this.props.onInvalid?.() : this.props.onValid?.();
         });
 
     };
 
     handleKeyDown = e => {
 
-        const {onKeyDown} = this.props,
-            {value} = this.state;
-        onKeyDown && onKeyDown(e, value);
+        const {value} = this.state;
+        this.props.onKeyDown?.(e, value);
 
         if (e.keyCode === 13) {
-            const {onPressEnter} = this.props;
-            onPressEnter && onPressEnter(e, value);
+            this.props.onPressEnter?.(e, value);
         }
 
     };
@@ -154,22 +150,14 @@ class TextField extends Component {
         this.setState({
             infoVisible: true,
             errorVisible: true
-        }, () => {
-            const {onMouseOver} = this.props,
-                {value} = this.state;
-            onMouseOver && onMouseOver(e, value);
-        });
+        }, () => this.props.onMouseOver?.(e, this.state.value));
     };
 
     handleMouseOut = e => {
         this.setState({
             infoVisible: false,
             errorVisible: false
-        }, () => {
-            const {onMouseOut} = this.props,
-                {value} = this.state;
-            onMouseOut && onMouseOut(e, value);
-        });
+        }, () => this.props.onMouseOut?.(e, this.state.value));
     };
 
     handleFocus = e => {
@@ -177,11 +165,11 @@ class TextField extends Component {
             isFocused: true
         }, () => {
 
-            const {isFocusedSelectAll, onFocus} = this.props,
+            const {isFocusedSelectAll} = this.props,
                 {value} = this.state;
 
-            onFocus?.(e, value);
-            isFocusedSelectAll && this.inputEl?.setSelectionRange?.(0, value ? value.length : 0);
+            this.props.onFocus?.(e, value);
+            isFocusedSelectAll && this.inputEl?.setSelectionRange?.(0, value == null ? 0 : value.length);
 
         });
     };
@@ -195,16 +183,12 @@ class TextField extends Component {
 
         this.setState({
             isFocused: false
-        }, () => {
-            this.props?.onBlur?.(e, this.state.value);
-        });
+        }, () => this.props?.onBlur?.(e, this.state.value));
 
     };
 
     handleRightIconClick = e => {
-        const {onRightIconClick} = this.props,
-            {value} = this.state;
-        onRightIconClick && onRightIconClick(e, value);
+        this.props.onRightIconClick?.(e, this.state.value);
     };
 
     /* eslint-disable complexity */
@@ -227,7 +211,7 @@ class TextField extends Component {
             {value, isFocused, passwordVisible, infoVisible, errorVisible, invalidMsgs} = this.state,
 
             isPassword = type === FieldType.PASSWORD,
-            empty = !value || value.length <= 0;
+            empty = value == null || value.length <= 0;
 
         let inputType = type;
         if (inputType === FieldType.PASSWORD) {
@@ -253,7 +237,7 @@ class TextField extends Component {
             onBlur: this.handleBlur
         };
         if (type !== FieldType.PASSWORD) {
-            inputProps.value = value || '';
+            inputProps.value = value == null ? '' : value;
         }
 
         return (
@@ -283,7 +267,7 @@ class TextField extends Component {
                 }
 
                 {
-                    (placeholder !== '' && placeholder !== null) && !isFocused && !value ?
+                    (placeholder !== '' && placeholder !== null) && !isFocused && value == null ?
                         <input className={classNames('text-field-placeholder', {
                             [placeholderClassName]: placeholderClassName
                         })}
@@ -299,7 +283,7 @@ class TextField extends Component {
                     clearButtonVisible ?
                         <IconButton ref={this.clearButton}
                                     className={classNames('clear-icon', {
-                                        hidden: disabled || !value || value.length < 1
+                                        hidden: disabled || value == null || value.length < 1
                                     })}
                                     iconCls="fas fa-times-circle"
                                     onClick={this.clearValue}/>
