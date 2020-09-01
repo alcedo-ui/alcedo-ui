@@ -78,7 +78,7 @@ class TextField extends Component {
 
     handleChange = e => {
 
-        e && e.persist();
+        e?.persist?.();
 
         const value = e.target.value,
             invalidMsgs = Valid.fieldValid(value, this.props);
