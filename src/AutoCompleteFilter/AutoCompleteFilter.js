@@ -5,18 +5,20 @@
 
 import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
-import {findDOMNode} from 'react-dom';
-import classNames from 'classnames';
-import isNumber from 'lodash/isNumber';
 
+// Components
 import TextField from '../TextField';
 import Popup from '../Popup';
 import List from '../List';
 import DynamicRenderList from '../DynamicRenderList';
-import Theme from '../Theme';
 
+// Statics
+import Theme from '../Theme';
 import Position from '../_statics/Position';
 
+// Vendors
+import {findDOMNode} from 'react-dom';
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
 import Valid from '../_vendors/Valid';
@@ -132,7 +134,7 @@ class AutoCompleteFilter extends Component {
 
             state = {};
 
-            let index = isNumber(tempSelectIndex) && tempSelectIndex > -1 ? tempSelectIndex : -1;
+            let index = !isNaN(tempSelectIndex) && tempSelectIndex > -1 ? tempSelectIndex : -1;
 
             if (e.keyCode === 38) { // up
                 index--;
@@ -254,7 +256,7 @@ class AutoCompleteFilter extends Component {
 
             state = {};
 
-            const index = isNumber(tempSelectIndex) && tempSelectIndex > -1 ? tempSelectIndex : -1;
+            const index = !isNaN(tempSelectIndex) && tempSelectIndex > -1 ? tempSelectIndex : -1;
 
             state.value = index > -1 ? listData[index] : null;
 
