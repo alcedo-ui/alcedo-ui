@@ -5,18 +5,20 @@
 
 import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
-import {findDOMNode} from 'react-dom';
-import classNames from 'classnames';
-import isNumber from 'lodash/isNumber';
 
+// Components
 import TextField from '../TextField';
 import Popup from '../Popup';
 import List from '../List';
 import DynamicRenderList from '../DynamicRenderList';
-import Theme from '../Theme';
 
+// Statics
+import Theme from '../Theme';
 import Position from '../_statics/Position';
 
+// Vendors
+import {findDOMNode} from 'react-dom';
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
@@ -252,7 +254,7 @@ class LocalAutoComplete extends Component {
             {filter, tempSelectIndex, listData} = this.state,
 
             index = filter?.length >= minFilterLength ?
-                isNumber(tempSelectIndex) ? tempSelectIndex : 0
+                !isNaN(tempSelectIndex) ? tempSelectIndex : 0
                 :
                 -1,
             state = {
