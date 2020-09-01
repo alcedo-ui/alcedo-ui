@@ -3,9 +3,11 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import isArray from 'lodash/isArray';
-import isNumber from 'lodash/isNumber';
+// Statics
 import FieldType from '../_statics/FieldType';
+
+// Vendors
+import isArray from 'lodash/isArray';
 
 function range(value, min, max) {
     max !== undefined && (value = value > max ? max : value);
@@ -54,7 +56,7 @@ function isEven(value) {
 }
 
 function isInRange(value, min, max) {
-    return isNumber(value) && isNumber(min) && isNumber(max) && value >= min && value <= max;
+    return !isNaN(value) && !isNaN(min) && !isNaN(max) && value >= min && value <= max;
 }
 
 function isEmail(value) {
@@ -66,11 +68,11 @@ function isUrl(value) {
 }
 
 function isPerCent(perCent) {
-    return isNumber(perCent) && perCent >= 0 && perCent <= 1;
+    return !isNaN(perCent) && perCent >= 0 && perCent <= 1;
 }
 
 function isDeg(deg) {
-    return isNumber(deg) && deg >= 0 && deg <= 360;
+    return !isNaN(deg) && deg >= 0 && deg <= 360;
 }
 
 function isRGB(rgb) {
@@ -119,6 +121,7 @@ function isNumberType(type) {
 
 }
 
+/* eslint-disable complexity */
 function fieldValid(value, props) {
 
     const {type, required, maxLength, max, min, pattern, patternInvalidMsg} = props;
@@ -142,7 +145,7 @@ function fieldValid(value, props) {
 
     if (isNumberType(type) && value) {
 
-        if (type === FieldType.NUMBER && !isNumber(value)) {
+        if (type === FieldType.NUMBER && isNaN(value)) {
             invalidMsgs.push('Not a valid number');
         }
 
