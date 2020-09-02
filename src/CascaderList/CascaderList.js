@@ -5,16 +5,19 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import isArray from 'lodash/isArray';
-import classNames from 'classnames';
 
+// Components
 import CascaderListItem from '../_CascaderListItem';
 import Tip from '../Tip';
 
+// Statics
 import Theme from '../Theme';
 import SelectMode from '../_statics/SelectMode';
 import HorizontalDirection from '../_statics/HorizontalDirection';
 
+// Vendors
+import isArray from 'lodash/isArray';
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 import Calculation from '../_vendors/Calculation';
 import CascaderCalculation from '../_vendors/CascaderCalculation';
@@ -214,7 +217,7 @@ class CascaderList extends Component {
                 expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
                 idField, valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
-                isSelectRecursive, renderer
+                isSelectRecursive, itemDisabled, renderer
             } = this.props,
             {value, activatedPath} = this.state;
 
@@ -242,6 +245,7 @@ class CascaderList extends Component {
                                   isLoading={isLoading}
                                   readOnly={readOnly}
                                   selectMode={selectMode}
+                                  itemDisabled={itemDisabled}
                                   renderer={renderer}
                                   expandedIconCls={expandedIconCls}
                                   radioUncheckedIconCls={radioUncheckedIconCls}
@@ -420,6 +424,11 @@ CascaderList.propTypes = {
     checkboxUncheckedIconCls: PropTypes.string,
     checkboxCheckedIconCls: PropTypes.string,
     checkboxIndeterminateIconCls: PropTypes.string,
+
+    /**
+     * Cascader List item disabled callback.
+     */
+    itemDisabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
