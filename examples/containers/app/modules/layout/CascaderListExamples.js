@@ -1,13 +1,21 @@
+/**
+ * @file CascaderList Examples
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 
+// Components
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import Paper from 'src/Paper';
 import CascaderList from 'src/CascaderList';
 
+// Docs
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'examples/assets/propTypes/CascaderList.json';
 
+// Styles
 import 'scss/containers/app/modules/layout/CascaderListExamples.scss';
 
 class CascaderListExamples extends Component {
@@ -152,6 +160,7 @@ class CascaderListExamples extends Component {
                             <div className="examples-wrapper">
                                 <Paper className="cascader-list-wrapper">
                                     <CascaderList data={this.data}
+                                                  itemDisabled={item => item.value[0] === 'A'}
                                                   renderer={node =>
                                                       <div className="self-define-node">
                                                           <span className="self-define-node-text">{node.text}</span>
