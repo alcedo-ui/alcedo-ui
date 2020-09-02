@@ -29,6 +29,16 @@ class CascaderList extends Component {
     static ExpandDirection = HorizontalDirection;
     static Theme = Theme;
 
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: Calculation.getInitValue({
+                value: ComponentUtil.getDerivedState(props, state, 'value'),
+                selectMode: props.selectMode
+            })
+        };
+    }
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -199,16 +209,6 @@ class CascaderList extends Component {
         });
 
     };
-
-    static getDerivedStateFromProps(props, state) {
-        return {
-            prevProps: props,
-            value: Calculation.getInitValue({
-                value: ComponentUtil.getDerivedState(props, state, 'value'),
-                selectMode: props.selectMode
-            })
-        };
-    }
 
     render() {
 
