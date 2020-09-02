@@ -5,14 +5,17 @@
 
 import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Components
 import List from '../List';
 
+// Statics
 import Theme from '../Theme';
 import SelectMode from '../_statics/SelectMode';
 import HorizontalDirection from '../_statics/HorizontalDirection';
 
+// Vendors
+import classNames from 'classnames';
 import Calc from '../_vendors/Calculation';
 import CascaderCalculation from '../_vendors/CascaderCalculation';
 import Util from '../_vendors/Util';
@@ -196,8 +199,8 @@ class CascaderListItem extends Component {
 
         const {
 
-                depth, theme, listWidth, selectTheme, selectMode, expandDirection, data,
-                disabled, isLoading, readOnly, idField, valueField, displayField, descriptionField,
+                depth, theme, listWidth, selectTheme, selectMode, expandDirection, data, disabled,
+                isLoading, readOnly, idField, valueField, displayField, descriptionField, itemDisabled,
 
                 radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls
@@ -238,6 +241,7 @@ class CascaderListItem extends Component {
                       checkboxCheckedIconCls={checkboxCheckedIconCls}
                       checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
                       autoSelect={selectMode !== SelectMode.MULTI_SELECT}
+                      itemDisabled={itemDisabled}
                       indeterminateCallback={this.isListItemIndeterminate}
                       renderer={this.listItemRenderer}
                       onItemClick={this.handleListItemClick}
@@ -289,6 +293,7 @@ CascaderListItem.propTypes = {
     isNodeToggling: PropTypes.bool,
     isSelectRecursive: PropTypes.bool,
 
+    itemDisabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
     renderer: PropTypes.func,
 
     expandedIconCls: PropTypes.string,
