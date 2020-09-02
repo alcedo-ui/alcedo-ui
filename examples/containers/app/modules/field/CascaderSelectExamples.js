@@ -1,14 +1,22 @@
+/**
+ * @file CascaderSelect examples
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 
+// Components
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import CascaderSelect from 'src/CascaderSelect';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
 
+// Docs
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/CascaderSelect.json';
 
+// Styles
 import 'scss/containers/app/modules/field/CascaderSelectExamples.scss';
 
 class CascaderSelectExamples extends Component {
@@ -93,7 +101,6 @@ class CascaderSelectExamples extends Component {
     show = id => {
 
         const {CascaderSelectVisible} = this.state;
-
         CascaderSelectVisible[id] = true;
 
         this.setState({
@@ -105,7 +112,6 @@ class CascaderSelectExamples extends Component {
     hide = id => {
 
         const {CascaderSelectVisible} = this.state;
-
         CascaderSelectVisible[id] = false;
 
         this.setState({
@@ -185,21 +191,22 @@ class CascaderSelectExamples extends Component {
                                 <CascaderSelect selectMode={CascaderSelect.SelectMode.MULTI_SELECT}
                                                 data={this.data}
                                                 tip="CascaderSelect Example"
-                                                renderer={node => {
-                                                    return (
-                                                        <div className="self-define-node">
-                                                            <span className="self-define-node-text">{node.text}</span>
-                                                            {
-                                                                node.children && node.children.length > 0 ?
-                                                                    <span className="self-define-node-desc">
-                                                                        ({node.children.length})
-                                                                    </span>
-                                                                    :
-                                                                    null
-                                                            }
-                                                        </div>
-                                                    );
-                                                }}
+                                                itemDisabled={item => item.value[0] === 'A'}
+                                                renderer={node =>
+                                                    <div className="self-define-node">
+                                                        <span className="self-define-node-text">
+                                                            {node.text}
+                                                        </span>
+                                                        {
+                                                            node.children && node.children.length > 0 ?
+                                                                <span className="self-define-node-desc">
+                                                                    ({node.children.length})
+                                                                </span>
+                                                                :
+                                                                null
+                                                        }
+                                                    </div>
+                                                }
                                                 onNodeClick={this.nodeClickHandler}
                                                 onNodeSelect={this.nodeSelectHandler}
                                                 onChange={this.changeHandler}/>
@@ -233,23 +240,21 @@ class CascaderSelectExamples extends Component {
                                                                 data={this.data}
                                                                 parentEl={dialogContentEl}
                                                                 tip="CascaderSelect Example"
-                                                                renderer={node => {
-                                                                    return (
-                                                                        <div className="self-define-node">
-                                                                            <span
-                                                                                className="self-define-node-text">{node.text}</span>
-                                                                            {
-                                                                                node.children && node.children.length > 0 ?
-                                                                                    <span
-                                                                                        className="self-define-node-desc">
-                                                                                        ({node.children.length})
-                                                                                    </span>
-                                                                                    :
-                                                                                    null
-                                                                            }
-                                                                        </div>
-                                                                    );
-                                                                }}
+                                                                renderer={node =>
+                                                                    <div className="self-define-node">
+                                                                        <span className="self-define-node-text">
+                                                                            {node.text}
+                                                                        </span>
+                                                                        {
+                                                                            node.children && node.children.length > 0 ?
+                                                                                <span className="self-define-node-desc">
+                                                                                    ({node.children.length})
+                                                                                </span>
+                                                                                :
+                                                                                null
+                                                                        }
+                                                                    </div>
+                                                                }
                                                                 onNodeClick={this.nodeClickHandler}
                                                                 onNodeSelect={this.nodeSelectHandler}
                                                                 onChange={this.changeHandler}/>
