@@ -5,17 +5,20 @@
 
 import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Components
 import Dropdown from '../Dropdown';
 import CascaderList from '../CascaderList';
 import Tip from '../Tip';
 
+// Statics
 import Theme from '../Theme';
 import SelectMode from '../_statics/SelectMode';
 import HorizontalDirection from '../_statics/HorizontalDirection';
 import Position from '../_statics/Position';
 
+// Vendors
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 import CascaderCalculation from '../_vendors/CascaderCalculation';
 import ComponentUtil from '../_vendors/ComponentUtil';
@@ -27,6 +30,13 @@ class CascaderSelect extends Component {
     static Theme = Theme;
     static Position = Position;
     static TipPosition = Position;
+
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
+    }
 
     constructor(props, ...restArgs) {
 
@@ -47,42 +57,42 @@ class CascaderSelect extends Component {
      * public
      */
     startRipple = (e, props) => {
-        this.dropdown && this.dropdown.current && this.dropdown.current.startRipple(e, props);
+        this.dropdown?.current?.startRipple?.(e, props);
     };
 
     /**
      * public
      */
     endRipple = () => {
-        this.dropdown && this.dropdown.current && this.dropdown.current.endRipple();
+        this.dropdown?.current?.endRipple?.();
     };
 
     /**
      * public
      */
     triggerRipple = (e, props) => {
-        this.dropdown && this.dropdown.current && this.dropdown.current.triggerRipple(e, props);
+        this.dropdown?.current?.triggerRipple?.(e, props);
     };
 
     /**
      * public
      */
     resetPopupPosition = () => {
-        this.dropdown && this.dropdown.current && this.dropdown.current.resetPosition();
+        this.dropdown?.current?.resetPosition?.();
     };
 
     /**
      * public
      */
     openPopup = () => {
-        this.dropdown && this.dropdown.current && this.dropdown.current.openPopup();
+        this.dropdown?.current?.openPopup?.();
     };
 
     /**
      * public
      */
     closePopup = () => {
-        this.dropdown && this.dropdown.current && this.dropdown.current.closePopup();
+        this.dropdown?.current?.closePopup?.();
     };
 
     getTriggerValue = (props = this.props) => {
@@ -139,13 +149,12 @@ class CascaderSelect extends Component {
     };
 
     handlePathChange = () => {
-        this.dropdown && this.dropdown.current && this.dropdown.current.resetPopupPosition();
+        this.dropdown?.current?.resetPopupPosition?.();
     };
 
     handleNodeSelect = (node, path) => {
 
-        const {onNodeSelect} = this.props;
-        onNodeSelect && onNodeSelect(node, path);
+        this.props.onNodeSelect?.(node, path);
 
         if (this.props.selectMode !== SelectMode.SINGLE_SELECT) {
             return;
@@ -159,43 +168,27 @@ class CascaderSelect extends Component {
 
     handleChange = value => {
 
-        const {autoClose} = this.props;
-        if (autoClose) {
-            this.closePopup();
-        }
+        this.props.autoClose && this.closePopup();
 
         this.setState({
             value
-        }, () => {
-            const {onChange} = this.props;
-            onChange && onChange(value);
-        });
+        }, () => this.props.onChange?.(value));
 
     };
 
     handlePopupClosed = e => {
         this.setState({
             popupVisible: false
-        }, () => {
-            const {onClosePopup} = this.props;
-            onClosePopup && onClosePopup(e);
-        });
+        }, () => this.props.onClosePopup?.(e));
     };
-
-    static getDerivedStateFromProps(props, state) {
-        return {
-            prevProps: props,
-            value: ComponentUtil.getDerivedState(props, state, 'value')
-        };
-    }
 
     render() {
 
         const {
 
                 className, triggerClassName, popupClassName, style, name, popupTheme, listWidth, data, renderer,
-                selectTheme, selectMode, expandDirection, valueField, displayField, descriptionField, triggerRenderer,
-                isSelectRecursive, allowCollapse, onNodeDeselect, popupChildren, onNodeClick,
+                selectTheme, selectMode, expandDirection, valueField, displayField, descriptionField, itemDisabled,
+                triggerRenderer, isSelectRecursive, allowCollapse, onNodeDeselect, popupChildren, onNodeClick,
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
@@ -258,6 +251,7 @@ class CascaderSelect extends Component {
                                       checkboxUncheckedIconCls={checkboxUncheckedIconCls}
                                       checkboxCheckedIconCls={checkboxCheckedIconCls}
                                       checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
+                                      itemDisabled={itemDisabled}
                                       renderer={renderer}
                                       onNodeClick={onNodeClick}
                                       onNodeSelect={this.handleNodeSelect}
@@ -490,6 +484,11 @@ CascaderSelect.propTypes = {
     popupChildren: PropTypes.any,
 
     resetPopPositionWait: PropTypes.number,
+
+    /**
+     * Cascader List item disabled callback.
+     */
+    itemDisabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 
     renderer: PropTypes.func,
 
