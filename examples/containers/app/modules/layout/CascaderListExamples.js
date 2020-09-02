@@ -1,5 +1,5 @@
 /**
- * @file CascaderList Examples
+ * @file CascaderList examples
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
