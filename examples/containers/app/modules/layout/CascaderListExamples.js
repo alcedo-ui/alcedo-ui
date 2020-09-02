@@ -163,7 +163,9 @@ class CascaderListExamples extends Component {
                                                   itemDisabled={item => item.value[0] === 'A'}
                                                   renderer={node =>
                                                       <div className="self-define-node">
-                                                          <span className="self-define-node-text">{node.text}</span>
+                                                          <span className="self-define-node-text">
+                                                              {node.text}
+                                                          </span>
                                                           {
                                                               node.children && node.children.length > 0 ?
                                                                   <span className="self-define-node-desc">
@@ -198,7 +200,9 @@ class CascaderListExamples extends Component {
                                                   idField="value"
                                                   renderer={node =>
                                                       <div className="self-define-node">
-                                                          <span className="self-define-node-text">{node.text}</span>
+                                                          <span className="self-define-node-text">
+                                                              {node.text}
+                                                          </span>
                                                           {
                                                               node.children && node.children.length > 0 ?
                                                                   <span className="self-define-node-desc">
