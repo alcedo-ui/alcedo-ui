@@ -5,6 +5,8 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+
+// Vendors
 import classNames from 'classnames';
 
 class ColorBlock extends Component {
@@ -24,7 +26,7 @@ class ColorBlock extends Component {
                  })}
                  style={style}>
                 <div className="color-block-overlay"
-                     style={{background: `#${value}`, opacity}}></div>
+                     style={{background: value[0] === '#' ? value : `#${value}`, opacity}}></div>
             </div>
         );
 
