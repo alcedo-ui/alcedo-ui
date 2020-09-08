@@ -1,7 +1,6 @@
 const path = require('path'),
 
     HappyPack = require('happypack'),
-    autoprefixer = require('autoprefixer'),
 
     config = require('./config.js'),
     utils = require('./utils.js'),
@@ -14,12 +13,11 @@ const path = require('path'),
     }, {
         loader: 'postcss-loader',
         options: {
-            ident: 'postcss',
-            plugins: [
-                autoprefixer({
-                    broswer: 'last 5 versions'
-                })
-            ]
+            postcssOptions: {
+                plugins: [
+                    'postcss-preset-env'
+                ]
+            }
         }
     }];
 
