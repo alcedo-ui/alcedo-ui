@@ -34,7 +34,6 @@ class CircularLoading extends Component {
             };
 
         return (
-
             <div className={classNames('circular-loading', {
                 [`circular-loading-size-${size}`]: size,
                 [className]: className
@@ -61,7 +60,6 @@ class CircularLoading extends Component {
                 </div>
 
             </div>
-
         );
 
     }
