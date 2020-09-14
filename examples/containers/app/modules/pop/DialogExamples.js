@@ -1,9 +1,15 @@
+/**
+ * @file Dialog examples
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
+import FlatButton from 'src/FlatButton';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Dialog.json';
@@ -20,7 +26,8 @@ class DialogExamples extends Component {
             dialogVisible1: false,
             dialogVisible2: false,
             dialogVisible3: false,
-            dialogVisible4: false
+            dialogVisible4: false,
+            dialogVisible5: false
         };
 
     }
@@ -58,7 +65,7 @@ class DialogExamples extends Component {
 
     render() {
 
-        const {dialogVisible1, dialogVisible2, dialogVisible3, dialogVisible4} = this.state;
+        const {dialogVisible1, dialogVisible2, dialogVisible3, dialogVisible4, dialogVisible5} = this.state;
 
         return (
             <div className="example dialog-examples">
@@ -152,6 +159,44 @@ class DialogExamples extends Component {
 
                 <Widget>
 
+                    <WidgetHeader className="example-header" title="Customized Buttons"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="popup-example-wrapper">
+
+                                <p><code>Dialog</code> example use modal.</p>
+
+                                <RaisedButton className="trigger-button"
+                                              value="Toggle Dialog"
+                                              style={{width: '120px'}}
+                                              onClick={() => this.openDialog(3)}/>
+
+                                <Dialog visible={dialogVisible3}
+                                        title="Dialog"
+                                        buttons={[
+                                            <RaisedButton key="apply"
+                                                          value="Apply"
+                                                          disabled={true}/>,
+                                            <FlatButton key="cancel"
+                                                        value="Cancel"
+                                                        onClick={() => this.closeDialog(3)}/>
+                                        ]}
+                                        onRequestClose={() => this.closeDialog(3)}>
+                                    <div className="dialog-example-content">
+                                        Content
+                                    </div>
+                                </Dialog>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </Widget>
+
+                <Widget>
+
                     <WidgetHeader className="example-header" title="Nexted Dialogs"/>
 
                     <div className="widget-content">
@@ -162,21 +207,21 @@ class DialogExamples extends Component {
                                 <RaisedButton className="trigger-button"
                                               value="Toggle Dialog"
                                               style={{width: '120px'}}
-                                              onClick={() => this.openDialog(3)}/>
+                                              onClick={() => this.openDialog(4)}/>
 
-                                <Dialog visible={dialogVisible3}
+                                <Dialog visible={dialogVisible4}
                                         title="Dialog"
-                                        onRequestClose={() => this.closeDialog(3)}>
+                                        onRequestClose={() => this.closeDialog(4)}>
                                     <div className="dialog-example-content">
 
                                         <RaisedButton className="trigger-button"
                                                       value="Toggle Dialog"
                                                       style={{width: '120px'}}
-                                                      onClick={() => this.openDialog(4)}/>
+                                                      onClick={() => this.openDialog(5)}/>
 
-                                        <Dialog visible={dialogVisible4}
+                                        <Dialog visible={dialogVisible5}
                                                 title="Dialog"
-                                                onRequestClose={() => this.closeDialog(4)}>
+                                                onRequestClose={() => this.closeDialog(5)}>
                                             <div className="dialog-example-content">
                                                 Content
                                             </div>
