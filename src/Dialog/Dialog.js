@@ -176,8 +176,8 @@ class Dialog extends Component {
                                 {
                                     buttons ?
                                         Children.map(buttons, button => cloneElement(button, {
-                                            isLoading,
-                                            disabled
+                                            isLoading: button.props.isLoading || isLoading,
+                                            disabled: button.props.disabled || disabled
                                         }))
                                         :
                                         null
