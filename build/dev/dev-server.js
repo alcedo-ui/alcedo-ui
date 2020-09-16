@@ -1,4 +1,5 @@
-const chokidar = require('chokidar'),
+const os = require('os'),
+    chokidar = require('chokidar'),
     open = require('open'),
     webpack = require('webpack'),
     express = require('express'),
@@ -19,7 +20,7 @@ const chokidar = require('chokidar'),
     }),
     app = express();
 
-chokidar.watch('.');
+os.platform() !== 'win32' && chokidar.watch('.');
 
 compiler.hooks.compilation.tap('html-webpack-plugin-after-emit', () =>
     hotMiddleware.publish({action: 'reload'})
