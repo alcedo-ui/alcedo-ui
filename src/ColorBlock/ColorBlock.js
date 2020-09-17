@@ -15,6 +15,10 @@ class ColorBlock extends Component {
         super(props, ...restArgs);
     }
 
+    getColor = (value = this.props.value) => {
+
+    };
+
     render() {
 
         const {className, style, value, opacity, ...restProps} = this.props;
