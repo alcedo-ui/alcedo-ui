@@ -33,7 +33,7 @@ class ColorBlockExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Basic"/>
+                    <WidgetHeader className="example-header" title="Hex"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -43,6 +43,24 @@ class ColorBlockExamples extends Component {
                                             opacity={.5}/>
 
                                 <p>Color: #38b1eb, Opacity: 0.5</p>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="RGBA"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+                            <div className="examples-wrapper">
+
+                                <ColorBlock value="rgba(255, 0, 0, .5)"/>
+
+                                <p>Color: rgba(255, 0, 0, .5)</p>
 
                             </div>
                         </div>
