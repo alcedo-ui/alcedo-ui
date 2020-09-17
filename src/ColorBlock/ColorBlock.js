@@ -15,13 +15,32 @@ class ColorBlock extends Component {
         super(props, ...restArgs);
     }
 
+    isHex = (value = this.props.value) => {
+        return /^\#?(([0-9a-fA-F]{3})|([0-9a-fA-F]{6}))$/.test(value);
+    };
+
     getColor = (value = this.props.value) => {
+
+        if (this.isHex(value)) {
+            return value[0] === '#' ? value : `#${value}`;
+        }
+
+        return value;
 
     };
 
     render() {
 
-        const {className, style, value, opacity, ...restProps} = this.props;
+        const {
+
+            className, style, opacity,
+
+            // not passing down these props
+            value,
+
+            ...restProps
+
+        } = this.props;
 
         return (
             <div {...restProps}
@@ -30,7 +49,7 @@ class ColorBlock extends Component {
                  })}
                  style={style}>
                 <div className="color-block-overlay"
-                     style={{background: value[0] === '#' ? value : `#${value}`, opacity}}></div>
+                     style={{background: this.getColor(), opacity}}></div>
             </div>
         );
 
