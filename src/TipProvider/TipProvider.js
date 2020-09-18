@@ -5,7 +5,6 @@
 
 import React, {Component, cloneElement, Fragment, createRef} from 'react';
 import PropTypes from 'prop-types';
-import {findDOMNode} from 'react-dom';
 
 // components
 import Tip from '../Tip';
@@ -15,6 +14,7 @@ import Theme from '../Theme';
 import Position from '../_statics/Position';
 
 // vendors
+import {findDOMNode} from 'react-dom';
 import Util from '../_vendors/Util';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
@@ -36,11 +36,16 @@ class TipProvider extends Component {
 
         this.trigger = createRef();
         this.triggerEl = null;
+        this.tip = createRef();
 
         this.state = {
             visible: props.visible
         };
 
+    }
+
+    componentDidMount() {
+        this.triggerEl = this.trigger && this.trigger.current && findDOMNode(this.trigger.current);
     }
 
     /**
@@ -96,6 +101,13 @@ class TipProvider extends Component {
         });
     };
 
+    /**
+     * public
+     */
+    resetPosition = () => {
+        this.tip?.current?.resetPosition?.();
+    };
+
     handleMouseOver = e => {
 
         const {children} = this.props;
@@ -121,10 +133,6 @@ class TipProvider extends Component {
         this.hide();
 
     };
-
-    componentDidMount() {
-        this.triggerEl = this.trigger && this.trigger.current && findDOMNode(this.trigger.current);
-    }
 
     render() {
 
@@ -156,6 +164,7 @@ class TipProvider extends Component {
                 }
 
                 <Tip {...restProps}
+                     ref={this.tip}
                      triggerEl={this.triggerEl}
                      parentEl={parentEl}
                      visible={visible}>
