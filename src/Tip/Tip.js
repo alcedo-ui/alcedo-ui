@@ -3,15 +3,18 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Components
 import TriggerPop from '../_TriggerPop';
-import Theme from '../Theme';
 
+// Statics
+import Theme from '../Theme';
 import Position from '../_statics/Position';
 
+// Vendors
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 
 class Tip extends Component {
@@ -19,8 +22,19 @@ class Tip extends Component {
     static Position = Position;
 
     constructor(props, ...restArgs) {
+
         super(props, ...restArgs);
+
+        this.pop = createRef();
+
     }
+
+    /**
+     * public
+     */
+    resetPosition = () => {
+        this.pop?.current?.resetPosition?.();
+    };
 
     render() {
 
@@ -32,6 +46,7 @@ class Tip extends Component {
 
         return (
             <TriggerPop {...restProps}
+                        ref={this.pop}
                         parentEl={parentEl}
                         className={classNames('tip', {
                             [className]: className
