@@ -4,6 +4,20 @@
     "version": "2.53.32",
     "description": "A set of React components.",
     "main": "./src/index.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/alcedo-ui/alcedo-ui.git"
+    },
+    "keywords": [
+        "react",
+        "react-component",
+        "ui"
+    ],
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/alcedo-ui/alcedo-ui/issues"
+    },
+    "homepage": "https://alcedo-ui.github.io/alcedo-ui/",
     "scripts": {
         "compile:propType": "rimraf examples/assets/propTypes && gulp propType",
         "compile:componentsIndex": "rimraf src/index.js && node scripts/generateComponentsIndex.js",
@@ -20,20 +34,6 @@
         "start-demo": "npm run build && npm run run",
         "zip": "node build/zip/zip.js"
     },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/alcedo-ui/alcedo-ui.git"
-    },
-    "keywords": [
-        "react",
-        "react-component",
-        "ui"
-    ],
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/alcedo-ui/alcedo-ui/issues"
-    },
-    "homepage": "https://alcedo-ui.github.io/alcedo-ui/",
     "dependencies": {
         "classnames": "2.2.6",
         "connected-react-router": "6.8.0",
