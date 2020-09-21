@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {PureComponent, Fragment, createRef} from 'react';
+import React, {Component, Fragment, createRef} from 'react';
 import PropTypes from 'prop-types';
 
 // Components
@@ -30,7 +30,7 @@ import TC from '../_vendors/TableCalculation';
 import Calc from '../_vendors/Calculation';
 import Event from '../_vendors/Event';
 
-class TableContent extends PureComponent {
+class TableContent extends Component {
 
     static Fragment = TableFragment;
     static Align = HorizontalAlign;
