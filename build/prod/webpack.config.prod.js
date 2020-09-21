@@ -4,7 +4,6 @@ const path = require('path'),
     CopyPlugin = require('copy-webpack-plugin'),
     HtmlWebpackPlugin = require('html-webpack-plugin'),
     HtmlWebpackTagsPlugin = require('html-webpack-tags-plugin'),
-    // CompressionPlugin = require('compression-webpack-plugin'),
     // BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin,
 
     config = require('../config.js'),
@@ -94,15 +93,6 @@ module.exports = merge(baseWebpackConfig, {
             ],
             append: false
         })
-
-        // new CompressionPlugin({
-        //     test: new RegExp('\\.(' + config.productionGzipExtensions.join('|') + ')$'),
-        //     cache: true,
-        //     filename: '[path].gz[query]',
-        //     algorithm: 'gzip',
-        //     threshold: 1,
-        //     minRatio: 0.8
-        // })
 
         // new BundleAnalyzerPlugin()
 

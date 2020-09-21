@@ -90,8 +90,6 @@
         "browserify": "16.5.2",
         "cached-path-relative": "1.0.2",
         "chokidar": "3.4.2",
-        "compression": "1.7.4",
-        "compression-webpack-plugin": "6.0.2",
         "connect-history-api-fallback": "1.6.0",
         "copy-webpack-plugin": "6.1.1",
         "core-js": "3.6.5",
