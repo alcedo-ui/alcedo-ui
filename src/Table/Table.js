@@ -75,6 +75,10 @@ class Table extends Component {
 
     }
 
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        return !this.state.scrolling || !nextState.scrolling;
+    }
+
     /**
      * public
      */
