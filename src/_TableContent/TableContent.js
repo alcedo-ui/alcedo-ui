@@ -61,7 +61,7 @@ class TableContent extends Component {
     componentDidMount() {
 
         // get elements
-        this.wrapperEl = this.wrapper && this.wrapper.current;
+        this.wrapperEl = this.wrapper?.current;
 
         // bind event
         Event.addEvent(window, 'resize', this.handleReize);
@@ -69,8 +69,7 @@ class TableContent extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        const {onDataUpdate} = this.props;
-        onDataUpdate && onDataUpdate(this.tableData);
+        this.props.onDataUpdate?.(this.tableData);
     }
 
     componentWillUnmount() {
@@ -92,7 +91,7 @@ class TableContent extends Component {
             return;
         }
 
-        const {data, value, isSelectRecursive, idField, onSelect, onChange} = this.props;
+        const {data, value, isSelectRecursive, idField} = this.props;
 
         let result = value && isArray(value) ? value.slice() : [];
         TC.handleSelect(node, result, idField, isSelectRecursive);
@@ -100,8 +99,8 @@ class TableContent extends Component {
             result = TC.formatValue(result, data, idField);
         }
 
-        onSelect && onSelect(node, rowIndex, colIndex, collapsed, depth, path);
-        onChange && onChange(result);
+        this.props.onSelect?.(node, rowIndex, colIndex, collapsed, depth, path);
+        this.props.onChange?.(result);
 
     };
 
@@ -120,7 +119,7 @@ class TableContent extends Component {
             return;
         }
 
-        const {isSelectRecursive, value, idField, onDeselect, onChange} = this.props;
+        const {isSelectRecursive, value, idField} = this.props;
 
         let result = value && isArray(value) ? value.slice() : [];
         if (result.length > 0) {
@@ -130,8 +129,8 @@ class TableContent extends Component {
             }
         }
 
-        onDeselect && onDeselect(node, rowIndex, colIndex, collapsed, depth, path);
-        onChange && onChange(result);
+        this.props.onDeselect?.(node, rowIndex, colIndex, collapsed, depth, path);
+        this.props.onChange?.(result);
 
     };
 
@@ -140,10 +139,7 @@ class TableContent extends Component {
      */
     handleSelectAll = () => {
 
-        const {
-            selectMode, selectAllMode, data, value, disabled, idField,
-            onChange, onSelectAll
-        } = this.props;
+        const {selectMode, selectAllMode, data, value, disabled, idField} = this.props;
 
         if (disabled || selectMode !== SelectMode.MULTI_SELECT) {
             return;
@@ -151,8 +147,8 @@ class TableContent extends Component {
 
         TC.handleSelectAll(selectAllMode === SelectAllMode.ALL ? data : this.tableData, value, idField);
 
-        onSelectAll && onSelectAll(value);
-        onChange && onChange(value);
+        this.props.onSelectAll?.(value);
+        this.props.onChange?.(value);
 
     };
 
@@ -161,16 +157,14 @@ class TableContent extends Component {
      */
     handleDeselectAll = () => {
 
-        const {
-            selectMode, value, disabled, onChange, onDeselectAll
-        } = this.props;
+        const {selectMode, value, disabled} = this.props;
 
         if (disabled || selectMode !== SelectMode.MULTI_SELECT) {
             return;
         }
 
-        onDeselectAll && onDeselectAll(value);
-        onChange && onChange([]);
+        this.props.onDeselectAll?.(value);
+        this.props.onChange?.([]);
 
     };
 
@@ -236,8 +230,8 @@ class TableContent extends Component {
             result.unshift({
                 ...selectColumn,
                 [columnKeyField]: 'table-multi-select-column',
-                fixed: (selectColumn && selectColumn.fixed) || columns[0].fixed,
-                align: (selectColumn && selectColumn.align) || HorizontalAlign.CENTER,
+                fixed: selectColumn?.fixed || columns[0].fixed,
+                align: selectColumn?.align || HorizontalAlign.CENTER,
                 width: selectColumn?.width || 64,
                 headClassName: classNames('table-select-th', selectColumn ? {
                     [selectColumn.headClassName]: selectColumn.headClassName
@@ -341,9 +335,9 @@ class TableContent extends Component {
      * handle resize end callback and fix table layout debounce
      */
     debounceResizeFixLayout = debounce(() => {
-        const {resizing, onResizeEnd} = this.props;
+        const {resizing} = this.props;
         if (resizing) {
-            onResizeEnd && onResizeEnd();
+            this.props.onResizeEnd?.();
         }
     }, 600);
 
@@ -352,9 +346,9 @@ class TableContent extends Component {
      * @param e
      */
     handleReize = e => {
-        const {resizing, onResizeStart} = this.props;
+        const {resizing} = this.props;
         if (!resizing) {
-            onResizeStart && onResizeStart(e);
+            this.props.onResizeStart?.(e);
         } else {
             this.debounceResizeFixLayout();
         }
@@ -371,8 +365,7 @@ class TableContent extends Component {
     };
 
     handleScrollChange = e => {
-        const {onScroll} = this.props;
-        onScroll && onScroll(e);
+        this.props.onScroll?.(e);
     };
 
     handleScrollPingChange = (target = this.bodyScroller) => {
@@ -381,11 +374,10 @@ class TableContent extends Component {
             return;
         }
 
-        const {onPingLeftChange, onPingRightChange} = this.props,
-            {scrollLeft, scrollWidth, offsetWidth} = target;
+        const {scrollLeft, scrollWidth, offsetWidth} = target;
 
-        onPingLeftChange && onPingLeftChange(scrollLeft !== 0);
-        onPingRightChange && onPingRightChange(scrollLeft < scrollWidth - offsetWidth);
+        this.props.onPingLeftChange?.(scrollLeft !== 0);
+        this.props.onPingRightChange?.(scrollLeft < scrollWidth - offsetWidth);
 
     };
 
@@ -458,8 +450,7 @@ class TableContent extends Component {
         if (scrollTop !== this.lastScrollTop) {
 
             if (target != this.headScroller && target != this.footScroller) {
-                const {onScrollTopChange} = this.props;
-                onScrollTopChange && onScrollTopChange(scrollTop);
+                this.props.onScrollTopChange?.(scrollTop);
             }
 
             this.lastScrollTop = scrollTop;
@@ -509,8 +500,7 @@ class TableContent extends Component {
         }
 
         if (this.bodyScroller && this.bodyScroller !== target) {
-            const {onScrollTopChange} = this.props;
-            onScrollTopChange && onScrollTopChange(scrollTop);
+            this.props.onScrollTopChange?.(scrollTop);
         }
 
     };
@@ -522,29 +512,29 @@ class TableContent extends Component {
      */
     handleExpandChange = (collapsed, rowData) => {
 
-        const {idField, expandRows, onExpand, onCollapse, onExpandChange} = this.props;
+        const {idField, expandRows} = this.props;
 
         if (collapsed) {
 
-            onCollapse && onCollapse(rowData);
+            this.props.onCollapse?.(rowData);
 
             const index = TC.indexOfNodeInValue(rowData, expandRows, idField);
             if (index !== -1) {
                 expandRows.splice(index, 1);
-                onExpandChange && onExpandChange(expandRows);
+                this.props.onExpandChange?.(expandRows);
             }
 
         } else {
 
-            onExpand && onExpand(rowData);
+            this.props.onExpand?.(rowData);
 
             const index = TC.indexOfNodeInValue(rowData, expandRows, idField);
             if (index === -1) {
                 expandRows.push(rowData);
-                onExpandChange && onExpandChange(expandRows, () => {
-                    const {value, selectMode, isSelectRecursive, onChange} = this.props;
+                this.props.onExpandChange?.(expandRows, () => {
+                    const {value, selectMode, isSelectRecursive} = this.props;
                     if (selectMode === SelectMode.MULTI_SELECT && isSelectRecursive) {
-                        onChange && onChange(TC.recursiveSelectChildren(rowData, value));
+                        this.props.onChange?.(TC.recursiveSelectChildren(rowData, value));
                     }
                 });
             }
