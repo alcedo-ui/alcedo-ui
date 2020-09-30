@@ -47,12 +47,8 @@ class ScrollTable extends Component {
     }
 
     componentDidMount() {
-
         this.updateEl();
-
-        const {onInit} = this.props;
-        onInit && onInit();
-
+        this.props.onInit?.();
     }
 
     componentDidUpdate() {
@@ -97,8 +93,8 @@ class ScrollTable extends Component {
     };
 
     handleColumnsSpan = (...restArgs) => {
-        const {fixed, onRequestColumnsSpan} = this.props;
-        return onRequestColumnsSpan && onRequestColumnsSpan(fixed, ...restArgs);
+        const {fixed} = this.props;
+        return this.props.onRequestColumnsSpan?.(fixed, ...restArgs);
     };
 
     render() {
