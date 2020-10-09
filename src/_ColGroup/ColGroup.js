@@ -47,10 +47,9 @@ class ColGroup extends Component {
 
     getColStyle = column => {
 
-        const {defaultColumnWidth} = this.props,
-            result = {
-                width: this.getColumnWidth(column) || defaultColumnWidth
-            };
+        const result = {
+            width: this.getColumnWidth(column)
+        };
 
         // min width
         result.minWidth = column.minWidth ?
