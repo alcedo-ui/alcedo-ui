@@ -34,11 +34,17 @@ class ColGroup extends Component {
         const {columnKeyField, columnsWidth, useColumnsWidth, data} = this.props;
 
         if (useColumnsWidth && columnKeyField && columnsWidth) {
-            return columnsWidth.get(TC.getColumnKey(column, columnKeyField));
+            const width = columnsWidth.get(TC.getColumnKey(column, columnKeyField));
+            if (width) {
+                return width;
+            }
         }
 
         if (typeof column.width === 'function') {
-            return column.width(data);
+            const width = column.width(data);
+            if (width) {
+                return width;
+            }
         }
 
         return column.width || null;
