@@ -17,7 +17,7 @@ module.exports = merge(baseWebpackConfig, {
 
     mode: 'production',
 
-    devtool: config.build.productionSourceMap ? '#source-map' : false,
+    devtool: config.build.productionSourceMap ? 'source-map' : false,
 
     output: {
         publicPath: './',
