@@ -257,22 +257,27 @@ class Tabs extends Component {
 
                                                     const {
 
-                                                        // not passing down these props
-                                                        tabContentRenderer, onActive,
+                                                            value, renderer,
 
-                                                        ...restProps
+                                                            // not passing down these props
+                                                            tabContentRenderer, onActive,
 
-                                                    } = item;
+                                                            ...restProps
+
+                                                        } = item,
+                                                        activated = activatedIndex === index;
 
                                                     return (
                                                         <TabsButton {...restProps}
                                                                     key={idField && item[idField] || index}
                                                                     style={{width: isTabFullWidth ? `${100 / data.length}%` : 'auto'}}
                                                                     data={item}
+                                                                    value={value}
                                                                     index={index}
                                                                     isTabFullWidth={isTabFullWidth}
-                                                                    activated={activatedIndex === index}
+                                                                    activated={activated}
                                                                     draggable={draggable}
+                                                                    renderer={renderer?.bind(null, value, activated)}
                                                                     onMouseDown={onTabMouseDown}
                                                                     onMouseUp={onTabMouseUp}
                                                                     onClick={onTabClick}/>
@@ -296,7 +301,7 @@ class Tabs extends Component {
                                          bottom: scrollerStyle ? 0 : 20,
                                          width: inkBarWidth,
                                          transform: `translateX(${inkBarOffsetLeft}px)`
-                                     }}></div>
+                                     }}/>
                                 :
                                 null
                         }
