@@ -138,6 +138,13 @@ class DatePicker extends Component {
         }
     };
 
+    openPopup = () => {
+        // debugger
+        !this.props.disabled && this.setState({
+            popupVisible: true
+        });
+    };
+
     closePopup = () => {
         // debugger
         !this.props.disabled && this.setState({
