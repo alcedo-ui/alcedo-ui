@@ -139,6 +139,13 @@ class MaterialDatePicker extends Component {
         }
     };
 
+    openPopup = () => {
+        // debugger
+        !this.props.disabled && this.setState({
+            popupVisible: true
+        });
+    };
+
     closePopup = () => {
         !this.props.disabled && this.setState({
             popupVisible: false
