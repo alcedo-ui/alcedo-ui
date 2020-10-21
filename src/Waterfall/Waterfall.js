@@ -6,20 +6,57 @@
 import React, {Component, Children, cloneElement} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
+
+// Vendors
 import classNames from 'classnames';
 
 class Waterfall extends Component {
+
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            shouldRender: true
+        };
+    }
 
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
 
-        this.shouldRender = false;
         this.renderTimeout = null;
 
         this.state = {
+            shouldRender: false,
             dom: null
         };
+
+    }
+
+    componentDidMount() {
+        this.setState({
+            dom: this.renderChildren()
+        });
+    }
+
+    componentDidUpdate(prevProps) {
+
+        if (this.state.shouldRender) {
+
+            if (this.renderTimeout) {
+                clearTimeout(this.renderTimeout);
+            }
+
+            this.renderTimeout = setTimeout(() => {
+                this.setState({
+                    dom: this.renderChildren(prevProps)
+                }, () => {
+                    this.setState({
+                        shouldRender: false
+                    });
+                });
+            }, 0);
+
+        }
 
     }
 
@@ -128,36 +165,6 @@ class Waterfall extends Component {
         return result;
 
     };
-
-    componentDidMount() {
-        this.setState({
-            dom: this.renderChildren()
-        });
-    }
-
-    componentWillReceiveProps() {
-        this.shouldRender = true;
-    }
-
-    componentDidUpdate(prevProps) {
-
-        if (this.shouldRender) {
-
-            if (this.renderTimeout) {
-                clearTimeout(this.renderTimeout);
-            }
-
-            this.renderTimeout = setTimeout(() => {
-                this.setState({
-                    dom: this.renderChildren(prevProps)
-                }, () => {
-                    this.shouldRender = false;
-                });
-            }, 0);
-
-        }
-
-    }
 
     render() {
 
