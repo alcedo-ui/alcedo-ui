@@ -154,40 +154,40 @@ class SpanLoadingExamples extends Component {
 
                 </Widget>
 
-                <Widget>
+                {/*<Widget>*/}
 
-                    <WidgetHeader className="example-header" title="With delay"/>
+                {/*    <WidgetHeader className="example-header" title="With delay"/>*/}
 
-                    <div className="widget-content">
-                        <div className="example-content">
+                {/*    <div className="widget-content">*/}
+                {/*        <div className="example-content">*/}
 
-                            <p>Set the <code>delay</code> property to delay the loading animation.</p>
+                {/*            <p>Set the <code>delay</code> property to delay the loading animation.</p>*/}
 
-                            <SpanLoading spanning={loading2}
-                                         delay={1000}
-                                         className="span-loading-nested">
+                {/*            <SpanLoading spanning={loading2}*/}
+                {/*                         delay={1000}*/}
+                {/*                         className="span-loading-nested">*/}
 
-                                <div className={`span-loading-info ${loading2 ? 'span-loading-blur' : ''}`}>
-                                    <span className="span-loading-description">
-                                        Delay the loading animation.
-                                    </span>
-                                </div>
+                {/*                <div className={`span-loading-info ${loading2 ? 'span-loading-blur' : ''}`}>*/}
+                {/*                    <span className="span-loading-description">*/}
+                {/*                        Delay the loading animation.*/}
+                {/*                    </span>*/}
+                {/*                </div>*/}
 
-                            </SpanLoading>
+                {/*            </SpanLoading>*/}
 
 
-                            <div className="switcher-con">
-                                <span>Loading state：</span>
-                                <Switcher value={loading2}
-                                          onChange={(e) => {
-                                              this.toggle(e, 2);
-                                          }}/>
-                            </div>
+                {/*            <div className="switcher-con">*/}
+                {/*                <span>Loading state：</span>*/}
+                {/*                <Switcher value={loading2}*/}
+                {/*                          onChange={(e) => {*/}
+                {/*                              this.toggle(e, 2);*/}
+                {/*                          }}/>*/}
+                {/*            </div>*/}
 
-                        </div>
-                    </div>
+                {/*        </div>*/}
+                {/*    </div>*/}
 
-                </Widget>
+                {/*</Widget>*/}
 
                 <h2 className="example-title">Properties</h2>
 
