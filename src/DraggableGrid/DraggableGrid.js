@@ -5,22 +5,37 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import isArray from 'lodash/isArray';
-import classNames from 'classnames';
 
+// Components
 import Item from '../_DraggableGridItem';
 import Tip from '../Tip';
-import Theme from '../Theme';
 
+// Statics
+import Theme from '../Theme';
 import SelectMode from '../_statics/SelectMode';
 
+// Vendors
+import isArray from 'lodash/isArray';
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 import Calculation from '../_vendors/Calculation';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class DraggableGrid extends Component {
 
     static SelectMode = SelectMode;
     static Theme = Theme;
+
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            data: ComponentUtil.getDerivedState(props, state, 'data'),
+            value: Calculation.getInitValue({
+                value: ComponentUtil.getDerivedState(props, state, 'value'),
+                selectMode: props.selectMode
+            })
+        };
+    }
 
     constructor(props, ...restArgs) {
 
@@ -33,7 +48,7 @@ class DraggableGrid extends Component {
 
     }
 
-    listItemMoveHandler = (dragIndex, hoverIndex, props) => {
+    listItemMoveHandler = (dragIndex, hoverIndex) => {
 
         const {data} = this.state,
             dragItem = data.splice(dragIndex, 1);
@@ -42,17 +57,13 @@ class DraggableGrid extends Component {
 
         this.setState({
             data
-        }, () => {
-            const {onSequenceChange} = this.props;
-            onSequenceChange && onSequenceChange(data);
-        });
+        }, () => this.props.onSequenceChange?.(data));
 
     };
 
     listItemSelectHandler = (item, index) => {
 
         const {selectMode} = this.props;
-
         let {value} = this.state;
 
         if (selectMode === SelectMode.MULTI_SELECT) {
@@ -70,9 +81,8 @@ class DraggableGrid extends Component {
         this.setState({
             value
         }, () => {
-            const {onItemSelect, onChange} = this.props;
-            onItemSelect && onItemSelect(item, index);
-            onChange && onChange(value, index);
+            this.props.onItemSelect?.(item, index);
+            this.props.onChange?.(value, index);
         });
 
     };
@@ -91,40 +101,18 @@ class DraggableGrid extends Component {
         if (!value || !isArray(value)) {
             value = [];
         } else {
-            value = value.filter(valueItem => {
-                return Util.getValueByValueField(valueItem, valueField, displayField)
-                    != Util.getValueByValueField(item, valueField, displayField);
-            });
+            value = value.filter(valueItem => Util.getValueByValueField(valueItem, valueField, displayField)
+                != Util.getValueByValueField(item, valueField, displayField));
         }
 
         this.setState({
             value
         }, () => {
-            const {onItemDeselect, onChange} = this.props;
-            onItemDeselect && onItemDeselect(item, index);
-            onChange && onChange(value, index);
+            this.props.onItemDeselect?.(item, index);
+            this.props.onChange?.(value, index);
         });
 
     };
-
-    componentWillReceiveProps(nextProps) {
-
-        let state;
-
-        if (nextProps.data !== this.state.data) {
-            state = state ? state : {};
-            state.data = nextProps.data;
-        }
-        if (nextProps.value !== this.state.value) {
-            state = state ? state : {};
-            state.value = Calculation.getInitValue(nextProps);
-        }
-
-        if (state) {
-            this.setState(state);
-        }
-
-    }
 
     render() {
 
@@ -148,7 +136,7 @@ class DraggableGrid extends Component {
                  style={style}>
 
                 {
-                    data && data.map((item, index) => typeof item === 'object' ?
+                    data?.map((item, index) => typeof item === 'object' ?
                         <Item key={index}
                               {...item}
                               index={index}
@@ -172,8 +160,8 @@ class DraggableGrid extends Component {
                               renderer={renderer}
                               onMove={this.listItemMoveHandler}
                               onClick={e => {
-                                  onItemClick && onItemClick(item, index, e);
-                                  item.onClick && item.onClick(e);
+                                  onItemClick?.(item, index, e);
+                                  item.onClick?.(e);
                               }}
                               onSelect={() => this.listItemSelectHandler(item, index)}
                               onDeselect={() => this.listItemDeselectHandler(item, index)}/>
@@ -198,7 +186,7 @@ class DraggableGrid extends Component {
                               selectMode={selectMode}
                               renderer={renderer}
                               onMove={this.listItemMoveHandler}
-                              onClick={e => onItemClick && onItemClick(item, index, e)}
+                              onClick={e => onItemClick?.(item, index, e)}
                               onSelect={() => this.listItemSelectHandler(item, index)}
                               onDeselect={() => this.listItemDeselectHandler(item, index)}/>
                     )
