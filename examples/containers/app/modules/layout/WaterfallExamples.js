@@ -18,9 +18,6 @@ class WaterfallExamples extends Component {
         super(props);
 
         this.data = [{
-            label: 'One Column',
-            value: 1
-        }, {
             label: 'Two Columns',
             value: 2
         }, {
@@ -29,6 +26,9 @@ class WaterfallExamples extends Component {
         }, {
             label: 'Four Column',
             value: 4
+        }, {
+            label: 'Five Column',
+            value: 5
         }];
 
         this.state = {
@@ -73,7 +73,7 @@ class WaterfallExamples extends Component {
                                                       onChange={this.columnChangeHandle}/>
                                 </div>
 
-                                <Waterfall column={column}>
+                                <Waterfall column={column?.value}>
                                     <Paper style={{height: 20}}/>
                                     <Paper style={{height: 90}}/>
                                     <Paper style={{height: 30}}/>
