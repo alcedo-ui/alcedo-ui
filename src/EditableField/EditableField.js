@@ -5,15 +5,38 @@
 
 import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import trim from 'lodash/trim';
 
+// Components
 import TextField from '../TextField/TextField';
 import TipProvider from '../TipProvider';
 
+// Vendors
+import classNames from 'classnames';
+import trim from 'lodash/trim';
 import Event from '../_vendors/Event';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class EditableField extends Component {
+
+    static getDerivedStateFromProps(props, state) {
+
+        const result = {
+                prevProps: props
+            },
+            value = ComponentUtil.getDerivedState(props, state, 'value', 'text');
+
+        if (value !== state.text) {
+            result.text = value;
+            result.changeText = value;
+        }
+
+        if (props.disabled === true && props.disabled !== state.prevProps?.disabled) {
+            result.hide = true;
+        }
+
+        return result;
+
+    }
 
     constructor(props, ...restArgs) {
 
@@ -32,6 +55,35 @@ class EditableField extends Component {
             inputAutoWidth: 0
         };
 
+    }
+
+    componentDidMount() {
+
+        this.editableFieldEl = this.editableField && this.editableField.current;
+        this.editableFieldTextEl = this.editableFieldText && this.editableFieldText.current;
+
+        Event.addEvent(document, 'mousedown', this.handleDown);
+        Event.addEvent(document, 'keydown', this.handleKeyDown);
+
+    }
+
+    componentDidUpdate() {
+
+        const {inputAutoWidth} = this.state;
+
+        let newAutoWidth = this.editableFieldTextEl && this.editableFieldTextEl.offsetWidth;
+
+        if (inputAutoWidth !== newAutoWidth) {
+            this.setState({
+                inputAutoWidth: newAutoWidth
+            });
+        }
+
+    }
+
+    componentWillUnmount() {
+        Event.removeEvent(document, 'mousedown', this.handleDown);
+        Event.removeEvent(document, 'keydown', this.handleKeyDown);
     }
 
     triggerElement = (el, targetEl) => {
@@ -103,52 +155,6 @@ class EditableField extends Component {
         return true;
     };
 
-    componentDidMount() {
-
-        this.editableFieldEl = this.editableField && this.editableField.current;
-        this.editableFieldTextEl = this.editableFieldText && this.editableFieldText.current;
-
-        Event.addEvent(document, 'mousedown', this.handleDown);
-        Event.addEvent(document, 'keydown', this.handleKeyDown);
-
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.text) {
-            this.setState({
-                text: nextProps.value,
-                changeText: nextProps.value
-            });
-        }
-        if (nextProps.disabled === true && nextProps.disabled !== this.props.disabled) {
-            this.setState({
-                hide: true,
-                changeText: this.state.text
-            }, () => {
-                this.props.onEditEnd && this.props.onEditEnd();
-            });
-        }
-    }
-
-    componentDidUpdate() {
-
-        const {inputAutoWidth} = this.state;
-
-        let newAutoWidth = this.editableFieldTextEl && this.editableFieldTextEl.offsetWidth;
-
-        if (inputAutoWidth !== newAutoWidth) {
-            this.setState({
-                inputAutoWidth: newAutoWidth
-            });
-        }
-
-    }
-
-    componentWillUnmount() {
-        Event.removeEvent(document, 'mousedown', this.handleDown);
-        Event.removeEvent(document, 'keydown', this.handleKeyDown);
-    }
-
     render() {
 
         const {
@@ -187,7 +193,7 @@ class EditableField extends Component {
                             <span className="editable-field-span"
                                   onClick={this.showInput}>{text}
                                 <i className="fas fa-pencil-alt editable-field-icon"
-                                   aria-hidden="true"></i>
+                                   aria-hidden="true"/>
                             </span>
                             :
                             <TextField ref={this.textField}
@@ -206,7 +212,7 @@ class EditableField extends Component {
                     {
                         showModal && !hide ?
                             <div className="editable-modal"
-                                 onClick={this.finishEdit}></div>
+                                 onClick={this.finishEdit}/>
                             :
                             null
                     }
