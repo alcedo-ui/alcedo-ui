@@ -12,13 +12,6 @@ import classNames from 'classnames';
 
 class Waterfall extends Component {
 
-    static getDerivedStateFromProps(props, state) {
-        return {
-            prevProps: props,
-            shouldRender: true
-        };
-    }
-
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -26,7 +19,6 @@ class Waterfall extends Component {
         this.renderTimeout = null;
 
         this.state = {
-            shouldRender: false,
             dom: null
         };
 
@@ -40,23 +32,15 @@ class Waterfall extends Component {
 
     componentDidUpdate(prevProps) {
 
-        if (this.state.shouldRender) {
-
-            if (this.renderTimeout) {
-                clearTimeout(this.renderTimeout);
-            }
-
-            this.renderTimeout = setTimeout(() => {
-                this.setState({
-                    dom: this.renderChildren(prevProps)
-                }, () => {
-                    this.setState({
-                        shouldRender: false
-                    });
-                });
-            }, 0);
-
+        if (this.renderTimeout) {
+            clearTimeout(this.renderTimeout);
         }
+
+        this.renderTimeout = setTimeout(() => {
+            this.setState({
+                dom: this.renderChildren(prevProps)
+            });
+        }, 0);
 
     }
 
