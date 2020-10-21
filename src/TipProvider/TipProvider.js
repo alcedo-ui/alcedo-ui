@@ -44,7 +44,7 @@ class TipProvider extends Component {
 
     }
 
-    componentDidMount() {
+    componentDidUpdate(prevProps, prevState, snapshot) {
         this.triggerEl = this.trigger && this.trigger.current && findDOMNode(this.trigger.current);
     }
 
