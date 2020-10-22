@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component, createRef} from 'react';
+import React, {Component, createRef, cloneElement} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -16,6 +16,13 @@ class Accordion extends Component {
 
     static Theme = Theme;
 
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            collapsed: ComponentUtil.getDerivedState(props, state, 'collapsed')
+        };
+    }
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -27,6 +34,10 @@ class Accordion extends Component {
             contentHeight: null
         };
 
+    }
+
+    componentDidMount() {
+        this.init();
     }
 
     /**
@@ -107,20 +118,9 @@ class Accordion extends Component {
         }
     };
 
-    componentDidMount() {
-        this.init();
-    }
-
-    static getDerivedStateFromProps(props, state) {
-        return {
-            prevProps: props,
-            collapsed: ComponentUtil.getDerivedState(props, state, 'collapsed')
-        };
-    }
-
     render() {
 
-        const {children, className, style, title, collapseIcon} = this.props,
+        const {children, className, style, title, collapseIcon, titleRenderer} = this.props,
             {collapsed, contentHeight} = this.state;
 
         return (
@@ -130,11 +130,21 @@ class Accordion extends Component {
             })}
                  style={style}>
 
-                <RaisedButton className="accordion-title"
-                              theme={Theme.SECONDARY}
-                              value={title}
-                              rightIconCls={collapseIcon}
-                              onClick={this.handleClick}/>
+                {
+                    titleRenderer ?
+                        typeof titleRenderer === 'function' ?
+                            titleRenderer(this.handleClick)
+                            :
+                            cloneElement(titleRenderer, {
+                                onClick: this.handleClick
+                            })
+                        :
+                        <RaisedButton className="accordion-title"
+                                      theme={Theme.SECONDARY}
+                                      value={title}
+                                      rightIconCls={collapseIcon}
+                                      onClick={this.handleClick}/>
+                }
 
                 <div ref={this.accordionContent}
                      className="accordion-content"
@@ -168,6 +178,8 @@ Accordion.propTypes = {
     title: PropTypes.any,
 
     collapsed: PropTypes.bool,
+
+    titleRenderer: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 
     /**
      * Collapse icon.

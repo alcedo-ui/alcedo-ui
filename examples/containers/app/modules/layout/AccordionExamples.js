@@ -1,14 +1,22 @@
+/**
+ * @file Accordion examples
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 
+// Components
 import Paper from 'src/Paper';
 import Accordion from 'src/Accordion';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import RaisedButton from 'src/RaisedButton';
 
+// Docs
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Accordion.json';
 
+// Styles
 import 'scss/containers/app/modules/layout/AccordionExamples.scss';
 
 class AccordionExamples extends Component {
@@ -142,6 +150,49 @@ class AccordionExamples extends Component {
                                 <RaisedButton className="update-content-button"
                                               value="Update Content"
                                               onClick={this.clickHandler}/>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Customized Title Accordion"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <Paper>
+                                    <Accordion collapseIcon="fas fa-arrow-circle-down"
+                                               titleRenderer={
+                                                   <div className="accordion-example-customized-title">
+                                                       Customized Element Title
+                                                   </div>
+                                               }>
+                                        <div className="accordion-example-content">
+                                            content
+                                        </div>
+                                    </Accordion>
+                                </Paper>
+
+                                <Paper style={{marginTop: 24}}>
+                                    <Accordion collapseIcon="fas fa-arrow-circle-down"
+                                               titleRenderer={onToggle =>
+                                                   <div className="accordion-example-customized-title"
+                                                        onClick={onToggle}>
+                                                       Customized Function Title
+                                                   </div>
+                                               }>
+                                        <div className="accordion-example-content">
+                                            content
+                                        </div>
+                                    </Accordion>
+                                </Paper>
 
                             </div>
 
