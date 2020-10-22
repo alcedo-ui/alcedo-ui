@@ -95,11 +95,6 @@ function MonthDays(year) {
     return dateArray;
 }
 
-/**
- * enumerate object value for PropTypes.oneOf
- * @param enumerate
- * @returns {*[]}
- */
 function setDateRange(start, end) {
 
     if (start.year == end.year && start.month == end.month) {
@@ -122,7 +117,7 @@ function setDateRange(start, end) {
 }
 
 
-function getYearArr(num){
+function getYearArr(num) {
     let yearString = num.toString();
     yearString = yearString.substr(0, yearString.length - 1);
     let YearArr = [];
@@ -132,6 +127,11 @@ function getYearArr(num){
     return YearArr;
 }
 
+/**
+ * enumerate object value for PropTypes.oneOf
+ * @param enumerate
+ * @returns {*[]}
+ */
 function enumerateValue(enumerate) {
 
     if (!enumerate) {
@@ -186,8 +186,7 @@ function getTextByDisplayField(data, displayField = 'text', valueField = 'value'
 }
 
 function isValueEqual(data1, data2, valueField = 'value', displayField = 'text') {
-    return getValueByValueField(data1, valueField, displayField)
-        == getValueByValueField(data2, valueField, displayField);
+    return getValueByValueField(data1, valueField, displayField);
 }
 
 function genIndexArray(len) {
