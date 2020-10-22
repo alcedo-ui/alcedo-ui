@@ -77,7 +77,7 @@ class LocalAutoComplete extends Component {
 
         this.props.onFocus?.(...args);
 
-        if (filter !== null && filter.length >= minFilterLength) {
+        if (filter != null && filter.length >= minFilterLength) {
             state.popupVisible = true;
             state.tempSelectIndex = listData.length > 0 ? 0 : null;
         }
@@ -147,7 +147,7 @@ class LocalAutoComplete extends Component {
         const {data, minFilterLength} = this.props,
             state = {
                 filter,
-                popupVisible: filter !== null && filter.length >= minFilterLength
+                popupVisible: filter != null && filter.length >= minFilterLength
             };
 
         if (!filter) {
@@ -385,23 +385,18 @@ class LocalAutoComplete extends Component {
                                     <List className="local-auto-complete-list"
                                           theme={popupTheme}
                                           data={[{
-                                              itemRenderer() {
-                                                  return (
-                                                      <div className="no-matched-list-item">
-
-                                                          {
-                                                              noMatchedMsg ?
-                                                                  noMatchedMsg
-                                                                  :
-                                                                  <span>
-                                                                      <i className="fas fa-exclamation-triangle no-matched-list-item-icon"></i>
-                                                                      No matched value.
-                                                                  </span>
-                                                          }
-
-                                                      </div>
-                                                  );
-                                              },
+                                              itemRenderer: () =>
+                                                  <div className="no-matched-list-item">
+                                                      {
+                                                          noMatchedMsg ?
+                                                              noMatchedMsg
+                                                              :
+                                                              <span>
+                                                                  <i className="fas fa-exclamation-triangle no-matched-list-item-icon"/>
+                                                                  No matched value.
+                                                              </span>
+                                                      }
+                                                  </div>,
                                               disableTouchRipple: true
                                           }]}/>
                                     :
