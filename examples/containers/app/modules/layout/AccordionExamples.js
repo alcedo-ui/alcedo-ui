@@ -158,6 +158,49 @@ class AccordionExamples extends Component {
 
                 </Widget>
 
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="Customized Title Accordion"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+
+                                <Paper>
+                                    <Accordion collapseIcon="fas fa-arrow-circle-down"
+                                               titleRenderer={
+                                                   <div className="accordion-example-customized-title">
+                                                       Customized Element Title
+                                                   </div>
+                                               }>
+                                        <div className="accordion-example-content">
+                                            content
+                                        </div>
+                                    </Accordion>
+                                </Paper>
+
+                                <Paper style={{marginTop: 24}}>
+                                    <Accordion collapseIcon="fas fa-arrow-circle-down"
+                                               titleRenderer={onToggle =>
+                                                   <div className="accordion-example-customized-title"
+                                                        onClick={onToggle}>
+                                                       Customized Function Title
+                                                   </div>
+                                               }>
+                                        <div className="accordion-example-content">
+                                            content
+                                        </div>
+                                    </Accordion>
+                                </Paper>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
                 <h2 className="example-title">Properties</h2>
 
                 <PropTypeDescTable data={doc}/>

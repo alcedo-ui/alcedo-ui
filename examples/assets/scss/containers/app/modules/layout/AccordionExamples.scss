@@ -1,6 +1,11 @@
+@import '../../../../my-theme.scss';
+
 .accordion-examples {
 
     .accordion-content {
+        border: 1px solid $theme-border;
+        border-top: none;
+
         .accordion-example-content {
             padding: 20px
         }
@@ -9,5 +14,14 @@
     .update-content-button {
         margin-top: 16px;
         width: auto;
+    }
+
+    .accordion-example-customized-title {
+        padding: 16px;
+        background: $theme-primary;
+        border-top-left-radius: $theme-border-radius;
+        border-top-right-radius: $theme-border-radius;
+        color: #fff;
+        cursor: pointer;
     }
 }
