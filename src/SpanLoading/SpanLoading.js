@@ -5,9 +5,19 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+
+// Vendors
 import classNames from 'classnames';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class SpanLoading extends Component {
+
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            spanning: ComponentUtil.getDerivedState(props, state, 'spanning')
+        };
+    }
 
     constructor(props, ...restArgs) {
 
@@ -17,23 +27,6 @@ class SpanLoading extends Component {
             spanning: props.spanning
         };
 
-    }
-
-    componentWillReceiveProps(nextProps) {
-
-        const spanning = nextProps.spanning;
-        const {delay} = this.props;
-
-        if (spanning && delay && !isNaN(Number(delay))) {
-            this.delayTimeout = setTimeout(() => this.setState({spanning}), delay);
-        } else {
-            this.setState({spanning});
-        }
-
-    }
-
-    componentWillUnmount() {
-        this.delayTimeout && clearTimeout(this.delayTimeout);
     }
 
     render() {
@@ -102,11 +95,6 @@ SpanLoading.propTypes = {
      * Set the size of loading,can use small or large.
      */
     size: PropTypes.string,
-
-    /**
-     * Set the delay time of loading animation.
-     */
-    delay: PropTypes.number,
 
     description: PropTypes.any
 

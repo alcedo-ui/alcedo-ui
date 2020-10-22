@@ -5,18 +5,29 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Components
 import Radio from '../Radio';
 
+// Statics
 import Theme from '../Theme';
 import Position from '../_statics/Position';
 
+// Vendors
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class RadioGroup extends Component {
 
     static Theme = Theme;
+
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
+    }
 
     constructor(props, ...restArgs) {
 
@@ -35,14 +46,6 @@ class RadioGroup extends Component {
             !this.props.disabled && this.props.onChange && this.props.onChange(item.value);
         });
     };
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
-    }
 
     render() {
 

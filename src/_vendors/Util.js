@@ -95,6 +95,11 @@ function MonthDays(year) {
     return dateArray;
 }
 
+/**
+ * enumerate object value for PropTypes.oneOf
+ * @param enumerate
+ * @returns {*[]}
+ */
 function setDateRange(start, end) {
 
     if (start.year == end.year && start.month == end.month) {
@@ -130,7 +135,7 @@ function getYearArr(num){
 function enumerateValue(enumerate) {
 
     if (!enumerate) {
-        return;
+        return null;
     }
 
     return Object.keys(enumerate).map(key => enumerate[key]);

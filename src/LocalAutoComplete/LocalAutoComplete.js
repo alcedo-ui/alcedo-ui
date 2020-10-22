@@ -57,10 +57,9 @@ class LocalAutoComplete extends Component {
     }
 
     handleNoMatch = () => {
-        const {onNoMatch} = this.props,
-            {listData, filter} = this.state;
+        const {listData, filter} = this.state;
         if (!listData || listData.length < 1) {
-            onNoMatch && onNoMatch(filter);
+            this.props.onNoMatch?.(filter);
         }
     };
 
@@ -70,15 +69,15 @@ class LocalAutoComplete extends Component {
             return;
         }
 
-        const {minFilterLength, onFocus} = this.props,
+        const {minFilterLength} = this.props,
             {filter, listData} = this.state,
             state = {
                 filterFocused: true
             };
 
-        onFocus && onFocus(...args);
+        this.props.onFocus?.(...args);
 
-        if (filter !== null && filter.length >= minFilterLength) {
+        if (filter != null && filter.length >= minFilterLength) {
             state.popupVisible = true;
             state.tempSelectIndex = listData.length > 0 ? 0 : null;
         }
@@ -92,12 +91,8 @@ class LocalAutoComplete extends Component {
         this.setState({
             filterFocused: false
         }, () => {
-
-            const {onBlur} = this.props;
-            onBlur && onBlur(...args);
-
+            this.props.onBlur?.(...args);
             this.handleNoMatch();
-
         });
 
     };
@@ -119,16 +114,13 @@ class LocalAutoComplete extends Component {
         this.setState({
             tempSelectIndex: newTempSelectIndex
         }, () => {
-
-            const {onFilterKeyDown} = this.props,
-                listInstance = useDynamicRenderList ?
-                    this.dynamicRenderList && this.dynamicRenderList.current
+            this.props.onFilterKeyDown?.(e);
+            (
+                useDynamicRenderList ?
+                    this.dynamicRenderList?.current
                     :
-                    this.list && this.list.current;
-
-            onFilterKeyDown && onFilterKeyDown(e);
-            listInstance && listInstance.adjustScroll();
-
+                    this.list?.current
+            )?.adjustScroll();
         });
 
     };
@@ -143,14 +135,9 @@ class LocalAutoComplete extends Component {
         }
 
         this.setState(state, () => {
-
-            const {onFilterPressEnter} = this.props;
-            onFilterPressEnter && onFilterPressEnter(filter);
-
+            this.props.onFilterPressEnter?.(filter);
             this.handleNoMatch();
-
             this.update();
-
         });
 
     };
@@ -160,7 +147,7 @@ class LocalAutoComplete extends Component {
         const {data, minFilterLength} = this.props,
             state = {
                 filter,
-                popupVisible: filter !== null && filter.length >= minFilterLength
+                popupVisible: filter != null && filter.length >= minFilterLength
             };
 
         if (!filter) {
@@ -172,12 +159,8 @@ class LocalAutoComplete extends Component {
         }
 
         this.setState(state, () => {
-
-            const {onFilterChange} = this.props;
-            onFilterChange && onFilterChange(filter);
-
-            this.pop && this.pop.current && this.pop.current.resetPosition();
-
+            this.props.onFilterChange?.(filter);
+            this.pop?.current?.resetPosition?.();
         });
 
     };
@@ -185,10 +168,7 @@ class LocalAutoComplete extends Component {
     closePopup = () => {
         this.setState({
             popupVisible: false
-        }, () => {
-            const {onPopupClosed} = this.props;
-            onPopupClosed && onPopupClosed();
-        });
+        }, () => this.props.onPopupClosed?.());
     };
 
     popupRenderHandler = popupEl => {
@@ -222,9 +202,8 @@ class LocalAutoComplete extends Component {
         }
 
         this.setState(state, () => {
-            const {onItemClick, onChange} = this.props;
-            onItemClick && onItemClick(value);
-            isChanged && onChange && onChange(value);
+            this.props.onItemClick?.(value);
+            isChanged && this.props.onChange?.(value);
         });
 
     };
@@ -265,7 +244,7 @@ class LocalAutoComplete extends Component {
             filterChanged = false,
             valueChanged = false;
 
-        if (listData && listData.length > 0) {
+        if (listData?.length > 0) {
 
             value = index >= 0 ? listData[index] : null;
 
@@ -286,12 +265,10 @@ class LocalAutoComplete extends Component {
 
         this.setState(state, () => {
             if (filterChanged) {
-                const {onFilterChange} = this.props;
-                onFilterChange && onFilterChange(state.filter);
+                this.props.onFilterChange?.(state.filter);
             }
             if (valueChanged) {
-                const {onChange} = this.props;
-                onChange && onChange(state.value);
+                this.props.onChange?.(state.value);
             }
         });
 
@@ -299,15 +276,15 @@ class LocalAutoComplete extends Component {
 
     handleMouseDown = e => {
         if (this.state.filterFocused && !Dom.isParent(e.target, this.wrapperEl)
-            && this.pop && this.pop.current && !Dom.isParent(e.target, findDOMNode(this.pop.current))) {
+            && this.pop?.current && !Dom.isParent(e.target, findDOMNode(this.pop.current))) {
             this.update();
         }
     };
 
     componentDidMount() {
 
-        this.wrapperEl = this.wrapper && this.wrapper.current;
-        this.triggerEl = this.trigger && this.trigger.current && findDOMNode(this.trigger.current);
+        this.wrapperEl = this.wrapper?.current;
+        this.triggerEl = findDOMNode(this.trigger?.current);
 
         Event.addEvent(document, 'mousedown', this.handleMouseDown);
 
@@ -345,7 +322,7 @@ class LocalAutoComplete extends Component {
             } = this.props,
             {isAbove, tempSelectIndex, value, filter, popupVisible, listData} = this.state,
 
-            isEmpty = listData && listData.length < 1,
+            isEmpty = listData?.length < 1,
             isAboveFinally = position === Position.TOP || position === Position.TOP_LEFT
                 || position === Position.TOP_RIGHT || (!position && isAbove);
 
@@ -408,23 +385,18 @@ class LocalAutoComplete extends Component {
                                     <List className="local-auto-complete-list"
                                           theme={popupTheme}
                                           data={[{
-                                              itemRenderer() {
-                                                  return (
-                                                      <div className="no-matched-list-item">
-
-                                                          {
-                                                              noMatchedMsg ?
-                                                                  noMatchedMsg
-                                                                  :
-                                                                  <span>
-                                                                      <i className="fas fa-exclamation-triangle no-matched-list-item-icon"></i>
-                                                                      No matched value.
-                                                                  </span>
-                                                          }
-
-                                                      </div>
-                                                  );
-                                              },
+                                              itemRenderer: () =>
+                                                  <div className="no-matched-list-item">
+                                                      {
+                                                          noMatchedMsg ?
+                                                              noMatchedMsg
+                                                              :
+                                                              <span>
+                                                                  <i className="fas fa-exclamation-triangle no-matched-list-item-icon"/>
+                                                                  No matched value.
+                                                              </span>
+                                                      }
+                                                  </div>,
                                               disableTouchRipple: true
                                           }]}/>
                                     :

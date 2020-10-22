@@ -6,6 +6,8 @@
 import React, {Component, Children, cloneElement} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
+
+// Vendors
 import classNames from 'classnames';
 
 class Waterfall extends Component {
@@ -14,12 +16,31 @@ class Waterfall extends Component {
 
         super(props, ...restArgs);
 
-        this.shouldRender = false;
         this.renderTimeout = null;
 
         this.state = {
             dom: null
         };
+
+    }
+
+    componentDidMount() {
+        this.setState({
+            dom: this.renderChildren()
+        });
+    }
+
+    componentDidUpdate(prevProps) {
+
+        if (this.renderTimeout) {
+            clearTimeout(this.renderTimeout);
+        }
+
+        this.renderTimeout = setTimeout(() => {
+            this.setState({
+                dom: this.renderChildren(prevProps)
+            });
+        }, 0);
 
     }
 
@@ -128,36 +149,6 @@ class Waterfall extends Component {
         return result;
 
     };
-
-    componentDidMount() {
-        this.setState({
-            dom: this.renderChildren()
-        });
-    }
-
-    componentWillReceiveProps() {
-        this.shouldRender = true;
-    }
-
-    componentDidUpdate(prevProps) {
-
-        if (this.shouldRender) {
-
-            if (this.renderTimeout) {
-                clearTimeout(this.renderTimeout);
-            }
-
-            this.renderTimeout = setTimeout(() => {
-                this.setState({
-                    dom: this.renderChildren(prevProps)
-                }, () => {
-                    this.shouldRender = false;
-                });
-            }, 0);
-
-        }
-
-    }
 
     render() {
 
