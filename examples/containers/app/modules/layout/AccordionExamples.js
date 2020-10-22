@@ -1,14 +1,22 @@
+/**
+ * @file Accordion examples
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 
+// Components
 import Paper from 'src/Paper';
 import Accordion from 'src/Accordion';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import RaisedButton from 'src/RaisedButton';
 
+// Docs
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Accordion.json';
 
+// Styles
 import 'scss/containers/app/modules/layout/AccordionExamples.scss';
 
 class AccordionExamples extends Component {
