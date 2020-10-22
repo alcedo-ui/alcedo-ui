@@ -95,10 +95,15 @@ function MonthDays(year) {
     return dateArray;
 }
 
+/**
+ * enumerate object value for PropTypes.oneOf
+ * @param enumerate
+ * @returns {*[]}
+ */
 function enumerateValue(enumerate) {
 
     if (!enumerate) {
-        return;
+        return null;
     }
 
     return Object.keys(enumerate).map(key => enumerate[key]);
