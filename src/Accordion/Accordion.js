@@ -132,9 +132,12 @@ class Accordion extends Component {
 
                 {
                     titleRenderer ?
-                        cloneElement(titleRenderer, {
-                            onToggle: this.handleClick
-                        })
+                        typeof titleRenderer === 'function' ?
+                            titleRenderer(this.handleClick)
+                            :
+                            cloneElement(titleRenderer, {
+                                onClick: this.handleClick
+                            })
                         :
                         <RaisedButton className="accordion-title"
                                       theme={Theme.SECONDARY}
@@ -176,7 +179,7 @@ Accordion.propTypes = {
 
     collapsed: PropTypes.bool,
 
-    titleRenderer: PropTypes.object,
+    titleRenderer: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 
     /**
      * Collapse icon.
