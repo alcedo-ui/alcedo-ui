@@ -136,15 +136,17 @@ class MonthPicker extends Component {
         const {value, dateFormat} = this.props;
         let state = cloneDeep(this.state);
 
-        if ((moment(value, dateFormat).isValid())) {
-            console.error('Invalid date');
-            this.validValue = false;
-        } else {
-            state.value = value ? moment(value, dateFormat) : '';
-            state.year = value ? moment(value).format('YYYY') : moment().format('YYYY');
-            state.month = value ? moment(value).format('MM') : moment().format('MM');
-            this.setState(state);
+        if (value) {
+            if (!(moment(value, dateFormat).isValid())) {
+                console.error('Invalid date');
+                this.validValue = false;
+            }
         }
+
+        state.value = value ? moment(value, dateFormat) : '';
+        state.year = value ? moment(value).format('YYYY') : moment().format('YYYY');
+        state.month = value ? moment(value).format('MM') : moment().format('MM');
+        this.setState(state);
 
     }
 
