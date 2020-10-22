@@ -206,28 +206,11 @@ class DatePicker extends Component {
         const value = ComponentUtil.getDerivedState(props, state, 'value'),
             dateFormat = ComponentUtil.getDerivedState(props, state, 'dateFormat');
 
-        if (value) {
-            // debugger
-            if (moment(value, dateFormat).isValid()) {
-                const year = moment(value).format('YYYY'),
-                    month = moment(value).format('MM'),
-                    day = moment(value).format('DD');
-                state.value = moment(value, dateFormat);
-                state.year = year;
-                state.month = month;
-                state.day = day;
-            } else {
-                this.validValue = false;
-                console.error('Invalid date');
-            }
-        } else {
-            state.value = '';
-            state.year = moment().format('YYYY');
-            state.month = moment().format('MM');
-            state.day = moment().format('DD');
-        }
-        return state;
-
+        return {
+            prevProps: props,
+            dateFormat,
+            value
+        };
     }
 
 

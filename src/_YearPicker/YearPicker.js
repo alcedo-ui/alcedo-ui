@@ -8,6 +8,9 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import TouchRipple from '../TouchRipple';
+import ComponentUtil from '../_vendors/ComponentUtil';
+import Util from '../_vendors/Util';
+
 
 class YearPicker extends Component {
 
@@ -21,7 +24,7 @@ class YearPicker extends Component {
         };
 
         this.state = {
-            YearArr: this.getYearArr(props.year),
+            YearArr: Util.getYearArr(props.year),
             selectYear: props.year,
             currentYear: moment(props.value).format('YYYY'),
             selectMonth: props.month,
@@ -45,7 +48,7 @@ class YearPicker extends Component {
         let {selectYear} = this.state;
         selectYear = +selectYear - 10;
         this.setState({
-            YearArr: this.getYearArr(selectYear),
+            YearArr: Util.getYearArr(selectYear),
             selectYear: selectYear
         });
     };
@@ -54,26 +57,16 @@ class YearPicker extends Component {
         let {selectYear} = this.state;
         selectYear = +selectYear + 10;
         this.setState({
-            YearArr: this.getYearArr(selectYear),
+            YearArr: Util.getYearArr(selectYear),
             selectYear: selectYear
         });
-    };
-
-    getYearArr = num => {
-        let yearString = num.toString();
-        yearString = yearString.substr(0, yearString.length - 1);
-        let YearArr = [];
-        for (let i = 0; i < 10; i++) {
-            YearArr.push(yearString + i);
-        }
-        return YearArr;
     };
 
     componentDidMount() {
         const {value, year} = this.props;
         if (value && year) {
             this.setState({
-                YearArr: this.getYearArr(year),
+                YearArr: Util.getYearArr(year),
                 selectYear: year,
                 currentYear: moment(value).format('YYYY'),
                 currentMonth: moment(value).format('MM')
@@ -81,16 +74,20 @@ class YearPicker extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.props.value || nextProps.year !== this.props.year) {
-            const value = nextProps.value;
-            this.setState({
-                selectYear: nextProps.year,
-                YearArr: this.getYearArr(nextProps.year),
-                currentYear: moment(value).format('YYYY'),
-                currentMonth: moment(value).format('MM')
-            });
-        }
+    static getDerivedStateFromProps(props, state) {
+
+        const value = ComponentUtil.getDerivedState(props, state, 'value'),
+            selectYear = ComponentUtil.getDerivedState(props, state, 'year', 'selectYear');
+
+        return {
+            prevProps: props,
+            value,
+            selectYear,
+            YearArr: Util.getYearArr(selectYear),
+            currentYear: moment(value).format('YYYY'),
+            currentMonth: moment(value).format('MM')
+        };
+
     }
 
     render() {

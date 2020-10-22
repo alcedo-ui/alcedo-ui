@@ -20,6 +20,7 @@ import Position from '../_statics/Position';
 
 import DropdownCalculation from '../_vendors/DropdownCalculation';
 import Util from '../_vendors/Util';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class MonthPicker extends Component {
 
@@ -134,32 +135,31 @@ class MonthPicker extends Component {
         // debugger
         const {value, dateFormat} = this.props;
         let state = cloneDeep(this.state);
-        if (value) {
-            if (moment(value, dateFormat).isValid()) {
-                const year = moment(value).format('YYYY'),
-                    month = moment(value).format('MM');
-                state.value = moment(value, dateFormat);
-                state.year = year;
-                state.month = month;
-                this.setState(state);
-            } else {
-                console.error('Invalid date');
-                this.validValue = false;
-            }
+
+        if ((moment(value, dateFormat).isValid())) {
+            console.error('Invalid date');
+            this.validValue = false;
+        } else {
+            state.value = value ? moment(value, dateFormat) : '';
+            state.year = value ? moment(value).format('YYYY') : moment().format('YYYY');
+            state.month = value ? moment(value).format('MM') : moment().format('MM');
+            this.setState(state);
         }
 
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.props.value || nextProps.dateFormat !== this.props.dateFormat) {
-            this.setState({
-                value: moment(nextProps.value, nextProps.dateFormat),
-                dateFormat: nextProps.dateFormat,
-                year: moment(nextProps.value).format('YYYY'),
-                month: moment(nextProps.value).format('MM')
-            });
-        }
+    static getDerivedStateFromProps(props, state) {
+
+        const value = ComponentUtil.getDerivedState(props, state, 'value'),
+            dateFormat = ComponentUtil.getDerivedState(props, state, 'dateFormat');
+
+        return {
+            prevProps: props,
+            value: value ? moment(value, dateFormat) : '',
+            dateFormat
+        };
     }
+
 
     render() {
 

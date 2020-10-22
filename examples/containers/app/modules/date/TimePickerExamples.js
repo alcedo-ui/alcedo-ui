@@ -17,7 +17,8 @@ class TimePickerExamples extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            TimePickerVisible: {}
+            TimePickerVisible: {},
+            time: ''
         };
 
     }
@@ -48,11 +49,15 @@ class TimePickerExamples extends Component {
 
     onChangeHandler = value => {
         console.log(value);
+        this.setState({
+            time: value
+        });
+
     };
 
     render() {
 
-        const {TimePickerVisible} = this.state;
+        const {TimePickerVisible, time} = this.state;
 
         return (
             <div className="example time-picker-examples">
@@ -77,7 +82,7 @@ class TimePickerExamples extends Component {
                                 <p><code>Time Picker</code> simple example.</p>
 
                                 <TimePicker onChange={this.onChangeHandler}
-                                            value=""/>
+                                            value={time}/>
 
                             </div>
 

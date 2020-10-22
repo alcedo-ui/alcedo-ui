@@ -15,6 +15,7 @@ import YearPicker from '../_YearPicker';
 import Util from '../_vendors/Util';
 import Theme from '../Theme';
 import {findDOMNode} from 'react-dom';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class DateRangePickerContent extends Component {
 
@@ -147,20 +148,6 @@ class DateRangePickerContent extends Component {
         this.setState(state);
     };
 
-    setDateRange = (start, end) => {
-        if (start.year == end.year && start.month == end.month) {
-            end.year = start.month == 12 ? +(end.year) + 1 : end.year;
-            end.month = start.month == 12 ? 1 : +(end.month) + 1;
-        } else {
-            end.year = end.year;
-            end.month = end.month;
-        }
-        return {
-            start,
-            end
-        };
-    };
-
     setValue = (value, format) => {
         let state = cloneDeep(this.state);
         if (value && value.length > 1) {
@@ -176,8 +163,8 @@ class DateRangePickerContent extends Component {
                     state.right.year = rightValue ? moment(value[1]).format('YYYY') : moment(value[0]).format('YYYY');
                     state.right.month = rightValue ? moment(value[1]).format('MM') : moment(value[0]).format('MM');
                     state.right.day = rightValue ? moment(value[1]).format('DD') : moment(value[0]).format('DD');
-                    state.left = this.setDateRange(state.left, state.right).start;
-                    state.right = this.setDateRange(state.left, state.right).end;
+                    state.left = Util.setDateRange(state.left, state.right).start;
+                    state.right = Util.setDateRange(state.left, state.right).end;
                     state.startTime = leftValue;
                     state.endTime = rightValue;
                     state.historyStartTime = leftValue;
@@ -200,8 +187,8 @@ class DateRangePickerContent extends Component {
                 state.endTime = '';
                 state.historyStartTime = '';
                 state.historyEndTime = '';
-                state.left = this.setDateRange(state.left, state.right).start;
-                state.right = this.setDateRange(state.left, state.right).end;
+                state.left = Util.setDateRange(state.left, state.right).start;
+                state.right = Util.setDateRange(state.left, state.right).end;
                 this.setState(state);
             }
         }
@@ -214,10 +201,16 @@ class DateRangePickerContent extends Component {
         this.triggerEl = findDOMNode(this.refs.trigger);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (JSON.stringify(nextProps.value) !== JSON.stringify(this.props.value) || nextProps.dateFormat !== this.props.dateFormat) {
-            this.setValue(nextProps.value, nextProps.dateFormat);
-        }
+    static getDerivedStateFromProps(props, state) {
+
+        const value = ComponentUtil.getDerivedState(props, state, 'value'),
+            dateFormat = ComponentUtil.getDerivedState(props, state, 'dateFormat');
+
+        return {
+            prevProps: props,
+            dateFormat,
+            value
+        };
     }
 
     render() {

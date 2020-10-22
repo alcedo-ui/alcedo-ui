@@ -77,6 +77,7 @@ class MaterialTimePickerExamples extends Component {
 
                                 <MaterialTimePicker label={'time'}
                                                     isLabelAnimate={true}
+                                                    value={''}
                                                     onChange={this.onChangeHandler}/>
 
                             </div>

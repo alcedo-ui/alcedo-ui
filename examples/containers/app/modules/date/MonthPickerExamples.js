@@ -16,7 +16,8 @@ class MonthPickerExamples extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            MonthPickerVisible: {}
+            MonthPickerVisible: {},
+            month: null
         };
 
     }
@@ -46,12 +47,16 @@ class MonthPickerExamples extends Component {
     };
 
     onChangeHandle = value => {
+
+        this.setState({
+            month: value
+        });
         console.log(value);
     };
 
     render() {
 
-        const {MonthPickerVisible} = this.state;
+        const {MonthPickerVisible, month} = this.state;
         return (
             <div className="example time-picker-examples">
 
@@ -80,6 +85,7 @@ class MonthPickerExamples extends Component {
                                 <MonthPicker name="date"
                                              label={'date'}
                                              dateFormat={'YYYY/MM'}
+                                             value={month || '2020/11'}
                                              autoClose={false}
                                              onChange={this.onChangeHandle}/>
 

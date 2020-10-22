@@ -23,6 +23,7 @@ import FlatButton from '../FlatButton';
 import Position from '../_statics/Position';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
 import Util from '../_vendors/Util';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class DateTimePicker extends Component {
 
@@ -219,20 +220,17 @@ class DateTimePicker extends Component {
 
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.props.value || nextProps.dateFormat !== this.props.dateFormat) {
-            const value = moment(nextProps.value, nextProps.dateFormat);
-            this.setState({
-                value: value,
-                dateFormat: nextProps.dateFormat,
-                year: moment(nextProps.value).format('YYYY'),
-                month: moment(nextProps.value).format('MM'),
-                day: moment(nextProps.value).format('DD'),
-                hour: moment(nextProps.value).format('HH'),
-                minute: moment(nextProps.value).format('mm'),
-                second: moment(nextProps.value).format('ss')
-            });
-        }
+    static getDerivedStateFromProps(props, state) {
+
+        const value = ComponentUtil.getDerivedState(props, state, 'value'),
+            dateFormat = ComponentUtil.getDerivedState(props, state, 'dateFormat');
+
+        return {
+            prevProps: props,
+            value: value ? moment(value, dateFormat) : '',
+            dateFormat
+        };
+
     }
 
     /* eslint-disable complexity */

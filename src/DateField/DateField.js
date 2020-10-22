@@ -15,6 +15,7 @@ import YearPicker from '../_YearPicker';
 import FlatButton from '../FlatButton';
 
 import Theme from '../Theme';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class DateField extends Component {
 
@@ -84,7 +85,7 @@ class DateField extends Component {
             month: month,
             day: day
         }, () => {
-            !this.props.disabled && onChange(value && moment(value).format(this.props.dateFormat));
+            !this.props.disabled && onChange(timer && moment(timer).format(this.props.dateFormat));
         });
     };
 
@@ -119,10 +120,17 @@ class DateField extends Component {
         this.validValueFormat(value, dateFormat);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value && nextProps.value !== this.props.value || nextProps.dateFormat !== this.props.dateFormat) {
-            this.validValueFormat(nextProps.value, nextProps.dateFormat);
-        }
+
+    static getDerivedStateFromProps(props, state) {
+
+        const value = ComponentUtil.getDerivedState(props, state, 'value'),
+            dateFormat = ComponentUtil.getDerivedState(props, state, 'dateFormat');
+
+        return {
+            prevProps: props,
+            dateFormat,
+            value
+        };
     }
 
     render() {

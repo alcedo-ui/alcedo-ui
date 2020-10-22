@@ -95,6 +95,38 @@ function MonthDays(year) {
     return dateArray;
 }
 
+function setDateRange(start, end) {
+
+    if (start.year == end.year && start.month == end.month) {
+        if (start.month == 12) {
+            end.year = +(end.year) + 1;
+            end.month = 1;
+        } else {
+            end.year = end.year;
+            end.month = +(end.month) + 1;
+        }
+    } else {
+        end.year = end.year;
+        end.month = end.month;
+    }
+
+    return {
+        start,
+        end
+    };
+}
+
+
+function getYearArr(num){
+    let yearString = num.toString();
+    yearString = yearString.substr(0, yearString.length - 1);
+    let YearArr = [];
+    for (let i = 0; i < 10; i++) {
+        YearArr.push(yearString + i);
+    }
+    return YearArr;
+}
+
 function enumerateValue(enumerate) {
 
     if (!enumerate) {
@@ -231,6 +263,8 @@ export default {
     value2Timestamp,
     value2Moment,
     MonthDays,
+    setDateRange,
+    getYearArr,
     enumerateValue,
     tree,
     getValueByValueField,

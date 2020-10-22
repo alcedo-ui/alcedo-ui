@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import TouchRipple from '../TouchRipple';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class MonthPicker extends Component {
 
@@ -78,16 +79,20 @@ class MonthPicker extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.props.value || nextProps.year !== this.props.year || nextProps.month !== this.props.month) {
-            const value = nextProps.value;
-            this.setState({
-                selectYear: nextProps.year,
-                selectMonth: nextProps.month,
-                currentYear: moment(value).format('YYYY'),
-                currentMonth: moment(value).format('MM')
-            });
-        }
+    static getDerivedStateFromProps(props, state) {
+
+        const value = ComponentUtil.getDerivedState(props, state, 'value'),
+            selectYear = ComponentUtil.getDerivedState(props, state, 'year', 'selectYear'),
+            selectMonth = ComponentUtil.getDerivedState(props, state, 'month', 'selectMonth');
+
+        return {
+            prevProps: props,
+            value,
+            selectYear,
+            selectMonth,
+            currentYear: moment(props.value).format('YYYY'),
+            currentMonth: moment(props.value).format('MM')
+        };
     }
 
     render() {

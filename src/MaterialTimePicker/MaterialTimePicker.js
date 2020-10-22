@@ -18,6 +18,7 @@ import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
+import ComponentUtil from '../_vendors/ComponentUtil';
 
 class MaterialTimePicker extends Component {
 
@@ -145,14 +146,16 @@ class MaterialTimePicker extends Component {
 
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.props.value || nextProps.dateFormat !== this.props.dateFormat) {
-            const value = Util.value2Moment(nextProps.value, nextProps.dateFormat);
-            this.setState({
-                value,
-                textFieldValue: value.format(nextProps.dateFormat)
-            });
-        }
+    static getDerivedStateFromProps(props, state) {
+        const value = ComponentUtil.getDerivedState(props, state, 'value'),
+            dateFormat = ComponentUtil.getDerivedState(props, state, 'dateFormat'),
+            dateFormatValue = '2000-02-01 ' + value;
+
+        return {
+            prevProps: props,
+            value,
+            textFieldValue: moment(dateFormatValue, 'YYYY-MM-DD ' + dateFormat).isValid() ? value : ''
+        };
     }
 
     render() {
