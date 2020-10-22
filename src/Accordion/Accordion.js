@@ -16,6 +16,13 @@ class Accordion extends Component {
 
     static Theme = Theme;
 
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            collapsed: ComponentUtil.getDerivedState(props, state, 'collapsed')
+        };
+    }
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -27,6 +34,10 @@ class Accordion extends Component {
             contentHeight: null
         };
 
+    }
+
+    componentDidMount() {
+        this.init();
     }
 
     /**
@@ -106,17 +117,6 @@ class Accordion extends Component {
             }, 0);
         }
     };
-
-    componentDidMount() {
-        this.init();
-    }
-
-    static getDerivedStateFromProps(props, state) {
-        return {
-            prevProps: props,
-            collapsed: ComponentUtil.getDerivedState(props, state, 'collapsed')
-        };
-    }
 
     render() {
 
