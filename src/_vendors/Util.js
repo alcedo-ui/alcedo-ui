@@ -186,7 +186,8 @@ function getTextByDisplayField(data, displayField = 'text', valueField = 'value'
 }
 
 function isValueEqual(data1, data2, valueField = 'value', displayField = 'text') {
-    return getValueByValueField(data1, valueField, displayField);
+    return getValueByValueField(data1, valueField, displayField)
+        == getValueByValueField(data2, valueField, displayField);
 }
 
 function genIndexArray(len) {
