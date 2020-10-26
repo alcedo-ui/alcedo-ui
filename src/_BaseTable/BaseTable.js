@@ -63,7 +63,7 @@ class BaseTable extends Component {
         const {
 
                 className, style, data, dynamicRenderData, value, idField, scrollEl, hasVerticalScroll,
-                headColumns, bodyColumns, columnKeyField, columnsWidth, selectMode,
+                headColumns, bodyColumns, columnKeyField, columnsWidth, selectMode, useColumnsWidth,
                 expandRows, resizingColumn, useDynamicRender, scrollHeight, rowHeight, scrollBuffer,
                 defaultColumnWidth, minColumnWidth, maxColumnWidth, isHeadHidden, isBodyHidden, isFootHidden,
                 isLayoutFixed, isHeadFixed, isFootFixed, hasFixedLeftColumn, hasFixedRightColumn,
@@ -96,7 +96,8 @@ class BaseTable extends Component {
                           data={dynamicRenderData || data}
                           defaultColumnWidth={defaultColumnWidth}
                           minColumnWidth={minColumnWidth}
-                          ignoreColumnSpan={ignoreColumnSpan}/>
+                          ignoreColumnSpan={ignoreColumnSpan}
+                          useColumnsWidth={useColumnsWidth}/>
 
                 {/** render head if a headRenderer exists in columns */}
                 {
@@ -434,6 +435,7 @@ BaseTable.propTypes = {
     bodyColumns: PropTypes.array,
     columnKeyField: PropTypes.string,
     columnsWidth: PropTypes.object,
+    useColumnsWidth: PropTypes.bool,
     data: PropTypes.array,
     dynamicRenderData: PropTypes.array,
     value: PropTypes.array,
@@ -519,6 +521,7 @@ BaseTable.propTypes = {
 BaseTable.defaultProps = {
 
     columnKeyField: 'key',
+    useColumnsWidth: false,
     disabled: false,
     expandRows: [],
     idField: 'id',
