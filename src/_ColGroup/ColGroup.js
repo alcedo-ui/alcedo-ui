@@ -31,9 +31,9 @@ class ColGroup extends Component {
 
     getColumnWidth = column => {
 
-        const {columnKeyField, columnsWidth, data} = this.props;
+        const {columnKeyField, columnsWidth, useColumnsWidth, data} = this.props;
 
-        if (columnKeyField && columnsWidth) {
+        if (useColumnsWidth && columnKeyField && columnsWidth) {
             const width = columnsWidth.get(TC.getColumnKey(column, columnKeyField));
             if (width) {
                 return width;
@@ -315,6 +315,7 @@ ColGroup.propTypes = {
     })).isRequired,
     columnKeyField: PropTypes.string,
     columnsWidth: PropTypes.object,
+    useColumnsWidth: PropTypes.bool,
 
     data: PropTypes.array,
 
@@ -337,6 +338,7 @@ ColGroup.defaultProps = {
      */
     defaultColumnWidth: 100,
     minColumnWidth: 64,
+    useColumnsWidth: false,
 
     ignoreColumnSpan: false
 
