@@ -306,9 +306,9 @@ class DatePicker extends Component {
                                 {
                                     (minValue && moment(this.props.value).isBefore(minValue))
                                     || (maxValue && moment(maxValue).isBefore(this.props.value)) ?
-                                        <a href="javascript:void(0);">
+                                        <span className="date-text">
                                             <span className="item-gray">Today</span>
-                                        </a>
+                                        </span>
                                         :
                                         <FlatButton className='today-button'
                                                     value={'Today'}

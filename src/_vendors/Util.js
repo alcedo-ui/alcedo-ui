@@ -127,6 +127,10 @@ function getYearArr(num) {
     return YearArr;
 }
 
+function getMonth(num) {
+    return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][num - 1];
+}
+
 /**
  * enumerate object value for PropTypes.oneOf
  * @param enumerate
@@ -270,6 +274,7 @@ export default {
     MonthDays,
     setDateRange,
     getYearArr,
+    getMonth,
     enumerateValue,
     tree,
     getValueByValueField,

@@ -15,6 +15,7 @@ input::-ms-clear {
     .material-date-range-picker-field {
         width: 100%;
         height: 100%;
+
         input {
             cursor: pointer;
         }
@@ -30,31 +31,37 @@ input::-ms-clear {
 
         .calendar-date-input-wrap {
             height: 40px;
+
             .DateRangePickerHeaderInput {
                 width: 100%;
                 height: 40px;
                 overflow: hidden;
+
                 .fl {
                     float: left;
                     height: 40px;
                     line-height: 40px;
                 }
+
                 .calendar-input {
                     height: 40px;
                     width: 48.5%;
                     border: none;
                     outline: none;
+
                     input {
                         padding-left: 10px;
                         font-size: 12px;
                         text-align: center;
                     }
+
                     i {
                         width: 40px !important;
                         height: 40px;
                         text-align: center;
                         line-height: 40px;
                     }
+
                     button {
                         &.clear-icon {
                             margin: 0;
@@ -63,10 +70,12 @@ input::-ms-clear {
                 }
             }
         }
+
         .calendar {
             width: 300px;
             user-select: none;
             float: left;
+
             .calendar-header {
                 width: 100%;
                 height: 40px;
@@ -75,10 +84,12 @@ input::-ms-clear {
                 font-size: 14px;
                 border-top: 1px solid #dfdfdf;
                 border-bottom: 1px solid #dfdfdf;
-                span {
+
+                .date-text {
                     margin: 0 20px;
                     cursor: pointer;
                 }
+
                 i {
                     cursor: pointer;
                     width: 20px;
@@ -88,21 +99,26 @@ input::-ms-clear {
                     overflow: hidden;
                     color: #c5c9ce;
                 }
+
                 //span:hover, i:hover {
                 //    background: #ecf6fd;
                 //    border-radius: 4px;
                 //}
             }
+
             .calendar-body {
                 border-bottom: 1px solid #dfdfdf;
                 padding-bottom: 5px;
+
                 ul {
                     list-style-type: none;
                     margin: 0;
                     padding: 10px;
                 }
+
                 .c-body-head {
                     overflow: hidden;
+
                     li {
                         width: 14%;
                         height: 14px;
@@ -110,14 +126,17 @@ input::-ms-clear {
                         text-align: center;
                     }
                 }
+
                 .c-body-content {
                     width: 100%;
+
                     .content-row {
                         width: 100%;
                         height: 30px;
                         overflow: hidden;
                         padding: 0 10px;
                         box-sizing: border-box;
+
                         li {
                             height: 30px;
                             width: 14%;
@@ -125,7 +144,8 @@ input::-ms-clear {
                             text-align: center;
                             overflow: hidden;
                             transition: none;
-                            a {
+
+                            .date-text {
                                 display: inline-block;
                                 width: 30px;
                                 height: 30px;
@@ -138,9 +158,11 @@ input::-ms-clear {
                                 background: $theme-field-bg;
                             }
                         }
+
                         li.current-days {
                             cursor: pointer;
-                            a {
+
+                            .date-text {
                                 color: $theme-field;
                                 background: $theme-field-bg;
                                 border-radius: 50%;
@@ -150,30 +172,33 @@ input::-ms-clear {
                             &.start,
                             &.end,
                             &.hover {
-                                a {
+                                .date-text {
                                     width: 100%;
                                 }
                             }
 
                             &.hover {
-                                a {
+                                .date-text {
                                     border-radius: 0;
                                 }
                             }
+
                             &:hover {
-                                a {
+                                .date-text {
                                     background: $theme-field-bg-active;
                                     color: $theme-field-hover;
                                 }
                             }
+
                             &.active {
-                                a {
+                                .date-text {
                                     border-radius: 50%;
                                     background: $theme-highlight;
                                     color: #fff;
                                 }
+
                                 &:hover {
-                                    a {
+                                    .date-text {
                                         background: theme-color-hover($theme-highlight);
                                     }
                                 }
@@ -181,7 +206,7 @@ input::-ms-clear {
                             }
 
                             &.start {
-                                a {
+                                .date-text {
                                     border-bottom-left-radius: 50%;
                                     border-top-left-radius: 50%;
                                     border-bottom-right-radius: 0;
@@ -191,8 +216,9 @@ input::-ms-clear {
                                 }
 
                             }
+
                             &.end {
-                                a {
+                                .date-text {
                                     border-bottom-right-radius: 50%;
                                     border-top-right-radius: 50%;
                                     border-bottom-left-radius: 0;
@@ -202,16 +228,18 @@ input::-ms-clear {
                                 }
 
                             }
+
                             &.start:hover,
                             &.end:hover {
-                                a {
+                                .date-text {
                                     background: theme-color-hover($theme-highlight);
                                 }
 
                             }
                         }
+
                         li.item-gray {
-                            a {
+                            .date-text {
                                 color: $theme-field-disabled;
                                 cursor: not-allowed;
                             }
@@ -221,59 +249,72 @@ input::-ms-clear {
                 }
 
             }
+
             .calendar-body.maxHeight {
                 border-bottom: none;
+
                 .c-body-content {
                     .content-row {
                         height: 35px;
+
                         li {
                             height: 35px;
-                            a {
+
+                            .date-text {
                                 width: 35px;
                                 height: 35px;
                                 line-height: 35px;
                             }
                         }
+
                         li.hover {
                             background: $theme-field-bg-active;
                             color: $theme-field-hover;
                         }
                     }
+
                     .margin-5 {
                         height: 35px;
+
                         li {
                             height: 28px;
-                            a {
+
+                            .date-text {
                                 width: 28px;
                                 height: 28px;
                                 line-height: 28px;
                             }
                         }
+
                         li.hover,
                         li.start,
                         li.end {
                             background: $theme-highlight;
-                            a {
+
+                            .date-text {
                                 color: #fff;
                                 background: inherit;
                             }
                         }
+
                         li.start,
                         li:first-child,
                         li.first-day {
                             border-bottom-left-radius: 14px;
                             border-top-left-radius: 14px;
                         }
+
                         li.end,
                         li:last-child,
                         li.last-day {
                             border-bottom-right-radius: 14px;
                             border-top-right-radius: 14px;
                         }
+
                         li.hover:hover,
                         li.start:hover,
                         li.end:hover {
-                            a {
+                            .date-text {
                                 background: theme-color-hover($theme-highlight);
                                 color: #fff;
                             }
@@ -283,18 +324,23 @@ input::-ms-clear {
 
                 }
             }
+
             .calendar-month-body, .calendar-year-body {
                 border: none;
+
                 .c-body-content {
                     width: 100%;
                     padding-top: 14px;
+
                     .month, .year {
                         height: 60px;
+
                         li {
                             height: 60px;
                             width: 33.2%;
                             text-align: center;
-                            a {
+
+                            .date-text {
                                 display: inline-block;
                                 width: 40px;
                                 height: 40px;
@@ -303,23 +349,26 @@ input::-ms-clear {
                                 margin-top: 5px;
                                 border-radius: 50%;
                                 overflow: hidden;
+                                cursor: pointer;
                             }
 
                             &.current-months,
                             &.current-years {
                                 &:hover {
-                                    a {
+                                    .date-text {
                                         background: $theme-field-bg-active;
                                         color: $theme-field-hover;
                                     }
                                 }
+
                                 &.active {
-                                    a {
+                                    .date-text {
                                         background: $theme-highlight;
                                         color: #fff;
                                     }
+
                                     &:hover {
-                                        a {
+                                        .date-text {
                                             background: theme-color-hover($theme-highlight);
                                             color: #fff;
                                         }
@@ -331,11 +380,13 @@ input::-ms-clear {
                     }
                 }
             }
+
             .calendar-footer {
                 height: 40px;
                 line-height: 40px;
                 text-align: center;
-                a {
+
+                .date-text {
                     text-decoration: none;
                     color: $theme-field;
                     position: relative;

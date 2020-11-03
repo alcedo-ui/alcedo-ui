@@ -35,8 +35,8 @@ class DayPicker extends Component {
             currentYear: moment(value).format('YYYY'),
             currentMonth: moment(value).format('MM'),
             currentDay: moment(value).format('DD'),
-            date_num_array: Util.MonthDays(selectYear),
-            first_day: DC.weekday(selectYear, selectMonth)
+            dateNumArray: Util.MonthDays(selectYear),
+            firstDay: DC.weekday(selectYear, selectMonth)
         };
 
     }
@@ -60,321 +60,390 @@ class DayPicker extends Component {
             currentYear: moment(props.value).format('YYYY'),
             currentMonth: moment(props.value).format('MM'),
             currentDay: moment(props.value).format('DD'),
-            date_num_array: Util.MonthDays(props.year),
-            first_day: DC.weekday(props.year, props.month)
+            dateNumArray: Util.MonthDays(props.year),
+            firstDay: DC.weekday(props.year, props.month)
         };
 
     }
 
     previousLevel = () => {
-        this.props.previousClick && this.props.previousClick('month');
+        const {previousClick} = this.props;
+        previousClick && previousClick('month');
     };
 
-    hoverDateHandle = s_day => {
-        let {selectYear, selectMonth} = this.state;
-        s_day = s_day.toString();
-        const selected_month = Number(selectMonth) - 1;
-        let timer = moment([selectYear, selected_month, s_day]).format(this.props.dateFormat);
-        this.props.hoverHandle && this.props.hoverHandle({
+    hoverDateHandle = selectDay => {
+        const {hoverHandle} = this.props, {selectYear, selectMonth} = this.state,
+            selectedMonth = +selectMonth - 1,
+            timer = moment([selectYear, selectedMonth, selectDay]).format(this.props.dateFormat);
+
+        hoverHandle && hoverHandle({
             time: timer,
             year: selectYear,
             month: selectMonth,
-            day: s_day
+            day: selectDay
         });
     };
 
-    selectDate = s_day => {
-        let {selectYear, selectMonth, hour, minute, second} = this.state;
-        s_day = s_day.toString();
-        const selected_month = Number(selectMonth) - 1;
-        let timer = (hour && minute && second) ?
-            moment([selectYear, selected_month, s_day, hour, minute, second]).format(this.props.dateFormat)
-            :
-            moment([selectYear, selected_month, s_day]).format(this.props.dateFormat);
+    selectDate = selectDay => {
+        const {onChange} = this.props, {selectYear, selectMonth, hour, minute, second} = this.state,
+            selectedMonth = +selectMonth - 1,
+            timer = (hour && minute && second) ?
+                moment([selectYear, selectedMonth, selectDay, hour, minute, second]).format(this.props.dateFormat)
+                :
+                moment([selectYear, selectedMonth, selectDay]).format(this.props.dateFormat);
         this.setState({
             currentYear: selectYear,
             currentMonth: selectMonth,
-            currentDay: s_day,
-            selectDay: s_day
+            currentDay: selectDay,
+            selectDay: selectDay
         }, () => {
-            this.props.onChange && this.props.onChange({
+            onChange && onChange({
                 time: timer,
                 year: selectYear,
                 month: selectMonth,
-                day: s_day
+                day: selectDay
             });
         });
     };
 
     previousYear = () => {
-        let {currentYear, currentMonth, currentDay, selectYear, selectMonth, selectDay, date_num_array, first_day} = this.state;
-        selectYear = +selectYear - 1;
-        date_num_array = Util.MonthDays(selectYear);
-        first_day = DC.weekday(selectYear, selectMonth);
-        selectDay = Number(currentYear) === Number(selectYear) &&
-        Number(currentMonth) === Number(selectMonth) ?
-            currentDay
-            :
-            undefined;
+        const {monthAndYearChange} = this.props,
+            {currentYear, currentMonth, currentDay, selectYear, selectMonth, selectDay, dateNumArray, firstDay} = this.state,
+            selectedYear = +selectYear - 1,
+            selectedDay = Number(currentYear) === Number(selectedYear) &&
+            Number(currentMonth) === Number(selectMonth) ?
+                currentDay
+                :
+                undefined;
 
         this.setState({
-            selectYear: selectYear,
+            selectYear: selectedYear,
             selectMonth: selectMonth,
-            selectDay: selectDay,
-            date_num_array: date_num_array,
-            first_day: first_day
+            selectDay: selectedDay,
+            dateNumArray: Util.MonthDays(selectedYear),
+            firstDay: DC.weekday(selectedYear, selectMonth)
         }, () => {
-            this.props.monthAndYearChange && this.props.monthAndYearChange({year: selectYear, month: selectMonth});
+            monthAndYearChange && monthAndYearChange({
+                year: selectedYear,
+                month: selectMonth
+            });
         });
     };
 
     previousMonth = () => {
-        // debugger
-        let {currentYear, currentMonth, currentDay, selectYear, selectMonth, selectDay, date_num_array, first_day} = this.state;
-
-        if (selectMonth == 1) {
-            selectYear = +selectYear - 1;
-            selectMonth = 12;
-            date_num_array = Util.MonthDays(selectYear);
-        } else {
-            selectMonth = +selectMonth - 1;
-        }
-
-        first_day = DC.weekday(selectYear, selectMonth);
-        selectDay = Number(currentYear) === Number(selectYear) && Number(currentMonth) === Number(selectMonth) ? currentDay : undefined;
+        const {monthAndYearChange} = this.props, {
+                currentYear, currentMonth, currentDay, selectYear, selectMonth, dateNumArray
+            } = this.state,
+            selectedYear = selectMonth == 1 ? +selectYear - 1 : selectYear,
+            selectedMonth = selectMonth == 1 ? 12 : +selectMonth - 1,
+            selectedDay = Number(currentYear) === Number(selectedYear) &&
+            Number(currentMonth) === Number(selectedMonth) ?
+                currentDay
+                :
+                undefined;
         this.setState({
-            selectYear: selectYear,
-            selectMonth: selectMonth,
-            selectDay: selectDay,
-            date_num_array: date_num_array,
-            first_day: first_day
+            selectYear: selectedYear,
+            selectMonth: selectedMonth,
+            selectDay: selectedDay,
+            dateNumArray: selectMonth == 1 ? Util.MonthDays(selectedYear) : dateNumArray,
+            firstDay: DC.weekday(selectedYear, selectedMonth)
         }, () => {
-            this.props.monthAndYearChange && this.props.monthAndYearChange({year: selectYear, month: selectMonth});
+            monthAndYearChange && monthAndYearChange({
+                year: selectedYear,
+                month: selectedMonth
+            });
         });
     };
 
     nextMonth = () => {
-        // debugger
-        let {currentYear, currentMonth, currentDay, selectYear, selectMonth, selectDay, date_num_array, first_day} = this.state;
-        if (selectMonth == 12) {
-            selectYear = +selectYear + 1;
-            selectMonth = 1;
-            date_num_array = Util.MonthDays(selectYear);
-        } else {
-            selectMonth = +selectMonth + 1;
-        }
 
-        first_day = DC.weekday(selectYear, selectMonth);
-        selectDay = Number(currentYear) === Number(selectYear) && Number(currentMonth) === Number(selectMonth) ? currentDay : undefined;
+        const {monthAndYearChange} = this.props, {
+                currentYear, currentMonth, currentDay, selectYear, selectMonth, dateNumArray
+            } = this.state,
+            selectedYear = selectMonth == 12 ? +selectYear + 1 : selectYear,
+            selectedMonth = selectMonth == 12 ? 1 : +selectMonth + 1,
+            selectedDay = Number(currentYear) === Number(selectedYear) &&
+            Number(currentMonth) === Number(selectedMonth) ?
+                currentDay
+                :
+                undefined;
 
         this.setState({
-            selectYear: selectYear,
-            selectMonth: selectMonth,
-            selectDay: selectDay,
-            date_num_array: date_num_array,
-            first_day: first_day
+            selectYear: selectedYear,
+            selectMonth: selectedMonth,
+            selectDay: selectedDay,
+            dateNumArray: selectMonth == 12 ? Util.MonthDays(selectedYear) : dateNumArray,
+            firstDay: DC.weekday(selectedYear, selectedMonth)
         }, () => {
-            this.props.monthAndYearChange && this.props.monthAndYearChange({year: selectYear, month: selectMonth});
+            monthAndYearChange && monthAndYearChange({
+                year: selectedYear,
+                month: selectedMonth
+            });
         });
     };
 
     nextYear = () => {
-        let {currentYear, currentMonth, currentDay, selectYear, selectMonth, selectDay, date_num_array, first_day} = this.state;
-        selectYear = +selectYear + 1;
-        date_num_array = Util.MonthDays(selectYear);
-        first_day = DC.weekday(selectYear, selectMonth);
-        selectDay = Number(currentYear) === Number(selectYear) && Number(currentMonth) === Number(selectMonth) ? currentDay : undefined;
+        const {monthAndYearChange} = this.props, {currentYear, currentMonth, currentDay, selectYear, selectMonth} = this.state,
+            selectedYear = +selectYear + 1,
+            selectedDay = Number(currentYear) === Number(selectedYear) &&
+            Number(currentMonth) === Number(selectMonth) ?
+                currentDay
+                :
+                undefined;
 
         this.setState({
-            selectYear: selectYear,
+            selectYear: selectedYear,
             selectMonth: selectMonth,
-            selectDay: selectDay,
-            date_num_array: date_num_array,
-            first_day: first_day
+            selectDay: selectedDay,
+            dateNumArray: Util.MonthDays(selectedYear),
+            firstDay: DC.weekday(selectedYear, selectMonth)
         }, () => {
-            this.props.monthAndYearChange && this.props.monthAndYearChange({year: selectYear, month: selectMonth});
+            monthAndYearChange && monthAndYearChange({
+                year: selectedYear,
+                month: selectMonth
+            });
         });
     };
 
-    MonthEn = num => {
-        num = num - 1;
-        let MonthEn = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        return MonthEn[num];
+    previousMonthDaysRender = () => {
+
+        const {dateNumArray, firstDay, selectMonth} = this.state,
+            month = +selectMonth - 1,
+            previousMonthDays = month === 0 ? 31 : dateNumArray[month - 1];
+        let renderArray = [];
+        for (let i = 0; i < firstDay; i++) {
+            renderArray.push(<li className="item-gray" key={'previous' + i}>
+                <span className="date-text">{previousMonthDays - (firstDay - i) + 1}</span></li>);
+        }
+
+        return renderArray;
     };
 
-    render() {
+    rangeDateCurrentMonthDaysRender = () => {
 
         const {
-            isFooter, isRange, startTime, endTime, hoverTime, maxValue, minValue, previousYearIconCls,
-            previousMonthIconCls, nextYearIconCls, nextMonthIconCls
-        } = this.props;
+            startTime, endTime, hoverTime, maxValue, minValue
+        } = this.props, {dateNumArray, selectYear, selectMonth} = this.state, {selectDate, hoverDateHandle} = this;
 
-        const {date_num_array, selectYear, selectMonth, selectDay, first_day, currentYear, currentMonth} = this.state;
-
-        const {previousMonth, previousYear, nextYear, nextMonth, selectDate, previousLevel} = this;
-        let month = Number(selectMonth);
-        let MonthEn = this.MonthEn(month);
-        month = month - 1;
-        let month_days = date_num_array[month];
-        let previous_month_days = month === 0 ? 31 : date_num_array[month - 1],
-            n_day = this.defaultTable.row_number * this.defaultTable.col_number - first_day - month_days,
-            previous_days = [],
-            current_days = [],
-            next_days = [],
-            total_days = [],
-            ul_list = [];
-
-        for (let i = 0; i < first_day; i++) {
-            previous_days.push(<li className="item-gray" key={'previous' + i}>
-                <a href="javascript:void(0);">{previous_month_days - (first_day - i) + 1}</a>
-            </li>);
-        }
-        if (isRange) {
-            let start, end, hover;
-            start = moment(endTime).isBefore(startTime) ? endTime : startTime;
-            end = moment(endTime).isBefore(startTime) ? startTime : endTime;
-            start = moment(hoverTime).isBefore(startTime) ? hoverTime : startTime;
+        let month = +selectMonth - 1, monthDays = dateNumArray[month],
+            start = moment(endTime).isBefore(startTime) ? endTime : startTime,
+            end = moment(endTime).isBefore(startTime) ? startTime : endTime,
             hover = moment(hoverTime).isBefore(startTime) ? startTime : hoverTime;
+        start = moment(hoverTime).isBefore(startTime) ? hoverTime : startTime;
 
-            for (let i = 0; i < Number(month_days); i++) {
-                let item = moment([Number(selectYear), (Number(selectMonth) - 1), (i + 1)]).format('YYYY-MM-DD');
-                let liClassName = `${start == item ? 'start' : ''} ${item == end || item == hover ? 'end' : ''} ${moment(start).isBefore(item) && moment(item).isBefore(end)
-                || moment(start).isBefore(item) && moment(item).isBefore(hover) ? 'hover' : ''} ${i == 0 ? 'first-day' : ''} ${i == (+month_days - 1) ? 'last-day' : ''}
+        let renderArray = [];
+
+        for (let i = 0; i < Number(monthDays); i++) {
+
+            const item = moment([Number(selectYear), (Number(selectMonth) - 1), (i + 1)]).format('YYYY-MM-DD'),
+                liClassName = `${start == item ? 'start' : ''} ${item == end || item == hover ? 'end' : ''} ${moment(start).isBefore(item) && moment(item).isBefore(end)
+                || moment(start).isBefore(item) && moment(item).isBefore(hover) ? 'hover' : ''} ${i == 0 ? 'first-day' : ''} ${i == (+monthDays - 1) ? 'last-day' : ''}
                     ${(minValue && moment(item).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(item)) ? 'item-gray' : 'current-days'}`;
-                let current_link = (
-                    <li className={liClassName}
-                        key={'current' + i}
-                        onClick={() => {
-                            liClassName.indexOf('item-gray') === -1 && selectDate(i + 1);
-                        }}
-                        onMouseOver={() => {
-                            liClassName.indexOf('item-gray') === -1 && this.hoverDateHandle((i + 1));
-                        }}>
-                        <a href="javascript:;">
-                            {i + 1}
-                            {
-                                liClassName.indexOf('item-gray') === -1 ?
-                                    <TouchRipple/>
-                                    :
-                                    null
-                            }
-                        </a>
-                    </li>);
-                current_days.push(current_link);
-            }
-        } else {
-            for (let i = 0; i < Number(month_days); i++) {
-                let item = moment([Number(selectYear), (Number(selectMonth) - 1), (i + 1)]).format('YYYY-MM-DD');
-                let liClassName = `${(selectYear == currentYear) && (selectMonth == currentMonth) && (i + 1 == selectDay) ? 'active' : ''} 
-                ${(minValue && moment(item).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(item)) ? 'item-gray' : 'current-days'}`;
-                let current_link = (
-                    <li className={liClassName}
-                        key={'current' + i}
-                        onClick={() => {
-                            liClassName.indexOf('item-gray') === -1 && selectDate(i + 1);
-                        }}>
-                        <a href="javascript:;">
-                            {i + 1}
-                            {
-                                liClassName.indexOf('item-gray') === -1 ?
-                                    <TouchRipple/>
-                                    :
-                                    null
-                            }
-                        </a>
-                    </li>);
-                current_days.push(current_link);
-            }
-        }
-        for (let i = 0; i < n_day; i++) {
-            next_days.push(<li className="item-gray" key={'previous' + i}>
-                <a href="javascript:;">{i + 1}</a>
-            </li>);
-        }
-        total_days = previous_days.concat(current_days, next_days);
-        if (total_days.length > 0) {
-            for (let i = 0; i < this.defaultTable.row_number; i++) {
-                let li_list = [],
-                    start_index = i * this.defaultTable.col_number,
-                    end_index = (i + 1) * this.defaultTable.col_number;
-                for (let j = start_index; j < end_index; j++) {
-                    li_list.push(total_days[j]);
-                }
-                ul_list.push(li_list);
-            }
-        }
-        return (
-            <div className={`calendar`}>
-                <div className="calendar-header">
-                    {
-                        minValue ?
-                            (moment(minValue).format('YYYY') < +selectYear - 1) ||
-                            (moment(minValue).format('YYYY') == +selectYear - 1 && moment(minValue).format('MM') <= selectMonth) ?
-                                <i className={`previous-year ${previousYearIconCls}`}
-                                   onClick={previousYear}>
-                                    <TouchRipple/>
-                                </i>
+
+            renderArray.push((
+                <li className={liClassName}
+                    key={'current' + i}
+                    onClick={() => {
+                        liClassName.indexOf('item-gray') === -1 && selectDate(i + 1);
+                    }}
+                    onMouseOver={() => {
+                        liClassName.indexOf('item-gray') === -1 && hoverDateHandle((i + 1));
+                    }}>
+                    <span className="date-text">
+                        {i + 1}
+                        {
+                            liClassName.indexOf('item-gray') === -1 ?
+                                <TouchRipple/>
                                 :
                                 null
-                            :
+                        }
+                    </span>
+                </li>));
+        }
+
+        return renderArray;
+    };
+
+    singleDateCurrentMonthDaysRender = () => {
+
+        const {maxValue, minValue} = this.props,
+            {dateNumArray, selectYear, selectMonth, selectDay, currentYear, currentMonth} = this.state,
+            {selectDate} = this;
+
+        let month = +selectMonth - 1, monthDays = dateNumArray[month];
+        let renderArray = [];
+
+        for (let i = 0; i < Number(monthDays); i++) {
+
+            let item = moment([Number(selectYear), (Number(selectMonth) - 1), (i + 1)]).format('YYYY-MM-DD');
+            let liClassName = `${(selectYear == currentYear) && (selectMonth == currentMonth) && (i + 1 == selectDay) ? 'active' : ''} 
+                ${(minValue && moment(item).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(item)) ? 'item-gray' : 'current-days'}`;
+
+            renderArray.push((
+                <li className={liClassName}
+                    key={'current' + i}
+                    onClick={() => {
+                        liClassName.indexOf('item-gray') === -1 && selectDate(i + 1);
+                    }}>
+                    <span className="date-text">
+                        {i + 1}
+                        {
+                            liClassName.indexOf('item-gray') === -1 ?
+                                <TouchRipple/>
+                                :
+                                null
+                        }
+                    </span>
+                </li>));
+
+        }
+
+        return renderArray;
+
+    };
+
+    nextMonthDaysRender = () => {
+
+        const {dateNumArray, selectMonth, firstDay} = this.state,
+            month = +selectMonth - 1, monthDays = dateNumArray[month],
+            nextDays = this.defaultTable.row_number * this.defaultTable.col_number - firstDay - monthDays;
+        let renderArray = [];
+        for (let i = 0; i < nextDays; i++) {
+            renderArray.push(<li className="item-gray" key={'previous' + i}><span
+                className="date-text">{i + 1}</span></li>);
+        }
+        return renderArray;
+    };
+
+    daysRender = () => {
+        const {isRange} = this.props;
+        let allDaysRenderArray = [], totalDays = [],
+            previousDays = this.previousMonthDaysRender(),
+            currentDays = isRange ? this.rangeDateCurrentMonthDaysRender() : this.singleDateCurrentMonthDaysRender(),
+            nextDays = this.nextMonthDaysRender();
+        totalDays = previousDays.concat(currentDays, nextDays);
+        if (totalDays.length > 0) {
+            for (let i = 0; i < this.defaultTable.row_number; i++) {
+                let weekList = [],
+                    startIndex = i * this.defaultTable.col_number,
+                    endIndex = (i + 1) * this.defaultTable.col_number;
+                for (let j = startIndex; j < endIndex; j++) {
+                    weekList.push(totalDays[j]);
+                }
+                allDaysRenderArray.push(weekList);
+            }
+        }
+        return allDaysRenderArray;
+    };
+
+    calendarHeaderLeftRender = () => {
+
+        const {minValue, previousYearIconCls, previousMonthIconCls} = this.props,
+            {selectYear, selectMonth} = this.state, {previousMonth, previousYear} = this;
+
+        return (
+            <>
+                {
+                    minValue ?
+                        (moment(minValue).format('YYYY') < +selectYear - 1) ||
+                        (moment(minValue).format('YYYY') == +selectYear - 1 && moment(minValue).format('MM') <= selectMonth) ?
                             <i className={`previous-year ${previousYearIconCls}`}
                                onClick={previousYear}>
                                 <TouchRipple/>
                             </i>
-                    }
-                    {
-                        minValue ?
-                            (moment(minValue).format('YYYY') == selectYear && moment(minValue).format('MM') < selectMonth) ||
-                            moment(minValue).format('YYYY') < selectYear ?
-                                <i className={`previous-month ${previousMonthIconCls}`}
-                                   onClick={previousMonth}>
-                                    <TouchRipple/>
-                                </i>
-                                :
-                                null
                             :
+                            null
+                        :
+                        <i className={`previous-year ${previousYearIconCls}`}
+                           onClick={previousYear}>
+                            <TouchRipple/>
+                        </i>
+                }
+                {
+                    minValue ?
+                        (moment(minValue).format('YYYY') == selectYear && moment(minValue).format('MM') < selectMonth) ||
+                        moment(minValue).format('YYYY') < selectYear ?
                             <i className={`previous-month ${previousMonthIconCls}`}
                                onClick={previousMonth}>
                                 <TouchRipple/>
                             </i>
-                    }
-
-                    <span onClick={previousLevel}>
-                        {MonthEn} {selectYear}
-                    </span>
-                    {
-                        maxValue ?
-                            (moment(maxValue).format('YYYY') == selectYear && selectMonth < moment(maxValue).format('MM')) ||
-                            maxValue && selectYear < moment(maxValue).format('YYYY') ?
-                                <i className={`next-month ${nextMonthIconCls}`}
-                                   onClick={nextMonth}>
-                                    <TouchRipple/>
-                                </i>
-                                :
-                                null
                             :
+                            null
+                        :
+                        <i className={`previous-month ${previousMonthIconCls}`}
+                           onClick={previousMonth}>
+                            <TouchRipple/>
+                        </i>
+                }
+            </>
+        );
+    };
+
+
+    calendarHeaderRightRender = () => {
+        const {maxValue, nextYearIconCls, nextMonthIconCls} = this.props,
+            {selectYear, selectMonth} = this.state, {nextYear, nextMonth} = this;
+        return (
+            <>
+                {
+                    maxValue ?
+                        (moment(maxValue).format('YYYY') == selectYear && selectMonth < moment(maxValue).format('MM')) ||
+                        maxValue && selectYear < moment(maxValue).format('YYYY') ?
                             <i className={`next-month ${nextMonthIconCls}`}
                                onClick={nextMonth}>
                                 <TouchRipple/>
                             </i>
-
-                    }
-                    {
-                        maxValue ?
-                            (selectYear < +moment(maxValue).format('YYYY') - 1) ||
-                            (selectYear == moment(maxValue).format('YYYY') - 1 && selectMonth <= moment(maxValue).format('MM')) ?
-                                <i className={`next-year ${nextYearIconCls}`}
-                                   onClick={nextYear}>
-                                    <TouchRipple/>
-                                </i>
-                                :
-                                null
                             :
+                            null
+                        :
+                        <i className={`next-month ${nextMonthIconCls}`}
+                           onClick={nextMonth}>
+                            <TouchRipple/>
+                        </i>
+
+                }
+                {
+                    maxValue ?
+                        (selectYear < +moment(maxValue).format('YYYY') - 1) ||
+                        (selectYear == moment(maxValue).format('YYYY') - 1 && selectMonth <= moment(maxValue).format('MM')) ?
                             <i className={`next-year ${nextYearIconCls}`}
                                onClick={nextYear}>
                                 <TouchRipple/>
                             </i>
+                            :
+                            null
+                        :
+                        <i className={`next-year ${nextYearIconCls}`}
+                           onClick={nextYear}>
+                            <TouchRipple/>
+                        </i>
 
+                }
+            </>
+        );
+    };
+
+
+    render() {
+
+        const {isFooter} = this.props, {selectYear, selectMonth} = this.state,
+            {previousLevel} = this, MonthEn = Util.getMonth(+selectMonth),
+            calendarHeaderLeftRender = this.calendarHeaderLeftRender(),
+            calendarHeaderRightRender = this.calendarHeaderRightRender(),
+            daysRenderArray = this.daysRender();
+
+        return (
+            <div className="calendar">
+                <div className="calendar-header">
+                    {
+                        calendarHeaderLeftRender ? calendarHeaderLeftRender : null
+                    }
+
+                    <span className="date-text" onClick={previousLevel}>
+                        {MonthEn} {selectYear}
+                    </span>
+                    {
+                        calendarHeaderRightRender ? calendarHeaderRightRender : null
                     }
                 </div>
                 <div className={`calendar-body calendar-day-body ${isFooter ? '' : ' maxHeight'}`}>
@@ -389,9 +458,9 @@ class DayPicker extends Component {
                     </ul>
                     <div className="c-body-content">
                         {
-                            ul_list && ul_list.map((item, key) =>
-                                <ul key={'ul' + key}
-                                    className="content-row margin-5">
+                            daysRenderArray && daysRenderArray.map((item, key) =>
+                                <ul className="content-row margin-5"
+                                    key={'ul' + key}>
                                     {item}
                                 </ul>
                             )

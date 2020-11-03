@@ -305,14 +305,14 @@ class MaterialDatePicker extends Component {
                                 {
                                     (minValue && moment(this.props.value).isBefore(minValue))
                                     || (maxValue && moment(maxValue).isBefore(this.props.value)) ?
-                                        <a href="javascript:;">
+                                        <span className="date-text">
                                             <span className="item-gray">Today</span>
-                                        </a>
+                                        </span>
                                         :
-                                        <a href="javascript:void(0);"
-                                           onClick={this.handleToday}>
+                                        <span className="date-text"
+                                              onClick={this.handleToday}>
                                             Today
-                                        </a>
+                                        </span>
                                 }
                             </div>
                             :

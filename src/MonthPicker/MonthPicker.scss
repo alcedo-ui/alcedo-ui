@@ -28,6 +28,7 @@ input::-ms-clear {
         input {
             cursor: pointer;
         }
+
         .icon-button {
             z-index: 0;
         }
@@ -45,15 +46,19 @@ input::-ms-clear {
             width: 95%;
             border: none;
             outline: none;
+
             input {
                 font-size: 12px;
             }
+
             .clear-icon {
                 top: -5px;
             }
         }
+
         .calendar {
             user-select: none;
+
             .calendar-header {
                 width: 100%;
                 height: 40px;
@@ -62,10 +67,12 @@ input::-ms-clear {
                 font-size: 14px;
                 border-bottom: 1px solid #dfdfdf;
                 border-top: 1px solid #dfdfdf;
-                span {
+
+                .date-text {
                     margin: 0 20px;
                     cursor: pointer;
                 }
+
                 i {
                     cursor: pointer;
                     width: 20px;
@@ -75,21 +82,26 @@ input::-ms-clear {
                     overflow: hidden;
                     color: #c5c9ce;
                 }
+
                 //span:hover, i:hover {
                 //    background: #ecf6fd;
                 //    border-radius: 4px;
                 //}
             }
+
             .calendar-body {
                 border-bottom: 1px solid #dfdfdf;
                 padding-bottom: 5px;
+
                 ul {
                     list-style-type: none;
                     margin: 0;
                     padding: 10px;
                 }
+
                 .c-body-head {
                     overflow: hidden;
+
                     li {
                         width: 14%;
                         height: 14px;
@@ -97,21 +109,25 @@ input::-ms-clear {
                         text-align: center;
                     }
                 }
+
                 .c-body-content {
                     width: 100%;
+
                     .content-row {
                         width: 100%;
                         height: 30px;
                         overflow: hidden;
                         padding: 0 10px;
                         box-sizing: border-box;
+
                         li {
                             height: 30px;
                             width: 14%;
                             float: left;
                             text-align: center;
                             overflow: hidden;
-                            a {
+
+                            .date-text {
                                 display: inline-block;
                                 width: 30px;
                                 height: 30px;
@@ -119,38 +135,45 @@ input::-ms-clear {
                                 text-decoration: none;
                                 text-align: center;
                                 position: relative;
+                                cursor: pointer;
                             }
                         }
+
                         li.current-days {
                             cursor: pointer;
-                            a {
+
+                            .date-text {
                                 color: $theme-field;
                                 background: $theme-field-bg;
                                 border-radius: 50%;
                                 overflow: hidden;
                             }
+
                             &:hover {
-                                a {
+                                .date-text {
                                     background: $theme-field-bg-active;
                                     color: $theme-field-hover;
                                 }
                             }
+
                             &.active {
-                                a {
+                                .date-text {
                                     border-radius: 50%;
                                     background: $theme-highlight;
                                     color: #fff;
                                 }
+
                                 &:hover {
-                                    a {
+                                    .date-text {
                                         background: theme-color-hover($theme-highlight);
                                     }
                                 }
 
                             }
                         }
+
                         li.item-gray {
-                            a {
+                            .date-text {
                                 color: $theme-field-disabled;
                                 cursor: not-allowed;
                             }
@@ -159,18 +182,23 @@ input::-ms-clear {
 
                 }
             }
+
             .calendar-month-body, .calendar-year-body {
                 border: none;
+
                 .c-body-content {
                     width: 100%;
                     padding-top: 14px;
+
                     .month, .year {
                         height: 60px;
+
                         li {
                             height: 60px;
                             width: 33.2%;
                             text-align: center;
-                            a {
+
+                            .date-text {
                                 display: inline-block;
                                 width: 40px;
                                 height: 40px;
@@ -180,22 +208,26 @@ input::-ms-clear {
                                 margin-top: 5px;
                                 border-radius: 50%;
                                 overflow: hidden;
+                                cursor: pointer;
                             }
+
                             &.current-months,
                             &.current-years {
                                 &:hover {
-                                    a {
+                                    .date-text {
                                         background: $theme-field-bg-active;
                                         color: $theme-field-hover;
                                     }
                                 }
+
                                 &.active {
-                                    a {
+                                    .date-text {
                                         background: $theme-highlight;
                                         color: #fff;
                                     }
+
                                     &:hover {
-                                        a {
+                                        .date-text {
                                             background: theme-color-hover($theme-highlight);
                                             color: #fff;
                                         }
@@ -207,15 +239,18 @@ input::-ms-clear {
                 }
             }
         }
+
         .calendar-footer {
             height: 40px;
             line-height: 40px;
             text-align: center;
-            a {
+
+            .date-text {
                 text-decoration: none;
                 color: $theme-field;
                 position: relative;
                 overflow: hidden;
+
                 .item-gray {
                     color: $theme-field-disabled;
                     cursor: not-allowed;

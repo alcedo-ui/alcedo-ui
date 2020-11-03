@@ -32,37 +32,37 @@ class MonthPicker extends Component {
     }
 
     previousLevel = () => {
-        this.props.previousClick && this.props.previousClick('year');
+        const {previousClick} = this.props;
+        previousClick && previousClick('year');
     };
 
-    selectDate = s_month => {
-        let {selectYear} = this.state;
+    selectDate = selectMonth => {
+        const {onChange} = this.props, {selectYear} = this.state;
         this.setState({
             currentYear: selectYear,
-            currentMonth: s_month,
-            selectMonth: s_month
+            currentMonth: selectMonth,
+            selectMonth: selectMonth
         }, () => {
-            this.props.onChange && this.props.onChange({year: selectYear, month: s_month});
+            onChange && onChange({
+                year: selectYear,
+                month: selectMonth
+            });
         });
     };
 
     previousYear = () => {
-        let {currentYear, currentMonth, selectYear, selectMonth} = this.state;
-        selectYear = +selectYear - 1;
-        selectMonth = Number(currentYear) === Number(selectYear) ? currentMonth : undefined;
+        const {currentYear, currentMonth, selectYear} = this.state;
         this.setState({
-            selectYear: selectYear,
-            selectMonth: selectMonth
+            selectYear: +selectYear - 1,
+            selectMonth: +currentYear === +selectYear - 1 ? currentMonth : undefined
         });
     };
 
     nextYear = () => {
-        let {currentYear, currentMonth, selectYear, selectMonth} = this.state;
-        selectYear = +selectYear + 1;
-        selectMonth = Number(currentYear) === Number(selectYear) ? currentMonth : undefined;
+        const {currentYear, currentMonth, selectYear} = this.state;
         this.setState({
-            selectYear: selectYear,
-            selectMonth: selectMonth
+            selectYear: +selectYear + 1,
+            selectMonth: +currentYear === +selectYear + 1 ? currentMonth : undefined
         });
     };
 
@@ -95,55 +95,59 @@ class MonthPicker extends Component {
         };
     }
 
-    render() {
 
-        const {className, maxValue, minValue, previousYearIconCls, nextYearIconCls} = this.props;
-
-        let {selectYear, selectMonth, currentYear} = this.state;
-
-        const {previousYear, nextYear, selectDate, previousLevel} = this;
-        let current_months = [],
-            ul_list = [];
-        let MonthEn = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
+    monthsRender = () => {
+        const {maxValue, minValue} = this.props,
+            {selectYear, selectMonth, currentYear} = this.state, {selectDate} = this,
+            MonthEn = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        let currentMonths = [],
+            monthslist = [];
 
         for (let i = 0; i < MonthEn.length; i++) {
+
             let liClassName = `${(currentYear == selectYear) && (Number(selectMonth) == (i + 1)) ? 'active' : ''}
                                 ${(maxValue && (moment(maxValue).format('YYYY') == selectYear) &&
                 (+(moment(maxValue).format('MM'))) < (i + 1)) || (minValue && (moment(minValue).format('YYYY') == selectYear) &&
                 (+(moment(minValue).format('MM'))) > (i + 1)) ? 'item-gray' : 'current-years'}`;
-            let Months = (
-                <li className={liClassName}
-                    key={'current' + i}
-                    onClick={() => {
-                        liClassName.indexOf('item-gray') === -1 && selectDate(i + 1);
-                    }}>
-                    <a href="javascript:;">
-                        {MonthEn[i]}
-                        {
-                            liClassName.indexOf('item-gray') === -1 ?
-                                <TouchRipple/>
-                                :
-                                null
-                        }
-                    </a>
-                </li>);
-            current_months.push(Months);
+
+            currentMonths.push(<li className={liClassName}
+                                   key={'current' + i}
+                                   onClick={() => {
+                                       liClassName.indexOf('item-gray') === -1 && selectDate(i + 1);
+                                   }}>
+                <span className="date-text">
+                    {MonthEn[i]}
+                    {
+                        liClassName.indexOf('item-gray') === -1 ?
+                            <TouchRipple/>
+                            :
+                            null
+                    }
+                </span>
+            </li>);
         }
-        if (current_months.length > 0) {
+        if (currentMonths.length > 0) {
             for (let i = 0; i < this.defaultTable.row_number; i++) {
-                let li_list = [],
-                    start_index = i * this.defaultTable.col_number,
-                    end_index = (i + 1) * this.defaultTable.col_number;
-                for (let j = start_index; j < end_index; j++) {
-                    li_list.push(current_months[j]);
+                let rowlist = [],
+                    startIndex = i * this.defaultTable.col_number,
+                    endIndex = (i + 1) * this.defaultTable.col_number;
+                for (let j = startIndex; j < endIndex; j++) {
+                    rowlist.push(currentMonths[j]);
                 }
-                ul_list.push(li_list);
+                monthslist.push(rowlist);
             }
         }
-        selectYear = selectYear.toString();
-        let leftNextYear = maxValue && (moment(maxValue).format('YYYY') <= +selectYear);
-        let rightPreYear = minValue && (moment(minValue).format('YYYY') >= +selectYear);
+
+        return monthslist;
+    };
+
+    render() {
+
+        const {maxValue, minValue, previousYearIconCls, nextYearIconCls} = this.props, {selectYear} = this.state,
+            {previousYear, nextYear, previousLevel} = this,
+            monthsRenderArray = this.monthsRender(),
+            leftNextYear = maxValue && (moment(maxValue).format('YYYY') <= +selectYear),
+            rightPreYear = minValue && (moment(minValue).format('YYYY') >= +selectYear);
 
         return (
             <div className={'calendar'}>
@@ -158,7 +162,7 @@ class MonthPicker extends Component {
                             </i>
                     }
 
-                    <span onClick={previousLevel}>{selectYear}</span>
+                    <span className="date-text" onClick={previousLevel}>{selectYear}</span>
                     {
                         leftNextYear ?
                             null
@@ -173,7 +177,7 @@ class MonthPicker extends Component {
                 <div className="calendar-body  calendar-month-body">
                     <div className="c-body-content">
                         {
-                            ul_list && ul_list.map((item, key) =>
+                            monthsRenderArray && monthsRenderArray.map((item, key) =>
                                 <ul key={'ul' + key}
                                     className="content-row month">
                                     {item}

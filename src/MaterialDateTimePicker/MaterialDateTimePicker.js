@@ -347,30 +347,26 @@ class MaterialDateTimePicker extends Component {
                                 <div className="action fl">
                                     {
                                         (minValue && moment(this.props.value).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(this.props.value)) ?
-                                            <a href="javascript:;"
-                                               className="fl">
+                                            <span className="fl date-text ">
                                                 <span className="item-gray">Now</span>
-                                            </a>
+                                            </span>
                                             :
-                                            <a href="javascript:;"
-                                               className="fl"
-                                               onClick={this.handleNow}>
+                                            <span className="fl date-text"
+                                                  onClick={this.handleNow}>
                                                 Now
-                                            </a>
+                                            </span>
                                     }
                                     {
                                         datePickerLevel == 'time' ?
-                                            <a href="javascript:;"
-                                               className="fr"
-                                               onClick={() => this.handleChooseDateAndTime('day')}>
+                                            <span className="fr date-text"
+                                                  onClick={() => this.handleChooseDateAndTime('day')}>
                                                 Select date
-                                            </a>
+                                            </span>
                                             :
-                                            <a href="javascript:;"
-                                               className="fr"
-                                               onClick={() => this.handleChooseDateAndTime('time')}>
+                                            <span className="fr date-text"
+                                                  onClick={() => this.handleChooseDateAndTime('time')}>
                                                 Select time
-                                            </a>
+                                            </span>
                                     }
                                 </div>
                                 <div className="select-button fr"

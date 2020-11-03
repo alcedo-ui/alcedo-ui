@@ -62,7 +62,8 @@ input::-ms-clear {
                 font-size: 14px;
                 border-bottom: 1px solid #dfdfdf;
                 border-top: 1px solid #dfdfdf;
-                span {
+
+                .date-text {
                     margin: 0 20px;
                     cursor: pointer;
                 }
@@ -111,7 +112,7 @@ input::-ms-clear {
                             float: left;
                             text-align: center;
                             overflow: hidden;
-                            a {
+                            .date-text {
                                 display: inline-block;
                                 width: 30px;
                                 height: 30px;
@@ -123,26 +124,26 @@ input::-ms-clear {
                         }
                         li.current-days {
                             cursor: pointer;
-                            a {
+                            .date-text {
                                 color: $theme-field;
                                 background: $theme-field-bg;
                                 border-radius: 50%;
                                 overflow: hidden;
                             }
                             &:hover {
-                                a {
+                                .date-text {
                                     background: $theme-field-bg-active;
                                     color: $theme-field-hover;
                                 }
                             }
                             &.active {
-                                a {
+                                .date-text {
                                     border-radius: 50%;
                                     background: $theme-highlight;
                                     color: #fff;
                                 }
                                 &:hover {
-                                    a {
+                                    .date-text {
                                         background: theme-color-hover($theme-highlight);
                                     }
                                 }
@@ -150,7 +151,7 @@ input::-ms-clear {
                             }
                         }
                         li.item-gray {
-                            a {
+                            .date-text {
                                 color: $theme-field-disabled;
                                 cursor: not-allowed;
                             }
@@ -170,7 +171,7 @@ input::-ms-clear {
                             height: 60px;
                             width: 33.2%;
                             text-align: center;
-                            a {
+                            .date-text {
                                 display: inline-block;
                                 width: 40px;
                                 height: 40px;
@@ -180,22 +181,23 @@ input::-ms-clear {
                                 margin-top: 5px;
                                 border-radius: 50%;
                                 overflow: hidden;
+                                cursor: pointer;
                             }
                             &.current-months,
                             &.current-years {
                                 &:hover {
-                                    a {
+                                    .date-text {
                                         background: $theme-field-bg-active;
                                         color: $theme-field-hover;
                                     }
                                 }
                                 &.active {
-                                    a {
+                                    .date-text {
                                         background: $theme-highlight;
                                         color: #fff;
                                     }
                                     &:hover {
-                                        a {
+                                        .date-text {
                                             background: theme-color-hover($theme-highlight);
                                             color: #fff;
                                         }
@@ -211,7 +213,7 @@ input::-ms-clear {
             height: 40px;
             line-height: 40px;
             text-align: center;
-            a {
+            .date-text {
                 text-decoration: none;
                 color: $theme-field;
                 position: relative;

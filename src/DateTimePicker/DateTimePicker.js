@@ -348,9 +348,9 @@ class DateTimePicker extends Component {
                                     {
                                         (minValue && moment(this.props.value).isBefore(minValue))
                                         || (maxValue && moment(maxValue).isBefore(this.props.value)) ?
-                                            <a href="javascript:;" className="fl">
+                                            <span className="fl date-text">
                                                 <span className="item-gray">Now</span>
-                                            </a>
+                                            </span>
                                             :
                                             <FlatButton className='today-button fl'
                                                         value={'Now'}
@@ -358,17 +358,19 @@ class DateTimePicker extends Component {
                                     }
                                     {
                                         datePickerLevel == 'time' ?
-                                            <a href="javascript:;" className="fr" onClick={() =>
-                                                this.handleChooseDateAndTime('day')
-                                            }>
+                                            <span className="fr date-text"
+                                                  onClick={() =>
+                                                      this.handleChooseDateAndTime('day')
+                                                  }>
                                                 Select date
-                                            </a>
+                                            </span>
                                             :
-                                            <a href="javascript:;" className="fr" onClick={() =>
-                                                this.handleChooseDateAndTime('time')
-                                            }>
+                                            <span className="fr date-text"
+                                                  onClick={() =>
+                                                      this.handleChooseDateAndTime('time')
+                                                  }>
                                                 Select time
-                                            </a>
+                                            </span>
                                     }
                                 </div>
                                 <div className="select-button fr"
