@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import classNames from 'classnames';
 
 import TouchRipple from '../TouchRipple';
 import ComponentUtil from '../_vendors/ComponentUtil';
@@ -105,9 +106,13 @@ class YearPicker extends Component {
         );
         for (let i = 0; i < YearArr.length; i++) {
 
-            let liClassName = `${Number(selectYear) == Number(YearArr[(i)]) ? 'active' : ''}
-                                           ${(maxValue && (moment(maxValue).format('YYYY') < Number(YearArr[(i)]))) ||
-            (minValue && (moment(minValue).format('YYYY') > Number(YearArr[(i)]))) ? 'item-gray' : 'current-years'}`;
+            let liClassName = classNames({
+                'active': Number(selectYear) == Number(YearArr[(i)]),
+                'item-gray': (maxValue && (moment(maxValue).format('YYYY') < Number(YearArr[(i)]))) ||
+                    (minValue && (moment(minValue).format('YYYY') > Number(YearArr[(i)]))),
+                'current-years': !(maxValue && (moment(maxValue).format('YYYY') < Number(YearArr[(i)]))) ||
+                    (minValue && (moment(minValue).format('YYYY') > Number(YearArr[(i)])))
+            });
 
             currentYearsArray.push(<li className={liClassName}
                                        key={'current' + i}
@@ -163,7 +168,9 @@ class YearPicker extends Component {
                         rightPreYear ?
                             null
                             :
-                            <i className={`previous-year ${previousYearIconCls}`}
+                            <i className={classNames('previous-year', {
+                                [previousYearIconCls]: previousYearIconCls
+                            })}
                                onClick={previousYear}>
                                 <TouchRipple/>
                             </i>
@@ -174,7 +181,9 @@ class YearPicker extends Component {
                         leftNextYear ?
                             null
                             :
-                            <i className={`next-year ${nextYearIconCls}`}
+                            <i className={classNames('next-year', {
+                                [nextYearIconCls]: nextYearIconCls
+                            })}
                                onClick={nextYear}>
                                 <TouchRipple/>
                             </i>

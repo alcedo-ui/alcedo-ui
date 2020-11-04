@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import classNames from 'classnames';
 
 import TouchRipple from '../TouchRipple';
 import ComponentUtil from '../_vendors/ComponentUtil';
@@ -105,10 +106,15 @@ class MonthPicker extends Component {
 
         for (let i = 0; i < MonthEn.length; i++) {
 
-            let liClassName = `${(currentYear == selectYear) && (Number(selectMonth) == (i + 1)) ? 'active' : ''}
-                                ${(maxValue && (moment(maxValue).format('YYYY') == selectYear) &&
-                (+(moment(maxValue).format('MM'))) < (i + 1)) || (minValue && (moment(minValue).format('YYYY') == selectYear) &&
-                (+(moment(minValue).format('MM'))) > (i + 1)) ? 'item-gray' : 'current-years'}`;
+            let liClassName = classNames({
+                'active': (currentYear == selectYear) && (Number(selectMonth) == (i + 1)),
+                'item-gray': (maxValue && (moment(maxValue).format('YYYY') == selectYear) &&
+                    (+(moment(maxValue).format('MM'))) < (i + 1)) || (minValue && (moment(minValue).format('YYYY') == selectYear) &&
+                    (+(moment(minValue).format('MM'))) > (i + 1)),
+                'current-years': !(maxValue && (moment(maxValue).format('YYYY') == selectYear) &&
+                    (+(moment(maxValue).format('MM'))) < (i + 1)) || (minValue && (moment(minValue).format('YYYY') == selectYear) &&
+                    (+(moment(minValue).format('MM'))) > (i + 1))
+            });
 
             currentMonths.push(<li className={liClassName}
                                    key={'current' + i}
@@ -156,7 +162,9 @@ class MonthPicker extends Component {
                         rightPreYear ?
                             null
                             :
-                            <i className={`previous-year ${previousYearIconCls}`}
+                            <i className={classNames('previous-year', {
+                                [previousYearIconCls]: previousYearIconCls
+                            })}
                                onClick={previousYear}>
                                 <TouchRipple/>
                             </i>
@@ -167,7 +175,9 @@ class MonthPicker extends Component {
                         leftNextYear ?
                             null
                             :
-                            <i className={`next-year ${nextYearIconCls}`}
+                            <i className={classNames('next-year', {
+                                [nextYearIconCls]: nextYearIconCls
+                            })}
                                onClick={nextYear}>
                                 <TouchRipple/>
                             </i>

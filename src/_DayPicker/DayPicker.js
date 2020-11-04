@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import TouchRipple from '../TouchRipple';
 
 // Vendors
+import classNames from 'classnames';
 import moment from 'moment';
 import Util from '../_vendors/Util';
 import ComponentUtil from '../_vendors/ComponentUtil';
@@ -108,7 +109,7 @@ class DayPicker extends Component {
 
     previousYear = () => {
         const {monthAndYearChange} = this.props,
-            {currentYear, currentMonth, currentDay, selectYear, selectMonth, selectDay, dateNumArray, firstDay} = this.state,
+            {currentYear, currentMonth, currentDay, selectYear, selectMonth} = this.state,
             selectedYear = +selectYear - 1,
             selectedDay = Number(currentYear) === Number(selectedYear) &&
             Number(currentMonth) === Number(selectMonth) ?
@@ -236,9 +237,15 @@ class DayPicker extends Component {
         for (let i = 0; i < Number(monthDays); i++) {
 
             const item = moment([Number(selectYear), (Number(selectMonth) - 1), (i + 1)]).format('YYYY-MM-DD'),
-                liClassName = `${start == item ? 'start' : ''} ${item == end || item == hover ? 'end' : ''} ${moment(start).isBefore(item) && moment(item).isBefore(end)
-                || moment(start).isBefore(item) && moment(item).isBefore(hover) ? 'hover' : ''} ${i == 0 ? 'first-day' : ''} ${i == (+monthDays - 1) ? 'last-day' : ''}
-                    ${(minValue && moment(item).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(item)) ? 'item-gray' : 'current-days'}`;
+                liClassName = classNames({
+                    'start': start == item,
+                    'end': item == end || item == hover,
+                    'hover': moment(start).isBefore(item) && moment(item).isBefore(end) || moment(start).isBefore(item) && moment(item).isBefore(hover),
+                    'first-day': i == 0,
+                    'last-day': i == (+monthDays - 1),
+                    'item-gray': (minValue && moment(item).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(item)),
+                    'current-days': !(minValue && moment(item).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(item))
+                });
 
             renderArray.push((
                 <li className={liClassName}
@@ -275,9 +282,12 @@ class DayPicker extends Component {
 
         for (let i = 0; i < Number(monthDays); i++) {
 
-            let item = moment([Number(selectYear), (Number(selectMonth) - 1), (i + 1)]).format('YYYY-MM-DD');
-            let liClassName = `${(selectYear == currentYear) && (selectMonth == currentMonth) && (i + 1 == selectDay) ? 'active' : ''} 
-                ${(minValue && moment(item).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(item)) ? 'item-gray' : 'current-days'}`;
+            const item = moment([Number(selectYear), (Number(selectMonth) - 1), (i + 1)]).format('YYYY-MM-DD'),
+                liClassName = classNames({
+                    'active': (selectYear == currentYear) && (selectMonth == currentMonth) && (i + 1 == selectDay),
+                    'item-gray': (minValue && moment(item).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(item)),
+                    'current-days': !(minValue && moment(item).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(item))
+                });
 
             renderArray.push((
                 <li className={liClassName}
@@ -347,14 +357,18 @@ class DayPicker extends Component {
                     minValue ?
                         (moment(minValue).format('YYYY') < +selectYear - 1) ||
                         (moment(minValue).format('YYYY') == +selectYear - 1 && moment(minValue).format('MM') <= selectMonth) ?
-                            <i className={`previous-year ${previousYearIconCls}`}
+                            <i className={classNames('previous-year', {
+                                [previousYearIconCls]: previousYearIconCls
+                            })}
                                onClick={previousYear}>
                                 <TouchRipple/>
                             </i>
                             :
                             null
                         :
-                        <i className={`previous-year ${previousYearIconCls}`}
+                        <i className={classNames('previous-year', {
+                            [previousYearIconCls]: previousYearIconCls
+                        })}
                            onClick={previousYear}>
                             <TouchRipple/>
                         </i>
@@ -363,14 +377,18 @@ class DayPicker extends Component {
                     minValue ?
                         (moment(minValue).format('YYYY') == selectYear && moment(minValue).format('MM') < selectMonth) ||
                         moment(minValue).format('YYYY') < selectYear ?
-                            <i className={`previous-month ${previousMonthIconCls}`}
+                            <i className={classNames('previous-month', {
+                                [previousMonthIconCls]: previousMonthIconCls
+                            })}
                                onClick={previousMonth}>
                                 <TouchRipple/>
                             </i>
                             :
                             null
                         :
-                        <i className={`previous-month ${previousMonthIconCls}`}
+                        <i className={classNames('previous-month', {
+                            [previousMonthIconCls]: previousMonthIconCls
+                        })}
                            onClick={previousMonth}>
                             <TouchRipple/>
                         </i>
@@ -389,14 +407,18 @@ class DayPicker extends Component {
                     maxValue ?
                         (moment(maxValue).format('YYYY') == selectYear && selectMonth < moment(maxValue).format('MM')) ||
                         maxValue && selectYear < moment(maxValue).format('YYYY') ?
-                            <i className={`next-month ${nextMonthIconCls}`}
+                            <i className={classNames('next-month', {
+                                [nextMonthIconCls]: nextMonthIconCls
+                            })}
                                onClick={nextMonth}>
                                 <TouchRipple/>
                             </i>
                             :
                             null
                         :
-                        <i className={`next-month ${nextMonthIconCls}`}
+                        <i className={classNames('next-month', {
+                            [nextMonthIconCls]: nextMonthIconCls
+                        })}
                            onClick={nextMonth}>
                             <TouchRipple/>
                         </i>
@@ -406,14 +428,18 @@ class DayPicker extends Component {
                     maxValue ?
                         (selectYear < +moment(maxValue).format('YYYY') - 1) ||
                         (selectYear == moment(maxValue).format('YYYY') - 1 && selectMonth <= moment(maxValue).format('MM')) ?
-                            <i className={`next-year ${nextYearIconCls}`}
+                            <i className={classNames('next-year', {
+                                [nextYearIconCls]: nextYearIconCls
+                            })}
                                onClick={nextYear}>
                                 <TouchRipple/>
                             </i>
                             :
                             null
                         :
-                        <i className={`next-year ${nextYearIconCls}`}
+                        <i className={classNames('next-year', {
+                            [nextYearIconCls]: nextYearIconCls
+                        })}
                            onClick={nextYear}>
                             <TouchRipple/>
                         </i>
@@ -446,7 +472,9 @@ class DayPicker extends Component {
                         calendarHeaderRightRender ? calendarHeaderRightRender : null
                     }
                 </div>
-                <div className={`calendar-body calendar-day-body ${isFooter ? '' : ' maxHeight'}`}>
+                <div className={classNames('calendar-body', 'calendar-day-body', {
+                    'maxHeight': isFooter
+                })}>
                     <ul className="c-body-head">
                         <li>Sun</li>
                         <li>Mon</li>
