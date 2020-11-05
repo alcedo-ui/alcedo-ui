@@ -161,6 +161,42 @@ function isItemIndeterminate(node, value, {valueField, displayField}) {
 
 }
 
+function filterAutoCompleteData(filter, props) {
+
+    const {data, minFilterLength} = props;
+
+    if (!filter || filter.length < minFilterLength) {
+        return data;
+    }
+
+    const {valueField, displayField, renderer} = props;
+
+    return data?.filter(item => {
+
+        if (!item) {
+            return false;
+        }
+
+        if (renderer) {
+            return renderer(item).toString().toUpperCase().includes(filter.toUpperCase());
+        }
+
+        if (typeof item === 'object') {
+
+            const itemDisplay = Util.getTextByDisplayField(item, displayField, valueField);
+
+            if (itemDisplay) {
+                return itemDisplay.toString().toUpperCase().includes(filter.toUpperCase());
+            }
+
+        }
+
+        return item.toString().toUpperCase().includes(filter.toUpperCase());
+
+    });
+
+}
+
 function filterLocalAutoCompleteData(filter, props) {
 
     const {data, minFilterLength} = props;
@@ -175,7 +211,7 @@ function filterLocalAutoCompleteData(filter, props) {
         return filterCallback(filter, data);
     }
 
-    return data && data.filter(item => {
+    return data?.filter(item => {
 
         if (!item) {
             return false;
@@ -209,5 +245,6 @@ export default {
     displayIndexByScrollTopMulColumns,
     isItemChecked,
     isItemIndeterminate,
+    filterAutoCompleteData,
     filterLocalAutoCompleteData
 };
