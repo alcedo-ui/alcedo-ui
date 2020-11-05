@@ -4,17 +4,20 @@
  */
 
 import React, {Component, createRef} from 'react';
-import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import domContains from 'dom-helpers/contains';
 
+// Components
 import PositionPop from '../_PositionPop';
 import Paper from '../Paper';
 
+// Statics
 import Theme from '../Theme';
 import Position from '../_statics/Position';
 
+// Vendors
+import {findDOMNode} from 'react-dom';
+import classNames from 'classnames';
+import domContains from 'dom-helpers/contains';
 import Dom from '../_vendors/Dom';
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
@@ -31,6 +34,19 @@ class Drawer extends Component {
 
         this.drawerContent = createRef();
 
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (!prevProps.visible && this.props.visible) {
+            Event.addEvent(document, 'click', this.handleClose);
+        } else if (prevProps.visible && !this.props.visible) {
+            Event.removeEvent(document, 'click', this.handleClose);
+        }
+    }
+
+    componentWillUnmount() {
+        Event.removeEvent(document, 'click', this.handleClose);
+        PopManagement.pop(this);
     }
 
     drawerVisibleHandler = (el, drawerEl, currentVisible, isBlurClose) => {
@@ -91,19 +107,6 @@ class Drawer extends Component {
 
     };
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (!prevProps.visible && this.props.visible) {
-            Event.addEvent(document, 'click', this.handleClose);
-        } else if (prevProps.visible && !this.props.visible) {
-            Event.removeEvent(document, 'click', this.handleClose);
-        }
-    }
-
-    componentWillUnmount() {
-        Event.removeEvent(document, 'click', this.handleClose);
-        PopManagement.pop(this);
-    }
-
     render() {
 
         const {
@@ -111,7 +114,7 @@ class Drawer extends Component {
             className, depth,
 
             // not passing down these props
-            isBlurClose, isEscClose, onRender, onRequestClose,
+            isBlurClose, isEscClose, onRender, onRequestClose, drawerVisibleHandler,
 
             ...restProps
 
@@ -122,7 +125,7 @@ class Drawer extends Component {
                          className={classNames('drawer', {
                              [className]: className
                          })}
-                         container={<Paper ref={this.drawerContent}></Paper>}
+                         container={<Paper ref={this.drawerContent}/>}
                          depth={depth}
                          onRender={this.handleRender}
                          onDestroy={this.handleDestroy}/>
