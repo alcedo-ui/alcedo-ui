@@ -240,7 +240,7 @@ class DayPicker extends Component {
                 liClassName = classNames({
                     'start': start == item,
                     'end': item == end || item == hover,
-                    'hover': moment(start).isBefore(item) && moment(item).isBefore(end) || moment(start).isBefore(item) && moment(item).isBefore(hover),
+                    'hover': (moment(start).isBefore(item) && moment(item).isBefore(end)) || (moment(start).isBefore(item) && moment(item).isBefore(hover)),
                     'first-day': i == 0,
                     'last-day': i == (+monthDays - 1),
                     'item-gray': (minValue && moment(item).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(item)),
@@ -452,7 +452,7 @@ class DayPicker extends Component {
 
     render() {
 
-        const {isFooter} = this.props, {selectYear, selectMonth} = this.state,
+        const {isFooter, isRange} = this.props, {selectYear, selectMonth} = this.state,
             {previousLevel} = this, MonthEn = Util.getMonth(+selectMonth),
             calendarHeaderLeftRender = this.calendarHeaderLeftRender(),
             calendarHeaderRightRender = this.calendarHeaderRightRender(),
@@ -473,7 +473,8 @@ class DayPicker extends Component {
                     }
                 </div>
                 <div className={classNames('calendar-body', 'calendar-day-body', {
-                    'maxHeight': isFooter
+                    'maxHeight': !isFooter,
+                    'isRange': isRange
                 })}>
                     <ul className="c-body-head">
                         <li>Sun</li>

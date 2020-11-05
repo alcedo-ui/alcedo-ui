@@ -1,0 +1,351 @@
+.calendar {
+    user-select: none;
+
+    .calendar-header {
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        font-size: 14px;
+        border-bottom: 1px solid #dfdfdf;
+
+        .date-text {
+            margin: 0 20px;
+            cursor: pointer;
+        }
+
+        i {
+            cursor: pointer;
+            width: 20px;
+            height: 18px;
+            font-size: 22px;
+            position: relative;
+            overflow: hidden;
+            color: #c5c9ce;
+        }
+
+        //span:hover, i:hover {
+        //    background: #ecf6fd;
+        //    border-radius: 4px;
+        //}
+    }
+
+    .calendar-body {
+        padding-bottom: 5px;
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 10px;
+        }
+
+        .c-body-head {
+            overflow: hidden;
+
+            li {
+                width: 14%;
+                height: 14px;
+                float: left;
+                text-align: center;
+            }
+        }
+
+        .c-body-content {
+            width: 100%;
+
+            .content-row {
+                width: 100%;
+                height: 30px;
+                overflow: hidden;
+                padding: 0 10px;
+                box-sizing: border-box;
+
+                li {
+                    height: 30px;
+                    width: 14%;
+                    float: left;
+                    text-align: center;
+                    overflow: hidden;
+
+                    .date-text {
+                        display: inline-block;
+                        width: 30px;
+                        height: 30px;
+                        line-height: 30px;
+                        text-decoration: none;
+                        text-align: center;
+                        position: relative;
+                    }
+                }
+
+                li.current-days {
+                    cursor: pointer;
+
+                    .date-text {
+                        color: $theme-field;
+                        background: $theme-field-bg;
+                        border-radius: 50%;
+                        overflow: hidden;
+                    }
+
+                    &:hover {
+                        .date-text {
+                            background: $theme-field-bg-active;
+                            color: $theme-field-hover;
+                        }
+                    }
+
+                    &.active {
+                        .date-text {
+                            border-radius: 50%;
+                            background: $theme-highlight;
+                            color: #fff;
+                        }
+
+                        &:hover {
+                            .date-text {
+                                background: theme-color-hover($theme-highlight);
+                            }
+                        }
+
+                    }
+                }
+
+                li.item-gray {
+                    .date-text {
+                        color: $theme-field-disabled;
+                        cursor: not-allowed;
+                    }
+                }
+            }
+
+        }
+
+        &.isRange {
+
+            border-bottom: 1px solid #dfdfdf;
+            padding-bottom: 5px;
+
+            ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 10px;
+            }
+
+            .c-body-head {
+                overflow: hidden;
+
+                li {
+                    width: 14%;
+                    height: 14px;
+                    float: left;
+                    text-align: center;
+                }
+            }
+
+            .c-body-content {
+                width: 100%;
+
+                .content-row {
+                    width: 100%;
+                    height: 30px;
+                    overflow: hidden;
+                    padding: 0 10px;
+                    box-sizing: border-box;
+
+                    li {
+                        height: 30px;
+                        width: 14%;
+                        float: left;
+                        text-align: center;
+                        overflow: hidden;
+                        transition: none;
+
+                        .date-text {
+                            display: inline-block;
+                            width: 30px;
+                            height: 30px;
+                            line-height: 30px;
+                            text-decoration: none;
+                            text-align: center;
+                            position: relative;
+                            transition: none;
+                            color: $theme-field;
+                            background: $theme-field-bg;
+                        }
+                    }
+
+                    li.current-days {
+                        cursor: pointer;
+
+                        .date-text {
+                            color: $theme-field;
+                            background: $theme-field-bg;
+                            border-radius: 50%;
+                            overflow: hidden;
+                        }
+
+                        &.start,
+                        &.end,
+                        &.hover {
+                            .date-text {
+                                width: 100%;
+                            }
+                        }
+
+                        &.hover {
+                            .date-text {
+                                border-radius: 0;
+                            }
+                        }
+
+                        &:hover {
+                            .date-text {
+                                background: $theme-field-bg-active;
+                                color: $theme-field-hover;
+                            }
+                        }
+
+                        &.active {
+                            .date-text {
+                                border-radius: 50%;
+                                background: $theme-highlight;
+                                color: #fff;
+                            }
+
+                            &:hover {
+                                .date-text {
+                                    background: theme-color-hover($theme-highlight);
+                                }
+                            }
+
+                        }
+
+                        &.start {
+                            .date-text {
+                                border-bottom-left-radius: 50%;
+                                border-top-left-radius: 50%;
+                                border-bottom-right-radius: 0;
+                                border-top-right-radius: 0;
+                                background: $theme-highlight;
+                                color: #fff;
+                            }
+
+                        }
+
+                        &.end {
+                            .date-text {
+                                border-bottom-right-radius: 50%;
+                                border-top-right-radius: 50%;
+                                border-bottom-left-radius: 0;
+                                border-top-left-radius: 0;
+                                background: $theme-highlight;
+                                color: #fff;
+                            }
+
+                        }
+
+                        &.start:hover,
+                        &.end:hover {
+                            .date-text {
+                                background: theme-color-hover($theme-highlight);
+                            }
+
+                        }
+
+                        &.item-gray {
+                            .date-text {
+                                color: $theme-field-disabled;
+                                cursor: not-allowed;
+                            }
+                        }
+                    }
+
+                    li.item-gray {
+                        .date-text {
+                            color: $theme-field-disabled;
+                            cursor: not-allowed;
+                        }
+                    }
+                }
+
+            }
+
+
+            &.maxHeight {
+                border-bottom: none;
+
+                .c-body-content {
+                    .content-row {
+                        height: 35px;
+
+                        li {
+                            height: 35px;
+
+                            .date-text {
+                                width: 35px;
+                                height: 35px;
+                                line-height: 35px;
+                            }
+                        }
+
+                        li.hover {
+                            background: $theme-field-bg-active;
+                            color: $theme-field-hover;
+                        }
+                    }
+
+                    .margin-5 {
+                        height: 35px;
+
+                        li {
+                            height: 28px;
+
+                            .date-text {
+                                width: 28px;
+                                height: 28px;
+                                line-height: 28px;
+                            }
+                        }
+
+                        li.hover,
+                        li.start,
+                        li.end {
+                            background: $theme-highlight;
+
+                            .date-text {
+                                color: #fff;
+                                background: inherit;
+                            }
+                        }
+
+                        li.start,
+                        li:first-child,
+                        li.first-day {
+                            border-bottom-left-radius: 14px;
+                            border-top-left-radius: 14px;
+                        }
+
+                        li.end,
+                        li:last-child,
+                        li.last-day {
+                            border-bottom-right-radius: 14px;
+                            border-top-right-radius: 14px;
+                        }
+
+                        li.hover:hover,
+                        li.start:hover,
+                        li.end:hover {
+                            .date-text {
+                                background: theme-color-hover($theme-highlight);
+                                color: #fff;
+                            }
+
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+}

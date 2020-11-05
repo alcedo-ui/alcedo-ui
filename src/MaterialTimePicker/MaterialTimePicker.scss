@@ -11,8 +11,10 @@ input::-ms-clear {
     position: relative;
     display: inline-block;
     width: 300px;
+
     .wrapper {
         height: 100%;
+
         .time-picker-field {
 
             @include shadow(1);
@@ -20,10 +22,12 @@ input::-ms-clear {
             width: 100%;
             height: 100%;
             border-radius: $theme-border-radius;
+
             &.focused {
                 border: 1px solid $theme-border;
                 @include shadow(1);
             }
+
             input {
                 line-height: 20px;
                 padding: 10px 40px !important;
@@ -42,6 +46,7 @@ input::-ms-clear {
                 }
 
             }
+
             .clear-icon {
                 display: none;
             }
@@ -62,6 +67,7 @@ input::-ms-clear {
         width: 300px;
         height: 260px;
         margin-top: 1px;
+
         &.hidden {
             width: 100%;
             height: 100%;
@@ -69,21 +75,26 @@ input::-ms-clear {
             z-index: -1;
             visibility: hidden;
         }
+
         .popup-text-field {
             height: 40px;
             border: none;
             border-bottom: 1px solid #dfdfdf;
+
             input {
                 padding: 0 0 0 16px;
             }
+
             i {
                 height: 40px;
                 line-height: 40px;
             }
+
             .clear-icon {
                 margin: 0;
             }
         }
+
         .time-items {
             width: 100px;
             height: 260px;
@@ -94,42 +105,14 @@ input::-ms-clear {
             border-left: 1px solid #dfdfdf;
             user-select: none;
             transition: all $theme-transition-duration ease-in-out;
+
             &:first-child {
                 border: none;
             }
+
             &.hours {
                 .time-list {
                     height: 720px;
-                }
-            }
-            .time-list {
-                width: 100%;
-                height: 1800px;
-                margin: 0;
-                padding: 0;
-                overflow: hidden;
-                transform: translateY(0);
-                transition: all $theme-transition-duration ease-in-out;
-                li {
-                    list-style-type: none;
-                    height: 30px;
-                    width: 100%;
-                    padding-left: 45%;
-                    line-height: 30px;
-                    box-sizing: border-box;
-                    cursor: pointer;
-                    &:hover {
-                        background: $theme-field-bg-hover;
-                    }
-                    &.active {
-                        background: $theme-field-bg-active;
-                        color: $theme-field;
-                        font-weight: 600;
-                    }
-                    &.disabled {
-                        color: $theme-field-disabled;
-                        cursor: not-allowed;
-                    }
                 }
             }
         }

@@ -1,0 +1,87 @@
+.calendar {
+    user-select: none;
+
+    .calendar-header {
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        font-size: 14px;
+        border-bottom: 1px solid #dfdfdf;
+
+        .date-text {
+            margin: 0 20px;
+            cursor: pointer;
+        }
+
+        i {
+            cursor: pointer;
+            width: 20px;
+            height: 18px;
+            font-size: 22px;
+            position: relative;
+            overflow: hidden;
+            color: #c5c9ce;
+        }
+
+        //span:hover, i:hover {
+        //    background: #ecf6fd;
+        //    border-radius: 4px;
+        //}
+    }
+
+    .calendar-year-body {
+        border: none;
+
+        .c-body-content {
+            width: 100%;
+            padding-top: 14px;
+
+            .year {
+                height: 60px;
+
+                li {
+                    height: 60px;
+                    width: 33.2%;
+                    text-align: center;
+
+                    .date-text {
+                        display: inline-block;
+                        width: 40px;
+                        height: 40px;
+                        color: $theme-field;
+                        background: $theme-field-bg;
+                        line-height: 40px;
+                        margin-top: 5px;
+                        border-radius: 50%;
+                        overflow: hidden;
+                        cursor: pointer;
+                    }
+
+                    &.current-years {
+                        &:hover {
+                            .date-text {
+                                background: $theme-field-bg-active;
+                                color: $theme-field-hover;
+                            }
+                        }
+
+                        &.active {
+                            .date-text {
+                                background: $theme-highlight;
+                                color: #fff;
+                            }
+
+                            &:hover {
+                                .date-text {
+                                    background: theme-color-hover($theme-highlight);
+                                    color: #fff;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

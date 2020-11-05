@@ -65,55 +65,6 @@ input::-ms-clear {
                     margin: 0;
                 }
             }
-            .calendar{
-                overflow: hidden;
-                .time-items {
-                    height: 260px;
-                    padding-bottom: 230px;
-                    float: left;
-                    overflow-y: auto;
-                    box-sizing: border-box;
-                    border-left: 1px solid #dfdfdf;
-                    user-select: none;
-                    transition: all $theme-transition-duration ease-in-out;
-                    &:first-child {
-                        border: none;
-                    }
-                    &.hours{
-                        .time-list{
-                            height: 720px;
-                        }
-                    }
-                    .time-list {
-                        width: 100%;
-                        height: 1800px;
-                        margin: 0;
-                        padding: 0;
-                        overflow: hidden;
-                        li {
-                            list-style-type: none;
-                            height: 30px;
-                            width: 100%;
-                            padding-left: 45%;
-                            line-height: 30px;
-                            box-sizing: border-box;
-                            cursor: pointer;
-                            &:hover {
-                                background: $theme-field-bg-hover;
-                            }
-                            &.active {
-                                background: $theme-field-bg-active;
-                                color: $theme-field;
-                                font-weight: 600;
-                            }
-                            &.disabled {
-                                color: $theme-field-disabled;
-                                cursor: not-allowed;
-                            }
-                        }
-                    }
-                }
-            }
 
         }
 
