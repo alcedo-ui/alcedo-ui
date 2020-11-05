@@ -32,6 +32,19 @@ class LocalAutoComplete extends Component {
     static Theme = Theme;
     static Position = Position;
 
+    static getDerivedStateFromProps(props, state) {
+        const filter = ComponentUtil.getDerivedState(props, state, 'filter');
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value'),
+            filter,
+            listData: props.onRequestFilterData ?
+                props.onRequestFilterData(filter, props)
+                :
+                Calculation.filterLocalAutoCompleteData(filter, props)
+        };
+    }
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -51,9 +64,25 @@ class LocalAutoComplete extends Component {
             filterFocused: false,
             popupVisible: false,
             isAbove: false,
-            listData: Calculation.filterLocalAutoCompleteData(props.filter, props)
+            listData: props.onRequestFilterData ?
+                props.onRequestFilterData(props.filter, props)
+                :
+                Calculation.filterLocalAutoCompleteData(props.filter, props)
         };
 
+    }
+
+    componentDidMount() {
+
+        this.wrapperEl = this.wrapper?.current;
+        this.triggerEl = findDOMNode(this.trigger?.current);
+
+        Event.addEvent(document, 'mousedown', this.handleMouseDown);
+
+    }
+
+    componentWillUnmount() {
+        Event.removeEvent(document, 'mousedown', this.handleMouseDown);
     }
 
     handleNoMatch = () => {
@@ -144,7 +173,7 @@ class LocalAutoComplete extends Component {
 
     handleFilterChange = filter => {
 
-        const {data, minFilterLength} = this.props,
+        const {data, minFilterLength, onRequestFilterData} = this.props,
             state = {
                 filter,
                 popupVisible: filter != null && filter.length >= minFilterLength
@@ -154,7 +183,10 @@ class LocalAutoComplete extends Component {
             state.listData = data;
             state.tempSelectIndex = null;
         } else {
-            state.listData = Calculation.filterLocalAutoCompleteData(filter, this.props);
+            state.listData = onRequestFilterData ?
+                onRequestFilterData(filter, this.props)
+                :
+                Calculation.filterLocalAutoCompleteData(filter, this.props);
             state.tempSelectIndex = state.listData.length > 0 ? 0 : null;
         }
 
@@ -185,7 +217,7 @@ class LocalAutoComplete extends Component {
 
     handleItemClick = value => {
 
-        const {autoClose} = this.props,
+        const {autoClose, onRequestFilterData} = this.props,
             state = {
                 tempSelectIndex: null,
                 value
@@ -194,7 +226,10 @@ class LocalAutoComplete extends Component {
 
         state.filter = this.getFilterRender(value);
         if (state.filter !== this.state.filter) {
-            state.listData = Calculation.filterLocalAutoCompleteData(state.filter, this.props);
+            state.listData = onRequestFilterData ?
+                onRequestFilterData(state.filter, this.props)
+                :
+                Calculation.filterLocalAutoCompleteData(state.filter, this.props);
         }
 
         if (autoClose) {
@@ -280,29 +315,6 @@ class LocalAutoComplete extends Component {
             this.update();
         }
     };
-
-    componentDidMount() {
-
-        this.wrapperEl = this.wrapper?.current;
-        this.triggerEl = findDOMNode(this.trigger?.current);
-
-        Event.addEvent(document, 'mousedown', this.handleMouseDown);
-
-    }
-
-    componentWillUnmount() {
-        Event.removeEvent(document, 'mousedown', this.handleMouseDown);
-    }
-
-    static getDerivedStateFromProps(props, state) {
-        const filter = ComponentUtil.getDerivedState(props, state, 'filter');
-        return {
-            prevProps: props,
-            value: ComponentUtil.getDerivedState(props, state, 'value'),
-            filter,
-            listData: Calculation.filterLocalAutoCompleteData(filter, props)
-        };
-    }
 
     render() {
 
@@ -642,6 +654,8 @@ LocalAutoComplete.propTypes = {
     renderer: PropTypes.func,
 
     filterRenderer: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
+
+    onRequestFilterData: PropTypes.func,
 
     /**
      * The function that trigger when filter key down.
