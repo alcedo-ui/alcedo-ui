@@ -38,10 +38,7 @@ class LocalAutoComplete extends Component {
             prevProps: props,
             value: ComponentUtil.getDerivedState(props, state, 'value'),
             filter,
-            listData: props.onRequestFilterData ?
-                props.onRequestFilterData(filter, props)
-                :
-                Calculation.filterLocalAutoCompleteData(filter, props)
+            listData: Calculation.filterLocalAutoCompleteData(filter, props)
         };
     }
 
@@ -64,10 +61,7 @@ class LocalAutoComplete extends Component {
             filterFocused: false,
             popupVisible: false,
             isAbove: false,
-            listData: props.onRequestFilterData ?
-                props.onRequestFilterData(props.filter, props)
-                :
-                Calculation.filterLocalAutoCompleteData(props.filter, props)
+            listData: Calculation.filterLocalAutoCompleteData(props.filter, props)
         };
 
     }
@@ -173,7 +167,7 @@ class LocalAutoComplete extends Component {
 
     handleFilterChange = filter => {
 
-        const {data, minFilterLength, onRequestFilterData} = this.props,
+        const {data, minFilterLength} = this.props,
             state = {
                 filter,
                 popupVisible: filter != null && filter.length >= minFilterLength
@@ -183,10 +177,7 @@ class LocalAutoComplete extends Component {
             state.listData = data;
             state.tempSelectIndex = null;
         } else {
-            state.listData = onRequestFilterData ?
-                onRequestFilterData(filter, this.props)
-                :
-                Calculation.filterLocalAutoCompleteData(filter, this.props);
+            state.listData = Calculation.filterLocalAutoCompleteData(filter, this.props);
             state.tempSelectIndex = state.listData.length > 0 ? 0 : null;
         }
 
@@ -217,7 +208,7 @@ class LocalAutoComplete extends Component {
 
     handleItemClick = value => {
 
-        const {autoClose, onRequestFilterData} = this.props,
+        const {autoClose} = this.props,
             state = {
                 tempSelectIndex: null,
                 value
@@ -226,10 +217,7 @@ class LocalAutoComplete extends Component {
 
         state.filter = this.getFilterRender(value);
         if (state.filter !== this.state.filter) {
-            state.listData = onRequestFilterData ?
-                onRequestFilterData(state.filter, this.props)
-                :
-                Calculation.filterLocalAutoCompleteData(state.filter, this.props);
+            state.listData = Calculation.filterLocalAutoCompleteData(state.filter, this.props);
         }
 
         if (autoClose) {
@@ -654,8 +642,6 @@ LocalAutoComplete.propTypes = {
     renderer: PropTypes.func,
 
     filterRenderer: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
-
-    onRequestFilterData: PropTypes.func,
 
     /**
      * The function that trigger when filter key down.
