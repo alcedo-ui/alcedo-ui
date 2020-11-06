@@ -1,0 +1,1 @@
+(self.webpackChunkalcedo_ui=self.webpackChunkalcedo_ui||[]).push([[4517],{74517:(e,a,c)=>{"use strict";c.r(a),c.d(a,{default:()=>s});const s=c.p+"static/img/example.b60bdbd.jpg"}}]);
