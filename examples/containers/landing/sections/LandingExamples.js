@@ -14,6 +14,9 @@ import * as actions from 'reduxes/actions';
 import Paper from 'src/Paper';
 import FlatButton from 'src/FlatButton';
 
+// Images
+import exampleImg from 'assets/images/example.jpg';
+
 // Styles
 import 'scss/containers/landing/sections/LandingExamples.scss';
 
@@ -41,7 +44,7 @@ function LandingExamples({routerPush}) {
                         <div className="window-header-dot"></div>
                     </div>
                     <img className="landing-examples-demo-img"
-                         src={import('assets/images/example.jpg')}/>
+                         src={exampleImg}/>
                 </Paper>
 
             </div>
@@ -55,6 +58,6 @@ LandingExamples.propTypes = {
     routerPush: PropTypes.func
 };
 
-export default connect(state => ({}), dispatch => bindActionCreators({
+export default connect(null, dispatch => bindActionCreators({
     routerPush: actions.routerPush
 }, dispatch))(LandingExamples);
