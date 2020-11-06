@@ -19,9 +19,7 @@ import 'scss/containers/landing/sections/LandingExamples.scss';
 
 function LandingExamples({routerPush}) {
 
-    const goToExamples = useCallback(() => {
-        routerPush('/components');
-    });
+    const goToExamples = useCallback(() => routerPush('/components'));
 
     return (
         <section id="landing-examples"
