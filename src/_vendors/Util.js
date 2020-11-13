@@ -61,76 +61,6 @@ function value2Moment(value, format) {
 
 }
 
-function MonthDays(year) {
-    // debugger
-    let dateArray = [];
-    for (let i = 0; i < 12; i++) {
-        switch (i + 1) {
-            case 1:
-            case 3:
-            case 5:
-            case 7:
-            case 8:
-            case 10:
-            case 12:
-                dateArray.push(31);
-                break;
-            case 4:
-            case 6:
-            case 9:
-            case 11:
-                dateArray.push(30);
-                break;
-            case 2:
-                if (moment(year + '-02-29', 'YYYY-MM-DD', true).isValid()) {
-                    dateArray.push(29);
-                } else {
-                    dateArray.push(28);
-                }
-                break;
-            default:
-                break;
-        }
-    }
-    return dateArray;
-}
-
-function setDateRange(start, end) {
-
-    if (start.year == end.year && start.month == end.month) {
-        if (start.month == 12) {
-            end.year = +(end.year) + 1;
-            end.month = 1;
-        } else {
-            end.year = end.year;
-            end.month = +(end.month) + 1;
-        }
-    } else {
-        end.year = end.year;
-        end.month = end.month;
-    }
-
-    return {
-        start,
-        end
-    };
-}
-
-
-function getYearArr(num) {
-    let yearString = num.toString();
-    yearString = yearString.substr(0, yearString.length - 1);
-    let YearArr = [];
-    for (let i = 0; i < 10; i++) {
-        YearArr.push(yearString + i);
-    }
-    return YearArr;
-}
-
-function getMonth(num) {
-    return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][num - 1];
-}
-
 /**
  * enumerate object value for PropTypes.oneOf
  * @param enumerate
@@ -271,10 +201,6 @@ export default {
     formatCapitalize,
     value2Timestamp,
     value2Moment,
-    MonthDays,
-    setDateRange,
-    getYearArr,
-    getMonth,
     enumerateValue,
     tree,
     getValueByValueField,

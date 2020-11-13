@@ -10,7 +10,7 @@ import classNames from 'classnames';
 
 import TouchRipple from '../TouchRipple';
 import ComponentUtil from '../_vendors/ComponentUtil';
-import Util from '../_vendors/Util';
+import DateUtil from '../_vendors/DateUtil';
 
 
 class YearPicker extends Component {
@@ -25,7 +25,7 @@ class YearPicker extends Component {
         };
 
         this.state = {
-            YearArr: Util.getYearArr(props.year),
+            YearArr: DateUtil.getYearArr(props.year),
             selectYear: props.year,
             currentYear: moment(props.value).format('YYYY'),
             selectMonth: props.month,
@@ -49,7 +49,7 @@ class YearPicker extends Component {
     previousYear = () => {
         const {selectYear} = this.state;
         this.setState({
-            YearArr: Util.getYearArr(+selectYear - 10),
+            YearArr: DateUtil.getYearArr(+selectYear - 10),
             selectYear: +selectYear - 10
         });
     };
@@ -57,7 +57,7 @@ class YearPicker extends Component {
     nextYear = () => {
         const {selectYear} = this.state;
         this.setState({
-            YearArr: Util.getYearArr(+selectYear + 10),
+            YearArr: DateUtil.getYearArr(+selectYear + 10),
             selectYear: +selectYear + 10
         });
     };
@@ -66,7 +66,7 @@ class YearPicker extends Component {
         const {value, year} = this.props;
         if (value && year) {
             this.setState({
-                YearArr: Util.getYearArr(year),
+                YearArr: DateUtil.getYearArr(year),
                 selectYear: year,
                 currentYear: moment(value).format('YYYY'),
                 currentMonth: moment(value).format('MM')
@@ -83,7 +83,7 @@ class YearPicker extends Component {
             prevProps: props,
             value,
             selectYear,
-            YearArr: Util.getYearArr(selectYear),
+            YearArr: DateUtil.getYearArr(selectYear),
             currentYear: moment(value).format('YYYY'),
             currentMonth: moment(value).format('MM')
         };

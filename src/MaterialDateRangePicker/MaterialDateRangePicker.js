@@ -21,6 +21,7 @@ import Theme from '../Theme';
 import Position from '../_statics/Position';
 
 import Util from '../_vendors/Util';
+import DateUtil from '../_vendors/DateUtil';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
@@ -277,8 +278,8 @@ class MaterialDateRangePicker extends Component {
                     state.right.year = rightValue ? moment(value[1]).format('YYYY') : moment(value[0]).format('YYYY');
                     state.right.month = rightValue ? moment(value[1]).format('MM') : moment(value[0]).format('MM');
                     state.right.day = rightValue ? moment(value[1]).format('DD') : moment(value[0]).format('DD');
-                    state.left = Util.setDateRange(state.left, state.right).start;
-                    state.right = Util.setDateRange(state.left, state.right).end;
+                    state.left = DateUtil.setDateRange(state.left, state.right).start;
+                    state.right = DateUtil.setDateRange(state.left, state.right).end;
                     state.startTime = leftValue;
                     state.endTime = rightValue;
                     state.historyStartTime = leftValue;
@@ -301,8 +302,8 @@ class MaterialDateRangePicker extends Component {
                 state.endTime = '';
                 state.historyStartTime = '';
                 state.historyEndTime = '';
-                state.left = Util.setDateRange(state.left, state.right).start;
-                state.right = Util.setDateRange(state.left, state.right).end;
+                state.left = DateUtil.setDateRange(state.left, state.right).start;
+                state.right = DateUtil.setDateRange(state.left, state.right).end;
                 this.setState(state);
             }
         }
@@ -348,7 +349,7 @@ class MaterialDateRangePicker extends Component {
         maxYear = maxMonth == 1 ? +maxYear - 1 : maxYear;
         maxMonth = maxMonth == 1 ? 11 : +maxMonth - 2;
 
-        let maxDay = Util.MonthDays(maxYear)[maxMonth],
+        let maxDay = DateUtil.MonthDays(maxYear)[maxMonth],
             leftMaxValue = maxValue && moment([maxYear, maxMonth, maxDay]).isAfter(maxValue) ?
                 maxValue
                 :

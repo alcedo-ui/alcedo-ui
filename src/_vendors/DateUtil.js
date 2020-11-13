@@ -5,38 +5,6 @@
 
 import moment from 'moment';
 
-function value2Timestamp(value, format) {
-
-    const defaultValue = new Date().getTime();
-
-    if (typeof value === 'number') {
-        return new Date(value).toString() === 'Invalid Date' ? defaultValue : value;
-    } else if (typeof value === 'string') {
-        let date = moment(value, format);
-        return date.isValid() ? date.valueOf() : defaultValue;
-    } else if (moment.isDate(value)) {
-        let date = moment(value);
-        return date.isValid() ? date.valueOf() : defaultValue;
-    }
-
-    return defaultValue;
-
-}
-
-function value2Moment(value, format) {
-
-    const defaultValue = moment();
-
-    if (typeof value === 'string') {
-        let date = moment(value, format);
-        return date.isValid() ? date : defaultValue;
-    } else {
-        let date = moment(value);
-        return date.isValid() ? date : defaultValue;
-    }
-
-}
-
 function MonthDays(year) {
     // debugger
     let dateArray = [];
@@ -107,7 +75,6 @@ function getMonth(num) {
     return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][num - 1];
 }
 
-
 function getPrevMaxCloserDate(selectedDate, compareDateArray) {
     let prevDateArray = compareDateArray.slice().filter(item => new Date(selectedDate) - (new Date(item?.value[1])) > 0).map(item => new Date(item?.value[1]).valueOf());
     return compareDateArray.find(item => new Date(item?.value[1]).valueOf() === Math.max(...prevDateArray));
@@ -119,8 +86,6 @@ function getNextMinCloserDate(selectedDate, compareDateArray) {
 }
 
 export default {
-    value2Timestamp,
-    value2Moment,
     MonthDays,
     setDateRange,
     getYearArr,
