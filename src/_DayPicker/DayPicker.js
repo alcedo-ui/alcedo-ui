@@ -545,7 +545,8 @@ DayPicker.propTypes = {
 };
 
 DayPicker.defaultProps = {
-    isFooter: false
+    isFooter: false,
+    otherSelectedDate: []
 };
 
 export default DayPicker;
