@@ -216,10 +216,13 @@ class DateRangePickerContent extends Component {
     render() {
 
         const {
-                className, dateFormat, maxValue, minValue, previousYearIconCls, previousMonthIconCls, nextYearIconCls,
-                nextMonthIconCls
+                className, dateFormat, maxValue, minValue, ...restProps
             } = this.props,
-            {left, right, startTime, endTime, hoverTime} = this.state;
+            {left, right, startTime, endTime, hoverTime} = this.state,
+            {
+                monthAndYearChangeHandle, dayPickerChangeHandle, datePickerChangeHandle, dayPickerHoverHandle,
+                monthPickerChangeHandle, yearPickerChangeHandle
+            } = this;
 
         let maxYear = right.year, maxMonth = right.month;
         maxYear = maxMonth == 1 ? +maxYear - 1 : maxYear;
@@ -238,146 +241,75 @@ class DateRangePickerContent extends Component {
         let rightMinValue = minValue && moment([minYear, minMonth - 1, 1]).isBefore(minValue) ?
             minValue
             :
-            moment([minYear, minMonth - 1, 1]).format('YYYY-MM-DD');
+            moment([minYear, minMonth - 1, 1]).format('YYYY-MM-DD'),
+            leftProps = {
+                ...left,
+                value: left.text,
+                maxValue: leftMaxValue,
+                minValue: minValue,
+                startTime,
+                endTime,
+                hoverTime,
+                dateFormat
+            }, rightProps = {
+                ...right,
+                value: right.text,
+                minValue: rightMinValue,
+                maxValue: maxValue,
+                startTime,
+                endTime,
+                hoverTime,
+                dateFormat
+            };
         return (
 
             <div className={`date-range-picker-content ${className}`}>
                 {
                     left.datePickerLevel == 'day' ?
-                        <DayPicker
-                            value={left.text}
-                            dateFormat={dateFormat}
-                            year={left.year}
-                            month={left.month}
-                            day={left.day}
-                            isFooter={false}
-                            isRange={true}
-                            maxValue={leftMaxValue}
-                            minValue={minValue}
-                            startTime={startTime}
-                            endTime={endTime}
-                            hoverTime={hoverTime}
-                            previousYearIconCls={previousYearIconCls}
-                            previousMonthIconCls={previousMonthIconCls}
-                            nextYearIconCls={nextYearIconCls}
-                            nextMonthIconCls={nextMonthIconCls}
-                            monthAndYearChange={(obj) => {
-                                this.monthAndYearChangeHandle('left', obj);
-                            }}
-                            onChange={(obj) => {
-                                this.dayPickerChangeHandle('left', obj);
-                            }}
-                            previousClick={(level) => {
-                                this.datePickerChangeHandle('left', level);
-                            }}
-                            hoverHandle={(obj) => {
-                                this.dayPickerHoverHandle('left', obj);
-                            }}/>
+                        <DayPicker {...restProps}
+                                   {...leftProps}
+                                   isFooter={false}
+                                   isRange={true}
+                                   monthAndYearChange={date => monthAndYearChangeHandle('left', date)}
+                                   onChange={date => dayPickerChangeHandle('left', date)}
+                                   previousClick={pickerLevel => datePickerChangeHandle('left', pickerLevel)}
+                                   hoverHandle={date => dayPickerHoverHandle('left', date)}/>
                         :
                         (
                             left.datePickerLevel == 'month' ?
-                                <MonthPicker
-                                    value={left.text}
-                                    year={left.year}
-                                    month={left.month}
-                                    day={left.day}
-                                    maxValue={leftMaxValue}
-                                    minValue={minValue}
-                                    previousYearIconCls={previousYearIconCls}
-                                    previousMonthIconCls={previousMonthIconCls}
-                                    nextYearIconCls={nextYearIconCls}
-                                    nextMonthIconCls={nextMonthIconCls}
-                                    onChange={(obj) => {
-                                        this.monthPickerChangeHandle('left', obj);
-                                    }}
-                                    previousClick={(level) => {
-                                        this.datePickerChangeHandle('left', level);
-                                    }}/>
+                                <MonthPicker {...restProps}
+                                             {...leftProps}
+                                             onChange={date => monthPickerChangeHandle('left', date)}
+                                             previousClick={pickerLevel => datePickerChangeHandle('left', pickerLevel)}/>
                                 :
-                                <YearPicker
-                                    value={left.text}
-                                    year={left.year}
-                                    month={left.month}
-                                    day={left.day}
-                                    maxValue={leftMaxValue}
-                                    minValue={minValue}
-                                    previousYearIconCls={previousYearIconCls}
-                                    previousMonthIconCls={previousMonthIconCls}
-                                    nextYearIconCls={nextYearIconCls}
-                                    nextMonthIconCls={nextMonthIconCls}
-                                    onChange={(obj) => {
-                                        this.yearPickerChangeHandle('left', obj);
-                                    }}/>
+                                <YearPicker {...restProps}
+                                            {...leftProps}
+                                            onChange={date => yearPickerChangeHandle('left', date)}/>
                         )
 
                 }
 
                 {
                     right.datePickerLevel == 'day' ?
-                        <DayPicker
-                            value={right.text}
-                            dateFormat={dateFormat}
-                            year={right.year}
-                            month={right.month}
-                            day={right.day}
-                            isFooter={false}
-                            isRange={true}
-                            startTime={startTime}
-                            endTime={endTime}
-                            hoverTime={hoverTime}
-                            minValue={rightMinValue}
-                            maxValue={maxValue}
-                            previousYearIconCls={previousYearIconCls}
-                            previousMonthIconCls={previousMonthIconCls}
-                            nextYearIconCls={nextYearIconCls}
-                            nextMonthIconCls={nextMonthIconCls}
-                            monthAndYearChange={(obj) => {
-                                this.monthAndYearChangeHandle('right', obj);
-                            }}
-                            onChange={(obj) => {
-                                this.dayPickerChangeHandle('right', obj);
-                            }}
-                            previousClick={(level) => {
-                                this.datePickerChangeHandle('right', level);
-                            }}
-                            hoverHandle={(obj) => {
-                                this.dayPickerHoverHandle('left', obj);
-                            }}/>
+                        <DayPicker {...restProps}
+                                   {...rightProps}
+                                   isFooter={false}
+                                   isRange={true}
+                                   monthAndYearChange={date => monthAndYearChangeHandle('right', date)}
+                                   onChange={date => dayPickerChangeHandle('right', date)}
+                                   previousClick={pickerLevel => datePickerChangeHandle('right', pickerLevel)}
+                                   hoverHandle={date => dayPickerHoverHandle('left', date)}/>
                         :
                         (
                             right.datePickerLevel == 'month' ?
-                                <MonthPicker
-                                    value={right.text}
-                                    year={right.year}
-                                    month={right.month}
-                                    day={right.day}
-                                    minValue={rightMinValue}
-                                    maxValue={maxValue}
-                                    previousYearIconCls={previousYearIconCls}
-                                    previousMonthIconCls={previousMonthIconCls}
-                                    nextYearIconCls={nextYearIconCls}
-                                    nextMonthIconCls={nextMonthIconCls}
-                                    onChange={(obj) => {
-                                        this.monthPickerChangeHandle('right', obj);
-                                    }}
-                                    previousClick={(level) => {
-                                        this.datePickerChangeHandle('right', level);
-                                    }}/>
+                                <MonthPicker {...restProps}
+                                             {...rightProps}
+                                             onChange={date => monthPickerChangeHandle('right', date)}
+                                             previousClick={pickerLevel => datePickerChangeHandle('right', pickerLevel)}/>
                                 :
-                                <YearPicker
-                                    value={right.text}
-                                    year={right.year}
-                                    month={right.month}
-                                    day={right.day}
-                                    minValue={rightMinValue}
-                                    maxValue={maxValue}
-                                    previousYearIconCls={previousYearIconCls}
-                                    previousMonthIconCls={previousMonthIconCls}
-                                    nextYearIconCls={nextYearIconCls}
-                                    nextMonthIconCls={nextMonthIconCls}
-                                    onChange={(obj) => {
-                                        this.yearPickerChangeHandle('right', obj);
-                                    }}/>
+                                <YearPicker {...restProps}
+                                            {...rightProps}
+                                            onChange={date => yearPickerChangeHandle('right', date)}/>
                         )
 
                 }
@@ -433,7 +365,20 @@ DateRangePickerContent.defaultProps = {
     previousYearIconCls: 'fas fa-angle-double-left',
     previousMonthIconCls: 'fas fa-angle-left',
     nextYearIconCls: 'fas fa-angle-double-right',
-    nextMonthIconCls: 'fas fa-angle-right'
+    nextMonthIconCls: 'fas fa-angle-right',
+    otherSelectedDate: [{
+        value: ['2020-11-20', '2020-12-04'],
+        tip: 'balabalabala'
+    }, {
+        value: ['2020-11-1', '2020-11-2'],
+        tip: 'balabalabala'
+    }, {
+        value: ['2020-12-10', '2020-12-20'],
+        tip: 'balabalabala'
+    }, {
+        value: ['2020-12-22', '2020-12-22'],
+        tip: 'balabalabala'
+    }]
 };
 
 export default DateRangePickerContent;

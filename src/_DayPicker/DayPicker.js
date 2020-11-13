@@ -8,11 +8,12 @@ import PropTypes from 'prop-types';
 
 // Components
 import TouchRipple from '../TouchRipple';
+import TipProvider from '../TipProvider';
 
 // Vendors
 import classNames from 'classnames';
 import moment from 'moment';
-import Util from '../_vendors/Util';
+import DateUtil from '../_vendors/DateUtil';
 import ComponentUtil from '../_vendors/ComponentUtil';
 import DC from '../_vendors/DateCalculation';
 
@@ -36,7 +37,7 @@ class DayPicker extends Component {
             currentYear: moment(value).format('YYYY'),
             currentMonth: moment(value).format('MM'),
             currentDay: moment(value).format('DD'),
-            dateNumArray: Util.MonthDays(selectYear),
+            dateNumArray: DateUtil.MonthDays(selectYear),
             firstDay: DC.weekday(selectYear, selectMonth)
         };
 
@@ -61,7 +62,7 @@ class DayPicker extends Component {
             currentYear: moment(props.value).format('YYYY'),
             currentMonth: moment(props.value).format('MM'),
             currentDay: moment(props.value).format('DD'),
-            dateNumArray: Util.MonthDays(props.year),
+            dateNumArray: DateUtil.MonthDays(props.year),
             firstDay: DC.weekday(props.year, props.month)
         };
 
@@ -121,7 +122,7 @@ class DayPicker extends Component {
             selectYear: selectedYear,
             selectMonth: selectMonth,
             selectDay: selectedDay,
-            dateNumArray: Util.MonthDays(selectedYear),
+            dateNumArray: DateUtil.MonthDays(selectedYear),
             firstDay: DC.weekday(selectedYear, selectMonth)
         }, () => {
             monthAndYearChange && monthAndYearChange({
@@ -146,7 +147,7 @@ class DayPicker extends Component {
             selectYear: selectedYear,
             selectMonth: selectedMonth,
             selectDay: selectedDay,
-            dateNumArray: selectMonth == 1 ? Util.MonthDays(selectedYear) : dateNumArray,
+            dateNumArray: selectMonth == 1 ? DateUtil.MonthDays(selectedYear) : dateNumArray,
             firstDay: DC.weekday(selectedYear, selectedMonth)
         }, () => {
             monthAndYearChange && monthAndYearChange({
@@ -173,7 +174,7 @@ class DayPicker extends Component {
             selectYear: selectedYear,
             selectMonth: selectedMonth,
             selectDay: selectedDay,
-            dateNumArray: selectMonth == 12 ? Util.MonthDays(selectedYear) : dateNumArray,
+            dateNumArray: selectMonth == 12 ? DateUtil.MonthDays(selectedYear) : dateNumArray,
             firstDay: DC.weekday(selectedYear, selectedMonth)
         }, () => {
             monthAndYearChange && monthAndYearChange({
@@ -196,7 +197,7 @@ class DayPicker extends Component {
             selectYear: selectedYear,
             selectMonth: selectMonth,
             selectDay: selectedDay,
-            dateNumArray: Util.MonthDays(selectedYear),
+            dateNumArray: DateUtil.MonthDays(selectedYear),
             firstDay: DC.weekday(selectedYear, selectMonth)
         }, () => {
             monthAndYearChange && monthAndYearChange({
@@ -222,9 +223,8 @@ class DayPicker extends Component {
 
     rangeDateCurrentMonthDaysRender = () => {
 
-        const {
-            startTime, endTime, hoverTime, maxValue, minValue
-        } = this.props, {dateNumArray, selectYear, selectMonth} = this.state, {selectDate, hoverDateHandle} = this;
+        const {startTime, endTime, hoverTime, maxValue, minValue, otherSelectedDate} = this.props,
+            {dateNumArray, selectYear, selectMonth} = this.state, {selectDate, hoverDateHandle} = this;
 
         let month = +selectMonth - 1, monthDays = dateNumArray[month],
             start = moment(endTime).isBefore(startTime) ? endTime : startTime,
@@ -232,30 +232,49 @@ class DayPicker extends Component {
             hover = moment(hoverTime).isBefore(startTime) ? startTime : hoverTime;
         start = moment(hoverTime).isBefore(startTime) ? hoverTime : startTime;
 
-        let renderArray = [];
-
+        let renderArray = [], minDate = !!start && !end ?
+            minValue && moment(minValue).isBefore(DateUtil.getPrevMaxCloserDate(start, otherSelectedDate)?.value[1]) ?
+                minValue : DateUtil.getPrevMaxCloserDate(start, otherSelectedDate)?.value[1]
+            :
+            minValue,
+            maxDate = !!start && !end ?
+                maxValue && moment(maxValue).isBefore(DateUtil.getNextMinCloserDate(start, otherSelectedDate)?.value[0]) ?
+                    maxValue : DateUtil.getNextMinCloserDate(start, otherSelectedDate)?.value[0]
+                :
+                maxValue;
+        console.log('minValue::', minValue);
+        console.log('maxValue::', maxValue);
+        console.log('minDate::', minDate);
+        console.log('maxDate::', maxDate);
         for (let i = 0; i < Number(monthDays); i++) {
 
             const item = moment([Number(selectYear), (Number(selectMonth) - 1), (i + 1)]).format('YYYY-MM-DD'),
                 liClassName = classNames({
-                    'start': start == item,
-                    'end': item == end || item == hover,
+                    'start': start == item || otherSelectedDate.some(data => (moment(data?.value[0]).format('YYYY-MM-DD') == item)),
+                    'end': item == end || item == hover || otherSelectedDate.some(data => (moment(data?.value[1]).format('YYYY-MM-DD') == item)),
                     'hover': (moment(start).isBefore(item) && moment(item).isBefore(end)) || (moment(start).isBefore(item) && moment(item).isBefore(hover)),
                     'first-day': i == 0,
                     'last-day': i == (+monthDays - 1),
-                    'item-gray': (minValue && moment(item).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(item)),
-                    'current-days': !(minValue && moment(item).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(item))
+                    'item-gray': (minDate && moment(item).isBefore(minDate)) || (maxDate && moment(maxDate).isBefore(item)),
+                    'current-days': !(minDate && moment(item).isBefore(minDate)) || (maxDate && moment(maxDate).isBefore(item)),
+                    'other-selected': otherSelectedDate.length > 0 ?
+                        otherSelectedDate.some(data => moment(item).isBetween(data?.value[0], data?.value[1], null, '[]')) : false
                 });
 
             renderArray.push((
-                <li className={liClassName}
-                    key={'current' + i}
-                    onClick={() => {
-                        liClassName.indexOf('item-gray') === -1 && selectDate(i + 1);
-                    }}
-                    onMouseOver={() => {
-                        liClassName.indexOf('item-gray') === -1 && hoverDateHandle((i + 1));
-                    }}>
+                liClassName.indexOf('other-selected') > -1 ?
+                    <TipProvider
+                        tipContent={otherSelectedDate.find(data => moment(item).isBetween(data?.value[0], data?.value[1], null, '[]'))?.tip}>
+                        <li className={liClassName}
+                            key={'current' + i}>
+                            <span className="date-text">{i + 1}</span>
+                        </li>
+                    </TipProvider>
+                    :
+                    <li className={liClassName}
+                        key={'current' + i}
+                        onClick={() => liClassName.indexOf('item-gray') === -1 && selectDate(i + 1)}
+                        onMouseOver={() => liClassName.indexOf('item-gray') === -1 && hoverDateHandle(i + 1)}>
                     <span className="date-text">
                         {i + 1}
                         {
@@ -265,7 +284,7 @@ class DayPicker extends Component {
                                 null
                         }
                     </span>
-                </li>));
+                    </li>));
         }
 
         return renderArray;
@@ -292,9 +311,7 @@ class DayPicker extends Component {
             renderArray.push((
                 <li className={liClassName}
                     key={'current' + i}
-                    onClick={() => {
-                        liClassName.indexOf('item-gray') === -1 && selectDate(i + 1);
-                    }}>
+                    onClick={() => liClassName.indexOf('item-gray') === -1 && selectDate(i + 1)}>
                     <span className="date-text">
                         {i + 1}
                         {
@@ -453,7 +470,7 @@ class DayPicker extends Component {
     render() {
 
         const {isFooter, isRange} = this.props, {selectYear, selectMonth} = this.state,
-            {previousLevel} = this, MonthEn = Util.getMonth(+selectMonth),
+            {previousLevel} = this, MonthEn = DateUtil.getMonth(+selectMonth),
             calendarHeaderLeftRender = this.calendarHeaderLeftRender(),
             calendarHeaderRightRender = this.calendarHeaderRightRender(),
             daysRenderArray = this.daysRender();
@@ -505,15 +522,25 @@ DayPicker.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     value: PropTypes.any,
+    startTime: PropTypes.string,
+    endTime: PropTypes.any,
+    hoverTime: PropTypes.any,
     maxValue: PropTypes.any,
     minValue: PropTypes.any,
     year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     month: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     day: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     dateFormat: PropTypes.string,
+    previousYearIconCls: PropTypes.string,
+    previousMonthIconCls: PropTypes.string,
+    nextYearIconCls: PropTypes.string,
+    nextMonthIconCls: PropTypes.string,
+    parentEl: PropTypes.object,
     isRange: PropTypes.bool,
+    otherSelectedDate: PropTypes.array,
     isFooter: PropTypes.bool,
     onChange: PropTypes.func,
+    monthAndYearChange: PropTypes.func,
     previousClick: PropTypes.func
 };
 

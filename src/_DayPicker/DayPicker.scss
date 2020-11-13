@@ -253,6 +253,40 @@
 
                         }
 
+                        &.other-selected {
+
+                            background: #EDF9FF;
+                            cursor: not-allowed;
+
+                            .date-text {
+                                border-radius: 50%;
+                                background: #EDF9FF;
+                            }
+
+                            &.start,
+                            &.end,
+                            &.item-gray {
+                                background: #EDF9FF;
+                                cursor: not-allowed;
+
+                                .date-text {
+                                    background: #EDF9FF;
+                                    color: $theme-field;
+                                }
+                            }
+
+                            &:hover,
+                            &.start:hover,
+                            &.end:hover,
+                            &.item-gray:hover {
+                                .date-text {
+                                    background: #EDF9FF;
+                                    color: $theme-field;
+                                }
+                            }
+
+                        }
+
                         &.item-gray {
                             .date-text {
                                 color: $theme-field-disabled;
@@ -265,6 +299,17 @@
                         .date-text {
                             color: $theme-field-disabled;
                             cursor: not-allowed;
+                        }
+
+                        &.other-selected,
+                        &.other-selected:hover {
+
+                            background: #EDF9FF;
+
+                            .date-text {
+                                background: #EDF9FF;
+                                color: $theme-field;
+                            }
                         }
                     }
                 }
@@ -317,6 +362,17 @@
                                 color: #fff;
                                 background: inherit;
                             }
+
+                            &.other-selected,
+                            &.other-selected:hover {
+
+                                background: #EDF9FF;
+
+                                .date-text {
+                                    background: #EDF9FF;
+                                    color: $theme-field;
+                                }
+                            }
                         }
 
                         li.start,
@@ -340,7 +396,6 @@
                                 background: theme-color-hover($theme-highlight);
                                 color: #fff;
                             }
-
                         }
                     }
 
