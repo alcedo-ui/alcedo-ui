@@ -743,6 +743,18 @@ Table.propTypes = {
         headAlign: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
 
         /**
+         * The render content in table head.
+         *  (1) callback:
+         *      function (tableData, colIndex) {
+         *          return colIndex;
+         *      }
+         *
+         *  (2) others:
+         *      render whatever you pass
+         */
+        headRenderer: PropTypes.any,
+
+        /**
          * The class name of td.
          */
         bodyClassName: PropTypes.string,
@@ -755,7 +767,19 @@ Table.propTypes = {
         /**
          * align of table body cell
          */
-        bodyAlign: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign))
+        bodyAlign: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
+
+        /**
+         * The render content in table body.
+         *  (1) callback:
+         *      function (rowData, rowIndex, colIndex, parentData, tableData, collapsed, depth, path) {
+         *          return rowData.id;
+         *      }
+         *
+         *  (2) others:
+         *      render whatever you pass
+         */
+        bodyRenderer: PropTypes.any
 
     }),
     isSelectRecursive: PropTypes.bool,
