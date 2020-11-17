@@ -14,6 +14,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import CircularLoading from 'src/CircularLoading';
 import RaisedButton from 'src/RaisedButton';
 import MaterialTextField from 'src/MaterialTextField';
+import TipProvider from 'src/TipProvider';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 
 // Statics
@@ -422,7 +423,9 @@ class TableExamples extends Component {
                                        selectMode={Table.SelectMode.MULTI_SELECT}
                                        selectColumn={{
                                            bodyRenderer: (checkboxInstance, rowData) => rowData.disabled ?
-                                               <i className="fas fa-ban"/>
+                                               <TipProvider tipContent="Disabled">
+                                                   <i className="fas fa-ban"/>
+                                               </TipProvider>
                                                :
                                                checkboxInstance
                                        }}
