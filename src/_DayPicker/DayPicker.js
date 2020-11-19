@@ -242,10 +242,10 @@ class DayPicker extends Component {
                     maxValue : DateUtil.getNextMinCloserDate(start, otherSelectedDate)?.value[0]
                 :
                 maxValue;
-        console.log('minValue::', minValue);
-        console.log('maxValue::', maxValue);
-        console.log('minDate::', minDate);
-        console.log('maxDate::', maxDate);
+        // console.log('minValue::', minValue);
+        // console.log('maxValue::', maxValue);
+        // console.log('minDate::', minDate);
+        // console.log('maxDate::', maxDate);
         for (let i = 0; i < Number(monthDays); i++) {
 
             const item = moment([Number(selectYear), (Number(selectMonth) - 1), (i + 1)]).format('YYYY-MM-DD'),
