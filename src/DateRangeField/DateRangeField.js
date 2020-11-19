@@ -12,7 +12,6 @@ import DayPicker from '../_DayPicker';
 import MonthPicker from '../_MonthPicker';
 import YearPicker from '../_YearPicker';
 
-import Util from '../_vendors/Util';
 import DateUtil from '../_vendors/DateUtil';
 import Theme from '../Theme';
 import {findDOMNode} from 'react-dom';
@@ -367,19 +366,7 @@ DateRangePickerContent.defaultProps = {
     previousMonthIconCls: 'fas fa-angle-left',
     nextYearIconCls: 'fas fa-angle-double-right',
     nextMonthIconCls: 'fas fa-angle-right',
-    otherSelectedDate: [{
-        value: ['2020-11-20', '2020-12-04'],
-        tip: 'balabalabala'
-    }, {
-        value: ['2020-11-1', '2020-11-2'],
-        tip: 'balabalabala'
-    }, {
-        value: ['2020-12-10', '2020-12-20'],
-        tip: 'balabalabala'
-    }, {
-        value: ['2020-12-22', '2020-12-22'],
-        tip: 'balabalabala'
-    }]
+    otherSelectedDate: []
 };
 
 export default DateRangePickerContent;
