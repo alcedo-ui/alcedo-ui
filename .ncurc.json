@@ -1,7 +1,6 @@
 {
     "upgrade": true,
     "reject": [
-        "history",
-        "webpack"
+        "history"
     ]
 }

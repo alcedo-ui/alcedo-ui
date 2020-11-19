@@ -44,8 +44,12 @@ class TipProvider extends Component {
 
     }
 
+    componentDidMount() {
+        this.handleTriggerEl();
+    }
+
     componentDidUpdate(prevProps, prevState, snapshot) {
-        this.triggerEl = this.trigger && this.trigger.current && findDOMNode(this.trigger.current);
+        this.handleTriggerEl();
     }
 
     /**
@@ -106,6 +110,10 @@ class TipProvider extends Component {
      */
     resetPosition = () => {
         this.tip?.current?.resetPosition?.();
+    };
+
+    handleTriggerEl = () => {
+        this.triggerEl = findDOMNode(this.trigger?.current);
     };
 
     handleMouseOver = e => {

@@ -14,6 +14,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import CircularLoading from 'src/CircularLoading';
 import RaisedButton from 'src/RaisedButton';
 import MaterialTextField from 'src/MaterialTextField';
+import TipProvider from 'src/TipProvider';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 
 // Statics
@@ -202,7 +203,7 @@ class TableExamples extends Component {
         const result = cloneDeep(this.columns);
         Util.preOrderTraverse({children: result}, node => {
             if (['name', 'age', 'otherColumn1', 'otherColumn2',
-                'otherColumn3', 'otherColumn4', 'functionWidth'].includes(node.key)) {
+                 'otherColumn3', 'otherColumn4', 'functionWidth'].includes(node.key)) {
                 node.resizable = true;
             }
         });
@@ -397,13 +398,48 @@ class TableExamples extends Component {
                                        onPaginationChange={this.handlePaginationChange}
                                        onExpand={this.handleExpand}
                                        onCollapse={this.handleCollapse}
+                                       onChange={this.handleChange}/>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Multi Select"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+                            <div className="example-table-wrapper">
+                                <Table className="example-table"
+                                       columns={this.columns}
+                                       data={data.map(item => ({
+                                           ...item,
+                                           disabled: item?.id % 4 === 0
+                                       }))}
+                                       selectMode={Table.SelectMode.MULTI_SELECT}
+                                       selectColumn={{
+                                           bodyRenderer: (checkboxInstance, rowData) => rowData.disabled ?
+                                               <TipProvider tipContent="Disabled">
+                                                   <i className="fas fa-ban"/>
+                                               </TipProvider>
+                                               :
+                                               checkboxInstance
+                                       }}
+                                       scroll={{
+                                           width: 1200
+                                       }}
+                                       onSortChange={this.handleSortChange}
+                                       onPaginationChange={this.handlePaginationChange}
                                        onChange={this.handleChange}
                                        onSelect={this.handleSelect}
                                        onSelectAll={this.handleSelectAll}
                                        onDeselect={this.handleDeselect}
                                        onDeselectAll={this.handleSeselectAll}/>
                             </div>
-
                         </div>
                     </div>
 
@@ -510,7 +546,8 @@ class TableExamples extends Component {
                                         <Table ref={this.tableRef}
                                                className={classNames('example-table', {
                                                    'head-hidden': !headVisible,
-                                                   'foot-hidden': !footVisible || !filteredLoadingData || filteredLoadingData.length < 1
+                                                   'foot-hidden': !footVisible || !filteredLoadingData ||
+                                                       filteredLoadingData.length < 1
                                                })}
                                                data={filteredLoadingData}
                                                columns={this.getFixedColumns()}
@@ -519,10 +556,12 @@ class TableExamples extends Component {
                                                isHeadFixed={true}
                                                isFootFixed={true}
                                                isHeadHidden={!headVisible}
-                                               isFootHidden={!footVisible || !filteredLoadingData || filteredLoadingData.length < 1}
+                                               isFootHidden={!footVisible || !filteredLoadingData ||
+                                               filteredLoadingData.length < 1}
                                                scroll={{
                                                    width: 1200,
-                                                   height: filteredLoadingData && filteredLoadingData.length > 0 ? 320 : 0
+                                                   height: filteredLoadingData && filteredLoadingData.length > 0 ? 320 :
+                                                       0
                                                }}
                                                useFullPagination={true}
                                                paginationTotalRenderer={total =>

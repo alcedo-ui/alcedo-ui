@@ -156,6 +156,7 @@ class ScrollTable extends Component {
                                                hasVerticalScroll={hasVerticalScroll}
                                                isBodyHidden={true}
                                                isFootHidden={true}
+                                               useColumnsWidth={true}
                                                isLayoutFixed={isLayoutFixed}
                                                defaultColumnWidth={defaultColumnWidth}
                                                onRequestColumnsSpan={this.handleColumnsSpan}/>
@@ -247,6 +248,7 @@ class ScrollTable extends Component {
                                                hasVerticalScroll={hasVerticalScroll}
                                                isHeadHidden={true}
                                                isBodyHidden={true}
+                                               useColumnsWidth={true}
                                                isLayoutFixed={isLayoutFixed}
                                                defaultColumnWidth={defaultColumnWidth}
                                                onRequestColumnsSpan={this.handleColumnsSpan}/>

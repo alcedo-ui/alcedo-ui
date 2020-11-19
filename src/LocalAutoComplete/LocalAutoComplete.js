@@ -32,6 +32,16 @@ class LocalAutoComplete extends Component {
     static Theme = Theme;
     static Position = Position;
 
+    static getDerivedStateFromProps(props, state) {
+        const filter = ComponentUtil.getDerivedState(props, state, 'filter');
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value'),
+            filter,
+            listData: Calculation.filterLocalAutoCompleteData(filter, props)
+        };
+    }
+
     constructor(props, ...restArgs) {
 
         super(props, ...restArgs);
@@ -54,6 +64,19 @@ class LocalAutoComplete extends Component {
             listData: Calculation.filterLocalAutoCompleteData(props.filter, props)
         };
 
+    }
+
+    componentDidMount() {
+
+        this.wrapperEl = this.wrapper?.current;
+        this.triggerEl = findDOMNode(this.trigger?.current);
+
+        Event.addEvent(document, 'mousedown', this.handleMouseDown);
+
+    }
+
+    componentWillUnmount() {
+        Event.removeEvent(document, 'mousedown', this.handleMouseDown);
     }
 
     handleNoMatch = () => {
@@ -280,29 +303,6 @@ class LocalAutoComplete extends Component {
             this.update();
         }
     };
-
-    componentDidMount() {
-
-        this.wrapperEl = this.wrapper?.current;
-        this.triggerEl = findDOMNode(this.trigger?.current);
-
-        Event.addEvent(document, 'mousedown', this.handleMouseDown);
-
-    }
-
-    componentWillUnmount() {
-        Event.removeEvent(document, 'mousedown', this.handleMouseDown);
-    }
-
-    static getDerivedStateFromProps(props, state) {
-        const filter = ComponentUtil.getDerivedState(props, state, 'filter');
-        return {
-            prevProps: props,
-            value: ComponentUtil.getDerivedState(props, state, 'value'),
-            filter,
-            listData: Calculation.filterLocalAutoCompleteData(filter, props)
-        };
-    }
 
     render() {
 

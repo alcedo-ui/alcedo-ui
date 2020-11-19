@@ -192,7 +192,8 @@ class TableContent extends Component {
             result[0] = cloneDeep(columns[0]);
             const expandColumn = TC.getFirstColumn(result);
             if (expandColumn) {
-                expandColumn.bodyRenderer = (rowData, rowIndex, colIndex, parentData, tableData, collapsed, depth, path) =>
+                expandColumn.bodyRenderer = (
+                    rowData, rowIndex, colIndex, parentData, tableData, collapsed, depth, path) =>
                     <Fragment>
 
                         <span className={classNames('table-indent', `indent-level-${depth}`)}
@@ -212,7 +213,8 @@ class TableContent extends Component {
 
                         {
                             typeof firstColumn.bodyRenderer === 'function' ?
-                                firstColumn.bodyRenderer(rowData, rowIndex, colIndex, parentData, tableData, collapsed, depth, path)
+                                firstColumn.bodyRenderer(rowData, rowIndex, colIndex, parentData, tableData, collapsed,
+                                    depth, path)
                                 :
                                 firstColumn.bodyRenderer
                         }
@@ -236,42 +238,78 @@ class TableContent extends Component {
                 headClassName: classNames('table-select-th', selectColumn ? {
                     [selectColumn.headClassName]: selectColumn.headClassName
                 } : ''),
-                headRenderer: () => {
+                headRenderer: (tableData, colIndex) => {
 
                     const {checked, indeterminate} = TC.isSelectAllChecked(
-                        selectAllMode === SelectAllMode.ALL ? data : this.tableData, value, idField);
+                        selectAllMode === SelectAllMode.ALL ? data : this.tableData, value, idField
+                        ),
+                        checkboxInstance = (
+                            <Checkbox className="table-select"
+                                      theme={selectTheme}
+                                      checked={checked}
+                                      disabled={disabled}
+                                      indeterminate={indeterminate}
+                                      uncheckedIconCls={selectUncheckedIconCls}
+                                      checkedIconCls={selectCheckedIconCls}
+                                      indeterminateIconCls={selectIndeterminateIconCls}
+                                      onCheck={this.handleSelectAll}
+                                      onUncheck={this.handleDeselectAll}/>
+                        );
 
-                    return (
-                        <Checkbox className="table-select"
-                                  theme={selectTheme}
-                                  checked={checked}
-                                  disabled={disabled}
-                                  indeterminate={indeterminate}
-                                  uncheckedIconCls={selectUncheckedIconCls}
-                                  checkedIconCls={selectCheckedIconCls}
-                                  indeterminateIconCls={selectIndeterminateIconCls}
-                                  onCheck={this.handleSelectAll}
-                                  onUncheck={this.handleDeselectAll}/>
-                    );
+                    if (selectColumn?.headRenderer) {
+
+                        if (typeof selectColumn.headRenderer === 'function') {
+                            return selectColumn.headRenderer(checkboxInstance, tableData, colIndex);
+                        }
+
+                        return selectColumn.headRenderer;
+
+                    }
+
+                    return checkboxInstance;
 
                 },
                 bodyClassName: classNames('table-select-td', selectColumn ? {
                     [selectColumn.bodyClassName]: selectColumn.bodyClassName
                 } : ''),
-                bodyRenderer: (rowData, rowIndex, colIndex, parentData, tableData, collapsed, depth, path) =>
-                    <Checkbox className="table-select"
-                              theme={selectTheme}
-                              checked={TC.isNodeChecked(rowData, value, idField)}
-                              disabled={disabled || rowData.disabled}
-                              indeterminate={Calc.isItemIndeterminate(rowData, value, {
-                                  valueField: idField,
-                                  displayField: idField
-                              })}
-                              uncheckedIconCls={selectUncheckedIconCls}
-                              checkedIconCls={selectCheckedIconCls}
-                              indeterminateIconCls={selectIndeterminateIconCls}
-                              onCheck={() => this.handleSelect(rowData, rowIndex, colIndex, tableData, collapsed, depth, path)}
-                              onUncheck={() => this.handleDeselect(rowData, rowIndex, colIndex, tableData, collapsed, depth, path)}/>
+                bodyRenderer: (rowData, rowIndex, colIndex, parentData, tableData, collapsed, depth, path) => {
+
+                    const checkboxInstance = (
+                        <Checkbox className="table-select"
+                                  theme={selectTheme}
+                                  checked={TC.isNodeChecked(rowData, value, idField)}
+                                  disabled={disabled || rowData.disabled}
+                                  indeterminate={Calc.isItemIndeterminate(rowData, value, {
+                                      valueField: idField,
+                                      displayField: idField
+                                  })}
+                                  uncheckedIconCls={selectUncheckedIconCls}
+                                  checkedIconCls={selectCheckedIconCls}
+                                  indeterminateIconCls={selectIndeterminateIconCls}
+                                  onCheck={() => this.handleSelect(
+                                      rowData, rowIndex, colIndex, tableData, collapsed, depth, path
+                                  )}
+                                  onUncheck={() => this.handleDeselect(
+                                      rowData, rowIndex, colIndex, tableData, collapsed, depth, path
+                                  )}/>
+                    );
+
+                    if (selectColumn?.bodyRenderer) {
+
+                        if (typeof selectColumn.bodyRenderer === 'function') {
+                            return selectColumn.bodyRenderer(
+                                checkboxInstance, rowData, rowIndex, colIndex,
+                                parentData, tableData, collapsed, depth, path
+                            );
+                        }
+
+                        return selectColumn?.bodyRenderer;
+
+                    }
+
+                    return checkboxInstance;
+
+                }
             });
         }
 
@@ -594,7 +632,8 @@ class TableContent extends Component {
         if (useDynamicRender) {
             this.dynamicRenderIndex = this.getIndex(this.tableData);
             this.dynamicRenderData = this.tableData && this.dynamicRenderIndex ?
-                this.tableData.slice(this.dynamicRenderIndex.startWithBuffer, this.dynamicRenderIndex.stopWithBuffer + 1)
+                this.tableData.slice(this.dynamicRenderIndex.startWithBuffer,
+                    this.dynamicRenderIndex.stopWithBuffer + 1)
                 :
                 this.tableData;
         }
@@ -912,7 +951,7 @@ TableContent.propTypes = {
         /**
          * width of column
          */
-        width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        width: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
 
         /**
          * minimum width of column
@@ -940,6 +979,18 @@ TableContent.propTypes = {
         headAlign: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
 
         /**
+         * The render content in table head.
+         *  (1) callback:
+         *      function (tableData, colIndex) {
+         *          return colIndex;
+         *      }
+         *
+         *  (2) others:
+         *      render whatever you pass
+         */
+        headRenderer: PropTypes.any,
+
+        /**
          * The class name of td.
          */
         bodyClassName: PropTypes.string,
@@ -952,7 +1003,19 @@ TableContent.propTypes = {
         /**
          * align of table body cell
          */
-        bodyAlign: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign))
+        bodyAlign: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
+
+        /**
+         * The render content in table body.
+         *  (1) callback:
+         *      function (rowData, rowIndex, colIndex, parentData, tableData, collapsed, depth, path) {
+         *          return rowData.id;
+         *      }
+         *
+         *  (2) others:
+         *      render whatever you pass
+         */
+        bodyRenderer: PropTypes.any
 
     }),
     isSelectRecursive: PropTypes.bool,

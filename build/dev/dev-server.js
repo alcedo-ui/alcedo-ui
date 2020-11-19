@@ -12,8 +12,7 @@ const os = require('os'),
     compiler = webpack(webpackConfig),
 
     devMiddleware = require('webpack-dev-middleware')(compiler, {
-        publicPath: webpackConfig.output.publicPath,
-        logLevel: 'error'
+        publicPath: webpackConfig.output.publicPath
     }),
     hotMiddleware = require('webpack-hot-middleware')(compiler, {
         log: false
@@ -27,8 +26,8 @@ compiler.hooks.compilation.tap('html-webpack-plugin-after-emit', () =>
 );
 
 app.use(devMiddleware)
-   .use(hotMiddleware)
-   .use(config.dev.assetsVirtualRoot, express.static('./static'));
+    .use(hotMiddleware)
+    .use(config.dev.assetsVirtualRoot, express.static('./static'));
 
 devMiddleware.waitUntilValid(() =>
     log.title('success', 'DONE', `Listening At ${uri}`)
