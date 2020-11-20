@@ -263,7 +263,7 @@ class DayPicker extends Component {
 
             renderArray.push((
                 liClassName.indexOf('other-selected') > -1 ?
-                    <TipProvider
+                    <TipProvider key={'currentTip' + i}
                         tipContent={otherSelectedDate.find(data => moment(item).isBetween(data?.value[0], data?.value[1], null, '[]'))?.tip}>
                         <li className={liClassName}
                             key={'current' + i}>
