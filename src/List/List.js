@@ -51,6 +51,10 @@ class List extends Component {
 
     }
 
+    componentDidMount() {
+        this.listEl = this.list?.current;
+    }
+
     /**
      * public
      */
@@ -100,9 +104,8 @@ class List extends Component {
         }
 
         this.setState(state, () => {
-            const {onItemSelect, onChange} = this.props;
-            onItemSelect && onItemSelect(item, index);
-            onChange && onChange(state.value, index);
+            this.props.onItemSelect?.(item, index);
+            this.props.onChange?.(state.value, index);
         });
 
     };
@@ -122,18 +125,17 @@ class List extends Component {
         if (!value || !isArray(value)) {
             value = [];
         } else {
-            value = value.filter(valueItem => {
-                return Util.getValueByValueField(valueItem, valueField, displayField)
-                    != Util.getValueByValueField(item, valueField, displayField);
-            });
+            value = value.filter(valueItem =>
+                Util.getValueByValueField(valueItem, valueField, displayField)
+                != Util.getValueByValueField(item, valueField, displayField)
+            );
         }
 
         this.setState({
             value
         }, () => {
-            const {onItemDeselect, onChange} = this.props;
-            onItemDeselect && onItemDeselect(item, index);
-            onChange && onChange(value, index);
+            this.props.onItemDeselect?.(item, index);
+            this.props.onChange?.(value, index);
         });
 
     };
@@ -145,21 +147,19 @@ class List extends Component {
     };
 
     isItemDisabled = (listItemDisabled, item, itemDisabled) => {
+
         const {data} = this.props,
             {value} = this.state;
-        return (
-                listItemDisabled != undefined
-                && (typeof listItemDisabled === 'function' ? listItemDisabled(item, value, data) : listItemDisabled)
-            )
-            || (
-                itemDisabled != undefined
-                && (typeof itemDisabled === 'function' ? itemDisabled(item, value, data) : itemDisabled)
-            );
-    };
 
-    componentDidMount() {
-        this.listEl = this.list && this.list.current;
-    }
+        return (
+            listItemDisabled != undefined
+            && (typeof listItemDisabled === 'function' ? listItemDisabled(item, value, data) : listItemDisabled)
+        ) || (
+            itemDisabled != undefined
+            && (typeof itemDisabled === 'function' ? itemDisabled(item, value, data) : itemDisabled)
+        );
+
+    };
 
     renderListItem = (item, index) => {
 
