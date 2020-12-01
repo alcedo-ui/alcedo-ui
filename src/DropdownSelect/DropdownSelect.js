@@ -359,7 +359,7 @@ class DropdownSelect extends Component {
                 ...restProps
 
             } = this.props,
-            {value, filter, popupVisible, scrollerHeight} = this.state,
+            {value, filter, popupVisible} = this.state,
 
             isMultiSelect = selectMode === SelectMode.MULTI_SELECT,
             listData = this.filterData();
