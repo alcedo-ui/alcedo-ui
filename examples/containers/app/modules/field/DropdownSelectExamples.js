@@ -1,15 +1,25 @@
+/**
+ * @file DropdownSelect Examples
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 
+// Components
 import DropdownSelect from 'src/DropdownSelect';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
-import Theme from 'src/Theme';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
 
+// Statics
+import Theme from 'src/Theme';
+
+// Docs
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/DropdownSelect.json';
 
+// Styles
 import 'scss/containers/app/modules/field/DropdownSelectExamples.scss';
 
 class DropdownSelectExamples extends Component {
@@ -38,46 +48,44 @@ class DropdownSelectExamples extends Component {
             }
         }, 'test7', 'test8', 'test9'];
 
-        this.groupData = [
-            {
-                name: 'test0', children: [{
-                    text: 'test001', value: 1
-                }, {
-                    text: 'test002', value: 2
-                }, {
-                    text: 'test003', value: 3
-                }, {
-                    text: 'test004', value: 4
-                }]
-            },
-            {
-                name: 'test1',
-                children: [{
-                    text: 'test111', value: 11
-                }]
+        this.groupData = [{
+            name: 'test0', children: [{
+                text: 'test001', value: 1
             }, {
-                name: 'test2',
-                children: [{
-                    text: 'test221', value: 221
-                }, {
-                    text: 'test222', value: 222
-                }, {
-                    text: 'test223', value: 223
-                }, {
-                    text: 'test224', value: 224
-                }]
+                text: 'test002', value: 2
             }, {
-                name: 'test3',
-                children: [{
-                    text: 'test331', value: 331
-                }, {
-                    text: 'test332', value: 332
-                }, {
-                    text: 'test333', value: 333
-                }, {
-                    text: 'test334', value: 334
-                }]
-            }];
+                text: 'test003', value: 3
+            }, {
+                text: 'test004', value: 4
+            }]
+        }, {
+            name: 'test1',
+            children: [{
+                text: 'test111', value: 11
+            }]
+        }, {
+            name: 'test2',
+            children: [{
+                text: 'test221', value: 221
+            }, {
+                text: 'test222', value: 222
+            }, {
+                text: 'test223', value: 223
+            }, {
+                text: 'test224', value: 224
+            }]
+        }, {
+            name: 'test3',
+            children: [{
+                text: 'test331', value: 331
+            }, {
+                text: 'test332', value: 332
+            }, {
+                text: 'test333', value: 333
+            }, {
+                text: 'test334', value: 334
+            }]
+        }];
 
         this.state = {
             DropdownSelectVisible: {}
@@ -205,7 +213,7 @@ class DropdownSelectExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>Set the <code>autoClose</code> property to false,the select list will not close when
-                                   choose one item.</p>
+                                    choose one item.</p>
 
                                 <div className="field-group">
                                     <DropdownSelect theme={Theme.PRIMARY}
@@ -233,7 +241,7 @@ class DropdownSelectExamples extends Component {
                                 <div className="field-group">
 
                                     <p>Set the <code>filter</code> property to true,the DropdownSelect will have user
-                                       search input.</p>
+                                        search input.</p>
 
                                     <DropdownSelect data={this.data}
                                                     useFilter={true}
@@ -295,7 +303,7 @@ class DropdownSelectExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>Set the <code>autoClose</code> property to false,the select list will not close when
-                                   choose one item.</p>
+                                    choose one item.</p>
 
                                 <div className="field-group">
                                     <DropdownSelect data={data}
@@ -321,7 +329,7 @@ class DropdownSelectExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>Set the <code>autoClose</code> property to false,the select list will not close when
-                                   choose one item.</p>
+                                    choose one item.</p>
 
                                 <RaisedButton className="trigger-button dialog-button"
                                               value="Show Dialog"
