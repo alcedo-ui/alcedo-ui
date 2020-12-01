@@ -56,7 +56,7 @@ class DropdownSelect extends Component {
     }
 
     componentDidMount() {
-        this.dropdownInstance = this.dropdown && this.dropdown.current;
+        this.dropdownInstance = this.dropdown?.current;
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -67,42 +67,42 @@ class DropdownSelect extends Component {
      * public
      */
     startRipple = (e, props) => {
-        this.dropdownInstance && this.dropdownInstance.startRipple(e, props);
+        this.dropdownInstance?.startRipple?.(e, props);
     };
 
     /**
      * public
      */
     endRipple = () => {
-        this.dropdownInstance && this.dropdownInstance.endRipple();
+        this.dropdownInstance?.endRipple?.();
     };
 
     /**
      * public
      */
     triggerRipple = (e, props) => {
-        this.dropdownInstance && this.dropdownInstance.triggerRipple(e, props);
+        this.dropdownInstance?.triggerRipple?.(e, props);
     };
 
     /**
      * public
      */
     resetPopupPosition = () => {
-        this.dropdownInstance && this.dropdownInstance.resetPosition();
+        this.dropdownInstance?.resetPosition?.();
     };
 
     /**
      * public
      */
     openPopup = () => {
-        this.dropdownInstance && this.dropdownInstance.openPopup();
+        this.dropdownInstance?.openPopup?.();
     };
 
     /**
      * public
      */
     closePopup = () => {
-        this.dropdownInstance && this.dropdownInstance.closePopup();
+        this.dropdownInstance?.closePopup?.();
     };
 
     getListHeight = () => {
@@ -150,10 +150,7 @@ class DropdownSelect extends Component {
     handleFilterChange = filter => {
         this.setState({
             filter
-        }, () => {
-            const el = this.dropdown && this.dropdown.current;
-            el && el.resetPopupPosition();
-        });
+        }, () => this.dropdown?.current?.resetPopupPosition?.());
     };
 
     filterData = (filter = this.state.filter, data = this.props.data) => {
@@ -210,45 +207,35 @@ class DropdownSelect extends Component {
 
         this.setState({
             value: newValue
-        }, () => {
-            this.handleChange(newValue);
-        });
+        }, () => this.handleChange(newValue));
 
     };
 
     handleItemClick = (...args) => {
 
-        const {autoClose, onItemClick} = this.props;
-
-        if (autoClose) {
+        if (this.props.autoClose) {
             this.closePopup();
         }
 
-        onItemClick && onItemClick(...args);
+        this.props.onItemClick?.(...args);
 
     };
 
     handleChange = value => {
 
-        const {autoClose, onBeforeChange} = this.props;
-        if (autoClose) {
+        if (this.props.autoClose) {
             this.closePopup();
         }
 
-        if (onBeforeChange && onBeforeChange(value, this.state.value) === false) {
+        if (this.props.onBeforeChange?.(value, this.state.value) === false) {
             return;
         }
 
         this.setState({
             value
-        }, () => {
-            const {onChange} = this.props;
-            onChange && onChange(value);
-        });
+        }, () => this.props.onChange?.(value));
 
-        setTimeout(() => {
-            this.hiddenFilter && this.hiddenFilter.current && this.hiddenFilter.current.focus();
-        }, 1000);
+        setTimeout(() => this.hiddenFilter?.current?.focus?.(), 1000);
 
     };
 
@@ -257,30 +244,24 @@ class DropdownSelect extends Component {
         const {isHiddenInputFilter, useFilter} = this.props;
 
         if (isHiddenInputFilter) {
-            this.hiddenFilter && this.hiddenFilter.current && this.hiddenFilter.current.focus();
+            this.hiddenFilter?.current?.focus?.();
         } else if (useFilter) {
-            this.filter && this.filter.current && this.filter.current.focus();
+            this.filter?.current?.focus?.();
         }
 
         this.setState({
             popupVisible: true
-        }, () => {
-            const {onOpenPopup} = this.props;
-            onOpenPopup && onOpenPopup(e);
-        });
+        }, () => this.props.onOpenPopup?.(e));
 
     };
 
     handlePopupClose = e => {
 
-        this.hiddenFilter && this.hiddenFilter.current && this.hiddenFilter.current.blur();
+        this.hiddenFilter?.current?.blur?.();
 
         this.setState({
             popupVisible: false
-        }, () => {
-            const {onClosePopup} = this.props;
-            onClosePopup && onClosePopup(e);
-        });
+        }, () => this.props.onClosePopup?.(e));
 
     };
 
@@ -305,8 +286,7 @@ class DropdownSelect extends Component {
                 item.toUpperCase().startsWith(target.value.toUpperCase())
         );
 
-        this.scroller && this.scroller.current
-        && this.scrollTo(this.scroller.current, (index) * 40, 200);
+        this.scroller?.current && this.scrollTo(this.scroller.current, (index) * 40, 200);
 
     };
 
@@ -443,7 +423,8 @@ class DropdownSelect extends Component {
                                              onClick={this.handleSelectAllClick}>
                                             <Checkbox className="list-item-select"
                                                       checked={data && value && value.length === data.length}
-                                                      indeterminate={data && value && value.length > 0 && value.length < data.length}
+                                                      indeterminate={data && value && value.length > 0 && value.length <
+                                                      data.length}
                                                       uncheckedIconCls={checkboxUncheckedIconCls}
                                                       checkedIconCls={checkboxCheckedIconCls}
                                                       indeterminateIconCls={checkboxIndeterminateIconCls}/>
