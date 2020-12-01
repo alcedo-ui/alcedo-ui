@@ -29,21 +29,16 @@ class ListItem extends Component {
     }
 
     handleMultiSelectChange = checked => {
-
-        const {onSelect, onDeselect} = this.props;
-
         if (checked) {
-            onSelect && onSelect();
+            this.props.onSelect?.();
         } else {
-            onDeselect && onDeselect();
+            this.props.onDeselect?.();
         }
-
     };
 
     handleSingleSelectChange = () => {
         if (!this.props.checked) {
-            const {onSelect} = this.props;
-            onSelect && onSelect();
+            this.props.onSelect?.();
         }
     };
 
@@ -55,8 +50,7 @@ class ListItem extends Component {
             return;
         }
 
-        const {onClick} = this.props;
-        onClick && onClick(e);
+        this.props.onClick?.(e);
 
         if (!autoSelect) {
             return;
@@ -64,11 +58,9 @@ class ListItem extends Component {
 
         switch (this.props.selectMode) {
             case SelectMode.MULTI_SELECT:
-                this.handleMultiSelectChange(!this.props.checked);
-                return;
+                return this.handleMultiSelectChange(!this.props.checked);
             case SelectMode.SINGLE_SELECT:
-                this.handleSingleSelectChange();
-                return;
+                return this.handleSingleSelectChange();
         }
 
     };
