@@ -34,7 +34,7 @@ class TimePicker extends Component {
         this.triggerEl = null;
 
         this.state = {
-            textFieldValue: props.value,
+            value: props.value,
             popupVisible: false,
             hour: moment().format('HH'),
             minute: moment().format('mm'),
@@ -65,7 +65,7 @@ class TimePicker extends Component {
                     minute = moment(validDate).format('mm'),
                     second = moment(validDate).format('ss');
                 !this.props.disabled && this.setState({
-                    textFieldValue: text,
+                    value: text,
                     hour: hour,
                     minute: minute,
                     second: second
@@ -75,7 +75,7 @@ class TimePicker extends Component {
             }
         } else {
             this.setState({
-                textFieldValue: text
+                value: text
             });
         }
     };
@@ -88,7 +88,7 @@ class TimePicker extends Component {
             hour: obj.hour,
             minute: obj.minute,
             second: obj.second,
-            textFieldValue: timer
+            value: timer
         }, () => {
             const {onChange} = this.props;
             onChange && onChange(timer);
@@ -134,7 +134,7 @@ class TimePicker extends Component {
         if (value) {
             if (moment(dateFormatValue, 'YYYY-MM-DD HH:mm:ss').isValid()) {
                 this.setState({
-                    textFieldValue: value,
+                    value,
                     hour: moment(dateFormatValue).format('HH'),
                     minute: moment(dateFormatValue).format('mm'),
                     second: moment(dateFormatValue).format('ss')
@@ -147,16 +147,10 @@ class TimePicker extends Component {
 
     }
 
-
     static getDerivedStateFromProps(props, state) {
-        const value = ComponentUtil.getDerivedState(props, state, 'value'),
-            dateFormat = ComponentUtil.getDerivedState(props, state, 'dateFormat'),
-            dateFormatValue = '2000-02-01 ' + value;
-
         return {
             prevProps: props,
-            value,
-            textFieldValue: moment(dateFormatValue, 'YYYY-MM-DD ' + dateFormat).isValid() ? value : ''
+            value: ComponentUtil.getDerivedState(props, state, 'value')
         };
     }
 
@@ -166,7 +160,7 @@ class TimePicker extends Component {
                 className, style, name, placeholder, maxValue, minValue, dateFormat, position,
                 popupClassName, rightIconCls, readOnly, disabled, parentEl
             } = this.props,
-            {popupVisible, textFieldValue, hour, minute, second, isAbove} = this.state;
+            {popupVisible, value, hour, minute, second, isAbove} = this.state;
 
         return (
             <div className={classNames('time-picker', {
@@ -180,11 +174,11 @@ class TimePicker extends Component {
                                className="time-picker-field"
                                name={name}
                                placeholder={placeholder}
-                               value={textFieldValue ?
+                               value={value ?
                                    moment(moment().format('YYYY-MM-DD') + ' ' + hour + ':' + minute + ':' + second)
                                    .format(dateFormat)
                                    :
-                                   textFieldValue}
+                                   value}
                                readOnly={readOnly ? readOnly : !popupVisible}
                                clearButtonVisible={false}
                                disabled={disabled}

@@ -16,7 +16,8 @@ class MaterialTimePickerExamples extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            MaterialTimePickerVisible: {}
+            MaterialTimePickerVisible: {},
+            value: ''
         };
 
     }
@@ -46,12 +47,14 @@ class MaterialTimePickerExamples extends Component {
     };
 
     onChangeHandler = value => {
-        console.log(value);
+        this.setState({
+            value
+        });
     };
 
     render() {
 
-        const {MaterialTimePickerVisible} = this.state;
+        const {MaterialTimePickerVisible, value} = this.state;
 
         return (
             <div className="example time-picker-examples">
@@ -77,7 +80,7 @@ class MaterialTimePickerExamples extends Component {
 
                                 <MaterialTimePicker label={'time'}
                                                     isLabelAnimate={true}
-                                                    value={''}
+                                                    value={value}
                                                     onChange={this.onChangeHandler}/>
 
                             </div>
