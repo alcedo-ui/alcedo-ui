@@ -85,10 +85,7 @@ class Table extends Component {
     collapseAllRows = () => {
         this.setState({
             expandRows: []
-        }, () => {
-            const {onExpandChange} = this.props;
-            onExpandChange && onExpandChange([]);
-        });
+        }, () => this.props.onExpandChange?.([]));
     };
 
     /**
@@ -97,10 +94,7 @@ class Table extends Component {
     handleChange = (value, rowIndex) => {
         this.setState({
             value: [...value]
-        }, () => {
-            const {onChange} = this.props;
-            onChange && onChange(value, rowIndex);
-        });
+        }, () => this.props.onChange?.(value, rowIndex));
     };
 
     /**
@@ -114,10 +108,7 @@ class Table extends Component {
 
         this.setState({
             sorting
-        }, () => {
-            const {onSortChange} = this.props;
-            onSortChange && onSortChange(sorting);
-        });
+        }, () => this.props.onSortChange?.(sorting));
 
     };
 
@@ -125,10 +116,7 @@ class Table extends Component {
      * handle pagination change
      */
     handlePaginationChange = pagination => {
-        this.setState(pagination, () => {
-            const {onPaginationChange} = this.props;
-            onPaginationChange && onPaginationChange(pagination);
-        });
+        this.setState(pagination, () => this.props.onPaginationChange?.(pagination));
     };
 
     /**
@@ -138,9 +126,8 @@ class Table extends Component {
         this.setState({
             expandRows
         }, () => {
-            const {onExpandChange} = this.props;
-            onExpandChange && onExpandChange(expandRows);
-            callback && callback();
+            this.props.onExpandChange?.(expandRows);
+            callback?.();
         });
     };
 
@@ -196,9 +183,8 @@ class Table extends Component {
         this.setState({
             scrolling: true
         }, () => {
-            const {onScrollStart, onScrollChange} = this.props;
-            onScrollStart && onScrollStart(e);
-            onScrollChange && onScrollChange(true);
+            this.props.onScrollStart?.(e);
+            this.props.onScrollChange?.(true);
         });
     };
 
@@ -210,9 +196,8 @@ class Table extends Component {
         this.setState({
             scrolling: false
         }, () => {
-            const {onScrollEnd, onScrollChange} = this.props;
-            onScrollEnd && onScrollEnd(e);
-            onScrollChange && onScrollChange(false);
+            this.props.onScrollEnd?.(e);
+            this.props.onScrollChange?.(false);
         });
     };
 
@@ -224,9 +209,8 @@ class Table extends Component {
         this.setState({
             resizing: true
         }, () => {
-            const {onResizeStart, onResizeChange} = this.props;
-            onResizeStart && onResizeStart(e);
-            onResizeChange && onResizeChange(true);
+            this.props.onResizeStart?.(e);
+            this.props.onResizeChange?.(true);
         });
     };
 
@@ -238,9 +222,8 @@ class Table extends Component {
         this.setState({
             resizing: false
         }, () => {
-            const {onResizeEnd, onResizeChange} = this.props;
-            onResizeEnd && onResizeEnd(e);
-            onResizeChange && onResizeChange(false);
+            this.props.onResizeEnd?.(e);
+            this.props.onResizeChange?.(false);
         });
     };
 
@@ -263,7 +246,7 @@ class Table extends Component {
         // find the column in columns
         let column = null;
         Util.preOrderTraverse({children: nextColumns}, node => {
-            if (node && TC.getColumnKey(node, columnKeyField) == key) {
+            if (node && TC.getColumnKey(node, columnKeyField) === key) {
                 column = node;
                 return false;
             }
@@ -279,10 +262,7 @@ class Table extends Component {
         this.setState({
             columns: nextColumns,
             columnsWidth
-        }, () => {
-            const {onColumnsWidthChange} = this.props;
-            onColumnsWidthChange && onColumnsWidthChange(resizingColumn, width, nextColumns, e);
-        });
+        }, () => this.props.onColumnsWidthChange?.(resizingColumn, width, nextColumns, e));
 
     };
 
@@ -295,10 +275,7 @@ class Table extends Component {
     handleColumnResizeStart = (resizingColumn, width, e) => {
         this.setState({
             resizingColumn
-        }, () => {
-            const {onColumnResizeStart} = this.props;
-            onColumnResizeStart && onColumnResizeStart(resizingColumn, width, e);
-        });
+        }, () => this.props.onColumnResizeStart?.(resizingColumn, width, e));
     };
 
     /**
@@ -311,10 +288,7 @@ class Table extends Component {
         setTimeout(() => {
             this.setState({
                 resizingColumn: null
-            }, () => {
-                const {onColumnResizeEnd} = this.props;
-                onColumnResizeEnd && onColumnResizeEnd(resizingColumn, width, e);
-            });
+            }, () => this.props.onColumnResizeEnd?.(resizingColumn, width, e));
         }, 0);
     };
 
@@ -330,7 +304,7 @@ class Table extends Component {
             columnKey = TC.getColumnKey(column, columnKeyField);
 
         // ignore resizing Column
-        if (columnKey == TC.getColumnKey(resizingColumn, columnKeyField)) {
+        if (columnKey === TC.getColumnKey(resizingColumn, columnKeyField)) {
             return;
         }
 
