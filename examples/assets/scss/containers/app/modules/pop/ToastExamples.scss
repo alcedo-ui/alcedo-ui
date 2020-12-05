@@ -1,3 +1,8 @@
+/**
+ * @file Toaster examples style
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 @import '../../../../my-theme.scss';
 
 .toast-examples {
@@ -9,11 +14,12 @@
 
             .button-radio-group {
 
-                .button-radio-group-item {
-                    width: auto;
+                .list-item {
+                    width: 96px;
                     padding: 0 20px;
                     border-radius: 20px;
-                    margin-right: 20px;
+                    margin-right: 8px;
+                    text-align: center;
 
                     .button-icon {
                         display: none;
@@ -24,18 +30,22 @@
                         background: #fff;
                         border: 1px solid $theme-border;
                     }
+
                     &.type-info {
                         color: #fff;
                         background: $theme-info;
                     }
+
                     &.type-success {
                         color: #fff;
                         background: $theme-success;
                     }
+
                     &.type-warning {
                         color: #fff;
                         background: $theme-warning;
                     }
+
                     &.type-error {
                         color: #fff;
                         background: $theme-error;

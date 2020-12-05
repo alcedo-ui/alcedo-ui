@@ -1,5 +1,11 @@
+/**
+ * @file Toaster examples
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 
+// Components
 import RaisedButton from 'src/RaisedButton';
 import Toaster from 'src/Toaster';
 import Widget from 'src/Widget';
@@ -7,9 +13,14 @@ import WidgetHeader from 'src/WidgetHeader';
 import ButtonRadioGroup from 'src/ButtonRadioGroup';
 import MaterialTextField from 'src/MaterialTextField';
 
+// Docs
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Toast.json';
 
+// Vendors
+import startCase from 'lodash/startCase';
+
+// Styles
 import 'scss/containers/app/modules/pop/PopExamples.scss';
 import 'scss/containers/app/modules/pop/ToastExamples.scss';
 
@@ -28,14 +39,8 @@ class ToastExamples extends Component {
 
         this.Type = Object.keys(Toaster.Type).map(item => ({
             className: `type-${item.toLowerCase()}`,
-            iconCls: 'fas fa-check',
-            label: item,
+            text: startCase(item.toLowerCase()),
             value: Toaster.Type[item]
-        }));
-
-        this.ToasterPosition = Object.keys(Toaster.Position).map(item => ({
-            label: item,
-            value: Toaster.Position[item]
         }));
 
     }
@@ -55,7 +60,7 @@ class ToastExamples extends Component {
         }
 
         toasts[position].push({
-            type,
+            type: type?.value,
             message
         });
 
@@ -74,7 +79,7 @@ class ToastExamples extends Component {
 
     render() {
 
-        const {type, position, title, message, toasts} = this.state,
+        const {type, message, toasts} = this.state,
             {
                 TOP_LEFT, TOP, TOP_RIGHT, RIGHT_TOP, RIGHT, RIGHT_BOTTOM, CENTER,
                 BOTTOM_LEFT, BOTTOM, BOTTOM_RIGHT, LEFT_TOP, LEFT, LEFT_BOTTOM
@@ -86,8 +91,8 @@ class ToastExamples extends Component {
                 <h2 className="example-title">Toast</h2>
 
                 <p>
-                    <span>Toast</span>
-                    is a global display notification alert information .
+                    <span>Toast </span>
+                    is a global display notification alert information.
                 </p>
 
                 <h2 className="example-title">Examples</h2>

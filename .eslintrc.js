@@ -85,7 +85,7 @@ module.exports = {
         // 'dot-notation': [0, {
         //     'allowKeywords': true
         // }],
-        'eqeqeq': [2, 'allow-null'],
+        // 'eqeqeq': [2, 'allow-null'],
         'guard-for-in': 2,
         // 'no-alert': 0,
         'no-caller': 2,
@@ -255,6 +255,7 @@ module.exports = {
         'operator-linebreak': [2, 'after', {
             'overrides': {
                 '=': 'ignore',
+                '!=': 'ignore',
                 '==': 'ignore',
                 '!==': 'ignore',
                 '===': 'ignore',

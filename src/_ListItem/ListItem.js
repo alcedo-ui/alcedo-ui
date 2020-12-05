@@ -5,18 +5,21 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Components
 import Checkbox from '../Checkbox';
 import Radio from '../Radio';
 import CircularLoading from '../CircularLoading';
 import TipProvider from '../TipProvider';
 import TouchRipple from '../TouchRipple';
 
+// Statics
 import Theme from '../Theme';
 import Position from '../_statics/Position';
 import SelectMode from '../_statics/SelectMode';
 
+// Vendors
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 
 class ListItem extends Component {
@@ -61,6 +64,8 @@ class ListItem extends Component {
                 return this.handleMultiSelectChange(!this.props.checked);
             case SelectMode.SINGLE_SELECT:
                 return this.handleSingleSelectChange();
+            default:
+                return;
         }
 
     };

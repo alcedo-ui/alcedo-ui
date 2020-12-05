@@ -248,11 +248,13 @@ class List extends Component {
             children, className, style, data, disabled,
 
             // not passing down these props
+            /* eslint-disable no-unused-vars */
             activatedTheme, selectTheme, selectMode, value, idField, valueField, displayField, descriptionField,
             itemDisabled, disableTouchRipple, autoSelect, isLoading, itemHeight, parentEl,
             radioUncheckedIconCls, radioCheckedIconCls,
             checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
             indeterminateCallback, renderer, onItemClick, onItemSelect, onItemDeselect,
+            /* eslint-enable no-unused-vars */
 
             ...restProps
 
