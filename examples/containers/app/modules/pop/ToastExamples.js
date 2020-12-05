@@ -37,13 +37,11 @@ class ToastExamples extends Component {
             toasts: {}
         };
 
-        this.Type = Object.keys(Toaster.Type)
-            .map(item => ({
-                className: `type-${item.toLowerCase()}`,
-                iconCls: 'fas fa-check',
-                text: startCase(item.toLowerCase()),
-                value: Toaster.Type[item]
-            }));
+        this.Type = Object.keys(Toaster.Type).map(item => ({
+            className: `type-${item.toLowerCase()}`,
+            text: startCase(item.toLowerCase()),
+            value: Toaster.Type[item]
+        }));
 
     }
 
@@ -87,16 +85,14 @@ class ToastExamples extends Component {
                 BOTTOM_LEFT, BOTTOM, BOTTOM_RIGHT, LEFT_TOP, LEFT, LEFT_BOTTOM
             } = Toaster.Position;
 
-        console.log(toasts[TOP]);
-
         return (
             <div className="example pop-examples toast-examples">
 
                 <h2 className="example-title">Toast</h2>
 
                 <p>
-                    <span>Toast</span>
-                    is a global display notification alert information .
+                    <span>Toast </span>
+                    is a global display notification alert information.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
