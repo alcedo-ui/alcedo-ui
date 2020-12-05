@@ -3,6 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+// Statics
 import Theme from '../Theme';
 
 export default {
