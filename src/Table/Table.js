@@ -332,7 +332,7 @@ class Table extends Component {
                 paginationSelectionRenderer, paginationTotalRenderer, onPageChange, onPageSizeChange,
 
                 // not passing down these props
-                columns: cols, pageSize: propsPageSize,
+                columns: cols, pageSize: propsPageSize, disableScrollingRender,
                 onPaginationChange, onScrollStart, onScrollEnd,
 
                 ...restProps
