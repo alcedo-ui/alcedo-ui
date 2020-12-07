@@ -106,7 +106,6 @@ class Dialog extends Component {
             cancelButtonVisible, cancelButtonText, cancelButtonIconCls, cancelButtonDisabled, cancelButtonIsLoading,
             cancelButtonTheme, closeButtonVisible, closeIconCls,
 
-
             // not passing down these props
             isBlurClose, isEscClose,
             onRequestClose, onOKButtonClick, onCloseButtonClick, onCancelButtonClick,
@@ -128,7 +127,6 @@ class Dialog extends Component {
                          modalClassName={modalClassName}
                          onRender={this.handleRender}
                          onDestroy={this.handleDestroy}>
-
                 {
                     popEl => (
                         <Fragment>
@@ -203,7 +201,6 @@ class Dialog extends Component {
                         </Fragment>
                     )
                 }
-
             </PositionPop>
         );
 
