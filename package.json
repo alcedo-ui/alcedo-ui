@@ -92,7 +92,7 @@
         "chokidar": "3.4.3",
         "connect-history-api-fallback": "1.6.0",
         "copy-webpack-plugin": "6.3.2",
-        "core-js": "3.8.0",
+        "core-js": "3.8.1",
         "cross-env": "7.0.3",
         "crypto": "1.0.1",
         "css-loader": "5.0.1",
