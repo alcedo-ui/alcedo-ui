@@ -76,7 +76,7 @@ class Table extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {
-        return !this.state.scrolling || !nextState.scrolling;
+        return !nextProps.disableScrollingRender || (!this.state.scrolling || !nextState.scrolling);
     }
 
     /**
@@ -822,6 +822,7 @@ Table.propTypes = {
         height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         maxHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
     }),
+    disableScrollingRender: PropTypes.bool,
 
     /**
      * Dynamic Render
@@ -930,6 +931,11 @@ Table.defaultProps = {
     isLayoutFixed: true,
     isHeadFixed: false,
     isFootFixed: false,
+
+    /**
+     * scroll
+     */
+    disableScrollingRender: true,
 
     /**
      * Dynamic Render
