@@ -43,7 +43,7 @@ class TextField extends Component {
 
         this.state = {
             value: props.value,
-            isFocused: props.autoFocus ? true : false,
+            isFocused: !!props.autoFocus,
             passwordVisible: false,
             infoVisible: false,
             errorVisible: false,
@@ -138,9 +138,10 @@ class TextField extends Component {
 
             this.focus();
 
-            passwordVisible
-                ? (onPasswordVisible && onPasswordVisible())
-                : (onPasswordInvisible && onPasswordInvisible());
+            passwordVisible ?
+                (onPasswordVisible && onPasswordVisible())
+                :
+                (onPasswordInvisible && onPasswordInvisible());
 
         });
 
