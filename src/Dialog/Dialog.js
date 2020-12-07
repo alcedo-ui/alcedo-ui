@@ -36,49 +36,38 @@ class Dialog extends Component {
      * public
      */
     getEl = () => {
-        return this.pop && this.pop.current && this.pop.current.getEl();
+        return this.pop?.current?.getEl?.();
     };
 
     handleOkButtonClick = () => {
 
         const {visible, onOKButtonClick} = this.props;
 
-        visible && onOKButtonClick && onOKButtonClick(() => {
+        visible && onOKButtonClick?.(() => {
             this.setState({
                 visible: false
-            }, () => {
-                const {onRequestClose} = this.props;
-                onRequestClose && onRequestClose();
-            });
+            }, () => this.props.onRequestClose?.());
         });
 
     };
 
     handleCancelButtonClick = () => {
 
-        const {onCancelButtonClick, onRequestClose} = this.props;
-
-        onCancelButtonClick && onCancelButtonClick();
+        this.props.onCancelButtonClick?.();
 
         this.setState({
             visible: false
-        }, () => {
-            onRequestClose && onRequestClose();
-        });
+        }, () => this.props.onRequestClose?.());
 
     };
 
     handleCloseButtonClick = () => {
 
-        const {onCloseButtonClick, onRequestClose} = this.props;
-
-        onCloseButtonClick && onCloseButtonClick();
+        this.props.onCloseButtonClick?.();
 
         this.setState({
             visible: false
-        }, () => {
-            onRequestClose && onRequestClose();
-        });
+        }, () => this.props.onRequestClose?.());
 
     };
 
@@ -88,8 +77,7 @@ class Dialog extends Component {
             shouldLockBody: this.props.showModal
         });
 
-        const {onRender} = this.props;
-        onRender && onRender(...args);
+        this.props.onRender?.(...args);
 
     };
 
@@ -97,8 +85,7 @@ class Dialog extends Component {
 
         PopManagement.pop(this);
 
-        const {onDestroy} = this.props;
-        onDestroy && onDestroy(...args);
+        this.props.onDestroy?.(...args);
 
     };
 
