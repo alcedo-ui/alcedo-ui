@@ -256,7 +256,7 @@ class LocalAutoComplete extends Component {
             {filter, tempSelectIndex, listData} = this.state,
 
             index = filter?.length >= minFilterLength ?
-                !isNaN(tempSelectIndex) ? tempSelectIndex : 0
+                (!isNaN(tempSelectIndex) ? tempSelectIndex : 0) || 0
                 :
                 -1,
             state = {
