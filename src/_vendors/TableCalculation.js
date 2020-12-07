@@ -211,7 +211,9 @@ function indexOfNodeInValue(node, value, idField) {
         return -1;
     }
 
-    let index = value.findIndex(item => (idField in item) && (idField in node) && item[idField] === node[idField]);
+    let index = value.findIndex(item =>
+        item && item.hasOwnProperty(idField) && node.hasOwnProperty(idField) && item[idField] === node[idField]
+    );
     if (index < 0) {
         index = value.indexOf(node);
     }
@@ -570,7 +572,8 @@ function getColumnsTotalWidth(columns, columnKeyField = 'key', columnsWidth, def
 }
 
 function getStickyColumnStyle(fixed, colIndex, columns, columnKeyField = 'key',
-    columnsWidth, defaultColumnWidth, hasVerticalScroll) {
+    columnsWidth, defaultColumnWidth, hasVerticalScroll
+) {
 
     const result = {};
 
