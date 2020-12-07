@@ -10,10 +10,12 @@ import {findDOMNode} from 'react-dom';
 // Components
 import IconButton from '../IconButton';
 import FieldMsg from '../FieldMsg';
+import TipProvider from '../TipProvider';
 
 // Statics
 import Theme from '../Theme';
 import FieldType from '../_statics/FieldType';
+import Position from '../_statics/Position';
 
 // Vendors
 import classNames from 'classnames';
@@ -25,6 +27,7 @@ class TextField extends Component {
 
     static Type = FieldType;
     static Theme = Theme;
+    static TipPosition = Position;
 
     static getDerivedStateFromProps(props, state) {
         return {
@@ -199,7 +202,7 @@ class TextField extends Component {
 
                 children, className, triggerClassName, placeholderClassName, style, theme, type, iconCls, disabled,
                 infoMsg, placeholder, clearButtonVisible, rightIconCls, passwordButtonVisible, fieldMsgVisible,
-                maxLength, isStrictMaxLength, parentEl,
+                maxLength, isStrictMaxLength, parentEl, tip, tipPosition,
                 onIconClick, onRightIconClick,
 
                 // not passing down these props
@@ -242,93 +245,97 @@ class TextField extends Component {
         }
 
         return (
-            <div className={classNames('text-field',
-                empty ? 'empty' : 'not-empty',
-                invalidMsgs && invalidMsgs.length > 0 ? ' theme-error' : (theme ? ` theme-${theme}` : ''), {
-                    password: isPassword,
-                    'has-icon': iconCls,
-                    'has-right-icon': rightIconCls,
-                    focused: isFocused,
-                    'has-clear-button': clearButtonVisible,
-                    [className]: className
-                })}
-                 style={style}
-                 disabled={disabled}>
+            <TipProvider tipContent={tip}
+                         parentEl={parentEl}
+                         position={tipPosition}>
+                <div className={classNames('text-field',
+                    empty ? 'empty' : 'not-empty',
+                    invalidMsgs && invalidMsgs.length > 0 ? ' theme-error' : (theme ? ` theme-${theme}` : ''), {
+                        password: isPassword,
+                        'has-icon': iconCls,
+                        'has-right-icon': rightIconCls,
+                        focused: isFocused,
+                        'has-clear-button': clearButtonVisible,
+                        [className]: className
+                    })}
+                     style={style}
+                     disabled={disabled}>
 
-                {
-                    iconCls ?
-                        <IconButton className={classNames('text-field-left-icon', {
-                            deactivated: !onIconClick
-                        })}
-                                    iconCls={iconCls}
-                                    disableTouchRipple={!onIconClick}
-                                    onClick={onIconClick}/>
-                        :
-                        null
-                }
+                    {
+                        iconCls ?
+                            <IconButton className={classNames('text-field-left-icon', {
+                                deactivated: !onIconClick
+                            })}
+                                        iconCls={iconCls}
+                                        disableTouchRipple={!onIconClick}
+                                        onClick={onIconClick}/>
+                            :
+                            null
+                    }
 
-                {
-                    (placeholder !== '' && placeholder !== null) && !isFocused && (value == null || value == '') ?
-                        <input className={classNames('text-field-placeholder', {
-                            [placeholderClassName]: placeholderClassName
-                        })}
-                               value={placeholder}
-                               disabled={true}/>
-                        :
-                        null
-                }
+                    {
+                        (placeholder !== '' && placeholder !== null) && !isFocused && (value == null || value == '') ?
+                            <input className={classNames('text-field-placeholder', {
+                                [placeholderClassName]: placeholderClassName
+                            })}
+                                   value={placeholder}
+                                   disabled={true}/>
+                            :
+                            null
+                    }
 
-                {createElement('input', inputProps)}
+                    {createElement('input', inputProps)}
 
-                {
-                    clearButtonVisible ?
-                        <IconButton ref={this.clearButton}
-                                    className={classNames('clear-icon', {
-                                        hidden: disabled || value == null || value.length < 1
-                                    })}
-                                    iconCls="fas fa-times-circle"
-                                    onClick={this.clearValue}/>
-                        :
-                        null
-                }
+                    {
+                        clearButtonVisible ?
+                            <IconButton ref={this.clearButton}
+                                        className={classNames('clear-icon', {
+                                            hidden: disabled || value == null || value.length < 1
+                                        })}
+                                        iconCls="fas fa-times-circle"
+                                        onClick={this.clearValue}/>
+                            :
+                            null
+                    }
 
-                {
-                    isPassword && passwordButtonVisible ?
-                        <IconButton className="password-visible-icon"
-                                    iconCls={passwordVisible ? 'fas fa-eye' : 'far fa-eye-slash'}
-                                    onClick={this.togglePasswordVisible}/>
-                        :
-                        null
-                }
+                    {
+                        isPassword && passwordButtonVisible ?
+                            <IconButton className="password-visible-icon"
+                                        iconCls={passwordVisible ? 'fas fa-eye' : 'far fa-eye-slash'}
+                                        onClick={this.togglePasswordVisible}/>
+                            :
+                            null
+                    }
 
-                {
-                    rightIconCls ?
-                        <IconButton className={classNames('text-field-right-icon', {
-                            deactivated: !onRightIconClick
-                        })}
-                                    rightIconCls={rightIconCls}
-                                    disableTouchRipple={!onRightIconClick}
-                                    onClick={this.handleRightIconClick}/>
-                        :
-                        null
-                }
+                    {
+                        rightIconCls ?
+                            <IconButton className={classNames('text-field-right-icon', {
+                                deactivated: !onRightIconClick
+                            })}
+                                        rightIconCls={rightIconCls}
+                                        disableTouchRipple={!onRightIconClick}
+                                        onClick={this.handleRightIconClick}/>
+                            :
+                            null
+                    }
 
-                <FieldMsg type="info"
-                          msg={infoMsg}
-                          visible={!!(fieldMsgVisible && infoVisible && infoMsg)}
-                          triggerEl={this.inputEl}
-                          parentEl={parentEl}
-                          position={FieldMsg.Position.TOP_LEFT}/>
+                    <FieldMsg type="info"
+                              msg={infoMsg}
+                              visible={!!(fieldMsgVisible && infoVisible && infoMsg)}
+                              triggerEl={this.inputEl}
+                              parentEl={parentEl}
+                              position={FieldMsg.Position.TOP_LEFT}/>
 
-                <FieldMsg type="error"
-                          msg={invalidMsgs && invalidMsgs.join(', ')}
-                          visible={!!(fieldMsgVisible && errorVisible && invalidMsgs && invalidMsgs.length > 0)}
-                          triggerEl={this.inputEl}
-                          parentEl={parentEl}/>
+                    <FieldMsg type="error"
+                              msg={invalidMsgs && invalidMsgs.join(', ')}
+                              visible={!!(fieldMsgVisible && errorVisible && invalidMsgs && invalidMsgs.length > 0)}
+                              triggerEl={this.inputEl}
+                              parentEl={parentEl}/>
 
-                {children}
+                    {children}
 
-            </div>
+                </div>
+            </TipProvider>
         );
 
     }
@@ -461,6 +468,9 @@ TextField.propTypes = {
     fieldMsgVisible: PropTypes.bool,
     parentEl: PropTypes.object,
 
+    tip: PropTypes.string,
+    tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
+
     /**
      * Callback function fired when the textField is changed.
      */
@@ -534,6 +544,8 @@ TextField.defaultProps = {
 
     // valid
     required: false,
+
+    tipPosition: Position.BOTTOM,
 
     autoComplete: 'off',
     autoCorrect: 'off',
