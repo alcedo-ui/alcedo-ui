@@ -29,11 +29,11 @@ class Tf extends Component {
      */
     handleRender = () => {
 
-        const {colIndex, data, scrollEl, renderer} = this.props;
+        const {rowIndex, colIndex, rowData, tableData, scrollEl, renderer, bodyRenderer} = this.props;
 
         switch (typeof renderer) {
             case 'function':
-                return renderer(data, colIndex, scrollEl);
+                return renderer(rowData, rowIndex, colIndex, tableData, bodyRenderer, scrollEl);
             default:
                 return renderer;
         }
@@ -46,11 +46,11 @@ class Tf extends Component {
      */
     handleTitle = () => {
 
-        const {colIndex, data, scrollEl, title} = this.props;
+        const {colIndex, tableData, scrollEl, title} = this.props;
 
         switch (typeof title) {
             case 'function':
-                return title(data, colIndex, scrollEl);
+                return title(tableData, colIndex, scrollEl);
             default:
                 return title;
         }
@@ -83,11 +83,14 @@ Tf.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
 
+    rowIndex: PropTypes.number,
     colIndex: PropTypes.number,
-    data: PropTypes.array,
+    rowData: PropTypes.object,
+    tableData: PropTypes.array,
     title: PropTypes.any,
 
-    renderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    renderer: PropTypes.any,
+    bodyRenderer: PropTypes.any,
     align: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
     span: PropTypes.number,
     noWrap: PropTypes.bool,
