@@ -596,7 +596,7 @@ class TableContent extends Component {
 
         const {
 
-                columns, data, scroll, noDataText,
+                columns, data, footData, scroll, noDataText,
                 isLayoutFixed, isHeadHidden, isFootHidden, expandRows, useDynamicRender,
                 minColumnWidth, maxColumnWidth,
 
@@ -660,6 +660,7 @@ class TableContent extends Component {
                                  headColumns={this.headColumns}
                                  bodyColumns={this.bodyColumns}
                                  data={this.tableData}
+                                 footData={footData}
                                  dynamicRenderData={this.dynamicRenderData}
                                  expandRows={expandRows}
                                  isLayoutFixed={isLayoutFixed}
@@ -923,6 +924,7 @@ TableContent.propTypes = {
     columnKeyField: PropTypes.string,
     columnsWidth: PropTypes.object,
     data: PropTypes.array,
+    footData: PropTypes.array,
     value: PropTypes.array,
     idField: PropTypes.string,
     disabled: PropTypes.bool,
