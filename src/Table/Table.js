@@ -321,7 +321,7 @@ class Table extends Component {
 
         const {
 
-                className, style, selectMode, data, isHeadFixed, isFootFixed,
+                className, style, selectMode, data, footData, isHeadFixed, isFootFixed,
 
                 // pagination
                 pageSizeClassName, pageSizeTriggerClassName, pageSizePopupClassName,
@@ -358,6 +358,7 @@ class Table extends Component {
                          ref={this.content}
                          columns={columns}
                          data={data}
+                         footData={footData}
                          sorting={sorting}
                          isHeadFixed={isHeadFixed}
                          isFootFixed={isFootFixed}
@@ -661,6 +662,7 @@ Table.propTypes = {
     })).isRequired,
     columnKeyField: PropTypes.string,
     data: PropTypes.array,
+    footData: PropTypes.array,
     value: PropTypes.array,
     idField: PropTypes.string,
     disabled: PropTypes.bool,
