@@ -7,21 +7,17 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 // Components
-import Tf from '../_Tf';
+import TfootRow from '../_TfootRow';
 
 // Statics
-import TableFragment from '../_statics/TableFragment';
 import HorizontalAlign from '../_statics/HorizontalAlign';
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
-import Direction from '../_statics/Direction';
 
 // Vendors
 import classNames from 'classnames';
 import Util from '../_vendors/Util';
-import TC from '../_vendors/TableCalculation';
-import ScrollBar from '../_vendors/ScrollBar';
 
 class Tfoot extends Component {
 
@@ -38,36 +34,18 @@ class Tfoot extends Component {
         return !nextProps.resizingColumn;
     }
 
-    getColumnsSpan = () => {
-        const {columns, data, onRequestColumnsSpan} = this.props;
-        return onRequestColumnsSpan ?
-            onRequestColumnsSpan(TableFragment.FOOT, columns, data)
-            :
-            TC.getColumnsSpan(TableFragment.FOOT, columns, data);
-    };
-
-    getStyle = (column, colIndex) => {
-        const {columns, columnKeyField, columnsWidth, defaultColumnWidth, hasVerticalScroll} = this.props;
-        return {
-            ...column.footStyle,
-            ...TC.getStickyColumnStyle(column?.fixed, colIndex, columns,
-                columnKeyField, columnsWidth, defaultColumnWidth, hasVerticalScroll)
-        };
-    };
-
     handleClick = e => {
-        const {data, disabled, onFootClick} = this.props;
-        !disabled && onFootClick && onFootClick(data, e);
+        const {data, disabled} = this.props;
+        !disabled && this.props.onFootClick?.(data, e);
     };
 
     render() {
 
         const {
-                className, data, disabled, ignoreColumnSpan, scrollEl, hasVerticalScroll, hasFixedRightColumn,
-                onCellClick
-            } = this.props,
-            columnsSpan = this.getColumnsSpan(),
-            verticalScrollBarSize = ScrollBar.getSize(Direction.VERTICAL);
+            className, columns, data, footData, disabled,
+            ignoreColumnSpan, scrollEl, hasVerticalScroll, hasFixedRightColumn,
+            onCellClick
+        } = this.props;
 
         return (
             <tfoot className={classNames({
@@ -77,56 +55,21 @@ class Tfoot extends Component {
                    style={data.rowStyle}
                    disabled={disabled}
                    onClick={this.handleClick}>
-                <tr>
-
-                    {
-                        columnsSpan && columnsSpan.map(({column, span}, colIndex) =>
-                            <Tf key={colIndex}
-                                className={classNames(column.footClassName, {
-                                    'fixed-left': column.fixed === HorizontalAlign.LEFT,
-                                    'last-fixed-left': column.fixed === HorizontalAlign.LEFT
-                                        && columnsSpan?.[colIndex + 1]?.column?.fixed !== HorizontalAlign.LEFT,
-                                    'fixed-right': column.fixed === HorizontalAlign.RIGHT,
-                                    'first-fixed-right': column.fixed === HorizontalAlign.RIGHT
-                                        && columnsSpan?.[colIndex - 1]?.column?.fixed !== HorizontalAlign.RIGHT
-                                })}
-                                style={this.getStyle(column, colIndex)}
-                                colIndex={colIndex}
-                                data={data}
-                                title={column.footTitle}
-                                renderer={column.footRenderer}
-                                align={column.footAlign || column.align}
-                                span={ignoreColumnSpan ? null : span}
-                                noWrap={TC.handleNoWrap(column.footNoWrap, column.noWrap, {
-                                    data,
-                                    rowIndex: 0,
-                                    colIndex: colIndex,
-                                    tableData: data
-                                })}
-                                disabled={disabled}
-                                scrollEl={scrollEl}
-                                onCellClick={onCellClick}/>
-                        )
-                    }
-
-                    {
-                        hasVerticalScroll && columnsSpan && verticalScrollBarSize > 0 ?
-                            <td className={classNames('scroll-bar-tf', {
-                                'fixed-right': hasFixedRightColumn
-                            })}
-                                style={{
-                                    width: verticalScrollBarSize,
-                                    ...(hasFixedRightColumn ? {
-                                        position: 'sticky',
-                                        right: 0
-                                    } : null)
-                                }}>
-                            </td>
-                            :
-                            null
-                    }
-
-                </tr>
+            {
+                footData?.map((rowData, rowIndex) =>
+                    <TfootRow key={rowIndex}
+                              rowIndex={rowIndex}
+                              columns={columns}
+                              data={rowData}
+                              tableData={data}
+                              disabled={disabled}
+                              ignoreColumnSpan={ignoreColumnSpan}
+                              scrollEl={scrollEl}
+                              hasVerticalScroll={hasVerticalScroll}
+                              hasFixedRightColumn={hasFixedRightColumn}
+                              onCellClick={onCellClick}/>
+                )
+            }
             </tfoot>
         );
 
@@ -361,6 +304,7 @@ Tfoot.propTypes = {
     columnKeyField: PropTypes.string,
     columnsWidth: PropTypes.object,
     data: PropTypes.array,
+    footData: PropTypes.array,
     disabled: PropTypes.bool,
     ignoreColumnSpan: PropTypes.bool,
 
