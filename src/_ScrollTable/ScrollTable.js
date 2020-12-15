@@ -102,7 +102,7 @@ class ScrollTable extends Component {
         const {
 
             horizontalScrollStyle, verticalScrollStyle, fixed, columns, headColumns, bodyColumns,
-            isHeadHidden, isFootHidden, isLayoutFixed, isHeadFixed, isFootFixed, data, scroll,
+            isHeadHidden, isFootHidden, isLayoutFixed, isHeadFixed, isFootFixed, data, footData, scroll,
             useDynamicRender, dynamicRenderIndex, scrollHeight, rowHeight, scrollBuffer, defaultColumnWidth,
             onScroll, onWheel, onColumnMeasure,
 
@@ -240,6 +240,7 @@ class ScrollTable extends Component {
                                                isFootFixed={isFootFixed}
                                                ignoreColumnSpan={true}
                                                data={data}
+                                               footData={footData}
                                                scrollEl={scrollEl}
                                                useDynamicRender={useDynamicRender}
                                                scrollHeight={scrollHeight}
@@ -512,6 +513,7 @@ ScrollTable.propTypes = {
     columnKeyField: PropTypes.string,
     columnsWidth: PropTypes.object,
     data: PropTypes.array,
+    footData: PropTypes.array,
     dynamicRenderData: PropTypes.array,
     value: PropTypes.array,
     idField: PropTypes.string,
