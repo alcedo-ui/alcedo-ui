@@ -55,7 +55,7 @@ class Tbody extends Component {
 
         const {
 
-                className, style, columns, data, dynamicRenderData, startIndex, disabled, useDynamicRender,
+                className, style, columns, tableData, dynamicRenderData, startIndex, disabled, useDynamicRender,
                 onColumnMeasure,
 
                 // not passing down these props
@@ -65,7 +65,7 @@ class Tbody extends Component {
 
             } = this.props,
 
-            finalData = (useDynamicRender ? dynamicRenderData : data) || [];
+            finalData = (useDynamicRender ? dynamicRenderData : tableData) || [];
 
         return (
             <tbody className={className}
@@ -83,7 +83,7 @@ class Tbody extends Component {
                             rowIndex={startIndex + index}
                             columns={columns}
                             data={row}
-                            tableData={data}
+                            tableData={tableData}
                             isChecked={this.isItemChecked(row)}
                             disabled={disabled || row.disabled}
                             useDynamicRender={useDynamicRender}/>
@@ -330,7 +330,7 @@ Tbody.propTypes = {
     })).isRequired,
     columnKeyField: PropTypes.string,
     columnsWidth: PropTypes.object,
-    data: PropTypes.array,
+    tableData: PropTypes.array,
     dynamicRenderData: PropTypes.array,
     value: PropTypes.array,
     startIndex: PropTypes.number,
