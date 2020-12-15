@@ -62,7 +62,7 @@ class BaseTable extends Component {
 
         const {
 
-                className, style, data, dynamicRenderData, value, idField, scrollEl, hasVerticalScroll,
+                className, style, data, footData, dynamicRenderData, value, idField, scrollEl, hasVerticalScroll,
                 headColumns, bodyColumns, columnKeyField, columnsWidth, selectMode, useColumnsWidth,
                 expandRows, resizingColumn, useDynamicRender, scrollHeight, rowHeight, scrollBuffer,
                 defaultColumnWidth, minColumnWidth, maxColumnWidth, isHeadHidden, isBodyHidden, isFootHidden,
@@ -107,7 +107,7 @@ class BaseTable extends Component {
                                columnKeyField={columnKeyField}
                                columnsWidth={columnsWidth}
                                hasFixedRightColumn={hasFixedRightColumn}
-                               data={data}
+                               tableData={data}
                                dynamicRenderData={dynamicRenderData}
                                sorting={sorting}
                                defaultSortingType={defaultSortingType}
@@ -137,7 +137,7 @@ class BaseTable extends Component {
                                columns={bodyColumns || columns}
                                columnKeyField={columnKeyField}
                                columnsWidth={columnsWidth}
-                               data={data}
+                               tableData={data}
                                dynamicRenderData={dynamicRenderData}
                                value={value}
                                selectMode={selectMode}
@@ -168,6 +168,7 @@ class BaseTable extends Component {
                                columnsWidth={columnsWidth}
                                hasFixedRightColumn={hasFixedRightColumn}
                                data={data}
+                               footData={footData}
                                dynamicRenderData={dynamicRenderData}
                                ignoreColumnSpan={ignoreColumnSpan}
                                scrollEl={scrollEl}
@@ -437,6 +438,7 @@ BaseTable.propTypes = {
     columnsWidth: PropTypes.object,
     useColumnsWidth: PropTypes.bool,
     data: PropTypes.array,
+    footData: PropTypes.array,
     dynamicRenderData: PropTypes.array,
     value: PropTypes.array,
     idField: PropTypes.string,
