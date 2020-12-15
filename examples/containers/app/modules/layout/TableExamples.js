@@ -240,6 +240,13 @@ class TableExamples extends Component {
 
     };
 
+    getFootData = data => {
+        return [{
+            age: round(data.reduce((a, b) => a + b.age, 0) / data.length, 0),
+            functionWidth: data.reduce((a, b) => round(a + b.functionWidth), 0)
+        }];
+    };
+
     deleteRow = id => {
 
         const {data} = this.state,
@@ -347,8 +354,7 @@ class TableExamples extends Component {
 
         return data.filter(item => item && (
             (item.firstName && item.firstName.toUpperCase().includes(filter.toUpperCase()))
-            ||
-            (item.lastName && item.lastName.toUpperCase().includes(filter.toUpperCase()))
+            || (item.lastName && item.lastName.toUpperCase().includes(filter.toUpperCase()))
         ));
 
     };
@@ -362,7 +368,8 @@ class TableExamples extends Component {
     render() {
 
         const {data, sorting, filter, headVisible, footVisible} = this.state,
-            filteredLoadingData = this.filterData(data);
+            filteredLoadingData = this.filterData(data),
+            footData = this.getFootData(data);
 
         return (
             <div className="example table-examples">
@@ -390,6 +397,7 @@ class TableExamples extends Component {
                                 <Table className="example-table"
                                        columns={this.columns}
                                        data={data}
+                                       footData={footData}
                                        canBeExpanded={true}
                                        scroll={{
                                            width: 1200
@@ -420,6 +428,7 @@ class TableExamples extends Component {
                                            ...item,
                                            disabled: item?.id % 4 === 0
                                        }))}
+                                       footData={footData}
                                        selectMode={Table.SelectMode.MULTI_SELECT}
                                        selectColumn={{
                                            bodyRenderer: (checkboxInstance, rowData) => rowData.disabled ?
@@ -461,6 +470,7 @@ class TableExamples extends Component {
                             <Table className="example-table"
                                    columns={this.columns}
                                    data={data}
+                                   footData={footData}
                                    isHeadFixed={true}
                                    isFootFixed={true}
                                    scroll={{
@@ -498,6 +508,7 @@ class TableExamples extends Component {
                             <Table className="example-table"
                                    columns={this.getFixedColumns()}
                                    data={data}
+                                   footData={footData}
                                    scroll={{
                                        width: 1200
                                    }}
@@ -546,22 +557,24 @@ class TableExamples extends Component {
                                         <Table ref={this.tableRef}
                                                className={classNames('example-table', {
                                                    'head-hidden': !headVisible,
-                                                   'foot-hidden': !footVisible || !filteredLoadingData ||
-                                                       filteredLoadingData.length < 1
+                                                   'foot-hidden': !footVisible || !filteredLoadingData
+                                                       || filteredLoadingData.length < 1
                                                })}
                                                data={filteredLoadingData}
+                                               footData={footData}
                                                columns={this.getFixedColumns()}
                                                sorting={sorting}
                                                selectMode={Table.SelectMode.MULTI_SELECT}
                                                isHeadFixed={true}
                                                isFootFixed={true}
                                                isHeadHidden={!headVisible}
-                                               isFootHidden={!footVisible || !filteredLoadingData ||
-                                               filteredLoadingData.length < 1}
+                                               isFootHidden={
+                                                   !footVisible || !filteredLoadingData
+                                                   || filteredLoadingData.length < 1
+                                               }
                                                scroll={{
                                                    width: 1200,
-                                                   height: filteredLoadingData && filteredLoadingData.length > 0 ? 320 :
-                                                       0
+                                                   height: filteredLoadingData?.length > 0 ? 320 : 0
                                                }}
                                                useFullPagination={true}
                                                paginationTotalRenderer={total =>
@@ -598,6 +611,7 @@ class TableExamples extends Component {
                                 <Table ref={this.tableRef}
                                        className="example-table"
                                        data={this.generateData(1000)}
+                                       footData={footData}
                                        columns={this.columns}
                                        sorting={sorting}
                                        selectMode={Table.SelectMode.MULTI_SELECT}
@@ -634,6 +648,7 @@ class TableExamples extends Component {
                             <Table className="example-table border-collapse"
                                    columns={this.getResizableColumns()}
                                    data={data}
+                                   footData={footData}
                                    scroll={{
                                        width: 1200
                                    }}
@@ -664,6 +679,7 @@ class TableExamples extends Component {
 
                             <Table className="example-table"
                                    data={[]}
+                                   footData={null}
                                    columns={this.columns}
                                    selectMode={Table.SelectMode.MULTI_SELECT}
                                    isFootHidden={true}
