@@ -1,3 +1,8 @@
+/**
+ * @file TextField examples
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 
 import TextField from 'src/TextField';
@@ -91,7 +96,7 @@ class TextFieldExamples extends Component {
                                 <p>
                                     <code>TextField</code> using the
                                     <code>type</code> property to set the type of input to display such
-                                                           as &quot;password&quot; or &quot;text&quot;.
+                                    as &quot;password&quot; or &quot;text&quot;.
                                 </p>
 
                                 <div className="field-group">
@@ -104,7 +109,7 @@ class TextFieldExamples extends Component {
                                 <div className="field-group">
                                     <label className="text-field-label">Password</label>
                                     <TextField type="password"
-                                               rightIconCls={'fas fa-lock'}
+                                               rightIconCls="fas fa-lock"
                                                value={value[1] || ''}
                                                onChange={v => this.changeHandler(v, 1)}/>
                                 </div>
