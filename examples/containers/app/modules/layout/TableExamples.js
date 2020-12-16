@@ -39,8 +39,11 @@ class TableExamples extends Component {
 
         this.tableRef = createRef();
 
+        const data = this.generateData();
+        data[0].children = this.generateData(10, '0');
+
         this.state = {
-            data: this.generateData(),
+            data,
             sorting: null,
             filter: '',
             headVisible: true,
@@ -49,7 +52,7 @@ class TableExamples extends Component {
 
         this.columns = [{
             key: 'id',
-            width: 64,
+            width: 128,
             noWrap: true,
             headRenderer: 'ID',
             bodyRenderer: rowData => rowData[LOADING_SYMBOL] ?
@@ -210,29 +213,21 @@ class TableExamples extends Component {
         return result;
     };
 
-    generateData = (size = 100, base = '', expanded = true) => {
+    generateData = (size = 100, base = '') => {
 
         let data = [];
         for (let i = 0; i < size; i++) {
 
-            const id = `${base ? `${base}-` : ''}${i}`,
-                item = {
-                    id,
-                    firstName: `firstName${id}`,
-                    lastName: `lastName${id}`,
-                    age: Math.floor(Math.random() * 100),
-                    functionWidth: 100 + i * 5,
-                    other: 'Other Content'
-                };
+            const id = `${base ? `${base}-` : ''}${i}`;
 
-            if (expanded && id.split('-').pop() === '0') {
-                item.children = [{
-                    [LOADING_SYMBOL]: true,
-                    disabled: true
-                }];
-            }
-
-            data.push(item);
+            data.push({
+                id,
+                firstName: `firstName${id}`,
+                lastName: `lastName${id}`,
+                age: Math.floor(Math.random() * 100),
+                functionWidth: 100 + i * 5,
+                other: 'Other Content'
+            });
 
         }
 
@@ -290,32 +285,7 @@ class TableExamples extends Component {
     };
 
     handleExpand = rowData => {
-
         console.log('Expand: ', rowData);
-
-        const {data} = this.state;
-
-        if (!rowData || !data || !rowData.children[0][LOADING_SYMBOL]) {
-            return;
-        }
-
-        setTimeout(() => {
-
-            Util.postOrderTraverse({
-                children: data
-            }, node => {
-                if (node && node.id === rowData.id) {
-                    node.children = this.generateData(10, node.id);
-                    return false;
-                }
-            });
-
-            this.setState({
-                data
-            });
-
-        }, 1000);
-
     };
 
     handleCollapse = rowData => {
@@ -323,7 +293,7 @@ class TableExamples extends Component {
     };
 
     collapseAllRows = () => {
-        this.tableRef && this.tableRef.current && this.tableRef.current.collapseAllRows();
+        this.tableRef?.current?.collapseAllRows?.();
     };
 
     toggleHead = () => {
@@ -399,6 +369,8 @@ class TableExamples extends Component {
                                        data={data}
                                        footData={footData}
                                        canBeExpanded={true}
+                                       selectMode={Table.SelectMode.MULTI_SELECT}
+                                       isSelectRecursive={true}
                                        scroll={{
                                            width: 1200
                                        }}
