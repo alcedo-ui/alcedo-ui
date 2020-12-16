@@ -179,8 +179,9 @@ class TableContent extends Component {
         }
 
         const {
-                columnKeyField, selectTheme, selectMode, selectAllMode, selectColumn, data, disabled, value, idField,
-                canBeExpanded, expandIconCls, selectUncheckedIconCls, selectCheckedIconCls, selectIndeterminateIconCls
+                columnKeyField, selectTheme, selectMode, selectAllMode, selectColumn,
+                data, disabled, value, idField, canBeExpanded,
+                expandIconCls, selectUncheckedIconCls, selectCheckedIconCls, selectIndeterminateIconCls
             } = this.props,
             firstColumn = TC.getFirstColumn(columns),
             result = [...columns];
@@ -274,25 +275,23 @@ class TableContent extends Component {
                 } : ''),
                 bodyRenderer: (rowData, rowIndex, colIndex, parentData, tableData, collapsed, depth, path) => {
 
-                    const checkboxInstance = (
-                        <Checkbox className="table-select"
-                                  theme={selectTheme}
-                                  checked={TC.isNodeChecked(rowData, value, idField)}
-                                  disabled={disabled || rowData.disabled}
-                                  indeterminate={Calc.isItemIndeterminate(rowData, value, {
-                                      valueField: idField,
-                                      displayField: idField
-                                  })}
-                                  uncheckedIconCls={selectUncheckedIconCls}
-                                  checkedIconCls={selectCheckedIconCls}
-                                  indeterminateIconCls={selectIndeterminateIconCls}
-                                  onCheck={() => this.handleSelect(
-                                      rowData, rowIndex, colIndex, tableData, collapsed, depth, path
-                                  )}
-                                  onUncheck={() => this.handleDeselect(
-                                      rowData, rowIndex, colIndex, tableData, collapsed, depth, path
-                                  )}/>
-                    );
+                    const {checked, indeterminate} = TC.isSelectAllChecked(rowData, value, idField),
+                        checkboxInstance = (
+                            <Checkbox className="table-select"
+                                      theme={selectTheme}
+                                      checked={checked}
+                                      disabled={disabled || rowData.disabled}
+                                      indeterminate={indeterminate}
+                                      uncheckedIconCls={selectUncheckedIconCls}
+                                      checkedIconCls={selectCheckedIconCls}
+                                      indeterminateIconCls={selectIndeterminateIconCls}
+                                      onCheck={() => this.handleSelect(
+                                          rowData, rowIndex, colIndex, tableData, collapsed, depth, path
+                                      )}
+                                      onUncheck={() => this.handleDeselect(
+                                          rowData, rowIndex, colIndex, tableData, collapsed, depth, path
+                                      )}/>
+                        );
 
                     if (selectColumn?.bodyRenderer) {
 
