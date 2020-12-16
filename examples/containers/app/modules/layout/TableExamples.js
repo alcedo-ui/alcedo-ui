@@ -44,6 +44,7 @@ class TableExamples extends Component {
 
         this.state = {
             data,
+            value: [],
             sorting: null,
             filter: '',
             headVisible: true,
@@ -282,6 +283,9 @@ class TableExamples extends Component {
 
     handleChange = value => {
         console.log('Changed Value: ', value);
+        this.setState({
+            value
+        });
     };
 
     handleExpand = rowData => {
@@ -337,7 +341,7 @@ class TableExamples extends Component {
 
     render() {
 
-        const {data, sorting, filter, headVisible, footVisible} = this.state,
+        const {data, value, sorting, filter, headVisible, footVisible} = this.state,
             filteredLoadingData = this.filterData(data),
             footData = this.getFootData(data);
 
@@ -367,6 +371,7 @@ class TableExamples extends Component {
                                 <Table className="example-table"
                                        columns={this.columns}
                                        data={data}
+                                       value={value}
                                        footData={footData}
                                        canBeExpanded={true}
                                        selectMode={Table.SelectMode.MULTI_SELECT}
