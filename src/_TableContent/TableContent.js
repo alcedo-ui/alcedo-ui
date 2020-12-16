@@ -119,7 +119,7 @@ class TableContent extends Component {
             return;
         }
 
-        const {isSelectRecursive, value, idField} = this.props;
+        const {isSelectRecursive, data, value, idField} = this.props;
 
         let result = value && isArray(value) ? value.slice() : [];
         if (result.length > 0) {
@@ -570,8 +570,9 @@ class TableContent extends Component {
             if (index === -1) {
                 expandRows.push(rowData);
                 this.props.onExpandChange?.(expandRows, () => {
-                    const {value, selectMode, isSelectRecursive} = this.props;
-                    if (selectMode === SelectMode.MULTI_SELECT && isSelectRecursive) {
+                    const {value, selectMode, isSelectRecursive, idField} = this.props;
+                    if (selectMode === SelectMode.MULTI_SELECT && isSelectRecursive
+                        && TC.isNodeChecked(rowData, value, idField)) {
                         this.props.onChange?.(TC.recursiveSelectChildren(rowData, value));
                     }
                 });
