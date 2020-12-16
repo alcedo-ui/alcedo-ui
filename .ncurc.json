@@ -1,6 +1,8 @@
 {
     "upgrade": true,
     "reject": [
-        "history"
+        "history",
+        "copy-webpack-plugin",
+        "compression-webpack-plugin"
     ]
 }

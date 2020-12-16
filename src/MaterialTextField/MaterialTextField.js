@@ -184,6 +184,7 @@ MaterialTextField.propTypes = {
      * If true,clearButton will display when the textField is not empty.
      */
     clearButtonVisible: PropTypes.bool,
+    clearButtonIconCls: PropTypes.string,
 
     /**
      * Use this property to display an icon.
@@ -308,6 +309,8 @@ MaterialTextField.defaultProps = {
     autoFocus: false,
 
     clearButtonVisible: true,
+    clearButtonIconCls: 'fas fa-times-circle',
+
     passwordButtonVisible: true,
 
     // valid

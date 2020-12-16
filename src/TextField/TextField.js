@@ -201,8 +201,8 @@ class TextField extends Component {
         const {
 
                 children, className, triggerClassName, placeholderClassName, style, theme, type, iconCls, disabled,
-                infoMsg, placeholder, clearButtonVisible, rightIconCls, passwordButtonVisible, fieldMsgVisible,
-                maxLength, isStrictMaxLength, parentEl, tip, tipPosition,
+                infoMsg, placeholder, clearButtonVisible, clearButtonIconCls, rightIconCls, passwordButtonVisible,
+                fieldMsgVisible, maxLength, isStrictMaxLength, parentEl, tip, tipPosition,
                 onIconClick, onRightIconClick,
 
                 // not passing down these props
@@ -292,7 +292,7 @@ class TextField extends Component {
                                         className={classNames('clear-icon', {
                                             hidden: disabled || value == null || value.length < 1
                                         })}
-                                        iconCls="fas fa-times-circle"
+                                        iconCls={clearButtonIconCls}
                                         onClick={this.clearValue}/>
                             :
                             null
@@ -421,6 +421,7 @@ TextField.propTypes = {
      * If true,clearButton will display when the textField is not empty.
      */
     clearButtonVisible: PropTypes.bool,
+    clearButtonIconCls: PropTypes.string,
 
     /**
      * Use this property to display an icon.
@@ -540,6 +541,8 @@ TextField.defaultProps = {
     isFocusedSelectAll: false,
 
     clearButtonVisible: true,
+    clearButtonIconCls: 'fas fa-times-circle',
+
     passwordButtonVisible: true,
 
     // valid
