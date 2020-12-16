@@ -10,6 +10,7 @@ import TableFragment from '../_statics/TableFragment';
 import Direction from '../_statics/Direction';
 
 // Vendors
+import isArray from 'lodash/isArray';
 import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
 import ScrollBar from '../_vendors/ScrollBar';
@@ -228,13 +229,18 @@ function isNodeChecked(node, value, idField) {
 
 function isSelectAllChecked(data, value, idField) {
 
+    const root = isArray(data) ? {
+        [VirtualRoot]: true,
+        children: data
+    } : {
+        ...data,
+        [VirtualRoot]: true
+    };
+
     let total = 0,
         count = 0;
 
-    Util.preOrderTraverse({
-        [VirtualRoot]: true,
-        children: data
-    }, node => {
+    Util.preOrderTraverse(root, node => {
         if (node && !node.disabled && !(VirtualRoot in node)) {
             total++;
             if (isNodeChecked(node, value, idField)) {
