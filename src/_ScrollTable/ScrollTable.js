@@ -148,6 +148,7 @@ class ScrollTable extends Component {
                                                isHeadFixed={isHeadFixed}
                                                isFootFixed={isFootFixed}
                                                data={data}
+                                               footData={footData}
                                                scrollEl={scrollEl}
                                                useDynamicRender={useDynamicRender}
                                                scrollHeight={scrollHeight}
@@ -204,6 +205,7 @@ class ScrollTable extends Component {
                                            isHeadHidden={isHeadHidden || isHeadFixed}
                                            isFootHidden={isFootHidden || isFootFixed}
                                            data={data}
+                                           footData={footData}
                                            scrollEl={scrollEl}
                                            useDynamicRender={useDynamicRender}
                                            scrollHeight={scrollHeight}
