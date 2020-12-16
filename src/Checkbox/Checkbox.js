@@ -48,6 +48,10 @@ class Checkbox extends Component {
 
     clickHandler = e => {
 
+        if (this.props.beforeChange?.() === false) {
+            return;
+        }
+
         const {disabled, onClick} = this.props;
 
         if (disabled) {
@@ -229,6 +233,7 @@ Checkbox.propTypes = {
      */
     onChange: PropTypes.func,
 
+    beforeChange: PropTypes.func,
     onClick: PropTypes.func,
     onCheck: PropTypes.func,
     onUncheck: PropTypes.func
