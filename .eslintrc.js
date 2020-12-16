@@ -80,7 +80,7 @@ module.exports = {
         'complexity': [2, 20],
         // 'consistent-return': 0,
         'curly': [2, 'all'],
-        'default-case': 2,
+        // 'default-case': 2,
         'dot-location': [2, 'property'],
         // 'dot-notation': [0, {
         //     'allowKeywords': true
