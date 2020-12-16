@@ -42,9 +42,9 @@ class Tfoot extends Component {
     render() {
 
         const {
-            className, columns, data, footData, disabled,
-            ignoreColumnSpan, scrollEl, hasVerticalScroll, hasFixedRightColumn,
-            onCellClick
+            className, columns, columnKeyField, columnsWidth, data, footData, disabled,
+            ignoreColumnSpan, scrollEl, hasVerticalScroll, hasFixedRightColumn, defaultColumnWidth, resizingColumn,
+            onFootClick, onCellClick, onRequestColumnsSpan
         } = this.props;
 
         return (
@@ -60,6 +60,8 @@ class Tfoot extends Component {
                     <TfootRow key={rowIndex}
                               rowIndex={rowIndex}
                               columns={columns}
+                              columnKeyField={columnKeyField}
+                              columnsWidth={columnsWidth}
                               data={rowData}
                               tableData={data}
                               disabled={disabled}
@@ -67,7 +69,11 @@ class Tfoot extends Component {
                               scrollEl={scrollEl}
                               hasVerticalScroll={hasVerticalScroll}
                               hasFixedRightColumn={hasFixedRightColumn}
-                              onCellClick={onCellClick}/>
+                              defaultColumnWidth={defaultColumnWidth}
+                              resizingColumn={resizingColumn}
+                              onFootClick={onFootClick}
+                              onCellClick={onCellClick}
+                              onRequestColumnsSpan={onRequestColumnsSpan}/>
                 )
             }
             </tfoot>
