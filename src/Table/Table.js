@@ -76,7 +76,7 @@ class Table extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {
-        return !nextProps.disableScrollingRender || (!this.state.scrolling || !nextState.scrolling);
+        return !nextProps.disableScrollingRender || !nextState.scrolling;
     }
 
     /**
