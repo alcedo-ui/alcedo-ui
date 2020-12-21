@@ -96,7 +96,7 @@
         "cross-env": "7.0.3",
         "crypto": "1.0.1",
         "css-loader": "5.0.1",
-        "eslint": "7.15.0",
+        "eslint": "7.16.0",
         "eslint-plugin-react": "7.21.5",
         "eslint-plugin-react-hooks": "4.2.0",
         "eventsource-polyfill": "0.9.6",
