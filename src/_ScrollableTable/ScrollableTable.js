@@ -91,7 +91,9 @@ ScrollableTable.propTypes = {
     useDynamicRender: PropTypes.bool,
     scrollHeight: PropTypes.number,
     rowHeight: PropTypes.number,
-    scrollBuffer: PropTypes.number
+    scrollBuffer: PropTypes.number,
+
+    onScroll: PropTypes.func
 
 };
 
