@@ -63,7 +63,7 @@ class TfootRow extends Component {
     render() {
 
         const {
-                data, tableData, disabled, ignoreColumnSpan, rowIndex,
+                data, tableData, footData, disabled, ignoreColumnSpan, rowIndex,
                 scrollEl, hasVerticalScroll, hasFixedRightColumn,
                 onCellClick
             } = this.props,
@@ -89,6 +89,7 @@ class TfootRow extends Component {
                             colIndex={colIndex}
                             rowData={data}
                             tableData={tableData}
+                            footData={footData}
                             title={column.footTitle}
                             renderer={column.footRenderer}
                             bodyRenderer={column.bodyRenderer}
@@ -356,6 +357,7 @@ TfootRow.propTypes = {
     columnsWidth: PropTypes.object,
     data: PropTypes.object,
     tableData: PropTypes.array,
+    footData: PropTypes.array,
     disabled: PropTypes.bool,
     ignoreColumnSpan: PropTypes.bool,
     rowIndex: PropTypes.number,
