@@ -29,11 +29,11 @@ class Tf extends Component {
      */
     handleRender = () => {
 
-        const {rowIndex, colIndex, rowData, tableData, scrollEl, renderer, bodyRenderer} = this.props;
+        const {rowIndex, colIndex, rowData, tableData, footData, scrollEl, renderer, bodyRenderer} = this.props;
 
         switch (typeof renderer) {
             case 'function':
-                return renderer(rowData, rowIndex, colIndex, tableData, bodyRenderer, scrollEl);
+                return renderer(rowData, rowIndex, colIndex, tableData, footData, bodyRenderer, scrollEl);
             default:
                 return renderer;
         }
@@ -87,6 +87,7 @@ Tf.propTypes = {
     colIndex: PropTypes.number,
     rowData: PropTypes.object,
     tableData: PropTypes.array,
+    footData: PropTypes.array,
     title: PropTypes.any,
 
     renderer: PropTypes.any,
