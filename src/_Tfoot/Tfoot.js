@@ -64,6 +64,7 @@ class Tfoot extends Component {
                               columnsWidth={columnsWidth}
                               data={rowData}
                               tableData={data}
+                              footData={footData}
                               disabled={disabled}
                               ignoreColumnSpan={ignoreColumnSpan}
                               scrollEl={scrollEl}
