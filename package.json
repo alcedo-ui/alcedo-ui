@@ -60,7 +60,7 @@
     "devDependencies": {
         "@babel/core": "7.12.10",
         "@babel/plugin-proposal-class-properties": "7.12.1",
-        "@babel/plugin-proposal-decorators": "7.12.1",
+        "@babel/plugin-proposal-decorators": "7.12.12",
         "@babel/plugin-proposal-do-expressions": "7.12.1",
         "@babel/plugin-proposal-export-default-from": "7.12.1",
         "@babel/plugin-proposal-export-namespace-from": "7.12.1",
@@ -130,6 +130,6 @@
         "webpack-bundle-analyzer": "4.3.0",
         "webpack-dev-middleware": "4.0.2",
         "webpack-hot-middleware": "2.25.0",
-        "webpack-merge": "5.7.2"
+        "webpack-merge": "5.7.3"
     }
 }
