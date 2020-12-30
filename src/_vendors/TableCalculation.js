@@ -123,7 +123,7 @@ function getAdvancedColumnsSpan(originColumns, fixed, fragment, columns, data, r
                     spanColumns = originColumns.slice(index + 1, index + span);
 
                 if (column.fixed === HorizontalAlign.LEFT || column.fixed === HorizontalAlign.RIGHT) {
-                    span = spanColumns.filter(item => item && item.fixed === column.fixed).length;
+                    span = spanColumns.filter(item => item && item.fixed === column.fixed).length + 1;
                 } else {
                     span -= spanColumns.filter(item =>
                         item && ((item.fixed || HorizontalAlign.CENTER) !== (column.fixed || HorizontalAlign.CENTER))
