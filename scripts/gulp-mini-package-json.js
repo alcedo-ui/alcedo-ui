@@ -37,12 +37,15 @@ module.exports = () => {
                     dependencies: {
                         '@babel/runtime': data.devDependencies['@babel/runtime'],
                         'classnames': data.dependencies['classnames'],
+                        'dom-helpers': data.dependencies['dom-helpers'],
                         'lodash': data.dependencies['lodash'],
                         'moment': data.dependencies['moment'],
                         'react-dnd': data.dependencies['react-dnd'],
                         'react-dnd-html5-backend': data.dependencies['react-dnd-html5-backend'],
                         'react-beautiful-dnd': data.dependencies['react-beautiful-dnd'],
-                        'react-transition-group': data.dependencies['react-transition-group']
+                        'react-resizable': data.dependencies['react-resizable'],
+                        'react-transition-group': data.dependencies['react-transition-group'],
+                        'resize-observer-polyfill': data.dependencies['resize-observer-polyfill']
                     }
                 };
 
