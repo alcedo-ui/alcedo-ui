@@ -937,7 +937,7 @@ Table.defaultProps = {
     /**
      * scroll
      */
-    disableScrollingRender: true,
+    disableScrollingRender: false,
 
     /**
      * Dynamic Render

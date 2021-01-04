@@ -599,7 +599,6 @@ class TableExamples extends Component {
                                        scroll={{
                                            width: 1200
                                        }}
-                                       disableScrollingRender={false}
                                        onSortChange={this.handleSortChange}
                                        onExpand={this.handleExpand}
                                        onCollapse={this.handleCollapse}
