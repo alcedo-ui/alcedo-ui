@@ -108,7 +108,7 @@ class Tr extends Component {
                     disabled={disabled}
                     onClick={this.handleClick}>
                     {
-                        columnsSpan && columnsSpan.map(({column, span}, colIndex) => column ?
+                        columnsSpan?.map(({column, span}, colIndex) => column ?
                             <Td {...respProps}
                                 key={colIndex}
                                 className={classNames(column.bodyClassName, {
@@ -147,7 +147,7 @@ class Tr extends Component {
                 </tr>
 
                 {
-                    /*rowHasChildren && */!collapsed && data && data.children && data.children.length > 0 ?
+                    /* rowHasChildren && */!collapsed && data && data.children && data.children.length > 0 ?
                     data.children.map((item, index) =>
                         <Tr {...this.props}
                             key={index}
