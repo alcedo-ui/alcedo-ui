@@ -75,7 +75,7 @@ class Tbody extends Component {
                            onColumnMeasure={onColumnMeasure}/>
 
                 {
-                    finalData && finalData.map((row, index) => row ?
+                    finalData?.map((row, index) => row ?
                         <Tr {...restProps}
                             style={row?.rowStyle || null}
                             key={index}
@@ -91,6 +91,7 @@ class Tbody extends Component {
                         null
                     )
                 }
+
             </tbody>
         );
 
