@@ -47,8 +47,9 @@ class Tr extends Component {
         const {columns, columnKeyField, columnsWidth, defaultColumnWidth} = this.props;
         return {
             ...column?.bodyStyle,
-            ...TC.getStickyColumnStyle(column?.fixed, colIndex, columns,
-                columnKeyField, columnsWidth, defaultColumnWidth),
+            ...TC.getStickyColumnStyle(
+                column?.fixed, colIndex, columns, columnKeyField, columnsWidth, defaultColumnWidth
+            ),
             ...this.getDynamicRenderStyle()
         };
     };
@@ -74,8 +75,8 @@ class Tr extends Component {
     };
 
     handleClick = e => {
-        const {data, rowIndex, disabled, onRowClick} = this.props;
-        !disabled && onRowClick && onRowClick(data, rowIndex, e);
+        const {data, rowIndex, disabled} = this.props;
+        !disabled && this.props.onRowClick?.(data, rowIndex, e);
     };
 
     render() {
@@ -83,10 +84,10 @@ class Tr extends Component {
         const {
 
                 className, style, rowIndex, data, tableData, isChecked, disabled,
-                ignoreColumnSpan, depth, index, path, useDynamicRender, rowHeight,
+                ignoreColumnSpan, depth, index, path,
 
                 // not passing down these props
-                columns, columnsWidth,
+                columns, columnsWidth, useDynamicRender, rowHeight,
 
                 ...respProps
 
