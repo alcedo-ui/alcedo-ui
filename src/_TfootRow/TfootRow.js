@@ -46,12 +46,13 @@ class TfootRow extends Component {
             TC.getColumnsSpan(TableFragment.FOOT, columns, tableData);
     };
 
-    getStyle = (column, colIndex) => {
+    getStyle = (column, originColumnIndex) => {
         const {columns, columnKeyField, columnsWidth, defaultColumnWidth, hasVerticalScroll} = this.props;
         return {
             ...column.footStyle,
             ...TC.getStickyColumnStyle(
-                column?.fixed, colIndex, columns, columnKeyField, columnsWidth, defaultColumnWidth, hasVerticalScroll
+                column?.fixed, originColumnIndex, columns,
+                columnKeyField, columnsWidth, defaultColumnWidth, hasVerticalScroll
             )
         };
     };
@@ -75,7 +76,7 @@ class TfootRow extends Component {
             <tr>
 
                 {
-                    columnsSpan?.map(({column, span}, colIndex) =>
+                    columnsSpan?.map(({column, span, originColumnIndex}, colIndex) =>
                         <Tf key={colIndex}
                             className={classNames(column.footClassName, {
                                 'fixed-left': column.fixed === HorizontalAlign.LEFT,
@@ -85,7 +86,7 @@ class TfootRow extends Component {
                                 'first-fixed-right': column.fixed === HorizontalAlign.RIGHT
                                     && columnsSpan?.[colIndex - 1]?.column?.fixed !== HorizontalAlign.RIGHT
                             })}
-                            style={this.getStyle(column, colIndex)}
+                            style={this.getStyle(column, originColumnIndex)}
                             rowIndex={rowIndex}
                             colIndex={colIndex}
                             rowData={data}
