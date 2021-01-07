@@ -45,12 +45,13 @@ class Thead extends Component {
 
     };
 
-    getStyle = (column, colIndex, columns) => {
+    getStyle = (column, originColumnIndex, columns) => {
         const {columnKeyField, columnsWidth, defaultColumnWidth, hasVerticalScroll} = this.props;
         return {
             ...column.headStyle,
             ...TC.getStickyColumnStyle(
-                column?.fixed, colIndex, columns, columnKeyField, columnsWidth, defaultColumnWidth, hasVerticalScroll
+                column?.fixed, originColumnIndex, columns,
+                columnKeyField, columnsWidth, defaultColumnWidth, hasVerticalScroll
             )
         };
     };
@@ -93,7 +94,7 @@ class Thead extends Component {
 
                                 {
                                     columnsSpan ?
-                                        columnsSpan.map(({column, span}, colIndex) => column ?
+                                        columnsSpan.map(({column, span, originColumnIndex}, colIndex) => column ?
                                             <Th {...restProps}
                                                 key={colIndex}
                                                 column={column}
@@ -108,7 +109,7 @@ class Thead extends Component {
                                                         && columnsSpan?.[colIndex - 1]?.column?.fixed
                                                         !== HorizontalAlign.RIGHT
                                                 })}
-                                                style={this.getStyle(column, colIndex, row)}
+                                                style={this.getStyle(column, originColumnIndex, row)}
                                                 width={(
                                                     columnsWidth && columnKeyField
                                                     && columnsWidth.get(TC.getColumnKey(column, columnKeyField))
