@@ -49,14 +49,15 @@ class Thead extends Component {
         const {columnKeyField, columnsWidth, defaultColumnWidth, hasVerticalScroll} = this.props;
         return {
             ...column.headStyle,
-            ...TC.getStickyColumnStyle(column?.fixed, colIndex, columns,
-                columnKeyField, columnsWidth, defaultColumnWidth, hasVerticalScroll)
+            ...TC.getStickyColumnStyle(
+                column?.fixed, colIndex, columns, columnKeyField, columnsWidth, defaultColumnWidth, hasVerticalScroll
+            )
         };
     };
 
     handleClick = e => {
-        const {tableData, disabled, onHeadClick} = this.props;
-        !disabled && onHeadClick && onHeadClick(tableData, e);
+        const {tableData, disabled} = this.props;
+        !disabled && this.props.onHeadClick?.(tableData, e);
     };
 
     render() {
@@ -76,92 +77,92 @@ class Thead extends Component {
         return (
             <thead className={className}
                    style={style}
-                   disabled="disabled"
+                   disabled={disabled}
                    onClick={this.handleClick}>
-            {
-                columns && columns.map((row, rowIndex) => {
+                {
+                    columns && columns.map((row, rowIndex) => {
 
-                    if (!row) {
-                        return null;
-                    }
+                        if (!row) {
+                            return null;
+                        }
 
-                    const columnsSpan = this.getColumnsSpan(row);
+                        const columnsSpan = this.getColumnsSpan(row);
 
-                    return (
-                        <tr key={rowIndex}>
+                        return (
+                            <tr key={rowIndex}>
 
-                            {
-                                columnsSpan ?
-                                    columnsSpan.map(({column, span}, colIndex) => column ?
-                                        <Th {...restProps}
-                                            key={colIndex}
-                                            column={column}
-                                            columnKeyField={columnKeyField}
-                                            className={classNames(column.headClassName, {
-                                                'fixed-left': column.fixed === HorizontalAlign.LEFT,
-                                                'last-fixed-left': column.fixed === HorizontalAlign.LEFT
-                                                    && columnsSpan?.[colIndex + 1]?.column?.fixed
-                                                    !== HorizontalAlign.LEFT,
-                                                'fixed-right': column.fixed === HorizontalAlign.RIGHT,
-                                                'first-fixed-right': column.fixed === HorizontalAlign.RIGHT
-                                                    && columnsSpan?.[colIndex - 1]?.column?.fixed
-                                                    !== HorizontalAlign.RIGHT
-                                            })}
-                                            style={this.getStyle(column, colIndex, row)}
-                                            width={(
-                                                columnsWidth && columnKeyField
-                                                && columnsWidth.get(TC.getColumnKey(column, columnKeyField))
-                                            ) || defaultColumnWidth}
-                                            tableData={tableData}
-                                            title={column.headTitle}
-                                            renderer={column.headRenderer}
-                                            align={column.headAlign || column.align}
-                                            colIndex={colIndex}
-                                            rowSpan={column.rowSpan}
-                                            colSpan={ignoreColumnSpan ? null : column.colSpan}
-                                            noWrap={TC.handleNoWrap(column.headNoWrap, column.noWrap, {
-                                                data: tableData,
-                                                rowIndex,
-                                                colIndex: colIndex,
-                                                tableData
-                                            })}
-                                            sorting={sorting}
-                                            defaultSortingType={column.defaultSortingType || defaultSortingType}
-                                            sortingAscIconCls={sortingAscIconCls}
-                                            sortingDescIconCls={sortingDescIconCls}
-                                            sortable={column.sortable}
-                                            sortingProp={column.sortingProp}
-                                            onSortChange={onSortChange}/>
+                                {
+                                    columnsSpan ?
+                                        columnsSpan.map(({column, span}, colIndex) => column ?
+                                            <Th {...restProps}
+                                                key={colIndex}
+                                                column={column}
+                                                columnKeyField={columnKeyField}
+                                                className={classNames(column.headClassName, {
+                                                    'fixed-left': column.fixed === HorizontalAlign.LEFT,
+                                                    'last-fixed-left': column.fixed === HorizontalAlign.LEFT
+                                                        && columnsSpan?.[colIndex + 1]?.column?.fixed
+                                                        !== HorizontalAlign.LEFT,
+                                                    'fixed-right': column.fixed === HorizontalAlign.RIGHT,
+                                                    'first-fixed-right': column.fixed === HorizontalAlign.RIGHT
+                                                        && columnsSpan?.[colIndex - 1]?.column?.fixed
+                                                        !== HorizontalAlign.RIGHT
+                                                })}
+                                                style={this.getStyle(column, colIndex, row)}
+                                                width={(
+                                                    columnsWidth && columnKeyField
+                                                    && columnsWidth.get(TC.getColumnKey(column, columnKeyField))
+                                                ) || defaultColumnWidth}
+                                                tableData={tableData}
+                                                title={column.headTitle}
+                                                renderer={column.headRenderer}
+                                                align={column.headAlign || column.align}
+                                                colIndex={colIndex}
+                                                rowSpan={column.rowSpan}
+                                                colSpan={ignoreColumnSpan ? null : column.colSpan}
+                                                noWrap={TC.handleNoWrap(column.headNoWrap, column.noWrap, {
+                                                    data: tableData,
+                                                    rowIndex,
+                                                    colIndex: colIndex,
+                                                    tableData
+                                                })}
+                                                sorting={sorting}
+                                                defaultSortingType={column.defaultSortingType || defaultSortingType}
+                                                sortingAscIconCls={sortingAscIconCls}
+                                                sortingDescIconCls={sortingDescIconCls}
+                                                sortable={column.sortable}
+                                                sortingProp={column.sortingProp}
+                                                onSortChange={onSortChange}/>
+                                            :
+                                            null
+                                        )
                                         :
                                         null
-                                    )
-                                    :
-                                    null
-                            }
+                                }
 
-                            {
-                                hasVerticalScroll && columnsSpan && verticalScrollBarSize > 0 && rowIndex === 0 ?
-                                    <th className={classNames('scroll-bar-th', {
-                                        'fixed-right': hasFixedRightColumn
-                                    })}
-                                        style={{
-                                            width: verticalScrollBarSize,
-                                            ...(hasFixedRightColumn ? {
-                                                position: 'sticky',
-                                                right: 0
-                                            } : null)
-                                        }}
-                                        rowSpan={columns.length}>
-                                    </th>
-                                    :
-                                    null
-                            }
+                                {
+                                    hasVerticalScroll && columnsSpan && verticalScrollBarSize > 0 && rowIndex === 0 ?
+                                        <th className={classNames('scroll-bar-th', {
+                                            'fixed-right': hasFixedRightColumn
+                                        })}
+                                            style={{
+                                                width: verticalScrollBarSize,
+                                                ...(hasFixedRightColumn ? {
+                                                    position: 'sticky',
+                                                    right: 0
+                                                } : null)
+                                            }}
+                                            rowSpan={columns.length}>
+                                        </th>
+                                        :
+                                        null
+                                }
 
-                        </tr>
-                    );
+                            </tr>
+                        );
 
-                })
-            }
+                    })
+                }
             </thead>
         );
 
