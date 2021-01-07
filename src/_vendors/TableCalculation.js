@@ -73,7 +73,8 @@ function getColumnsSpan(fragment, columns, data, rowIndex) {
 
         result.push({
             column,
-            span
+            span,
+            originColumnIndex: colIndex
         });
 
     }
@@ -136,7 +137,8 @@ function getAdvancedColumnsSpan(originColumns, fixed, fragment, columns, data, r
 
         result.push({
             column,
-            span: span > 1 ? span : null
+            span: span > 1 ? span : null,
+            originColumnIndex: colIndex
         });
 
     }
@@ -579,8 +581,8 @@ function getColumnsTotalWidth(columns, columnKeyField = 'key', columnsWidth, def
         0;
 }
 
-function getStickyColumnStyle(fixed, colIndex, columns, columnKeyField = 'key',
-    columnsWidth, defaultColumnWidth, hasVerticalScroll
+function getStickyColumnStyle(
+    fixed, colIndex, columns, columnKeyField = 'key', columnsWidth, defaultColumnWidth, hasVerticalScroll
 ) {
 
     const result = {};
