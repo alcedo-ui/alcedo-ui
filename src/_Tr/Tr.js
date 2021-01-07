@@ -43,12 +43,12 @@ class Tr extends Component {
             null;
     };
 
-    getTdStyle = (column, colIndex) => {
+    getTdStyle = (column, originColumnIndex) => {
         const {columns, columnKeyField, columnsWidth, defaultColumnWidth} = this.props;
         return {
             ...column?.bodyStyle,
             ...TC.getStickyColumnStyle(
-                column?.fixed, colIndex, columns, columnKeyField, columnsWidth, defaultColumnWidth
+                column?.fixed, originColumnIndex, columns, columnKeyField, columnsWidth, defaultColumnWidth
             ),
             ...this.getDynamicRenderStyle()
         };
@@ -109,7 +109,7 @@ class Tr extends Component {
                     disabled={disabled}
                     onClick={this.handleClick}>
                     {
-                        columnsSpan?.map(({column, span}, colIndex) => column ?
+                        columnsSpan?.map(({column, span, originColumnIndex}, colIndex) => column ?
                             <Td {...respProps}
                                 key={colIndex}
                                 className={classNames(column.bodyClassName, {
@@ -120,7 +120,7 @@ class Tr extends Component {
                                     'first-fixed-right': column.fixed === HorizontalAlign.RIGHT
                                         && columnsSpan?.[colIndex - 1]?.column?.fixed !== HorizontalAlign.RIGHT
                                 })}
-                                style={this.getTdStyle(column, colIndex)}
+                                style={this.getTdStyle(column, originColumnIndex)}
                                 rowIndex={rowIndex}
                                 colIndex={colIndex}
                                 data={data}
