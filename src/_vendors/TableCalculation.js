@@ -572,7 +572,9 @@ function handlePage(page, pageSize, data) {
 function getColumnsTotalWidth(columns, columnKeyField = 'key', columnsWidth, defaultColumnWidth = 100) {
     return columns && columnsWidth ?
         columns.reduce((sum, column) =>
-            sum + (columnsWidth.get(getColumnKey(column, columnKeyField)) || defaultColumnWidth), 0)
+            sum + (columnsWidth.get(getColumnKey(column, columnKeyField)) || defaultColumnWidth),
+            0
+        )
         :
         0;
 }
@@ -585,15 +587,21 @@ function getStickyColumnStyle(fixed, colIndex, columns, columnKeyField = 'key',
 
     if (fixed === HorizontalAlign.LEFT) {
         result.position = 'sticky';
-        result.left =
-            getColumnsTotalWidth(columns.slice(0, colIndex), columnKeyField, columnsWidth, defaultColumnWidth);
+        result.left = getColumnsTotalWidth(
+            columns.slice(0, colIndex), columnKeyField, columnsWidth, defaultColumnWidth
+        );
     }
 
     if (fixed === HorizontalAlign.RIGHT) {
         result.position = 'sticky';
-        result.right =
-            getColumnsTotalWidth(columns.slice(colIndex + 1), columnKeyField, columnsWidth, defaultColumnWidth)
-            + (hasVerticalScroll ? ScrollBar.getSize(Direction.VERTICAL) : 0);
+        result.right = getColumnsTotalWidth(
+            columns.slice(colIndex + 1), columnKeyField, columnsWidth, defaultColumnWidth
+        ) + (
+            hasVerticalScroll ?
+                ScrollBar.getSize(Direction.VERTICAL)
+                :
+                0
+        );
     }
 
     return result;
