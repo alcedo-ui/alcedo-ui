@@ -50,14 +50,15 @@ class TfootRow extends Component {
         const {columns, columnKeyField, columnsWidth, defaultColumnWidth, hasVerticalScroll} = this.props;
         return {
             ...column.footStyle,
-            ...TC.getStickyColumnStyle(column?.fixed, colIndex, columns,
-                columnKeyField, columnsWidth, defaultColumnWidth, hasVerticalScroll)
+            ...TC.getStickyColumnStyle(
+                column?.fixed, colIndex, columns, columnKeyField, columnsWidth, defaultColumnWidth, hasVerticalScroll
+            )
         };
     };
 
     handleClick = e => {
-        const {tableData, disabled, onFootClick} = this.props;
-        !disabled && onFootClick && onFootClick(tableData, e);
+        const {tableData, disabled} = this.props;
+        !disabled && this.props.onFootClick?.(tableData, e);
     };
 
     render() {
@@ -74,7 +75,7 @@ class TfootRow extends Component {
             <tr>
 
                 {
-                    columnsSpan && columnsSpan.map(({column, span}, colIndex) =>
+                    columnsSpan?.map(({column, span}, colIndex) =>
                         <Tf key={colIndex}
                             className={classNames(column.footClassName, {
                                 'fixed-left': column.fixed === HorizontalAlign.LEFT,
