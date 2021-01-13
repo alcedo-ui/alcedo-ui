@@ -6,7 +6,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
 
 import DayPicker from '../_DayPicker';
@@ -46,13 +45,13 @@ class DateField extends Component {
     handleDayPickerChange = date => {
 
         const {dateFormat, onChange} = this.props;
-        let state = cloneDeep(this.state);
-        state.value = moment(date.time, dateFormat);
-        state.year = date.year;
-        state.month = date.month;
-        state.day = date.day;
 
-        !this.props.disabled && this.setState(state, () => {
+        !this.props.disabled && this.setState({
+            value: moment(date.time, dateFormat),
+            year: date.year,
+            month: date.month,
+            day: date.day
+        }, () => {
             onChange(moment(date.time).format(dateFormat));
         });
 
@@ -74,44 +73,38 @@ class DateField extends Component {
     };
 
     handleToday = () => {
-        const {dateFormat, onChange} = this.props;
-        const year = moment().format('YYYY'),
-            month = moment().format('MM'),
-            day = moment().format('DD');
-        let timer = moment(moment(), dateFormat);
-        this.setState({
-            value: timer,
-            year: year,
-            month: month,
-            day: day
+        const {dateFormat} = this.props;
+        !this.props.disabled && this.setState({
+            value: moment(moment(), dateFormat),
+            year: moment().format('YYYY'),
+            month: moment().format('MM'),
+            day: moment().format('DD')
         }, () => {
-            !this.props.disabled && onChange(timer && moment(timer).format(this.props.dateFormat));
+            this.props.onChange && this.props.onChange(moment(moment(), dateFormat));
         });
     };
 
     validValueFormat = (value, dateFormat) => {
-        let state = cloneDeep(this.state);
         if (value) {
             // debugger
             if (moment(value, dateFormat).isValid()) {
-                const year = moment(value).format('YYYY'),
-                    month = moment(value).format('MM'),
-                    day = moment(value).format('DD');
-                state.value = moment(value, dateFormat);
-                state.year = year;
-                state.month = month;
-                state.day = day;
-                this.setState(state);
+                this.setState({
+                    value: moment(value, dateFormat),
+                    year: moment(value).format('YYYY'),
+                    month: moment(value).format('MM'),
+                    day: moment(value).format('DD')
+                });
             } else {
                 this.validValue = false;
                 console.error('Invalid date');
             }
         } else {
-            state.value = '';
-            state.year = moment(this.defaultValue).format('YYYY');
-            state.month = moment(this.defaultValue).format('MM');
-            state.day = moment(this.defaultValue).format('DD');
-            this.setState(state);
+            this.setState({
+                value: '',
+                year: moment(this.defaultValue).format('YYYY'),
+                month: moment(this.defaultValue).format('MM'),
+                day: moment(this.defaultValue).format('DD')
+            });
         }
     };
 
