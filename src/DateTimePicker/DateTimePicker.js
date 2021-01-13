@@ -68,20 +68,14 @@ class DateTimePicker extends Component {
                 if (minValue && moment(text).isBefore(minValue) || maxValue && moment(text).isAfter(maxValue)) {
 
                 } else {
-                    const selectYear = moment(text).format('YYYY'),
-                        selectMonth = moment(text).format('MM'),
-                        selectDay = moment(text).format('DD'),
-                        hour = moment(text).format('HH'),
-                        minute = moment(text).format('mm'),
-                        second = moment(text).format('ss');
                     this.setState({
                         value: moment(text, dateFormat),
-                        year: selectYear,
-                        month: selectMonth,
-                        day: selectDay,
-                        hour: hour,
-                        minute: minute,
-                        second: second
+                        year: moment(text).format('YYYY'),
+                        month: moment(text).format('MM'),
+                        day: moment(text).format('DD'),
+                        hour: moment(text).format('HH'),
+                        minute: moment(text).format('mm'),
+                        second: moment(text).format('ss')
                     });
                 }
             }
@@ -118,11 +112,9 @@ class DateTimePicker extends Component {
     };
 
     handleTimePickerChange = obj => {
-        let state = cloneDeep(this.state);
-        state.hour = obj.hour;
-        state.minute = obj.minute;
-        state.second = obj.second;
-        let timer = moment([state.year, +state.month - 1, state.day, state.hour, state.minute, state.second]).format(this.props.dateFormat);
+
+        const {year, month, day} = this.state;
+        let timer = moment([year, +month - 1, day, obj.hour, obj.minute, obj.second]).format(this.props.dateFormat);
         timer = moment(timer, this.props.dateFormat);
         this.setState({
             hour: obj.hour,
@@ -139,31 +131,24 @@ class DateTimePicker extends Component {
     };
 
     handleSelectDateTime = () => {
-        let state = cloneDeep(this.state);
-        state.popupVisible = false;
-        state.datePickerLevel = 'day';
-        !this.props.disabled && this.setState(state, () => {
-            this.props.onChange && this.props.onChange(state.value && moment(state.value).format(this.props.dateFormat));
+
+        !this.props.disabled && this.setState({
+            popupVisible: false,
+            datePickerLevel: 'day'
+        }, () => {
+            this.props.onChange && this.props.onChange(this.state.value && moment(this.state.value).format(this.props.dateFormat));
         });
     };
 
     handleNow = () => {
-        const year = moment().format('YYYY'),
-            month = moment().format('MM'),
-            day = moment().format('DD'),
-            hour = moment().format('HH'),
-            minute = moment().format('mm'),
-            second = moment().format('ss');
-
-        let timer = moment(moment(), this.props.dateFormat);
         this.setState({
-            value: timer,
-            year: year,
-            month: month,
-            day: day,
-            hour: hour,
-            minute: minute,
-            second: second
+            value: moment(moment(), this.props.dateFormat),
+            year: moment().format('YYYY'),
+            month: moment().format('MM'),
+            day: moment().format('DD'),
+            hour: moment().format('HH'),
+            minute: moment().format('mm'),
+            second: moment().format('ss')
         });
     };
 
@@ -199,17 +184,15 @@ class DateTimePicker extends Component {
     componentDidMount() {
 
         const {value, dateFormat} = this.props;
-        let state = cloneDeep(this.state);
+
         if (value) {
             if (moment(value, dateFormat).isValid()) {
-                const selectYear = moment(value).format('YYYY'),
-                    selectMonth = moment(value).format('MM'),
-                    selectDay = moment(value).format('DD');
-                state.value = moment(value, dateFormat);
-                state.year = selectYear;
-                state.month = selectMonth;
-                state.day = selectDay;
-                this.setState(state);
+                this.setState({
+                    value: moment(value, dateFormat),
+                    year: moment(value).format('YYYY'),
+                    month: moment(value).format('MM'),
+                    day: moment(value).format('DD')
+                });
             } else {
                 console.error('Invalid date');
                 this.validValue = false;

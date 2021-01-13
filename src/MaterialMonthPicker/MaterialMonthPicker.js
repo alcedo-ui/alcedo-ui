@@ -63,12 +63,10 @@ class MaterialMonthPicker extends Component {
                 if ((minValue && moment(text).isBefore(minValue)) || (maxValue && moment(text).isAfter(maxValue))) {
                     //
                 } else {
-                    const year = moment(text).format('YYYY'),
-                        month = moment(text).format('MM');
                     this.setState({
                         value: moment(text, dateFormat),
-                        year: year,
-                        month: month
+                        year: moment(text).format('YYYY'),
+                        month: moment(text).format('MM')
                     }, () => {
                         this.props.onChange && this.props.onChange(text && moment(text).format(dateFormat));
                     });
@@ -85,13 +83,14 @@ class MaterialMonthPicker extends Component {
 
     handleMonthPickerChange = date => {
         const {dateFormat, autoClose, onChange} = this.props;
-        let state = cloneDeep(this.state);
-        state.popupVisible = !autoClose;
-        state.value = moment(`${date.year}-${date.month}`, dateFormat);
-        state.year = date.year;
-        state.month = date.month;
-        this.setState(state, () => {
-            onChange(moment(state.value).format(dateFormat));
+
+        this.setState({
+            popupVisible: !autoClose,
+            value: moment(`${date.year}-${date.month}`, dateFormat),
+            year: date.year,
+            month: date.month
+        }, () => {
+            onChange(moment(this.state.value).format(dateFormat));
         });
 
     };
@@ -139,7 +138,6 @@ class MaterialMonthPicker extends Component {
 
         // debugger
         const {value, dateFormat} = this.props;
-        let state = cloneDeep(this.state);
         if (value) {
             if (!(moment(value, dateFormat).isValid())) {
                 console.error('Invalid date');
@@ -147,10 +145,11 @@ class MaterialMonthPicker extends Component {
             }
         }
 
-        state.value = value ? moment(value, dateFormat) : '';
-        state.year = value ? moment(value).format('YYYY') : moment().format('YYYY');
-        state.month = value ? moment(value).format('MM') : moment().format('MM');
-        this.setState(state);
+        this.setState({
+            value: value ? moment(value, dateFormat) : '',
+            year: value ? moment(value).format('YYYY') : moment().format('YYYY'),
+            month: value ? moment(value).format('MM') : moment().format('MM')
+        });
     }
 
     static getDerivedStateFromProps(props, state) {

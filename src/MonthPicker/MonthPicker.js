@@ -82,13 +82,14 @@ class MonthPicker extends Component {
 
     handleMonthPickerChange = date => {
         const {dateFormat, autoClose, onChange} = this.props;
-        let state = cloneDeep(this.state);
-        state.popupVisible = !autoClose;
-        state.value = moment(`${date.year}-${date.month}`, dateFormat);
-        state.year = date.year;
-        state.month = date.month;
-        this.setState(state, () => {
-            onChange(moment(state.value).format(dateFormat));
+
+        this.setState({
+            popupVisible: !autoClose,
+            value: moment(`${date.year}-${date.month}`, dateFormat),
+            year: date.year,
+            month: date.month
+        }, () => {
+            onChange(moment(this.state.value).format(dateFormat));
         });
     };
 
@@ -134,7 +135,6 @@ class MonthPicker extends Component {
 
         // debugger
         const {value, dateFormat} = this.props;
-        let state = cloneDeep(this.state);
 
         if (value) {
             if (!(moment(value, dateFormat).isValid())) {
@@ -143,11 +143,11 @@ class MonthPicker extends Component {
             }
         }
 
-        state.value = value ? moment(value, dateFormat) : '';
-        state.year = value ? moment(value).format('YYYY') : moment().format('YYYY');
-        state.month = value ? moment(value).format('MM') : moment().format('MM');
-        this.setState(state);
-
+        this.setState({
+            value: value ? moment(value, dateFormat) : '',
+            year: value ? moment(value).format('YYYY') : moment().format('YYYY'),
+            month: value ? moment(value).format('MM') : moment().format('MM')
+        });
     }
 
     static getDerivedStateFromProps(props, state) {

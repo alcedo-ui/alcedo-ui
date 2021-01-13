@@ -61,14 +61,11 @@ class TimePicker extends Component {
             let validFormat = 'YYYY-MM-DD ' + this.props.dateFormat;
             const flag = moment(validDate, validFormat, true).isValid();
             if (flag) {
-                const hour = moment(validDate).format('HH'),
-                    minute = moment(validDate).format('mm'),
-                    second = moment(validDate).format('ss');
                 !this.props.disabled && this.setState({
                     value: text,
-                    hour: hour,
-                    minute: minute,
-                    second: second
+                    hour: moment(validDate).format('HH'),
+                    minute: moment(validDate).format('mm'),
+                    second: moment(validDate).format('ss')
                 }, () => {
                     this.props.onChange && this.props.onChange(text);
                 });
