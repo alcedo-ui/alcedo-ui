@@ -237,6 +237,7 @@ class CascaderListExamples extends Component {
                             <div className="examples-wrapper">
                                 <Paper className="cascader-list-wrapper">
                                     <CascaderList className="has-children"
+                                                  listWidth={240}
                                                   data={this.data.slice(0, 3)}
                                                   onNodeClick={this.nodeClickHandler}
                                                   onNodeSelect={this.nodeSelectHandler}
