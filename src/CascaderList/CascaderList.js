@@ -231,7 +231,8 @@ class CascaderList extends Component {
                  }}
                  disabled={disabled}>
 
-                <CascaderListItem expandDirection={expandDirection}
+                <CascaderListItem listWidth={listWidth}
+                                  expandDirection={expandDirection}
                                   activatedPath={activatedPath}
                                   data={data}
                                   value={value}
