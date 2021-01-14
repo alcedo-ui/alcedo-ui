@@ -141,7 +141,10 @@ class CascaderListItem extends Component {
             return null;
         }
 
-        const {expandDirection, valueField, displayField, descriptionField, expandedIconCls, renderer} = this.props,
+        const {
+                depth, activatedPath, path,
+                expandDirection, valueField, displayField, descriptionField, expandedIconCls, renderer
+            } = this.props,
             hasChildren = CascaderCalculation.hasChildren(node);
 
         let text, desc;
@@ -164,7 +167,7 @@ class CascaderListItem extends Component {
 
                 {
                     renderer ?
-                        renderer(node, index)
+                        renderer(node, index, depth, path, activatedPath)
                         :
                         (
                             desc ?
