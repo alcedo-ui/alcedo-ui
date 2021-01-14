@@ -213,7 +213,7 @@ class CascaderList extends Component {
                 expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
                 idField, valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
-                isSelectRecursive, itemDisabled, renderer
+                isSelectRecursive, itemDisabled, renderer, expandIconVisible
             } = this.props,
             {value, activatedPath} = this.state;
 
@@ -243,7 +243,6 @@ class CascaderList extends Component {
                                   readOnly={readOnly}
                                   selectMode={selectMode}
                                   itemDisabled={itemDisabled}
-                                  renderer={renderer}
                                   expandedIconCls={expandedIconCls}
                                   radioUncheckedIconCls={radioUncheckedIconCls}
                                   radioCheckedIconCls={radioCheckedIconCls}
@@ -251,6 +250,8 @@ class CascaderList extends Component {
                                   checkboxCheckedIconCls={checkboxCheckedIconCls}
                                   checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
                                   isSelectRecursive={isSelectRecursive}
+                                  renderer={renderer}
+                                  expandIconVisible={expandIconVisible}
                                   onNodeClick={this.handleNodeClick}
                                   onNodeSelect={this.handleNodeSelect}
                                   onNodeDeselect={this.handleNodeDeselect}/>
@@ -433,6 +434,8 @@ CascaderList.propTypes = {
      * You can create a complicated renderer callback instead of value and desc prop.
      */
     renderer: PropTypes.func,
+
+    expandIconVisible: PropTypes.func,
 
     /**
      * Callback function fired when the tree node touch tap.
