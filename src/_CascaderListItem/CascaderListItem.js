@@ -142,10 +142,15 @@ class CascaderListItem extends Component {
         }
 
         const {
-                depth, activatedPath, path,
+                depth, activatedPath, path: parentPath,
                 expandDirection, valueField, displayField, descriptionField, expandedIconCls,
                 renderer, expandIconVisible
             } = this.props,
+
+            path = [...parentPath, {
+                index,
+                node
+            }],
             hasChildren = CascaderCalculation.hasChildren(node),
             hasExpandIcon = expandIconVisible && typeof expandIconVisible === 'function' ?
                 expandIconVisible(node, index, depth, path, activatedPath)
