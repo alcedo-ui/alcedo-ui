@@ -143,9 +143,14 @@ class CascaderListItem extends Component {
 
         const {
                 depth, activatedPath, path,
-                expandDirection, valueField, displayField, descriptionField, expandedIconCls, renderer
+                expandDirection, valueField, displayField, descriptionField, expandedIconCls,
+                renderer, expandIconVisible
             } = this.props,
-            hasChildren = CascaderCalculation.hasChildren(node);
+            hasChildren = CascaderCalculation.hasChildren(node),
+            hasExpandIcon = expandIconVisible && typeof expandIconVisible === 'function' ?
+                expandIconVisible(node, index, depth, path, activatedPath)
+                :
+                expandDirection === HorizontalDirection.RIGHT && hasChildren;
 
         let text, desc;
         if (!renderer) {
@@ -185,7 +190,7 @@ class CascaderListItem extends Component {
                 }
 
                 {
-                    expandDirection === HorizontalDirection.RIGHT && hasChildren ?
+                    hasExpandIcon ?
                         <i className={classNames('cascader-list-item-expand-icon',
                             expandedIconCls || 'fas fa-chevron-right')}
                            aria-hidden="true"></i>
@@ -298,6 +303,7 @@ CascaderListItem.propTypes = {
 
     itemDisabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
     renderer: PropTypes.func,
+    expandIconVisible: PropTypes.func,
 
     expandedIconCls: PropTypes.string,
     radioUncheckedIconCls: PropTypes.string,
