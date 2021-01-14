@@ -135,19 +135,17 @@ class CascaderListItem extends Component {
         onNodeDeselect && onNodeDeselect(node, this.getPath(index));
     };
 
-    listItemRenderer = (activatedIndex, node, index) => {
+    listItemRenderer = (node, index) => {
 
         if (!node) {
             return null;
         }
 
         const {
-                depth, activatedPath,
+                depth, activatedPath, path,
                 expandDirection, valueField, displayField, descriptionField, expandedIconCls,
                 renderer, expandIconVisible
             } = this.props,
-
-            path = this.getPath(activatedIndex),
             hasChildren = CascaderCalculation.hasChildren(node),
             hasExpandIcon = expandIconVisible && typeof expandIconVisible === 'function' ?
                 expandIconVisible(node, index, depth, path, activatedPath)
@@ -253,7 +251,7 @@ class CascaderListItem extends Component {
                       autoSelect={selectMode !== SelectMode.MULTI_SELECT}
                       itemDisabled={itemDisabled}
                       indeterminateCallback={this.isListItemIndeterminate}
-                      renderer={this.listItemRenderer.bind(null, activatedIndex)}
+                      renderer={this.listItemRenderer}
                       onItemClick={this.handleListItemClick}
                       onItemSelect={this.handleListItemSelect}
                       onItemDeselect={this.handleListItemDeselect}/>
