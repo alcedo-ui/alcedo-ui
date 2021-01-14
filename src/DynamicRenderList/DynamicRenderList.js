@@ -5,15 +5,18 @@
 
 import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Components
 import List from '../List';
 import Tip from '../Tip';
 
+// Statics
 import Theme from '../Theme';
 import SelectMode from '../_statics/SelectMode';
 import LIST_SEPARATOR from '../_statics/ListSeparator';
 
+// Vendors
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 import Calculation from '../_vendors/Calculation';
 import ComponentUtil from '../_vendors/ComponentUtil';
@@ -23,6 +26,16 @@ class DynamicRenderList extends Component {
     static SelectMode = SelectMode;
     static LIST_SEPARATOR = LIST_SEPARATOR;
     static Theme = Theme;
+
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: Calculation.getInitValue({
+                value: ComponentUtil.getDerivedState(props, state, 'value'),
+                selectMode: props.selectMode
+            })
+        };
+    }
 
     constructor(props, ...restArgs) {
 
@@ -42,11 +55,33 @@ class DynamicRenderList extends Component {
 
     }
 
+    componentDidMount() {
+        this.wrapperEl = this.wrapper?.current;
+        this.listInstance = this.list?.current;
+    }
+
+    componentDidUpdate() {
+
+        const {onRenderItemChange} = this.props;
+
+        if (onRenderItemChange
+            && ((!this.displayIndex && this.lastDisplayIndex) || (this.displayIndex && !this.lastDisplayIndex)
+                || (this.displayIndex && this.lastDisplayIndex
+                    && (this.displayIndex.start !== this.lastDisplayIndex.start
+                        || this.displayIndex.stop !== this.lastDisplayIndex.stop
+                        || this.displayIndex.startWithBuffer !== this.lastDisplayIndex.startWithBuffer
+                        || this.displayIndex.stopWithBuffer !== this.lastDisplayIndex.stopWithBuffer)))) {
+            this.lastDisplayIndex = this.displayIndex;
+            onRenderItemChange(this.displayIndex);
+        }
+
+    }
+
     /**
      * public
      */
     adjustScroll = () => {
-        this.listInstance && this.listInstance.adjustScroll();
+        this.listInstance?.adjustScroll?.();
     };
 
     /**
@@ -72,52 +107,14 @@ class DynamicRenderList extends Component {
     handleScroll = e => {
         this.setState({
             scrollTop: this.wrapperEl ? this.wrapperEl.scrollTop : 0
-        }, () => {
-            const {onScroll} = this.props;
-            onScroll && onScroll(e);
-        });
+        }, () => this.props.onScroll?.(e));
     };
 
     handleChange = value => {
         this.setState({
             value
-        }, () => {
-            const {onChange} = this.props;
-            onChange && onChange(value);
-        });
+        }, () => this.props.onChange?.(value));
     };
-
-    componentDidMount() {
-        this.wrapperEl = this.wrapper && this.wrapper.current;
-        this.listInstance = this.list && this.list.current;
-    }
-
-    componentDidUpdate() {
-
-        const {onRenderItemChange} = this.props;
-
-        if (onRenderItemChange &&
-            ((!this.displayIndex && this.lastDisplayIndex) || (this.displayIndex && !this.lastDisplayIndex)
-                || (this.displayIndex && this.lastDisplayIndex
-                    && (this.displayIndex.start !== this.lastDisplayIndex.start
-                        || this.displayIndex.stop !== this.lastDisplayIndex.stop
-                        || this.displayIndex.startWithBuffer !== this.lastDisplayIndex.startWithBuffer
-                        || this.displayIndex.stopWithBuffer !== this.lastDisplayIndex.stopWithBuffer)))) {
-            this.lastDisplayIndex = this.displayIndex;
-            onRenderItemChange(this.displayIndex);
-        }
-
-    }
-
-    static getDerivedStateFromProps(props, state) {
-        return {
-            prevProps: props,
-            value: Calculation.getInitValue({
-                value: ComponentUtil.getDerivedState(props, state, 'value'),
-                selectMode: props.selectMode
-            })
-        };
-    }
 
     render() {
 
