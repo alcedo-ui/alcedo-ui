@@ -44,9 +44,10 @@ class CascaderList extends Component {
         super(props, ...restArgs);
 
         const value = Calculation.getInitValue(props);
+
         this.state = {
             value,
-            activatedPath: CascaderCalculation.calPath(value, props.data, props)
+            activatedPath: props.activatedPath || CascaderCalculation.calPath(value, props.data, props)
         };
 
     }
@@ -430,6 +431,8 @@ CascaderList.propTypes = {
      * Cascader List item disabled callback.
      */
     itemDisabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+
+    activatedPath: PropTypes.array,
 
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
