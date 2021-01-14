@@ -47,7 +47,7 @@ class CascaderList extends Component {
 
         this.state = {
             value,
-            activatedPath: props.activatedPath || CascaderCalculation.calPath(value, props.data, props)
+            activatedPath: props.initActivatedPath || CascaderCalculation.calPath(value, props.data, props)
         };
 
     }
@@ -126,14 +126,11 @@ class CascaderList extends Component {
     handleNodeClick = (node, index, path, e) => {
 
         const {onNodeClick} = this.props;
-        onNodeClick && onNodeClick(node, index, path, e);
+        onNodeClick?.(node, index, path, e);
 
         this.setState({
             activatedPath: path
-        }, () => {
-            const {onPathChange} = this.props;
-            onPathChange && onPathChange(path);
-        });
+        }, () => this.props.onPathChange?.(path));
 
     };
 
@@ -168,9 +165,8 @@ class CascaderList extends Component {
         }
 
         this.setState(state, () => {
-            const {onNodeSelect, onChange} = this.props;
-            onNodeSelect && onNodeSelect(node, path);
-            state.value && onChange && onChange(state.value);
+            this.props.onNodeSelect?.(node, path);
+            state.value && this.props.onChange?.(state.value);
         });
 
     };
@@ -204,9 +200,8 @@ class CascaderList extends Component {
         this.setState({
             value
         }, () => {
-            const {onNodeDeselect, onChange} = this.props;
-            onNodeDeselect && onNodeDeselect(node, path);
-            onChange && onChange(value);
+            this.props.onNodeDeselect?.(node, path);
+            this.props.onChange?.(value);
         });
 
     };
@@ -432,7 +427,7 @@ CascaderList.propTypes = {
      */
     itemDisabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 
-    activatedPath: PropTypes.array,
+    initActivatedPath: PropTypes.array,
 
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
