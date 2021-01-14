@@ -69,9 +69,12 @@ class DateRangePicker extends Component {
     }
 
     handleDatePickerChange = (select, selectLevel) => {
-        let state = cloneDeep(this.state);
-        state[select].datePickerLevel = selectLevel;
-        this.setState(state);
+        this.setState({
+            [select]: {
+                ...this.state[select],
+                datePickerLevel: selectLevel
+            }
+        });
     };
 
     handleTextFieldChange = (select, text) => {
@@ -82,37 +85,69 @@ class DateRangePicker extends Component {
                 const selectYear = initValue.split('-')[0],
                     selectMonth = initValue.split('-')[1],
                     selectDay = initValue.split('-')[2];
-                let state = cloneDeep(this.state);
                 if (select == 'left') {
-                    if (moment(text).isBefore(state.right.text)) {
-                        state.startTime = text;
-                        state.left.text = text;
-                        state.left.year = selectYear;
-                        state.left.month = selectMonth;
-                        state.left.day = selectDay;
-                        if (selectYear == state.right.year && selectMonth == state.right.month) {
-                            if (selectMonth == 12) {
-                                state.right.month = 1;
-                                state.right.year = +selectYear + 1;
-                            } else {
-                                state.right.month = +selectMonth + 1;
+                    if (moment(text).isBefore(this.state.right.text)) {
+                        //     state.startTime = text;
+                        //     state.left.text = text;
+                        //     state.left.year = selectYear;
+                        //     state.left.month = selectMonth;
+                        //     state.left.day = selectDay;
+                        //     if (selectYear == state.right.year && selectMonth == state.right.month) {
+                        //         if (selectMonth == 12) {
+                        //             state.right.month = 1;
+                        //             state.right.year = +selectYear + 1;
+                        //         } else {
+                        //             state.right.month = +selectMonth + 1;
+                        //         }
+                        //     }
+                        this.setState({
+                            startTime: moment(text).isBefore(this.state.right.text) ? text : this.state.startTime,
+                            left: {
+                                ...this.state.left,
+                                text: moment(text).isBefore(this.state.right.text) ? text : this.state.left.text,
+                                year: moment(text).isBefore(this.state.right.text) ? selectYear : this.state.left.selectYear,
+                                month: moment(text).isBefore(this.state.right.text) ? selectMonth : this.state.left.selectMonth,
+                                day: moment(text).isBefore(this.state.right.text) ? selectDay : this.state.left.selectDay
+                            },
+                            right: {
+                                ...this.state.right,
+                                month: selectYear == this.state.right.year && selectMonth == this.state.right.month ?
+                                    selectMonth == 12 ? 1 : +selectMonth + 1 : this.state.right.month,
+                                year: selectYear == this.state.right.year && selectMonth == this.state.right.month ?
+                                    +selectYear + 1 : this.state.right.year
                             }
-                        }
+                        });
                     }
-                    this.setState(state);
+
                 } else {
-                    if (moment(state.startTime).isBefore(text)) {
-                        state.endTime = text;
-                        state.right.text = text;
-                        if (selectYear == state.left.year && selectMonth == state.left.month) {
-                            state.right.month = +selectMonth + 1;
-                        } else {
-                            state.right.year = selectYear;
-                            state.right.month = selectMonth;
-                            state.right.day = selectDay;
+                    // if (moment(state.startTime).isBefore(text)) {
+                    //     state.endTime = text;
+                    //     state.right.text = text;
+                    //     if (selectYear == state.left.year && selectMonth == state.left.month) {
+                    //         state.right.month = +selectMonth + 1;
+                    //     } else {
+                    //         state.right.year = selectYear;
+                    //         state.right.month = selectMonth;
+                    //         state.right.day = selectDay;
+                    //     }
+                    // }
+                    this.setState({
+                        endTime: moment(this.state.startTime).isBefore(text) ? text : this.state.endTime,
+                        right: {
+                            ...this.state.right,
+                            text: moment(this.state.startTime).isBefore(text) ? text : this.state.right.text,
+                            year: moment(this.state.startTime).isBefore(text) ?
+                                selectYear == this.state.left.year && selectMonth == this.state.left.month ?
+                                    this.state.right.year : selectYear : this.state.right.year,
+                            month: moment(this.state.startTime).isBefore(text) ?
+                                selectYear == this.state.left.year && selectMonth == this.state.left.month ?
+                                    +selectMonth + 1 : selectMonth : this.state.right.month,
+                            day: moment(this.state.startTime).isBefore(text) ?
+                                selectYear == this.state.left.year && selectMonth == this.state.left.month ?
+                                    this.state.right.day : selectDay : this.state.right.day
+
                         }
-                    }
-                    this.setState(state);
+                    });
                 }
             }
         }
@@ -121,82 +156,114 @@ class DateRangePicker extends Component {
     handleDayPickerChange = (select, date) => {
         let state = cloneDeep(this.state);
         if (state.endTime) {
-            state[select].text = date.time;
-            state[select].year = date.year;
-            state[select].month = date.month;
-            state[select].day = date.day;
-            state.startTime = date.time;
-            state.endTime = '';
-            state.hoverTime = '';
-            this.setState(state);
+            this.setState({
+                startTime: date.time,
+                endTime: '',
+                hoverTime: '',
+                [select]: {
+                    ...this.state[select],
+                    text: date.time,
+                    year: date.year,
+                    month: date.month,
+                    day: date.day
+                }
+            });
         } else if (state.startTime) {
-            let startTime = state.startTime;
-            let endTime;
+            let startTime = this.state.startTime, endTime;
             if (moment(startTime).isBefore(date.time)) {
                 endTime = date.time;
             } else {
                 endTime = startTime;
                 startTime = date.time;
             }
-            state.right.text = endTime;
-            state.left.text = startTime;
-            state.endTime = endTime;
-            state.startTime = startTime;
-            state.historyStartTime = startTime;
-            state.historyEndTime = endTime;
-            state.hoverTime = '';
-            this.setState(state);
+            this.setState({
+                startTime,
+                endTime,
+                historyStartTime: startTime,
+                historyEndTime: endTime,
+                hoverTime: '',
+                value: [
+                    moment(startTime).format(this.props.dateFormat),
+                    moment(endTime).format(this.props.dateFormat)
+                ],
+                left: {
+                    ...this.state.left,
+                    text: startTime
+                },
+                right: {
+                    ...this.state.right,
+                    text: endTime
+                }
+            }, () => {
+                this.props.onChange && this.props.onChange([
+                    moment(startTime).format(this.props.dateFormat),
+                    moment(endTime).format(this.props.dateFormat)
+                ]);
+            });
         } else {
-            state[select].text = date.time;
-            state[select].year = date.year;
-            state[select].month = date.month;
-            state[select].day = date.day;
-            state.startTime = date.time;
-            state.endTime = '';
-            state.hoverTime = '';
-            this.setState(state);
+            this.setState({
+                startTime: date.time,
+                endTime: '',
+                hoverTime: '',
+                [select]: {
+                    ...this.state[select],
+                    text: date.time,
+                    year: date.year,
+                    month: date.month,
+                    day: date.day
+                }
+            });
         }
 
     };
 
     handleDayPickerHover = (select, date) => {
-        let state = cloneDeep(this.state);
-        let startTime = state.startTime;
-        let endTime = state.endTime;
+        let startTime = this.state.startTime, endTime = this.state.endTime;
         if (startTime && endTime == '') {
-            state.hoverTime = date.time;
-            if (moment(startTime).isBefore(date.time)) {
-                state.left.text = startTime;
-                state.right.text = date.time;
-            } else {
-                state.right.text = startTime;
-                state.left.text = date.time;
-            }
-            this.setState(state);
+            this.setState({
+                hoverTime: date.time,
+                left: {
+                    ...this.state.left,
+                    text: moment(startTime).isBefore(date.time) ? startTime : date.time
+                },
+                right: {
+                    ...this.state.right,
+                    text: moment(startTime).isBefore(date.time) ? date.time : startTime
+                }
+            });
         }
     };
 
     handleMonthAndYearChange = (select, date) => {
-        let state = cloneDeep(this.state);
-        state[select].year = date.year;
-        state[select].month = date.month;
-        this.setState(state);
+        this.setState({
+            [select]: {
+                ...this.state[select],
+                year: date.year,
+                month: date.month
+            }
+        });
     };
 
 
     handleMonthPickerChange = (select, date) => {
-        let state = cloneDeep(this.state);
-        state[select].datePickerLevel = 'day';
-        state[select].year = date.year;
-        state[select].month = date.month;
-        this.setState(state);
+        this.setState({
+            [select]: {
+                ...this.state[select],
+                datePickerLevel: 'day',
+                year: date.year,
+                month: date.month
+            }
+        });
     };
 
     handleYearPickerChange = (select, year) => {
-        let state = cloneDeep(this.state);
-        state[select].datePickerLevel = 'month';
-        state[select].year = year;
-        this.setState(state);
+        this.setState({
+            [select]: {
+                ...this.state[select],
+                datePickerLevel: 'month',
+                year: year
+            }
+        });
     };
 
 
@@ -209,42 +276,97 @@ class DateRangePicker extends Component {
     };
 
     closePopup = () => {
-        const {dateFormat} = this.props;
-        let state = cloneDeep(this.state);
-        state.popupVisible = false;
-        state.left.datePickerLevel = 'day';
-        state.right.datePickerLevel = 'day';
-        if (!state.endTime) {
-            state.startTime = state.historyStartTime;
-            state.endTime = state.historyEndTime;
-            state.left.text = state.historyStartTime;
-            state.right.text = state.historyEndTime;
-            state.hoverTime = '';
-            if (state.historyStartTime && state.historyEndTime) {
-                state.left.year = moment(state.historyStartTime).format('YYYY');
-                state.left.month = moment(state.historyStartTime).format('MM');
-                state.left.day = moment(state.historyStartTime).format('DD');
-                if (moment(state.historyStartTime).format('YYYY') == moment(state.historyEndTime).format('YYYY')
-                    && moment(state.historyStartTime).format('MM') == moment(state.historyEndTime).format('MM')) {
-                    if (moment(state.historyEndTime).format('MM') == 12) {
-                        state.right.year = +moment(state.historyEndTime).format('YYYY') + 1;
-                        state.right.month = 1;
-                    } else {
-                        state.right.year = moment(state.historyEndTime).format('YYYY');
-                        state.right.month = +moment(state.historyEndTime).format('MM') + 1;
-                    }
-                } else {
-                    state.right.year = moment(state.historyEndTime).format('YYYY');
-                    state.right.month = moment(state.historyEndTime).format('MM');
-                }
-                state.right.day = moment(state.historyEndTime).format('DD');
-            }
-        }
-        state.value = [moment(state.left.text, dateFormat), moment(state.right.text, dateFormat)];
-        !this.props.disabled && this.setState(state, () => {
+        // let state = cloneDeep(this.state);
+        // state.popupVisible = false;
+        // state.left.datePickerLevel = 'day';
+        // state.right.datePickerLevel = 'day';
+        // if (!state.endTime) {
+        //     state.startTime = state.historyStartTime;
+        //     state.endTime = state.historyEndTime;
+        //     state.left.text = state.historyStartTime;
+        //     state.right.text = state.historyEndTime;
+        //     state.hoverTime = '';
+        //     if (state.historyStartTime && state.historyEndTime) {
+        //         state.left.year = moment(state.historyStartTime).format('YYYY');
+        //         state.left.month = moment(state.historyStartTime).format('MM');
+        //         state.left.day = moment(state.historyStartTime).format('DD');
+        //         if (moment(state.historyStartTime).format('YYYY') == moment(state.historyEndTime).format('YYYY')
+        //             && moment(state.historyStartTime).format('MM') == moment(state.historyEndTime).format('MM')) {
+        //             if (moment(state.historyEndTime).format('MM') == 12) {
+        //                 state.right.year = +moment(state.historyEndTime).format('YYYY') + 1;
+        //                 state.right.month = 1;
+        //             } else {
+        //                 state.right.year = moment(state.historyEndTime).format('YYYY');
+        //                 state.right.month = +moment(state.historyEndTime).format('MM') + 1;
+        //             }
+        //         } else {
+        //             state.right.year = moment(state.historyEndTime).format('YYYY');
+        //             state.right.month = moment(state.historyEndTime).format('MM');
+        //         }
+        //         state.right.day = moment(state.historyEndTime).format('DD');
+        //     }
+        // }
+        // state.value = [moment(state.left.text, dateFormat), moment(state.right.text, dateFormat)];
+        const {dateFormat} = this.props,
+            {left, right, startTime, endTime, historyStartTime, historyEndTime, hoverTime} = this.state,
+            leftDate = {
+                ...left,
+                datePickerLevel: 'day',
+                text: !endTime ? historyStartTime : left.text,
+                year: !endTime ? historyStartTime && historyEndTime ?
+                    moment(historyStartTime).format('YYYY') : left.year : left.year,
+                month: !endTime ? historyStartTime && historyEndTime ?
+                    moment(historyStartTime).format('MM') : left.month : left.month,
+                day: !endTime ? historyStartTime && historyEndTime ?
+                    moment(historyStartTime).format('DD') : left.day : left.day
+            }, rightDate = {
+                ...right,
+                datePickerLevel: 'day',
+                text: !endTime ? historyEndTime : right.text,
+                year: !endTime ?
+                    historyStartTime && historyEndTime ?
+                        moment(historyStartTime).format('YYYY') == moment(historyEndTime).format('YYYY')
+                        && moment(historyStartTime).format('MM') == moment(historyEndTime).format('MM') ?
+                            moment(historyEndTime).format('MM') == 12 ?
+                                +moment(historyEndTime).format('YYYY') + 1
+                                :
+                                moment(historyEndTime).format('YYYY')
+                            :
+                            moment(historyEndTime).format('YYYY')
+                        :
+                        right.year
+                    :
+                    right.year,
+                month: !endTime ?
+                    historyStartTime && historyEndTime ?
+                        moment(historyStartTime).format('YYYY') == moment(historyEndTime).format('YYYY')
+                        && moment(historyStartTime).format('MM') == moment(historyEndTime).format('MM') ?
+                            moment(historyEndTime).format('MM') == 12 ?
+                                1
+                                :
+                                +moment(historyEndTime).format('MM') + 1
+                            :
+                            moment(historyEndTime).format('MM')
+                        :
+                        right.year
+                    :
+                    right.year,
+                day: !endTime ? historyStartTime && historyEndTime ?
+                    moment(historyEndTime).format('DD') : right.day : right.day
+            };
+
+        !this.props.disabled && this.setState({
+            popupVisible: false,
+            startTime: !endTime ? historyStartTime : startTime,
+            endTime: !endTime ? historyEndTime : endTime,
+            hoverTime: !endTime ? '' : hoverTime,
+            value: [moment(leftDate.text, dateFormat), moment(rightDate.text, dateFormat)],
+            left: leftDate,
+            right: rightDate
+        }, () => {
             this.props.onChange && this.props.onChange([
-                moment(state.value[0]).format(this.props.dateFormat),
-                moment(state.value[1]).format(this.props.dateFormat)
+                moment(leftDate.text, dateFormat),
+                moment(rightDate.text, dateFormat)
             ]);
         });
     };
@@ -271,41 +393,73 @@ class DateRangePicker extends Component {
                 rightValue = value[1];
             if (!!leftValue) {
                 if (moment(leftValue, format).isValid() || (!!rightValue && moment(leftValue, format).isValid())) {
-                    state.left.text = leftValue;
-                    state.left.year = moment(value[0]).format('YYYY');
-                    state.left.month = moment(value[0]).format('MM');
-                    state.left.day = moment(value[0]).format('DD');
-                    state.right.text = rightValue;
-                    state.right.year = rightValue ? moment(value[1]).format('YYYY') : moment(value[0]).format('YYYY');
-                    state.right.month = rightValue ? moment(value[1]).format('MM') : moment(value[0]).format('MM');
-                    state.right.day = rightValue ? moment(value[1]).format('DD') : moment(value[0]).format('DD');
-                    state.left = DateUtil.setDateRange(state.left, state.right).start;
-                    state.right = DateUtil.setDateRange(state.left, state.right).end;
-                    state.startTime = leftValue;
-                    state.endTime = rightValue;
-                    state.historyStartTime = leftValue;
-                    state.historyEndTime = rightValue;
-                    this.setState(state);
+                    const left = {
+                        ...this.state.left,
+                        text: leftValue,
+                        year: moment(value[0]).format('YYYY'),
+                        month: moment(value[0]).format('MM'),
+                        day: moment(value[0]).format('DD')
+                    }, right = {
+                        ...this.state.right,
+                        text: rightValue,
+                        year: rightValue ? moment(value[1]).format('YYYY') : moment(value[0]).format('YYYY'),
+                        month: rightValue ? moment(value[1]).format('MM') : moment(value[0]).format('MM'),
+                        day: rightValue ? moment(value[1]).format('DD') : moment(value[0]).format('DD')
+                    };
+                    this.setState({
+                        left: DateUtil.setDateRange(left, right).start,
+                        right: DateUtil.setDateRange(left, right).end,
+                        startTime: leftValue,
+                        endTime: rightValue,
+                        historyStartTime: leftValue,
+                        historyEndTime: rightValue
+                    });
+                    // state.left.text = leftValue;
+                    // state.left.year = moment(value[0]).format('YYYY');
+                    // state.left.month = moment(value[0]).format('MM');
+                    // state.left.day = moment(value[0]).format('DD');
+                    // state.right.text = rightValue;
+                    // state.right.year = rightValue ? moment(value[1]).format('YYYY') : moment(value[0]).format('YYYY');
+                    // state.right.month = rightValue ? moment(value[1]).format('MM') : moment(value[0]).format('MM');
+                    // state.right.day = rightValue ? moment(value[1]).format('DD') : moment(value[0]).format('DD');
+                    // state.left = DateUtil.setDateRange(state.left, state.right).start;
+                    // state.right = DateUtil.setDateRange(state.left, state.right).end;
+                    // state.startTime = leftValue;
+                    // state.endTime = rightValue;
+                    // state.historyStartTime = leftValue;
+                    // state.historyEndTime = rightValue;
+                    // this.setState({
+                    //     startTime: leftValue,
+                    //     endTime: rightValue,
+                    //     historyStartTime: leftValue,
+                    //     historyEndTime: rightValue
+                    // });
                 } else {
                     this.validValue = false;
                     console.error('Invalid date');
                 }
             } else {
-                state.left.text = '';
-                state.right.text = '';
-                state.left.year = moment().format('YYYY');
-                state.left.month = moment().format('MM');
-                state.left.day = moment().format('DD');
-                state.right.year = moment().format('YYYY');
-                state.right.month = moment().format('MM');
-                state.right.day = moment().format('DD');
-                state.startTime = '';
-                state.endTime = '';
-                state.historyStartTime = '';
-                state.historyEndTime = '';
-                state.left = DateUtil.setDateRange(state.left, state.right).start;
-                state.right = DateUtil.setDateRange(state.left, state.right).end;
-                this.setState(state);
+                const left = {
+                    ...this.state.left,
+                    text: '',
+                    year: moment().format('YYYY'),
+                    month: moment().format('MM'),
+                    day: moment().format('DD')
+                }, right = {
+                    ...this.state.right,
+                    text: '',
+                    year: moment().format('YYYY'),
+                    month: moment().format('MM'),
+                    day: moment().format('DD')
+                };
+                this.setState({
+                    left: DateUtil.setDateRange(left, right).start,
+                    right: DateUtil.setDateRange(left, right).end,
+                    startTime: '',
+                    endTime: '',
+                    historyStartTime: '',
+                    historyEndTime: ''
+                });
             }
         }
     };

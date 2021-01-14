@@ -6,7 +6,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import cloneDeep from 'lodash/cloneDeep';
 
 import DayPicker from '../_DayPicker';
 import MonthPicker from '../_MonthPicker';
@@ -54,142 +53,179 @@ class DateRangePickerContent extends Component {
     }
 
     datePickerChangeHandle = (select, selectLevel) => {
-        let state = cloneDeep(this.state);
-        state[select].datePickerLevel = selectLevel;
-        this.setState(state);
+        this.setState({
+            [select]: {
+                ...this.state[select],
+                datePickerLevel: selectLevel
+            }
+        });
     };
 
     dayPickerChangeHandle = (select, date) => {
-        let state = cloneDeep(this.state);
-        if (state.endTime) {
-            state[select].text = date.time;
-            state[select].year = date.year;
-            state[select].month = date.month;
-            state[select].day = date.day;
-            state.startTime = date.time;
-            state.endTime = '';
-            state.hoverTime = '';
-            this.setState(state);
-        } else if (state.startTime) {
-            let startTime = state.startTime;
-            let endTime;
+        if (this.state.endTime) {
+            this.setState({
+                startTime: date.time,
+                endTime: '',
+                hoverTime: '',
+                [select]: {
+                    ...this.state[select],
+                    text: date.time,
+                    year: date.year,
+                    month: date.month,
+                    day: date.day
+                }
+            });
+        } else if (this.state.startTime) {
+            let startTime = this.state.startTime, endTime;
             if (moment(startTime).isBefore(date.time)) {
                 endTime = date.time;
             } else {
                 endTime = startTime;
                 startTime = date.time;
             }
-            state.right.text = endTime;
-            state.left.text = startTime;
-            state.endTime = endTime;
-            state.startTime = startTime;
-            state.historyStartTime = startTime;
-            state.historyEndTime = endTime;
-            state.hoverTime = '';
-            state.value = [
-                moment(state.startTime).format(this.props.dateFormat),
-                moment(state.endTime).format(this.props.dateFormat)
-            ];
-            this.setState(state, () => {
+            this.setState({
+                startTime,
+                endTime,
+                historyStartTime: startTime,
+                historyEndTime: endTime,
+                hoverTime: '',
+                value: [
+                    moment(startTime).format(this.props.dateFormat),
+                    moment(endTime).format(this.props.dateFormat)
+                ],
+                left: {
+                    ...this.state.left,
+                    text: startTime
+                },
+                right: {
+                    ...this.state.right,
+                    text: endTime
+                }
+            }, () => {
                 this.props.onChange && this.props.onChange([
-                    moment(state.startTime).format(this.props.dateFormat),
-                    moment(state.endTime).format(this.props.dateFormat)
+                    moment(startTime).format(this.props.dateFormat),
+                    moment(endTime).format(this.props.dateFormat)
                 ]);
             });
         } else {
-            state[select].text = date.time;
-            state[select].year = date.year;
-            state[select].month = date.month;
-            state[select].day = date.day;
-            state.startTime = date.time;
-            state.endTime = '';
-            state.hoverTime = '';
-            this.setState(state);
+            this.setState({
+                startTime: date.time,
+                endTime: '',
+                hoverTime: '',
+                [select]: {
+                    ...this.state[select],
+                    text: date.time,
+                    year: date.year,
+                    month: date.month,
+                    day: date.day
+                }
+            });
         }
     };
 
     dayPickerHoverHandle = (select, date) => {
-        let state = cloneDeep(this.state);
-        let startTime = state.startTime;
-        let endTime = state.endTime;
+        let startTime = this.state.startTime, endTime = this.state.endTime;
         if (startTime && endTime == '') {
-            state.hoverTime = date.time;
-            if (moment(startTime).isBefore(date.time)) {
-                state.left.text = startTime;
-                state.right.text = date.time;
-            } else {
-                state.right.text = startTime;
-                state.left.text = date.time;
-            }
-            this.setState(state);
+            this.setState({
+                hoverTime: date.time,
+                left: {
+                    ...this.state.left,
+                    text: moment(startTime).isBefore(date.time) ? startTime : date.time
+                },
+                right: {
+                    ...this.state.right,
+                    text: moment(startTime).isBefore(date.time) ? date.time : startTime
+                }
+            });
         }
     };
 
     monthAndYearChangeHandle = (select, date) => {
-        let state = cloneDeep(this.state);
-        state[select].year = date.year;
-        state[select].month = date.month;
-        this.setState(state);
+
+        this.setState({
+            [select]: {
+                ...this.state[select],
+                year: date.year,
+                month: date.month
+            }
+        });
     };
 
 
     monthPickerChangeHandle = (select, date) => {
-        let state = cloneDeep(this.state);
-        state[select].datePickerLevel = 'day';
-        state[select].year = date.year;
-        state[select].month = date.month;
-        this.setState(state);
+        this.setState({
+            [select]: {
+                ...this.state[select],
+                datePickerLevel: 'day',
+                year: date.year,
+                month: date.month
+            }
+        });
     };
 
     yearPickerChangeHandle = (select, year) => {
-        let state = cloneDeep(this.state);
-        state[select].datePickerLevel = 'month';
-        state[select].year = year;
-        this.setState(state);
+        this.setState({
+            [select]: {
+                ...this.state[select],
+                datePickerLevel: 'month',
+                year: year
+            }
+        });
     };
 
     setValue = (value, format) => {
-        let state = cloneDeep(this.state);
         if (value && value.length > 1) {
             let leftValue = value[0],
                 rightValue = value[1];
             if (!!leftValue) {
                 if (moment(leftValue, format).isValid() || (!!rightValue && moment(leftValue, format).isValid())) {
-                    state.left.text = leftValue;
-                    state.left.year = moment(value[0]).format('YYYY');
-                    state.left.month = moment(value[0]).format('MM');
-                    state.left.day = moment(value[0]).format('DD');
-                    state.right.text = rightValue;
-                    state.right.year = rightValue ? moment(value[1]).format('YYYY') : moment(value[0]).format('YYYY');
-                    state.right.month = rightValue ? moment(value[1]).format('MM') : moment(value[0]).format('MM');
-                    state.right.day = rightValue ? moment(value[1]).format('DD') : moment(value[0]).format('DD');
-                    state.left = DateUtil.setDateRange(state.left, state.right).start;
-                    state.right = DateUtil.setDateRange(state.left, state.right).end;
-                    state.startTime = leftValue;
-                    state.endTime = rightValue;
-                    state.historyStartTime = leftValue;
-                    state.historyEndTime = rightValue;
-                    this.setState(state);
+                    const left = {
+                        ...this.state.left,
+                        text: leftValue,
+                        year: moment(value[0]).format('YYYY'),
+                        month: moment(value[0]).format('MM'),
+                        day: moment(value[0]).format('DD')
+                    }, right = {
+                        ...this.state.right,
+                        text: rightValue,
+                        year: rightValue ? moment(value[1]).format('YYYY') : moment(value[0]).format('YYYY'),
+                        month: rightValue ? moment(value[1]).format('MM') : moment(value[0]).format('MM'),
+                        day: rightValue ? moment(value[1]).format('DD') : moment(value[0]).format('DD')
+                    };
+                    this.setState({
+                        left: DateUtil.setDateRange(left, right).start,
+                        right: DateUtil.setDateRange(left, right).end,
+                        startTime: leftValue,
+                        endTime: rightValue,
+                        historyStartTime: leftValue,
+                        historyEndTime: rightValue
+                    });
                 } else {
                     this.validValue = false;
                     console.error('Invalid date');
                 }
             } else {
-                state.left.text = '';
-                state.right.text = '';
-                state.left.year = moment().format('YYYY');
-                state.left.month = moment().format('MM');
-                state.left.day = moment().format('DD');
-                state.right.year = moment().format('YYYY');
-                state.right.month = moment().format('MM');
-                state.right.day = moment().format('DD');
-                state.startTime = '';
-                state.endTime = '';
-                state.historyStartTime = '';
-                state.historyEndTime = '';
-                state.left = DateUtil.setDateRange(state.left, state.right).start;
-                state.right = DateUtil.setDateRange(state.left, state.right).end;
-                this.setState(state);
+                const left = {
+                    ...this.state.left,
+                    text: '',
+                    year: moment().format('YYYY'),
+                    month: moment().format('MM'),
+                    day: moment().format('DD')
+                }, right = {
+                    ...this.state.right,
+                    text: '',
+                    year: moment().format('YYYY'),
+                    month: moment().format('MM'),
+                    day: moment().format('DD')
+                };
+                this.setState({
+                    left: DateUtil.setDateRange(left, right).start,
+                    right: DateUtil.setDateRange(left, right).end,
+                    startTime: '',
+                    endTime: '',
+                    historyStartTime: '',
+                    historyEndTime: ''
+                });
             }
         }
     };
