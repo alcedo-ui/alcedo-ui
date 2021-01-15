@@ -119,7 +119,6 @@ class MaterialDateRangePicker extends Component {
                             day: moment(this.state.startTime).isBefore(text) ?
                                 selectYear == this.state.left.year && selectMonth == this.state.left.month ?
                                     this.state.right.day : selectDay : this.state.right.day
-
                         }
                     });
                 }
@@ -290,9 +289,9 @@ class MaterialDateRangePicker extends Component {
                             :
                             moment(historyEndTime).format('MM')
                         :
-                        right.year
+                        right.month
                     :
-                    right.year,
+                    right.month,
                 day: !endTime ? historyStartTime && historyEndTime ?
                     moment(historyEndTime).format('DD') : right.day : right.day
             };

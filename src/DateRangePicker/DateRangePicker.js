@@ -348,9 +348,9 @@ class DateRangePicker extends Component {
                             :
                             moment(historyEndTime).format('MM')
                         :
-                        right.year
+                        right.month
                     :
-                    right.year,
+                    right.month,
                 day: !endTime ? historyStartTime && historyEndTime ?
                     moment(historyEndTime).format('DD') : right.day : right.day
             };
