@@ -235,7 +235,9 @@ class TreeNode extends Component {
                                           disabled={isNodeDisabled}
                                           uncheckedIconCls={data.checkboxUncheckedIconCls || checkboxUncheckedIconCls}
                                           checkedIconCls={data.checkboxCheckedIconCls || checkboxCheckedIconCls}
-                                          indeterminateIconCls={data.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls}
+                                          indeterminateIconCls={
+                                              data.checkboxIndeterminateIconCls || checkboxIndeterminateIconCls
+                                          }
                                           disableTouchRipple={true}/>
                                 :
                                 null
@@ -260,7 +262,7 @@ class TreeNode extends Component {
                                 data.itemRenderer(data, index)
                                 :
                                 renderer && typeof renderer === 'function' ?
-                                    renderer(data, index)
+                                    renderer(data, index, depth)
                                     :
                                     data[descriptionField] ?
                                         <div className="tree-node-content">
