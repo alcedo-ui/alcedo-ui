@@ -223,7 +223,7 @@ class TimeList extends Component {
                     moment('2000-01-01 ' + minValue).format('HH') : moment('2000-01-01 ' + maxValue).format('HH') : this.state.hour,
             minute = flag ?
                 minValue && moment('2000-01-01 ' + this.state.hour + ':' + value + ':' + this.state.second).isBefore('2000-01-01 ' + value) ?
-                    moment('2000-01-01 ' + minValue).format('mm') : moment('2000-01-01 ' + maxValue).format('mm') : this.state.minute,
+                    moment('2000-01-01 ' + minValue).format('mm') : moment('2000-01-01 ' + maxValue).format('mm') : value,
             second = flag ? minValue && moment('2000-01-01 ' + this.state.hour + ':' + value + ':' + this.state.second).isBefore('2000-01-01 ' + minValue) ?
                 moment('2000-01-01 ' + minValue).format('ss') : moment('2000-01-01 ' + maxValue).format('ss') : this.state.second;
 
