@@ -154,8 +154,8 @@ class DateRangePicker extends Component {
     };
 
     handleDayPickerChange = (select, date) => {
-        let state = cloneDeep(this.state);
-        if (state.endTime) {
+
+        if (this.state.endTime) {
             this.setState({
                 startTime: date.time,
                 endTime: '',
@@ -168,7 +168,7 @@ class DateRangePicker extends Component {
                     day: date.day
                 }
             });
-        } else if (state.startTime) {
+        } else if (this.state.startTime) {
             let startTime = this.state.startTime, endTime;
             if (moment(startTime).isBefore(date.time)) {
                 endTime = date.time;
