@@ -141,8 +141,21 @@ class CascaderListItem extends Component {
             return null;
         }
 
-        const {expandDirection, valueField, displayField, descriptionField, expandedIconCls, renderer} = this.props,
-            hasChildren = CascaderCalculation.hasChildren(node);
+        const {
+                depth, activatedPath, path: parentPath,
+                expandDirection, valueField, displayField, descriptionField, expandedIconCls,
+                renderer, expandIconVisible
+            } = this.props,
+
+            path = [...parentPath, {
+                index,
+                node
+            }],
+            hasChildren = CascaderCalculation.hasChildren(node),
+            hasExpandIcon = expandIconVisible && typeof expandIconVisible === 'function' ?
+                expandIconVisible(node, index, depth, path, activatedPath)
+                :
+                expandDirection === HorizontalDirection.RIGHT && hasChildren;
 
         let text, desc;
         if (!renderer) {
@@ -164,7 +177,7 @@ class CascaderListItem extends Component {
 
                 {
                     renderer ?
-                        renderer(node, index)
+                        renderer(node, index, depth, path, activatedPath)
                         :
                         (
                             desc ?
@@ -182,7 +195,7 @@ class CascaderListItem extends Component {
                 }
 
                 {
-                    expandDirection === HorizontalDirection.RIGHT && hasChildren ?
+                    hasExpandIcon ?
                         <i className={classNames('cascader-list-item-expand-icon',
                             expandedIconCls || 'fas fa-chevron-right')}
                            aria-hidden="true"></i>
@@ -295,6 +308,7 @@ CascaderListItem.propTypes = {
 
     itemDisabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
     renderer: PropTypes.func,
+    expandIconVisible: PropTypes.func,
 
     expandedIconCls: PropTypes.string,
     radioUncheckedIconCls: PropTypes.string,

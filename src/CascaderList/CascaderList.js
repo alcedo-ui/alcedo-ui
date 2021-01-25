@@ -44,9 +44,10 @@ class CascaderList extends Component {
         super(props, ...restArgs);
 
         const value = Calculation.getInitValue(props);
+
         this.state = {
             value,
-            activatedPath: CascaderCalculation.calPath(value, props.data, props)
+            activatedPath: props.initActivatedPath || CascaderCalculation.calPath(value, props.data, props)
         };
 
     }
@@ -125,14 +126,11 @@ class CascaderList extends Component {
     handleNodeClick = (node, index, path, e) => {
 
         const {onNodeClick} = this.props;
-        onNodeClick && onNodeClick(node, index, path, e);
+        onNodeClick?.(node, index, path, e);
 
         this.setState({
             activatedPath: path
-        }, () => {
-            const {onPathChange} = this.props;
-            onPathChange && onPathChange(path);
-        });
+        }, () => this.props.onPathChange?.(path));
 
     };
 
@@ -167,9 +165,8 @@ class CascaderList extends Component {
         }
 
         this.setState(state, () => {
-            const {onNodeSelect, onChange} = this.props;
-            onNodeSelect && onNodeSelect(node, path);
-            state.value && onChange && onChange(state.value);
+            this.props.onNodeSelect?.(node, path);
+            state.value && this.props.onChange?.(state.value);
         });
 
     };
@@ -203,9 +200,8 @@ class CascaderList extends Component {
         this.setState({
             value
         }, () => {
-            const {onNodeDeselect, onChange} = this.props;
-            onNodeDeselect && onNodeDeselect(node, path);
-            onChange && onChange(value);
+            this.props.onNodeDeselect?.(node, path);
+            this.props.onChange?.(value);
         });
 
     };
@@ -217,7 +213,7 @@ class CascaderList extends Component {
                 expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
                 idField, valueField, displayField, descriptionField, disabled, isLoading, readOnly, selectMode,
-                isSelectRecursive, itemDisabled, renderer
+                isSelectRecursive, itemDisabled, renderer, expandIconVisible
             } = this.props,
             {value, activatedPath} = this.state;
 
@@ -231,7 +227,8 @@ class CascaderList extends Component {
                  }}
                  disabled={disabled}>
 
-                <CascaderListItem expandDirection={expandDirection}
+                <CascaderListItem listWidth={listWidth}
+                                  expandDirection={expandDirection}
                                   activatedPath={activatedPath}
                                   data={data}
                                   value={value}
@@ -246,7 +243,6 @@ class CascaderList extends Component {
                                   readOnly={readOnly}
                                   selectMode={selectMode}
                                   itemDisabled={itemDisabled}
-                                  renderer={renderer}
                                   expandedIconCls={expandedIconCls}
                                   radioUncheckedIconCls={radioUncheckedIconCls}
                                   radioCheckedIconCls={radioCheckedIconCls}
@@ -254,6 +250,8 @@ class CascaderList extends Component {
                                   checkboxCheckedIconCls={checkboxCheckedIconCls}
                                   checkboxIndeterminateIconCls={checkboxIndeterminateIconCls}
                                   isSelectRecursive={isSelectRecursive}
+                                  renderer={renderer}
+                                  expandIconVisible={expandIconVisible}
                                   onNodeClick={this.handleNodeClick}
                                   onNodeSelect={this.handleNodeSelect}
                                   onNodeDeselect={this.handleNodeDeselect}/>
@@ -430,10 +428,14 @@ CascaderList.propTypes = {
      */
     itemDisabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 
+    initActivatedPath: PropTypes.array,
+
     /**
      * You can create a complicated renderer callback instead of value and desc prop.
      */
     renderer: PropTypes.func,
+
+    expandIconVisible: PropTypes.func,
 
     /**
      * Callback function fired when the tree node touch tap.

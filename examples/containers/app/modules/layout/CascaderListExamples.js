@@ -1,5 +1,5 @@
 /**
- * @file CascaderList examples
+ * @file CascaderListExamples.js
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
@@ -10,6 +10,7 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import Paper from 'src/Paper';
 import CascaderList from 'src/CascaderList';
+import FlatButton from 'src/FlatButton';
 
 // Docs
 import PropTypeDescTable from 'components/PropTypeDescTable';
@@ -225,6 +226,35 @@ class CascaderListExamples extends Component {
 
                 </Widget>
 
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Has Children"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+                                <Paper className="cascader-list-wrapper">
+                                    <CascaderList className="has-children"
+                                                  listWidth={240}
+                                                  data={this.data.slice(0, 3)}
+                                                  onNodeClick={this.nodeClickHandler}
+                                                  onNodeSelect={this.nodeSelectHandler}
+                                                  onPathChange={this.pathChangeHandler}
+                                                  onChange={this.changeHandler}>
+                                        <div className="cascader-list-actions">
+                                            <FlatButton value="Action"/>
+                                        </div>
+                                    </CascaderList>
+                                </Paper>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
                 <h2 className="example-title">Properties</h2>
 
                 <PropTypeDescTable data={doc}/>
@@ -232,6 +262,6 @@ class CascaderListExamples extends Component {
             </div>
         );
     }
-};
+}
 
 export default CascaderListExamples;
