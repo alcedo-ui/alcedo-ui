@@ -6,7 +6,6 @@
 import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
 
 import DatePickerTextField from '../_MaterialDatePickerTextField';
