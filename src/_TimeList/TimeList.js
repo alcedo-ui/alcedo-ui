@@ -141,65 +141,6 @@ class TimeList extends Component {
             });
         });
 
-        // state.hour = value;
-        //
-        // if (minHour == state.hour) {
-        //     state.minutesData = this.rangeData(60, minMinute, 60);
-        // } else if (maxHour == state.hour) {
-        //     state.minutesData = this.rangeData(60, 0, maxMinute);
-        // } else if (maxHour == minHour && minHour == state.hour) {
-        //     state.minutesData = this.rangeData(60, minMinute, maxMinute);
-        // } else {
-        //     state.minutesData = this.rangeData(60);
-        // }
-        //
-        // if (minHour == state.hour && minMinute == state.minute) {
-        //     state.secondsData = this.rangeData(60, minSecond, 60);
-        // } else if (maxHour == state.hour && maxMinute == state.minute) {
-        //     state.secondsData = this.rangeData(60, 0, maxSecond);
-        // } else if (maxHour == minHour && minHour == state.hour && minMinute == maxMinute && minMinute == state.minute) {
-        //     state.secondsData = this.rangeData(60, minSecond, maxSecond);
-        // } else {
-        //     state.secondsData = this.rangeData(60);
-        // }
-
-        //
-        // if (minValue && moment('2000-01-01 ' + value + ':' + state.minute + ':' + state.second).isBefore('2000-01-01 ' + minValue)
-        //     || maxValue && moment('2000-01-01 ' + value + ':' + state.minute + ':' + state.second).isAfter('2000-01-01 ' + maxValue)) {
-        // if (minValue && moment('2000-01-01 ' + value + ':' + state.minute + ':' + state.second).isBefore('2000-01-01 ' + minValue)) {
-        //     state.hour = moment('2000-01-01 ' + minValue).format('HH');
-        //     state.minute = moment('2000-01-01 ' + minValue).format('mm');
-        //     state.second = moment('2000-01-01 ' + minValue).format('ss');
-        // } else {
-        //     state.hour = moment('2000-01-01 ' + maxValue).format('HH');
-        //     state.minute = moment('2000-01-01 ' + maxValue).format('mm');
-        //     state.second = moment('2000-01-01 ' + maxValue).format('ss');
-        // }
-        // this.setState(state, () => {
-        //     this.props.onChange && this.props.onChange({
-        //         hour: minValue && moment('2000-01-01 ' + value + ':' + state.minute + ':' + state.second).isBefore('2000-01-01 ' + minValue) ?
-        //             moment('2000-01-01 ' + minValue).format('HH') : moment('2000-01-01 ' + maxValue).format('HH'),
-        //         minute: minValue && moment('2000-01-01 ' + value + ':' + state.minute + ':' + state.second).isBefore('2000-01-01 ' + minValue) ?
-        //             moment('2000-01-01 ' + minValue).format('mm') : moment('2000-01-01 ' + maxValue).format('mm'),
-        //         second: minValue && moment('2000-01-01 ' + value + ':' + state.minute + ':' + state.second).isBefore('2000-01-01 ' + minValue) ?
-        //             moment('2000-01-01 ' + minValue).format('ss') : moment('2000-01-01 ' + maxValue).format('ss')
-        //     });
-        // });
-        // } else {
-        //     this.setState(state, () => {
-        //         this.props.onChange && this.props.onChange({
-        //             hour: flag ?
-        //                 minValue && moment('2000-01-01 ' + value + ':' + this.state.minute + ':' + this.state.second).isBefore('2000-01-01 ' + minValue) ?
-        //                     moment('2000-01-01 ' + minValue).format('HH') : moment('2000-01-01 ' + maxValue).format('HH') : value,
-        //             minute: flag ?
-        //                 minValue && moment('2000-01-01 ' + value + ':' + this.state.minute + ':' + this.state.second).isBefore('2000-01-01 ' + minValue) ?
-        //                     moment('2000-01-01 ' + minValue).format('mm') : moment('2000-01-01 ' + maxValue).format('mm') : state.minute,
-        //             second: flag ? minValue && moment('2000-01-01 ' + value + ':' + this.state.minute + ':' + this.state.second).isBefore('2000-01-01 ' + minValue) ?
-        //                 moment('2000-01-01 ' + minValue).format('ss') : moment('2000-01-01 ' + maxValue).format('ss') : state.second
-        //         });
-        //     });
-        // }
-
     };
 
     handleMinuteChange = value => {
@@ -249,40 +190,6 @@ class TimeList extends Component {
             });
         });
 
-        // state.minute = value;
-        // if (minHour == state.hour && minMinute == state.minute) {
-        //     state.secondsData = DC.rangeData(60, minSecond, 60, isRequired);
-        // } else if (maxHour == state.hour && maxMinute == state.minute) {
-        //     state.secondsData = DC.rangeData(60, 0, maxSecond, isRequired);
-        // } else if (maxHour == minHour && minHour == state.hour && minMinute == maxMinute && minMinute == state.minute) {
-        //     state.secondsData = DC.rangeData(60, minSecond, maxSecond, isRequired);
-        // } else {
-        //     state.secondsData = DC.rangeData(60, undefined, undefined, isRequired);
-        // }
-        //
-        // if (minValue && moment('2000-01-01 ' + state.hour + ':' + state.minute + ':' + value).isBefore('2000-01-01 ' + minValue) || maxValue && moment('2000-01-01 ' + state.hour + ':' + state.minute + ':' + value).isAfter('2000-01-01 ' + maxValue)) {
-        //     if (minValue && moment('2000-01-01 ' + value + ':' + state.minute + ':' + state.second).isBefore('2000-01-01 ' + minValue)) {
-        //         state.hour = moment('2000-01-01 ' + minValue).format('HH');
-        //         state.minute = moment('2000-01-01 ' + minValue).format('mm');
-        //         state.second = moment('2000-01-01 ' + minValue).format('ss');
-        //     } else {
-        //         state.hour = moment('2000-01-01 ' + maxValue).format('HH');
-        //         state.minute = moment('2000-01-01 ' + maxValue).format('mm');
-        //         state.second = moment('2000-01-01 ' + maxValue).format('ss');
-        //     }
-        //     this.setState(state, () => {
-        //         this.props.onChange && this.props.onChange({
-        //             hour: state.hour,
-        //             minute: state.minute,
-        //             second: state.second
-        //         });
-        //     });
-        // } else {
-        //     this.setState(state, () => {
-        //         this.props.onChange && this.props.onChange({hour: state.hour, minute: value, second: state.second});
-        //     });
-        // }
-
     };
 
     handleSecondChange = value => {
@@ -310,31 +217,6 @@ class TimeList extends Component {
                 second
             });
         });
-
-        // if (minValue && moment('2000-01-01 ' + state.hour + ':' + state.minute + ':' + value).isBefore('2000-01-01 ' + minValue) || maxValue && moment('2000-01-01 ' + state.hour + ':' + state.minute + ':' + value).isAfter('2000-01-01 ' + maxValue)) {
-        //     if (minValue && moment('2000-01-01 ' + value + ':' + state.minute + ':' + state.second).isBefore('2000-01-01 ' + minValue)) {
-        //         state.hour = moment('2000-01-01 ' + minValue).format('HH');
-        //         state.minute = moment('2000-01-01 ' + minValue).format('mm');
-        //         state.second = moment('2000-01-01 ' + minValue).format('ss');
-        //     } else {
-        //         state.hour = moment('2000-01-01 ' + maxValue).format('HH');
-        //         state.minute = moment('2000-01-01 ' + maxValue).format('mm');
-        //         state.second = moment('2000-01-01 ' + maxValue).format('ss');
-        //     }
-        //     this.setState(state, () => {
-        //         this.props.onChange && this.props.onChange({
-        //             hour: state.hour,
-        //             minute: state.minute,
-        //             second: state.second
-        //         });
-        //     });
-        // } else {
-        //     this.setState({
-        //         second: value
-        //     }, () => {
-        //         this.props.onChange && this.props.onChange({hour: state.hour, minute: state.minute, second: value});
-        //     });
-        // }
 
     };
 
