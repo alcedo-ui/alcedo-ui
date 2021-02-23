@@ -3,6 +3,7 @@
     "reject": [
         "history",
         "copy-webpack-plugin",
-        "compression-webpack-plugin"
+        "compression-webpack-plugin",
+        "fast-sass-loader"
     ]
 }
