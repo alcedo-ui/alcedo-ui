@@ -247,12 +247,10 @@ export function filterData(data, filter, props, matchCallback) {
             isArrayData ? {[VirtualRoot]: true, children: data} : data, filter, props, matchCallback
         );
 
-    return (
-        isArrayData ?
-            result?.children
-            :
-            result
-    ) || [];
+    return isArrayData ?
+        result?.children || []
+        :
+        result || null;
 
 }
 
