@@ -3,10 +3,11 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import isArray from 'lodash/isArray';
-
+// Statics
 import VirtualRoot from '../_statics/VirtualRoot';
 
+// Vendors
+import isArray from 'lodash/isArray';
 import Util from './Util';
 import Calc from './Calculation';
 
