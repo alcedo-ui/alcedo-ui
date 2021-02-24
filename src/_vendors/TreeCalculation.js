@@ -203,20 +203,19 @@ export function isNodeMatched(node, filter, props) {
 
 }
 
-export function filterNode(node, filter, props, matchCallback) {
+export function filterNode(node, filter, option, matchCallback) {
 
     if (!node || !filter) {
         return node;
     }
 
-    const result = {...node};
-
-    if (
-        matchCallback && typeof matchCallback === 'function' ?
-            matchCallback(node, filter, props)
+    const result = {...node},
+        matched = matchCallback && typeof matchCallback === 'function' ?
+            matchCallback(node, filter, option)
             :
-            isNodeMatched(node, filter, props)
-    ) {
+            isNodeMatched(node, filter, option);
+
+    if (!option?.dropMatchedNodeUnmatchedChildren && matched) {
         return result;
     }
 
@@ -226,7 +225,7 @@ export function filterNode(node, filter, props, matchCallback) {
         result.children = [];
 
         for (let child of node.children) {
-            const filteredChild = filterNode(child, filter, props, matchCallback);
+            const filteredChild = filterNode(child, filter, option, matchCallback);
             if (filteredChild) {
                 result.children.push(filteredChild);
             }
@@ -238,14 +237,14 @@ export function filterNode(node, filter, props, matchCallback) {
 
     }
 
-    return hasChildMatched ?
+    return matched || hasChildMatched ?
         result
         :
         null;
 
 }
 
-export function filterData(data, filter, props, matchCallback) {
+export function filterData(data, filter, option, matchCallback) {
 
     if (!filter || !data || data.length < 1) {
         return data;
@@ -253,7 +252,7 @@ export function filterData(data, filter, props, matchCallback) {
 
     const isArrayData = isArray(data),
         result = filterNode(
-            isArrayData ? {[VirtualRoot]: true, children: data} : data, filter, props, matchCallback
+            isArrayData ? {[VirtualRoot]: true, children: data} : data, filter, option, matchCallback
         );
 
     return isArrayData ?
