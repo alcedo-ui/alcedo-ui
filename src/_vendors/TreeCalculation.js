@@ -209,27 +209,35 @@ export function filterNode(node, filter, props, matchCallback) {
     }
 
     const result = {...node};
-    let hasChildMatched = false;
 
+    if (
+        matchCallback && typeof matchCallback === 'function' ?
+            matchCallback(node, filter, props)
+            :
+            isNodeMatched(node, filter, props)
+    ) {
+        return result;
+    }
+
+    let hasChildMatched = false;
     if (node.children && node.children.length > 0) {
+
         result.children = [];
+
         for (let child of node.children) {
             const filteredChild = filterNode(child, filter, props, matchCallback);
             if (filteredChild) {
                 result.children.push(filteredChild);
             }
         }
+
         if (result.children && result.children.length > 0) {
             hasChildMatched = true;
         }
+
     }
 
-    return hasChildMatched || (
-        matchCallback && typeof matchCallback === 'function' ?
-            matchCallback(node, filter, props)
-            :
-            isNodeMatched(node, filter, props)
-    ) ?
+    return hasChildMatched ?
         result
         :
         null;
