@@ -1,4 +1,9 @@
-const webpack = require('webpack'),
+/**
+ * @file webpack.config.dll.js
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+const {IgnorePlugin, DllPlugin} = require('webpack'),
     AssetsPlugin = require('assets-webpack-plugin'),
 
     config = require('../config.js'),
@@ -14,7 +19,7 @@ module.exports = {
         'polyfill': ['@babel/polyfill'],
         'moment': ['moment'],
         'react': ['react', 'react-dom', 'react-redux', 'react-router', 'react-router-config', 'react-router-dom',
-            'connected-react-router', 'redux', 'redux-thunk', 'react-transition-group'],
+                  'connected-react-router', 'redux', 'redux-thunk', 'react-transition-group'],
         'tools': ['classnames', 'history', 'dom-helpers']
     },
 
@@ -27,9 +32,9 @@ module.exports = {
 
     plugins: [
 
-        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+        new IgnorePlugin(/^\.\/locale$/, /moment$/),
 
-        new webpack.DllPlugin({
+        new DllPlugin({
             context: __dirname,
             path: utils.assetsVendorsAbsolutePath('[name]-manifest.json'),
             name: library

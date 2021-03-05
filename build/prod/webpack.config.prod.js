@@ -1,5 +1,10 @@
+/**
+ * @file webpack.config.prod.js
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 const path = require('path'),
-    webpack = require('webpack'),
+    {DefinePlugin, DllReferencePlugin} = require('webpack'),
     {merge} = require('webpack-merge'),
     CopyPlugin = require('copy-webpack-plugin'),
     HtmlWebpackPlugin = require('html-webpack-plugin'),
@@ -43,7 +48,7 @@ module.exports = merge(baseWebpackConfig, {
 
     plugins: [
 
-        new webpack.DefinePlugin({
+        new DefinePlugin({
             'process.env': {
                 NODE_ENV: `'${env}'`
             }
@@ -56,19 +61,19 @@ module.exports = merge(baseWebpackConfig, {
             }]
         }),
 
-        new webpack.DllReferencePlugin({
+        new DllReferencePlugin({
             context: __dirname,
             manifest: require(utils.assetsVendorsAbsolutePath('polyfill-manifest.json'))
         }),
-        new webpack.DllReferencePlugin({
+        new DllReferencePlugin({
             context: __dirname,
             manifest: require(utils.assetsVendorsAbsolutePath('moment-manifest.json'))
         }),
-        new webpack.DllReferencePlugin({
+        new DllReferencePlugin({
             context: __dirname,
             manifest: require(utils.assetsVendorsAbsolutePath('react-manifest.json'))
         }),
-        new webpack.DllReferencePlugin({
+        new DllReferencePlugin({
             context: __dirname,
             manifest: require(utils.assetsVendorsAbsolutePath('tools-manifest.json'))
         }),

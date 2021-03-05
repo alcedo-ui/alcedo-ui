@@ -1,3 +1,8 @@
+/**
+ * @file webpack.config.base.js
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 const path = require('path'),
 
     HappyPack = require('happypack'),

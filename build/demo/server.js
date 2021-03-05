@@ -1,3 +1,8 @@
+/**
+ * @file server.js
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 const express = require('express'),
     history = require('connect-history-api-fallback'),
     open = require('open'),
