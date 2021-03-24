@@ -77,7 +77,7 @@ class Popup extends Component {
     triggerHandler = (el, triggerEl, popupEl, currentVisible, isBlurClose) => {
 
         // el is missing
-        if (el && !domContains(document, el)) {
+        if (!el) {
             return currentVisible;
         }
 
