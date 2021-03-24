@@ -7,6 +7,7 @@ import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
 
 // Components
+import TipProvider from '../TipProvider';
 import Td from '../_Td';
 
 // Statics
@@ -87,6 +88,7 @@ class Tr extends Component {
                 ignoreColumnSpan, depth, index, path,
 
                 // not passing down these props
+                // eslint-disable-next-line no-unused-vars
                 columns, columnsWidth, useDynamicRender, rowHeight,
 
                 ...respProps
@@ -99,57 +101,60 @@ class Tr extends Component {
         return (
             <Fragment>
 
-                <tr className={classNames({
-                    checked: isChecked,
-                    expanded: !collapsed,
-                    [data.rowClassName]: data.rowClassName,
-                    [className]: className
-                })}
-                    style={style}
-                    disabled={disabled}
-                    onClick={this.handleClick}>
-                    {
-                        columnsSpan?.map(({column, span, originColumnIndex}, colIndex) => column ?
-                            <Td {...respProps}
-                                key={colIndex}
-                                className={classNames(column.bodyClassName, {
-                                    'fixed-left': column.fixed === HorizontalAlign.LEFT,
-                                    'last-fixed-left': column.fixed === HorizontalAlign.LEFT
-                                        && columnsSpan?.[colIndex + 1]?.column?.fixed !== HorizontalAlign.LEFT,
-                                    'fixed-right': column.fixed === HorizontalAlign.RIGHT,
-                                    'first-fixed-right': column.fixed === HorizontalAlign.RIGHT
-                                        && columnsSpan?.[colIndex - 1]?.column?.fixed !== HorizontalAlign.RIGHT
-                                })}
-                                style={this.getTdStyle(column, originColumnIndex)}
-                                rowIndex={rowIndex}
-                                colIndex={colIndex}
-                                data={data}
-                                title={column.bodyTitle}
-                                tableData={tableData}
-                                collapsed={collapsed}
-                                renderer={column.bodyRenderer}
-                                align={column.bodyAlign || column.align}
-                                span={ignoreColumnSpan ? null : span}
-                                disabled={disabled}
-                                noWrap={TC.handleNoWrap(column.bodyNoWrap, column.noWrap, {
-                                    data,
-                                    rowIndex,
-                                    colIndex: colIndex,
-                                    tableData
-                                })}
-                                depth={depth}
-                                path={nodePath}
-                                sortable={column.sortable}
-                                sortingProp={column.sortingProp}/>
-                            :
-                            null
-                        )
-                    }
-                </tr>
+                <TipProvider className={data?.rowTipClassName}
+                             tipContent={data?.rowTip}
+                             position={data?.rowTipPosition}>
+                    <tr className={classNames({
+                        checked: isChecked,
+                        expanded: !collapsed,
+                        [data?.rowClassName]: data?.rowClassName,
+                        [className]: className
+                    })}
+                        style={style}
+                        disabled={disabled}
+                        onClick={this.handleClick}>
+                        {
+                            columnsSpan?.map(({column, span, originColumnIndex}, colIndex) => column ?
+                                <Td {...respProps}
+                                    key={colIndex}
+                                    className={classNames(column.bodyClassName, {
+                                        'fixed-left': column.fixed === HorizontalAlign.LEFT,
+                                        'last-fixed-left': column.fixed === HorizontalAlign.LEFT
+                                            && columnsSpan?.[colIndex + 1]?.column?.fixed !== HorizontalAlign.LEFT,
+                                        'fixed-right': column.fixed === HorizontalAlign.RIGHT,
+                                        'first-fixed-right': column.fixed === HorizontalAlign.RIGHT
+                                            && columnsSpan?.[colIndex - 1]?.column?.fixed !== HorizontalAlign.RIGHT
+                                    })}
+                                    style={this.getTdStyle(column, originColumnIndex)}
+                                    rowIndex={rowIndex}
+                                    colIndex={colIndex}
+                                    data={data}
+                                    title={column.bodyTitle}
+                                    tableData={tableData}
+                                    collapsed={collapsed}
+                                    renderer={column.bodyRenderer}
+                                    align={column.bodyAlign || column.align}
+                                    span={ignoreColumnSpan ? null : span}
+                                    disabled={disabled}
+                                    noWrap={TC.handleNoWrap(column.bodyNoWrap, column.noWrap, {
+                                        data,
+                                        rowIndex,
+                                        colIndex: colIndex,
+                                        tableData
+                                    })}
+                                    depth={depth}
+                                    path={nodePath}
+                                    sortable={column.sortable}
+                                    sortingProp={column.sortingProp}/>
+                                :
+                                null
+                            )
+                        }
+                    </tr>
+                </TipProvider>
 
                 {
-                    /* rowHasChildren && */!collapsed && data && data.children && data.children.length > 0 ?
-                    data.children.map((item, index) =>
+                    !collapsed && data?.children?.map((item, index) =>
                         <Tr {...this.props}
                             key={index}
                             index={index}
@@ -162,9 +167,7 @@ class Tr extends Component {
                                     :
                                     [{index, node: item}]
                             }/>
-                    )
-                    :
-                    null
+                    ) || null
                 }
 
             </Fragment>
@@ -403,7 +406,17 @@ Tr.propTypes = {
     })).isRequired,
     columnKeyField: PropTypes.string,
     columnsWidth: PropTypes.object,
-    data: PropTypes.object,
+    data: PropTypes.shape({
+
+        children: PropTypes.array,
+
+        rowClassName: PropTypes.string,
+
+        rowTipClassName: PropTypes.string,
+        rowTip: PropTypes.any,
+        rowTipPosition: PropTypes.oneOf(Util.enumerateValue(TipProvider.Position))
+
+    }),
     parentData: PropTypes.object,
     tableData: PropTypes.array,
     isChecked: PropTypes.bool,
