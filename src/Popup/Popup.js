@@ -77,7 +77,7 @@ class Popup extends Component {
     triggerHandler = (el, triggerEl, popupEl, currentVisible, isBlurClose) => {
 
         // el is missing
-        if (!el) {
+        if (el && !domContains(document.body, el)) {
             return currentVisible;
         }
 
@@ -133,6 +133,7 @@ class Popup extends Component {
             className, contentClassName,
 
             // not passing down these props
+            // eslint-disable-next-line no-unused-vars
             triggerHandler, onRequestClose,
 
             ...restProps
