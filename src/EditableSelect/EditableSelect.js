@@ -183,7 +183,7 @@ class EditableSelect extends Component {
 
         const {
                 className, popupClassName, style, popupStyle, name, placeholder,
-                disabled, valueField, descriptionField, position, rightIconCls, resetPopPositionWait,
+                disabled, valueField, displayField, descriptionField, position, rightIconCls, resetPopPositionWait,
                 triggerTheme, isGrouped, onItemClick, renderer, noMatchedMsg, useDynamicRenderList,
                 onMouseOver, onMouseOut, parentEl
             } = this.props,
@@ -259,7 +259,7 @@ class EditableSelect extends Component {
                                            data={listData}
                                            value={listValue}
                                            valueField={valueField}
-                                           displayField={valueField}
+                                           displayField={displayField}
                                            descriptionField={descriptionField}
                                            renderer={renderer}
                                            onItemClick={this.onItemClick}
@@ -270,7 +270,7 @@ class EditableSelect extends Component {
                                                        data={listData}
                                                        value={listValue}
                                                        valueField={valueField}
-                                                       displayField={valueField}
+                                                       displayField={displayField}
                                                        descriptionField={descriptionField}
                                                        renderer={renderer}
                                                        onItemClick={onItemClick}
@@ -280,7 +280,7 @@ class EditableSelect extends Component {
                                           data={listData}
                                           valueField={valueField}
                                           value={listValue}
-                                          displayField={valueField}
+                                          displayField={displayField}
                                           descriptionField={descriptionField}
                                           renderer={renderer}
                                           onItemClick={onItemClick}
