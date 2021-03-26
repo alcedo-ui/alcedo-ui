@@ -7,7 +7,6 @@ import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 import moment from 'moment';
-import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
 
 import TextField from '../TextField';
@@ -119,7 +118,6 @@ class MaterialDateRangePicker extends Component {
                             day: moment(this.state.startTime).isBefore(text) ?
                                 selectYear == this.state.left.year && selectMonth == this.state.left.month ?
                                     this.state.right.day : selectDay : this.state.right.day
-
                         }
                     });
                 }
@@ -128,8 +126,7 @@ class MaterialDateRangePicker extends Component {
     };
 
     handleDayPickerChange = (select, date) => {
-        let state = cloneDeep(this.state);
-        if (state.endTime) {
+        if (this.state.endTime) {
             this.setState({
                 startTime: date.time,
                 endTime: '',
@@ -142,7 +139,7 @@ class MaterialDateRangePicker extends Component {
                     day: date.day
                 }
             });
-        } else if (state.startTime) {
+        } else if (this.state.startTime) {
             let startTime = this.state.startTime, endTime;
             if (moment(startTime).isBefore(date.time)) {
                 endTime = date.time;
@@ -290,9 +287,9 @@ class MaterialDateRangePicker extends Component {
                             :
                             moment(historyEndTime).format('MM')
                         :
-                        right.year
+                        right.month
                     :
-                    right.year,
+                    right.month,
                 day: !endTime ? historyStartTime && historyEndTime ?
                     moment(historyEndTime).format('DD') : right.day : right.day
             };

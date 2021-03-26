@@ -7,7 +7,6 @@ import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 import moment from 'moment';
-import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
 
 import TextField from '../TextField';
@@ -154,8 +153,8 @@ class DateRangePicker extends Component {
     };
 
     handleDayPickerChange = (select, date) => {
-        let state = cloneDeep(this.state);
-        if (state.endTime) {
+
+        if (this.state.endTime) {
             this.setState({
                 startTime: date.time,
                 endTime: '',
@@ -168,7 +167,7 @@ class DateRangePicker extends Component {
                     day: date.day
                 }
             });
-        } else if (state.startTime) {
+        } else if (this.state.startTime) {
             let startTime = this.state.startTime, endTime;
             if (moment(startTime).isBefore(date.time)) {
                 endTime = date.time;
@@ -276,37 +275,6 @@ class DateRangePicker extends Component {
     };
 
     closePopup = () => {
-        // let state = cloneDeep(this.state);
-        // state.popupVisible = false;
-        // state.left.datePickerLevel = 'day';
-        // state.right.datePickerLevel = 'day';
-        // if (!state.endTime) {
-        //     state.startTime = state.historyStartTime;
-        //     state.endTime = state.historyEndTime;
-        //     state.left.text = state.historyStartTime;
-        //     state.right.text = state.historyEndTime;
-        //     state.hoverTime = '';
-        //     if (state.historyStartTime && state.historyEndTime) {
-        //         state.left.year = moment(state.historyStartTime).format('YYYY');
-        //         state.left.month = moment(state.historyStartTime).format('MM');
-        //         state.left.day = moment(state.historyStartTime).format('DD');
-        //         if (moment(state.historyStartTime).format('YYYY') == moment(state.historyEndTime).format('YYYY')
-        //             && moment(state.historyStartTime).format('MM') == moment(state.historyEndTime).format('MM')) {
-        //             if (moment(state.historyEndTime).format('MM') == 12) {
-        //                 state.right.year = +moment(state.historyEndTime).format('YYYY') + 1;
-        //                 state.right.month = 1;
-        //             } else {
-        //                 state.right.year = moment(state.historyEndTime).format('YYYY');
-        //                 state.right.month = +moment(state.historyEndTime).format('MM') + 1;
-        //             }
-        //         } else {
-        //             state.right.year = moment(state.historyEndTime).format('YYYY');
-        //             state.right.month = moment(state.historyEndTime).format('MM');
-        //         }
-        //         state.right.day = moment(state.historyEndTime).format('DD');
-        //     }
-        // }
-        // state.value = [moment(state.left.text, dateFormat), moment(state.right.text, dateFormat)];
         const {dateFormat} = this.props,
             {left, right, startTime, endTime, historyStartTime, historyEndTime, hoverTime} = this.state,
             leftDate = {
@@ -348,9 +316,9 @@ class DateRangePicker extends Component {
                             :
                             moment(historyEndTime).format('MM')
                         :
-                        right.year
+                        right.month
                     :
-                    right.year,
+                    right.month,
                 day: !endTime ? historyStartTime && historyEndTime ?
                     moment(historyEndTime).format('DD') : right.day : right.day
             };
@@ -387,7 +355,6 @@ class DateRangePicker extends Component {
     };
 
     setValue = (value, format) => {
-        let state = cloneDeep(this.state);
         if (value && value.length > 1) {
             let leftValue = value[0],
                 rightValue = value[1];
