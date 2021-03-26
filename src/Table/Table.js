@@ -16,6 +16,7 @@ import HorizontalAlign from '../_statics/HorizontalAlign';
 import SelectMode from '../_statics/SelectMode';
 import SelectAllMode from '../_statics/SelectAllMode';
 import SortingType from '../_statics/SortingType';
+import Position from '../_statics/Position';
 
 // Vendors
 import classNames from 'classnames';
@@ -33,6 +34,7 @@ class Table extends Component {
     static SelectMode = SelectMode;
     static SelectAllMode = SelectAllMode;
     static SortingType = SortingType;
+    static TipPosition = Position;
 
     static getDerivedStateFromProps(props, state) {
 

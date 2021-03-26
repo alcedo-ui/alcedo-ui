@@ -59,9 +59,8 @@ class Pop extends Component {
 
     componentDidUpdate(prevProps) {
 
-        if (prevProps.position !== this.props.position) {
-            const {resetPosition} = this.props;
-            resetPosition?.(this.state.transitionEl);
+        if (prevProps.position !== this.props.position || prevProps.triggerEl !== this.props.triggerEl) {
+            this.props.resetPosition?.(this.state.transitionEl);
         }
 
         // if (!prevProps.visible && this.props.visible) {
@@ -184,7 +183,7 @@ class Pop extends Component {
                                  onMouseUp={onModalMouseUp}
                                  onMouseEnter={onModalMouseEnter}
                                  onMouseLeave={onModalMouseLeave}
-                                 onClick={onModalClick}></div>
+                                 onClick={onModalClick}/>
                         </Transition>
                         :
                         null

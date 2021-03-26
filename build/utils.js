@@ -1,3 +1,8 @@
+/**
+ * @file utils.js
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 const fs = require('fs'),
     path = require('path'),
 

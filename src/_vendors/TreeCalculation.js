@@ -3,20 +3,21 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import isArray from 'lodash/isArray';
-
+// Statics
 import VirtualRoot from '../_statics/VirtualRoot';
 
+// Vendors
+import isArray from 'lodash/isArray';
 import Util from './Util';
 import Calc from './Calculation';
 
-function calDepth(data, path) {
+export function calDepth(data, path) {
 
     let list = data,
         depth = 0;
 
     if (!data || !path) {
-        return depth = 0;
+        return 0;
     }
 
     for (let item of path) {
@@ -36,7 +37,7 @@ function calDepth(data, path) {
 
 }
 
-function calPath(value, data, props) {
+export function calPath(value, data, props) {
 
     if (!value || !data) {
         return;
@@ -46,7 +47,7 @@ function calPath(value, data, props) {
 
 }
 
-function traverseDataCalPath(node, value, props, parent, index = 0) {
+export function traverseDataCalPath(node, value, props, parent, index = 0) {
 
     if (!node || node.length < 1 || !value) {
         return;
@@ -94,11 +95,9 @@ function traverseDataCalPath(node, value, props, parent, index = 0) {
         }
     }
 
-    return;
-
 }
 
-function findNodeById(node, id, callback, index = null, parent = null) {
+export function findNodeById(node, id, callback, index = null, parent = null) {
 
     if (!node) {
         return;
@@ -119,7 +118,7 @@ function findNodeById(node, id, callback, index = null, parent = null) {
 
 }
 
-function addRecursiveValue(node, value, props) {
+export function addRecursiveValue(node, value, props) {
 
     if (!node || !value) {
         return;
@@ -142,9 +141,10 @@ function addRecursiveValue(node, value, props) {
 /**
  * traverse tree data to update value when multi recursive select
  * @param value
+ * @param props
  * @returns {Array}
  */
-function updateValue(value, props) {
+export function updateValue(value, props) {
 
     const {data, valueField, displayField} = props;
     let result = [];
@@ -171,7 +171,7 @@ function updateValue(value, props) {
 
 }
 
-function getTotalCount(data) {
+export function getTotalCount(data) {
 
     if (!data) {
         return 0;
@@ -189,7 +189,7 @@ function getTotalCount(data) {
 
 }
 
-function isNodeMatched(node, filter, props) {
+export function isNodeMatched(node, filter, props) {
 
     if (node[VirtualRoot]) {
         return true;
@@ -198,56 +198,71 @@ function isNodeMatched(node, filter, props) {
     const value = Util.getTextByDisplayField(node,
         props && props.displayField || undefined,
         props && props.valueField || undefined);
-    return value.toString().toUpperCase().includes(filter.toUpperCase());
+
+    return value?.toString()?.toUpperCase()?.includes(filter?.toUpperCase());
 
 }
 
-function filterNode(node, filter, props) {
+export function filterNode(node, filter, option, matchCallback) {
 
     if (!node || !filter) {
         return node;
     }
 
-    const result = {...node};
-    let hasChildMatched = false;
+    const result = {...node},
+        matched = matchCallback && typeof matchCallback === 'function' ?
+            matchCallback(node, filter, option)
+            :
+            isNodeMatched(node, filter, option);
 
+    if (!option?.dropMatchedNodeUnmatchedChildren && matched) {
+        return result;
+    }
+
+    let hasChildMatched = false;
     if (node.children && node.children.length > 0) {
+
         result.children = [];
+
         for (let child of node.children) {
-            const filteredChild = filterNode(child, filter, props);
+            const filteredChild = filterNode(child, filter, option, matchCallback);
             if (filteredChild) {
                 result.children.push(filteredChild);
             }
         }
+
         if (result.children && result.children.length > 0) {
             hasChildMatched = true;
         }
+
     }
 
-    return hasChildMatched || isNodeMatched(node, filter, props) ?
+    return matched || hasChildMatched ?
         result
         :
         null;
 
 }
 
-function filterData(data, filter, props) {
+export function filterData(data, filter, option, matchCallback) {
 
     if (!filter || !data || data.length < 1) {
         return data;
     }
 
     const isArrayData = isArray(data),
-        result = filterNode(isArrayData ? {[VirtualRoot]: true, children: data} : data, filter, props);
+        result = filterNode(
+            isArrayData ? {[VirtualRoot]: true, children: data} : data, filter, option, matchCallback
+        );
 
     return isArrayData ?
-        result.children
+        result?.children || []
         :
-        result;
+        result || null;
 
 }
 
-function isCheckedAll(data, value, props = {}) {
+export function isCheckedAll(data, value, props = {}) {
 
     if (!data || !value || value.length < 1) {
         return false;
@@ -257,7 +272,7 @@ function isCheckedAll(data, value, props = {}) {
 
 }
 
-function isCheckedIndeterminate(data, value, props = {}) {
+export function isCheckedIndeterminate(data, value, props = {}) {
 
     if (!data || !value || value.length < 1) {
         return false;
@@ -267,7 +282,7 @@ function isCheckedIndeterminate(data, value, props = {}) {
 
 }
 
-function isNodeChecked(node, value, props = {}) {
+export function isNodeChecked(node, value, props = {}) {
 
     if (!props.isSelectRecursive) {
         return Calc.isItemChecked(node, value, props);
@@ -287,7 +302,7 @@ function isNodeChecked(node, value, props = {}) {
 
 }
 
-function isNodeCheckedIndeterminate(node, value, props) {
+export function isNodeCheckedIndeterminate(node, value, props) {
 
     if (!props.isSelectRecursive) {
         return Calc.isItemIndeterminate(node, value, props);
@@ -309,7 +324,7 @@ function isNodeCheckedIndeterminate(node, value, props) {
 
 }
 
-function removeAllNode(data, value, props = {}) {
+export function removeAllNode(data, value, props = {}) {
 
     if (!data || !value) {
         return value;
@@ -329,7 +344,7 @@ function removeAllNode(data, value, props = {}) {
 
 }
 
-function removeRecursiveValue(node, value, props) {
+export function removeRecursiveValue(node, value, props) {
 
     if (!node || !value) {
         return;

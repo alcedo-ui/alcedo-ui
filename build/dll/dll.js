@@ -1,3 +1,8 @@
+/**
+ * @file dll.js
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 const webpack = require('webpack'),
     log = require('friendly-errors-webpack-plugin/src/output'),
 

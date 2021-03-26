@@ -5,7 +5,10 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+
+// Vendors
 import {createPortal} from 'react-dom';
+import {contains} from 'dom-helpers';
 import classNames from 'classnames';
 import portalManagement from '../_vendors/PortalManagement';
 
@@ -35,6 +38,7 @@ class Portal extends Component {
             className, parentEl,
 
             // not passing down these props
+            // eslint-disable-next-line no-unused-vars
             children, visible,
 
             ...restProps
@@ -78,7 +82,7 @@ class Portal extends Component {
 
         const {parentEl} = this.props;
 
-        if (this.wrapper && parentEl) {
+        if (this.wrapper && parentEl && contains(parentEl, this.wrapper)) {
 
             parentEl.removeChild(this.wrapper);
 

@@ -1,3 +1,8 @@
+/**
+ * @file zip.js
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 const fs = require('fs'),
     archiver = require('archiver'),
     crypto = require('crypto'),

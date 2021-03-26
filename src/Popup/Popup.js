@@ -133,6 +133,7 @@ class Popup extends Component {
             className, contentClassName,
 
             // not passing down these props
+            // eslint-disable-next-line no-unused-vars
             triggerHandler, onRequestClose,
 
             ...restProps

@@ -1,3 +1,8 @@
+/**
+ * @file config.js
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 const path = require('path');
 
 module.exports = {

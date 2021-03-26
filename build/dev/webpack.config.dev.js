@@ -1,4 +1,9 @@
-const webpack = require('webpack'),
+/**
+ * @file webpack.config.dev.js
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+const {DefinePlugin, HotModuleReplacementPlugin, NoEmitOnErrorsPlugin} = require('webpack'),
     {merge} = require('webpack-merge'),
     HtmlWebpackPlugin = require('html-webpack-plugin'),
     FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin'),
@@ -25,15 +30,15 @@ module.exports = merge(baseWebpackConfig, {
 
     plugins: [
 
-        new webpack.DefinePlugin({
+        new DefinePlugin({
             'process.env': {
                 NODE_ENV: `'${env}'`
             }
         }),
 
-        new webpack.HotModuleReplacementPlugin(),
+        new HotModuleReplacementPlugin(),
 
-        new webpack.NoEmitOnErrorsPlugin(),
+        new NoEmitOnErrorsPlugin(),
 
         new HtmlWebpackPlugin({
             filename: 'index.html',
