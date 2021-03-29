@@ -26,7 +26,7 @@ class TipProvider extends Component {
     static getDerivedStateFromProps(props, state) {
         return {
             prevProps: props,
-            value: ComponentUtil.getDerivedState(props, state, 'visible')
+            visible: ComponentUtil.getDerivedState(props, state, 'visible')
         };
     }
 
