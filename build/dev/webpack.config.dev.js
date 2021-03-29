@@ -31,9 +31,7 @@ module.exports = merge(baseWebpackConfig, {
     plugins: [
 
         new DefinePlugin({
-            'process.env': {
-                NODE_ENV: `'${env}'`
-            }
+            'process.env.NODE_ENV': JSON.stringify(env)
         }),
 
         new HotModuleReplacementPlugin(),
