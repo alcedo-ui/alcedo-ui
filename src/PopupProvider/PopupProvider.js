@@ -26,7 +26,7 @@ class PopupProvider extends Component {
     static getDerivedStateFromProps(props, state) {
         return {
             prevProps: props,
-            value: ComponentUtil.getDerivedState(props, state, 'visible')
+            visible: ComponentUtil.getDerivedState(props, state, 'visible')
         };
     }
 
@@ -43,6 +43,10 @@ class PopupProvider extends Component {
 
     }
 
+    componentDidMount() {
+        this.triggerEl = findDOMNode(this.trigger?.current);
+    }
+
     /**
      * public
      */
@@ -54,10 +58,7 @@ class PopupProvider extends Component {
 
         this.setState({
             visible: true
-        }, () => {
-            const {onRequestOpen} = this.props;
-            onRequestOpen && onRequestOpen();
-        });
+        }, () => this.props.onRequestOpen?.());
 
     };
 
@@ -72,10 +73,7 @@ class PopupProvider extends Component {
 
         this.setState({
             visible: false
-        }, () => {
-            const {onRequestClose} = this.props;
-            onRequestClose && onRequestClose();
-        });
+        }, () => this.props.onRequestClose?.());
 
     };
 
@@ -87,11 +85,9 @@ class PopupProvider extends Component {
             visible: !this.state.visible
         }, () => {
             if (!this.state.visible) {
-                const {onRequestClose} = this.props;
-                onRequestClose && onRequestClose();
+                this.props.onRequestClose?.();
             } else {
-                const {onRequestOpen} = this.props;
-                onRequestOpen && onRequestOpen();
+                this.props.onRequestOpen?.();
             }
         });
     };
@@ -109,10 +105,6 @@ class PopupProvider extends Component {
 
     };
 
-    componentDidMount() {
-        this.triggerEl = this.trigger && this.trigger.current && findDOMNode(this.trigger.current);
-    }
-
     render() {
 
         const {
@@ -120,6 +112,7 @@ class PopupProvider extends Component {
                 children, popupContent,
 
                 // not passing down these props
+                // eslint-disable-next-line no-unused-vars
                 onRequestOpen, onRequestClose,
 
                 ...restProps
