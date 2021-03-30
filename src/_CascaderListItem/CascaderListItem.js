@@ -170,7 +170,7 @@ class CascaderListItem extends Component {
                     expandDirection === HorizontalDirection.LEFT && hasChildren ?
                         <i className={classNames('cascader-list-item-expand-icon',
                             expandedIconCls || 'fas fa-chevron-left')}
-                           aria-hidden="true"></i>
+                           aria-hidden="true"/>
                         :
                         null
                 }
@@ -198,7 +198,7 @@ class CascaderListItem extends Component {
                     hasExpandIcon ?
                         <i className={classNames('cascader-list-item-expand-icon',
                             expandedIconCls || 'fas fa-chevron-right')}
-                           aria-hidden="true"></i>
+                           aria-hidden="true"/>
                         :
                         null
                 }
