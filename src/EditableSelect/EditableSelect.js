@@ -34,6 +34,8 @@ class EditableSelect extends Component {
         this.wrapperEl = null;
         this.trigger = createRef();
         this.triggerEl = null;
+        this.popup = createRef();
+        this.popupEl = null;
 
         this.state = {
             value: props.value,
@@ -46,25 +48,16 @@ class EditableSelect extends Component {
     }
 
     handleChangeValue = value => {
-        const {useFilter} = this.props;
-        if (useFilter) {
-            this.setState({
-                value,
-                filter: value,
-                listValue: ''
-            }, () => {
-                const {onChange} = this.props;
-                onChange && onChange(value);
-            });
-        } else {
-            this.setState({
-                value,
-                listValue: ''
-            }, () => {
-                const {onChange} = this.props;
-                onChange && onChange(value);
-            });
-        }
+        const {useFilter, onChange} = this.props;
+
+        this.setState({
+            value,
+            filter: useFilter ? value : this.state.filter,
+            listValue: ''
+        }, () => {
+            onChange && onChange(value);
+            this.popup?.current?.resetPosition?.();
+        });
     };
 
     showPopup = () => {
@@ -147,7 +140,6 @@ class EditableSelect extends Component {
     };
 
     handleChange = value => {
-
         const {valueField, renderer} = this.props;
         let itemValue = renderer ? renderer(value) : (typeof value == 'object' ? value[valueField] : value);
         const {autoClose} = this.props,
@@ -169,6 +161,7 @@ class EditableSelect extends Component {
 
     componentDidMount() {
         this.wrapperEl = this.wrapper && this.wrapper.current;
+        this.popupEl = this.popup && this.popup.current;
         this.triggerEl = this.trigger && this.trigger.current && findDOMNode(this.trigger.current);
     }
 
@@ -182,10 +175,10 @@ class EditableSelect extends Component {
     render() {
 
         const {
-                className, popupClassName, style, popupStyle, name, placeholder,
-                disabled, valueField, displayField, descriptionField, position, rightIconCls, resetPopPositionWait,
-                triggerTheme, isGrouped, onItemClick, renderer, noMatchedMsg, useDynamicRenderList,
-                onMouseOver, onMouseOut, parentEl
+                className, popupClassName, style, popupStyle, name, placeholder, disabled, valueField, displayField,
+                clearButtonIconCls, clearButtonVisible, descriptionField, position, rightIconCls, resetPopPositionWait,
+                triggerTheme, isGrouped, onItemClick, renderer, noMatchedPopupVisible, noMatchedMsg,
+                useDynamicRenderList, onMouseOver, onMouseOut, parentEl
             } = this.props,
             {value, listValue, popupVisible, isAbove} = this.state,
 
@@ -221,8 +214,11 @@ class EditableSelect extends Component {
                            theme={triggerTheme}
                            onMouseOver={onMouseOver}
                            onMouseOut={onMouseOut}
+                           clearButtonVisible={clearButtonVisible}
+                           clearButtonIconCls={clearButtonIconCls}
                            onChange={this.handleChangeValue}
                            onFocus={this.showPopup}/>
+
 
                 <Popup className={classNames('editable-select-popup', isAboveFinally ? 'above' : 'blow', {
                     [popupClassName]: popupClassName
@@ -234,6 +230,7 @@ class EditableSelect extends Component {
                        triggerEl={this.triggerEl}
                        triggerHandler={this.triggerHandler}
                        parentEl={parentEl}
+                       ref={this.popup}
                        hasTriangle={false}
                        position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
                        resetPositionWait={resetPopPositionWait}
@@ -244,13 +241,16 @@ class EditableSelect extends Component {
                         listData.length < 1 ?
                             <div className="no-matched">
                                 {
-                                    noMatchedMsg ?
-                                        noMatchedMsg
+                                    !noMatchedPopupVisible ?
+                                        null
                                         :
-                                        <span>
-                                            <i className="fas fa-exclamation-triangle no-matched-icon"></i>
-                                            No matched value.
-                                        </span>
+                                        noMatchedMsg ?
+                                            noMatchedMsg
+                                            :
+                                            <span>
+                                                <i className="fas fa-exclamation-triangle no-matched-icon"></i>
+                                                No matched value.
+                                            </span>
                                 }
                             </div>
                             :
@@ -288,7 +288,6 @@ class EditableSelect extends Component {
                     }
 
                 </Popup>
-
             </div>
         );
 
@@ -427,6 +426,17 @@ EditableSelect.propTypes = {
     disabled: PropTypes.bool,
 
     /**
+     * The visiblity of no matched popup.
+     */
+    noMatchedPopupVisible: PropTypes.bool,
+
+    /**
+     * If true,clearButton will display when the textField is not empty.
+     */
+    clearButtonVisible: PropTypes.bool,
+    clearButtonIconCls: PropTypes.string,
+
+    /**
      * The value field name in data. (default: "value")
      */
     valueField: PropTypes.string,
@@ -508,6 +518,9 @@ EditableSelect.defaultProps = {
     autoClose: true,
     useFilter: false,
     useDynamicRenderList: false,
+    noMatchedPopupVisible: true,
+    clearButtonVisible: true,
+    clearButtonIconCls: 'fas fa-times-circle',
     triggerTheme: Theme.DEFAULT,
     isGrouped: false,
     resetPopPositionWait: 250

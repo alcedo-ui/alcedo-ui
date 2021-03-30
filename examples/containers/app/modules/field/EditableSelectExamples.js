@@ -18,21 +18,26 @@ class EditableSelectExamples extends Component {
 
         super(props);
 
-        this.data = [{value: 0, text: 'test0'}, {value: 1, text: 'test1'}, {
-            text: 'test2',
-            value: 2,
-            desc: 'Here is test2.',
-            onClick() {
-                console.log('test2 selected!');
-            }
-        }, {value: 3, text: 'test3'}, {value: 4, text: 'test4'}, {value: 5, text: 'test5'}, {
-            text: 'test6',
-            value: 6,
-            desc: 'Here is test6.',
-            onClick() {
-                console.log('test6 selected!');
-            }
-        }, {value: 6, text: 'test6'}, {value: 7, text: 'test7'}, {value: 8, text: 'test8'}];
+        this.data = [
+            {value: 0, text: 'test0'},
+            {value: 1, text: 'test1'}, {
+                text: 'test2', value: 2, desc: 'Here is test2.',
+                onClick() {
+                    console.log('test2 selected!');
+                }
+            }, {value: 3, text: 'test3'}, {value: 4, text: 'test4'}, {value: 5, text: 'test5'}, {
+                text: 'test6',
+                value: 6,
+                desc: 'Here is test6.',
+                onClick() {
+                    console.log('test6 selected!');
+                }
+            }, {value: 6, text: 'test6'},
+            {value: 7, text: 'test7'},
+            {value: 17, text: 'test17'},
+            {value: 27, text: 'test27'},
+            {value: 37, text: 'test37'},
+            {value: 28, text: 'test8'}];
 
         this.groupedData = [{
             name: 'socialNetwork',
@@ -67,7 +72,7 @@ class EditableSelectExamples extends Component {
         }];
 
         this.state = {
-            EditableSelectVisible: {},
+            EditableSelectVisible: {}
         };
     }
 
@@ -129,8 +134,8 @@ class EditableSelectExamples extends Component {
 
                                     <EditableSelect data={this.data}
                                                     onChange={this.onChange}
-                                                    useDynamicRenderList={true}
                                                     useFilter={true}
+                                                    noMatchedPopupVisible={false}
                                                     renderer={data => {
                                                         return data ?
                                                             `[${data.value}] ${data.text}` : null;
@@ -159,7 +164,7 @@ class EditableSelectExamples extends Component {
 
                                 <div className="field-group">
 
-                                    <EditableSelect data={[]}
+                                    <EditableSelect data={this.data}
                                                     onChange={this.onChange}
                                                     valueField={'text'}
                                                     useFilter={true}/>
@@ -194,7 +199,7 @@ class EditableSelectExamples extends Component {
                                         dialogContentEl =>
                                             <div className="popover-dialog-content-scroller">
                                                 <div className="field-group">
-                                                    <EditableSelect data={[]}
+                                                    <EditableSelect data={this.data}
                                                                     onChange={this.onChange}
                                                                     valueField={'text'}
                                                                     parentEl={dialogContentEl}
