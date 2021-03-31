@@ -58,7 +58,7 @@
         "resize-observer-polyfill": "1.5.1"
     },
     "devDependencies": {
-        "@babel/core": "7.13.13",
+        "@babel/core": "7.13.14",
         "@babel/plugin-proposal-class-properties": "7.13.0",
         "@babel/plugin-proposal-decorators": "7.13.5",
         "@babel/plugin-proposal-do-expressions": "7.12.13",
