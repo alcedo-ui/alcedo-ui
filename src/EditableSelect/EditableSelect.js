@@ -204,7 +204,7 @@ class EditableSelect extends Component {
 
                 <TextField ref={this.trigger}
                            className={classNames('editable-select-trigger', isAboveFinally ? 'above' : 'blow', {
-                               activated: popupVisible,
+                               activated: popupVisible && (listData.length > 0 || noMatchedPopupVisible),
                                empty: !value
                            })}
                            value={value}
@@ -219,75 +219,78 @@ class EditableSelect extends Component {
                            onChange={this.handleChangeValue}
                            onFocus={this.showPopup}/>
 
+                {
+                    !noMatchedPopupVisible && listData.length < 1 ?
+                        null
+                        :
+                        <Popup className={classNames('editable-select-popup', isAboveFinally ? 'above' : 'blow', {
+                            'no-matched-popup': listData.length < 1,
+                            [popupClassName]: popupClassName
+                        })}
+                               style={Object.assign({
+                                   width: this.triggerEl && getComputedStyle(this.triggerEl).width
+                               }, popupStyle)}
+                               visible={popupVisible}
+                               triggerEl={this.triggerEl}
+                               triggerHandler={this.triggerHandler}
+                               parentEl={parentEl}
+                               ref={this.popup}
+                               hasTriangle={false}
+                               position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
+                               resetPositionWait={resetPopPositionWait}
+                               onRender={this.handlePopupRender}
+                               onRequestClose={this.closePopup}>
 
-                <Popup className={classNames('editable-select-popup', isAboveFinally ? 'above' : 'blow', {
-                    [popupClassName]: popupClassName
-                })}
-                       style={Object.assign({
-                           width: this.triggerEl && getComputedStyle(this.triggerEl).width
-                       }, popupStyle)}
-                       visible={popupVisible}
-                       triggerEl={this.triggerEl}
-                       triggerHandler={this.triggerHandler}
-                       parentEl={parentEl}
-                       ref={this.popup}
-                       hasTriangle={false}
-                       position={position ? position : (isAbove ? Position.TOP_LEFT : Position.BOTTOM_LEFT)}
-                       resetPositionWait={resetPopPositionWait}
-                       onRender={this.handlePopupRender}
-                       onRequestClose={this.closePopup}>
-
-                    {
-                        listData.length < 1 ?
-                            <div className="no-matched">
-                                {
-                                    !noMatchedPopupVisible ?
-                                        null
-                                        :
-                                        noMatchedMsg ?
-                                            noMatchedMsg
-                                            :
-                                            <span>
-                                                <i className="fas fa-exclamation-triangle no-matched-icon"></i>
-                                                No matched value.
-                                            </span>
-                                }
-                            </div>
-                            :
-                            isGrouped ?
-                                <GroupList className="editable-select-list"
-                                           data={listData}
-                                           value={listValue}
-                                           valueField={valueField}
-                                           displayField={displayField}
-                                           descriptionField={descriptionField}
-                                           renderer={renderer}
-                                           onItemClick={this.onItemClick}
-                                           onChange={this.changeHandler}/>
-                                :
-                                useDynamicRenderList ?
-                                    <DynamicRenderList className="editable-select-list"
-                                                       data={listData}
-                                                       value={listValue}
-                                                       valueField={valueField}
-                                                       displayField={displayField}
-                                                       descriptionField={descriptionField}
-                                                       renderer={renderer}
-                                                       onItemClick={onItemClick}
-                                                       onChange={this.handleChange}/>
+                            {
+                                listData.length < 1 ?
+                                    <div className="no-matched">
+                                        {
+                                            noMatchedMsg ?
+                                                noMatchedMsg
+                                                :
+                                                <span>
+                                                    <i className="fas fa-exclamation-triangle no-matched-icon"></i>
+                                                    No matched value.
+                                                </span>
+                                        }
+                                    </div>
                                     :
-                                    <List className="editable-select-list"
-                                          data={listData}
-                                          valueField={valueField}
-                                          value={listValue}
-                                          displayField={displayField}
-                                          descriptionField={descriptionField}
-                                          renderer={renderer}
-                                          onItemClick={onItemClick}
-                                          onChange={this.handleChange}/>
-                    }
+                                    isGrouped ?
+                                        <GroupList className="editable-select-list"
+                                                   data={listData}
+                                                   value={listValue}
+                                                   valueField={valueField}
+                                                   displayField={displayField}
+                                                   descriptionField={descriptionField}
+                                                   renderer={renderer}
+                                                   onItemClick={this.onItemClick}
+                                                   onChange={this.changeHandler}/>
+                                        :
+                                        useDynamicRenderList ?
+                                            <DynamicRenderList className="editable-select-list"
+                                                               data={listData}
+                                                               value={listValue}
+                                                               valueField={valueField}
+                                                               displayField={displayField}
+                                                               descriptionField={descriptionField}
+                                                               renderer={renderer}
+                                                               onItemClick={onItemClick}
+                                                               onChange={this.handleChange}/>
+                                            :
+                                            <List className="editable-select-list"
+                                                  data={listData}
+                                                  valueField={valueField}
+                                                  value={listValue}
+                                                  displayField={displayField}
+                                                  descriptionField={descriptionField}
+                                                  renderer={renderer}
+                                                  onItemClick={onItemClick}
+                                                  onChange={this.handleChange}/>
+                            }
 
-                </Popup>
+                        </Popup>
+                }
+
             </div>
         );
 
