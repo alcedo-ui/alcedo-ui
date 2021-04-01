@@ -5,15 +5,18 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import isArray from 'lodash/isArray';
-import classNames from 'classnames';
 
+// Components
 import TreeNode from '../_TreeNode';
 
+// Statics
 import Theme from '../Theme';
 import SelectMode from '../_statics/SelectMode';
 import VirtualRoot from '../_statics/VirtualRoot';
 
+// Vendors
+import isArray from 'lodash/isArray';
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 import Calculation from '../_vendors/Calculation';
 import ComponentUtil from '../_vendors/ComponentUtil';
