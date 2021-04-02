@@ -1,8 +1,6 @@
 {
     "upgrade": true,
     "reject": [
-        "compression-webpack-plugin",
-        "copy-webpack-plugin",
         "fast-sass-loader",
         "history"
     ]
