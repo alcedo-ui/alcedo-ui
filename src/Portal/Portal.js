@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component} from 'react';
+import {Component} from 'react';
 import PropTypes from 'prop-types';
 
 // Vendors
@@ -21,6 +21,16 @@ class Portal extends Component {
         this.wrapper = null;
         this.portal = null;
 
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (!this.props.visible) {
+            this.unmountWrapper();
+        }
+    }
+
+    componentWillUnmount() {
+        this.unmountWrapper();
     }
 
     /**
@@ -54,8 +64,8 @@ class Portal extends Component {
             [className]: className
         });
 
-        for (let key in restProps) {
-            this.wrapper[key] = restProps[key];
+        for (let [key, value] of Object.entries(restProps)) {
+            this.wrapper[key] = value;
         }
 
         // handle all portals in portalManagement
@@ -94,16 +104,6 @@ class Portal extends Component {
         }
 
     };
-
-    componentDidUpdate() {
-        if (!this.props.visible) {
-            this.unmountWrapper();
-        }
-    }
-
-    componentWillUnmount() {
-        this.unmountWrapper();
-    }
 
     render() {
         return this.props.visible ? this.renderPortal() : null;
