@@ -5,10 +5,12 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Statics
 import Theme from '../Theme';
 
+// Vendors
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
 
