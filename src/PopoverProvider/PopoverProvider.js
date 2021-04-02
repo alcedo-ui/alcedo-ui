@@ -5,7 +5,6 @@
 
 import React, {Component, cloneElement, Fragment, createRef} from 'react';
 import PropTypes from 'prop-types';
-import {findDOMNode} from 'react-dom';
 
 // components
 import Popover from '../Popover';
@@ -15,6 +14,7 @@ import Theme from '../Theme';
 import Position from '../_statics/Position';
 
 // vendors
+import {findDOMNode} from 'react-dom';
 import Util from '../_vendors/Util';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
@@ -112,6 +112,7 @@ class PopoverProvider extends Component {
                 children, popoverContent,
 
                 // not passing down these props
+                // eslint-disable-next-line no-unused-vars
                 onRequestOpen, onRequestClose,
 
                 ...restProps

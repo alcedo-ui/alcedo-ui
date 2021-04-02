@@ -5,8 +5,12 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+
+// Components
 import CSSTransition from 'react-transition-group/CSSTransition';
+
+// Vendors
+import classNames from 'classnames';
 
 class PageLoading extends Component {
 
@@ -24,6 +28,10 @@ class PageLoading extends Component {
             highlightStyle: this.defaultHighlightStyle
         };
 
+    }
+
+    componentWillUnmount() {
+        this.clearProgress();
     }
 
     setLoading = (progress = this.props.loadingProgress, index = 0) => {
@@ -68,10 +76,6 @@ class PageLoading extends Component {
         }]);
     };
 
-    componentWillUnmount() {
-        this.clearProgress();
-    }
-
     render() {
 
         const {className, style, visible, duration, finishDuration, showStripes} = this.props,
@@ -89,7 +93,7 @@ class PageLoading extends Component {
                 })}
                      style={style}>
                     <div className="page-loading-bar"
-                         style={highlightStyle}></div>
+                         style={highlightStyle}/>
                 </div>
             </CSSTransition>
         );

@@ -5,8 +5,9 @@
 
 import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Vendors
+import classNames from 'classnames';
 import Event from '../_vendors/Event';
 import Dom from '../_vendors/Dom';
 import Valid from '../_vendors/Valid';
@@ -131,11 +132,11 @@ class OpacityPicker extends Component {
                     <div className="opacity-picker-color-overlay"
                          style={{
                              background: `linear-gradient(90deg, transparent, #${color})`
-                         }}></div>
+                         }}/>
 
                     <div ref={this.huePickerSlider}
                          className="opacity-picker-slider"
-                         style={{left: this.calcSliderLeft()}}></div>
+                         style={{left: this.calcSliderLeft()}}/>
 
                 </div>
             </div>

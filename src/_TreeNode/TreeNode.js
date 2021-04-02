@@ -5,17 +5,20 @@
 
 import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Components
 import CircularLoading from '../CircularLoading';
 import IconButton from '../IconButton';
 import Radio from '../Radio';
 import Checkbox from '../Checkbox';
 
+// Statics
 import Theme from '../Theme';
 import SelectMode from '../_statics/SelectMode';
 import VirtualRoot from '../_statics/VirtualRoot';
 
+// Vendors
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 import TC from '../_vendors/TreeCalculation';
 
@@ -40,7 +43,7 @@ class TreeNode extends Component {
 
         return data.disabled || disabled || isNodeLoading
             || (
-                nodeDisabled != undefined
+                nodeDisabled !== undefined && nodeDisabled !== null
                 && (typeof nodeDisabled === 'function' ? nodeDisabled(data, value, treeData) : nodeDisabled)
             );
 
@@ -162,7 +165,7 @@ class TreeNode extends Component {
         const {
 
                 index, depth, theme, selectTheme, selectMode, value,
-                isLoading, readOnly, allowCollapse, isSelectRecursive, indentWidth,
+                isLoading, allowCollapse, isSelectRecursive, indentWidth,
                 valueField, displayField, descriptionField,
 
                 collapsedIconCls, expandedIconCls, radioUncheckedIconCls, radioCheckedIconCls,
@@ -194,7 +197,6 @@ class TreeNode extends Component {
                      }}
                      title={data.title}
                      disabled={isNodeDisabled}
-                     readOnly={readOnly}
                      onClick={this.handleClick}
                      onMouseEnter={onMouseEnter}
                      onMouseLeave={onMouseLeave}>
@@ -252,7 +254,7 @@ class TreeNode extends Component {
                                 :
                                 data.iconCls ?
                                     <i className={`button-icon button-icon-left ${data.iconCls}`}
-                                       aria-hidden="true"></i>
+                                       aria-hidden="true"/>
                                     :
                                     null
                         }
@@ -284,7 +286,7 @@ class TreeNode extends Component {
                                 :
                                 data.rightIconCls ?
                                     <i className={`button-icon button-icon-right ${data.rightIconCls}`}
-                                       aria-hidden="true"></i>
+                                       aria-hidden="true"/>
                                     :
                                     null
                         }

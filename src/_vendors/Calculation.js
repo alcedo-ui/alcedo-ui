@@ -3,9 +3,12 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+// Statics
+import SelectMode from '../_statics/SelectMode';
+
+// Vendors
 import isArray from 'lodash/isArray';
 import Valid from './Valid';
-import SelectMode from '../_statics/SelectMode';
 import Util from './Util';
 
 function pageSize(pageSize, pageSizes, defaultValue) {
@@ -102,7 +105,9 @@ function getInitValue(props) {
 
 }
 
-function getMultiSelectItemIndex(item, value, {selectMode, valueField, displayField}) {
+function getMultiSelectItemIndex(item, value, props = {}) {
+
+    const {selectMode, valueField, displayField} = props;
 
     if (selectMode !== SelectMode.MULTI_SELECT || !item || !value) {
         return -1;
@@ -152,7 +157,8 @@ function isItemIndeterminate(node, value, {valueField, displayField}) {
 
     Util.preOrderTraverse(node, nodeItem => {
         total++;
-        if (value.findIndex(item => Util.getValueByValueField(item, valueField, displayField) === Util.getValueByValueField(nodeItem, valueField, displayField)) > -1) {
+        if (value.findIndex(item => Util.getValueByValueField(item, valueField, displayField) ===
+            Util.getValueByValueField(nodeItem, valueField, displayField)) > -1) {
             count++;
         }
     });
