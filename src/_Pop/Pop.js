@@ -5,18 +5,18 @@
 
 import React, {Component, cloneElement} from 'react';
 import PropTypes from 'prop-types';
-import debounce from 'lodash/debounce';
-import Transition from 'react-transition-group/Transition';
-import classNames from 'classnames';
 
 // Components
 import Portal from '../Portal';
+import Transition from 'react-transition-group/Transition';
 
 // Statics
 import Theme from '../Theme';
 import Position from '../_statics/Position';
 
 // Vendors
+import debounce from 'lodash/debounce';
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 import Event from '../_vendors/Event';
 
@@ -57,7 +57,7 @@ class Pop extends Component {
         Event.addEvent(window, 'resize', this.debounceResetPosition);
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps, prevState, snapshot) {
 
         if (prevProps.position !== this.props.position || prevProps.triggerEl !== this.props.triggerEl) {
             this.props.resetPosition?.(this.state.transitionEl);
@@ -156,8 +156,10 @@ class Pop extends Component {
                 onModalMouseDown, onModalMouseMove, onModalMouseUp, onModalMouseEnter, onModalMouseLeave, onModalClick,
 
                 // not passing down these props
+                /* eslint-disable no-unused-vars */
                 contentClassName, position, triggerEl, resetPositionWait,
                 resetPosition, onRender, onRendered, onDestroy, onDestroyed,
+                /* eslint-enable no-unused-vars */
 
                 ...restProps
 
