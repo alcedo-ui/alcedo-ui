@@ -5,7 +5,6 @@
 
 import React, {Component, cloneElement, Fragment, createRef} from 'react';
 import PropTypes from 'prop-types';
-import {findDOMNode} from 'react-dom';
 
 // components
 import Popover from '../Popover';
@@ -15,6 +14,7 @@ import Theme from '../Theme';
 import Position from '../_statics/Position';
 
 // vendors
+import {findDOMNode} from 'react-dom';
 import Util from '../_vendors/Util';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
