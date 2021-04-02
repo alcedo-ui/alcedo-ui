@@ -73,6 +73,7 @@ class EditableSelect extends Component {
         this.setState({
             popupVisible: false
         }, () => {
+            this.trigger?.current.blur();
             this.props.onTriggerClick && this.props.onTriggerClick(this.state.popupVisible);
             this.props.onPopupClosed && this.props.onPopupClosed();
         });

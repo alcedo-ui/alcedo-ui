@@ -8,7 +8,7 @@ import Dialog from 'src/Dialog';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/EditableSelect.json';
-
+import Event from '../../../../vendors/Event';
 import 'scss/containers/app/modules/field/EditableSelectExamples.scss';
 
 
@@ -17,6 +17,8 @@ class EditableSelectExamples extends Component {
     constructor(props) {
 
         super(props);
+
+        this.selectRef = React.createRef();
 
         this.data = [
             {value: 0, text: 'test0'},
@@ -104,6 +106,18 @@ class EditableSelectExamples extends Component {
         console.log(value);
     };
 
+    handleScrollStart = () => {
+        this.selectRef?.current.closePopup();
+    };
+
+    componentDidMount() {
+        Event.addEvent(document, 'scroll', this.handleScrollStart);
+    }
+
+    componentWillUnmount() {
+        Event.removeEvent(document, 'scroll', this.handleScrollStart);
+    }
+
     render() {
 
         const {EditableSelectVisible} = this.state;
@@ -133,6 +147,7 @@ class EditableSelectExamples extends Component {
                                 <div className="field-group">
 
                                     <EditableSelect data={this.data}
+                                                    ref={this.selectRef}
                                                     onChange={this.onChange}
                                                     useFilter={true}
                                                     noMatchedPopupVisible={false}
