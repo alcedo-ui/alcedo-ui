@@ -112,6 +112,7 @@ class PopoverProvider extends Component {
                 children, popoverContent,
 
                 // not passing down these props
+                // eslint-disable-next-line no-unused-vars
                 onRequestOpen, onRequestClose,
 
                 ...restProps
