@@ -6,7 +6,6 @@
 const {DefinePlugin, HotModuleReplacementPlugin, NoEmitOnErrorsPlugin} = require('webpack'),
     {merge} = require('webpack-merge'),
     HtmlWebpackPlugin = require('html-webpack-plugin'),
-    FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin'),
 
     baseWebpackConfig = require('../webpack.config.base.js'),
 
@@ -43,9 +42,7 @@ module.exports = merge(baseWebpackConfig, {
             template: './examples/index.html',
             favicon: './examples/assets/images/favicon.ico',
             inject: true
-        }),
-
-        new FriendlyErrorsPlugin()
+        })
 
     ]
 

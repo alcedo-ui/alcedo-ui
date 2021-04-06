@@ -4,11 +4,10 @@
  */
 
 const webpack = require('webpack'),
-    log = require('friendly-errors-webpack-plugin/src/output'),
 
     webpackConfig = require('./webpack.config.prod.js');
 
-log.title('info', 'WAIT', 'Building Production...');
+console.log('WAIT', 'Building Production...');
 
 webpack(webpackConfig, (err, stats) => {
 
@@ -24,6 +23,6 @@ webpack(webpackConfig, (err, stats) => {
         chunkModules: false
     }) + '\n\n');
 
-    log.title('success', 'DONE', 'Build Complete');
+    console.log('DONE', 'Build Complete');
 
 });

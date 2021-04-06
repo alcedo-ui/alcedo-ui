@@ -8,7 +8,6 @@ const os = require('os'),
     open = require('open'),
     webpack = require('webpack'),
     express = require('express'),
-    log = require('friendly-errors-webpack-plugin/src/output'),
 
     config = require('../config.js'),
     webpackConfig = require('./webpack.config.dev.js'),
@@ -31,17 +30,17 @@ compiler.hooks.compilation.tap('html-webpack-plugin-after-emit', () =>
 );
 
 app.use(devMiddleware)
-    .use(hotMiddleware)
-    .use(config.dev.assetsVirtualRoot, express.static('./static'));
+   .use(hotMiddleware)
+   .use(config.dev.assetsVirtualRoot, express.static('./static'));
 
 devMiddleware.waitUntilValid(() =>
-    log.title('success', 'DONE', `Listening At ${uri}`)
+    console.log('DONE', `Listening At ${uri}`)
 );
 
 module.exports = app.listen(config.dev.port, err => {
 
     if (err) {
-        log.title('error', 'ERROR', `${err}`);
+        console.log('ERROR', `${err}`);
         return;
     }
 
