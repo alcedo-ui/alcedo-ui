@@ -172,7 +172,7 @@ class EditableSelect extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.data?.length !== prevProps.data?.length) {
+        if ((this.props.data?.length !== prevProps.data?.length) || (this.props.value !== prevProps.value)) {
             this.popup?.current?.resetPosition?.();
         }
     }
