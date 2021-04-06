@@ -141,19 +141,17 @@ class EditableSelect extends Component {
     };
 
     handleChange = value => {
-        const {valueField, renderer} = this.props;
-        let itemValue = renderer ? renderer(value) : (typeof value == 'object' ? value[valueField] : value);
-        const {autoClose} = this.props,
-            state = {
-                value: itemValue,
-                listValue: value
-            };
+        const {valueField, autoClose, renderer} = this.props,
+            itemValue = renderer ? renderer(value) : (typeof value == 'object' ? value[valueField] : value);
 
         if (autoClose) {
-            state.popupVisible = false;
+            this.closePopup();
         }
 
-        this.setState(state, () => {
+        this.setState({
+            value: itemValue,
+            listValue: value
+        }, () => {
             const {onChange} = this.props;
             onChange && onChange(itemValue);
         });
@@ -264,8 +262,8 @@ class EditableSelect extends Component {
                                                    displayField={displayField}
                                                    descriptionField={descriptionField}
                                                    renderer={renderer}
-                                                   onItemClick={this.onItemClick}
-                                                   onChange={this.changeHandler}/>
+                                                   onItemClick={onItemClick}
+                                                   onChange={this.handleChange}/>
                                         :
                                         useDynamicRenderList ?
                                             <DynamicRenderList className="editable-select-list"

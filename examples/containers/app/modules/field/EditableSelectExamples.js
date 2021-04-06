@@ -38,7 +38,6 @@ class EditableSelectExamples extends Component {
             {value: 7, text: 'test7'},
             {value: 17, text: 'test17'},
             {value: 27, text: 'test27'},
-            {value: 37, text: 'test37'},
             {value: 28, text: 'test8'}];
 
         this.groupedData = [{
@@ -74,7 +73,8 @@ class EditableSelectExamples extends Component {
         }];
 
         this.state = {
-            EditableSelectVisible: {}
+            EditableSelectVisible: {},
+            value: ''
         };
     }
 
@@ -103,7 +103,9 @@ class EditableSelectExamples extends Component {
     };
 
     onChange = value => {
-        console.log(value);
+        this.setState({
+            value
+        });
     };
 
     handleScrollStart = () => {
@@ -120,7 +122,7 @@ class EditableSelectExamples extends Component {
 
     render() {
 
-        const {EditableSelectVisible} = this.state;
+        const {EditableSelectVisible, value} = this.state;
         return (
             <div className="example editable-select-examples">
 
@@ -181,8 +183,16 @@ class EditableSelectExamples extends Component {
 
                                     <EditableSelect data={this.data}
                                                     onChange={this.onChange}
+                                                    value={value}
+                                                    filterInitValue={value}
                                                     valueField={'text'}
-                                                    useFilter={true}/>
+                                                    useFilter={true}
+                                                    displayField="text"
+                                                    placeholder="Input the Callout"
+                                                    rightIconCls=""
+                                                    noMatchedPopupVisible={false}
+                                                    clearButtonVisible={false}
+                                                    renderer={item => item?.text}/>
 
                                 </div>
 
