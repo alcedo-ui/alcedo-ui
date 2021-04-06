@@ -38,7 +38,6 @@ class EditableSelect extends Component {
         this.popupEl = null;
 
         this.state = {
-            data: props.data,
             value: props.value,
             listValue: props.value,
             filter: '',
@@ -99,7 +98,7 @@ class EditableSelect extends Component {
 
     };
 
-    filterData = (filter = this.state.filter, data = this.state.data) => {
+    filterData = (filter = this.state.filter, data = this.props.data) => {
 
         if (!filter) {
             return data;
@@ -168,9 +167,14 @@ class EditableSelect extends Component {
     static getDerivedStateFromProps(props, state) {
         return {
             prevProps: props,
-            value: ComponentUtil.getDerivedState(props, state, 'value'),
-            data: ComponentUtil.getDerivedState(props, state, 'data')
+            value: ComponentUtil.getDerivedState(props, state, 'value')
         };
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.data?.length !== prevProps.data?.length) {
+            this.popup?.current?.resetPosition?.();
+        }
     }
 
     render() {
