@@ -1,7 +1,7 @@
 {
     "name": "alcedo-ui",
     "author": "Alcedo-UI Team",
-    "version": "2.56.3",
+    "version": "2.56.4",
     "description": "A set of React components.",
     "main": "./src/index.js",
     "repository": {
@@ -35,7 +35,7 @@
         "zip": "node build/zip/zip.js"
     },
     "dependencies": {
-        "classnames": "2.2.6",
+        "classnames": "2.3.0",
         "connected-react-router": "6.9.1",
         "dom-helpers": "5.2.0",
         "history": "4.10.1",
@@ -91,8 +91,8 @@
         "cached-path-relative": "1.0.2",
         "chokidar": "3.5.1",
         "connect-history-api-fallback": "1.6.0",
-        "copy-webpack-plugin": "6.3.2",
-        "core-js": "3.9.1",
+        "copy-webpack-plugin": "8.1.0",
+        "core-js": "3.10.0",
         "cross-env": "7.0.3",
         "crypto": "1.0.1",
         "css-loader": "5.2.0",
@@ -126,7 +126,7 @@
         "through2": "4.0.2",
         "uglifyjs-webpack-plugin": "2.2.0",
         "url-loader": "4.1.1",
-        "webpack": "5.28.0",
+        "webpack": "5.30.0",
         "webpack-bundle-analyzer": "4.4.0",
         "webpack-dev-middleware": "4.1.0",
         "webpack-hot-middleware": "2.25.0",
