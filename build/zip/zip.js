@@ -6,7 +6,6 @@
 const fs = require('fs'),
     archiver = require('archiver'),
     crypto = require('crypto'),
-    log = require('friendly-errors-webpack-plugin/src/output'),
 
     config = require('../config.js'),
     {fsExistsSync, copyRecursionSync, rmRecursionSync} = require('../utils.js'),
@@ -16,7 +15,7 @@ const fs = require('fs'),
     distPath = `${path}/dist`,
     zipPath = `./${name}.zip`;
 
-log.title('info', 'WAIT', 'Building Zip...');
+console.log('WAIT', 'Building Zip...');
 
 // remove zip file
 if (fsExistsSync(zipPath)) {
@@ -53,7 +52,7 @@ output.on('close', () => {
 
     rs.on('data', hash.update.bind(hash));
     rs.on('end', () => {
-        log.title('success', 'DONE', [
+        console.log('DONE', [
             'Build Zip complete',
             `Archive: ${archive.pointer()} total bytes`,
             `SHA-256 Hash: ${hash.digest('hex')}`

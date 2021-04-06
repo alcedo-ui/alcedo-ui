@@ -3,12 +3,12 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-const path = require('path'),
+const
 
     HappyPack = require('happypack'),
 
     config = require('./config.js'),
-    utils = require('./utils.js'),
+    {resolve, assetsSubPath} = require('./utils.js'),
 
     cssLoaderConfig = ['style-loader', {
         loader: 'css-loader',
@@ -25,10 +25,6 @@ const path = require('path'),
             }
         }
     }];
-
-function resolve(dir) {
-    return path.join(__dirname, '..', dir);
-}
 
 module.exports = {
 
@@ -70,18 +66,18 @@ module.exports = {
             loader: 'url-loader',
             options: {
                 limit: 1000,
-                name: utils.assetsSubPath('img/[name].[hash:7].[ext]')
+                name: assetsSubPath('img/[name].[hash:7].[ext]')
             }
         }, {
             test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
             loader: 'url-loader',
             options: {
                 limit: 1000,
-                name: utils.assetsSubPath('fonts/[name].[hash:7].[ext]')
+                name: assetsSubPath('fonts/[name].[hash:7].[ext]')
             }
         }, {
             test: /\.scss$/,
-            use: [...cssLoaderConfig, 'fast-sass-loader']
+            use: [...cssLoaderConfig, 'sass-loader']
         }, {
             test: /\.css$/,
             use: cssLoaderConfig

@@ -8,6 +8,10 @@ const fs = require('fs'),
 
     config = require('./config.js');
 
+function resolve(dir) {
+    return path.join(__dirname, '..', dir);
+}
+
 function assetsPath(p) {
     return path.posix.join(config.assetsDirectory, p);
 }
@@ -88,6 +92,7 @@ function rmRecursionSync(p) {
 
 }
 
+exports.resolve = resolve;
 exports.assetsPath = assetsPath;
 exports.assetsSubPath = assetsSubPath;
 exports.assetsVendorsAbsolutePath = assetsVendorsAbsolutePath;
