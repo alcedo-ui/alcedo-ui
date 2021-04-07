@@ -91,7 +91,7 @@
         "cached-path-relative": "1.0.2",
         "chokidar": "3.5.1",
         "connect-history-api-fallback": "1.6.0",
-        "copy-webpack-plugin": "8.1.0",
+        "copy-webpack-plugin": "8.1.1",
         "core-js": "3.10.0",
         "cross-env": "7.0.3",
         "crypto": "1.0.1",
