@@ -5,18 +5,21 @@
 
 import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
-import {findDOMNode} from 'react-dom';
-import classNames from 'classnames';
 
+// Components
 import TextField from '../TextField';
 import Popup from '../Popup';
 import List from '../List';
 import DynamicRenderList from '../DynamicRenderList';
 import GroupList from '../GroupList';
 
+// Statics
 import Theme from '../Theme';
 import Position from '../_statics/Position';
 
+// Vendors
+import {findDOMNode} from 'react-dom';
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 import DropdownCalculation from '../_vendors/DropdownCalculation';
 import ComponentUtil from '../_vendors/ComponentUtil';
@@ -25,6 +28,13 @@ class EditableSelect extends Component {
 
     static Theme = Theme;
     static Position = Position;
+
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            value: ComponentUtil.getDerivedState(props, state, 'value')
+        };
+    }
 
     constructor(props, ...restArgs) {
 
@@ -45,6 +55,18 @@ class EditableSelect extends Component {
             isAbove: false
         };
 
+    }
+
+    componentDidMount() {
+        this.wrapperEl = this.wrapper?.current;
+        this.popupEl = this.popup?.current;
+        this.triggerEl = findDOMNode(this.trigger?.current);
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.state.popupVisible) {
+            this.popup?.current?.resetPosition?.();
+        }
     }
 
     handleChangeValue = value => {
@@ -86,9 +108,9 @@ class EditableSelect extends Component {
         }
 
         while (el) {
-            if (el == popupEl) {
+            if (el === popupEl) {
                 return currentVisible;
-            } else if (el == triggerEl) {
+            } else if (el === triggerEl) {
                 return true;
             }
             el = el.parentNode;
@@ -148,7 +170,7 @@ class EditableSelect extends Component {
 
     handleChange = value => {
         const {valueField, autoClose, renderer} = this.props,
-            itemValue = renderer ? renderer(value) : (typeof value == 'object' ? value[valueField] : value);
+            itemValue = renderer ? renderer(value) : (typeof value === 'object' ? value[valueField] : value);
 
         if (autoClose) {
             this.closePopup();
@@ -163,25 +185,6 @@ class EditableSelect extends Component {
         });
 
     };
-
-    componentDidMount() {
-        this.wrapperEl = this.wrapper && this.wrapper.current;
-        this.popupEl = this.popup && this.popup.current;
-        this.triggerEl = this.trigger && this.trigger.current && findDOMNode(this.trigger.current);
-    }
-
-    static getDerivedStateFromProps(props, state) {
-        return {
-            prevProps: props,
-            value: ComponentUtil.getDerivedState(props, state, 'value')
-        };
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.state.popupVisible) {
-            this.popup?.current?.resetPosition?.();
-        }
-    }
 
     render() {
 
@@ -215,7 +218,7 @@ class EditableSelect extends Component {
 
                 <TextField ref={this.trigger}
                            className={classNames('editable-select-trigger', isAboveFinally ? 'above' : 'blow', {
-                               activated: popupVisible && (listData.length > 0 || noMatchedPopupVisible),
+                               activated: popupVisible && (listData?.length > 0 || noMatchedPopupVisible),
                                empty: !value
                            })}
                            value={value}
@@ -231,11 +234,11 @@ class EditableSelect extends Component {
                            onFocus={this.showPopup}/>
 
                 {
-                    !noMatchedPopupVisible && listData.length < 1 ?
+                    !noMatchedPopupVisible && listData?.length < 1 ?
                         null
                         :
                         <Popup className={classNames('editable-select-popup', isAboveFinally ? 'above' : 'blow', {
-                            'no-matched-popup': listData.length < 1,
+                            'no-matched-popup': listData?.length < 1,
                             [popupClassName]: popupClassName
                         })}
                                style={Object.assign({
@@ -253,14 +256,14 @@ class EditableSelect extends Component {
                                onRequestClose={this.closePopup}>
 
                             {
-                                listData.length < 1 ?
+                                listData?.length < 1 ?
                                     <div className="no-matched">
                                         {
                                             noMatchedMsg ?
                                                 noMatchedMsg
                                                 :
                                                 <span>
-                                                    <i className="fas fa-exclamation-triangle no-matched-icon"></i>
+                                                    <i className="fas fa-exclamation-triangle no-matched-icon"/>
                                                     No matched value.
                                                 </span>
                                         }
