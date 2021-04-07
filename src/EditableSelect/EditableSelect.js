@@ -98,10 +98,16 @@ class EditableSelect extends Component {
 
     };
 
-    filterData = (filter = this.state.filter, data = this.props.data) => {
+    filterData = () => {
+
+        const {data, filterCallback} = this.props, {filter} = this.state;
 
         if (!filter) {
             return data;
+        }
+
+        if (filterCallback) {
+            return filterCallback(filter, data);
         }
 
         const {displayField, isGrouped} = this.props,
@@ -172,7 +178,7 @@ class EditableSelect extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if ((this.props.data?.length !== prevProps.data?.length) || (this.props.value !== prevProps.value)) {
+        if (this.state.popupVisible) {
             this.popup?.current?.resetPosition?.();
         }
     }
@@ -495,6 +501,11 @@ EditableSelect.propTypes = {
      * Callback function fired when the button is touch-tapped.
      */
     onItemClick: PropTypes.func,
+
+    /**
+     * Callback function fired when filter changed.
+     */
+    filterCallback: PropTypes.func,
 
     /**
      * Callback function fired when a menu item is selected.
