@@ -51,7 +51,7 @@ class ScrollTable extends Component {
         this.props.onInit?.();
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps, prevState, snapshot) {
         this.updateEl();
     }
 
@@ -61,7 +61,7 @@ class ScrollTable extends Component {
             instance = this?.[`${fragment}Scroller`]?.current,
             el = instance && findDOMNode(instance);
 
-        if (!onGetScrollerEl || !el || this.lastScrollerEl[fragment] == el) {
+        if (!onGetScrollerEl || !el || this.lastScrollerEl[fragment] === el) {
             return;
         }
 
@@ -140,6 +140,7 @@ class ScrollTable extends Component {
                             {
                                 scrollEl =>
                                     <BaseTable {...restProps}
+                                               className="table-head"
                                                fixed={fixed}
                                                fragment={TableFragment.HEAD}
                                                columns={columns}
@@ -186,6 +187,7 @@ class ScrollTable extends Component {
                                                         useDynamicRender={useDynamicRender}
                                                         rowHeight={rowHeight}>
                                 <BaseTable {...restProps}
+                                           className="table-body"
                                            style={{
                                                width: horizontalScrollStyle?.width,
                                                minWidth: horizontalScrollStyle?.width ? '100%' : null,
@@ -233,6 +235,7 @@ class ScrollTable extends Component {
                             {
                                 scrollEl =>
                                     <BaseTable {...restProps}
+                                               className="table-foot"
                                                fixed={fixed}
                                                fragment={TableFragment.FOOT}
                                                columns={columns}
