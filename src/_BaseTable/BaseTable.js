@@ -66,14 +66,14 @@ class BaseTable extends Component {
                 headColumns, bodyColumns, columnKeyField, columnsWidth, selectMode, useColumnsWidth,
                 expandRows, resizingColumn, useDynamicRender, scrollHeight, rowHeight, scrollBuffer,
                 defaultColumnWidth, minColumnWidth, maxColumnWidth, isHeadHidden, isBodyHidden, isFootHidden,
-                isLayoutFixed, isHeadFixed, isFootFixed, hasFixedLeftColumn, hasFixedRightColumn,
-                ignoreColumnSpan, hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
+                isLayoutFixed, hasFixedRightColumn, ignoreColumnSpan, hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
                 sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, isClickSorting,
                 onSortChange, onExpandChange, onRequestColumnsSpan, onHeadClick, onFootClick,
                 onColumnsWidthChange, onColumnResizeStart, onColumnResizeEnd, onColumnMeasure,
 
                 // not passing down these props
-                columns: cols, fragment, selectAllMode,
+                // eslint-disable-next-line no-unused-vars
+                columns: cols, fragment, selectAllMode, isHeadFixed, isFootFixed, hasFixedLeftColumn,
 
                 ...restProps
 
