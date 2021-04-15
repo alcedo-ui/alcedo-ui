@@ -1,7 +1,6 @@
 {
     "upgrade": true,
     "reject": [
-        "fast-sass-loader",
         "history"
     ]
 }
