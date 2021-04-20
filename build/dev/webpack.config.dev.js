@@ -21,12 +21,6 @@ module.exports = merge(baseWebpackConfig, {
 
     devtool: 'eval-cheap-source-map',
 
-    watchOptions: {
-        ignored: ['node_modules'],
-        aggregateTimeout: 300,
-        poll: 1500
-    },
-
     plugins: [
 
         new DefinePlugin({

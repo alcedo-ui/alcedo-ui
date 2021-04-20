@@ -3,8 +3,10 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-const os = require('os'),
-    chokidar = require('chokidar'),
+const
+
+    // os = require('os'),
+    // chokidar = require('chokidar'),
     open = require('open'),
     webpack = require('webpack'),
     express = require('express'),
@@ -23,7 +25,7 @@ const os = require('os'),
     }),
     app = express();
 
-os.platform() !== 'win32' && chokidar.watch('.');
+// os.platform() !== 'win32' && chokidar.watch('.');
 
 compiler.hooks.compilation.tap('html-webpack-plugin-after-emit', () =>
     hotMiddleware.publish({action: 'reload'})
