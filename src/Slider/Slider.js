@@ -164,7 +164,8 @@ class Slider extends Component {
         if (this.props.ruler) {
             clickLeft = this.getNearest(clickLeft);
         }
-        if (Math.abs(leftPosition - clickLeft) > Math.abs(rightPosition - clickLeft) || this.props.leftPoint === false) {
+        if (Math.abs(leftPosition - clickLeft) > Math.abs(rightPosition - clickLeft) || this.props.leftPoint ===
+            false) {
             let value = this.getValueFromPosition(clickLeft).toFixed(this.props.decimalPlaces);
             this.setState({
                 right: value
@@ -207,7 +208,6 @@ class Slider extends Component {
     getValueFromPosition = (position) => {
         const {scale, width} = this.props;
         const [scaleValue] = this.getScaleValueAndLabel(scale);
-
         return (position / width) * (scaleValue[scaleValue.length - 1] - scaleValue[0]) + scaleValue[0];
     };
 
@@ -273,7 +273,9 @@ class Slider extends Component {
 
     render() {
 
-        const {leftPoint, showScalePoint, scale, width, showScale, decimalPlaces, className, style, disabled} = this.props,
+        const {
+                leftPoint, showScalePoint, scale, width, showScale, decimalPlaces, className, style, unit, disabled
+            } = this.props,
             {left, right, shadow, tip} = this.state,
             display = (tip || shadow) ? '' : 'hide';
         let [scaleValue, scaleLabel] = this.getScaleValueAndLabel(scale);
@@ -295,11 +297,13 @@ class Slider extends Component {
                     {
                         showScalePoint ?
                             scaleValue.map(item => {
-                                let pointLeft = (item - scaleValue[0]) / (scaleValue[scaleValue.length - 1] - scaleValue[0]) * width,
+                                let pointLeft = (item - scaleValue[0]) /
+                                    (scaleValue[scaleValue.length - 1] - scaleValue[0]) * width,
                                     min = Math.min(leftPosition, rightPosition),
                                     max = Math.max(leftPosition, rightPosition);
                                 return <div
-                                    className={`slider-circle fixed-circle ${pointLeft < min || pointLeft > max ? 'disable-circle' : ''}`}
+                                    className={`slider-circle fixed-circle ${pointLeft < min || pointLeft > max ?
+                                        'disable-circle' : ''}`}
                                     style={{
                                         left: pointLeft
                                     }}
@@ -313,7 +317,8 @@ class Slider extends Component {
                     {
                         leftPoint ?
                             <div ref={this.circleLeft}
-                                 className={`slider-circle slider-circle-left ${shadow === 'left' ? 'slider-shadow' : ''} ${disabled ? 'disabled' : ''}`}
+                                 className={`slider-circle slider-circle-left ${shadow === 'left' ? 'slider-shadow' :
+                                     ''} ${disabled ? 'disabled' : ''}`}
                                  style={{left: leftPosition}}
                                  onMouseDown={this.handleDown}></div>
                             :
@@ -321,7 +326,8 @@ class Slider extends Component {
                     }
 
                     <div ref={this.circleRight}
-                         className={`slider-circle slider-circle-right ${shadow === 'right' ? 'slider-shadow' : ''} ${disabled ? 'disabled' : ''}`}
+                         className={`slider-circle slider-circle-right ${shadow === 'right' ? 'slider-shadow' :
+                             ''} ${disabled ? 'disabled' : ''}`}
                          style={{left: rightPosition}}
                          onMouseDown={this.handleDown}></div>
                     <div className={`slider-highlight ${disabled ? 'disabled' : ''}`}
@@ -335,12 +341,16 @@ class Slider extends Component {
                         shadow === 'left' || tip === 'left' ?
                             <div className={`slider-tip ${display}`}
                                  style={{left: leftPosition}}>
-                                {parseFloat((leftPosition / width) * (scaleValue[scaleValue.length - 1] - scaleValue[0]) + scaleValue[0]).toFixed(decimalPlaces)}
+                                {parseFloat(
+                                    (leftPosition / width) * (scaleValue[scaleValue.length - 1] - scaleValue[0]) +
+                                    scaleValue[0]).toFixed(decimalPlaces)}
                             </div>
                             :
                             <div className={`slider-tip ${display}`}
                                  style={{left: rightPosition}}>
-                                {parseFloat((rightPosition / width) * (scaleValue[scaleValue.length - 1] - scaleValue[0]) + scaleValue[0]).toFixed(decimalPlaces)}
+                                {parseFloat(
+                                    (rightPosition / width) * (scaleValue[scaleValue.length - 1] - scaleValue[0]) +
+                                    scaleValue[0]).toFixed(decimalPlaces)}
                             </div>
 
                     }
@@ -355,9 +365,10 @@ class Slider extends Component {
                                     scaleLabel && scaleLabel.map((number, index) =>
                                         <li key={index}
                                             style={{
-                                                left: (scaleValue[index] - scaleValue[0]) / (scaleValue[scaleValue.length - 1] - scaleValue[0]) * 100 + '%'
+                                                left: (scaleValue[index] - scaleValue[0]) /
+                                                    (scaleValue[scaleValue.length - 1] - scaleValue[0]) * 100 + '%'
                                             }}>
-                                            {number}
+                                            {number} {unit}
                                         </li>
                                     )
                                 }
@@ -397,7 +408,23 @@ Slider.propTypes = {
     /**
      * The width of the slider.
      */
+
     width: PropTypes.number,
+
+    /**
+     * The beginning of a range can select. The range includes the min value.
+     */
+
+    minValue: PropTypes.number,
+
+    /**
+     * The ending of a range can select. The range includes the max value.
+     */
+    maxValue: PropTypes.number,
+
+    /**
+     * The beginning of a range of valid dates. The range includes the startDate.
+     */
 
     /**
      * The size displayed on slider.
@@ -425,6 +452,11 @@ Slider.propTypes = {
     decimalPlaces: PropTypes.number,
 
     /**
+     * the scale unit.
+     */
+    unit: PropTypes.string,
+
+    /**
      * Callback function fired when the slider change.
      */
     onChange: PropTypes.func,
@@ -442,6 +474,7 @@ Slider.defaultProps = {
     width: 300,
     scale: [0, 100],
     showScale: false,
+    unit: '',
     decimalPlaces: 0
 };
 

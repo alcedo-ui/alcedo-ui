@@ -83,12 +83,11 @@ class SliderExamples extends Component {
                                 <p>Set the leftPoint property to true for display leftPoint and the ruler property for
                                     the slider step through values.</p>
 
-                                <Slider //leftPoint={true}
-                                    key={2}
-                                    initialScale={20}
-                                    scale={[20, 100]}
-                                    width={500}
-                                    ruler={10}/>
+                                <Slider key={2}
+                                        initialScale={20}
+                                        scale={[20, 100]}
+                                        width={500}
+                                        ruler={10}/>
 
                             </div>
 
@@ -110,8 +109,8 @@ class SliderExamples extends Component {
                                     slider.</p>
 
                                 <Slider key={3}
-                                        leftPoint={true}
-                                        scale={[0, 50, 80, 100]}
+                                        scale={[0, 10, 50, 100]}
+                                        unit="%"
                                         showScale={true}/>
 
                             </div>
