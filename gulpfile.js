@@ -1,3 +1,8 @@
+/**
+ * @file gulpfile.js
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 const gulp = require('gulp'),
     babel = require('gulp-babel'),
     rename = require('gulp-rename'),

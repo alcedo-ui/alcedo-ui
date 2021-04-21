@@ -31,8 +31,8 @@ module.exports = () => {
                     homepage: data.homepage,
                     peerDependencies: {
                         'prop-types': data.dependencies['prop-types'],
-                        'react': data.dependencies['react'],
-                        'react-dom': data.dependencies['react-dom']
+                        'react': '>=16.x',
+                        'react-dom': '>=16.x'
                     },
                     dependencies: {
                         '@babel/runtime': data.devDependencies['@babel/runtime'],
