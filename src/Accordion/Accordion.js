@@ -5,11 +5,15 @@
 
 import React, {Component, createRef, cloneElement} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Components
 import RaisedButton from '../RaisedButton';
 
+// Statics
 import Theme from '../Theme';
+
+// Vendors
+import classNames from 'classnames';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
 class Accordion extends Component {
@@ -45,7 +49,7 @@ class Accordion extends Component {
      */
     resetHeight = callback => {
 
-        const el = this.accordionContent && this.accordionContent.current;
+        const el = this.accordionContent?.current;
         if (this.state.collapsed || !el) {
             return;
         }
@@ -61,7 +65,8 @@ class Accordion extends Component {
             this.setState({
                 contentHeight: el.clientHeight
             }, () => {
-                callback && callback();
+                callback?.();
+                this.props.onResetHeight?.(el.clientHeight);
             });
         });
 
@@ -74,9 +79,8 @@ class Accordion extends Component {
         this.setState({
             collapsed: true
         }, () => {
-            const {onCollpase, onChange} = this.props;
-            onCollpase && onCollpase();
-            onChange && onChange(true);
+            this.props.onCollpase?.();
+            this.props.onChange?.(true);
         });
     };
 
@@ -87,9 +91,8 @@ class Accordion extends Component {
         this.setState({
             collapsed: false
         }, () => {
-            const {onExpand, onChange} = this.props;
-            onExpand && onExpand();
-            onChange && onChange(false);
+            this.props.onExpand?.();
+            this.props.onChange?.(false);
         });
     };
 
@@ -199,7 +202,9 @@ Accordion.propTypes = {
     /**
      * Callback function fired when change the status of accordion.
      */
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+
+    onResetHeight: PropTypes.func
 
 };
 
