@@ -231,8 +231,9 @@ class Table extends Component {
 
     /**
      * Update new column width value to column
-     * @param path
+     * @param resizingColumn
      * @param width
+     * @param e
      */
     handleColumnsWidthChange = (resizingColumn, width, e) => {
 
@@ -334,8 +335,10 @@ class Table extends Component {
                 paginationSelectionRenderer, paginationTotalRenderer, onPageChange, onPageSizeChange,
 
                 // not passing down these props
+                /* eslint-disable no-unused-vars */
                 columns: cols, pageSize: propsPageSize, disableScrollingRender,
                 onPaginationChange, onScrollStart, onScrollEnd,
+                /* eslint-enable no-unused-vars */
 
                 ...restProps
 
