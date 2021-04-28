@@ -611,7 +611,7 @@ class TableContent extends Component {
 
                 // not passing down these props
                 /* eslint-disable no-unused-vars */
-                isSelectRecursive, selectUncheckedIconCls, selectCheckedIconCls, resizing,
+                isSelectRecursive, selectUncheckedIconCls, selectCheckedIconCls, resizing, isSelectAllDisabled,
                 selectIndeterminateIconCls, selectColumn, expandIconCls, autoSorting, isPaginated, page, pageSize,
                 canBeExpanded, scrollTop, onPingLeftChange, onPingRightChange,
                 sortingFunc, onChange, onExpand, onCollapse, onExpandChange, onDataUpdate, onSelect,
