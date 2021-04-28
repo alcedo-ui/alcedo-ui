@@ -150,7 +150,7 @@ module.exports = {
         'linebreak-style': [1, 'unix'],
         'max-nested-callbacks': [1, 5],
         'keyword-spacing': 2,
-        'max-params': [1, 7],
+        // 'max-params': [1, 7],
         'max-statements': [1, 200],
         'new-cap': [2, {
             'newIsCap': true,
