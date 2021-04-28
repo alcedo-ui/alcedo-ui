@@ -763,6 +763,7 @@ Table.propTypes = {
         bodyRenderer: PropTypes.any
 
     }),
+    isSelectAllDisabled: PropTypes.bool,
     isSelectRecursive: PropTypes.bool,
     selectUncheckedIconCls: PropTypes.string,
     selectCheckedIconCls: PropTypes.string,
