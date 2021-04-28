@@ -170,7 +170,8 @@ class TableContent extends Component {
 
     /**
      * split columns by fixed
-     * @returns {{[p: string]: Array}}
+     * @param columns
+     * @returns {[]}
      */
     formatColumns = (columns = this.sortedColumns || this.props.columns) => {
 
@@ -190,15 +191,19 @@ class TableContent extends Component {
          * handle expand
          */
         if (canBeExpanded) {
+
             result[0] = cloneDeep(columns[0]);
             const expandColumn = TC.getFirstColumn(result);
+
             if (expandColumn) {
+
                 expandColumn.bodyRenderer = (
-                    rowData, rowIndex, colIndex, parentData, tableData, collapsed, depth, path) =>
+                    rowData, rowIndex, colIndex, parentData, tableData, collapsed, depth, path
+                ) => (
                     <Fragment>
 
                         <span className={classNames('table-indent', `indent-level-${depth}`)}
-                              style={{paddingLeft: depth * 20}}></span>
+                              style={{paddingLeft: depth * 20}}/>
 
                         {
                             TC.needCollapseButtonSpacing(tableData) ?
@@ -220,9 +225,12 @@ class TableContent extends Component {
                                 firstColumn.bodyRenderer
                         }
 
-                    </Fragment>;
+                    </Fragment>
+                );
+
                 expandColumn.bodyNoWrap = (rowData, rowIndex, colIndex, tableData) =>
                     TC.needCollapseButtonSpacing(tableData) || firstColumn.bodyNoWrap;
+
             }
         }
 
@@ -395,9 +403,8 @@ class TableContent extends Component {
 
     /**
      * handle get scroll el
-     * @param el
-     * @param fixed
      * @param fragment
+     * @param el
      */
     handleGetScrollerEl = (fragment, el) => {
         this[`${fragment}Scroller`] = el;
@@ -488,7 +495,7 @@ class TableContent extends Component {
 
         if (scrollTop !== this.lastScrollTop) {
 
-            if (target != this.headScroller && target != this.footScroller) {
+            if (target !== this.headScroller && target !== this.footScroller) {
                 this.props.onScrollTopChange?.(scrollTop);
             }
 
@@ -530,7 +537,7 @@ class TableContent extends Component {
         const wd = e.deltaY,
             target = e.target;
 
-        let scrollTop = 0;
+        let scrollTop;
 
         if (this.lastScrollTop) {
             scrollTop = this.lastScrollTop + wd;
@@ -603,11 +610,13 @@ class TableContent extends Component {
                 minColumnWidth, maxColumnWidth,
 
                 // not passing down these props
+                /* eslint-disable no-unused-vars */
                 isSelectRecursive, selectUncheckedIconCls, selectCheckedIconCls, resizing,
                 selectIndeterminateIconCls, selectColumn, expandIconCls, autoSorting, isPaginated, page, pageSize,
                 canBeExpanded, scrollTop, onPingLeftChange, onPingRightChange,
                 sortingFunc, onChange, onExpand, onCollapse, onExpandChange, onDataUpdate, onSelect,
                 onSelectAll, onDeselect, onDeselectAll, onScrollTopChange, onScroll, onResizeStart, onResizeEnd,
+                /* eslint-enable no-unused-vars */
 
                 ...restProps
 
