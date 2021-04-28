@@ -181,7 +181,7 @@ class TableContent extends Component {
 
         const {
                 columnKeyField, selectTheme, selectMode, selectAllMode, selectColumn,
-                data, disabled, value, idField, canBeExpanded,
+                data, disabled, value, idField, canBeExpanded, isSelectAllDisabled,
                 expandIconCls, selectUncheckedIconCls, selectCheckedIconCls, selectIndeterminateIconCls
             } = this.props,
             firstColumn = TC.getFirstColumn(columns),
@@ -256,7 +256,7 @@ class TableContent extends Component {
                             <Checkbox className="table-select"
                                       theme={selectTheme}
                                       checked={checked}
-                                      disabled={disabled}
+                                      disabled={isSelectAllDisabled || disabled}
                                       indeterminate={indeterminate}
                                       uncheckedIconCls={selectUncheckedIconCls}
                                       checkedIconCls={selectCheckedIconCls}
@@ -1031,6 +1031,7 @@ TableContent.propTypes = {
         bodyRenderer: PropTypes.any
 
     }),
+    isSelectAllDisabled: PropTypes.bool,
     isSelectRecursive: PropTypes.bool,
     selectUncheckedIconCls: PropTypes.string,
     selectCheckedIconCls: PropTypes.string,
