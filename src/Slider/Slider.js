@@ -5,13 +5,22 @@
 
 import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import throttle from 'lodash/throttle';
 
+// Vendors
+import throttle from 'lodash/throttle';
+import classNames from 'classnames';
 import Event from '../_vendors/Event';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
 class Slider extends Component {
+
+    static getDerivedStateFromProps(props, state) {
+        return {
+            prevProps: props,
+            left: isFinite(props.left) ? ComponentUtil.getDerivedState(props, state, 'left') : state.left,
+            right: isFinite(props.right) ? ComponentUtil.getDerivedState(props, state, 'right') : state.right
+        };
+    }
 
     constructor(props, ...restArgs) {
 
@@ -28,6 +37,41 @@ class Slider extends Component {
             shadow: '',
             tip: ''
         };
+
+    }
+
+    componentDidMount() {
+        this.sliderBoxEl = this.sliderBox && this.sliderBox.current;
+
+        Event.addEvent(document, 'mousemove', this.throttleMove);
+        Event.addEvent(document, 'mouseup', this.handleUp);
+
+        // if (this.circleRight && this.circleRight.current) {
+        Event.addEvent(this.circleRight.current, 'mouseover', this.handleOver);
+        Event.addEvent(this.circleRight.current, 'mouseout', this.handleOut);
+        // }
+
+        // if (this.circleLeft && this.circleLeft.current) {
+        Event.addEvent(this.circleLeft.current, 'mouseover', this.handleOver);
+        Event.addEvent(this.circleLeft.current, 'mouseout', this.handleOut);
+        // }
+
+    }
+
+    componentWillUnmount() {
+
+        Event.removeEvent(document, 'mousemove', this.throttleMove);
+        Event.removeEvent(document, 'mouseup', this.handleUp);
+
+        if (this.circleRight && this.circleRight.current) {
+            Event.removeEvent(this.circleRight.current, 'mouseover', this.handleOver);
+            Event.removeEvent(this.circleRight.current, 'mouseout', this.handleOut);
+        }
+
+        if (this.circleLeft && this.circleLeft.current) {
+            Event.removeEvent(this.circleLeft.current, 'mouseover', this.handleOver);
+            Event.removeEvent(this.circleLeft.current, 'mouseout', this.handleOut);
+        }
 
     }
 
@@ -67,7 +111,7 @@ class Slider extends Component {
         if (this.props.disabled) {
             return;
         }
-        let element = ev.srcElement ? ev.srcElement : ev.target;
+        let element = ev.target;
         if (element.getAttribute('class').indexOf('left') > -1) {
             this.setState({
                 shadow: 'left'
@@ -89,8 +133,7 @@ class Slider extends Component {
      */
     handleMove = ev => {
         if (this.state.shadow) {
-            let oEvent = ev || event;
-            let offsetLeft = this.getPosition(oEvent).x - this.getElementLeft(this.sliderBoxEl);
+            let offsetLeft = this.getPosition(ev).x - this.getElementLeft(this.sliderBoxEl);
             let leftPosition = this.props.width > offsetLeft ? offsetLeft : this.props.width;
             leftPosition = leftPosition > 0 ? leftPosition : 0;
             if (this.props.ruler) {
@@ -132,7 +175,7 @@ class Slider extends Component {
      * 当mouseOver至小圆点，则显示tip
      */
     handleOver = ev => {
-        let element = ev.srcElement || ev.target;
+        let element = ev.target;
         if (element.getAttribute('class').indexOf('left') > -1) {
             this.setState({
                 tip: 'left'
@@ -154,16 +197,19 @@ class Slider extends Component {
      * 点击slider时，改变slider的值
      */
     handleClick = ev => {
+
         if (this.props.disabled) {
             return;
         }
-        let oEvent = ev || event;
+
         let offsetLeft = this.getElementLeft(this.sliderBoxEl);
-        let clickLeft = this.getPosition(oEvent).x - offsetLeft;
+        let clickLeft = this.getPosition(ev).x - offsetLeft;
         const {leftPosition, rightPosition} = this.getPositionFromValue(this.state.left, this.state.right);
+
         if (this.props.ruler) {
             clickLeft = this.getNearest(clickLeft);
         }
+
         if (Math.abs(leftPosition - clickLeft) > Math.abs(rightPosition - clickLeft) || this.props.leftPoint ===
             false) {
             let value = this.getValueFromPosition(clickLeft).toFixed(this.props.decimalPlaces);
@@ -180,6 +226,7 @@ class Slider extends Component {
                 this.handleChange(value, this.state.right);
             });
         }
+
     };
 
     /**
@@ -228,49 +275,6 @@ class Slider extends Component {
         };
     };
 
-    componentDidMount() {
-        this.sliderBoxEl = this.sliderBox && this.sliderBox.current;
-
-        Event.addEvent(document, 'mousemove', this.throttleMove);
-        Event.addEvent(document, 'mouseup', this.handleUp);
-
-        // if (this.circleRight && this.circleRight.current) {
-        Event.addEvent(this.circleRight.current, 'mouseover', this.handleOver);
-        Event.addEvent(this.circleRight.current, 'mouseout', this.handleOut);
-        // }
-
-        // if (this.circleLeft && this.circleLeft.current) {
-        Event.addEvent(this.circleLeft.current, 'mouseover', this.handleOver);
-        Event.addEvent(this.circleLeft.current, 'mouseout', this.handleOut);
-        // }
-
-    }
-
-    componentWillUnmount() {
-
-        Event.removeEvent(document, 'mousemove', this.throttleMove);
-        Event.removeEvent(document, 'mouseup', this.handleUp);
-
-        if (this.circleRight && this.circleRight.current) {
-            Event.removeEvent(this.circleRight.current, 'mouseover', this.handleOver);
-            Event.removeEvent(this.circleRight.current, 'mouseout', this.handleOut);
-        }
-
-        if (this.circleLeft && this.circleLeft.current) {
-            Event.removeEvent(this.circleLeft.current, 'mouseover', this.handleOver);
-            Event.removeEvent(this.circleLeft.current, 'mouseout', this.handleOut);
-        }
-
-    }
-
-    static getDerivedStateFromProps(props, state) {
-        return {
-            prevProps: props,
-            left: isFinite(props.left) ? ComponentUtil.getDerivedState(props, state, 'left') : state.left,
-            right: isFinite(props.right) ? ComponentUtil.getDerivedState(props, state, 'right') : state.right
-        };
-    }
-
     render() {
 
         const {
@@ -296,23 +300,27 @@ class Slider extends Component {
 
                     {
                         showScalePoint ?
-                            scaleValue.map(item => {
+                            scaleValue.map((item, index) => {
+
                                 let pointLeft = (item - scaleValue[0]) /
                                     (scaleValue[scaleValue.length - 1] - scaleValue[0]) * width,
                                     min = Math.min(leftPosition, rightPosition),
                                     max = Math.max(leftPosition, rightPosition);
-                                return <div
-                                    className={`slider-circle fixed-circle ${pointLeft < min || pointLeft > max ?
-                                        'disable-circle' : ''}`}
-                                    style={{
-                                        left: pointLeft
-                                    }}
-                                    onMouseDown={this.handleDown}></div>;
+
+                                return (
+                                    <div key={index}
+                                         className={`slider-circle fixed-circle ${pointLeft < min || pointLeft > max ?
+                                             'disable-circle' : ''}`}
+                                         style={{
+                                             left: pointLeft
+                                         }}
+                                         onMouseDown={this.handleDown}/>
+                                );
+
                             })
                             :
                             null
                     }
-
 
                     {
                         leftPoint ?
@@ -320,7 +328,7 @@ class Slider extends Component {
                                  className={`slider-circle slider-circle-left ${shadow === 'left' ? 'slider-shadow' :
                                      ''} ${disabled ? 'disabled' : ''}`}
                                  style={{left: leftPosition}}
-                                 onMouseDown={this.handleDown}></div>
+                                 onMouseDown={this.handleDown}/>
                             :
                             null
                     }
@@ -329,12 +337,12 @@ class Slider extends Component {
                          className={`slider-circle slider-circle-right ${shadow === 'right' ? 'slider-shadow' :
                              ''} ${disabled ? 'disabled' : ''}`}
                          style={{left: rightPosition}}
-                         onMouseDown={this.handleDown}></div>
+                         onMouseDown={this.handleDown}/>
                     <div className={`slider-highlight ${disabled ? 'disabled' : ''}`}
                          style={{
                              width: Math.abs(leftPosition - rightPosition),
                              left: Math.min(leftPosition, rightPosition)
-                         }}></div>
+                         }}/>
 
                     {
 
@@ -368,7 +376,7 @@ class Slider extends Component {
                                                 left: (scaleValue[index] - scaleValue[0]) /
                                                     (scaleValue[scaleValue.length - 1] - scaleValue[0]) * 100 + '%'
                                             }}>
-                                            {number} {unit}
+                                            {number}{unit}
                                         </li>
                                     )
                                 }
@@ -408,23 +416,17 @@ Slider.propTypes = {
     /**
      * The width of the slider.
      */
-
     width: PropTypes.number,
 
     /**
      * The beginning of a range can select. The range includes the min value.
      */
-
     minValue: PropTypes.number,
 
     /**
      * The ending of a range can select. The range includes the max value.
      */
     maxValue: PropTypes.number,
-
-    /**
-     * The beginning of a range of valid dates. The range includes the startDate.
-     */
 
     /**
      * The size displayed on slider.
@@ -455,6 +457,9 @@ Slider.propTypes = {
      * the scale unit.
      */
     unit: PropTypes.string,
+
+    left: PropTypes.number,
+    right: PropTypes.number,
 
     /**
      * Callback function fired when the slider change.
