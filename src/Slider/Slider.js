@@ -278,7 +278,8 @@ class Slider extends Component {
     render() {
 
         const {
-                leftPoint, showScalePoint, scale, width, showScale, decimalPlaces, className, style, unit, disabled
+                leftPoint, showScalePoint, scale, width, showScale,
+                decimalPlaces, className, style, unit, disabled
             } = this.props,
             {left, right, shadow, tip} = this.state,
             display = (tip || shadow) ? '' : 'hide';
@@ -292,7 +293,8 @@ class Slider extends Component {
                  style={{
                      ...style,
                      width
-                 }}>
+                 }}
+                 disabled={disabled}>
 
                 <div ref={this.sliderBox}
                      className={`slider-box ${disabled ? 'disabled' : ''}`}
