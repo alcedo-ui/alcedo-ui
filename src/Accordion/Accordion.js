@@ -54,11 +54,6 @@ class Accordion extends Component {
             return;
         }
 
-        const style = window.getComputedStyle(el);
-        if (!style) {
-            return;
-        }
-
         this.setState({
             contentHeight: 'auto'
         }, () => {
