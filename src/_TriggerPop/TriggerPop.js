@@ -37,7 +37,7 @@ class TriggerPop extends Component {
 
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.props.shouldFollowScroll && !prevProps.visible && this.props.visible) {
             this.addWatchScroll();
         } else if (prevProps.visible && !this.props.visible) {
@@ -122,6 +122,7 @@ class TriggerPop extends Component {
             hasTriangle, triangle, position, isAnimated,
 
             // not passing down these props
+            // eslint-disable-next-line no-unused-vars
             isEscClose, isBlurClose, shouldFollowScroll, scrollEl,
 
             ...restProps
@@ -139,7 +140,7 @@ class TriggerPop extends Component {
                      [className]: className
                  })}
                  position={position}
-                 container={<Paper></Paper>}
+                 container={<Paper/>}
                  isAnimated={isAnimated}
                  resetPosition={this.resetPosition}>
                 {
@@ -276,7 +277,7 @@ TriggerPop.defaultProps = {
 
     visible: false,
     hasTriangle: true,
-    triangle: <div className="trigger-pop-triangle"></div>,
+    triangle: <div className="trigger-pop-triangle"/>,
     showModal: false,
     position: Position.BOTTOM,
     isAnimated: true,
