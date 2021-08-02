@@ -39,7 +39,7 @@ class RoundStepItem extends Component {
 
     handleClick = e => {
         const {activatedStep, finishedStep, index, disabled, onClick} = this.props;
-        !disabled && activatedStep !== index && finishedStep >= index && onClick && onClick(index, e);
+        !disabled && activatedStep !== index && finishedStep >= index && onClick?.(index, e);
     };
 
     render() {
@@ -51,13 +51,16 @@ class RoundStepItem extends Component {
 
             titleEl = (
                 <div className="title">
-                    {value.title}
+                    {value?.title || ''}
                 </div>
             );
 
         return (
             <div className={classNames('round-step-item',
-                activatedStep == index ? ' activated' : (finishedStep >= index ? ' finished' : ''), {
+                activatedStep === index ?
+                    'activated'
+                    :
+                    (finishedStep >= index ? ' finished' : ''), {
                     first: isFirst,
                     last: isLast,
                     disabled: disabled,
@@ -74,19 +77,19 @@ class RoundStepItem extends Component {
 
                 <div className="round-step-item-content">
 
-                    <div className="bg-bar"></div>
-                    <div className="bg-round"></div>
+                    <div className="bg-bar"/>
+                    <div className="bg-round"/>
 
                     {
                         !isFirst && (finishedStep >= index || activatedStep >= index) ?
-                            <div className="left-bar"></div>
+                            <div className="left-bar"/>
                             :
                             null
                     }
 
                     {
                         !isLast ?
-                            <div className={'right-bar' + this.getRightBarClassName()}></div>
+                            <div className={'right-bar' + this.getRightBarClassName()}/>
                             :
                             null
                     }
@@ -96,9 +99,13 @@ class RoundStepItem extends Component {
                         {
                             showFinishedStepIcon && finishedStep > index ?
                                 <i className={finishedStepIconCls}
-                                   aria-hidden="true"></i>
+                                   aria-hidden="true"/>
                                 :
-                                (index + 1)
+                                value?.iconCls ?
+                                    <i className={value?.iconCls}
+                                       aria-hidden="true"/>
+                                    :
+                                    (index + 1)
                         }
                     </div>
 
