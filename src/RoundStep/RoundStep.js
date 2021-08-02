@@ -69,7 +69,7 @@ class RoundStep extends Component {
             })}
                  style={style}>
                 {
-                    steps && steps.map((item, index) =>
+                    steps?.map((item, index) =>
                         <RoundStepItem key={index}
                                        index={index}
                                        className={item.className}
@@ -126,7 +126,12 @@ RoundStep.propTypes = {
         /**
          * The text value of step.
          */
-        title: PropTypes.string
+        title: PropTypes.string,
+
+        /**
+         * The icon class name of step.
+         */
+        iconCls: PropTypes.string
 
     })).isRequired,
 
