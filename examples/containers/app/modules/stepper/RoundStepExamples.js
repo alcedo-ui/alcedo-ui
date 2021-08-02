@@ -1,3 +1,8 @@
+/**
+ * @file RoundStep examples
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 
 import RoundStep from 'src/RoundStep';
@@ -58,7 +63,8 @@ class RoundStepExamples extends Component {
 
         const {activatedStep, finishedStep} = this.state,
             steps = [{
-                title: 'Step 1'
+                title: 'Step 1',
+                iconCls: 'fas fa-map-marker-alt'
             }, {
                 title: 'Step 2'
             }, {
@@ -101,7 +107,8 @@ class RoundStepExamples extends Component {
                                               onClick={this.prev}/>
 
                                 <RaisedButton value={activatedStep < steps.length - 1 ? 'Next' : 'Finish'}
-                                              rightIconCls={activatedStep < steps.length - 1 ? 'fas fa-angle-right' : ''}
+                                              rightIconCls={activatedStep < steps.length - 1 ? 'fas fa-angle-right' :
+                                                  ''}
                                               disabled={activatedStep >= steps.length}
                                               onClick={this.next}/>
 
@@ -138,7 +145,8 @@ class RoundStepExamples extends Component {
                                               onClick={this.prev}/>
 
                                 <RaisedButton value={activatedStep < steps.length - 1 ? 'Next' : 'Finish'}
-                                              rightIconCls={activatedStep < steps.length - 1 ? 'fas fa-angle-right' : ''}
+                                              rightIconCls={activatedStep < steps.length - 1 ? 'fas fa-angle-right' :
+                                                  ''}
                                               disabled={activatedStep >= steps.length}
                                               onClick={this.next}/>
 
