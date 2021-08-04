@@ -49,6 +49,7 @@ class DropdownSelect extends Component {
         this.actions = createRef();
         this.filter = createRef();
         this.scroller = createRef();
+        this.popupChildren = createRef();
 
         this.state = {
             value: props.value,
@@ -116,8 +117,12 @@ class DropdownSelect extends Component {
             return result;
         }
 
-        if (this.actions && this.actions.current && this.actions.current.offsetHeight) {
+        if (this.actions?.current?.offsetHeight) {
             result -= this.actions.current.offsetHeight;
+        }
+
+        if (this.popupChildren?.current?.offsetHeight) {
+            result -= this.popupChildren.current.offsetHeight;
         }
 
         return result;
@@ -525,7 +530,10 @@ class DropdownSelect extends Component {
                         }
                     </div>
 
-                    {popupChildren}
+                    <div ref={this.popupChildren}
+                         className="dropdown-select-popup-children">
+                        {popupChildren}
+                    </div>
 
                 </Dropdown>
 
