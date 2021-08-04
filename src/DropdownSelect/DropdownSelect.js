@@ -5,19 +5,22 @@
 
 import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Components
 import Dropdown from '../Dropdown';
 import TextField from '../TextField';
 import GroupList from '../GroupList';
 import List from '../List';
 import DynamicRenderList from '../DynamicRenderList';
 import Checkbox from '../Checkbox';
-import Theme from '../Theme';
 
+// Statics
+import Theme from '../Theme';
 import SelectMode from '../_statics/SelectMode';
 import Position from '../_statics/Position';
 
+// Vendors
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 import Dom from '../_vendors/Dom';
 import ComponentUtil from '../_vendors/ComponentUtil';
@@ -169,7 +172,6 @@ class DropdownSelect extends Component {
             return filterCallback(filter, data);
         }
 
-        // debugger
         if (isGrouped) {
 
             return data && data.map(group => {
@@ -177,7 +179,7 @@ class DropdownSelect extends Component {
                 const children = filterFunc(group.children);
 
                 if (children.length < 1) {
-                    return;
+                    return null;
                 } else {
                     return {
                         ...group,
@@ -306,9 +308,15 @@ class DropdownSelect extends Component {
             perTick = difference / duration * 10;
 
         setTimeout(() => {
+
             element.scrollTop = element.scrollTop + perTick;
-            if (element.scrollTop === to) return;
+
+            if (element.scrollTop === to) {
+                return;
+            }
+
             this.scrollTo(element, to, duration - 10);
+
         }, 10);
 
     };
@@ -346,15 +354,17 @@ class DropdownSelect extends Component {
         const {
 
                 className, triggerClassName, popupClassName, style, name, popupTheme, data, triggerRenderer,
-                useDynamicRenderList, listHeight, itemHeight, scrollBuffer, renderer, listItemRenderer, selectMode,
+                useDynamicRenderList, itemHeight, scrollBuffer, renderer, listItemRenderer, selectMode,
                 itemDisabled, useFilter, filterIconCls, useSelectAll, selectAllText, valueField, displayField,
                 descriptionField, popupChildren, isHiddenInputFilter, noMatchedMsg, isGrouped, filterPlaceholder,
                 radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
                 // not passing down these props
-                value: v, clearHiddenInputFilterInterval,
+                /* eslint-disable no-unused-vars */
+                value: v, clearHiddenInputFilterInterval, listHeight,
                 onOpenPopup, onClosePopup, onItemClick, onBeforeChange, onChange,
+                /* eslint-enable no-unused-vars */
 
                 ...restProps
 
@@ -448,7 +458,7 @@ class DropdownSelect extends Component {
                                             noMatchedMsg
                                             :
                                             <span>
-                                                <i className="fas fa-exclamation-triangle no-matched-icon"></i>
+                                                <i className="fas fa-exclamation-triangle no-matched-icon"/>
                                                 No matched value.
                                             </span>
                                     }
