@@ -146,8 +146,11 @@ class DropdownSelect extends Component {
         scrollerEl.style.height = 'auto';
 
         let scrollerHeight = popEl.offsetHeight;
-        if (this.actions && this.actions.current && this.actions.current.offsetHeight) {
+        if (this.actions?.current?.offsetHeight) {
             scrollerHeight -= this.actions.current.offsetHeight;
+        }
+        if (this.popupChildren?.current?.offsetHeight) {
+            scrollerHeight -= this.popupChildren.current.offsetHeight;
         }
 
         scrollerEl.style.height = `${scrollerHeight}px`;
