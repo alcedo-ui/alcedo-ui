@@ -1,14 +1,22 @@
+/**
+ * @file TabExamples.js
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 
+// Components
 import Tab from 'src/Tab';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import Toaster from 'src/Toaster';
 import IconButton from 'src/IconButton';
-
 import PropTypeDescTable from 'components/PropTypeDescTable';
+
+// Statics
 import doc from 'assets/propTypes/Tab.json';
 
+// Styles
 import 'scss/containers/app/modules/layout/TabExamples.scss';
 
 class TabExamples extends Component {
@@ -139,7 +147,7 @@ class TabExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Full Width Tabs Example"/>
+                    <WidgetHeader className="example-header" title="Full Width Tabs"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -169,7 +177,7 @@ class TabExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Tabs Example"/>
+                    <WidgetHeader className="example-header" title="Scroll Tabs"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -204,7 +212,7 @@ class TabExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Tabs Example"/>
+                    <WidgetHeader className="example-header" title="With icons"/>
 
                     <div className="widget-content">
                         <div className="example-content">
