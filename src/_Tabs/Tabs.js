@@ -253,13 +253,14 @@ class Tabs extends Component {
                                         <div className="tab-buttons">
 
                                             {
-                                                data && data.map((item, index) => {
+                                                data?.map((item, index) => {
 
                                                     const {
 
                                                             value, renderer,
 
                                                             // not passing down these props
+                                                            // eslint-disable-next-line no-unused-vars
                                                             tabContentRenderer, onActive,
 
                                                             ...restProps
@@ -270,14 +271,24 @@ class Tabs extends Component {
                                                     return (
                                                         <TabsButton {...restProps}
                                                                     key={idField && item[idField] || index}
-                                                                    style={{width: isTabFullWidth ? `${100 / data.length}%` : 'auto'}}
+                                                                    style={{
+                                                                        width: isTabFullWidth ?
+                                                                            `${100 / data.length}%`
+                                                                            :
+                                                                            'auto'
+                                                                    }}
                                                                     data={item}
                                                                     value={value}
                                                                     index={index}
                                                                     isTabFullWidth={isTabFullWidth}
                                                                     activated={activated}
                                                                     draggable={draggable}
-                                                                    renderer={renderer?.bind(null, value, activated)}
+                                                                    renderer={
+                                                                        renderer && typeof renderer === 'function' ?
+                                                                            renderer.bind(null, value, activated)
+                                                                            :
+                                                                            renderer
+                                                                    }
                                                                     onMouseDown={onTabMouseDown}
                                                                     onMouseUp={onTabMouseUp}
                                                                     onClick={onTabClick}/>
