@@ -116,7 +116,7 @@ class Notification extends Component {
                     type === MsgType.DEFAULT ?
                         null
                         :
-                        <i className={`${iconCls ? iconCls : this.getIconCls()} notification-icon`}></i>
+                        <i className={`${iconCls ? iconCls : this.getIconCls()} notification-icon`}/>
                 }
 
                 <div className="notification-title">{title}</div>
