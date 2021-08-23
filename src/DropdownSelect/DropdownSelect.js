@@ -161,7 +161,13 @@ class DropdownSelect extends Component {
     handleFilterChange = filter => {
         this.setState({
             filter
-        }, () => this.dropdown?.current?.resetPopupPosition?.());
+        }, () => {
+
+            this.props.onFilterChange?.(filter);
+
+            this.dropdown?.current?.resetPopupPosition?.();
+
+        });
     };
 
     filterData = (filter = this.state.filter, data = this.props.data) => {
@@ -367,11 +373,12 @@ class DropdownSelect extends Component {
                 descriptionField, popupChildren, isHiddenInputFilter, noMatchedMsg, isGrouped, filterPlaceholder,
                 radioUncheckedIconCls, radioCheckedIconCls,
                 checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
+                onListDataChange,
 
                 // not passing down these props
                 /* eslint-disable no-unused-vars */
                 value: v, clearHiddenInputFilterInterval, listHeight,
-                onOpenPopup, onClosePopup, onItemClick, onBeforeChange, onChange,
+                onOpenPopup, onClosePopup, onItemClick, onBeforeChange, onChange, onFilterChange,
                 /* eslint-enable no-unused-vars */
 
                 ...restProps
@@ -381,6 +388,8 @@ class DropdownSelect extends Component {
 
             isMultiSelect = selectMode === SelectMode.MULTI_SELECT,
             listData = this.filterData();
+
+        onListDataChange?.(listData);
 
         return (
             <div className={classNames('dropdown-select', {
@@ -812,7 +821,9 @@ DropdownSelect.propTypes = {
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
     onMouseOver: PropTypes.func,
-    onMouseOut: PropTypes.func
+    onMouseOut: PropTypes.func,
+    onFilterChange: PropTypes.func,
+    onListDataChange: PropTypes.func
 
 };
 
