@@ -118,7 +118,15 @@ class DropdownSelectExamples extends Component {
     };
 
     onChange = value => {
-        console.log(value);
+        console.log('onChange::', value);
+    };
+
+    onFilterChange = filter => {
+        console.log('onFilterChange::', filter);
+    };
+
+    onListDataChange = listData => {
+        console.log('onListDataChange::', listData);
     };
 
     render() {
@@ -251,7 +259,9 @@ class DropdownSelectExamples extends Component {
                                                     autoClose={false}
                                                     checkboxUncheckedIconCls={'far fa-window-close'}
                                                     checkboxCheckedIconCls={'fas fa-window-close'}
-                                                    onChange={this.onChange}/>
+                                                    onChange={this.onChange}
+                                                    onFilterChange={this.onFilterChange}
+                                                    onListDataChange={this.onListDataChange}/>
 
                                 </div>
 
