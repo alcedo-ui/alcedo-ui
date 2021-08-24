@@ -69,7 +69,7 @@ class RoundStep extends Component {
             })}
                  style={style}>
                 {
-                    steps?.map((item, index) =>
+                    steps?.map((item, index) => item ?
                         <RoundStepItem key={index}
                                        index={index}
                                        className={item.className}
@@ -87,7 +87,10 @@ class RoundStep extends Component {
                                        finishedStepIconCls={finishedStepIconCls}
                                        disabled={disabled}
                                        titlePosition={titlePosition}
+                                       onItemClick={item.onClick}
                                        onClick={this.handleClick}/>
+                        :
+                        null
                     )
                 }
             </div>
@@ -131,7 +134,12 @@ RoundStep.propTypes = {
         /**
          * The icon class name of step.
          */
-        iconCls: PropTypes.string
+        iconCls: PropTypes.string,
+
+        /**
+         * Item click callback.
+         */
+        onClick: PropTypes.func
 
     })).isRequired,
 
