@@ -38,22 +38,32 @@ class RoundStepItem extends Component {
     };
 
     handleClick = e => {
-        const {activatedStep, finishedStep, index, disabled, onClick} = this.props;
-        !disabled && activatedStep !== index && finishedStep >= index && onClick?.(index, e);
+
+        const {value, activatedStep, finishedStep, index, disabled} = this.props;
+
+        if (disabled) {
+            return;
+        }
+
+        this.props.onItemClick?.(value, index);
+
+        activatedStep !== index && finishedStep >= index && this.props.onClick?.(index, e);
+
     };
 
     render() {
 
         const {
-                className, style, activatedStep, finishedStep, index, value, isFirst, isLast,
-                showFinishedStepIcon, finishedStepIconCls, disabled, titlePosition
-            } = this.props,
+            className, style, activatedStep, finishedStep, index, value, isFirst, isLast,
+            showFinishedStepIcon, finishedStepIconCls, disabled, titlePosition
+        } = this.props;
 
-            titleEl = (
-                <div className="title">
-                    {value?.title || ''}
-                </div>
-            );
+        const titleEl = (
+            <div className="title"
+                 onClick={this.handleClick}>
+                {value?.title || ''}
+            </div>
+        );
 
         return (
             <div className={classNames('round-step-item',
@@ -143,6 +153,7 @@ RoundStepItem.propTypes = {
 
     titlePosition: PropTypes.oneOf(Util.enumerateValue(Position)),
 
+    onItemClick: PropTypes.func,
     onClick: PropTypes.func
 
 };

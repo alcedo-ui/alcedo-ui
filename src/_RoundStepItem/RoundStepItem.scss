@@ -123,10 +123,18 @@
             background: $theme-primary;
             color: #fff;
         }
+
+        .title {
+            cursor: pointer;
+        }
     }
 
     &.disabled {
         .round {
+            cursor: default;
+        }
+
+        .title {
             cursor: default;
         }
     }
