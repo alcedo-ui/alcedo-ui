@@ -939,7 +939,7 @@ TableContent.propTypes = {
     value: PropTypes.array,
     idField: PropTypes.string,
     disabled: PropTypes.bool,
-    noDataText: PropTypes.string,
+    noDataText: PropTypes.any,
 
     /**
      * expand
