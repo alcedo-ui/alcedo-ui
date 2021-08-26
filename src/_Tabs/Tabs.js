@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 // Components
 import {DragDropContext, Droppable} from 'react-beautiful-dnd';
 import IconButton from '../IconButton';
-import TabsButton from '../_TabButton';
+import TabButton from '../_TabButton';
 
 // Statics
 import Position from '../_statics/Position';
@@ -269,29 +269,29 @@ class Tabs extends Component {
                                                         activated = activatedIndex === index;
 
                                                     return (
-                                                        <TabsButton {...restProps}
-                                                                    key={idField && item[idField] || index}
-                                                                    style={{
-                                                                        width: isTabFullWidth ?
-                                                                            `${100 / data.length}%`
-                                                                            :
-                                                                            'auto'
-                                                                    }}
-                                                                    data={item}
-                                                                    value={value}
-                                                                    index={index}
-                                                                    isTabFullWidth={isTabFullWidth}
-                                                                    activated={activated}
-                                                                    draggable={draggable}
-                                                                    renderer={
-                                                                        renderer && typeof renderer === 'function' ?
-                                                                            renderer.bind(null, value, activated)
-                                                                            :
-                                                                            renderer
-                                                                    }
-                                                                    onMouseDown={onTabMouseDown}
-                                                                    onMouseUp={onTabMouseUp}
-                                                                    onClick={onTabClick}/>
+                                                        <TabButton {...restProps}
+                                                                   key={idField && item[idField] || index}
+                                                                   style={{
+                                                                       width: isTabFullWidth ?
+                                                                           `${100 / data.length}%`
+                                                                           :
+                                                                           'auto'
+                                                                   }}
+                                                                   data={item}
+                                                                   value={value}
+                                                                   index={index}
+                                                                   isTabFullWidth={isTabFullWidth}
+                                                                   activated={activated}
+                                                                   draggable={draggable}
+                                                                   renderer={
+                                                                       renderer && typeof renderer === 'function' ?
+                                                                           renderer.bind(null, value, activated)
+                                                                           :
+                                                                           renderer
+                                                                   }
+                                                                   onMouseDown={onTabMouseDown}
+                                                                   onMouseUp={onTabMouseUp}
+                                                                   onClick={onTabClick}/>
                                                     );
 
                                                 })
