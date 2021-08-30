@@ -184,20 +184,20 @@ class List extends Component {
          * Item click callback
          * @param e
          */
-        function handleItemClick(e) {
+        const handleItemClick = e => {
             this.setState({
                 focusIndex: index
             }, () => onItemClick?.(item, index, e));
-        }
+        };
 
         /**
          * Object item click callback
          * @param e
          */
-        function handleObjectItemClick(e) {
+        const handleObjectItemClick = e => {
             handleItemClick(e);
             item.onClick?.(e);
-        }
+        };
 
         return typeof item === 'object' ?
             <ListItem key={index}
