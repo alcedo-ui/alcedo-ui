@@ -46,7 +46,8 @@ class List extends Component {
         this.listEl = null;
 
         this.state = {
-            value: Calculation.getInitValue(props)
+            value: Calculation.getInitValue(props),
+            focusIndex: -1
         };
 
     }
@@ -127,7 +128,7 @@ class List extends Component {
         } else {
             value = value.filter(valueItem =>
                 Util.getValueByValueField(valueItem, valueField, displayField)
-                != Util.getValueByValueField(item, valueField, displayField)
+                !== Util.getValueByValueField(item, valueField, displayField)
             );
         }
 
@@ -152,10 +153,10 @@ class List extends Component {
             {value} = this.state;
 
         return (
-            listItemDisabled != undefined
+            listItemDisabled != null
             && (typeof listItemDisabled === 'function' ? listItemDisabled(item, value, data) : listItemDisabled)
         ) || (
-            itemDisabled != undefined
+            itemDisabled != null
             && (typeof itemDisabled === 'function' ? itemDisabled(item, value, data) : itemDisabled)
         );
 
@@ -177,14 +178,40 @@ class List extends Component {
                 onItemClick
 
             } = this.props,
-            {value} = this.state;
+            {value, focusIndex} = this.state;
+
+        /**
+         * Item click callback
+         * @param e
+         */
+        function handleItemClick(e) {
+            this.setState({
+                focusIndex: index
+            }, () => onItemClick?.(item, index, e));
+        }
+
+        /**
+         * Object item click callback
+         * @param e
+         */
+        function handleObjectItemClick(e) {
+            handleItemClick(e);
+            item.onClick?.(e);
+        }
 
         return typeof item === 'object' ?
             <ListItem key={index}
                       {...item}
                       index={index}
                       parentEl={parentEl}
-                      style={{height: itemHeight}}
+                      className={classNames({
+                          focused: focusIndex === index,
+                          [item.className]: item.className
+                      })}
+                      style={{
+                          ...item.style,
+                          height: itemHeight
+                      }}
                       theme={item.theme || theme}
                       activatedTheme={item.activatedTheme || activatedTheme}
                       selectTheme={item.selectTheme || selectTheme}
@@ -205,16 +232,16 @@ class List extends Component {
                       autoSelect={autoSelect}
                       disableTouchRipple={item.disableTouchRipple || disableTouchRipple}
                       indeterminateCallback={indeterminateCallback}
-                      onClick={e => {
-                          onItemClick && onItemClick(item, index, e);
-                          item.onClick && item.onClick(e);
-                      }}
+                      onClick={handleObjectItemClick}
                       onSelect={() => this.handleListItemSelect(item, index)}
                       onDeselect={() => this.handleListItemDeselect(item, index)}/>
             :
             <ListItem key={index}
                       index={index}
                       parentEl={parentEl}
+                      className={classNames({
+                          focused: focusIndex === index
+                      })}
                       style={{height: itemHeight}}
                       theme={theme}
                       activatedTheme={activatedTheme}
@@ -235,7 +262,7 @@ class List extends Component {
                       autoSelect={autoSelect}
                       disableTouchRipple={disableTouchRipple}
                       indeterminateCallback={indeterminateCallback}
-                      onClick={e => onItemClick && onItemClick(item, index, e)}
+                      onClick={handleItemClick}
                       onSelect={() => this.handleListItemSelect(item, index)}
                       onDeselect={() => this.handleListItemDeselect(item, index)}/>;
 
@@ -272,7 +299,7 @@ class List extends Component {
                 {
                     data && data.map((item, index) => item === LIST_SEPARATOR ?
                         <div key={index}
-                             className="list-separator"></div>
+                             className="list-separator"/>
                         :
                         this.renderListItem(item, index)
                     )
