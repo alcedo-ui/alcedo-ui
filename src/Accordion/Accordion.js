@@ -57,10 +57,10 @@ class Accordion extends Component {
         this.setState({
             contentHeight: 'auto'
         }, () => this.setState({
-            contentHeight: el.clientHeight
+            contentHeight: el.offsetHeight
         }, () => {
             callback?.();
-            this.props.onResetHeight?.(el.clientHeight);
+            this.props.onResetHeight?.(el.offsetHeight);
         }));
 
     };
