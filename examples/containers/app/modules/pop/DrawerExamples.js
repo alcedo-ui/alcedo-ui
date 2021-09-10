@@ -1,14 +1,22 @@
+/**
+ * @file Drawer examples
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 
+// Components
 import RaisedButton from 'src/RaisedButton';
 import Drawer from 'src/Drawer';
 import List from 'src/List';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
+// Docs
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Drawer.json';
 
+// Styles
 import 'scss/containers/app/modules/pop/PopExamples.scss';
 import 'scss/containers/app/modules/pop/DrawerExamples.scss';
 
@@ -38,7 +46,9 @@ class DrawerExamples extends Component {
 
     }
 
-    toggleDrawer = id => {
+    toggleDrawer = (e, id) => {
+
+        e.stopPropagation();
 
         const {popupVisible} = this.state;
 
@@ -97,25 +107,25 @@ class DrawerExamples extends Component {
                                     <div className="button-group top">
                                         <RaisedButton className="trigger-position-button"
                                                       value="Top"
-                                                      onClick={() => this.toggleDrawer(0)}/>
+                                                      onClick={e => this.toggleDrawer(e, 0)}/>
                                     </div>
 
                                     <div className="button-group right">
                                         <RaisedButton className="trigger-position-button"
                                                       value="Right"
-                                                      onClick={() => this.toggleDrawer(1)}/>
+                                                      onClick={e => this.toggleDrawer(e, 1)}/>
                                     </div>
 
                                     <div className="button-group bottom">
                                         <RaisedButton className="trigger-position-button"
                                                       value="Bottom"
-                                                      onClick={() => this.toggleDrawer(2)}/>
+                                                      onClick={e => this.toggleDrawer(e, 2)}/>
                                     </div>
 
                                     <div className="button-group left">
                                         <RaisedButton className="trigger-position-button"
                                                       value="Left"
-                                                      onClick={() => this.toggleDrawer(3)}/>
+                                                      onClick={e => this.toggleDrawer(e, 3)}/>
                                     </div>
 
                                 </div>
