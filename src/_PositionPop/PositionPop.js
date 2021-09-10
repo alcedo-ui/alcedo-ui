@@ -5,13 +5,16 @@
 
 import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Components
 import Pop from '../_Pop';
 
+// Statics
 import Theme from '../Theme';
 import Position from '../_statics/Position';
 
+// Vendors
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 import PositionPopCalculation from '../_vendors/PositionPopCalculation';
 
@@ -32,7 +35,7 @@ class PositionPop extends Component {
      * public
      */
     getEl = () => {
-        return this.pop && this.pop.current && this.pop.current.getEl();
+        return this.pop?.current?.getEl?.() || null;
     };
 
     /**
