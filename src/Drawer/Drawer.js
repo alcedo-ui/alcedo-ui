@@ -66,13 +66,13 @@ class Drawer extends Component {
 
     handleClose = e => {
 
-        const {visible, isBlurClose, drawerVisibleHandler, onRequestClose} = this.props;
+        const {visible, isBlurClose, drawerVisibleHandler} = this.props;
 
         if (!visible) {
             return;
         }
 
-        const drawerEl = this.drawerContent && this.drawerContent.current && findDOMNode(this.drawerContent.current);
+        const drawerEl = findDOMNode(this.drawerContent?.current);
         let currVisible;
 
         if (drawerVisibleHandler) {
@@ -82,7 +82,7 @@ class Drawer extends Component {
         }
 
         if (currVisible === false) {
-            onRequestClose && onRequestClose(e);
+            this.props.onRequestClose?.(e);
         }
 
     };
@@ -93,18 +93,13 @@ class Drawer extends Component {
             shouldLockBody: this.props.showModal
         });
 
-        const {onRender} = this.props;
-        onRender && onRender(...args);
+        this.props.onRender?.(...args);
 
     };
 
     handleDestroy = (...args) => {
-
         PopManagement.pop(this);
-
-        const {onDestroy} = this.props;
-        onDestroy && onDestroy(...args);
-
+        this.props.onDestroy?.(...args);
     };
 
     render() {
