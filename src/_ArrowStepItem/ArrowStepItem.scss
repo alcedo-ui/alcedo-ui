@@ -118,19 +118,19 @@
             left: -14px;
 
             .triangle-top {
-                top: 0px;
-                left: 0px;
+                top: 0;
+                left: 0;
 
             }
+
             .triangle-bottom {
-                top: 0px;
-                left: 0px;
+                top: 0;
+                left: 0;
             }
         }
 
         &.triangle-wrapper-right {
             right: 16px;
-            //background: $theme-bg;
         }
 
     }
@@ -169,6 +169,7 @@
                     border-top-color: theme-color-hover($theme-highlight);
                     border-right-color: theme-color-hover($theme-highlight);
                 }
+
                 .triangle-bottom {
                     border-right-color: theme-color-hover($theme-highlight);
                     border-bottom-color: theme-color-hover($theme-highlight);
@@ -209,6 +210,7 @@
                     border-top-color: theme-color-hover($theme-primary);
                     border-right-color: theme-color-hover($theme-primary);
                 }
+
                 .triangle-bottom {
                     border-right-color: theme-color-hover($theme-primary);
                     border-bottom-color: theme-color-hover($theme-primary);
@@ -220,6 +222,22 @@
                     border-left-color: theme-color-hover($theme-primary);
                 }
             }
+        }
+    }
+
+    &.has-first-step-left-triangle {
+        padding-left: 30px;
+
+        .triangle-wrapper-left {
+            left: 0;
+        }
+    }
+
+    &.has-last-step-right-triangle {
+        padding-right: 30px;
+
+        .triangle-wrapper-right {
+            right: 30px;
         }
     }
 }

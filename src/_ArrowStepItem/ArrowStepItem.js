@@ -5,6 +5,8 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+
+// Vendors
 import classNames from 'classnames';
 
 class ArrowStepItem extends Component {
@@ -15,21 +17,33 @@ class ArrowStepItem extends Component {
 
     handleClick = e => {
         const {isActivatedStep, isFinishedStep, index, onClick} = this.props;
-        !isActivatedStep && isFinishedStep && onClick && onClick(index, e);
+        !isActivatedStep && isFinishedStep && onClick?.(index, e);
     };
 
     render() {
 
-        const {className, style, isActivatedStep, isFinishedStep, index, value, isFirst, isLast} = this.props,
-            triangleClassName = isActivatedStep ? 'activated' : (isFinishedStep ? 'finished' : '');
+        const {
+            className, style,
+            isActivatedStep, isFinishedStep, isFirstStepLeftTriangleVisible, isLastStepRightTriangleVisible,
+            index, value, isFirst, isLast
+        } = this.props;
+
+        const triangleClassName = isActivatedStep ?
+            'activated'
+            :
+            (isFinishedStep ? 'finished' : '');
 
         return (
-            <div className={classNames('arrow-step-item',
-                isActivatedStep ? 'activated' : (isFinishedStep ? 'finished' : ''), {
-                    first: isFirst,
-                    last: isLast,
-                    [className]: className
-                })}
+            <div className={classNames('arrow-step-item', isActivatedStep ?
+                'activated'
+                :
+                (isFinishedStep ? 'finished' : ''), {
+                first: isFirst,
+                last: isLast,
+                'has-first-step-left-triangle': isFirst && isFirstStepLeftTriangleVisible,
+                'has-last-step-right-triangle': isLast && isLastStepRightTriangleVisible,
+                [className]: className
+            })}
                  style={style}
                  onClick={this.handleClick}>
 
@@ -43,21 +57,21 @@ class ArrowStepItem extends Component {
                 </div>
 
                 {
-                    isFirst ?
+                    isFirst && !isFirstStepLeftTriangleVisible ?
                         null
                         :
                         <div className="triangle-wrapper triangle-wrapper-left">
-                            <div className={classNames('triangle-top', triangleClassName)}></div>
-                            <div className={classNames('triangle-bottom', triangleClassName)}></div>
+                            <div className={classNames('triangle-top', triangleClassName)}/>
+                            <div className={classNames('triangle-bottom', triangleClassName)}/>
                         </div>
                 }
 
                 {
-                    isLast ?
+                    isLast && !isLastStepRightTriangleVisible ?
                         null
                         :
                         <div className="triangle-wrapper triangle-wrapper-right">
-                            <div className={classNames('triangle-middle', triangleClassName)}></div>
+                            <div className={classNames('triangle-middle', triangleClassName)}/>
                         </div>
                 }
 
@@ -80,6 +94,9 @@ ArrowStepItem.propTypes = {
     isFirst: PropTypes.bool,
     isLast: PropTypes.bool,
 
+    isFirstStepLeftTriangleVisible: PropTypes.bool,
+    isLastStepRightTriangleVisible: PropTypes.bool,
+
     onClick: PropTypes.func
 
 };
@@ -91,7 +108,10 @@ ArrowStepItem.defaultProps = {
     isFinishedStep: false,
 
     isFirst: true,
-    isLast: true
+    isLast: true,
+
+    isFirstStepLeftTriangleVisible: false,
+    isLastStepRightTriangleVisible: false
 
 };
 
