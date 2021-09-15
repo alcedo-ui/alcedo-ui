@@ -3,13 +3,14 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-const {DefinePlugin, HotModuleReplacementPlugin, NoEmitOnErrorsPlugin} = require('webpack'),
-    {merge} = require('webpack-merge'),
-    HtmlWebpackPlugin = require('html-webpack-plugin'),
+const {DefinePlugin, HotModuleReplacementPlugin, NoEmitOnErrorsPlugin} = require('webpack');
+const {merge} = require('webpack-merge');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
-    baseWebpackConfig = require('../webpack.config.base.js'),
+const baseWebpackConfig = require('../webpack.config.base.js');
 
-    env = process.env.NODE_ENV;
+const env = process.env.NODE_ENV;
 
 Object.keys(baseWebpackConfig.entry).forEach(name => {
     baseWebpackConfig.entry[name] = ['./build/dev/dev-client'].concat(baseWebpackConfig.entry[name]);
@@ -36,7 +37,9 @@ module.exports = merge(baseWebpackConfig, {
             template: './examples/index.html',
             favicon: './examples/assets/images/favicon.ico',
             inject: true
-        })
+        }),
+
+        new ReactRefreshWebpackPlugin()
 
     ]
 
