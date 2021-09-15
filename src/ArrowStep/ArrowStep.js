@@ -51,7 +51,7 @@ class ArrowStep extends Component {
 
     render() {
 
-        const {className, style, steps} = this.props,
+        const {className, style, steps, isFirstStepLeftTriangleVisible, isLastStepRightTriangleVisible} = this.props,
             {activatedStep, finishedStep} = this.state;
 
         return (
@@ -60,7 +60,7 @@ class ArrowStep extends Component {
             })}
                  style={style}>
                 {
-                    steps && steps.map((item, index) =>
+                    steps?.map((item, index) => item ?
                         <ArrowStepItem key={index}
                                        index={index}
                                        className={item.className}
@@ -74,8 +74,12 @@ class ArrowStep extends Component {
                                        value={item}
                                        isFirst={index === 0}
                                        isLast={index === steps.length - 1}
+                                       isFirstStepLeftTriangleVisible={isFirstStepLeftTriangleVisible}
+                                       isLastStepRightTriangleVisible={isLastStepRightTriangleVisible}
                                        onClick={this.handleClick}/>
-                    )
+                        :
+                        null
+                    ) || null
                 }
             </div>
         );
@@ -128,6 +132,16 @@ ArrowStep.propTypes = {
     finishedStep: PropTypes.number,
 
     /**
+     * The visibility of first step left triangle.
+     */
+    isFirstStepLeftTriangleVisible: PropTypes.bool,
+
+    /**
+     * The visibility of last step right triangle.
+     */
+    isLastStepRightTriangleVisible: PropTypes.bool,
+
+    /**
      * Callback function fired when step change.
      */
     onChange: PropTypes.func
@@ -139,7 +153,10 @@ ArrowStep.defaultProps = {
     steps: [],
 
     activatedStep: 0,
-    finishedStep: 0
+    finishedStep: 0,
+
+    isFirstStepLeftTriangleVisible: false,
+    isLastStepRightTriangleVisible: false
 
 };
 
