@@ -40,17 +40,20 @@ class RadioGroup extends Component {
     }
 
     handleChange = item => {
+
+        const {valueField, disabled} = this.props;
+
         this.setState({
-            value: item.value
-        }, () => {
-            !this.props.disabled && this.props.onChange && this.props.onChange(item.value);
-        });
+            value: item[valueField]
+        }, () => !disabled && this.props.onChange?.(item.value));
+
     };
 
     render() {
 
         const {
-                className, style, theme, name, uncheckedIconCls, checkedIconCls,
+                className, style, theme, name,
+                valueField, displayField, uncheckedIconCls, checkedIconCls,
                 disabled, data, onCheck
             } = this.props,
             {value} = this.state;
@@ -62,23 +65,25 @@ class RadioGroup extends Component {
                  style={style}
                  disabled={disabled}>
                 {
-                    data && data.map((item, index) =>
+                    data?.map((item, index) => item ?
                         <Radio key={index}
-                               className={item.className ? item.className : ''}
+                               className={item.className || null}
                                style={item.style}
                                uncheckedIconCls={item.uncheckedIconCls || uncheckedIconCls}
                                checkedIconCls={item.checkedIconCls || checkedIconCls}
                                theme={item.theme || theme}
                                name={name}
-                               label={item.label}
-                               value={item.value}
-                               checked={item.value === value}
+                               label={item[displayField]}
+                               value={item[valueField]}
+                               checked={item[valueField] === value}
                                disabled={disabled || item.disabled}
                                tip={item.tip}
                                tipPosition={item.tipPosition}
                                onChange={() => this.handleChange(item)}
-                               onCheck={e => onCheck && onCheck(item, e)}/>
-                    )
+                               onCheck={e => onCheck?.(item, e)}/>
+                        :
+                        null
+                    ) || null
                 }
             </div>
         );
@@ -153,6 +158,9 @@ RadioGroup.propTypes = {
      */
     value: PropTypes.any,
 
+    valueField: PropTypes.string,
+    displayField: PropTypes.string,
+
     uncheckedIconCls: PropTypes.string,
     checkedIconCls: PropTypes.string,
 
@@ -174,10 +182,14 @@ RadioGroup.defaultProps = {
 
     theme: Theme.DEFAULT,
 
-    name: '',
     data: [],
+
+    valueField: 'value',
+    displayField: 'label',
+
     uncheckedIconCls: 'far fa-circle',
     checkedIconCls: 'fas fa-dot-circle',
+
     disabled: false
 
 };
