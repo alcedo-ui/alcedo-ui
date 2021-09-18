@@ -32,7 +32,10 @@ module.exports = {
 
     plugins: [
 
-        new IgnorePlugin(/^\.\/locale$/, /moment$/),
+        new IgnorePlugin({
+            contextRegExp: /^\.\/locale$/,
+            resourceRegExp: /moment$/
+        }),
 
         new DllPlugin({
             context: __dirname,
