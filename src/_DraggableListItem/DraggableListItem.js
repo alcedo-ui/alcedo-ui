@@ -153,7 +153,7 @@ class DraggableListItem extends Component {
                                                 (
                                                     iconCls ?
                                                         <i className={`button-icon button-icon-left ${iconCls}`}
-                                                           aria-hidden="true"></i>
+                                                           aria-hidden="true"/>
                                                         :
                                                         null
                                                 )
@@ -192,14 +192,14 @@ class DraggableListItem extends Component {
                                                 (
                                                     rightIconCls ?
                                                         <i className={`button-icon button-icon-right ${rightIconCls}`}
-                                                           aria-hidden="true"></i>
+                                                           aria-hidden="true"/>
                                                         :
                                                         null
                                                 )
                                         }
 
                                         <i className={`${anchorIconCls} draggable-list-item-anchor`}
-                                           aria-hidden="true"></i>
+                                           aria-hidden="true"/>
 
                                     </div>
                                 </TipProvider>
