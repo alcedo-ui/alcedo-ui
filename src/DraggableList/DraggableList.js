@@ -47,11 +47,11 @@ class DraggableList extends Component {
         const {data} = this.props,
             {value} = this.state;
         return (
-                listItemDisabled != undefined
+                listItemDisabled != null
                 && (typeof listItemDisabled === 'function' ? listItemDisabled(item, value, data) : listItemDisabled)
             )
             || (
-                itemDisabled != undefined
+                itemDisabled != null
                 && (typeof itemDisabled === 'function' ? itemDisabled(item, value, data) : itemDisabled)
             );
     };
@@ -59,7 +59,7 @@ class DraggableList extends Component {
     isItemDragDisabled = item => {
         const {data, itemDragDisabled} = this.props,
             {value} = this.state;
-        return itemDragDisabled != undefined
+        return itemDragDisabled != null
             && (typeof itemDragDisabled === 'function' ? itemDragDisabled(item, value, data) : itemDragDisabled);
     };
 
@@ -107,7 +107,7 @@ class DraggableList extends Component {
         } else {
             value = value.filter(valueItem => {
                 return Util.getValueByValueField(valueItem, valueField, displayField)
-                    != Util.getValueByValueField(item, valueField, displayField);
+                    !== Util.getValueByValueField(item, valueField, displayField);
             });
         }
 
@@ -266,7 +266,7 @@ class DraggableList extends Component {
                                     {
                                         data && data.map((item, index) => item === LIST_SEPARATOR ?
                                             <div key={index}
-                                                 className="draggable-list-separator"></div>
+                                                 className="draggable-list-separator"/>
                                             :
                                             this.renderListItem(item, index))
                                     }
