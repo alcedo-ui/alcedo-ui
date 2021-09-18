@@ -13,7 +13,6 @@ body.drawer-modal-lock {
     color: $theme-field;
     background: $theme-field-bg;
     border-radius: 0;
-    transform: translate3d(0, 0, 0);
     z-index: $pop-z-index;
 
     &.position-pop-top {
