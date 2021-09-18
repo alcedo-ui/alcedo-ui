@@ -22,7 +22,9 @@ class Td extends Component {
 
     handleRenderer = () => {
 
-        const {collapsed, renderer, rowIndex, colIndex, data, parentData, tableData, depth, path, scrollEl} = this.props;
+        const {
+            collapsed, renderer, rowIndex, colIndex, data, parentData, tableData, depth, path, scrollEl
+        } = this.props;
 
         switch (typeof renderer) {
             case 'function':
@@ -88,7 +90,7 @@ Td.propTypes = {
     title: PropTypes.any,
     parentData: PropTypes.object,
     tableData: PropTypes.array,
-    renderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    renderer: PropTypes.any,
     align: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
     span: PropTypes.number,
     disabled: PropTypes.bool,
