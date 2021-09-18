@@ -5,15 +5,19 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Draggable} from 'react-beautiful-dnd';
-import classNames from 'classnames';
 
+// Components
+import {Draggable} from 'react-beautiful-dnd';
 import Checkbox from '../Checkbox';
 import Radio from '../Radio';
 import CircularLoading from '../CircularLoading';
 import TipProvider from '../TipProvider';
+
+// Statics
 import Theme from '../Theme';
 
+// Vendors
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 import Position from '../_statics/Position';
 import SelectMode from '../_statics/SelectMode';
@@ -99,7 +103,7 @@ class DraggableListItem extends Component {
                                  {...dragProvided.draggableProps}
                                  {...dragProvided.dragHandleProps}>
 
-                                <TipProvider className='block'
+                                <TipProvider className="block"
                                              tipContent={tip}
                                              position={tipPosition}>
 
@@ -117,7 +121,8 @@ class DraggableListItem extends Component {
                                          onMouseLeave={onMouseLeave}>
 
                                         {
-                                            selectMode === SelectMode.SINGLE_SELECT && (radioUncheckedIconCls || radioCheckedIconCls) ?
+                                            selectMode === SelectMode.SINGLE_SELECT &&
+                                            (radioUncheckedIconCls || radioCheckedIconCls) ?
                                                 <Radio className="draggable-list-item-select"
                                                        theme={selectTheme}
                                                        checked={checked}
