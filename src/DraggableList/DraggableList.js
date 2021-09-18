@@ -5,17 +5,20 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {DragDropContext, Droppable} from 'react-beautiful-dnd';
-import isArray from 'lodash/isArray';
-import classNames from 'classnames';
 
+// Components
+import {DragDropContext, Droppable} from 'react-beautiful-dnd';
 import DraggableListItem from '../_DraggableListItem';
 import Tip from '../Tip';
-import Theme from '../Theme';
 
+// Statucs
+import Theme from '../Theme';
 import LIST_SEPARATOR from '../_statics/ListSeparator';
 import SelectMode from '../_statics/SelectMode';
 
+// Vendors
+import isArray from 'lodash/isArray';
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 import Calculation from '../_vendors/Calculation';
 import ComponentUtil from '../_vendors/ComponentUtil';
