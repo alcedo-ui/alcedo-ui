@@ -118,7 +118,7 @@ class Th extends Component {
             } = this.props,
 
             isResizingActivated = TC.getColumnKey(column, columnKeyField)
-                == TC.getColumnKey(resizingColumn, columnKeyField),
+                === TC.getColumnKey(resizingColumn, columnKeyField),
             isSorting = sortable && sortingProp && sorting && sorting.prop && sorting.prop === sortingProp;
 
         return (
