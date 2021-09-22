@@ -3,13 +3,13 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-const {IgnorePlugin, DllPlugin} = require('webpack'),
-    AssetsPlugin = require('assets-webpack-plugin'),
+const {IgnorePlugin, DllPlugin} = require('webpack');
+const AssetsPlugin = require('assets-webpack-plugin');
 
-    config = require('../config.js'),
-    utils = require('../utils.js'),
+const config = require('../config.js');
+const utils = require('../utils.js');
 
-    library = '[name]_lib';
+const library = '[name]_lib';
 
 module.exports = {
 
