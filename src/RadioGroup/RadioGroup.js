@@ -44,8 +44,8 @@ class RadioGroup extends Component {
         const {valueField, disabled} = this.props;
 
         this.setState({
-            value: item[valueField]
-        }, () => !disabled && this.props.onChange?.(item.value));
+            value: item?.[valueField]
+        }, () => !disabled && this.props.onChange?.(item?.[valueField]));
 
     };
 
