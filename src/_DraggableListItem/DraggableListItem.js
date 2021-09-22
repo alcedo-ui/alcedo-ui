@@ -96,7 +96,7 @@ class DraggableListItem extends Component {
                        index={index}
                        isDragDisabled={isDragDisabled}>
                 {
-                    dragProvided => (
+                    (dragProvided, dragSnapshot) => (
                         <div>
                             <div ref={dragProvided.innerRef}
                                  style={dragProvided.draggableStyle}
@@ -110,6 +110,7 @@ class DraggableListItem extends Component {
                                     <div className={classNames('draggable-list-item', {
                                         [`theme-${theme}`]: theme,
                                         activated: checked,
+                                        dragging: dragSnapshot.isDragging,
                                         [className]: className
                                     })}
                                          style={style}
