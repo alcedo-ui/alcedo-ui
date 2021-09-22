@@ -399,7 +399,7 @@ Th.propTypes = {
 
     }),
     columnKeyField: PropTypes.string,
-    renderer: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    renderer: PropTypes.any,
     align: PropTypes.oneOf(Util.enumerateValue(HorizontalAlign)),
     colIndex: PropTypes.number,
     data: PropTypes.array,
