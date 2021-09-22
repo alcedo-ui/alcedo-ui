@@ -32,21 +32,16 @@ class DraggableListItem extends Component {
     }
 
     handleCheckboxChange = checked => {
-
-        const {onSelect, onDeselect} = this.props;
-
         if (checked) {
-            onSelect && onSelect();
+            this.props.onSelect?.();
         } else {
-            onDeselect && onDeselect();
+            this.props.onDeselect?.();
         }
-
     };
 
     handleRadioChange = () => {
         if (!this.props.checked) {
-            const {onSelect} = this.props;
-            onSelect && onSelect();
+            this.props.onSelect?.();
         }
     };
 
@@ -60,8 +55,7 @@ class DraggableListItem extends Component {
             return;
         }
 
-        const {onClick} = this.props;
-        onClick && onClick(e);
+        this.props.onClick?.(e);
 
         switch (this.props.selectMode) {
             case SelectMode.MULTI_SELECT:
