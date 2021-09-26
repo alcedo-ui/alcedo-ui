@@ -5,10 +5,13 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Components
 import {Draggable} from 'react-beautiful-dnd';
 import FlatButton from '../FlatButton';
+
+// Vendors
+import classNames from 'classnames';
 
 class TabButton extends Component {
 
@@ -17,39 +20,47 @@ class TabButton extends Component {
     }
 
     handleMouseDown = e => {
-        const {data, index, onMouseDown} = this.props;
-        onMouseDown && onMouseDown(data, index, e);
+        const {data, index} = this.props;
+        this.props.onMouseDown?.(data, index, e);
     };
 
     handleMouseUp = e => {
-        const {data, index, onMouseUp} = this.props;
-        onMouseUp && onMouseUp(data, index, e);
+        const {data, index} = this.props;
+        this.props.onMouseUp?.(data, index, e);
     };
 
     handleClick = e => {
-        const {data, index, onClick} = this.props;
-        onClick && onClick(data, index, e);
+        const {data, index} = this.props;
+        this.props.onClick?.(data, index, e);
     };
 
     render() {
 
         const {
-                className, style, index, isTabFullWidth, data, activatedIndex, activated, draggable,
-                ...restProps
-            } = this.props,
-            trigger = (
-                <FlatButton {...restProps}
-                            className={classNames('tab-button', {
-                                activated,
-                                [className]: className
-                            })}
-                            style={style}
-                            container={<div></div>}
-                            disableTouchRipple={true}
-                            onMouseDown={this.handleMouseDown}
-                            onMouseUp={this.handleMouseUp}
-                            onClick={this.handleClick}/>
-            );
+
+            className, style, index, isTabFullWidth, activated, draggable,
+
+            // not passing down these props
+            // eslint-disable-next-line no-unused-vars
+            data, activatedIndex,
+
+            ...restProps
+
+        } = this.props;
+
+        const trigger = (
+            <FlatButton {...restProps}
+                        className={classNames('tab-button', {
+                            activated,
+                            [className]: className
+                        })}
+                        style={style}
+                        container={<div/>}
+                        disableTouchRipple={true}
+                        onMouseDown={this.handleMouseDown}
+                        onMouseUp={this.handleMouseUp}
+                        onClick={this.handleClick}/>
+        );
 
         return isTabFullWidth ?
             trigger
