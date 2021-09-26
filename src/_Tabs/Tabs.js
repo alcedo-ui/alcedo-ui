@@ -45,7 +45,7 @@ class Tabs extends Component {
 
     componentDidMount() {
 
-        this.tabsEl = this.tabs && this.tabs.current;
+        this.tabsEl = this.tabs?.current;
 
         Event.addEvent(window, 'resize', this.handleResize);
         Event.addEvent(document, 'mouseup', this.clearTabsScrollTimeout);
@@ -135,28 +135,23 @@ class Tabs extends Component {
         });
 
         this.clearTabsScrollTimeout();
-        this.tabsScrollTimeout = setTimeout(() => {
-            this.handleTabsScroll(direction, true);
-        }, keepScrolling === true ? scrollInterval : keepScrollingWait);
+        this.tabsScrollTimeout = setTimeout(() => this.handleTabsScroll(direction, true),
+            keepScrolling === true ?
+                scrollInterval
+                :
+                keepScrollingWait
+        );
 
     };
 
     tabsScrollLeft = e => {
-
         this.handleTabsScroll(Position.LEFT);
-
-        const {onScrollLeftButtonMouseDown} = this.props;
-        onScrollLeftButtonMouseDown && onScrollLeftButtonMouseDown(e);
-
+        this.props.onScrollLeftButtonMouseDown?.(e);
     };
 
     tabsScrollRight = e => {
-
         this.handleTabsScroll(Position.RIGHT);
-
-        const {onScrollRightButtonMouseDown} = this.props;
-        onScrollRightButtonMouseDown && onScrollRightButtonMouseDown(e);
-
+        this.props.onScrollRightButtonMouseDown?.(e);
     };
 
     handleInkBarSizeChange = () => {
@@ -171,8 +166,8 @@ class Tabs extends Component {
             return;
         }
 
-        const activatedIndex = Valid.range(this.props.activatedIndex, 0, tabs.length - 1),
-            activatedtab = tabs[activatedIndex];
+        const activatedIndex = Valid.range(this.props.activatedIndex, 0, tabs.length - 1);
+        const activatedtab = tabs[activatedIndex];
 
         if (!activatedtab) {
             return;
@@ -194,8 +189,8 @@ class Tabs extends Component {
 
     handleTabsOverflowChange = () => {
 
-        const {isTabsOverflow, onTabsOverflowChange} = this.props,
-            current = this.isTabsOverflow();
+        const {isTabsOverflow} = this.props;
+        const current = this.isTabsOverflow();
 
         if (current !== isTabsOverflow) {
 
@@ -205,7 +200,7 @@ class Tabs extends Component {
                 });
             }
 
-            onTabsOverflowChange && onTabsOverflowChange(!isTabsOverflow);
+            this.props.onTabsOverflowChange?.(!isTabsOverflow);
 
         }
 
@@ -219,14 +214,14 @@ class Tabs extends Component {
     render() {
 
         const {
-                children, className, style, isTabFullWidth, isInkBarHidden,
-                data, activatedIndex, isTabsOverflow, draggable, idField,
-                scrollLeftIconCls, scrollRightIconCls,
-                onTabMouseDown, onTabMouseUp, onTabClick, onTabButtonDragStart, onTabButtonDragEnd
-            } = this.props,
-            {scrollLeft, inkBarWidth, inkBarOffsetLeft} = this.state,
+            children, className, style, isTabFullWidth, isInkBarHidden,
+            data, activatedIndex, isTabsOverflow, draggable, idField,
+            scrollLeftIconCls, scrollRightIconCls,
+            onTabMouseDown, onTabMouseUp, onTabClick, onTabButtonDragStart, onTabButtonDragEnd
+        } = this.props;
+        const {scrollLeft, inkBarWidth, inkBarOffsetLeft} = this.state;
 
-            scrollerStyle = this.getScrollerStyle();
+        const scrollerStyle = this.getScrollerStyle();
 
         return (
             <DragDropContext onDragStart={onTabButtonDragStart}
