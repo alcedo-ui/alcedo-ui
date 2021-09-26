@@ -257,7 +257,7 @@ class Tabs extends Component {
 
                                                     const {
 
-                                                            value, renderer,
+                                                            style, value, renderer,
 
                                                             // not passing down these props
                                                             // eslint-disable-next-line no-unused-vars
@@ -272,6 +272,7 @@ class Tabs extends Component {
                                                         <TabButton {...restProps}
                                                                    key={idField && item[idField] || index}
                                                                    style={{
+                                                                       ...style,
                                                                        width: isTabFullWidth ?
                                                                            `${100 / data.length}%`
                                                                            :
@@ -294,7 +295,7 @@ class Tabs extends Component {
                                                                    onClick={onTabClick}/>
                                                     );
 
-                                                })
+                                                }) || null
                                             }
 
                                             {dropProvided.placeholder}
