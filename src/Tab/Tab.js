@@ -57,27 +57,21 @@ class Tab extends Component {
 
     handleTabClick = (item, activatedIndex, e) => {
 
-        const {onTabClick} = this.props;
-        onTabClick && onTabClick(item, activatedIndex, e);
+        this.props.onTabClick?.(item, activatedIndex, e);
 
         if (activatedIndex === this.state.activatedIndex) {
             return;
         }
 
-        const {beforeIndexChange} = this.props;
-        if (beforeIndexChange && beforeIndexChange(activatedIndex, item, e) === false) {
+        if (this.props.beforeIndexChange?.(activatedIndex, item, e) === false) {
             return;
         }
 
         this.setState({
             activatedIndex
         }, () => {
-
-            item.onActive && item.onActive(item, activatedIndex, e);
-
-            const {onIndexChange} = this.props;
-            onIndexChange && onIndexChange(activatedIndex, item, e);
-
+            item.onActive?.(item, activatedIndex, e);
+            this.props.onIndexChange?.(activatedIndex, item, e);
         });
 
     };
@@ -99,10 +93,10 @@ class Tab extends Component {
         const {tabs} = this.state;
         Util.reorder(tabs, result.source.index, result.destination.index);
 
-        const {activatedIndex} = this.state,
-            state = {
-                tabs
-            };
+        const {activatedIndex} = this.state;
+        const state = {
+            tabs
+        };
 
         if (activatedIndex === result.source.index) {
             state.activatedIndex = result.destination.index;
@@ -115,19 +109,18 @@ class Tab extends Component {
         }
 
         this.setState(state, () => {
-            const {onTabButtonDragEnd, onTabsSequenceChange} = this.props;
-            onTabButtonDragEnd && onTabButtonDragEnd(result);
-            onTabsSequenceChange && onTabsSequenceChange(tabs);
+            this.props.onTabButtonDragEnd?.(result);
+            this.props.onTabsSequenceChange?.(tabs);
         });
 
     };
 
     render() {
 
-        const {children, tabsChildren, className, style, isAnimated, ...restProps} = this.props,
-            {tabs, activatedIndex, isTabsOverflow} = this.state,
+        const {children, tabsChildren, className, style, isAnimated, ...restProps} = this.props;
+        const {tabs, activatedIndex, isTabsOverflow} = this.state;
 
-            tabWidthPerCent = 100 / tabs.length;
+        const tabWidthPerCent = 100 / tabs.length;
 
         return (
             <div className={classNames('tab', {
@@ -156,7 +149,7 @@ class Tab extends Component {
                                      transform: `translate(${-activatedIndex * tabWidthPerCent}%, 0)`
                                  }}>
                                 {
-                                    tabs && tabs.map((item, index) =>
+                                    tabs?.map((item, index) =>
                                         <div key={index}
                                              className="tab-content"
                                              style={{
@@ -164,12 +157,17 @@ class Tab extends Component {
                                              }}>
                                             {this.getRenderer(item)}
                                         </div>
-                                    )
+                                    ) || null
                                 }
                             </div>
                             :
                             <div className="tab-content">
-                                {tabs && this.getRenderer(tabs[activatedIndex])}
+                                {
+                                    tabs ?
+                                        this.getRenderer(tabs[activatedIndex])
+                                        :
+                                        null
+                                }
                             </div>
                     }
                 </div>
@@ -201,6 +199,9 @@ Tab.propTypes = {
      * Children passed into the TabsItem.
      */
     tabs: PropTypes.arrayOf(PropTypes.shape({
+
+        className: PropTypes.string,
+        style: PropTypes.object,
 
         /**
          * The text value of the tab.Type can be string or number.
