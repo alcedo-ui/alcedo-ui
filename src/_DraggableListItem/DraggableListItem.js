@@ -105,6 +105,7 @@ class DraggableListItem extends Component {
                                         [`theme-${theme}`]: theme,
                                         activated: checked,
                                         dragging: dragSnapshot.isDragging,
+                                        'drag-disabled': isDragDisabled,
                                         [className]: className
                                     })}
                                          style={style}
