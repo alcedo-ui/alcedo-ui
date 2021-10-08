@@ -76,7 +76,12 @@ class PositionPop extends Component {
                  isAnimated={isAnimated}
                  position={position}
                  resetPosition={this.resetPosition}>
-                {popEl => typeof children === 'function' ? children(popEl) : children}
+                {
+                    popEl => typeof children === 'function' ?
+                        children(popEl)
+                        :
+                        children
+                }
             </Pop>
         );
 
@@ -133,6 +138,8 @@ PositionPop.propTypes = {
     showModal: PropTypes.bool,
     modalClassName: PropTypes.string,
 
+    shouldResetPosition: PropTypes.bool,
+
     /**
      * The function of popup render.
      */
@@ -182,7 +189,9 @@ PositionPop.defaultProps = {
 
     container: <div/>,
 
-    showModal: false
+    showModal: false,
+
+    shouldResetPosition: true
 
 };
 

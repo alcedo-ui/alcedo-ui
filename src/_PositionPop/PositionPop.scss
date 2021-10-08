@@ -13,7 +13,8 @@
     transform-origin: 50% 50%;
 
     &.position-pop-animated {
-        transition: opacity $theme-transition-duration ease-in-out, transform $theme-transition-duration ease-in-out;
+        transition: opacity $theme-transition-duration ease-in-out,
+        transform $theme-transition-duration ease-in-out;
 
         &.hidden {
             opacity: 0;
