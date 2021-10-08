@@ -56,6 +56,7 @@ class PositionPop extends Component {
             container, className, theme, position, isAnimated,
 
             // not passing down these props
+            // eslint-disable-next-line no-unused-vars
             isEscClose, isBlurClose,
 
             ...restProps
@@ -179,7 +180,7 @@ PositionPop.defaultProps = {
     isBlurClose: true,
     isEscClose: true,
 
-    container: <div></div>,
+    container: <div/>,
 
     showModal: false
 
