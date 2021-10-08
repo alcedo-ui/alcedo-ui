@@ -60,7 +60,7 @@ class Pop extends Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
 
         if (prevProps.position !== this.props.position || prevProps.triggerEl !== this.props.triggerEl) {
-            this.props.resetPosition?.(this.state.transitionEl);
+            this.debounceResetPosition?.();
         }
 
         // if (!prevProps.visible && this.props.visible) {
@@ -83,17 +83,21 @@ class Pop extends Component {
         return this.state.transitionEl;
     };
 
+    debounceResetPosition = debounce((el = this.state.transitionEl) => {
+        this.props.resetPosition?.(el);
+    }, this.props.resetPositionWait);
+
     handleEnter = el => {
 
-        const {triggerEl, resetPosition} = this.props;
-        resetPosition?.(el);
+        const {triggerEl} = this.props;
+        this.props.resetPosition?.(el);
 
         this.setState({
             enter: true,
             transitionEl: el
         }, () => {
-            const {onRender} = this.props;
-            onRender?.(el, triggerEl);
+            this.props.onRender?.(el, triggerEl);
+            this.debounceResetPosition();
         });
 
     };
@@ -107,8 +111,8 @@ class Pop extends Component {
         this.setState({
             enter: false
         }, () => {
-            const {triggerEl, onDestroy} = this.props;
-            onDestroy?.(el, triggerEl);
+            const {triggerEl} = this.props;
+            this.props.onDestroy?.(el, triggerEl);
         });
     };
 
@@ -117,15 +121,10 @@ class Pop extends Component {
             exited: true,
             transitionEl: null
         }, () => {
-            const {triggerEl, onDestroyed} = this.props;
-            onDestroyed?.(el, triggerEl);
+            const {triggerEl} = this.props;
+            this.props.onDestroyed?.(el, triggerEl);
         });
     };
-
-    debounceResetPosition = debounce(() => {
-        const {resetPosition} = this.props;
-        resetPosition?.(this.state.transitionEl);
-    }, this.props.resetPositionWait);
 
     // addWatchScroll = () => {
     //
