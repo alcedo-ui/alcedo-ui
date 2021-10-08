@@ -6,18 +6,32 @@
 // Statics
 import Position from '../_statics/Position';
 
+/**
+ * @param popupEl
+ * @returns {number}
+ */
 function horizontalCenter(popupEl) {
     return (window.innerWidth - popupEl.offsetWidth) / 2;
 }
 
+/**
+ * @param popupEl
+ * @returns {number}
+ */
 function verticalMiddle(popupEl) {
     return (window.innerHeight - popupEl.offsetHeight) / 2;
 }
 
+/**
+ * @param parentEl
+ * @param popupEl
+ * @param position
+ * @returns {{}}
+ */
 function getStyle(parentEl, popupEl, position) {
 
     if (!popupEl) {
-        return;
+        return null;
     }
 
     let result = {};
@@ -94,6 +108,11 @@ function getStyle(parentEl, popupEl, position) {
 
 }
 
+/**
+ * @param parentEl
+ * @param popupEl
+ * @param position
+ */
 function setStyle(parentEl, popupEl, position) {
 
     const style = getStyle(parentEl, popupEl, position);
@@ -104,9 +123,7 @@ function setStyle(parentEl, popupEl, position) {
 
     popupEl.style.left = popupEl.style.right = popupEl.style.top = popupEl.style.bottom = null;
 
-    for (let key in style) {
-        popupEl.style[key] = style[key] + 'px';
-    }
+    Object.entries(style).forEach(([key, value]) => popupEl.style[key] = value + 'px');
 
 }
 
