@@ -54,12 +54,18 @@ class Pop extends Component {
     }
 
     componentDidMount() {
-        Event.addEvent(window, 'resize', this.debounceResetPosition);
+        if (this.props.shouldResetPosition) {
+            Event.addEvent(window, 'resize', this.debounceResetPosition);
+        }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
 
-        if (prevProps.position !== this.props.position || prevProps.triggerEl !== this.props.triggerEl) {
+        if (this.props.shouldResetPosition && (
+            prevProps.position !== this.props.position
+            || prevProps.triggerEl !== this.props.triggerEl
+            || prevState.transitionEl !== this.state.transitionEl
+        )) {
             this.debounceResetPosition?.();
         }
 
@@ -73,7 +79,9 @@ class Pop extends Component {
     }
 
     componentWillUnmount() {
-        Event.removeEvent(window, 'resize', this.debounceResetPosition);
+        if (this.props.shouldResetPosition) {
+            Event.removeEvent(window, 'resize', this.debounceResetPosition);
+        }
     }
 
     /**
@@ -89,16 +97,16 @@ class Pop extends Component {
 
     handleEnter = el => {
 
-        const {triggerEl} = this.props;
-        this.props.resetPosition?.(el);
+        const {triggerEl, shouldResetPosition} = this.props;
+
+        if (shouldResetPosition) {
+            this.props.resetPosition?.(el);
+        }
 
         this.setState({
             enter: true,
             transitionEl: el
-        }, () => {
-            this.props.onRender?.(el, triggerEl);
-            this.debounceResetPosition();
-        });
+        }, () => this.props.onRender?.(el, triggerEl));
 
     };
 
@@ -110,20 +118,14 @@ class Pop extends Component {
     handleExit = el => {
         this.setState({
             enter: false
-        }, () => {
-            const {triggerEl} = this.props;
-            this.props.onDestroy?.(el, triggerEl);
-        });
+        }, () => this.props.onDestroy?.(el, this.props.triggerEl));
     };
 
     handleExited = el => {
         this.setState({
             exited: true,
             transitionEl: null
-        }, () => {
-            const {triggerEl} = this.props;
-            this.props.onDestroyed?.(el, triggerEl);
-        });
+        }, () => this.props.onDestroyed?.(el, this.props.triggerEl));
     };
 
     // addWatchScroll = () => {
@@ -274,6 +276,8 @@ Pop.propTypes = {
 
     resetPositionWait: PropTypes.number,
 
+    shouldResetPosition: PropTypes.bool,
+
     /**
      * The function of popup render.
      */
@@ -315,6 +319,8 @@ Pop.defaultProps = {
     showModal: false,
     position: Position.BOTTOM,
     isAnimated: true,
+
+    shouldResetPosition: true,
 
     resetPositionWait: 250
 
