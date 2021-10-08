@@ -3,29 +3,36 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+// Vendors
 import addClass from 'dom-helpers/addClass';
 import removeClass from 'dom-helpers/removeClass';
 import hasClass from 'dom-helpers/hasClass';
-
 import Event from './Event';
 
 const list = [];
 let initial = false;
 
+/**
+ */
 function setBodyLock() {
     const body = document.querySelector('body');
-    if (!hasClass(body, 'dialog-modal-lock')) {
-        addClass(body, 'dialog-modal-lock');
+    if (!hasClass(body, 'pop-modal-lock')) {
+        addClass(body, 'pop-modal-lock');
     }
-};
+}
 
+/**
+ */
 function setBodyUnlock() {
     const body = document.querySelector('body');
-    if (hasClass(body, 'dialog-modal-lock')) {
-        removeClass(body, 'dialog-modal-lock');
+    if (hasClass(body, 'pop-modal-lock')) {
+        removeClass(body, 'pop-modal-lock');
     }
-};
+}
 
+/**
+ * @param e
+ */
 function keyDownHandler(e) {
     if (e.keyCode === 27) { // esc
 
@@ -39,6 +46,8 @@ function keyDownHandler(e) {
     }
 }
 
+/**
+ */
 function addKeyDownEvent() {
     if (!initial) {
         Event.addEvent(document, 'keydown', keyDownHandler);
@@ -46,17 +55,29 @@ function addKeyDownEvent() {
     }
 }
 
+/**
+ * @param popContext
+ * @returns {number|number}
+ */
 function getIndex(popContext) {
     return popContext && list && list.length > 0 ?
-        list.findIndex(item => item && item.popContext && item.popContext == popContext)
+        list.findIndex(item => item && item.popContext && item.popContext === popContext)
         :
         -1;
 }
 
+/**
+ * @param popContext
+ * @returns {boolean}
+ */
 function has(popContext) {
     return getIndex(popContext) !== -1;
 }
 
+/**
+ * @param popContext
+ * @param config
+ */
 function push(popContext, config) {
 
     addKeyDownEvent();
@@ -77,6 +98,9 @@ function push(popContext, config) {
 
 }
 
+/**
+ * @param popContext
+ */
 function pop(popContext) {
 
     if (!popContext) {
