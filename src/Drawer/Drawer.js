@@ -109,6 +109,7 @@ class Drawer extends Component {
             className, depth,
 
             // not passing down these props
+            // eslint-disable-next-line no-unused-vars
             isBlurClose, isEscClose, onRender, onRequestClose, drawerVisibleHandler,
 
             ...restProps
