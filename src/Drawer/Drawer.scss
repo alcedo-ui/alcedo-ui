@@ -22,7 +22,7 @@ body.drawer-modal-lock {
         height: 300px;
 
         &.position-pop-animated.hidden {
-            transform: translate3d(0, -300px, 0);
+            transform: translate(0, -300px);
         }
     }
 
@@ -33,7 +33,7 @@ body.drawer-modal-lock {
         height: 100%;
 
         &.position-pop-animated.hidden {
-            transform: translate3d(300px, 0, 0);
+            transform: translate(300px, 0);
         }
     }
 
@@ -44,7 +44,7 @@ body.drawer-modal-lock {
         height: 300px;
 
         &.position-pop-animated.hidden {
-            transform: translate3d(0, 300px, 0);
+            transform: translate(0, 300px);
         }
     }
 
@@ -55,7 +55,7 @@ body.drawer-modal-lock {
         height: 100%;
 
         &.position-pop-animated.hidden {
-            transform: translate3d(-300px, 0, 0);
+            transform: translate(-300px, 0);
         }
     }
 }
