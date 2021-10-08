@@ -1,3 +1,8 @@
+/**
+ * @file App.scss
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 @import '../../my-theme.scss';
 
 .app {
@@ -37,12 +42,12 @@
     .app {
         .app-content {
             padding-left: 0;
-            transform: translate3d(70%, 0, 0);
+            transform: translate(70%, 0);
         }
 
         &.collapsed {
             .app-content {
-                transform: translate3d(0, 0, 0);
+                transform: translate(0, 0);
             }
         }
     }
