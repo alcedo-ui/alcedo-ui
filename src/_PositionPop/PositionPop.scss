@@ -14,6 +14,10 @@
 
     &.position-pop-animated {
         transition: opacity $theme-transition-duration ease-in-out,
+        top $theme-transition-duration ease-in-out,
+        left $theme-transition-duration ease-in-out,
+        right $theme-transition-duration ease-in-out,
+        bottom $theme-transition-duration ease-in-out,
         transform $theme-transition-duration ease-in-out;
 
         &.hidden {
