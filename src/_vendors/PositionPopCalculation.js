@@ -125,7 +125,7 @@ function setStyle(parentEl, popupEl, position) {
         return;
     }
 
-    popupEl.style.left = popupEl.style.right = popupEl.style.top = popupEl.style.bottom = null;
+    popupEl.style.left = popupEl.style.right = popupEl.style.top = popupEl.style.bottom = 'auto';
 
     Object.entries(style).forEach(([key, value]) => popupEl.style[key] = value + 'px');
 
