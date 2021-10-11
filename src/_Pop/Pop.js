@@ -152,20 +152,20 @@ class Pop extends Component {
 
         const {
 
-                children, container,
-                modalClassName, className, parentEl, isAnimated, visible, showModal,
-                onModalMouseDown, onModalMouseMove, onModalMouseUp, onModalMouseEnter, onModalMouseLeave, onModalClick,
+            children, container,
+            modalClassName, className, parentEl, isAnimated, visible, showModal,
+            onModalMouseDown, onModalMouseMove, onModalMouseUp, onModalMouseEnter, onModalMouseLeave, onModalClick,
 
-                // not passing down these props
-                /* eslint-disable no-unused-vars */
-                contentClassName, position, triggerEl, resetPositionWait, shouldResetPosition,
-                resetPosition, onRender, onRendered, onDestroy, onDestroyed,
-                /* eslint-enable no-unused-vars */
+            // not passing down these props
+            /* eslint-disable no-unused-vars */
+            contentClassName, position, triggerEl, resetPositionWait, shouldResetPosition,
+            resetPosition, onRender, onRendered, onDestroy, onDestroyed,
+            /* eslint-enable no-unused-vars */
 
-                ...restProps
+            ...restProps
 
-            } = this.props,
-            {enter, exited, transitionEl} = this.state;
+        } = this.props;
+        const {enter, exited, transitionEl} = this.state;
 
         return (
             <Portal visible={!exited}
