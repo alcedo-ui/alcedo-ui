@@ -158,7 +158,7 @@ class Pop extends Component {
 
                 // not passing down these props
                 /* eslint-disable no-unused-vars */
-                contentClassName, position, triggerEl, resetPositionWait,
+                contentClassName, position, triggerEl, resetPositionWait, shouldResetPosition,
                 resetPosition, onRender, onRendered, onDestroy, onDestroyed,
                 /* eslint-enable no-unused-vars */
 
