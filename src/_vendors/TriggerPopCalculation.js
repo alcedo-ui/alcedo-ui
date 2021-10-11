@@ -8,54 +8,114 @@ import domContains from 'dom-helpers/contains';
 import Dom from './Dom';
 import Position from '../_statics/Position';
 
+/**
+ * @param triggerEl
+ * @param triggerOffset
+ * @returns {*}
+ */
 function topVerticalBottom(triggerEl, triggerOffset) {
     return triggerOffset.top + triggerEl.offsetHeight;
 }
 
+/**
+ * @param triggerOffset
+ * @param popupEl
+ * @returns {number}
+ */
 function topVerticalTop(triggerOffset, popupEl) {
     return triggerOffset.top - popupEl.offsetHeight
-        - parseInt(getComputedStyle(popupEl).marginTop)
-        - parseInt(getComputedStyle(popupEl).marginBottom);
+        - parseInt(getComputedStyle(popupEl).marginTop, 10)
+        - parseInt(getComputedStyle(popupEl).marginBottom, 10);
 }
 
+/**
+ * @param triggerOffset
+ * @returns {*}
+ */
 function topHorizontalTop(triggerOffset) {
     return triggerOffset.top;
 }
 
+/**
+ * @param triggerEl
+ * @param triggerOffset
+ * @param popupEl
+ * @returns {number}
+ */
 function topHorizontalMiddle(triggerEl, triggerOffset, popupEl) {
     return triggerOffset.top + triggerEl.offsetHeight / 2 - popupEl.offsetHeight / 2;
 }
 
+/**
+ * @param triggerEl
+ * @param triggerOffset
+ * @param popupEl
+ * @returns {number}
+ */
 function topHorizontalBottom(triggerEl, triggerOffset, popupEl) {
     return triggerOffset.top + triggerEl.offsetHeight - popupEl.offsetHeight;
 }
 
+/**
+ * @param triggerOffset
+ * @returns {*}
+ */
 function leftVerticalLeft(triggerOffset) {
     return triggerOffset.left;
 }
 
+/**
+ * @param triggerEl
+ * @param triggerOffset
+ * @param popupEl
+ * @returns {number}
+ */
 function leftVerticalCenter(triggerEl, triggerOffset, popupEl) {
     return triggerOffset.left + triggerEl.offsetWidth / 2 - popupEl.offsetWidth / 2;
 }
 
+/**
+ * @param triggerEl
+ * @param triggerOffset
+ * @param popupEl
+ * @returns {number}
+ */
 function leftVerticalRight(triggerEl, triggerOffset, popupEl) {
     return triggerOffset.left - (popupEl.offsetWidth - triggerEl.offsetWidth);
 }
 
+/**
+ * @param triggerOffset
+ * @param popupEl
+ * @returns {number}
+ */
 function leftHorizontalLeft(triggerOffset, popupEl) {
     return triggerOffset.left - popupEl.offsetWidth
-        - parseInt(getComputedStyle(popupEl).marginLeft)
-        - parseInt(getComputedStyle(popupEl).marginRight);
+        - parseInt(getComputedStyle(popupEl).marginLeft, 10)
+        - parseInt(getComputedStyle(popupEl).marginRight, 10);
 }
 
+/**
+ * @param triggerEl
+ * @param triggerOffset
+ * @returns {*}
+ */
 function leftHorizontalRight(triggerEl, triggerOffset) {
     return triggerOffset.left + triggerEl.offsetWidth;
 }
 
+/**
+ * @param parentEl
+ * @param triggerEl
+ * @param popupEl
+ * @param scrollEl
+ * @param position
+ * @returns {{}}
+ */
 export function getStyle(parentEl, triggerEl, popupEl, scrollEl, position) {
 
     if (!triggerEl || !popupEl) {
-        return;
+        return null;
     }
 
     const triggerOffset = Dom.getOffset(triggerEl, parentEl);
@@ -140,6 +200,13 @@ export function getStyle(parentEl, triggerEl, popupEl, scrollEl, position) {
 
 }
 
+/**
+ * @param parentEl
+ * @param triggerEl
+ * @param popupEl
+ * @param scrollEl
+ * @param position
+ */
 export function setStyle(parentEl, triggerEl, popupEl, scrollEl, position) {
 
     const style = getStyle(parentEl, triggerEl, popupEl, scrollEl, position);
