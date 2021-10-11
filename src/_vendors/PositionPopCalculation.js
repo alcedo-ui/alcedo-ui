@@ -115,6 +115,10 @@ function getStyle(parentEl, popupEl, position) {
  */
 function setStyle(parentEl, popupEl, position) {
 
+    if (!popupEl) {
+        return;
+    }
+
     const style = getStyle(parentEl, popupEl, position);
 
     if (!style) {
