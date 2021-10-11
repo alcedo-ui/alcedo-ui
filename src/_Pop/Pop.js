@@ -91,8 +91,8 @@ class Pop extends Component {
         return this.state.transitionEl;
     };
 
-    debounceResetPosition = debounce((el = this.state.transitionEl) => {
-        this.props.resetPosition?.(el);
+    debounceResetPosition = debounce(() => {
+        this.props.resetPosition?.(this.state.transitionEl);
     }, this.props.resetPositionWait);
 
     handleEnter = el => {
