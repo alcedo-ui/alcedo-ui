@@ -147,7 +147,7 @@ class DateField extends Component {
                 [className]: className
             })}>
                 {
-                    datePickerLevel == 'day' ?
+                    datePickerLevel === 'day' ?
                         <DayPicker
                             value={value}
                             dateFormat={dateFormat}
@@ -164,7 +164,7 @@ class DateField extends Component {
                             onChange={this.handleDayPickerChange}
                             previousClick={this.handleDatePickerChange}/>
                         :
-                        datePickerLevel == 'month' ?
+                        datePickerLevel === 'month' ?
                             <MonthPicker
                                 value={value}
                                 year={year}
@@ -195,7 +195,7 @@ class DateField extends Component {
                 }
 
                 {
-                    isFooter && datePickerLevel == 'day' ?
+                    isFooter && datePickerLevel === 'day' ?
                         <div className="calendar-footer">
                             {
                                 (minValue && moment(this.props.value).isBefore(minValue))

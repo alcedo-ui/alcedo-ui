@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 
 import DateField from 'src/DateField';
 import Widget from 'src/Widget';

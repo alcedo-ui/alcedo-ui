@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 
 import DatePicker from 'src/DatePicker';
 import Widget from 'src/Widget';
@@ -118,7 +118,7 @@ class DatePickerExamples extends Component {
                                     date choice.</p>
 
                                 <DatePicker name="date"
-                                            dateFormat='YYYY/MM/DD'
+                                            dateFormat="YYYY/MM/DD"
                                             value={DatePickerValue[2]}
                                             autoClose={false}
                                             onChange={value => this.onChangeHandler(2, value)}/>
@@ -142,9 +142,9 @@ class DatePickerExamples extends Component {
 
                                 <DatePicker name="date"
                                             value={DatePickerValue[3]}
-                                            dateFormat='YYYY-MM-DD'
-                                            maxValue='2050-02-01'
-                                            minValue='2017-02-03'
+                                            dateFormat="YYYY-MM-DD"
+                                            maxValue="2050-02-01"
+                                            minValue="2017-02-03"
                                             autoClose={false}
                                             onChange={value => this.onChangeHandler(3, value)}/>
 
@@ -168,9 +168,9 @@ class DatePickerExamples extends Component {
 
                                 <DatePicker name="date"
                                             value={DatePickerValue[4]}
-                                            dateFormat='YYYY-MM-DD'
-                                            maxValue='2050-02-01'
-                                            minValue='2017-02-03'
+                                            dateFormat="YYYY-MM-DD"
+                                            maxValue="2050-02-01"
+                                            minValue="2017-02-03"
                                             autoClose={false}
                                             onChange={value => this.onChangeHandler(4, value)}/>
 
@@ -204,9 +204,9 @@ class DatePickerExamples extends Component {
                                                 <div className="field-group">
                                                     <DatePicker name="date"
                                                                 value={DatePickerValue[5]}
-                                                                dateFormat='YYYY-MM-DD'
-                                                                maxValue='2050-02-01'
-                                                                minValue='2017-02-03'
+                                                                dateFormat="YYYY-MM-DD"
+                                                                maxValue="2050-02-01"
+                                                                minValue="2017-02-03"
                                                                 parentEl={dialogContentEl}
                                                                 autoClose={false}
                                                                 onChange={value => this.onChangeHandler(5, value)}/>

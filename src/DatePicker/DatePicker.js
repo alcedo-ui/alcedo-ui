@@ -130,7 +130,7 @@ class DatePicker extends Component {
         });
     };
 
-    togglePopup = e => {
+    togglePopup = () => {
         if (this.validValue) {
             this.setState({
                 popupVisible: !this.state.popupVisible
@@ -256,7 +256,7 @@ class DatePicker extends Component {
                        onRequestClose={this.closePopup}>
 
                     {
-                        datePickerLevel == 'day' ?
+                        datePickerLevel === 'day' ?
                             <DayPicker
                                 value={value}
                                 dateFormat={dateFormat}
@@ -273,7 +273,7 @@ class DatePicker extends Component {
                                 onChange={this.handleDayPickerChange}
                                 previousClick={this.handleDatePickerChange}/>
                             :
-                            datePickerLevel == 'month' ?
+                            datePickerLevel === 'month' ?
                                 <MonthPicker
                                     value={value}
                                     year={year}
@@ -303,7 +303,7 @@ class DatePicker extends Component {
                     }
 
                     {
-                        isFooter && datePickerLevel == 'day' ?
+                        isFooter && datePickerLevel === 'day' ?
                             <div className="calendar-footer">
                                 {
                                     (minValue && moment(this.props.value).isBefore(minValue))

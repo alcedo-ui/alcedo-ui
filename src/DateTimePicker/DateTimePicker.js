@@ -158,7 +158,7 @@ class DateTimePicker extends Component {
         });
     };
 
-    togglePopup = e => {
+    togglePopup = () => {
         if (this.validValue) {
             this.setState({
                 popupVisible: !this.state.popupVisible
@@ -263,7 +263,7 @@ class DateTimePicker extends Component {
                        onRequestClose={this.closePopup}>
 
                     {
-                        datePickerLevel == 'day' ?
+                        datePickerLevel === 'day' ?
                             <DayPicker
                                 value={value}
                                 dateFormat={dateFormat}
@@ -283,7 +283,7 @@ class DateTimePicker extends Component {
                                 onChange={this.handleDayPickerChange}
                                 previousClick={this.handleDatePickerChange}/>
                             :
-                            datePickerLevel == 'month' ?
+                            datePickerLevel === 'month' ?
                                 <MonthPicker
                                     value={value}
                                     year={year}
@@ -298,7 +298,7 @@ class DateTimePicker extends Component {
                                     onChange={this.handleMonthPickerChange}
                                     previousClick={this.handleDatePickerChange}/>
                                 :
-                                datePickerLevel == 'year' ?
+                                datePickerLevel === 'year' ?
                                     <YearPicker value={value}
                                                 year={year}
                                                 month={month}
@@ -315,17 +315,17 @@ class DateTimePicker extends Component {
                     }
 
                     {
-                        <TimeList className={`time-picker-body ${datePickerLevel == 'time' ? '' : 'hidden'}`}
+                        <TimeList className={`time-picker-body ${datePickerLevel === 'time' ? '' : 'hidden'}`}
                                   dateFormat={dateFormat.split(' ')[1]}
-                                  popupVisible={datePickerLevel == 'time' ? true : false}
+                                  popupVisible={datePickerLevel === 'time'}
                                   hour={hour}
                                   minute={minute}
                                   second={second}
-                                  isRequired={(minValue && textValue.split(' ')[0] == minValue.split(' ')[0])
-                                  || (maxValue && textValue.split(' ')[0] == maxValue.split(' ')[0]) ? true : false}
-                                  maxValue={maxValue && textValue.split(' ')[0] == maxValue.split(' ')[0] ?
+                                  isRequired={(minValue && textValue.split(' ')[0] === minValue.split(' ')[0])
+                                  || (maxValue && textValue.split(' ')[0] === maxValue.split(' ')[0])}
+                                  maxValue={maxValue && textValue.split(' ')[0] === maxValue.split(' ')[0] ?
                                       moment(maxValue).format('HH:mm:ss') : null}
-                                  minValue={minValue && textValue.split(' ')[0] == minValue.split(' ')[0] ?
+                                  minValue={minValue && textValue.split(' ')[0] === minValue.split(' ')[0] ?
                                       moment(minValue).format('HH:mm:ss') : null}
                                   onChange={this.handleTimePickerChange}/>
                     }
@@ -346,7 +346,7 @@ class DateTimePicker extends Component {
                                                         onClick={this.handleNow}/>
                                     }
                                     {
-                                        datePickerLevel == 'time' ?
+                                        datePickerLevel === 'time' ?
                                             <span className="fr date-text"
                                                   onClick={() =>
                                                       this.handleChooseDateAndTime('day')
