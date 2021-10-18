@@ -36,7 +36,13 @@ class DatePicker extends Component {
         this.trigger = createRef();
         this.triggerEl = null;
 
-        const defaultValue = props.value ? props.value : moment().format('YYYY-MM-DD');
+        const defaultValue = props.value ?
+            props.value
+            :
+            props.minValue ?
+                props.minValue
+                :
+                moment().format('YYYY-MM-DD');
 
         this.state = {
             value: props.value,
@@ -161,7 +167,7 @@ class DatePicker extends Component {
 
     };
 
-    validValueFormat = (value, dateFormat) => {
+    validValueFormat = (value, minValue, dateFormat) => {
         if (value) {
             // debugger
             if (moment(value, dateFormat).isValid()) {
@@ -176,11 +182,15 @@ class DatePicker extends Component {
                 console.error('Invalid date');
             }
         } else {
+            const defaultValue = minValue ?
+                minValue
+                :
+                moment().format('YYYY-MM-DD');
             this.setState({
                 value: '',
-                year: moment(this.defaultValue).format('YYYY'),
-                month: moment(this.defaultValue).format('MM'),
-                day: moment(this.defaultValue).format('DD')
+                year: moment(defaultValue).format('YYYY'),
+                month: moment(defaultValue).format('MM'),
+                day: moment(defaultValue).format('DD')
             });
         }
     };
@@ -189,8 +199,8 @@ class DatePicker extends Component {
 
         this.triggerEl = this.trigger && this.trigger.current && findDOMNode(this.trigger.current);
 
-        const {value, dateFormat} = this.props;
-        this.validValueFormat(value, dateFormat);
+        const {value, minValue, dateFormat} = this.props;
+        this.validValueFormat(value, minValue, dateFormat);
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -302,7 +312,7 @@ class DatePicker extends Component {
                                             <span className="item-gray">Today</span>
                                         </span>
                                         :
-                                        <FlatButton className='today-button'
+                                        <FlatButton className="today-button"
                                                     value={'Today'}
                                                     onClick={this.handleToday}/>
                                 }

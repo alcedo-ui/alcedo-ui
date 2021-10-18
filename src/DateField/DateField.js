@@ -24,8 +24,13 @@ class DateField extends Component {
 
         super(props, ...restArgs);
 
-        const defaultValue = props.value ? props.value : moment().format('YYYY-MM-DD');
-
+        const defaultValue = props.value ?
+            props.value
+            :
+            props.minValue ?
+                props.minValue
+                :
+                moment().format('YYYY-MM-DD');
         this.state = {
             value: props.value,
             year: moment(defaultValue).format('YYYY'),
@@ -84,7 +89,7 @@ class DateField extends Component {
         });
     };
 
-    validValueFormat = (value, dateFormat) => {
+    validValueFormat = (value, minValue, dateFormat) => {
         if (value) {
             // debugger
             if (moment(value, dateFormat).isValid()) {
@@ -95,22 +100,25 @@ class DateField extends Component {
                     day: moment(value).format('DD')
                 });
             } else {
-                this.validValue = false;
                 console.error('Invalid date');
             }
         } else {
+            const defaultValue = minValue ?
+                minValue
+                :
+                moment().format('YYYY-MM-DD');
             this.setState({
                 value: '',
-                year: moment(this.defaultValue).format('YYYY'),
-                month: moment(this.defaultValue).format('MM'),
-                day: moment(this.defaultValue).format('DD')
+                year: moment(defaultValue).format('YYYY'),
+                month: moment(defaultValue).format('MM'),
+                day: moment(defaultValue).format('DD')
             });
         }
     };
 
     componentDidMount() {
-        const {value, dateFormat} = this.props;
-        this.validValueFormat(value, dateFormat);
+        const {value, minValue, dateFormat} = this.props;
+        this.validValueFormat(value, minValue, dateFormat);
     }
 
 
@@ -196,7 +204,7 @@ class DateField extends Component {
                                         <span className="item-gray">Today</span>
                                     </span>
                                     :
-                                    <FlatButton className='today-button'
+                                    <FlatButton className="today-button"
                                                 value={'Today'}
                                                 onClick={this.handleToday}/>
                             }

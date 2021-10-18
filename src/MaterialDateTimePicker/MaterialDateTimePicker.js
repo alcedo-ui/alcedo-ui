@@ -36,7 +36,14 @@ class MaterialDateTimePicker extends Component {
         this.trigger = createRef();
         this.triggerEl = null;
 
-        const defaultValue = props.value ? props.value : moment().format('YYYY-MM-DD HH:mm:ss');
+        const defaultValue = props.value ?
+            props.value
+            :
+            props.minValue ?
+                props.minValue
+                :
+                moment().format('YYYY-MM-DD HH:mm:ss');
+
         this.state = {
             value: props.value,
             popupVisible: false,
@@ -132,7 +139,8 @@ class MaterialDateTimePicker extends Component {
             popupVisible: false,
             datePickerLevel: 'day'
         }, () => {
-            this.props.onChange && this.props.onChange(this.state.value && moment(this.state.value).format(this.props.dateFormat));
+            this.props.onChange &&
+            this.props.onChange(this.state.value && moment(this.state.value).format(this.props.dateFormat));
         });
     };
 
@@ -315,9 +323,12 @@ class MaterialDateTimePicker extends Component {
                                   hour={hour}
                                   minute={minute}
                                   second={second}
-                                  isRequired={(minValue && textValue.split(' ')[0] == minValue.split(' ')[0]) || (maxValue && textValue.split(' ')[0] == maxValue.split(' ')[0]) ? true : false}
-                                  maxValue={maxValue && textValue.split(' ')[0] == maxValue.split(' ')[0] ? moment(maxValue).format('HH:mm:ss') : null}
-                                  minValue={minValue && textValue.split(' ')[0] == minValue.split(' ')[0] ? moment(minValue).format('HH:mm:ss') : null}
+                                  isRequired={(minValue && textValue.split(' ')[0] == minValue.split(' ')[0]) ||
+                                  (maxValue && textValue.split(' ')[0] == maxValue.split(' ')[0]) ? true : false}
+                                  maxValue={maxValue && textValue.split(' ')[0] == maxValue.split(' ')[0] ?
+                                      moment(maxValue).format('HH:mm:ss') : null}
+                                  minValue={minValue && textValue.split(' ')[0] == minValue.split(' ')[0] ?
+                                      moment(minValue).format('HH:mm:ss') : null}
                                   onChange={this.handleTimePickerChange}/>
                     }
 
@@ -326,7 +337,8 @@ class MaterialDateTimePicker extends Component {
                             <div className="calendar-footer">
                                 <div className="action fl">
                                     {
-                                        (minValue && moment(this.props.value).isBefore(minValue)) || (maxValue && moment(maxValue).isBefore(this.props.value)) ?
+                                        (minValue && moment(this.props.value).isBefore(minValue)) ||
+                                        (maxValue && moment(maxValue).isBefore(this.props.value)) ?
                                             <span className="fl date-text ">
                                                 <span className="item-gray">Now</span>
                                             </span>

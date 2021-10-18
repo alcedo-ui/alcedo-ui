@@ -37,7 +37,13 @@ class DateTimePicker extends Component {
         this.trigger = createRef();
         this.triggerEl = null;
 
-        const defaultValue = props.value ? props.value : moment().format('YYYY-MM-DD HH:mm:ss');
+        const defaultValue = props.value ?
+            props.value
+            :
+            props.minValue ?
+                props.minValue
+                :
+                moment().format('YYYY-MM-DD HH:mm:ss');
         this.state = {
             value: props.value,
             popupVisible: false,
@@ -135,7 +141,8 @@ class DateTimePicker extends Component {
             popupVisible: false,
             datePickerLevel: 'day'
         }, () => {
-            this.props.onChange && this.props.onChange(this.state.value && moment(this.state.value).format(this.props.dateFormat));
+            this.props.onChange &&
+            this.props.onChange(this.state.value && moment(this.state.value).format(this.props.dateFormat));
         });
     };
 
@@ -334,7 +341,7 @@ class DateTimePicker extends Component {
                                                 <span className="item-gray">Now</span>
                                             </span>
                                             :
-                                            <FlatButton className='today-button fl'
+                                            <FlatButton className="today-button fl"
                                                         value={'Now'}
                                                         onClick={this.handleNow}/>
                                     }

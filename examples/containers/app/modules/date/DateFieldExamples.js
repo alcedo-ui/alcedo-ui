@@ -41,7 +41,8 @@ class DateFieldExamples extends Component {
 
                                 <p><code>Date Field</code>simple example.</p>
 
-                                <DateField onChange={this.onChangeHandler}/>
+                                <DateField minValue="2021-11-01"
+                                           onChange={this.onChangeHandler}/>
 
                             </div>
 

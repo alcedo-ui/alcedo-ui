@@ -35,7 +35,13 @@ class MaterialDatePicker extends Component {
         this.trigger = createRef();
         this.triggerEl = null;
 
-        const defaultValue = props.value ? props.value : moment().format('YYYY-MM-DD');
+        const defaultValue = props.value ?
+            props.value
+            :
+            props.minValue ?
+                props.minValue
+                :
+                moment().format('YYYY-MM-DD');
 
         this.state = {
             value: props.value,
@@ -159,7 +165,7 @@ class MaterialDatePicker extends Component {
 
     };
 
-    validValueFormat = (value, dateFormat) => {
+    validValueFormat = (value, minValue, dateFormat) => {
         if (value) {
             // debugger
             if (moment(value, dateFormat).isValid()) {
@@ -174,11 +180,15 @@ class MaterialDatePicker extends Component {
                 console.error('Invalid date');
             }
         } else {
+            const defaultValue = minValue ?
+                minValue
+                :
+                moment().format('YYYY-MM-DD');
             this.setState({
                 value: '',
-                year: moment(this.defaultValue).format('YYYY'),
-                month: moment(this.defaultValue).format('MM'),
-                day: moment(this.defaultValue).format('DD')
+                year: moment(defaultValue).format('YYYY'),
+                month: moment(defaultValue).format('MM'),
+                day: moment(defaultValue).format('DD')
             });
         }
     };
@@ -186,8 +196,8 @@ class MaterialDatePicker extends Component {
     componentDidMount() {
         this.triggerEl = this.trigger && this.trigger.current && findDOMNode(this.trigger.current);
         // debugger
-        const {value, dateFormat} = this.props;
-        this.validValueFormat(value, dateFormat);
+        const {value, minValue, dateFormat} = this.props;
+        this.validValueFormat(value, minValue, dateFormat);
     }
 
 

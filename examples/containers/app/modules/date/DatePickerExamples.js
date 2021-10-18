@@ -91,6 +91,7 @@ class DatePickerExamples extends Component {
                                             dateFormat={'YYYY-MM-DD'}
                                             name="date"
                                             readOnly={true}
+                                            minValue="2021-11-01"
                                             rightIconCls={'far fa-calendar-alt'}
                                             popupClassName={'popupClassName'}
                                             position={DatePicker.Position.TOP}
