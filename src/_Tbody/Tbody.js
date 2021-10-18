@@ -18,6 +18,7 @@ import SortingType from '../_statics/SortingType';
 
 // Vendors
 import Util from '../_vendors/Util';
+import TC from '../_vendors/TableCalculation';
 
 class Tbody extends Component {
 
@@ -55,17 +56,18 @@ class Tbody extends Component {
 
         const {
 
-                className, style, columns, tableData, dynamicRenderData, startIndex, disabled, useDynamicRender,
-                onColumnMeasure,
+            className, style, columns, tableData, dynamicRenderData, startIndex, disabled, useDynamicRender,
+            isRowDisabled, onColumnMeasure,
 
-                // not passing down these props
-                value,
+            // not passing down these props
+            // eslint-disable-next-line no-unused-vars
+            value,
 
-                ...restProps
+            ...restProps
 
-            } = this.props,
+        } = this.props;
 
-            finalData = (useDynamicRender ? dynamicRenderData : tableData) || [];
+        const finalData = (useDynamicRender ? dynamicRenderData : tableData) || [];
 
         return (
             <tbody className={className}
@@ -85,7 +87,7 @@ class Tbody extends Component {
                             data={row}
                             tableData={tableData}
                             isChecked={this.isItemChecked(row)}
-                            disabled={disabled || row.disabled}
+                            disabled={disabled || TC.isNodeDisabled(row, isRowDisabled)}
                             useDynamicRender={useDynamicRender}/>
                         :
                         null
@@ -337,6 +339,7 @@ Tbody.propTypes = {
     startIndex: PropTypes.number,
     idField: PropTypes.string,
     disabled: PropTypes.bool,
+    isRowDisabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
     expandRows: PropTypes.array,
     ignoreColumnSpan: PropTypes.bool,
     scrollEl: PropTypes.object,
