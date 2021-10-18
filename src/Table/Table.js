@@ -671,6 +671,7 @@ Table.propTypes = {
     value: PropTypes.array,
     idField: PropTypes.string,
     disabled: PropTypes.bool,
+    isRowDisabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
     noDataText: PropTypes.any,
 
     /**
