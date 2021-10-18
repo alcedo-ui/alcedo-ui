@@ -137,8 +137,8 @@ class DayPicker extends Component {
         const {monthAndYearChange} = this.props, {
                 currentYear, currentMonth, currentDay, selectYear, selectMonth, dateNumArray
             } = this.state,
-            selectedYear = selectMonth == 1 ? +selectYear - 1 : selectYear,
-            selectedMonth = selectMonth == 1 ? 12 : +selectMonth - 1,
+            selectedYear = selectMonth?.toString() === '1' ? +selectYear - 1 : selectYear,
+            selectedMonth = selectMonth?.toString() === '1' ? 12 : +selectMonth - 1,
             selectedDay = Number(currentYear) === Number(selectedYear) &&
             Number(currentMonth) === Number(selectedMonth) ?
                 currentDay
@@ -148,7 +148,7 @@ class DayPicker extends Component {
             selectYear: selectedYear,
             selectMonth: selectedMonth,
             selectDay: selectedDay,
-            dateNumArray: selectMonth == 1 ? DateUtil.MonthDays(selectedYear) : dateNumArray,
+            dateNumArray: selectMonth?.toString() === '1' ? DateUtil.MonthDays(selectedYear) : dateNumArray,
             firstDay: DC.weekday(selectedYear, selectedMonth)
         }, () => {
             monthAndYearChange && monthAndYearChange({
@@ -163,8 +163,8 @@ class DayPicker extends Component {
         const {monthAndYearChange} = this.props, {
                 currentYear, currentMonth, currentDay, selectYear, selectMonth, dateNumArray
             } = this.state,
-            selectedYear = selectMonth == 12 ? +selectYear + 1 : selectYear,
-            selectedMonth = selectMonth == 12 ? 1 : +selectMonth + 1,
+            selectedYear = selectMonth?.toString() === '12' ? +selectYear + 1 : selectYear,
+            selectedMonth = selectMonth?.toString() === '12' ? 1 : +selectMonth + 1,
             selectedDay = Number(currentYear) === Number(selectedYear) &&
             Number(currentMonth) === Number(selectedMonth) ?
                 currentDay
@@ -175,7 +175,7 @@ class DayPicker extends Component {
             selectYear: selectedYear,
             selectMonth: selectedMonth,
             selectDay: selectedDay,
-            dateNumArray: selectMonth == 12 ? DateUtil.MonthDays(selectedYear) : dateNumArray,
+            dateNumArray: selectMonth?.toString() === '12' ? DateUtil.MonthDays(selectedYear) : dateNumArray,
             firstDay: DC.weekday(selectedYear, selectedMonth)
         }, () => {
             monthAndYearChange && monthAndYearChange({
@@ -254,14 +254,16 @@ class DayPicker extends Component {
 
             const item = moment([Number(selectYear), (Number(selectMonth) - 1), (i + 1)]).format('YYYY-MM-DD'),
                 liClassName = classNames({
-                    'start': start == item ||
-                        otherSelectedDate.some(data => (moment(data?.value[0]).format('YYYY-MM-DD') == item)),
-                    'end': item == end || item == hover ||
-                        otherSelectedDate.some(data => (moment(data?.value[1]).format('YYYY-MM-DD') == item)),
+                    'start': start?.toString() === item?.toString() ||
+                        otherSelectedDate.some(
+                            data => (moment(data?.value[0]).format('YYYY-MM-DD') === item?.toString())),
+                    'end': item?.toString() === end?.toString() || item?.toString() === hover?.toString() ||
+                        otherSelectedDate.some(
+                            data => (moment(data?.value[1]).format('YYYY-MM-DD') === item?.toString())),
                     'hover': (moment(start).isBefore(item) && moment(item).isBefore(end)) ||
                         (moment(start).isBefore(item) && moment(item).isBefore(hover)),
-                    'first-day': i == 0,
-                    'last-day': i == (+monthDays - 1),
+                    'first-day': i === 0,
+                    'last-day': i === (+monthDays - 1),
                     'item-gray': (minDate && moment(item).isBefore(minDate)) ||
                         (maxDate && moment(maxDate).isBefore(item)),
                     'current-days': !(minDate && moment(item).isBefore(minDate)) ||
@@ -314,7 +316,8 @@ class DayPicker extends Component {
 
             const item = moment([Number(selectYear), (Number(selectMonth) - 1), (i + 1)]).format('YYYY-MM-DD'),
                 liClassName = classNames({
-                    'active': (selectYear == currentYear) && (selectMonth == currentMonth) && (i + 1 == selectDay),
+                    'active': (selectYear?.toString() === currentYear?.toString()) &&
+                        (selectMonth?.toString() === currentMonth?.toString()) && (i + 1 === Number(selectDay)),
                     'item-gray': (minValue && moment(item).isBefore(minValue)) ||
                         (maxValue && moment(maxValue).isBefore(item)),
                     'current-days': !(minValue && moment(item).isBefore(minValue)) ||
@@ -386,7 +389,8 @@ class DayPicker extends Component {
                 {
                     minValue ?
                         (moment(minValue).format('YYYY') < +selectYear - 1) ||
-                        (moment(minValue).format('YYYY') == +selectYear - 1 && moment(minValue).format('MM') <=
+                        (moment(minValue).format('YYYY')?.toString() === (+selectYear - 1)?.toString() &&
+                            moment(minValue).format('MM') <=
                             selectMonth) ?
                             <i className={classNames('previous-year', {
                                 [previousYearIconCls]: previousYearIconCls
@@ -406,7 +410,8 @@ class DayPicker extends Component {
                 }
                 {
                     minValue ?
-                        (moment(minValue).format('YYYY') == selectYear && moment(minValue).format('MM') <
+                        ((moment(minValue).format('YYYY')?.toString() === selectYear?.toString()) &&
+                            moment(minValue).format('MM') <
                             selectMonth) ||
                         moment(minValue).format('YYYY') < selectYear ?
                             <i className={classNames('previous-month', {
@@ -437,7 +442,7 @@ class DayPicker extends Component {
             <>
                 {
                     maxValue ?
-                        (moment(maxValue).format('YYYY') == selectYear && selectMonth <
+                        ((moment(maxValue).format('YYYY')?.toString() === selectYear?.toString()) && selectMonth <
                             moment(maxValue).format('MM')) ||
                         maxValue && selectYear < moment(maxValue).format('YYYY') ?
                             <i className={classNames('next-month', {
@@ -460,7 +465,7 @@ class DayPicker extends Component {
                 {
                     maxValue ?
                         (selectYear < +moment(maxValue).format('YYYY') - 1) ||
-                        (selectYear == moment(maxValue).format('YYYY') - 1 && selectMonth <=
+                        (selectYear?.toString() === (moment(maxValue).format('YYYY') - 1)?.toString() && selectMonth <=
                             moment(maxValue).format('MM')) ?
                             <i className={classNames('next-year', {
                                 [nextYearIconCls]: nextYearIconCls
