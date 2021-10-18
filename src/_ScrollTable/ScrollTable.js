@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component, Fragment, createRef} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 
 // Components
@@ -107,6 +107,7 @@ class ScrollTable extends Component {
             onScroll, onWheel, onColumnMeasure,
 
             // not passing down these props
+            // eslint-disable-next-line no-unused-vars
             onInit, onGetScrollerEl,
 
             ...restProps
@@ -123,7 +124,7 @@ class ScrollTable extends Component {
             scrollableTableStyle = ScrollBar.getHideHorizontalScrollBarStyle();
 
         return (
-            <Fragment>
+            <>
 
                 {
                     hasHead ?
@@ -264,7 +265,7 @@ class ScrollTable extends Component {
                         null
                 }
 
-            </Fragment>
+            </>
         );
 
     }
@@ -522,6 +523,8 @@ ScrollTable.propTypes = {
     dynamicRenderData: PropTypes.array,
     value: PropTypes.array,
     idField: PropTypes.string,
+    disabled: PropTypes.bool,
+    isRowDisabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
     expandRows: PropTypes.array,
 
     /**
