@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component, Fragment, createRef} from 'react';
+import React, {Component, createRef} from 'react';
 
 // Components
 import Table from 'src/Table';
@@ -14,7 +14,7 @@ import WidgetHeader from 'src/WidgetHeader';
 import CircularLoading from 'src/CircularLoading';
 import RaisedButton from 'src/RaisedButton';
 import MaterialTextField from 'src/MaterialTextField';
-import TipProvider from 'src/TipProvider';
+// import TipProvider from 'src/TipProvider';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 
 // Statics
@@ -81,10 +81,16 @@ class TableExamples extends Component {
             headRenderer: 'Age',
             bodyRenderer: rowData => rowData.age,
             footRenderer: this.state.data && this.state.data.length > 0 ? () =>
-                    <Fragment>
+                    <>
                         <div>Average</div>
-                        <div>{round(this.state.data.reduce((a, b) => a + b.age, 0) / this.state.data.length, 0)}</div>
-                    </Fragment>
+                        <div>
+                            {
+                                round(this.state.data.reduce((a, b) =>
+                                    a + b.age, 0) / this.state.data.length, 0
+                                )
+                            }
+                        </div>
+                    </>
                 :
                 null,
             sortable: true,
@@ -135,10 +141,10 @@ class TableExamples extends Component {
                 :
                 null,
             footRenderer: this.state.data && this.state.data.length > 0 ? () =>
-                    <Fragment>
+                    <>
                         <div>Sum</div>
                         <div>{this.state.data.reduce((a, b) => round(a + b.functionWidth), 0)}</div>
-                    </Fragment>
+                    </>
                 :
                 null,
             sortable: true,
@@ -405,16 +411,17 @@ class TableExamples extends Component {
                                            ...item,
                                            disabled: item?.id % 4 === 0
                                        }))}
+                                       isRowDisabled={row => row.id === '6'}
                                        footData={footData}
                                        selectMode={Table.SelectMode.MULTI_SELECT}
-                                       selectColumn={{
-                                           bodyRenderer: (checkboxInstance, rowData) => rowData.disabled ?
-                                               <TipProvider tipContent="Disabled">
-                                                   <i className="fas fa-ban"/>
-                                               </TipProvider>
-                                               :
-                                               checkboxInstance
-                                       }}
+                                       // selectColumn={{
+                                       //     bodyRenderer: (checkboxInstance, rowData) => rowData.disabled ?
+                                       //         <TipProvider tipContent="Disabled">
+                                       //             <i className="fas fa-ban"/>
+                                       //         </TipProvider>
+                                       //         :
+                                       //         checkboxInstance
+                                       // }}
                                        scroll={{
                                            width: 1200
                                        }}

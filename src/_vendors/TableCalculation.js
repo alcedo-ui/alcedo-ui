@@ -33,6 +33,11 @@ function calcSpan(fragment, column, data, colIndex, rowIndex, columns) {
         +span;
 }
 
+/**
+ * @param column
+ * @param columnKeyField
+ * @returns {*}
+ */
 function getColumnKey(column, columnKeyField) {
     return (column && columnKeyField && column[columnKeyField]) || column;
 }
@@ -147,6 +152,12 @@ function getAdvancedColumnsSpan(originColumns, fixed, fragment, columns, data, r
 
 }
 
+/**
+ * @param data
+ * @param sorting
+ * @param sortFunc
+ * @returns {*[]|*}
+ */
 function sortTableData(data, sorting, sortFunc) {
 
     if (!data) {
@@ -175,6 +186,11 @@ function sortTableData(data, sorting, sortFunc) {
 
 }
 
+/**
+ * @param columns
+ * @param fragment
+ * @returns {*|boolean}
+ */
 function hasRenderer(columns, fragment) {
     return columns && columns.length > 0 && fragment ?
         columns.some(column => column?.[`${fragment}Renderer`])
@@ -182,6 +198,10 @@ function hasRenderer(columns, fragment) {
         false;
 }
 
+/**
+ * @param columnsGroup
+ * @returns {*|boolean}
+ */
 function hasHeadRenderer(columnsGroup) {
     return columnsGroup && columnsGroup.length > 0 ?
         columnsGroup.some(columns => hasRenderer(columns, TableFragment.HEAD))
@@ -208,6 +228,12 @@ function hasHeadRenderer(columnsGroup) {
 //
 // }
 
+/**
+ * @param node
+ * @param value
+ * @param idField
+ * @returns {number|*}
+ */
 function indexOfNodeInValue(node, value, idField) {
 
     if (!node || !value) {
@@ -225,10 +251,45 @@ function indexOfNodeInValue(node, value, idField) {
 
 }
 
+/**
+ * @param node
+ * @param value
+ * @param idField
+ * @returns {boolean}
+ */
 function isNodeChecked(node, value, idField) {
     return indexOfNodeInValue(node, value, idField) >= 0;
 }
 
+/**
+ * @param node
+ * @param isRowDisabled
+ * @returns {boolean}
+ */
+function isNodeDisabled(node, isRowDisabled) {
+
+    if (!node) {
+        return false;
+    }
+
+    if (node.disabled) {
+        return true;
+    }
+
+    if (typeof isRowDisabled === 'function') {
+        return isRowDisabled(node) || false;
+    }
+
+    return isRowDisabled || false;
+
+}
+
+/**
+ * @param data
+ * @param value
+ * @param idField
+ * @returns {{indeterminate: boolean, checked: boolean}}
+ */
 function isSelectAllChecked(data, value, idField) {
 
     const root = isArray(data) ? {
@@ -258,6 +319,13 @@ function isSelectAllChecked(data, value, idField) {
 
 }
 
+/**
+ * @param node
+ * @param value
+ * @param idField
+ * @param isSelectRecursive
+ * @returns {*[]}
+ */
 function handleSelect(node, value = [], idField, isSelectRecursive) {
 
     if (!node || node.disabled || !value) {
@@ -280,6 +348,13 @@ function handleSelect(node, value = [], idField, isSelectRecursive) {
 
 }
 
+/**
+ * @param node
+ * @param value
+ * @param idField
+ * @param isSelectRecursive
+ * @returns {*}
+ */
 function handleDeselect(node, value, idField, isSelectRecursive) {
 
     if (!node || node.disabled || !value) {
@@ -303,6 +378,12 @@ function handleDeselect(node, value, idField, isSelectRecursive) {
 
 }
 
+/**
+ * @param value
+ * @param data
+ * @param idField
+ * @returns {*[]}
+ */
 function formatValue(value, data, idField) {
 
     let result = [];
@@ -325,6 +406,12 @@ function formatValue(value, data, idField) {
 
 }
 
+/**
+ * @param data
+ * @param value
+ * @param idField
+ * @returns {*[]}
+ */
 function handleSelectAll(data, value = [], idField) {
 
     if (!data || data.length < 1) {
@@ -490,6 +577,10 @@ function getHeadColumns(columns) {
 
 }
 
+/**
+ * @param columns
+ * @returns {*[]|*}
+ */
 function getBodyColumns(columns) {
 
     if (!columns || columns.length < 1) {
@@ -507,6 +598,12 @@ function getBodyColumns(columns) {
 
 }
 
+/**
+ * @param node
+ * @param value
+ * @param idField
+ * @returns {*[]}
+ */
 function recursiveSelectChildren(node, value = [], idField) {
 
     if (!node) {
@@ -523,10 +620,19 @@ function recursiveSelectChildren(node, value = [], idField) {
 
 }
 
+/**
+ * @param tableData
+ * @returns {*}
+ */
 function needCollapseButtonSpacing(tableData) {
     return tableData && tableData.some(rowData => rowData && rowData.children && rowData.children.length > 0);
 }
 
+/**
+ * @param pageSize
+ * @param pageSizeValueField
+ * @returns {*}
+ */
 function getPageSizeValue(pageSize, pageSizeValueField) {
     return typeof pageSize === 'object' ?
         pageSize[pageSizeValueField]
@@ -534,6 +640,15 @@ function getPageSizeValue(pageSize, pageSizeValueField) {
         pageSize;
 }
 
+/**
+ * @param fragmentNoWrap
+ * @param columnNoWrap
+ * @param data
+ * @param colIndex
+ * @param rowIndex
+ * @param tableData
+ * @returns {boolean}
+ */
 function handleNoWrap(fragmentNoWrap, columnNoWrap, {data, colIndex, rowIndex, tableData}) {
     return !!((
         typeof fragmentNoWrap === 'function' ?
@@ -548,6 +663,12 @@ function handleNoWrap(fragmentNoWrap, columnNoWrap, {data, colIndex, rowIndex, t
     ));
 }
 
+/**
+ * @param page
+ * @param pageSize
+ * @param data
+ * @returns {number|*}
+ */
 function handlePage(page, pageSize, data) {
 
     if (!data || data.length < 1 || !pageSize || page < 0) {
@@ -571,16 +692,33 @@ function handlePage(page, pageSize, data) {
 //
 // }
 
+/**
+ * @param columns
+ * @param columnKeyField
+ * @param columnsWidth
+ * @param defaultColumnWidth
+ * @returns {*|number}
+ */
 function getColumnsTotalWidth(columns, columnKeyField = 'key', columnsWidth, defaultColumnWidth = 100) {
     return columns && columnsWidth ?
         columns.reduce((sum, column) =>
-            sum + (columnsWidth.get(getColumnKey(column, columnKeyField)) || defaultColumnWidth),
+                sum + (columnsWidth.get(getColumnKey(column, columnKeyField)) || defaultColumnWidth),
             0
         )
         :
         0;
 }
 
+/**
+ * @param fixed
+ * @param colIndex
+ * @param columns
+ * @param columnKeyField
+ * @param columnsWidth
+ * @param defaultColumnWidth
+ * @param hasVerticalScroll
+ * @returns {{}}
+ */
 function getStickyColumnStyle(
     fixed, colIndex, columns, columnKeyField = 'key', columnsWidth, defaultColumnWidth, hasVerticalScroll
 ) {
@@ -623,6 +761,7 @@ export default {
     // getDataByPagination,
     indexOfNodeInValue,
     isNodeChecked,
+    isNodeDisabled,
     isSelectAllChecked,
     handleSelect,
     handleDeselect,
