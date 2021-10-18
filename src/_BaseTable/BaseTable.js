@@ -64,7 +64,7 @@ class BaseTable extends Component {
 
                 className, style, data, footData, dynamicRenderData, value, idField, scrollEl, hasVerticalScroll,
                 headColumns, bodyColumns, columnKeyField, columnsWidth, selectMode, useColumnsWidth,
-                expandRows, resizingColumn, useDynamicRender, scrollHeight, rowHeight, scrollBuffer,
+                expandRows, resizingColumn, useDynamicRender, scrollHeight, rowHeight, scrollBuffer, isRowDisabled,
                 defaultColumnWidth, minColumnWidth, maxColumnWidth, isHeadHidden, isBodyHidden, isFootHidden,
                 isLayoutFixed, hasFixedRightColumn, ignoreColumnSpan, hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
                 sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, isClickSorting,
@@ -152,6 +152,7 @@ class BaseTable extends Component {
                                rowHeight={rowHeight}
                                scrollBuffer={scrollBuffer}
                                resizingColumn={resizingColumn}
+                               isRowDisabled={isRowDisabled}
                                onExpandChange={onExpandChange}
                                onRequestColumnsSpan={onRequestColumnsSpan}
                                onColumnMeasure={onColumnMeasure}/>
@@ -443,6 +444,7 @@ BaseTable.propTypes = {
     value: PropTypes.array,
     idField: PropTypes.string,
     disabled: PropTypes.bool,
+    isRowDisabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
     expandRows: PropTypes.array,
     ignoreColumnSpan: PropTypes.bool,
 
