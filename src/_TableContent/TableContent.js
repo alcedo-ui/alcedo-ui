@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-import React, {Component, Fragment, createRef} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 
 // Components
@@ -180,12 +180,12 @@ class TableContent extends Component {
         }
 
         const {
-                columnKeyField, selectTheme, selectMode, selectAllMode, selectColumn,
-                data, disabled, value, idField, canBeExpanded, isSelectAllDisabled,
-                expandIconCls, selectUncheckedIconCls, selectCheckedIconCls, selectIndeterminateIconCls
-            } = this.props,
-            firstColumn = TC.getFirstColumn(columns),
-            result = [...columns];
+            columnKeyField, selectTheme, selectMode, selectAllMode, selectColumn,
+            data, disabled, isRowDisabled, value, idField, canBeExpanded, isSelectAllDisabled,
+            expandIconCls, selectUncheckedIconCls, selectCheckedIconCls, selectIndeterminateIconCls
+        } = this.props;
+        const firstColumn = TC.getFirstColumn(columns);
+        const result = [...columns];
 
         /**
          * handle expand
@@ -200,7 +200,7 @@ class TableContent extends Component {
                 expandColumn.bodyRenderer = (
                     rowData, rowIndex, colIndex, parentData, tableData, collapsed, depth, path
                 ) => (
-                    <Fragment>
+                    <>
 
                         <span className={classNames('table-indent', `indent-level-${depth}`)}
                               style={{paddingLeft: depth * 20}}/>
@@ -225,7 +225,7 @@ class TableContent extends Component {
                                 firstColumn.bodyRenderer
                         }
 
-                    </Fragment>
+                    </>
                 );
 
                 expandColumn.bodyNoWrap = (rowData, rowIndex, colIndex, tableData) =>
@@ -251,19 +251,19 @@ class TableContent extends Component {
 
                     const {checked, indeterminate} = TC.isSelectAllChecked(
                         selectAllMode === SelectAllMode.ALL ? data : this.tableData, value, idField
-                        ),
-                        checkboxInstance = (
-                            <Checkbox className="table-select"
-                                      theme={selectTheme}
-                                      checked={checked}
-                                      disabled={isSelectAllDisabled || disabled}
-                                      indeterminate={indeterminate}
-                                      uncheckedIconCls={selectUncheckedIconCls}
-                                      checkedIconCls={selectCheckedIconCls}
-                                      indeterminateIconCls={selectIndeterminateIconCls}
-                                      onCheck={this.handleSelectAll}
-                                      onUncheck={this.handleDeselectAll}/>
-                        );
+                    );
+                    const checkboxInstance = (
+                        <Checkbox className="table-select"
+                                  theme={selectTheme}
+                                  checked={checked}
+                                  disabled={isSelectAllDisabled || disabled}
+                                  indeterminate={indeterminate}
+                                  uncheckedIconCls={selectUncheckedIconCls}
+                                  checkedIconCls={selectCheckedIconCls}
+                                  indeterminateIconCls={selectIndeterminateIconCls}
+                                  onCheck={this.handleSelectAll}
+                                  onUncheck={this.handleDeselectAll}/>
+                    );
 
                     if (selectColumn?.headRenderer) {
 
@@ -286,7 +286,7 @@ class TableContent extends Component {
                     const checkboxInstance = (
                         <Checkbox className="table-select"
                                   theme={selectTheme}
-                                  disabled={disabled || rowData.disabled}
+                                  disabled={disabled || TC.isNodeDisabled(rowData, isRowDisabled)}
                                   checked={TC.isNodeChecked(rowData, value, idField)}
                                   indeterminate={Calc.isItemIndeterminate(rowData, value, {
                                       valueField: idField,
@@ -351,10 +351,10 @@ class TableContent extends Component {
             return data;
         }
 
-        const {page, pageSize} = this.props,
-            len = data.length;
-        let start = page * pageSize,
-            stop = start + pageSize;
+        const {page, pageSize} = this.props;
+        const len = data.length;
+        let start = page * pageSize;
+        let stop = start + pageSize;
 
         start = start < 0 ? 0 : start;
         stop = stop > len ? len : stop;
@@ -437,9 +437,9 @@ class TableContent extends Component {
             return;
         }
 
-        const {isHeadFixed, isFootFixed} = this.props,
-            target = e.target,
-            {scrollLeft} = target;
+        const {isHeadFixed, isFootFixed} = this.props;
+        const target = e.target;
+        const {scrollLeft} = target;
 
         if (scrollLeft !== this.lastScrollLeft) {
 
@@ -490,8 +490,8 @@ class TableContent extends Component {
             return;
         }
 
-        const target = e.target,
-            scrollTop = target.scrollTop;
+        const target = e.target;
+        const scrollTop = target.scrollTop;
 
         if (scrollTop !== this.lastScrollTop) {
 
@@ -534,8 +534,8 @@ class TableContent extends Component {
         e.preventDefault(e);
         this.handleScrollChange(e);
 
-        const wd = e.deltaY,
-            target = e.target;
+        const wd = e.deltaY;
+        const target = e.target;
 
         let scrollTop;
 
@@ -605,25 +605,25 @@ class TableContent extends Component {
 
         const {
 
-                columns, data, footData, scroll, noDataText,
-                isLayoutFixed, isHeadHidden, isFootHidden, expandRows, useDynamicRender,
-                minColumnWidth, maxColumnWidth,
+            columns, data, footData, scroll, noDataText,
+            isLayoutFixed, isHeadHidden, isFootHidden, expandRows, useDynamicRender,
+            minColumnWidth, maxColumnWidth,
 
-                // not passing down these props
-                /* eslint-disable no-unused-vars */
-                isSelectRecursive, selectUncheckedIconCls, selectCheckedIconCls, resizing, isSelectAllDisabled,
-                selectIndeterminateIconCls, selectColumn, expandIconCls, autoSorting, isPaginated, page, pageSize,
-                canBeExpanded, scrollTop, onPingLeftChange, onPingRightChange,
-                sortingFunc, onChange, onExpand, onCollapse, onExpandChange, onDataUpdate, onSelect,
-                onSelectAll, onDeselect, onDeselectAll, onScrollTopChange, onScroll, onResizeStart, onResizeEnd,
-                /* eslint-enable no-unused-vars */
+            // not passing down these props
+            /* eslint-disable no-unused-vars */
+            isSelectRecursive, selectUncheckedIconCls, selectCheckedIconCls, resizing, isSelectAllDisabled,
+            selectIndeterminateIconCls, selectColumn, expandIconCls, autoSorting, isPaginated, page, pageSize,
+            canBeExpanded, scrollTop, onPingLeftChange, onPingRightChange,
+            sortingFunc, onChange, onExpand, onCollapse, onExpandChange, onDataUpdate, onSelect,
+            onSelectAll, onDeselect, onDeselectAll, onScrollTopChange, onScroll, onResizeStart, onResizeEnd,
+            /* eslint-enable no-unused-vars */
 
-                ...restProps
+            ...restProps
 
-            } = this.props,
+        } = this.props;
 
-            // get sorted columns according to fixed column
-            {sortedColumns, hasFixedLeftColumn, hasFixedRightColumn} = TC.sortColumns(columns);
+        // get sorted columns according to fixed column
+        const {sortedColumns, hasFixedLeftColumn, hasFixedRightColumn} = TC.sortColumns(columns);
 
         this.sortedColumns = sortedColumns;
         this.hasFixedLeftColumn = hasFixedLeftColumn;
@@ -651,17 +651,17 @@ class TableContent extends Component {
 
         this.finalData = useDynamicRender ? this.dynamicRenderData : this.tableData;
 
-        const {horizontalScrollStyle, verticalScrollStyle} = TL.getScrollerStyle(scroll, this.props),
+        const {horizontalScrollStyle, verticalScrollStyle} = TL.getScrollerStyle(scroll, this.props);
 
-            isFinalHeadHidden = isHeadHidden || !TC.hasRenderer(this.bodyColumns, TableFragment.HEAD),
-            isFinalFootHidden = isFootHidden || !TC.hasRenderer(this.bodyColumns, TableFragment.FOOT),
+        const isFinalHeadHidden = isHeadHidden || !TC.hasRenderer(this.bodyColumns, TableFragment.HEAD);
+        const isFinalFootHidden = isFootHidden || !TC.hasRenderer(this.bodyColumns, TableFragment.FOOT);
 
-            hasHeadRenderer = TC.hasHeadRenderer(this.headColumns),
-            hasBodyRenderer = TC.hasRenderer(this.bodyColumns, TableFragment.BODY),
-            hasFootRenderer = TC.hasRenderer(this.bodyColumns, TableFragment.FOOT);
+        const hasHeadRenderer = TC.hasHeadRenderer(this.headColumns);
+        const hasBodyRenderer = TC.hasRenderer(this.bodyColumns, TableFragment.BODY);
+        const hasFootRenderer = TC.hasRenderer(this.bodyColumns, TableFragment.FOOT);
 
         return (
-            <Fragment>
+            <>
 
                 <div ref={this.wrapper}
                      className="table-content">
@@ -703,7 +703,7 @@ class TableContent extends Component {
                         null
                 }
 
-            </Fragment>
+            </>
         );
 
     }
@@ -939,6 +939,7 @@ TableContent.propTypes = {
     value: PropTypes.array,
     idField: PropTypes.string,
     disabled: PropTypes.bool,
+    isRowDisabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
     noDataText: PropTypes.any,
 
     /**
