@@ -204,12 +204,34 @@ class MaterialDatePicker extends Component {
     static getDerivedStateFromProps(props, state) {
 
         const value = ComponentUtil.getDerivedState(props, state, 'value'),
+            minValue = ComponentUtil.getDerivedState(props, state, 'minValue'),
             dateFormat = ComponentUtil.getDerivedState(props, state, 'dateFormat');
 
         return {
             prevProps: props,
             dateFormat,
-            value
+            value,
+            year: value ?
+                moment(value).format('YYYY')
+                :
+                minValue ?
+                    moment(minValue).format('YYYY')
+                    :
+                    moment().format('YYYY'),
+            month: value ?
+                moment(value).format('MM')
+                :
+                minValue ?
+                    moment(minValue).format('MM')
+                    :
+                    moment().format('MM'),
+            day: value ?
+                moment(value).format('DD')
+                :
+                minValue ?
+                    moment(minValue).format('DD')
+                    :
+                    moment().format('DD')
         };
     }
 
