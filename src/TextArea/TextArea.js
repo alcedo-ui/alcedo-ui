@@ -188,6 +188,12 @@ class TextArea extends Component {
         onRightIconClick && onRightIconClick(e, value);
     };
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.value !== this.props.value) {
+            this.props.autoHeight && this.resetHeight();
+        }
+    }
+
     componentDidMount() {
 
         this.inputEl = this.input && this.input.current;
