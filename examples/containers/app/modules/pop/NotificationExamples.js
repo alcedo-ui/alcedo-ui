@@ -1,5 +1,11 @@
+/**
+ * @file Notification examples
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
 import React, {Component} from 'react';
 
+// Components
 import RaisedButton from 'src/RaisedButton';
 import Notifier from 'src/Notifier';
 import Widget from 'src/Widget';
@@ -8,9 +14,11 @@ import ButtonRadioGroup from 'src/ButtonRadioGroup';
 import MaterialTextField from 'src/MaterialTextField';
 import Dialog from 'src/Dialog';
 
+// Docs
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Notification.json';
 
+// Styles
 import 'scss/containers/app/modules/pop/PopExamples.scss';
 import 'scss/containers/app/modules/pop/NotificationExamples.scss';
 
@@ -100,20 +108,17 @@ class NotificationExamples extends Component {
 
     };
 
-    dialogRenderHandler = () => {
-
-    };
-
     render() {
 
         const {
-                type, position, title, message, notifications,
-                NotificationVisible
-            } = this.state,
-            {
-                TOP_LEFT, TOP, TOP_RIGHT, RIGHT_TOP, RIGHT, RIGHT_BOTTOM, CENTER,
-                BOTTOM_LEFT, BOTTOM, BOTTOM_RIGHT, LEFT_TOP, LEFT, LEFT_BOTTOM
-            } = Notifier.Position;
+            type, title, message, notifications,
+            NotificationVisible
+        } = this.state;
+
+        const {
+            TOP_LEFT, TOP, TOP_RIGHT, RIGHT_TOP, RIGHT, RIGHT_BOTTOM, CENTER,
+            BOTTOM_LEFT, BOTTOM, BOTTOM_RIGHT, LEFT_TOP, LEFT, LEFT_BOTTOM
+        } = Notifier.Position;
 
         return (
             <div className="example pop-examples notification-examples">
@@ -267,7 +272,6 @@ class NotificationExamples extends Component {
                                               onClick={() => this.showNotification(1)}/>
 
                                 <Dialog visible={NotificationVisible[1]}
-                                        onRender={this.dialogRenderHandler}
                                         onRequestClose={() => this.hideNotification(1)}>
 
                                     {
@@ -276,7 +280,6 @@ class NotificationExamples extends Component {
 
                                                 <RaisedButton className="trigger-position-button"
                                                               value="BOTTOM"
-                                                              ref="trigger1"
                                                               onClick={() => this.addNotification(BOTTOM)}/>
 
                                                 <Notifier notifications={notifications[BOTTOM]}
@@ -303,6 +306,6 @@ class NotificationExamples extends Component {
             </div>
         );
     }
-};
+}
 
 export default NotificationExamples;
