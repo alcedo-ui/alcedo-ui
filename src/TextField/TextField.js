@@ -181,7 +181,7 @@ class TextField extends Component {
     handleBlur = e => {
 
         const clearButtonEl = findDOMNode(this.clearButton?.current);
-        if (clearButtonEl && e?.relatedTarget == clearButtonEl) {
+        if (clearButtonEl && e?.relatedTarget === clearButtonEl) {
             return;
         }
 
@@ -206,8 +206,10 @@ class TextField extends Component {
                 onIconClick, onRightIconClick,
 
                 // not passing down these props
+                /* eslint-disable no-unused-vars */
                 value: v, autoFocus, pattern, patternInvalidMsg, isFocusedSelectAll,
                 onPressEnter, onValid, onInvalid, onClear, onPasswordVisible, onPasswordInvisible,
+                /* eslint-enable no-unused-vars */
 
                 ...restProps
 
@@ -274,7 +276,7 @@ class TextField extends Component {
                     }
 
                     {
-                        (placeholder !== '' && placeholder !== null) && !isFocused && (value == null || value == '') ?
+                        (placeholder !== '' && placeholder !== null) && !isFocused && (value == null || value === '') ?
                             <input className={classNames('text-field-placeholder', {
                                 [placeholderClassName]: placeholderClassName
                             })}
