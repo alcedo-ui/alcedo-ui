@@ -70,17 +70,13 @@ class Notifier extends Component {
     }
 
     componentDidMount() {
-        this.popInstance = this.pop && this.pop.current;
+        this.popInstance = this.pop?.current || null;
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.notifications && this.props.notifications.length > 0) {
-
-            this.popInstance && this.popInstance.resetPosition();
-
-            const {onNotificationPop} = this.props;
-            onNotificationPop && onNotificationPop();
-
+        if (this.props.notifications?.length > 0) {
+            this.popInstance?.resetPosition?.();
+            this.props.onNotificationPop?.();
         }
     }
 
@@ -101,15 +97,13 @@ class Notifier extends Component {
         this.setState({
             notifications,
             visible: true
-        }, () => {
-            this.popInstance && this.popInstance.resetPosition();
-        });
+        }, () => this.popInstance?.resetPosition?.());
 
     };
 
     removeNotification = notificationId => {
 
-        let {notifications} = this.state;
+        const {notifications} = this.state;
 
         if (!notifications || notifications.length < 1) {
             return;
@@ -135,15 +129,18 @@ class Notifier extends Component {
 
         const {
 
-                className, position, duration, parentEl,
+            className, position,
+            closeIconCls, closeIconVisible, closeButtonVisible, closeButtonValue,
+            duration, parentEl,
 
-                // not passing down these props
-                onNotificationPop,
+            // not passing down these props
+            // eslint-disable-next-line no-unused-vars
+            onNotificationPop,
 
-                ...restProps
+            ...restProps
 
-            } = this.props,
-            {notifications, visible} = this.state;
+        } = this.props;
+        const {notifications, visible} = this.state;
 
         return (
             <PositionPop {...restProps}
@@ -156,12 +153,41 @@ class Notifier extends Component {
                          position={position}
                          parentEl={parentEl}>
                 {
-                    notifications && notifications.map(options =>
+                    notifications?.map(options =>
                         <Notification {...options}
                                       key={options.notificationId}
-                                      duration={'duration' in options ? options.duration : duration}
+                                      closeIconCls={
+                                          'closeIconCls' in options ?
+                                              options.closeIconCls
+                                              :
+                                              closeIconCls
+                                      }
+                                      closeIconVisible={
+                                          'closeIconVisible' in options ?
+                                              options.closeIconVisible
+                                              :
+                                              closeIconVisible
+                                      }
+                                      closeButtonVisible={
+                                          'closeButtonVisible' in options ?
+                                              options.closeButtonVisible
+                                              :
+                                              closeButtonVisible
+                                      }
+                                      closeButtonValue={
+                                          'closeButtonValue' in options ?
+                                              options.closeButtonValue
+                                              :
+                                              closeButtonValue
+                                      }
+                                      duration={
+                                          'duration' in options ?
+                                              options.duration
+                                              :
+                                              duration
+                                      }
                                       onRequestClose={this.removeNotification}/>
-                    )
+                    ) || null
                 }
             </PositionPop>
         );
@@ -220,6 +246,15 @@ Notifier.propTypes = {
         iconCls: PropTypes.string,
 
         /**
+         * The close icon class name of notification.
+         */
+        closeIconCls: PropTypes.string,
+
+        closeIconVisible: PropTypes.bool,
+        closeButtonVisible: PropTypes.bool,
+        closeButtonValue: PropTypes.string,
+
+        /**
          * The duration of notification.
          */
         duration: PropTypes.number
@@ -227,6 +262,15 @@ Notifier.propTypes = {
     }), PropTypes.string, PropTypes.number])),
 
     position: PropTypes.oneOf(Util.enumerateValue(Position)),
+
+    /**
+     * The close icon class name of notification.
+     */
+    closeIconCls: PropTypes.string,
+
+    closeIconVisible: PropTypes.bool,
+    closeButtonVisible: PropTypes.bool,
+    closeButtonValue: PropTypes.string,
 
     /**
      * The duration of notification.
