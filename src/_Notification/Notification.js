@@ -5,12 +5,16 @@
 
 import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Components
 import IconButton from '../IconButton';
 import AnchorButton from '../AnchorButton';
 
+// Statics
 import MsgType from '../_statics/MsgType';
+
+// Vendors
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 
 class Notification extends Component {
@@ -31,37 +35,9 @@ class Notification extends Component {
 
     }
 
-    getIconCls = () => {
-        switch (this.props.type) {
-            case MsgType.SUCCESS:
-                return 'fas fa-check-circle';
-            case MsgType.WARNING:
-                return 'fas fa-exclamation-triangle';
-            case MsgType.ERROR:
-                return 'fas fa-times-circle';
-            default:
-                return 'fas fa-info-circle';
-        }
-    };
-
-    handleClick = e => {
-
-        const {notificationId, onRequestClose} = this.props;
-
-        this.setState({
-            hidden: true,
-            leave: true
-        }, () => {
-            setTimeout(() => {
-                onRequestClose && onRequestClose(notificationId);
-            }, 500);
-        });
-
-    };
-
     componentDidMount() {
 
-        const {notificationId, duration, onRequestClose} = this.props;
+        const {duration} = this.props;
 
         const notificationEl = this.notification && this.notification.current;
         notificationEl.style.height = notificationEl.clientHeight + 'px';
@@ -72,11 +48,9 @@ class Notification extends Component {
                 this.setState({
                     hidden: true,
                     leave: true
-                }, () => {
-                    setTimeout(() => {
-                        onRequestClose && onRequestClose(notificationId);
-                    }, 500);
-                });
+                }, () => setTimeout(() =>
+                    this.props.onRequestClose?.(this.props.notificationId), 500
+                ));
             }, duration);
         }
 
@@ -92,13 +66,35 @@ class Notification extends Component {
         this.unrenderTimeout && clearTimeout(this.unrenderTimeout);
     }
 
+    getIconCls = () => {
+        switch (this.props.type) {
+            case MsgType.SUCCESS:
+                return 'fas fa-check-circle';
+            case MsgType.WARNING:
+                return 'fas fa-exclamation-triangle';
+            case MsgType.ERROR:
+                return 'fas fa-times-circle';
+            default:
+                return 'fas fa-info-circle';
+        }
+    };
+
+    handleClick = e => {
+        this.setState({
+            hidden: true,
+            leave: true
+        }, () => setTimeout(() =>
+            this.props.onRequestClose?.(this.props.notificationId), 500
+        ));
+    };
+
     render() {
 
         const {
-                className, style, type, title, message, iconCls,
-                closeIconVisible, closeButtonVisible, closeButtonValue
-            } = this.props,
-            {hidden, leave} = this.state;
+            className, style, type, title, message, iconCls, closeIconCls,
+            closeIconVisible, closeButtonVisible, closeButtonValue
+        } = this.props;
+        const {hidden, leave} = this.state;
 
         return (
             <div ref={this.notification}
@@ -119,7 +115,9 @@ class Notification extends Component {
                         <i className={`${iconCls ? iconCls : this.getIconCls()} notification-icon`}/>
                 }
 
-                <div className="notification-title">{title}</div>
+                <div className="notification-title">
+                    {title}
+                </div>
 
                 <div className="notification-message">
                     {message}
@@ -128,7 +126,7 @@ class Notification extends Component {
                 {
                     closeIconVisible ?
                         <IconButton className="notification-close-icon"
-                                    iconCls="fas fa-times"
+                                    iconCls={closeIconCls}
                                     onClick={this.handleClick}/>
                         :
                         null
@@ -184,13 +182,18 @@ Notification.propTypes = {
     iconCls: PropTypes.string,
 
     /**
-     * The duration of notification.
+     * The close icon class name of notification.
      */
-    duration: PropTypes.number,
+    closeIconCls: PropTypes.string,
 
     closeIconVisible: PropTypes.bool,
     closeButtonVisible: PropTypes.bool,
     closeButtonValue: PropTypes.string,
+
+    /**
+     * The duration of notification.
+     */
+    duration: PropTypes.number,
 
     onRequestClose: PropTypes.func
 
@@ -203,11 +206,13 @@ Notification.defaultProps = {
     title: 'message',
     message: '',
     iconCls: '',
-    duration: 0,
 
+    closeIconCls: 'fas fa-times',
     closeIconVisible: false,
     closeButtonVisible: true,
-    closeButtonValue: 'Close'
+    closeButtonValue: 'Close',
+
+    duration: 0
 
 };
 
