@@ -65,15 +65,15 @@ class Thead extends Component {
 
         const {
 
-                className, style, columns, columnsWidth, tableData, disabled, ignoreColumnSpan,
-                hasFixedRightColumn, hasVerticalScroll, sorting, columnKeyField,
-                defaultSortingType, sortingAscIconCls, sortingDescIconCls, defaultColumnWidth,
-                onSortChange,
+            className, style, columns, columnsWidth, tableData, disabled, ignoreColumnSpan,
+            hasFixedRightColumn, hasVerticalScroll, sorting, columnKeyField,
+            defaultSortingType, sortingAscIconCls, sortingDescIconCls, defaultColumnWidth,
+            onSortChange,
 
-                ...restProps
+            ...restProps
 
-            } = this.props,
-            verticalScrollBarSize = ScrollBar.getSize(Direction.VERTICAL);
+        } = this.props;
+        const verticalScrollBarSize = ScrollBar.getSize(Direction.VERTICAL);
 
         return (
             <thead className={className}
@@ -148,10 +148,15 @@ class Thead extends Component {
                                         })}
                                             style={{
                                                 width: verticalScrollBarSize,
-                                                ...(hasFixedRightColumn ? {
-                                                    position: 'sticky',
-                                                    right: 0
-                                                } : null)
+                                                ...(
+                                                    hasFixedRightColumn ?
+                                                        {
+                                                            position: 'sticky',
+                                                            right: 0
+                                                        }
+                                                        :
+                                                        null
+                                                )
                                             }}
                                             rowSpan={columns.length}>
                                         </th>
