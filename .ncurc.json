@@ -2,6 +2,7 @@
     "upgrade": true,
     "reject": [
         "css-loader",
+        "eslint",
         "history",
         "react-router",
         "react-router-dom"
