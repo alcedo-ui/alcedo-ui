@@ -93,15 +93,14 @@ class ScrollTable extends Component {
     };
 
     handleColumnsSpan = (...restArgs) => {
-        const {fixed} = this.props;
-        return this.props.onRequestColumnsSpan?.(fixed, ...restArgs);
+        return this.props.onRequestColumnsSpan?.(...restArgs);
     };
 
     render() {
 
         const {
 
-            horizontalScrollStyle, verticalScrollStyle, fixed, columns, headColumns, bodyColumns,
+            horizontalScrollStyle, verticalScrollStyle, columns, headColumns, bodyColumns,
             isHeadHidden, isFootHidden, isLayoutFixed, isHeadFixed, isFootFixed, data, footData, scroll,
             useDynamicRender, dynamicRenderIndex, scrollHeight, rowHeight, scrollBuffer, defaultColumnWidth,
             onScroll, onWheel, onColumnMeasure,
@@ -118,10 +117,10 @@ class ScrollTable extends Component {
             return null;
         }
 
-        const hasVerticalScroll = this.hasVerticalScroll(),
-            hasHead = !isHeadHidden && isHeadFixed,
-            hasFoot = !isFootHidden && isFootFixed,
-            scrollableTableStyle = ScrollBar.getHideHorizontalScrollBarStyle();
+        const hasVerticalScroll = this.hasVerticalScroll();
+        const hasHead = !isHeadHidden && isHeadFixed;
+        const hasFoot = !isFootHidden && isFootFixed;
+        const scrollableTableStyle = ScrollBar.getHideHorizontalScrollBarStyle();
 
         return (
             <>
@@ -142,7 +141,6 @@ class ScrollTable extends Component {
                                 scrollEl =>
                                     <BaseTable {...restProps}
                                                className="table-head"
-                                               fixed={fixed}
                                                fragment={TableFragment.HEAD}
                                                columns={columns}
                                                headColumns={headColumns}
@@ -197,7 +195,6 @@ class ScrollTable extends Component {
                                                    :
                                                    null
                                            }}
-                                           fixed={fixed}
                                            fragment={TableFragment.BODY}
                                            columns={columns}
                                            headColumns={headColumns}
@@ -237,7 +234,6 @@ class ScrollTable extends Component {
                                 scrollEl =>
                                     <BaseTable {...restProps}
                                                className="table-foot"
-                                               fixed={fixed}
                                                fragment={TableFragment.FOOT}
                                                columns={columns}
                                                headColumns={headColumns}
@@ -275,8 +271,6 @@ ScrollTable.propTypes = {
 
     horizontalScrollStyle: PropTypes.object,
     verticalScrollStyle: PropTypes.object,
-
-    fixed: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(Util.enumerateValue(HorizontalAlign))]),
 
     /**
      * The theme of the table select radio or checkbox.
