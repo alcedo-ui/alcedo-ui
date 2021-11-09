@@ -592,13 +592,12 @@ class TableContent extends Component {
 
     /**
      * handle the callback of requesting columns span calculation
-     * @param fixed
      * @param fragment
      * @param restArgs
      */
-    handleRequestColumnsSpan = (fixed, fragment, ...restArgs) => {
+    handleRequestColumnsSpan = (fragment, ...restArgs) => {
         const {columns} = this.props;
-        return TC.getAdvancedColumnsSpan(columns, fixed, fragment, ...restArgs);
+        return TC.getAdvancedColumnsSpan(columns, fragment, ...restArgs);
     };
 
     render() {
