@@ -3,9 +3,13 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
+// Vendors
 import moment from 'moment';
 
-function isEnableLocalStorage() {
+/**
+ * @returns {boolean}
+ */
+export function isEnableLocalStorage() {
     try {
         return 'localStorage' in window && window['localStorage'] !== null;
     } catch (e) {
@@ -13,7 +17,10 @@ function isEnableLocalStorage() {
     }
 }
 
-function isEnableSessionStorage() {
+/**
+ * @returns {boolean}
+ */
+export function isEnableSessionStorage() {
     try {
         return 'sessionStorage' in window && window['sessionStorage'] !== null;
     } catch (e) {
@@ -21,15 +28,27 @@ function isEnableSessionStorage() {
     }
 }
 
-function isEnableCookieAndStorage() {
+/**
+ * @returns {boolean}
+ */
+export function isEnableCookieAndStorage() {
     return navigator.cookieEnabled && isEnableLocalStorage() && isEnableSessionStorage();
 }
 
-function formatCapitalize(value) {
+/**
+ * @param value
+ * @returns {string|*}
+ */
+export function formatCapitalize(value) {
     return value ? value.charAt(0).toUpperCase() + value.substring(1).toLowerCase() : value;
 }
 
-function value2Timestamp(value, format) {
+/**
+ * @param value
+ * @param format
+ * @returns {number|number}
+ */
+export function value2Timestamp(value, format) {
 
     const defaultValue = new Date().getTime();
 
@@ -47,7 +66,12 @@ function value2Timestamp(value, format) {
 
 }
 
-function value2Moment(value, format) {
+/**
+ * @param value
+ * @param format
+ * @returns {moment.Moment}
+ */
+export function value2Moment(value, format) {
 
     const defaultValue = moment();
 
@@ -66,7 +90,7 @@ function value2Moment(value, format) {
  * @param enumerate
  * @returns {*[]}
  */
-function enumerateValue(enumerate) {
+export function enumerateValue(enumerate) {
 
     if (!enumerate) {
         return null;
@@ -76,7 +100,11 @@ function enumerateValue(enumerate) {
 
 }
 
-function tree(data, callback) {
+/**
+ * @param data
+ * @param callback
+ */
+export function tree(data, callback) {
     let loop = function loop(children, level) {
 
         children.forEach((item, index) => {
@@ -91,7 +119,13 @@ function tree(data, callback) {
     loop(data, 1);
 }
 
-function getValueByValueField(data, valueField = 'value', displayField = 'text') {
+/**
+ * @param data
+ * @param valueField
+ * @param displayField
+ * @returns {*}
+ */
+export function getValueByValueField(data, valueField = 'value', displayField = 'text') {
 
     if (data == null) {
         return;
@@ -105,7 +139,13 @@ function getValueByValueField(data, valueField = 'value', displayField = 'text')
 
 }
 
-function getTextByDisplayField(data, displayField = 'text', valueField = 'value') {
+/**
+ * @param data
+ * @param displayField
+ * @param valueField
+ * @returns {string|*}
+ */
+export function getTextByDisplayField(data, displayField = 'text', valueField = 'value') {
 
     if (data == null) {
         return '';
@@ -119,12 +159,23 @@ function getTextByDisplayField(data, displayField = 'text', valueField = 'value'
 
 }
 
-function isValueEqual(data1, data2, valueField = 'value', displayField = 'text') {
+/**
+ * @param data1
+ * @param data2
+ * @param valueField
+ * @param displayField
+ * @returns {boolean}
+ */
+export function isValueEqual(data1, data2, valueField = 'value', displayField = 'text') {
     return getValueByValueField(data1, valueField, displayField)
         === getValueByValueField(data2, valueField, displayField);
 }
 
-function genIndexArray(len) {
+/**
+ * @param len
+ * @returns {*[]}
+ */
+export function genIndexArray(len) {
 
     if (!len || isNaN(len) || len < 1) {
         return [];
@@ -139,11 +190,21 @@ function genIndexArray(len) {
 
 }
 
-function getDiag(a, b) {
+/**
+ * @param a
+ * @param b
+ * @returns {number}
+ */
+export function getDiag(a, b) {
     return Math.sqrt((a * a) + (b * b));
 }
 
-function reorder(data, startIndex, endIndex) {
+/**
+ * @param data
+ * @param startIndex
+ * @param endIndex
+ */
+export function reorder(data, startIndex, endIndex) {
 
     if (!data || !(startIndex in data) || !(startIndex in data)) {
         return;
@@ -154,15 +215,26 @@ function reorder(data, startIndex, endIndex) {
 
 }
 
-function preOrderTraverse(node, callback, depth = 0, parent = null, path = null) {
+/**
+ * @param node
+ * @param callback
+ * @param depth
+ * @param index
+ * @param parent
+ * @param path
+ * @returns {boolean}
+ */
+export function preOrderTraverse(node, callback, depth = 0, index = 0, parent = null, path = null) {
 
-    if (callback(node, depth, parent, path) === false) {
+    if (callback(node, depth, index, parent, path) === false) {
         return false;
     }
 
     if (node.children && node.children.length > 0) {
         for (let i = 0, len = node.children.length; i < len; i++) {
-            if (preOrderTraverse(node.children[i], callback, depth + 1, node, path ? [...path, i] : [i]) === false) {
+            if (preOrderTraverse(
+                node.children[i], callback, depth + 1, i, node, path ? [...path, i] : [i]
+            ) === false) {
                 break;
             }
         }
@@ -170,23 +242,38 @@ function preOrderTraverse(node, callback, depth = 0, parent = null, path = null)
 
 }
 
-function postOrderTraverse(node, callback, depth = 0, parent = null, path = null) {
+/**
+ * @param node
+ * @param callback
+ * @param depth
+ * @param index
+ * @param parent
+ * @param path
+ * @returns {boolean}
+ */
+export function postOrderTraverse(node, callback, depth = 0, index = 0, parent = null, path = null) {
 
     if (node.children && node.children.length > 0) {
         for (let i = 0, len = node.children.length; i < len; i++) {
-            if (postOrderTraverse(node.children[i], callback, depth + 1, node, path ? [...path, i] : [i]) === false) {
+            if (postOrderTraverse(
+                node.children[i], callback, depth + 1, i, node, path ? [...path, i] : [i]
+            ) === false) {
                 break;
             }
         }
     }
 
-    if (callback(node, depth, parent, path) === false) {
+    if (callback(node, depth, index, parent, path) === false) {
         return false;
     }
 
 }
 
-function shallowCloneMap(map) {
+/**
+ * @param map
+ * @returns {Map<any, any>}
+ */
+export function shallowCloneMap(map) {
     const result = new Map();
     for (let [key, value] of map.entries()) {
         result.set(key, value);
