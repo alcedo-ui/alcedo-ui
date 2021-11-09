@@ -11,13 +11,12 @@ import Direction from '../_statics/Direction';
 
 // Vendors
 import isArray from 'lodash/isArray';
-import cloneDeep from 'lodash/cloneDeep';
 import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
 import ScrollBar from '../_vendors/ScrollBar';
 
 /**
- * calculate column span by fragment
+ * Calculate column span by fragment
  * @param fragment
  * @param column
  * @param data
@@ -44,7 +43,7 @@ export function getColumnKey(column, columnKeyField) {
 }
 
 /**
- * get columns span
+ * Get columns span
  * @param fragment
  * @param columns
  * @param data
@@ -90,7 +89,7 @@ export function getColumnsSpan(fragment, columns, data, rowIndex) {
 }
 
 /**
- * get the correct column span when some columns are frozen
+ * Get the correct column span when some columns are frozen
  * @param originColumns
  * @param fragment
  * @param columns
@@ -425,7 +424,7 @@ export function handleSelectAll(data, value = [], idField) {
 }
 
 /**
- * separate columns to left, center and right, and check has fixed columns or not
+ * Separate columns to left, center and right, and check has fixed columns or not
  * @param columns
  * @returns {{hasFixedLeftColumn: (Array|boolean), sortedColumns: *[], hasFixedRightColumn: (Array|boolean)}|*}
  */
@@ -435,24 +434,38 @@ export function sortColumns(columns) {
         return columns;
     }
 
-    const cols = cloneDeep(columns);
-
     const result = {
         [HorizontalAlign.LEFT]: [],
         [HorizontalAlign.CENTER]: [],
         [HorizontalAlign.RIGHT]: []
     };
 
-    // separate root column to left, center and right
-    cols.forEach(column => column && result[column.fixed || HorizontalAlign.CENTER].push(column));
+    // Separate root column to left, center and right
+    columns.forEach(column => column && result[column.fixed || HorizontalAlign.CENTER].push(column));
 
-    // traverse all children nodes in left and right, update "fixed" property inheriting from their parent
+    // Traverse all children nodes in left and right, update "fixed" property inheriting from their parent
     Util.preOrderTraverse({
         children: result[HorizontalAlign.LEFT]
-    }, node => node.fixed = HorizontalAlign.LEFT);
+    }, (node, depth, index, parent) => {
+        if (parent?.children?.[index]) {
+            parent.children = [...parent.children];
+            parent.children[index] = {
+                ...parent.children[index],
+                fixed: HorizontalAlign.LEFT
+            };
+        }
+    });
     Util.preOrderTraverse({
         children: result[HorizontalAlign.RIGHT]
-    }, node => node.fixed = HorizontalAlign.RIGHT);
+    }, (node, depth, index, parent) => {
+        if (parent?.children?.[index]) {
+            parent.children = [...parent.children];
+            parent.children[index] = {
+                ...parent.children[index],
+                fixed: HorizontalAlign.RIGHT
+            };
+        }
+    });
 
     return {
         sortedColumns: [
@@ -467,7 +480,7 @@ export function sortColumns(columns) {
 }
 
 /**
- * get the deepest first child of columns
+ * Get the deepest first child of columns
  * @param columns
  * @returns {null|*}
  */
@@ -486,7 +499,7 @@ export function getFirstColumn(columns) {
 }
 
 /**
- * calculate the row span and column span
+ * Calculate the row span and column span
  * @param node
  * @param maxDepth
  * @param depth
@@ -535,7 +548,7 @@ export function formatColumnsSpan(node, maxDepth, depth = -1) {
 }
 
 /**
- * get head columns
+ * Get head columns
  * transform the columns data (tree construction) to html tr-th row format
  * @param columns
  * @returns {Array|*}
