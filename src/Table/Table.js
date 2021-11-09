@@ -38,8 +38,8 @@ class Table extends Component {
 
     static getDerivedStateFromProps(props, state) {
 
-        const page = ComponentUtil.getDerivedState(props, state, 'page'),
-            pageSize = ComponentUtil.getDerivedState(props, state, 'pageSize');
+        const page = ComponentUtil.getDerivedState(props, state, 'page');
+        const pageSize = ComponentUtil.getDerivedState(props, state, 'pageSize');
 
         return {
             prevProps: props,
@@ -237,14 +237,15 @@ class Table extends Component {
      */
     handleColumnsWidthChange = (resizingColumn, width, e) => {
 
-        const {columnKeyField} = this.props,
-            {columns, columnsWidth} = this.state;
+        const {columnKeyField} = this.props;
+        const {columns, columnsWidth} = this.state;
+
         if (!columns || columns.length < 1 || !resizingColumn) {
             return;
         }
 
-        const key = TC.getColumnKey(resizingColumn, columnKeyField),
-            nextColumns = cloneDeep(columns);
+        const key = TC.getColumnKey(resizingColumn, columnKeyField);
+        const nextColumns = cloneDeep(columns);
 
         // find the column in columns
         let column = null;
@@ -302,9 +303,9 @@ class Table extends Component {
      */
     handleColumnMeasure = (column, width) => {
 
-        const {columnKeyField} = this.props,
-            {resizingColumn, columnsWidth} = this.state,
-            columnKey = TC.getColumnKey(column, columnKeyField);
+        const {columnKeyField} = this.props;
+        const {resizingColumn, columnsWidth} = this.state;
+        const columnKey = TC.getColumnKey(column, columnKeyField);
 
         // ignore resizing Column
         if (columnKey === TC.getColumnKey(resizingColumn, columnKeyField)) {
@@ -324,29 +325,29 @@ class Table extends Component {
 
         const {
 
-                className, style, selectMode, data, footData, isHeadFixed, isFootFixed,
+            className, style, selectMode, data, footData, isHeadFixed, isFootFixed,
 
-                // pagination
-                pageSizeClassName, pageSizeTriggerClassName, pageSizePopupClassName,
-                isPaginated, pageSizes, useFullPagination, pageSizeValueField, pageSizeDisplayField,
-                paginationSelectionVisible, paginationTotalVisible, paginationPageVisible,
-                paginationPageSizeVisible, paginationParentEl, paginationPageSizeRightIconCls,
-                paginationPrevIconCls, paginationNextIconCls, paginationFirstIconCls, paginationLastIconCls,
-                paginationSelectionRenderer, paginationTotalRenderer, onPageChange, onPageSizeChange,
+            // pagination
+            pageSizeClassName, pageSizeTriggerClassName, pageSizePopupClassName,
+            isPaginated, pageSizes, useFullPagination, pageSizeValueField, pageSizeDisplayField,
+            paginationSelectionVisible, paginationTotalVisible, paginationPageVisible,
+            paginationPageSizeVisible, paginationParentEl, paginationPageSizeRightIconCls,
+            paginationPrevIconCls, paginationNextIconCls, paginationFirstIconCls, paginationLastIconCls,
+            paginationSelectionRenderer, paginationTotalRenderer, onPageChange, onPageSizeChange,
 
-                // not passing down these props
-                /* eslint-disable no-unused-vars */
-                columns: cols, pageSize: propsPageSize, disableScrollingRender,
-                onPaginationChange, onScrollStart, onScrollEnd,
-                /* eslint-enable no-unused-vars */
+            // not passing down these props
+            /* eslint-disable no-unused-vars */
+            columns: cols, pageSize: propsPageSize, disableScrollingRender,
+            onPaginationChange, onScrollStart, onScrollEnd,
+            /* eslint-enable no-unused-vars */
 
-                ...restProps
+            ...restProps
 
-            } = this.props,
-            {
-                columns, columnsWidth, sorting, page, pageSize, expandRows, value,
-                isPingLeft, isPingRight, scrollTop, resizing, resizingColumn
-            } = this.state;
+        } = this.props;
+        const {
+            columns, columnsWidth, sorting, page, pageSize, expandRows, value,
+            isPingLeft, isPingRight, scrollTop, resizing, resizingColumn
+        } = this.state;
 
         return (
             <div className={classNames('table', {
