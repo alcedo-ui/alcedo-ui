@@ -11,6 +11,7 @@ import Direction from '../_statics/Direction';
 
 // Vendors
 import isArray from 'lodash/isArray';
+import cloneDeep from 'lodash/cloneDeep';
 import Util from '../_vendors/Util';
 import Valid from '../_vendors/Valid';
 import ScrollBar from '../_vendors/ScrollBar';
@@ -434,6 +435,8 @@ export function sortColumns(columns) {
         return columns;
     }
 
+    const cols = cloneDeep(columns);
+
     const result = {
         [HorizontalAlign.LEFT]: [],
         [HorizontalAlign.CENTER]: [],
@@ -441,7 +444,7 @@ export function sortColumns(columns) {
     };
 
     // separate root column to left, center and right
-    columns.forEach(column => column && result[column.fixed || HorizontalAlign.CENTER].push(column));
+    cols.forEach(column => column && result[column.fixed || HorizontalAlign.CENTER].push(column));
 
     // traverse all children nodes in left and right, update "fixed" property inheriting from their parent
     Util.preOrderTraverse({
@@ -561,7 +564,7 @@ export function getHeadColumns(columns) {
     Util.preOrderTraverse({
         [VirtualRoot]: true,
         children: formatedColumns
-    }, (column, depth, parentColumn) => {
+    }, (column, depth, index, parentColumn) => {
 
         const rowIndex = depth - 1;
         const rowSpan = column?.rowSpan || 1;
