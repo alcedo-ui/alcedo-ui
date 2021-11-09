@@ -62,23 +62,23 @@ class BaseTable extends Component {
 
         const {
 
-                className, style, data, footData, dynamicRenderData, value, idField, scrollEl, hasVerticalScroll,
-                headColumns, bodyColumns, columnKeyField, columnsWidth, selectMode, useColumnsWidth,
-                expandRows, resizingColumn, useDynamicRender, scrollHeight, rowHeight, scrollBuffer, isRowDisabled,
-                defaultColumnWidth, minColumnWidth, maxColumnWidth, isHeadHidden, isBodyHidden, isFootHidden,
-                isLayoutFixed, hasFixedRightColumn, ignoreColumnSpan, hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
-                sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, isClickSorting,
-                onSortChange, onExpandChange, onRequestColumnsSpan, onHeadClick, onFootClick,
-                onColumnsWidthChange, onColumnResizeStart, onColumnResizeEnd, onColumnMeasure,
+            className, style, data, footData, dynamicRenderData, value, idField, scrollEl, hasVerticalScroll,
+            headColumns, bodyColumns, columnKeyField, columnsWidth, selectMode, useColumnsWidth,
+            expandRows, resizingColumn, useDynamicRender, scrollHeight, rowHeight, scrollBuffer, isRowDisabled,
+            defaultColumnWidth, minColumnWidth, maxColumnWidth, isHeadHidden, isBodyHidden, isFootHidden,
+            isLayoutFixed, hasFixedRightColumn, ignoreColumnSpan, hasHeadRenderer, hasBodyRenderer, hasFootRenderer,
+            sorting, defaultSortingType, sortingAscIconCls, sortingDescIconCls, isClickSorting,
+            onSortChange, onExpandChange, onRequestColumnsSpan, onHeadClick, onFootClick,
+            onColumnsWidthChange, onColumnResizeStart, onColumnResizeEnd, onColumnMeasure,
 
-                // not passing down these props
-                // eslint-disable-next-line no-unused-vars
-                columns: cols, fragment, selectAllMode, isHeadFixed, isFootFixed, hasFixedLeftColumn,
+            // not passing down these props
+            // eslint-disable-next-line no-unused-vars
+            columns: cols, fragment, selectAllMode, isHeadFixed, isFootFixed, hasFixedLeftColumn,
 
-                ...restProps
+            ...restProps
 
-            } = this.props,
-            columns = this.getColumns();
+        } = this.props;
+        const columns = this.getColumns();
 
         return (
             <table {...restProps}
