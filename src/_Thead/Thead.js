@@ -46,7 +46,9 @@ class Thead extends Component {
     };
 
     getStyle = (column, originColumnIndex, columns) => {
+
         const {columnKeyField, columnsWidth, defaultColumnWidth, hasVerticalScroll} = this.props;
+
         return {
             ...column.headStyle,
             ...TC.getStickyColumnStyle(
@@ -54,6 +56,7 @@ class Thead extends Component {
                 columnKeyField, columnsWidth, defaultColumnWidth, hasVerticalScroll
             )
         };
+
     };
 
     handleClick = e => {
@@ -81,7 +84,7 @@ class Thead extends Component {
                    disabled={disabled}
                    onClick={this.handleClick}>
                 {
-                    columns && columns.map((row, rowIndex) => {
+                    columns?.map((row, rowIndex) => {
 
                         if (!row) {
                             return null;
@@ -93,8 +96,8 @@ class Thead extends Component {
                             <tr key={rowIndex}>
 
                                 {
-                                    columnsSpan ?
-                                        columnsSpan.map(({column, span, originColumnIndex}, colIndex) => column ?
+                                    columnsSpan?.map(({column, span, originColumnIndex}, colIndex) =>
+                                        column && !column.hidden ?
                                             <Th {...restProps}
                                                 key={colIndex}
                                                 column={column}
@@ -136,9 +139,7 @@ class Thead extends Component {
                                                 onSortChange={onSortChange}/>
                                             :
                                             null
-                                        )
-                                        :
-                                        null
+                                    ) || null
                                 }
 
                                 {
@@ -167,7 +168,7 @@ class Thead extends Component {
                             </tr>
                         );
 
-                    })
+                    }) || null
                 }
             </thead>
         );
