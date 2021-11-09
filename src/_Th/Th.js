@@ -38,7 +38,7 @@ class Th extends Component {
 
         switch (typeof renderer) {
             case 'function':
-                return renderer(data, colIndex, scrollEl);
+                return renderer?.(data, colIndex, scrollEl);
             default:
                 return renderer;
         }
@@ -55,7 +55,7 @@ class Th extends Component {
 
         switch (typeof title) {
             case 'function':
-                return title(data, colIndex, scrollEl);
+                return title?.(data, colIndex, scrollEl);
             default:
                 return title;
         }
@@ -67,9 +67,9 @@ class Th extends Component {
      */
     handleClick = () => {
 
-        const {sortable, isClickSorting, resizingColumn, onSortChange} = this.props;
+        const {sortable, isClickSorting, resizingColumn} = this.props;
 
-        if (!sortable || !isClickSorting || !onSortChange || resizingColumn) {
+        if (!sortable || !isClickSorting || resizingColumn) {
             return;
         }
 
@@ -90,36 +90,36 @@ class Th extends Component {
             result.type = defaultSortingType;
         }
 
-        onSortChange && onSortChange(result);
+        this.props.onSortChange?.(result);
 
     };
 
     handleResize = (width, e) => {
-        const {column, onColumnsWidthChange} = this.props;
-        onColumnsWidthChange && onColumnsWidthChange(column, width, e);
+        const {column} = this.props;
+        this.props.onColumnsWidthChange?.(column, width, e);
     };
 
     handleResizeStart = (width, e) => {
-        const {column, onColumnResizeStart} = this.props;
-        onColumnResizeStart && onColumnResizeStart(column, width, e);
+        const {column} = this.props;
+        this.props.onColumnResizeStart?.(column, width, e);
     };
 
     handleResizeStop = (width, e) => {
-        const {column, onColumnResizeEnd} = this.props;
-        onColumnResizeEnd && onColumnResizeEnd(column, width, e);
+        const {column} = this.props;
+        this.props.onColumnResizeEnd?.(column, width, e);
     };
 
     render() {
 
         const {
-                className, style, column, renderer, align, rowSpan, colSpan, noWrap,
-                width, minColumnWidth, maxColumnWidth, resizingColumn, columnKeyField,
-                sortable, sortingProp, sorting, sortingAscIconCls, sortingDescIconCls, isClickSorting
-            } = this.props,
+            className, style, column, renderer, align, rowSpan, colSpan, noWrap,
+            width, minColumnWidth, maxColumnWidth, resizingColumn, columnKeyField,
+            sortable, sortingProp, sorting, sortingAscIconCls, sortingDescIconCls, isClickSorting
+        } = this.props;
 
-            isResizingActivated = TC.getColumnKey(column, columnKeyField)
-                === TC.getColumnKey(resizingColumn, columnKeyField),
-            isSorting = sortable && sortingProp && sorting && sorting.prop && sorting.prop === sortingProp;
+        const isResizingActivated = TC.getColumnKey(column, columnKeyField)
+            === TC.getColumnKey(resizingColumn, columnKeyField);
+        const isSorting = sortable && sortingProp && sorting && sorting.prop && sorting.prop === sortingProp;
 
         return (
             <ResizableTh resizable={column.resizable && (!column?.children || column?.children?.length < 1)}
