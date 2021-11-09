@@ -25,7 +25,7 @@ import ScrollBar from '../_vendors/ScrollBar';
  * @param columns
  * @returns {*}
  */
-function calcSpan(fragment, column, data, colIndex, rowIndex, columns) {
+export function calcSpan(fragment, column, data, colIndex, rowIndex, columns) {
     const span = column[`${fragment}Span`];
     return span && typeof span === 'function' ?
         span(data, colIndex, rowIndex, columns)
@@ -38,7 +38,7 @@ function calcSpan(fragment, column, data, colIndex, rowIndex, columns) {
  * @param columnKeyField
  * @returns {*}
  */
-function getColumnKey(column, columnKeyField) {
+export function getColumnKey(column, columnKeyField) {
     return (column && columnKeyField && column[columnKeyField]) || column;
 }
 
@@ -50,7 +50,7 @@ function getColumnKey(column, columnKeyField) {
  * @param rowIndex
  * @returns {[]|*}
  */
-function getColumnsSpan(fragment, columns, data, rowIndex) {
+export function getColumnsSpan(fragment, columns, data, rowIndex) {
 
     if (!fragment) {
         return columns.map(column => ({
@@ -69,8 +69,8 @@ function getColumnsSpan(fragment, columns, data, rowIndex) {
             continue;
         }
 
-        const column = columns[colIndex],
-            span = calcSpan(fragment, columns[colIndex], data, colIndex, rowIndex, columns);
+        const column = columns[colIndex];
+        const span = calcSpan(fragment, columns[colIndex], data, colIndex, rowIndex, columns);
 
         if (span && span > 1) {
             spanFlag = span;
@@ -91,14 +91,13 @@ function getColumnsSpan(fragment, columns, data, rowIndex) {
 /**
  * get the correct column span when some columns are frozen
  * @param originColumns
- * @param fixed
  * @param fragment
  * @param columns
  * @param data
  * @param rowIndex
  * @returns {[]|*}
  */
-function getAdvancedColumnsSpan(originColumns, fixed, fragment, columns, data, rowIndex) {
+export function getAdvancedColumnsSpan(originColumns, fragment, columns, data, rowIndex) {
 
     if (!fragment) {
         return columns.map(column => ({
@@ -123,10 +122,10 @@ function getAdvancedColumnsSpan(originColumns, fixed, fragment, columns, data, r
 
             span = calcSpan(fragment, columns[colIndex], data, colIndex, rowIndex, originColumns) || 1;
 
-            if (span && span > 1) {
+            if (span > 1) {
 
-                const index = originColumns.indexOf(column),
-                    spanColumns = originColumns.slice(index + 1, index + span);
+                const index = originColumns.indexOf(column);
+                const spanColumns = originColumns.slice(index + 1, index + span);
 
                 if (column.fixed === HorizontalAlign.LEFT || column.fixed === HorizontalAlign.RIGHT) {
                     span = spanColumns.filter(item => item && item.fixed === column.fixed).length + 1;
@@ -158,7 +157,7 @@ function getAdvancedColumnsSpan(originColumns, fixed, fragment, columns, data, r
  * @param sortFunc
  * @returns {*[]|*}
  */
-function sortTableData(data, sorting, sortFunc) {
+export function sortTableData(data, sorting, sortFunc) {
 
     if (!data) {
         return [];
@@ -191,7 +190,7 @@ function sortTableData(data, sorting, sortFunc) {
  * @param fragment
  * @returns {*|boolean}
  */
-function hasRenderer(columns, fragment) {
+export function hasRenderer(columns, fragment) {
     return columns && columns.length > 0 && fragment ?
         columns.some(column => column?.[`${fragment}Renderer`])
         :
@@ -202,18 +201,18 @@ function hasRenderer(columns, fragment) {
  * @param columnsGroup
  * @returns {*|boolean}
  */
-function hasHeadRenderer(columnsGroup) {
+export function hasHeadRenderer(columnsGroup) {
     return columnsGroup && columnsGroup.length > 0 ?
         columnsGroup.some(columns => hasRenderer(columns, TableFragment.HEAD))
         :
         false;
 }
 
-// function hasFixedColumn(columns, fixed) {
+// export function hasFixedColumn(columns, fixed) {
 //     return columns && fixed ? columns.some(column => column && column.fixed === fixed) : false;
 // }
 
-// function getDataByPagination(data, isPaginated, pagination) {
+// export function getDataByPagination(data, isPaginated, pagination) {
 //
 //     if (!data || data.length < 1) {
 //         return [];
@@ -234,7 +233,7 @@ function hasHeadRenderer(columnsGroup) {
  * @param idField
  * @returns {number|*}
  */
-function indexOfNodeInValue(node, value, idField) {
+export function indexOfNodeInValue(node, value, idField) {
 
     if (!node || !value) {
         return -1;
@@ -257,7 +256,7 @@ function indexOfNodeInValue(node, value, idField) {
  * @param idField
  * @returns {boolean}
  */
-function isNodeChecked(node, value, idField) {
+export function isNodeChecked(node, value, idField) {
     return indexOfNodeInValue(node, value, idField) >= 0;
 }
 
@@ -266,7 +265,7 @@ function isNodeChecked(node, value, idField) {
  * @param isRowDisabled
  * @returns {boolean}
  */
-function isNodeDisabled(node, isRowDisabled) {
+export function isNodeDisabled(node, isRowDisabled) {
 
     if (!node) {
         return false;
@@ -290,7 +289,7 @@ function isNodeDisabled(node, isRowDisabled) {
  * @param idField
  * @returns {{indeterminate: boolean, checked: boolean}}
  */
-function isSelectAllChecked(data, value, idField) {
+export function isSelectAllChecked(data, value, idField) {
 
     const root = isArray(data) ? {
         [VirtualRoot]: true,
@@ -326,7 +325,7 @@ function isSelectAllChecked(data, value, idField) {
  * @param isSelectRecursive
  * @returns {*[]}
  */
-function handleSelect(node, value = [], idField, isSelectRecursive) {
+export function handleSelect(node, value = [], idField, isSelectRecursive) {
 
     if (!node || node.disabled || !value) {
         return value;
@@ -355,7 +354,7 @@ function handleSelect(node, value = [], idField, isSelectRecursive) {
  * @param isSelectRecursive
  * @returns {*}
  */
-function handleDeselect(node, value, idField, isSelectRecursive) {
+export function handleDeselect(node, value, idField, isSelectRecursive) {
 
     if (!node || node.disabled || !value) {
         return value;
@@ -384,7 +383,7 @@ function handleDeselect(node, value, idField, isSelectRecursive) {
  * @param idField
  * @returns {*[]}
  */
-function formatValue(value, data, idField) {
+export function formatValue(value, data, idField) {
 
     let result = [];
 
@@ -412,7 +411,7 @@ function formatValue(value, data, idField) {
  * @param idField
  * @returns {*[]}
  */
-function handleSelectAll(data, value = [], idField) {
+export function handleSelectAll(data, value = [], idField) {
 
     if (!data || data.length < 1) {
         return value;
@@ -429,7 +428,7 @@ function handleSelectAll(data, value = [], idField) {
  * @param columns
  * @returns {{hasFixedLeftColumn: (Array|boolean), sortedColumns: *[], hasFixedRightColumn: (Array|boolean)}|*}
  */
-function sortColumns(columns) {
+export function sortColumns(columns) {
 
     if (!columns || columns.length < 1) {
         return columns;
@@ -445,10 +444,12 @@ function sortColumns(columns) {
     columns.forEach(column => column && result[column.fixed || HorizontalAlign.CENTER].push(column));
 
     // traverse all children nodes in left and right, update "fixed" property inheriting from their parent
-    Util.preOrderTraverse({children: result[HorizontalAlign.LEFT]}, node =>
-        node.fixed = HorizontalAlign.LEFT);
-    Util.preOrderTraverse({children: result[HorizontalAlign.RIGHT]}, node =>
-        node.fixed = HorizontalAlign.RIGHT);
+    Util.preOrderTraverse({
+        children: result[HorizontalAlign.LEFT]
+    }, node => node.fixed = HorizontalAlign.LEFT);
+    Util.preOrderTraverse({
+        children: result[HorizontalAlign.RIGHT]
+    }, node => node.fixed = HorizontalAlign.RIGHT);
 
     return {
         sortedColumns: [
@@ -467,7 +468,7 @@ function sortColumns(columns) {
  * @param columns
  * @returns {null|*}
  */
-function getFirstColumn(columns) {
+export function getFirstColumn(columns) {
 
     if (!columns || columns.length < 1) {
         return null;
@@ -488,7 +489,7 @@ function getFirstColumn(columns) {
  * @param depth
  * @returns {number|*}
  */
-function formatColumnsSpan(node, maxDepth, depth = -1) {
+export function formatColumnsSpan(node, maxDepth, depth = -1) {
 
     if (!node) {
         return 0;
@@ -536,13 +537,13 @@ function formatColumnsSpan(node, maxDepth, depth = -1) {
  * @param columns
  * @returns {Array|*}
  */
-function getHeadColumns(columns) {
+export function getHeadColumns(columns) {
 
     if (!columns || columns.length < 1) {
         return columns;
     }
 
-    // calculate the max depth
+    // Calculate the max depth
     let maxDepth = 0;
     Util.postOrderTraverse({children: columns}, (node, depth) => {
         if (depth > maxDepth) {
@@ -550,25 +551,38 @@ function getHeadColumns(columns) {
         }
     });
 
-    // add row span and column span to column node
+    // Add row span and column span to column node
     const formatedColumns = formatColumnsSpan({
         [VirtualRoot]: true,
         children: columns
     }, maxDepth);
 
     const result = [];
-    Util.postOrderTraverse({children: formatedColumns}, (column, depth) => {
+    Util.preOrderTraverse({
+        [VirtualRoot]: true,
+        children: formatedColumns
+    }, (column, depth, parentColumn) => {
 
-        const index = depth - 1;
+        const rowIndex = depth - 1;
+        const rowSpan = column?.rowSpan || 1;
 
-        if (index >= 0) {
+        for (let i = rowIndex, len = rowIndex + rowSpan; i < len; i++) {
+            if (i >= 0) {
 
-            if (!result[index]) {
-                result[index] = [];
+                if (!result[i]) {
+                    result[i] = [];
+                }
+
+                if (i > rowIndex) {
+                    result[i].push({
+                        ...column,
+                        hidden: true
+                    });
+                } else {
+                    result[i].push(column);
+                }
+
             }
-
-            result[index].push(column);
-
         }
 
     });
@@ -581,7 +595,7 @@ function getHeadColumns(columns) {
  * @param columns
  * @returns {*[]|*}
  */
-function getBodyColumns(columns) {
+export function getBodyColumns(columns) {
 
     if (!columns || columns.length < 1) {
         return columns;
@@ -604,7 +618,7 @@ function getBodyColumns(columns) {
  * @param idField
  * @returns {*[]}
  */
-function recursiveSelectChildren(node, value = [], idField) {
+export function recursiveSelectChildren(node, value = [], idField) {
 
     if (!node) {
         return value;
@@ -624,7 +638,7 @@ function recursiveSelectChildren(node, value = [], idField) {
  * @param tableData
  * @returns {*}
  */
-function needCollapseButtonSpacing(tableData) {
+export function needCollapseButtonSpacing(tableData) {
     return tableData && tableData.some(rowData => rowData && rowData.children && rowData.children.length > 0);
 }
 
@@ -633,7 +647,7 @@ function needCollapseButtonSpacing(tableData) {
  * @param pageSizeValueField
  * @returns {*}
  */
-function getPageSizeValue(pageSize, pageSizeValueField) {
+export function getPageSizeValue(pageSize, pageSizeValueField) {
     return typeof pageSize === 'object' ?
         pageSize[pageSizeValueField]
         :
@@ -649,7 +663,7 @@ function getPageSizeValue(pageSize, pageSizeValueField) {
  * @param tableData
  * @returns {boolean}
  */
-function handleNoWrap(fragmentNoWrap, columnNoWrap, {data, colIndex, rowIndex, tableData}) {
+export function handleNoWrap(fragmentNoWrap, columnNoWrap, {data, colIndex, rowIndex, tableData}) {
     return !!((
         typeof fragmentNoWrap === 'function' ?
             fragmentNoWrap(data, colIndex, rowIndex, tableData)
@@ -669,7 +683,7 @@ function handleNoWrap(fragmentNoWrap, columnNoWrap, {data, colIndex, rowIndex, t
  * @param data
  * @returns {number|*}
  */
-function handlePage(page, pageSize, data) {
+export function handlePage(page, pageSize, data) {
 
     if (!data || data.length < 1 || !pageSize || page < 0) {
         return 0;
@@ -679,7 +693,7 @@ function handlePage(page, pageSize, data) {
 
 }
 
-// function getColumnByPath(columns, path) {
+// export function getColumnByPath(columns, path) {
 //
 //     if (!columns || columns.length < 1 || !path || path.length < 1) {
 //         return null;
@@ -699,12 +713,16 @@ function handlePage(page, pageSize, data) {
  * @param defaultColumnWidth
  * @returns {*|number}
  */
-function getColumnsTotalWidth(columns, columnKeyField = 'key', columnsWidth, defaultColumnWidth = 100) {
+export function getColumnsTotalWidth(
+    columns, columnKeyField = 'key', columnsWidth, defaultColumnWidth = 100
+) {
     return columns && columnsWidth ?
-        columns.reduce((sum, column) =>
-                sum + (columnsWidth.get(getColumnKey(column, columnKeyField)) || defaultColumnWidth),
-            0
-        )
+        columns.reduce((sum, column) => sum + (
+            column?.children?.length > 0 ?
+                getColumnsTotalWidth(column?.children, columnKeyField, columnsWidth, defaultColumnWidth)
+                :
+                (columnsWidth.get(getColumnKey(column, columnKeyField)) || defaultColumnWidth)
+        ), 0)
         :
         0;
 }
@@ -719,32 +737,34 @@ function getColumnsTotalWidth(columns, columnKeyField = 'key', columnsWidth, def
  * @param hasVerticalScroll
  * @returns {{}}
  */
-function getStickyColumnStyle(
+export function getStickyColumnStyle(
     fixed, colIndex, columns, columnKeyField = 'key', columnsWidth, defaultColumnWidth, hasVerticalScroll
 ) {
 
-    const result = {};
-
     if (fixed === HorizontalAlign.LEFT) {
-        result.position = 'sticky';
-        result.left = getColumnsTotalWidth(
-            columns.slice(0, colIndex), columnKeyField, columnsWidth, defaultColumnWidth
-        );
+        return {
+            position: 'sticky',
+            left: getColumnsTotalWidth(
+                columns.slice(0, colIndex), columnKeyField, columnsWidth, defaultColumnWidth
+            )
+        };
     }
 
     if (fixed === HorizontalAlign.RIGHT) {
-        result.position = 'sticky';
-        result.right = getColumnsTotalWidth(
-            columns.slice(colIndex + 1), columnKeyField, columnsWidth, defaultColumnWidth
-        ) + (
-            hasVerticalScroll ?
-                ScrollBar.getSize(Direction.VERTICAL)
-                :
-                0
-        );
+        return {
+            position: 'sticky',
+            right: getColumnsTotalWidth(
+                columns.slice(colIndex + 1), columnKeyField, columnsWidth, defaultColumnWidth
+            ) + (
+                hasVerticalScroll ?
+                    ScrollBar.getSize(Direction.VERTICAL)
+                    :
+                    0
+            )
+        };
     }
 
-    return result;
+    return {};
 
 }
 
