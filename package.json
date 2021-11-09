@@ -124,7 +124,7 @@
         "style-loader": "^3.3.1",
         "through2": "^4.0.2",
         "url-loader": "^4.1.1",
-        "webpack": "^5.61.0",
+        "webpack": "^5.62.1",
         "webpack-bundle-analyzer": "^4.5.0",
         "webpack-dev-middleware": "^5.2.1",
         "webpack-hot-middleware": "^2.25.1",
