@@ -100,6 +100,7 @@ Tip.propTypes = {
      */
     hasTriangle: PropTypes.bool,
 
+    container: PropTypes.element,
     triangle: PropTypes.element,
 
     /**
