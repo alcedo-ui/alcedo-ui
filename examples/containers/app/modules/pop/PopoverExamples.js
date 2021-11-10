@@ -1,6 +1,10 @@
-import React, {Component} from 'react';
-import {findDOMNode} from 'react-dom';
+/**
+ * @file Popover examples
+ */
 
+import React, {Component} from 'react';
+
+// Components
 import RaisedButton from 'src/RaisedButton';
 import Popover from 'src/Popover';
 import PopoverProvider from 'src/PopoverProvider';
@@ -9,9 +13,14 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import Dialog from 'src/Dialog';
 
+// Vendors
+import {findDOMNode} from 'react-dom';
+
+// Docs
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Popover.json';
 
+// Styles
 import 'scss/containers/app/modules/pop/PopExamples.scss';
 import 'scss/containers/app/modules/pop/PopoverExamples.scss';
 
@@ -51,20 +60,20 @@ class PopoverExamples extends Component {
 
     render() {
 
-        const {popVisible} = this.state,
-            items = [{
-                iconCls: 'fab fa-facebook',
-                value: 'Facebook',
-                text: 'Facebook'
-            }, {
-                iconCls: 'fab fa-twitter',
-                value: 'Twitter',
-                text: 'Twitter'
-            }, {
-                iconCls: 'fab fa-google-plus-g',
-                value: 'Google+',
-                text: 'Google+'
-            }];
+        const {popVisible} = this.state;
+        const items = [{
+            iconCls: 'fab fa-facebook',
+            value: 'Facebook',
+            text: 'Facebook'
+        }, {
+            iconCls: 'fab fa-twitter',
+            value: 'Twitter',
+            text: 'Twitter'
+        }, {
+            iconCls: 'fab fa-google-plus-g',
+            value: 'Google+',
+            text: 'Google+'
+        }];
 
         return (
             <div className="example pop-examples popover-examples">
@@ -469,6 +478,6 @@ class PopoverExamples extends Component {
             </div>
         );
     }
-};
+}
 
 export default PopoverExamples;

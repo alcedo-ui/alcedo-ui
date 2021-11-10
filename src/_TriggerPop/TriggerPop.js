@@ -2,7 +2,7 @@
  * @file TriggerPop component
  */
 
-import React, {Component, Fragment, createRef} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -117,7 +117,7 @@ class TriggerPop extends Component {
 
             children,
 
-            className, contentClassName, theme,
+            className, contentClassName, theme, container,
             hasTriangle, triangle, position, isAnimated,
 
             // not passing down these props
@@ -139,12 +139,12 @@ class TriggerPop extends Component {
                      [className]: className
                  })}
                  position={position}
-                 container={<Paper/>}
+                 container={container}
                  isAnimated={isAnimated}
                  resetPosition={this.resetPosition}>
                 {
                     popEl => (
-                        <Fragment>
+                        <>
 
                             {
                                 hasTriangle ?
@@ -161,7 +161,7 @@ class TriggerPop extends Component {
                                 {typeof children === 'function' ? children(popEl) : children}
                             </div>
 
-                        </Fragment>
+                        </>
                     )
                 }
             </Pop>
@@ -214,6 +214,7 @@ TriggerPop.propTypes = {
      */
     hasTriangle: PropTypes.bool,
 
+    container: PropTypes.element,
     triangle: PropTypes.element,
 
     showModal: PropTypes.bool,
@@ -276,6 +277,7 @@ TriggerPop.defaultProps = {
 
     visible: false,
     hasTriangle: true,
+    container: <Paper/>,
     triangle: <div className="trigger-pop-triangle"/>,
     showModal: false,
     position: Position.BOTTOM,
