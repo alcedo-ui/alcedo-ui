@@ -60,31 +60,46 @@ class CursorPopover extends Component {
     };
 
     handleMouseOut = e => {
+
         this.clearCloseTimeout();
-        this.closeTimeout = setTimeout(() => this.props.onRequestClose?.(e), 1000 / 6);
+
+        const {enterable} = this.props;
+
+        if (enterable) {
+            this.closeTimeout = setTimeout(() => this.props.onRequestClose?.(e), 1000 / 6);
+        } else {
+            this.props.onRequestClose?.(e);
+        }
+
     };
 
-    handleRender = (el, ...restArgs) => {
+    handleRender = (el, triggerEl) => {
 
-        const {triggerEl} = this.props;
-        this.props.onRender?.(el, ...restArgs);
+        const {enterable} = this.props;
+        this.props.onRender?.(el, triggerEl);
 
         Event.addEvent(triggerEl, 'mouseover', this.handleMouseOver);
         Event.addEvent(triggerEl, 'mouseout', this.handleMouseOut);
-        Event.addEvent(el, 'mouseover', this.handleMouseOver);
-        Event.addEvent(el, 'mouseout', this.handleMouseOut);
+
+        if (enterable) {
+            Event.addEvent(el, 'mouseover', this.handleMouseOver);
+            Event.addEvent(el, 'mouseout', this.handleMouseOut);
+        }
 
     };
 
-    handleDestroy = (el, ...restArgs) => {
+    handleDestroy = (el, triggerEl) => {
 
-        const {triggerEl} = this.props;
-        this.props.onDestroy?.(el, ...restArgs);
+        const {enterable} = this.props;
+        this.props.onDestroy?.(el, triggerEl);
 
         Event.removeEvent(triggerEl, 'mouseover', this.handleMouseOver);
         Event.removeEvent(triggerEl, 'mouseout', this.handleMouseOut);
-        Event.removeEvent(el, 'mouseover', this.handleMouseOver);
-        Event.removeEvent(el, 'mousemove', this.handleMouseOut);
+
+        if (enterable) {
+            Event.removeEvent(el, 'mouseover', this.handleMouseOver);
+            Event.removeEvent(el, 'mousemove', this.handleMouseOut);
+        }
 
     };
 
@@ -166,18 +181,17 @@ CursorPopover.propTypes = {
      */
     isAnimated: PropTypes.bool,
 
+    enterable: PropTypes.bool,
+
     /**
      * The depth of Paper component.
      */
     depth: PropTypes.number,
 
-    isBlurClose: PropTypes.bool,
-
     shouldFollowScroll: PropTypes.bool,
     scrollEl: PropTypes.object,
 
     resetPositionWait: PropTypes.number,
-    showModal: PropTypes.bool,
 
     /**
      * The function of CursorPopover render.
@@ -219,11 +233,10 @@ CursorPopover.defaultProps = {
     theme: Theme.DEFAULT,
     position: Position.BOTTOM,
     isAnimated: true,
+    enterable: false,
 
-    isBlurClose: true,
     shouldFollowScroll: false,
-    resetPositionWait: 250,
-    showModal: false
+    resetPositionWait: 250
 
 };
 

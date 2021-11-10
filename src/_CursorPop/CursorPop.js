@@ -67,10 +67,8 @@ class CursorPop extends Component {
     };
 
     handleMouseMove = e => {
-        this.cursorOffset = {
-            left: e.offsetX,
-            top: e.offsetY
-        };
+        this.cursorOffset.left = e.offsetX;
+        this.cursorOffset.top = e.offsetY;
         this.resetPosition();
     };
 
@@ -142,11 +140,11 @@ class CursorPop extends Component {
             children,
 
             className, contentClassName, theme, container,
-            position, isAnimated,
+            position, isAnimated, enterable,
 
             // not passing down these props
             // eslint-disable-next-line no-unused-vars
-            isEscClose, isBlurClose, shouldFollowScroll, scrollEl,
+            shouldFollowScroll, scrollEl,
 
             ...restProps
 
@@ -159,6 +157,7 @@ class CursorPop extends Component {
                      [`theme-${theme}`]: theme,
                      [`cursor-pop-${position}`]: position,
                      'cursor-pop-animated': isAnimated,
+                     'cursor-pop-enterable': enterable,
                      [className]: className
                  })}
                  position={position}
@@ -223,8 +222,6 @@ CursorPop.propTypes = {
 
     container: PropTypes.element,
 
-    showModal: PropTypes.bool,
-
     /**
      * The cursor pop alignment.The value can be Popup.Position.LEFT or Popup.Position.RIGHT.
      */
@@ -235,13 +232,12 @@ CursorPop.propTypes = {
      */
     isAnimated: PropTypes.bool,
 
+    enterable: PropTypes.bool,
+
     /**
      * The depth of Paper component.
      */
     depth: PropTypes.number,
-
-    isBlurClose: PropTypes.bool,
-    isEscClose: PropTypes.bool,
 
     shouldFollowScroll: PropTypes.bool,
     scrollEl: PropTypes.object,
@@ -283,12 +279,10 @@ CursorPop.defaultProps = {
 
     visible: false,
     container: <Paper/>,
-    showModal: false,
     position: Position.BOTTOM,
     isAnimated: true,
+    enterable: false,
 
-    isBlurClose: true,
-    isEscClose: true,
     shouldFollowScroll: false,
     resetPositionWait: 250
 

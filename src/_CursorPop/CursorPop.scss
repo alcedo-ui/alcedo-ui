@@ -88,6 +88,10 @@
         }
     }
 
+    &.cursor-pop-enterable {
+        pointer-events: auto;
+    }
+
     // default theme
     @include cursor-pop-theme($theme-field-bg, $theme-field);
 
