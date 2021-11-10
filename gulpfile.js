@@ -1,6 +1,5 @@
 /**
  * @file gulpfile.js
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 const gulp = require('gulp'),

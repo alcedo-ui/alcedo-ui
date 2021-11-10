@@ -1,6 +1,5 @@
 /**
  * @file LandingNavItem.js
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 import React, {useCallback} from 'react';

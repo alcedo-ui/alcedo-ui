@@ -1,6 +1,5 @@
 /**
  * @file RateCalculation vendor
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 function createItems(value, allowHalf, count) {

@@ -1,6 +1,5 @@
 /**
  * @file Landing.js
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 import React, {useState, useCallback, useEffect, useRef} from 'react';

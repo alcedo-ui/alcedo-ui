@@ -1,6 +1,5 @@
 /**
  * @file SpanLoading component
- * @author wendy(wendy.wei@derbysoft.com)
  */
 
 import React, {Component} from 'react';

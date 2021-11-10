@@ -1,6 +1,5 @@
 /**
  * @file ToasterCalculation vendor
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 import Position from '../_statics/Position';

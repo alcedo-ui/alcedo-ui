@@ -1,6 +1,5 @@
 /**
  * @file Accordion component
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 import React, {Component, createRef, cloneElement} from 'react';

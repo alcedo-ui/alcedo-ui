@@ -1,6 +1,5 @@
 /**
  * @file utils.js
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 const fs = require('fs');

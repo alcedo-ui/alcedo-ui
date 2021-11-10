@@ -1,6 +1,5 @@
 /**
  * @file LandingNav.js
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 import React, {useCallback, forwardRef} from 'react';

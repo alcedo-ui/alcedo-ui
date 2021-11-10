@@ -1,9 +1,16 @@
+/**
+ * @file NavMenuItem.js
+ */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
-import classNames from 'classnames';
 
+// Components
+import {Link} from 'react-router-dom';
 import TouchRipple from 'src/TouchRipple';
+
+// Vendors
+import classNames from 'classnames';
 
 class NavMenuItem extends Component {
 
@@ -58,7 +65,7 @@ class NavMenuItem extends Component {
 
                             <i className={`fas fa-angle-down nav-menu-item-collapse-button
                                 ${collapsed ? 'collapsed' : ''}`}
-                               aria-hidden="true"></i>
+                               aria-hidden="true"/>
 
                             <TouchRipple/>
 

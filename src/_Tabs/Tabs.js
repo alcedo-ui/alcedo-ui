@@ -1,6 +1,5 @@
 /**
  * @file Tabs component
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 import React, {Component, Fragment, createRef} from 'react';

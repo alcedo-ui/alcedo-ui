@@ -1,6 +1,5 @@
 /**
  * @file DayPicker component
- * @author sunday(sunday.wei@derbysoft.com)
  */
 
 import React, {Component} from 'react';

@@ -1,6 +1,5 @@
 /**
  * @file PortalManagement vendor
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 import addClass from 'dom-helpers/addClass';

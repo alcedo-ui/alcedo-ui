@@ -1,39 +1,35 @@
-import React, {Component} from 'react';
+/**
+ * @file NavMenu.js
+ */
+
+import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import * as actions from 'reduxes/actions';
 
+// Components
 import TextField from 'src/TextField';
 import NavMenuList from './NavMenuList';
 
-import 'scss/containers/app/navMenu/NavMenu.scss';
+// Styles
+import './NavMenu.scss';
 
-class NavMenu extends Component {
+const NavMenu = ({
+    filter, updateFilter
+}) => (
+    <div className="nav-menu">
 
-    constructor(props) {
-        super(props);
-    }
+        <TextField className="nav-menu-filter"
+                   value={filter}
+                   rightIconCls="fas fa-search"
+                   onChange={updateFilter}/>
 
-    render() {
+        <NavMenuList/>
 
-        const {filter, updateFilter} = this.props;
-
-        return (
-            <div className="nav-menu">
-
-                <TextField className="nav-menu-filter"
-                           value={filter}
-                           rightIconCls="fas fa-search"
-                           onChange={updateFilter}/>
-
-                <NavMenuList/>
-
-            </div>
-        );
-    }
-}
+    </div>
+);
 
 NavMenu.propTypes = {
     filter: PropTypes.string,

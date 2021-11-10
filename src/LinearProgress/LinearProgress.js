@@ -1,6 +1,5 @@
 /**
  * @file LinearProgress component
- * @author chao(chao.zhang@derbysoft.com)
  */
 
 import React, {Component, createRef} from 'react';

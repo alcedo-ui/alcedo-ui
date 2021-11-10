@@ -1,6 +1,5 @@
 /**
  * @file CircularLoadingExamples.js
- * @author wendy(wendy.wei@derbysoft.com)
  */
 
 import React, {Component} from 'react';

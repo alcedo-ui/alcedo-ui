@@ -1,6 +1,5 @@
 /**
  * @file Event vendor
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 function addEvent(el, type, cb) {

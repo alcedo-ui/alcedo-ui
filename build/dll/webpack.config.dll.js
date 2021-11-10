@@ -1,6 +1,5 @@
 /**
  * @file webpack.config.dll.js
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 const {IgnorePlugin, DllPlugin} = require('webpack');

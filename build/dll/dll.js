@@ -1,6 +1,5 @@
 /**
  * @file dll.js
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 const webpack = require('webpack');

@@ -1,6 +1,5 @@
 /**
  * @file Dialog component
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 import React, {Children, cloneElement, Component, Fragment, createRef} from 'react';

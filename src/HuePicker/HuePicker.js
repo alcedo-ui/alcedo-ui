@@ -1,6 +1,5 @@
 /**
  * @file HuePicker component
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 import React, {Component, createRef} from 'react';

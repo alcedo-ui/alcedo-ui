@@ -1,6 +1,5 @@
 /**
  * @file server.js
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 const express = require('express');

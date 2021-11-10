@@ -1,6 +1,5 @@
 /**
  * @file LandingGetStarted.js
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 import React from 'react';

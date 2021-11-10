@@ -1,6 +1,5 @@
 /**
  * @file Root.js
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 import React, {useCallback, useEffect} from 'react';

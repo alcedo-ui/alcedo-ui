@@ -1,6 +1,5 @@
 /**
  * @file ScrollBar vendor
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 // Statics

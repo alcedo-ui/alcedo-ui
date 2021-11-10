@@ -1,6 +1,5 @@
 /**
  * @file LazyLoadStatus static
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 export default {

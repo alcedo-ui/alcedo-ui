@@ -1,6 +1,5 @@
 /**
  * @file CascaderCalculation vendor
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 import Util from './Util';

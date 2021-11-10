@@ -1,6 +1,5 @@
 /**
  * @file webpack.config.dev.js
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 const {DefinePlugin, HotModuleReplacementPlugin, NoEmitOnErrorsPlugin} = require('webpack');

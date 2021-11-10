@@ -1,6 +1,5 @@
 /**
  * @file MeasureTr component
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 import React, {Component} from 'react';

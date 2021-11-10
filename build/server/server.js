@@ -1,6 +1,5 @@
 /**
  * @file server.js
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 const path = require('path');

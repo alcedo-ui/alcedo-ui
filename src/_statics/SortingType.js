@@ -1,6 +1,5 @@
 /**
  * @file SortingType static
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 export default {

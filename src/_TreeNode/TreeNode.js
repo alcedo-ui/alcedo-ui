@@ -1,6 +1,5 @@
 /**
  * @file TreeNode component
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 import React, {Component, Fragment} from 'react';

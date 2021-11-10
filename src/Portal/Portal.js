@@ -1,6 +1,5 @@
 /**
  * @file Portal component
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 import {Component} from 'react';

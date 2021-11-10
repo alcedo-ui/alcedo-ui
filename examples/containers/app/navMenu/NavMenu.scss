@@ -1,9 +1,8 @@
 /**
  * @file NavMenu.scss
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-@import '../../../my-theme.scss';
+@import 'scss/my-theme.scss';
 
 .nav-menu {
     position: fixed;
@@ -56,7 +55,6 @@
                     color: transparentize($theme-nav, .3);
                     text-decoration: none;
                     cursor: pointer;
-                    text-decoration: none;
                     overflow: hidden;
 
                     &:hover {

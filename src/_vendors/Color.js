@@ -1,6 +1,5 @@
 /**
  * @file Color vendor
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 import Valid from './Valid';

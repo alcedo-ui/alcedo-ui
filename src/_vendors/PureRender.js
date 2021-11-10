@@ -1,6 +1,5 @@
 /**
  * @file PureRender vendor
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 import isEqual from 'lodash/isEqual';

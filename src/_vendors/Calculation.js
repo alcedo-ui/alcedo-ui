@@ -1,6 +1,5 @@
 /**
  * @file Calculation vendor
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 // Statics

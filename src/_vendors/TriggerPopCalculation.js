@@ -1,6 +1,5 @@
 /**
  * @file TriggerPopCalculation vendor
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 import domContains from 'dom-helpers/contains';

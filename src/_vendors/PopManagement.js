@@ -1,6 +1,5 @@
 /**
  * @file PopManagement vendor
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 // Vendors

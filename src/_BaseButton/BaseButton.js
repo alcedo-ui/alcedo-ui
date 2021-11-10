@@ -1,6 +1,5 @@
 /**
  * @file BaseButton component
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 import React, {Component, cloneElement, Fragment, createRef} from 'react';

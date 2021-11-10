@@ -1,6 +1,5 @@
 /**
  * @file MaterialDateRangePicker component
- * @author sunday(sunday.wei@derbysoft.com)
  */
 
 import React, {Component, createRef} from 'react';

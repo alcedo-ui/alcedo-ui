@@ -1,6 +1,5 @@
 /**
  * @file DropdownCalculation vendor
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 import Dom from './Dom';

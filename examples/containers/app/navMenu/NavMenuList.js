@@ -1,41 +1,38 @@
-import React, {Component} from 'react';
+/**
+ * @file NavMenuList.js
+ */
+
+import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import * as actions from 'reduxes/actions';
 
+// Components
 import NavMenuItem from './NavMenuItem';
 
-class NavMenuList extends Component {
-
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-
-        const {navMenu, expandMenuName, activatedMenu, expandMenu, updateActivatedMenu} = this.props;
-
-        return (
-            <div className="nav-menu-list">
-                <div className="nav-menu-scroller">
-                    {
-                        navMenu && navMenu.map((menu, index) =>
-                            <NavMenuItem key={(menu && menu.text) || index}
-                                         expandMenuName={expandMenuName}
-                                         activatedMenu={activatedMenu}
-                                         options={menu}
-                                         expandMenu={expandMenu}
-                                         updateActivatedMenu={updateActivatedMenu}/>
-                        )
-                    }
-                </div>
-            </div>
-        );
-
-    }
-}
+const NavMenuList = ({
+    navMenu, expandMenuName, activatedMenu,
+    expandMenu, updateActivatedMenu
+}) => (
+    <div className="nav-menu-list">
+        <div className="nav-menu-scroller">
+            {
+                navMenu?.map((menu, index) => menu ?
+                    <NavMenuItem key={menu.text || index}
+                                 expandMenuName={expandMenuName}
+                                 activatedMenu={activatedMenu}
+                                 options={menu}
+                                 expandMenu={expandMenu}
+                                 updateActivatedMenu={updateActivatedMenu}/>
+                    :
+                    null
+                ) || null
+            }
+        </div>
+    </div>
+);
 
 NavMenuList.propTypes = {
 

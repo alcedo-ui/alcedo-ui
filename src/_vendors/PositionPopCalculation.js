@@ -1,6 +1,5 @@
 /**
  * @file PositionPopCalculation vendor
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 // Statics

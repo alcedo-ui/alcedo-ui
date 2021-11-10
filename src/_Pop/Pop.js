@@ -1,6 +1,5 @@
 /**
  * @file Pop component
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 import React, {Component, cloneElement} from 'react';

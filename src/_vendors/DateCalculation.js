@@ -1,6 +1,5 @@
 /**
  * @file DateCalculation vendor
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 function weekday(selectYear, selectMonth) {

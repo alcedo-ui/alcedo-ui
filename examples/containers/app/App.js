@@ -1,6 +1,5 @@
 /**
  * @file App.js
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 import React, {useEffect} from 'react';

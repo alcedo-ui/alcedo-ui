@@ -1,6 +1,5 @@
 /**
  * @file prod.js
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 const webpack = require('webpack');

@@ -1,6 +1,5 @@
 /**
  * @file PageLoading component
- * @author chao(chao.zhang@derbysoft.com)
  */
 
 import React, {Component} from 'react';

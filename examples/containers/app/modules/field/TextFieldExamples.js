@@ -1,6 +1,5 @@
 /**
  * @file TextField examples
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 import React, {Component} from 'react';

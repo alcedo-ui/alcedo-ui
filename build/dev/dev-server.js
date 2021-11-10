@@ -1,6 +1,5 @@
 /**
  * @file dev-server.js
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 // const os = require('os');

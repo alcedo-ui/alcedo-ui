@@ -1,6 +1,5 @@
 /**
  * @file LandingExamples.js
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 import React, {useCallback} from 'react';

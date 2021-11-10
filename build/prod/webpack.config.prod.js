@@ -1,6 +1,5 @@
 /**
  * @file webpack.config.prod.js
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 const path = require('path');

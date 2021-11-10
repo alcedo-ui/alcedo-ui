@@ -1,6 +1,5 @@
 /**
  * @file MsgType static
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 // Statics

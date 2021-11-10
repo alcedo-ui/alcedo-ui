@@ -1,6 +1,5 @@
 /**
  * @file webpack.config.base.js
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 const HappyPack = require('happypack');

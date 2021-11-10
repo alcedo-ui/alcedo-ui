@@ -1,6 +1,5 @@
 /**
  * @file Util vendor
- * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
 // Vendors

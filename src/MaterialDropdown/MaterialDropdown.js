@@ -1,6 +1,5 @@
 /**
  * @file MaterialDropdown component
- * @author wendy(wendy.wei@derbysoft.com)
  */
 
 import React, {Component, createRef} from 'react';
