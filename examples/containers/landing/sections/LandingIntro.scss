@@ -13,7 +13,7 @@
     .landing-section-intro-bg {
         height: 100%;
         background-color: transparentize($theme-primary, .5);
-        background-image: url("images/intro-bg.jpg");
+        background-image: url("../../../assets/images/intro-bg.jpg");
         background-size: auto 100%;
         background-position: 50% 50%;
         background-repeat: no-repeat;
@@ -36,7 +36,7 @@
                 display: block;
                 width: 200px;
                 height: 200px;
-                background-image: url("../../../../../../assets/alcedo-logo.png");
+                background-image: url("../../../../assets/alcedo-logo.png");
                 background-size: 200px 200px;
                 margin: 20px auto;
             }
