@@ -1,5 +1,5 @@
 /**
- * @file TriggerPop component
+ * @file CursorPop component
  */
 
 import React, {Component, createRef} from 'react';
@@ -16,11 +16,11 @@ import Position from '../_statics/Position';
 // Vendors
 import classNames from 'classnames';
 import Util from '../_vendors/Util';
-import TriggerPopCalculation from '../_vendors/TriggerPopCalculation';
+import CursorPopCalculation from '../_vendors/CursorPopCalculation';
 import Dom from '../_vendors/Dom';
 import Event from '../_vendors/Event';
 
-class TriggerPop extends Component {
+class CursorPop extends Component {
 
     static Position = Position;
     static Theme = Theme;
@@ -29,7 +29,7 @@ class TriggerPop extends Component {
 
         super(props, ...restArgs);
 
-        // closest scrollable element of trigger
+        // closest scrollable element of cursor
         this.scrollEl = null;
 
         this.pop = createRef();
@@ -57,7 +57,7 @@ class TriggerPop extends Component {
      */
     resetPosition = (transitionEl = this.getEl()) => {
         const {parentEl, triggerEl, position} = this.props;
-        TriggerPopCalculation.setStyle(parentEl, triggerEl, transitionEl, this.getScrollEl(), position);
+        CursorPopCalculation.setStyle(parentEl, triggerEl, transitionEl, this.getScrollEl(), position);
     };
 
     /**
@@ -118,7 +118,7 @@ class TriggerPop extends Component {
             children,
 
             className, contentClassName, theme, container,
-            hasTriangle, triangle, position, isAnimated,
+            position, isAnimated,
 
             // not passing down these props
             // eslint-disable-next-line no-unused-vars
@@ -131,11 +131,10 @@ class TriggerPop extends Component {
         return (
             <Pop {...restProps}
                  ref={this.pop}
-                 className={classNames('trigger-pop', {
-                     'trigger-pop-has-triangle': hasTriangle,
+                 className={classNames('cursor-pop', {
                      [`theme-${theme}`]: theme,
-                     [`trigger-pop-${position}`]: position,
-                     'trigger-pop-animated': isAnimated,
+                     [`cursor-pop-${position}`]: position,
+                     'cursor-pop-animated': isAnimated,
                      [className]: className
                  })}
                  position={position}
@@ -144,24 +143,11 @@ class TriggerPop extends Component {
                  resetPosition={this.resetPosition}>
                 {
                     popEl => (
-                        <>
-
-                            {
-                                hasTriangle ?
-                                    <div className="trigger-pop-triangle-wrapper">
-                                        {triangle}
-                                    </div>
-                                    :
-                                    null
-                            }
-
-                            <div className={classNames('trigger-pop-content', {
-                                [contentClassName]: contentClassName
-                            })}>
-                                {typeof children === 'function' ? children(popEl) : children}
-                            </div>
-
-                        </>
+                        <div className={classNames('cursor-pop-content', {
+                            [contentClassName]: contentClassName
+                        })}>
+                            {typeof children === 'function' ? children(popEl) : children}
+                        </div>
                     )
                 }
             </Pop>
@@ -171,7 +157,7 @@ class TriggerPop extends Component {
 
 }
 
-TriggerPop.propTypes = {
+CursorPop.propTypes = {
 
     children: PropTypes.any,
 
@@ -193,34 +179,28 @@ TriggerPop.propTypes = {
     style: PropTypes.object,
 
     /**
-     * The trigger pop theme.Can be primary,highlight,success,warning,error.
+     * The cursor pop theme.Can be primary,highlight,success,warning,error.
      */
     theme: PropTypes.oneOf(Util.enumerateValue(Theme)),
 
     parentEl: PropTypes.object,
 
     /**
-     * This is the DOM element that will be used to set the position of the trigger pop.
+     * This is the DOM element that will be used to set the position of the cursor pop.
      */
     triggerEl: PropTypes.object,
 
     /**
-     * If true,the trigger pop is visible.
+     * If true,the cursor pop is visible.
      */
     visible: PropTypes.bool,
 
-    /**
-     * If true,the trigger pop will have a triangle on the top of the DOM element.
-     */
-    hasTriangle: PropTypes.bool,
-
     container: PropTypes.element,
-    triangle: PropTypes.element,
 
     showModal: PropTypes.bool,
 
     /**
-     * The trigger pop alignment.The value can be Popup.Position.LEFT or Popup.Position.RIGHT.
+     * The cursor pop alignment.The value can be Popup.Position.LEFT or Popup.Position.RIGHT.
      */
     position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
@@ -269,16 +249,14 @@ TriggerPop.propTypes = {
 
 };
 
-TriggerPop.defaultProps = {
+CursorPop.defaultProps = {
 
     theme: Theme.DEFAULT,
     parentEl: document.body,
     depth: 2,
 
     visible: false,
-    hasTriangle: true,
     container: <Paper/>,
-    triangle: <div className="trigger-pop-triangle"/>,
     showModal: false,
     position: Position.BOTTOM,
     isAnimated: true,
@@ -290,4 +268,4 @@ TriggerPop.defaultProps = {
 
 };
 
-export default TriggerPop;
+export default CursorPop;

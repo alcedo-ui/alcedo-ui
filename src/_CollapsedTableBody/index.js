@@ -1,5 +1,5 @@
 /**
- * @file TableBody
+ * @file CollapsedTableBody
  */
 
 export default from './CollapsedTableBody';

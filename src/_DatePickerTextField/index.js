@@ -1,5 +1,5 @@
 /**
- * @file MaterialDatePickerTextField
+ * @file DatePickerTextField
  */
 
 export default from './DatePickerTextField';
