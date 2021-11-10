@@ -60,15 +60,14 @@ class Popover extends Component {
     };
 
     handleMouseOut = e => {
-        const {onRequestClose} = this.props;
         this.clearCloseTimeout();
-        this.closeTimeout = setTimeout(() => onRequestClose?.(e), 1000 / 6);
+        this.closeTimeout = setTimeout(() => this.props.onRequestClose?.(e), 1000 / 6);
     };
 
     handleRender = (el, ...restArgs) => {
 
-        const {triggerEl, onRender} = this.props;
-        onRender?.(el, ...restArgs);
+        const {triggerEl} = this.props;
+        this.props.onRender?.(el, ...restArgs);
 
         Event.addEvent(triggerEl, 'mouseover', this.handleMouseOver);
         Event.addEvent(triggerEl, 'mouseout', this.handleMouseOut);
@@ -79,8 +78,8 @@ class Popover extends Component {
 
     handleDestroy = (el, ...restArgs) => {
 
-        const {triggerEl, onDestroy} = this.props;
-        onDestroy?.(el, ...restArgs);
+        const {triggerEl} = this.props;
+        this.props.onDestroy?.(el, ...restArgs);
 
         Event.removeEvent(triggerEl, 'mouseover', this.handleMouseOver);
         Event.removeEvent(triggerEl, 'mouseout', this.handleMouseOut);
@@ -155,6 +154,7 @@ Popover.propTypes = {
      */
     hasTriangle: PropTypes.bool,
 
+    container: PropTypes.element,
     triangle: PropTypes.element,
 
     /**
