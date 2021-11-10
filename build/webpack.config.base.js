@@ -3,28 +3,26 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-const
+const HappyPack = require('happypack');
 
-    HappyPack = require('happypack'),
+const config = require('./config.js');
+const {resolve, assetsSubPath} = require('./utils.js');
 
-    config = require('./config.js'),
-    {resolve, assetsSubPath} = require('./utils.js'),
-
-    cssLoaderConfig = ['style-loader', {
-        loader: 'css-loader',
-        options: {
-            importLoaders: 1
+const cssLoaderConfig = ['style-loader', {
+    loader: 'css-loader',
+    options: {
+        importLoaders: 1
+    }
+}, {
+    loader: 'postcss-loader',
+    options: {
+        postcssOptions: {
+            plugins: [
+                'postcss-preset-env'
+            ]
         }
-    }, {
-        loader: 'postcss-loader',
-        options: {
-            postcssOptions: {
-                plugins: [
-                    'postcss-preset-env'
-                ]
-            }
-        }
-    }];
+    }
+}];
 
 module.exports = {
 

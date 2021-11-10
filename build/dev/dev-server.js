@@ -3,27 +3,25 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-const
+// const os = require('os');
+// const chokidar = require('chokidar');
+const open = require('open');
+const webpack = require('webpack');
+const express = require('express');
 
-    // os = require('os'),
-    // chokidar = require('chokidar'),
-    open = require('open'),
-    webpack = require('webpack'),
-    express = require('express'),
+const config = require('../config.js');
+const webpackConfig = require('./webpack.config.dev.js');
 
-    config = require('../config.js'),
-    webpackConfig = require('./webpack.config.dev.js'),
+const uri = 'http://localhost:' + config.dev.port;
+const compiler = webpack(webpackConfig);
 
-    uri = 'http://localhost:' + config.dev.port,
-    compiler = webpack(webpackConfig),
-
-    devMiddleware = require('webpack-dev-middleware')(compiler, {
-        publicPath: webpackConfig.output.publicPath
-    }),
-    hotMiddleware = require('webpack-hot-middleware')(compiler, {
-        log: false
-    }),
-    app = express();
+const devMiddleware = require('webpack-dev-middleware')(compiler, {
+    publicPath: webpackConfig.output.publicPath
+});
+const hotMiddleware = require('webpack-hot-middleware')(compiler, {
+    log: false
+});
+const app = express();
 
 // os.platform() !== 'win32' && chokidar.watch('.');
 

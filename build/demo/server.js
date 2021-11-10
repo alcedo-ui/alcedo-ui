@@ -3,14 +3,14 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-const express = require('express'),
-    history = require('connect-history-api-fallback'),
-    open = require('open'),
+const express = require('express');
+const history = require('connect-history-api-fallback');
+const open = require('open');
 
-    config = require('../config.js'),
+const config = require('../config.js');
 
-    app = express(),
-    uri = 'http://localhost:' + config.demo.port;
+const app = express();
+const uri = 'http://localhost:' + config.demo.port;
 
 app.use(history())
    .use(express.static(config.build.assetsRoot, {

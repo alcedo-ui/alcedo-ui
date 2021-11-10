@@ -3,17 +3,17 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-const fs = require('fs'),
-    archiver = require('archiver'),
-    crypto = require('crypto'),
+const fs = require('fs');
+const archiver = require('archiver');
+const crypto = require('crypto');
 
-    config = require('../config.js'),
-    {fsExistsSync, copyRecursionSync, rmRecursionSync} = require('../utils.js'),
+const config = require('../config.js');
+const {fsExistsSync, copyRecursionSync, rmRecursionSync} = require('../utils.js');
 
-    name = 'alcedo-ui',
-    path = `./${name}`,
-    distPath = `${path}/dist`,
-    zipPath = `./${name}.zip`;
+const name = 'alcedo-ui';
+const path = `./${name}`;
+const distPath = `${path}/dist`;
+const zipPath = `./${name}.zip`;
 
 console.log('WAIT', 'Building Zip...');
 
@@ -36,8 +36,8 @@ copyRecursionSync(config.assetsDirectory, distPath, ['node_modules', '.DS_Store'
 copyRecursionSync('./build/server', path);
 
 // make archive
-const output = fs.createWriteStream(zipPath),
-    archive = archiver('zip', {zlib: {level: 9}});
+const output = fs.createWriteStream(zipPath);
+const archive = archiver('zip', {zlib: {level: 9}});
 
 output.on('close', () => {
 
@@ -47,8 +47,8 @@ output.on('close', () => {
     }
 
     // calculate SHA-256 Hash
-    const rs = fs.createReadStream(zipPath),
-        hash = crypto.createHash('sha256');
+    const rs = fs.createReadStream(zipPath);
+    const hash = crypto.createHash('sha256');
 
     rs.on('data', hash.update.bind(hash));
     rs.on('end', () => {

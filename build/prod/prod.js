@@ -3,9 +3,9 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-const webpack = require('webpack'),
+const webpack = require('webpack');
 
-    webpackConfig = require('./webpack.config.prod.js');
+const webpackConfig = require('./webpack.config.prod.js');
 
 console.log('WAIT', 'Building Production...');
 

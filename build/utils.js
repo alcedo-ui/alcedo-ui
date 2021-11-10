@@ -3,27 +3,47 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-const fs = require('fs'),
-    path = require('path'),
+const fs = require('fs');
+const path = require('path');
 
-    config = require('./config.js');
+const config = require('./config.js');
 
+/**
+ * @param dir
+ * @returns {string}
+ */
 function resolve(dir) {
     return path.join(__dirname, '..', dir);
 }
 
+/**
+ * @param p
+ * @returns {string}
+ */
 function assetsPath(p) {
     return path.posix.join(config.assetsDirectory, p);
 }
 
+/**
+ * @param p
+ * @returns {string}
+ */
 function assetsSubPath(p) {
     return path.posix.join(config.assetsSubDirectory, p);
 }
 
+/**
+ * @param p
+ * @returns {string}
+ */
 function assetsVendorsAbsolutePath(p) {
     return path.posix.join(config.build.assetsRoot, exports.assetsSubPath(`vendors/${p}`));
 }
 
+/**
+ * @param p
+ * @returns {boolean}
+ */
 function fsExistsSync(p) {
     try {
         fs.accessSync(p, (fs.constants && fs.constants.F_OK) || fs.F_OK);
@@ -33,6 +53,11 @@ function fsExistsSync(p) {
     return true;
 }
 
+/**
+ * @param src
+ * @param dist
+ * @param excludes
+ */
 function copyRecursionSync(src, dist, excludes) {
 
     const paths = fs.readdirSync(src);
@@ -64,6 +89,9 @@ function copyRecursionSync(src, dist, excludes) {
 
 }
 
+/**
+ * @param p
+ */
 function rmRecursionSync(p) {
 
     const paths = fs.readdirSync(p);

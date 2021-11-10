@@ -3,20 +3,20 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-const path = require('path'),
-    {DefinePlugin, DllReferencePlugin} = require('webpack'),
-    {merge} = require('webpack-merge'),
-    CopyPlugin = require('copy-webpack-plugin'),
-    HtmlWebpackPlugin = require('html-webpack-plugin'),
-    HtmlWebpackTagsPlugin = require('html-webpack-tags-plugin'),
-    // BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin,
+const path = require('path');
+const {DefinePlugin, DllReferencePlugin} = require('webpack');
+const {merge} = require('webpack-merge');
+const CopyPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackTagsPlugin = require('html-webpack-tags-plugin');
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
-    config = require('../config.js'),
-    baseWebpackConfig = require('../webpack.config.base.js'),
-    utils = require('../utils.js'),
-    vendorsAssets = require(utils.assetsVendorsAbsolutePath('vendors-assets.json')),
+const config = require('../config.js');
+const baseWebpackConfig = require('../webpack.config.base.js');
+const utils = require('../utils.js');
+const vendorsAssets = require(utils.assetsVendorsAbsolutePath('vendors-assets.json'));
 
-    env = process.env.NODE_ENV;
+const env = process.env.NODE_ENV;
 
 module.exports = merge(baseWebpackConfig, {
 

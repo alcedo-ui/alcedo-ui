@@ -3,13 +3,13 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-const path = require('path'),
-    express = require('express'),
-    history = require('connect-history-api-fallback'),
+const path = require('path');
+const express = require('express');
+const history = require('connect-history-api-fallback');
 
-    port = process.env.port || 3000,
+const port = process.env.port || 3000;
 
-    app = express();
+const app = express();
 
 app.use(history())
    .use(express.static(path.join(__dirname, 'dist'), {
