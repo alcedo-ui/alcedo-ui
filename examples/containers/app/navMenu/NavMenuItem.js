@@ -30,7 +30,6 @@ const NavMenuItem = ({
     ]);
 
     const handleMenuGroupClick = useCallback(() => {
-        console.log('handleMenuGroupClick');
         expandMenu?.(collapsed ? options?.text : '');
     }, [
         collapsed, options,
@@ -38,8 +37,9 @@ const NavMenuItem = ({
     ]);
 
     const handleMenuClick = useCallback(() => {
-        console.log('handleMenuClick');
-        depth === 0 && expandMenu?.('');
+        if (depth === 0) {
+            expandMenu?.('');
+        }
         updateActivatedMenu?.(options);
     }, [
         options, depth,

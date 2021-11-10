@@ -30,10 +30,7 @@ const App = ({
 
     useEffect(() => {
         expandActivatedMenu?.(location.hash.slice(1));
-    }, [
-        location,
-        expandActivatedMenu
-    ]);
+    }, []);
 
     return (
         <div className={classnames('app', {
