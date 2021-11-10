@@ -2,7 +2,8 @@
  * @file LandingFoot.scss
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
-@import '../../my-theme.scss';
+
+@import 'scss/my-theme.scss';
 
 .landing-foot {
     background: darken($theme-primary, 20%);

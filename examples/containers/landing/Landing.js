@@ -19,7 +19,7 @@ import {findDOMNode} from 'react-dom';
 import Event from 'vendors/Event';
 
 // Styles
-import 'scss/containers/landing/Landing.scss';
+import './Landing.scss';
 
 const Landing = () => {
 

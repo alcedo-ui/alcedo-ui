@@ -1,4 +1,9 @@
-@import '../../../my-theme.scss';
+/**
+ * @file LandingComponentCount.scss
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+@import 'scss/my-theme.scss';
 
 #landing-component-count {
     background: $theme-secondary;

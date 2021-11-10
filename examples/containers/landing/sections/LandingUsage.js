@@ -1,39 +1,35 @@
-import React, {Component} from 'react';
+/**
+ * @file LandingUsage.js
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
 
+import React from 'react';
+
+// Htmls
 import landingExampleHTML from './landingExample.html';
 
-import 'scss/containers/landing/sections/LandingUsage.scss';
+// Styles
+import './LandingUsage.scss';
 
-class LandingUsage extends Component {
+const LandingUsage = () => (
+    <section id="landing-usage"
+             className="landing-section">
 
-    constructor(props) {
-        super(props);
-    }
+        <div className="landing-section-inner">
 
-    getExampleHTML = () => {
-        return {
-            __html: landingExampleHTML
-        };
-    };
+            <div className="landing-section-title">
+                Usage
+            </div>
 
-    render() {
-        return (
-            <section id="landing-usage"
-                     className="landing-section">
+            <pre className="landing-code landing-jsx"
+                 dangerouslySetInnerHTML={{
+                     __html: landingExampleHTML
+                 }}>
+            </pre>
 
-                <div className="landing-section-inner">
+        </div>
 
-                    <div className="landing-section-title">Usage</div>
-
-                    <pre className="landing-code landing-jsx"
-                         dangerouslySetInnerHTML={this.getExampleHTML()}>
-                    </pre>
-
-                </div>
-
-            </section>
-        );
-    }
-}
+    </section>
+);
 
 export default LandingUsage;

@@ -1,35 +1,33 @@
-import React, {Component} from 'react';
+/**
+ * @file LandingComponentCount.js
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+import React from 'react';
 import PropTypes from 'prop-types';
 
+// Statics
 import {COMPONENTS_TOTAL_COUNT} from 'src';
 
-import 'scss/containers/landing/sections/LandingComponentCount.scss';
+// Styles
+import './LandingComponentCount.scss';
 
-class LandingComponentCount extends Component {
+const LandingComponentCount = () => (
+    <section id="landing-component-count"
+             className="landing-section">
 
-    constructor(props) {
-        super(props);
-    }
+        <div className="landing-section-inner">
 
-    render() {
-        return (
-            <section id="landing-component-count"
-                     className="landing-section">
+            <div className="components-total-count">
+                {COMPONENTS_TOTAL_COUNT}
+            </div>
 
-                <div className="landing-section-inner">
+            <div>Unique Components</div>
 
-                    <div className="components-total-count">
-                        {COMPONENTS_TOTAL_COUNT}
-                    </div>
+        </div>
 
-                    <div>Unique Components</div>
-
-                </div>
-
-            </section>
-        );
-    }
-}
+    </section>
+);
 
 LandingComponentCount.propTypes = {
     bodyScrollTop: PropTypes.number

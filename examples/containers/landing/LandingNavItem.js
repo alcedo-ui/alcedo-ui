@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 // Styles
-import 'scss/containers/landing/LandingNavItem.scss';
+import './LandingNavItem.scss';
 
 const LandingNavItem = ({
     data, activated, onClick

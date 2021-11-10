@@ -2,7 +2,8 @@
  * @file LandingIntro.scss
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
-@import '../../../my-theme.scss';
+
+@import 'scss/my-theme.scss';
 
 #landing-intro {
     position: relative;
@@ -12,7 +13,7 @@
     .landing-section-intro-bg {
         height: 100%;
         background-color: transparentize($theme-primary, .5);
-        background-image: url("../../../../images/intro-bg.jpg");
+        background-image: url("images/intro-bg.jpg");
         background-size: auto 100%;
         background-position: 50% 50%;
         background-repeat: no-repeat;

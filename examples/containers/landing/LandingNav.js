@@ -14,7 +14,7 @@ import NavItem from './LandingNavItem';
 import classnames from 'classnames';
 
 // Styles
-import 'scss/containers/landing/LandingNav.scss';
+import './LandingNav.scss';
 
 const LandingNav = forwardRef(({
     menu, activatedMenu, isFixed

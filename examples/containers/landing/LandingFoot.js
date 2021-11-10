@@ -9,7 +9,7 @@ import React from 'react';
 import IconAnchor from 'src/IconAnchor';
 
 // Styles
-import 'scss/containers/landing/LandingFoot.scss';
+import './LandingFoot.scss';
 
 const LandingFoot = () => (
     <div className="landing-foot">

@@ -18,11 +18,17 @@ import FlatButton from 'src/FlatButton';
 import exampleImg from 'assets/images/example.jpg';
 
 // Styles
-import 'scss/containers/landing/sections/LandingExamples.scss';
+import './LandingExamples.scss';
 
-function LandingExamples({routerPush}) {
+const LandingExamples = ({
+    routerPush
+}) => {
 
-    const goToExamples = useCallback(() => routerPush('/components'));
+    const goToExamples = useCallback(() => {
+        routerPush?.('/components');
+    }, [
+        routerPush
+    ]);
 
     return (
         <section id="landing-examples"
@@ -30,7 +36,9 @@ function LandingExamples({routerPush}) {
 
             <div className="landing-section-inner">
 
-                <div className="landing-section-title">Examples</div>
+                <div className="landing-section-title">
+                    Examples
+                </div>
 
                 <FlatButton className="ghost-button"
                             value="Go to Examples"
@@ -39,11 +47,12 @@ function LandingExamples({routerPush}) {
                 <Paper className="landing-examples-demo"
                        depth={4}>
                     <div className="window-header">
-                        <div className="window-header-dot"></div>
-                        <div className="window-header-dot"></div>
-                        <div className="window-header-dot"></div>
+                        <div className="window-header-dot"/>
+                        <div className="window-header-dot"/>
+                        <div className="window-header-dot"/>
                     </div>
                     <img className="landing-examples-demo-img"
+                         alt=""
                          src={exampleImg}/>
                 </Paper>
 
@@ -52,7 +61,7 @@ function LandingExamples({routerPush}) {
         </section>
     );
 
-}
+};
 
 LandingExamples.propTypes = {
     routerPush: PropTypes.func

@@ -1,33 +1,30 @@
-import React, {Component} from 'react';
+/**
+ * @file LandingGetStarted.js
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
 
-import 'scss/containers/landing/sections/LandingGetStarted.scss';
+import React from 'react';
 
-class LandingGetStarted extends Component {
+// Styles
+import './LandingGetStarted.scss';
 
-    constructor(props) {
-        super(props);
-    }
+const LandingGetStarted = () => (
+    <section id="landing-get-started"
+             className="landing-section">
 
-    render() {
-        return (
-            <section id="landing-get-started"
-                     className="landing-section">
+        <div className="landing-section-inner">
 
-                <div className="landing-section-inner">
+            <div className="landing-section-title">Get Started</div>
+            <div className="landing-section-subtitle">NPM</div>
 
-                    <div className="landing-section-title">Get Started</div>
-                    <div className="landing-section-subtitle">NPM</div>
+            <pre className="landing-code landing-bash">
+                <div className="comment"># latest stable</div>
+                $ npm install alcedo-ui --save
+            </pre>
 
-                    <pre className="landing-code landing-bash">
-                        <div className="comment"># latest stable</div>
-                        $ npm install alcedo-ui --save
-                    </pre>
+        </div>
 
-                </div>
-
-            </section>
-        );
-    }
-}
+    </section>
+);
 
 export default LandingGetStarted;
