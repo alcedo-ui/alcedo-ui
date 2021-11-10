@@ -31,6 +31,10 @@ class CursorPop extends Component {
 
         // closest scrollable element of cursor
         this.scrollEl = null;
+        this.cursorOffset = {
+            left: 0,
+            top: 0
+        };
 
         this.pop = createRef();
 
@@ -57,7 +61,27 @@ class CursorPop extends Component {
      */
     resetPosition = (transitionEl = this.getEl()) => {
         const {parentEl, triggerEl, position} = this.props;
-        CursorPopCalculation.setStyle(parentEl, triggerEl, transitionEl, this.getScrollEl(), position);
+        CursorPopCalculation.setStyle(
+            parentEl, triggerEl, transitionEl, this.getScrollEl(), position, this.cursorOffset
+        );
+    };
+
+    handleMouseMove = e => {
+        this.cursorOffset = {
+            left: e.offsetX,
+            top: e.offsetY
+        };
+        this.resetPosition();
+    };
+
+    handleRender = (el, triggerEl) => {
+        Event.addEvent(triggerEl, 'mousemove', this.handleMouseMove);
+        this.props.onRender?.(el, triggerEl);
+    };
+
+    handleDestroy = (el, triggerEl) => {
+        Event.removeEvent(triggerEl, 'mousemove', this.handleMouseMove);
+        this.props.onDestroy?.(el, triggerEl);
     };
 
     /**
@@ -140,7 +164,9 @@ class CursorPop extends Component {
                  position={position}
                  container={container}
                  isAnimated={isAnimated}
-                 resetPosition={this.resetPosition}>
+                 resetPosition={this.resetPosition}
+                 onRender={this.handleRender}
+                 onDestroy={this.handleDestroy}>
                 {
                     popEl => (
                         <div className={classNames('cursor-pop-content', {

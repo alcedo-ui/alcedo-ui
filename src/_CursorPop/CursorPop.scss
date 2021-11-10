@@ -13,8 +13,9 @@
 .cursor-pop {
     position: absolute;
     width: 200px;
-    z-index: $pop-z-index;
     background: transparent;
+    z-index: $pop-z-index;
+    pointer-events: none;
 
     .cursor-pop-content {
         box-sizing: border-box;
