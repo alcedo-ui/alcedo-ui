@@ -6,14 +6,27 @@
 
 .cursor-popover-examples {
 
+    .trigger-area,
+    .trigger-position-button {
+        display: inline-block;
+        box-sizing: border-box;
+        background: $theme-secondary;
+        color: $theme-primary;
+        text-align: center;
+    }
+
     .trigger-area {
         width: 200px;
         height: 200px;
-        background: $theme-secondary;
-        border: 8px dashed $theme-border;
-        color: $theme-primary;
-        text-align: center;
         line-height: 200px;
+        border: 8px dashed $theme-border;
+    }
+
+    .trigger-position-button {
+        width: 100px;
+        height: 40px;
+        line-height: 40px;
+        border: 2px dashed $theme-border;
     }
 }
 

@@ -5,7 +5,6 @@
 import React, {Component} from 'react';
 
 // Components
-import RaisedButton from 'src/RaisedButton';
 import CursorPopover from 'src/CursorPopover';
 // import CursorPopoverProvider from 'src/CursorPopoverProvider';
 import List from 'src/List';
@@ -139,70 +138,83 @@ class CursorPopoverExamples extends Component {
                                 <div className="button-group-wrapper">
 
                                     <div className="button-group top">
-                                        <RaisedButton ref={el => this.trigger5 = findDOMNode(el)}
-                                                      className="trigger-position-button"
-                                                      value="Top Left"
-                                                      onMouseOver={() => this.show(5)}/>
-                                        <RaisedButton ref={el => this.trigger6 = findDOMNode(el)}
-                                                      className="trigger-position-button"
-                                                      value="Top"
-                                                      onMouseOver={() => this.show(6)}/>
-                                        <RaisedButton ref={el => this.trigger7 = findDOMNode(el)}
-                                                      className="trigger-position-button"
-                                                      value="Top right"
-                                                      onMouseOver={() => this.show(7)}/>
+                                        <div ref={el => this.trigger5 = findDOMNode(el)}
+                                             className="trigger-position-button"
+                                             onMouseOver={() => this.show(5)}>
+                                            Top Left
+                                        </div>
+                                        <div ref={el => this.trigger6 = findDOMNode(el)}
+                                             className="trigger-position-button"
+                                             onMouseOver={() => this.show(6)}>
+                                            Top
+                                        </div>
+                                        <div ref={el => this.trigger7 = findDOMNode(el)}
+                                             className="trigger-position-button"
+                                             onMouseOver={() => this.show(7)}>
+                                            Top right
+                                        </div>
                                     </div>
 
                                     <div className="button-group right">
-                                        <RaisedButton ref={el => this.trigger11 = findDOMNode(el)}
-                                                      className="trigger-position-button"
-                                                      value="Right Top"
-                                                      onMouseOver={() => this.show(11)}/>
-                                        <RaisedButton ref={el => this.trigger12 = findDOMNode(el)}
-                                                      className="trigger-position-button"
-                                                      value="Right"
-                                                      onMouseOver={() => this.show(12)}/>
-                                        <RaisedButton ref={el => this.trigger13 = findDOMNode(el)}
-                                                      className="trigger-position-button"
-                                                      value="Right Bottom"
-                                                      onMouseOver={() => this.show(13)}/>
+                                        <div ref={el => this.trigger11 = findDOMNode(el)}
+                                             className="trigger-position-button"
+                                             onMouseOver={() => this.show(11)}>
+                                            Right Top
+                                        </div>
+                                        <div ref={el => this.trigger12 = findDOMNode(el)}
+                                             className="trigger-position-button"
+                                             onMouseOver={() => this.show(12)}>
+                                            Right
+                                        </div>
+                                        <div ref={el => this.trigger13 = findDOMNode(el)}
+                                             className="trigger-position-button"
+                                             onMouseOver={() => this.show(13)}>
+                                            Right Bottom
+                                        </div>
                                     </div>
 
                                     <div className="button-group bottom">
-                                        <RaisedButton ref={el => this.trigger2 = findDOMNode(el)}
-                                                      className="trigger-position-button"
-                                                      value="Bottom Left"
-                                                      onMouseOver={() => this.show(2)}/>
-                                        <RaisedButton ref={el => this.trigger3 = findDOMNode(el)}
-                                                      className="trigger-position-button"
-                                                      value="Bottom"
-                                                      onMouseOver={() => this.show(3)}/>
-                                        <RaisedButton ref={el => this.trigger4 = findDOMNode(el)}
-                                                      className="trigger-position-button"
-                                                      value="Bottom Right"
-                                                      onMouseOver={() => this.show(4)}/>
+                                        <div ref={el => this.trigger2 = findDOMNode(el)}
+                                             className="trigger-position-button"
+                                             onMouseOver={() => this.show(2)}>
+                                            Bottom Left
+                                        </div>
+                                        <div ref={el => this.trigger3 = findDOMNode(el)}
+                                             className="trigger-position-button"
+                                             onMouseOver={() => this.show(3)}>
+                                            Bottom
+                                        </div>
+                                        <div ref={el => this.trigger4 = findDOMNode(el)}
+                                             className="trigger-position-button"
+                                             onMouseOver={() => this.show(4)}>
+                                            Bottom Right
+                                        </div>
                                     </div>
 
                                     <div className="button-group left">
-                                        <RaisedButton ref={el => this.trigger8 = findDOMNode(el)}
-                                                      className="trigger-position-button"
-                                                      value="Left Top"
-                                                      onMouseOver={() => this.show(8)}/>
-                                        <RaisedButton ref={el => this.trigger9 = findDOMNode(el)}
-                                                      className="trigger-position-button"
-                                                      value="Left"
-                                                      onMouseOver={() => this.show(9)}/>
-                                        <RaisedButton ref={el => this.trigger10 = findDOMNode(el)}
-                                                      className="trigger-position-button"
-                                                      value="Left Bottom"
-                                                      onMouseOver={() => this.show(10)}/>
+                                        <div ref={el => this.trigger8 = findDOMNode(el)}
+                                             className="trigger-position-button"
+                                             onMouseOver={() => this.show(8)}>
+                                            Left Top
+                                        </div>
+                                        <div ref={el => this.trigger9 = findDOMNode(el)}
+                                             className="trigger-position-button"
+                                             onMouseOver={() => this.show(9)}>
+                                            Left
+                                        </div>
+                                        <div ref={el => this.trigger10 = findDOMNode(el)}
+                                             className="trigger-position-button"
+                                             onMouseOver={() => this.show(10)}>
+                                            Left Bottom
+                                        </div>
                                     </div>
 
                                     <div className="button-group center">
-                                        <RaisedButton ref={el => this.trigger14 = findDOMNode(el)}
-                                                      className="trigger-position-button"
-                                                      value="Center"
-                                                      onMouseOver={() => this.show(14)}/>
+                                        <div ref={el => this.trigger14 = findDOMNode(el)}
+                                             className="trigger-position-button"
+                                             onMouseOver={() => this.show(14)}>
+                                            Center
+                                        </div>
                                     </div>
 
                                 </div>
