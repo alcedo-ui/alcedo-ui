@@ -21,8 +21,7 @@ import Event from 'vendors/Event';
 // Styles
 import 'scss/containers/landing/Landing.scss';
 
-// eslint-disable-next-line require-jsdoc
-function Landing() {
+const Landing = () => {
 
     const nav = useRef(null);
 
@@ -110,7 +109,7 @@ function Landing() {
         </div>
     );
 
-}
+};
 
 Landing.MENU = [{
     name: 'Intro',
