@@ -4,8 +4,6 @@
 
 import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import domContains from 'dom-helpers/contains';
 
 // Components
 import TriggerPop from '../_TriggerPop';
@@ -15,6 +13,8 @@ import Theme from '../Theme';
 import Position from '../_statics/Position';
 
 // Vendors
+import classNames from 'classnames';
+import domContains from 'dom-helpers/contains';
 import Event from '../_vendors/Event';
 import Dom from '../_vendors/Dom';
 import Util from '../_vendors/Util';
@@ -36,11 +36,8 @@ class Popup extends Component {
     }
 
     componentDidMount() {
-
         this.popInstance = this.pop?.current;
-
         Event.addEvent(document, 'click', this.handleClose);
-
     }
 
     componentWillUnmount() {
@@ -91,8 +88,11 @@ class Popup extends Component {
 
     handleClose = e => {
 
-        const {visible, triggerEl, isBlurClose, triggerHandler, onRequestClose} = this.props,
-            popupEl = this.popInstance.getEl();
+        const {
+            visible, triggerEl, isBlurClose,
+            triggerHandler, onRequestClose
+        } = this.props;
+        const popupEl = this.popInstance.getEl();
 
         if (!visible || !triggerEl) {
             return;
@@ -196,6 +196,7 @@ Popup.propTypes = {
      */
     hasTriangle: PropTypes.bool,
 
+    container: PropTypes.element,
     triangle: PropTypes.element,
 
     /**
