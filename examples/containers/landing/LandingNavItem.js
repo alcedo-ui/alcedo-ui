@@ -12,9 +12,16 @@ import classnames from 'classnames';
 // Styles
 import 'scss/containers/landing/LandingNavItem.scss';
 
-function LandingNavItem({data, activated, onClick}) {
+const LandingNavItem = ({
+    data, activated, onClick
+}) => {
 
-    const handleClick = useCallback(() => onClick?.(data));
+    const handleClick = useCallback(() => {
+        onClick?.(data);
+    }, [
+        data,
+        onClick
+    ]);
 
     return (
         <li className={classnames('landing-nav-menu-item', {
@@ -25,7 +32,7 @@ function LandingNavItem({data, activated, onClick}) {
         </li>
     );
 
-}
+};
 
 LandingNavItem.propTypes = {
 
