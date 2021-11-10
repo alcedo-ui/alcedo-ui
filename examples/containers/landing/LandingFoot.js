@@ -11,25 +11,23 @@ import IconAnchor from 'src/IconAnchor';
 // Styles
 import 'scss/containers/landing/LandingFoot.scss';
 
-function LandingFoot() {
-    return (
-        <div className="landing-foot">
+const LandingFoot = () => (
+    <div className="landing-foot">
 
-            <>
-                <span className="name">Alcedo-UI</span>
-                &nbsp;is freely distributable under the terms of the
-                <a className="licence"
-                   href="https://github.com/alcedo-ui/alcedo-ui/blob/dev/LICENSE">
-                    {' MIT license'}
-                </a>.
-            </>
+        <>
+            <span className="name">Alcedo-UI</span>
+            &nbsp;is freely distributable under the terms of the
+            <a className="licence"
+               href="https://github.com/alcedo-ui/alcedo-ui/blob/dev/LICENSE">
+                {' MIT license'}
+            </a>.
+        </>
 
-            <IconAnchor className="github-icon"
-                        iconCls="fab fa-github"
-                        href="https://github.com/alcedo-ui/alcedo-ui"/>
+        <IconAnchor className="github-icon"
+                    iconCls="fab fa-github"
+                    href="https://github.com/alcedo-ui/alcedo-ui"/>
 
-        </div>
-    );
-}
+    </div>
+);
 
 export default LandingFoot;
