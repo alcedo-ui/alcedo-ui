@@ -3,7 +3,7 @@
  * @author liangxiaojun(liangxiaojun@derbysoft.com)
  */
 
-@import '../../my-theme.scss';
+@import 'scss/my-theme.scss';
 
 .app {
     .app-content {
@@ -35,7 +35,6 @@
             bottom: 0;
         }
     }
-
 }
 
 @media (max-width: 767px) {

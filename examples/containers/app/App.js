@@ -1,75 +1,82 @@
-import React, {Component} from 'react';
+/**
+ * @file App.js
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {Redirect} from 'react-router';
-import {renderRoutes} from 'react-router-config';
-import classnames from 'classnames';
 
 import * as actions from 'reduxes/actions';
 
+// Components
+import {Redirect} from 'react-router';
 import NavMenu from './navMenu/NavMenu';
 import NavBar from './navBar/NavBar';
 import PageLoading from 'src/PageLoading';
 
-import 'scss/containers/app/App.scss';
-import 'scss/containers/app/example.scss';
+// Vendors
+import {renderRoutes} from 'react-router-config';
+import classnames from 'classnames';
 
-class App extends Component {
+// Styles
+import './App.scss';
+import './example.scss';
 
-    constructor(props) {
-        super(props);
-    }
+const App = ({
+    route, location, isDesktop, navMenuCollapsed, componentLoading,
+    collapseNavMenu, expandActivatedMenu
+}) => {
 
-    componentDidMount() {
-        this.props.expandActivatedMenu(location.hash.slice(1));
-    }
+    useEffect(() => {
+        expandActivatedMenu?.(location.hash.slice(1));
+    }, [
+        location,
+        expandActivatedMenu
+    ]);
 
-    render() {
+    return (
+        <div className={classnames('app', {
+            collapsed: navMenuCollapsed
+        })}>
 
-        const {route, location, isDesktop, navMenuCollapsed, componentLoading, collapseNavMenu} = this.props,
+            <PageLoading visible={componentLoading}/>
 
-            appClassName = classnames('app', {
-                collapsed: navMenuCollapsed
-            });
+            <NavMenu/>
 
-        return (
-            <div className={appClassName}>
+            <NavBar/>
 
-                <PageLoading visible={componentLoading}/>
+            <div className="app-content">
 
-                <NavMenu/>
+                {renderRoutes(route.routes)}
 
-                <NavBar/>
+                {
+                    location.pathname === '/components' ?
+                        <Redirect from="/components" to="/components/RaisedButton"/>
+                        :
+                        null
+                }
 
-                <div className="app-content">
-
-                    {renderRoutes(route.routes)}
-
-                    {
-                        location.pathname === '/components' ?
-                            <Redirect from="/components" to="/components/RaisedButton"/>
-                            :
-                            null
-                    }
-
-                    {
-                        !isDesktop && !navMenuCollapsed ?
-                            <div className="app-content-modal"
-                                 onClick={collapseNavMenu}></div>
-                            :
-                            null
-                    }
-
-                </div>
+                {
+                    !isDesktop && !navMenuCollapsed ?
+                        <div className="app-content-modal"
+                             onClick={collapseNavMenu}/>
+                        :
+                        null
+                }
 
             </div>
-        );
 
-    }
-}
+        </div>
+    );
+
+};
 
 App.propTypes = {
+
+    route: PropTypes.object,
+    location: PropTypes.object,
 
     isDesktop: PropTypes.bool,
     navMenuCollapsed: PropTypes.bool,

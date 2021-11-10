@@ -1,4 +1,9 @@
-@import '../../my-theme.scss';
+/**
+ * @file example.scss
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+@import 'scss/my-theme.scss';
 
 .example {
     padding: 20px 30px 30px;
@@ -35,7 +40,6 @@
             border-radius: 3px;
             font-family: Consolas, Liberation Mono, Menlo, Courier, monospace;
         }
-
     }
 
     .prop-type-desc-table {
@@ -53,9 +57,7 @@
             font-size: 15px;
             border: none;
         }
-
     }
-
 }
 
 @media (max-width: 767px) {
