@@ -1,9 +1,20 @@
-import cloneDeep from 'lodash/cloneDeep';
+/**
+ * @file NavMenuReducer.js
+ */
 
-import * as types from 'reduxes/actionTypes';
+import * as actionTypes from 'reduxes/actionTypes';
+
+// Statics
 import DEFAULT_MENU from 'examples/config.menu';
+
+// Vendors
+import cloneDeep from 'lodash/cloneDeep';
 import Util from 'vendors/Util';
 
+/**
+ * @param menu
+ * @param filter
+ */
 function filterMenu(menu, filter) {
 
     if (!menu || !filter) {
@@ -34,7 +45,11 @@ function filterMenu(menu, filter) {
 
 }
 
+/**
+ * @param arrays
+ */
 function sortMenu(arrays) {
+
     arrays.sort(function (a, b) {
         return a.text.toUpperCase() > b.text.toUpperCase() ? 1 : -1;
     });
@@ -44,8 +59,13 @@ function sortMenu(arrays) {
             sortMenu(arrays[i].children);
         }
     }
+
 }
 
+/**
+ * @param filter
+ * @returns {*}
+ */
 function getMenu(filter) {
 
     let menu = cloneDeep(DEFAULT_MENU);
@@ -60,6 +80,11 @@ function getMenu(filter) {
 
 }
 
+/**
+ * @param menu
+ * @param lastValue
+ * @returns {*}
+ */
 function calExpandMenuName(menu, lastValue) {
 
     let result;
@@ -80,6 +105,9 @@ function calExpandMenuName(menu, lastValue) {
 
 }
 
+/**
+ * @returns {*}
+ */
 function getActivatedMenu() {
 
     if (!location.hash || !location.hash.slice(1)) {
@@ -101,25 +129,26 @@ function getActivatedMenu() {
 
 }
 
-const initialMenu = getMenu(),
-    initialState = {
+const initialMenu = getMenu();
+const initialState = {
 
-        filter: '',
+    filter: '',
 
-        menu: initialMenu,
+    menu: initialMenu,
 
-        activatedMenu: getActivatedMenu(),
+    activatedMenu: getActivatedMenu(),
 
-        navMenuCollapsed: true,
+    navMenuCollapsed: true,
 
-        expandMenuName: calExpandMenuName(initialMenu)
+    expandMenuName: calExpandMenuName(initialMenu)
 
-    };
+};
 
+// eslint-disable-next-line require-jsdoc
 function navMenu(state = initialState, action) {
     switch (action.type) {
 
-        case types.COLLAPSE_NAV_MENU: {
+        case actionTypes.COLLAPSE_NAV_MENU: {
 
             localStorage.setItem('navMenuCollapsed', '1');
 
@@ -130,7 +159,7 @@ function navMenu(state = initialState, action) {
 
         }
 
-        case types.EXPAND_NAV_MENU: {
+        case actionTypes.EXPAND_NAV_MENU: {
 
             localStorage.setItem('navMenuCollapsed', '0');
 
@@ -141,7 +170,7 @@ function navMenu(state = initialState, action) {
 
         }
 
-        case types.TOGGLE_NAV_MENU: {
+        case actionTypes.TOGGLE_NAV_MENU: {
 
             const navMenuCollapsed = !state.navMenuCollapsed;
             localStorage.setItem('navMenuCollapsed', navMenuCollapsed ? '1' : '0');
@@ -153,14 +182,14 @@ function navMenu(state = initialState, action) {
 
         }
 
-        case types.EXPAND_MENU: {
+        case actionTypes.EXPAND_MENU: {
             return {
                 ...state,
                 expandMenuName: action.menuName
             };
         }
 
-        case types.EXPAND_ACTIVATED_MENU: {
+        case actionTypes.EXPAND_ACTIVATED_MENU: {
 
             let expandMenuName;
             for (let i = 0, len = state.menu.length; i < len; i++) {
@@ -177,11 +206,11 @@ function navMenu(state = initialState, action) {
 
         }
 
-        case types.UPDATE_FILTER: {
+        case actionTypes.UPDATE_FILTER: {
 
-            const filter = action.filter,
-                menu = getMenu(action.filter),
-                expandMenuName = calExpandMenuName(menu, state.expandMenuName);
+            const filter = action.filter;
+            const menu = getMenu(action.filter);
+            const expandMenuName = calExpandMenuName(menu, state.expandMenuName);
 
             return {
                 ...state,
@@ -192,7 +221,7 @@ function navMenu(state = initialState, action) {
 
         }
 
-        case types.UPDATE_ACTIVATED_MENU: {
+        case actionTypes.UPDATE_ACTIVATED_MENU: {
             return {
                 ...state,
                 activatedMenu: action.activatedMenu

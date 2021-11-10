@@ -107,7 +107,7 @@
                     transition: all $theme-transition-duration ease-in-out;
                 }
 
-                &.hasChildren {
+                &.has-children {
                     @include shadow-inset(1);
                 }
 

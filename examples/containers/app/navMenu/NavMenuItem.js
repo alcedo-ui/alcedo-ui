@@ -2,7 +2,7 @@
  * @file NavMenuItem.js
  */
 
-import React, {Component} from 'react';
+import React, {useMemo, useCallback} from 'react';
 import PropTypes from 'prop-types';
 
 // Components
@@ -12,108 +12,111 @@ import TouchRipple from 'src/TouchRipple';
 // Vendors
 import classNames from 'classnames';
 
-class NavMenuItem extends Component {
+const NavMenuItem = ({
+    expandMenuName, activatedMenu, options, depth,
+    expandMenu, updateActivatedMenu
+}) => {
 
-    constructor(props) {
+    const collapsed = useMemo(() => {
+        return expandMenuName !== options?.text;
+    }, [
+        expandMenuName, options
+    ]);
 
-        super(props);
+    const hasChildren = useMemo(() => {
+        return options?.children?.length > 0;
+    }, [
+        options
+    ]);
 
-        this.menuHeight = 50;
-        this.subMenuIndent = 20;
+    const handleMenuGroupClick = useCallback(() => {
+        console.log('handleMenuGroupClick');
+        expandMenu?.(collapsed ? options?.text : '');
+    }, [
+        collapsed, options,
+        expandMenu
+    ]);
 
-    }
+    const handleMenuClick = useCallback(() => {
+        console.log('handleMenuClick');
+        depth === 0 && expandMenu?.('');
+        updateActivatedMenu?.(options);
+    }, [
+        options, depth,
+        expandMenu, updateActivatedMenu
+    ]);
 
-    menuGroupClickHandler = () => {
+    return (
+        <div className={classNames('nav-menu-item', {
+            collapsed,
+            'has-children': hasChildren
+        })}>
 
-        const {expandMenuName, options, expandMenu} = this.props;
+            {/* title or link */}
+            {
+                hasChildren ?
+                    <div className="nav-menu-item-title"
+                         disabled={options?.disabled || false}
+                         onClick={handleMenuGroupClick}>
 
-        if (expandMenuName === options.text) {
-            expandMenu('');
-        } else {
-            expandMenu(options.text);
-        }
-
-    };
-
-    menuClickHandler = () => {
-        const {options, depth, expandMenu, updateActivatedMenu} = this.props;
-        depth === 0 && expandMenu('');
-        updateActivatedMenu(options);
-    };
-
-    render() {
-
-        const {expandMenuName, activatedMenu, options, depth, expandMenu, updateActivatedMenu} = this.props,
-            {menuHeight, subMenuIndent} = this,
-
-            collapsed = expandMenuName !== options.text,
-            hasChildren = options.children && options.children.length > 0;
-
-        return (
-            <div className={`nav-menu-item ${collapsed ? 'collapsed' : ''} ${hasChildren ? 'hasChildren' : ''}`}>
-
-                {/* title or link */}
-                {
-                    hasChildren ?
-                        <div className="nav-menu-item-title"
-                             disabled={options.disabled}
-                             onClick={this.menuGroupClickHandler}>
-
-                            <div className="nav-menu-item-name">
-                                {options.text}
-                            </div>
-
-                            <i className={`fas fa-angle-down nav-menu-item-collapse-button
-                                ${collapsed ? 'collapsed' : ''}`}
-                               aria-hidden="true"/>
-
-                            <TouchRipple/>
-
+                        <div className="nav-menu-item-name">
+                            {options?.text}
                         </div>
-                        :
-                        <Link className={classNames('nav-menu-item-link', {
-                            'router-link-active': activatedMenu && activatedMenu.route === options.route
+
+                        <i className={classNames('fas fa-angle-down nav-menu-item-collapse-button', {
+                            collapsed
                         })}
-                              to={options.route}
-                              disabled={options.disabled}
-                              onClick={this.menuClickHandler}>
+                           aria-hidden="true"/>
 
-                            <div className="nav-menu-item-name"
-                                 style={{marginLeft: depth * subMenuIndent}}>
-                                {options.text}
-                            </div>
+                        <TouchRipple/>
 
-                            <TouchRipple/>
+                    </div>
+                    :
+                    <Link className={classNames('nav-menu-item-link', {
+                        'router-link-active': activatedMenu?.route === options?.route
+                    })}
+                          to={options?.route}
+                          disabled={options?.disabled}
+                          onClick={handleMenuClick}>
 
-                        </Link>
-                }
-
-                {/* sub menu */}
-                {
-                    hasChildren ?
-                        <div className="nav-menu-children"
-                             style={{height: options.children.length * menuHeight}}>
-                            {
-                                options && options.children && options.children.map((item, index) =>
-                                    <NavMenuItem key={index}
-                                                 expandMenuName={expandMenuName}
-                                                 activatedMenu={activatedMenu}
-                                                 options={item}
-                                                 depth={depth + 1}
-                                                 expandMenu={expandMenu}
-                                                 updateActivatedMenu={updateActivatedMenu}/>
-                                )
-                            }
+                        <div className="nav-menu-item-name"
+                             style={{marginLeft: depth * NavMenuItem.SUB_MENU_INDENT}}>
+                            {options?.text}
                         </div>
-                        :
-                        null
-                }
 
-            </div>
-        );
+                        <TouchRipple/>
 
-    }
-}
+                    </Link>
+            }
+
+            {/* sub menu */}
+            {
+                hasChildren ?
+                    <div className="nav-menu-children"
+                         style={{height: (options?.children?.length || 0) * NavMenuItem.MENU_HEIGHT}}>
+                        {
+                            options?.children?.map((item, index) =>
+                                <NavMenuItem key={index}
+                                             expandMenuName={expandMenuName}
+                                             activatedMenu={activatedMenu}
+                                             options={item}
+                                             depth={depth + 1}
+                                             expandMenu={expandMenu}
+                                             updateActivatedMenu={updateActivatedMenu}/>
+                            ) || null
+                        }
+                    </div>
+                    :
+                    null
+            }
+
+        </div>
+    );
+
+};
+
+NavMenuItem.MENU_HEIGHT = 50;
+NavMenuItem.SUB_MENU_INDENT = 20;
 
 NavMenuItem.propTypes = {
 
