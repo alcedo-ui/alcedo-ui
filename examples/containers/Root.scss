@@ -1,4 +1,9 @@
-@import '../my-theme.scss';
+/**
+ * @file Root.scss
+ * @author liangxiaojun(liangxiaojun@derbysoft.com)
+ */
+
+@import 'scss/my-theme.scss';
 
 .root {
     color: $theme-field;

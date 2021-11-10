@@ -23,7 +23,7 @@ import Event from 'vendors/Event';
 // Styles
 import 'assets/font-awesome/css/fontawesome-all.min.css';
 import 'scss/global.scss';
-import 'scss/containers/Root.scss';
+import './Root.scss';
 
 const Root = ({
     route, location, isDesktop,
