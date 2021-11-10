@@ -318,6 +318,9 @@ export default [{
     }, {
         text: 'Guide',
         route: '/components/Guide'
+    }, {
+        text: 'CursorPopover',
+        route: '/components/CursorPopover'
     }]
 }, {
     text: 'Media',

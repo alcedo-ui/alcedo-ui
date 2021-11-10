@@ -1,0 +1,27 @@
+@import '../../../../my-theme.scss';
+
+.customized-cursor-popover {
+
+    .customized-cursor-popover-triangle {
+        position: absolute;
+        left: -9px;
+        top: 0;
+    }
+
+    .cursor-popover-content {
+        border: 1px solid #e7e7e7;
+    }
+
+
+}
+
+.popover-dialog-content-scroller {
+    width: 1000px;
+    height: 1000px;
+
+    .dialog-trigger-button {
+        display: block;
+        width: auto;
+        margin-bottom: 16px;
+    }
+}

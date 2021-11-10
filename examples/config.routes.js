@@ -343,6 +343,11 @@ export default function configureRoutes(store) {
                     component: ac(() => import(
                         /* webpackChunkName: "GuideExamples" */
                         'modules/pop/GuideExamples'), store)
+                }, {
+                    path: '/components/CursorPopover',
+                    component: ac(() => import(
+                        /* webpackChunkName: "CursorPopoverExamples" */
+                        'modules/pop/CursorPopoverExamples'), store)
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- progresses -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
