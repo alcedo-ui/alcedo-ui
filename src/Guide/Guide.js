@@ -4,14 +4,17 @@
 
 import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Components
 import TriggerPop from '../_TriggerPop';
 import AnchorButton from '../AnchorButton';
 
+// Statics
 import Position from '../_statics/Position';
 import MsgType from '../_statics/MsgType';
 
+// Vendors
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 import PopManagement from '../_vendors/PopManagement';
 
@@ -29,11 +32,19 @@ class Guide extends Component {
 
     }
 
+    componentDidMount() {
+        this.guideInstance = this.guide?.current;
+    }
+
+    componentWillUnmount() {
+        PopManagement.pop(this);
+    }
+
     /**
      * public
      */
     resetPosition = () => {
-        this.guideInstance && this.guideInstance.resetPosition();
+        this.guideInstance?.resetPosition?.();
     };
 
     getIconCls = () => {
@@ -50,30 +61,14 @@ class Guide extends Component {
     };
 
     handleRender = (...args) => {
-
         PopManagement.push(this);
-
-        const {onRender} = this.props;
-        onRender && onRender(...args);
-
+        this.props.onRender?.(...args);
     };
 
     handleDestroy = (...args) => {
-
         PopManagement.pop(this);
-
-        const {onDestroy} = this.props;
-        onDestroy && onDestroy(...args);
-
+        this.props.onDestroy?.(...args);
     };
-
-    componentDidMount() {
-        this.guideInstance = this.guide && this.guide.current;
-    }
-
-    componentWillUnmount() {
-        PopManagement.pop(this);
-    }
 
     render() {
 
@@ -105,7 +100,7 @@ class Guide extends Component {
                     !iconVisible || type === MsgType.DEFAULT ?
                         null
                         :
-                        <i className={classNames(iconCls ? iconCls : this.getIconCls(), 'guide-icon')}></i>
+                        <i className={classNames(iconCls ? iconCls : this.getIconCls(), 'guide-icon')}/>
                 }
 
                 <div className="guide-message">
@@ -173,6 +168,7 @@ Guide.propTypes = {
      */
     hasTriangle: PropTypes.bool,
 
+    container: PropTypes.element,
     triangle: PropTypes.element,
 
     /**
