@@ -25,6 +25,7 @@ import 'assets/font-awesome/css/fontawesome-all.min.css';
 import 'scss/global.scss';
 import 'scss/containers/Root.scss';
 
+// eslint-disable-next-line require-jsdoc
 function Root({
     route, location, isDesktop,
     switchToDesktop, switchToMobile
@@ -38,20 +39,21 @@ function Root({
             (!isDesktop && switchToDesktop?.())
             :
             (isDesktop && switchToMobile?.());
-    });
+    }, [
+        isDesktop,
+        switchToDesktop, switchToMobile
+    ]);
 
     useEffect(() => {
 
-        // mount
         Event.addEvent(window, 'resize', handleResize);
         document.getElementById('loading').style.display = 'none';
 
-        // unmount
-        return () => {
-            Event.removeEvent(window, 'resize', handleResize);
-        };
+        return () => Event.removeEvent(window, 'resize', handleResize);
 
-    }, []);
+    }, [
+        handleResize
+    ]);
 
     return (
         <div className="root">
