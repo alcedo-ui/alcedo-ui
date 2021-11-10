@@ -16,13 +16,15 @@ import classnames from 'classnames';
 // Styles
 import 'scss/containers/landing/LandingNav.scss';
 
-const LandingNav = forwardRef(({menu, activatedMenu, isFixed}, ref) => {
+const LandingNav = forwardRef(({
+    menu, activatedMenu, isFixed
+}, ref) => {
 
     const handleClick = useCallback(activatedMenu => {
         const scrollTop = document.querySelector(activatedMenu.hash).offsetTop - 60;
         document.body.scrollTop = scrollTop;
         document.documentElement.scrollTop = scrollTop;
-    });
+    }, []);
 
     return (
         <div ref={ref}
@@ -30,14 +32,14 @@ const LandingNav = forwardRef(({menu, activatedMenu, isFixed}, ref) => {
                  fixed: isFixed
              })}>
 
-            <div className="landing-nav-bg"></div>
+            <div className="landing-nav-bg"/>
 
             <div className="landing-nav">
                 <div className="landing-nav-inner">
 
                     <a className="logo"
                        href="#/">
-                        <i className="logo-icon"></i>
+                        <i className="logo-icon"/>
                         <span className="logo-text">Alcedo-UI</span>
                     </a>
 
