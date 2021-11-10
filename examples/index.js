@@ -1,21 +1,27 @@
 'use strict';
 
 import '@babel/polyfill';
+
 import React from 'react';
 import {render} from 'react-dom';
+
+// Vendors
 import {createHashHistory} from 'history';
 import {renderRoutes} from 'react-router-config';
 import {Provider} from 'react-redux';
 import {ConnectedRouter} from 'connected-react-router';
-
 import configureStore from 'reduxes/store';
 import configureRoutes from './config.routes';
 
+// Styles
 import 'scss/index.scss';
 
-const history = createHashHistory(),
-    store = configureStore(history);
+const history = createHashHistory();
+const store = configureStore(history);
 
+/**
+ * render app
+ */
 function renderAppContainer() {
     render(
         <Provider store={store}>
@@ -29,11 +35,4 @@ function renderAppContainer() {
 
 renderAppContainer();
 
-// hot
-if (process.env.NODE_ENV === 'development' && module.hot) {
-    module.hot.accept('examples/config.routes.js', renderAppContainer);
-    module.hot.accept('reduxes/store', renderAppContainer);
-    module.hot.accept('reduxes/reducers', () => {
-        store.replaceReducer(require('reduxes/reducers').default);
-    });
-}
+module?.hot?.accept?.();
