@@ -25,11 +25,10 @@ import 'assets/font-awesome/css/fontawesome-all.min.css';
 import 'scss/global.scss';
 import 'scss/containers/Root.scss';
 
-// eslint-disable-next-line require-jsdoc
-function Root({
+const Root = ({
     route, location, isDesktop,
     switchToDesktop, switchToMobile
-}) {
+}) => {
 
     /**
      * handle switch between desktop mode and mobile mode
@@ -70,7 +69,7 @@ function Root({
         </div>
     );
 
-}
+};
 
 Root.propTypes = {
 
