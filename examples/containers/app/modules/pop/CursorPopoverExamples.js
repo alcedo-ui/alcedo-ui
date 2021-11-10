@@ -81,10 +81,9 @@ class CursorPopoverExamples extends Component {
                 <h2 className="example-title">CursorPopover</h2>
 
                 <p>
-                    A <span>CursorPopover</span> can be used as an alternative to a Drop Down CursorPopover that can
-                    contain
-                    elements
-                    inside.
+                    A
+                    <span>CursorPopover</span>
+                    can be used as an alternative to a Drop Down CursorPopover that can contain elements inside.
                 </p>
 
                 <h2 className="example-title">Examples</h2>
@@ -101,10 +100,11 @@ class CursorPopoverExamples extends Component {
 
                                 <p><code>CursorPopover</code> simple example.</p>
 
-                                <RaisedButton ref={el => this.trigger0 = findDOMNode(el)}
-                                              className="trigger-button"
-                                              value="Toggle CursorPopover"
-                                              onMouseOver={() => this.show(0)}/>
+                                <div ref={el => this.trigger0 = findDOMNode(el)}
+                                     className="trigger-area"
+                                     onMouseOver={() => this.show(0)}>
+                                    Toggle CursorPopover
+                                </div>
 
                                 <CursorPopover theme={CursorPopover.Theme.PRIMARY}
                                                visible={popVisible[0]}

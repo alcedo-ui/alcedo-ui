@@ -1,18 +1,20 @@
-@import '../../../../my-theme.scss';
+/**
+ * @file CursorPopover examples styles
+ */
 
-.customized-cursor-popover {
+@import 'scss/my-theme.scss';
 
-    .customized-cursor-popover-triangle {
-        position: absolute;
-        left: -9px;
-        top: 0;
+.cursor-popover-examples {
+
+    .trigger-area {
+        width: 200px;
+        height: 200px;
+        background: $theme-secondary;
+        border: 8px dashed $theme-border;
+        color: $theme-primary;
+        text-align: center;
+        line-height: 200px;
     }
-
-    .cursor-popover-content {
-        border: 1px solid #e7e7e7;
-    }
-
-
 }
 
 .popover-dialog-content-scroller {

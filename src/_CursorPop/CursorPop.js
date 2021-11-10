@@ -67,8 +67,9 @@ class CursorPop extends Component {
     };
 
     handleMouseMove = e => {
-        this.cursorOffset.left = e.offsetX;
-        this.cursorOffset.top = e.offsetY;
+        console.log(e);
+        this.cursorOffset.left = e.pageX;
+        this.cursorOffset.top = e.pageY;
         this.resetPosition();
     };
 
@@ -279,7 +280,7 @@ CursorPop.defaultProps = {
 
     visible: false,
     container: <Paper/>,
-    position: Position.BOTTOM,
+    position: Position.BOTTOM_LEFT,
     isAnimated: true,
     enterable: false,
 

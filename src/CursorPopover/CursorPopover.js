@@ -231,7 +231,7 @@ CursorPopover.defaultProps = {
 
     visible: false,
     theme: Theme.DEFAULT,
-    position: Position.BOTTOM,
+    position: Position.BOTTOM_LEFT,
     isAnimated: true,
     enterable: false,
 
