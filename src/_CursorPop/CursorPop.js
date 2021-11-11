@@ -72,13 +72,15 @@ class CursorPop extends Component {
 
     handleMouseMove = e => {
 
-        this.cursorOffset.left = (e?.offsetX || 0) + (e?.target?.clientLeft || 0);
-        this.cursorOffset.top = (e?.offsetY || 0) + (e?.target?.clientTop || 0);
+        const {triggerEl} = this.props;
 
-        this.props.onCursorMove?.(e);
+        this.cursorOffset.left = (e?.offsetX || 0) + (triggerEl?.clientLeft || 0);
+        this.cursorOffset.top = (e?.offsetY || 0) + (triggerEl?.clientTop || 0);
+
+        this.props.onCursorMove?.(e, triggerEl, this.getEl());
 
         if (e.target !== this.lastTarget) {
-            this.props.onTargetChange?.(e.target, e);
+            this.props.onTargetChange?.(e.target, triggerEl, this.getEl(), e);
             this.lastTarget = e.target;
         }
 
