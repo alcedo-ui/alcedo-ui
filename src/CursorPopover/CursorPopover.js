@@ -221,7 +221,10 @@ CursorPopover.propTypes = {
     /**
      * Callback function fired when wrapper wheeled.
      */
-    onWheel: PropTypes.func
+    onWheel: PropTypes.func,
+
+    onCursorMove: PropTypes.func,
+    onTargetChange: PropTypes.func
 
 };
 

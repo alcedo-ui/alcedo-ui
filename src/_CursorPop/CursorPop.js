@@ -29,8 +29,12 @@ class CursorPop extends Component {
 
         super(props, ...restArgs);
 
-        // closest scrollable element of cursor
+        // Closest scrollable element of cursor
         this.scrollEl = null;
+
+        // Last cursor move target
+        this.lastTarget = null;
+
         this.cursorOffset = {
             left: 0,
             top: 0
@@ -71,6 +75,13 @@ class CursorPop extends Component {
         this.cursorOffset.left = (e?.offsetX || 0) + (e?.target?.clientLeft || 0);
         this.cursorOffset.top = (e?.offsetY || 0) + (e?.target?.clientTop || 0);
 
+        this.props.onCursorMove?.(e);
+
+        if (e.target !== this.lastTarget) {
+            this.props.onTargetChange?.(e.target, e);
+            this.lastTarget = e.target;
+        }
+
         this.resetPosition();
 
     };
@@ -86,7 +97,7 @@ class CursorPop extends Component {
     };
 
     /**
-     * find the closest scrollable parent element
+     * Find the closest scrollable parent element
      * @param triggerEl
      * @returns {*}
      */
@@ -106,14 +117,14 @@ class CursorPop extends Component {
     };
 
     /**
-     * scroll event callback
+     * Scroll event callback
      */
     handleScroll = () => {
         this.resetPosition();
     };
 
     /**
-     * add scroll event
+     * Add scroll event
      * @param scrollEl
      */
     addWatchScroll = (scrollEl = this.getScrollEl()) => {
@@ -129,7 +140,7 @@ class CursorPop extends Component {
     };
 
     /**
-     * remove scroll event
+     * Remove scroll event
      * @param scrollEl
      */
     removeWatchScroll = (scrollEl = this.getScrollEl()) => {
@@ -147,7 +158,7 @@ class CursorPop extends Component {
 
             // not passing down these props
             // eslint-disable-next-line no-unused-vars
-            shouldFollowScroll, scrollEl,
+            shouldFollowScroll, scrollEl, onCursorMove, onTargetChange,
 
             ...restProps
 
@@ -270,7 +281,10 @@ CursorPop.propTypes = {
     /**
      * Callback function fired when wrapper wheeled.
      */
-    onWheel: PropTypes.func
+    onWheel: PropTypes.func,
+
+    onCursorMove: PropTypes.func,
+    onTargetChange: PropTypes.func
 
 };
 
