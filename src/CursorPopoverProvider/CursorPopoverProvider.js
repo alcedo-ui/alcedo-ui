@@ -198,6 +198,8 @@ CursorPopoverProvider.propTypes = {
 
     resetPositionWait: PropTypes.number,
 
+    popoverContent: PropTypes.any,
+
     /**
      * The function of popover render.
      */
@@ -233,7 +235,8 @@ CursorPopoverProvider.propTypes = {
      */
     onWheel: PropTypes.func,
 
-    popoverContent: PropTypes.any
+    onCursorMove: PropTypes.func,
+    onTargetChange: PropTypes.func
 
 };
 
