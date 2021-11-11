@@ -7,7 +7,7 @@ import React, {Component} from 'react';
 // Components
 import CursorPopover from 'src/CursorPopover';
 import RaisedButton from 'src/RaisedButton';
-// import CursorPopoverProvider from 'src/CursorPopoverProvider';
+import CursorPopoverProvider from 'src/CursorPopoverProvider';
 import List from 'src/List';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
@@ -309,30 +309,31 @@ class CursorPopoverExamples extends Component {
                     </div>
                 </Widget>
 
-                {/*<Widget>*/}
+                <Widget>
 
-                {/*    <WidgetHeader className="example-header"*/}
-                {/*                  title="CursorPopover Provider"/>*/}
+                    <WidgetHeader className="example-header"
+                                  title="CursorPopover Provider"/>
 
-                {/*    <div className="widget-content">*/}
-                {/*        <div className="example-content">*/}
+                    <div className="widget-content">
+                        <div className="example-content">
 
-                {/*            <div className="cursor-popover-example-wrapper">*/}
-                {/*                <CursorPopoverProvider className="customized-cursor-popover"*/}
-                {/*                                 popoverContent={*/}
-                {/*                                     <div style={{padding: 20}}>*/}
-                {/*                                         CursorPopover Content*/}
-                {/*                                     </div>*/}
-                {/*                                 }>*/}
-                {/*                    <RaisedButton className="trigger-button"*/}
-                {/*                                  value="Toggle CursorPopover"*/}
-                {/*                                  onMouseEnter={() => console.log('onMouseEnter')}/>*/}
-                {/*                </CursorPopoverProvider>*/}
-                {/*            </div>*/}
+                            <div className="cursor-popover-example-wrapper">
+                                <CursorPopoverProvider className="customized-cursor-popover"
+                                                       popoverContent={
+                                                           <div style={{padding: 20}}>
+                                                               CursorPopover Content
+                                                           </div>
+                                                       }>
+                                    <div className="trigger-area"
+                                         onMouseEnter={() => console.log('onMouseEnter')}>
+                                        Toggle CursorPopover
+                                    </div>
+                                </CursorPopoverProvider>
+                            </div>
 
-                {/*        </div>*/}
-                {/*    </div>*/}
-                {/*</Widget>*/}
+                        </div>
+                    </div>
+                </Widget>
 
                 <Widget>
 
@@ -366,17 +367,14 @@ class CursorPopoverExamples extends Component {
                                                     <List data={items}/>
                                                 </CursorPopover>
 
-                                                {/*<CursorPopoverProvider className="customized-cursor-popover"*/}
-                                                {/*                 position={CursorPopoverProvider.Position.BOTTOM_LEFT}*/}
-                                                {/*                 parentEl={dialogContentEl}*/}
-                                                {/*                 popoverContent={*/}
-                                                {/*                     <div style={{padding: 20}}>*/}
-                                                {/*                         CursorPopover Content*/}
-                                                {/*                     </div>*/}
-                                                {/*                 }>*/}
-                                                {/*    <RaisedButton className="dialog-trigger-button"*/}
-                                                {/*                  value="Toggle CursorPopover Provider"/>*/}
-                                                {/*</CursorPopoverProvider>*/}
+                                                <CursorPopoverProvider parentEl={dialogContentEl}
+                                                                       popoverContent={
+                                                                           <List data={items}/>
+                                                                       }>
+                                                    <div className="dialog-trigger-button">
+                                                        Toggle CursorPopover Provider
+                                                    </div>
+                                                </CursorPopoverProvider>
 
                                                 <div ref={el => this.trigger18 = findDOMNode(el)}
                                                      className="dialog-trigger-button"
@@ -390,17 +388,14 @@ class CursorPopoverExamples extends Component {
                                                     <List data={items}/>
                                                 </CursorPopover>
 
-                                                {/*<CursorPopoverProvider className="customized-cursor-popover"*/}
-                                                {/*                 position={CursorPopoverProvider.Position.BOTTOM_LEFT}*/}
-                                                {/*                 shouldFollowScroll={true}*/}
-                                                {/*                 popoverContent={*/}
-                                                {/*                     <div style={{padding: 20}}>*/}
-                                                {/*                         CursorPopover Content*/}
-                                                {/*                     </div>*/}
-                                                {/*                 }>*/}
-                                                {/*    <RaisedButton className="dialog-trigger-button"*/}
-                                                {/*                  value="Toggle CursorPopover Provider"/>*/}
-                                                {/*</CursorPopoverProvider>*/}
+                                                <CursorPopoverProvider shouldFollowScroll={true}
+                                                                       popoverContent={
+                                                                           <List data={items}/>
+                                                                       }>
+                                                    <div className="dialog-trigger-button">
+                                                        Toggle CursorPopover Provider
+                                                    </div>
+                                                </CursorPopoverProvider>
 
                                             </div>
                                     }

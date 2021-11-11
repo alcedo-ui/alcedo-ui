@@ -18,6 +18,7 @@ export ColorBlock from './ColorBlock';
 export ColorPicker from './ColorPicker';
 export Crumbs from './Crumbs';
 export CursorPopover from './CursorPopover';
+export CursorPopoverProvider from './CursorPopoverProvider';
 export DateField from './DateField';
 export DatePicker from './DatePicker';
 export DateRangeField from './DateRangeField';
@@ -112,4 +113,4 @@ export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 112;
+export const COMPONENTS_TOTAL_COUNT = 113;
