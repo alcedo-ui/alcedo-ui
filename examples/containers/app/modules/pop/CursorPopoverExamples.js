@@ -103,7 +103,7 @@ class CursorPopoverExamples extends Component {
                                 <div ref={el => this.trigger0 = findDOMNode(el)}
                                      className="trigger-area"
                                      onMouseEnter={() => this.show(0)}>
-                                    Toggle CursorPopover
+                                    Show CursorPopover
                                 </div>
 
                                 <CursorPopover theme={CursorPopover.Theme.PRIMARY}
@@ -326,7 +326,7 @@ class CursorPopoverExamples extends Component {
                                                        }>
                                     <div className="trigger-area"
                                          onMouseEnter={() => console.log('onMouseEnter')}>
-                                        Toggle CursorPopover
+                                        Show CursorPopover
                                     </div>
                                 </CursorPopoverProvider>
                             </div>
@@ -358,7 +358,7 @@ class CursorPopoverExamples extends Component {
                                                 <div ref={el => this.trigger17 = findDOMNode(el)}
                                                      className="dialog-trigger-button"
                                                      onMouseEnter={() => this.show(17)}>
-                                                    Toggle CursorPopover
+                                                    Show CursorPopover
                                                 </div>
                                                 <CursorPopover visible={popVisible[17]}
                                                                triggerEl={this.trigger17}
@@ -372,14 +372,14 @@ class CursorPopoverExamples extends Component {
                                                                            <List data={items}/>
                                                                        }>
                                                     <div className="dialog-trigger-button">
-                                                        Toggle CursorPopover Provider
+                                                        Show CursorPopover Provider
                                                     </div>
                                                 </CursorPopoverProvider>
 
                                                 <div ref={el => this.trigger18 = findDOMNode(el)}
                                                      className="dialog-trigger-button"
                                                      onMouseEnter={() => this.show(18)}>
-                                                    Toggle CursorPopover
+                                                    Show CursorPopover
                                                 </div>
                                                 <CursorPopover visible={popVisible[18]}
                                                                triggerEl={this.trigger18}
@@ -393,7 +393,7 @@ class CursorPopoverExamples extends Component {
                                                                            <List data={items}/>
                                                                        }>
                                                     <div className="dialog-trigger-button">
-                                                        Toggle CursorPopover Provider
+                                                        Show CursorPopover Provider
                                                     </div>
                                                 </CursorPopoverProvider>
 

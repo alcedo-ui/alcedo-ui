@@ -19,14 +19,14 @@
         width: 200px;
         height: 200px;
         line-height: 200px;
-        border: 8px dashed $theme-border;
+        border: 8px solid $theme-border;
     }
 
     .trigger-position-button {
         width: 100px;
         height: 40px;
         line-height: 40px;
-        border: 2px dashed $theme-border;
+        border: 2px solid $theme-border;
     }
 }
 
@@ -39,7 +39,7 @@
         height: 80px;
         line-height: 80px;
         background: $theme-secondary;
-        border: 2px dashed $theme-border;
+        border: 2px solid $theme-border;
         margin-bottom: 16px;
         text-align: center;
     }
