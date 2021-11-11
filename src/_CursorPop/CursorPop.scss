@@ -80,9 +80,7 @@
     }
 
     &.cursor-pop-animated {
-        transition: left $theme-transition-duration ease-in-out,
-        top $theme-transition-duration ease-in-out,
-        opacity $theme-transition-duration ease-in-out,
+        transition: opacity $theme-transition-duration ease-in-out,
         transform $theme-transition-duration ease-in-out;
 
         &.hidden {

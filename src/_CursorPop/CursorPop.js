@@ -60,7 +60,7 @@ class CursorPop extends Component {
     };
 
     /**
-     * reset pop position
+     * Reset pop position
      * @param transitionEl
      */
     resetPosition = (transitionEl = this.getEl()) => {
@@ -74,8 +74,14 @@ class CursorPop extends Component {
 
         const {triggerEl} = this.props;
 
-        this.cursorOffset.left = (e?.offsetX || 0) + (triggerEl?.clientLeft || 0);
-        this.cursorOffset.top = (e?.offsetY || 0) + (triggerEl?.clientTop || 0);
+        if (e.target === triggerEl) {
+
+            this.cursorOffset.left = (e?.offsetX || 0) + (triggerEl?.clientLeft || 0);
+            this.cursorOffset.top = (e?.offsetY || 0) + (triggerEl?.clientTop || 0);
+
+            this.resetPosition();
+
+        }
 
         this.props.onCursorMove?.(e, triggerEl, this.getEl());
 
@@ -83,8 +89,6 @@ class CursorPop extends Component {
             this.props.onTargetChange?.(e.target, triggerEl, this.getEl(), e);
             this.lastTarget = e.target;
         }
-
-        this.resetPosition();
 
     };
 
