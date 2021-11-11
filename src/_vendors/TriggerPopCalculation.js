@@ -119,7 +119,7 @@ export function getStyle(parentEl, triggerEl, popupEl, scrollEl, position) {
 
     const triggerOffset = Dom.getOffset(triggerEl, parentEl);
 
-    let result = {};
+    const result = {};
 
     switch (position) {
         case Position.TOP_LEFT: {

@@ -30,13 +30,17 @@
     }
 }
 
-.popover-dialog-content-scroller {
+.cursor-popover-dialog-content-scroller {
     width: 1000px;
     height: 1000px;
 
     .dialog-trigger-button {
-        display: block;
-        width: auto;
+        width: 200px;
+        height: 80px;
+        line-height: 80px;
+        background: $theme-secondary;
+        border: 2px dashed $theme-border;
         margin-bottom: 16px;
+        text-align: center;
     }
 }

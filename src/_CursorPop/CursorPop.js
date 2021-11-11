@@ -67,10 +67,12 @@ class CursorPop extends Component {
     };
 
     handleMouseMove = e => {
-        console.log(e);
-        this.cursorOffset.left = e.pageX;
-        this.cursorOffset.top = e.pageY;
+
+        this.cursorOffset.left = (e?.offsetX || 0) + (e?.target?.clientLeft || 0);
+        this.cursorOffset.top = (e?.offsetY || 0) + (e?.target?.clientTop || 0);
+
         this.resetPosition();
+
     };
 
     handleRender = (el, triggerEl) => {

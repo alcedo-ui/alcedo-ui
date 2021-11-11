@@ -2,20 +2,26 @@
  * @file Dom vendor
  */
 
+// Vendors
 import domContains from 'dom-helpers/contains';
 
-function getOffset(el, parentEl = document.body) {
+/**
+ * @param el
+ * @param parentEl
+ * @returns {null|{top: number, left: number}}
+ */
+export function getOffset(el, parentEl = document.body) {
 
     if (!el) {
         return null;
     }
 
-    let offset = {
+    const offset = {
         top: el.offsetTop,
         left: el.offsetLeft
     };
 
-    // handle offset
+    // Handle offset
     let offsetParent = el.offsetParent;
     while (offsetParent) {
 
@@ -28,8 +34,8 @@ function getOffset(el, parentEl = document.body) {
         offset.left += offsetParent.offsetLeft;
 
         // append transform offset
-        const transform = window.getComputedStyle(offsetParent).transform,
-            matched = transform.match(/^matrix\((.*)\)$/);
+        const transform = window.getComputedStyle(offsetParent).transform;
+        const matched = transform.match(/^matrix\((.*)\)$/);
         if (matched && matched[1]) {
             const matrix = matched[1].split(/\s*,\s*/);
             offset.top += +matrix[5];
@@ -40,7 +46,7 @@ function getOffset(el, parentEl = document.body) {
 
     }
 
-    // handle scroll
+    // Handle scroll
     let scrollParent = getClosestScrollable(el.parentElement);
     while (scrollParent) {
 
@@ -60,14 +66,21 @@ function getOffset(el, parentEl = document.body) {
 
 }
 
-function getScrollHeight() {
+/**
+ * @returns {number}
+ */
+export function getScrollHeight() {
     return document.body.scrollHeight || document.documentElement.scrollHeight;
 }
 
-function getScrollLeft(parentEl) {
+/**
+ * @param parentEl
+ * @returns {number|*}
+ */
+export function getScrollLeft(parentEl) {
 
     if (window.SCROLL_EL && window.SCROLL_EL.scrollLeft) {
-        return SCROLL_EL.scrollLeft;
+        return window.SCROLL_EL.scrollLeft;
     }
 
     if (parentEl && parentEl !== document.body) {
@@ -78,10 +91,14 @@ function getScrollLeft(parentEl) {
 
 }
 
-function getScrollTop(parentEl) {
+/**
+ * @param parentEl
+ * @returns {number|*}
+ */
+export function getScrollTop(parentEl) {
 
     if (window.SCROLL_EL && window.SCROLL_EL.scrollTop) {
-        return SCROLL_EL.scrollTop;
+        return window.SCROLL_EL.scrollTop;
     }
 
     if (parentEl && parentEl !== document.body) {
@@ -92,7 +109,12 @@ function getScrollTop(parentEl) {
 
 }
 
-function hasClass(el, className) {
+/**
+ * @param el
+ * @param className
+ * @returns {*|boolean}
+ */
+export function hasClass(el, className) {
 
     if (!el || !className) {
         return false;
@@ -110,7 +132,11 @@ function hasClass(el, className) {
 
 }
 
-function addClass(el, className) {
+/**
+ * @param el
+ * @param className
+ */
+export function addClass(el, className) {
 
     if (!el || !className) {
         return;
@@ -135,7 +161,11 @@ function addClass(el, className) {
 
 }
 
-function removeClass(el, className) {
+/**
+ * @param el
+ * @param className
+ */
+export function removeClass(el, className) {
 
     if (!el || !className) {
         return;
@@ -159,17 +189,27 @@ function removeClass(el, className) {
 
 }
 
-function toggleClass(el, className, bool) {
+/**
+ * @param el
+ * @param className
+ * @param bool
+ */
+export function toggleClass(el, className, bool) {
     bool ?
         addClass(el, className)
         :
         removeClass(el, className);
 }
 
-function findParentByClassName(el, className) {
+/**
+ * @param el
+ * @param className
+ * @returns {(() => (Node | null)) | ActiveX.IXMLDOMNode | (Node & ParentNode)}
+ */
+export function findParentByClassName(el, className) {
 
     if (!el || !className) {
-        return;
+        return null;
     }
 
     while (el) {
@@ -179,11 +219,16 @@ function findParentByClassName(el, className) {
         el = el.parentNode;
     }
 
-    return;
+    return null;
 
 }
 
-function isParent(el, parentEl) {
+/**
+ * @param el
+ * @param parentEl
+ * @returns {boolean}
+ */
+export function isParent(el, parentEl) {
 
     if (!el || !parentEl) {
         return false;
@@ -193,7 +238,7 @@ function isParent(el, parentEl) {
 
         el = el.parentNode;
 
-        if (el == parentEl) {
+        if (el === parentEl) {
             return true;
         }
 
@@ -203,16 +248,28 @@ function isParent(el, parentEl) {
 
 }
 
-function isScrollable(...values) {
+/**
+ * @param values
+ * @returns {boolean}
+ */
+export function isScrollable(...values) {
     return values.some(value => value === 'auto' || value === 'scroll');
 }
 
-function isElementScrollable(el) {
+/**
+ * @param el
+ * @returns {boolean}
+ */
+export function isElementScrollable(el) {
     const style = window.getComputedStyle(el);
     return isScrollable(style.overflow, style.overflowY, style.overflowX);
-};
+}
 
-function getClosestScrollable(el) {
+/**
+ * @param el
+ * @returns {null|*}
+ */
+export function getClosestScrollable(el) {
 
     if (el == null) {
         return null;
@@ -226,7 +283,12 @@ function getClosestScrollable(el) {
 
 }
 
-function getTotalScrollOffset(el, scrollEl = document.body) {
+/**
+ * @param el
+ * @param scrollEl
+ * @returns {{top: number, left: number}}
+ */
+export function getTotalScrollOffset(el, scrollEl = document.body) {
 
     const result = {
         left: 0,
@@ -247,11 +309,19 @@ function getTotalScrollOffset(el, scrollEl = document.body) {
 
 }
 
-function isElementFixed(el) {
+/**
+ * @param el
+ * @returns {boolean}
+ */
+export function isElementFixed(el) {
     return window.getComputedStyle(el).position === 'fixed';
-};
+}
 
-function getClosestFixed(el) {
+/**
+ * @param el
+ * @returns {null|*}
+ */
+export function getClosestFixed(el) {
 
     if (el == null) {
         return null;
