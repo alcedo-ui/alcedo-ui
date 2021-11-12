@@ -74,14 +74,10 @@ class CursorPop extends Component {
 
         const {triggerEl} = this.props;
 
-        if (e.target === triggerEl) {
+        this.cursorOffset.left = e?.clientX || 0;
+        this.cursorOffset.top = e?.clientY || 0;
 
-            this.cursorOffset.left = (e?.offsetX || 0) + (triggerEl?.clientLeft || 0);
-            this.cursorOffset.top = (e?.offsetY || 0) + (triggerEl?.clientTop || 0);
-
-            this.resetPosition();
-
-        }
+        this.resetPosition();
 
         this.props.onCursorMove?.(e, triggerEl, this.getEl());
 

@@ -103,7 +103,7 @@ class CursorPopoverExamples extends Component {
                                 <div ref={el => this.trigger0 = findDOMNode(el)}
                                      className="trigger-area"
                                      onMouseEnter={() => this.show(0)}>
-                                    Show CursorPopover
+                                    <List data={items}/>
                                 </div>
 
                                 <CursorPopover theme={CursorPopover.Theme.PRIMARY}
