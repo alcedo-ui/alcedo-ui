@@ -4,14 +4,18 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 
+// Components
 import DayPicker from '../_DayPicker';
 import MonthPicker from '../_MonthPicker';
 import YearPicker from '../_YearPicker';
 
-import DateUtil from '../_vendors/DateUtil';
+// Statics
 import Theme from '../Theme';
+
+// Vendors
+import moment from 'moment';
+import DateUtil from '../_vendors/DateUtil';
 import {findDOMNode} from 'react-dom';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
@@ -38,8 +42,14 @@ class DateRangePickerContent extends Component {
             right: {
                 text: '',
                 datePickerLevel: 'day',
-                year: initValue.format('MM') == 12 ? +(initValue.format('YYYY')) + 1 : initValue.format('YYYY'),
-                month: initValue.format('MM') == 12 ? 1 : +(initValue.format('MM')) + 1,
+                year: initValue.format('MM') === 12 ?
+                    +(initValue.format('YYYY')) + 1
+                    :
+                    initValue.format('YYYY'),
+                month: initValue.format('MM') === 12 ?
+                    1
+                    :
+                    +(initValue.format('MM')) + 1,
                 day: initValue.format('DD')
             },
             startTime: '',
@@ -124,7 +134,7 @@ class DateRangePickerContent extends Component {
 
     dayPickerHoverHandle = (select, date) => {
         let startTime = this.state.startTime, endTime = this.state.endTime;
-        if (startTime && endTime == '') {
+        if (startTime && endTime === '') {
             this.setState({
                 hoverTime: date.time,
                 left: {
@@ -251,17 +261,17 @@ class DateRangePickerContent extends Component {
     render() {
 
         const {
-                className, dateFormat, maxValue, minValue, ...restProps
-            } = this.props,
-            {left, right, startTime, endTime, hoverTime} = this.state,
-            {
-                monthAndYearChangeHandle, dayPickerChangeHandle, datePickerChangeHandle, dayPickerHoverHandle,
-                monthPickerChangeHandle, yearPickerChangeHandle
-            } = this;
+            className, dateFormat, maxValue, minValue, ...restProps
+        } = this.props;
+        const {left, right, startTime, endTime, hoverTime} = this.state;
+        const {
+            monthAndYearChangeHandle, dayPickerChangeHandle, datePickerChangeHandle, dayPickerHoverHandle,
+            monthPickerChangeHandle, yearPickerChangeHandle
+        } = this;
 
         let maxYear = right.year, maxMonth = right.month;
-        maxYear = maxMonth == 1 ? +maxYear - 1 : maxYear;
-        maxMonth = maxMonth == 1 ? 11 : +maxMonth - 2;
+        maxYear = maxMonth === 1 ? +maxYear - 1 : maxYear;
+        maxMonth = maxMonth === 1 ? 11 : +maxMonth - 2;
 
         let maxDay = DateUtil.MonthDays(maxYear)[maxMonth],
             leftMaxValue = maxValue && moment([maxYear, maxMonth, maxDay]).isAfter(maxValue) ?
@@ -270,13 +280,13 @@ class DateRangePickerContent extends Component {
                 moment([maxYear, maxMonth, maxDay]).format('YYYY-MM-DD'),
             minYear = left.year,
             minMonth = left.month;
-        minYear = minMonth == 12 ? +minYear + 1 : minYear;
-        minMonth = minMonth == 12 ? 1 : +minMonth + 1;
+        minYear = minMonth === 12 ? +minYear + 1 : minYear;
+        minMonth = minMonth === 12 ? 1 : +minMonth + 1;
 
         let rightMinValue = minValue && moment([minYear, minMonth - 1, 1]).isBefore(minValue) ?
-            minValue
-            :
-            moment([minYear, minMonth - 1, 1]).format('YYYY-MM-DD'),
+                minValue
+                :
+                moment([minYear, minMonth - 1, 1]).format('YYYY-MM-DD'),
             leftProps = {
                 ...left,
                 value: left.text,
@@ -300,7 +310,7 @@ class DateRangePickerContent extends Component {
 
             <div className={`date-range-picker-content ${className}`}>
                 {
-                    left.datePickerLevel == 'day' ?
+                    left.datePickerLevel === 'day' ?
                         <DayPicker {...restProps}
                                    {...leftProps}
                                    isFooter={false}
@@ -311,11 +321,12 @@ class DateRangePickerContent extends Component {
                                    hoverHandle={date => dayPickerHoverHandle('left', date)}/>
                         :
                         (
-                            left.datePickerLevel == 'month' ?
+                            left.datePickerLevel === 'month' ?
                                 <MonthPicker {...restProps}
                                              {...leftProps}
                                              onChange={date => monthPickerChangeHandle('left', date)}
-                                             previousClick={pickerLevel => datePickerChangeHandle('left', pickerLevel)}/>
+                                             previousClick={pickerLevel => datePickerChangeHandle('left',
+                                                 pickerLevel)}/>
                                 :
                                 <YearPicker {...restProps}
                                             {...leftProps}
@@ -325,7 +336,7 @@ class DateRangePickerContent extends Component {
                 }
 
                 {
-                    right.datePickerLevel == 'day' ?
+                    right.datePickerLevel === 'day' ?
                         <DayPicker {...restProps}
                                    {...rightProps}
                                    isFooter={false}
@@ -336,11 +347,12 @@ class DateRangePickerContent extends Component {
                                    hoverHandle={date => dayPickerHoverHandle('left', date)}/>
                         :
                         (
-                            right.datePickerLevel == 'month' ?
+                            right.datePickerLevel === 'month' ?
                                 <MonthPicker {...restProps}
                                              {...rightProps}
                                              onChange={date => monthPickerChangeHandle('right', date)}
-                                             previousClick={pickerLevel => datePickerChangeHandle('right', pickerLevel)}/>
+                                             previousClick={pickerLevel => datePickerChangeHandle('right',
+                                                 pickerLevel)}/>
                                 :
                                 <YearPicker {...restProps}
                                             {...rightProps}
