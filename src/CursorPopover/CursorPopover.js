@@ -55,11 +55,11 @@ class CursorPopover extends Component {
         }
     };
 
-    handleMouseEnter = () => {
+    handleMouseOver = () => {
         this.clearCloseTimeout();
     };
 
-    handleMouseLeave = e => {
+    handleMouseOut = e => {
 
         this.clearCloseTimeout();
 
@@ -78,12 +78,12 @@ class CursorPopover extends Component {
         const {enterable} = this.props;
         this.props.onRender?.(el, triggerEl);
 
-        Event.addEvent(triggerEl, 'mouseenter', this.handleMouseEnter);
-        Event.addEvent(triggerEl, 'mouseleave', this.handleMouseLeave);
+        Event.addEvent(triggerEl, 'mouseover', this.handleMouseOver);
+        Event.addEvent(triggerEl, 'mouseout', this.handleMouseOut);
 
         if (enterable) {
-            Event.addEvent(el, 'mouseenter', this.handleMouseEnter);
-            Event.addEvent(el, 'mouseleave', this.handleMouseLeave);
+            Event.addEvent(el, 'mouseover', this.handleMouseOver);
+            Event.addEvent(el, 'mouseout', this.handleMouseOut);
         }
 
     };
@@ -93,12 +93,12 @@ class CursorPopover extends Component {
         const {enterable} = this.props;
         this.props.onDestroy?.(el, triggerEl);
 
-        Event.removeEvent(triggerEl, 'mouseenter', this.handleMouseEnter);
-        Event.removeEvent(triggerEl, 'mouseleave', this.handleMouseLeave);
+        Event.removeEvent(triggerEl, 'mouseover', this.handleMouseOver);
+        Event.removeEvent(triggerEl, 'mouseout', this.handleMouseOut);
 
         if (enterable) {
-            Event.removeEvent(el, 'mouseenter', this.handleMouseEnter);
-            Event.removeEvent(el, 'mouseleave', this.handleMouseLeave);
+            Event.removeEvent(el, 'mouseover', this.handleMouseOver);
+            Event.removeEvent(el, 'mouseout', this.handleMouseOut);
         }
 
     };
