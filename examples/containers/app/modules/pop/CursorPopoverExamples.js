@@ -102,7 +102,7 @@ class CursorPopoverExamples extends Component {
 
                                 <div ref={el => this.trigger0 = findDOMNode(el)}
                                      className="trigger-area"
-                                     onMouseEnter={() => this.show(0)}>
+                                     onMouseOver={() => this.show(0)}>
                                     <List data={items}/>
                                 </div>
 
@@ -141,17 +141,17 @@ class CursorPopoverExamples extends Component {
                                     <div className="button-group top">
                                         <div ref={el => this.trigger5 = findDOMNode(el)}
                                              className="trigger-position-button"
-                                             onMouseEnter={() => this.show(5)}>
+                                             onMouseOver={() => this.show(5)}>
                                             Top Left
                                         </div>
                                         <div ref={el => this.trigger6 = findDOMNode(el)}
                                              className="trigger-position-button"
-                                             onMouseEnter={() => this.show(6)}>
+                                             onMouseOver={() => this.show(6)}>
                                             Top
                                         </div>
                                         <div ref={el => this.trigger7 = findDOMNode(el)}
                                              className="trigger-position-button"
-                                             onMouseEnter={() => this.show(7)}>
+                                             onMouseOver={() => this.show(7)}>
                                             Top right
                                         </div>
                                     </div>
@@ -159,17 +159,17 @@ class CursorPopoverExamples extends Component {
                                     <div className="button-group right">
                                         <div ref={el => this.trigger11 = findDOMNode(el)}
                                              className="trigger-position-button"
-                                             onMouseEnter={() => this.show(11)}>
+                                             onMouseOver={() => this.show(11)}>
                                             Right Top
                                         </div>
                                         <div ref={el => this.trigger12 = findDOMNode(el)}
                                              className="trigger-position-button"
-                                             onMouseEnter={() => this.show(12)}>
+                                             onMouseOver={() => this.show(12)}>
                                             Right
                                         </div>
                                         <div ref={el => this.trigger13 = findDOMNode(el)}
                                              className="trigger-position-button"
-                                             onMouseEnter={() => this.show(13)}>
+                                             onMouseOver={() => this.show(13)}>
                                             Right Bottom
                                         </div>
                                     </div>
@@ -177,17 +177,17 @@ class CursorPopoverExamples extends Component {
                                     <div className="button-group bottom">
                                         <div ref={el => this.trigger2 = findDOMNode(el)}
                                              className="trigger-position-button"
-                                             onMouseEnter={() => this.show(2)}>
+                                             onMouseOver={() => this.show(2)}>
                                             Bottom Left
                                         </div>
                                         <div ref={el => this.trigger3 = findDOMNode(el)}
                                              className="trigger-position-button"
-                                             onMouseEnter={() => this.show(3)}>
+                                             onMouseOver={() => this.show(3)}>
                                             Bottom
                                         </div>
                                         <div ref={el => this.trigger4 = findDOMNode(el)}
                                              className="trigger-position-button"
-                                             onMouseEnter={() => this.show(4)}>
+                                             onMouseOver={() => this.show(4)}>
                                             Bottom Right
                                         </div>
                                     </div>
@@ -195,17 +195,17 @@ class CursorPopoverExamples extends Component {
                                     <div className="button-group left">
                                         <div ref={el => this.trigger8 = findDOMNode(el)}
                                              className="trigger-position-button"
-                                             onMouseEnter={() => this.show(8)}>
+                                             onMouseOver={() => this.show(8)}>
                                             Left Top
                                         </div>
                                         <div ref={el => this.trigger9 = findDOMNode(el)}
                                              className="trigger-position-button"
-                                             onMouseEnter={() => this.show(9)}>
+                                             onMouseOver={() => this.show(9)}>
                                             Left
                                         </div>
                                         <div ref={el => this.trigger10 = findDOMNode(el)}
                                              className="trigger-position-button"
-                                             onMouseEnter={() => this.show(10)}>
+                                             onMouseOver={() => this.show(10)}>
                                             Left Bottom
                                         </div>
                                     </div>
@@ -213,7 +213,7 @@ class CursorPopoverExamples extends Component {
                                     <div className="button-group center">
                                         <div ref={el => this.trigger14 = findDOMNode(el)}
                                              className="trigger-position-button"
-                                             onMouseEnter={() => this.show(14)}>
+                                             onMouseOver={() => this.show(14)}>
                                             Center
                                         </div>
                                     </div>
@@ -325,7 +325,7 @@ class CursorPopoverExamples extends Component {
                                                            </div>
                                                        }>
                                     <div className="trigger-area"
-                                         onMouseEnter={() => console.log('onMouseEnter')}>
+                                         onMouseOver={() => console.log('onMouseOver')}>
                                         Show CursorPopover
                                     </div>
                                 </CursorPopoverProvider>
@@ -357,7 +357,7 @@ class CursorPopoverExamples extends Component {
 
                                                 <div ref={el => this.trigger17 = findDOMNode(el)}
                                                      className="dialog-trigger-button"
-                                                     onMouseEnter={() => this.show(17)}>
+                                                     onMouseOver={() => this.show(17)}>
                                                     Show CursorPopover
                                                 </div>
                                                 <CursorPopover visible={popVisible[17]}
@@ -378,7 +378,7 @@ class CursorPopoverExamples extends Component {
 
                                                 <div ref={el => this.trigger18 = findDOMNode(el)}
                                                      className="dialog-trigger-button"
-                                                     onMouseEnter={() => this.show(18)}>
+                                                     onMouseOver={() => this.show(18)}>
                                                     Show CursorPopover
                                                 </div>
                                                 <CursorPopover visible={popVisible[18]}
