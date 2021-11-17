@@ -91,8 +91,8 @@ class CursorPopoverProvider extends Component {
         });
     };
 
-    handleMouseEnter = e => {
-        this.props?.children?.props?.onMouseEnter?.(e);
+    handleMouseOver = e => {
+        this.props?.children?.props?.onMouseOver?.(e);
         this.show();
     };
 
@@ -121,7 +121,7 @@ class CursorPopoverProvider extends Component {
                 {
                     cloneElement(children, {
                         ref: this.trigger,
-                        onMouseEnter: this.handleMouseEnter
+                        onMouseOver: this.handleMouseOver
                     })
                 }
 
