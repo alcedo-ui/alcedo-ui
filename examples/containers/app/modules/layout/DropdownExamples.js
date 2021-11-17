@@ -1,16 +1,22 @@
+/**
+ * @file Dropdown examples
+ */
+
 import React, {Component} from 'react';
 
+// Components
 import Dropdown from 'src/Dropdown';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
 
+// Docs
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/Dropdown.json';
 
+// Styles
 import 'scss/containers/app/modules/layout/DropdownExamples.scss';
-
 
 class DropdownExamples extends Component {
 
@@ -50,7 +56,7 @@ class DropdownExamples extends Component {
 
     render() {
 
-        const {DropdownVisible}=this.state;
+        const {DropdownVisible} = this.state;
 
         return (
             <div className="example dropdown-examples">
@@ -137,7 +143,6 @@ class DropdownExamples extends Component {
                                                 </Dropdown>
                                             </div>
                                     }
-
                                 </Dialog>
 
                             </div>
@@ -153,6 +158,6 @@ class DropdownExamples extends Component {
             </div>
         );
     }
-};
+}
 
 export default DropdownExamples;
