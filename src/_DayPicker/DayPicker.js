@@ -48,8 +48,8 @@ class DayPicker extends Component {
         super(props, ...restArgs);
 
         this.defaultTable = {
-            row_number: 6,
-            col_number: 7
+            rowNumber: 6,
+            colNumber: 7
         };
 
         this.state = {
@@ -219,10 +219,10 @@ class DayPicker extends Component {
             renderArray.push(<li className="item-gray" key={'previous' + i}>
                 <span className="date-text">{previousMonthDays - (firstDay - i) + 1}</span></li>);
         }
-
         return renderArray;
     };
 
+    // eslint-disable-next-line complexity
     rangeDateCurrentMonthDaysRender = () => {
 
         const {startTime, endTime, hoverTime, maxValue, minValue, otherSelectedDate} = this.props,
@@ -235,20 +235,32 @@ class DayPicker extends Component {
         start = moment(hoverTime).isBefore(startTime) ? hoverTime : startTime;
 
         let renderArray = [], minDate = !!start && !end ?
-                minValue && moment(minValue).isBefore(DateUtil.getPrevMaxCloserDate(start, otherSelectedDate)?.value[1]) ?
-                    minValue : DateUtil.getPrevMaxCloserDate(start, otherSelectedDate)?.value[1]
+                DateUtil.getPrevMaxCloserDate(startTime, otherSelectedDate)?.value[1] ?
+                    minValue &&
+                    moment(minValue).isBefore(DateUtil.getPrevMaxCloserDate(startTime, otherSelectedDate)?.value[1]) ?
+                        DateUtil.getPrevMaxCloserDate(startTime, otherSelectedDate)?.value[1]
+                        :
+                        minValue
+                    :
+                    minValue
                 :
                 minValue,
             maxDate = !!start && !end ?
-                maxValue &&
-                moment(maxValue).isBefore(DateUtil.getNextMinCloserDate(start, otherSelectedDate)?.value[0]) ?
-                    maxValue : DateUtil.getNextMinCloserDate(start, otherSelectedDate)?.value[0]
+                DateUtil.getNextMinCloserDate(startTime, otherSelectedDate)?.value[0] ?
+                    maxValue &&
+                    moment(maxValue).isAfter(DateUtil.getNextMinCloserDate(startTime, otherSelectedDate)?.value[0]) ?
+                        DateUtil.getNextMinCloserDate(startTime, otherSelectedDate)?.value[0]
+                        :
+                        maxValue
+                    :
+                    maxValue
                 :
                 maxValue;
         // console.log('minValue::', minValue);
         // console.log('maxValue::', maxValue);
         // console.log('minDate::', minDate);
         // console.log('maxDate::', maxDate);
+
         for (let i = 0; i < Number(monthDays); i++) {
 
             const item = moment([Number(selectYear), (Number(selectMonth) - 1), (i + 1)]).format('YYYY-MM-DD'),
@@ -348,7 +360,7 @@ class DayPicker extends Component {
 
         const {dateNumArray, selectMonth, firstDay} = this.state,
             month = +selectMonth - 1, monthDays = dateNumArray[month],
-            nextDays = this.defaultTable.row_number * this.defaultTable.col_number - firstDay - monthDays;
+            nextDays = this.defaultTable.rowNumber * this.defaultTable.colNumber - firstDay - monthDays;
         let renderArray = [];
         for (let i = 0; i < nextDays; i++) {
             renderArray.push(<li className="item-gray" key={'previous' + i}><span
@@ -365,10 +377,10 @@ class DayPicker extends Component {
             nextDays = this.nextMonthDaysRender();
         totalDays = previousDays.concat(currentDays, nextDays);
         if (totalDays.length > 0) {
-            for (let i = 0; i < this.defaultTable.row_number; i++) {
+            for (let i = 0; i < this.defaultTable.rowNumber; i++) {
                 let weekList = [],
-                    startIndex = i * this.defaultTable.col_number,
-                    endIndex = (i + 1) * this.defaultTable.col_number;
+                    startIndex = i * this.defaultTable.colNumber,
+                    endIndex = (i + 1) * this.defaultTable.colNumber;
                 for (let j = startIndex; j < endIndex; j++) {
                     weekList.push(totalDays[j]);
                 }
@@ -551,6 +563,9 @@ DayPicker.propTypes = {
     year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     month: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     day: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    hour: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    minute: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    second: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     dateFormat: PropTypes.string,
     previousYearIconCls: PropTypes.string,
     previousMonthIconCls: PropTypes.string,
@@ -561,6 +576,7 @@ DayPicker.propTypes = {
     otherSelectedDate: PropTypes.array,
     isFooter: PropTypes.bool,
     onChange: PropTypes.func,
+    hoverHandle: PropTypes.func,
     monthAndYearChange: PropTypes.func,
     previousClick: PropTypes.func
 };

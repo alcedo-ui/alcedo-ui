@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 
 import DateRangeField from 'src/DateRangeField';
 import Widget from 'src/Widget';
@@ -42,19 +42,17 @@ class DateRangeFieldExamples extends Component {
                                 <p><code>Date Range Field</code>simple example.</p>
 
                                 <DateRangeField onChange={this.onChangeHandler}
-                                                value={[null, null]}
+                                                minValue="2021-11-19"
+                                                maxValue="2022-10-13"
+                                                value={['2022-10-13', '2022-10-13']}
                                                 otherSelectedDate={[{
-                                                    value: ['2020-11-20', '2020-12-04'],
-                                                    tip: 'balabalabala'
+                                                    value: ['2021-11-25', '2021-11-27'], tip: 'Multiplier: 3.260'
                                                 }, {
-                                                    value: ['2020-11-1', '2020-11-2'],
-                                                    tip: 'balabalabala'
+                                                    value: ['2022-08-01', '2022-08-31'], tip: 'Multiplier: 1.610'
                                                 }, {
-                                                    value: ['2020-12-10', '2020-12-20'],
-                                                    tip: 'balabalabala'
+                                                    value: ['2022-10-09', '2022-10-12'], tip: 'Multiplier: 1.300'
                                                 }, {
-                                                    value: ['2020-12-22', '2020-12-22'],
-                                                    tip: 'balabalabala'
+                                                    value: ['2021-12-01', '2021-12-01'], tip: 'Multiplier: 1.200'
                                                 }]}/>
                             </div>
 
@@ -95,6 +93,6 @@ class DateRangeFieldExamples extends Component {
             </div>
         );
     }
-};
+}
 
 export default DateRangeFieldExamples;

@@ -5,6 +5,7 @@
 
 import moment from 'moment';
 
+// eslint-disable-next-line require-jsdoc
 function MonthDays(year) {
     // debugger
     let dateArray = [];
@@ -39,19 +40,16 @@ function MonthDays(year) {
     return dateArray;
 }
 
+// eslint-disable-next-line require-jsdoc
 function setDateRange(start, end) {
 
-    if (start.year == end.year && start.month == end.month) {
-        if (start.month == 12) {
+    if (start.year?.toString() === end.year?.toString() && start.month?.toString() === end.month?.toString()) {
+        if (start.month?.toString() === '12') {
             end.year = +(end.year) + 1;
             end.month = 1;
         } else {
-            end.year = end.year;
             end.month = +(end.month) + 1;
         }
-    } else {
-        end.year = end.year;
-        end.month = end.month;
     }
 
     return {
@@ -61,6 +59,7 @@ function setDateRange(start, end) {
 }
 
 
+// eslint-disable-next-line require-jsdoc
 function getYearArr(num) {
     let yearString = num.toString();
     yearString = yearString.substr(0, yearString.length - 1);
@@ -71,17 +70,24 @@ function getYearArr(num) {
     return YearArr;
 }
 
+// eslint-disable-next-line require-jsdoc
 function getMonth(num) {
     return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][num - 1];
 }
 
+// eslint-disable-next-line require-jsdoc
 function getPrevMaxCloserDate(selectedDate, compareDateArray) {
-    let prevDateArray = compareDateArray.slice().filter(item => new Date(selectedDate) - (new Date(item?.value[1])) > 0).map(item => new Date(item?.value[1]).valueOf());
+    let prevDateArray = compareDateArray.slice()
+                                        .filter(item => new Date(selectedDate) - (new Date(item?.value[1])) > 0)
+                                        .map(item => new Date(item?.value[1]).valueOf());
     return compareDateArray.find(item => new Date(item?.value[1]).valueOf() === Math.max(...prevDateArray));
 }
 
+// eslint-disable-next-line require-jsdoc
 function getNextMinCloserDate(selectedDate, compareDateArray) {
-    let nextDateArray = compareDateArray.slice().filter(item => new Date(selectedDate) - (new Date(item?.value[0])) < 0).map(item => new Date(item?.value[0]).valueOf());
+    let nextDateArray = compareDateArray.slice()
+                                        .filter(item => new Date(selectedDate) - (new Date(item?.value[0])) < 0)
+                                        .map(item => new Date(item?.value[0]).valueOf());
     return compareDateArray.find(item => new Date(item?.value[0]).valueOf() === Math.min(...nextDateArray));
 }
 
