@@ -9,7 +9,7 @@
         position: absolute;
         top: 0;
         right: -4px;
-        width: 8px;
+        width: 9px;
         height: 100%;
         background: transparent;
         cursor: col-resize;
@@ -18,7 +18,6 @@
         &::after {
             content: "";
             display: block;
-            width: 3px;
             height: 100%;
             z-index: 1;
         }
@@ -29,16 +28,19 @@
 
         .react-resizable-handle {
             &::after {
+                width: 4px;
                 border-right: 1px solid theme-color-active($theme-secondary);
             }
 
             &:hover::after {
+                width: 3px;
                 border-right: 2px solid $theme-highlight;
             }
         }
     }
 
     &.activated .react-resizable-handle::after {
+        width: 3px;
         border-right: 2px solid $theme-highlight;
     }
 
@@ -47,6 +49,10 @@
     }
 
     &:last-child {
-        overflow-x: hidden;
+
+        .react-resizable-handle {
+            right: 0;
+            width: 5px;
+        }
     }
 }
