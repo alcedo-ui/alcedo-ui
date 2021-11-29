@@ -23,24 +23,23 @@ class Tf extends Component {
     }
 
     /**
-     * handle th content render
+     * Handle th content render
      * @returns {*}
      */
     handleRender = () => {
 
         const {rowIndex, colIndex, rowData, tableData, footData, scrollEl, renderer, bodyRenderer} = this.props;
 
-        switch (typeof renderer) {
-            case 'function':
-                return renderer(rowData, rowIndex, colIndex, tableData, footData, bodyRenderer, scrollEl);
-            default:
-                return renderer;
+        if (typeof renderer === 'function') {
+            return renderer(rowData, rowIndex, colIndex, tableData, footData, bodyRenderer, scrollEl);
         }
+
+        return renderer;
 
     };
 
     /**
-     * handle th content render
+     * Handle th content render
      * @returns {*}
      */
     handleTitle = () => {
@@ -58,7 +57,10 @@ class Tf extends Component {
 
     render() {
 
-        const {className, style, align, noWrap, span, onCellClick} = this.props;
+        const {
+            className, style, align, noWrap, span,
+            onCellClick
+        } = this.props;
 
         return (
             <td className={classNames({
