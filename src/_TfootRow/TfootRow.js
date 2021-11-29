@@ -38,15 +38,20 @@ class TfootRow extends Component {
     }
 
     getColumnsSpan = () => {
+
         const {columns, tableData, onRequestColumnsSpan} = this.props;
+
         return onRequestColumnsSpan ?
             onRequestColumnsSpan(TableFragment.FOOT, columns, tableData)
             :
             TC.getColumnsSpan(TableFragment.FOOT, columns, tableData);
+
     };
 
     getStyle = (column, originColumnIndex) => {
+
         const {columns, columnKeyField, columnsWidth, defaultColumnWidth, hasVerticalScroll} = this.props;
+
         return {
             ...column.footStyle,
             ...TC.getStickyColumnStyle(
@@ -54,6 +59,7 @@ class TfootRow extends Component {
                 columnKeyField, columnsWidth, defaultColumnWidth, hasVerticalScroll
             )
         };
+
     };
 
     handleClick = e => {
@@ -64,12 +70,13 @@ class TfootRow extends Component {
     render() {
 
         const {
-                data, tableData, footData, disabled, ignoreColumnSpan, rowIndex,
-                scrollEl, hasVerticalScroll, hasFixedRightColumn,
-                onCellClick
-            } = this.props,
-            columnsSpan = this.getColumnsSpan(),
-            verticalScrollBarSize = ScrollBar.getSize(Direction.VERTICAL);
+            data, tableData, footData, disabled, ignoreColumnSpan, rowIndex,
+            scrollEl, hasVerticalScroll, hasFixedRightColumn,
+            onCellClick
+        } = this.props;
+
+        const columnsSpan = this.getColumnsSpan();
+        const verticalScrollBarSize = ScrollBar.getSize(Direction.VERTICAL);
 
         return (
             <tr>
