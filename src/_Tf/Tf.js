@@ -46,12 +46,11 @@ class Tf extends Component {
 
         const {colIndex, tableData, scrollEl, title} = this.props;
 
-        switch (typeof title) {
-            case 'function':
-                return title(tableData, colIndex, scrollEl);
-            default:
-                return title;
+        if (typeof title === 'function') {
+            return title(tableData, colIndex, scrollEl);
         }
+
+        return title;
 
     };
 
