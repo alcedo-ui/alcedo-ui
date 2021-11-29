@@ -13,7 +13,6 @@ import WidgetHeader from 'src/WidgetHeader';
 import CircularLoading from 'src/CircularLoading';
 import RaisedButton from 'src/RaisedButton';
 import MaterialTextField from 'src/MaterialTextField';
-// import TipProvider from 'src/TipProvider';
 import PropTypeDescTable from 'components/PropTypeDescTable';
 
 // Statics
@@ -56,7 +55,9 @@ class TableExamples extends Component {
             noWrap: true,
             headRenderer: 'ID',
             bodyRenderer: rowData => rowData[LOADING_SYMBOL] ?
-                <CircularLoading/> : rowData.id,
+                <CircularLoading/>
+                :
+                rowData.id,
             footRenderer: 'Total',
             sortable: true,
             sortingProp: 'id'
@@ -67,9 +68,13 @@ class TableExamples extends Component {
             noWrap: true,
             headRenderer: 'Name (Percentage Width)',
             bodyRenderer: rowData => rowData.firstName && rowData.lastName ?
-                `${rowData.firstName} ${rowData.lastName}` : null,
+                `${rowData.firstName} ${rowData.lastName}`
+                :
+                null,
             bodyTitle: rowData => rowData.firstName && rowData.lastName ?
-                `${rowData.firstName} ${rowData.lastName}` : null,
+                `${rowData.firstName} ${rowData.lastName}`
+                :
+                null,
             sortable: true,
             sortingProp: 'firstName'
         }, {
@@ -79,17 +84,17 @@ class TableExamples extends Component {
             noWrap: true,
             headRenderer: 'Age',
             bodyRenderer: rowData => rowData.age,
-            footRenderer: this.state.data && this.state.data.length > 0 ? () =>
-                    <>
-                        <div>Average</div>
-                        <div>
-                            {
-                                round(this.state.data.reduce((a, b) =>
-                                    a + b.age, 0) / this.state.data.length, 0
-                                )
-                            }
-                        </div>
-                    </>
+            footRenderer: this.state.data?.length > 0 ?
+                <>
+                    <div>Average</div>
+                    <div>
+                        {
+                            round(this.state.data.reduce((a, b) =>
+                                a + b.age, 0
+                            ) / this.state.data.length, 0)
+                        }
+                    </div>
+                </>
                 :
                 null,
             sortable: true,
@@ -103,29 +108,41 @@ class TableExamples extends Component {
                 width: 120,
                 noWrap: true,
                 headRenderer: 'Other Column 1',
-                bodyRenderer: rowData => rowData.other ? `${rowData.other} 1` : ''
+                bodyRenderer: rowData => rowData.other ?
+                    `${rowData.other} 1`
+                    :
+                    ''
             }, {
                 key: 'otherColumn2',
                 width: 120,
                 noWrap: true,
                 headRenderer: 'Other Column 2',
-                bodyRenderer: rowData => rowData.other ? `${rowData.other} 2` : ''
+                bodyRenderer: rowData => rowData.other ?
+                    `${rowData.other} 2`
+                    :
+                    ''
             }, {
                 key: 'otherColumn3',
                 width: 120,
                 noWrap: true,
                 headRenderer: 'Other Column 3',
-                bodyRenderer: rowData => rowData.other ? `${rowData.other} 3` : ''
+                bodyRenderer: rowData => rowData.other ?
+                    `${rowData.other} 3`
+                    :
+                    ''
             }, {
                 key: 'otherColumn4',
                 width: 120,
                 noWrap: true,
                 headRenderer: 'Other Column 4',
-                bodyRenderer: rowData => rowData.other ? `${rowData.other} 4` : ''
+                bodyRenderer: rowData => rowData.other ?
+                    `${rowData.other} 4`
+                    :
+                    ''
             }]
         }, {
             key: 'functionWidth',
-            width: data => data && data.length > 0 ?
+            width: data => data?.length > 0 ?
                 Math.max(...data.map(item => item.functionWidth)) + 16
                 :
                 120,
@@ -135,15 +152,24 @@ class TableExamples extends Component {
             bodyRenderer: rowData => rowData ?
                 <div className="dynamic-width-cell-block"
                      style={{width: rowData.functionWidth || null}}>
-                    {rowData.functionWidth ? `Width: ${rowData.functionWidth}px` : ''}
+                    {
+                        rowData.functionWidth ?
+                            `Width: ${rowData.functionWidth}px`
+                            :
+                            ''
+                    }
                 </div>
                 :
                 null,
-            footRenderer: this.state.data && this.state.data.length > 0 ? () =>
-                    <>
-                        <div>Sum</div>
-                        <div>{this.state.data.reduce((a, b) => round(a + b.functionWidth), 0)}</div>
-                    </>
+            footRenderer: this.state.data?.length > 0 ?
+                <>
+                    <div>Sum</div>
+                    <div>
+                        {
+                            this.state.data.reduce((a, b) => round(a + b.functionWidth), 0)
+                        }
+                    </div>
+                </>
                 :
                 null,
             sortable: true,
@@ -193,6 +219,7 @@ class TableExamples extends Component {
 
     getFixedColumns = () => {
         return this.columns.map(column => {
+
             if (['id', 'name'].includes(column.key)) {
                 return {
                     ...column,
@@ -204,19 +231,25 @@ class TableExamples extends Component {
                     fixed: Table.Fixed.RIGHT
                 };
             }
+
             return column;
+
         });
     };
 
     getResizableColumns = () => {
+
         const result = cloneDeep(this.columns);
+
         Util.preOrderTraverse({children: result}, node => {
             if (['name', 'age', 'otherColumn1', 'otherColumn2',
                  'otherColumn3', 'otherColumn4', 'functionWidth'].includes(node.key)) {
                 node.resizable = true;
             }
         });
+
         return result;
+
     };
 
     generateData = (size = 100, base = '') => {
@@ -250,8 +283,8 @@ class TableExamples extends Component {
 
     deleteRow = id => {
 
-        const {data} = this.state,
-            newData = data.filter(item => item.id !== id);
+        const {data} = this.state;
+        const newData = data.filter(item => item.id !== id);
 
         this.setState({
             data: newData
@@ -346,9 +379,9 @@ class TableExamples extends Component {
 
     render() {
 
-        const {data, value, sorting, filter, headVisible, footVisible} = this.state,
-            filteredLoadingData = this.filterData(data),
-            footData = this.getFootData(data);
+        const {data, value, sorting, filter, headVisible, footVisible} = this.state;
+        const filteredLoadingData = this.filterData(data);
+        const footData = this.getFootData(data);
 
         return (
             <div className="example table-examples">
@@ -413,14 +446,6 @@ class TableExamples extends Component {
                                        isRowDisabled={row => row.id === '6'}
                                        footData={footData}
                                        selectMode={Table.SelectMode.MULTI_SELECT}
-                                       // selectColumn={{
-                                       //     bodyRenderer: (checkboxInstance, rowData) => rowData.disabled ?
-                                       //         <TipProvider tipContent="Disabled">
-                                       //             <i className="fas fa-ban"/>
-                                       //         </TipProvider>
-                                       //         :
-                                       //         checkboxInstance
-                                       // }}
                                        scroll={{
                                            width: 1200
                                        }}
