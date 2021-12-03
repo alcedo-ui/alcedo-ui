@@ -16,7 +16,6 @@ import Theme from '../Theme';
 // Vendors
 import moment from 'moment';
 import DateUtil from '../_vendors/DateUtil';
-import {findDOMNode} from 'react-dom';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
 class DateRangePickerContent extends Component {
@@ -42,11 +41,11 @@ class DateRangePickerContent extends Component {
             right: {
                 text: '',
                 datePickerLevel: 'day',
-                year: initValue.format('MM') === 12 ?
+                year: initValue.format('MM') === '12' ?
                     +(initValue.format('YYYY')) + 1
                     :
                     initValue.format('YYYY'),
-                month: initValue.format('MM') === 12 ?
+                month: initValue.format('MM') === '12' ?
                     1
                     :
                     +(initValue.format('MM')) + 1,
@@ -242,8 +241,6 @@ class DateRangePickerContent extends Component {
     componentDidMount() {
         const {value, dateFormat} = this.props;
         this.setValue(value, dateFormat);
-        this.datePicker = this.refs.datePicker;
-        this.triggerEl = findDOMNode(this.refs.trigger);
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -270,8 +267,8 @@ class DateRangePickerContent extends Component {
         } = this;
 
         let maxYear = right.year, maxMonth = right.month;
-        maxYear = maxMonth === 1 ? +maxYear - 1 : maxYear;
-        maxMonth = maxMonth === 1 ? 11 : +maxMonth - 2;
+        maxYear = maxMonth?.toString() === '1' ? +maxYear - 1 : maxYear;
+        maxMonth = maxMonth?.toString() === '1' ? 11 : +maxMonth - 2;
 
         let maxDay = DateUtil.MonthDays(maxYear)[maxMonth],
             leftMaxValue = maxValue && moment([maxYear, maxMonth, maxDay]).isAfter(maxValue) ?
@@ -280,8 +277,8 @@ class DateRangePickerContent extends Component {
                 moment([maxYear, maxMonth, maxDay]).format('YYYY-MM-DD'),
             minYear = left.year,
             minMonth = left.month;
-        minYear = minMonth === 12 ? +minYear + 1 : minYear;
-        minMonth = minMonth === 12 ? 1 : +minMonth + 1;
+        minYear = minMonth?.toString() === '12' ? +minYear + 1 : minYear;
+        minMonth = minMonth?.toString() === '12' ? 1 : +minMonth + 1;
 
         let rightMinValue = minValue && moment([minYear, minMonth - 1, 1]).isBefore(minValue) ?
                 minValue
