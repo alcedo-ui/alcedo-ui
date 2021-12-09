@@ -2,6 +2,41 @@
  * @file SkeletonLoadingExamples.scss
  */
 
+@import '../../../../my-theme.scss';
+
 .skeleton-loading-examples {
 
+    .skeleton-loading-examples-card {
+        width: 320px;
+        border-radius: $theme-border-radius;
+        overflow: hidden;
+
+        .skeleton-loading-examples-card-image {
+            height: 160px;
+            border-radius: 0;
+        }
+
+        .skeleton-loading-examples-card-content {
+            padding: 16px;
+
+            .skeleton-loading-examples-card-user {
+                display: flex;
+                align-items: center;
+
+                .skeleton-loading-examples-card-avatar {
+                    width: 48px;
+                    height: 48px;
+                    margin-right: 16px;
+                }
+
+                .skeleton-loading-examples-card-name {
+                    flex: 1;
+                }
+            }
+
+            .skeleton-loading-examples-card-paragraph {
+                margin-top: 16px;
+            }
+        }
+    }
 }
