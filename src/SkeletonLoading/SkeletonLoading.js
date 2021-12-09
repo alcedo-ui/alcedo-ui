@@ -17,11 +17,12 @@ class SkeletonLoading extends Component {
     render() {
 
         const {
-            className, style
+            className, style, isCircular
         } = this.props;
 
         return (
             <div className={classNames('skeleton-loading', {
+                circular: isCircular,
                 [className]: className
             })}
                  style={style}/>
@@ -40,10 +41,14 @@ SkeletonLoading.propTypes = {
     /**
      * Override the styles of the root element.
      */
-    style: PropTypes.object
+    style: PropTypes.object,
+
+    isCircular: PropTypes.bool
 
 };
 
-SkeletonLoading.defaultProps = {};
+SkeletonLoading.defaultProps = {
+    isCircular: false
+};
 
 export default SkeletonLoading;
