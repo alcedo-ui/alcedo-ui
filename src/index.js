@@ -89,6 +89,7 @@ export RaisedButton from './RaisedButton';
 export Rate from './Rate';
 export RemoteAutoComplete from './RemoteAutoComplete';
 export RoundStep from './RoundStep';
+export Skeleton from './Skeleton';
 export Slider from './Slider';
 export SpanLoading from './SpanLoading';
 export Switcher from './Switcher';
@@ -113,4 +114,4 @@ export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 113;
+export const COMPONENTS_TOTAL_COUNT = 114;
