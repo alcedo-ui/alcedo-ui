@@ -89,7 +89,7 @@ export RaisedButton from './RaisedButton';
 export Rate from './Rate';
 export RemoteAutoComplete from './RemoteAutoComplete';
 export RoundStep from './RoundStep';
-export Skeleton from './Skeleton';
+export SkeletonLoading from './SkeletonLoading';
 export Slider from './Slider';
 export SpanLoading from './SpanLoading';
 export Switcher from './Switcher';

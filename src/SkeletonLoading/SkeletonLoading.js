@@ -1,5 +1,5 @@
 /**
- * @file Skeleton component
+ * @file SkeletonLoading component
  */
 
 import React, {Component} from 'react';
@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 // Vendors
 import classNames from 'classnames';
 
-class Skeleton extends Component {
+class SkeletonLoading extends Component {
 
     constructor(props, ...restArgs) {
         super(props, ...restArgs);
@@ -21,7 +21,7 @@ class Skeleton extends Component {
         } = this.props;
 
         return (
-            <div className={classNames('skeleton', {
+            <div className={classNames('skeleton-loading', {
                 [className]: className
             })}
                  style={style}/>
@@ -30,7 +30,7 @@ class Skeleton extends Component {
     }
 }
 
-Skeleton.propTypes = {
+SkeletonLoading.propTypes = {
 
     /**
      * The CSS class name of the root element.
@@ -44,6 +44,6 @@ Skeleton.propTypes = {
 
 };
 
-Skeleton.defaultProps = {};
+SkeletonLoading.defaultProps = {};
 
-export default Skeleton;
+export default SkeletonLoading;
