@@ -258,6 +258,9 @@ export default [{
     }, {
         text: 'PageLoading',
         route: '/components/PageLoading'
+    }, {
+        text: 'SkeletonLoading',
+        route: '/components/SkeletonLoading'
     }]
 }, {
     text: 'Draggable',

@@ -538,6 +538,11 @@ export default function configureRoutes(store) {
                     component: ac(() => import(
                         /* webpackChunkName: "PageLoadingExamples" */
                         'modules/loading/PageLoadingExamples'), store)
+                }, {
+                    path: '/components/SkeletonLoading',
+                    component: ac(() => import(
+                        /* webpackChunkName: "SkeletonLoadingExamples" */
+                        'modules/loading/SkeletonLoadingExamples'), store)
                 },
 
                 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- media -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
