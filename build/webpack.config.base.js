@@ -59,18 +59,16 @@ module.exports = {
             use: 'happypack/loader?id=js',
             include: [resolve('examples'), resolve('src')]
         }, {
-            test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-            loader: 'url-loader',
-            options: {
-                limit: 1000,
-                name: assetsSubPath('img/[name].[hash:7].[ext]')
+            test: /\.(png|jpe?g|gif|svg|cur|ico)(\?.*)?$/,
+            type: 'asset/resource',
+            generator: {
+                filename: 'img/[name]-[contenthash:8][ext]'
             }
         }, {
             test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-            loader: 'url-loader',
-            options: {
-                limit: 1000,
-                name: assetsSubPath('fonts/[name].[hash:7].[ext]')
+            type: 'asset/resource',
+            generator: {
+                filename: 'font/[name]-[contenthash:8][ext]'
             }
         }, {
             test: /\.scss$/,

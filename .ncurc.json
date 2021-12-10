@@ -1,7 +1,6 @@
 {
     "upgrade": true,
     "reject": [
-        "css-loader",
         "history",
         "react-router",
         "react-router-dom"
