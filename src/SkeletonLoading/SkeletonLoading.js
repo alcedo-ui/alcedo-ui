@@ -29,7 +29,10 @@ class SkeletonLoading extends Component {
             })}
                  style={{
                      ...style,
-                     animationDuration: `${animationDuration}ms`
+                     animationDuration: animationDuration && typeof animationDuration === 'number' ?
+                         `${animationDuration}ms`
+                         :
+                         null
                  }}/>
         );
 
@@ -56,12 +59,8 @@ SkeletonLoading.propTypes = {
 };
 
 SkeletonLoading.defaultProps = {
-
     isCircular: false,
-    isAnimated: true,
-
-    animationDuration: 1600
-
+    isAnimated: true
 };
 
 export default SkeletonLoading;
