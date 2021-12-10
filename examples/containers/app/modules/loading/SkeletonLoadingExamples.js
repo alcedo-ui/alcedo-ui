@@ -78,7 +78,8 @@ class SkeletonLoadingExamples extends Component {
                     <div className="widget-content">
                         <div className="example-content">
 
-                            <Paper className="skeleton-loading-examples-card">
+                            <Paper className="skeleton-loading-examples-card"
+                                   depth={2}>
                                 <SkeletonLoading className="skeleton-loading-examples-card-image"/>
                                 <div className="skeleton-loading-examples-card-content">
                                     <div className="skeleton-loading-examples-card-user">
