@@ -8,89 +8,166 @@ import FieldType from '../_statics/FieldType';
 // Vendors
 import isArray from 'lodash/isArray';
 
-function range(value, min, max) {
+/**
+ * @param value
+ * @param min
+ * @param max
+ * @returns {*}
+ */
+export function range(value, min, max) {
     max !== undefined && (value = value > max ? max : value);
     min !== undefined && (value = value < min ? min : value);
     return value;
 }
 
-function isChrome() {
+/**
+ * @returns {boolean}
+ */
+export function isChrome() {
     return /chrome/i.test(navigator.userAgent);
 }
 
-function isMac() {
+/**
+ * @returns {boolean}
+ */
+export function isMac() {
     return /macintosh|mac os x/i.test(navigator.userAgent);
 }
 
-function isWindows() {
+/**
+ * @returns {boolean}
+ */
+export function isWindows() {
     return /windows|win32/i.test(navigator.userAgent);
 }
 
-function isInteger(value) {
+/**
+ * @param value
+ * @returns {boolean}
+ */
+export function isInteger(value) {
     return /^(0|-?[0-9][1-9]*)$/.test(value);
 }
 
-function isPositiveInteger(value) {
+/**
+ * @param value
+ * @returns {boolean}
+ */
+export function isPositiveInteger(value) {
     return isInteger(value) && value > 0;
 }
 
-function isNonnegativeInteger(value) {
+/**
+ * @param value
+ * @returns {boolean}
+ */
+export function isNonnegativeInteger(value) {
     return isInteger(value) && value >= 0;
 }
 
-function isNegativeInteger(value) {
+/**
+ * @param value
+ * @returns {boolean}
+ */
+export function isNegativeInteger(value) {
     return isInteger(value) && value < 0;
 }
 
-function isNonpositiveInteger(value) {
+/**
+ * @param value
+ * @returns {boolean}
+ */
+export function isNonpositiveInteger(value) {
     return isInteger(value) && value <= 0;
 }
 
-function isOdd(value) {
+/**
+ * @param value
+ * @returns {boolean}
+ */
+export function isOdd(value) {
     return isInteger(value) && value % 2 === 1;
 }
 
-function isEven(value) {
+/**
+ * @param value
+ * @returns {boolean}
+ */
+export function isEven(value) {
     return isInteger(value) && value % 2 === 0;
 }
 
-function isInRange(value, min, max) {
+/**
+ * @param value
+ * @param min
+ * @param max
+ * @returns {boolean}
+ */
+export function isInRange(value, min, max) {
     return !isNaN(value) && !isNaN(min) && !isNaN(max) && value >= min && value <= max;
 }
 
-function isEmail(value) {
+/**
+ * @param value
+ * @returns {boolean}
+ */
+export function isEmail(value) {
     return /^\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}$/.test(value);
 }
 
-function isUrl(value) {
+/**
+ * @param value
+ * @returns {boolean}
+ */
+export function isUrl(value) {
     return /^((https|http|ftp|rtsp|mms)?:\/\/)[^\s]+$/.test(value);
 }
 
-function isPerCent(perCent) {
+/**
+ * @param perCent
+ * @returns {boolean}
+ */
+export function isPerCent(perCent) {
     return !isNaN(perCent) && perCent >= 0 && perCent <= 1;
 }
 
-function isDeg(deg) {
+/**
+ * @param deg
+ * @returns {boolean}
+ */
+export function isDeg(deg) {
     return !isNaN(deg) && deg >= 0 && deg <= 360;
 }
 
-function isRGB(rgb) {
+/**
+ * @param rgb
+ * @returns {*|boolean}
+ */
+export function isRGB(rgb) {
     return rgb && isArray(rgb) && rgb.length === 3
         && rgb.filter(item => item >= 0 && item <= 255).length === 3;
 }
 
-function isHSB(hsb) {
+/**
+ * @param hsb
+ * @returns {*|boolean}
+ */
+export function isHSB(hsb) {
     return hsb && isArray(hsb) && hsb.length === 3
         && isDeg(hsb[0]) && isInRange(hsb[1], 0, 1) && isInRange(hsb[2], 0, 1);
 }
 
-function isHex(hex) {
-
-    const hasHash = hex[0] === '#';
+/**
+ * @param hex
+ * @returns {boolean}
+ */
+export function isHex(hex) {
 
     if (!hex) {
         return false;
     }
+
+    const hasHash = hex[0] === '#';
 
     if ((!hasHash && hex.length !== 6) || (hasHash && hex.length !== 7)) {
         return false;
@@ -100,6 +177,10 @@ function isHex(hex) {
         return false;
     }
 
+    /**
+     * @param i
+     * @returns {boolean}
+     */
     function fn(i) {
         const j = hasHash ? 1 : 0;
         return isInRange(parseInt(hex.slice(i + j, i + j + 2), 16), 0, 255);
@@ -109,7 +190,11 @@ function isHex(hex) {
 
 }
 
-function isNumberType(type) {
+/**
+ * @param type
+ * @returns {boolean}
+ */
+export function isNumberType(type) {
 
     const {
         NUMBER, INTEGER, POSITIVE_INTEGER, NONNEGATIVE_INTEGER, NEGATIVE_INTEGER, NONPOSITIVE_INTEGER
@@ -121,7 +206,12 @@ function isNumberType(type) {
 }
 
 /* eslint-disable complexity */
-function fieldValid(value, props) {
+/**
+ * @param value
+ * @param props
+ * @returns {*[]}
+ */
+export function fieldValid(value, props) {
 
     const {type, required, maxLength, max, min, pattern, patternInvalidMsg} = props;
     let invalidMsgs = [];
