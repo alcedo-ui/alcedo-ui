@@ -6,7 +6,7 @@ import Valid from './Valid';
 
 /**
  * Convert Hue percent value to RGB value
- * @param Hue percent value {number}
+ * @param percent percent value {number}
  * @returns RGB {number[R, G, B]}
  * @private
  */
@@ -24,10 +24,10 @@ function _getHueRGB(percent) {
 
 /**
  * Convert Hue degree value to RGB value
- * @param Hue degree value {number}
+ * @param hue degree value {number}
  * @returns RGB {number[R, G, B]}
  */
-function hue2rgb(hue) {
+export function hue2rgb(hue) {
 
     if (!Valid.isDeg(hue)) {
         return;
@@ -46,10 +46,10 @@ function hue2rgb(hue) {
 
 /**
  * Convert RGB value to HSB value
- * @param RGB value {number[R, G, B]}
+ * @param rgb value {number[R, G, B]}
  * @returns HSB value {number[H, S, B]}
  */
-function rgb2hsb(rgb) {
+export function rgb2hsb(rgb) {
 
     if (!Valid.isRGB(rgb)) {
         return null;
@@ -62,7 +62,7 @@ function rgb2hsb(rgb) {
     let h = 0;
 
     if (max === r && g >= b) {
-        h = (g - b) * 60 / (max - min) + 0;
+        h = (g - b) * 60 / (max - min);
     } else if (max === r && g < b) {
         h = (g - b) * 60 / (max - min) + 360;
     } else if (max === g) {
@@ -77,10 +77,10 @@ function rgb2hsb(rgb) {
 
 /**
  * Convert HSB value to RGB value
- * @param HSB value {number[H, S, B]}
+ * @param hsb value {number[H, S, B]}
  * @returns RGB value {number[R, G, B]}
  */
-function hsb2rgb(hsb) {
+export function hsb2rgb(hsb) {
 
     if (!Valid.isHSB(hsb)) {
         return null;
@@ -136,10 +136,10 @@ function hsb2rgb(hsb) {
 
 /**
  * Convert RGB value to hex format
- * @param RGB value {number[R, G, B]}
+ * @param rgb value {number[R, G, B]}
  * @returns RGB hex value {string}
  */
-function rgb2hex(rgb) {
+export function rgb2hex(rgb) {
 
     if (!rgb || !Valid.isRGB(rgb)) {
         return;
@@ -154,10 +154,10 @@ function rgb2hex(rgb) {
 
 /**
  * Convert RGB hex value to RGB format
- * @param RGB hex value {string}
+ * @param hex hex value {string}
  * @returns RGB value {number[R, G, B]}
  */
-function hex2rgb(hex) {
+export function hex2rgb(hex) {
 
     if (!Valid.isHex(hex)) {
         return;
@@ -166,6 +166,11 @@ function hex2rgb(hex) {
     const hasHash = hex[0] === '#',
         j = hasHash ? 1 : 0;
 
+    /**
+     * Parse function
+     * @param i
+     * @returns {number}
+     */
     function fn(i) {
         return parseInt(hex.slice(i + j, i + j + 2), 16);
     }
