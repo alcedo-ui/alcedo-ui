@@ -82,15 +82,8 @@ SkeletonLoading.propTypes = {
 };
 
 SkeletonLoading.defaultProps = {
-
-    size: 24,
-    highlightColor: '#fff',
-    highlightDegree: 100,
-    highlightTransparency: .4,
-
     isCircular: false,
     isAnimated: true
-
 };
 
 export default SkeletonLoading;
