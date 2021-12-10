@@ -162,32 +162,7 @@ export function isHSB(hsb) {
  * @returns {boolean}
  */
 export function isHex(hex) {
-
-    if (!hex) {
-        return false;
-    }
-
-    const hasHash = hex[0] === '#';
-
-    if ((!hasHash && hex.length !== 6) || (hasHash && hex.length !== 7)) {
-        return false;
-    }
-
-    if (hasHash && hex[0] !== '#') {
-        return false;
-    }
-
-    /**
-     * @param i
-     * @returns {boolean}
-     */
-    function fn(i) {
-        const j = hasHash ? 1 : 0;
-        return isInRange(parseInt(hex.slice(i + j, i + j + 2), 16), 0, 255);
-    }
-
-    return fn(0) && fn(2) && fn(4);
-
+    return /^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(hex);
 }
 
 /**
