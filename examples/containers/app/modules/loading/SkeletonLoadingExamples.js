@@ -63,7 +63,8 @@ class SkeletonLoadingExamples extends Component {
 
                             <p>A circle SkeletonLoading example.</p>
 
-                            <SkeletonLoading isCircular={true}/>
+                            <SkeletonLoading isCircular={true}
+                                             animationDuration={800}/>
 
                         </div>
                     </div>
