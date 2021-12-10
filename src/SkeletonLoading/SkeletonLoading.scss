@@ -11,17 +11,21 @@
 .skeleton-loading {
     width: 100%;
     height: 24px;
-    background: linear-gradient(
-            100deg, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, .5) 50%, rgba(255, 255, 255, 0) 60%
-    ) $theme-border-disabled;
-    background-size: 200% 100%;
-    background-position-x: 180%;
-    animation: 1.6s loading ease-in-out infinite;
+    background-color: $theme-border-disabled;
     border-radius: $theme-border-radius;
     overflow: hidden;
 
     &.circular {
         width: 24px;
         border-radius: 50%;
+    }
+
+    &.animated {
+        background-image: linear-gradient(100deg, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, .5) 50%, rgba(255, 255, 255, 0) 60%);
+        background-size: 200% 100%;
+        background-position-x: 180%;
+        animation-name: loading;
+        animation-timing-function: ease-in-out;
+        animation-iteration-count: infinite;
     }
 }

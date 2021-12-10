@@ -17,15 +17,20 @@ class SkeletonLoading extends Component {
     render() {
 
         const {
-            className, style, isCircular
+            className, style,
+            isCircular, isAnimated, animationDuration
         } = this.props;
 
         return (
             <div className={classNames('skeleton-loading', {
                 circular: isCircular,
+                animated: isAnimated,
                 [className]: className
             })}
-                 style={style}/>
+                 style={{
+                     ...style,
+                     animationDuration: `${animationDuration}ms`
+                 }}/>
         );
 
     }
@@ -43,12 +48,20 @@ SkeletonLoading.propTypes = {
      */
     style: PropTypes.object,
 
-    isCircular: PropTypes.bool
+    isCircular: PropTypes.bool,
+    isAnimated: PropTypes.bool,
+
+    animationDuration: PropTypes.number
 
 };
 
 SkeletonLoading.defaultProps = {
-    isCircular: false
+
+    isCircular: false,
+    isAnimated: true,
+
+    animationDuration: 1600
+
 };
 
 export default SkeletonLoading;
