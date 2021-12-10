@@ -163,19 +163,22 @@ export function hex2rgb(hex) {
         return;
     }
 
-    const hasHash = hex[0] === '#',
-        j = hasHash ? 1 : 0;
+    const hasHash = hex[0] === '#';
+    const hexValue = hasHash ?
+        hex.slice(1)
+        :
+        hex;
+    const isAbbr = hexValue.length === 3;
 
-    /**
-     * Parse function
-     * @param i
-     * @returns {number}
-     */
-    function fn(i) {
-        return parseInt(hex.slice(i + j, i + j + 2), 16);
+    if (isAbbr) {
+        return hexValue.split('').map(item =>
+            parseInt(`${item}${item}`, 16)
+        );
     }
 
-    return [fn(0), fn(2), fn(4)];
+    return [hexValue.slice(0, 2), hexValue.slice(2, 4), hexValue.slice(4, 6)].map(item =>
+        parseInt(item, 16)
+    );
 
 }
 
