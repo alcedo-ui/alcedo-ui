@@ -44,7 +44,7 @@ class SkeletonLoading extends Component {
                          size
                          :
                          null,
-                     backgroundImage: !isNaN(highlightDegree) && highlightColorRgb && !isNaN(highlightTransparency) ?
+                     backgroundImage: !isNaN(highlightDegree) || highlightColorRgb || !isNaN(highlightTransparency) ?
                          `linear-gradient(${highlightDegree}deg, rgba(${highlightColorRgb}, 0) 40%, rgba(${highlightColorRgb}, ${highlightTransparency}) 50%, rgba(${highlightColorRgb}, 0) 60%)`
                          :
                          null,
@@ -82,8 +82,15 @@ SkeletonLoading.propTypes = {
 };
 
 SkeletonLoading.defaultProps = {
+
+    animationDuration: 1600,
+    highlightDegree: 100,
+    highlightColorRgb: '#fff',
+    highlightTransparency: 0.4,
+
     isCircular: false,
     isAnimated: true
+
 };
 
 export default SkeletonLoading;

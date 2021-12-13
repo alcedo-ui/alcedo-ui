@@ -21,16 +21,9 @@
     }
 
     &.animated {
-        background-image: linear-gradient(
-                100deg,
-                rgba(255, 255, 255, 0) 40%,
-                rgba(255, 255, 255, .4) 50%,
-                rgba(255, 255, 255, 0) 60%
-        );
         background-size: 200% 100%;
         background-position-x: 180%;
         animation-name: loading;
-        animation-duration: 1600ms;
         animation-timing-function: ease-in-out;
         animation-iteration-count: infinite;
     }
