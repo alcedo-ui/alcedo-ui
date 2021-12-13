@@ -79,20 +79,17 @@ class SkeletonLoadingExamples extends Component {
                     <div className="widget-content">
                         <div className="example-content">
 
-                            <p>Customized highlight SkeletonLoadings example.</p>
+                            <p>Primary Color</p>
 
                             <SkeletonLoading className="skeleton-loading-examples-customized-highlight"
-                                             highlightColor="#f00"
+                                             highlightColor="#506379"
                                              highlightDegree={120}
                                              highlightTransparency={0.8}/>
 
-                            <SkeletonLoading className="skeleton-loading-examples-customized-highlight"
-                                             highlightColor="#0f0"
-                                             highlightDegree={120}
-                                             highlightTransparency={0.8}/>
+                            <p>Highlight Color</p>
 
                             <SkeletonLoading className="skeleton-loading-examples-customized-highlight"
-                                             highlightColor="#00f"
+                                             highlightColor="#38b1eb"
                                              highlightDegree={120}
                                              highlightTransparency={0.8}/>
 
