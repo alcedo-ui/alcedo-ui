@@ -121,8 +121,6 @@ class DrawerProvider extends Component {
         } = this.props;
         const {visible} = this.state;
 
-        console.log('visible::', visible);
-
         if (!drawerContent) {
             return children;
         }
