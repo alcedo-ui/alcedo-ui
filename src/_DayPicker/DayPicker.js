@@ -136,8 +136,8 @@ class DayPicker extends Component {
         const {monthAndYearChange} = this.props, {
                 currentYear, currentMonth, currentDay, selectYear, selectMonth, dateNumArray
             } = this.state,
-            selectedYear = selectMonth?.toString() === '1' ? +selectYear - 1 : selectYear,
-            selectedMonth = selectMonth?.toString() === '1' ? 12 : +selectMonth - 1,
+            selectedYear = parseInt(selectMonth, 10) === 1 ? +selectYear - 1 : selectYear,
+            selectedMonth = parseInt(selectMonth, 10) === 1 ? 12 : +selectMonth - 1,
             selectedDay = Number(currentYear) === Number(selectedYear) &&
             Number(currentMonth) === Number(selectedMonth) ?
                 currentDay
@@ -147,7 +147,7 @@ class DayPicker extends Component {
             selectYear: selectedYear,
             selectMonth: selectedMonth,
             selectDay: selectedDay,
-            dateNumArray: selectMonth?.toString() === '1' ? DateUtil.MonthDays(selectedYear) : dateNumArray,
+            dateNumArray: parseInt(selectMonth, 10) === 1 ? DateUtil.MonthDays(selectedYear) : dateNumArray,
             firstDay: DC.weekday(selectedYear, selectedMonth)
         }, () => {
             monthAndYearChange && monthAndYearChange({
@@ -162,8 +162,8 @@ class DayPicker extends Component {
         const {monthAndYearChange} = this.props, {
                 currentYear, currentMonth, currentDay, selectYear, selectMonth, dateNumArray
             } = this.state,
-            selectedYear = selectMonth?.toString() === '12' ? +selectYear + 1 : selectYear,
-            selectedMonth = selectMonth?.toString() === '12' ? 1 : +selectMonth + 1,
+            selectedYear = parseInt(selectMonth, 10) === 12 ? +selectYear + 1 : selectYear,
+            selectedMonth = parseInt(selectMonth, 10) === 12 ? 1 : +selectMonth + 1,
             selectedDay = Number(currentYear) === Number(selectedYear) &&
             Number(currentMonth) === Number(selectedMonth) ?
                 currentDay
@@ -174,7 +174,7 @@ class DayPicker extends Component {
             selectYear: selectedYear,
             selectMonth: selectedMonth,
             selectDay: selectedDay,
-            dateNumArray: selectMonth?.toString() === '12' ? DateUtil.MonthDays(selectedYear) : dateNumArray,
+            dateNumArray: parseInt(selectMonth, 10) === 12 ? DateUtil.MonthDays(selectedYear) : dateNumArray,
             firstDay: DC.weekday(selectedYear, selectedMonth)
         }, () => {
             monthAndYearChange && monthAndYearChange({
