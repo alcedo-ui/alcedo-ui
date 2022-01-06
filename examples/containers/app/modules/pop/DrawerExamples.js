@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 // Components
 import RaisedButton from 'src/RaisedButton';
 import Drawer from 'src/Drawer';
+import DrawerProvider from 'src/DrawerProvider';
 import List from 'src/List';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
@@ -155,6 +156,27 @@ class DrawerExamples extends Component {
 
                         </div>
                     </div>
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header"
+                                  title="Drawer Provider"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+                            <div className="popup-example-wrapper">
+                                <DrawerProvider drawerContent={
+                                    <List data={this.data}/>
+                                }>
+                                    <RaisedButton className="trigger-button"
+                                                  value="Toggle Drawer"
+                                                  onClick={() => console.log('onClick')}/>
+                                </DrawerProvider>
+                            </div>
+                        </div>
+                    </div>
+
                 </Widget>
 
                 <h2 className="example-title">Properties</h2>
