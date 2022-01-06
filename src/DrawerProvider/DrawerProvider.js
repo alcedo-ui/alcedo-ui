@@ -2,7 +2,7 @@
  * @file DrawerProvider component
  */
 
-import React, {Component, cloneElement, createRef} from 'react';
+import React, {Component, Fragment, cloneElement, createRef} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 
@@ -126,7 +126,7 @@ class DrawerProvider extends Component {
         }
 
         return (
-            <>
+            <Fragment>
 
                 {
                     cloneElement(children, {
@@ -142,7 +142,7 @@ class DrawerProvider extends Component {
                     {drawerContent}
                 </Drawer>
 
-            </>
+            </Fragment>
         );
 
     }
