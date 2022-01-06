@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 
 // components
-import Popup from '../Popup';
+import Drawer from '../Drawer';
 
 // statics
 import Theme from '../Theme';
@@ -93,6 +93,8 @@ class DrawerProvider extends Component {
 
     handleClick = e => {
 
+        e?.stopPropagation();
+
         const {children} = this.props;
 
         if (children && children.props && children.props.onClick
@@ -119,6 +121,8 @@ class DrawerProvider extends Component {
         } = this.props;
         const {visible} = this.state;
 
+        console.log('visible::', visible);
+
         if (!drawerContent) {
             return children;
         }
@@ -133,12 +137,12 @@ class DrawerProvider extends Component {
                     })
                 }
 
-                <Popup {...restProps}
-                       triggerEl={this.triggerEl}
-                       visible={visible}
-                       onRequestClose={this.hide}>
+                <Drawer {...restProps}
+                        triggerEl={this.triggerEl}
+                        visible={visible}
+                        onRequestClose={this.hide}>
                     {drawerContent}
-                </Popup>
+                </Drawer>
 
             </>
         );
