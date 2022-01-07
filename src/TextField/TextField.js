@@ -2,7 +2,7 @@
  * @file TextField component
  */
 
-import React, {Component, createRef, createElement} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 
@@ -232,6 +232,7 @@ class TextField extends Component {
                 [triggerClassName]: triggerClassName
             }),
             type: inputType,
+            value,
             disabled: disabled,
             maxLength: isStrictMaxLength ? maxLength : null,
             onChange: this.handleChange,
@@ -285,7 +286,7 @@ class TextField extends Component {
                             null
                     }
 
-                    {createElement('input', inputProps)}
+                    <input {...inputProps}/>
 
                     {
                         clearButtonVisible ?
