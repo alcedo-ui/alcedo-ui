@@ -2,7 +2,7 @@
  * @file Dialog component
  */
 
-import React, {Children, cloneElement, Component, Fragment, createRef} from 'react';
+import React, {Children, cloneElement, Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -128,7 +128,7 @@ class Dialog extends Component {
                          onDestroy={this.handleDestroy}>
                 {
                     popEl => (
-                        <Fragment>
+                        <>
 
                             <div className="dialog-title">
 
@@ -197,7 +197,7 @@ class Dialog extends Component {
 
                             </div>
 
-                        </Fragment>
+                        </>
                     )
                 }
             </PositionPop>
