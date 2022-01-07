@@ -56,7 +56,7 @@ class TextFieldExamples extends Component {
 
     };
 
-    changeHandler = (v, index) => {
+    handleChange = (v, index) => {
 
         const {value} = this.state;
         value[index] = v;
@@ -105,7 +105,7 @@ class TextFieldExamples extends Component {
                                     <label className="text-field-label">Default</label>
                                     <TextField value={value[0] || ''}
                                                maxLength={20}
-                                               onChange={v => this.changeHandler(v, 0)}/>
+                                               onChange={v => this.handleChange(v, 0)}/>
                                 </div>
 
                                 <div className="field-group">
@@ -113,7 +113,7 @@ class TextFieldExamples extends Component {
                                     <TextField type="password"
                                                rightIconCls="fas fa-lock"
                                                value={value[1] || ''}
-                                               onChange={v => this.changeHandler(v, 1)}/>
+                                               onChange={v => this.handleChange(v, 1)}/>
                                 </div>
 
                             </div>
@@ -144,7 +144,7 @@ class TextFieldExamples extends Component {
                                                theme={TextField.Theme.PRIMARY}
                                                value={value[2] || ''}
                                                onRightIconClick={() => console.log('Search Icon Clicked.')}
-                                               onChange={v => this.changeHandler(v, 2)}/>
+                                               onChange={v => this.handleChange(v, 2)}/>
                                 </div>
 
                             </div>
@@ -174,7 +174,7 @@ class TextFieldExamples extends Component {
                                     <TextField iconCls="fas fa-user"
                                                theme={TextField.Theme.HIGHLIGHT}
                                                value={value[3] || ''}
-                                               onChange={v => this.changeHandler(v, 3)}/>
+                                               onChange={v => this.handleChange(v, 3)}/>
                                 </div>
 
                                 <div className="field-group">
@@ -183,7 +183,7 @@ class TextFieldExamples extends Component {
                                                type="password"
                                                theme={TextField.Theme.HIGHLIGHT}
                                                value={value[4] || ''}
-                                               onChange={v => this.changeHandler(v, 4)}/>
+                                               onChange={v => this.handleChange(v, 4)}/>
                                 </div>
 
                             </div>
@@ -214,13 +214,13 @@ class TextFieldExamples extends Component {
                                     <TextField iconCls="fas fa-user"
                                                placeholder="username"
                                                value={value[5] || ''}
-                                               onChange={v => this.changeHandler(v, 5)}/>
+                                               onChange={v => this.handleChange(v, 5)}/>
 
                                     <TextField iconCls="fas fa-lock"
                                                type={TextField.Type.PASSWORD}
                                                placeholder="password"
                                                value={value[6] || ''}
-                                               onChange={v => this.changeHandler(v, 6)}/>
+                                               onChange={v => this.handleChange(v, 6)}/>
 
                                 </TextFieldGroup>
 
@@ -253,7 +253,7 @@ class TextFieldExamples extends Component {
                                                clearButtonVisible={false}
                                                fieldMsgVisible={true}
                                                value={value[7] || ''}
-                                               onChange={v => this.changeHandler(v, 7)}/>
+                                               onChange={v => this.handleChange(v, 7)}/>
                                 </div>
 
                                 <div>NUMBER</div>
@@ -261,7 +261,7 @@ class TextFieldExamples extends Component {
                                     <TextField type={TextField.Type.NUMBER}
                                                fieldMsgVisible={true}
                                                value={value[8] || ''}
-                                               onChange={v => this.changeHandler(v, 8)}/>
+                                               onChange={v => this.handleChange(v, 8)}/>
                                 </div>
 
                                 <div>Integer</div>
@@ -269,7 +269,7 @@ class TextFieldExamples extends Component {
                                     <TextField type={TextField.Type.INTEGER}
                                                fieldMsgVisible={true}
                                                value={value[9] || ''}
-                                               onChange={v => this.changeHandler(v, 9)}/>
+                                               onChange={v => this.handleChange(v, 9)}/>
                                 </div>
 
                                 <div>Positive Integer</div>
@@ -277,7 +277,7 @@ class TextFieldExamples extends Component {
                                     <TextField type={TextField.Type.POSITIVE_INTEGER}
                                                fieldMsgVisible={true}
                                                value={value[10] || ''}
-                                               onChange={v => this.changeHandler(v, 10)}/>
+                                               onChange={v => this.handleChange(v, 10)}/>
                                 </div>
 
                                 <div>Nonnegative Integer</div>
@@ -285,7 +285,7 @@ class TextFieldExamples extends Component {
                                     <TextField type={TextField.Type.NONNEGATIVE_INTEGER}
                                                fieldMsgVisible={true}
                                                value={value[11] || ''}
-                                               onChange={v => this.changeHandler(v, 11)}/>
+                                               onChange={v => this.handleChange(v, 11)}/>
                                 </div>
 
                                 <div>Negative Integer</div>
@@ -293,7 +293,7 @@ class TextFieldExamples extends Component {
                                     <TextField type={TextField.Type.NEGATIVE_INTEGER}
                                                fieldMsgVisible={true}
                                                value={value[12] || ''}
-                                               onChange={v => this.changeHandler(v, 12)}/>
+                                               onChange={v => this.handleChange(v, 12)}/>
                                 </div>
 
                                 <div>Nonpositive Integer</div>
@@ -301,7 +301,7 @@ class TextFieldExamples extends Component {
                                     <TextField type={TextField.Type.NONPOSITIVE_INTEGER}
                                                fieldMsgVisible={true}
                                                value={value[13] || ''}
-                                               onChange={v => this.changeHandler(v, 13)}/>
+                                               onChange={v => this.handleChange(v, 13)}/>
                                 </div>
 
                                 <div>Min / Max</div>
@@ -311,7 +311,7 @@ class TextFieldExamples extends Component {
                                                max={100}
                                                fieldMsgVisible={true}
                                                value={value[14] || ''}
-                                               onChange={v => this.changeHandler(v, 14)}/>
+                                               onChange={v => this.handleChange(v, 14)}/>
                                 </div>
 
                                 <div>Self Defined Pattern (Only a, b, c is allowed)</div>
@@ -320,7 +320,7 @@ class TextFieldExamples extends Component {
                                                patternInvalidMsg="Only a, b, c is allowed"
                                                fieldMsgVisible={true}
                                                value={value[15] || ''}
-                                               onChange={v => this.changeHandler(v, 15)}/>
+                                               onChange={v => this.handleChange(v, 15)}/>
                                 </div>
 
                             </div>
@@ -345,7 +345,7 @@ class TextFieldExamples extends Component {
                                                value="Disabled"
                                                theme={TextField.Theme.PRIMARY}
                                                disabled={true}
-                                               onChange={v => this.changeHandler(v, 16)}/>
+                                               onChange={v => this.handleChange(v, 16)}/>
                                 </div>
 
                             </div>
@@ -387,7 +387,7 @@ class TextFieldExamples extends Component {
                                                                fieldMsgVisible={true}
                                                                value={value[7] || ''}
                                                                parentEl={dialogContentEl}
-                                                               onChange={v => this.changeHandler(v, 7)}/>
+                                                               onChange={v => this.handleChange(v, 7)}/>
                                                 </div>
 
                                                 <div>NUMBER</div>
@@ -396,7 +396,7 @@ class TextFieldExamples extends Component {
                                                                fieldMsgVisible={true}
                                                                value={value[8] || ''}
                                                                parentEl={dialogContentEl}
-                                                               onChange={v => this.changeHandler(v, 8)}/>
+                                                               onChange={v => this.handleChange(v, 8)}/>
                                                 </div>
 
                                                 <div>Integer</div>
@@ -405,7 +405,7 @@ class TextFieldExamples extends Component {
                                                                fieldMsgVisible={true}
                                                                value={value[9] || ''}
                                                                parentEl={dialogContentEl}
-                                                               onChange={v => this.changeHandler(v, 9)}/>
+                                                               onChange={v => this.handleChange(v, 9)}/>
                                                 </div>
 
                                                 <div>Positive Integer</div>
@@ -414,7 +414,7 @@ class TextFieldExamples extends Component {
                                                                fieldMsgVisible={true}
                                                                value={value[10] || ''}
                                                                parentEl={dialogContentEl}
-                                                               onChange={v => this.changeHandler(v, 10)}/>
+                                                               onChange={v => this.handleChange(v, 10)}/>
                                                 </div>
 
                                                 <div>Nonnegative Integer</div>
@@ -423,7 +423,7 @@ class TextFieldExamples extends Component {
                                                                fieldMsgVisible={true}
                                                                value={value[11] || ''}
                                                                parentEl={dialogContentEl}
-                                                               onChange={v => this.changeHandler(v, 11)}/>
+                                                               onChange={v => this.handleChange(v, 11)}/>
                                                 </div>
 
                                                 <div>Negative Integer</div>
@@ -432,7 +432,7 @@ class TextFieldExamples extends Component {
                                                                fieldMsgVisible={true}
                                                                value={value[12] || ''}
                                                                parentEl={dialogContentEl}
-                                                               onChange={v => this.changeHandler(v, 12)}/>
+                                                               onChange={v => this.handleChange(v, 12)}/>
                                                 </div>
 
                                                 <div>Nonpositive Integer</div>
@@ -441,7 +441,7 @@ class TextFieldExamples extends Component {
                                                                fieldMsgVisible={true}
                                                                value={value[13] || ''}
                                                                parentEl={dialogContentEl}
-                                                               onChange={v => this.changeHandler(v, 13)}/>
+                                                               onChange={v => this.handleChange(v, 13)}/>
                                                 </div>
 
                                                 <div>Min / Max</div>
@@ -452,7 +452,7 @@ class TextFieldExamples extends Component {
                                                                fieldMsgVisible={true}
                                                                value={value[14] || ''}
                                                                parentEl={dialogContentEl}
-                                                               onChange={v => this.changeHandler(v, 14)}/>
+                                                               onChange={v => this.handleChange(v, 14)}/>
                                                 </div>
 
                                                 <div>Self Defined Pattern (Only a, b, c is allowed)</div>
@@ -462,7 +462,7 @@ class TextFieldExamples extends Component {
                                                                fieldMsgVisible={true}
                                                                value={value[15] || ''}
                                                                parentEl={dialogContentEl}
-                                                               onChange={v => this.changeHandler(v, 15)}/>
+                                                               onChange={v => this.handleChange(v, 15)}/>
                                                 </div>
                                             </div>
                                     }
