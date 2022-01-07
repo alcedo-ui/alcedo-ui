@@ -2,7 +2,7 @@
  * @file TextField component
  */
 
-import React, {Component, createRef, createElement} from 'react';
+import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 
@@ -199,24 +199,24 @@ class TextField extends Component {
 
         const {
 
-                children, className, triggerClassName, placeholderClassName, style, theme, type, iconCls, disabled,
-                infoMsg, placeholder, clearButtonVisible, clearButtonIconCls, rightIconCls, passwordButtonVisible,
-                fieldMsgVisible, maxLength, isStrictMaxLength, parentEl, tip, tipPosition,
-                onIconClick, onRightIconClick,
+            children, className, triggerClassName, placeholderClassName, style, theme, type, iconCls, disabled,
+            infoMsg, placeholder, clearButtonVisible, clearButtonIconCls, rightIconCls, passwordButtonVisible,
+            fieldMsgVisible, maxLength, isStrictMaxLength, parentEl, tip, tipPosition,
+            onIconClick, onRightIconClick,
 
-                // not passing down these props
-                /* eslint-disable no-unused-vars */
-                value: v, autoFocus, pattern, patternInvalidMsg, isFocusedSelectAll,
-                onPressEnter, onValid, onInvalid, onClear, onPasswordVisible, onPasswordInvisible,
-                /* eslint-enable no-unused-vars */
+            // not passing down these props
+            /* eslint-disable no-unused-vars */
+            value: v, autoFocus, pattern, patternInvalidMsg, isFocusedSelectAll,
+            onPressEnter, onValid, onInvalid, onClear, onPasswordVisible, onPasswordInvisible,
+            /* eslint-enable no-unused-vars */
 
-                ...restProps
+            ...restProps
 
-            } = this.props,
-            {value, isFocused, passwordVisible, infoVisible, errorVisible, invalidMsgs} = this.state,
+        } = this.props;
+        const {value, isFocused, passwordVisible, infoVisible, errorVisible, invalidMsgs} = this.state;
 
-            isPassword = type === FieldType.PASSWORD,
-            empty = value == null || value.length <= 0;
+        const isPassword = type === FieldType.PASSWORD;
+        const empty = value == null || value.length <= 0;
 
         let inputType = type;
         if (inputType === FieldType.PASSWORD) {
@@ -232,6 +232,7 @@ class TextField extends Component {
                 [triggerClassName]: triggerClassName
             }),
             type: inputType,
+            value,
             disabled: disabled,
             maxLength: isStrictMaxLength ? maxLength : null,
             onChange: this.handleChange,
@@ -285,7 +286,7 @@ class TextField extends Component {
                             null
                     }
 
-                    {createElement('input', inputProps)}
+                    <input {...inputProps}/>
 
                     {
                         clearButtonVisible ?
