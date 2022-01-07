@@ -115,8 +115,8 @@ class Accordion extends Component {
 
     render() {
 
-        const {children, className, style, title, collapseIcon, titleRenderer} = this.props,
-            {collapsed, contentHeight} = this.state;
+        const {children, className, style, title, collapseIcon, titleRenderer} = this.props;
+        const {collapsed, contentHeight} = this.state;
 
         return (
             <div className={classNames('accordion', {
