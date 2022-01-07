@@ -2,7 +2,7 @@
  * @file TipProvider component
  */
 
-import React, {Component, cloneElement, Fragment, createRef} from 'react';
+import React, {Component, cloneElement,  createRef} from 'react';
 import PropTypes from 'prop-types';
 
 // components
@@ -160,7 +160,7 @@ class TipProvider extends Component {
         }
 
         return (
-            <Fragment>
+            <>
 
                 {
                     cloneElement(children, {
@@ -178,7 +178,7 @@ class TipProvider extends Component {
                     {tipContent}
                 </Tip>
 
-            </Fragment>
+            </>
         );
     }
 
