@@ -2,7 +2,7 @@
  * @file PopupProvider component
  */
 
-import React, {Component, cloneElement, Fragment, createRef} from 'react';
+import React, {Component, cloneElement, createRef} from 'react';
 import PropTypes from 'prop-types';
 import {findDOMNode} from 'react-dom';
 
@@ -124,7 +124,7 @@ class PopupProvider extends Component {
         }
 
         return (
-            <Fragment>
+            <>
 
                 {
                     cloneElement(children, {
@@ -140,7 +140,7 @@ class PopupProvider extends Component {
                     {popupContent}
                 </Popup>
 
-            </Fragment>
+            </>
         );
     }
 
