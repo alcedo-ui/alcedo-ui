@@ -4,6 +4,7 @@
 
 import React, {Component} from 'react';
 
+// Components
 import TextField from 'src/TextField';
 import TextFieldGroup from 'src/TextFieldGroup';
 import Widget from 'src/Widget';
@@ -11,9 +12,11 @@ import WidgetHeader from 'src/WidgetHeader';
 import RaisedButton from 'src/RaisedButton';
 import Dialog from 'src/Dialog';
 
+// Docs
 import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/TextField.json';
 
+// Styles
 import 'scss/containers/app/modules/field/TextFieldExamples.scss';
 
 class TextFieldExamples extends Component {
