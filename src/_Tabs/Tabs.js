@@ -291,8 +291,8 @@ class Tabs extends Component {
 
                                                     if (tabButtonRenderer) {
                                                         if (typeof tabButtonRenderer === 'function') {
-                                                            return tabButtonRenderer.bind(
-                                                                null, value, activated, tabButton
+                                                            return tabButtonRenderer(
+                                                                value, activated, tabButton
                                                             );
                                                         }
                                                         return tabButtonRenderer;
