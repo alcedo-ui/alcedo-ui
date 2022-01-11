@@ -233,9 +233,14 @@ Tab.propTypes = {
         iconPosition: PropTypes.string,
 
         /**
-         * The render of tab button.
+         * The render of tab button content.
          */
         renderer: PropTypes.any,
+
+        /**
+         * The render of tab button.
+         */
+        tabButtonRenderer: PropTypes.any,
 
         /**
          * The render content in tab.
