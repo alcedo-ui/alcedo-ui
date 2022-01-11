@@ -251,18 +251,18 @@ class Tabs extends Component {
 
                                                     const {
 
-                                                            style, value, renderer,
+                                                        style, value, renderer, tabButtonRenderer,
 
-                                                            // not passing down these props
-                                                            // eslint-disable-next-line no-unused-vars
-                                                            tabContentRenderer, onActive,
+                                                        // not passing down these props
+                                                        // eslint-disable-next-line no-unused-vars
+                                                        tabContentRenderer, onActive,
 
-                                                            ...restProps
+                                                        ...restProps
 
-                                                        } = item,
-                                                        activated = activatedIndex === index;
+                                                    } = item;
+                                                    const activated = activatedIndex === index;
 
-                                                    return (
+                                                    const tabButton = (
                                                         <TabButton {...restProps}
                                                                    key={idField && item[idField] || index}
                                                                    style={{
@@ -288,6 +288,17 @@ class Tabs extends Component {
                                                                    onMouseUp={onTabMouseUp}
                                                                    onClick={onTabClick}/>
                                                     );
+
+                                                    if (tabButtonRenderer) {
+                                                        if (typeof tabButtonRenderer === 'function') {
+                                                            return tabButtonRenderer.bind(
+                                                                null, value, activated, tabButton
+                                                            );
+                                                        }
+                                                        return tabButtonRenderer;
+                                                    }
+
+                                                    return tabButton;
 
                                                 }) || null
                                             }
@@ -392,9 +403,14 @@ Tabs.propTypes = {
         iconPosition: PropTypes.string,
 
         /**
-         * The render of tab button.
+         * The render of tab button content.
          */
         renderer: PropTypes.any,
+
+        /**
+         * The render of tab button.
+         */
+        tabButtonRenderer: PropTypes.any,
 
         /**
          * The render content in tab.
