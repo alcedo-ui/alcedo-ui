@@ -69,17 +69,13 @@ class Toaster extends Component {
     }
 
     componentDidMount() {
-        this.popInstance = this.pop && this.pop.current;
+        this.popInstance = this.pop?.current;
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.props.toasts && this.props.toasts.length > 0) {
-
-            this.popInstance && this.popInstance.resetPosition();
-
-            const {onToastPop} = this.props;
-            onToastPop && onToastPop();
-
+            this.popInstance?.resetPosition?.();
+            this.props.onToastPop?.();
         }
     }
 
@@ -100,9 +96,7 @@ class Toaster extends Component {
         this.setState({
             toasts,
             visible: true
-        }, () => {
-            this.popInstance && this.popInstance.resetPosition();
-        });
+        }, () => this.popInstance?.resetPosition?.());
 
     };
 
@@ -122,9 +116,7 @@ class Toaster extends Component {
             if (toasts.length < 1) {
                 this.setState({
                     visible: false
-                }, () => {
-                    this.popInstance && this.popInstance.resetPosition();
-                });
+                }, () => this.popInstance?.resetPosition?.());
             }
         });
 
@@ -134,15 +126,16 @@ class Toaster extends Component {
 
         const {
 
-                className, position, duration,
+            className, position, duration,
 
-                // not passing down these props
-                onToastPop,
+            // not passing down these props
+            // eslint-disable-next-line no-unused-vars
+            onToastPop,
 
-                ...restProps
+            ...restProps
 
-            } = this.props,
-            {toasts, visible} = this.state;
+        } = this.props;
+        const {toasts, visible} = this.state;
 
         return (
             <PositionPop {...restProps}
@@ -154,12 +147,12 @@ class Toaster extends Component {
                          visible={visible}
                          position={position}>
                 {
-                    toasts && toasts.map(options =>
+                    toasts?.map(options =>
                         <Toast {...options}
                                key={options.toastsId}
                                duration={'duration' in options ? options.duration : duration}
                                onRequestClose={this.removeToast}/>
-                    )
+                    ) || null
                 }
             </PositionPop>
         );
