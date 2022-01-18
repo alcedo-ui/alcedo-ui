@@ -42,8 +42,8 @@ class DateRangeFieldExamples extends Component {
                                 <p><code>Date Range Field</code>simple example.</p>
 
                                 <DateRangeField onChange={this.onChangeHandler}
-                                                minValue="2021-11-19"
-                                                maxValue="2022-10-13"
+                                                // minValue="2021-11-19"
+                                                // maxValue="2022-10-13"
                                                 value={['2022-10-13', '2022-10-13']}
                                                 otherSelectedDate={[{
                                                     value: ['2021-11-25', '2021-11-27'], tip: 'Multiplier: 3.260'
@@ -75,8 +75,8 @@ class DateRangeFieldExamples extends Component {
 
                                 <DateRangeField value={['2015-07-21', '2017-04-21']}
                                                 dateFormat={'YYYY-MM-DD'}
-                                                maxValue={'2017-04-23'}
-                                                minValue={'2015-07-13'}
+                                                // maxValue={'2017-04-23'}
+                                                // minValue={'2015-07-13'}
                                                 onChange={this.onChangeHandler}/>
 
                             </div>

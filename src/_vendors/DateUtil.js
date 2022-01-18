@@ -44,7 +44,7 @@ function MonthDays(year) {
 function setDateRange(start, end) {
 
     if (start.year?.toString() === end.year?.toString() && start.month?.toString() === end.month?.toString()) {
-        if (start.month?.toString() === '12') {
+        if (parseInt(start.month, 10) === 12) {
             end.year = +(end.year) + 1;
             end.month = 1;
         } else {

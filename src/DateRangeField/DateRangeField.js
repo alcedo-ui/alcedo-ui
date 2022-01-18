@@ -267,8 +267,8 @@ class DateRangePickerContent extends Component {
         } = this;
 
         let maxYear = right.year, maxMonth = right.month;
-        maxYear = maxMonth?.toString() === '1' ? +maxYear - 1 : maxYear;
-        maxMonth = maxMonth?.toString() === '1' ? 11 : +maxMonth - 2;
+        maxYear = parseInt(maxMonth, 10) === 1 ? +maxYear - 1 : maxYear;
+        maxMonth = parseInt(maxMonth, 10) === 1 ? 11 : +maxMonth - 2;
 
         let maxDay = DateUtil.MonthDays(maxYear)[maxMonth],
             leftMaxValue = maxValue && moment([maxYear, maxMonth, maxDay]).isAfter(maxValue) ?
@@ -277,8 +277,8 @@ class DateRangePickerContent extends Component {
                 moment([maxYear, maxMonth, maxDay]).format('YYYY-MM-DD'),
             minYear = left.year,
             minMonth = left.month;
-        minYear = minMonth?.toString() === '12' ? +minYear + 1 : minYear;
-        minMonth = minMonth?.toString() === '12' ? 1 : +minMonth + 1;
+        minYear = parseInt(minMonth, 10) === 12 ? +minYear + 1 : minYear;
+        minMonth = parseInt(minMonth, 10) === 12 ? 1 : +minMonth + 1;
 
         let rightMinValue = minValue && moment([minYear, minMonth - 1, 1]).isBefore(minValue) ?
                 minValue
