@@ -103,14 +103,16 @@ class TextFieldExamples extends Component {
 
                                 <div className="field-group">
                                     <label className="text-field-label">Default</label>
-                                    <TextField value={value[0] || ''}
+                                    <TextField name="username"
+                                               value={value[0] || ''}
                                                maxLength={20}
                                                onChange={v => this.handleChange(v, 0)}/>
                                 </div>
 
                                 <div className="field-group">
                                     <label className="text-field-label">Password</label>
-                                    <TextField type="password"
+                                    <TextField name="password"
+                                               type="password"
                                                rightIconCls="fas fa-lock"
                                                value={value[1] || ''}
                                                onChange={v => this.handleChange(v, 1)}/>
