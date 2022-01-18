@@ -46,6 +46,7 @@ class TextField extends Component {
         this.state = {
             value: props.value,
             isFocused: !!props.autoFocus,
+            readOnly: props.preventBrowserAutoFill ? true : !!props.readOnly,
             passwordVisible: false,
             infoVisible: false,
             errorVisible: false,
@@ -176,9 +177,16 @@ class TextField extends Component {
     };
 
     handleFocus = e => {
-        this.setState({
+
+        const state = {
             isFocused: true
-        }, () => {
+        };
+
+        if (this.props.preventBrowserAutoFill) {
+            state.readOnly = !!this.props.readOnly;
+        }
+
+        this.setState(state, () => {
 
             const {isFocusedSelectAll} = this.props;
             const {value} = this.state;
@@ -187,6 +195,7 @@ class TextField extends Component {
             isFocusedSelectAll && this.inputEl?.setSelectionRange?.(0, value == null ? 0 : value.length);
 
         });
+
     };
 
     handleBlur = e => {
@@ -196,9 +205,15 @@ class TextField extends Component {
             return;
         }
 
-        this.setState({
+        const state = {
             isFocused: false
-        }, () => this.props?.onBlur?.(e, this.state.value));
+        };
+
+        if (this.props.preventBrowserAutoFill) {
+            state.readOnly = true;
+        }
+
+        this.setState(state, () => this.props?.onBlur?.(e, this.state.value));
 
     };
 
@@ -225,7 +240,10 @@ class TextField extends Component {
             ...restProps
 
         } = this.props;
-        const {value, isFocused, passwordVisible, infoVisible, errorVisible, invalidMsgs} = this.state;
+        const {
+            value,
+            isFocused, readOnly, passwordVisible, infoVisible, errorVisible, invalidMsgs
+        } = this.state;
 
         const isPassword = type === FieldType.PASSWORD;
         const empty = value == null || value.length <= 0;
@@ -245,7 +263,8 @@ class TextField extends Component {
             }),
             type: inputType,
             // value,
-            disabled: disabled,
+            disabled,
+            readOnly,
             maxLength: isStrictMaxLength ? maxLength : null,
             onChange: this.handleChange,
             onKeyDown: this.handleKeyDown,
@@ -486,6 +505,8 @@ TextField.propTypes = {
     tip: PropTypes.string,
     tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
 
+    preventBrowserAutoFill: Position.bool,
+
     /**
      * Callback function fired when the textField is changed.
      */
@@ -569,7 +590,8 @@ TextField.defaultProps = {
     autoCapitalize: 'off',
     spellCheck: 'false',
     isStrictMaxLength: true,
-    fieldMsgVisible: false
+    fieldMsgVisible: false,
+    preventBrowserAutoFill: false
 
 };
 
