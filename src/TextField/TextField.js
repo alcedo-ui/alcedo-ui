@@ -233,7 +233,7 @@ class TextField extends Component {
 
             // not passing down these props
             /* eslint-disable no-unused-vars */
-            value: v, autoFocus, pattern, patternInvalidMsg, isFocusedSelectAll,
+            value: v, autoFocus, pattern, patternInvalidMsg, isFocusedSelectAll, preventBrowserAutoFill,
             onPressEnter, onValid, onInvalid, onClear, onPasswordVisible, onPasswordInvisible,
             /* eslint-enable no-unused-vars */
 
@@ -505,7 +505,7 @@ TextField.propTypes = {
     tip: PropTypes.string,
     tipPosition: PropTypes.oneOf(Util.enumerateValue(Position)),
 
-    preventBrowserAutoFill: Position.bool,
+    preventBrowserAutoFill: PropTypes.bool,
 
     /**
      * Callback function fired when the textField is changed.
