@@ -56,10 +56,19 @@ class TextField extends Component {
 
     componentDidMount() {
 
-        this.inputEl = this.input && this.input.current;
+        this.inputEl = this.input?.current;
 
         if (this.props.autoFocus === true) {
             this.focus();
+        }
+
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+
+        // Update password input value
+        if (this.props.type === FieldType.PASSWORD && prevProps.value !== this.props.value && this.inputEl) {
+            this.inputEl.value = this.props.value;
         }
 
     }
@@ -82,8 +91,8 @@ class TextField extends Component {
 
         e?.persist?.();
 
-        const value = e.target.value,
-            invalidMsgs = Valid.fieldValid(value, this.props);
+        const value = e.target.value;
+        const invalidMsgs = Valid.fieldValid(value, this.props);
 
         this.setState({
             value,
@@ -108,8 +117,8 @@ class TextField extends Component {
 
     clearValue = () => {
 
-        const {disabled, clearButtonVisible, onClear, onChange, onValid, onInvalid} = this.props,
-            invalidMsgs = Valid.fieldValid('', this.props);
+        const {disabled, clearButtonVisible} = this.props;
+        const invalidMsgs = Valid.fieldValid('', this.props);
 
         !disabled && clearButtonVisible && this.setState({
             value: '',
@@ -120,10 +129,13 @@ class TextField extends Component {
 
             this.focus();
 
-            onClear && onClear();
-            onChange && onChange('');
+            this.props.onClear?.();
+            this.props.onChange?.('');
 
-            invalidMsgs && invalidMsgs.length > 0 ? onInvalid && onInvalid() : onValid && onValid();
+            invalidMsgs?.length > 0 ?
+                this.props.onInvalid?.()
+                :
+                this.props.onValid?.();
 
         });
 
@@ -131,8 +143,8 @@ class TextField extends Component {
 
     togglePasswordVisible = () => {
 
-        const {disabled, passwordButtonVisible, onPasswordVisible, onPasswordInvisible} = this.props,
-            passwordVisible = !this.state.passwordVisible;
+        const {disabled, passwordButtonVisible} = this.props;
+        const passwordVisible = !this.state.passwordVisible;
 
         !disabled && passwordButtonVisible && this.setState({
             passwordVisible
@@ -141,9 +153,9 @@ class TextField extends Component {
             this.focus();
 
             passwordVisible ?
-                (onPasswordVisible && onPasswordVisible())
+                this.props.onPasswordVisible?.()
                 :
-                (onPasswordInvisible && onPasswordInvisible());
+                this.props.onPasswordInvisible?.();
 
         });
 
@@ -168,8 +180,8 @@ class TextField extends Component {
             isFocused: true
         }, () => {
 
-            const {isFocusedSelectAll} = this.props,
-                {value} = this.state;
+            const {isFocusedSelectAll} = this.props;
+            const {value} = this.state;
 
             this.props.onFocus?.(e, value);
             isFocusedSelectAll && this.inputEl?.setSelectionRange?.(0, value == null ? 0 : value.length);
@@ -232,7 +244,7 @@ class TextField extends Component {
                 [triggerClassName]: triggerClassName
             }),
             type: inputType,
-            value,
+            // value,
             disabled: disabled,
             maxLength: isStrictMaxLength ? maxLength : null,
             onChange: this.handleChange,
