@@ -74,7 +74,7 @@ class MeasureTd extends Component {
     render() {
         return (
             <td ref={this.td}
-                className="measure-td"></td>
+                className="measure-td"/>
         );
     }
 
