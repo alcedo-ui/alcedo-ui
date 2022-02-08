@@ -211,6 +211,7 @@ PopoverProvider.propTypes = {
     shouldFollowScroll: PropTypes.bool,
     scrollEl: PropTypes.object,
 
+    closeWait: PropTypes.number,
     resetPositionWait: PropTypes.number,
     showModal: PropTypes.bool,
 
@@ -265,6 +266,7 @@ PopoverProvider.defaultProps = {
 
     isBlurClose: true,
     shouldFollowScroll: false,
+    closeWait: 1000 / 6,
     resetPositionWait: 250,
     showModal: false
 
