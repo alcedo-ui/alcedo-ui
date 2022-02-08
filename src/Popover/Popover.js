@@ -61,7 +61,7 @@ class Popover extends Component {
 
     handleMouseOut = e => {
         this.clearCloseTimeout();
-        this.closeTimeout = setTimeout(() => this.props.onRequestClose?.(e), 1000 / 6);
+        this.closeTimeout = setTimeout(() => this.props.onRequestClose?.(e), this.props.closeWait);
     };
 
     handleRender = (el, ...restArgs) => {
@@ -182,6 +182,7 @@ Popover.propTypes = {
     shouldFollowScroll: PropTypes.bool,
     scrollEl: PropTypes.object,
 
+    closeWait: PropTypes.number,
     resetPositionWait: PropTypes.number,
     showModal: PropTypes.bool,
 
@@ -229,6 +230,7 @@ Popover.defaultProps = {
 
     isBlurClose: true,
     shouldFollowScroll: false,
+    closeWait: 1000 / 6,
     resetPositionWait: 250,
     showModal: false
 
