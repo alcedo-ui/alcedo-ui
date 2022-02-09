@@ -112,7 +112,7 @@ class PopoverProvider extends Component {
 
                 // not passing down these props
                 // eslint-disable-next-line no-unused-vars
-                closeWait, onRequestOpen, onRequestClose,
+                onRequestOpen, onRequestClose,
 
                 ...restProps
 
