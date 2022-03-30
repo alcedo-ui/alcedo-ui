@@ -617,7 +617,7 @@ DropdownSelect.propTypes = {
     rightIconCls: PropTypes.string,
 
     /**
-     * The options data.
+     * The options' data.
      */
     data: PropTypes.oneOfType([
 
@@ -657,7 +657,7 @@ DropdownSelect.propTypes = {
             disabled: PropTypes.bool,
 
             /**
-             * If true,the button will be have loading effect.
+             * If true, the button will have loading effect.
              */
             isLoading: PropTypes.bool,
 
@@ -739,7 +739,7 @@ DropdownSelect.propTypes = {
     infoMsg: PropTypes.string,
 
     /**
-     * Use this function to format the options's text.
+     * Use this function to format the options' text.
      */
     textFormat: PropTypes.func,
 
@@ -749,7 +749,7 @@ DropdownSelect.propTypes = {
     autoClose: PropTypes.bool,
 
     /**
-     * If true, the drop-down box automatically closed when blur.
+     * If true, the drop-down box automatically closed when it blur.
      */
     isBlurClose: PropTypes.bool,
 
