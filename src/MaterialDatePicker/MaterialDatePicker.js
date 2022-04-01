@@ -68,7 +68,7 @@ class MaterialDatePicker extends Component {
             const flag = moment(text, this.props.dateFormat, true).isValid();
             if (flag) {
                 if (minValue && moment(text).isBefore(minValue) || maxValue && moment(text).isAfter(maxValue)) {
-
+                    return;
                 } else {
                     !this.props.disabled && this.setState({
                         value: moment(text, dateFormat),
@@ -205,33 +205,34 @@ class MaterialDatePicker extends Component {
         const value = ComponentUtil.getDerivedState(props, state, 'value'),
             minValue = ComponentUtil.getDerivedState(props, state, 'minValue'),
             dateFormat = ComponentUtil.getDerivedState(props, state, 'dateFormat');
-
-        return {
-            prevProps: props,
-            dateFormat,
-            value,
-            year: value ?
-                moment(value).format('YYYY')
-                :
-                minValue ?
-                    moment(minValue).format('YYYY')
+        if (JSON.stringify(props) !== JSON.stringify(state.prevProps)) {
+            return {
+                prevProps: props,
+                dateFormat,
+                value,
+                year: value ?
+                    moment(value).format('YYYY')
                     :
-                    moment().format('YYYY'),
-            month: value ?
-                moment(value).format('MM')
-                :
-                minValue ?
-                    moment(minValue).format('MM')
+                    minValue ?
+                        moment(minValue).format('YYYY')
+                        :
+                        moment().format('YYYY'),
+                month: value ?
+                    moment(value).format('MM')
                     :
-                    moment().format('MM'),
-            day: value ?
-                moment(value).format('DD')
-                :
-                minValue ?
-                    moment(minValue).format('DD')
+                    minValue ?
+                        moment(minValue).format('MM')
+                        :
+                        moment().format('MM'),
+                day: value ?
+                    moment(value).format('DD')
                     :
-                    moment().format('DD')
-        };
+                    minValue ?
+                        moment(minValue).format('DD')
+                        :
+                        moment().format('DD')
+            };
+        }
     }
 
     render() {
