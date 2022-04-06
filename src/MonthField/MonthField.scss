@@ -1,0 +1,41 @@
+/**
+ * @file MonthPicker style
+ */
+
+.month-field {
+    width: 300px;
+    border: 1px solid #dfdfdf;
+
+    .calendar {
+        user-select: none;
+
+        .calendar-header {
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            font-size: 14px;
+            border-bottom: 1px solid #dfdfdf;
+
+            .date-text {
+                margin: 0 20px;
+                cursor: pointer;
+            }
+
+            i {
+                cursor: pointer;
+                width: 20px;
+                height: 18px;
+                font-size: 22px;
+                position: relative;
+                overflow: hidden;
+                color: #c5c9ce;
+            }
+        }
+
+        .calendar-body {
+            border-bottom: 1px solid #dfdfdf;
+            padding-bottom: 5px;
+
+        }
+    }
+}

@@ -247,6 +247,11 @@ export default function configureRoutes(store) {
                         /* webpackChunkName: "DateFieldExamples" */
                         'modules/date/DateFieldExamples'), store)
                 }, {
+                    path: '/components/MonthField',
+                    component: ac(() => import(
+                        /* webpackChunkName: "DateFieldExamples" */
+                        'modules/date/MonthFieldExamples'), store)
+                }, {
                     path: '/components/MonthPicker',
                     component: ac(() => import(
                         /* webpackChunkName: "MonthPickerExamples" */

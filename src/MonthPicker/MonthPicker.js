@@ -56,7 +56,7 @@ class MonthPicker extends Component {
             const flag = moment(text, this.props.dateFormat, true).isValid();
             if (flag) {
                 if (minValue && moment(text).isBefore(minValue) || maxValue && moment(text).isAfter(maxValue)) {
-
+                    return;
                 } else {
                     const year = moment(text).format('YYYY'),
                         month = moment(text).format('MM');
@@ -69,7 +69,7 @@ class MonthPicker extends Component {
                     });
                 }
             } else {
-
+                return;
             }
         } else {
             this.setState({
@@ -98,7 +98,7 @@ class MonthPicker extends Component {
         });
     };
 
-    togglePopup = e => {
+    togglePopup = () => {
         if (this.validValue) {
             this.setState({
                 popupVisible: !this.state.popupVisible
@@ -200,7 +200,7 @@ class MonthPicker extends Component {
                        onRequestClose={this.closePopup}>
 
                     {
-                        datePickerLevel == 'month' ?
+                        datePickerLevel === 'month' ?
                             <Month value={value}
                                    year={year}
                                    month={month}

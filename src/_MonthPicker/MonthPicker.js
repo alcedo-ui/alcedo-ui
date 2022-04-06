@@ -10,6 +10,10 @@ import classNames from 'classnames';
 import TouchRipple from '../TouchRipple';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
+// Statics
+import SelectMode from '../_statics/SelectMode';
+import Util from '../_vendors/Util';
+
 class MonthPicker extends Component {
 
     constructor(props, ...restArgs) {
@@ -17,7 +21,9 @@ class MonthPicker extends Component {
         super(props, ...restArgs);
 
         this.defaultTable = {
+            // eslint-disable-next-line camelcase
             row_number: 4,
+            // eslint-disable-next-line camelcase
             col_number: 3
         };
 
@@ -75,19 +81,20 @@ class MonthPicker extends Component {
                 currentYear: moment(value).format('YYYY'),
                 currentMonth: moment(value).format('MM')
             });
-
         }
     }
 
     static getDerivedStateFromProps(props, state) {
 
         const value = ComponentUtil.getDerivedState(props, state, 'value'),
+            selectMode = ComponentUtil.getDerivedState(props, state, 'selectMode'),
             selectYear = ComponentUtil.getDerivedState(props, state, 'year', 'selectYear'),
             selectMonth = ComponentUtil.getDerivedState(props, state, 'month', 'selectMonth');
 
         return {
             prevProps: props,
             value,
+            selectMode,
             selectYear,
             selectMonth,
             currentYear: moment(props.value).format('YYYY'),
@@ -97,7 +104,7 @@ class MonthPicker extends Component {
 
 
     monthsRender = () => {
-        const {maxValue, minValue} = this.props,
+        const {maxValue, minValue, selectMode, value} = this.props,
             {selectYear, selectMonth, currentYear} = this.state, {selectDate} = this,
             MonthEn = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         let currentMonths = [],
@@ -106,13 +113,19 @@ class MonthPicker extends Component {
         for (let i = 0; i < MonthEn.length; i++) {
 
             let liClassName = classNames({
-                'active': (currentYear == selectYear) && (Number(selectMonth) == (i + 1)),
+                'active': selectMode === SelectMode.SINGLE_SELECT ?
+                    (currentYear == selectYear) && (Number(selectMonth) == (i + 1))
+                    :
+                    value.find(item => (moment(item).format('YYYY') == selectYear) &&
+                        (Number(moment(item).format('MM')) == (i + 1))),
                 'item-gray': (maxValue && (moment(maxValue).format('YYYY') == selectYear) &&
-                    (+(moment(maxValue).format('MM'))) < (i + 1)) || (minValue && (moment(minValue).format('YYYY') == selectYear) &&
-                    (+(moment(minValue).format('MM'))) > (i + 1)),
+                        (+(moment(maxValue).format('MM'))) < (i + 1)) ||
+                    (minValue && (moment(minValue).format('YYYY') == selectYear) &&
+                        (+(moment(minValue).format('MM'))) > (i + 1)),
                 'current-years': !(maxValue && (moment(maxValue).format('YYYY') == selectYear) &&
-                    (+(moment(maxValue).format('MM'))) < (i + 1)) || (minValue && (moment(minValue).format('YYYY') == selectYear) &&
-                    (+(moment(minValue).format('MM'))) > (i + 1))
+                        (+(moment(maxValue).format('MM'))) < (i + 1)) ||
+                    (minValue && (moment(minValue).format('YYYY') == selectYear) &&
+                        (+(moment(minValue).format('MM'))) > (i + 1))
             });
 
             currentMonths.push(<li className={liClassName}
@@ -148,6 +161,7 @@ class MonthPicker extends Component {
 
     render() {
 
+        // eslint-disable-next-line react/prop-types
         const {maxValue, minValue, previousYearIconCls, nextYearIconCls} = this.props, {selectYear} = this.state,
             {previousYear, nextYear, previousLevel} = this,
             monthsRenderArray = this.monthsRender(),
@@ -205,11 +219,20 @@ MonthPicker.propTypes = {
     value: PropTypes.any,
     maxValue: PropTypes.any,
     minValue: PropTypes.any,
+    /**
+     * The mode of monthField.
+     */
+    selectMode: PropTypes.oneOf(Util.enumerateValue(SelectMode)),
     year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     month: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     day: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     onChange: PropTypes.func,
     previousClick: PropTypes.func
+};
+
+
+MonthPicker.defaultProps = {
+    selectMode: SelectMode.SINGLE_SELECT
 };
 
 export default MonthPicker;

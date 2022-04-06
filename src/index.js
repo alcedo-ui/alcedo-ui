@@ -71,6 +71,7 @@ export MaterialTextArea from './MaterialTextArea';
 export MaterialTextField from './MaterialTextField';
 export MaterialTimePicker from './MaterialTimePicker';
 export MaterialTreeSelect from './MaterialTreeSelect';
+export MonthField from './MonthField';
 export MonthPicker from './MonthPicker';
 export MultipleSelect from './MultipleSelect';
 export Notifier from './Notifier';
@@ -115,4 +116,4 @@ export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 115;
+export const COMPONENTS_TOTAL_COUNT = 116;
