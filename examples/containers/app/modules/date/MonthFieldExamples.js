@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import MonthField from 'src/MonthField';
 import Widget from 'src/Widget';
+import Paper from 'src/Paper';
 import WidgetHeader from 'src/WidgetHeader';
 
 import PropTypeDescTable from 'components/PropTypeDescTable';
@@ -64,10 +65,41 @@ class MonthFieldExamples extends Component {
                                     date and the <code>dateFormat</code> property to set date format.</p>
 
                                 <MonthField dateFormat={'YYYY-MM'}
-                                            value={['2015-08', '2015-09']}
-                                            selectMode={MonthField.SelectMode.MULTI_SELECT}
+                                            value="2015-08"
                                             onChange={this.onChangeHandler}/>
 
+                            </div>
+
+                        </div>
+                    </div>
+
+                </Widget>
+
+                <Widget>
+
+                    <WidgetHeader className="example-header" title="With value and dateFormat"/>
+
+                    <div className="widget-content">
+                        <div className="example-content">
+
+                            <div className="examples-wrapper">
+                                <p>
+                                    A <code>Month Field</code> with select mode.Can
+                                    be <code>SINGLE_SELECT</code>, <code>MULTI_SELECT</code>.
+                                </p>
+                                <Paper style={{width: 302, marginTop: 20}}>
+                                    <MonthField dateFormat={'YYYY-MM'}
+                                                value="2015-09"
+                                                selectMode={MonthField.SelectMode.SINGLE_SELECT}
+                                                onChange={this.onChangeHandler}/>
+                                </Paper>
+
+                                <Paper style={{width: 302, marginTop: 20}}>
+                                    <MonthField dateFormat={'YYYY-MM'}
+                                                value={['2015-08', '2015-09']}
+                                                selectMode={MonthField.SelectMode.MULTI_SELECT}
+                                                onChange={this.onChangeHandler}/>
+                                </Paper>
                             </div>
 
                         </div>

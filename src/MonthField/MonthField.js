@@ -110,8 +110,25 @@ class MonthField extends Component {
                     value.map(item => moment(item).format(dateFormat))
                     :
                     [],
-            year: value?.[0] ? moment(value[0]).format('YYYY') : moment().format('YYYY'),
-            month: value?.[0] ? moment(value[0]).format('MM') : moment().format('MM')
+            year: selectMode === SelectMode.SINGLE_SELECT ?
+                value ?
+                    moment(value).format('YYYY')
+                    :
+                    moment().format('YYYY')
+                :
+                value?.[0] ? moment(value[0]).format('YYYY')
+                    :
+                    moment().format('YYYY'),
+            month: selectMode === SelectMode.SINGLE_SELECT ?
+                value ?
+                    moment(value).format('MM')
+                    :
+                    moment().format('MM')
+                :
+                value?.[0] ?
+                    moment(value[0]).format('MM')
+                    :
+                    moment().format('MM')
         });
     }
 
