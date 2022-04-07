@@ -205,35 +205,42 @@ class MaterialDatePicker extends Component {
         const value = ComponentUtil.getDerivedState(props, state, 'value'),
             minValue = ComponentUtil.getDerivedState(props, state, 'minValue'),
             dateFormat = ComponentUtil.getDerivedState(props, state, 'dateFormat');
-        if (props?.value !== state?.prevProps?.value || props?.dateFormat !== state?.prevProps?.dateFormat
-            || props?.minValue !== state?.prevProps?.minValue) {
-            return {
-                prevProps: props,
-                dateFormat,
-                value,
-                year: value ?
+
+        return {
+            prevProps: props,
+            dateFormat,
+            value,
+            year: props?.value !== state?.prevProps?.value ?
+                value ?
                     moment(value).format('YYYY')
                     :
                     minValue ?
                         moment(minValue).format('YYYY')
                         :
-                        moment().format('YYYY'),
-                month: value ?
+                        moment().format('YYYY')
+                :
+                state.year,
+            month: props?.value !== state?.prevProps?.value ?
+                value ?
                     moment(value).format('MM')
                     :
                     minValue ?
                         moment(minValue).format('MM')
                         :
-                        moment().format('MM'),
-                day: value ?
+                        moment().format('MM')
+                :
+                state.month,
+            day: props?.value !== state?.prevProps?.value ?
+                value ?
                     moment(value).format('DD')
                     :
                     minValue ?
                         moment(minValue).format('DD')
                         :
                         moment().format('DD')
-            };
-        }
+                :
+                state.day
+        };
     }
 
     render() {
