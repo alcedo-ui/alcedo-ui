@@ -12,13 +12,30 @@ class MonthFieldExamples extends Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            monthValue: {
+                1: '',
+                2: '2015-08',
+                3: '2015-09',
+                4: ['2015-08', '2015-09']
+            }
+        };
     }
 
-    onChangeHandler = value => {
+    onChangeHandler = (id, value) => {
+        const {monthValue} = this.state;
+
+        monthValue[id] = value;
+        this.setState({
+            monthValue
+        });
         console.log(value);
     };
 
     render() {
+        const {monthValue} = this.state;
+
         return (
 
             <div className="example date-range-picker-examples">
@@ -43,7 +60,8 @@ class MonthFieldExamples extends Component {
                                 <p><code>Month Field</code>simple example.</p>
 
                                 <MonthField minValue="2021-11"
-                                            onChange={this.onChangeHandler}/>
+                                            value={monthValue[1]}
+                                            onChange={value => this.onChangeHandler(1, value)}/>
 
                             </div>
 
@@ -65,8 +83,8 @@ class MonthFieldExamples extends Component {
                                     date and the <code>dateFormat</code> property to set date format.</p>
 
                                 <MonthField dateFormat={'YYYY-MM'}
-                                            value="2015-08"
-                                            onChange={this.onChangeHandler}/>
+                                            value={monthValue[2]}
+                                            onChange={value => this.onChangeHandler(2, value)}/>
 
                             </div>
 
@@ -89,16 +107,16 @@ class MonthFieldExamples extends Component {
                                 </p>
                                 <Paper style={{width: 302, marginTop: 20}}>
                                     <MonthField dateFormat={'YYYY-MM'}
-                                                value="2015-09"
+                                                value={monthValue[3]}
                                                 selectMode={MonthField.SelectMode.SINGLE_SELECT}
-                                                onChange={this.onChangeHandler}/>
+                                                onChange={value => this.onChangeHandler(3, value)}/>
                                 </Paper>
 
                                 <Paper style={{width: 302, marginTop: 20}}>
                                     <MonthField dateFormat={'YYYY-MM'}
-                                                value={['2015-08', '2015-09']}
+                                                value={monthValue[4]}
                                                 selectMode={MonthField.SelectMode.MULTI_SELECT}
-                                                onChange={this.onChangeHandler}/>
+                                                onChange={value => this.onChangeHandler(4, value)}/>
                                 </Paper>
                             </div>
 
