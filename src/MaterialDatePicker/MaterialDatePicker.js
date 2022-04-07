@@ -205,7 +205,8 @@ class MaterialDatePicker extends Component {
         const value = ComponentUtil.getDerivedState(props, state, 'value'),
             minValue = ComponentUtil.getDerivedState(props, state, 'minValue'),
             dateFormat = ComponentUtil.getDerivedState(props, state, 'dateFormat');
-        if (JSON.stringify(props) !== JSON.stringify(state.prevProps)) {
+        if (props?.value !== state?.prevProps?.value || props?.dateFormat !== state?.prevProps?.dateFormat
+            || props?.minValue !== state?.prevProps?.minValue) {
             return {
                 prevProps: props,
                 dateFormat,
