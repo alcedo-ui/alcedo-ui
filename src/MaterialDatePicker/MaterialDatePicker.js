@@ -210,7 +210,7 @@ class MaterialDatePicker extends Component {
             prevProps: props,
             dateFormat,
             value,
-            year: props?.value !== state?.prevProps?.value ?
+            year: props?.value !== state?.prevProps?.value || props?.minValue !== state?.prevProps?.minValue ?
                 value ?
                     moment(value).format('YYYY')
                     :
@@ -220,7 +220,7 @@ class MaterialDatePicker extends Component {
                         moment().format('YYYY')
                 :
                 state.year,
-            month: props?.value !== state?.prevProps?.value ?
+            month: props?.value !== state?.prevProps?.value || props?.minValue !== state?.prevProps?.minValue ?
                 value ?
                     moment(value).format('MM')
                     :
@@ -230,7 +230,7 @@ class MaterialDatePicker extends Component {
                         moment().format('MM')
                 :
                 state.month,
-            day: props?.value !== state?.prevProps?.value ?
+            day: props?.value !== state?.prevProps?.value || props?.minValue !== state?.prevProps?.minValue ?
                 value ?
                     moment(value).format('DD')
                     :

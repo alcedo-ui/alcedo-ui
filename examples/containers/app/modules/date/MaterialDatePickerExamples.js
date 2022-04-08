@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 import moment from 'moment';
 
 import MaterialDatePicker from 'src/MaterialDatePicker';
@@ -11,9 +11,6 @@ import PropTypeDescTable from 'components/PropTypeDescTable';
 import doc from 'assets/propTypes/MaterialDatePicker.json';
 
 import 'assets/scss/containers/app/modules/date/DateInDialog.scss';
-import DatePicker from '../../../../../src/DatePicker';
-
-
 
 class MaterialDatePickerExamples extends Component {
 
@@ -23,7 +20,7 @@ class MaterialDatePickerExamples extends Component {
 
         this.state = {
             start: this.yesterday(),
-            end: this.yesterday(),
+            end: '',
             MaterialDatePickerVisible: {},
             value: '2017-03-06'
         };
@@ -221,6 +218,6 @@ class MaterialDatePickerExamples extends Component {
             </div>
         );
     }
-};
+}
 
 export default MaterialDatePickerExamples;
