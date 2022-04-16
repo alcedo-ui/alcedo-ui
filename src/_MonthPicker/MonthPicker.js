@@ -43,15 +43,17 @@ class MonthPicker extends Component {
     };
 
     selectDate = selectMonth => {
-        const {onChange} = this.props, {selectYear} = this.state;
+        const {onChange, dateFormat} = this.props, {selectYear} = this.state,
+            month = +selectMonth - 1,
+            timer = moment([selectYear, month]).format(dateFormat);
         this.setState({
             currentYear: selectYear,
-            currentMonth: selectMonth,
-            selectMonth: selectMonth
+            currentMonth: month
         }, () => {
             onChange && onChange({
+                time: timer,
                 year: selectYear,
-                month: selectMonth
+                month: month
             });
         });
     };
@@ -102,8 +104,80 @@ class MonthPicker extends Component {
         };
     }
 
+    hoverDateHandle = selectMonth => {
+        const {hoverHandle, dateFormat} = this.props, {selectYear} = this.state,
+            month = +selectMonth - 1,
+            timer = moment([selectYear, month]).format(dateFormat);
 
-    monthsRender = () => {
+        hoverHandle && hoverHandle({
+            time: timer,
+            year: selectYear,
+            month: month
+        });
+    };
+
+    // eslint-disable-next-line complexity
+    rangeDateCurrentMonthsRender = () => {
+        const {startTime, endTime, hoverTime, maxValue, minValue} = this.props,
+            {selectYear} = this.state, {selectDate, hoverDateHandle} = this;
+        let currentMonths = [], monthslist = [],
+            monthEn = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            start = moment(endTime).isBefore(startTime) ? endTime : startTime,
+            end = moment(endTime).isBefore(startTime) ? startTime : endTime,
+            hover = moment(hoverTime).isBefore(startTime) ? startTime : hoverTime;
+        start = moment(hoverTime).isBefore(startTime) ? hoverTime : startTime;
+        // console.log(start, end);
+        for (let i = 0; i < monthEn.length; i++) {
+            const item = moment([Number(selectYear), i]).format('YYYY-MM'),
+                liClassName = classNames({
+                    'hover': (moment(start).isBefore(item) && moment(item).isBefore(end)) ||
+                        (moment(start).isBefore(item) && moment(item).isBefore(hover)),
+                    'current-years': !(maxValue && (moment(maxValue).format('YYYY') == selectYear) &&
+                            (+(moment(maxValue).format('MM'))) < (i + 1)) ||
+                        (minValue && (moment(minValue).format('YYYY') == selectYear) &&
+                            (+(moment(minValue).format('MM'))) > (i + 1)),
+                    'item-gray': (maxValue && (moment(maxValue).format('YYYY') == selectYear) &&
+                            (+(moment(maxValue).format('MM'))) < (i + 1)) ||
+                        (minValue && (moment(minValue).format('YYYY') == selectYear) &&
+                            (+(moment(minValue).format('MM'))) > (i + 1)),
+                    'active': start && end && moment(item).isBetween(start, end, null, '[]')
+                });
+            // console.log('item', moment(item).format('YYYY-MM'));
+            currentMonths.push(
+                <li className={liClassName}
+                    key={'current' + i}
+                    onClick={() => liClassName.indexOf('item-gray') === -1 && selectDate(i + 1)}
+                    onMouseOver={() => liClassName.indexOf('item-gray') === -1 && hoverDateHandle(i + 1)}
+                >
+                    <span className="date-text">
+                        {monthEn[i]}
+                        {
+                            liClassName.indexOf('item-gray') === -1 ?
+                                <TouchRipple/>
+                                :
+                                null
+                        }
+                    </span>
+                </li>);
+        }
+
+        if (currentMonths.length > 0) {
+            for (let i = 0; i < this.defaultTable.row_number; i++) {
+                let rowlist = [],
+                    startIndex = i * this.defaultTable.col_number,
+                    endIndex = (i + 1) * this.defaultTable.col_number;
+                for (let j = startIndex; j < endIndex; j++) {
+                    rowlist.push(currentMonths[j]);
+                }
+                monthslist.push(rowlist);
+            }
+        }
+
+        return monthslist;
+    };
+
+
+    singleDateCurrentMonthsRender = () => {
         const {maxValue, minValue, selectMode, value} = this.props,
             {selectYear, selectMonth, currentYear} = this.state, {selectDate} = this,
             MonthEn = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -144,6 +218,7 @@ class MonthPicker extends Component {
                 </span>
             </li>);
         }
+
         if (currentMonths.length > 0) {
             for (let i = 0; i < this.defaultTable.row_number; i++) {
                 let rowlist = [],
@@ -157,6 +232,11 @@ class MonthPicker extends Component {
         }
 
         return monthslist;
+    };
+
+    monthsRender = () => {
+        const {isRange} = this.props;
+        return isRange ? this.rangeDateCurrentMonthsRender() : this.singleDateCurrentMonthsRender();
     };
 
     render() {
@@ -217,8 +297,14 @@ class MonthPicker extends Component {
 MonthPicker.propTypes = {
     className: PropTypes.string,
     value: PropTypes.any,
+    isRange: PropTypes.bool,
     maxValue: PropTypes.any,
     minValue: PropTypes.any,
+    startTime: PropTypes.string,
+    endTime: PropTypes.any,
+    hoverTime: PropTypes.any,
+    otherSelectedDate: PropTypes.array,
+    dateFormat: PropTypes.string,
     /**
      * The mode of monthField.
      */
@@ -226,13 +312,15 @@ MonthPicker.propTypes = {
     year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     month: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     day: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    hoverHandle: PropTypes.func,
     onChange: PropTypes.func,
     previousClick: PropTypes.func
 };
 
-
 MonthPicker.defaultProps = {
-    selectMode: SelectMode.SINGLE_SELECT
+    selectMode: SelectMode.SINGLE_SELECT,
+    isRange: false,
+    otherSelectedDate: []
 };
 
 export default MonthPicker;

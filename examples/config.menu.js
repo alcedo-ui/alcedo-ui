@@ -46,6 +46,9 @@ export default [{
         text: 'DateRangeField',
         route: '/components/DateRangeField'
     }, {
+        text: 'MonthRangeField',
+        route: '/components/MonthRangeField'
+    }, {
         text: 'TimePicker',
         route: '/components/TimePicker'
     }, {
