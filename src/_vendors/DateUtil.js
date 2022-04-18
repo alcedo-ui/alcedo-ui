@@ -58,6 +58,19 @@ function setDateRange(start, end) {
     };
 }
 
+// eslint-disable-next-line require-jsdoc
+function setMonthRange(start, end) {
+
+    if (start.year?.toString() === end.year?.toString()) {
+        end.year = +(end.year) + 1;
+    }
+
+    return {
+        start,
+        end
+    };
+}
+
 
 // eslint-disable-next-line require-jsdoc
 function getYearArr(num) {
@@ -94,6 +107,7 @@ function getNextMinCloserDate(selectedDate, compareDateArray) {
 export default {
     MonthDays,
     setDateRange,
+    setMonthRange,
     getYearArr,
     getMonth,
     getPrevMaxCloserDate,

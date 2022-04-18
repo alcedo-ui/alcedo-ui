@@ -31,46 +31,55 @@ class MonthPicker extends Component {
             selectYear: props.year,
             selectMonth: props.month,
             currentYear: moment(props.value).format('YYYY'),
-            currentMonth: moment(props.value).format('MM'),
-            selectDay: props.day
+            currentMonth: moment(props.value).format('MM')
         };
 
     }
 
     previousLevel = () => {
-        const {previousClick} = this.props;
-        previousClick && previousClick('year');
+        this.props.previousClick?.('year');
     };
 
     selectDate = selectMonth => {
         const {onChange, dateFormat} = this.props, {selectYear} = this.state,
-            month = +selectMonth - 1,
-            timer = moment([selectYear, month]).format(dateFormat);
+            timer = moment([selectYear, +selectMonth - 1]).format(dateFormat);
         this.setState({
             currentYear: selectYear,
-            currentMonth: month
+            currentMonth: selectMonth
         }, () => {
             onChange && onChange({
                 time: timer,
                 year: selectYear,
-                month: month
+                month: selectMonth
             });
         });
     };
 
     previousYear = () => {
-        const {currentYear, currentMonth, selectYear} = this.state;
+        const {monthAndYearChange} = this.props,
+            {currentYear, currentMonth, selectYear} = this.state;
         this.setState({
             selectYear: +selectYear - 1,
             selectMonth: +currentYear === +selectYear - 1 ? currentMonth : undefined
+        }, () => {
+            monthAndYearChange?.({
+                year: +selectYear - 1,
+                month: +currentYear === +selectYear - 1 ? currentMonth : undefined
+            });
         });
     };
 
     nextYear = () => {
-        const {currentYear, currentMonth, selectYear} = this.state;
+        const {monthAndYearChange} = this.props,
+            {currentYear, currentMonth, selectYear} = this.state;
         this.setState({
             selectYear: +selectYear + 1,
             selectMonth: +currentYear === +selectYear + 1 ? currentMonth : undefined
+        }, () => {
+            monthAndYearChange?.({
+                year: +selectYear + 1,
+                month: +currentYear === +selectYear + 1 ? currentMonth : undefined
+            });
         });
     };
 
@@ -126,23 +135,23 @@ class MonthPicker extends Component {
             end = moment(endTime).isBefore(startTime) ? startTime : endTime,
             hover = moment(hoverTime).isBefore(startTime) ? startTime : hoverTime;
         start = moment(hoverTime).isBefore(startTime) ? hoverTime : startTime;
-        // console.log(start, end);
+
         for (let i = 0; i < monthEn.length; i++) {
             const item = moment([Number(selectYear), i]).format('YYYY-MM'),
                 liClassName = classNames({
-                    'hover': (moment(start).isBefore(item) && moment(item).isBefore(end)) ||
-                        (moment(start).isBefore(item) && moment(item).isBefore(hover)),
-                    'current-years': !(maxValue && (moment(maxValue).format('YYYY') == selectYear) &&
+                    'hover': (start && hover && moment(item).isBetween(start, hover, null, '[]')),
+                    'current-years': !(maxValue && (moment(maxValue).format('YYYY') === selectYear?.toString()) &&
                             (+(moment(maxValue).format('MM'))) < (i + 1)) ||
-                        (minValue && (moment(minValue).format('YYYY') == selectYear) &&
+                        (minValue && (moment(minValue).format('YYYY') === selectYear?.toString()) &&
                             (+(moment(minValue).format('MM'))) > (i + 1)),
-                    'item-gray': (maxValue && (moment(maxValue).format('YYYY') == selectYear) &&
+                    'item-gray': (maxValue && (moment(maxValue).format('YYYY') === selectYear?.toString()) &&
                             (+(moment(maxValue).format('MM'))) < (i + 1)) ||
-                        (minValue && (moment(minValue).format('YYYY') == selectYear) &&
+                        (minValue && (moment(minValue).format('YYYY') === selectYear?.toString()) &&
                             (+(moment(minValue).format('MM'))) > (i + 1)),
-                    'active': start && end && moment(item).isBetween(start, end, null, '[]')
+                    'active': (start && !end && (moment(start).format('YYYY-MM') === item)) ||
+                        (start && end && moment(item).isBetween(start, end, null, '[]'))
                 });
-            // console.log('item', moment(item).format('YYYY-MM'));
+
             currentMonths.push(
                 <li className={liClassName}
                     key={'current' + i}
@@ -188,17 +197,17 @@ class MonthPicker extends Component {
 
             let liClassName = classNames({
                 'active': selectMode === SelectMode.SINGLE_SELECT ?
-                    (currentYear == selectYear) && (Number(selectMonth) == (i + 1))
+                    (Number(currentYear) === Number(selectYear)) && (Number(selectMonth) === (i + 1))
                     :
-                    value.find(item => (moment(item).format('YYYY') == selectYear) &&
-                        (Number(moment(item).format('MM')) == (i + 1))),
-                'item-gray': (maxValue && (moment(maxValue).format('YYYY') == selectYear) &&
+                    value.find(item => (moment(item).format('YYYY') === selectYear?.toString()) &&
+                        (Number(moment(item).format('MM')) === (i + 1))),
+                'item-gray': (maxValue && (moment(maxValue).format('YYYY') === selectYear?.toString()) &&
                         (+(moment(maxValue).format('MM'))) < (i + 1)) ||
-                    (minValue && (moment(minValue).format('YYYY') == selectYear) &&
+                    (minValue && (moment(minValue).format('YYYY') === selectYear?.toString()) &&
                         (+(moment(minValue).format('MM'))) > (i + 1)),
-                'current-years': !(maxValue && (moment(maxValue).format('YYYY') == selectYear) &&
+                'current-years': !(maxValue && (moment(maxValue).format('YYYY') === selectYear?.toString()) &&
                         (+(moment(maxValue).format('MM'))) < (i + 1)) ||
-                    (minValue && (moment(minValue).format('YYYY') == selectYear) &&
+                    (minValue && (moment(minValue).format('YYYY') === selectYear?.toString()) &&
                         (+(moment(minValue).format('MM'))) > (i + 1))
             });
 
@@ -314,6 +323,7 @@ MonthPicker.propTypes = {
     day: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     hoverHandle: PropTypes.func,
     onChange: PropTypes.func,
+    monthAndYearChange: PropTypes.func,
     previousClick: PropTypes.func
 };
 

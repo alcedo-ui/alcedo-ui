@@ -57,7 +57,7 @@ class MonthRangeField extends Component {
 
     }
 
-    datePickerChangeHandle = (select, selectLevel) => {
+    datePickerLevelChangeHandle = (select, selectLevel) => {
         this.setState({
             [select]: {
                 ...this.state[select],
@@ -84,19 +84,16 @@ class MonthRangeField extends Component {
     };
 
     monthAndYearChangeHandle = (select, date) => {
-
         this.setState({
             [select]: {
                 ...this.state[select],
-                year: date.year,
-                month: date.month
+                year: date.year
             }
         });
     };
 
 
     monthPickerChangeHandle = (select, date) => {
-        console.log(select, date);
         if (this.state.endTime) {
             this.setState({
                 startTime: date.time,
@@ -184,8 +181,8 @@ class MonthRangeField extends Component {
                         month: rightValue ? moment(value[1]).format('MM') : moment(value[0]).format('MM')
                     };
                     this.setState({
-                        left: DateUtil.setDateRange(left, right).start,
-                        right: DateUtil.setDateRange(left, right).end,
+                        left: DateUtil.setMonthRange(left, right).start,
+                        right: DateUtil.setMonthRange(left, right).end,
                         startTime: leftValue,
                         endTime: rightValue,
                         historyStartTime: leftValue,
@@ -208,14 +205,34 @@ class MonthRangeField extends Component {
                     month: moment().format('MM')
                 };
                 this.setState({
-                    left: DateUtil.setDateRange(left, right).start,
-                    right: DateUtil.setDateRange(left, right).end,
+                    left: DateUtil.setMonthRange(left, right).start,
+                    right: DateUtil.setMonthRange(left, right).end,
                     startTime: '',
                     endTime: '',
                     historyStartTime: '',
                     historyEndTime: ''
                 });
             }
+        } else {
+            const left = {
+                ...this.state.left,
+                text: '',
+                year: moment().format('YYYY'),
+                month: moment().format('MM')
+            }, right = {
+                ...this.state.right,
+                text: '',
+                year: moment().format('YYYY'),
+                month: moment().format('MM')
+            };
+            this.setState({
+                left: DateUtil.setMonthRange(left, right).start,
+                right: DateUtil.setMonthRange(left, right).end,
+                startTime: '',
+                endTime: '',
+                historyStartTime: '',
+                historyEndTime: ''
+            });
         }
     };
 
@@ -243,27 +260,21 @@ class MonthRangeField extends Component {
         } = this.props;
         const {left, right, startTime, endTime, hoverTime} = this.state;
         const {
-            datePickerChangeHandle, monthPickerHoverHandle,
+            datePickerLevelChangeHandle, monthPickerHoverHandle, monthAndYearChangeHandle,
             monthPickerChangeHandle, yearPickerChangeHandle
         } = this;
 
-        let maxYear = right.year, maxMonth = right.month;
-        maxYear = parseInt(maxMonth, 10) === 1 ? +maxYear - 1 : maxYear;
-        maxMonth = parseInt(maxMonth, 10) === 1 ? 11 : +maxMonth - 2;
-
-        let leftMaxValue = maxValue && moment([maxYear, maxMonth]).isAfter(maxValue) ?
-                maxValue
+        let maxYear = +(right.year) - 1, maxMonth = 11,
+            leftMaxValue = right.text && maxValue ?
+                moment.min(moment(maxValue), moment([maxYear, maxMonth])).format('YYYY-MM')
                 :
-                moment([maxYear, maxMonth]).format('YYYY-MM'),
-            minYear = left.year,
-            minMonth = left.month;
-        minYear = parseInt(minMonth, 10) === 12 ? +minYear + 1 : minYear;
-        minMonth = parseInt(minMonth, 10) === 12 ? 1 : +minMonth + 1;
-
-        let rightMinValue = minValue && moment([minYear, minMonth - 1, 1]).isBefore(minValue) ?
-                minValue
+                moment([maxYear, 11]).format('YYYY-MM');
+        let minYear = +(left.year) + 1,
+            minMonth = 0,
+            rightMinValue = left.text && minValue ?
+                moment.max(moment(minValue), moment([minYear, minMonth])).format('YYYY-MM')
                 :
-                moment([minYear, minMonth - 1, 1]).format('YYYY-MM'),
+                moment([minYear, minMonth]).format('YYYY-MM'),
             leftProps = {
                 ...left,
                 value: left.text,
@@ -283,8 +294,7 @@ class MonthRangeField extends Component {
                 hoverTime,
                 dateFormat
             };
-        console.log('leftProps', leftProps);
-        console.log('rightProps', rightProps);
+
         return (
 
             <div className={`month-range-picker-content ${className}`}>
@@ -294,8 +304,9 @@ class MonthRangeField extends Component {
                                      {...leftProps}
                                      isRange={true}
                                      onChange={date => monthPickerChangeHandle('left', date)}
-                                     previousClick={pickerLevel => datePickerChangeHandle('left',
+                                     previousClick={pickerLevel => datePickerLevelChangeHandle('left',
                                          pickerLevel)}
+                                     monthAndYearChange={date => monthAndYearChangeHandle('left', date)}
                                      hoverHandle={date => monthPickerHoverHandle('left', date)}/>
                         :
                         <YearPicker {...restProps}
@@ -309,9 +320,10 @@ class MonthRangeField extends Component {
                                      {...rightProps}
                                      isRange={true}
                                      onChange={date => monthPickerChangeHandle('right', date)}
-                                     previousClick={pickerLevel => datePickerChangeHandle('right',
+                                     previousClick={pickerLevel => datePickerLevelChangeHandle('right',
                                          pickerLevel)}
-                                     hoverHandle={date => monthPickerHoverHandle('left', date)}/>
+                                     monthAndYearChange={date => monthAndYearChangeHandle('right', date)}
+                                     hoverHandle={date => monthPickerHoverHandle('right', date)}/>
                         :
                         <YearPicker {...restProps}
                                     {...rightProps}
@@ -371,8 +383,7 @@ MonthRangeField.defaultProps = {
     previousYearIconCls: 'fas fa-angle-double-left',
     previousMonthIconCls: 'fas fa-angle-left',
     nextYearIconCls: 'fas fa-angle-double-right',
-    nextMonthIconCls: 'fas fa-angle-right',
-    otherSelectedDate: []
+    nextMonthIconCls: 'fas fa-angle-right'
 };
 
 export default MonthRangeField;
