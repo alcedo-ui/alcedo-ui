@@ -12,6 +12,10 @@
         .date-text {
             margin: 0 20px;
             cursor: pointer;
+
+            &.disabled {
+                cursor: not-allowed;
+            }
         }
 
         i {
@@ -255,22 +259,22 @@
 
                         &.other-selected {
 
-                            background: #EDF9FF;
+                            background: #edf9ff;
                             cursor: not-allowed;
 
                             .date-text {
                                 border-radius: 50%;
-                                background: #EDF9FF;
+                                background: #edf9ff;
                             }
 
                             &.start,
                             &.end,
                             &.item-gray {
-                                background: #EDF9FF;
+                                background: #edf9ff;
                                 cursor: not-allowed;
 
                                 .date-text {
-                                    background: #EDF9FF;
+                                    background: #edf9ff;
                                     color: $theme-field;
                                 }
                             }
@@ -280,7 +284,7 @@
                             &.end:hover,
                             &.item-gray:hover {
                                 .date-text {
-                                    background: #EDF9FF;
+                                    background: #edf9ff;
                                     color: $theme-field;
                                 }
                             }
@@ -304,10 +308,10 @@
                         &.other-selected,
                         &.other-selected:hover {
 
-                            background: #EDF9FF;
+                            background: #edf9ff;
 
                             .date-text {
-                                background: #EDF9FF;
+                                background: #edf9ff;
                                 color: $theme-field;
                             }
                         }
@@ -366,10 +370,10 @@
                             &.other-selected,
                             &.other-selected:hover {
 
-                                background: #EDF9FF;
+                                background: #edf9ff;
 
                                 .date-text {
-                                    background: #EDF9FF;
+                                    background: #edf9ff;
                                     color: $theme-field;
                                 }
                             }

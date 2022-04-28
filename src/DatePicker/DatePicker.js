@@ -257,7 +257,7 @@ class DatePicker extends Component {
             } = this.props,
             {value, popupVisible, datePickerLevel, year, month, day, isAbove} = this.state,
             textValue = value && moment(value).format(dateFormat);
-        console.log(year, month, day);
+
         return (
             <div className={classNames('date-picker', {
                 activated: popupVisible,

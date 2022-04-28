@@ -144,10 +144,8 @@ class MonthPicker extends Component {
                             (+(moment(maxValue).format('MM'))) < (i + 1)) ||
                         (minValue && (moment(minValue).format('YYYY') === selectYear?.toString()) &&
                             (+(moment(minValue).format('MM'))) > (i + 1)),
-                    'item-gray': (maxValue && (moment(maxValue).format('YYYY') === selectYear?.toString()) &&
-                            (+(moment(maxValue).format('MM'))) < (i + 1)) ||
-                        (minValue && (moment(minValue).format('YYYY') === selectYear?.toString()) &&
-                            (+(moment(minValue).format('MM'))) > (i + 1)),
+                    'item-gray': (maxValue && (moment(item).isAfter(maxValue))) ||
+                        (minValue && (moment(minValue).isBefore(minValue))),
                     'active': (start && !end && (moment(start).format('YYYY-MM') === item)) ||
                         (start && end && moment(item).isBetween(start, end, null, '[]'))
                 });
@@ -254,8 +252,18 @@ class MonthPicker extends Component {
         const {maxValue, minValue, previousYearIconCls, nextYearIconCls} = this.props, {selectYear} = this.state,
             {previousYear, nextYear, previousLevel} = this,
             monthsRenderArray = this.monthsRender(),
-            leftNextYear = maxValue && (moment(maxValue).format('YYYY') <= +selectYear),
-            rightPreYear = minValue && (moment(minValue).format('YYYY') >= +selectYear);
+            leftNextYear = maxValue && (
+                +moment(maxValue).format('MM') === 1 ?
+                    +moment(maxValue).format('YYYY') - 1 <= +selectYear
+                    :
+                    +moment(maxValue).format('YYYY') <= +selectYear
+            ),
+            rightPreYear = minValue && (
+                +moment(minValue).format('MM') === 12 ?
+                    +moment(minValue).format('YYYY') + 1 >= +selectYear
+                    :
+                    +moment(minValue).format('YYYY') >= +selectYear
+            );
 
         return (
             <div className={'calendar'}>
@@ -272,7 +280,12 @@ class MonthPicker extends Component {
                             </i>
                     }
 
-                    <span className="date-text" onClick={previousLevel}>{selectYear}</span>
+                    <span className={classNames('date-text', {
+                        disabled: rightPreYear && leftNextYear
+                    })}
+                          onClick={() => {
+                              (!rightPreYear || !leftNextYear) && previousLevel?.();
+                          }}>{selectYear}</span>
                     {
                         leftNextYear ?
                             null

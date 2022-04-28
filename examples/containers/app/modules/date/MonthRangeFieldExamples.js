@@ -42,8 +42,8 @@ class MonthRangeFieldExamples extends Component {
                                 <p><code>Month Range Field</code>simple example.</p>
 
                                 <MonthRangeField onChange={this.onChangeHandler}
-                                                 minValue="2018-11"
-                                                 maxValue="2024-10"/>
+                                                 value={['2018-4', '2018-4']}
+                                                 maxValue="2018-12"/>
                             </div>
 
                         </div>

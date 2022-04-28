@@ -90,8 +90,10 @@ class MaterialDateRangePicker extends Component {
                         left: {
                             ...this.state.left,
                             text: moment(text).isBefore(this.state.right.text) ? text : this.state.left.text,
-                            year: moment(text).isBefore(this.state.right.text) ? selectYear : this.state.left.selectYear,
-                            month: moment(text).isBefore(this.state.right.text) ? selectMonth : this.state.left.selectMonth,
+                            year: moment(text).isBefore(this.state.right.text) ? selectYear :
+                                this.state.left.selectYear,
+                            month: moment(text).isBefore(this.state.right.text) ? selectMonth :
+                                this.state.left.selectMonth,
                             day: moment(text).isBefore(this.state.right.text) ? selectDay : this.state.left.selectDay
                         },
                         right: {
@@ -431,13 +433,22 @@ class MaterialDateRangePicker extends Component {
         minMonth = minMonth == 12 ? 1 : +minMonth + 1;
 
         let rightMinValue = minValue && moment([minYear, minMonth - 1, 1]).isBefore(minValue) ?
-            minValue
-            :
-            moment([minYear, minMonth - 1, 1]).format('YYYY-MM-DD'),
+                minValue
+                :
+                moment([minYear, minMonth - 1, 1]).format('YYYY-MM-DD'),
             leftProps = {
                 ...left,
                 value: left.text,
-                maxValue: leftMaxValue,
+                maxValue: maxValue && minValue ?
+                    moment.max(moment(leftMaxValue), moment(maxValue)).format('YYYY-MM-DD')
+                    :
+                    !maxValue && minValue ?
+                        moment.max(moment(leftMaxValue), moment(minValue)).format('YYYY-MM-DD')
+                        :
+                        maxValue && !minValue ?
+                            moment.max(moment(leftMaxValue), moment(maxValue)).format('YYYY-MM-DD')
+                            :
+                            leftMaxValue,
                 minValue: minValue,
                 startTime,
                 endTime,
@@ -446,7 +457,16 @@ class MaterialDateRangePicker extends Component {
             }, rightProps = {
                 ...right,
                 value: right.text,
-                minValue: rightMinValue,
+                minValue: maxValue && minValue ?
+                    moment.min(moment(rightMinValue), moment(minValue)).format('YYYY-MM-DD')
+                    :
+                    !maxValue && minValue ?
+                        moment.min(moment(rightMinValue), moment(minValue)).format('YYYY-MM-DD')
+                        :
+                        maxValue && !minValue ?
+                            moment.min(moment(rightMinValue), moment(maxValue)).format('YYYY-MM-DD')
+                            :
+                            rightMinValue,
                 maxValue: maxValue,
                 startTime,
                 endTime,
@@ -489,7 +509,7 @@ class MaterialDateRangePicker extends Component {
 
                     <div className="calendar-date-input-wrap">
                         <div className="DateRangePickerHeaderInput">
-                            <TextField className='fl calendar-input'
+                            <TextField className="fl calendar-input"
                                        placeholder={placeholder}
                                        value={left.text}
                                        clearButtonVisible={false}
@@ -497,7 +517,7 @@ class MaterialDateRangePicker extends Component {
                                        onChange={(text) => {
                                            this.handleTextFieldChange('left', text);
                                        }}/>
-                            <TextField className='fl calendar-input'
+                            <TextField className="fl calendar-input"
                                        placeholder={placeholder}
                                        value={right.text}
                                        clearButtonVisible={false}
@@ -523,7 +543,8 @@ class MaterialDateRangePicker extends Component {
                                     <MonthPicker {...restProps}
                                                  {...leftProps}
                                                  onChange={date => handleMonthPickerChange('left', date)}
-                                                 previousClick={pickerLevel => handleDatePickerChange('left', pickerLevel)}/>
+                                                 previousClick={pickerLevel => handleDatePickerChange('left',
+                                                     pickerLevel)}/>
                                     :
                                     <YearPicker {...restProps}
                                                 {...leftProps}
@@ -547,7 +568,8 @@ class MaterialDateRangePicker extends Component {
                                     <MonthPicker {...restProps}
                                                  {...rightProps}
                                                  onChange={date => handleMonthPickerChange('right', date)}
-                                                 previousClick={pickerLevel => handleDatePickerChange('right', pickerLevel)}/>
+                                                 previousClick={pickerLevel => handleDatePickerChange('right',
+                                                     pickerLevel)}/>
                                     :
                                     <YearPicker {...restProps}
                                                 {...rightProps}

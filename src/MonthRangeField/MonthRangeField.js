@@ -278,7 +278,16 @@ class MonthRangeField extends Component {
             leftProps = {
                 ...left,
                 value: left.text,
-                maxValue: leftMaxValue,
+                maxValue: maxValue && minValue ?
+                    moment.max(moment(leftMaxValue), moment(maxValue)).format('YYYY-MM')
+                    :
+                    !maxValue && minValue ?
+                        moment.max(moment(leftMaxValue), moment(minValue)).format('YYYY-MM')
+                        :
+                        maxValue && !minValue ?
+                            moment.max(moment(leftMaxValue), moment(maxValue)).format('YYYY-MM')
+                            :
+                            leftMaxValue,
                 minValue: minValue,
                 startTime,
                 endTime,
@@ -287,7 +296,16 @@ class MonthRangeField extends Component {
             }, rightProps = {
                 ...right,
                 value: right.text,
-                minValue: rightMinValue,
+                minValue: maxValue && minValue ?
+                    moment.min(moment(rightMinValue), moment(minValue)).format('YYYY-MM')
+                    :
+                    !maxValue && minValue ?
+                        moment.min(moment(rightMinValue), moment(minValue)).format('YYYY-MM')
+                        :
+                        maxValue && !minValue ?
+                            moment.min(moment(rightMinValue), moment(maxValue)).format('YYYY-MM')
+                            :
+                            rightMinValue,
                 maxValue: maxValue,
                 startTime,
                 endTime,

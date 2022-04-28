@@ -44,15 +44,15 @@ class DateRangeFieldExamples extends Component {
                                 <DateRangeField onChange={this.onChangeHandler}
                                     // minValue="2021-11-19"
                                     // maxValue="2022-10-13"
-                                                value={['2022-10-13', '2023-10-13']}
+                                                value={['2022-10-13', '2022-10-15']}
                                                 otherSelectedDate={[{
                                                     value: ['2021-11-25', '2021-11-27'], tip: 'Multiplier: 3.260'
                                                 }, {
                                                     value: ['2022-08-01', '2022-08-31'], tip: 'Multiplier: 1.610'
                                                 }, {
-                                                    value: ['2022-10-09', '2022-10-12'], tip: 'Multiplier: 1.300'
+                                                    value: ['2022-10-09', '2022-10-11'], tip: 'Multiplier: 1.300'
                                                 }, {
-                                                    value: ['2021-12-01', '2021-12-01'], tip: 'Multiplier: 1.200'
+                                                    value: ['2022-11-01', '2022-11-12'], tip: 'Multiplier: 1.200'
                                                 }]}/>
                             </div>
 
@@ -75,8 +75,8 @@ class DateRangeFieldExamples extends Component {
 
                                 <DateRangeField value={['2015-07-21', '2015-07-21']}
                                                 dateFormat={'YYYY-MM-DD'}
-                                    // maxValue={'2017-04-23'}
-                                    // minValue={'2015-07-13'}
+                                                maxValue={'2015-07-23'}
+                                                minValue={'2015-07-13'}
                                                 onChange={this.onChangeHandler}/>
 
                             </div>

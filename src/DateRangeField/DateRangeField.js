@@ -287,7 +287,16 @@ class DateRangePickerContent extends Component {
             leftProps = {
                 ...left,
                 value: left.text,
-                maxValue: leftMaxValue,
+                maxValue: maxValue && minValue ?
+                    moment.max(moment(leftMaxValue), moment(maxValue)).format('YYYY-MM-DD')
+                    :
+                    !maxValue && minValue ?
+                        moment.max(moment(leftMaxValue), moment(minValue)).format('YYYY-MM-DD')
+                        :
+                        maxValue && !minValue ?
+                            moment.max(moment(leftMaxValue), moment(maxValue)).format('YYYY-MM-DD')
+                            :
+                            leftMaxValue,
                 minValue: minValue,
                 startTime,
                 endTime,
@@ -296,13 +305,23 @@ class DateRangePickerContent extends Component {
             }, rightProps = {
                 ...right,
                 value: right.text,
-                minValue: rightMinValue,
+                minValue: maxValue && minValue ?
+                    moment.max(moment(rightMinValue), moment(minValue)).format('YYYY-MM-DD')
+                    :
+                    !maxValue && minValue ?
+                        moment.max(moment(rightMinValue), moment(minValue)).format('YYYY-MM-DD')
+                        :
+                        maxValue && !minValue ?
+                            moment.max(moment(rightMinValue), moment(maxValue)).format('YYYY-MM-DD')
+                            :
+                            rightMinValue,
                 maxValue: maxValue,
                 startTime,
                 endTime,
                 hoverTime,
                 dateFormat
             };
+
         return (
 
             <div className={`date-range-picker-content ${className}`}>
