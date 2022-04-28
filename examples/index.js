@@ -3,7 +3,7 @@
 import '@babel/polyfill';
 
 import React from 'react';
-import {render} from 'react-dom';
+import {createRoot} from 'react-dom/client';
 
 // Vendors
 import {createHashHistory} from 'history';
@@ -22,17 +22,12 @@ const store = configureStore(history);
 /**
  * render app
  */
-function renderAppContainer() {
-    render(
-        <Provider store={store}>
-            <ConnectedRouter history={history}>
-                {renderRoutes(configureRoutes(store))}
-            </ConnectedRouter>
-        </Provider>,
-        document.getElementById('app-container')
-    );
-}
-
-renderAppContainer();
+createRoot(document.getElementById('app-container')).render(
+    <Provider store={store}>
+        <ConnectedRouter history={history}>
+            {renderRoutes(configureRoutes(store))}
+        </ConnectedRouter>
+    </Provider>
+);
 
 module?.hot?.accept?.();
