@@ -10,7 +10,9 @@ import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 import Toaster from 'src/Toaster';
 import IconButton from 'src/IconButton';
+import RaisedButton from 'src/RaisedButton';
 import PropTypeDescTable from 'components/PropTypeDescTable';
+
 
 // Statics
 import doc from 'assets/propTypes/Tab.json';
@@ -40,7 +42,8 @@ class TabExamples extends Component {
                 disabled: true
             }],
             longTabs: this.generateTabs(20),
-            toasts: []
+            toasts: [],
+            extraContentWidth: 200
         };
 
     }
@@ -127,9 +130,15 @@ class TabExamples extends Component {
         console.log(`Index: ${index} activated`);
     };
 
+    randomExtraContentWidth = () => {
+        this.setState({
+            extraContentWidth: Math.random() * 400 + 100
+        });
+    };
+
     render() {
 
-        const {tabs, longTabs, toasts} = this.state;
+        const {tabs, longTabs, toasts, extraContentWidth} = this.state;
 
         return (
             <div className="example tab-examples">
@@ -146,7 +155,8 @@ class TabExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Full Width Tabs"/>
+                    <WidgetHeader className="example-header"
+                                  title="Full Width Tabs"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -176,7 +186,8 @@ class TabExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Scroll Tabs"/>
+                    <WidgetHeader className="example-header"
+                                  title="Scroll Tabs"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -188,19 +199,26 @@ class TabExamples extends Component {
                                     for partial width.
                                 </p>
 
-                                <Tab tabs={longTabs}
-                                     isTabFullWidth={false}
-                                     isAnimated={false}
-                                     draggable={true}
-                                     idField="id"
-                                     tabsChildren={
-                                         <IconButton className="tab-button customized-tab-button"
-                                                     iconCls="fas fa-plus"
-                                                     onClick={this.addTab}/>
-                                     }
-                                     onScrollLeftButtonMouseDown={this.handleScrollLeftButtonMouseDown}
-                                     onScrollRightButtonMouseDown={this.handleScrollRightButtonMouseDown}
-                                     onIndexChange={this.handleIndexChange}/>
+                                <div className="tab-examples-scroll-tabs-wrapper">
+                                    <Tab tabs={longTabs}
+                                         isTabFullWidth={false}
+                                         isAnimated={false}
+                                         draggable={true}
+                                         idField="id"
+                                         tabsChildren={
+                                             <IconButton className="tab-button customized-tab-button"
+                                                         iconCls="fas fa-plus"
+                                                         onClick={this.addTab}/>
+                                         }
+                                         onScrollLeftButtonMouseDown={this.handleScrollLeftButtonMouseDown}
+                                         onScrollRightButtonMouseDown={this.handleScrollRightButtonMouseDown}
+                                         onIndexChange={this.handleIndexChange}/>
+                                    <div style={{width: extraContentWidth}}>
+                                        Extra Content
+                                        <RaisedButton value="Random-width"
+                                                      onClick={this.randomExtraContentWidth}/>
+                                    </div>
+                                </div>
 
                             </div>
 
@@ -211,7 +229,8 @@ class TabExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="With icons"/>
+                    <WidgetHeader className="example-header"
+                                  title="With icons"/>
 
                     <div className="widget-content">
                         <div className="example-content">
@@ -250,7 +269,8 @@ class TabExamples extends Component {
 
                 <Widget>
 
-                    <WidgetHeader className="example-header" title="Draggable"/>
+                    <WidgetHeader className="example-header"
+                                  title="Draggable"/>
 
                     <div className="widget-content">
                         <div className="example-content">
