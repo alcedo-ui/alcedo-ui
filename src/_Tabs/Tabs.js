@@ -20,6 +20,7 @@ import debounce from 'lodash/debounce';
 import Event from '../_vendors/Event';
 import ScrollBar from '../_vendors/ScrollBar';
 import Valid from '../_vendors/Valid';
+import ResizeObserver from 'resize-observer-polyfill';
 
 class Tabs extends Component {
 
@@ -33,6 +34,9 @@ class Tabs extends Component {
         this.scrollRightButton = createRef();
 
         this.tabsScrollTimeout = null;
+
+        this.observer = null;
+        this.lastWidth = null;
 
         this.state = {
             scrollLeft: 0,
@@ -49,17 +53,20 @@ class Tabs extends Component {
         Event.addEvent(window, 'resize', this.handleResize);
         Event.addEvent(document, 'mouseup', this.clearTabsScrollTimeout);
 
+        this.addObserver();
         this.handleInkBarSizeChange();
         this.handleTabsOverflowChange();
 
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
+        this.addObserver();
         this.handleInkBarSizeChange();
         this.handleTabsOverflowChange();
     }
 
     componentWillUnmount() {
+        this.removeObserver();
         Event.removeEvent(window, 'resize', this.handleResize);
         Event.removeEvent(document, 'mouseup', this.clearTabsScrollTimeout);
     }
@@ -80,17 +87,17 @@ class Tabs extends Component {
 
     };
 
-    isScrollLeftButtonDisabled = scrollLeft => {
-        return scrollLeft <= 0;
+    isScrollLeftButtonDisabled = () => {
+        return this.tabsEl.scrollLeft <= 0;
     };
 
-    isScrollRightButtonDisabled = scrollLeft => {
+    isScrollRightButtonDisabled = () => {
 
         if (!this.tabsEl) {
             return false;
         }
 
-        return scrollLeft >= this.tabsEl.scrollWidth - this.tabsEl.offsetWidth;
+        return this.tabsEl.scrollLeft >= this.tabsEl.scrollWidth - this.tabsEl.offsetWidth;
 
     };
 
@@ -209,6 +216,38 @@ class Tabs extends Component {
         this.handleInkBarSizeChange();
         this.handleTabsOverflowChange();
     }, 150);
+
+    addObserver = () => {
+        if (this.tabsEl && !this.observer) {
+            this.observer = new ResizeObserver(this.handleMeasure);
+            this.observer.observe(this.tabsEl);
+        }
+    };
+
+    removeObserver() {
+        if (this.observer) {
+            this.observer.disconnect();
+            this.observer = null;
+        }
+    }
+
+    handleMeasure = entries => {
+
+        const target = entries[0].target;
+        const {width} = target.getBoundingClientRect();
+        const fixedWidth = Math.floor(width);
+
+        if (this.lastWidth !== fixedWidth) {
+
+            this.lastWidth = fixedWidth;
+
+            this.setState({
+                scrollLeft: this.tabsEl.scrollLeft
+            });
+
+        }
+
+    };
 
     render() {
 
