@@ -215,7 +215,7 @@ class TabExamples extends Component {
                                          onIndexChange={this.handleIndexChange}/>
                                     <div style={{width: extraContentWidth}}>
                                         Extra Content
-                                        <RaisedButton value="Random-width"
+                                        <RaisedButton value="Random Width"
                                                       onClick={this.randomExtraContentWidth}/>
                                     </div>
                                 </div>
