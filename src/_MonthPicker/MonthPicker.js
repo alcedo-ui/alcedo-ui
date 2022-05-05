@@ -145,7 +145,7 @@ class MonthPicker extends Component {
                         (minValue && (moment(minValue).format('YYYY') === selectYear?.toString()) &&
                             (+(moment(minValue).format('MM'))) > (i + 1)),
                     'item-gray': (maxValue && (moment(item).isAfter(maxValue))) ||
-                        (minValue && (moment(minValue).isBefore(minValue))),
+                        (minValue && (moment(item).isBefore(minValue))),
                     'active': (start && !end && (moment(start).format('YYYY-MM') === item)) ||
                         (start && end && moment(item).isBetween(start, end, null, '[]'))
                 });

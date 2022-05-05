@@ -253,6 +253,7 @@ class MonthRangeField extends Component {
         };
     }
 
+    // eslint-disable-next-line complexity
     render() {
 
         const {
@@ -279,13 +280,19 @@ class MonthRangeField extends Component {
                 ...left,
                 value: left.text,
                 maxValue: maxValue && minValue ?
-                    moment.max(moment(leftMaxValue), moment(maxValue)).format('YYYY-MM')
+                    moment(leftMaxValue).isAfter(moment(maxValue)) ?
+                        maxValue
+                        :
+                        leftMaxValue
                     :
                     !maxValue && minValue ?
                         moment.max(moment(leftMaxValue), moment(minValue)).format('YYYY-MM')
                         :
                         maxValue && !minValue ?
-                            moment.max(moment(leftMaxValue), moment(maxValue)).format('YYYY-MM')
+                            moment(leftMaxValue).isAfter(moment(maxValue)) ?
+                                maxValue
+                                :
+                                leftMaxValue
                             :
                             leftMaxValue,
                 minValue: minValue,
@@ -297,10 +304,16 @@ class MonthRangeField extends Component {
                 ...right,
                 value: right.text,
                 minValue: maxValue && minValue ?
-                    moment.min(moment(rightMinValue), moment(minValue)).format('YYYY-MM')
+                    moment(rightMinValue).isAfter(moment(minValue)) ?
+                        rightMinValue
+                        :
+                        minValue
                     :
                     !maxValue && minValue ?
-                        moment.min(moment(rightMinValue), moment(minValue)).format('YYYY-MM')
+                        moment(rightMinValue).isAfter(moment(minValue)) ?
+                            rightMinValue
+                            :
+                            minValue
                         :
                         maxValue && !minValue ?
                             moment.min(moment(rightMinValue), moment(maxValue)).format('YYYY-MM')
@@ -312,7 +325,8 @@ class MonthRangeField extends Component {
                 hoverTime,
                 dateFormat
             };
-
+        // console.log(leftProps);
+        // console.log(rightProps);
         return (
 
             <div className={`month-range-picker-content ${className}`}>
