@@ -148,6 +148,7 @@ class MaterialDatePickerExamples extends Component {
                                 <MaterialDatePicker name="date"
                                                     label={'date'}
                                                     value={value}
+                                                    minValue='2022-05-07'
                                                     isLabelAnimate={false}
                                                     autoClose={false}
                                                     disabled={false}
