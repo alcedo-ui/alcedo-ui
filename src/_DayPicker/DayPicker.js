@@ -407,9 +407,9 @@ class DayPicker extends Component {
             {selectYear, selectMonth, dateNumArray} = this.state, {previousMonth, previousYear} = this,
             currentMonthMaxDay = dateNumArray[+selectMonth - 1],
             previousYearEl = minValue ?
-                (moment(minValue).format('YYYY') < +selectYear - 1) ||
+                (+(moment(minValue).format('YYYY')) < +selectYear - 1) ||
                 (+(moment(minValue).format('YYYY')) === (+selectYear - 1) &&
-                    moment(minValue).format('MM') <= selectMonth) ?
+                    +(moment(minValue).format('MM')) <= +selectMonth) ?
                     <i className={classNames('previous-year', {
                         [previousYearIconCls]: previousYearIconCls
                     })}
@@ -426,14 +426,14 @@ class DayPicker extends Component {
                     <TouchRipple/>
                 </i>,
             previousMonthEl = minValue ?
-                (+(moment(minValue).format('YYYY') === +selectYear)
-                    && (
-                        moment(minValue)
-                            .isBefore(moment([selectYear, +selectMonth - 1, currentMonthMaxDay])) ?
-                            +moment(minValue).format('MM') <= +selectMonth - 1
-                            :
-                            +moment(minValue).format('MM') < +selectMonth)) ||
-                moment(minValue).format('YYYY') < selectYear ?
+                (+(moment(minValue).format('YYYY')) === +selectYear)
+                && (
+                    moment(minValue)
+                        .isBefore(moment([selectYear, +selectMonth - 1, currentMonthMaxDay])) ?
+                        +(moment(minValue).format('MM')) <= +selectMonth - 1
+                        :
+                        +(moment(minValue).format('MM')) < +selectMonth) ||
+                (+(moment(minValue).format('YYYY')) < +selectYear) ?
                     <i className={classNames('previous-month', {
                         [previousMonthIconCls]: previousMonthIconCls
                     })}
@@ -460,12 +460,12 @@ class DayPicker extends Component {
         const {maxValue, nextYearIconCls, nextMonthIconCls} = this.props,
             {selectYear, selectMonth} = this.state, {nextYear, nextMonth} = this;
         const nextMonthEl = maxValue ?
-                (+(moment(maxValue).format('YYYY') === +selectYear) &&
-                    (moment(maxValue).isAfter(moment([selectYear, +selectMonth - 1, 1])) ?
-                        moment(maxValue).format('MM') >= selectMonth + 1
-                        :
-                        moment(maxValue).format('MM') >= selectMonth)) ||
-                maxValue && selectYear < moment(maxValue).format('YYYY') ?
+                (+(moment(maxValue).format('YYYY')) === +selectYear) &&
+                (moment(maxValue).isAfter(moment([selectYear, +selectMonth - 1, 1])) ?
+                    +(moment(maxValue).format('MM')) >= selectMonth + 1
+                    :
+                    +(moment(maxValue).format('MM')) >= selectMonth) ||
+                (maxValue && (+selectYear < +(moment(maxValue).format('YYYY')))) ?
                     <i className={classNames('next-month', {
                         [nextMonthIconCls]: nextMonthIconCls
                     })}
@@ -482,9 +482,9 @@ class DayPicker extends Component {
                     <TouchRipple/>
                 </i>,
             nextYearEl = maxValue ?
-                (+selectYear < +moment(maxValue).format('YYYY') - 1) ||
-                (+selectYear === +(moment(maxValue).format('YYYY') - 1) && selectMonth <=
-                    moment(maxValue).format('MM')) ?
+                (+selectYear < +(moment(maxValue).format('YYYY')) - 1) ||
+                (+selectYear === +(moment(maxValue).format('YYYY')) - 1
+                    && +selectMonth <= +(moment(maxValue).format('MM'))) ?
                     <i className={classNames('next-year', {
                         [nextYearIconCls]: nextYearIconCls
                     })}

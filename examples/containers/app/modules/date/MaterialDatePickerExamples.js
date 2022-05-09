@@ -22,7 +22,7 @@ class MaterialDatePickerExamples extends Component {
             start: this.yesterday(),
             end: '',
             MaterialDatePickerVisible: {},
-            value: '2017-03-06'
+            value: '2022-06-06'
         };
 
     }
@@ -148,7 +148,7 @@ class MaterialDatePickerExamples extends Component {
                                 <MaterialDatePicker name="date"
                                                     label={'date'}
                                                     value={value}
-                                                    minValue='2022-05-07'
+                                                    minValue="2022-05-07"
                                                     isLabelAnimate={false}
                                                     autoClose={false}
                                                     disabled={false}
