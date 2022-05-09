@@ -440,13 +440,19 @@ class MaterialDateRangePicker extends Component {
                 ...left,
                 value: left.text,
                 maxValue: maxValue && minValue ?
-                    moment.max(moment(leftMaxValue), moment(maxValue)).format('YYYY-MM-DD')
+                    moment(leftMaxValue).isAfter(moment(maxValue)) ?
+                        maxValue
+                        :
+                        leftMaxValue
                     :
                     !maxValue && minValue ?
                         moment.max(moment(leftMaxValue), moment(minValue)).format('YYYY-MM-DD')
                         :
                         maxValue && !minValue ?
-                            moment.max(moment(leftMaxValue), moment(maxValue)).format('YYYY-MM-DD')
+                            moment(leftMaxValue).isAfter(moment(maxValue)) ?
+                                maxValue
+                                :
+                                leftMaxValue
                             :
                             leftMaxValue,
                 minValue: minValue,
@@ -458,13 +464,19 @@ class MaterialDateRangePicker extends Component {
                 ...right,
                 value: right.text,
                 minValue: maxValue && minValue ?
-                    moment.min(moment(rightMinValue), moment(minValue)).format('YYYY-MM-DD')
+                    moment(rightMinValue).isAfter(moment(minValue)) ?
+                        rightMinValue
+                        :
+                        minValue
                     :
                     !maxValue && minValue ?
-                        moment.min(moment(rightMinValue), moment(minValue)).format('YYYY-MM-DD')
+                        moment(rightMinValue).isAfter(moment(minValue)) ?
+                            rightMinValue
+                            :
+                            minValue
                         :
                         maxValue && !minValue ?
-                            moment.min(moment(rightMinValue), moment(maxValue)).format('YYYY-MM-DD')
+                            moment.max(moment(rightMinValue), moment(maxValue)).format('YYYY-MM-DD')
                             :
                             rightMinValue,
                 maxValue: maxValue,

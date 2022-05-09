@@ -288,13 +288,19 @@ class DateRangePickerContent extends Component {
                 ...left,
                 value: left.text,
                 maxValue: maxValue && minValue ?
-                    moment.max(moment(leftMaxValue), moment(maxValue)).format('YYYY-MM-DD')
+                    moment(leftMaxValue).isAfter(moment(maxValue)) ?
+                        maxValue
+                        :
+                        leftMaxValue
                     :
                     !maxValue && minValue ?
                         moment.max(moment(leftMaxValue), moment(minValue)).format('YYYY-MM-DD')
                         :
                         maxValue && !minValue ?
-                            moment.max(moment(leftMaxValue), moment(maxValue)).format('YYYY-MM-DD')
+                            moment(leftMaxValue).isAfter(moment(maxValue)) ?
+                                maxValue
+                                :
+                                leftMaxValue
                             :
                             leftMaxValue,
                 minValue: minValue,
@@ -306,10 +312,16 @@ class DateRangePickerContent extends Component {
                 ...right,
                 value: right.text,
                 minValue: maxValue && minValue ?
-                    moment.max(moment(rightMinValue), moment(minValue)).format('YYYY-MM-DD')
+                    moment(rightMinValue).isAfter(moment(minValue)) ?
+                        rightMinValue
+                        :
+                        minValue
                     :
                     !maxValue && minValue ?
-                        moment.max(moment(rightMinValue), moment(minValue)).format('YYYY-MM-DD')
+                        moment(rightMinValue).isAfter(moment(minValue)) ?
+                            rightMinValue
+                            :
+                            minValue
                         :
                         maxValue && !minValue ?
                             moment.max(moment(rightMinValue), moment(maxValue)).format('YYYY-MM-DD')
@@ -321,7 +333,6 @@ class DateRangePickerContent extends Component {
                 hoverTime,
                 dateFormat
             };
-
         return (
 
             <div className={`date-range-picker-content ${className}`}>

@@ -462,7 +462,7 @@ class DayPicker extends Component {
         const nextMonthEl = maxValue ?
                 (+(moment(maxValue).format('YYYY')) === +selectYear) &&
                 (moment(maxValue).isAfter(moment([selectYear, +selectMonth - 1, 1])) ?
-                    +(moment(maxValue).format('MM')) >= selectMonth + 1
+                    +(moment(maxValue).format('MM')) > selectMonth
                     :
                     +(moment(maxValue).format('MM')) >= selectMonth) ||
                 (maxValue && (+selectYear < +(moment(maxValue).format('YYYY')))) ?

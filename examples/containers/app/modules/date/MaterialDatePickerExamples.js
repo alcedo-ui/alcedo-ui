@@ -108,7 +108,7 @@ class MaterialDatePickerExamples extends Component {
 
                                 <MaterialDatePicker label="Start"
                                                     value={start}
-                                                    maxValue={''}
+                                                    maxValue={end}
                                                     minValue={''}
                                                     autoClose={false}
                                                     rightIconCls="far fa-calendar-alt"

@@ -73,9 +73,9 @@ class DateRangeFieldExamples extends Component {
                                 <p><code>Date Range Field</code> using the <code>value</code> property to set initial
                                     date and the <code>dateFormat</code> property to set date format.</p>
 
-                                <DateRangeField value={['2015-07-21', '2015-07-21']}
+                                <DateRangeField value={['2015-07-21', '2015-07-23']}
                                                 dateFormat={'YYYY-MM-DD'}
-                                                maxValue={'2015-07-23'}
+                                                maxValue={'2016-07-23'}
                                                 minValue={'2015-07-13'}
                                                 onChange={this.onChangeHandler}/>
 
