@@ -78,6 +78,21 @@
                                     color: #fff;
                                 }
                             }
+
+                            &.item-gray {
+                                .date-text {
+                                    color: $theme-field-disabled;
+                                    background: inherit;
+                                    cursor: not-allowed;
+                                }
+
+                                &:hover {
+                                    .date-text {
+                                        background: $theme-field-bg-active;
+                                        color: $theme-field-hover;
+                                    }
+                                }
+                            }
                         }
                     }
                 }

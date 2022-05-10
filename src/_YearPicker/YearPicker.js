@@ -19,8 +19,8 @@ class YearPicker extends Component {
         super(props, ...restArgs);
 
         this.defaultTable = {
-            row_number: 4,
-            col_number: 3
+            rowNumber: 4,
+            colNumber: 3
         };
 
         this.state = {
@@ -106,7 +106,7 @@ class YearPicker extends Component {
         for (let i = 0; i < YearArr.length; i++) {
 
             let liClassName = classNames({
-                'active': Number(selectYear) == Number(YearArr[(i)]),
+                'active': +selectYear === +YearArr[(i)],
                 'item-gray': (maxValue && (moment(maxValue).format('YYYY') < Number(YearArr[(i)]))) ||
                     (minValue && (moment(minValue).format('YYYY') > Number(YearArr[(i)]))),
                 'current-years': !(maxValue && (moment(maxValue).format('YYYY') < Number(YearArr[(i)]))) ||
@@ -136,10 +136,10 @@ class YearPicker extends Component {
         );
         totalYearsArray = previousYearsArray.concat(currentYearsArray, nextYearsArray);
         if (totalYearsArray.length > 0) {
-            for (let i = 0; i < this.defaultTable.row_number; i++) {
+            for (let i = 0; i < this.defaultTable.rowNumber; i++) {
                 let rowlist = [],
-                    startIndex = i * this.defaultTable.col_number,
-                    endIndex = (i + 1) * this.defaultTable.col_number;
+                    startIndex = i * this.defaultTable.colNumber,
+                    endIndex = (i + 1) * this.defaultTable.colNumber;
                 for (let j = startIndex; j < endIndex; j++) {
                     rowlist.push(totalYearsArray[j]);
                 }
@@ -152,13 +152,15 @@ class YearPicker extends Component {
 
     render() {
 
-        const {maxValue, minValue, previousYearIconCls, nextYearIconCls} = this.props, {YearArr, selectYear} = this.state,
+        const {maxValue, minValue, previousYearIconCls, nextYearIconCls} = this.props, {
+                YearArr, selectYear
+            } = this.state,
             {previousYear, nextYear} = this, yearsRenderArray = this.yearsRender(),
             selectedYear = selectYear.toString(),
             yearRangeEnd = selectedYear.substr(0, selectedYear.length - 1) + '9',
             yearRangeStart = selectedYear.substr(0, selectedYear.length - 1) + '1',
-            leftNextYear = maxValue && (moment(maxValue).format('YYYY') <= +yearRangeEnd) ? true : false,
-            rightPreYear = minValue && (moment(minValue).format('YYYY') >= +yearRangeStart) ? true : false;
+            leftNextYear = maxValue && (+(moment(maxValue).format('YYYY')) <= +yearRangeEnd),
+            rightPreYear = minValue && (+(moment(minValue).format('YYYY')) >= +yearRangeStart);
 
         return (
             <div className={'calendar'}>
@@ -212,6 +214,8 @@ YearPicker.propTypes = {
     value: PropTypes.any,
     maxValue: PropTypes.any,
     minValue: PropTypes.any,
+    previousYearIconCls: PropTypes.string,
+    nextYearIconCls: PropTypes.string,
     year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     month: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     day: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
