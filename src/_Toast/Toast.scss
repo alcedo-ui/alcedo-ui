@@ -41,16 +41,15 @@
     }
 
     &.leave {
-        width: 0;
+        width: 0 !important;
         height: 0 !important;
-        padding: 0;
-        margin: 0;
-        border: none;
-        transition: opacity $theme-transition-duration ease-in-out,
-        width $theme-transition-duration ease-in-out $theme-transition-duration,
-        height $theme-transition-duration ease-in-out $theme-transition-duration,
-        border $theme-transition-duration ease-in-out $theme-transition-duration,
-        padding $theme-transition-duration ease-in-out $theme-transition-duration,
-        margin $theme-transition-duration ease-in-out $theme-transition-duration;
+        padding: 0 !important;
+        margin: 0 !important;
+        border: 0 !important;
+        transition: width $theme-transition-duration ease-in-out,
+        height $theme-transition-duration ease-in-out,
+        padding $theme-transition-duration ease-in-out,
+        margin $theme-transition-duration ease-in-out,
+        border $theme-transition-duration ease-in-out;
     }
 }
