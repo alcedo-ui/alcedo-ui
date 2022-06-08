@@ -126,7 +126,7 @@ class Toaster extends Component {
 
         const {
 
-            className, position, duration,
+            className, position, duration, autoWidth,
 
             // not passing down these props
             // eslint-disable-next-line no-unused-vars
@@ -151,6 +151,7 @@ class Toaster extends Component {
                         <Toast {...options}
                                key={options.toastsId}
                                duration={'duration' in options ? options.duration : duration}
+                               autoWidth={autoWidth}
                                onRequestClose={this.removeToast}/>
                     ) || null
                 }
@@ -219,6 +220,8 @@ Toaster.propTypes = {
      */
     duration: PropTypes.number,
 
+    autoWidth: PropTypes.bool,
+
     /**
      * Callback function fired when the toaster pop.
      */
@@ -231,7 +234,9 @@ Toaster.defaultProps = {
     parentEl: document.body,
 
     position: Position.TOP,
-    duration: 2500
+    duration: 2500,
+
+    autoWidth: false
 
 };
 
