@@ -25,6 +25,11 @@ class Toast extends Component {
         super(props, ...restArgs);
 
         this.unrenderTimeout = null;
+
+        /**
+         * toast reference
+         * @type {React.RefObject<unknown>}
+         */
         this.toast = createRef();
 
         this.state = {
@@ -47,7 +52,7 @@ class Toast extends Component {
         }
     };
 
-    handleClick = e => {
+    handleClick = () => {
         const {onRequestClose, toastsId} = this.props;
         onRequestClose?.(toastsId);
     };
@@ -59,12 +64,15 @@ class Toast extends Component {
             onRequestClose
         } = this.props;
 
-        if (!autoWidth && this.toast && this.toast.current) {
+        if (!autoWidth && this.toast?.current) {
+
             const toastEl = findDOMNode(this.toast.current);
+
             if (toastEl) {
                 toastEl.style.width = toastEl.clientWidth + 'px';
                 toastEl.style.height = toastEl.clientHeight + 'px';
             }
+
         }
 
         if (duration > 0) {
