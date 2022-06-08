@@ -28,6 +28,10 @@
         transform: translateY(-50%);
     }
 
+    &.auto-width {
+        width: auto;
+    }
+
     &:hover {
         opacity: 1;
     }

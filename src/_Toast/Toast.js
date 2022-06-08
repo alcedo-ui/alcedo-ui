@@ -50,9 +50,12 @@ class Toast extends Component {
 
     componentDidMount() {
 
-        const {toastsId, duration, onRequestClose} = this.props;
+        const {
+            toastsId, duration, autoWidth,
+            onRequestClose
+        } = this.props;
 
-        if (this.toast && this.toast.current) {
+        if (!autoWidth && this.toast && this.toast.current) {
             const toastEl = findDOMNode(this.toast.current);
             toastEl.style.width = toastEl.clientWidth + 'px';
             toastEl.style.height = toastEl.clientHeight + 'px';
@@ -85,7 +88,7 @@ class Toast extends Component {
 
     render() {
 
-        const {className, style, type, message, iconCls} = this.props,
+        const {className, style, type, message, iconCls, autoWidth} = this.props,
             {hidden, leave} = this.state;
 
         return (
@@ -93,6 +96,7 @@ class Toast extends Component {
                           className={classNames('toast', {
                               hidden,
                               leave,
+                              'auto-width': autoWidth,
                               [className]: className
                           })}
                           style={style}
@@ -139,6 +143,8 @@ Toast.propTypes = {
      */
     duration: PropTypes.number,
 
+    autoWidth: PropTypes.bool,
+
     onRequestClose: PropTypes.func
 
 };
@@ -146,7 +152,8 @@ Toast.propTypes = {
 Toast.defaultProps = {
     toastsId: 0,
     type: MsgType.INFO,
-    duration: 2500
+    duration: 2500,
+    autoWidth: false
 };
 
 export default Toast;
