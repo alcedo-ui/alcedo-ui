@@ -4,12 +4,16 @@
 
 import React, {Component, createRef} from 'react';
 import PropTypes from 'prop-types';
-import {findDOMNode} from 'react-dom';
-import classNames from 'classnames';
 
+// Components
 import RaisedButton from '../RaisedButton';
 
+// Statics
 import MsgType from '../_statics/MsgType';
+
+// Vendors
+import {findDOMNode} from 'react-dom';
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 
 class Toast extends Component {
@@ -21,6 +25,11 @@ class Toast extends Component {
         super(props, ...restArgs);
 
         this.unrenderTimeout = null;
+
+        /**
+         * toast reference
+         * @type {React.RefObject<unknown>}
+         */
         this.toast = createRef();
 
         this.state = {
@@ -43,30 +52,43 @@ class Toast extends Component {
         }
     };
 
-    handleClick = e => {
+    handleClick = () => {
         const {onRequestClose, toastsId} = this.props;
-        onRequestClose && onRequestClose(toastsId);
+        onRequestClose?.(toastsId);
     };
 
     componentDidMount() {
 
-        const {toastsId, duration, onRequestClose} = this.props;
+        const {
+            toastsId, duration, autoWidth,
+            onRequestClose
+        } = this.props;
 
-        if (this.toast && this.toast.current) {
+        if (!autoWidth && this.toast?.current) {
+
             const toastEl = findDOMNode(this.toast.current);
-            toastEl.style.width = toastEl.clientWidth + 'px';
-            toastEl.style.height = toastEl.clientHeight + 'px';
+
+            if (toastEl) {
+                toastEl.style.width = toastEl.clientWidth + 'px';
+                toastEl.style.height = toastEl.clientHeight + 'px';
+            }
+
         }
 
         if (duration > 0) {
             this.unrenderTimeout = setTimeout(() => {
                 this.setState({
-                    hidden: true,
-                    leave: true
+                    hidden: true
                 }, () => {
                     setTimeout(() => {
-                        onRequestClose && onRequestClose(toastsId);
-                    }, 500);
+                        this.setState({
+                            leave: true
+                        }, () => {
+                            setTimeout(() => {
+                                onRequestClose?.(toastsId);
+                            }, 250);
+                        });
+                    }, 250);
                 });
             }, duration);
         }
@@ -85,14 +107,15 @@ class Toast extends Component {
 
     render() {
 
-        const {className, style, type, message, iconCls} = this.props,
-            {hidden, leave} = this.state;
+        const {className, style, type, message, iconCls, autoWidth} = this.props;
+        const {hidden, leave} = this.state;
 
         return (
             <RaisedButton ref={this.toast}
                           className={classNames('toast', {
                               hidden,
                               leave,
+                              'auto-width': autoWidth,
                               [className]: className
                           })}
                           style={style}
@@ -139,6 +162,8 @@ Toast.propTypes = {
      */
     duration: PropTypes.number,
 
+    autoWidth: PropTypes.bool,
+
     onRequestClose: PropTypes.func
 
 };
@@ -146,7 +171,8 @@ Toast.propTypes = {
 Toast.defaultProps = {
     toastsId: 0,
     type: MsgType.INFO,
-    duration: 2500
+    duration: 2500,
+    autoWidth: false
 };
 
 export default Toast;
