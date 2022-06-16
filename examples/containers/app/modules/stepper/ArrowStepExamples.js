@@ -46,6 +46,12 @@ export default class ArrowStepExamples extends Component {
         });
     };
 
+    updateActivatedStep = step => {
+        this.setState({
+            activatedStep: step
+        });
+    };
+
     prev = () => {
         this.setState({
             activatedStep: this.state.activatedStep - 1
@@ -102,7 +108,10 @@ export default class ArrowStepExamples extends Component {
                                        steps={this.steps}
                                        activatedStep={activatedStep}
                                        finishedStep={finishedStep}
-                                       onChange={this.updateStep}/>
+                                       beforeStepChange={step => {
+                                           // this.updateActivatedStep(step);
+                                           return false;
+                                       }}/>
 
                             <div className="step-ctrls">
 

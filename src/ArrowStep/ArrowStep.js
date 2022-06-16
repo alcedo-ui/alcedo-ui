@@ -37,6 +37,14 @@ class ArrowStep extends Component {
 
         const {onChange} = this.props;
 
+        if (activatedStep === this.state.activatedStep) {
+            return;
+        }
+
+        if (this.props.beforeStepChange?.(activatedStep) === false) {
+            return;
+        }
+
         this.setState({
             activatedStep
         }, () => {
@@ -143,7 +151,8 @@ ArrowStep.propTypes = {
     /**
      * Callback function fired when step change.
      */
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    beforeStepChange: PropTypes.func
 
 };
 
