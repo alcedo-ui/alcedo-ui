@@ -272,6 +272,11 @@ export default function configureRoutes(store) {
                         /* webpackChunkName: "DateRangeFieldExamples" */
                         'modules/date/MonthRangeFieldExamples'), store)
                 }, {
+                    path: '/components/QuarterRangeFiled',
+                    component: ac(() => import(
+                        /* webpackChunkName: "DateRangeFieldExamples" */
+                        'modules/date/QuarterRangeFiledExamples'), store)
+                }, {
                     path: '/components/TimePicker',
                     component: ac(() => import(
                         /* webpackChunkName: "TimePickerExamples" */
