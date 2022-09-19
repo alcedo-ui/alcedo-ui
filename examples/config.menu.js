@@ -49,6 +49,9 @@ export default [{
         text: 'MonthRangeField',
         route: '/components/MonthRangeField'
     }, {
+        text: 'QuarterRangeFiled',
+        route: '/components/QuarterRangeFiled'
+    }, {
         text: 'TimePicker',
         route: '/components/TimePicker'
     }, {
