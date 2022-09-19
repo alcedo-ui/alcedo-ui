@@ -86,6 +86,7 @@ export PopoverProvider from './PopoverProvider';
 export Popup from './Popup';
 export PopupProvider from './PopupProvider';
 export Portal from './Portal';
+export QuarterRangeFiled from './QuarterRangeFiled';
 export Radio from './Radio';
 export RadioGroup from './RadioGroup';
 export RaisedButton from './RaisedButton';
@@ -117,4 +118,4 @@ export Waterfall from './Waterfall';
 export Widget from './Widget';
 export WidgetHeader from './WidgetHeader';
 
-export const COMPONENTS_TOTAL_COUNT = 117;
+export const COMPONENTS_TOTAL_COUNT = 118;
