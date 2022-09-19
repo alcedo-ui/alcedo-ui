@@ -1,5 +1,5 @@
 /**
- * @file dateUtils
+ * @file: /alcedo-ui/src/_vendors/DateUtil.js
  * @author
  */
 
@@ -64,6 +64,7 @@ function setMonthRange(start, end) {
     if (start.year?.toString() === end.year?.toString()) {
         end.year = +(end.year) + 1;
     }
+
 
     return {
         start,

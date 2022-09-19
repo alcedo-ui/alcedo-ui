@@ -1,0 +1,49 @@
+input::-ms-clear {
+    display: none;
+}
+
+.quarter-range-picker-content {
+    @include float-fix;
+    width: 600px;
+    border: 1px solid #dfdfdf;
+
+    .calendar {
+        width: 300px;
+        user-select: none;
+        float: left;
+
+        .calendar-header {
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            font-size: 14px;
+            border-bottom: 1px solid #dfdfdf;
+
+            .date-text {
+                margin: 0 20px;
+                cursor: pointer;
+            }
+
+            i {
+                cursor: pointer;
+                width: 20px;
+                height: 18px;
+                font-size: 22px;
+                position: relative;
+                overflow: hidden;
+                color: #c5c9ce;
+            }
+
+            //span:hover, i:hover {
+            //    background: #ecf6fd;
+            //    border-radius: 4px;
+            //}
+        }
+
+        .calendar-body {
+            border-bottom: 1px solid #dfdfdf;
+            padding-bottom: 5px;
+        }
+    }
+}
