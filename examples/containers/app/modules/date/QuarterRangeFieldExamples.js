@@ -1,17 +1,17 @@
 /**
- * @file: /alcedo-ui/examples/containers/app/modules/date/QuarterRangeFiledExamples.js
+ * @file: /alcedo-ui/examples/containers/app/modules/date/QuarterRangeFieldExamples.js
  * @author: zhongweichao(zhongwei.chao@derbysoft.net)
  */
 import React, {Component} from 'react';
 
-import QuarterRangeFiled from 'src/QuarterRangeFiled';
+import QuarterRangeField from 'src/QuarterRangeField';
 import Widget from 'src/Widget';
 import WidgetHeader from 'src/WidgetHeader';
 
 // import PropTypeDescTable from 'components/PropTypeDescTable';
 // import doc from 'assets/propTypes/MonthRangeField.json';
 
-class QuarterRangeFiledExamples extends Component {
+class QuarterRangeFieldExamples extends Component {
 
     constructor(props) {
         super(props);
@@ -45,10 +45,10 @@ class QuarterRangeFiledExamples extends Component {
 
                                 <p><code>Quarter Range Field</code>simple example.</p>
 
-                                <QuarterRangeFiled value={['2021-3', '2022-3']}
+                                <QuarterRangeField value={['2021-3', '2023-3']}
                                                  dateFormat={'YYYY-Q'}
                                                  maxValue={'2023-3'}
-                                                 minValue={null}
+                                                 minValue={'2018-4'}
                                                  onChange={this.onChangeHandler}/>
                             </div>
 
@@ -66,7 +66,7 @@ class QuarterRangeFiledExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <QuarterRangeFiled value={['2021-3', '2022-3']}
+                                <QuarterRangeField value={['2021-3', '2022-3']}
                                                  dateFormat={'YYYY-Q'}
                                                  maxValue={'2023-3'}
                                                  minValue={null}
@@ -88,4 +88,4 @@ class QuarterRangeFiledExamples extends Component {
     }
 }
 
-export default QuarterRangeFiledExamples;
+export default QuarterRangeFieldExamples;
