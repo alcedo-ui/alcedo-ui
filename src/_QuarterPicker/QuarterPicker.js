@@ -253,21 +253,51 @@ class QuarterPicker extends Component {
     render() {
 
         // eslint-disable-next-line react/prop-types
-        const {maxValue, minValue, previousYearIconCls, nextYearIconCls} = this.props, {selectYear} = this.state,
+        const {campareSelfLeft, campareSelfRight, maxValue, minValue, previousYearIconCls, nextYearIconCls} = this.props, {selectYear} = this.state,
             {previousYear, nextYear, previousLevel} = this,
-            quartersRenderArray = this.quartersRender(),
-            leftNextYear = maxValue && (
-                +maxValue.split('-')[1] === 1 ?
+            quartersRenderArray = this.quartersRender();
+
+            let leftNextYear = false,
+            // maxValue && (
+            //     +maxValue.split('-')[1] === 1 ?
+            //         +moment(maxValue).format('YYYY') - 1 <= +selectYear
+            //         :
+            //         +moment(maxValue).format('YYYY') <= +selectYear
+            // ),
+            rightPreYear = false;
+            // minValue && (
+            //     +minValue.split('-')[1] === 4 ?
+            //         +moment(minValue).format('YYYY') + 1 >= +selectYear
+            //         :
+            //         +moment(minValue).format('YYYY') >= +selectYear
+            // );
+
+            if (campareSelfLeft) {
+                if (minValue) {
+                    rightPreYear = +moment(minValue).format('YYYY') >= +selectYear;
+                } else {
+                    rightPreYear = false;
+                }
+            } else {
+                rightPreYear = +minValue.split('-')[1] === 4 ?
+                        +moment(minValue).format('YYYY') + 1 >= +selectYear
+                        :
+                        +moment(minValue).format('YYYY') >= +selectYear;
+            }
+
+
+            if (campareSelfRight) {
+                if (maxValue) {
+                    leftNextYear = +moment(maxValue).format('YYYY') <= +selectYear;
+                } else {
+                    leftNextYear = false;
+                }
+            } else {
+                leftNextYear = +maxValue.split('-')[1] === 1 ?
                     +moment(maxValue).format('YYYY') - 1 <= +selectYear
                     :
-                    +moment(maxValue).format('YYYY') <= +selectYear
-            ),
-            rightPreYear = minValue && (
-                +minValue.split('-')[1] === 4 ?
-                    +moment(minValue).format('YYYY') + 1 >= +selectYear
-                    :
-                    +moment(minValue).format('YYYY') >= +selectYear
-            );
+                    +moment(maxValue).format('YYYY') <= +selectYear;
+            }
 
         return (
             <div className={'calendar'}>

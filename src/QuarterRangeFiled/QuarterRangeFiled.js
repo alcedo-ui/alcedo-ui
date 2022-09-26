@@ -366,6 +366,8 @@ class QuarterRangeFiled extends Component {
                         <QuarterPicker {...restProps}
                                      {...leftProps}
                                      isRange={true}
+                                     campareSelfLeft={true}
+                                     campareSelfRight={false}
                                      onChange={date => quarterPickerChangeHandle('left', date)}
                                      previousClick={pickerLevel => datePickerLevelChangeHandle('left',
                                          pickerLevel)}
@@ -382,6 +384,8 @@ class QuarterRangeFiled extends Component {
                         <QuarterPicker {...restProps}
                                      {...rightProps}
                                      isRange={true}
+                                     campareSelfLeft={false}
+                                     campareSelfRight={true}
                                      onChange={date => quarterPickerChangeHandle('right', date)}
                                      previousClick={pickerLevel => datePickerLevelChangeHandle('right',
                                          pickerLevel)}
