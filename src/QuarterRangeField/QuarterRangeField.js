@@ -18,7 +18,7 @@ import moment from 'moment';
 import DateUtil from '../_vendors/DateUtil';
 import ComponentUtil from '../_vendors/ComponentUtil';
 
-class QuarterRangeFiled extends Component {
+class QuarterRangeField extends Component {
 
     static Theme = Theme;
 
@@ -366,6 +366,8 @@ class QuarterRangeFiled extends Component {
                         <QuarterPicker {...restProps}
                                      {...leftProps}
                                      isRange={true}
+                                     campareSelfLeft={true}
+                                     campareSelfRight={false}
                                      onChange={date => quarterPickerChangeHandle('left', date)}
                                      previousClick={pickerLevel => datePickerLevelChangeHandle('left',
                                          pickerLevel)}
@@ -382,6 +384,8 @@ class QuarterRangeFiled extends Component {
                         <QuarterPicker {...restProps}
                                      {...rightProps}
                                      isRange={true}
+                                     campareSelfLeft={false}
+                                     campareSelfRight={true}
                                      onChange={date => quarterPickerChangeHandle('right', date)}
                                      previousClick={pickerLevel => datePickerLevelChangeHandle('right',
                                          pickerLevel)}
@@ -400,7 +404,7 @@ class QuarterRangeFiled extends Component {
     }
 }
 
-QuarterRangeFiled.propTypes = {
+QuarterRangeField.propTypes = {
 
     /**
      * The CSS class name of the root element.
@@ -441,7 +445,7 @@ QuarterRangeFiled.propTypes = {
 
 };
 
-QuarterRangeFiled.defaultProps = {
+QuarterRangeField.defaultProps = {
     dateFormat: 'YYYY-Q',
     previousYearIconCls: 'fas fa-angle-double-left',
     previousMonthIconCls: 'fas fa-angle-left',
@@ -449,4 +453,4 @@ QuarterRangeFiled.defaultProps = {
     nextMonthIconCls: 'fas fa-angle-right'
 };
 
-export default QuarterRangeFiled;
+export default QuarterRangeField;
