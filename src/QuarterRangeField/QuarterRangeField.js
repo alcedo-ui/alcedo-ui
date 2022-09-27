@@ -1,5 +1,5 @@
 /**
- * @file: /alcedo-ui/src/QuarterRangeFiled/QuarterRangeFiled.js
+ * @file: /alcedo-ui/src/QuarterRangeField/QuarterRangeField.js
  * @author: zhongweichao(zhongwei.chao@derbysoft.net)
  */
 
@@ -286,7 +286,7 @@ class QuarterRangeField extends Component {
             leftMaxValue = moment([maxYear]).quarter(maxQuarter).format('YYYY-Q');
         }
         let minYear = +(left.year) + 1,
-            minQuarter = 0,
+            minQuarter = 1,
             rightMinValue = '';
             // rightMinValue = left.text && minValue ?
             //     moment.max(moment(minValue), moment([minYear, minMonth])).format('YYYY-MM')
