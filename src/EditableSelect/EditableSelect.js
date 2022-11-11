@@ -177,6 +177,7 @@ class EditableSelect extends Component {
 
         this.setState({
             value: itemValue,
+            filter: itemValue,
             listValue: value
         }, () => {
             const {onChange} = this.props;
