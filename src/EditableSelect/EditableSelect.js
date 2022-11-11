@@ -186,7 +186,7 @@ class EditableSelect extends Component {
 
     };
 
-    textFieldBlur = value => {
+    textFieldBlur = (e, value) => {
         const {onTextFieldBlur} = this.props;
         onTextFieldBlur?.(value);
     };
