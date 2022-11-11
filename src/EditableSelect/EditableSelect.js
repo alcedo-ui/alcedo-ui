@@ -186,6 +186,11 @@ class EditableSelect extends Component {
 
     };
 
+    textFieldBlur = value => {
+        const {onTextFieldBlur} = this.props;
+        onTextFieldBlur?.(value);
+    };
+
     render() {
 
         const {
@@ -231,7 +236,8 @@ class EditableSelect extends Component {
                            clearButtonVisible={clearButtonVisible}
                            clearButtonIconCls={clearButtonIconCls}
                            onChange={this.handleChangeValue}
-                           onFocus={this.showPopup}/>
+                           onFocus={this.showPopup}
+                           onBlur={this.textFieldBlur}/>
 
                 {
                     !noMatchedPopupVisible && listData?.length < 1 ?
@@ -509,6 +515,11 @@ EditableSelect.propTypes = {
      * Callback function fired when filter changed.
      */
     filterCallback: PropTypes.func,
+
+    /**
+     * Callback function  fired when filter is blur.
+     */
+    onTextFieldBlur: PropTypes.func,
 
     /**
      * Callback function fired when a menu item is selected.
