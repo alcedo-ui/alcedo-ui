@@ -49,7 +49,7 @@ class EditableSelect extends Component {
         this.state = {
             value: props.value,
             listValue: props.value,
-            filter: '',
+            filter: props.filterInitValue,
             popupVisible: false,
             isAbove: false
         };
