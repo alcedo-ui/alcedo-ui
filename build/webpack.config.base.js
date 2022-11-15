@@ -2,11 +2,13 @@
  * @file webpack.config.base.js
  */
 
-const HappyPack = require('happypack');
-
+// Statics
 const config = require('./config.js');
-const {resolve, assetsSubPath} = require('./utils.js');
 
+// Vendors
+const {resolve} = require('./utils.js');
+
+// CSS loader config
 const cssLoaderConfig = ['style-loader', {
     loader: 'css-loader',
     options: {
@@ -55,8 +57,10 @@ module.exports = {
 
     module: {
         rules: [{
-            test: /\.js$/,
-            use: 'happypack/loader?id=js',
+            test: /\.m?js$/,
+            use: {
+                loader: 'babel-loader'
+            },
             include: [resolve('examples'), resolve('src')]
         }, {
             test: /\.(png|jpe?g|gif|svg|cur|ico)(\?.*)?$/,
@@ -80,17 +84,6 @@ module.exports = {
             test: /\.ht?ml/,
             loader: 'html-loader'
         }]
-    },
-
-    plugins: [
-        new HappyPack({
-            id: 'js',
-            loaders: [{
-                loader: 'babel-loader?cacheDirectory=true'
-            }],
-            threads: 4,
-            verbose: false
-        })
-    ]
+    }
 
 };
