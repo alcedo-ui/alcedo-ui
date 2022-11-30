@@ -163,7 +163,10 @@ class DropdownSelectExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>Dropdown Select</code> simple example.</p>
+                                <p>
+                                    <code>Dropdown Select</code>
+                                    simple example.
+                                </p>
 
                                 <div className="field-group">
                                     <DropdownSelect data={this.data}
@@ -192,7 +195,10 @@ class DropdownSelectExamples extends Component {
 
                             <div className="examples-wrapper">
 
-                                <p><code>Dropdown Select</code> group example.</p>
+                                <p>
+                                    <code>Dropdown Select</code>
+                                    group example.
+                                </p>
 
                                 <div className="field-group">
                                     <DropdownSelect data={this.groupData}
@@ -220,7 +226,8 @@ class DropdownSelectExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>Set the <code>autoClose</code> property to false,the select list will not close when
-                                    choose one item.</p>
+                                    choose one item.
+                                </p>
 
                                 <div className="field-group">
                                     <DropdownSelect theme={Theme.PRIMARY}
@@ -248,7 +255,8 @@ class DropdownSelectExamples extends Component {
                                 <div className="field-group">
 
                                     <p>Set the <code>filter</code> property to true,the DropdownSelect will have user
-                                        search input.</p>
+                                        search input.
+                                    </p>
 
                                     <DropdownSelect data={this.data}
                                                     useFilter={true}
@@ -312,7 +320,8 @@ class DropdownSelectExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>Set the <code>autoClose</code> property to false,the select list will not close when
-                                    choose one item.</p>
+                                    choose one item.
+                                </p>
 
                                 <div className="field-group">
                                     <DropdownSelect data={data}
@@ -338,7 +347,8 @@ class DropdownSelectExamples extends Component {
                             <div className="examples-wrapper">
 
                                 <p>Set the <code>autoClose</code> property to false,the select list will not close when
-                                    choose one item.</p>
+                                    choose one item.
+                                </p>
 
                                 <RaisedButton className="trigger-button dialog-button"
                                               value="Show Dialog"

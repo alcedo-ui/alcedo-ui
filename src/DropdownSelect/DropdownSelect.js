@@ -134,8 +134,8 @@ class DropdownSelect extends Component {
             return;
         }
 
-        const scrollerEl = this.scroller.current,
-            popEl = Dom.findParentByClassName(scrollerEl, 'popup-content');
+        const scrollerEl = this.scroller.current;
+        const popEl = Dom.findParentByClassName(scrollerEl, 'popup-content');
 
         if (!popEl) {
             return;
@@ -161,11 +161,8 @@ class DropdownSelect extends Component {
         this.setState({
             filter
         }, () => {
-
             this.props.onFilterChange?.(filter);
-
             this.dropdown?.current?.resetPopupPosition?.();
-
         });
     };
 
@@ -175,11 +172,11 @@ class DropdownSelect extends Component {
             return data;
         }
 
-        const {displayField, isGrouped, filterCallback} = this.props,
-            filterFunc = originData => originData.filter(item => typeof item === 'object' && !!item[displayField] ?
-                item[displayField].toString().toUpperCase().includes(filter.toUpperCase())
-                :
-                item.toString().toUpperCase().includes(filter.toUpperCase()));
+        const {displayField, isGrouped, filterCallback} = this.props;
+        const filterFunc = originData => originData.filter(item => typeof item === 'object' && !!item[displayField] ?
+            item[displayField].toString().toUpperCase().includes(filter.toUpperCase())
+            :
+            item.toString().toUpperCase().includes(filter.toUpperCase()));
 
         if (filterCallback) {
             return filterCallback(filter, data);
@@ -210,15 +207,15 @@ class DropdownSelect extends Component {
 
     handleSelectAllClick = () => {
 
-        const {data} = this.props,
-            {value} = this.state;
+        const {data} = this.props;
+        const {value} = this.state;
 
         if (!data) {
             return;
         }
 
-        const isSelectAll = !value || (value && value.length < data.length),
-            newValue = isSelectAll ? data : [];
+        const isSelectAll = !value || (value && value.length < data.length);
+        const newValue = isSelectAll ? data : [];
 
         this.setState({
             value: newValue
@@ -256,7 +253,7 @@ class DropdownSelect extends Component {
 
     handlePopupOpen = e => {
 
-        const {isHiddenInputFilter, useFilter} = this.props;
+        const {isHiddenInputFilter, autoClearFilter, useFilter} = this.props;
 
         if (isHiddenInputFilter) {
             this.hiddenFilter?.current?.focus?.();
@@ -264,9 +261,15 @@ class DropdownSelect extends Component {
             this.filter?.current?.focus?.();
         }
 
-        this.setState({
+        const nextState = {
             popupVisible: true
-        }, () => this.props.onOpenPopup?.(e));
+        };
+
+        if (autoClearFilter) {
+            nextState.filter = '';
+        }
+
+        this.setState(nextState, () => this.props.onOpenPopup?.(e));
 
     };
 
@@ -288,11 +291,11 @@ class DropdownSelect extends Component {
             return;
         }
 
-        let target = e.target,
-            timer = setTimeout(() => {
-                clearTimeout(timer);
-                target.value = '';
-            }, clearHiddenInputFilterInterval);
+        let target = e.target;
+        let timer = setTimeout(() => {
+            clearTimeout(timer);
+            target.value = '';
+        }, clearHiddenInputFilterInterval);
 
         let index = data.findIndex(item =>
             typeof item === 'object' ?
@@ -317,8 +320,8 @@ class DropdownSelect extends Component {
             return;
         }
 
-        const difference = to - element.scrollTop,
-            perTick = difference / duration * 10;
+        const difference = to - element.scrollTop;
+        const perTick = difference / duration * 10;
 
         setTimeout(() => {
 
@@ -336,9 +339,9 @@ class DropdownSelect extends Component {
 
     getTriggerValue = () => {
 
-        const {placeholder, triggerRenderer, renderer, valueField, displayField, selectMode} = this.props,
-            {value} = this.state,
-            isMultiSelect = selectMode === SelectMode.MULTI_SELECT;
+        const {placeholder, triggerRenderer, renderer, valueField, displayField, selectMode} = this.props;
+        const {value} = this.state;
+        const isMultiSelect = selectMode === SelectMode.MULTI_SELECT;
 
         if (triggerRenderer) {
             return typeof triggerRenderer === 'function' ? triggerRenderer(value) : triggerRenderer;
@@ -366,27 +369,27 @@ class DropdownSelect extends Component {
 
         const {
 
-                className, triggerClassName, popupClassName, style, name, popupTheme, data, triggerRenderer,
-                useDynamicRenderList, itemHeight, scrollBuffer, renderer, listItemRenderer, selectMode,
-                itemDisabled, useFilter, filterIconCls, useSelectAll, selectAllText, valueField, displayField,
-                descriptionField, popupChildren, isHiddenInputFilter, noMatchedMsg, isGrouped, filterPlaceholder,
-                radioUncheckedIconCls, radioCheckedIconCls,
-                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
-                onListDataChange,
+            className, triggerClassName, popupClassName, style, name, popupTheme, data, triggerRenderer,
+            useDynamicRenderList, itemHeight, scrollBuffer, renderer, listItemRenderer, selectMode,
+            itemDisabled, useFilter, filterIconCls, useSelectAll, selectAllText, valueField, displayField,
+            descriptionField, popupChildren, isHiddenInputFilter, noMatchedMsg, isGrouped, filterPlaceholder,
+            radioUncheckedIconCls, radioCheckedIconCls,
+            checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
+            onListDataChange,
 
-                // not passing down these props
-                /* eslint-disable no-unused-vars */
-                value: v, clearHiddenInputFilterInterval, listHeight,
-                onOpenPopup, onClosePopup, onItemClick, onBeforeChange, onChange, onFilterChange,
-                /* eslint-enable no-unused-vars */
+            // not passing down these props
+            /* eslint-disable no-unused-vars */
+            value: v, clearHiddenInputFilterInterval, listHeight, autoClearFilter,
+            onOpenPopup, onClosePopup, onItemClick, onBeforeChange, onChange, onFilterChange,
+            /* eslint-enable no-unused-vars */
 
-                ...restProps
+            ...restProps
 
-            } = this.props,
-            {value, filter, popupVisible} = this.state,
+        } = this.props;
+        const {value, filter, popupVisible} = this.state;
 
-            isMultiSelect = selectMode === SelectMode.MULTI_SELECT,
-            listData = this.filterData();
+        const isMultiSelect = selectMode === SelectMode.MULTI_SELECT;
+        const listData = this.filterData();
 
         onListDataChange?.(listData);
 
@@ -398,22 +401,20 @@ class DropdownSelect extends Component {
                  style={style}>
 
                 {
-                    name ?
+                    name && (
                         <input type="hidden"
                                name={name}
                                value={Util.getValueByValueField(value, valueField, displayField)}/>
-                        :
-                        null
+                    )
                 }
 
                 {
-                    isHiddenInputFilter ?
+                    isHiddenInputFilter && (
                         <input ref={this.hiddenFilter}
                                className="hiddenFilter"
                                type="text"
                                onChange={this.handleHiddenFilterChange}/>
-                        :
-                        null
+                    )
                 }
 
                 <Dropdown {...restProps}
@@ -429,39 +430,38 @@ class DropdownSelect extends Component {
                           onClosePopup={this.handlePopupClose}>
 
                     {
-                        useFilter || (isMultiSelect && useSelectAll) ?
+                        (useFilter || (isMultiSelect && useSelectAll)) && (
                             <div ref={this.actions}
                                  className="dropdown-select-popup-actions">
                                 {
-                                    useFilter ?
+                                    useFilter && (
                                         <TextField ref={this.filter}
                                                    className="dropdown-select-filter"
                                                    value={filter}
                                                    placeholder={filterPlaceholder}
                                                    rightIconCls={filterIconCls}
                                                    onChange={this.handleFilterChange}/>
-                                        :
-                                        null
+                                    )
                                 }
                                 {
-                                    isMultiSelect && useSelectAll ?
+                                    isMultiSelect && useSelectAll && (
                                         <div className="list-item dropdown-select-all-wrapper"
                                              onClick={this.handleSelectAllClick}>
                                             <Checkbox className="list-item-select"
                                                       checked={data && value && value.length === data.length}
-                                                      indeterminate={data && value && value.length > 0 && value.length <
-                                                      data.length}
+                                                      indeterminate={
+                                                          data && value && value.length > 0
+                                                          && value.length < data.length
+                                                      }
                                                       uncheckedIconCls={checkboxUncheckedIconCls}
                                                       checkedIconCls={checkboxCheckedIconCls}
                                                       indeterminateIconCls={checkboxIndeterminateIconCls}/>
                                             {selectAllText}
                                         </div>
-                                        :
-                                        null
+                                    )
                                 }
                             </div>
-                            :
-                            null
+                        )
                     }
 
                     <div ref={this.scroller}
@@ -769,6 +769,7 @@ DropdownSelect.propTypes = {
     selectAllText: PropTypes.string,
 
     isHiddenInputFilter: PropTypes.bool,
+    autoClearFilter: PropTypes.bool,
     clearHiddenInputFilterInterval: PropTypes.number,
 
     /**
@@ -853,6 +854,7 @@ DropdownSelect.defaultProps = {
     selectAllText: 'Select All',
     useDynamicRenderList: false,
     isHiddenInputFilter: false,
+    autoClearFilter: false,
     clearHiddenInputFilterInterval: 1000,
     isGrouped: false,
     resetPopPositionWait: 250,
