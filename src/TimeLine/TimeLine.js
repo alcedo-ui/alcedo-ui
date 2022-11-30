@@ -4,11 +4,15 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
-import TimeLineItem from '../_TimelineItem';
+// Components
+import TimeLineItem from '../_TimeLineItem';
 
+// Statics
 import Theme from '../Theme';
+
+// Vendors
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 
 class TimeLine extends Component {
@@ -60,7 +64,7 @@ TimeLine.propTypes = {
     style: PropTypes.object,
 
     /**
-     * The items data.
+     * The items' data.
      */
     data: PropTypes.arrayOf(PropTypes.shape({
 
