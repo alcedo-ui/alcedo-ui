@@ -2,7 +2,7 @@
  * @file Accordion component
  */
 
-import React, {Component, createRef, cloneElement} from 'react';
+import React, { Component, createRef, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 
 // Components
@@ -89,10 +89,12 @@ class Accordion extends Component {
     };
 
     handleClick = () => {
-        this.state.collapsed ?
-            this.expand()
-            :
-            this.collpase();
+        if (!this.props.disabled) {
+            this.state.collapsed ?
+                this.expand()
+                :
+                this.collpase();
+        }
     };
 
     init = () => {
@@ -115,15 +117,15 @@ class Accordion extends Component {
 
     render() {
 
-        const {children, className, style, title, collapseIcon, titleRenderer} = this.props;
-        const {collapsed, contentHeight} = this.state;
+        const { children, className, style, title, collapseIcon, titleRenderer } = this.props;
+        const { collapsed, contentHeight } = this.state;
 
         return (
             <div className={classNames('accordion', {
                 collapsed: collapsed,
                 [className]: className
             })}
-                 style={style}>
+                style={style}>
 
                 {
                     titleRenderer ?
@@ -135,15 +137,15 @@ class Accordion extends Component {
                             })
                         :
                         <RaisedButton className="accordion-title"
-                                      theme={Theme.SECONDARY}
-                                      value={title}
-                                      rightIconCls={collapseIcon}
-                                      onClick={this.handleClick}/>
+                            theme={Theme.SECONDARY}
+                            value={title}
+                            rightIconCls={collapseIcon}
+                            onClick={this.handleClick} />
                 }
 
                 <div ref={this.accordionContent}
-                     className="accordion-content"
-                     style={{height: contentHeight}}>
+                    className="accordion-content"
+                    style={{ height: contentHeight }}>
                     {children}
                 </div>
 
