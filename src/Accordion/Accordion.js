@@ -89,7 +89,7 @@ class Accordion extends Component {
     };
 
     handleClick = () => {
-        if (!this.props.disabled) {
+        if (!this.props?.disabled) {
             this.state.collapsed ?
                 this.expand()
                 :
