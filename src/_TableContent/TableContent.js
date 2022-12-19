@@ -90,10 +90,10 @@ class TableContent extends Component {
             return;
         }
 
-        const {data, value, isSelectRecursive, idField} = this.props;
+        const {data, value, isSelectRecursive, idField, isRowDisabled} = this.props;
 
         let result = value && isArray(value) ? value.slice() : [];
-        TC.handleSelect(node, result, idField, isSelectRecursive);
+        TC.handleSelect(node, result, idField, isSelectRecursive, isRowDisabled);
         if (isSelectRecursive) {
             result = TC.formatValue(result, data, idField);
         }
@@ -138,13 +138,15 @@ class TableContent extends Component {
      */
     handleSelectAll = () => {
 
-        const {selectMode, selectAllMode, data, value, disabled, idField} = this.props;
+        const {selectMode, selectAllMode, data, value, disabled, idField, isRowDisabled} = this.props;
 
         if (disabled || selectMode !== SelectMode.MULTI_SELECT) {
             return;
         }
 
-        TC.handleSelectAll(selectAllMode === SelectAllMode.ALL ? data : this.tableData, value, idField);
+        TC.handleSelectAll(
+            selectAllMode === SelectAllMode.ALL ? data : this.tableData, value, idField, isRowDisabled
+        );
 
         this.props.onSelectAll?.(value);
         this.props.onChange?.(value);

@@ -322,11 +322,12 @@ export function isSelectAllChecked(data, value, idField) {
  * @param value
  * @param idField
  * @param isSelectRecursive
+ * @param isRowDisabled
  * @returns {*[]}
  */
-export function handleSelect(node, value = [], idField, isSelectRecursive) {
+export function handleSelect(node, value = [], idField, isSelectRecursive, isRowDisabled) {
 
-    if (!node || node.disabled || !value) {
+    if (!node || !value || isNodeDisabled(node, isRowDisabled)) {
         return value;
     }
 
@@ -339,7 +340,7 @@ export function handleSelect(node, value = [], idField, isSelectRecursive) {
     }
 
     for (let item of node.children) {
-        handleSelect(item, value, idField, isSelectRecursive);
+        handleSelect(item, value, idField, isSelectRecursive, isRowDisabled);
     }
 
     return value;
@@ -408,15 +409,16 @@ export function formatValue(value, data, idField) {
  * @param data
  * @param value
  * @param idField
+ * @param isRowDisabled
  * @returns {*[]}
  */
-export function handleSelectAll(data, value = [], idField) {
+export function handleSelectAll(data, value = [], idField, isRowDisabled) {
 
     if (!data || data.length < 1) {
         return value;
     }
 
-    data.forEach(node => handleSelect(node, value, idField, true));
+    data.forEach(node => handleSelect(node, value, idField, true, isRowDisabled));
 
     return value;
 
@@ -548,7 +550,7 @@ export function formatColumnsSpan(node, maxDepth, depth = -1) {
 
 /**
  * Get head columns
- * transform the columns data (tree construction) to html tr-th row format
+ * transform the columns' data (tree construction) to html tr-th row format
  * @param columns
  * @returns {Array|*}
  */
@@ -576,7 +578,7 @@ export function getHeadColumns(columns) {
     Util.preOrderTraverse({
         [VirtualRoot]: true,
         children: formatedColumns
-    }, (column, depth, index, parentColumn) => {
+    }, (column, depth) => {
 
         const rowIndex = depth - 1;
         const rowSpan = column?.rowSpan || 1;
