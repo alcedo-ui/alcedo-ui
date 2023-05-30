@@ -286,9 +286,10 @@ export function isNodeDisabled(node, isRowDisabled) {
  * @param data
  * @param value
  * @param idField
+ * @param isRowDisabled
  * @returns {{indeterminate: boolean, checked: boolean}}
  */
-export function isSelectAllChecked(data, value, idField) {
+export function isSelectAllChecked(data, value, idField, isRowDisabled) {
 
     const root = isArray(data) ? {
         [VirtualRoot]: true,
@@ -302,7 +303,7 @@ export function isSelectAllChecked(data, value, idField) {
         count = 0;
 
     Util.preOrderTraverse(root, node => {
-        if (node && !node.disabled && !(VirtualRoot in node)) {
+        if (node && !node.disabled && !(VirtualRoot in node) && !isNodeDisabled(node, isRowDisabled)) {
             total++;
             if (isNodeChecked(node, value, idField)) {
                 count++;

@@ -251,7 +251,7 @@ class TableContent extends Component {
                 headRenderer: (tableData, colIndex) => {
 
                     const {checked, indeterminate} = TC.isSelectAllChecked(
-                        selectAllMode === SelectAllMode.ALL ? data : this.tableData, value, idField
+                        selectAllMode === SelectAllMode.ALL ? data : this.tableData, value, idField, isRowDisabled
                     );
                     const checkboxInstance = (
                         <Checkbox className="table-select"
