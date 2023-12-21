@@ -4,17 +4,20 @@
 
 import React, {Children, cloneElement, Component, createRef} from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
+// Components
 import PositionPop from '../_PositionPop';
 import Paper from '../Paper';
 import FlatButton from '../FlatButton';
 import RaisedButton from '../RaisedButton';
 import IconButton from '../IconButton';
-import Theme from '../Theme';
 
+// Statics
+import Theme from '../Theme';
 import Position from '../_statics/Position';
 
+// Vendors
+import classNames from 'classnames';
 import Util from '../_vendors/Util';
 import PopManagement from '../_vendors/PopManagement';
 
@@ -31,6 +34,10 @@ class Dialog extends Component {
 
     }
 
+    componentWillUnmount() {
+        PopManagement.pop(this);
+    }
+
     /**
      * public
      */
@@ -38,59 +45,47 @@ class Dialog extends Component {
         return this.pop?.current?.getEl?.();
     };
 
+    /**
+     * public
+     */
+    resetPosition = () => {
+        this.pop?.current?.resetPosition?.();
+    };
+
     handleOkButtonClick = () => {
-
         const {visible, onOKButtonClick} = this.props;
-
         visible && onOKButtonClick?.(() => {
             this.setState({
                 visible: false
             }, () => this.props.onRequestClose?.());
         });
-
     };
 
     handleCancelButtonClick = () => {
-
         this.props.onCancelButtonClick?.();
-
         this.setState({
             visible: false
         }, () => this.props.onRequestClose?.());
-
     };
 
     handleCloseButtonClick = () => {
-
         this.props.onCloseButtonClick?.();
-
         this.setState({
             visible: false
         }, () => this.props.onRequestClose?.());
-
     };
 
     handleRender = (...args) => {
-
         PopManagement.push(this, {
             shouldLockBody: this.props.showModal
         });
-
         this.props.onRender?.(...args);
-
     };
 
     handleDestroy = (...args) => {
-
         PopManagement.pop(this);
-
         this.props.onDestroy?.(...args);
-
     };
-
-    componentWillUnmount() {
-        PopManagement.pop(this);
-    }
 
     render() {
 
@@ -106,8 +101,8 @@ class Dialog extends Component {
             cancelButtonTheme, closeButtonVisible, closeIconCls,
 
             // not passing down these props
-            isBlurClose, isEscClose,
-            onRequestClose, onOKButtonClick, onCloseButtonClick, onCancelButtonClick,
+            // eslint-disable-next-line no-unused-vars
+            isBlurClose, isEscClose, onRequestClose, onOKButtonClick, onCloseButtonClick, onCancelButtonClick,
 
             ...restProps
 
@@ -134,15 +129,12 @@ class Dialog extends Component {
 
                                 {title}
 
-                                {
-                                    closeButtonVisible ?
-                                        <IconButton className="dialog-title-close-button"
-                                                    iconCls={closeIconCls}
-                                                    disabled={disabled}
-                                                    onClick={this.handleCloseButtonClick}/>
-                                        :
-                                        null
-                                }
+                                {closeButtonVisible && (
+                                    <IconButton className="dialog-title-close-button"
+                                                iconCls={closeIconCls}
+                                                disabled={disabled}
+                                                onClick={this.handleCloseButtonClick}/>
+                                )}
 
                             </div>
 
@@ -157,43 +149,34 @@ class Dialog extends Component {
 
                             <div className="dialog-buttons">
 
-                                {
-                                    buttons ?
-                                        Children.map(buttons, button => cloneElement(button, {
-                                            isLoading: button.props.isLoading || isLoading,
-                                            disabled: button.props.disabled || disabled
-                                        }))
-                                        :
-                                        null
-                                }
+                                {buttons && (
+                                    Children.map(buttons, button => cloneElement(button, {
+                                        isLoading: button.props.isLoading || isLoading,
+                                        disabled: button.props.disabled || disabled
+                                    }))
+                                )}
 
-                                {
-                                    !buttons && okButtonVisible ?
-                                        <RaisedButton className="ok-button"
-                                                      value={okButtonText}
-                                                      iconCls={okButtonIconCls}
-                                                      theme={okButtonTheme}
-                                                      disabled={okButtonDisabled}
-                                                      isLoading={isLoading || okButtonIsLoading}
-                                                      disableTouchRipple={true}
-                                                      onClick={this.handleOkButtonClick}/>
-                                        :
-                                        null
-                                }
+                                {!buttons && okButtonVisible && (
+                                    <RaisedButton className="ok-button"
+                                                  value={okButtonText}
+                                                  iconCls={okButtonIconCls}
+                                                  theme={okButtonTheme}
+                                                  disabled={okButtonDisabled}
+                                                  isLoading={isLoading || okButtonIsLoading}
+                                                  disableTouchRipple={true}
+                                                  onClick={this.handleOkButtonClick}/>
+                                )}
 
-                                {
-                                    !buttons && cancelButtonVisible ?
-                                        <FlatButton className="cancel-button"
-                                                    value={cancelButtonText}
-                                                    iconCls={cancelButtonIconCls}
-                                                    theme={cancelButtonTheme}
-                                                    disabled={cancelButtonDisabled}
-                                                    isLoading={isLoading || cancelButtonIsLoading}
-                                                    disableTouchRipple={true}
-                                                    onClick={this.handleCancelButtonClick}/>
-                                        :
-                                        null
-                                }
+                                {!buttons && cancelButtonVisible && (
+                                    <FlatButton className="cancel-button"
+                                                value={cancelButtonText}
+                                                iconCls={cancelButtonIconCls}
+                                                theme={cancelButtonTheme}
+                                                disabled={cancelButtonDisabled}
+                                                isLoading={isLoading || cancelButtonIsLoading}
+                                                disableTouchRipple={true}
+                                                onClick={this.handleCancelButtonClick}/>
+                                )}
 
                             </div>
 
@@ -234,7 +217,7 @@ Dialog.propTypes = {
     position: PropTypes.oneOf(Util.enumerateValue(Position)),
 
     /**
-     * If true,the element will disabled.
+     * If true,the element will be disabled.
      */
     disabled: PropTypes.bool,
 
@@ -254,7 +237,7 @@ Dialog.propTypes = {
     title: PropTypes.any,
 
     /**
-     * If true,when press down mouse the pop-up box will closed.
+     * If true,when press down mouse the pop-up box will be closed.
      */
     isBlurClose: PropTypes.bool,
 
@@ -276,7 +259,7 @@ Dialog.propTypes = {
     okButtonIconCls: PropTypes.string,
 
     /**
-     * If true, the OK button will disabled.
+     * If true, the OK button will be disabled.
      */
     okButtonDisabled: PropTypes.bool,
 
@@ -306,7 +289,7 @@ Dialog.propTypes = {
     cancelButtonIconCls: PropTypes.string,
 
     /**
-     * If true, the cancel button will disabled.
+     * If true, the cancel button will be disabled.
      */
     cancelButtonDisabled: PropTypes.bool,
 
