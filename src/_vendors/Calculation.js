@@ -10,6 +10,12 @@ import isArray from 'lodash/isArray';
 import Valid from './Valid';
 import Util from './Util';
 
+/**
+ * @param pageSize
+ * @param pageSizes
+ * @param defaultValue
+ * @returns {*}
+ */
 function pageSize(pageSize, pageSizes, defaultValue) {
 
     if (pageSize) {
@@ -29,6 +35,14 @@ function pageSize(pageSize, pageSizes, defaultValue) {
 
 }
 
+/**
+ * @param data
+ * @param listHeight
+ * @param itemHeight
+ * @param scrollTop
+ * @param buffer
+ * @returns {{startWithBuffer: *, stop: *, stopWithBuffer: *, start: *}|{startWithBuffer: number, stop: number, stopWithBuffer: number, start: number}}
+ */
 function displayIndexByScrollTop(data, listHeight, itemHeight, scrollTop = 0, buffer = 0) {
 
     if (!data || !listHeight || !itemHeight) {
@@ -53,6 +67,15 @@ function displayIndexByScrollTop(data, listHeight, itemHeight, scrollTop = 0, bu
 
 }
 
+/**
+ * @param data
+ * @param listHeight
+ * @param itemHeight
+ * @param column
+ * @param scrollTop
+ * @param buffer
+ * @returns {{startWithBuffer: *, stop: *, stopWithBuffer: *, start: *}|{startWithBuffer: number, stop: number, stopWithBuffer: number, start: number}}
+ */
 function displayIndexByScrollTopMulColumns(data, listHeight, itemHeight, column, scrollTop = 0, buffer = 0) {
 
     if (!data || !listHeight || !itemHeight) {
@@ -77,6 +100,10 @@ function displayIndexByScrollTopMulColumns(data, listHeight, itemHeight, column,
 
 }
 
+/**
+ * @param props
+ * @returns {*|null|*[]}
+ */
 function getInitValue(props) {
 
     if (!props) {
@@ -104,6 +131,12 @@ function getInitValue(props) {
 
 }
 
+/**
+ * @param item
+ * @param value
+ * @param props
+ * @returns {*|number}
+ */
 function getMultiSelectItemIndex(item, value, props = {}) {
 
     const {selectMode, valueField, displayField} = props;
@@ -120,6 +153,14 @@ function getMultiSelectItemIndex(item, value, props = {}) {
 
 }
 
+/**
+ * @param item
+ * @param value
+ * @param selectMode
+ * @param valueField
+ * @param displayField
+ * @returns {boolean}
+ */
 function isItemChecked(item, value, {selectMode, valueField, displayField}) {
 
     if (!item || value == null) {
@@ -144,6 +185,13 @@ function isItemChecked(item, value, {selectMode, valueField, displayField}) {
 
 }
 
+/**
+ * @param node
+ * @param value
+ * @param valueField
+ * @param displayField
+ * @returns {boolean}
+ */
 function isItemIndeterminate(node, value, {valueField, displayField}) {
 
     if (!node || !node.children || node.children.length < 1
@@ -156,8 +204,10 @@ function isItemIndeterminate(node, value, {valueField, displayField}) {
 
     Util.preOrderTraverse(node, nodeItem => {
         total++;
-        if (value.findIndex(item => Util.getValueByValueField(item, valueField, displayField) ===
-            Util.getValueByValueField(nodeItem, valueField, displayField)) > -1) {
+        if (value.findIndex(item =>
+            Util.getValueByValueField(item, valueField, displayField)
+            === Util.getValueByValueField(nodeItem, valueField, displayField)
+        ) > -1) {
             count++;
         }
     });
@@ -166,6 +216,11 @@ function isItemIndeterminate(node, value, {valueField, displayField}) {
 
 }
 
+/**
+ * @param filter
+ * @param props
+ * @returns {*}
+ */
 function filterAutoCompleteData(filter, props) {
 
     const {data, minFilterLength} = props;
@@ -202,6 +257,11 @@ function filterAutoCompleteData(filter, props) {
 
 }
 
+/**
+ * @param filter
+ * @param props
+ * @returns {*}
+ */
 function filterLocalAutoCompleteData(filter, props) {
 
     const {data, minFilterLength} = props;
