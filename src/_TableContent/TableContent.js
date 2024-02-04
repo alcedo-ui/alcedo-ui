@@ -182,7 +182,7 @@ class TableContent extends Component {
 
         const {
             columnKeyField, selectTheme, selectMode, selectAllMode, selectColumn,
-            data, disabled, isRowDisabled, value, idField, canBeExpanded, isSelectAllDisabled,
+            data, disabled, isRowDisabled, value, idField, canBeExpanded, isSelectAllDisabled, isSelectRecursive,
             expandIconCls, selectUncheckedIconCls, selectCheckedIconCls, selectIndeterminateIconCls
         } = this.props;
         const firstColumn = TC.getFirstColumn(columns);
@@ -288,7 +288,12 @@ class TableContent extends Component {
                         <Checkbox className="table-select"
                                   theme={selectTheme}
                                   disabled={disabled || TC.isNodeDisabled(rowData, isRowDisabled)}
-                                  checked={TC.isNodeChecked(rowData, value, idField)}
+                                  checked={
+                                      isSelectRecursive ?
+                                          TC.isNodeCheckedRecursiveSelect(rowData, value, idField)
+                                          :
+                                          TC.isNodeChecked(rowData, value, idField)
+                                  }
                                   indeterminate={Calc.isItemIndeterminate(rowData, value, {
                                       valueField: idField,
                                       displayField: idField
@@ -368,10 +373,10 @@ class TableContent extends Component {
      * calculate final display index in list
      * @returns
      *  {
-     *      start,
-     *      stop,
-     *      startWithBuffer,
-     *      stopWithBuffer
+     *      start: number | any,
+     *      stop: number | any,
+     *      startWithBuffer: number | any,
+     *      stopWithBuffer: number | any
      *  }
      */
     getIndex = data => {

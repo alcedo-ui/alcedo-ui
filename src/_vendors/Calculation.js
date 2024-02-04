@@ -54,9 +54,9 @@ function displayIndexByScrollTop(data, listHeight, itemHeight, scrollTop = 0, bu
         };
     }
 
-    const len = data.length,
-        start = Math.floor(scrollTop / itemHeight),
-        stop = start + Math.ceil(listHeight / itemHeight);
+    const len = data.length;
+    const start = Math.floor(scrollTop / itemHeight);
+    const stop = start + Math.ceil(listHeight / itemHeight);
 
     return {
         start: Valid.range(start, 0, len - 1),
@@ -199,8 +199,8 @@ function isItemIndeterminate(node, value, {valueField, displayField}) {
         return false;
     }
 
-    let total = 0,
-        count = 0;
+    let total = 0;
+    let count = 0;
 
     Util.preOrderTraverse(node, nodeItem => {
         total++;

@@ -261,6 +261,22 @@ export function isNodeChecked(node, value, idField) {
 
 /**
  * @param node
+ * @param value
+ * @param idField
+ * @returns {boolean}
+ */
+export function isNodeCheckedRecursiveSelect(node, value, idField) {
+
+    if (!node?.children || node.children.length < 1) {
+        return isNodeChecked(node, value, idField);
+    }
+
+    return node.children.every(child => isNodeCheckedRecursiveSelect(child, value, idField));
+
+}
+
+/**
+ * @param node
  * @param isRowDisabled
  * @returns {boolean}
  */
@@ -299,8 +315,8 @@ export function isSelectAllChecked(data, value, idField, isRowDisabled) {
         [VirtualRoot]: true
     };
 
-    let total = 0,
-        count = 0;
+    let total = 0;
+    let count = 0;
 
     Util.preOrderTraverse(root, node => {
         if (node && !node.disabled && !(VirtualRoot in node) && !isNodeDisabled(node, isRowDisabled)) {
@@ -798,6 +814,7 @@ export default {
     // hasFixedColumn,
     // getDataByPagination,
     indexOfNodeInValue,
+    isNodeCheckedRecursiveSelect,
     isNodeChecked,
     isNodeDisabled,
     isSelectAllChecked,
