@@ -86,20 +86,32 @@ class ListItem extends Component {
 
         const {
 
-                index, className, style, theme, activatedTheme, data, text, desc, title, iconCls, rightIconCls,
-                tipClassName, tip, tipPosition, disabled, isLoading, disableTouchRipple, rippleDisplayCenter, readOnly,
-                renderer, itemRenderer,
+            index, className, style, theme, activatedTheme, data, text, desc, title, iconCls, rightIconCls,
+            tipClassName, tip, tipPosition, disabled, isLoading, disableTouchRipple, rippleDisplayCenter, readOnly,
+            renderer, itemRenderer,
 
-                checked, selectTheme, selectMode, indeterminateCallback, radioUncheckedIconCls, radioCheckedIconCls,
-                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
+            checked, selectTheme, selectMode, indeterminateCallback, radioUncheckedIconCls, radioCheckedIconCls,
+            checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
-                onMouseEnter, onMouseLeave,
-                parentEl
+            onMouseEnter, onMouseLeave,
+            parentEl
 
-            } = this.props,
+        } = this.props;
 
-            indeterminated = indeterminateCallback && indeterminateCallback(data) || false,
-            loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
+        const indeterminated = indeterminateCallback && indeterminateCallback(data) || false;
+        const loadingIconPosition = (rightIconCls && !iconCls) ? 'right' : 'left';
+
+        const originContent = desc ?
+            <div className="list-item-content">
+                <div className="list-item-content-value">
+                    {text}
+                </div>
+                <div className="list-item-content-desc">
+                    {desc}
+                </div>
+            </div>
+            :
+            text;
 
         return (
             <TipProvider className={tipClassName}
@@ -122,36 +134,30 @@ class ListItem extends Component {
                      onMouseEnter={onMouseEnter}
                      onMouseLeave={onMouseLeave}>
 
-                    {
-                        selectMode === SelectMode.SINGLE_SELECT && (radioUncheckedIconCls || radioCheckedIconCls) ?
-                            <Radio className="list-item-select"
-                                   theme={selectTheme}
-                                   checked={checked}
-                                   disabled={disabled || isLoading}
-                                   uncheckedIconCls={radioUncheckedIconCls}
-                                   checkedIconCls={radioCheckedIconCls}
-                                   disableTouchRipple={true}
-                                   onCheck={this.handleRadioCheck}/>
-                            :
-                            null
-                    }
+                    {selectMode === SelectMode.SINGLE_SELECT && (radioUncheckedIconCls || radioCheckedIconCls) && (
+                        <Radio className="list-item-select"
+                               theme={selectTheme}
+                               checked={checked}
+                               disabled={disabled || isLoading}
+                               uncheckedIconCls={radioUncheckedIconCls}
+                               checkedIconCls={radioCheckedIconCls}
+                               disableTouchRipple={true}
+                               onCheck={this.handleRadioCheck}/>
+                    )}
 
-                    {
-                        selectMode === SelectMode.MULTI_SELECT ?
-                            <Checkbox className="list-item-select"
-                                      theme={selectTheme}
-                                      checked={checked}
-                                      indeterminate={indeterminated}
-                                      disabled={disabled || isLoading}
-                                      uncheckedIconCls={checkboxUncheckedIconCls}
-                                      checkedIconCls={checkboxCheckedIconCls}
-                                      indeterminateIconCls={checkboxIndeterminateIconCls}
-                                      disableTouchRipple={true}
-                                      onCheck={this.handleCheckboxCheck}
-                                      onUncheck={this.handleCheckboxUncheck}/>
-                            :
-                            null
-                    }
+                    {selectMode === SelectMode.MULTI_SELECT && (
+                        <Checkbox className="list-item-select"
+                                  theme={selectTheme}
+                                  checked={checked}
+                                  indeterminate={indeterminated}
+                                  disabled={disabled || isLoading}
+                                  uncheckedIconCls={checkboxUncheckedIconCls}
+                                  checkedIconCls={checkboxCheckedIconCls}
+                                  indeterminateIconCls={checkboxIndeterminateIconCls}
+                                  disableTouchRipple={true}
+                                  onCheck={this.handleCheckboxCheck}
+                                  onUncheck={this.handleCheckboxUncheck}/>
+                    )}
 
                     {
                         isLoading && loadingIconPosition === 'left' ?
@@ -160,36 +166,21 @@ class ListItem extends Component {
                                                  size="small"/>
                             </div>
                             :
-                            (
-                                iconCls ?
-                                    <i className={`button-icon button-icon-left ${iconCls}`}
-                                       aria-hidden="true"></i>
-                                    :
-                                    null
+                            iconCls && (
+                                <i className={`button-icon button-icon-left ${iconCls}`}
+                                   aria-hidden="true"/>
                             )
                     }
 
                     {
                         itemRenderer && typeof itemRenderer === 'function' ?
-                            itemRenderer(data, index)
+                            itemRenderer(data, index, originContent)
                             :
                             (
                                 renderer && typeof renderer === 'function' ?
-                                    renderer(data, index)
+                                    renderer(data, index, originContent)
                                     :
-                                    (
-                                        desc ?
-                                            <div className="list-item-content">
-                                                <div className="list-item-content-value">
-                                                    {text}
-                                                </div>
-                                                <div className="list-item-content-desc">
-                                                    {desc}
-                                                </div>
-                                            </div>
-                                            :
-                                            text
-                                    )
+                                    originContent
                             )
                     }
 
@@ -198,22 +189,16 @@ class ListItem extends Component {
                             <CircularLoading className="button-icon button-icon-right button-loading-icon"
                                              size="small"/>
                             :
-                            (
-                                rightIconCls ?
-                                    <i className={`button-icon button-icon-right ${rightIconCls}`}
-                                       aria-hidden="true"></i>
-                                    :
-                                    null
+                            rightIconCls && (
+                                <i className={`button-icon button-icon-right ${rightIconCls}`}
+                                   aria-hidden="true"/>
                             )
                     }
 
-                    {
-                        disableTouchRipple || readOnly ?
-                            null
-                            :
-                            <TouchRipple className={disabled || isLoading ? 'hidden' : ''}
-                                         displayCenter={rippleDisplayCenter}/>
-                    }
+                    {!(disableTouchRipple || readOnly) && (
+                        <TouchRipple className={disabled || isLoading ? 'hidden' : ''}
+                                     displayCenter={rippleDisplayCenter}/>
+                    )}
 
                 </div>
             </TipProvider>
