@@ -60,19 +60,19 @@ class List extends Component {
      */
     adjustScroll = () => {
 
-        const {data} = this.props,
-            {value} = this.state,
-            index = data.indexOf(value);
+        const {data} = this.props;
+        const {value} = this.state;
+        const index = data.indexOf(value);
 
         if (index < 0) {
             return;
         }
 
-        const listHeight = this.listEl.clientHeight,
-            listScrollTop = this.listEl.scrollTop,
-            itemEl = this.listEl.childNodes[index],
-            itemHeight = itemEl.clientHeight,
-            itemTop = itemEl.offsetTop;
+        const listHeight = this.listEl.clientHeight;
+        const listScrollTop = this.listEl.scrollTop;
+        const itemEl = this.listEl.childNodes[index];
+        const itemHeight = itemEl.clientHeight;
+        const itemTop = itemEl.offsetTop;
 
         if (itemTop < listScrollTop) {
             this.listEl.scrollTop = itemTop;
@@ -84,9 +84,9 @@ class List extends Component {
 
     handleListItemSelect = (item, index) => {
 
-        const {selectMode} = this.props,
-            {value} = this.state,
-            state = {};
+        const {selectMode} = this.props;
+        const {value} = this.state;
+        const state = {};
 
         if (selectMode === SelectMode.MULTI_SELECT) {
 
@@ -118,8 +118,8 @@ class List extends Component {
             return;
         }
 
-        const {valueField, displayField} = this.props,
-            {value: stateValue} = this.state;
+        const {valueField, displayField} = this.props;
+        const {value: stateValue} = this.state;
         let value = stateValue ? stateValue.slice() : stateValue;
 
         if (!value || !isArray(value)) {
@@ -148,8 +148,8 @@ class List extends Component {
 
     isItemDisabled = (listItemDisabled, item, itemDisabled) => {
 
-        const {data} = this.props,
-            {value} = this.state;
+        const {data} = this.props;
+        const {value} = this.state;
 
         return (
             listItemDisabled != null
@@ -169,15 +169,15 @@ class List extends Component {
 
         const {
 
-                theme, activatedTheme, itemHeight, valueField, displayField, descriptionField, disabled,
-                itemDisabled, isLoading, renderer, autoSelect, disableTouchRipple, selectTheme, selectMode, parentEl,
-                indeterminateCallback, radioUncheckedIconCls, radioCheckedIconCls,
-                checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
+            theme, activatedTheme, itemHeight, valueField, displayField, descriptionField, disabled,
+            itemDisabled, isLoading, renderer, autoSelect, disableTouchRipple, selectTheme, selectMode, parentEl,
+            indeterminateCallback, radioUncheckedIconCls, radioCheckedIconCls,
+            checkboxUncheckedIconCls, checkboxCheckedIconCls, checkboxIndeterminateIconCls,
 
-                onItemClick
+            onItemClick
 
-            } = this.props,
-            {value, focusIndex} = this.state;
+        } = this.props;
+        const {value, focusIndex} = this.state;
 
         /**
          * Item click callback
