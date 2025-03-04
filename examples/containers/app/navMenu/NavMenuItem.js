@@ -50,7 +50,6 @@ const NavMenuItem = ({
             {hasChildren ? (
                 <div
                     className="nav-menu-item-title"
-                    disabled={options?.disabled || false}
                     onClick={handleMenuGroupClick}
                 >
                     <div className="nav-menu-item-name">{options?.text}</div>
